@@ -763,6 +763,10 @@ if (file_exists(__DIR__ . '/settings.ddev.php') && getenv('IS_DDEV_PROJECT') == 
 
 $settings['config_sync_directory'] = 'sites/default/sync';
 
+if (file_exists($app_root . '/' . $site_path . '/settings.prod.php')) {
+  include $app_root . '/' . $site_path . '/settings.prod.php';
+}
+
 /**
  * Load local development override configuration, if available.
  *
