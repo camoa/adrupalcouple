@@ -1,0 +1,10 @@
+schemadotorg_smart_date.settings:
+  type: config_entity
+  label: Schema.org Smart date settings
+  mapping:
+    default_properties:
+      type: sequence
+      label: 'Schema.org default properties'
+      sequence:
+        type: string
+        label: Property

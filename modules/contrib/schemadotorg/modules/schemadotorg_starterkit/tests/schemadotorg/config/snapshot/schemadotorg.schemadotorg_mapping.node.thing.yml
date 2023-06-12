@@ -1,0 +1,16 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.thing.schema_description
+    - field.field.node.thing.schema_image
+    - field.field.node.thing.schema_name
+    - node.type.thing
+id: node.thing
+target_entity_type_id: node
+target_bundle: thing
+schema_type: Thing
+schema_properties:
+  schema_description: description
+  schema_image: image
+  schema_name: name

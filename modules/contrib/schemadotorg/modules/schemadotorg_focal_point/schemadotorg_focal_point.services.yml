@@ -1,0 +1,4 @@
+services:
+  schemadotorg_focal_point.manager:
+    class: Drupal\schemadotorg_focal_point\SchemaDotOrgFocalPointManager
+    arguments: ['@config.factory', '@entity_type.manager']

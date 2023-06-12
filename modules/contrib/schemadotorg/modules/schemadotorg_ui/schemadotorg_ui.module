@@ -1,0 +1,169 @@
+<?php
+
+/**
+ * @file
+ * Allows administrators to attach custom Schema.org properties to fieldable types.
+ */
+
+declare(strict_types = 1);
+
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\field\Entity\FieldStorageConfig;
+
+/**
+ * Implements hook_entity_type_build().
+ */
+function schemadotorg_ui_entity_type_build(array &$entity_types): void {
+  $entity_types['schemadotorg_mapping']->setFormClass('add', '\Drupal\schemadotorg_ui\Form\SchemaDotOrgUiMappingForm');
+  $entity_types['schemadotorg_mapping']->setFormClass('edit', '\Drupal\schemadotorg_ui\Form\SchemaDotOrgUiMappingForm');
+}
+
+/**
+ * Implements hook_field_ui_preconfigured_options_alter().
+ */
+function schemadotorg_ui_field_ui_preconfigured_options_alter(array &$options, string $field_type): void {
+  if ($field_type === 'entity_reference'
+    && !isset($options['block_content'])
+    && \Drupal::moduleHandler()->moduleExists('block_content')) {
+    $options['block_content'] = [
+      'label' => t('Custom block'),
+      'field_storage_config' => [
+        'settings' => [
+          'target_type' => 'block_content',
+        ],
+      ],
+    ];
+  }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_insert().
+ */
+function schemadotorg_ui_schemadotorg_mapping_type_insert(): void {
+  // Rebuild dynamic routes.
+  // @see \Drupal\schemadotorg_ui\Routing\SchemaDotOrgRouteSubscriber
+  /** @var \Drupal\Core\Routing\RouteBuilderInterface $router_builder */
+  $router_builder = \Drupal::service('router.builder');
+  $router_builder->setRebuildNeeded();
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_update().
+ */
+function schemadotorg_ui_schemadotorg_mapping_type_update(): void {
+  schemadotorg_ui_schemadotorg_mapping_type_insert();
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_update().
+ */
+function schemadotorg_ui_schemadotorg_mapping_type_delete(): void {
+  schemadotorg_ui_schemadotorg_mapping_type_insert();
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * @see \Drupal\field_ui\Form\FieldStorageAddForm::buildForm
+ */
+function schemadotorg_ui_form_field_ui_field_storage_add_form_alter(array &$form, FormStateInterface $form_state): void {
+  if (!\Drupal::config('schemadotorg.settings')->get('field_prefix_ui')) {
+    return;
+  }
+
+  /** @var \Drupal\field_ui\Form\FieldStorageAddForm $form_object */
+  $form_object = $form_state->getFormObject();
+  $drupal_field_prefix = \Drupal::config('field_ui.settings')->get('field_prefix');
+  $schemadotorg_field_prefix = \Drupal::config('schemadotorg.settings')->get('field_prefix');
+  if ($drupal_field_prefix === $schemadotorg_field_prefix) {
+    return;
+  }
+
+  $form['new_storage_wrapper'] = [
+    'field_prefix' => [
+      '#type' => 'select',
+      '#title' => t('Field prefix'),
+      '#options' => [
+        $drupal_field_prefix => $drupal_field_prefix,
+        $schemadotorg_field_prefix => $schemadotorg_field_prefix ?: t('- None -'),
+      ],
+      '#default_value' => $drupal_field_prefix,
+      '#required' => TRUE,
+    ],
+  ] + $form['new_storage_wrapper'];
+
+  $form['new_storage_wrapper']['label']['#states'] = $form['new_storage_wrapper']['field_name']['#states'] = [
+    'visible' => [':input[name="field_prefix"]' => ['value' => $drupal_field_prefix]],
+  ];
+
+  $form['new_storage_wrapper']['schemadotorg_label'] = [
+    '#type' => 'textfield',
+    '#title' => t('Label'),
+    '#size' => 15,
+    '#states' => [
+      'visible' => [':input[name="field_prefix"]' => ['value' => $schemadotorg_field_prefix]],
+    ],
+  ];
+  $form['new_storage_wrapper']['schemadotorg_field_name'] = [
+    '#type' => 'machine_name',
+    '#field_prefix' => $schemadotorg_field_prefix,
+    '#size' => 15,
+    '#description' => t('A unique machine-readable name containing letters, numbers, and underscores.'),
+    // Calculate characters depending on the length of the field prefix
+    // setting. Maximum length is 32.
+    '#maxlength' => FieldStorageConfig::NAME_MAX_LENGTH - strlen($schemadotorg_field_prefix),
+    '#machine_name' => [
+      'source' => ['new_storage_wrapper', 'schemadotorg_label'],
+      'exists' => [$form_object, 'fieldNameExists'],
+    ],
+    '#required' => FALSE,
+    '#states' => [
+      'visible' => [':input[name="field_prefix"]' => ['value' => $schemadotorg_field_prefix]],
+    ],
+  ];
+
+  $form['#validate'][] = 'schemadotorg_ui_form_field_ui_field_storage_add_form_validate';
+
+  $form['#attached']['library'][] = 'schemadotorg_ui/schemadotorg_ui.field_prefix';
+}
+
+/**
+ * Form validation handler for schemadotorg_ui_form_field_ui_field_storage_add_form_alter().
+ *
+ * @see \Drupal\field_ui\Form\FieldStorageAddForm::validateAddNew()
+ */
+function schemadotorg_ui_form_field_ui_field_storage_add_form_validate(array &$form, FormStateInterface $form_state): void {
+  // Validate if any information was provided in the 'add new field' case.
+  if ($form_state->getValue('new_storage_type')) {
+    $form_state->clearErrors();
+
+    $schemadotorg_field_prefix = \Drupal::config('schemadotorg.settings')->get('field_prefix');
+    $field_prefix = $form_state->getValue('field_prefix');
+    if ($field_prefix === $schemadotorg_field_prefix) {
+      $label_element_name = 'schemadotorg_label';
+      $field_name_element_name = 'schemadotorg_field_name';
+    }
+    else {
+      $label_element_name = 'label';
+      $field_name_element_name = 'field_name';
+    }
+
+    // Missing label.
+    if (!$form_state->getValue($label_element_name)) {
+      $form_state->setErrorByName($label_element_name, t('Add new field: you need to provide a label.'));
+    }
+
+    // Missing field name.
+    if (!$form_state->getValue($field_name_element_name)) {
+      $form_state->setErrorByName($field_name_element_name, t('Add new field: you need to provide a machine name for the field.'));
+    }
+    // Field name validation.
+    else {
+      $field_name = $form_state->getValue($field_name_element_name);
+
+      // Add the field prefix.
+      $field_name = $field_prefix . $field_name;
+      $form_state->setValueForElement($form['new_storage_wrapper']['field_name'], $field_name);
+    }
+  }
+}

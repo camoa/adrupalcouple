@@ -1,0 +1,56 @@
+<?php
+
+/**
+ * @file
+ * Builds and adds Schema.org structured data as JSON-LD to web pages.
+ */
+
+/* phpcs:disable Drupal.NamingConventions.ValidFunctionName.InvalidPrefix */
+
+declare(strict_types = 1);
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function schemadotorg_jsonld_help(string $route_name, RouteMatchInterface $route_match): string|array|NULL {
+  if ($route_name === 'schemadotorg_jsonld.settings') {
+    return '<p>' . t('The <em>Schema.org JSON-LD settings</em> page allows administrators to configure the default settings for the Schema.org JSON-LD data and endpoints.') . '<p>';
+  }
+
+  return NULL;
+}
+
+/**
+ * Implements hook_page_attachments_alter().
+ */
+function schemadotorg_jsonld_page_attachments_alter(array &$attachments): void {
+  // Make sure the page has an HTML <head> section.
+  if (empty($attachments['#attached']['html_head'])) {
+    return;
+  }
+
+  // Build the entity's Schema.org data.
+  /** @var \Drupal\schemadotorg_jsonld\SchemaDotOrgJsonLdBuilderInterface $builder */
+  $builder = \Drupal::service('schemadotorg_jsonld.builder');
+  $data = $builder->build();
+  if (!$data) {
+    return;
+  }
+
+  // If preprocess is disable, make the JSON pretty.
+  $preprocess = \Drupal::config('system.performance')->get('js.preprocess');
+  $json_flags = $preprocess ? 0 : JSON_PRETTY_PRINT;
+
+  // Add the <script type="application/ld+json"> to <head> section of the page.
+  $attachments['#attached']['html_head'][] = [
+    [
+      '#type' => 'html_tag',
+      '#tag' => 'script',
+      '#value' => json_encode($data, $json_flags),
+      '#attributes' => ['type' => 'application/ld+json'],
+    ],
+    'schemadotorg_jsonld',
+  ];
+}

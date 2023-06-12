@@ -1,0 +1,6 @@
+services:
+  schemadotorg_mapping_set.commands:
+    class: Drupal\schemadotorg_mapping_set\Commands\SchemaDotOrgMappingSetCommands
+    arguments: ['@config.factory', '@schemadotorg_mapping_set.manager']
+    tags:
+      - { name: drush.command }

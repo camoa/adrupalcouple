@@ -1,0 +1,20 @@
+schemadotorg_flexfield.settings:
+  type: config_entity
+  label: Schema.org FlexField settings
+  mapping:
+    default_properties:
+      type: sequence
+      label: 'Schema.org default properties'
+      sequence:
+        type: mapping
+        label: 'Schema.org default property'
+        mapping:
+          type:
+            type: string
+            label: Type
+          properties:
+            type: sequence
+            label: Properties
+            sequence:
+              type: string
+              label: Property

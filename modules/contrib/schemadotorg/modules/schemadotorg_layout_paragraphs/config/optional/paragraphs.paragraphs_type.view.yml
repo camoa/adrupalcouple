@@ -1,0 +1,11 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - viewsreference
+id: view
+label: View
+icon_uuid: ''
+icon_default: null
+description: 'A listing of information.'
+behavior_plugins: {  }

@@ -1,0 +1,17 @@
+name: 'Schema.org Blueprints Starterkit: Test'
+type: module
+description: 'Support module for Schema.org Blueprints Start Kit testing.'
+package: Schema.org Blueprints Test
+core_version_requirement: '^9.4 || ^10.0'
+dependencies:
+  - 'drupal:user'
+  - 'drupal:node'
+  - 'drupal:views'
+  - 'config_rewrite:config_rewrite'
+  - 'schemadotorg:schemadotorg'
+  - 'schemadotorg:schemadotorg_starterkit'
+
+# Information added by Drupal.org packaging script on 2023-06-02
+version: '1.0.0-alpha4'
+project: 'schemadotorg'
+datestamp: 1685723540

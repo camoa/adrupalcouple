@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies: {  }
+name: Event
+type: event
+description: 'An event happening at a certain time and location, such as a concert, lecture, or festival. Ticketing information may be added via the <a href="https://schema.org/offers">offers</a> property. Repeated events may be structured as separate Event objects.'
+help: null
+new_revision: true
+preview_mode: 1
+display_submitted: true

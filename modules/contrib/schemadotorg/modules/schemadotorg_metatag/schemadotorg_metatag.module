@@ -1,0 +1,105 @@
+<?php
+
+/**
+ * @file
+ * Automatically adds a metatag field to Schema.org types.
+ */
+
+declare(strict_types = 1);
+
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\field\Entity\FieldConfig;
+use Drupal\field\Entity\FieldStorageConfig;
+use Drupal\schemadotorg\SchemaDotOrgMappingInterface;
+
+/**
+ * Implements hook_schemadotorg_mapping_insert().
+ */
+function schemadotorg_metatag_schemadotorg_mapping_insert(SchemaDotOrgMappingInterface $mapping): void {
+  if (\Drupal::isConfigSyncing()) {
+    return;
+  }
+
+  $entity_type_id = $mapping->getTargetEntityTypeId();
+  $bundle = $mapping->getTargetBundle();
+  $field_name = 'field_metatag';
+
+  // Only add the meta tags field to node types.
+  if ($entity_type_id !== 'node') {
+    return;
+  }
+
+  // Create meta tag field storage.
+  if (!FieldStorageConfig::loadByName($entity_type_id, $field_name)) {
+    FieldStorageConfig::create([
+      'field_name' => $field_name,
+      'entity_type' => $entity_type_id,
+      'type' => 'metatag',
+    ])->save();
+  }
+
+  // Create meta tag field instance.
+  if (!FieldConfig::loadByName($entity_type_id, $bundle, $field_name)) {
+    FieldConfig::create([
+      'label' => t('Meta tags'),
+      'field_name' => $field_name,
+      'entity_type' => $entity_type_id,
+      'bundle' => $bundle,
+      'type' => 'metatag',
+    ])->save();
+  }
+
+  // Set meta tag component in the default form display.
+  /** @var \Drupal\Core\Entity\EntityDisplayRepositoryInterface $entity_display_repository */
+  $entity_display_repository = \Drupal::service('entity_display.repository');
+  $form_display = $entity_display_repository->getFormDisplay($entity_type_id, $bundle, 'default');
+  $form_display->setComponent($field_name, [
+    'type' => 'metatag_firehose',
+    'settings' => [
+      'sidebar' => TRUE,
+      'use_details' => TRUE,
+    ],
+    'weight' => 99,
+  ]);
+  $form_display->save();
+
+  // Set metatag default groups for the content type.
+  $default_groups = \Drupal::config('schemadotorg_metatag.settings')
+    ->get('default_groups');
+  if ($default_groups) {
+    \Drupal::configFactory()->getEditable('metatag.settings')
+      ->set("entity_type_groups.node.$bundle", array_combine($default_groups, $default_groups))
+      ->save();
+  }
+}
+
+/* ************************************************************************** */
+// Schema.org types settings form.
+/* ************************************************************************** */
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function schemadotorg_metatag_form_schemadotorg_types_settings_form_alter(array &$form, FormStateInterface $form_state): void {
+  /** @var \Drupal\metatag\MetatagManagerInterface $metatag_manager */
+  $metatag_manager = \Drupal::service('metatag.manager');
+  $metatag_groups = $metatag_manager->sortedGroups();
+  $metatag_group_options = [];
+  foreach ($metatag_groups as $group_name => $group_info) {
+    $metatag_group_options[$group_name] = $group_info['label'];
+  }
+
+  $form['schemadotorg_metatag'] = [
+    '#type' => 'details',
+    '#title' => t('Metatag settings'),
+    '#open' => TRUE,
+    '#tree' => TRUE,
+  ];
+  $form['schemadotorg_metatag']['default_groups'] = [
+    '#type' => 'checkboxes',
+    '#title' => t('Default metatag groups'),
+    '#description' => t('Identify which metatag groups should be available on which entity type / bundle combination. Unselected groups will not appear on the configuration form for that entity type, reducing the size of the form and increasing performance. If no groups are selected for a type, all groups will appear.'),
+    '#options' => $metatag_group_options,
+    '#element_validate' => [['\Drupal\schemadotorg\Utility\SchemaDotOrgElementHelper', 'validateMultipleOptions']],
+  ];
+}

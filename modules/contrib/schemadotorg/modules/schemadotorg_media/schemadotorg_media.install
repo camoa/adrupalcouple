@@ -1,0 +1,39 @@
+<?php
+
+/**
+ * @file
+ * Installation hooks for the Schema.org Blueprints Smart Date module.
+ */
+
+declare(strict_types = 1);
+
+use Drupal\media\Entity\MediaType;
+use Drupal\schemadotorg\Entity\SchemaDotOrgMappingType;
+
+/**
+ * Implements hook_install().
+ */
+function schemadotorg_media_install(bool $is_syncing): void {
+  if ($is_syncing) {
+    return;
+  }
+
+  // Determine which media types are installed and what Schema.org types should
+  // be mapped.
+  /** @var \Drupal\schemadotorg\SchemaDotOrgMappingTypeInterface[] $mapping_type */
+  $mapping_type = SchemaDotOrgMappingType::load('media');
+  $default_schema_types = $mapping_type->get('default_schema_types');
+  /** @var \Drupal\media\MediaTypeInterface[] $media_types */
+  $media_types = MediaType::loadMultiple();
+  $install_schema_types = array_unique(
+    array_values(
+      array_intersect_key($default_schema_types, $media_types)
+    )
+  );
+
+  /** @var \Drupal\schemadotorg\SchemaDotOrgMappingManagerInterface $mapping_manager */
+  $mapping_manager = \Drupal::service('schemadotorg.mapping_manager');
+  foreach ($install_schema_types as $install_schema_type) {
+    $mapping_manager->createType('media', $install_schema_type);
+  }
+}

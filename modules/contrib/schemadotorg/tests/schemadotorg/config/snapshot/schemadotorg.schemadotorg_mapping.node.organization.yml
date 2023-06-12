@@ -1,0 +1,23 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.organization.body
+    - field.field.node.organization.schema_address
+    - field.field.node.organization.schema_email
+    - field.field.node.organization.schema_image
+    - field.field.node.organization.schema_same_as
+    - field.field.node.organization.schema_telephone
+    - node.type.organization
+id: node.organization
+target_entity_type_id: node
+target_bundle: organization
+schema_type: Organization
+schema_properties:
+  schema_address: address
+  body: description
+  schema_email: email
+  schema_image: image
+  title: name
+  schema_same_as: sameAs
+  schema_telephone: telephone

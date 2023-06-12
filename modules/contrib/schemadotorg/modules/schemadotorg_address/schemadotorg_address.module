@@ -1,0 +1,134 @@
+<?php
+
+/**
+ * @file
+ * Allows an address field to be used to create a http://schema.org/PostalAddress.
+ */
+
+declare(strict_types = 1);
+
+use Drupal\Core\Field\FieldItemInterface;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\schemadotorg\Element\SchemaDotOrgSettings;
+
+/**
+ * Implements hook_schemadotorg_property_field_alter().
+ */
+function schemadotorg_address_schemadotorg_property_field_alter(
+  string $schema_type,
+  string $schema_property,
+  array &$field_storage_values,
+  array &$field_values,
+  ?string &$widget_id,
+  array &$widget_settings,
+  ?string &$formatter_id,
+  array &$formatter_settings
+): void {
+  // Make sure the field type is set to 'address'.
+  if ($field_storage_values['type'] !== 'address') {
+    return;
+  }
+
+  $config = \Drupal::config('schemadotorg_address.settings');
+  /** @var \Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface $schema_type_manager */
+  $schema_type_manager = \Drupal::service('schemadotorg.schema_type_manager');
+
+  $field_overrides = [];
+
+  $breadcrumbs = $schema_type_manager->getTypeBreadcrumbs($schema_type);
+  foreach ($breadcrumbs as $breadcrumb) {
+    $breadcrumb_types = array_reverse($breadcrumb);
+    foreach ($breadcrumb_types as $breadcrumb_type) {
+      $field_overrides += $config->get("field_overrides.$breadcrumb_type--$schema_property") ?? [];
+    }
+  }
+
+  $field_overrides += $config->get("field_overrides.$schema_property") ?? [];
+
+  $field_values['settings']['field_overrides'] = [];
+  foreach ($field_overrides as $property => $override) {
+    $field_values['settings']['field_overrides'][$property] = ['override' => $override];
+  }
+}
+
+/**
+ * Implements hook_schemadotorg_jsonld_schema_property_alter() for the address.module.
+ */
+function schemadotorg_address_schemadotorg_jsonld_schema_property_alter(mixed &$value, FieldItemInterface $item): void {
+  $field_type = $item->getFieldDefinition()->getType();
+  if ($field_type !== 'address') {
+    return;
+  }
+
+  $mapping = [
+    'country_code' => 'addressCountry',
+    'administrative_area' => 'addressRegion',
+    'locality' => 'addressLocality',
+    'dependent_locality' => 'addressLocality',
+    'postal_code' => 'postalCode',
+    'sorting_code' => 'postOfficeBoxNumber',
+    'address_line1' => 'streetAddress',
+    'address_line2' => 'streetAddress',
+  ];
+  $values = $item->getValue();
+  // Set default values.
+  $values += [
+    'organization' => '',
+    'given_name' => '',
+    'additional_name' => '',
+    'family_name' => '',
+  ];
+  // Map organization and full name to Schema.org name and
+  // alternateName properties.
+  $values['organization'] = trim((string) $values['organization']);
+  $values['name'] = implode(' ', array_filter([
+    trim((string) $values['given_name']),
+    trim((string) $values['additional_name']),
+    trim((string) $values['family_name']),
+  ]));
+  if ($values['organization']) {
+    $mapping['organization'] = 'name';
+    $mapping['name'] = 'alternateName';
+  }
+  else {
+    $mapping['name'] = 'name';
+  }
+
+  $data = ['@type' => 'PostalAddress'];
+  foreach ($mapping as $source => $destination) {
+    if ($destination && !empty($values[$source])) {
+      if (isset($data[$destination])) {
+        $data[$destination] .= ', ' . $values[$source];
+      }
+      else {
+        $data[$destination] = $values[$source];
+      }
+    }
+  }
+
+  /** @var \Drupal\schemadotorg_jsonld\SchemaDotOrgJsonLdManagerInterface $jsonld_manager */
+  $jsonld_manager = \Drupal::service('schemadotorg_jsonld.manager');
+  $value = $jsonld_manager->sortProperties($data);
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function schemadotorg_address_form_schemadotorg_properties_settings_form_alter(array &$form, FormStateInterface $form_state): void {
+  $form['schemadotorg_address'] = [
+    '#type' => 'details',
+    '#title' => t('Address settings'),
+    '#open' => TRUE,
+    '#tree' => TRUE,
+  ];
+  $form['schemadotorg_address']['field_overrides'] = [
+    '#type' => 'schemadotorg_settings',
+    '#settings_type' => SchemaDotOrgSettings::ASSOCIATIVE_GROUPED,
+    '#settings_format' => 'propertyName|givenName:hidden,additionalName:hidden,familyName:hidden,organization:hidden',
+    '#group_name' => 'type',
+    '#array_name' => 'properties',
+    '#title' => t('Field overrides'),
+    '#description' => t('Enter Schema.org properties with address field properties that should be overridden.'),
+    '#description_link' => 'types',
+  ];
+}

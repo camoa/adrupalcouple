@@ -1,0 +1,11 @@
+types:
+  node:Person: { }
+  node:Event: { }
+  # Define custom mapping defaults.
+  node:Thing:
+    entity:
+      label: 'Something'
+    properties:
+      name: true
+      description:  true
+      image: true

@@ -1,0 +1,12 @@
+name: Schema.org Blueprints Export
+type: module
+description: Provides a CSV export of Schema.org type mappings and mapping sets.
+package: Schema.org Blueprints Core
+core_version_requirement: '^9.4 || ^10.0'
+dependencies:
+  - 'schemadotorg:schemadotorg'
+
+# Information added by Drupal.org packaging script on 2023-06-02
+version: '1.0.0-alpha4'
+project: 'schemadotorg'
+datestamp: 1685723540

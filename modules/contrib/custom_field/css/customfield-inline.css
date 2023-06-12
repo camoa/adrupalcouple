@@ -1,0 +1,82 @@
+
+.customfield-inline {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.customfield-inline__item {
+  flex: 1 1 0;
+  padding-right: 1em;
+}
+
+.customfield-inline__item.form-type--number input,
+.customfield-inline__item.form-type--textfield input,
+.customfield-inline__item.form-type--email input,
+.customfield-inline__item.form-type--textarea input,
+.customfield-inline__item.form-type--url input,
+.customfield-inline__item.form-type--select select {
+  width: 100%;
+}
+
+.customfield-inline__item.form-type--color {
+  flex-grow: 0;
+}
+
+.customfield-inline .form-type--map {
+  width: 100%;
+  flex-grow: 1;
+  flex-basis: 100%;
+}
+
+/* Align single checkboxes in the center since they don't have a label */
+.customfield-inline__item.form-type--checkbox {
+  align-self: center;
+}
+
+.customfield-inline__item:last-child {
+  padding-right: 0;
+}
+
+.customfield-inline__item--one {
+  flex-grow: 1;
+}
+
+.customfield-inline__item--two {
+  flex-grow: 2;
+}
+
+.customfield-inline__item--three {
+  flex-grow: 3;
+}
+
+.customfield-inline__item--four {
+  flex-grow: 4;
+}
+
+.customfield-inline__field {
+  width: 100%;
+}
+
+@media all and (max-width: 48em) { /* 768px on Seven theme */
+
+  .customfield-inline--stack-medium {
+    display: block;
+  }
+
+  .customfield-inline--stack-medium .customfield-inline__item {
+    padding-right: 0;
+  }
+
+}
+
+@media screen and (max-width: 37.5em) { /* 600px on Seven theme */
+
+  .customfield-inline--stack-small {
+    display: block;
+  }
+
+  .customfield-inline--stack-small .customfield-inline__item {
+    padding-right: 0;
+  }
+
+}

@@ -1,0 +1,15 @@
+schemadotorg_starterkit.overview:
+  path: '/admin/config/search/schemadotorg/starterkits'
+  defaults:
+    _title: 'Schema.org starterkits'
+    _controller: '\Drupal\schemadotorg_starterkit\Controller\SchemadotorgStarterkitController::overview'
+  requirements:
+    _permission: 'administer schemadotorg'
+
+schemadotorg_starterkit.confirm_form:
+  path: '/admin/config/search/schemadotorg/starterkits/{name}/{operation}'
+  defaults:
+    _title: 'Schema.org mapping set confirm'
+    _form: 'Drupal\schemadotorg_starterkit\Form\SchemaDotOrgStarterkitConfirmForm'
+  requirements:
+    _permission: 'administer schemadotorg'

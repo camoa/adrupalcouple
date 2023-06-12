@@ -1,0 +1,14 @@
+name: 'Schema.org Blueprints Corresponding Entity References'
+type: module
+description: 'Improves https://inverseOf support using the Corresponding Entity References module.'
+package: Schema.org Blueprints Fields
+core_version_requirement: '^9.4 || ^10.0'
+configure: schemadotorg.settings.properties
+dependencies:
+  - 'cer:cer'
+  - 'schemadotorg:schemadotorg'
+
+# Information added by Drupal.org packaging script on 2023-06-02
+version: '1.0.0-alpha4'
+project: 'schemadotorg'
+datestamp: 1685723540

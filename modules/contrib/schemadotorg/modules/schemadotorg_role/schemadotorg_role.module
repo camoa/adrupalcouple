@@ -1,0 +1,175 @@
+<?php
+
+/**
+ * @file
+ * Manages roles (https://schema.org/Role) for Schema.org properties.
+ */
+
+declare(strict_types = 1);
+
+use Drupal\Core\Entity\ContentEntityInterface;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\schemadotorg\Element\SchemaDotOrgSettings;
+use Drupal\schemadotorg\Entity\SchemaDotOrgMapping;
+use Drupal\schemadotorg\SchemaDotOrgMappingInterface;
+
+/**
+ * Implements hook_schemadotorg_mapping_defaults_alter().
+ */
+function schemadotorg_role_schemadotorg_mapping_defaults_alter(array &$defaults, string $entity_type_id, ?string $bundle, string $schema_type): void {
+  /** @var \Drupal\schemadotorg_role\SchemaDotOrgRoleManagerInterface $role_manager */
+  $role_manager = \Drupal::service('schemadotorg_role.manager');
+  $role_manager->mappingDefaultsAlter($defaults, $entity_type_id, $bundle, $schema_type);
+}
+
+/**
+ * Implements hook_form_BASE_FORM_ID_alter().
+ */
+function schemadotorg_role_form_schemadotorg_mapping_form_alter(array &$form, FormStateInterface $form_state): void {
+  if (!\Drupal::moduleHandler()->moduleExists('schemadotorg_ui')) {
+    return;
+  }
+
+  /** @var \Drupal\schemadotorg_role\SchemaDotOrgRoleManagerInterface $role_manager */
+  $role_manager = \Drupal::service('schemadotorg_role.manager');
+  $role_manager->mappingFormAlter($form, $form_state);
+}
+
+/**
+ * Implements hook_schemadotorg_mapping_insert().
+ */
+function schemadotorg_role_schemadotorg_mapping_insert(SchemaDotOrgMappingInterface $mapping): void {
+  if (\Drupal::isConfigSyncing()) {
+    return;
+  }
+
+  /** @var \Drupal\schemadotorg_role\SchemaDotOrgRoleManagerInterface $role_manager */
+  $role_manager = \Drupal::service('schemadotorg_role.manager');
+  $role_manager->mappingInsert($mapping);
+}
+
+/**
+ * Implements hook_schemadotorg_jsonld_schema_type_entity_load().
+ */
+function schemadotorg_role_schemadotorg_jsonld_schema_type_entity_load(array &$data, EntityInterface $entity): void {
+  // Make sure this is a content entity.
+  if (!$entity instanceof ContentEntityInterface) {
+    return;
+  }
+
+  // Get the Schema.org mapping.
+  $mapping = SchemaDotOrgMapping::loadByEntity($entity);
+  if (!$mapping) {
+    return;
+  }
+
+  // Get the Schema.org role fields.
+  /** @var \Drupal\schemadotorg_role\SchemaDotOrgRoleManagerInterface $role_manager */
+  $role_manager = \Drupal::service('schemadotorg_role.manager');
+  $role_field_definitions = $role_manager->getMappingFieldDefinitions($mapping);
+  if (empty($role_field_definitions)) {
+    return;
+  }
+
+  // Add the Schema.org role property values.
+  $schema_type = $mapping->getSchemaType();
+  /** @var \Drupal\schemadotorg_jsonld\SchemaDotOrgJsonLdBuilderInterface $builder */
+  $builder = \Drupal::service('schemadotorg_jsonld.builder');
+  $roles = [];
+  foreach ($role_field_definitions as $role_field_definition) {
+    $field_name = $role_field_definition['field_name'];
+    if (!$entity->hasField($field_name)
+      || !$entity->get($field_name)->access('view')) {
+      continue;
+    }
+
+    $role_name = $role_field_definition['role_name'];
+    $schema_property = $role_field_definition['schema_property'];
+    $values = $builder->getSchemaPropertyFieldItems($schema_type, $schema_property, $entity->get($field_name), []);
+    foreach ($values as $value) {
+      $roles += [$schema_property => []];
+      $roles[$schema_property][] = [
+        '@type' => 'Role',
+        'roleName' => $role_name,
+        $schema_property => $value,
+      ];
+    }
+  }
+
+  if ($roles) {
+    foreach ($roles as $schema_property => $items) {
+      $data += [$schema_property => []];
+      $data[$schema_property] = array_merge($items, $data[$schema_property]);
+    }
+  }
+}
+
+/**
+ * Implements hook_jsonapi_resource_config_presave().
+ */
+function schemadotorg_role_jsonapi_resource_config_presave(EntityInterface $entity): void {
+  // Make sure the Schema.org Blueprints JSON:API module is installed.
+  if (!\Drupal::moduleHandler()->moduleExists('schemadotorg_jsonapi')) {
+    return;
+  }
+
+  // Make sure this is a new JSON:API resource config.
+  if (!$entity->isNew()) {
+    return;
+  }
+
+  // Get the Schema.org mapping.
+  [$entity_type_id, $bundle] = explode('--', $entity->id());
+  $mapping = SchemaDotOrgMapping::load("$entity_type_id.$bundle");
+  if (!$mapping) {
+    return;
+  }
+
+  // Get the Schema.org role fields.
+  /** @var \Drupal\schemadotorg_role\SchemaDotOrgRoleManagerInterface $role_manager */
+  $role_manager = \Drupal::service('schemadotorg_role.manager');
+  $role_field_definitions = $role_manager->getMappingFieldDefinitions($mapping);
+  if (empty($role_field_definitions)) {
+    return;
+  }
+
+  // Enable and update public name for all role fields.
+  $resource_fields = $entity->get('resourceFields');
+  foreach ($role_field_definitions as $role_name => $role_field_definition) {
+    $field_name = $role_field_definition['field_name'];
+    if (isset($resource_fields[$field_name])) {
+      $resource_fields[$field_name]['publicName'] = $role_name;
+      $resource_fields[$field_name]['disabled'] = FALSE;
+    }
+  }
+  $entity->set('resourceFields', $resource_fields);
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function schemadotorg_role_form_schemadotorg_properties_settings_form_alter(array &$form, FormStateInterface $form_state): void {
+  $form['schemadotorg_role'] = [
+    '#type' => 'details',
+    '#title' => t('Role settings'),
+    '#open' => TRUE,
+    '#tree' => TRUE,
+  ];
+  $form['schemadotorg_role']['field_definitions'] = [
+    '#type' => 'schemadotorg_settings',
+    '#settings_type' => SchemaDotOrgSettings::ASSOCIATIVE_GROUPED,
+    '#settings_format' => "field_name|field_name:name,label:Label,description:Some description,unlimited:true,required:true,role_name:name",
+    '#array_name' => 'definition',
+    '#title' => t('Role field definitions'),
+    '#description' => t('Enter role field definitions which will be available to Schema.org properties.'),
+  ];
+  $form['schemadotorg_role']['schema_types'] = [
+    '#type' => 'schemadotorg_settings',
+    '#settings_type' => SchemaDotOrgSettings::INDEXED_GROUPED,
+    '#settings_format' => 'propertyName|field_name01,field_name02 or SchemaType--propertyName|field_name01,field_name02',
+    '#array_name' => 'definition',
+    '#title' => t('Schema.org types roles'),
+    '#description' => t('Enter Schema.org properties and their roles.'),
+  ];
+}

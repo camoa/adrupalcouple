@@ -1,0 +1,19 @@
+name: 'Schema.org Blueprints Layout Paragraphs'
+type: module
+description: 'Provides integration with the Layout Paragraphs module.'
+package: Schema.org Blueprints Paragraphs
+core_version_requirement: '^9.4 || ^10.0'
+configure: schemadotorg.settings.types
+dependencies:
+  - 'drupal:field'
+  - 'drupal:node'
+  - 'jsonapi_extras:jsonapi_extras'
+  - 'layout_paragraphs:layout_paragraphs'
+  - 'schemadotorg:schemadotorg'
+  - 'schemadotorg:schemadotorg_media'
+  - 'schemadotorg:schemadotorg_paragraphs'
+
+# Information added by Drupal.org packaging script on 2023-06-02
+version: '1.0.0-alpha4'
+project: 'schemadotorg'
+datestamp: 1685723540

@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.schema_text
+    - paragraphs.paragraphs_type.cta
+  module:
+    - text
+id: paragraph.cta.schema_text
+field_name: schema_text
+entity_type: paragraph
+bundle: cta
+label: Text
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

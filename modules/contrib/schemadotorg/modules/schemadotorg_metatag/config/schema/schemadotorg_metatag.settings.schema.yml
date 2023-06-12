@@ -1,0 +1,25 @@
+schemadotorg_metatag.settings:
+  type: config_entity
+  label: Schema.org Metatag settings
+  mapping:
+    default_groups:
+      type: sequence
+      label: 'Default groups'
+      sequence:
+        type: string
+        label: 'Default group'
+    hide_groups_details:
+      type: boolean
+      label: 'Hide metatag group details wrapper'
+    allowed_metatags:
+      type: sequence
+      label: 'Allowed meta tags'
+      sequence:
+        type: string
+        label: 'Allowed meta tag'
+    allowed_robots:
+      type: sequence
+      label: 'Allowed robots directives'
+      sequence:
+        type: string
+        label: 'Allowed robot directive'

@@ -1,0 +1,13 @@
+schemadotorg_devel.settings:
+  type: config_entity
+  label: Schema.org Devel settings
+  mapping:
+    generate_property_values:
+      type: sequence
+      label: 'Schema.org devel generate property values'
+      sequence:
+        type: sequence
+        label: 'Schema.org property'
+        sequence:
+          type: string
+          label: 'Generate values'

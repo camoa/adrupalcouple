@@ -1,0 +1,18 @@
+
+.flexfield-settings-table td {
+  vertical-align: top;
+}
+
+/* Avoid flexbox crushing the "type" select */
+.flexfield-settings-table .form-select {
+  min-width: 140px;
+}
+
+/* Helper class to put settings inline. See the NumericBase Flex Field type */
+.flexfield-settings-inline {
+  display: flex;
+}
+
+.flexfield-settings-inline > .form-item {
+  flex: 0 1 100%;
+}

@@ -1,0 +1,14 @@
+name: 'Schema.org Blueprints Devel'
+type: module
+description: 'Provides development tools for the Schema.org Blueprints module.'
+package: Schema.org Blueprints Core
+core_version_requirement: '^9.4 || ^10.0'
+configure: schemadotorg.settings.general
+dependencies:
+  - 'schemadotorg:schemadotorg'
+  - 'devel:devel'
+
+# Information added by Drupal.org packaging script on 2023-06-02
+version: '1.0.0-alpha4'
+project: 'schemadotorg'
+datestamp: 1685723540

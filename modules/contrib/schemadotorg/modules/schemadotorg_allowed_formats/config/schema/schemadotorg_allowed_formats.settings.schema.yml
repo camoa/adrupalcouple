@@ -1,0 +1,25 @@
+schemadotorg_allowed_formats.settings:
+  type: config_entity
+  label: Schema.org Allowed Formats settings
+  mapping:
+    default_hide_help:
+      type: boolean
+      label: 'Default hide help'
+    default_hide_guidelines:
+      type: boolean
+      label: 'Default hide guidelines'
+    default_allowed_formats:
+      type: sequence
+      label: 'Default allowed formats'
+      sequence:
+        type: string
+        label: 'Default allowed format'
+    property_allowed_formats:
+      type: sequence
+      label: 'Schema.org property allowed formats'
+      sequence:
+        type: sequence
+        label: 'Schema.org property'
+        sequence:
+          type: string
+          label: 'Allowed formats'

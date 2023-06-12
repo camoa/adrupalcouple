@@ -1,0 +1,5 @@
+schemadotorg_translation.settings:
+  title: Translations
+  route_name: schemadotorg_translation.settings
+  parent_id: schemadotorg.settings
+  weight: 50

@@ -1,0 +1,16 @@
+customfield-admin:
+  version: 1.x
+  css:
+    component:
+      css/customfield.admin.css: {}
+customfield-inline:
+  version: 1.x
+  css:
+    component:
+      css/customfield-inline.css: {}
+customfield-inline-admin:
+  version: 1.x
+  js:
+    js/customfield-inline.widget-settings.js: {}
+  dependencies:
+    - custom_field/customfield-inline

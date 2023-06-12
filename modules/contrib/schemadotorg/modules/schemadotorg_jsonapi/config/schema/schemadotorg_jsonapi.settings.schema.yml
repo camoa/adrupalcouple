@@ -1,0 +1,19 @@
+schemadotorg_jsonapi.settings:
+  type: config_entity
+  label: Schema.org JSON:API settings
+  mapping:
+    default_base_fields:
+      type: sequence
+      label: 'Default base fields'
+      sequence:
+        type: string
+        label: 'Default base field'
+    resource_type_schemadotorg:
+      type: boolean
+      label: 'Use Schema.org type as the resource type and path name'
+    resource_base_field_schemadotorg:
+      type: boolean
+      label: 'Use Schema.org property as the resource base field name/alias'
+    resource_field_schemadotorg:
+      type: boolean
+      label: 'Use Schema.org property as the resource field name/alias'

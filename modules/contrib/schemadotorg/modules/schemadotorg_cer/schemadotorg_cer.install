@@ -1,0 +1,44 @@
+<?php
+
+/**
+ * @file
+ * Installation hooks for the Schema.org Blueprints Office Hours module.
+ */
+
+declare(strict_types = 1);
+
+/**
+ * Implements hook_install().
+ */
+function schemadotorg_cer_install(bool $is_syncing): void {
+  if ($is_syncing) {
+    return;
+  }
+
+  /** @var \Drupal\schemadotorg\SchemaDotOrgConfigManagerInterface $schema_config_manager */
+  $schema_config_manager = \Drupal::service('schemadotorg.config_manager');
+  // Set subOrganization ↔ parentOrganization relationship.
+  $schema_config_manager->setSchemaTypeDefaultProperties('Organization', ['subOrganization', 'parentOrganization']);
+  // Set subjectOf ↔ about relationship.
+  $schema_config_manager->setMappingTypeSchemaTypeDefaultProperties('node', 'Thing', ['subjectOf']);
+  $schema_config_manager->setMappingTypeSchemaTypeDefaultProperties('node', 'Event', ['about']);
+  $schema_config_manager->setMappingTypeSchemaTypeDefaultProperties('node', 'CreativeWork', ['about']);
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function schemadotorg_cer_uninstall(bool $is_syncing): void {
+  if ($is_syncing) {
+    return;
+  }
+
+  /** @var \Drupal\schemadotorg\SchemaDotOrgConfigManagerInterface $schema_config_manager */
+  $schema_config_manager = \Drupal::service('schemadotorg.config_manager');
+  // Unset subOrganization ↔ parentOrganization relationship.
+  $schema_config_manager->setSchemaTypeDefaultProperties('Organization', NULL, ['subOrganization', 'parentOrganization']);
+  // Unset subjectOf ↔ about relationship.
+  $schema_config_manager->setMappingTypeSchemaTypeDefaultProperties('node', 'Thing', NULL, ['subjectOf']);
+  $schema_config_manager->setMappingTypeSchemaTypeDefaultProperties('node', 'Event', NULL, ['about']);
+  $schema_config_manager->setMappingTypeSchemaTypeDefaultProperties('node', 'CreativeWork', NULL, ['about']);
+}

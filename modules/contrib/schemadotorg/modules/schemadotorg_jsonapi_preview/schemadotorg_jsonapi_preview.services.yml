@@ -1,0 +1,7 @@
+services:
+  schemadotorg_jsonapi_preview.access_checker:
+    class: Drupal\schemadotorg_jsonapi_preview\SchemaDotOrgJsonApiPreviewAccessChecker
+    arguments: ['@config.factory', '@current_user', '@router.admin_context', '@plugin.manager.condition']
+  schemadotorg_jsonapi_preview.builder:
+    class: Drupal\schemadotorg_jsonapi_preview\SchemaDotOrgJsonApiPreviewBuilder
+    arguments: ['@current_route_match', '@renderer', '@jsonapi.resource_type.repository', '@jsonapi_extras.entity.to_jsonapi', '@schemadotorg_jsonapi.manager']

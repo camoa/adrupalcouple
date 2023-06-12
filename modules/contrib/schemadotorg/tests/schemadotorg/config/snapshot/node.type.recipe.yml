@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies: {  }
+name: Recipe
+type: recipe
+description: 'A recipe. For dietary restrictions covered by the recipe, a few common restrictions are enumerated via <a href="https://schema.org/suitableForDiet">suitableForDiet</a>. The <a href="https://schema.org/keywords">keywords</a> property can also be used to add more detail.'
+help: null
+new_revision: true
+preview_mode: 1
+display_submitted: true

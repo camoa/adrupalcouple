@@ -1,0 +1,14 @@
+generate_property_values:
+  givenName:
+    - John
+    - Paul
+    - Ringo
+    - George
+  familyName:
+    - Lennon
+    - McCartney
+    - Starr
+    - Harrison
+  additionalName: {  }
+  honorificPrefix: {  }
+  honorificSuffix: {  }

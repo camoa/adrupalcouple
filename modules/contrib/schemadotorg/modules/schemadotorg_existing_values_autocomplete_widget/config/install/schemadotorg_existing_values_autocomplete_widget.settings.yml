@@ -1,0 +1,10 @@
+default_properties:
+  - alumniOf
+  - birthPlace
+  - industry
+  - jobTitle
+  - keywords
+  - skills
+  - physicalRequirement
+  - programType
+  - teaches

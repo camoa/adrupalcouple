@@ -1,0 +1,13 @@
+schemadotorg_options.settings:
+  type: config_entity
+  label: Schema.org Options settings
+  mapping:
+    property_allowed_values:
+      type: sequence
+      label: 'Schema.org property'
+      sequence:
+        type: sequence
+        label: 'Allowed values'
+        sequence:
+          type: text
+          label: 'Text'

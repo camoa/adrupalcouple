@@ -1,0 +1,14 @@
+name: 'Schema.org Blueprints Focal Point'
+type: module
+description: 'Enables focal point for Schema.org images and generates default image styles for decoupled front-ends.'
+package: Schema.org Blueprints Fields
+core_version_requirement: '^9.4 || ^10.0'
+configure: schemadotorg.settings.types
+dependencies:
+  - 'focal_point:focal_point'
+  - 'schemadotorg:schemadotorg'
+
+# Information added by Drupal.org packaging script on 2023-06-02
+version: '1.0.0-alpha4'
+project: 'schemadotorg'
+datestamp: 1685723540

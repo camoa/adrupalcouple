@@ -1,0 +1,55 @@
+<?php
+
+/**
+ * @file
+ * Contains custom_field.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_help().
+ */
+function custom_field_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the flexfield module.
+    case 'help.page.custom_field':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Create simple, but flexible, multivalue fields without the hassle of entity references.') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function custom_field_theme(): array {
+  return [
+    'customfield' => [
+      'variables' => [
+        'items' => [],
+        'field_name' => [],
+      ],
+      'file' => 'custom_field.theme.inc',
+    ],
+  ];
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function custom_field_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  if ($form_id == 'field_storage_config_edit_form') {
+    if (($field_config = $form_state->get('field_config')) && $field_config->get('field_type') == 'custom') {
+      array_unshift(
+        $form['actions']['submit']['#submit'],
+        'Drupal\custom_field\Plugin\Field\FieldType\CustomItem::submitStorageConfigEditForm'
+      );
+    }
+  }
+
+}

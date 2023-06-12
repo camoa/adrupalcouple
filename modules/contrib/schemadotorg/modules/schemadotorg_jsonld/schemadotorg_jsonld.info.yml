@@ -1,0 +1,13 @@
+name: 'Schema.org Blueprints JSON-LD'
+type: module
+description: 'Builds and adds Schema.org structured data as JSON-LD in the head of web pages.'
+package: Schema.org Blueprints JSON-LD
+core_version_requirement: '^9.4 || ^10.0'
+configure: schemadotorg_jsonld.settings
+dependencies:
+  - 'schemadotorg:schemadotorg'
+
+# Information added by Drupal.org packaging script on 2023-06-02
+version: '1.0.0-alpha4'
+project: 'schemadotorg'
+datestamp: 1685723540

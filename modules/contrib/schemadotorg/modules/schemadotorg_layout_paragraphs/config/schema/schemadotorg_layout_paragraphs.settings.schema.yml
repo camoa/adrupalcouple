@@ -1,0 +1,22 @@
+schemadotorg_layout_paragraphs.settings:
+  type: config_entity
+  label: 'Schema.org Layout Paragraphs settings'
+  mapping:
+    default_schema_types:
+      type: sequence
+      label: 'Default Schema.org types'
+      sequence:
+        type: string
+        label: 'Schema.org type'
+    default_paragraph_types:
+      type: sequence
+      label: 'Default paragraph types'
+      sequence:
+        type: string
+        label: 'Paragraph type'
+    themes:
+      type: sequence
+      label: 'Default themes'
+      sequence:
+        type: string
+        label: 'Default theme'

@@ -1,0 +1,18 @@
+schemadotorg_jsonapi_preview.settings:
+  type: config_entity
+  label: Schema.org JSON:API preview settings
+  mapping:
+    visibility:
+      type: mapping
+      label: 'JSON:API preview visibility'
+      mapping:
+        request_path:
+          type: mapping
+          label: 'Request path'
+          mapping:
+            pages:
+              type: string
+              label: 'Pages'
+            negate:
+              type: boolean
+              label: 'Hide for the listed pages'

@@ -1,0 +1,19 @@
+property_allowed_values:
+  gender:
+    Male: Male
+    Female: Female
+    Unspecified: Unspecified
+  contactType:
+    Home: Home
+    Work: Work
+    Cell: Cell
+  honorificPrefix:
+    Dr: Dr
+    Mrs: Mrs
+    Miss: Miss
+    Mr: Mr
+    Mx: Mx
+  honorificSuffix:
+    MD: 'M.D.'
+    PHD: 'PhD'
+    MSCSW: 'MSCSW'

@@ -1,0 +1,14 @@
+name: 'Schema.org Blueprints Scheduler'
+type: module
+description: 'Automatically enables scheduling for Schema.org types as they are created.'
+package: Schema.org Blueprints Other
+core_version_requirement: '^9.4 || ^10.0'
+configure: schemadotorg.settings.types
+dependencies:
+  - 'drupal:scheduler'
+  - 'schemadotorg:schemadotorg'
+
+# Information added by Drupal.org packaging script on 2023-06-02
+version: '1.0.0-alpha4'
+project: 'schemadotorg'
+datestamp: 1685723540

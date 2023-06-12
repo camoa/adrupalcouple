@@ -1,0 +1,23 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.ctas.schema_ctas_item_list_element
+    - paragraphs.paragraphs_type.ctas
+  module:
+    - entity_reference_revisions
+id: paragraph.ctas.default
+targetEntityType: paragraph
+bundle: ctas
+mode: default
+content:
+  schema_ctas_item_list_element:
+    type: entity_reference_revisions_entity_view
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 54
+    region: content
+hidden: {  }

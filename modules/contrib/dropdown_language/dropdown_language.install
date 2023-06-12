@@ -1,0 +1,27 @@
+<?php
+
+/**
+ * @file
+ * Install, update, and uninstall functions for dropdown_language.
+ *
+ * @ingroup dropdown_language
+ */
+
+/**
+ * Update labels block schema.
+ */
+function dropdown_language_update_8201() {
+  /** @var \Drupal\block\Entity\Block[] $blocks */
+  $blocks = \Drupal::entityTypeManager()
+    ->getStorage('block')
+    ->loadByProperties(['plugin' => 'dropdown_language:language_interface']);
+
+  foreach ($blocks as $block) {
+    $settings = $block->get('settings');
+    if ($settings['labels'] === NULL) {
+      $settings['labels'] = [];
+      $block->set('settings', $settings);
+      $block->save();
+    }
+  }
+}

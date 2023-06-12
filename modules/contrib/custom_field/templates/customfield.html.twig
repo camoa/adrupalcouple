@@ -1,0 +1,49 @@
+{#
+/**
+ * @file
+ * Default theme template for customfields.
+ *
+ * To override output, copy the "customfield.html.twig" from the templates directory
+ * to your theme's directory and customize it, just like customizing other
+ * Drupal templates such as page.html.twig or node.html.twig.
+ *
+ * Instead of overriding the theming for all fields, you can also just override
+ * theming for a subset of fields using
+ * @link themeable Theme hook suggestions. @endlink For example,
+ * here are some theme hook suggestions that can be used for a field_foo field
+ * on an article node type:
+ * - field--field-my-field-name.html.twig
+ *
+ * Available variables:
+ * - items: An array of customfield items. Available keys are:
+ *   - value: The customfield item value.
+ *   - label: The customfield item label.
+ *   - label_display: How to display the label.
+ *   - attributes: Attributes for the customfield item wrapper.
+ * - attributes: HTML attributes for the containing element.
+ * - field_name: The name of the field.
+ *
+ * @see template_preprocess_field()
+ */
+#}
+{%
+  set classes = [
+    'customfield',
+    'customfield--' ~ field_name|clean_class,
+  ]
+%}
+<div{{ attributes.addClass(classes) }}>
+  {% for item in items %}
+    <div{{ item.attributes.addClass('customfield__item', 'customfield__item--' ~ item.name) }}>
+      {% if item.label_display == 'above' or item.label_display == 'visually_hidden' %}
+        <div class="customfield__label{{ (item.label_display == 'visually_hidden') ? ' visually-hidden' : '' }}">{{ item.label }}</div>
+        <div class="customfield__value">{{ item.value }}</div>
+      {% elseif item.label_display == 'inline' %}
+        <span class="customfield__label customfield__label--inline">{{ item.label }}</span>
+        <span class="customfield__value">{{ item.value }}</span>
+      {% else %}
+        <div class="customfield__value">{{ item.value }}</div>
+      {% endif %}
+    </div>
+  {% endfor %}
+</div>

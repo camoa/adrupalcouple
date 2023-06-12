@@ -1,0 +1,42 @@
+<?php
+
+/**
+ * @file
+ * Installation hooks for the Schema.org Blueprints module.
+ */
+
+declare(strict_types = 1);
+
+/**
+ * Implements hook_requirements().
+ */
+function schemadotorg_requirements(string $phase): ?array {
+  if ($phase !== 'runtime') {
+    return NULL;
+  }
+
+  /** @var \Drupal\schemadotorg\SchemaDotOrgInstallerInterface $installer */
+  $installer = \Drupal::service('schemadotorg.installer');
+  return $installer->requirements($phase);
+}
+
+/**
+ * Implements hook_install().
+ */
+function schemadotorg_install(bool $is_syncing): void {
+  /** @var \Drupal\schemadotorg\SchemaDotOrgInstallerInterface $installer */
+  $installer = \Drupal::service('schemadotorg.installer');
+  $installer->install();
+  if (!$is_syncing) {
+    $installer->installModules();
+  }
+}
+
+/**
+ * Implements hook_schema().
+ */
+function schemadotorg_schema(): array {
+  /** @var \Drupal\schemadotorg\SchemaDotOrgInstallerInterface $installer */
+  $installer = \Drupal::service('schemadotorg.installer');
+  return $installer->schema();
+}

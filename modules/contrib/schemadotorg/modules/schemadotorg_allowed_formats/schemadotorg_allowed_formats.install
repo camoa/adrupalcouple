@@ -1,0 +1,99 @@
+<?php
+
+/**
+ * @file
+ * Allows Allowed Formatss to be used to create Schema.org relationships.
+ */
+
+declare(strict_types = 1);
+
+use Drupal\field\Entity\FieldConfig;
+
+/**
+ * Implements hook_install().
+ */
+function schemadotorg_allowed_formats_install(bool $is_syncing): void {
+  if ($is_syncing) {
+    return;
+  }
+
+  // Apply allowed formats to existing article and page content types, which
+  // are part of Drupal's standard installation profile.
+  _schemadotorg_allowed_formats_apply('node', 'article', 'body');
+  _schemadotorg_allowed_formats_apply('node', 'page', 'body');
+
+  $modules = array_keys(\Drupal::moduleHandler()->getModuleList());
+  _schemadotorg_allowed_formats_modules_installed($modules);
+}
+
+/**
+ * Apply allowed formats to installed modules.
+ *
+ * @param array $modules
+ *   An array of modules.
+ */
+function _schemadotorg_allowed_formats_modules_installed(array $modules): void {
+  // Schema.org Action: CTA text.
+  if (in_array('schemadotorg_action', $modules)) {
+    _schemadotorg_allowed_formats_apply('paragraph', 'cta', 'schema_text', 'WebPage', 'text');
+  }
+
+  // Schema.org Editorial: Message and notes.
+  if (in_array('schemadotorg_editorial', $modules)) {
+    _schemadotorg_allowed_formats_apply('paragraph', 'editorial', 'field_editorial_message');
+    _schemadotorg_allowed_formats_apply('paragraph', 'editorial', 'field_editorial_notes');
+  }
+}
+
+/**
+ * Apply allowed formats to a Schema.org field definition.
+ *
+ * @param string $entity_type_id
+ *   The entity type.
+ * @param string $bundle
+ *   The bundle.
+ * @param string $field_name
+ *   The field name.
+ * @param string|null $schema_type
+ *   The Schema.org type.
+ * @param string|null $schema_property
+ *   The Schema.org property.
+ */
+function _schemadotorg_allowed_formats_apply(string $entity_type_id, string $bundle, string $field_name, ?string $schema_type = NULL, ?string $schema_property = NULL): void {
+  /** @var \Drupal\Core\Field\FieldConfigInterface $field */
+  $field = FieldConfig::loadByName($entity_type_id, $bundle, $field_name);
+  if (!$field) {
+    return;
+  }
+
+  $config = \Drupal::config('schemadotorg_allowed_formats.settings');
+
+  // Set default allowed formats.
+  $default_allowed_formats = $config->get('default_allowed_formats');
+  $property_allowed_formats = $config->get('property_allowed_formats');
+  $allowed_formats = $property_allowed_formats["$schema_type--$schema_property"]
+    ?? $property_allowed_formats[$schema_property]
+    ?? $default_allowed_formats;
+  if ($allowed_formats) {
+    $field->setThirdPartySetting('allowed_formats', 'allowed_formats', $allowed_formats);
+    $field->save();
+  }
+
+  // Set default hide help and default hide guidelines.
+  $default_hide_help = $config->get('default_hide_help');
+  $default_hide_guidelines = $config->get('default_hide_guidelines');
+  if ($default_hide_help || $default_hide_guidelines) {
+    /** @var \Drupal\Core\Entity\EntityDisplayRepositoryInterface $entity_display_repository */
+    $entity_display_repository = \Drupal::service('entity_display.repository');
+    $form_display = $entity_display_repository->getFormDisplay($entity_type_id, $bundle);
+    $form_component = $form_display->getComponent($field_name);
+    if ($default_hide_help) {
+      $form_component['third_party_settings']['allowed_formats']['hide_help'] = '1';
+    }
+    if ($default_hide_guidelines) {
+      $form_component['third_party_settings']['allowed_formats']['hide_guidelines'] = '1';
+    }
+    $form_display->setComponent($field_name, $form_component);
+    $form_display->save();
+  }
+}

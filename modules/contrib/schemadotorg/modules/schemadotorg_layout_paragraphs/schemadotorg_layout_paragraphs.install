@@ -1,0 +1,30 @@
+<?php
+
+/**
+ * @file
+ * Installation hooks for the Schema.org Blueprints Layout Paragraphs module.
+ */
+
+declare(strict_types = 1);
+
+use Drupal\paragraphs\Entity\ParagraphsType;
+
+/**
+ * Implements hook_install().
+ */
+function schemadotorg_layout_paragraphs_install(bool $is_syncing): void {
+  if ($is_syncing) {
+    return;
+  }
+
+  /** @var \Drupal\schemadotorg_layout_paragraphs\SchemaDotOrgLayoutParagraphsInstallerInterface $layout_paragraphs_installer */
+  $layout_paragraphs_installer = \Drupal::service('schemadotorg_layout_paragraphs.installer');
+  $layout_paragraphs_installer->install();
+
+  // Resave all the existing paragraphs types to enable style options.
+  // @see schemadotorg_layout_paragraphs_paragraphs_type_presave()
+  $paragraphs_types = ParagraphsType::loadMultiple();
+  foreach ($paragraphs_types as $paragraphs_type) {
+    $paragraphs_type->save();
+  }
+}

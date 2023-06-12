@@ -1,0 +1,17 @@
+/**
+ * @file
+ * Schema.org settings element styles.
+ */
+
+/* Hide/show YAML toggle */
+.compact-link.schemadotorg-settings-element-toggle {
+  margin: 0 0 0 0;
+}
+
+.compact-link.schemadotorg-settings-element-toggle + details {
+  margin-top: 0;
+}
+
+.compact-link.schemadotorg-settings-element-toggle + .form-item {
+  margin-top: 0;
+}

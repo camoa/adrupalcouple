@@ -1,0 +1,28 @@
+<?php
+
+/**
+ * @file
+ * Extracts embedded content from an entity.
+ */
+
+declare(strict_types = 1);
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_schemadotorg_jsonld().
+ *
+ * @see \Drupal\media\Plugin\Filter\MediaEmbed::process
+ */
+function schemadotorg_jsonld_embed_schemadotorg_jsonld(RouteMatchInterface $route_match): ?array {
+  /** @var \Drupal\schemadotorg_jsonld\SchemaDotOrgJsonLdManagerInterface $manager */
+  $manager = \Drupal::service('schemadotorg_jsonld.manager');
+  $entity = $manager->getRouteMatchEntity($route_match);
+  if (!$entity) {
+    return [];
+  }
+
+  /** @var \Drupal\schemadotorg_jsonld_embed\SchemaDotOrgJsonLdEmbedInterface $embed_manager */
+  $embed_manager = \Drupal::service('schemadotorg_jsonld_embed.manager');
+  return $embed_manager->build($entity);
+}

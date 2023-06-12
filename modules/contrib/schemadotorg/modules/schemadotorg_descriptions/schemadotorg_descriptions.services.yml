@@ -1,0 +1,11 @@
+services:
+  schemadotorg_descriptions.config_factory_override:
+    class: Drupal\schemadotorg_descriptions\Config\SchemaDotOrgDescriptionsConfigFactoryOverride
+    arguments: ['@config.factory', '@cache.data', '@cache.discovery', '@schemadotorg.schema_type_manager', '@schemadotorg.schema_type_builder']
+    tags:
+      - { name: config.factory.override }
+      - { name: event_subscriber }
+  schemadotorg_descriptions.breadcrumb:
+    class: Drupal\schemadotorg_descriptions\Breadcrumb\SchemaDotOrgDescriptionsBreadcrumbBuilder
+    tags:
+      - { name: breadcrumb_builder, priority: 1000 }

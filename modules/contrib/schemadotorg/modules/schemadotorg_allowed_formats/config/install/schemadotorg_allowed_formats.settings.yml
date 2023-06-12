@@ -1,0 +1,5 @@
+default_hide_help: true
+default_hide_guidelines: true
+default_allowed_formats:
+  - full_html
+property_allowed_formats: {  }

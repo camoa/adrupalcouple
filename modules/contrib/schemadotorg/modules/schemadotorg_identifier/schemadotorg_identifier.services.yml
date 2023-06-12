@@ -1,0 +1,4 @@
+services:
+  schemadotorg_identifier.manager:
+    class: Drupal\schemadotorg_identifier\SchemaDotOrgIdentifierManager
+    arguments: ['@config.factory', '@entity_field.manager', '@schemadotorg.schema_type_manager', '@schemadotorg.entity_type_builder', '@?schemadotorg_field_group.entity_display_builder']

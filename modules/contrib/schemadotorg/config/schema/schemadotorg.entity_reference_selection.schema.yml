@@ -1,0 +1,72 @@
+entity_reference_selection.schemadotorg_range_includes:
+  type: entity_reference_selection
+  label: 'Scheme.org type handler settings'
+  mapping:
+    target_type:
+      type: string
+      label: 'Type of item to reference'
+    target_bundles:
+      type: sequence
+      label: 'types'
+      nullable: true
+      sequence:
+        type: string
+        label: 'Bundle'
+    schemadotorg_mapping:
+      type: mapping
+      label: 'Schema.org field mapping'
+      mapping:
+        entity_type:
+          type: string
+          label: 'Entity type'
+        bundle:
+          type: string
+          label: 'Entity bundle'
+        field_name:
+          type: string
+          label: 'Field name'
+
+entity_reference_selection.schemadotorg_enumeration:
+  type: entity_reference_selection
+  label: 'Scheme.org enumeration handler settings'
+  mapping:
+    target_type:
+      type: string
+      label: 'Type of item to reference'
+    schemadotorg_mapping:
+      type: mapping
+      label: 'Schema.org field mapping'
+      mapping:
+        entity_type:
+          type: string
+          label: 'Entity type'
+        bundle:
+          type: string
+          label: 'Entity bundle'
+        field_name:
+          type: string
+          label: 'Field name'
+
+entity_reference_selection.schemadotorg_type:
+  type: entity_reference_selection
+  label: 'Scheme.org type handler settings'
+  mapping:
+    target_type:
+      type: string
+      label: 'Type of item to reference'
+    depth:
+      type: integer
+      label: 'Depth'
+    schemadotorg_mapping:
+      type: mapping
+      label: 'Schema.org field mapping'
+      mapping:
+        entity_type:
+          type: string
+          label: 'Entity type'
+        bundle:
+          type: string
+          label: 'Entity bundle'
+        field_name:
+          type: string
+          label: 'Field name'

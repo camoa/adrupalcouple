@@ -1,0 +1,74 @@
+<?php
+
+/**
+ * @file
+ * Adds Drupal's breadcrumb to the Schema.org JSON-LD for the current route.
+ */
+
+declare(strict_types = 1);
+
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Url;
+
+/**
+ * Implements hook_schemadotorg_jsonld().
+ */
+function schemadotorg_jsonld_breadcrumb_schemadotorg_jsonld(RouteMatchInterface $route_match): ?array {
+  /** @var \Drupal\Core\Breadcrumb\BreadcrumbManager $breadcrumb_manager */
+  $breadcrumb_manager = \Drupal::service('breadcrumb');
+  if (!$breadcrumb_manager->applies($route_match)) {
+    return NULL;
+  }
+
+  $breadcrumb = $breadcrumb_manager->build($route_match);
+  $links = $breadcrumb->getLinks();
+  if (empty($links)) {
+    return NULL;
+  }
+
+  /** @var \Drupal\Core\Render\RendererInterface $renderer */
+  $renderer = \Drupal::service('renderer');
+
+  $items = [];
+  $position = 1;
+  foreach ($links as $link) {
+    $id = $link->getUrl()->setAbsolute()->toString();
+    $text = $link->getText();
+    if (is_array($text)) {
+      $text = $renderer->renderPlain($text);
+    }
+
+    $items[] = [
+      '@type' => 'ListItem',
+      'position' => $position,
+      'item' => [
+        '@id' => $id,
+        'name' => (string) $text,
+      ],
+    ];
+    $position++;
+  }
+
+  // Append the current route's entity to breadcrumb item list.
+  /** @var \Drupal\schemadotorg_jsonld\SchemaDotOrgJsonLdManagerInterface $manager */
+  $manager = \Drupal::service('schemadotorg_jsonld.manager');
+  $entity = $manager->getRouteMatchEntity($route_match);
+  if ($entity) {
+    $title = $entity->label();
+    $uri = Url::fromRouteMatch($route_match)->setAbsolute()->toString();
+    $items[] = [
+      '@type' => 'ListItem',
+      'position' => $position,
+      'item' => [
+        '@id' => $uri,
+        'name' => $title,
+      ],
+    ];
+  }
+
+  return [
+    '@context' => 'https://schema.org',
+    '@type' => 'BreadcrumbList',
+    'itemListElement' => $items,
+  ];
+}

@@ -1,0 +1,324 @@
+<?php
+
+/**
+ * @file
+ * Sets entity/field descriptions to their corresponding Schema.org comments.
+ */
+
+declare(strict_types = 1);
+
+use Drupal\Core\Cache\Cache;
+use Drupal\Core\Config\Entity\ConfigEntityBundleBase;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\field\FieldConfigInterface;
+use Drupal\schemadotorg\Element\SchemaDotOrgSettings;
+use Drupal\schemadotorg\Entity\SchemaDotOrgMapping;
+use Drupal\schemadotorg\Utility\SchemaDotOrgStringHelper;
+use Drupal\schemadotorg_ui\Form\SchemaDotOrgUiMappingForm;
+
+/**
+ * Implements hook_entity_load().
+ */
+function schemadotorg_descriptions_entity_load(array $entities, string $entity_type_id): void {
+  // Only alter description on the entity type collection page.
+  if (\Drupal::routeMatch()->getRouteName() !== "entity.$entity_type_id.collection") {
+    return;
+  }
+
+  /** @var \Drupal\Core\Config\Entity\ConfigEntityType $entity_type_definition */
+  $entity_type_definition = \Drupal::entityTypeManager()->getDefinition($entity_type_id);
+  $target_entity_type_id = $entity_type_definition->getBundleOf();
+
+  /** @var \Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface $schema_type_manager */
+  $schema_type_manager = \Drupal::service('schemadotorg.schema_type_manager');
+  /** @var \Drupal\schemadotorg\SchemaDotOrgSchemaTypeBuilderInterface $schema_type_builder */
+  $schema_type_builder = \Drupal::service('schemadotorg.schema_type_builder');
+
+  $options = ['base_path' => 'https://schema.org/'];
+  $trim_descriptions = \Drupal::config('schemadotorg_descriptions.settings')
+    ->get('trim_descriptions');
+  $custom_descriptions = \Drupal::config('schemadotorg_descriptions.settings')
+    ->get('custom_descriptions');
+
+  /** @var \Drupal\Core\Entity\EntityInterface[] $entities */
+  foreach ($entities as $entity) {
+    // Only set description for config entity bundles and if it is empty.
+    if (!$entity instanceof ConfigEntityBundleBase || !empty($entity->get('description'))) {
+      continue;
+    }
+
+    // Get mapping for target entity type and bundle.
+    $target_bundle = $entity->id();
+    $mapping = SchemaDotOrgMapping::load("$target_entity_type_id.$target_bundle");
+    if (!$mapping) {
+      continue;
+    }
+
+    $schema_type = $mapping->getSchemaType();
+    if (array_key_exists($schema_type, $custom_descriptions)) {
+      $description = $custom_descriptions[$schema_type];
+    }
+    else {
+      $type_definition = $schema_type_manager->getType($schema_type);
+      $comment = $type_definition['comment'];
+      // Trim description.
+      if ($trim_descriptions) {
+        $comment = SchemaDotOrgStringHelper::getFirstSentence($comment);
+      }
+      $description = $schema_type_builder->formatComment($comment, $options);
+    }
+
+    if ($description) {
+      $entity->set('description', $description);
+    }
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * Sets the node title field's description to the coresponding
+ * Schema.org property's comment.
+ */
+function schemadotorg_descriptions_form_node_form_alter(array &$form, FormStateInterface $form_state, string $form_id): void {
+  if (!empty($form['title']['widget'][0]['value']['#description'])) {
+    return;
+  }
+
+  /** @var \Drupal\node\NodeInterface $node */
+  $node = $form_state->getFormObject()->getEntity();
+
+  /** @var \Drupal\schemadotorg\SchemaDotOrgMappingInterface $mapping */
+  $mapping = SchemaDotOrgMapping::loadByEntity($node);
+  if (!$mapping) {
+    return;
+  }
+
+  /** @var \Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface $schema_type_manager */
+  $schema_type_manager = \Drupal::service('schemadotorg.schema_type_manager');
+  $schema_type = $mapping->getSchemaType();
+  $schema_property = $mapping->getSchemaPropertyMapping('title');
+  if (!$schema_property) {
+    return;
+  }
+  $config = \Drupal::config('schemadotorg_descriptions.settings');
+  $description = $config->get("custom_descriptions.$schema_type--$schema_property")
+    ?? $config->get("custom_descriptions.$schema_property")
+    ?? t($schema_type_manager->getProperty($schema_property)['comment']);
+  $form['title']['widget'][0]['value']['#description'] = $description;
+}
+
+/**
+ * Implements hook_form_BASE_FORM_ID_alter().
+ */
+function schemadotorg_descriptions_form_schemadotorg_mapping_form_alter(array &$form, FormStateInterface $form_state, string $form_id): void {
+  if (!\Drupal::moduleHandler()->moduleExists('schemadotorg_ui')) {
+    return;
+  }
+  /** @var \Drupal\schemadotorg\Form\SchemaDotOrgMappingForm $form_object */
+  $form_object = $form_state->getFormObject();
+  /** @var \Drupal\schemadotorg\SchemaDotOrgMappingInterface $mapping */
+  $mapping = $form_object->getEntity();
+
+  // Exit if no Schema.org type has been selected.
+  if (!$mapping->getSchemaType()) {
+    return;
+  }
+
+  $add_field = SchemaDotOrgUiMappingForm::ADD_FIELD;
+
+  /** @var \Drupal\schemadotorg_ui\Form\SchemaDotOrgUiMappingForm $form_object */
+  $form_object = $form_state->getFormObject();
+  $schema_type = $form_object->getEntity()->getSchemaType();
+
+  /** @var \Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface $schema_type_manager */
+  $schema_type_manager = \Drupal::service('schemadotorg.schema_type_manager');
+  /** @var \Drupal\schemadotorg\SchemaDotOrgSchemaTypeBuilderInterface $schema_type_builder */
+  $schema_type_builder = \Drupal::service('schemadotorg.schema_type_builder');
+
+  $config = \Drupal::config('schemadotorg_descriptions.settings');
+  $type_definition = $schema_type_manager->getType($schema_type);
+  $description = $config->get("custom_descriptions.$schema_type")
+    ?? $schema_type_builder->formatComment($type_definition['comment'], ['base_path' => 'https://schema.org/']);
+
+  // Unset the entity's default value and append a note to the description.
+  if (isset($form['mapping']['entity']['description'])
+    && $form['mapping']['entity']['description']['#default_value'] === $description) {
+    $form['mapping']['entity']['description']['#default_value'] = '';
+    $form['mapping']['entity']['description']['#description'] .= '<br/>'
+     . '<strong>' . t("If left blank, the description will be automatically set to the corresponding Schema.org type's comment.") . '</strong>';
+  }
+
+  // Unset each field's default value and append a note to the description.
+  if (isset($form['mapping']['properties'])) {
+    foreach ($form['mapping']['properties'] as &$element) {
+      if (isset($element['field'][$add_field]['description'])) {
+        $element['field'][$add_field]['description']['#default_value'] = '';
+        $element['field'][$add_field]['description']['#description'] .= '<br/>'
+          . '<strong>' . t("If left blank, the description will be automatically set to the corresponding Schema.org property's comment.") . '</strong>';
+      }
+    }
+  }
+
+  // Append a note to custom descriptions.
+  // @see schemadotorg_layout_paragraphs.module
+  // @see schemadotorg_subtype.module
+  $custom_descriptions = \Drupal::config('schemadotorg_descriptions.settings')
+    ->get('custom_descriptions');
+  foreach (array_keys($custom_descriptions) as $schema_property) {
+    if (isset($form['mapping'][$schema_property][$add_field]['description'])) {
+      $form['mapping'][$schema_property][$add_field]['description']['#default_value'] = '';
+      $form['mapping'][$schema_property][$add_field]['description']['#description'] .= '<br/>'
+        . '<strong>' . t("If left blank, the description will be automatically set.") . '</strong>';
+    }
+
+  }
+}
+
+/**
+ * Implements hook_entity_prepare_form().
+ */
+function schemadotorg_descriptions_entity_prepare_form(EntityInterface $entity, string $operation, FormStateInterface $form_state): void {
+  if ($entity instanceof ConfigEntityBundleBase) {
+    $target_entity_type_id = $entity->getEntityType()->getBundleOf();
+    $target_bundle = $entity->id();
+    $mapping = SchemaDotOrgMapping::load("$target_entity_type_id.$target_bundle");
+    if (!$mapping) {
+      return;
+    }
+
+    $form_state->set('schemadotorg_descriptions', TRUE);
+  }
+  elseif ($entity instanceof FieldConfigInterface) {
+    $target_entity_type_id = $entity->getTargetEntityTypeId();
+    $target_bundle = $entity->getTargetBundle();
+    $field_name = $entity->getName();
+
+    /** @var \Drupal\schemadotorg\SchemaDotOrgMappingInterface $mapping */
+    $mapping = SchemaDotOrgMapping::load("$target_entity_type_id.$target_bundle");
+    if (!$mapping || !$mapping->getSchemaPropertyMapping($field_name)) {
+      return;
+    }
+
+    $form_state->set('schemadotorg_descriptions', TRUE);
+  }
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function schemadotorg_descriptions_form_alter(array &$form, FormStateInterface $form_state, string $form_id): void {
+  if ($form_state->get('schemadotorg_descriptions')
+    && isset($form['description']['#description'])) {
+    $form['description']['#description'] .= '<br/>'
+      . '<strong>' . t("If left blank, the description will be automatically set to the corresponding Schema.org type's comment") . '</strong>';
+  }
+}
+
+/**
+ * Implements hook_schemadotorg_bundle_entity_alter().
+ */
+function schemadotorg_descriptions_schemadotorg_bundle_entity_alter(array &$values, string $schema_type, string $entity_type_id): void {
+  $entity_values =& $values['entity'];
+
+  /** @var \Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface $schema_type_manager */
+  $schema_type_manager = \Drupal::service('schemadotorg.schema_type_manager');
+  /** @var \Drupal\schemadotorg\SchemaDotOrgSchemaTypeBuilderInterface $schema_type_builder */
+  $schema_type_builder = \Drupal::service('schemadotorg.schema_type_builder');
+
+  $definition = $schema_type_manager->getType($schema_type);
+  $description = $schema_type_builder->formatComment($definition['comment'], ['base_path' => 'https://schema.org/']);
+  if ($entity_values['description'] === $description) {
+    $entity_values['description'] = '';
+  }
+}
+
+/**
+ * Implements hook_schemadotorg_property_field_alter().
+ */
+function schemadotorg_descriptions_schemadotorg_property_field_alter(
+  string $schema_type,
+  string $schema_property,
+  array &$field_storage_values,
+  array &$field_values,
+  ?string &$widget_id,
+  array &$widget_settings,
+  ?string &$formatter_id,
+  array &$formatter_settings
+): void {
+  /** @var \Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface $schema_type_manager */
+  $schema_type_manager = \Drupal::service('schemadotorg.schema_type_manager');
+  /** @var \Drupal\schemadotorg\SchemaDotOrgSchemaTypeBuilderInterface $schema_type_builder */
+  $schema_type_builder = \Drupal::service('schemadotorg.schema_type_builder');
+
+  // Check Schema.org property and subtype for description.
+  $property_definition = $schema_type_manager->getProperty($schema_property);
+  if ($property_definition) {
+    $description = $schema_type_builder->formatComment($property_definition['comment'], ['base_path' => 'https://schema.org/']);
+  }
+  elseif ($schema_property === 'subtype') {
+    $description = \Drupal::configFactory()
+      ->get('schemadotorg_subtype.settings')
+      ->get('default_field_description');
+  }
+  else {
+    $description = NULL;
+  }
+
+  // Unset the field's description if it has not been altered.
+  if ($field_values['description'] === $description) {
+    $field_values['description'] = '';
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function schemadotorg_descriptions_form_schemadotorg_general_settings_form_alter(array &$form, FormStateInterface $form_state): void {
+  $form['schemadotorg_descriptions'] = [
+    '#type' => 'details',
+    '#title' => t('Description settings'),
+    '#open' => TRUE,
+    '#tree' => TRUE,
+    '#weight' => -10,
+  ];
+  $form['schemadotorg_descriptions']['custom_descriptions'] = [
+    '#title' => t('Custom Schema.org type and property descriptions'),
+    '#type' => 'schemadotorg_settings',
+    '#settings_type' => SchemaDotOrgSettings::ASSOCIATIVE,
+    '#settings_format' => 'SchemeType or SchemeType|description or propertyName or propertyName|description',
+    '#description' => t('Enter custom Schema.org type and property descriptions. Leave the description blank to remove the default description provided by Schema.org.'),
+    '#description_link' => 'types',
+  ];
+  $form['schemadotorg_descriptions']['trim_descriptions'] = [
+    '#title' => t('Trim long Schema.org type and property descriptions'),
+    '#type' => 'checkbox',
+    '#description' => t("If checked, long Schema.org type and property descriptions will be truncated to the first paragraphs and a 'learn more' link will be appended to the description."),
+    '#return_value' => TRUE,
+  ];
+  $form['schemadotorg_descriptions']['help_descriptions'] = [
+    '#title' => t('Set explanation or submission guidelines to the Schema.org type descriptions'),
+    '#type' => 'checkbox',
+    '#description' => t("If checked, Schema.org type descriptions will also be displayed as the explanation/submission guidelines. Explanation/submission guidelines are only applicable to content types."),
+    '#return_value' => TRUE,
+  ];
+
+  $form['#submit'][] = 'schemadotorg_descriptions_general_settings_submit';
+}
+
+/**
+ * Form submission handler for schemadotorg_description_settings_form().
+ *
+ * @see schemadotorg_descriptions_form_schemadotorg_general_settings_form_alter()
+ */
+function schemadotorg_descriptions_general_settings_submit(array &$form, FormStateInterface $form_state): void {
+  // Clear cache bins to make sure descriptions are updated.
+  $cache_backends = Cache::getBins();
+  $service_ids = ['data', 'discovery', 'dynamic_page_cache'];
+  foreach ($service_ids as $service_id) {
+    if (isset($cache_backends[$service_id])) {
+      $cache_backends[$service_id]->deleteAll();
+    }
+  }
+}

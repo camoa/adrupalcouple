@@ -1,0 +1,10 @@
+default_properties:
+  - episode
+  - hasCourseInstance
+default_form_displays:
+  - Episode
+  - Course
+  - Person
+default_form_display_components:
+  - title
+  - status

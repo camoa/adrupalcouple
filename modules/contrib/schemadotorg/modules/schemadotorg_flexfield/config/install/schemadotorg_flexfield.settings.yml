@@ -1,0 +1,33 @@
+default_properties:
+  contactPoint:
+    type: ContactPoint
+    properties:
+      contactType: text
+      email: text
+      telephone: text
+  nutrition:
+    type: NutritionInformation
+    properties:
+      servingSize: text
+      calories: decimal
+      carbohydrateContent: decimal
+      cholesterolContent: decimal
+      fatContent: decimal
+      fiberContent: decimal
+      proteinContent: decimal
+      saturatedFatContent: decimal
+      sodiumContent: decimal
+      sugarContent: decimal
+      transFatContent: decimal
+      unsaturatedFatContent: decimal
+  FAQPage--mainEntity:
+    type: Question
+    properties:
+      name: text
+      acceptedAnswer: text
+  QAPage--mainEntity:
+    type: Question
+    properties:
+      name: text
+      acceptedAnswer: text
+

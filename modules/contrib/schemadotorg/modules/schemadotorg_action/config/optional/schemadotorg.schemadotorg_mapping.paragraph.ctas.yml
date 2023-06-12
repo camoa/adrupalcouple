@@ -1,0 +1,12 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.ctas.schema_ctas_item_list_element
+    - paragraphs.paragraphs_type.ctas
+id: paragraph.ctas
+target_entity_type_id: paragraph
+target_bundle: ctas
+schema_type: ItemList
+schema_properties:
+  schema_ctas_item_list_element: itemListElement

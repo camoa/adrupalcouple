@@ -1,0 +1,16 @@
+schemadotorg_jsonld.settings:
+  type: config_entity
+  label: Schema.org JSON-LD settings
+  mapping:
+    property_order:
+      type: sequence
+      label: 'Schema.org property order'
+      sequence:
+        type: string
+        label: 'Schema.org property'
+    property_image_styles:
+      type: sequence
+      label: 'Field name image styles'
+      sequence:
+        type: string
+        label: 'Field name image style'

@@ -1,0 +1,33 @@
+uuid: 26cd477d-f52b-4406-8838-e2e395fd52b8
+langcode: en
+status: true
+dependencies:
+  module:
+    - comment
+    - contextual
+    - file
+    - node
+    - path
+    - system
+    - toolbar
+    - tour
+_core:
+  default_config_hash: Wur9kcEOwY1Jal81NssKnz3RhVJxAvBwyWQBGcA_1Go
+id: content_editor
+label: 'Content editor'
+weight: 2
+is_admin: false
+permissions:
+  - 'access administration pages'
+  - 'access content overview'
+  - 'access contextual links'
+  - 'access files overview'
+  - 'access toolbar'
+  - 'access tour'
+  - 'administer url aliases'
+  - 'create url aliases'
+  - 'edit own comments'
+  - 'revert all revisions'
+  - 'view all revisions'
+  - 'view own unpublished content'
+  - 'view the administration theme'

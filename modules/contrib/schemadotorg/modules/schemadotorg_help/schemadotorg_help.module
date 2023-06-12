@@ -1,0 +1,73 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for Schema.org module.
+ */
+
+declare(strict_types = 1);
+
+use Drupal\Component\Serialization\Json;
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Url;
+
+/**
+ * Implements hook_help().
+ */
+function schemadotorg_help_help(string $route_name, RouteMatchInterface $route_match): string|array|NULL {
+  switch ($route_name) {
+    case 'entity.schemadotorg_mapping.collection':
+      $build = [
+        '#prefix' => '<p>',
+        '#suffix' => '</p>',
+      ];
+      $build['learn_more'] = [
+        '#type' => 'link',
+        '#title' => t('Learn more about the Schema.org Blueprints module'),
+        '#url' => Url::fromRoute('schemadotorg_help.page', ['name' => 'schemadotorg']),
+      ];
+      $build['or'] = [
+        '#prefix' => ' ',
+        '#markup' => t('or'),
+        '#suffix' => ' &nbsp;',
+      ];
+      $build['video'] = [
+        '#type' => 'link',
+        '#title' => t('► Watch videos'),
+        '#url' => Url::fromRoute('schemadotorg_help.videos'),
+        '#attributes' => [
+          'class' => [
+            'use-ajax',
+            'button',
+            'button--small',
+            'button--extrasmall',
+          ],
+          'data-dialog-type' => 'modal',
+          'data-dialog-options' => Json::encode([
+            'width' => 800,
+          ]),
+        ],
+      ];
+      return $build;
+
+    default:
+      return NULL;
+  }
+}
+
+/**
+ * Preprocess variables for help-section.html.twig.
+ */
+function schemadotorg_help_preprocess_help_section(array &$variables) {
+  // Remove all 'schemadotorg' links from the 'Module overviews'.
+  if ((string) $variables['title'] === (string) t('Module overviews')) {
+    /** @var \Drupal\Core\Link[] $links */
+    $links =& $variables['links'];
+    foreach ($links as $key => $link) {
+      $module_name = $link->getUrl()->getRouteParameters()['name'] ?? '';
+      if (str_starts_with($module_name, 'schemadotorg')) {
+        unset($links[$key]);
+      }
+    }
+  }
+}

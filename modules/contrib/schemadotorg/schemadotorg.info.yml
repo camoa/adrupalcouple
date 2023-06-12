@@ -1,0 +1,22 @@
+name: 'Schema.org Blueprints'
+type: module
+description: 'Uses Schema.org as the blueprint for the content architecture and structured data in a Drupal website.'
+package: Schema.org Blueprints Core
+core_version_requirement: '^9.4 || ^10.0'
+configure: entity.schemadotorg_mapping.collection
+dependencies:
+  - 'drupal:node'
+  - 'drupal:user'
+  - 'drupal:field'
+  - 'drupal:datetime'
+  - 'drupal:image'
+  - 'drupal:link'
+  - 'drupal:options'
+  - 'drupal:telephone'
+  - 'drupal:text'
+
+
+# Information added by Drupal.org packaging script on 2023-06-02
+version: '1.0.0-alpha4'
+project: 'schemadotorg'
+datestamp: 1685723540

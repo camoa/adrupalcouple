@@ -1,0 +1,4 @@
+services:
+  plugin.manager.customfield_type:
+    class: Drupal\custom_field\Plugin\CustomFieldTypeManager
+    parent: default_plugin_manager

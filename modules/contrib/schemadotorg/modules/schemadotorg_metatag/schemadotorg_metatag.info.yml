@@ -1,0 +1,14 @@
+name: 'Schema.org Blueprints Metatag'
+type: module
+description: 'Automatically adds a metatag field to Schema.org types.'
+package: Schema.org Blueprints SEO
+core_version_requirement: '^9.4 || ^10.0'
+configure: schemadotorg.settings.types
+dependencies:
+  - 'metatag:metatag'
+  - 'schemadotorg:schemadotorg'
+
+# Information added by Drupal.org packaging script on 2023-06-02
+version: '1.0.0-alpha4'
+project: 'schemadotorg'
+datestamp: 1685723540

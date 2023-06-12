@@ -1,0 +1,24 @@
+<?php
+
+/**
+ * @file
+ * Installation hooks for the Schema.org Blueprints Focal Point module.
+ */
+
+declare(strict_types = 1);
+
+/**
+ * Implements hook_install().
+ */
+function schemadotorg_focal_point_install(bool $is_syncing): void {
+  if ($is_syncing) {
+    return;
+  }
+
+  $image_styles = \Drupal::config('schemadotorg_focal_point.settings')
+    ->get('image_styles');
+  /** @var \Drupal\schemadotorg_focal_point\SchemaDotOrgFocalPointManagerInterface $focal_point_manager */
+  $focal_point_manager = \Drupal::service('schemadotorg_focal_point.manager');
+  $focal_point_manager->resetImageStyles($image_styles);
+
+}

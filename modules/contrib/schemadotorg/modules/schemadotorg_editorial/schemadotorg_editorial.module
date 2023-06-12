@@ -1,0 +1,209 @@
+<?php
+
+/**
+ * @file
+ * Adds an 'Editorial information' paragraph to the sidebar on every node edit form.
+ */
+
+declare(strict_types = 1);
+
+use Drupal\Component\Utility\Random;
+use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\field\Entity\FieldConfig;
+use Drupal\field\Entity\FieldStorageConfig;
+use Drupal\node\NodeInterface;
+use Drupal\schemadotorg\SchemaDotOrgMappingInterface;
+
+/**
+ * Implements hook_schemadotorg_mapping_insert().
+ */
+function schemadotorg_editorial_schemadotorg_mapping_insert(SchemaDotOrgMappingInterface $mapping): void {
+  if (\Drupal::isConfigSyncing()) {
+    return;
+  }
+
+  $entity_type = $mapping->getTargetEntityTypeId();
+  $bundle = $mapping->getTargetBundle();
+  $field_name = 'field_editorial';
+  $group_name = 'group_editorial';
+  $target_paragraph_type = 'editorial';
+
+  // Make sure we are adding sidebars to nodes.
+  if ($entity_type !== 'node') {
+    return;
+  }
+
+  // Create the field storage.
+  $field_storage = FieldStorageConfig::loadByName('node', $field_name);
+  if (!FieldStorageConfig::loadByName('node', $field_name)) {
+    $field_storage = FieldStorageConfig::create([
+      'field_name' => $field_name,
+      'entity_type' => $entity_type,
+      'type' => 'entity_reference_revisions',
+      'cardinality' => 1,
+      'settings' => [
+        'target_type' => 'paragraph',
+      ],
+    ]);
+    $field_storage->save();
+  }
+
+  // Create the field instance.
+  $field_config = FieldConfig::loadByName('node', $bundle, $field_name);
+  if (!$field_config) {
+    FieldConfig::create([
+      'field_storage' => $field_storage,
+      'bundle' => $bundle,
+      'label' => (string) t('Editorial information'),
+      'settings' => [
+        'handler' => 'default:paragraph',
+        'handler_settings' => [
+          'target_bundles' => [$target_paragraph_type => $target_paragraph_type],
+          'negate' => 0,
+          'target_bundles_drag_drop' => [
+            $target_paragraph_type => ['weight' => 0, 'enabled' => TRUE],
+          ],
+        ],
+      ],
+    ])->save();
+  }
+
+  /** @var \Drupal\Core\Entity\EntityDisplayRepositoryInterface $entity_display_repository */
+  $entity_display_repository = \Drupal::service('entity_display.repository');
+
+  // Create the form display component.
+  $form_display = $entity_display_repository->getFormDisplay($entity_type, $bundle);
+  $form_display->setComponent($field_name, [
+    'type' => 'inline_entity_form_simple',
+  ]);
+  $form_display->setThirdPartySetting('field_group', $group_name, [
+    'label' => (string) t('Editorial information'),
+    'children' => [$field_name],
+    'parent_name' => '',
+    // Same weight as meta tag sidebar.
+    'weight' => 99,
+    'format_type' => 'details_sidebar',
+    'format_settings' => [
+      'description' => (string) t('Track the editorial decisions and status of a document.'),
+    ],
+    'region' => 'content',
+  ]);
+  $form_display->save();
+
+  // Create the view display component.
+  $view_display = $entity_display_repository->getViewDisplay($entity_type, $bundle);
+  $view_display->setComponent($field_name, [
+    'type' => 'entity_reference_revisions_entity_view',
+    'label' => 'hidden',
+  ]);
+  $view_display->setThirdPartySetting('field_group', $group_name, [
+    'label' => (string) t('Editorial information'),
+    'children' => [$field_name],
+    'parent_name' => '',
+    // Before links.
+    'weight' => 99,
+    'format_type' => 'fieldset',
+    'format_settings' => [],
+    'region' => 'content',
+  ]);
+  $view_display->save();
+}
+
+/**
+ * Implements hook_field_widget_WIDGET_TYPE_form_alter().
+ */
+function schemadotorg_editorial_field_widget_inline_entity_form_simple_form_alter(array &$element, FormStateInterface $form_state, array $context): void {
+  // Remove the nested fieldset from the inline entity form.
+  /** @var \Drupal\entity_reference_revisions\EntityReferenceRevisionsFieldItemList $items */
+  $items = $context['items'];
+  if ($items->getName() === 'field_editorial') {
+    $element['#theme_wrappers'] = [];
+  }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_presave().
+ */
+function schemadotorg_editorial_node_presave(NodeInterface $node): void {
+  if (empty($node->devel_generate)
+    || !$node->hasField('field_editorial')
+    || empty($node->field_editorial->entity)
+  ) {
+    return;
+  }
+  // Limit editorial notes to one paragraph.
+  if ($node->field_editorial->entity->hasField('field_editorial_notes')) {
+    $random = new Random();
+    $node->field_editorial->entity->field_editorial_notes->value = $random->paragraphs(1);
+  }
+  // Set editorial status to reasonable value.
+  if ($node->field_editorial->entity->hasField('field_editorial_status')) {
+    $statuses = [
+      t('Needs info'),
+      t('Needs review'),
+      t('Changes pending'),
+      t('Legal review'),
+    ];
+    $node->field_editorial->entity->field_editorial_status->value = $statuses[array_rand($statuses)];
+  }
+  // Clear editorial message to prevent it from displaying a warning on every
+  // node edit form.
+  if ($node->field_editorial->entity->hasField('field_editorial_message')) {
+    $node->field_editorial->entity->field_editorial_message->value = '';
+  }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_prepare_form().
+ */
+function schemadotorg_editorial_node_prepare_form(NodeInterface $node, string $operation, FormStateInterface $form_state): void {
+  // Only display message when the node edit for is loaded via a GET request.
+  if (\Drupal::request()->getMethod() !== 'GET') {
+    return;
+  }
+
+  // See if the node has am editorial paragraphs.
+  if (!$node->hasField('field_editorial')
+    || empty($node->field_editorial->entity)) {
+    return;
+  }
+
+  /** @var \Drupal\paragraphs\ParagraphInterface $paragraph */
+  $paragraph = $node->field_editorial->entity;
+
+  // See if the paragraphs has an editorial message.
+  if (!$paragraph->hasField('field_editorial_message')
+    || empty($paragraph->field_editorial_message->value)) {
+    return;
+  }
+
+  // Display the editorial message as a warning.
+  \Drupal::messenger()->addWarning([
+    '#type' => 'processed_text',
+    '#text' => $paragraph->field_editorial_message->value,
+    '#format' => $paragraph->field_editorial_message->format,
+    '#langcode' => $paragraph->language()->getId(),
+  ]);
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_view_alter().
+ */
+function schemadotorg_editorial_node_view_alter(array &$build, NodeInterface $node, EntityViewDisplayInterface $display): void {
+  $field_name = 'field_editorial';
+  if (empty($build[$field_name])
+    || empty($build[$field_name][0])) {
+    return;
+  }
+
+  /** @var \Drupal\Core\Render\Renderer $renderer */
+  $renderer = \Drupal::service('renderer');
+
+  // Render the editorial paragraph and determined if it has any content.
+  $content = $build[$field_name][0];
+  $output = (string) $renderer->renderPlain($content);
+  if (trim(strip_tags($output)) === '') {
+    $build[$field_name]['#access'] = FALSE;
+  }
+}

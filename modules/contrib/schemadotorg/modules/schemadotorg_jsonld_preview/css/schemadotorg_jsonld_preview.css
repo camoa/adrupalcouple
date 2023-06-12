@@ -1,0 +1,44 @@
+/**
+ * @file
+ * Schema.org JSON-LD preview styles.
+ */
+
+.schemadotorg-jsonld-preview-copy {
+  display: none;
+}
+
+html.js .schemadotorg-jsonld-preview-copy {
+  display: block;
+}
+
+.schemadotorg-jsonld-preview-copy-message {
+  transition: opacity 1s;
+  display: none;
+  font-weight: bold;
+}
+
+.schemadotorg-jsonld-preview-copy-message:before {
+  content: '✓';
+}
+
+pre.schemadotorg-jsonld-preview-code {
+  border: 1px solid #999;
+  background-color: #efefef;
+  padding: 1em;
+}
+
+pre.schemadotorg-jsonld-preview-code span {
+  font-weight: bold;
+  color: #080;
+}
+
+.schemadotorg-jsonld-preview-endpoints .form-item {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.schemadotorg-jsonld-preview-endpoints .form-item label {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}

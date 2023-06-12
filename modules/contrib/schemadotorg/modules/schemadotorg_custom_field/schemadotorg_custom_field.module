@@ -1,0 +1,135 @@
+<?php
+
+/**
+ * @file
+ * Allows Custom Fields to be used to create Schema.org relationships.
+ */
+
+declare(strict_types = 1);
+
+use Drupal\Core\Field\FieldItemInterface;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\schemadotorg\Element\SchemaDotOrgSettings;
+
+/**
+ * Implements hook_schemadotorg_property_field_type_alter().
+ */
+function schemadotorg_custom_field_schemadotorg_property_field_type_alter(array &$field_types, string $schema_type, string $schema_property): void {
+  /** @var \Drupal\schemadotorg_custom_field\SchemaDotOrgCustomFieldManagerInterface $custom_field_manager */
+  $custom_field_manager = \Drupal::service('schemadotorg_custom_field.manager');
+  $custom_field_manager->propertyFieldTypeAlter($field_types, $schema_type, $schema_property);
+}
+
+/**
+ * Prepare a property's field data before the Schema.org mapping form.
+ *
+ * @param array &$default_field
+ *   The default values used in the Schema.org mapping form.
+ * @param string $schema_type
+ *   The Schema.org type.
+ * @param string $schema_property
+ *   The Schema.org property.
+ */
+function schemadotorg_custom_field_schemadotorg_property_field_prepare(array &$default_field, string $schema_type, string $schema_property): void {
+  /** @var \Drupal\schemadotorg_custom_field\SchemaDotOrgCustomFieldManagerInterface $custom_field_manager */
+  $custom_field_manager = \Drupal::service('schemadotorg_custom_field.manager');
+  $custom_field_manager->propertyFieldPrepare($default_field, $schema_type, $schema_property);
+}
+
+/**
+ * Implements hook_schemadotorg_property_field_alter().
+ */
+function schemadotorg_custom_field_schemadotorg_property_field_alter(
+  string $schema_type,
+  string $schema_property,
+  array &$field_storage_values,
+  array &$field_values,
+  ?string &$widget_id,
+  array &$widget_settings,
+  ?string &$formatter_id,
+  array &$formatter_settings
+): void {
+  /** @var \Drupal\schemadotorg_custom_field\SchemaDotOrgCustomFieldManagerInterface $custom_field_manager */
+  $custom_field_manager = \Drupal::service('schemadotorg_custom_field.manager');
+  $custom_field_manager->propertyFieldAlter(
+    $schema_type,
+    $schema_property,
+    $field_storage_values,
+    $field_values,
+    $widget_id,
+    $widget_settings,
+    $formatter_id,
+    $formatter_settings
+  );
+}
+
+/**
+ * Implements hook_schemadotorg_jsonld_schema_property_alter().
+ */
+function schemadotorg_custom_field_schemadotorg_jsonld_schema_property_alter(mixed &$value, FieldItemInterface $item): void {
+  /** @var \Drupal\schemadotorg_custom_field\SchemaDotOrgCustomFieldJsonLdManagerInterface $custom_field_jsonld_manager */
+  $custom_field_jsonld_manager = \Drupal::service('schemadotorg_custom_field.jsonld_manager');
+  $custom_field_jsonld_manager->jsonLdSchemaPropertyAlter($value, $item);
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function schemadotorg_custom_field_form_schemadotorg_properties_settings_form_alter(array &$form, FormStateInterface $form_state): void {
+  // Custom field data types.
+  // @see \Drupal\custom_field\Plugin\Field\FieldType\CustomItem::storageSettingsForm
+  $date_types = [
+    'string' => t('Text (plain)'),
+    'string_long' => t('Text (plain, long)'),
+    'boolean' => t('Boolean'),
+    'color' => t('Color'),
+    'decimal' => t('Number (decimal)'),
+    'float' => t('Number (float)'),
+    'integer' => t('Number (integer)'),
+    'email' => t('Email'),
+    'uuid' => t('UUID'),
+    'map' => t('Map (serialized array)'),
+    'uri' => t('URI'),
+  ];
+  // Add data type machine name to data type label.
+  array_walk($date_types, function (string &$data_type, string $key): void {
+    $data_type .= ' - ' . $key;
+  });
+
+  $formats = filter_formats();
+  $format_options = ['' => t('- Default -')];
+  foreach ($formats as $format) {
+    $format_options[$format->id()] = $format->label();
+  }
+
+  $form['schemadotorg_custom_field'] = [
+    '#type' => 'details',
+    '#title' => t('Custom field settings'),
+    '#open' => TRUE,
+    '#tree' => TRUE,
+  ];
+  $form['schemadotorg_custom_field']['default_properties'] = [
+    '#type' => 'schemadotorg_settings',
+    '#settings_type' => SchemaDotOrgSettings::ASSOCIATIVE_GROUPED_NAMED,
+    '#settings_format' => 'propertyName|SchemaType|propertyName01:data_type,propertyName02:data_type,propertyName03:data_type',
+    '#group_name' => 'type',
+    '#array_name' => 'properties',
+    '#title' => t('Default custom field properties'),
+    '#description' => t('Enter Schema.org properties that should be mapped to a Schema.org type using a Custom field.'),
+    '#description_link' => 'types',
+  ];
+  $form['schemadotorg_custom_field']['data_types'] = [
+    '#type' => 'details',
+    '#title' => t('Custom data types'),
+    'types' => [
+      '#theme' => 'item_list',
+      '#items' => $date_types,
+    ],
+  ];
+  $form['schemadotorg_custom_field']['default_format'] = [
+    '#type' => 'select',
+    '#title' => t('Default custom field format'),
+    '#description' => t('Select the default format used by text (plain, long) custom fields. Leave blank to not enable the Wysiwyg editor.'),
+    '#options' => $format_options,
+  ];
+}
