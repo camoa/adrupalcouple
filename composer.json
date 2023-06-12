@@ -43,6 +43,7 @@
         "drupal/layout_paragraphs": "^2.0",
         "drupal/link_attributes": "^1.13",
         "drupal/metatag": "^1.25",
+        "drupal/mix": "^1.6",
         "drupal/moderation_dashboard": "^2.1",
         "drupal/moderation_sidebar": "^1.7",
         "drupal/node_edit_protection": "^1.1",

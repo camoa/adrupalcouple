@@ -1,0 +1,428 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for Mix module.
+ */
+
+use Drupal\block\BlockInterface;
+use Drupal\block\Entity\Block;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Url;
+use Drupal\user\Entity\Role;
+
+/**
+ * Implements hook_help().
+ */
+function mix_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'help.page.mix':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Mix is a collection of features for Drupal site building, management, development and user experience improvement. For more information, see the <a href=":url">online project page for the Mix module</a>.', [':url' => 'https://www.drupal.org/project/mix']) . '</p>';
+      return $output;
+  }
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function mix_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+
+  // Show form id.
+  if (\Drupal::state()->get('mix.show_form_id')) {
+    $form['mix_show_form_id'] = [
+      '#type' => 'inline_template',
+      '#template' => '<div class="mix-box mix-warning mix-full-width">
+Form ID: <code>{{ form_id }}</code><br>
+Copy/paste following template to [yourmodule].module file to alter this form (Replace <code>hook_</code> with <code>[yourmodule]_</code>): <br>
+<textarea class="mix-code" rows="6" style="width: 100%; min-width: 280px;">
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function hook_form_{{ form_id }}_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+}
+</textarea><br>
+@see <a href="https://api.drupal.org/hook_form_FORM_ID_alter" target="_blank">hook_form_FORM_ID_alter()</a>
+</div>',
+      '#context' => [
+        'form_id' => $form_id,
+      ],
+      '#weight' => -1000,
+    ];
+
+    $form['mix_show_form_id']['#attached']['library'][] = 'mix/preset';
+  }
+
+  // Hide revision field.
+  $currentUser = \Drupal::currentUser();
+  $hideRevisionField = \Drupal::config('mix.settings')->get('hide_revision_field');
+  if ($currentUser->id() != 1 && $hideRevisionField) {
+    $form['revision_information']['#access'] = FALSE;
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function mix_form_user_admin_settings_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $config = \Drupal::config('mix.settings');
+  $form['registration_cancellation']['mix_register_password'] = [
+    '#type' => 'checkbox',
+    '#title' => t('Show password fields on registration form.'),
+    '#description' => t('Provided by <a href=":url" target="_blank">Mix</a> module', [':url' => 'https://www.drupal.org/project/mix']),
+    '#default_value' => $config->get('register_password'),
+  ];
+  $form['actions']['submit']['#submit'][] = '_mix_user_admin_settings_submit';
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function mix_form_user_register_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+
+  $registerWithPassword = \Drupal::config('mix.settings')->get('register_password');
+
+  // If 'register with password' is enabled and there is no 'password' field,
+  // add password fields and submit function in register form.
+  if ($registerWithPassword && !isset($form['account']['pass'])) {
+    $form['account']['mix_register_password'] = [
+      '#type' => 'password_confirm',
+      '#size' => 25,
+      '#description' => t('Provide a password for the new account in both fields.'),
+      '#required' => TRUE,
+    ];
+    // Add submit function right before ::save() to override random password
+    // by the value of the 'mix_register_password' field.
+    // @see RegisterForm::save()
+    $index = array_search('::save', $form['actions']['submit']['#submit']);
+    array_splice($form['actions']['submit']['#submit'], $index, 0, '_mix_form_user_register_submit');
+  }
+}
+
+/**
+ * Save user admin settings.
+ */
+function _mix_user_admin_settings_submit(&$form, FormStateInterface $form_state) {
+  $config = \Drupal::configFactory()->getEditable('mix.settings');
+  $config->set('register_password', $form_state->getValue('mix_register_password'))
+    ->save();
+}
+
+/**
+ * Save user password with the value of the 'mix_register_password' field.
+ */
+function _mix_form_user_register_submit(&$form, FormStateInterface $form_state) {
+  $pass = $form_state->getValue('mix_register_password');
+  $form_state->setValue('pass', $pass);
+  $account = $form_state->getFormObject()->getEntity();
+  $account->setPassword($pass);
+}
+
+/**
+ * Implements hook_page_top().
+ */
+function mix_page_top(array &$page_top) {
+
+  $text = \Drupal::state()->get('mix.environment_indicator');
+
+  if ($text) {
+
+    // Add an edit link if user has permission.
+    $editLink = '';
+    if (\Drupal::currentUser()->hasPermission('administer site configuration')) {
+      $url = new Url('mix.settings', [], ['fragment' => 'edit-environment-indicator']);
+      $editLink = \Drupal::linkGenerator()->generate(t('Edit'), $url);
+    }
+
+    $page_top['mix_environment_indicator'] = [
+      '#type' => 'inline_template',
+      '#template' => '<div id="mix-environment-indicator" style="color: #fff; background: orange; text-align: center;">{{ text }} {{ edit_link }}</div>',
+      '#context' => [
+        'text' => $text,
+        'edit_link' => $editLink,
+      ],
+      '#cache' => [
+        'tags' => [
+          'mix:environment-indicator',
+        ],
+      ],
+    ];
+  }
+
+}
+
+/**
+ * Remove the "Generator" meta tag from the <head> section.
+ */
+function mix_page_attachments_alter(array &$attachments): void {
+  if (\Drupal::config('mix.settings')->get('remove_x_generator')) {
+    foreach ($attachments['#attached']['html_head'] as $key => $attachment) {
+      if ($attachment[1] == 'system_meta_generator') {
+        unset($attachments['#attached']['html_head'][$key]);
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function mix_form_block_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+
+  $form_object = $form_state->getFormObject();
+  $block = $form_object->getEntity();
+
+  // This will automatically be saved in the third party settings.
+  $form['third_party_settings']['#tree'] = TRUE;
+  $form['third_party_settings']['mix_block']['class'] = [
+    '#type' => 'textfield',
+    '#title' => t('CSS class(es)'),
+    '#description' => t('Add custom CSS classes to the block wrapper, make it easy to style/manuplate by CSS/JS. Use space to separate multiple classes.') . '<br>' .
+      t('Provided by <a href=":url" target="_blank">Mix</a> module', [':url' => 'https://www.drupal.org/project/mix']),
+    '#default_value' => $block->getThirdPartySetting('mix_block', 'class'),
+    '#maxlength' => 255,
+  ];
+
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_presave().
+ */
+function mix_block_presave(BlockInterface $entity) {
+  // @see Drupal\Core\Config\Entity\ThirdPartySettingsInterface
+  if (empty($entity->getThirdPartySetting('mix_block', 'class'))) {
+    $entity->unsetThirdPartySetting('mix_block', 'class');
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function mix_preprocess_block(&$variables) {
+  if (!empty($variables['elements']['#id'])) {
+    $block = Block::load($variables['elements']['#id']);
+    if ($block && $classes = $block->getThirdPartySetting('mix_block', 'class')) {
+      $classes = explode(' ', $classes);
+      foreach ($classes as $class) {
+        $variables['attributes']['class'][] = $class;
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function mix_form_menu_link_edit_alter(&$form, FormStateInterface $form_state, $form_id) {
+  // Add advanced settings to pre-defined menu links.
+  mix_form_menu_link_content_form_alter($form, $form_state, $form_id);
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function mix_form_menu_link_content_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+
+  // menu_link_edit - for pre-defined menu links.
+  if ($form_id == 'menu_link_edit') {
+    $menu_link_options = \Drupal::state()->get('mix.menu_settings.' . $form['menu_link_id']['#value']);
+    // Add custom submit callback.
+    $form['#submit'][] = 'mix_menu_link_edit_submit';
+  }
+  // menu_link_content_menu_link_content_form - for menu_link_content.
+  elseif ($form_id == 'menu_link_content_menu_link_content_form') {
+    $menu_link = $form_state->getFormObject()->getEntity();
+    $menu_link_options = $menu_link->link->options;
+    // Add an additional function to save options.
+    $form['#entity_builders']['mix'] = 'mix_menu_link_content_form_entity_builder';
+  }
+
+  if (isset($menu_link_options['attributes']['class']) && is_array($menu_link_options['attributes']['class'])) {
+    $menu_link_options['attributes']['class'] = implode(' ', $menu_link_options['attributes']['class']);
+  }
+
+  $form['mix_advanced'] = [
+    '#type' => 'details',
+    '#title' => t('Advanced (by Mix module)'),
+    '#tree' => TRUE,
+    '#open' => TRUE,
+  ];
+
+  // Roles.
+  $roles = Role::loadMultiple();
+  $options = [];
+  foreach ($roles as $key => $role) {
+    $options[$key] = $role->get('label');
+  }
+  $form['mix_advanced']['roles'] = [
+    '#type' => 'checkboxes',
+    '#title' => t('The roles that can see this menu item.'),
+    '#options' => $options,
+    '#description' => t('To allow all roles to see this link, leave it empty.'),
+    '#default_value' => $menu_link_options['mix']['roles'] ?? [],
+  ];
+
+  // Link attributes.
+  $form['mix_advanced']['attributes'] = [
+    '#type' => 'details',
+    '#title' => t('Link attributes'),
+    '#description' => t('Set the link target to open it in a new window, or add id and class so that JS/CSS can easily interact with the link.'),
+    '#open' => TRUE,
+  ];
+
+  $form['mix_advanced']['attributes']['id'] = [
+    '#type' => 'textfield',
+    '#title' => t('id'),
+    '#description' => t('Add an id attribute to this link'),
+    '#default_value' => $menu_link_options['attributes']['id'] ?? '',
+  ];
+
+  $form['mix_advanced']['attributes']['class'] = [
+    '#type' => 'textfield',
+    '#title' => t('class'),
+    '#description' => t('Add CSS class(es) to this link, seperated by a blank.'),
+    '#default_value' => $menu_link_options['attributes']['class'] ?? '',
+  ];
+
+  $form['mix_advanced']['attributes']['target'] = [
+    '#type' => 'textfield',
+    '#title' => t('target'),
+    '#description' => t('Add a target attribute to this link, e.g. "_blank", "_self"'),
+    '#default_value' => $menu_link_options['attributes']['target'] ?? '',
+  ];
+
+  // Link container attributes.
+  $form['mix_advanced']['container_attributes'] = [
+    '#type' => 'details',
+    '#title' => t('Link container attributes'),
+    '#description' => t('Set attributes to the container element (<code>&lt;li&gt;</code>) of the menu link.'),
+  ];
+
+  $form['mix_advanced']['container_attributes']['id'] = [
+    '#type' => 'textfield',
+    '#title' => t('id'),
+    '#description' => t('Add an id attribute to the link container'),
+    '#default_value' => $menu_link_options['mix']['container_attributes']['id'] ?? '',
+  ];
+
+  $form['mix_advanced']['container_attributes']['class'] = [
+    '#type' => 'textfield',
+    '#title' => t('class'),
+    '#description' => t('Add CSS class(es) to the link container, seperate by a blank.'),
+    '#default_value' => $menu_link_options['mix']['container_attributes']['class'] ?? '',
+  ];
+
+}
+
+/**
+ * Build menu link options from $form_state.
+ */
+function _mix_build_menu_link_options(array &$form, FormStateInterface $form_state) {
+  $attributes = $form_state->getValue('mix_advanced')['attributes'];
+  // Remove attributes if it's empty.
+  foreach ($attributes as $key => $attr) {
+    if (!$attr) {
+      unset($attributes[$key]);
+    }
+  }
+  // Turn class string into array.
+  if (isset($attributes['class']) && !is_array($attributes['class'])) {
+    $attributes['class'] = array_filter(explode(' ', $attributes['class']));
+  }
+
+  $options = [
+    // These attributes will be used in mix_preprocess_menu().
+    'mix' => [
+      'roles' => $form_state->getValue('mix_advanced')['roles'],
+      'container_attributes' => $form_state->getValue('mix_advanced')['container_attributes'],
+    ],
+    // These attributes will apply to the menu link by core.
+    'attributes' => $attributes,
+  ];
+  return $options;
+}
+
+/**
+ * Save advanced settings for pre-defined menu links.
+ */
+function mix_menu_link_edit_submit(array &$form, FormStateInterface $form_state) {
+
+  $options = _mix_build_menu_link_options($form, $form_state);
+
+  // Save menu settings by State API.
+  // Can't save it as menu_tree's options, it will be restored
+  // after a cache clear.
+  \Drupal::state()->set('mix.menu_settings.' . $form['menu_link_id']['#value'], $options);
+}
+
+/**
+ * Save advanced settings for menu_link_content.
+ */
+function mix_menu_link_content_form_entity_builder($entity_type, $menu_link, &$form, &$form_state) {
+
+  $options = _mix_build_menu_link_options($form, $form_state);
+
+  // Set link options.
+  $menu_link->link->first()->options = $options;
+}
+
+/**
+ * Implements template_preprocess_menu().
+ */
+function mix_preprocess_menu(&$variables) {
+  _mix_preprocess_menu_item($variables, $variables['items']);
+}
+
+/**
+ * Control menu item visibilities and attributes based on stored options.
+ */
+function _mix_preprocess_menu_item(&$variables, &$items) {
+
+  $currentUserRoles = \Drupal::currentUser()->getRoles();
+
+  foreach ($items as $id => &$item) {
+    if (strpos($id, 'menu_link_content:') === 0) {
+      $options = $item['url']->getOption('mix');
+    }
+    else {
+      $advancedSettings = \Drupal::state()->get('mix.menu_settings.' . $id);
+      if ($advancedSettings) {
+        $item['url']->setOptions($advancedSettings + $item['url']->getOptions());
+      }
+      $options = $advancedSettings['mix'] ?? [];
+    }
+
+    // Hide menu item if $allowedRoles is not empty
+    // and current user don't have those roles.
+    $allowedRoles = isset($options['roles']) && is_array($options['roles']) ? array_filter($options['roles']) : [];
+
+    if ($allowedRoles) {
+      // Add cache context if menu item has access control based on roles.
+      if (!isset($variables['#cache']['contexts']) || !array_search('user.roles', $variables['#cache']['contexts'])) {
+        $variables['#cache']['contexts'][] = 'user.roles';
+      }
+
+      // Hide menu item if current user don't have allowed roles.
+      if (!array_intersect($allowedRoles, $currentUserRoles)) {
+        unset($items[$id]);
+        continue;
+      }
+    }
+
+    // Set attributes to the menu item container.
+    if (isset($options['container_attributes'])) {
+      foreach ($options['container_attributes'] as $key => $value) {
+        if ($value) {
+          $item['attributes']->setAttribute($key, $value);
+        }
+      }
+    }
+
+    if (!empty($item['below'])) {
+      _mix_preprocess_menu_item($variables, $item['below']);
+    }
+  }
+
+}
