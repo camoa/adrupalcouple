@@ -21,7 +21,9 @@ function moderation_dashboard_requirements($phase) {
 
   if (!$checked) {
     $libraries_directory_file_finder = \Drupal::service('library.libraries_directory_file_finder');
-    $library_exists = $libraries_directory_file_finder->find('chartjs');
+    $lib_chartjs = $libraries_directory_file_finder->find('chartjs');
+    $lib_chartjs_npm = $libraries_directory_file_finder->find('chart.js');
+    $library_exists = $lib_chartjs || $lib_chartjs_npm;
 
     if (!$library_exists) {
       $requirements['moderation_dashboard'] = [

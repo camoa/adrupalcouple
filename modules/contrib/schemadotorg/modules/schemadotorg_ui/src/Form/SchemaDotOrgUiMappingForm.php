@@ -364,10 +364,14 @@ class SchemaDotOrgUiMappingForm extends EntityForm {
    *   Schema.org mapping values.
    */
   protected function getMappingValuesFromFormState(FormStateInterface $form_state): array {
+    $mapping_defaults = $form_state->get('mapping_defaults');
     $mapping_values = $form_state->getValue('mapping');
 
     // Entity.
-    $mapping_values['entity'] = $mapping_values['entity'] ?? [];
+    $mapping_values['entity'] = NestedArray::mergeDeep(
+      $mapping_default['entity'] ?? [],
+      $mapping_values['entity'] ?? []
+    );
 
     // Properties.
     foreach ($mapping_values['properties'] as $property => $property_values) {
@@ -378,9 +382,16 @@ class SchemaDotOrgUiMappingForm extends EntityForm {
         $mapping_values['properties'][$property] += $property_values['field'][static::ADD_FIELD];
       }
     }
+    $mapping_values['properties'] = NestedArray::mergeDeep(
+      $mapping_defaults['properties'] ?? [],
+      $mapping_values['properties'],
+    );
 
     // Third party settings.
-    $mapping_values['third_party_settings'] = $mapping_values['third_party_settings'] ?? [];
+    $mapping_values['third_party_settings'] = NestedArray::mergeDeep(
+      $mapping_default['third_party_settings'] ?? [],
+      $mapping_values['third_party_settings'] ?? []
+    );
 
     return $mapping_values;
   }
@@ -501,7 +512,7 @@ class SchemaDotOrgUiMappingForm extends EntityForm {
       ];
     }
 
-    // Schema.type.
+    // Schema.org type.
     $form['schema_type'] = [
       '#type' => 'item',
       '#title' => $this->t('Schema.org type'),
@@ -643,7 +654,6 @@ class SchemaDotOrgUiMappingForm extends EntityForm {
     $form['properties'] = [
       '#type' => 'table',
       '#header' => $header,
-      '#sticky' => TRUE,
       '#attributes' => ['class' => ['schemadotorg-ui-properties']],
       '#weight' => 0,
     ] + $rows;

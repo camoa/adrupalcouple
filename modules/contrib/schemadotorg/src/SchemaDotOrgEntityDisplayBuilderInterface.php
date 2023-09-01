@@ -66,24 +66,20 @@ interface SchemaDotOrgEntityDisplayBuilderInterface {
   /**
    * Set entity display field weights for Schema.org properties.
    *
-   * @param string $entity_type_id
-   *   The entity type ID.
-   * @param string $bundle
-   *   The name of the bundle.
+   * @param \Drupal\schemadotorg\SchemaDotOrgMappingInterface $mapping
+   *   The Schema.org mapping.
    * @param array $properties
    *   The Schema.org properties to be weighted.
    */
-  public function setFieldWeights(string $entity_type_id, string $bundle, array $properties): void;
+  public function setFieldWeights(SchemaDotOrgMappingInterface $mapping, array $properties = []): void;
 
   /**
    * Set the default component weights for a Schema.org mapping entity.
    *
-   * @param string $entity_type_id
-   *   The entity type id.
-   * @param string $bundle
-   *   The entity bundle.
+   * @param \Drupal\schemadotorg\SchemaDotOrgMappingInterface $mapping
+   *   The Schema.org mapping.
    */
-  public function setComponentWeights(string $entity_type_id, string $bundle): void;
+  public function setComponentWeights(SchemaDotOrgMappingInterface $mapping): void;
 
   /**
    * Get display form modes for a specific entity type.

@@ -183,6 +183,9 @@ field.widget.settings.smartdate_default:
     allday:
       type: boolean
       label: 'Show an all day checkbox'
+    remove_seconds:
+      type: boolean
+      label: 'Remove any seconds, if present, from existing values'
 
 field.widget.settings.smartdate_inline:
   type: field.widget.settings.smartdate_default

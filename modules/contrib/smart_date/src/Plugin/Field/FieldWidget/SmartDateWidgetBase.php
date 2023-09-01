@@ -33,6 +33,7 @@ class SmartDateWidgetBase extends DateTimeWidgetBase {
       'show_extra' => FALSE,
       'hide_date' => TRUE,
       'allday' => TRUE,
+      'remove_seconds' => FALSE,
     ] + parent::defaultSettings();
   }
 
@@ -63,6 +64,12 @@ class SmartDateWidgetBase extends DateTimeWidgetBase {
       '#type' => 'checkbox',
       '#title' => $this->t("Provide a checkbox to make an event all day."),
       '#default_value' => $this->getSetting('allday'),
+    ];
+
+    $element['remove_seconds'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t("Remove any seconds, if present, from existing values."),
+      '#default_value' => $this->getSetting('remove_seconds'),
     ];
 
     return $element;
@@ -158,6 +165,16 @@ class SmartDateWidgetBase extends DateTimeWidgetBase {
     }
     $defaults['hide_date'] = $this->getSetting('hide_date');
     $defaults['allday'] = $this->getSetting('allday');
+    // If configured to, remove seconds from the values.
+    if ($this->getSetting('remove_seconds')) {
+      foreach (['start', 'end'] as $which) {
+        $date = $values[$which];
+        if (empty($date)) {
+          continue;
+        }
+        $values[$which] = $date->setTime($date->format("H"), $date->format("i"), '00');
+      }
+    }
 
     $values['storage'] = $field_type;
     $form['#attached']['library'][] = 'smart_date/smart_date';
@@ -182,6 +199,7 @@ class SmartDateWidgetBase extends DateTimeWidgetBase {
         'default_duration_increments' => "30\n60|1 hour\n90\n120|2 hours\ncustom",
         'default_duration' => 60,
         'allday' => TRUE,
+        'remove_seconds' => FALSE,
       ];
     }
     $limits_to_check = ['min', 'max'];

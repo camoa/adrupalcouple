@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Schema.org Diagram</title>
+  <script src=" https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+
+<div class="mermaid" id="example">
+  flowchart TB
+
+  Organization((Organization))
+  click Organization "https://schema.org/Organization"
+  style Organization fill:#ffaacc,stroke:#333,stroke-width:4px;
+
+  LocalBusiness[LocalBusiness]
+  click LocalBusiness "https://schema.org/LocalBusiness"
+
+  Organization ---> |subOrganization| LocalBusiness
+  LocalBusiness ---> |parentOrganization| Organization
+</div>
+
+</body>
+</html>

@@ -148,17 +148,17 @@ class SchemaDotOrgReportTest extends SchemaDotOrgBrowserTestBase {
     // @see \Drupal\schemadotorg_report\Controller\SchemaDotOrgReportNamesController::table
     $this->drupalGet('/admin/reports/schemadotorg/docs/names/all');
     $assert_session->responseContains('<h1>Schema.org: All names</h1>');
-    $assert_session->responseContains('2286 items');
+    $assert_session->responseContains('2293 items');
 
     // Check Schema.org type names tables.
     $this->drupalGet('/admin/reports/schemadotorg/docs/names/types');
     $assert_session->responseContains('<h1>Schema.org: Type names</h1>');
-    $assert_session->responseContains('829 types');
+    $assert_session->responseContains('833 types');
 
     // Check Schema.org property names tables.
     $this->drupalGet('/admin/reports/schemadotorg/docs/names/properties');
     $assert_session->responseContains('<h1>Schema.org: Property names</h1>');
-    $assert_session->responseContains('1457 properties');
+    $assert_session->responseContains('1460 properties');
 
     // Check Schema.org property names tables.
     $this->drupalGet('/admin/reports/schemadotorg/docs/names/abbreviations');

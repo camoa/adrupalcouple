@@ -84,10 +84,11 @@ function schemadotorg_options_schemadotorg_property_field_alter(
 
   // Set allowed values based the Schema.org types range includes.
   $range_includes = $schema_type_manager->parseIds($property_definition['range_includes']);
+
+  // Set allowed values function if it exists.
+  // @see schemadotorg_options_allowed_values_country()
+  // @see schemadotorg_options_allowed_values_language()
   foreach ($range_includes as $range_include) {
-    // Set allowed values function if it exists.
-    // @see schemadotorg_options_allowed_values_country()
-    // @see schemadotorg_options_allowed_values_language()
     $allowed_values_function = 'schemadotorg_options_allowed_values_' . strtolower($range_include);
     if (function_exists($allowed_values_function)) {
       $field_storage_values['settings'] = [
@@ -96,15 +97,30 @@ function schemadotorg_options_schemadotorg_property_field_alter(
       ];
       return;
     }
+  }
 
-    // Copy enumeration values into allowed values.
+  // Set allowed values from all range includes that are enumerations.
+  $allowed_values = [];
+  foreach ($range_includes as $range_include) {
     if ($schema_type_manager->isEnumerationType($range_include)) {
-      $field_storage_values['settings'] = [
-        'allowed_values' => $schema_type_manager->getTypeChildrenAsOptions($range_include),
-        'allowed_values_function' => '',
-      ];
-      return;
+      $allowed_values += $schema_type_manager->getTypeChildrenAsOptions($range_include);
     }
+  }
+
+  // Remove allowed values suffixes based on the Schema.org property.
+  $property_allowed_values_suffix = \Drupal::config('schemadotorg_options.settings')
+    ->get("property_allowed_values_suffixes.$schema_property");
+  if ($property_allowed_values_suffix) {
+    foreach ($allowed_values as $value => $text) {
+      $allowed_values[$value] = str_replace(' ' . $property_allowed_values_suffix, '', $text);
+    }
+  }
+
+  if (isset($allowed_values)) {
+    $field_storage_values['settings'] = [
+      'allowed_values' => $allowed_values,
+      'allowed_values_function' => '',
+    ];
   }
 }
 
@@ -124,6 +140,14 @@ function schemadotorg_options_form_schemadotorg_properties_settings_form_alter(a
     '#settings_format' => 'propertyName|option01:Option 1,option02:Options 2',
     '#title' => t('Schema.org property allowed values'),
     '#description' => t('Enter Schema.org properties with allowed values.'),
+    '#description_link' => 'properties',
+  ];
+  $form['schemadotorg_options']['property_allowed_values_suffixes'] = [
+    '#type' => 'schemadotorg_settings',
+    '#settings_type' => SchemaDotOrgSettings::ASSOCIATIVE,
+    '#settings_format' => 'propertyName:suffix',
+    '#title' => t('Schema.org property allowed values suffixes'),
+    '#description' => t('Enter Schema.org properties with allowed values suffixes that should be removed..'),
     '#description_link' => 'properties',
   ];
 }

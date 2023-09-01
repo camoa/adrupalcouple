@@ -15,7 +15,7 @@ abstract class ModerationDashboardTestBase extends BrowserTestBase {
   /**
    * {@inheritdoc}
    */
-  protected $defaultTheme = 'classy';
+  protected $defaultTheme = 'claro';
 
   /**
    * {@inheritdoc}

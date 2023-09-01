@@ -4,7 +4,6 @@ Table of contents
 * Introduction
 * Features
 * Configuration
-* Todo
 
 
 Introduction
@@ -39,9 +38,3 @@ Configuration
 - Enable/disable setting explanation or submission guidelines to the Schema.org 
   type descriptions.
 
-
-Todo
-----
-
-- Determine how best to translate the default English Schema.org type
-  and property descriptions.

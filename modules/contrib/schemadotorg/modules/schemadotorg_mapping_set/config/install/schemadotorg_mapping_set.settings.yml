@@ -116,4 +116,3 @@ sets:
       - 'node:MedicalStudy'
       - 'node:MedicalTrial'
       - 'node:MedicalCondition'
-

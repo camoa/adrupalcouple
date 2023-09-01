@@ -4,6 +4,8 @@ dependencies: {  }
 id: taxonomy_term
 target_entity_type_id: taxonomy_term
 multiple: true
+label_prefix: ''
+id_prefix: ''
 recommended_schema_types:
   term:
     label: Term

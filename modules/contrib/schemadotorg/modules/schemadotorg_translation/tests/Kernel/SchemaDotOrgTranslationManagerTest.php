@@ -73,6 +73,9 @@ class SchemaDotOrgTranslationManagerTest extends SchemaDotOrgKernelEntityTestBas
     // @see schemadotorg_translation_schemadotorg_mapping_insert()
     /* ********************************************************************** */
 
+    // Add additionalTyp property to Place.
+    $this->appendSchemaTypeDefaultProperties('Place', 'additionalType');
+
     // Create a Schema.org mapping.
     $this->createSchemaEntity('node', 'Place');
 
@@ -104,6 +107,7 @@ class SchemaDotOrgTranslationManagerTest extends SchemaDotOrgKernelEntityTestBas
     $this->assertTrue($field_definitions['schema_address']->isTranslatable());
     $this->assertFalse($field_definitions['schema_image']->isTranslatable());
     $this->assertFalse($field_definitions['schema_telephone']->isTranslatable());
+    $this->assertFalse($field_definitions['schema_additional_type']->isTranslatable());
 
     // Check property field added to a Schema.org has translation enabled.
     $this->createSchemaDotOrgField('node', 'Place');

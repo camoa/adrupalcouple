@@ -21,17 +21,6 @@ html.js .schemadotorg-jsonld-preview-copy {
   content: '✓';
 }
 
-pre.schemadotorg-jsonld-preview-code {
-  border: 1px solid #999;
-  background-color: #efefef;
-  padding: 1em;
-}
-
-pre.schemadotorg-jsonld-preview-code span {
-  font-weight: bold;
-  color: #080;
-}
-
 .schemadotorg-jsonld-preview-endpoints .form-item {
   margin-top: 0;
   margin-bottom: 0;

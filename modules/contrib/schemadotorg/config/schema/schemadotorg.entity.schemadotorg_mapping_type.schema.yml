@@ -11,6 +11,12 @@ schemadotorg.schemadotorg_mapping_type.*:
     multiple:
       type: boolean
       label: 'Allow multiple mappings to point to the same Schema.org type'
+    label_prefix:
+      type: string
+      label: 'Label prefix'
+    id_prefix:
+      type: string
+      label: 'ID prefix'
     recommended_schema_types:
       type: sequence
       label: 'Recommended Schema.org types'

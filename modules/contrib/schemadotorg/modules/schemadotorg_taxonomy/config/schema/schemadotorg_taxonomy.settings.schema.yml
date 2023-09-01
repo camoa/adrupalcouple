@@ -46,4 +46,3 @@ schemadotorg_taxonomy.settings:
           description:
             type: text
             label: 'Vocabulary description'
-

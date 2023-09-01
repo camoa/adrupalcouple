@@ -44,12 +44,15 @@ class SchemaDotOrgConfigManagerTest extends SchemaDotOrgKernelTestBase {
    * Tests SchemaDotOrgConfigManager.
    */
   public function testConfigManager(): void {
-    // Check updating a Schema.org type's default properties.
     $config = $this->config('schemadotorg.settings');
+
+    // Check setting Schema.org type's default properties.
     $this->assertEquals(['inLanguage'], $config->get('schema_types.default_properties.CreativeWork'));
     $this->configManager->setSchemaTypeDefaultProperties('CreativeWork', ['about']);
     $this->assertEquals(['about', 'inLanguage'], $config->get('schema_types.default_properties.CreativeWork'));
-    $this->configManager->setSchemaTypeDefaultProperties('CreativeWork', NULL, ['about']);
+
+    // Check unsetting Schema.org type's default properties.
+    $this->configManager->unsetSchemaTypeDefaultProperties('CreativeWork', ['about']);
     $this->assertEquals(['inLanguage'], $config->get('schema_types.default_properties.CreativeWork'));
 
     /** @var \Drupal\schemadotorg\SchemaDotOrgMappingTypeStorageInterface $mapping_type_storage */
@@ -61,12 +64,14 @@ class SchemaDotOrgConfigManagerTest extends SchemaDotOrgKernelTestBase {
     $mapping_type->set('default_schema_type_properties', ['Thing' => []]);
     $mapping_type->save();
 
+    // Check setting Schema.org mapping type's default properties.
     $this->configManager->setMappingTypeSchemaTypeDefaultProperties('node', 'Thing', ['subjectOf']);
     $mapping_type_storage->resetCache();
     $mapping_type = $mapping_type_storage->load('node');
     $this->assertEquals(['Thing' => ['subjectOf']], $mapping_type->get('default_schema_type_properties'));
 
-    $this->configManager->setMappingTypeSchemaTypeDefaultProperties('node', 'Thing', NULL, ['subjectOf']);
+    // Check unsetting Schema.org mapping type's default properties.
+    $this->configManager->unsetMappingTypeSchemaTypeDefaultProperties('node', 'Thing', ['subjectOf']);
     $mapping_type_storage->resetCache();
     $mapping_type = $mapping_type_storage->load('node');
     $this->assertEquals(['Thing' => []], $mapping_type->get('default_schema_type_properties'));

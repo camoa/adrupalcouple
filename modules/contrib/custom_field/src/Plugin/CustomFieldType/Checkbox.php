@@ -8,7 +8,7 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 
 /**
- * Plugin implementation of the 'checkbox' customfield type.
+ * Plugin implementation of the 'checkbox' custom field type.
  *
  * @CustomFieldType(
  *   id = "checkbox",
@@ -28,8 +28,8 @@ class Checkbox extends CustomFieldTypeBase {
    */
   public static function defaultFormatterSettings(): array {
     return [
-      'value_checked' => t('Yes'),
-      'value_unchecked' => t('No'),
+      'value_checked' => 'Yes',
+      'value_unchecked' => 'No',
     ] + parent::defaultFormatterSettings();
   }
 
@@ -56,16 +56,16 @@ class Checkbox extends CustomFieldTypeBase {
     // Some table columns containing raw markup.
     $form['value_checked'] = [
       '#type' => 'textfield',
-      '#title' => t('Checked Value'),
-      '#description' => t('The value to display when this is checked.'),
+      '#title' => $this->t('Checked value'),
+      '#description' => $this->t('The value to display when this is checked.'),
       '#default_value' => $this->getFormatterSetting('value_checked'),
     ];
 
     // Some table columns containing raw markup.
     $form['value_unchecked'] = [
       '#type' => 'textfield',
-      '#title' => t('Unchecked Value'),
-      '#description' => t('The value to display when this is unchecked.'),
+      '#title' => $this->t('Unchecked value'),
+      '#description' => $this->t('The value to display when this is unchecked.'),
       '#default_value' => $this->getFormatterSetting('value_unchecked'),
     ];
 
@@ -76,6 +76,12 @@ class Checkbox extends CustomFieldTypeBase {
    * {@inheritdoc}
    */
   public function value(CustomItem $item): ?string {
+    $render = $this->getFormatterSetting('render');
+
+    if ($render === 'hidden') {
+      return NULL;
+    }
+
     return $item->{$this->name} ? $this->getFormatterSetting('value_checked') : $this->getFormatterSetting('value_unchecked');
   }
 

@@ -5,16 +5,24 @@ declare(strict_types = 1);
 namespace Drupal\schemadotorg_starterkit\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
+use Drupal\Core\Link;
 use Drupal\Core\Url;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Returns responses for Schema.org Blueprints Starterkit routes.
+ * Returns responses for Schema.org Blueprints Starter Kit routes.
  */
 class SchemadotorgStarterkitController extends ControllerBase {
 
   /**
-   * The Schema.org starterkitmanager service.
+   * The module list service.
+   *
+   * @var \Drupal\Core\Extension\ModuleExtensionList
+   */
+  protected $moduleList;
+
+  /**
+   * The Schema.org starterkit manager service.
    *
    * @var \Drupal\schemadotorg_starterkit\SchemaDotOrgStarterkitManagerInterface
    */
@@ -25,52 +33,102 @@ class SchemadotorgStarterkitController extends ControllerBase {
    */
   public static function create(ContainerInterface $container) {
     $instance = new static();
+    $instance->moduleList = $container->get('extension.list.module');
     $instance->schemaStarterkitManager = $container->get('schemadotorg_starterkit.manager');
     return $instance;
   }
 
   /**
-   * Builds the response for the starterkits overview page.
+   * Builds the response for the starter kits overview page.
    */
   public function overview(): array {
     // Header.
     $header = [
       'title' => ['data' => $this->t('Title'), 'width' => '30%'],
-      'installed' => ['data' => $this->t('Installed'), 'width' => '10%'],
-      'types' => ['data' => $this->t('Types'), 'width' => '50%'],
+      'installed' => ['data' => $this->t('Installed'), 'width' => '5%'],
+      'types' => ['data' => $this->t('Types'), 'width' => '25%'],
+      'dependencies' => ['data' => $this->t('Dependencies'), 'width' => '30%'],
       'operations' => ['data' => $this->t('Operations'), 'width' => '10%'],
     ];
 
     /** @var \Drupal\schemadotorg\SchemaDotOrgMappingStorageInterface $mapping_storage */
     $mapping_storage = $this->entityTypeManager()->getStorage('schemadotorg_mapping');
 
+    $module_data = $this->moduleList->getList();
+
     // Rows.
     $rows = [];
     $starterkits = $this->schemaStarterkitManager->getStarterkits();
     foreach ($starterkits as $module_name => $starterkit) {
+      $is_installable = TRUE;
       $is_installed = $this->moduleHandler()->moduleExists($module_name);
 
-      // Types.
       $settings = $this->schemaStarterkitManager->getStarterkitSettings($module_name);
+
+      // Skip hidden module.
+      if (!empty($module_data[$module_name]->info['hidden'])
+        && !drupal_valid_test_ua()) {
+        continue;
+      }
+
+      // Types.
       $types = [];
       if (!empty($settings['types'])) {
         foreach ($settings['types'] as $type => $type_settings) {
           [$entity_type_id, $schema_type] = explode(':', $type);
           $mapping = $mapping_storage->loadBySchemaType($entity_type_id, $schema_type);
           if ($mapping) {
-            $entity_type_bundle = $mapping->getTargetEntityBundleEntity();
-            $types[$type] = $entity_type_bundle->toLink($type, 'edit-form')->toString();
+            if ($mapping->getTargetEntityBundleEntity()) {
+              $types[$type] = $mapping->getTargetEntityBundleEntity()
+                ->toLink($type, 'edit-form')->toString();
+            }
+            elseif ($mapping->getTargetEntityTypeId() === 'user') {
+              $types[$type] = Link::createFromRoute($type, 'entity.user.admin_form')->toString();
+            }
+            else {
+              $types[$type] = $type;
+            }
           }
           else {
             $types[$type] = $type;
           }
         }
       }
+
+      // Dependencies.
+      $dependencies = [];
+      foreach ($settings['dependencies'] as $dependency) {
+        if (isset($module_data[$dependency])) {
+          $dependencies[] = $module_data[$dependency]->info['name'];
+        }
+        else {
+          $is_installable = FALSE;
+          $dependencies[] = ['#markup' => $dependency . ' <em>(' . $this->t('Missing') . ')</em>'];
+        }
+      };
+
+      $title = $starterkit['name'];
+      $title = str_replace('Schema.org Blueprints Starter Kit: ', '', $title);
+      $title = str_replace('Schema.org Blueprints ', '', $title);
+
       $row = [];
-      $row['title'] = $starterkit['name'];
+      $row['title'] = $title;
       $row['installed'] = $is_installed ? $this->t('Yes') : $this->t('No');
-      $row['types'] = ['data' => ['#markup' => implode(', ', $types)]];
-      $operations = $this->getOperations($module_name);
+      $row['types'] = [
+        'data' => [
+          '#markup' => implode(', ', $types),
+        ],
+      ];
+      $row['dependencies'] = [
+        'data' => [
+          '#theme' => 'item_list',
+          '#items' => $dependencies,
+        ],
+      ];
+
+      $operations = ($is_installable)
+        ? $this->getOperations($module_name)
+        : [];
       $row['operations'] = ($operations) ? [
         'data' => [
           '#type' => 'operations',

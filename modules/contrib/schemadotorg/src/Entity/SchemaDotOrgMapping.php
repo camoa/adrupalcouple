@@ -101,6 +101,13 @@ class SchemaDotOrgMapping extends ConfigEntityBase implements SchemaDotOrgMappin
   protected $original_schema_properties = [];
 
   /**
+   * The Schema.org mapping defaults.
+   *
+   * @var array
+   */
+  protected $mappingDefaults;
+
+  /**
    * {@inheritdoc}
    */
   public function __construct(array $values, $entity_type) {
@@ -294,6 +301,30 @@ class SchemaDotOrgMapping extends ConfigEntityBase implements SchemaDotOrgMappin
    */
   public function hasSchemaPropertyMapping(string $property): bool {
     return in_array($property, $this->schema_properties);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getMappingDefaults(): array {
+    if (empty($this->mappingDefaults)) {
+      /** @var \Drupal\schemadotorg\SchemaDotOrgMappingManagerInterface $mapping_manager */
+      $mapping_manager = \Drupal::service('schemadotorg.mapping_manager');
+      $this->mappingDefaults = $mapping_manager->getMappingDefaults(
+        $this->getTargetEntityTypeId(),
+        $this->getTargetBundle(),
+        $this->getSchemaType()
+      );
+    }
+    return $this->mappingDefaults;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setMappingDefaults(array $mapping_defaults): SchemaDotOrgMappingInterface {
+    $this->mappingDefaults = $mapping_defaults;
+    return $this;
   }
 
   /**

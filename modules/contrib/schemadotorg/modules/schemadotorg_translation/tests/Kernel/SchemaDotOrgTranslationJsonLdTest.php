@@ -64,6 +64,8 @@ class SchemaDotOrgTranslationJsonLdTest extends SchemaDotOrgKernelEntityTestBase
    * Test Schema.org taxonomy JSON-LD.
    */
   public function testJsonLd(): void {
+    \Drupal::currentUser()->setAccount($this->createUser(['access content']));
+
     $language = ConfigurableLanguage::createFromLangcode('es');
     $language->save();
     $this->config('language.negotiation')

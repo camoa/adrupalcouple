@@ -4,4 +4,8 @@ default_properties:
   subjectOf: about
   containedInPlace: containsPlace
   worksFor: employee
-  department: department
+  department: parentOrganization
+  offeredBy: makesOffer
+  healthCondition: study
+  relatedDrug: relatedDrug
+  isPartOf: hasPart

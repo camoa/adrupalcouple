@@ -3,4 +3,3 @@ schemadotorg_jsonld.settings:
   route_name: schemadotorg_jsonld.settings
   parent_id: schemadotorg.settings
   weight: 50
-

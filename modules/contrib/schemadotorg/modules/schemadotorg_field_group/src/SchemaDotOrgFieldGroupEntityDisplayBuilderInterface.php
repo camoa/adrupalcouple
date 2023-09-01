@@ -4,23 +4,21 @@ declare(strict_types = 1);
 
 namespace Drupal\schemadotorg_field_group;
 
+use Drupal\schemadotorg\SchemaDotOrgMappingInterface;
+
 /**
  * Schema.org field group entity display builder interface.
  */
 interface SchemaDotOrgFieldGroupEntityDisplayBuilderInterface {
 
   /**
-   * Set entity display field groups for Schema.org properties.
+   * Set entity display field groups for Schema.org mapping's properties.
    *
-   * @param string $entity_type_id
-   *   The entity type ID.
-   * @param string $bundle
-   *   The name of the bundle.
-   * @param string $schema_type
-   *   The Schema.org type.
+   * @param \Drupal\schemadotorg\SchemaDotOrgMappingInterface $mapping
+   *   A Schema.org mapping.
    * @param array $properties
-   *   The Schema.org properties to be added to field groups.
+   *   Customize mapping properties.
    */
-  public function setFieldGroups(string $entity_type_id, string $bundle, string $schema_type, array $properties): void;
+  public function setFieldGroups(SchemaDotOrgMappingInterface $mapping, array $properties = []): void;
 
 }

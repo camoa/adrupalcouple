@@ -50,5 +50,5 @@ Schema.org mapping set provides a quick way to set up and test different
 related Schema.org types while adjusting and refining your Schema.org types
 and property defaults.
 
-Custom modules can also use the 'schemadotorg_mapping_set.manager' service
+Custom modules can also use the 'schemadotorg\_mapping\_set.manager' service
 to set up Schema.org types via code.

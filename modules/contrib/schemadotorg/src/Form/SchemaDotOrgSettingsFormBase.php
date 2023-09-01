@@ -90,9 +90,12 @@ abstract class SchemaDotOrgSettingsFormBase extends ConfigFormBase {
         && $this->moduleHandler->moduleExists($element_key)
         && !$this->configFactory()->get($element_key . '.settings')->isNew()) {
         $config = $this->configFactory()->getEditable($element_key . '.settings');
+        $data = $config->getRawData();
         $values = $form_state->getValue($element_key);
         foreach ($values as $key => $value) {
-          $config->set($key, $value);
+          if (array_key_exists($key, $data)) {
+            $config->set($key, $value);
+          }
         }
         $config->save();
       }

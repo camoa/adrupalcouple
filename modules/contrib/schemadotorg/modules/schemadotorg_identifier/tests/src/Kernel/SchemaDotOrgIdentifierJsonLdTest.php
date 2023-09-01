@@ -45,6 +45,12 @@ class SchemaDotOrgIdentifierJsonLdTest extends SchemaDotOrgKernelEntityTestBase 
    * Test Schema.org identifier.
    */
   public function testIdentifier(): void {
+    // Add Drupal's UUID as an identifier.
+    $this->config('schemadotorg_identifier.settings')
+      ->set('field_definitions.uuid', [])
+      ->set('schema_types.Thing', ['uuid'])
+      ->save();
+
     \Drupal::currentUser()->setAccount($this->createUser(['access content']));
 
     $this->createSchemaEntity('node', 'MedicalBusiness');
@@ -65,13 +71,13 @@ class SchemaDotOrgIdentifierJsonLdTest extends SchemaDotOrgKernelEntityTestBase 
     $expected_identifier = [
       [
         '@type' => 'PropertyValue',
-        'propertyID' => 'uuid',
-        'value' => $node->uuid(),
+        'propertyID' => 'npi',
+        'value' => '000000000',
       ],
       [
         '@type' => 'PropertyValue',
-        'propertyID' => 'npi',
-        'value' => '000000000',
+        'propertyID' => 'uuid',
+        'value' => $node->uuid(),
       ],
     ];
     $this->assertEquals($expected_identifier, $jsonld['identifier']);

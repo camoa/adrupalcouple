@@ -1,0 +1,27 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the Custom Field module.
+ */
+
+/**
+ * Update entity field definitions for new 'size' setting.
+ *
+ * @see https://www.drupal.org/project/custom_field/issues/3379711
+ */
+function custom_field_update_8001() {
+  $entity_type_manager = \Drupal::entityTypeManager();
+  $entity_type_manager->clearCachedDefinitions();
+  $entity_type_ids = [];
+  $change_summary = \Drupal::service('entity.definition_update_manager')->getChangeSummary();
+  foreach ($change_summary as $entity_type_id => $change_list) {
+    $entity_type = $entity_type_manager->getDefinition($entity_type_id);
+    \Drupal::entityDefinitionUpdateManager()->installEntityType($entity_type);
+    $entity_type_ids[] = $entity_type_id;
+  }
+
+  return t("Installed/Updated the entity type(s): @entity_type_ids", [
+    '@entity_type_ids' => implode(', ', $entity_type_ids),
+  ]);
+}

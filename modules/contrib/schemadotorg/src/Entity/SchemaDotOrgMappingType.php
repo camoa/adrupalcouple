@@ -45,6 +45,8 @@ use Drupal\schemadotorg\SchemaDotOrgMappingTypeInterface;
  *     "id",
  *     "target_entity_type_id",
  *     "multiple",
+ *     "label_prefix",
+ *     "id_prefix",
  *     "recommended_schema_types",
  *     "default_schema_types",
  *     "default_schema_type_properties",

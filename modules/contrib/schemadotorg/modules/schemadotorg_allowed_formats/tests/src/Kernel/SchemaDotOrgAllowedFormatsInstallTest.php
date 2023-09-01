@@ -66,7 +66,7 @@ class SchemaDotOrgAllowedFormatsInstallTest extends SchemaDotOrgKernelEntityTest
     // Check settings default allowed formats.
     /** @var \Drupal\field\FieldConfigInterface $body_field */
     $body_field = FieldConfig::loadByName('node', 'page', 'body');
-    $this->assertEquals(['full_html'], $body_field->getThirdPartySetting('allowed_formats', 'allowed_formats'));
+    $this->assertEquals(['full_html'], $body_field->getSetting('allowed_formats'));
 
     // Checking setting  hide help and hide guidelines.
     $form_display = $this->entityDisplayRepository->getFormDisplay('node', 'page');

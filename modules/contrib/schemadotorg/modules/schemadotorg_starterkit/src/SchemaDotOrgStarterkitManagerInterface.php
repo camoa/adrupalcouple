@@ -10,21 +10,21 @@ namespace Drupal\schemadotorg_starterkit;
 interface SchemaDotOrgStarterkitManagerInterface {
 
   /**
-   * Determine if a module is Schema.org Blueprints Starterkit.
+   * Determine if a module is Schema.org Blueprints Starter Kit.
    *
    * @param string $module
    *   A module.
    *
    * @return bool
-   *   TRUE if a module is Schema.org Blueprints Starterkit.
+   *   TRUE if a module is Schema.org Blueprints Starter Kit.
    */
   public function isStarterkit(string $module): bool;
 
   /**
-   * Get a list of Schema.org starterkits.
+   * Get a list of Schema.org starter kits.
    *
    * @return array
-   *   A list of Schema.org starterkits.
+   *   A list of Schema.org starter kits.
    */
   public function getStarterkits(): array;
 
@@ -84,7 +84,7 @@ interface SchemaDotOrgStarterkitManagerInterface {
   public function preinstall(string $module): void;
 
   /**
-   * Install a Schema.org Blueprints starterkits.
+   * Install a Schema.org Blueprints starter kits.
    *
    * @param array $modules
    *   An array of modules being installed.

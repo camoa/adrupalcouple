@@ -11,6 +11,7 @@ default_subtypes:
   - LocalBusiness
   - MedicalOrganization
   - MedicalBusiness
+  - Organization
   - WebPage
 default_allowed_values:
   WebPage:

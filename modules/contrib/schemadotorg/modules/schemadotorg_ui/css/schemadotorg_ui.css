@@ -64,13 +64,6 @@ details.schemadotorg-ui--add-field {
   display: table-row !important;
 }
 
-.schemadotorg-ui-gin .schemadotorg-ui-properties-toggle-wrapper {
-  float: right;
-  display: inline-block;
-  min-height: 3rem;
-  line-height: 3rem;
-}
-
 /* Claro theme enhancements */
 .schemadotorg-ui-claro tr.color-success {
   border: 4px solid #325e1c;
@@ -98,6 +91,18 @@ details.schemadotorg-ui--add-field {
   .schemadotorg-ui-property--comment {
     display: none;
   }
+}
+
+/* Gin theme enhancements */
+.schemadotorg-ui-gin .schemadotorg-ui-properties-toggle-wrapper {
+  float: right;
+  display: inline-block;
+  min-height: 3rem;
+  line-height: 3rem;
+}
+
+.schemadotorg-ui-gin .gin-layer-wrapper {
+  clear: both;
 }
 
 /**

@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace Drupal\schemadotorg_field_group;
 
+use Drupal\Component\Utility\NestedArray;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\Display\EntityDisplayInterface;
 use Drupal\Core\Entity\Display\EntityFormDisplayInterface;
@@ -11,6 +12,7 @@ use Drupal\Core\Entity\EntityDisplayRepositoryInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\field_group\Form\FieldGroupAddForm;
 use Drupal\schemadotorg\SchemaDotOrgEntityDisplayBuilderInterface;
+use Drupal\schemadotorg\SchemaDotOrgMappingInterface;
 use Drupal\schemadotorg\SchemaDotOrgNamesInterface;
 use Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface;
 
@@ -47,13 +49,19 @@ class SchemaDotOrgFieldGroupEntityDisplayBuilder implements SchemaDotOrgFieldGro
   /**
    * {@inheritdoc}
    */
-  public function setFieldGroups(string $entity_type_id, string $bundle, string $schema_type, array $properties): void {
+  public function setFieldGroups(SchemaDotOrgMappingInterface $mapping, array $properties = []): void {
+    $entity_type_id = $mapping->getTargetEntityTypeId();
+    $bundle = $mapping->getTargetBundle();
+    $schema_type = $mapping->getSchemaType();
+    $properties = $properties ?: $mapping->getNewSchemaProperties();
+    $mapping_values = $mapping->getMappingDefaults();
+
     // Form display.
     $form_modes = $this->schemaEntityDisplayBuilder->getFormModes($entity_type_id, $bundle);
     foreach ($form_modes as $form_mode) {
       $form_display = $this->entityDisplayRepository->getFormDisplay($entity_type_id, $bundle, $form_mode);
       foreach ($properties as $field_name => $property) {
-        $this->setFieldGroup($form_display, $field_name, $schema_type, $property);
+        $this->setFieldGroup($form_display, $field_name, $schema_type, $property, $mapping_values);
       }
       $form_display->save();
     }
@@ -65,7 +73,7 @@ class SchemaDotOrgFieldGroupEntityDisplayBuilder implements SchemaDotOrgFieldGro
     foreach ($view_modes as $view_mode) {
       $view_display = $this->entityDisplayRepository->getViewDisplay($entity_type_id, $bundle, $view_mode);
       foreach ($properties as $field_name => $property) {
-        $this->setFieldGroup($view_display, $field_name, $schema_type, $property);
+        $this->setFieldGroup($view_display, $field_name, $schema_type, $property, $mapping_values);
       }
       $view_display->save();
     }
@@ -82,12 +90,14 @@ class SchemaDotOrgFieldGroupEntityDisplayBuilder implements SchemaDotOrgFieldGro
    *   The field name's associated Schema.org type.
    * @param string $schema_property
    *   The field name's associated Schema.org property.
+   * @param array $mapping_values
+   *   The Schema.org mapping values.
    *
    * @see field_group_group_save()
    * @see field_group_field_overview_submit()
    * @see \Drupal\field_group\Form\FieldGroupAddForm::submitForm
    */
-  protected function setFieldGroup(EntityDisplayInterface $display, string $field_name, string $schema_type, string $schema_property): void {
+  protected function setFieldGroup(EntityDisplayInterface $display, string $field_name, string $schema_type, string $schema_property, array $mapping_values): void {
     if (!$this->hasFieldGroup($display, $field_name, $schema_type, $schema_property)) {
       return;
     }
@@ -119,14 +129,16 @@ class SchemaDotOrgFieldGroupEntityDisplayBuilder implements SchemaDotOrgFieldGro
 
     // Get group name and field weight from entity type
     // field group configuration.
-    $group_name = NULL;
-    $field_weight = NULL;
-    foreach ($default_field_groups as $default_field_group_name => $default_field_group) {
-      $properties = array_flip($default_field_group['properties']);
-      if (isset($properties[$schema_property])) {
-        $group_name = $default_field_group_name;
-        $field_weight = $properties[$schema_property];
-        break;
+    $group_name = NestedArray::getValue($mapping_values, ['properties', $schema_property, 'group']);
+    $field_weight = NestedArray::getValue($mapping_values, ['properties', $schema_property, 'group_field_weight']);
+    if (!$group_name) {
+      foreach ($default_field_groups as $default_field_group_name => $default_field_group) {
+        $properties = array_flip($default_field_group['properties']);
+        if (isset($properties[$schema_property])) {
+          $group_name = $default_field_group_name;
+          $field_weight = $properties[$schema_property];
+          break;
+        }
       }
     }
 

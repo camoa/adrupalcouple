@@ -110,12 +110,10 @@ class SchemaDotOrgEntityTest extends SchemaDotOrgKernelEntityTestBase {
     $this->assertEquals('Organization', $mapping->getSchemaType());
     $this->assertEquals($mapping->getSchemaProperties(), [
       'body' => 'description',
-      'schema_address' => 'address',
-      'schema_email' => 'email',
       'schema_image' => 'image',
       'schema_same_as' => 'sameAs',
-      'schema_telephone' => 'telephone',
       'title' => 'name',
+      'schema_organization_subtype' => 'subtype',
     ]);
 
     // Check creating node:Event Schema.org mapping.

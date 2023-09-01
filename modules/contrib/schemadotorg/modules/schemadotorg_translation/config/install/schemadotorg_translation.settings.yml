@@ -1,5 +1,6 @@
 excluded_schema_types: {  }
-excluded_schema_properties: {  }
+excluded_schema_properties:
+  - additionalType
 excluded_field_names: {  }
 included_field_names:
   - changed

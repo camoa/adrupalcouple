@@ -1,0 +1,14 @@
+name: 'Custom Field Test'
+type: module
+description: 'Test module for custom field functionality.'
+package: Testing
+dependencies:
+  - custom_field:custom_field
+test_dependencies:
+  - drupal:node
+  - drupal:field
+
+# Information added by Drupal.org packaging script on 2023-08-18
+version: '1.0.0-rc4'
+project: 'custom_field'
+datestamp: 1692342033

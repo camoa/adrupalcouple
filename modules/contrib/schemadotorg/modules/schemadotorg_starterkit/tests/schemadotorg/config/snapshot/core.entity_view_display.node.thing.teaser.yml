@@ -3,6 +3,7 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
+    - field.field.node.thing.custom
     - field.field.node.thing.schema_description
     - field.field.node.thing.schema_image
     - field.field.node.thing.schema_name
@@ -28,5 +29,6 @@ content:
     weight: 12
     region: content
 hidden:
+  custom: true
   schema_image: true
   schema_name: true

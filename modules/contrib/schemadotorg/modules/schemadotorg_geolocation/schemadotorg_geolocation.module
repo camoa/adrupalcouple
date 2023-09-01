@@ -37,8 +37,11 @@ function schemadotorg_geolocation_schemadotorg_property_field_alter(
   // Make sure the address field name exists.
   $entity_type_id = $field_values['entity_type'];
   $bundle = $field_values['bundle'];
-  $field_name = \Drupal::config('schemadotorg.settings')
-    ->get('field_prefix') . 'address';
+
+  /** @var \Drupal\schemadotorg\SchemaDotOrgNamesInterface $schema_names */
+  $schema_names = \Drupal::service('schemadotorg.names');
+  $field_prefix = $schema_names->getFieldPrefix();
+  $field_name = $field_prefix . 'address';
   if (!FieldConfig::loadByName($entity_type_id, $bundle, $field_name)) {
     return;
   }

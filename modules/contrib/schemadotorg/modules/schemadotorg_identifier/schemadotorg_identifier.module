@@ -126,10 +126,10 @@ function schemadotorg_identifier_form_schemadotorg_properties_settings_form_alte
   $form['schemadotorg_identifier']['field_definitions'] = [
     '#type' => 'schemadotorg_settings',
     '#settings_type' => SchemaDotOrgSettings::ASSOCIATIVE_GROUPED,
-    '#settings_format' => "field_name|property_id:ID,field_name:name,label:Label,description:Some description,required:true,max_length:10",
+    '#settings_format' => "base_field_name| or field_name|property_id:ID,field_name:name,label:Label,description:Some description,required:true,max_length:10",
     '#array_name' => 'definition',
     '#title' => t('Identifier field definitions'),
-    '#description' => t('Enter identifier field definitions which will be available to Schema.org types.'),
+    '#description' => t('Enter identifier base field name or custom field definitions which will be available to Schema.org types.'),
   ];
   $form['schemadotorg_identifier']['schema_types'] = [
     '#type' => 'schemadotorg_settings',

@@ -29,7 +29,7 @@ Configuration
 Permissions
 
 - Configure 'Schema.org Blueprints JSON-LD Preview' permission.  
-  (/admin/people/permissions/module/schemadotorg_jsonapi_preview)
+  (/admin/people/permissions/module/schemadotorg\_jsonapi\_preview)
 
 Settings
 

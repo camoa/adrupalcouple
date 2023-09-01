@@ -119,6 +119,11 @@ class SchemaDotOrgMappingManagerTest extends SchemaDotOrgKernelTestBase {
     ];
     $this->assertEquals($expected, $mapping_defaults['properties']['givenName']);
 
+    // Check getting Schema.org mapping default values for entity w/o bundles.
+    $mapping_defaults = $this->mappingManager->getMappingDefaults('user', NULL, 'Person');
+    $this->assertEquals('User', $mapping_defaults['entity']['label']);
+    $this->assertEquals('user', $mapping_defaults['entity']['id']);
+
     // Check getting Schema.org mapping with a customized default type.
     $mapping_defaults = $this->mappingManager->getMappingDefaults('node', NULL, 'FAQPage');
     $this->assertNotEquals('faq_page', $mapping_defaults['entity']['id']);
@@ -149,6 +154,22 @@ class SchemaDotOrgMappingManagerTest extends SchemaDotOrgKernelTestBase {
     // Check getting Schema.org mapping default values with custom bundle.
     $mapping_defaults = $this->mappingManager->getMappingDefaults('node', 'custom', 'Event');
     $this->assertEquals('custom', $mapping_defaults['entity']['id']);
+
+    // Check getting Schema.org mapping default entity values
+    // with label and id prefixes.
+    /** @var \Drupal\schemadotorg\SchemaDotOrgMappingTypeInterface $mapping_type */
+    $mapping_type = $this->entityTypeManager->getStorage('schemadotorg_mapping_type')->load('node');
+    $mapping_type
+      ->set('label_prefix', 'Schema.org: ')
+      ->set('id_prefix', 'schema_')
+      ->save();
+    $mapping_defaults = $this->mappingManager->getMappingDefaults('node', NULL, 'Event');
+    $this->assertEquals('Schema.org: Event', $mapping_defaults['entity']['label']);
+    $this->assertEquals('schema_event', $mapping_defaults['entity']['id']);
+    $mapping_type
+      ->set('label_prefix', '')
+      ->set('id_prefix', '')
+      ->save();
 
     // Check saving a Schema.org mapping.
     $mapping_defaults = $this->mappingManager->getMappingDefaults('node', NULL, 'Event');

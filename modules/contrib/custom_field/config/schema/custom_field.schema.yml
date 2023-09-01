@@ -1,0 +1,271 @@
+field.value.custom:
+  type: sequence
+  label: 'Default value'
+  sequence:
+    type: ignore
+
+field.field_settings.custom:
+  type: mapping
+  label: 'Custom field settings'
+  mapping:
+    field_settings:
+      type: sequence
+      label: 'Settings'
+      sequence:
+        type: custom_field.widget.[%widget]
+        label: 'Custom field'
+
+field.storage_settings.custom:
+  type: mapping
+  label: 'Custom field settings'
+  mapping:
+    columns:
+      type: sequence
+      label: 'Columns'
+      sequence:
+        type: custom_field.column
+        label: 'Column'
+
+field.widget.settings.*:
+  type: custom_field_widget_base
+
+field.widget.settings.custom_default:
+  type: custom_field_widget_base
+  mapping:
+    customize:
+      type: boolean
+      label: 'Customize Customfield item proportions'
+    proportions:
+      type: sequence
+      label: 'Proportions'
+      sequence:
+        type: string
+    breakpoint:
+      type: string
+      label: 'Stack items on:'
+
+field.widget.settings.custom_flex:
+  type: custom_field_widget_base
+  mapping:
+    columns:
+      type: sequence
+      label: 'Column settings'
+      sequence:
+        type: string
+    breakpoint:
+      type: string
+      label: 'Stack items on:'
+
+custom_field_widget_base:
+  type: mapping
+  label: 'Custom field widget settings'
+  mapping:
+    label:
+      type: boolean
+      label: 'Show field label?'
+    wrapper:
+      type: string
+      label: 'Wrapper'
+    open:
+      type: boolean
+      label: 'Show open by default?'
+
+field.formatter.settings.custom_formatter:
+  type: mapping
+  label: 'Customfield'
+  mapping:
+    label:
+      type: boolean
+      label: 'Label'
+    label_display:
+      type: sequence
+      label: 'Label display'
+      sequence:
+        type: custom_field.label_display.[%field]
+
+field.formatter.settings.custom_inline:
+  type: mapping
+  label: 'Inline'
+  mapping:
+    show_labels:
+      type: boolean
+      label: 'Show labels?'
+    label_separator:
+      type: string
+      label: 'Label separator'
+    item_separator:
+      type: string
+      label: 'Item separator'
+
+field.formatter.settings.custom_list:
+  type: mapping
+  label: 'HTML list'
+  mapping:
+    list_type:
+      type: string
+      label: 'List type'
+
+field.formatter.settings.custom_template:
+  type: mapping
+  label: 'Custom template'
+  mapping:
+    template:
+      type: string
+      label: 'Template'
+
+custom_field.label_display.*:
+  type: string
+  label: 'Label display'
+
+custom_field.column:
+  type: mapping
+  label: 'Column'
+  mapping:
+    name:
+      type: string
+      label: 'Name'
+    type:
+      type: string
+      label: 'Type'
+    max_length:
+      type: string
+      label: 'Max length'
+    unsigned:
+      type: integer
+      label: 'Unsigned'
+    precision:
+      type: string
+      label: 'Precision'
+    scale:
+      type: string
+      label: 'Scale'
+    size:
+      type: string
+      label: 'Size'
+
+custom_field.widget.*:
+  type: mapping
+  label: 'Custom field widget'
+  mapping:
+    type:
+      type: string
+      label: 'Type'
+    weight:
+      type: integer
+      label: 'Weight'
+    check_empty:
+      type: boolean
+      label: 'Check empty?'
+    formatter_settings:
+      type: mapping
+      label: 'Output'
+      mapping:
+        render:
+          type: string
+          label: 'Render'
+        prefix_suffix:
+          type: integer
+          label: 'Display prefix/suffix'
+        value_checked:
+          type: string
+          label: 'Checked value'
+        value_unchecked:
+          type: string
+          label: 'Unchecked value'
+    widget_settings:
+      type: mapping
+      label: 'Settings'
+      mapping:
+        label:
+          type: string
+          label: 'Label'
+        settings:
+          type: mapping
+          label: 'Settings'
+          mapping:
+            description:
+              type: string
+              label: 'Help text'
+            description_display:
+              type: string
+              label: 'Help text position'
+            size:
+              type: integer
+              label: 'Size of textfield'
+            placeholder:
+              type: string
+              label: 'Placeholder'
+            key_label:
+              type: string
+              label: 'Key label'
+            value_label:
+              type: string
+              label: 'Value label'
+            maxlength:
+              type: integer
+              label: 'Max length'
+            maxlength_js:
+              type: boolean
+              label: 'Show max length character count'
+            min:
+              type: integer
+              label: 'Minimum'
+            max:
+              type: integer
+              label: 'Maximum'
+            decimal_separator:
+              type: string
+              label: 'Decimal marker'
+            scale:
+              type: integer
+              label: 'Scale'
+            thousand_separator:
+              type: string
+              label: 'Thousand marker'
+            prefix:
+              type: string
+              label: 'Prefix'
+            suffix:
+              type: string
+              label: 'Suffix'
+            required:
+              type: boolean
+              label: 'Required'
+            default_colors:
+              type: string
+              label: 'Default colors'
+            empty_option:
+              type: string
+              label: 'Empty option'
+            allowed_values:
+              type: sequence
+              label: 'Options'
+              sequence:
+                type: mapping
+                label: 'Option'
+                mapping:
+                  key:
+                    type: string
+                    label: 'Key'
+                  value:
+                    type: string
+                    label: 'Value'
+            rows:
+              type: integer
+              label: 'Rows'
+            formatted:
+              type: boolean
+              label: 'Enable wysiwyg'
+            default_format:
+              type: string
+              label: 'Default format'
+            format:
+              type: mapping
+              label: 'Format settings'
+              mapping:
+                guidelines:
+                  type: boolean
+                  label: 'Show format guidelines'
+                help:
+                  type: boolean
+                  label: 'Show format help'

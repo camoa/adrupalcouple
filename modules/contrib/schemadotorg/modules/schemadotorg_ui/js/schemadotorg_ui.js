@@ -130,7 +130,14 @@
           const toggle = document.createElement('div');
           toggle.setAttribute('class', 'schemadotorg-ui-properties-toggle-wrapper');
           toggle.appendChild(toggleButton);
-          table.parentNode.insertBefore(toggle, table);
+
+          const ginLayerWrapper = table.closest('.gin-layer-wrapper');
+          if (ginLayerWrapper) {
+            ginLayerWrapper.parentNode.insertBefore(toggle, ginLayerWrapper);
+          }
+          else {
+            table.parentNode.insertBefore(toggle, table);
+          }
 
           // Initialize properties toggle.
           toggleProperties();

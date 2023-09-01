@@ -17,3 +17,70 @@ property_allowed_values:
     MD: 'M.D.'
     PHD: 'PhD'
     MSCSW: 'MSCSW'
+  dosageForm:
+    Aerosol: Aerosol
+    Bead: Bead
+    Capsule: Capsule
+    Chewable Gel: Chewable Gel
+    Cloth: Cloth
+    Concentrate: Concentrate
+    Cream: Cream
+    Crystal: Crystal
+    Disc: Disc
+    Douche: Douche
+    Dressing: Dressing
+    Elixir: Elixir
+    Emulsion: Emulsion
+    Enema: Enema
+    Extract: Extract
+    Film: Film
+    Gas: Gas
+    Gel: Gel
+    Globule: Globule
+    Granule: Granule
+    Gum, Chewing: Gum, Chewing
+    Implant: Implant
+    Inhalant: Inhalant
+    Injection: Injection
+    Jelly: Jelly
+    Kit: Kit
+    Liniment: Liniment
+    Lipstick: Lipstick
+    Liquid: Liquid
+    Lotion: Lotion
+    Lozenge: Lozenge
+    Mouthwash: Mouthwash
+    Oil: Oil
+    Ointment: Ointment
+    Paste: Paste
+    Pastille: Pastille
+    Patch: Patch
+    Pellet: Pellet
+    Pill: Pill
+    Plaster: Plaster
+    Poultice: Poultice
+    Powder: Powder
+    Ring: Ring
+    Rinse: Rinse
+    Salve: Salve
+    Shampoo: Shampoo
+    Soap: Soap
+    Solution: Solution
+    Sponge: Sponge
+    Spray: Spray
+    Stick: Stick
+    Strip: Strip
+    Suppository: Suppository
+    Suspension: Suspension
+    Swab: Swab
+    Syrup: Syrup
+    System: System
+    Tablet: Tablet
+    Tampon: Tampon
+    Tape: Tape
+    Tincture: Tincture
+    Troche: Troche
+    Wafer: Wafer
+property_allowed_values_suffixes:
+  suitableForDiet: Diet
+  hasHealthAspect: 'Health Aspect'

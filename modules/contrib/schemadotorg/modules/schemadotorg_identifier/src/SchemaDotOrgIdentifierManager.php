@@ -69,7 +69,7 @@ class SchemaDotOrgIdentifierManager implements SchemaDotOrgIdentifierManagerInte
 
     // Set identifiers into field groups.
     if ($this->fieldGroupEntityDisplayBuilder) {
-      $this->fieldGroupEntityDisplayBuilder->setFieldGroups($entity_type_id, $bundle, $schema_type, $properties);
+      $this->fieldGroupEntityDisplayBuilder->setFieldGroups($mapping, $properties);
     }
   }
 

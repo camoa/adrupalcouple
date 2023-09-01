@@ -13,10 +13,10 @@ use Drupal\Core\Field\FieldItemListInterface;
  * widget on the form. Rather it sets a UUID on the field when the customfield
  * is first created to give a unique identifier to the customfield item.
  *
- * The main purpose of this field is to be able to identify a specific customfield
- * item without having to rely on any of the exposed fields which could change
- * at any given time (i.e. content is updated, or delta is changed with a manual
- * reorder).
+ * The main purpose of this field is to be able to identify a specific
+ * customfield item without having to rely on any of the exposed fields which
+ * could change at any given time (i.e. content is updated, or delta is changed
+ * with a manual reorder).
  *
  * @CustomFieldType(
  *   id = "uuid",

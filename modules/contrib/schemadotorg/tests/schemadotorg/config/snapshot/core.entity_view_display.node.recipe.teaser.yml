@@ -7,7 +7,7 @@ dependencies:
     - field.field.node.recipe.schema_cook_time
     - field.field.node.recipe.schema_cooking_method
     - field.field.node.recipe.schema_image
-    - field.field.node.recipe.schema_keywords
+    - field.field.node.recipe.schema_is_family_friendly
     - field.field.node.recipe.schema_nutrition
     - field.field.node.recipe.schema_prep_time
     - field.field.node.recipe.schema_recipe_category
@@ -41,7 +41,7 @@ content:
     region: content
   schema_image:
     type: image
-    label: above
+    label: hidden
     settings:
       image_link: ''
       image_style: ''
@@ -53,7 +53,7 @@ content:
 hidden:
   body: true
   schema_cooking_method: true
-  schema_keywords: true
+  schema_is_family_friendly: true
   schema_nutrition: true
   schema_prep_time: true
   schema_recipe_category: true

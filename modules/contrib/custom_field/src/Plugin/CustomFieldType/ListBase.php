@@ -17,7 +17,7 @@ class ListBase extends CustomFieldTypeBase {
    *
    * @var string
    */
-  protected static $storage_type = '';
+  protected static $storageType = '';
 
   /**
    * {@inheritdoc}
@@ -69,9 +69,9 @@ class ListBase extends CustomFieldTypeBase {
   public function widgetSettingsForm(array $form, FormStateInterface $form_state): array {
 
     $element = parent::widgetSettingsForm($form, $form_state);
-    $settings = $this->widget_settings['settings'] + self::defaultWidgetSettings()['settings'];
+    $settings = $this->widgetSettings['settings'] + self::defaultWidgetSettings()['settings'];
 
-    static::$storage_type = $this->data_type;
+    static::$storageType = $this->dataType;
 
     $values = $form_state->getValues();
     if (empty($values)) {
@@ -106,18 +106,18 @@ class ListBase extends CustomFieldTypeBase {
     $element['#suffix'] = '</div>';
     $element['settings']['empty_option'] = [
       '#type' => 'textfield',
-      '#title' => t('Empty Option'),
-      '#description' => t('Option to show when field is not required.'),
+      '#title' => $this->t('Empty Option'),
+      '#description' => $this->t('Option to show when field is not required.'),
       '#default_value' => $settings['empty_option'],
       '#required' => TRUE,
     ];
 
     $element['settings']['allowed_values'] = [
       '#type' => 'table',
-      '#caption' => t('<strong>Options</strong>'),
+      '#caption' => $this->t('<strong>Options</strong>'),
       '#header' => [
-        t('Key'),
-        t('Value'),
+        $this->t('Key'),
+        $this->t('Value'),
         '',
       ],
       '#element_validate' => [[static::class, 'validateAllowedValues']],
@@ -126,42 +126,44 @@ class ListBase extends CustomFieldTypeBase {
       $allowed_values_count = count($allowed_values);
       foreach ($allowed_values as $key => $value) {
         $key_properties = [
-          '#title' => t('Key'),
+          '#title' => $this->t('Key'),
           '#title_display' => 'invisible',
           '#default_value' => $value['key'],
           '#required' => TRUE,
         ];
         // Change the field type based on how data is stored.
-        switch ($this->data_type) {
+        switch ($this->dataType) {
           case 'integer':
             if ($this->unsigned) {
               $key_properties['#min'] = 0;
             }
             $element['settings']['allowed_values'][$key]['key'] = [
-                '#type' => 'number',
-              ] + $key_properties;
+              '#type' => 'number',
+            ] + $key_properties;
             break;
+
           case 'float':
             $element['settings']['allowed_values'][$key]['key'] = [
-                '#type' => 'number',
-                '#step' => 'any',
-              ] + $key_properties;
+              '#type' => 'number',
+              '#step' => 'any',
+            ] + $key_properties;
             break;
+
           default:
             $element['settings']['allowed_values'][$key]['key'] = [
-                '#type' => 'textfield',
-              ] + $key_properties;
+              '#type' => 'textfield',
+            ] + $key_properties;
         }
         $element['settings']['allowed_values'][$key]['value'] = [
           '#type' => 'textfield',
-          '#title' => t('Value'),
+          '#title' => $this->t('Value'),
           '#title_display' => 'invisible',
           '#default_value' => $value['value'],
           '#required' => TRUE,
         ];
         $element['settings']['allowed_values'][$key]['remove'] = [
           '#type' => 'submit',
-          '#value' => t('Remove'),
+          '#value' => $this->t('Remove'),
           '#submit' => [get_class($this) . '::removeSubmit'],
           '#name' => 'remove:' . $this->name . '_' . $key,
           '#delta' => $key,
@@ -175,7 +177,7 @@ class ListBase extends CustomFieldTypeBase {
     }
     $element['settings']['add_row'] = [
       '#type' => 'submit',
-      '#value' => t('Add option'),
+      '#value' => $this->t('Add option'),
       '#submit' => [get_class($this) . '::addSubmit'],
       '#name' => 'add_row:' . $this->name,
       '#ajax' => [
@@ -195,10 +197,11 @@ class ListBase extends CustomFieldTypeBase {
 
     $form['render'] = [
       '#type' => 'select',
-      '#title' => t('Output'),
+      '#title' => $this->t('Render'),
       '#options' => [
-        'value' => t('Value'),
-        'key' => t('Key'),
+        'value' => $this->t('Value'),
+        'key' => $this->t('Key'),
+        'hidden' => $this->t('Hidden'),
       ],
       '#default_value' => $this->getFormatterSetting('render'),
     ];
@@ -208,10 +211,15 @@ class ListBase extends CustomFieldTypeBase {
   /**
    * {@inheritdoc}
    */
-  public function value(CustomItem $item): string {
+  public function value(CustomItem $item): ?string {
     $settings = $this->getWidgetSetting('settings');
+    $render = $this->getFormatterSetting('render');
 
-    if ($this->getFormatterSetting('render') == 'key') {
+    if ($render === 'hidden') {
+      return NULL;
+    }
+
+    if ($render === 'key') {
       return parent::value($item);
     }
     else {
@@ -233,21 +241,21 @@ class ListBase extends CustomFieldTypeBase {
   /**
    * The #element_validate callback for select field allowed values.
    *
-   * @param $element
+   * @param array $element
    *   An associative array containing the properties and children of the
    *   generic form element.
-   * @param $form_state
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
    *   The current state of the form for the form this element belongs to.
    *
    * @see \Drupal\Core\Render\Element\FormElement::processPattern()
    */
-  public static function validateAllowedValues($element, FormStateInterface $form_state) {
+  public static function validateAllowedValues(array $element, FormStateInterface $form_state): void {
     $values = $element['#value'];
 
     if (is_array($values)) {
       // Check that keys are valid for the field type.
       $unique_keys = [];
-      foreach ($values as $key => $value) {
+      foreach ($values as $value) {
         // Make sure each key is unique.
         if (!in_array($value['key'], $unique_keys)) {
           $unique_keys[] = $value['key'];
@@ -257,7 +265,7 @@ class ListBase extends CustomFieldTypeBase {
           break;
         }
 
-        switch (static::$storage_type) {
+        switch (static::$storageType) {
           case 'integer':
           case 'float':
             if (!is_numeric($value['key'])) {
@@ -300,7 +308,9 @@ class ListBase extends CustomFieldTypeBase {
   public static function removeSubmit(array &$form, FormStateInterface $form_state) {
     $trigger = $form_state->getTriggeringElement();
     $parents = $trigger['#parents'];
-    $form_state->set('remove', ['name' => $parents[2], 'key' => $trigger['#delta']]);
+    $form_state->set(
+      'remove', ['name' => $parents[2], 'key' => $trigger['#delta']]
+    );
     $form_state->setRebuild();
   }
 

@@ -15,6 +15,12 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  */
 class SchemaDotOrgExportMappingSetController extends ControllerBase {
 
+  /**
+   * The Schema.org schema names services.
+   *
+   * @var \Drupal\schemadotorg\SchemaDotOrgNamesInterface
+   */
+  protected $schemaNames;
 
   /**
    * The Schema.org mapping manager service.
@@ -35,8 +41,10 @@ class SchemaDotOrgExportMappingSetController extends ControllerBase {
    */
   public static function create(ContainerInterface $container) {
     $instance = parent::create($container);
+    $instance->schemaNames = $container->get('schemadotorg.names');
     $instance->schemaMappingManager = $container->get('schemadotorg.mapping_manager');
     $instance->schemaMappingSetManager = $container->get('schemadotorg_mapping_set.manager');
+
     return $instance;
   }
 
@@ -124,8 +132,7 @@ class SchemaDotOrgExportMappingSetController extends ControllerBase {
         $bundle = ($mapping) ? $mapping->getTargetBundle() : $mapping_defaults['entity']['id'];
 
         // Properties.
-        $field_prefix = $this->config('schemadotorg.settings')
-          ->get('field_prefix');
+        $field_prefix = $this->schemaNames->getFieldPrefix();
         foreach ($mapping_defaults['properties'] as $property_name => $property_definition) {
           if (empty($property_definition['name'])) {
             continue;

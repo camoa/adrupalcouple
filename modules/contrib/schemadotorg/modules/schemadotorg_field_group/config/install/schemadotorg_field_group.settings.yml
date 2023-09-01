@@ -40,6 +40,9 @@ default_field_groups:
         - subtype
         - title
         - name
+        - alternateName
+        - proprietaryName
+        - nonProprietaryName
         - headline
         - alternativeHeadline
         - givenName
@@ -55,7 +58,6 @@ default_field_groups:
         - articleBody
         - text
         - author
-        - alternateName
         - logo
         - image
         - photo
@@ -65,6 +67,7 @@ default_field_groups:
         - thumbnail
         - thumbnailUrl
         - contentUrl
+        - associatedMedia
     employment:
       label: Employment
       properties:
@@ -141,33 +144,57 @@ default_field_groups:
     event:
       label: Event
       properties:
-        - startDate
-        - endDate
         - eventSchedule
         - eventStatus
-        - duration
         - performer
-        - audience
         - attendee
         - organizer
         - location
     medical:
       label: Medical
-      properties: {  }
+      properties:
+        - naturalProgression
+        - expectedPrognosis
+        - pathophysiology
+        - possibleComplication
+        - riskFactor
+        - signOrSymptom
+        - primaryPrevention
+        - secondaryPrevention
+        - typicalTest
+        - possibleTreatment
+        - drugClass
+        - drugUnit
+        - activeIngredient
+        - mechanismOfAction
+        - clinicalPharmacology
+        - safetyConsideration
+        - foodWarning
+        - dosageForm
+        - doseSchedule
+        - recommendedIntake
+        - maximumIntake
+        - overdosage
+        - hasHealthAspect
+        - isAvailableGenerically
+        - isProprietary
     content:
       label: Content
       properties:
        - mainEntity
-       - hasPart
     links:
       label: Links
       properties:
+        - webFeed
         - sameAs
         - relatedLink
         - significantLink
     relationships:
       label: Relationships
       properties:
+        - partOfSeries
+        - partOfSeason
+        - actor
         - sponsor
         - founder
         - employee
@@ -181,8 +208,14 @@ default_field_groups:
         - parentOrganization
         - containedInPlace
         - containsPlace
+        - studyLocation
+        - healthCondition
+        - relatedDrug
+        - study
         - subjectOf
         - about
+        - isPartOf
+        - hasPart
     taxonomy:
       label: 'Categories/Services'
       properties:

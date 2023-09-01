@@ -26,6 +26,12 @@ schemadotorg:
 # List core modules.
 drush pm:list --package='Schema.org Blueprints';
 
+# Install all Schema.org Blueprints modules.
+drush pm-list --format=list | grep schemadotorg | xargs drush install -y
+
+# Install Schema.org Blueprints Core modules.
+drush pm-list --format=list --package='Schema.org Blueprints Core' | xargs drush install -y
+
 # List JSON:API and JSON-LD modules.
 drush pm:list --package='Schema.org Blueprints API';
 
@@ -34,6 +40,16 @@ drush pm:list --package='Schema.org Blueprints Extras';
 
 # List demo modules.
 drush pm:list --package='Schema.org Blueprints Demo';
+```
+
+## Install Schema.org Blueprints modules
+
+```
+# Install all Schema.org Blueprints modules.
+drush pm-list --format=list | grep schemadotorg | xargs drush install -y
+
+# Install Schema.org Blueprints Core modules.
+drush pm-list --format=list --package='Schema.org Blueprints Core' | xargs drush install -y
 ```
 
 ## Setup and generate individual Schema.org types with example content.

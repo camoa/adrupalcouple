@@ -8,7 +8,7 @@ use Drupal\Core\Field\FieldItemListInterface;
 /**
  * Plugin implementation of the 'custom_table' formatter.
  *
- * Formats the custtomfield items as an html table.
+ * Formats the custom field items as html table.
  *
  * @FieldFormatter(
  *   id = "custom_table",
@@ -24,17 +24,8 @@ class CustomTableFormatter extends CustomFormatterBase {
   /**
    * {@inheritdoc}
    */
-  public static function defaultSettings(): array {
-    return [
-      'label_display' => [],
-    ] + parent::defaultSettings();
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function settingsSummary(): array {
-    $summary[] = t('Custom field items will be rendered as a table.');
+    $summary[] = $this->t('Custom field items will be rendered as a table.');
 
     return $summary;
   }
@@ -47,13 +38,9 @@ class CustomTableFormatter extends CustomFormatterBase {
     $component = Html::cleanCssIdentifier($this->fieldDefinition->get('field_name'));
     $customItems = $this->getCustomFieldItems();
     $header = [];
-    /** @var \Drupal\custom_field\Plugin\CustomFieldTypeInterface $customitem */
-    foreach ($customItems as $customitem) {
-      $header[] = $customitem->getLabel();
+    foreach ($customItems as $customItem) {
+      $header[] = $customItem->getLabel();
     }
-
-    // @todo: Can this be deleted?
-    $wrapper_id = 'customfield-settings-wrapper';
 
     // Jam the whole table in the first row since we're rendering the main field
     // items as table rows.
@@ -61,7 +48,7 @@ class CustomTableFormatter extends CustomFormatterBase {
       '#theme' => 'table',
       '#header' => $header,
       '#attributes' => [
-        'class' => [$component]
+        'class' => [$component],
       ],
       '#rows' => [],
     ];
@@ -69,9 +56,10 @@ class CustomTableFormatter extends CustomFormatterBase {
     // Build the table rows and columns.
     foreach ($items as $delta => $item) {
       $elements[0]['#rows'][$delta]['class'][] = $component . '__item';
-      foreach ($customItems as $name => $customitem) {
+      foreach ($customItems as $name => $customItem) {
+        $markup = $customItem->value($item);
         $elements[0]['#rows'][$delta]['data'][$name] = [
-          'data' => ['#markup' => $customitem->value($item)],
+          'data' => ['#markup' => $markup],
           'class' => [$component . '__' . Html::cleanCssIdentifier($name)],
         ];
       }

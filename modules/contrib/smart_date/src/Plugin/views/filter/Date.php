@@ -11,6 +11,7 @@ use Drupal\views\FieldAPIHandlerTrait;
 use Drupal\views\Plugin\views\filter\Date as CoreDate;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Drupal\date_popup\DatePopupHelper;
 
 /**
  * Date/time views filter, with granularity patch applied.
@@ -252,6 +253,17 @@ class Date extends CoreDate implements ContainerFactoryPluginInterface {
    */
   protected function getTimezone() {
     return date_default_timezone_get();
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function buildExposedForm(&$form, FormStateInterface $form_state) {
+    parent::buildExposedForm($form, $form_state);
+    // If Date Popup is installed, apply its popup to the filter.
+    if (class_exists('\Drupal\date_popup\DatePopupHelper')) {
+      DatePopupHelper::applyDatePopup($form, $this->options);
+    }
   }
 
 }

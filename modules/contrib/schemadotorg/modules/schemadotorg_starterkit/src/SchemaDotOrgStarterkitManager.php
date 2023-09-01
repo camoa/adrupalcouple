@@ -13,11 +13,12 @@ use Drupal\Core\Extension\ModuleInstallerInterface;
 use Drupal\Core\File\FileSystemInterface;
 use Drupal\devel_generate\DevelGeneratePluginManager;
 use Drupal\schemadotorg\SchemaDotOrgConfigManagerInterface;
+use Drupal\schemadotorg\SchemaDotOrgEntityFieldManagerInterface;
 use Drupal\schemadotorg\SchemaDotOrgMappingManagerInterface;
 use Drupal\schemadotorg\Traits\SchemaDotOrgDevelGenerateTrait;
 
 /**
- * Schema.org Starterkit manager service.
+ * Schema.org Starter kit manager service.
  */
 class SchemaDotOrgStarterkitManager implements SchemaDotOrgStarterkitManagerInterface {
   use SchemaDotOrgDevelGenerateTrait;
@@ -60,6 +61,11 @@ class SchemaDotOrgStarterkitManager implements SchemaDotOrgStarterkitManagerInte
    * {@inheritdoc}
    */
   public function isStarterkit(string $module): bool {
+    $extensions = $this->extensionListModule->getList();
+    if (!isset($extensions[$module])) {
+      return FALSE;
+    }
+
     $module_path = $this->extensionListModule->getPath($module);
     $module_schemadotorg_path = "$module_path/$module.schemadotorg_starterkit.yml";
     return file_exists($module_schemadotorg_path);
@@ -91,14 +97,13 @@ class SchemaDotOrgStarterkitManager implements SchemaDotOrgStarterkitManagerInte
    * {@inheritdoc}
    */
   public function getStarterkitSettings(string $module): FALSE|array {
-    $module_path = $this->extensionListModule->getPath($module);
-    $module_schemadotorg_path = "$module_path/$module.schemadotorg_starterkit.yml";
-    if (!file_exists($module_schemadotorg_path)) {
-      return FALSE;
+    $settings = $this->getStarterkitSettingsData($module);
+    if ($settings && !empty($settings['types'])) {
+      foreach ($settings['types'] as $type => $type_defaults) {
+        $settings['types'][$type] = $this->getStarterSettingsTypeDefaults($type, $type_defaults);
+      }
     }
-
-    $settings = Yaml::decode(file_get_contents($module_schemadotorg_path));
-    return ($settings !== TRUE) ? $settings : [];
+    return $settings;
   }
 
   /**
@@ -144,6 +149,7 @@ class SchemaDotOrgStarterkitManager implements SchemaDotOrgStarterkitManagerInte
     }
 
     $this->rewriteSchemaConfig($module);
+    $this->installDependencies($module);
     $this->setupSchemaTypes($module);
   }
 
@@ -213,31 +219,99 @@ class SchemaDotOrgStarterkitManager implements SchemaDotOrgStarterkitManagerInte
   }
 
   /**
+   * Install dependencies.
+   *
+   * @param string $module
+   *   A module.
+   */
+  protected function installDependencies(string $module): void {
+    $settings = $this->getStarterkitSettingsData($module);
+    if ($settings && !empty($settings['dependencies'])) {
+      $this->moduleInstaller->install($settings['dependencies']);
+    }
+  }
+
+  /**
    * Set up a starterkit  module based on the module's settings.
    *
    * @param string $module
    *   A module.
    */
   protected function setupSchemaTypes(string $module): void {
-    /** @var \Drupal\schemadotorg\SchemaDotOrgMappingStorageInterface $mapping_storage */
-    $mapping_storage = $this->entityTypeManager->getStorage('schemadotorg_mapping');
-
-    $settings = $this->getStarterkitSettings($module);
-    $types = $settings['types'] ?? [];
-    foreach ($types as $type => $defaults) {
-      [$entity_type_id, $schema_type] = explode(':', $type);
-      $mapping = $mapping_storage->loadBySchemaType($entity_type_id, $schema_type);
-      if ($mapping) {
-        // Don't allow properties to be unexpectedly removed.
-        $defaults['properties'] = array_filter($defaults['properties']);
-        $bundle = $mapping->getTargetBundle();
-        $mapping_defaults = $this->schemaMappingManager->getMappingDefaults($entity_type_id, $bundle, $schema_type, $defaults);
-        $this->schemaMappingManager->saveMapping($entity_type_id, $schema_type, $mapping_defaults);
-      }
-      else {
+    $settings = $this->getStarterkitSettingsData($module);
+    if ($settings && !empty($settings['types'])) {
+      foreach ($settings['types'] as $type => $type_defaults) {
+        [$entity_type_id, $schema_type] = explode(':', $type);
+        $defaults = $this->getStarterSettingsTypeDefaults($type, $type_defaults);
         $this->schemaMappingManager->createType($entity_type_id, $schema_type, $defaults);
       }
     }
+  }
+
+  /**
+   * Get Schema.org starter kit settings from module's YAML file.
+   *
+   * @param string $module
+   *   The module.
+   *
+   * @return false|array
+   *   Schema.org starter kit settings for a module.
+   */
+  protected function getStarterkitSettingsData(string $module): FALSE|array {
+    $module_path = $this->extensionListModule->getPath($module);
+    $module_schemadotorg_path = "$module_path/$module.schemadotorg_starterkit.yml";
+    if (!file_exists($module_schemadotorg_path)) {
+      return FALSE;
+    }
+
+    $settings = Yaml::decode(file_get_contents($module_schemadotorg_path));
+    return ($settings !== TRUE ? $settings : [])
+      + ['hidden' => FALSE, 'dependencies' => [], 'types' => []];
+  }
+
+  /**
+   * Get the Schema.org starter kit type defaults merged with the preconfigured defaults.
+   *
+   * @param string $type
+   *   The entity type and Schema.org type.
+   * @param array $type_defaults
+   *   The Schema.org starter kit type defaults.
+   *
+   * @return array
+   *   Schema.org starter kit type defaults merged with the preconfigured defaults.
+   */
+  protected function getStarterSettingsTypeDefaults(string $type, array $type_defaults): array {
+    [$entity_type_id, $schema_type] = explode(':', $type);
+    if (!$this->entityTypeManager->hasDefinition($entity_type_id)) {
+      return [];
+    }
+
+    /** @var \Drupal\schemadotorg\SchemaDotOrgMappingInterface $mapping */
+    $mapping = $this->entityTypeManager
+      ->getStorage('schemadotorg_mapping')
+      ->loadBySchemaType($entity_type_id, $schema_type);
+    if ($mapping) {
+      $bundle = $mapping->getTargetBundle();
+      // Don't allow properties to be unexpectedly removed.
+      if (!empty($type_defaults['properties'])) {
+        $type_defaults['properties'] = array_filter($type_defaults['properties']);
+      }
+    }
+    else {
+      $bundle = NULL;
+    }
+
+    // Add properties that are explicitly set.
+    if (isset($type_defaults['properties'])) {
+      foreach ($type_defaults['properties'] as $property_name => $property) {
+        if (is_array($property)
+          && empty($type_defaults['properties'][$property_name]['name'])) {
+          $type_defaults['properties'][$property_name]['name'] = SchemaDotOrgEntityFieldManagerInterface::ADD_FIELD;
+        }
+      }
+    }
+
+    return $this->schemaMappingManager->getMappingDefaults($entity_type_id, $bundle, $schema_type, $type_defaults);
   }
 
 }

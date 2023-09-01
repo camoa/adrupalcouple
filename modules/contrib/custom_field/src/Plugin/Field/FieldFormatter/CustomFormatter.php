@@ -8,7 +8,7 @@ use Drupal\Core\Form\FormStateInterface;
 /**
  * Plugin implementation of the 'custom_formatter' formatter.
  *
- * Generic formatter, renders the items using the customfield theme hook
+ * Generic formatter, renders the items using the custom_field theme hook
  * implementation.
  *
  * @FieldFormatter(
@@ -41,18 +41,16 @@ class CustomFormatter extends CustomFormatterBase {
     $form['#attached']['library'][] = 'custom_field/customfield-inline';
     $form['label_display'] = [
       '#type' => 'container',
-      // '#title' => t('Custom field Item Label Display'),
       '#attributes' => [
-        'class' => ['customfield-inline']
+        'class' => ['customfield-inline'],
       ],
     ];
 
     $label_display = $this->getSetting('label_display');
-    /** @var \Drupal\custom_field\Plugin\CustomFieldTypeInterface $customItem */
     foreach ($this->getCustomFieldItems() as $name => $customItem) {
       $form['label_display'][$name] = [
         '#type' => 'select',
-        '#title' => t('@label label', ['@label' => $customItem->getLabel()]),
+        '#title' => $this->t('@label label', ['@label' => $customItem->getLabel()]),
         '#options' => $this->fieldLabelOptions(),
         '#default_value' => $label_display[$name] ?? 'above',
       ];
@@ -70,9 +68,8 @@ class CustomFormatter extends CustomFormatterBase {
     $summary = [];
 
     $label_display = $this->getSetting('label_display');
-    /** @var \Drupal\custom_field\Plugin\CustomFieldTypeInterface $customItem */
     foreach ($this->getCustomFieldItems() as $name => $customItem) {
-      $summary[] = t('@label label display: @label_display', [
+      $summary[] = $this->t('@label label display: @label_display', [
         '@label' => $customItem->getLabel(),
         '@label_display' => isset($label_display[$name]) ? $this->fieldLabelOption($label_display[$name]) : 'above',
       ]);
@@ -101,11 +98,14 @@ class CustomFormatter extends CustomFormatterBase {
     ];
     $label_display = $this->getSetting('label_display');
 
-    /** @var \Drupal\custom_field\Plugin\CustomFieldTypeInterface $customItem */
     foreach ($this->getCustomFieldItems() as $name => $customItem) {
+      $markup = $customItem->value($item);
+      if ($markup === '' || $markup === NULL) {
+        continue;
+      }
       $output['#items'][] = [
         'name' => $name,
-        'value' => ['#markup' => $customItem->value($item)],
+        'value' => ['#markup' => $markup],
         'label' => $customItem->getLabel(),
         'label_display' => $label_display[$name] ?? 'above',
       ];
@@ -128,7 +128,7 @@ class CustomFormatter extends CustomFormatterBase {
       'above' => $this->t('Above'),
       'inline' => $this->t('Inline'),
       'hidden' => '- ' . $this->t('Hidden') . ' -',
-      'visually_hidden' => '- ' . $this->t('Visually Hidden') . ' -',
+      'visually_hidden' => '- ' . $this->t('Visually hidden') . ' -',
     ];
   }
 

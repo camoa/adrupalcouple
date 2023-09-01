@@ -38,9 +38,7 @@ class SchemaDotOrgCommands extends DrushCommands {
     protected SchemaDotOrgConfigManagerInterface $schemaConfigManager,
     protected SchemaDotOrgEntityRelationshipManagerInterface $schemaEntityRelationshipManager,
     protected SchemaDotOrgMappingManagerInterface $schemaMappingManager
-  ) {
-    parent::__construct();
-  }
+  ) {}
 
   /**
    * Download Schema.org CSV data.

@@ -19,10 +19,13 @@ function schemadotorg_cer_install(bool $is_syncing): void {
   $schema_config_manager = \Drupal::service('schemadotorg.config_manager');
   // Set subOrganization ↔ parentOrganization relationship.
   $schema_config_manager->setSchemaTypeDefaultProperties('Organization', ['subOrganization', 'parentOrganization']);
+  // Set isPartOf ↔ hasPart relationship.
+  $schema_config_manager->setSchemaTypeDefaultProperties('WebContent', ['isPartOf', 'hasPart']);
   // Set subjectOf ↔ about relationship.
   $schema_config_manager->setMappingTypeSchemaTypeDefaultProperties('node', 'Thing', ['subjectOf']);
   $schema_config_manager->setMappingTypeSchemaTypeDefaultProperties('node', 'Event', ['about']);
   $schema_config_manager->setMappingTypeSchemaTypeDefaultProperties('node', 'CreativeWork', ['about']);
+
 }
 
 /**
@@ -36,9 +39,12 @@ function schemadotorg_cer_uninstall(bool $is_syncing): void {
   /** @var \Drupal\schemadotorg\SchemaDotOrgConfigManagerInterface $schema_config_manager */
   $schema_config_manager = \Drupal::service('schemadotorg.config_manager');
   // Unset subOrganization ↔ parentOrganization relationship.
-  $schema_config_manager->setSchemaTypeDefaultProperties('Organization', NULL, ['subOrganization', 'parentOrganization']);
+  $schema_config_manager->unsetSchemaTypeDefaultProperties('Organization', ['subOrganization', 'parentOrganization']);
+  // Unset isPartOf ↔ hasPart relationship.
+  $schema_config_manager->unsetSchemaTypeDefaultProperties('WebContent', ['isPartOf', 'hasPart']);
   // Unset subjectOf ↔ about relationship.
-  $schema_config_manager->setMappingTypeSchemaTypeDefaultProperties('node', 'Thing', NULL, ['subjectOf']);
-  $schema_config_manager->setMappingTypeSchemaTypeDefaultProperties('node', 'Event', NULL, ['about']);
-  $schema_config_manager->setMappingTypeSchemaTypeDefaultProperties('node', 'CreativeWork', NULL, ['about']);
+  $schema_config_manager->unsetMappingTypeSchemaTypeDefaultProperties('node', 'Thing', ['subjectOf']);
+  $schema_config_manager->unsetMappingTypeSchemaTypeDefaultProperties('node', 'Event', ['about']);
+  $schema_config_manager->unsetMappingTypeSchemaTypeDefaultProperties('node', 'CreativeWork', ['about']);
+
 }

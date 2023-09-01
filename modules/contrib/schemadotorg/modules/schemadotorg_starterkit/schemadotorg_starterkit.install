@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Installation hooks for the Schema.org Blueprints Starterkit module.
+ * Installation hooks for the Schema.org Blueprints Starter Kit module.
  */
 
 declare(strict_types = 1);

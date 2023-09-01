@@ -19,41 +19,43 @@
     "extra": {
         "drush": {
             "services": {
-                "drush.services.yml": "^10"
+                "drush.services.yml": "^12"
             }
         }
     },
     "require": {
-        "drupal/core": "^9.4 || ^10.0",
-        "php": "^8.1"
+        "drupal/core": "^10.1"
     },
     "require-dev": {
-        "drupal/address": "~1.0",
-        "drupal/auto_entitylabel": "~3.0",
-        "drupal/allowed_formats": "~2.0",
-        "drupal/cer": "~5.0",
-        "drupal/config_rewrite": "~1.0",
-        "drupal/ckeditor": "~1.0",
-        "drupal/custom_field": "~1.0",
-        "drupal/entity_usage": "~2.0",
-        "drupal/existing_values_autocomplete_widget": "~2.0",
-        "drupal/field_group": "~3.0",
+        "drupal/address": "^1.0",
+        "drupal/auto_entitylabel": "^3.0",
+        "drupal/allowed_formats": "^3.0",
+        "drupal/cer": "^5.0",
+        "drupal/config_rewrite": "^1.0",
+        "drupal/ckeditor": "^1.0",
+        "drupal/custom_field": "1.0.0-rc3",
+        "drupal/entity_usage": "^2.0",
+        "drupal/entity_reference_override": "^2.0",
+        "drupal/epp": "^1.0",
+        "drupal/existing_values_autocomplete_widget": "^2.0",
+        "drupal/field_group": "^3.0",
         "drupal/field_validation": "^1.0",
-        "drupal/focal_point": "~2.0",
-        "drupal/geolocation": "~3.0",
-        "drupal/jsonapi_extras": "~3.0",
-        "drupal/layout_paragraphs": "~2.0",
-        "drupal/link_attributes": "~1.0",
-        "drupal/inline_entity_form": "~2.0",
-        "drupal/metatag": "~1.0",
-        "drupal/office_hours": "~1.0",
-        "drupal/paragraphs": "~1.0",
-        "drupal/range": "~1.0",
-        "drupal/rdf": "~2.0",
-        "drupal/scheduler": "~2.0",
-        "drupal/simple_sitemap": "~4.0",
-        "drupal/smart_date": "~4.0",
-        "drupal/token": "~1.0",
+        "drupal/focal_point": "^2.0",
+        "drupal/geolocation": "^3.0",
+        "drupal/jsonapi_extras": "^3.0",
+        "drupal/layout_paragraphs": "^2.0",
+        "drupal/link_attributes": "^2.0",
+        "drupal/inline_entity_form": "^2.0",
+        "drupal/metatag": "^1.0",
+        "drupal/office_hours": "^1.0",
+        "drupal/paragraphs": "^1.0",
+        "drupal/range": "^1.0",
+        "drupal/rdf": "^2.0",
+        "drupal/scheduler": "^2.0",
+        "drupal/simple_sitemap": "^4.0",
+        "drupal/smart_date": "^4.1",
+        "drupal/token": "^1.0",
+        "drupal/type_tray": "^1.0",
         "michelf/php-markdown": "^1.0"
     },
     "suggest": {

@@ -9,8 +9,8 @@ use Drupal\Tests\schemadotorg\Functional\SchemaDotOrgBrowserTestBase;
 /**
  * Tests the functionality of the Schema.org role mapping UI form.
  *
- * @covers \Drupal\schemadotorg_role\SchemaDotOrgRoleManager::mappingDefaultsAlter
- * @covers \Drupal\schemadotorg_role\SchemaDotOrgRoleManager::mappingFormAlter
+ * @covers \Drupal\schemadotorg_role\SchemaDotOrgRoleFieldManager::mappingDefaultsAlter
+ * @covers \Drupal\schemadotorg_role\SchemaDotOrgRoleFieldManager::mappingFormAlter
  * @group schemadotorg
  */
 class SchemaDotOrgRoleMappingUiFormTest extends SchemaDotOrgBrowserTestBase {

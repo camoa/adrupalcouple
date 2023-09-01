@@ -6,7 +6,7 @@ dependencies:
     - field.field.node.recipe.schema_cook_time
     - field.field.node.recipe.schema_cooking_method
     - field.field.node.recipe.schema_image
-    - field.field.node.recipe.schema_keywords
+    - field.field.node.recipe.schema_is_family_friendly
     - field.field.node.recipe.schema_nutrition
     - field.field.node.recipe.schema_prep_time
     - field.field.node.recipe.schema_recipe_category
@@ -28,7 +28,7 @@ schema_properties:
   changed: dateModified
   schema_image: image
   langcode: inLanguage
-  schema_keywords: keywords
+  schema_is_family_friendly: isFamilyFriendly
   title: name
   schema_nutrition: nutrition
   schema_prep_time: prepTime

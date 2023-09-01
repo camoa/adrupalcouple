@@ -1,0 +1,79 @@
+<?php
+
+/**
+ * @file
+ * Allows users to preview a web page's Schema.org JSON-LD.
+ */
+
+declare(strict_types = 1);
+
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\node\NodeInterface;
+use Drupal\schemadotorg\Element\SchemaDotOrgSettings;
+
+/**
+ * Implements hook_preprocess_html().
+ */
+function schemadotorg_diagram_preprocess_html(array &$variables): void {
+  // Check if the user can view Schema.org diagrams.
+  if (!\Drupal::currentUser()->hasPermission('view schemadotorg diagram')) {
+    return;
+  }
+
+  // Get the current page's node.
+  $current_node = \Drupal::routeMatch()->getParameter('node');
+  if (!$current_node
+    || !($current_node instanceof NodeInterface)
+    || !node_is_page($current_node)) {
+    return;
+  }
+
+  /** @var \Drupal\schemadotorg_diagram\SchemaDotOrgDiagramInterface $diagram */
+  $diagram = \Drupal::service('schemadotorg_diagram');
+
+  $diagram_settings = \Drupal::config('schemadotorg_diagram.settings')
+    ->get('diagrams');
+
+  $diagrams = [];
+  foreach ($diagram_settings as $diagram_name => $diagram_setting) {
+    $diagrams[$diagram_name] = $diagram->build(
+      $current_node,
+      $diagram_setting['parent'] ?? NULL,
+      $diagram_setting['child'] ?? NULL,
+      $diagram_setting['title'] ?? NULL,
+    );
+  }
+  $diagrams = array_filter($diagrams);
+  if ($diagrams) {
+    $variables['page']['content']['schemadotorg_diagram'] = [
+      '#type' => 'details',
+      '#title' => t('Schema.org diagrams'),
+      '#attributes' => [
+        'id' => 'schemadotorg-diagram',
+        'data-schemadotorg-details-key' => 'schemadotorg-diagram',
+      ],
+      '#attached' => ['library' => ['schemadotorg/schemadotorg.details']],
+    ] + $diagrams;
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function schemadotorg_diagram_form_schemadotorg_general_settings_form_alter(array &$form, FormStateInterface $form_state): void {
+  $form['schemadotorg_diagram'] = [
+    '#type' => 'details',
+    '#title' => t('Diagram settings'),
+    '#open' => TRUE,
+    '#tree' => TRUE,
+    '#weight' => -10,
+  ];
+  $form['schemadotorg_diagram']['diagrams'] = [
+    '#title' => t('Diagrams'),
+    '#type' => 'schemadotorg_settings',
+    '#settings_type' => SchemaDotOrgSettings::ASSOCIATIVE_GROUPED,
+    '#settings_format' => 'property_name|title:Title,parent:schemaProperty,child:schemaProperty',
+    '#description' => t('Enter Schema.org diagrams title, parent, and child Schema.org properties.'),
+    '#description_link' => 'property',
+  ];
+}

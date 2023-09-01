@@ -7,7 +7,7 @@ namespace Drupal\schemadotorg_mapping_set\Controller;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Link;
 use Drupal\Core\Url;
-use Drupal\schemadotorg\SchemaDotOrgEntityFieldManagerInterface;
+use Drupal\schemadotorg\Traits\SchemaDotOrgBuildTrait;
 use Drupal\schemadotorg\Utility\SchemaDotOrgStringHelper;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -16,13 +16,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  * Returns responses for Schema.org Blueprints Mapping Sets routes.
  */
 class SchemadotorgMappingSetController extends ControllerBase {
-
-  /**
-   * Link options.
-   *
-   * @var array
-   */
-  protected $linkOptions = ['attributes' => ['target' => '_blank']];
+  use SchemaDotOrgBuildTrait;
 
   /**
    * The redirect destination.
@@ -331,25 +325,8 @@ class SchemadotorgMappingSetController extends ControllerBase {
 
       $mapping = $mapping_storage->loadBySchemaType($entity_type_id, $schema_type);
       $mapping_defaults = $this->schemaMappingManager->getMappingDefaults($entity_type_id, NULL, $schema_type);
-      if ($mapping) {
-        $entity_type = $mapping->getTargetEntityBundleEntity()
-          ->toLink($type, 'edit-form')
-          ->toRenderable();
-      }
-      else {
-        $entity_type = [
-          '#markup' => $entity_type_id . ':' . $mapping_defaults['entity']['id'],
-        ];
-      }
 
-      $t_args = [
-        '@label' => $mapping_defaults['entity']['label'],
-        '@type' => $type,
-      ];
-      $details = [
-        '#type' => 'details',
-        '#title' => $this->t('@label (@type)', $t_args),
-      ];
+      $details = $this->buildSchemaType($type, $mapping_defaults);
       switch ($operation) {
         case 'view':
           $details['#title'] .= ' - ' . ($mapping ? $this->t('Exists') : '<em>' . $this->t('Missing') . '</em>');
@@ -377,97 +354,8 @@ class SchemadotorgMappingSetController extends ControllerBase {
           }
           break;
       }
-
-      // Entity.
-      $details['schema_type'] = [
-        '#type' => 'item',
-        '#title' => $this->t('Schema.org type'),
-        'link' => $this->schemaTypeBuilder->buildItemsLinks($schema_type, $this->linkOptions),
-      ];
-      $details['entity_type'] = [
-        '#type' => 'item',
-        '#title' => $this->t('Entity type and bundle'),
-        'item' => $entity_type,
-      ];
-      $details['label'] = [
-        '#type' => 'item',
-        '#title' => $this->t('Entity label'),
-        '#markup' => $mapping_defaults['entity']['label'],
-      ];
-
-      $details['entity_description'] = [
-        '#type' => 'item',
-        '#title' => $this->t('Entity description'),
-        '#markup' => $mapping_defaults['entity']['description'],
-      ];
-
-      // Properties.
-      $rows = [];
-      $field_prefix = $this->config('schemadotorg.settings')->get('field_prefix');
-      foreach ($mapping_defaults['properties'] as $property_name => $property_definition) {
-        if (empty($property_definition['name'])) {
-          continue;
-        }
-
-        if (empty($property_definition['name'])
-          || empty($property_definition['label'])) {
-          continue;
-        }
-        $range_includes = $this->schemaTypeManager->getPropertyRangeIncludes($property_name);
-
-        $row = [];
-        $row['label'] = [
-          'data' => [
-            'name' => [
-              '#markup' => $property_definition['label'],
-              '#prefix' => '<strong>',
-              '#suffix' => '</strong></br>',
-            ],
-            'description' => [
-              '#markup' => $property_definition['description'],
-              '#suffix' => '</br>',
-            ],
-            'range_includes' => $range_includes ? [
-              'links' => $this->schemaTypeBuilder->buildItemsLinks($range_includes, $this->linkOptions),
-              '#prefix' => '(',
-              '#suffix' => ')',
-            ] : [],
-          ],
-        ];
-        $row['property'] = $property_name;
-        $row['arrow'] = '→';
-        if ($property_definition['name'] === SchemaDotOrgEntityFieldManagerInterface::ADD_FIELD) {
-          $row['name'] = $field_prefix . $property_definition['machine_name'];
-          $row['existing'] = $this->t('No');
-        }
-        else {
-          $row['name'] = $property_definition['name'];
-          $row['existing'] = $this->t('Yes');
-        }
-        $row['type'] = $property_definition['type'];
-        $row['unlimited'] = !empty($property_definition['unlimited']) ? $this->t('Yes') : $this->t('No');
-        $row['required'] = !empty($property_definition['required']) ? $this->t('Yes') : $this->t('No');
-        $rows[] = $row;
-      }
-      $details['properties'] = [
-        '#type' => 'table',
-        '#header' => [
-          'label' => ['data' => $this->t('Label / Description'), 'width' => '35%'],
-          'property' => ['data' => $this->t('Schema.org property'), 'width' => '15%'],
-          'arrow' => ['data' => '', 'width' => '1%'],
-          'name' => ['data' => $this->t('Field name'), 'width' => '15%'],
-          'existing' => ['data' => $this->t('Existing field'), 'width' => '10%'],
-          'type' => ['data' => $this->t('Field type'), 'width' => '15%'],
-          'unlimited' => ['data' => $this->t('Unlimited values'), 'width' => '5%'],
-          'required' => ['data' => $this->t('Required field'), 'width' => '5%'],
-        ],
-        '#rows' => $rows,
-      ];
       $build[$type] = $details;
     }
-
-    $build['#attached']['library'][] = 'schemadotorg/schemadotorg.dialog';
-
     return $build;
   }
 

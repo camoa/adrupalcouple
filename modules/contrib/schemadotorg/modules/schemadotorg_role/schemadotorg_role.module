@@ -9,18 +9,67 @@ declare(strict_types = 1);
 
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Field\FieldItemInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\schemadotorg\Element\SchemaDotOrgSettings;
 use Drupal\schemadotorg\Entity\SchemaDotOrgMapping;
 use Drupal\schemadotorg\SchemaDotOrgMappingInterface;
 
 /**
+ * Implements hook_schemadotorg_property_field_alter().
+ */
+function schemadotorg_role_schemadotorg_property_field_alter(
+  string $schema_type,
+  string $schema_property,
+  array &$field_storage_values,
+  array &$field_values,
+  ?string &$widget_id,
+  array &$widget_settings,
+  ?string &$formatter_id,
+  array &$formatter_settings
+): void {
+  // Check that the 'Entity Reference Override' module is installed.
+  if (!\Drupal::moduleHandler()->moduleExists('entity_reference_override')) {
+    return;
+  }
+
+  // Make sure the field storage type is an entity reference.
+  if (!in_array($field_storage_values['type'], ['entity_reference', 'entity_reference_override'])) {
+    return;
+  }
+
+  // Check that the Schema.org property should use an entity reference override.
+  $entity_reference_overrides = \Drupal::config('schemadotorg_role.settings')
+    ->get('entity_reference_overrides');
+  if (!in_array($schema_property, $entity_reference_overrides)) {
+    return;
+  }
+
+  // Change the field storage type.
+  $field_storage_values['type'] = 'entity_reference_override';
+
+  // Set the entity reference override label.
+  $field_values['settings']['override_label'] = (string) t("Enter role");
+
+  // Update the widget id and settings.
+  $widget_id = 'entity_reference_override_autocomplete';
+  $widget_settings = [];
+
+  // Update the formatter id and settings.
+  $formatter_id = 'entity_reference_override_label';
+  $formatter_settings = [
+    'link' => TRUE,
+    'override_action' => 'suffix',
+  ];
+}
+
+/**
  * Implements hook_schemadotorg_mapping_defaults_alter().
  */
 function schemadotorg_role_schemadotorg_mapping_defaults_alter(array &$defaults, string $entity_type_id, ?string $bundle, string $schema_type): void {
-  /** @var \Drupal\schemadotorg_role\SchemaDotOrgRoleManagerInterface $role_manager */
-  $role_manager = \Drupal::service('schemadotorg_role.manager');
-  $role_manager->mappingDefaultsAlter($defaults, $entity_type_id, $bundle, $schema_type);
+  /** @var \Drupal\schemadotorg_role\SchemaDotOrgRoleFieldManagerInterface $role_field_manager */
+  $role_field_manager = \Drupal::service('schemadotorg_role.field_manager');
+  $role_field_manager->mappingDefaultsAlter($defaults, $entity_type_id, $bundle, $schema_type);
 }
 
 /**
@@ -31,9 +80,9 @@ function schemadotorg_role_form_schemadotorg_mapping_form_alter(array &$form, Fo
     return;
   }
 
-  /** @var \Drupal\schemadotorg_role\SchemaDotOrgRoleManagerInterface $role_manager */
-  $role_manager = \Drupal::service('schemadotorg_role.manager');
-  $role_manager->mappingFormAlter($form, $form_state);
+  /** @var \Drupal\schemadotorg_role\SchemaDotOrgRoleFieldManagerInterface $role_field_manager */
+  $role_field_manager = \Drupal::service('schemadotorg_role.field_manager');
+  $role_field_manager->mappingFormAlter($form, $form_state);
 }
 
 /**
@@ -44,10 +93,14 @@ function schemadotorg_role_schemadotorg_mapping_insert(SchemaDotOrgMappingInterf
     return;
   }
 
-  /** @var \Drupal\schemadotorg_role\SchemaDotOrgRoleManagerInterface $role_manager */
-  $role_manager = \Drupal::service('schemadotorg_role.manager');
-  $role_manager->mappingInsert($mapping);
+  /** @var \Drupal\schemadotorg_role\SchemaDotOrgRoleFieldManagerInterface $role_field_manager */
+  $role_field_manager = \Drupal::service('schemadotorg_role.field_manager');
+  $role_field_manager->mappingInsert($mapping);
 }
+
+/* ************************************************************************** */
+// JSON-LD.
+/* ************************************************************************** */
 
 /**
  * Implements hook_schemadotorg_jsonld_schema_type_entity_load().
@@ -65,9 +118,9 @@ function schemadotorg_role_schemadotorg_jsonld_schema_type_entity_load(array &$d
   }
 
   // Get the Schema.org role fields.
-  /** @var \Drupal\schemadotorg_role\SchemaDotOrgRoleManagerInterface $role_manager */
-  $role_manager = \Drupal::service('schemadotorg_role.manager');
-  $role_field_definitions = $role_manager->getMappingFieldDefinitions($mapping);
+  /** @var \Drupal\schemadotorg_role\SchemaDotOrgRoleFieldManagerInterface $role_field_manager */
+  $role_field_manager = \Drupal::service('schemadotorg_role.field_manager');
+  $role_field_definitions = $role_field_manager->getMappingFieldDefinitions($mapping);
   if (empty($role_field_definitions)) {
     return;
   }
@@ -106,6 +159,62 @@ function schemadotorg_role_schemadotorg_jsonld_schema_type_entity_load(array &$d
 }
 
 /**
+ * Implements hook_schemadotorg_jsonld_schema_property_alter().
+ */
+function schemadotorg_role_schemadotorg_jsonld_schema_property_alter(mixed &$value, FieldItemInterface $item): void {
+  // Get field information.
+  $field_name = $item->getFieldDefinition()->getName();
+  $field_type = $item->getFieldDefinition()->getType();
+
+  // Get Schema.org mapping and the Schema.org property.
+  /** @var \Drupal\schemadotorg\SchemaDotOrgMappingStorageInterface $mapping_storage */
+  $mapping_storage = \Drupal::entityTypeManager()->getStorage('schemadotorg_mapping');
+  $entity = $item->getEntity();
+  $mapping = $mapping_storage->loadByEntity($entity);
+  $schema_property = $mapping->getSchemaPropertyMapping($field_name);
+
+  // Check that the 'Entity Reference Override' module is installed.
+  if (!\Drupal::moduleHandler()->moduleExists('entity_reference_override')) {
+    return;
+  }
+
+  // Make sure the field storage type is an entity reference.
+  if (!in_array($field_type, ['entity_reference', 'entity_reference_override'])) {
+    return;
+  }
+
+  // Check that the Schema.org property should use an entity reference override.
+  $entity_reference_overrides = \Drupal::config('schemadotorg_role.settings')
+    ->get('entity_reference_overrides');
+  if (!in_array($schema_property, $entity_reference_overrides)) {
+    return;
+  }
+
+  // The override value which is the role.
+  $override = $item->override;
+  if (empty($override)) {
+    return;
+  }
+
+  // Apply the override format.
+  $override_format = $item->override_format;
+  if ($override_format) {
+    $override = check_markup($override, $override_format);
+  }
+
+  // Set the https://schema.org/Role for the value.
+  $value = [
+    '@type' => 'Role',
+    'roleName' => $override,
+    $schema_property => $value,
+  ];
+}
+
+/* ************************************************************************** */
+// JSON-API.
+/* ************************************************************************** */
+
+/**
  * Implements hook_jsonapi_resource_config_presave().
  */
 function schemadotorg_role_jsonapi_resource_config_presave(EntityInterface $entity): void {
@@ -127,9 +236,9 @@ function schemadotorg_role_jsonapi_resource_config_presave(EntityInterface $enti
   }
 
   // Get the Schema.org role fields.
-  /** @var \Drupal\schemadotorg_role\SchemaDotOrgRoleManagerInterface $role_manager */
-  $role_manager = \Drupal::service('schemadotorg_role.manager');
-  $role_field_definitions = $role_manager->getMappingFieldDefinitions($mapping);
+  /** @var \Drupal\schemadotorg_role\SchemaDotOrgRoleFieldManagerInterface $role_field_manager */
+  $role_field_manager = \Drupal::service('schemadotorg_role.field_manager');
+  $role_field_definitions = $role_field_manager->getMappingFieldDefinitions($mapping);
   if (empty($role_field_definitions)) {
     return;
   }
@@ -145,6 +254,10 @@ function schemadotorg_role_jsonapi_resource_config_presave(EntityInterface $enti
   }
   $entity->set('resourceFields', $resource_fields);
 }
+
+/* ************************************************************************** */
+// Settings form.
+/* ************************************************************************** */
 
 /**
  * Implements hook_form_FORM_ID_alter().
@@ -171,5 +284,13 @@ function schemadotorg_role_form_schemadotorg_properties_settings_form_alter(arra
     '#array_name' => 'definition',
     '#title' => t('Schema.org types roles'),
     '#description' => t('Enter Schema.org properties and their roles.'),
+  ];
+  $form['schemadotorg_role']['entity_reference_overrides'] = [
+    '#type' => 'schemadotorg_settings',
+    '#settings_type' => SchemaDotOrgSettings::INDEXED,
+    '#title' => t('Entity reference overrides'),
+    '#description' => t('Enter the Schema.org properties that should should use the Entity Reference Override field to capture an entity references roles.'),
+    '#description_link' => 'properties',
+    '#access' => \Drupal::moduleHandler()->moduleExists('entity_reference_override'),
   ];
 }

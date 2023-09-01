@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace Drupal\schemadotorg_help\Controller;
 
 use Drupal\Component\Serialization\Json;
+use Drupal\Component\Utility\Html;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Url;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -90,10 +91,13 @@ class SchemaDotOrgHelpController extends ControllerBase {
       ],
     ];
 
-    $module_readme = $this->extensionPathResolver->getPath('module', $name) . '/README.md';
+    $module_path = $this->extensionPathResolver->getPath('module', $name);
+    $module_readme = $module_path . '/README.md';
     if (!file_exists($module_readme)) {
       return $build;
     }
+
+    $build['#title'] = $this->moduleHandler()->getName($name);
 
     $contents = file_get_contents($module_readme);
 
@@ -103,7 +107,39 @@ class SchemaDotOrgHelpController extends ControllerBase {
     if (class_exists('\Michelf\Markdown')) {
       // phpcs:ignore Drupal.Classes.FullyQualifiedNamespace.UseStatementMissing
       $markup = \Michelf\Markdown::defaultTransform($contents);
+
+      // Convert <p><code> to <pre> tag.
+      $markup = str_replace('<p><code>', '<pre>', $markup);
+      $markup = str_replace('</code></p>', '</pre>', $markup);
+
+      // Add base path to hrefs.
       $markup = preg_replace('#\(/(admin/.*?)\)#', '(<a href="' . $base_path . '$1">/$1</a>)', $markup);
+
+      // Create fake filter object with settings.
+      $filter = (object) ['settings' => ['filter_url_length' => 255]];
+      $markup = _filter_url($markup, $filter);
+
+      // Replace @see DIAGRAM.html.
+      $module_diagram = $module_path . '/DIAGRAM.html';
+      if (file_exists($module_diagram) && str_contains($markup, 'DIAGRAM.html')) {
+        $document = Html::load(file_get_contents($module_diagram));
+        $markup = preg_replace_callback(
+          '/<p>@see DIAGRAM\.html#([-_A-Za-z0-9]+)<\/p>/',
+          function ($matches) use ($document) {
+            $dom_node = $document->getElementById($matches[1]);
+            if ($dom_node) {
+              return $document->saveXML($dom_node);
+            }
+            else {
+              return '';
+            }
+          },
+          $markup
+        );
+
+        $build['#attached']['library'][] = 'schemadotorg/schemadotorg.mermaid';
+      }
+
       $build['readme'] = [
         '#markup' => $markup,
       ];
@@ -117,7 +153,15 @@ class SchemaDotOrgHelpController extends ControllerBase {
     }
 
     if ($name === 'schemadotorg') {
-      $build['modules'] = $this->buildModules();
+      $build['modules'] = [
+        'title' => [
+          '#markup' => $this->t('Modules'),
+          '#prefix' => '<h2>',
+          '#suffix' => '</h2>',
+        ],
+        'packages' => $this->buildModules(),
+        'command' => $this->buildDrushCommand(),
+      ];
     }
 
     return $build;
@@ -130,6 +174,11 @@ class SchemaDotOrgHelpController extends ControllerBase {
     // Videos.
     $videos = [
       [
+        'title' => $this->t('Schema.org Blueprints for Drupal @ Pittsburgh 2023'),
+        'content' => $this->t("This presentation is for anyone who has created a website using Drupal and is interested in discovering a standardized, simpler, and faster way to model and build a website's content and information architecture."),
+        'youtube_id' => 'Yo6Vw-s1FtM',
+      ],
+      [
         'title' => $this->t('Schema.org Blueprints module in 7 minutes'),
         'content' => $this->t('A presentation and demo of the Schema.org Blueprints for Drupal in 7 minutes.'),
         'youtube_id' => 'KzNFAEfbFNw',
@@ -138,6 +187,11 @@ class SchemaDotOrgHelpController extends ControllerBase {
         'title' => $this->t('Defining the goals of the Schema.org Blueprints module for Drupal'),
         'content' => $this->t('This presentation explores implementing a next-generation Content Management System (CMS) that supports progressive decoupling, structured data, advanced content authoring, and omnichannel publishing using the Schema.org Blueprints module for Drupal.'),
         'youtube_id' => '5RgPhNvEC4U',
+      ],
+      [
+        'title' => $this->t('Schema.org Blueprints for Drupal'),
+        'content' => $this->t('A session about the Schema.org Blueprints for Drupal from DrupalCamp NJ 2023.'),
+        'youtube_id' => 'VG5Hm0Ar95c',
       ],
       [
         'title' => $this->t('Baking a Recipe using the Schema.org Blueprints module for Drupal'),
@@ -153,6 +207,11 @@ class SchemaDotOrgHelpController extends ControllerBase {
         'title' => $this->t('Schema.org Blueprints - Full Demo'),
         'content' => $this->t('This extended presentation walks through the background, configuration, and future of the Schema.org Blueprints module. It provides an in-depth demo of building an entire website architecture that leverages Schema.org type, properties, and enumerations in 5 minutes.'),
         'youtube_id' => '_kk97O1SEw0',
+      ],
+      [
+        'title' => $this->t('Schema.org Blueprints Organization Starter Kit'),
+        'content' => $this->t("The Schema.org Blueprints Starter Kit: Organization module provides a starting point for building out an Organization's content and information model using Schema.org."),
+        'youtube_id' => 'cEJ6pfpBACQ',
       ],
       [
         'title' => $this->t('Schemadotorg Blueprints - Exploration'),
@@ -244,6 +303,49 @@ class SchemaDotOrgHelpController extends ControllerBase {
   }
 
   /**
+   * Build a list of Schema.org Blueprints drush commands to enable sub-modules.
+   *
+   * @return array
+   *   A renderable array containing a list of Schema.org Blueprints drush
+   *   commands to enable sub-modules.
+   */
+  protected function buildDrushCommand(): array {
+    // Get all Schema.org packages.
+    $packages = [];
+    foreach ($this->moduleExtensionList->getAllAvailableInfo() as $info) {
+      if (str_starts_with($info['package'], 'Schema.org Blueprints')) {
+        $packages[$info['package']] = $info['package'];
+      }
+    }
+    ksort($packages);
+    $packages = ['Schema.org Blueprints Core' => 'Schema.org Blueprints Core'] + $packages;
+
+    $commands = [];
+    $commands[] = '# Install all Schema.org Blueprints modules.';
+    $commands[] = 'drush pm-list --format=list | grep schemadotorg | xargs drush install -y';
+    $commands[] = '';
+    $commands[] = '------------------------------------------------------------------------------------------';
+    $commands[] = '';
+    foreach ($packages as $package) {
+      $commands[] = "# Install $package modules.";
+      $commands[] = "drush pm-list --format=list --package='$package' | xargs drush install -y";
+      $commands[] = '';
+    }
+
+    return [
+      '#type' => 'details',
+      '#title' => $this->t('Drush commands'),
+      '#description' => $this->t('Use the below Drush commands to install all or a package of Schema.org Blueprints modules.'),
+      '#open' => TRUE,
+      'commands' => [
+        '#plain_text' => implode(PHP_EOL, $commands),
+        '#prefix' => '<pre>',
+        '#suffix' => '</pre>',
+      ],
+    ];
+  }
+
+  /**
    * Build a list of Schema.org Blueprints sub-modules.
    *
    * @return array
@@ -277,19 +379,28 @@ class SchemaDotOrgHelpController extends ControllerBase {
       ],
     ];
 
-    $rows = [];
+    $build = [];
     foreach ($modules as $module_name => $module_info) {
       $package = $module_info['package'];
-      if (!isset($rows[$package])) {
-        $rows[$package][] = [
-          'data' => ['#markup' => $package],
-          'colspan' => 4,
-          'header' => TRUE,
+      // Skip test modules.
+      if ($package === 'Schema.org Blueprints Test') {
+        continue;
+      }
+
+      // Build package details widget.
+      if (!isset($build[$package])) {
+        $build[$package] = [
+          '#type' => 'details',
+          '#title' => $package,
+          '#open' => TRUE,
+          'table' => [
+            '#type' => 'table',
+            '#header' => $header,
+          ],
         ];
       }
 
       $row = [];
-
       if ($this->moduleHandler->moduleExists($module_name)) {
         $row['title'] = [
           'data' => [
@@ -360,23 +471,10 @@ class SchemaDotOrgHelpController extends ControllerBase {
         $row['configuration'] = [];
       }
 
-      $rows["$package-$module_name"] = $row;
+      $build[$package]['table']['#rows'][$module_name] = $row;
     }
-    ksort($rows);
 
-    return [
-      'header' => [
-        '#markup' => $this->t('Schema.org Blueprints modules'),
-        '#prefix' => '<h2>',
-        '#suffix' => '</h2>',
-      ],
-      'packages' => [
-        '#type' => 'table',
-        '#header' => $header,
-        '#rows' => $rows,
-        '#sticky' => TRUE,
-      ],
-    ];
+    return $build;
   }
 
   /**
@@ -394,6 +492,7 @@ class SchemaDotOrgHelpController extends ControllerBase {
     $operations = [];
     foreach ($modules as $module_name => $module_info) {
       $title = $module_info['name'];
+      $title = str_replace('Schema.org Blueprints ', '', $title);
       $url = Url::fromRoute('schemadotorg_help.page', ['name' => $module_name]);
       $operations[$module_name] = [
         'title' => $title,

@@ -3,7 +3,7 @@ status: true
 dependencies:
   config:
     - field.field.node.page.body
-    - field.field.node.page.schema_primary_image
+    - field.field.node.page.schema_image
     - field.field.node.page.schema_related_link
     - field.field.node.page.schema_significant_link
     - node.type.page
@@ -29,9 +29,9 @@ content:
     third_party_settings: {  }
     weight: 200
     region: content
-  schema_primary_image:
+  schema_image:
     type: image
-    label: above
+    label: hidden
     settings:
       image_link: ''
       image_style: ''

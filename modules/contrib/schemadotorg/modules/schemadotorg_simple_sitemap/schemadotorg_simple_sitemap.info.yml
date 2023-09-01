@@ -1,13 +1,13 @@
 name: 'Schema.org Blueprints Simple Sitemap'
 type: module
 description: 'Automatically adds Schema.org types to sitemap.xml.'
-package: Schema.org Blueprints SEO
-core_version_requirement: '^9.4 || ^10.0'
+package: Schema.org Blueprints Other
+core_version_requirement: '^10.1'
 dependencies:
   - 'simple_sitemap:simple_sitemap'
   - 'schemadotorg:schemadotorg'
 
-# Information added by Drupal.org packaging script on 2023-06-02
-version: '1.0.0-alpha4'
+# Information added by Drupal.org packaging script on 2023-08-26
+version: '1.0.0-alpha7'
 project: 'schemadotorg'
-datestamp: 1685723540
+datestamp: 1693081910

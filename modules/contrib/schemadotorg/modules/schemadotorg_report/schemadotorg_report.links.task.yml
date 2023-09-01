@@ -111,4 +111,3 @@ schemadotorg_report.settings:
   title: Edit
   route_name: schemadotorg_report.settings
   parent_id: schemadotorg_report.references
-

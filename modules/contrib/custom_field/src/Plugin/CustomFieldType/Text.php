@@ -9,9 +9,9 @@ use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\custom_field\Plugin\Field\FieldType\CustomItem;
 
 /**
- * Plugin implementation of the 'text' customfield type.
+ * Plugin implementation of the 'text' custom field type.
  *
- * Simple textfield customfield widget. Value renders as it is entered by the
+ * Simple textfield custom field widget. Value renders as it is entered by the
  * user.
  *
  * @CustomFieldType(
@@ -76,7 +76,7 @@ class Text extends CustomFieldTypeBase {
 
     return [
       '#type' => 'textfield',
-      '#maxlength' => $settings['maxlength'] ?? $this->max_length,
+      '#maxlength' => $settings['maxlength'] ?? $this->maxLength,
       '#placeholder' => $settings['placeholder'] ?? NULL,
       '#size' => $settings['size'] ?? NULL,
     ] + $element;
@@ -87,52 +87,52 @@ class Text extends CustomFieldTypeBase {
    */
   public function widgetSettingsForm(array $form, FormStateInterface $form_state): array {
     $element = parent::widgetSettingsForm($form, $form_state);
-    $settings = $this->widget_settings['settings'] + self::defaultWidgetSettings()['settings'];
-    $default_maxlength = $this->max_length;
-    if (is_numeric($settings['maxlength']) && $settings['maxlength'] < $this->max_length) {
+    $settings = $this->widgetSettings['settings'] + self::defaultWidgetSettings()['settings'];
+    $default_maxlength = $this->maxLength;
+    if (is_numeric($settings['maxlength']) && $settings['maxlength'] < $this->maxLength) {
       $default_maxlength = $settings['maxlength'];
     }
     $element['settings']['size'] = [
       '#type' => 'number',
-      '#title' => t('Size of textfield'),
+      '#title' => $this->t('Size of textfield'),
       '#default_value' => $settings['size'],
       '#required' => TRUE,
       '#min' => 1,
     ];
     $element['settings']['placeholder'] = [
       '#type' => 'textfield',
-      '#title' => t('Placeholder'),
+      '#title' => $this->t('Placeholder'),
       '#default_value' => $settings['placeholder'],
-      '#description' => t('Text that will be shown inside the field until a value is entered. This hint is usually a sample value or a brief description of the expected format.'),
+      '#description' => $this->t('Text that will be shown inside the field until a value is entered. This hint is usually a sample value or a brief description of the expected format.'),
     ];
     $element['settings']['maxlength'] = [
       '#type' => 'number',
-      '#title' => t('Max length'),
-      '#description' => t('The maximum amount of characters in the field'),
+      '#title' => $this->t('Max length'),
+      '#description' => $this->t('The maximum amount of characters in the field'),
       '#default_value' => $default_maxlength,
       '#min' => 1,
-      '#max' => $this->max_length,
+      '#max' => $this->maxLength,
     ];
     $element['settings']['maxlength_js'] = [
       '#type' => 'checkbox',
-      '#title' => t('Show max length character count'),
+      '#title' => $this->t('Show max length character count'),
       '#default_value' => $settings['maxlength_js'],
     ];
 
     $element['settings']['prefix'] = [
       '#type' => 'textfield',
-      '#title' => t('Prefix'),
+      '#title' => $this->t('Prefix'),
       '#default_value' => $settings['prefix'],
       '#size' => 60,
-      '#description' => t("Define a string that should be prefixed to the value, like '$ ' or '&euro; '. Leave blank for none."),
+      '#description' => $this->t("Define a string that should be prefixed to the value, like '$ ' or '&euro; '. Leave blank for none."),
     ];
 
     $element['settings']['suffix'] = [
       '#type' => 'textfield',
-      '#title' => t('Suffix'),
+      '#title' => $this->t('Suffix'),
       '#default_value' => $settings['suffix'],
       '#size' => 60,
-      '#description' => t("Define a string that should be suffixed to the value, like ' m', ' kb/s'. Leave blank for none."),
+      '#description' => $this->t("Define a string that should be suffixed to the value, like ' m', ' kb/s'. Leave blank for none."),
     ];
 
     return $element;
@@ -146,7 +146,7 @@ class Text extends CustomFieldTypeBase {
 
     $form['prefix_suffix'] = [
       '#type' => 'checkbox',
-      '#title' => t('Display prefix and suffix'),
+      '#title' => $this->t('Display prefix/suffix'),
       '#default_value' => $this->getFormatterSetting('prefix_suffix'),
     ];
     return $form;
@@ -155,12 +155,18 @@ class Text extends CustomFieldTypeBase {
   /**
    * {@inheritdoc}
    */
-  public function value(CustomItem $item): string {
+  public function value(CustomItem $item): ?string {
     $settings = $this->getWidgetSetting('settings');
+    $render = $this->getFormatterSetting('render');
+
+    if ($render === 'hidden') {
+      return NULL;
+    }
+
     $output = parent::value($item);
 
-    // Account for prefix and suffix
-    if ($this->getFormatterSetting('prefix_suffix')) {
+    // Account for prefix and suffix.
+    if ($output && $this->getFormatterSetting('prefix_suffix')) {
       $prefix = $settings['prefix'] ?? '';
       $suffix = $settings['suffix'] ?? '';
       $output = $prefix . $output . $suffix;

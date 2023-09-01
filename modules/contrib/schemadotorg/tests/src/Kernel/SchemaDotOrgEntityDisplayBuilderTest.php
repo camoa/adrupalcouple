@@ -35,7 +35,7 @@ class SchemaDotOrgEntityDisplayBuilderTest extends SchemaDotOrgKernelEntityTestB
    * Test Schema.org entity display builder.
    */
   public function testEntityDisplayBuilder(): void {
-    $this->createSchemaEntity('node', 'thing');
+    $mapping = $this->createSchemaEntity('node', 'thing');
 
     // Check getting default field weights.
     $default_field_weights = $this->schemaEntityDisplayBuilder->getDefaultFieldWeights();
@@ -70,7 +70,7 @@ class SchemaDotOrgEntityDisplayBuilderTest extends SchemaDotOrgKernelEntityTestB
     $this->assertEquals($expected_value, $entity_view_display->getComponent('name'));
 
     // Check setting entity display field weights for Schema.org properties.
-    $this->schemaEntityDisplayBuilder->setFieldWeights('node', 'thing', ['name' => 'name']);
+    $this->schemaEntityDisplayBuilder->setFieldWeights($mapping, ['name' => 'name']);
     \Drupal::entityTypeManager()->getStorage('entity_view_display')->resetCache();
     /** @var \Drupal\Core\Entity\Display\EntityViewDisplayInterface $entity_view_display */
     $entity_view_display = EntityViewDisplay::load('node.thing.default');
@@ -83,7 +83,7 @@ class SchemaDotOrgEntityDisplayBuilderTest extends SchemaDotOrgKernelEntityTestB
     $this->assertEquals($expected_value, $entity_view_display->getComponent('name'));
 
     // Check settings the default component weights.
-    $this->schemaEntityDisplayBuilder->setComponentWeights('node', 'thing');
+    $this->schemaEntityDisplayBuilder->setComponentWeights($mapping);
     \Drupal::entityTypeManager()->getStorage('entity_form_display')->resetCache();
     /** @var \Drupal\Core\Entity\Display\EntityViewDisplayInterface $entity_view_display */
     $entity_form_display = EntityFormDisplay::load('node.thing.default');

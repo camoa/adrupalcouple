@@ -28,7 +28,7 @@ content:
     region: content
   schema_image:
     type: image
-    label: above
+    label: hidden
     settings:
       image_link: ''
       image_style: ''

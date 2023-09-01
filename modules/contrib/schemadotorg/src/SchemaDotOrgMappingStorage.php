@@ -181,10 +181,7 @@ class SchemaDotOrgMappingStorage extends ConfigEntityStorage implements SchemaDo
     /** @var \Drupal\schemadotorg\SchemaDotOrgMappingInterface $entity */
     parent::doPostSave($entity, $update);
     if (!$update) {
-      $this->schemaEntityDisplayBuilder->setComponentWeights(
-        $entity->getTargetEntityTypeId(),
-        $entity->getTargetBundle(),
-      );
+      $this->schemaEntityDisplayBuilder->setComponentWeights($entity);
     }
   }
 

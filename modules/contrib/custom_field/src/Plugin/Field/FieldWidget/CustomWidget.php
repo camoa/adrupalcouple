@@ -44,8 +44,8 @@ class CustomWidget extends CustomWidgetBase {
     $id = Html::getUniqueId('customfield-inline-customize');
     $elements['customize'] = [
       '#type' => 'checkbox',
-      '#title' => t('Customize Customfield item proportions'),
-      '#description' => t('By default the items will automatically resize to the most optimal size based on their content. Check this box to give specific proportions to the field items.'),
+      '#title' => $this->t('Customize Customfield item proportions'),
+      '#description' => $this->t('By default the items will automatically resize to the most optimal size based on their content. Check this box to give specific proportions to the field items.'),
       '#default_value' => $this->getSetting('customize'),
       '#attributes' => [
         'data-id' => $id,
@@ -54,13 +54,13 @@ class CustomWidget extends CustomWidgetBase {
 
     $elements['proportions'] = [
       '#type' => 'fieldset',
-      '#title' => t('Proportions'),
-      '#description' => t('The size of the item relative to the other items. Example: If you had three items and gave respective proportions of 1/1/2, the resulting fields would be 25%/25%/50%. The above drop downs will resize as you change the values to reflect how the items will be output.'),
-      '#states' => array(
-         'visible' => array(
-           ':input[data-id="' . $id . '"]' => ['checked' => TRUE],
-         ),
-       ),
+      '#title' => $this->t('Proportions'),
+      '#description' => $this->t('The size of the item relative to the other items. Example: If you had three items and gave respective proportions of 1/1/2, the resulting fields would be 25%/25%/50%. The above drop downs will resize as you change the values to reflect how the items will be output.'),
+      '#states' => [
+        'visible' => [
+          ':input[data-id="' . $id . '"]' => ['checked' => TRUE],
+        ],
+      ],
     ];
 
     $elements['proportions']['prefix'] = [
@@ -68,17 +68,16 @@ class CustomWidget extends CustomWidgetBase {
     ];
 
     $proportions = $this->getSettings()['proportions'];
-    /** @var \Drupal\custom_field\Plugin\CustomFieldTypeInterface $customitem */
-    foreach ($this->getCustomFieldItems() as $name => $customitem) {
+    foreach ($this->getCustomFieldItems() as $name => $customItem) {
       $elements['proportions'][$name] = [
         '#type' => 'select',
-        '#title' => $customitem->getLabel(),
+        '#title' => $customItem->getLabel(),
         '#options' => $this->proportionOptions(),
         '#wrapper_attributes' => [
-          'class' => ['customfield-inline__item']
+          'class' => ['customfield-inline__item'],
         ],
         '#attributes' => [
-          'class' => ['customfield-inline__field']
+          'class' => ['customfield-inline__field'],
         ],
       ];
       if (isset($proportions[$name])) {
@@ -93,8 +92,8 @@ class CustomWidget extends CustomWidgetBase {
 
     $elements['breakpoint'] = [
       '#type' => 'select',
-      '#title' => t('Stack items on:'),
-      '#description' => t('The device width below which we stack the inline customfield items.'),
+      '#title' => $this->t('Stack items on:'),
+      '#description' => $this->t('The device width below which we stack the inline customfield items.'),
       '#options' => $this->breakpointOptions(),
       '#default_value' => $this->getSetting('breakpoint'),
     ];
@@ -112,9 +111,9 @@ class CustomWidget extends CustomWidgetBase {
     if (!empty($this->getSetting('customize')) && !empty($this->getSettings()['proportions'])) {
       $proportions = implode(' | ', $this->getSettings()['proportions']);
     }
-    $summary[] = t('Inline Customfield items.');
-    $summary[] = t('Item Proportions: @proportions', ['@proportions' => $proportions]);
-    $summary[] = t('Stack on: @breakpoint', ['@breakpoint' => $this->breakpointOptions($this->getSetting('breakpoint'))]);
+    $summary[] = $this->t('Inline Customfield items.');
+    $summary[] = $this->t('Item Proportions: @proportions', ['@proportions' => $proportions]);
+    $summary[] = $this->t('Stack on: @breakpoint', ['@breakpoint' => $this->breakpointOptions($this->getSetting('breakpoint'))]);
 
     return $summary;
   }
@@ -131,14 +130,12 @@ class CustomWidget extends CustomWidgetBase {
       $classes[] = 'customfield-inline--stack-' . $this->getSetting('breakpoint');
     }
     // Using markup since we can't nest values because the field api expects
-    // subfields to be at the top-level
+    // subfields to be at the top-level.
     $element['wrapper_prefix']['#markup'] = '<div class="' . implode(' ', $classes) . '">';
 
     $proportions = $this->getSettings()['proportions'];
-    /** @var \Drupal\custom_field\Plugin\CustomFieldTypeInterface $customitem */
-    foreach ($this->getCustomFieldItems() as $name => $customitem) {
-      $element[$name] = $customitem->widget($items, $delta, $element, $form, $form_state);
-      //$element[$name]['#attributes']['class'][] = 'customfield-inline__field';
+    foreach ($this->getCustomFieldItems() as $name => $customItem) {
+      $element[$name] = $customItem->widget($items, $delta, $element, $form, $form_state);
       $element[$name]['#wrapper_attributes']['class'][] = 'customfield-inline__item';
       if ($this->getSetting('customize') && isset($proportions[$name])) {
         $element[$name]['#wrapper_attributes']['class'][] = 'customfield-inline__item--' . $proportions[$name];
@@ -162,13 +159,13 @@ class CustomWidget extends CustomWidgetBase {
    */
   public function proportionOptions($option = NULL) {
     $options = [
-      'one' => t('One'),
-      'two' => t('Two'),
-      'three' => t('Three'),
-      'four' => t('Four'),
+      'one' => $this->t('One'),
+      'two' => $this->t('Two'),
+      'three' => $this->t('Three'),
+      'four' => $this->t('Four'),
     ];
     if (!is_null($option)) {
-      return isset($options[$option]) ? $options[$option] : '';
+      return $options[$option] ?? '';
     }
 
     return $options;
@@ -179,12 +176,12 @@ class CustomWidget extends CustomWidgetBase {
    */
   public function breakpointOptions($option = NULL) {
     $options = [
-      '' => t('Don\'t stack'),
-      'medium' => t('Medium (less than 769px)'),
-      'small' => t('Small (less than 601px)'),
+      '' => $this->t("Don't stack"),
+      'medium' => $this->t('Medium (less than 769px)'),
+      'small' => $this->t('Small (less than 601px)'),
     ];
     if (!is_null($option)) {
-      return isset($options[$option]) ? $options[$option] : '';
+      return $options[$option] ?? '';
     }
 
     return $options;

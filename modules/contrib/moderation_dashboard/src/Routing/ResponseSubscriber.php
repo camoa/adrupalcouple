@@ -2,7 +2,6 @@
 
 namespace Drupal\moderation_dashboard\Routing;
 
-use Symfony\Component\HttpKernel\Event\ResponseEvent;
 use Drupal\Component\Utility\UrlHelper;
 use Drupal\Core\Condition\ConditionManager;
 use Drupal\Core\Config\ConfigFactoryInterface;
@@ -10,6 +9,7 @@ use Drupal\Core\Session\AccountProxyInterface;
 use Drupal\Core\Url;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpKernel\Event\ResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 /**

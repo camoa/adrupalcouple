@@ -4,6 +4,8 @@ dependencies: {  }
 id: user
 target_entity_type_id: user
 multiple: false
+label_prefix: ''
+id_prefix: ''
 recommended_schema_types: {  }
 default_schema_types:
   user: Person
@@ -23,4 +25,3 @@ default_component_weights:
   user_picture: 0
   langcode: 200
   member_for: 200
-

@@ -95,7 +95,7 @@ class SchemaDotOrgMappingManager implements SchemaDotOrgMappingManagerInterface 
         elseif (is_array($property)) {
           // Merge the custom defaults with the property's defaults.
           $mapping_defaults['properties'][$property_name] = $property
-            + $mapping_defaults['properties'][$property_name];
+            + ($mapping_defaults['properties'][$property_name] ?? []);
         }
       }
     }
@@ -125,26 +125,42 @@ class SchemaDotOrgMappingManager implements SchemaDotOrgMappingManagerInterface 
    *   Schema.org mapping entity default values.
    */
   protected function getMappingEntityDefaults(string $entity_type_id, ?string $bundle, string $schema_type): array {
+    $defaults = [];
     $mapping = $this->loadMapping($entity_type_id, $bundle);
     if ($mapping) {
-      $defaults = [];
       $defaults['label'] = $mapping->label();
       $defaults['id'] = $bundle;
       $defaults['description'] = $mapping->get('description');
       return $defaults;
     }
-    else {
-      $default_type = $this->configFactory
-        ->get('schemadotorg.settings')
-        ->get("schema_types.default_types.$schema_type") ?? [];
-      $type_definition = $this->schemaTypeManager->getType($schema_type);
 
-      $defaults = [];
-      $defaults['label'] = $default_type['label'] ?? $type_definition['drupal_label'];
-      $defaults['id'] = $bundle ?: $default_type['name'] ?? $type_definition['drupal_name'];
-      $defaults['description'] = $default_type['description'] ?? $this->schemaTypeBuilder->formatComment($type_definition['comment'], ['base_path' => 'https://schema.org/']);
-      return $defaults;
+    $default_type = $this->configFactory
+      ->get('schemadotorg.settings')
+      ->get("schema_types.default_types.$schema_type") ?? [];
+    $type_definition = $this->schemaTypeManager->getType($schema_type);
+
+    $entity_type = $this->entityTypeManager->getDefinition($entity_type_id);
+
+    if (empty($entity_type->getBundleEntityType())) {
+      // If the entity type does not support bundles (i.e. user), the
+      // bundle label and id must always be the same as the entity type.
+      $defaults['label'] = $entity_type->getLabel();
+      $defaults['id'] = $entity_type_id;
     }
+    else {
+      // Get label and id prefixes.
+      $mapping_type = $this->loadMappingType($entity_type_id);
+      $label_prefix = $mapping_type->get('label_prefix') ?? '';
+      $id_prefix = $mapping_type->get('id_prefix') ?? '';
+      // Get label and id.
+      $label = $default_type['label'] ?? $type_definition['drupal_label'];
+      $id = $bundle ?: $default_type['name'] ?? $type_definition['drupal_name'];
+
+      $defaults['label'] = $label_prefix . $label;
+      $defaults['id'] = $id_prefix . $id;
+    }
+    $defaults['description'] = $default_type['description'] ?? $this->schemaTypeBuilder->formatComment($type_definition['comment'], ['base_path' => 'https://schema.org/']);
+    return $defaults;
   }
 
   /**
@@ -354,17 +370,18 @@ class SchemaDotOrgMappingManager implements SchemaDotOrgMappingManagerInterface 
 
     // Set field weights for new mappings.
     if ($mapping->isNew()) {
-      $this->schemaEntityDisplayBuilder->setFieldWeights(
-        $entity_type_id,
-        $bundle,
-        $mapping->getNewSchemaProperties()
-      );
+      $this->schemaEntityDisplayBuilder->setFieldWeights($mapping);
     }
 
     // Set third party settings.
     if (isset($values['third_party_settings'])) {
       $mapping->set('third_party_settings', array_filter($values['third_party_settings']));
     }
+
+    // Set mapping defaults.
+    // This allows mapping hooks to act on the mapping defaults.
+    // @see \Drupal\schemadotorg_field_group\SchemaDotOrgFieldGroupEntityDisplayBuilder::setFieldGroups
+    $mapping->setMappingDefaults($values);
 
     // Save the mapping entity.
     $mapping->save();

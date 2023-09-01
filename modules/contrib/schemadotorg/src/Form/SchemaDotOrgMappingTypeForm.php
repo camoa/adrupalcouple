@@ -78,6 +78,19 @@ class SchemaDotOrgMappingTypeForm extends EntityForm {
       '#return_value' => TRUE,
       '#default_value' => $entity->get('multiple'),
     ];
+    $form['types']['label_prefix'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Label prefix'),
+      '#description' => $this->t("Enter prefix to prepended to bundle label. For example, you can enter 'Schema.org: ' to distinguish Schema,org type from existing bundles."),
+      '#default_value' => $entity->get('label_prefix'),
+    ];
+    $form['types']['id_prefix'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('ID prefix'),
+      '#description' => $this->t("Enter prefix to prepended to bundle names. For example, you can enter 'schema_' to create 'schema_*' namespace."),
+      '#pattern' => '^[a-z0-9_]+$',
+      '#default_value' => $entity->get('id_prefix'),
+    ];
     $form['types']['recommended_schema_types'] = [
       '#type' => 'schemadotorg_settings',
       '#settings_type' => SchemaDotOrgSettings::INDEXED_GROUPED_NAMED,

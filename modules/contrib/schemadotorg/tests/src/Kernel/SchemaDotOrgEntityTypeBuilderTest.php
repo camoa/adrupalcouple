@@ -169,6 +169,25 @@ class SchemaDotOrgEntityTypeBuilderTest extends SchemaDotOrgKernelEntityTestBase
     $body_component = $this->entityDisplayRepository->getViewDisplay('node', 'thing', 'teaser')->getComponent('body');
     $this->assertEquals('text_summary_or_trimmed', $body_component['type']);
     $this->assertEquals('hidden', $body_component['label']);
+
+    // Check adding an alternateName field to an entity.
+    $field = [
+      'name' => SchemaDotOrgEntityFieldManagerInterface::ADD_FIELD,
+      'type' => 'image',
+      'label' => ' Image',
+      'machine_name' => 'schema_image',
+      'description' => '',
+      'unlimited' => '0',
+      'required' => '1',
+      'schema_type' => 'Thing',
+      'schema_property' => 'image',
+    ];
+    $this->schemaEntityTypeBuilder->addFieldToEntity('node', 'thing', $field);
+
+    // Check the field default format settings for image has the label hidden.
+    $view_component = $this->entityDisplayRepository->getViewDisplay('node', 'thing', 'default')
+      ->getComponent('schema_image');
+    $this->assertEquals('hidden', $view_component['label']);
   }
 
 }

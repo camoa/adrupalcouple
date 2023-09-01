@@ -1,0 +1,5 @@
+config_rewrite:
+  replace: ['paragraph_types.editorial']
+paragraph_types:
+  editorial:
+    - Thing

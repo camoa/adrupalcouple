@@ -382,6 +382,7 @@ class CKEditor5AllowedTagsTest extends CKEditor5TestBase {
     $this->assertNotNull($assert_session->waitForElementVisible('css', '[data-drupal-selector=edit-filters-media-embed-settings]', 0));
 
     $page->clickLink('Embed media');
+    $assert_session->waitForField('filters[media_embed][settings][allowed_view_modes][view_mode_2]');
     $page->checkField('filters[media_embed][settings][allowed_view_modes][view_mode_1]');
     $page->checkField('filters[media_embed][settings][allowed_view_modes][view_mode_2]');
     $assert_session->assertWaitOnAjaxRequest();
@@ -453,6 +454,13 @@ class CKEditor5AllowedTagsTest extends CKEditor5TestBase {
 
     // Change the node's text format to Full HTML.
     $this->drupalGet('node/1/edit');
+    $filter_tips = $page->find('css', '[data-drupal-format-id="basic_html"]');
+    $this->assertTrue($filter_tips->isVisible());
+    $page->selectFieldOption('body[0][format]', 'full_html');
+    $this->assertNotEmpty($assert_session->waitForText('Change text format?'));
+    // Check the visibility of "Filter tips" by clicking the "Cancel" button.
+    $page->pressButton('Cancel');
+    $this->assertTrue($filter_tips->isVisible());
     $page->selectFieldOption('body[0][format]', 'full_html');
     $this->assertNotEmpty($assert_session->waitForText('Change text format?'));
     $page->pressButton('Continue');

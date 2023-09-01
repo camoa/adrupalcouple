@@ -9,7 +9,34 @@ dependencies:
     - node.type.event
   module:
     - datetime
+    - field_group
     - text
+third_party_settings:
+  field_group:
+    group_general:
+      children:
+        - body
+        - title
+      label: General
+      region: content
+      parent_name: ''
+      weight: -5
+      format_type: details
+      format_settings:
+        open: true
+    group_event:
+      children:
+        - schema_duration
+        - schema_end_date
+        - langcode
+        - schema_start_date
+      label: Event
+      region: content
+      parent_name: ''
+      weight: 0
+      format_type: details
+      format_settings:
+        open: true
 id: node.event.default
 targetEntityType: node
 bundle: event
@@ -17,7 +44,7 @@ mode: default
 content:
   body:
     type: text_textarea_with_summary
-    weight: 12
+    weight: 17
     region: content
     settings:
       rows: 9

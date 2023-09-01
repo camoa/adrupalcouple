@@ -1,0 +1,10 @@
+node_links:
+  Organization:
+    memberOf: Person
+    worksFor: Person
+    parentOrganization: Organization
+  HealthTopicContent:
+    isPartOf: HealthTopicContent
+  MedicalEntity:
+    about: HealthTopicContent
+node_links_dropdown: true

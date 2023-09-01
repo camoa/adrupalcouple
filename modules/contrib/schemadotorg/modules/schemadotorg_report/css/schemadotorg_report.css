@@ -34,6 +34,17 @@
   float: right;
 }
 
+pre.schemadotorg-report-mapping-defaults-code {
+  border: 1px solid #999;
+  background-color: #efefef;
+  padding: 1em;
+}
+
+pre.schemadotorg-report-mapping-defaults-code span {
+  font-weight: bold;
+  color: #080;
+}
+
 @media (max-width: 768px) {
   .schemadotorg-report-dialog-header .schemadotorg-report-filter-form,
   .schemadotorg-report-add-type {

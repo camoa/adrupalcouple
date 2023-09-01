@@ -1,3 +1,7 @@
+/**
+ * @file
+ * Stylesheet for the custom_field custom form display settings.
+ */
 
 .customfield-inline {
   display: flex;
@@ -57,26 +61,22 @@
   width: 100%;
 }
 
-@media all and (max-width: 48em) { /* 768px on Seven theme */
-
+/* 768px on Seven theme */
+@media all and (max-width: 48em) {
   .customfield-inline--stack-medium {
     display: block;
   }
-
   .customfield-inline--stack-medium .customfield-inline__item {
     padding-right: 0;
   }
-
 }
 
-@media screen and (max-width: 37.5em) { /* 600px on Seven theme */
-
+/* 600px on Seven theme */
+@media screen and (max-width: 37.5em) {
   .customfield-inline--stack-small {
     display: block;
   }
-
   .customfield-inline--stack-small .customfield-inline__item {
     padding-right: 0;
   }
-
 }

@@ -1,0 +1,13 @@
+name: 'Schema.org Blueprints Diagram'
+type: module
+description: 'Provides diagrams for Schema.org relationships.'
+package: Schema.org Blueprints Core
+core_version_requirement: '^10.1'
+configure: schemadotorg.settings.general
+dependencies:
+  - 'schemadotorg:schemadotorg'
+
+# Information added by Drupal.org packaging script on 2023-08-26
+version: '1.0.0-alpha7'
+project: 'schemadotorg'
+datestamp: 1693081910

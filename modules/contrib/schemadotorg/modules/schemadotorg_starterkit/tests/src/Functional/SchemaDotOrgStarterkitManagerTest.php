@@ -56,11 +56,12 @@ class SchemaDotOrgStarterkitManagerTest extends SchemaDotOrgKernelEntityTestBase
    * Test Schema.org starterkit manager.
    */
   public function testManager(): void {
-    // Check determining if a module is Schema.org Blueprints Starterkit.
+    // Check determining if a module is Schema.org Blueprints Starter Kit.
     $this->assertFalse($this->schemaStarterkitManager->isStarterkit('schemadotorg'));
+    $this->assertFalse($this->schemaStarterkitManager->isStarterkit('missing_module'));
     $this->assertTrue($this->schemaStarterkitManager->isStarterkit('schemadotorg_starterkit_test'));
 
-    // Check getting a list of Schema.org starterkits.
+    // Check getting a list of Schema.org starter kits.
     $starterkits = $this->schemaStarterkitManager->getStarterkits();
     $this->assertArrayHasKey('schemadotorg_starterkit_test', $starterkits);
 
@@ -68,27 +69,11 @@ class SchemaDotOrgStarterkitManagerTest extends SchemaDotOrgKernelEntityTestBase
     $this->assertIsArray($this->schemaStarterkitManager->getStarterkit('schemadotorg_starterkit_test'));
 
     // Check getting a module's Schema.org Blueprints starterkit settings.
-    $expected_settings = [
-      'types' => [
-        'node:Person' => [],
-        'node:Event' => [],
-        'node:Thing' => [
-          'entity' => [
-            'label' => 'Something',
-          ],
-          'properties' => [
-            'name' => TRUE,
-            'description' => TRUE,
-            'image' => TRUE,
-          ],
-        ],
-      ],
-    ];
-    $this->assertEquals(
-      $expected_settings,
-      $this->schemaStarterkitManager->getStarterkitSettings('schemadotorg_starterkit_test')
-    );
-
+    $settings = $this->schemaStarterkitManager->getStarterkitSettings('schemadotorg_starterkit_test');
+    $this->assertEquals('Something', $settings['types']['node:Thing']['entity']['label']);
+    $this->assertEquals('_add_', $settings['types']['node:Thing']['properties']['name']['name']);
+    $this->assertEquals('_add_', $settings['types']['node:Thing']['properties']['description']['name']);
+    $this->assertEquals('_add_', $settings['types']['node:Thing']['properties']['image']['name']);
   }
 
 }

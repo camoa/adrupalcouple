@@ -1,0 +1,205 @@
+<?php
+
+/**
+ * @file
+ * Configures and manages entity prepopulation for Schema.org relationships (i.e. entity references).
+ */
+
+declare(strict_types = 1);
+
+use Drupal\Component\Utility\NestedArray;
+use Drupal\Core\Cache\Cache;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Url;
+use Drupal\field\Entity\FieldConfig;
+use Drupal\node\NodeInterface;
+use Drupal\schemadotorg\Element\SchemaDotOrgSettings;
+
+/**
+ * Implements hook_schemadotorg_property_field_alter().
+ */
+function schemadotorg_epp_schemadotorg_property_field_alter(
+  string $schema_type,
+  string $schema_property,
+  array &$field_storage_values,
+  array &$field_values,
+  ?string &$widget_id,
+  array &$widget_settings,
+  ?string &$formatter_id,
+  array &$formatter_settings
+): void {
+  // Make sure the field entity type is a node.
+  if ($field_storage_values['entity_type'] !== 'node') {
+    return;
+  }
+
+  // Make sure the field type is set to 'entity_reference'.
+  if (!str_starts_with($field_storage_values['type'], 'entity_reference')) {
+    return;
+  }
+
+  /** @var \Drupal\schemadotorg\SchemaDotOrgNamesInterface $schema_names */
+  $schema_names = \Drupal::service('schemadotorg.names');
+
+  // Allow all entity reference to be prepopulated via query string parameters.
+  // NOTE: We are mot using abbreviations for query params.
+  $query_param_name = $schema_names->camelCaseToSnakeCase($schema_property);
+
+  $field_values['third_party_settings']['epp']['value'] = 'target_id: [current-page:query:' . $query_param_name . ']';
+}
+
+/**
+ * Implements hook_node_links_alter().
+ */
+function schemadotorg_epp_node_links_alter(array &$links, NodeInterface $node, array &$context): void {
+  // Check that we are on a full page view of a node.
+  if ($context['view_mode'] !== 'full' || !node_is_page($node)) {
+    return;
+  }
+
+  /** @var \Drupal\schemadotorg\SchemaDotOrgNamesInterface $schema_names */
+  $schema_names = \Drupal::service('schemadotorg.names');
+
+  /** @var \Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface $schema_type_manager */
+  $schema_type_manager = \Drupal::service('schemadotorg.schema_type_manager');
+
+  /** @var \Drupal\schemadotorg\SchemaDotOrgMappingStorageInterface $mapping_storage */
+  $mapping_storage = \Drupal::entityTypeManager()->getStorage('schemadotorg_mapping');
+
+  // Check that the node is mapped to a Schema.org type.
+  $mapping = $mapping_storage->loadByEntity($node);
+  if (!$mapping) {
+    return;
+  }
+
+  // Get parent Schema.org types in reverse order.
+  $parent_schema_types = $schema_type_manager->getParentTypes($mapping->getSchemaType());
+  $parent_schema_types = array_reverse($parent_schema_types);
+
+  $node_links = [];
+  foreach ($parent_schema_types as $parent_schema_type) {
+    $schema_type_node_links = \Drupal::config('schemadotorg_epp.settings')
+      ->get("node_links.$parent_schema_type");
+    if (!$schema_type_node_links) {
+      continue;
+    }
+
+    foreach ($schema_type_node_links as $node_link_schema_property => $node_link_schema_type) {
+      $node_link_mapping = $mapping_storage->loadBySchemaType('node', $node_link_schema_type);
+      if (!$node_link_mapping) {
+        continue;
+      }
+
+      $node_link_field_name = $node_link_mapping->getSchemaPropertyFieldName($node_link_schema_property);
+      if (!$node_link_field_name) {
+        continue;
+      }
+
+      // Make sure the target entity reference supports the node's bundle.
+      $node_link_bundle = $node_link_mapping->getTargetBundle();
+      /** @var \Drupal\field\FieldConfigInterface $node_link_field */
+      $node_link_field = FieldConfig::loadByName('node', $node_link_bundle, $node_link_field_name);
+      if (!NestedArray::keyExists($node_link_field->getSettings(), ['handler_settings', 'target_bundles', $node->getType()])) {
+        continue;
+      };
+
+      // NOTE: We are mot using abbreviations for query params.
+      $query_param_name = $schema_names->camelCaseToSnakeCase($node_link_schema_property);
+      $target_bundles = $mapping_storage->getRangeIncludesTargetBundles('node', [$node_link_schema_type]);
+
+      $node_types = Drupal::entityTypeManager()->getStorage('node_type')->loadMultiple($target_bundles);
+      foreach ($node_types as $node_type) {
+        $node_links[$node_type->id() . '--' . $query_param_name] = [
+          'title' => t('Add @label', ['@label' => $node_type->label()]),
+          'url' => Url::fromRoute(
+            'node.add',
+            ['node_type' => $node_type->id()],
+            ['query' => [$query_param_name => $node->id()]]
+          ),
+        ];
+      }
+    }
+  }
+
+  if (empty($node_links)) {
+    return;
+  }
+
+  $node_links_dropdown = \Drupal::config('schemadotorg_epp.settings')
+    ->get('node_links_dropdown');
+  if ($node_links_dropdown) {
+    // Unset the default links wrapper.
+    // @see \Drupal\node\NodeViewBuilder::renderLinks
+    unset($links['#theme'], $links['#pre_render'], $links['#attributes']);
+
+    // Add button--action plus sing to all links.
+    foreach ($node_links as &$node_link) {
+      $node_link['attributes'] = ['class' => ['button--action']];
+    }
+
+    $links['schemadotorg_epp'] = [
+      '#type' => 'operations',
+      '#links' => $node_links,
+      '#weight' => -100,
+      '#prefix' => '<div class="schemadotorg-epp-node-links-dropdown">',
+      '#suffix' => '</div>',
+      '#attached' => ['library' => ['schemadotorg_epp/schemadotorg_epp']],
+    ];
+  }
+  else {
+    // Style all links as action buttons.
+    foreach ($node_links as &$node_link) {
+      $node_link['attributes'] = ['class' => ['button', 'button-small', 'button--extrasmall', 'button--action']];
+    }
+
+    $links['schemadotorg_epp'] = [
+      '#theme' => 'links__node__schemadotorg_epp',
+      '#links' => $node_links,
+      '#attributes' => ['class' => ['links', 'inline']],
+    ];
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function schemadotorg_epp_form_schemadotorg_properties_settings_form_alter(array &$form, FormStateInterface $form_state): void {
+  $form['schemadotorg_epp'] = [
+    '#type' => 'details',
+    '#title' => t('Entity Prepopulate settings'),
+    '#open' => TRUE,
+    '#tree' => TRUE,
+  ];
+  $form['schemadotorg_epp']['node_links'] = [
+    '#type' => 'schemadotorg_settings',
+    '#settings_type' => SchemaDotOrgSettings::ASSOCIATIVE_GROUPED,
+    '#settings_format' => 'SchemaType|property:SchemaType',
+    '#title' => t('Node links'),
+    '#description' => t('Enter Schema.org parent type with child properties and types that support entity reference prepopulation.'),
+    '#description_link' => 'properties',
+  ];
+  $form['schemadotorg_epp']['node_links_dropdown'] = [
+    '#type' => 'checkbox',
+    '#title' => t('Display node links as a dropdown'),
+    '#description' => t('If checked, the entity prepopulation node links will be displayed as an operation dropdown menu.'),
+    '#return_value' => TRUE,
+  ];
+
+  $form['#submit'][] = 'schemadotorg_epp_schemadotorg_properties_settings_submit';
+}
+
+/**
+ * Form submission handler for schemadotorg_description_settings_form().
+ *
+ * @see schemadotorg_epp_form_schemadotorg_schemadotorg_properties_settings_form_alter()
+ */
+function schemadotorg_epp_schemadotorg_properties_settings_submit(array &$form, FormStateInterface $form_state): void {
+  // Clear cache bins to make sure node links are updated.
+  $cache_backends = Cache::getBins();
+  $service_ids = ['dynamic_page_cache', 'render'];
+  foreach ($service_ids as $service_id) {
+    if (isset($cache_backends[$service_id])) {
+      $cache_backends[$service_id]->deleteAll();
+    }
+  }
+}

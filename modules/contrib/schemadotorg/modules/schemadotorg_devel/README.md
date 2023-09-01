@@ -19,6 +19,8 @@ Features
 
 - Defines test values used by an entity's Schema.org properties when generating
   example content using the devel_generate.module.
+- Provides `drush schemadotorg:generate-features` command which generates
+  MODULE.features.yml for schemadotorg* modules.
 
 
 Requirements

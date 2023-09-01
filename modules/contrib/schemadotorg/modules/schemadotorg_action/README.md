@@ -63,4 +63,4 @@ Todo
 
 - Replace custom 'class' field with
   [Paragraphs Collection](https://www.drupal.org/project/paragraphs_collection) module.
-  @see schemadotorg_layout_paragraphs_paragraph_view_alter()
+  @see schemadotorg\_layout\_paragraphs\_paragraph\_view\_alter()

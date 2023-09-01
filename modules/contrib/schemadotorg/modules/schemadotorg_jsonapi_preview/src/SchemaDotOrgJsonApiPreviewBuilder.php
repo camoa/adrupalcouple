@@ -88,17 +88,12 @@ class SchemaDotOrgJsonApiPreviewBuilder implements SchemaDotOrgJsonApiPreviewBui
 
     // Make the JSON pretty and enhance it.
     $json = json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
-    // Escape HTML special characters.
-    $json_markup = htmlspecialchars($json);
-    // Add <span> tag to properties.
-    $json_markup = preg_replace('/&quot;([^&]+)&quot;: /', '<span>&quot;$1&quot;</span>: ', $json_markup);
-    // Add links to URLs.
-    $json_markup = preg_replace('@(https?://([-\w.]+)+(:\d+)?(/([\w/_.-]*(\?\S+)?)?)?)@', '<a href="$1">$1</a>', $json_markup);
     $build['json'] = [
       '#type' => 'html_tag',
       '#tag' => 'pre',
-      '#attributes' => ['class' => ['schemadotorg-jsonapi-preview-code']],
-      '#value' => $json_markup,
+      '#plain_text' => $json,
+      '#attributes' => ['data-schemadotorg-codemirror-mode' => 'application/ld+json'],
+      '#attached' => ['library' => ['schemadotorg/codemirror.javascript']],
     ];
 
     // JSON:API endpoint.

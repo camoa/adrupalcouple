@@ -69,7 +69,7 @@ class SchemaDotOrgAllowedFormatsTest extends SchemaDotOrgKernelEntityTestBase {
     // Check settings default allowed formats.
     /** @var \Drupal\field\FieldConfigInterface $text_field */
     $text_field = FieldConfig::loadByName('node', 'page', 'body');
-    $this->assertEquals(['full_html'], $text_field->getThirdPartySetting('allowed_formats', 'allowed_formats'));
+    $this->assertEquals(['full_html'], $text_field->getSetting('allowed_formats'));
 
     // Checking setting  hide help and hide guidelines.
     $form_display = $this->entityDisplayRepository->getFormDisplay('node', 'page');
@@ -85,7 +85,7 @@ class SchemaDotOrgAllowedFormatsTest extends SchemaDotOrgKernelEntityTestBase {
     // Check settings property allowed formats.
     /** @var \Drupal\field\FieldConfigInterface $text_field */
     $text_field = FieldConfig::loadByName('node', 'article', 'body');
-    $this->assertEquals(['full_html', 'basic_html'], $text_field->getThirdPartySetting('allowed_formats', 'allowed_formats'));
+    $this->assertEquals(['full_html', 'basic_html'], $text_field->getSetting('allowed_formats'));
 
   }
 

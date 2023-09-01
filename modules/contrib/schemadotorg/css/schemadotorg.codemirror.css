@@ -16,3 +16,10 @@ form .CodeMirror-scroll {
   max-height: 400px;
 }
 
+pre.schemadotorg-codemirror-mode {
+  border: 1px solid #999;
+  background-color: #efefef;
+  padding: 1em;
+  max-height: 400px;
+  overflow: scroll;
+}

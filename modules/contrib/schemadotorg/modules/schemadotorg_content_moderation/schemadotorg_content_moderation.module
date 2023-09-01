@@ -46,6 +46,17 @@ function schemadotorg_content_moderation_schemadotorg_mapping_insert(SchemaDotOr
 
   $content_moderation->addEntityTypeAndBundle($entity_type_id, $bundle);
   $workflow->save();
+
+  // Hide content moderation control widget from all view modes except full.
+  /** @var \Drupal\Core\Entity\EntityDisplayRepositoryInterface $entity_display_repository */
+  $entity_display_repository = \Drupal::service('entity_display.repository');
+  $view_modes = $entity_display_repository->getViewModeOptionsByBundle($entity_type_id, $bundle);
+  unset($view_modes['full']);
+  foreach (array_keys($view_modes) as $view_mode) {
+    $view_display = $entity_display_repository->getViewDisplay($entity_type_id, $bundle, $view_mode);
+    $view_display->removeComponent('content_moderation_control');
+    $view_display->save();
+  }
 }
 
 /**

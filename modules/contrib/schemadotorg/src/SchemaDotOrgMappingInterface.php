@@ -197,6 +197,24 @@ interface SchemaDotOrgMappingInterface extends ConfigEntityInterface {
   public function hasSchemaPropertyMapping(string $property): bool;
 
   /**
+   * Get the Schema.org mapping default values.
+   *
+   * @return array
+   *   The Schema.org mapping default values.
+   */
+  public function getMappingDefaults(): array;
+
+  /**
+   * Set the Schema.org mapping default values.
+   *
+   * @param array $mapping_defaults
+   *   The Schema.org mapping default values.
+   *
+   * @return $this
+   */
+  public function setMappingDefaults(array $mapping_defaults): SchemaDotOrgMappingInterface;
+
+  /**
    * Load by entity.
    *
    * @param \Drupal\Core\Entity\EntityInterface $entity

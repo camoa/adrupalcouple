@@ -15,10 +15,57 @@ dependencies:
     - field.field.node.person.schema_works_for
     - node.type.person
   module:
+    - field_group
     - image
     - link
     - text
     - user
+third_party_settings:
+  field_group:
+    group_general:
+      children:
+        - schema_additional_name
+        - body
+        - schema_family_name
+        - schema_given_name
+        - schema_image
+        - schema_knows_language
+        - title
+      label: General
+      parent_name: ''
+      region: content
+      weight: -5
+      format_type: fieldset
+      format_settings: {  }
+    group_contact:
+      children:
+        - schema_email
+        - schema_telephone
+      label: Contact
+      parent_name: ''
+      region: content
+      weight: -1
+      format_type: fieldset
+      format_settings: {  }
+    group_relationships:
+      children:
+        - schema_member_of
+        - schema_works_for
+      label: Relationships
+      parent_name: ''
+      region: content
+      weight: 30
+      format_type: fieldset
+      format_settings: {  }
+    group_links:
+      children:
+        - schema_same_as
+      label: Links
+      parent_name: ''
+      region: content
+      weight: 20
+      format_type: fieldset
+      format_settings: {  }
 id: node.person.default
 targetEntityType: node
 bundle: person
@@ -29,7 +76,7 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 12
+    weight: 17
     region: content
   links:
     settings: {  }
@@ -42,14 +89,14 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 100
+    weight: 9
     region: content
   schema_email:
     type: email_mailto
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 19
+    weight: 6
     region: content
   schema_family_name:
     type: string
@@ -57,7 +104,7 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 100
+    weight: 10
     region: content
   schema_given_name:
     type: string
@@ -65,18 +112,18 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 100
+    weight: 8
     region: content
   schema_image:
     type: image
-    label: above
+    label: hidden
     settings:
       image_link: ''
       image_style: ''
       image_loading:
         attribute: lazy
     third_party_settings: {  }
-    weight: 5
+    weight: 22
     region: content
   schema_knows_language:
     type: string
@@ -84,7 +131,7 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 105
+    weight: 15
     region: content
   schema_member_of:
     type: string
@@ -92,7 +139,7 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 105
+    weight: 11
     region: content
   schema_same_as:
     type: link
@@ -104,14 +151,14 @@ content:
       rel: ''
       target: ''
     third_party_settings: {  }
-    weight: 136
+    weight: 1
     region: content
   schema_telephone:
     type: basic_string
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 18
+    weight: 4
     region: content
   schema_works_for:
     type: string
@@ -119,6 +166,6 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 105
+    weight: 6
     region: content
 hidden: {  }

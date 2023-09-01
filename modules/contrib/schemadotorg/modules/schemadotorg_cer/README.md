@@ -16,6 +16,8 @@ https://inverseOf support using the Corresponding Entity References module.
 Features
 --------
 
+- Set the default mapping property type to 'entity_refernece' for 
+  corresponding entity references
 - Automatically creates corresponding entity references for selected 
   Schema.org properties.
 - Synchronizes entity references target bundles for all Schema.org mappings.

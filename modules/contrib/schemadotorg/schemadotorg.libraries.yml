@@ -10,6 +10,7 @@ schemadotorg.details:
     js/schemadotorg.details.js: {}
   dependencies:
     - core/drupal
+    - core/drupal.announce
     - core/once
 
 schemadotorg.dialog:
@@ -35,12 +36,25 @@ schemadotorg.jstree:
     js/schemadotorg.jstree.js: {}
   dependencies:
     - core/drupal
+    - core/once
     - schemadotorg/jstree
 
 schemadotorg.settings.element:
   css:
     component:
       css/schemadotorg.settings.element.css: {}
+
+schemadotorg.mermaid:
+  version: VERSION
+  css:
+    theme:
+      css/schemadotorg.mermaid.css: {}
+  js:
+    js/schemadotorg.mermaid.js: {}
+  dependencies:
+    - core/drupal
+    - core/once
+    - schemadotorg/mermaid
 
 jstree:
   remote: https://www.jstree.com
@@ -57,6 +71,15 @@ jstree:
   dependencies:
     - core/jquery
 
+mermaid:
+  version: 9.1.3
+  remote: https://github.com/mermaid-js/mermaid
+  license:
+    name: MIT
+    gpl-compatible: false
+  js:
+    https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js: { type: external, minified: true }
+
 codemirror:
   remote: http://codemirror.net
   version: &webform_codemirror_version '5.65.12'
@@ -70,6 +93,7 @@ codemirror:
       css/schemadotorg.codemirror.css: {}
   js:
     https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.12/codemirror.js: {}
+    https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.12/addon/runmode/runmode.js: {}
     js/schemadotorg.codemirror.js: {}
   dependencies:
     - core/tabbable

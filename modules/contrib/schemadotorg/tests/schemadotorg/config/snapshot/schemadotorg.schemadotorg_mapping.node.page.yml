@@ -3,7 +3,7 @@ status: true
 dependencies:
   config:
     - field.field.node.page.body
-    - field.field.node.page.schema_primary_image
+    - field.field.node.page.schema_image
     - field.field.node.page.schema_related_link
     - field.field.node.page.schema_significant_link
     - node.type.page
@@ -16,7 +16,7 @@ schema_properties:
   changed: dateModified
   langcode: inLanguage
   title: name
-  schema_primary_image: primaryImageOfPage
+  schema_image: primaryImageOfPage
   schema_related_link: relatedLink
   schema_significant_link: significantLink
   body: text

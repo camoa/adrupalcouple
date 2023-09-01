@@ -3,6 +3,7 @@ Table of contents
 
 * Introduction
 * Features
+* Notes
 * Requirements
 * Configuration
 * FAQ
@@ -25,6 +26,15 @@ Features
   Schema.org types and properties.
 - Adds a JSON:API column with links to the Schema.org mappings admin page.  
   (/admin/config/search/schemadotorg)
+
+
+Notes
+-----
+
+- By default all JSON:API endpoints be disabled and only required and relevant
+  endpoint and properties are enabled.  
+- Schema.org properties are always exposed with some Drupal internal properties.
+- Schema.org field prefixes (schema_*) should be removed.
 
 
 Requirements

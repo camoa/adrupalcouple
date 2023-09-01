@@ -12,7 +12,9 @@ use Drupal\Core\StringTranslation\StringTranslationTrait;
  * Base class for CustomField Type plugins.
  */
 abstract class CustomFieldTypeBase extends PluginBase implements CustomFieldTypeInterface {
+
   use StringTranslationTrait;
+
   /**
    * The name of the custom field item.
    *
@@ -25,19 +27,19 @@ abstract class CustomFieldTypeBase extends PluginBase implements CustomFieldType
    *
    * @var string
    */
-  protected $data_type = '';
+  protected $dataType = '';
 
   /**
    * The max length of the custom field item database column.
    *
-   * @var integer
+   * @var int
    */
-  protected $max_length = 255;
+  protected $maxLength = 255;
 
   /**
    * A boolean to determine if a custom field type of integer is unsigned.
    *
-   * @var boolean
+   * @var bool
    */
   protected $unsigned = FALSE;
 
@@ -46,14 +48,21 @@ abstract class CustomFieldTypeBase extends PluginBase implements CustomFieldType
    *
    * @var array
    */
-  protected $widget_settings = [];
+  protected $widgetSettings = [];
 
   /**
    * An array of formatter settings.
    *
    * @var array
    */
-  protected $formatter_settings = [];
+  protected $formatterSettings = [];
+
+  /**
+   * Should this field item be included in the empty check?
+   *
+   * @var bool
+   */
+  protected $checkEmpty = FALSE;
 
   /**
    * {@inheritdoc}
@@ -73,7 +82,9 @@ abstract class CustomFieldTypeBase extends PluginBase implements CustomFieldType
    * {@inheritdoc}
    */
   public static function defaultFormatterSettings(): array {
-    return [];
+    return [
+      'render' => 'value',
+    ];
   }
 
   /**
@@ -83,22 +94,23 @@ abstract class CustomFieldTypeBase extends PluginBase implements CustomFieldType
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     // Initialize properties based on configuration.
     $this->name = $this->configuration['name'] ?? 'value';
-    $this->max_length = $this->configuration['max_length'] ?? 255;
+    $this->maxLength = $this->configuration['max_length'] ?? 255;
     $this->unsigned = $this->configuration['unsigned'] ?? FALSE;
-    $this->widget_settings = $this->configuration['widget_settings'] ?? [];
-    $this->formatter_settings = $this->configuration['formatter_settings'] ?? [];
-    $this->data_type = $this->configuration['data_type'] ?? '';
+    $this->widgetSettings = $this->configuration['widget_settings'] ?? [];
+    $this->formatterSettings = $this->configuration['formatter_settings'] ?? [];
+    $this->dataType = $this->configuration['data_type'] ?? '';
+    $this->checkEmpty = $this->configuration['check_empty'] ?? FALSE;
 
     // We want to default the label to the column name, so we do that before the
     // merge and only if it's unset since a value of '' may be what the user
-    // wants for no label
-    if (!isset($this->widget_settings['label'])) {
-      $this->widget_settings['label'] = ucfirst(str_replace(['-', '_'], ' ', $this->name));
+    // wants for no label.
+    if (!isset($this->widgetSettings['label'])) {
+      $this->widgetSettings['label'] = ucfirst(str_replace(['-', '_'], ' ', $this->name));
     }
 
-    // Merge defaults
-    $this->widget_settings = $this->widget_settings + self::defaultWidgetSettings();
-    $this->formatter_settings = $this->formatter_settings + self::defaultFormatterSettings();
+    // Merge defaults.
+    $this->widgetSettings = $this->widgetSettings + self::defaultWidgetSettings();
+    $this->formatterSettings = $this->formatterSettings + self::defaultFormatterSettings();
   }
 
   /**
@@ -107,11 +119,11 @@ abstract class CustomFieldTypeBase extends PluginBase implements CustomFieldType
   public function widget(FieldItemListInterface $items, int $delta, array $element, array &$form, FormStateInterface $form_state): array {
     // Prep the element base properties. Implementations of the plugin can
     // override as necessary or just set #type and be on their merry way.
-    $settings = $this->widget_settings['settings'];
+    $settings = $this->widgetSettings['settings'];
     $is_required = $items->getFieldDefinition()->isRequired();
     $item = $items[$delta];
     return [
-      '#title' => $this->widget_settings['label'],
+      '#title' => $this->widgetSettings['label'],
       '#description' => $settings['description'] ?: NULL,
       '#description_display' => $settings['description_display'] ?: NULL,
       '#default_value' => $item->{$this->name} ?? NULL,
@@ -123,18 +135,18 @@ abstract class CustomFieldTypeBase extends PluginBase implements CustomFieldType
    * {@inheritdoc}
    */
   public function widgetSettingsForm(array $form, FormStateInterface $form_state): array {
-    $settings = $this->widget_settings['settings'];
+    $settings = $this->widgetSettings['settings'];
 
     // Some table columns containing raw markup.
     $element['label'] = [
       '#type' => 'textfield',
-      '#title' => t('Label'),
-      '#default_value' => $this->widget_settings['label'],
+      '#title' => $this->t('Label'),
+      '#default_value' => $this->widgetSettings['label'],
       '#required' => TRUE,
     ];
     $element['settings'] = [
       '#type' => 'details',
-      '#title' => t('Settings'),
+      '#title' => $this->t('Settings'),
     ];
 
     // Keep settings open during ajax updates.
@@ -149,26 +161,26 @@ abstract class CustomFieldTypeBase extends PluginBase implements CustomFieldType
     // Some table columns containing raw markup.
     $element['settings']['required'] = [
       '#type' => 'checkbox',
-      '#title' => t('Required'),
-      '#description' => t('This setting is only applicable when the field itself is required.'),
+      '#title' => $this->t('Required'),
+      '#description' => $this->t('This setting is only applicable when the field itself is required.'),
       '#default_value' => $settings['required'],
     ];
 
     // Some table columns containing raw markup.
     $element['settings']['description'] = [
       '#type' => 'textarea',
-      '#title' => t('Help text'),
-      '#description' => t('Instructions to present to the user below this field on the editing form.'),
+      '#title' => $this->t('Help text'),
+      '#description' => $this->t('Instructions to present to the user below this field on the editing form.'),
       '#rows' => 2,
       '#default_value' => $settings['description'],
     ];
 
     $element['settings']['description_display'] = [
       '#type' => 'radios',
-      '#title' => t('Help text position'),
+      '#title' => $this->t('Help text position'),
       '#options' => [
-        'before' => t('Before input'),
-        'after' => t('After input'),
+        'before' => $this->t('Before input'),
+        'after' => $this->t('After input'),
       ],
       '#default_value' => $settings['description_display'],
       '#required' => TRUE,
@@ -181,13 +193,29 @@ abstract class CustomFieldTypeBase extends PluginBase implements CustomFieldType
    * {@inheritdoc}
    */
   public function formatterSettingsForm(array $form, FormStateInterface $form_state): array {
-    return [];
+    return [
+      'render' => [
+        '#type' => 'select',
+        '#title' => $this->t('Render'),
+        '#options' => [
+          'value' => $this->t('Value'),
+          'hidden' => $this->t('Hidden'),
+        ],
+        '#default_value' => $this->getFormatterSetting('render'),
+      ],
+    ];
   }
 
   /**
    * {@inheritdoc}
    */
-  public function value(CustomItem $item) {
+  public function value(CustomItem $item): mixed {
+    $render = $this->getFormatterSetting('render');
+
+    if ($render === 'hidden') {
+      return NULL;
+    }
+
     return $item->{$this->name};
   }
 
@@ -195,7 +223,7 @@ abstract class CustomFieldTypeBase extends PluginBase implements CustomFieldType
    * {@inheritdoc}
    */
   public function getLabel(): string {
-    return $this->widget_settings['label'];
+    return $this->widgetSettings['label'];
   }
 
   /**
@@ -209,27 +237,35 @@ abstract class CustomFieldTypeBase extends PluginBase implements CustomFieldType
    * {@inheritdoc}
    */
   public function getWidgetSetting(string $name): array {
-    return $this->widget_settings[$name] ?? static::defaultWidgetSettings()[$name];
+    return $this->widgetSettings[$name] ?? static::defaultWidgetSettings()[$name];
   }
 
   /**
    * {@inheritdoc}
    */
   public function getFormatterSetting(string $name) {
-    return $this->formatter_settings[$name] ?? static::defaultFormatterSettings()[$name];
+    return $this->formatterSettings[$name] ?? static::defaultFormatterSettings()[$name];
   }
 
   /**
    * {@inheritdoc}
    */
   public function getWidgetSettings(): array {
-    return $this->widget_settings;
+    return $this->widgetSettings;
   }
 
   /**
    * {@inheritdoc}
    */
   public function getFormatterSettings(): array {
-    return $this->formatter_settings;
+    return $this->formatterSettings;
   }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function checkEmpty(): bool {
+    return $this->checkEmpty;
+  }
+
 }

@@ -38,10 +38,13 @@ mix.settings:
           sequence:
             type: string
 
-block.block.*.third_party.mix_block:
+block.block.*.third_party.mix:
   type: mapping
   label: Block third party settings
   mapping:
     class:
       type: string
       label: Block class(es)
+    dropdown:
+      type: boolean
+      label: Dropdown

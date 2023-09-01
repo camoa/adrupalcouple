@@ -1,0 +1,221 @@
+<?php
+
+/**
+ * @file
+ * Adds paragraph types to the sidebar on node edit forms.
+ */
+
+declare(strict_types = 1);
+
+use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\field\Entity\FieldConfig;
+use Drupal\field\Entity\FieldStorageConfig;
+use Drupal\node\NodeInterface;
+use Drupal\paragraphs\Entity\ParagraphsType;
+use Drupal\schemadotorg\Element\SchemaDotOrgSettings;
+use Drupal\schemadotorg\SchemaDotOrgMappingInterface;
+
+/**
+ * Implements hook_schemadotorg_mapping_insert().
+ */
+function schemadotorg_sidebar_schemadotorg_mapping_insert(SchemaDotOrgMappingInterface $mapping): void {
+  if (\Drupal::isConfigSyncing()) {
+    return;
+  }
+
+  // Make sure we are adding sidebars to nodes.
+  $entity_type = $mapping->getTargetEntityTypeId();
+  if ($entity_type !== 'node') {
+    return;
+  }
+
+  /** @var \Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface $schema_type_manager */
+  $schema_type_manager = \Drupal::service('schemadotorg.schema_type_manager');
+  $schema_type = $mapping->getSchemaType();
+  $paragraph_types = \Drupal::config('schemadotorg_sidebar.settings')->get('paragraph_types');
+  foreach ($paragraph_types as $paragraph_type_id => $schema_types) {
+    if ($schema_type_manager->isSubTypeOf($schema_type, $schema_types)) {
+      _schemadotorg_sidebar_schemadotorg_mapping_insert($mapping, $paragraph_type_id);
+    }
+  }
+}
+
+/**
+ * Insert sidebar field group when a mapping is saved.
+ */
+function _schemadotorg_sidebar_schemadotorg_mapping_insert(SchemaDotOrgMappingInterface $mapping, string $paragraph_type_id): void {
+  $paragraph_type = ParagraphsType::load($paragraph_type_id);
+  if (!$paragraph_type) {
+    return;
+  }
+
+  $entity_type = $mapping->getTargetEntityTypeId();
+  $bundle = $mapping->getTargetBundle();
+
+  $field_name = 'field_' . $paragraph_type_id;
+  $field_label = $paragraph_type->label();
+
+  $group_name = 'group_' . $paragraph_type_id;
+  $group_label = $paragraph_type->label();
+  $group_description = $paragraph_type->getDescription();
+
+  // Create the field storage.
+  $field_storage = FieldStorageConfig::loadByName('node', $field_name);
+  if (!FieldStorageConfig::loadByName('node', $field_name)) {
+    $field_storage = FieldStorageConfig::create([
+      'field_name' => $field_name,
+      'entity_type' => $entity_type,
+      'type' => 'entity_reference_revisions',
+      'cardinality' => 1,
+      'settings' => [
+        'target_type' => 'paragraph',
+      ],
+    ]);
+    $field_storage->save();
+  }
+
+  // If the field's config exists, do not create the field, and update its
+  // form and view display.
+  $field_config = FieldConfig::loadByName('node', $bundle, $field_name);
+  if ($field_config) {
+    return;
+  }
+
+  // Create the field instance.
+  FieldConfig::create([
+    'field_storage' => $field_storage,
+    'bundle' => $bundle,
+    'label' => $field_label,
+    'settings' => [
+      'handler' => 'default:paragraph',
+      'handler_settings' => [
+        'target_bundles' => [$paragraph_type_id => $paragraph_type_id],
+        'negate' => 0,
+        'target_bundles_drag_drop' => [
+          $paragraph_type_id => ['weight' => 0, 'enabled' => TRUE],
+        ],
+      ],
+    ],
+  ])->save();
+
+  /** @var \Drupal\Core\Entity\EntityDisplayRepositoryInterface $entity_display_repository */
+  $entity_display_repository = \Drupal::service('entity_display.repository');
+
+  // Create the form display component.
+  $form_display = $entity_display_repository->getFormDisplay($entity_type, $bundle);
+  $form_display->setComponent($field_name, [
+    'type' => 'inline_entity_form_simple',
+  ]);
+  $form_display->setThirdPartySetting('field_group', $group_name, [
+    'label' => $group_label,
+    'children' => [$field_name],
+    'parent_name' => '',
+    // After all other sidebars.
+    'weight' => 230,
+    'format_type' => 'details_sidebar',
+    'format_settings' => ['description' => $group_description],
+    'region' => 'content',
+  ]);
+  $form_display->save();
+
+  // Create the view display component.
+  $view_display = $entity_display_repository->getViewDisplay($entity_type, $bundle);
+  $view_display->setComponent($field_name, [
+    'type' => 'entity_reference_revisions_entity_view',
+    'label' => 'hidden',
+  ]);
+  $view_display->setThirdPartySetting('field_group', $group_name, [
+    'label' => $group_label,
+    'children' => [$field_name],
+    'parent_name' => '',
+    // Before links.
+    'weight' => 99,
+    'format_type' => 'fieldset',
+    'format_settings' => [],
+    'region' => 'content',
+  ]);
+  $view_display->save();
+}
+
+/**
+ * Implements hook_field_widget_single_element_WIDGET_TYPE_form_alter().
+ */
+function schemadotorg_sidebar_field_widget_single_element_inline_entity_form_simple_form_alter(array &$element, FormStateInterface $form_state, array $context): void {
+  // Remove the nested fieldset from the inline entity form.
+  /** @var \Drupal\entity_reference_revisions\EntityReferenceRevisionsFieldItemList $items */
+  $items = $context['items'];
+  $field_name = $items->getName();
+  $paragraph_type_id = preg_replace('/^field_/', '', $field_name);
+  if (\Drupal::config('schemadotorg_sidebar.settings')->get("paragraph_types.$paragraph_type_id") !== NULL) {
+    $element['#theme_wrappers'] = [];
+  }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_view_alter().
+ */
+function schemadotorg_sidebar_node_view_alter(array &$build, NodeInterface $node, EntityViewDisplayInterface $display): void {
+  $paragraph_types = \Drupal::config('schemadotorg_sidebar.settings')->get('paragraph_types');
+  foreach (array_keys($paragraph_types) as $paragraph_type_id) {
+    $field_name = 'field_' . $paragraph_type_id;
+    if (empty($build[$field_name])
+      || empty($build[$field_name][0])) {
+      continue;
+    }
+
+    /** @var \Drupal\Core\Render\Renderer $renderer */
+    $renderer = \Drupal::service('renderer');
+
+    // Render the editorial paragraph and determined if it has any content.
+    $content = $build[$field_name][0];
+    $output = (string) $renderer->renderPlain($content);
+    if (trim(strip_tags($output)) === '') {
+      $build[$field_name]['#access'] = FALSE;
+    }
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function schemadotorg_sidebar_form_schemadotorg_types_settings_form_alter(array &$form, FormStateInterface $form_state): void {
+  $form['schemadotorg_sidebar'] = [
+    '#type' => 'details',
+    '#title' => t('Sidebar settings'),
+    '#open' => TRUE,
+    '#tree' => TRUE,
+  ];
+  $form['schemadotorg_sidebar']['paragraph_types'] = [
+    '#type' => 'schemadotorg_settings',
+    '#settings_type' => SchemaDotOrgSettings::INDEXED_GROUPED,
+    '#settings_format' => 'paragraph_type|SchemaType01,SchemaType02,SchemaType03',
+    '#title' => t('Sidebar paragraphs types'),
+    '#description' => t("Enter paragraphs types that should be place in Schema.org type's node edit form sidebar. The sidebar's title and description will be copied from the paragraph type"),
+    '#description_link' => 'types',
+  ];
+  $form['schemadotorg_sidebar']['apply_paragraph_types'] = [
+    '#type' => 'checkbox',
+    '#title' => t('Apply sidebar paragraphs to all existing Schema.org content types.'),
+    '#description' => t('If checked, the above sidebar paragraphs will be applied to all existing Schema.org content types.'),
+    '#return_value' => TRUE,
+  ];
+  $form['#submit'][] = 'schemadotorg_sidebar_form_schemadotorg_types_settings_form_submit';
+}
+
+/**
+ * Form submission handler for schemadotorg_description_settings_form().
+ *
+ * @see schemadotorg_sidebar_form_schemadotorg_types_settings_form_alter()
+ */
+function schemadotorg_sidebar_form_schemadotorg_types_settings_form_submit(array &$form, FormStateInterface $form_state): void {
+  // Apply sidebars to all existing Schema.org content types.
+  if ($form_state->getValue(['schemadotorg_sidebar', 'apply_paragraph_types'])) {
+    $mappings = \Drupal::entityTypeManager()
+      ->getStorage('schemadotorg_mapping')
+      ->loadByProperties(['target_entity_type_id' => 'node']);
+    foreach ($mappings as $mapping) {
+      schemadotorg_sidebar_schemadotorg_mapping_insert($mapping);
+    }
+  }
+}

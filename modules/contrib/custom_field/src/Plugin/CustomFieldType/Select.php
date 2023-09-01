@@ -29,7 +29,7 @@ class Select extends ListBase {
 
     // Get the base form element properties.
     $element = parent::widget($items, $delta, $element, $form, $form_state);
-    $settings = $this->widget_settings['settings'];
+    $settings = $this->widgetSettings['settings'];
 
     // Add our widget type and additional properties and return.
     return [

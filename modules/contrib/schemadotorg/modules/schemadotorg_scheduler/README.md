@@ -18,6 +18,8 @@ Features
 --------
 
 - Enables scheduling for Schema.org types as they are created.
+- Sets https://schema.org/datePublished (publish\_on) and
+  https://schema.org/expires (unpublish\_on) for Schema.org types JSON-lD.
 
 
 Requirements

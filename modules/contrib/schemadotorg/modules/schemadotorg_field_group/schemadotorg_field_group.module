@@ -20,12 +20,7 @@ use Drupal\schemadotorg\SchemaDotOrgMappingInterface;
 function schemadotorg_field_group_schemadotorg_mapping_presave(SchemaDotOrgMappingInterface $mapping): void {
   /** @var \Drupal\schemadotorg_field_group\SchemaDotOrgFieldGroupEntityDisplayBuilderInterface $schema_field_group_display_builder */
   $schema_field_group_display_builder = \Drupal::service('schemadotorg_field_group.entity_display_builder');
-  $schema_field_group_display_builder->setFieldGroups(
-    $mapping->getTargetEntityTypeId(),
-    $mapping->getTargetBundle(),
-    $mapping->getSchemaType(),
-    $mapping->getNewSchemaProperties()
-  );
+  $schema_field_group_display_builder->setFieldGroups($mapping);
 }
 
 /**

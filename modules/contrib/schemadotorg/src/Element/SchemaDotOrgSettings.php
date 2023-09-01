@@ -98,13 +98,13 @@ class SchemaDotOrgSettings extends Textarea {
     // Validate the #default_value by converting it to settings string
     // and parsing settings string.
     if ($element['#settings_type'] !== static::YAML) {
-      $default_value = static::getDefaultValue($element);
+      $default_value = static::getDefaultValue($element) ?? [];
       $string_value = static::convertSettingsToValue($element, $default_value);
       $settings_value = static::convertValueToSettings($element, $string_value);
       if ($default_value !== $settings_value) {
         $element['#settings_type'] = static::YAML;
         $element += ['#description' => ''];
-        $element['#description'] .= ' <strong>' . t('Unable parse %title settings.', ['%title' => $element['#title']]) . '</strong>';
+        $element['#description'] .= ' <strong>' . t('Unable to parse %title settings.', ['%title' => $element['#title']]) . '</strong>';
       }
     }
 

@@ -31,7 +31,7 @@ class SchemaDotOrgSettingsElementTest extends SchemaDotOrgBrowserTestBase {
 
     // Check that invalid settings render as YAML and display a warning message.
     $assert_session->responseContains('<textarea wrap="off" data-drupal-selector="edit-schemadotorg-settings-element-test-associative-grouped-invalid" class="schemadotorg-codemirror form-textarea" data-mode="yaml" id="edit-schemadotorg-settings-element-test-associative-grouped-invalid" name="schemadotorg_settings_element_test[associative_grouped_invalid]" rows="5" cols="60">');
-    $assert_session->responseContains('<strong>Unable parse <em class="placeholder">associative_grouped_invalid</em> settings.</strong>');
+    $assert_session->responseContains('<strong>Unable to parse <em class="placeholder">associative_grouped_invalid</em> settings.</strong>');
 
     // Check expected values when submitting the form via text format.
     $assert_session->fieldValueEquals('schemadotorg_settings_element_test[indexed]', 'one

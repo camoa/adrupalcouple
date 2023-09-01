@@ -10,30 +10,48 @@ namespace Drupal\schemadotorg;
 interface SchemaDotOrgConfigManagerInterface {
 
   /**
-   * Update a Schema.org type's default properties.
+   * Set Schema.org type's default properties.
    *
    * @param string $schema_type
    *   The Schema.org type.
-   * @param array|string|null $add
-   *   Schema.org properties to be removed.
-   * @param array|string|null $remove
-   *   Schema.org properties to be added.
+   * @param array|string $properties
+   *   Schema.org properties to be set.
    */
-  public function setSchemaTypeDefaultProperties(string $schema_type, array|string|NULL $add = NULL, array|string|NULL $remove = NULL): void;
+  public function setSchemaTypeDefaultProperties(string $schema_type, array|string $properties): void;
 
   /**
-   * Update a Schema.org mapping type's default properties.
+   * Unset Schema.org type's default properties.
+   *
+   * @param string $schema_type
+   *   The Schema.org type.
+   * @param array|string $properties
+   *   Schema.org properties to be unset.
+   */
+  public function unsetSchemaTypeDefaultProperties(string $schema_type, array|string $properties): void;
+
+  /**
+   * Set Schema.org mapping type's default properties.
    *
    * @param string $entity_type_id
    *   The entity type id.
    * @param string $schema_type
    *   The Schema.org type.
-   * @param array|string|null $add
-   *   Schema.org properties to be removed.
-   * @param array|string|null $remove
-   *   Schema.org properties to be added.
+   * @param array|string $properties
+   *   Schema.org properties to be set.
    */
-  public function setMappingTypeSchemaTypeDefaultProperties(string $entity_type_id, string $schema_type, array|string|NULL $add = NULL, array|string|NULL $remove = NULL): void;
+  public function setMappingTypeSchemaTypeDefaultProperties(string $entity_type_id, string $schema_type, array|string $properties): void;
+
+  /**
+   * Unset Schema.org mapping type's default properties.
+   *
+   * @param string $entity_type_id
+   *   The entity type id.
+   * @param string $schema_type
+   *   The Schema.org type.
+   * @param array|string $properties
+   *   Schema.org properties to be unset.
+   */
+  public function unsetMappingTypeSchemaTypeDefaultProperties(string $entity_type_id, string $schema_type, array|string $properties): void;
 
   /**
    * Repair configuration.

@@ -83,9 +83,9 @@ interface SchemaDotOrgJsonLdManagerInterface {
    * @param string|mixed $value
    *   The Schema.org property's value.
    *
-   * @return array|string
+   * @return array|string|int|null
    *   The Schema.org property's value converted to the default Schema.org type.
    */
-  public function getSchemaPropertyValueDefaultType(string $type, string $property, mixed $value): array|string|NULL;
+  public function getSchemaPropertyValueDefaultType(string $type, string $property, mixed $value): array|string|int|NULL;
 
 }

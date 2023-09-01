@@ -44,7 +44,7 @@ function schemadotorg_allowed_formats_schemadotorg_property_field_alter(
     ?? $property_allowed_formats[$schema_property]
     ?? $default_allowed_formats;
   if ($allowed_formats) {
-    $field_values['third_party_settings']['allowed_formats']['allowed_formats'] = $allowed_formats;
+    $field_values['settings']['allowed_formats'] = $allowed_formats;
   }
 
   // Set default hide help.

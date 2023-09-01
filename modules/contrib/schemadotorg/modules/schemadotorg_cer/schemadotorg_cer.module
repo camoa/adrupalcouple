@@ -51,8 +51,9 @@ function schemadotorg_cer_form_alter(array &$form, FormStateInterface $form_stat
     return;
   }
 
-  $field_prefix = \Drupal::config('schemadotorg.settings')
-    ->get('field_prefix');
+  /** @var \Drupal\schemadotorg\SchemaDotOrgNamesInterface $schema_names */
+  $schema_names = \Drupal::service('schemadotorg.names');
+  $field_prefix = $schema_names->getFieldPrefix();
   if (empty($field_prefix)) {
     return;
   }
@@ -130,7 +131,7 @@ function schemadotorg_cer_form_schemadotorg_properties_settings_form_alter(array
   $form['schemadotorg_cer']['default_properties'] = [
     '#type' => 'schemadotorg_settings',
     '#settings_type' => SchemaDotOrgSettings::ASSOCIATIVE,
-    '#settings_format' => 'childProperty:parentProperty',
+    '#settings_format' => 'childProperty|parentProperty',
     '#title' => t('Default Schema.org property inverse of relationship'),
     '#description' => t('Enter default Schema.org property inverse of relationship with the childProperty followed by the parentProperty.'),
     '#description_link' => 'properties',

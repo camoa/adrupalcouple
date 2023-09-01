@@ -10,19 +10,19 @@ use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\Tests\schemadotorg\Functional\SchemaDotOrgBrowserTestBase;
 
 /**
- * Tests the functionality of the Schema.org mapping type select form.
+ * Tests the functionality of the Schema.org editorial sidebar.
  *
- * @covers schemadotorg_editorial_schemadotorg_mapping_insert()
- * @covers schemadotorg_editorial_field_widget_inline_entity_form_simple_form_alter()
+ * @covers schemadotorg_sidebar_schemadotorg_mapping_insert()
+ * @covers schemadotorg_sidebar_field_widget_inline_entity_form_simple_form_alter()
+ * @covers schemadotorg_sidebar_node_view_alter()
  * @covers schemadotorg_editorial_node_prepare_form()
- * @covers schemadotorg_editorial_node_view_alter()
  * @group schemadotorg
  */
 class SchemaDotOrgEditorialTest extends SchemaDotOrgBrowserTestBase {
 
   // phpcs:disable DrupalPractice.Objects.StrictSchemaDisabled.StrictConfigSchema
   /**
-   * Disabled config schema checking temporarily until smart date fixes missing schema.
+   * Disabled config schema checking temporarily until inline entity form fixes missing schema.
    *
    * @var bool
    */
@@ -80,7 +80,7 @@ class SchemaDotOrgEditorialTest extends SchemaDotOrgBrowserTestBase {
     // Check that 'Editorial sidebar' exists.
     $this->assertNotEmpty($this->cssSelect('details#edit-group-editorial'));
     // Check that the nested field does not exist.
-    // @see schemadotorg_editorial_field_widget_inline_entity_form_simple_form_alter()
+    // @see schemadotorg_sidebar_field_widget_single_element_inline_entity_form_simple_form_alter()
     $this->assertEmpty($this->cssSelect('details#edit-group-editorial fieldset'));
     // Check that last updated data element exists.
     $assert_session->fieldExists('field_editorial[0][inline_entity_form][field_editorial_last_updated][0][value][date]');
@@ -114,7 +114,7 @@ class SchemaDotOrgEditorialTest extends SchemaDotOrgBrowserTestBase {
     $editorial_paragraph->save();
 
     // Check that nothing is displayed when there is no editorial information.
-    // @see schemadotorg_editorial_node_view_alter()
+    // @see schemadotorg_sidebar_node_view_alter()
     $this->drupalGet("/node/$nid");
     $assert_session->responseNotContains('Editorial information');
     $assert_session->responseNotContains('This is a note');

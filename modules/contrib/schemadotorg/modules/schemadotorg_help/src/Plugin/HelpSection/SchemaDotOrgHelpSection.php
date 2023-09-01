@@ -4,7 +4,6 @@ declare(strict_types = 1);
 
 namespace Drupal\schemadotorg_help\Plugin\HelpSection;
 
-use Drupal\Core\Extension\ModuleExtensionList;
 use Drupal\Core\Link;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Url;
@@ -25,39 +24,19 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class SchemaDotOrgHelpSection extends HelpSectionPluginBase implements ContainerFactoryPluginInterface {
 
   /**
-   * The entity type manager.
+   * The module extension list.
    *
-   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   * @var \Drupal\Core\Extension\ModuleExtensionList
    */
-  protected $entityTypeManager;
-
-  /**
-   * Constructs a TourHelpSection object.
-   *
-   * @param array $configuration
-   *   A configuration array containing information about the plugin instance.
-   * @param string $plugin_id
-   *   The plugin_id for the plugin instance.
-   * @param mixed $plugin_definition
-   *   The plugin implementation definition.
-   * @param \Drupal\Core\Extension\ModuleExtensionList $module_extension_list
-   *   The module extension list service.
-   */
-  public function __construct(array $configuration, string $plugin_id, mixed $plugin_definition, ModuleExtensionList $module_extension_list) {
-    parent::__construct($configuration, $plugin_id, $plugin_definition);
-    $this->moduleExtensionList = $module_extension_list;
-  }
+  protected $moduleExtensionList;
 
   /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
-    return new static(
-      $configuration,
-      $plugin_id,
-      $plugin_definition,
-      $container->get('extension.list.module')
-    );
+    $instance = new static($configuration, $plugin_id, $plugin_definition);
+    $instance->moduleExtensionList = $container->get('extension.list.module');
+    return $instance;
   }
 
   /**
@@ -72,6 +51,7 @@ class SchemaDotOrgHelpSection extends HelpSectionPluginBase implements Container
     $topics = [];
     foreach ($modules as $module_name => $module_info) {
       $title = $module_info['name'];
+      $title = str_replace('Schema.org Blueprints ', '', $title);
       $url = Url::fromRoute('schemadotorg_help.page', ['name' => $module_name]);
       $topics[$module_name] = Link::fromTextAndUrl($title, $url)->toString();
     }

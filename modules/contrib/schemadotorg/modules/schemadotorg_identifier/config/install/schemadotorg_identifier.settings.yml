@@ -1,5 +1,4 @@
 field_definitions:
-  uuid: {  }
   npi:
     property_id: npi
     field_name: schema_identifier_npi
@@ -7,8 +6,6 @@ field_definitions:
     description: A unique identification number for covered health care providers.
     max_length: 10
 schema_types:
-  Thing:
-    - uuid
   MedicalBusiness:
     - npi
   MedicalOrganization:

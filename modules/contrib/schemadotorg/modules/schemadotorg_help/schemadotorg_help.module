@@ -58,7 +58,7 @@ function schemadotorg_help_help(string $route_name, RouteMatchInterface $route_m
 /**
  * Preprocess variables for help-section.html.twig.
  */
-function schemadotorg_help_preprocess_help_section(array &$variables) {
+function schemadotorg_help_preprocess_help_section(array &$variables): void {
   // Remove all 'schemadotorg' links from the 'Module overviews'.
   if ((string) $variables['title'] === (string) t('Module overviews')) {
     /** @var \Drupal\Core\Link[] $links */

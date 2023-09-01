@@ -53,6 +53,11 @@ class SchemaDotOrgMappingTypeListBuilder extends SchemaDotOrgConfigEntityListBui
         'class' => [RESPONSIVE_PRIORITY_LOW],
         'width' => '10%',
       ];
+      $header['prefixes'] = [
+        'data' => $this->t('Label/ID Prefixes'),
+        'class' => [RESPONSIVE_PRIORITY_LOW],
+        'width' => '10%',
+      ];
       $header['default_schema_type_properties'] = [
         'data' => $this->t('Default Schema.org type properties'),
         'class' => [RESPONSIVE_PRIORITY_LOW],
@@ -72,22 +77,27 @@ class SchemaDotOrgMappingTypeListBuilder extends SchemaDotOrgConfigEntityListBui
     else {
       $header['entity_type'] = [
         'data' => $this->t('Type'),
-        'width' => '30%',
+        'width' => '25%',
       ];
       $header['default_schema_types'] = [
         'data' => $this->t('Default Schema.org types'),
         'class' => [RESPONSIVE_PRIORITY_LOW],
-        'width' => '30%',
+        'width' => '25%',
       ];
       $header['recommended_schema_types'] = [
         'data' => $this->t('Recommended Schema.org types'),
         'class' => [RESPONSIVE_PRIORITY_LOW],
-        'width' => '30%',
+        'width' => '25%',
       ];
       $header['multiple'] = [
         'data' => $this->t('Multiple'),
         'class' => [RESPONSIVE_PRIORITY_LOW],
-        'width' => '10%',
+        'width' => '12%',
+      ];
+      $header['prefixes'] = [
+        'data' => $this->t('Label/ID Prefixes'),
+        'class' => [RESPONSIVE_PRIORITY_LOW],
+        'width' => '12%',
       ];
     }
     return $header + parent::buildHeader();
@@ -113,6 +123,9 @@ class SchemaDotOrgMappingTypeListBuilder extends SchemaDotOrgConfigEntityListBui
 
     // Multiple.
     $row['multiple'] = $entity->get('multiple') ? $this->t('Yes') : $this->t('No');
+
+    // Prefixes.
+    $row['prefixes'] = implode(' / ', array_filter([$entity->get('label_prefix'), $entity->get('id_prefix')]));
 
     $details_toggle = $this->getDetailsToggle();
     if ($details_toggle) {

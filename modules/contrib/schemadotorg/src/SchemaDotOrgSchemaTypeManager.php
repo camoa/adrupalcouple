@@ -82,7 +82,7 @@ class SchemaDotOrgSchemaTypeManager implements SchemaDotOrgSchemaTypeManagerInte
    * {@inheritdoc}
    */
   public function isType(string $id): bool {
-    return $this->isId('types', $id);
+    return $this->isId(static::SCHEMA_TYPES, $id);
   }
 
   /**
@@ -159,7 +159,7 @@ class SchemaDotOrgSchemaTypeManager implements SchemaDotOrgSchemaTypeManagerInte
    * {@inheritdoc}
    */
   public function isEnumerationValue(string $id): bool {
-    $item = $this->getItem('types', $id);
+    $item = $this->getItem(static::SCHEMA_TYPES, $id);
     return (!empty($item['enumerationtype']));
   }
 
@@ -167,7 +167,7 @@ class SchemaDotOrgSchemaTypeManager implements SchemaDotOrgSchemaTypeManagerInte
    * {@inheritdoc}
    */
   public function isProperty(string $id): bool {
-    return $this->isId('properties', $id);
+    return $this->isId(static::SCHEMA_PROPERTIES, $id);
   }
 
   /**
@@ -184,7 +184,7 @@ class SchemaDotOrgSchemaTypeManager implements SchemaDotOrgSchemaTypeManagerInte
   public function isSuperseded(string $id): bool {
     if (!isset($this->supersededCache)) {
       $this->supersededCache = [];
-      foreach (['types', 'properties'] as $table) {
+      foreach ([static::SCHEMA_TYPES, static::SCHEMA_PROPERTIES] as $table) {
         $ids = $this->database->select('schemadotorg_' . $table, $table)
           ->fields($table, ['label'])
           ->condition('superseded_by', '', '<>')
@@ -244,14 +244,14 @@ class SchemaDotOrgSchemaTypeManager implements SchemaDotOrgSchemaTypeManagerInte
    * {@inheritdoc}
    */
   public function getType(string $type, array $fields = []): array|FALSE {
-    return $this->getItem('types', $type, $fields);
+    return $this->getItem(static::SCHEMA_TYPES, $type, $fields);
   }
 
   /**
    * {@inheritdoc}
    */
   public function getProperty(string $property, array $fields = []): array|FALSE {
-    return $this->getItem('properties', $property, $fields);
+    return $this->getItem(static::SCHEMA_PROPERTIES, $property, $fields);
   }
 
   /**
@@ -317,7 +317,7 @@ class SchemaDotOrgSchemaTypeManager implements SchemaDotOrgSchemaTypeManagerInte
       return NULL;
     }
 
-    $property_definition = $this->getItem('properties', $property);
+    $property_definition = $this->getItem(static::SCHEMA_PROPERTIES, $property);
     if (!$property_definition) {
       return NULL;
     }
@@ -377,14 +377,14 @@ class SchemaDotOrgSchemaTypeManager implements SchemaDotOrgSchemaTypeManagerInte
    * {@inheritdoc}
    */
   public function getTypes(array $types, array $fields = []): array {
-    return $this->getItems('types', $types, $fields);
+    return $this->getItems(static::SCHEMA_TYPES, $types, $fields);
   }
 
   /**
    * {@inheritdoc}
    */
   public function getProperties(array $properties, array $fields = []): array {
-    return $this->getItems('properties', $properties, $fields);
+    return $this->getItems(static::SCHEMA_PROPERTIES, $properties, $fields);
   }
 
   /**
@@ -392,6 +392,10 @@ class SchemaDotOrgSchemaTypeManager implements SchemaDotOrgSchemaTypeManagerInte
    */
   public function getTypeProperties(string $type, array $fields = []): array {
     $type_definition = $this->getType($type);
+    if (empty($type_definition['properties'])) {
+      return [];
+    }
+
     $properties = $this->parseIds($type_definition['properties']);
     $items = $this->database->select('schemadotorg_properties', 'properties')
       ->fields('properties', $fields)
@@ -555,6 +559,28 @@ class SchemaDotOrgSchemaTypeManager implements SchemaDotOrgSchemaTypeManagerInte
   /**
    * {@inheritdoc}
    */
+  public function getParentTypes(string $type): array {
+    $breadcrumbs = $this->getTypeBreadcrumbs($type);
+
+    // Build parents types with a sortable key that ensure that the
+    // parent types are sorted from top to bottom.
+    // (i.e. Thing comes before Place or Organization)
+    $parent_types = [];
+    foreach (array_values($breadcrumbs) as $breadcrumb_index => $breadcrumb) {
+      foreach (array_values($breadcrumb) as $type_index => $type) {
+        $index = str_pad((string) $type_index, 3, '0', STR_PAD_LEFT)
+          . '-'
+          . str_pad((string) $breadcrumb_index, 3, '0', STR_PAD_LEFT);
+        $parent_types[$index] = $type;
+      }
+    }
+    ksort($parent_types);
+    return array_combine($parent_types, $parent_types);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function getAllSubTypes(array $types): array {
     if (!isset($this->tree)) {
       $this->tree = [];
@@ -682,7 +708,7 @@ class SchemaDotOrgSchemaTypeManager implements SchemaDotOrgSchemaTypeManagerInte
   protected function getTypeBreadcrumbsRecursive(array &$breadcrumbs, string $breadcrumb_id, string $type): void {
     $breadcrumbs[$breadcrumb_id][$type] = $type;
 
-    $item = $this->getItem('types', $type, ['sub_type_of']);
+    $item = $this->getItem(static::SCHEMA_TYPES, $type, ['sub_type_of']);
     if (!$item) {
       return;
     }

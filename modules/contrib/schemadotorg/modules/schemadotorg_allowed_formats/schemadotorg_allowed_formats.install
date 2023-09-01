@@ -75,7 +75,7 @@ function _schemadotorg_allowed_formats_apply(string $entity_type_id, string $bun
     ?? $property_allowed_formats[$schema_property]
     ?? $default_allowed_formats;
   if ($allowed_formats) {
-    $field->setThirdPartySetting('allowed_formats', 'allowed_formats', $allowed_formats);
+    $field->setSetting('allowed_formats', $allowed_formats);
     $field->save();
   }
 

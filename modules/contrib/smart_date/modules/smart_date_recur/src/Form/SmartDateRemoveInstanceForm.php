@@ -80,6 +80,7 @@ class SmartDateRemoveInstanceForm extends ConfirmFormBase {
     $result = \Drupal::entityQuery('smart_date_override')
       ->condition('rrule', $rrule->id())
       ->condition('rrule_index', $index)
+      ->accessCheck(TRUE)
       ->execute();
     if ($result && $override = SmartDateOverride::load(array_pop($result))) {
       $this->oid = $override->id();

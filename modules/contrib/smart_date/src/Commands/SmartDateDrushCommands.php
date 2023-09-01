@@ -196,7 +196,7 @@ class SmartDateDrushCommands extends DrushCommands {
         }
 
         // Insert the resulting data.
-        $result = $connection->insert($dest_table)
+        $connection->insert($dest_table)
           ->fields([
             'bundle' => $bundle,
             'deleted' => 0,

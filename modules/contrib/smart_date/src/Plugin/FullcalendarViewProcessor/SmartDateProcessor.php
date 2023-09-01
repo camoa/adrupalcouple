@@ -54,9 +54,14 @@ class SmartDateProcessor extends FullcalendarViewProcessorBase {
       return;
     }
     $entries = $calendar_options['events'];
+    $processed_entities = [];
     $mappings = $this->getIdMappings($entries);
     foreach ($view->result as $key => $row) {
       $current_entity = $row->_entity;
+      if (in_array($current_entity->id(), $processed_entities)) {
+        continue;
+      }
+      $processed_entities[] = $current_entity->id();
       $values = $current_entity->get($start_field)->getValue();
       $row_data = [];
       $row_data['format'] = $format;

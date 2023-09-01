@@ -98,7 +98,7 @@ class Instances extends ControllerBase {
    */
   public function listInstancesOutput() {
 
-    if (!$entity = $this->rrule->getParentEntity()) {
+    if (!$this->rrule->getParentEntity()) {
       return $this->returnError();
     }
 

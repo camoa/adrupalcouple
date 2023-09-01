@@ -58,6 +58,10 @@ class SchemaDotOrgStringHelperTest extends UnitTestCase {
       'Text representing an XPath (typically but not necessarily version 1.0).',
     ];
     $tests[] = [
+      'True if this item\'s name is a proprietary/brand name (vs. generic name).',
+      'True if this item\'s name is a proprietary/brand name (vs. generic name).',
+    ];
+    $tests[] = [
       'A <a href="https://schema.org/FAQPage">FAQPage</a> is a <a href="https://schema.org/WebPage">WebPage</a> presenting one or more "<a href="https://en.wikipedia.org/wiki/FAQ">Frequently asked questions</a>" (see also <a href="https://schema.org/QAPage">QAPage</a>).',
       'A <a href="https://schema.org/FAQPage">FAQPage</a> is a <a href="https://schema.org/WebPage">WebPage</a> presenting one or more "<a href="https://en.wikipedia.org/wiki/FAQ">Frequently asked questions</a>" (see also <a href="https://schema.org/QAPage">QAPage</a>).',
     ];

@@ -7,7 +7,7 @@ dependencies:
  - 'drupal:image'
  - 'drupal:media'
 
-# Information added by Drupal.org packaging script on 2023-06-02
-version: '1.0.0-alpha4'
+# Information added by Drupal.org packaging script on 2023-08-26
+version: '1.0.0-alpha7'
 project: 'schemadotorg'
-datestamp: 1685723540
+datestamp: 1693081910

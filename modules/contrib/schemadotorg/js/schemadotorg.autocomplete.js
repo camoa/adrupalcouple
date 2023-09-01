@@ -9,13 +9,13 @@
 
 (($, Drupal, once) => {
   /**
-   * Schema.org filter autocomplete handler.
+   * Schema.org filter autocomplete action handler.
    *
    * @type {Drupal~behavior}
    */
-  Drupal.behaviors.schemaDotOrgAutocomplete = {
+  Drupal.behaviors.schemaDotOrgAutocompleteAction = {
     attach: function attach(context) {
-      once('schemadotorg-autocomplete', 'input.schemadotorg-autocomplete', context)
+      once('schemadotorg-autocomplete-action', 'input[data-schemadotorg-autocomplete-action]', context)
         .forEach((element) => {
           // If input value is an autocomplete match, reset the input to its
           // default value.
@@ -32,18 +32,15 @@
             }
 
             const action = element.getAttribute('data-schemadotorg-autocomplete-action');
-            if (action) {
-              const url = `${action}/${ui.item.value}`;
-              const isDialog = (Drupal.schemaDotOrgOpenDialog &&
-                element.closest('.ui-dialog'));
-              if (isDialog) {
-                Drupal.schemaDotOrgOpenDialog(url);
-              } else {
-                window.top.location = url;
-              }
+            const id = ui.item.value;
+            const url = action + id;
+
+            const isDialog = (Drupal.schemaDotOrgOpenDialog &&
+              element.closest('.ui-dialog'));
+            if (isDialog) {
+              Drupal.schemaDotOrgOpenDialog(url);
             } else {
-              element.value = ui.item.value;
-              element.form.submit();
+              window.top.location = url;
             }
           });
         });

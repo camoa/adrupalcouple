@@ -19,11 +19,8 @@ function schemadotorg_smart_date_install(bool $is_syncing): void {
   $schema_config_manager = \Drupal::service('schemadotorg.config_manager');
 
   // Set eventSchedule and remove startDate, endDate, and duration from Event.
-  $schema_config_manager->setSchemaTypeDefaultProperties(
-    'Event',
-    ['eventSchedule'],
-    ['startDate', 'endDate', 'duration']
-  );
+  $schema_config_manager->setSchemaTypeDefaultProperties('Event', ['eventSchedule']);
+  $schema_config_manager->unsetSchemaTypeDefaultProperties('Event', ['startDate', 'endDate', 'duration']);
 
   // Set eventSchedule to use a multiple smartdate field.
   \Drupal::configFactory()
@@ -48,11 +45,8 @@ function schemadotorg_smart_date_uninstall(bool $is_syncing): void {
 
   // Restore startDate and endDate from Event default properties
   // and remove eventSchedule.
-  $schema_config_manager->setSchemaTypeDefaultProperties(
-    'Event',
-    ['startDate', 'endDate', 'duration'],
-    ['eventSchedule'],
-  );
+  $schema_config_manager->setSchemaTypeDefaultProperties('Event', ['startDate', 'endDate', 'duration']);
+  $schema_config_manager->unsetSchemaTypeDefaultProperties('Event', ['eventSchedule']);
 
   // Restore eventSchedule to use multiple daterange fields.
   \Drupal::configFactory()

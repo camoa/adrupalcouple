@@ -114,11 +114,28 @@ function schemadotorg_subtype_schemadotorg_mapping_defaults_alter(array &$defaul
  *   The entity.
  */
 function schemadotorg_subtype_schemadotorg_jsonld_schema_type_entity_alter(array &$data, EntityInterface $entity): void {
-  // Allow subtype property to override the mapping Schema.org type.
-  if (!empty($data['subtype'])) {
-    $data['@type'] = $data['subtype'];
-    unset($data['subtype']);
+  // Check that the subtype property is set, if not exit.
+  if (empty($data['subtype'])) {
+    return;
   }
+
+  // Use the subtype property to override the mapping Schema.org type or
+  // set the additionalType property.
+  /** @var \Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface $schema_type_manager */
+  $schema_type_manager = \Drupal::service('schemadotorg.schema_type_manager');
+  if ($schema_type_manager->isSubTypeOf($data['subtype'], $data['@type'])) {
+    $data['@type'] = $data['subtype'];
+  }
+  elseif (isset($data['additionalType'])) {
+    $data['additionalType'] = array_merge(
+      (array) $data['additionalType'],
+      (array) $data['subtype']
+    );
+  }
+  else {
+    $data['additionalType'] = $data['subtype'];
+  }
+  unset($data['subtype']);
 }
 
 /* ************************************************************************** */
@@ -295,9 +312,11 @@ function schemadotorg_subtype_form_schemadotorg_types_settings_form_alter(array 
   $form['schemadotorg_subtype']['default_allowed_values'] = [
     '#type' => 'schemadotorg_settings',
     '#settings_type' => SchemaDotOrgSettings::ASSOCIATIVE_GROUPED,
-    '#settings_format' => 'SchemaType|prSchemaSubtype01:Subtype 01,SchemaSubtype02:Subtype 02,SchemaSubtype03:Subtype 03',
+    '#settings_format' => 'SchemaType|SchemaSubtype01:Subtype 01,SchemaSubtype02:Subtype 02,SchemaSubtype03:Subtype 03',
     '#title' => t('Schema.org default subtypes allowed values'),
-    '#description' => t('Enter default subtype allowed values for Schema.org types.'),
+    '#description' => t('Enter default subtype allowed values for Schema.org types.')
+      . ' '
+      . t('Subtype allowed values that are not valid Schema.org types will be rendered as an <a href=":href">additionalType</a> property via JSON-LD', [':href' => 'https://schema.org/additionalType']),
     '#description_link' => 'types',
   ];
 }

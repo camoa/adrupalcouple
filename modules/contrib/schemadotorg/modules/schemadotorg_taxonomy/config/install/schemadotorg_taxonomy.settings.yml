@@ -20,6 +20,9 @@ property_vocabularies:
   keywords:
     id: keywords
     label: Keywords
+  medicalAudience:
+    id: medical_audience
+    label: 'Medical audience'
   medicalSpecialty:
     id: medical_specialty
     label: 'Medical specialty'
@@ -29,3 +32,6 @@ property_vocabularies:
   recipeCuisine:
     id: recipe_cuisine
     label: 'Recipe cuisine'
+  targetPopulation:
+    id: target_population
+    label: 'Target population'

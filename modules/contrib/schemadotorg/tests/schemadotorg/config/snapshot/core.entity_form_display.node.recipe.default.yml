@@ -6,7 +6,7 @@ dependencies:
     - field.field.node.recipe.schema_cook_time
     - field.field.node.recipe.schema_cooking_method
     - field.field.node.recipe.schema_image
-    - field.field.node.recipe.schema_keywords
+    - field.field.node.recipe.schema_is_family_friendly
     - field.field.node.recipe.schema_nutrition
     - field.field.node.recipe.schema_prep_time
     - field.field.node.recipe.schema_recipe_category
@@ -59,7 +59,7 @@ content:
     third_party_settings: {  }
   schema_cooking_method:
     type: string_textfield
-    weight: 100
+    weight: 105
     region: content
     settings:
       size: 60
@@ -73,13 +73,12 @@ content:
       progress_indicator: throbber
       preview_image_style: thumbnail
     third_party_settings: {  }
-  schema_keywords:
-    type: string_textfield
-    weight: 105
+  schema_is_family_friendly:
+    type: boolean_checkbox
+    weight: 121
     region: content
     settings:
-      size: 60
-      placeholder: ''
+      display_label: true
     third_party_settings: {  }
   schema_nutrition:
     type: string_textfield

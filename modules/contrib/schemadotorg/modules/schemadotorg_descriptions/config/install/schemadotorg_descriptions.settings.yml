@@ -11,5 +11,6 @@ custom_descriptions:
   MediaGallery: 'A mixed-media page that can contain media such as images, videos, and other multimedia.'
   VideoGallery:	'A video gallery page.'
   MenuItem--offers: 'The offer price of a product, or of a price component when attached to PriceSpecification and its subtypes.'
+  study: 'The status of the study.'
 trim_descriptions: true
 help_descriptions: true

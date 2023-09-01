@@ -11,7 +11,7 @@ use Drupal\filter\Render\FilteredMarkup;
 use Symfony\Component\Validator\ConstraintViolationInterface;
 
 /**
- * Plugin implementation of the 'textarea' customfield type.
+ * Plugin implementation of the 'textarea' custom field type.
  *
  * @CustomFieldType(
  *   id = "textarea",
@@ -37,19 +37,19 @@ class Textarea extends CustomFieldTypeBase {
    */
   public static function defaultWidgetSettings(): array {
     return [
-        'settings' => [
-          'rows' => 5,
-          'placeholder' => '',
-          'maxlength' => '',
-          'maxlength_js' => FALSE,
-          'formatted' => FALSE,
-          'default_format' => filter_fallback_format(),
-          'format' => [
-            'guidelines' => TRUE,
-            'help' => TRUE,
-          ],
+      'settings' => [
+        'rows' => 5,
+        'placeholder' => '',
+        'maxlength' => '',
+        'maxlength_js' => FALSE,
+        'formatted' => FALSE,
+        'default_format' => filter_fallback_format(),
+        'format' => [
+          'guidelines' => TRUE,
+          'help' => TRUE,
         ],
-      ] + parent::defaultWidgetSettings();
+      ],
+    ] + parent::defaultWidgetSettings();
   }
 
   /**
@@ -90,7 +90,7 @@ class Textarea extends CustomFieldTypeBase {
     $element = parent::widgetSettingsForm($form, $form_state);
     $formats = filter_formats();
     $format_options = [];
-    $settings = $this->widget_settings['settings'] + self::defaultWidgetSettings()['settings'];
+    $settings = $this->widgetSettings['settings'] + self::defaultWidgetSettings()['settings'];
 
     foreach ($formats as $key => $format) {
       $format_options[$key] = $format->get('name');
@@ -98,26 +98,26 @@ class Textarea extends CustomFieldTypeBase {
 
     $element['settings']['rows'] = [
       '#type' => 'number',
-      '#title' => t('Rows'),
-      '#description' => t('Text editors (like CKEditor) may override this setting.'),
+      '#title' => $this->t('Rows'),
+      '#description' => $this->t('Text editors (like CKEditor) may override this setting.'),
       '#default_value' => $settings['rows'],
       '#required' => TRUE,
       '#min' => 1,
     ];
     $element['settings']['placeholder'] = [
       '#type' => 'textfield',
-      '#title' => t('Placeholder'),
+      '#title' => $this->t('Placeholder'),
       '#default_value' => $settings['placeholder'],
-      '#description' => t('Text that will be shown inside the field until a value is entered. This hint is usually a sample value or a brief description of the expected format.'),
+      '#description' => $this->t('Text that will be shown inside the field until a value is entered. This hint is usually a sample value or a brief description of the expected format.'),
     ];
     $element['settings']['formatted'] = [
       '#type' => 'checkbox',
-      '#title' => t('Enable Wysiwyg'),
+      '#title' => $this->t('Enable wysiwyg'),
       '#default_value' => $settings['formatted'],
     ];
     $element['settings']['default_format'] = [
       '#type' => 'select',
-      '#title' => t('Default Format'),
+      '#title' => $this->t('Default format'),
       '#options' => $format_options,
       '#default_value' => $settings['default_format'],
       '#states' => [
@@ -128,7 +128,7 @@ class Textarea extends CustomFieldTypeBase {
     ];
     $element['settings']['format'] = [
       '#type' => 'fieldset',
-      '#title' => t('Format settings'),
+      '#title' => $this->t('Format settings'),
       '#states' => [
         'visible' => [
           ':input[name="settings[field_settings][' . $this->getName() . '][widget_settings][settings][formatted]"]' => ['checked' => TRUE],
@@ -137,24 +137,24 @@ class Textarea extends CustomFieldTypeBase {
     ];
     $element['settings']['format']['guidelines'] = [
       '#type' => 'checkbox',
-      '#title' => t('Show format guidelines'),
+      '#title' => $this->t('Show format guidelines'),
       '#default_value' => $settings['format']['guidelines'],
     ];
     $element['settings']['format']['help'] = [
       '#type' => 'checkbox',
-      '#title' => t('Show format help'),
+      '#title' => $this->t('Show format help'),
       '#default_value' => $settings['format']['help'],
     ];
     $element['settings']['maxlength'] = [
       '#type' => 'number',
-      '#title' => t('Max length'),
-      '#description' => t('The maximum amount of characters in the field'),
+      '#title' => $this->t('Max length'),
+      '#description' => $this->t('The maximum amount of characters in the field'),
       '#default_value' => is_numeric($settings['maxlength']) ? $settings['maxlength'] : NULL,
       '#min' => 1,
     ];
     $element['settings']['maxlength_js'] = [
       '#type' => 'checkbox',
-      '#title' => t('Show max length character count'),
+      '#title' => $this->t('Show max length character count'),
       '#default_value' => $settings['maxlength_js'],
     ];
     return $element;
@@ -165,6 +165,12 @@ class Textarea extends CustomFieldTypeBase {
    */
   public function value(CustomItem $item): ?string {
     $settings = $this->getWidgetSetting('settings');
+    $render = $this->getFormatterSetting('render');
+
+    if ($render === 'hidden') {
+      return NULL;
+    }
+
     $value = parent::value($item);
     if ($settings['formatted'] && $settings['default_format']) {
       $langcode = $item->getEntity()->language()->getId();
@@ -203,12 +209,17 @@ class Textarea extends CustomFieldTypeBase {
   }
 
   /**
-   * @param $element
+   * Helper function to modify filter settings output.
+   *
+   * @param array $element
+   *   The form element.
    * @param \Drupal\Core\Form\FormStateInterface $formState
+   *   The form state.
    *
    * @return array
+   *   The modified form element.
    */
-  public function unsetFilters($element, FormStateInterface $formState) {
+  public function unsetFilters(array $element, FormStateInterface $formState): array {
     $settings = $this->getWidgetSetting('settings');
     $hide_guidelines = FALSE;
     $hide_help = FALSE;
@@ -232,6 +243,7 @@ class Textarea extends CustomFieldTypeBase {
    * Returns the renderer service.
    *
    * @return \Drupal\Core\Render\RendererInterface
+   *   The renderer service.
    */
   protected function getRenderer() {
     return \Drupal::service('renderer');

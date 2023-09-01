@@ -26,10 +26,9 @@ class Decimal extends NumericBase {
   public static function defaultWidgetSettings(): array {
     return [
       'settings' => [
-        'scale' => '',
         'decimal_separator' => '.',
         'thousand_separator' => '',
-      ]
+      ],
     ] + parent::defaultWidgetSettings();
   }
 
@@ -39,8 +38,7 @@ class Decimal extends NumericBase {
   public function widget(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state): array {
     // Get the base form element properties.
     $element = parent::widget($items, $delta, $element, $form, $form_state);
-    $settings = $this->getWidgetSetting('settings');
-    $scale = $settings['scale'] ?: $this->configuration['scale'];
+    $scale = $this->configuration['scale'];
 
     $element['#step'] = pow(0.1, $scale);
 
@@ -53,38 +51,37 @@ class Decimal extends NumericBase {
   public function widgetSettingsForm(array $form, FormStateInterface $form_state): array {
 
     $element = parent::widgetSettingsForm($form, $form_state);
-    $settings = $this->widget_settings['settings'] + self::defaultWidgetSettings()['settings'];
+    $settings = $this->widgetSettings['settings'] + self::defaultWidgetSettings()['settings'];
 
-    $options = [
-      ''  => $this->t('- None -'),
-      '.' => $this->t('Decimal point'),
-      ',' => $this->t('Comma'),
-      ' ' => $this->t('Space'),
-      chr(8201) => $this->t('Thin space'),
-      "'" => $this->t('Apostrophe'),
-    ];
     $element['settings']['thousand_separator'] = [
       '#type' => 'select',
       '#title' => $this->t('Thousand marker'),
-      '#options' => $options,
+      '#options' => [
+        ''  => $this->t('- None -'),
+        '.' => $this->t('Decimal point'),
+        ',' => $this->t('Comma'),
+        ' ' => $this->t('Space'),
+        chr(8201) => $this->t('Thin space'),
+        "'" => $this->t('Apostrophe'),
+      ],
       '#default_value' => $settings['thousand_separator'],
     ];
     $element['settings']['decimal_separator'] = [
       '#type' => 'select',
-      '#title' => t('Decimal marker'),
+      '#title' => $this->t('Decimal marker'),
       '#options' => [
-        '.' => t('Decimal point'),
-        ',' => t('Comma'),
+        '.' => $this->t('Decimal point'),
+        ',' => $this->t('Comma'),
       ],
       '#default_value' => $settings['decimal_separator'],
     ];
     $element['settings']['scale'] = [
       '#type' => 'number',
-      '#title' => t('Scale', [], ['context' => 'decimal places']),
+      '#title' => $this->t('Scale', [], ['context' => 'decimal places']),
       '#min' => 0,
       '#max' => $this->configuration['scale'],
-      '#default_value' => $settings['scale'],
-      '#description' => t('The number of digits to the right of the decimal.'),
+      '#default_value' => $settings['scale'] ?? $this->configuration['scale'],
+      '#description' => $this->t('The number of digits to the right of the decimal.'),
     ];
 
     $element['settings']['min']['#step'] = pow(0.1, $this->configuration['scale']);

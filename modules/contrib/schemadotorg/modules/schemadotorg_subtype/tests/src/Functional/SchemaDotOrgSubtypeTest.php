@@ -36,7 +36,7 @@ class SchemaDotOrgSubtypeTest extends SchemaDotOrgBrowserTestBase {
     // @see schemadotorg_subtype_schemadotorg_mapping_defaults_alter()
     /* ********************************************************************** */
 
-    // Check mapping defaults for Schema.type that supports subtyping.
+    // Check mapping defaults for Schema.org type that supports subtyping.
     $defaults = $this->getMappingDefaults('node', NULL, 'Person');
     $this->assertArrayHasKey('subtype', $defaults['properties']);
     $this->assertEquals('', $defaults['properties']['subtype']['name']);
@@ -46,15 +46,15 @@ class SchemaDotOrgSubtypeTest extends SchemaDotOrgBrowserTestBase {
     $this->assertEquals($config->get('default_field_description'), $defaults['properties']['subtype']['description']);
     $this->assertEquals(['Patient' => 'Patient'], $defaults['properties']['subtype']['allowed_values']);
 
-    // Check mapping default sfor Schema.type that does not support subtyping.
+    // Check mapping default sfor Schema.org type that does not support subtyping.
     $defaults = $this->getMappingDefaults('node', NULL, 'Patient');
     $this->assertArrayNotHasKey('properties', $defaults);
 
-    // Check mapping default for Schema.type that has subtype enabled.
+    // Check mapping default for Schema.org type that has subtype enabled.
     $defaults = $this->getMappingDefaults('node', NULL, 'Event');
     $this->assertEquals('_add_', $defaults['properties']['subtype']['name']);
 
-    // Check mapping defaults for Schema.type that has customized allowed_values.
+    // Check mapping defaults for Schema.org type that has customized allowed_values.
     $defaults = $this->getMappingDefaults('node', NULL, 'WebPage');
     $expected_allowed_values = [
       'AboutPage' => 'About Page',
@@ -92,7 +92,7 @@ class SchemaDotOrgSubtypeTest extends SchemaDotOrgBrowserTestBase {
     $this->submitForm([], 'Save');
     $assert_session->responseContains('The content type <em class="placeholder">Event</em> has been added.');
 
-    // Check mapping defaults for existing Schema.type just return the field name.
+    // Check mapping defaults for existing Schema.org type just return the field name.
     $defaults = $this->getMappingDefaults('node', 'event', 'Event');
     $expected_subtype_properties = [
       'name' => 'schema_event_subtype',

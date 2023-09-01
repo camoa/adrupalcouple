@@ -2,12 +2,6 @@ schemadotorg.settings:
   type: config_entity
   label: Schema.org settings
   mapping:
-    field_prefix:
-      type: string
-      label: 'Field prefix'
-    field_prefix_ui:
-      type: boolean
-      label: 'Allow the Schema.org field prefix to be selected via the field UI.'
     schema_types:
       type: mapping
       label: 'Schema.org types'
@@ -108,6 +102,16 @@ schemadotorg.settings:
               max_length:
                 type: integer
                 label: 'Maximum length'
+        default_field_formatter_settings:
+          type: sequence
+          label: 'Default field formatter settings'
+          sequence:
+            type: mapping
+            label: 'Default field formatter setting'
+            mapping:
+              label:
+                type: string
+                label: 'Label'
         default_field_types:
           type: sequence
           label: 'Default field types'

@@ -13,7 +13,7 @@ schemadotorg_settings_element_test.settings:
       label: indexed_grouped
       sequence:
         type: sequence
-        label: indexed_groupe_group
+        label: indexed_grouped_group
         sequence:
           type: string
           label: indexed_grouped_items

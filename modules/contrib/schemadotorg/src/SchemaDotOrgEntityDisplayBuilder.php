@@ -224,16 +224,13 @@ class SchemaDotOrgEntityDisplayBuilder implements SchemaDotOrgEntityDisplayBuild
   }
 
   /**
-   * Set entity display field weights for Schema.org properties.
-   *
-   * @param string $entity_type_id
-   *   The entity type ID.
-   * @param string $bundle
-   *   The name of the bundle.
-   * @param array $properties
-   *   The Schema.org properties to be weighted.
+   * {@inheritdoc}
    */
-  public function setFieldWeights(string $entity_type_id, string $bundle, array $properties): void {
+  public function setFieldWeights(SchemaDotOrgMappingInterface $mapping, array $properties = []): void {
+    $entity_type_id = $mapping->getTargetEntityTypeId();
+    $bundle = $mapping->getTargetBundle();
+    $properties = $properties ?: $mapping->getNewSchemaProperties();
+
     // Form display.
     $form_modes = $this->getFormModes($entity_type_id, $bundle);
     foreach ($form_modes as $form_mode) {
@@ -282,7 +279,10 @@ class SchemaDotOrgEntityDisplayBuilder implements SchemaDotOrgEntityDisplayBuild
   /**
    * {@inheritdoc}
    */
-  public function setComponentWeights(string $entity_type_id, string $bundle): void {
+  public function setComponentWeights(SchemaDotOrgMappingInterface $mapping): void {
+    $entity_type_id = $mapping->getTargetEntityTypeId();
+    $bundle = $mapping->getTargetBundle();
+
     /** @var \Drupal\schemadotorg\SchemaDotOrgMappingTypeInterface $mapping_type */
     $mapping_type = $this->entityTypeManager
       ->getStorage('schemadotorg_mapping_type')

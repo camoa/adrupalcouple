@@ -8,6 +8,7 @@ use Drupal\Core\Form\ConfirmFormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\Url;
+use Drupal\schemadotorg\Traits\SchemaDotOrgBuildTrait;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -15,6 +16,14 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  * Provides a confirmation form before clearing out the examples.
  */
 class SchemaDotOrgStarterkitConfirmForm extends ConfirmFormBase {
+  use SchemaDotOrgBuildTrait;
+
+  /**
+   * The module list service.
+   *
+   * @var \Drupal\Core\Extension\ModuleExtensionList
+   */
+  protected $moduleList;
 
   /**
    * The module handler to invoke the alter hook.
@@ -22,6 +31,34 @@ class SchemaDotOrgStarterkitConfirmForm extends ConfirmFormBase {
    * @var \Drupal\Core\Extension\ModuleHandlerInterface
    */
   protected $moduleHandler;
+
+  /**
+   * The entity type manager.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
+  protected $entityTypeManager;
+
+  /**
+   * The Schema.org schema type manager.
+   *
+   * @var \Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface
+   */
+  protected $schemaTypeManager;
+
+  /**
+   * The Schema.org schema type builder.
+   *
+   * @var \Drupal\schemadotorg\SchemaDotOrgSchemaTypeBuilderInterface
+   */
+  protected $schemaTypeBuilder;
+
+  /**
+   * The Schema.org mapping manager service.
+   *
+   * @var \Drupal\schemadotorg\SchemaDotOrgMappingManagerInterface
+   */
+  protected $schemaMappingManager;
 
   /**
    * The Schema.org starterkitmanager service.
@@ -35,7 +72,12 @@ class SchemaDotOrgStarterkitConfirmForm extends ConfirmFormBase {
    */
   public static function create(ContainerInterface $container) {
     $instance = new static();
+    $instance->moduleList = $container->get('extension.list.module');
     $instance->moduleHandler = $container->get('module_handler');
+    $instance->entityTypeManager = $container->get('entity_type.manager');
+    $instance->schemaTypeManager = $container->get('schemadotorg.schema_type_manager');
+    $instance->schemaTypeBuilder = $container->get('schemadotorg.schema_type_builder');
+    $instance->schemaMappingManager = $container->get('schemadotorg.mapping_manager');
     $instance->schemaStarterkitManager = $container->get('schemadotorg_starterkit.manager');
     return $instance;
   }
@@ -94,10 +136,42 @@ class SchemaDotOrgStarterkitConfirmForm extends ConfirmFormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state, ?string $name = NULL, ?string $operation = NULL): array {
+    if (!$this->schemaStarterkitManager->isStarterkit($name)) {
+      throw new NotFoundHttpException();
+    }
+
     $this->name = $name;
     $this->operation = $operation;
 
+    $settings = $this->schemaStarterkitManager->getStarterkitSettings($this->name);
+
+    // Check dependencies.
+    $module_data = $this->moduleList->getList();
+    $missing_dependencies = [];
+    foreach ($settings['dependencies'] as $dependency) {
+      if (!isset($module_data[$dependency])) {
+        $missing_dependencies[] = $dependency;
+      }
+    };
+    if ($missing_dependencies) {
+      $starterkit = $this->schemaStarterkitManager->getStarterkit($this->name);
+      $t_args = [
+        '%name' => $starterkit['name'],
+        '%starterkits' => implode(', ', $missing_dependencies),
+      ];
+      $message = $this->t('Unable to install %name due to missing starter kits %starterkits.', $t_args);
+      $this->messenger()->addWarning($message);
+      $form['#title'] = $this->getQuestion();
+      return $form;
+    }
+
     $form = parent::buildForm($form, $form_state);
+
+    $form['description'] = [
+      'description' => $form['description'] + ['#prefix' => '<p>', '#suffix' => '</p>'],
+      'types' => $this->buildSchemaTypes($settings['types'], $operation),
+    ];
+
     switch ($this->operation) {
       case 'install':
         // Add note after the actions element which has a weight of 100.
@@ -214,6 +288,44 @@ class SchemaDotOrgStarterkitConfirmForm extends ConfirmFormBase {
    */
   public function getOperation(): string {
     return $this->operation;
+  }
+
+  /**
+   * Build Schema.org types details.
+   *
+   * @param array $types
+   *   An array of Schema.org types.
+   * @param string|null $operation
+   *   An operation.
+   *
+   * @return array
+   *   A renderable array containing Schema.org types details.
+   */
+  protected function buildSchemaTypes(array $types, ?string $operation = NULL): array {
+    /** @var \Drupal\schemadotorg\SchemaDotOrgMappingStorageInterface $mapping_storage */
+    $mapping_storage = $this->entityTypeManager
+      ->getStorage('schemadotorg_mapping');
+
+    $build = [];
+    foreach ($types as $type => $mapping_defaults) {
+      [$entity_type_id, $schema_type] = explode(':', $type);
+
+      // Reload the mapping default without any alterations.
+      if ($operation !== 'install') {
+        $mapping_defaults = $this->schemaMappingManager->getMappingDefaults($entity_type_id, $mapping_defaults['entity']['id'], $schema_type);
+      }
+
+      $details = $this->buildSchemaType($type, $mapping_defaults);
+      switch ($operation) {
+        case 'install':
+          $mapping = $mapping_storage->loadBySchemaType($entity_type_id, $schema_type);
+          $details['#title'] .= ' - ' . ($mapping ? $this->t('Exists') : '<em>' . $this->t('Missing') . '</em>');
+          $details['#summary_attributes']['class'] = [($mapping) ? 'color-success' : 'color-warning'];
+          break;
+      }
+      $build[$type] = $details;
+    }
+    return $build;
   }
 
 }

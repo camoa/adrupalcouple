@@ -7,7 +7,7 @@ namespace Drupal\Tests\schemadotorg_starterkti\Functional;
 use Drupal\Tests\schemadotorg\Functional\SchemaDotOrgBrowserTestBase;
 
 /**
- * Tests the functionality of the Schema.org Starterkit module.
+ * Tests the functionality of the Schema.org Starter Kit module.
  *
  * @group schemadotorg
  */
@@ -27,7 +27,7 @@ class SchemaDotOrgStarterKitTest extends SchemaDotOrgBrowserTestBase {
    *
    * @var string[]
    */
-  protected static $modules = ['schemadotorg_starterkit_test', 'schemadotorg_starterkit_update_test'];
+  protected static $modules = ['schemadotorg_starterkit_dependency_test'];
 
   /**
    * Test Schema.org actions before a module is installed.
@@ -75,15 +75,16 @@ class SchemaDotOrgStarterKitTest extends SchemaDotOrgBrowserTestBase {
       'schema_description' => 'description',
       'schema_image' => 'image',
       'schema_name' => 'name',
+      'custom' => 'custom',
     ];
     $this->assertEquals($expected_properties, $mapping->getSchemaProperties());
 
     // Check node.person properties includes honorific suffix/prefix
     // and family name.
-    // This check confirms that starterkits can only add properties to
+    // This check confirms that starter kits can only add properties to
     // existing Schema.org types.
     // @see schemadotorg_starterkit_test.schemadotorg_starterkit.yml
-    // @see schemadotorg_starterkit_update_test.schemadotorg_starterkit.yml
+    // @see schemadotorg_starterkit_dependency_test.schemadotorg_starterkit.yml
     /** @var \Drupal\schemadotorg\SchemaDotOrgMappingInterface $mapping */
     $mapping = $mapping_storage->load('node.person');
     $expected_properties = [
@@ -104,6 +105,5 @@ class SchemaDotOrgStarterKitTest extends SchemaDotOrgBrowserTestBase {
     ];
     $this->assertEquals($expected_properties, $mapping->getSchemaProperties());
   }
-
 
 }

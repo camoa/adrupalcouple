@@ -37,5 +37,6 @@ schema_types:
     - guest
   Physician--employee:
     - primary_physician
-
-
+entity_reference_overrides:
+  - member
+  - employee

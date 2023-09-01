@@ -81,4 +81,31 @@
         });
     }
   };
+
+  /**
+   * Code mirror preformatted code.
+   *
+   * @type {Drupal~behavior}
+   * @see http://codemirror.net/demo/runmode.html
+   */
+  Drupal.behaviors.schemaDotOrgCodemirrorPre = {
+    attach: function attach(context) {
+      if (!window.CodeMirror || !window.CodeMirror.runMode) {
+        return;
+      }
+
+      once('schemadotorg-codemirror-mode', 'pre[data-schemadotorg-codemirror-mode]', context)
+        .forEach((element) =>  {
+          element.classList.add('cm-s-default');
+          element.classList.add('schemadotorg-codemirror-mode');
+
+          CodeMirror.runMode(
+            element.textContent,
+            element.dataset.schemadotorgCodemirrorMode,
+            element
+          );
+        });
+    }
+  };
+
 })(Drupal, once, tabbable);

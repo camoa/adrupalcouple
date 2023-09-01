@@ -1,0 +1,21 @@
+<?php
+
+/**
+ * @file
+ * Installation hooks for the Schema.org Blueprints Type Tray module.
+ */
+
+declare(strict_types = 1);
+
+/**
+ * Implements hook_install().
+ */
+function schemadotorg_type_tray_install(bool $is_syncing): void {
+  if ($is_syncing) {
+    return;
+  }
+
+  $schema_types = \Drupal::config('schemadotorg_type_tray.settings')
+    ->get('schema_types');
+  _schemadotorg_type_tray_sync_schema_types_with_categories($schema_types);
+}

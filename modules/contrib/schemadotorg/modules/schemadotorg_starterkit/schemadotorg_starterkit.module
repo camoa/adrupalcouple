@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Provides an API for starterkits to create Schema.org types.
+ * Provides an API for starter kits to create Schema.org types.
  */
 
 declare(strict_types = 1);
@@ -15,7 +15,7 @@ use Drupal\Core\Routing\RouteMatchInterface;
 function schemadotorg_starterkit_help(string $route_name, RouteMatchInterface $route_match): string|array|NULL {
   switch ($route_name) {
     case 'schemadotorg_starterkit.overview':
-      return '<p>' . t('The <em>Schema.org starterkit</em> page lists all available Schema.org starterkits that can be installed and managed using the below admin UI or <a href=":href">Drush</a>.', [':href' => 'https://git.drupalcode.org/project/schemadotorg/-/blob/1.0.x/docs/DRUSH.md']) . '<p>';
+      return '<p>' . t('The <em>Schema.org starterkit</em> page lists all available Schema.org starter kits that can be installed and managed using the below admin UI or <a href=":href">Drush</a>.', [':href' => 'https://git.drupalcode.org/project/schemadotorg/-/blob/1.0.x/docs/DRUSH.md']) . '<p>';
   }
 
   return NULL;

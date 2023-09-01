@@ -2,6 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.thing.custom
     - field.field.node.thing.schema_description
     - field.field.node.thing.schema_image
     - field.field.node.thing.schema_name
@@ -14,3 +15,4 @@ schema_properties:
   schema_description: description
   schema_image: image
   schema_name: name
+  custom: custom

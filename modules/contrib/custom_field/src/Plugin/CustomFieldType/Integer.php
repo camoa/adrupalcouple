@@ -6,7 +6,7 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 
 /**
- * Plugin implementation of the 'integer' customfield type.
+ * Plugin implementation of the 'integer' custom field type.
  *
  * The numeric base plugin has everything we need for an integer field but
  * we have this separate plugin definition class in case we want to do any
@@ -31,7 +31,7 @@ class Integer extends NumericBase {
     return [
       'settings' => [
         'thousand_separator' => '',
-      ]
+      ],
     ] + parent::defaultWidgetSettings();
   }
 
@@ -52,14 +52,13 @@ class Integer extends NumericBase {
     return $element;
   }
 
-
   /**
    * {@inheritdoc}
    */
   public function widgetSettingsForm(array $form, FormStateInterface $form_state): array {
 
     $element = parent::widgetSettingsForm($form, $form_state);
-    $settings = $this->widget_settings['settings'] + self::defaultWidgetSettings()['settings'];
+    $settings = $this->widgetSettings['settings'] + self::defaultWidgetSettings()['settings'];
 
     $options = [
       ''  => $this->t('- None -'),
@@ -79,7 +78,7 @@ class Integer extends NumericBase {
     if ($this->unsigned) {
       $element['settings']['min']['#min'] = 0;
       $element['settings']['min']['#default_value'] = $settings['min'];
-      $element['settings']['min']['#description'] = t('The minimum value that should be allowed in this field.');
+      $element['settings']['min']['#description'] = $this->t('The minimum value that should be allowed in this field.');
     }
 
     return $element;

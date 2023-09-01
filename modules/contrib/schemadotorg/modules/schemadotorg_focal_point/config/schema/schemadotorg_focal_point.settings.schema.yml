@@ -22,4 +22,3 @@ schemadotorg_focal_point.settings:
               height:
                 type: integer
                 label: Height
-

@@ -6,7 +6,7 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 
 /**
- * Plugin implementation of the 'float' customfield type.
+ * Plugin implementation of the 'float' custom field type.
  *
  * Note the class name needs to be FloatType as "Float" is a reserved class
  * name in php.
@@ -32,7 +32,7 @@ class FloatType extends NumericBase {
         'scale' => 2,
         'decimal_separator' => '.',
         'thousand_separator' => '',
-      ]
+      ],
     ] + parent::defaultWidgetSettings();
   }
 
@@ -54,7 +54,7 @@ class FloatType extends NumericBase {
    */
   public function widgetSettingsForm(array $form, FormStateInterface $form_state): array {
     $element = parent::widgetSettingsForm($form, $form_state);
-    $settings = $this->widget_settings['settings'] + self::defaultWidgetSettings()['settings'];
+    $settings = $this->widgetSettings['settings'] + self::defaultWidgetSettings()['settings'];
 
     $element['settings']['min']['#scale'] = 'any';
     $element['settings']['max']['#scale'] = 'any';
@@ -74,20 +74,20 @@ class FloatType extends NumericBase {
     ];
     $element['settings']['decimal_separator'] = [
       '#type' => 'select',
-      '#title' => t('Decimal marker'),
+      '#title' => $this->t('Decimal marker'),
       '#options' => [
-        '.' => t('Decimal point'),
-        ',' => t('Comma'),
+        '.' => $this->t('Decimal point'),
+        ',' => $this->t('Comma'),
       ],
       '#default_value' => $settings['decimal_separator'],
     ];
     $element['settings']['scale'] = [
       '#type' => 'number',
-      '#title' => t('Scale', [], ['context' => 'decimal places']),
+      '#title' => $this->t('Scale', [], ['context' => 'decimal places']),
       '#min' => 0,
       '#max' => 10,
       '#default_value' => $settings['scale'],
-      '#description' => t('The number of digits to the right of the decimal.'),
+      '#description' => $this->t('The number of digits to the right of the decimal.'),
     ];
 
     return $element;

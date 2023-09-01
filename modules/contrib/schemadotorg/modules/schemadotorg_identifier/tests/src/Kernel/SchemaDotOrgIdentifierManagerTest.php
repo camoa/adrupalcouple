@@ -60,6 +60,12 @@ class SchemaDotOrgIdentifierManagerTest extends SchemaDotOrgKernelEntityTestBase
    * Test Schema.org identifier.
    */
   public function testIdentifier(): void {
+    // Add Drupal's UUID as an identifier.
+    $this->config('schemadotorg_identifier.settings')
+      ->set('field_definitions.uuid', [])
+      ->set('schema_types.Thing', ['uuid'])
+      ->save();
+
     $this->createSchemaEntity('node', 'MedicalBusiness');
 
     /* ********************************************************************** */
@@ -90,11 +96,6 @@ class SchemaDotOrgIdentifierManagerTest extends SchemaDotOrgKernelEntityTestBase
     // Check identifier field definitions for a Schema.org mapping.
     $mapping = SchemaDotOrgMapping::load('node.medical_business');
     $expected_field_definitions = [
-      'uuid' => [
-        'field_name' => 'uuid',
-        'property_id' => 'uuid',
-        'base_field' => TRUE,
-      ],
       'npi' => [
         'property_id' => 'npi',
         'label' => 'National Provider Identifier (NPI)',
@@ -102,6 +103,11 @@ class SchemaDotOrgIdentifierManagerTest extends SchemaDotOrgKernelEntityTestBase
         'max_length' => 10,
         'field_name' => 'schema_identifier_npi',
         'base_field' => FALSE,
+      ],
+      'uuid' => [
+        'field_name' => 'uuid',
+        'property_id' => 'uuid',
+        'base_field' => TRUE,
       ],
     ];
     $this->assertEquals(

@@ -12,6 +12,16 @@ use Drupal\Core\StringTranslation\TranslatableMarkup;
 interface SchemaDotOrgSchemaTypeManagerInterface {
 
   /**
+   * Schema.org type.
+   */
+  const SCHEMA_TYPES = 'types';
+
+  /**
+   * Schema.org property.
+   */
+  const SCHEMA_PROPERTIES = 'properties';
+
+  /**
    * The Schema.org base URI.
    */
   const URI = 'https://schema.org/';
@@ -385,6 +395,17 @@ interface SchemaDotOrgSchemaTypeManagerInterface {
    *   An array of data types.
    */
   public function getDataTypes(): array;
+
+  /**
+   * Get parent Schema.org types for specified Schema.org type.
+   *
+   * @param string $type
+   *   A Schema.org type.
+   *
+   * @return array
+   *   An array parent Schema.org types for the specified Schema.org type.
+   */
+  public function getParentTypes(string $type): array;
 
   /**
    * Gets all Schema.org subtypes below specified Schema.org types.

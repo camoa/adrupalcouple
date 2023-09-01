@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace Drupal\Tests\schemadotorg\Kernel;
 
 use Drupal\Component\Utility\NestedArray;
+use Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface;
 
 /**
  * Tests the Schema.org schema type manager service.
@@ -132,23 +133,23 @@ class SchemaDotOrgSchemaTypeManagerTest extends SchemaDotOrgKernelTestBase {
     }
 
     // Check getting Schema.org type item returns all fields.
-    $item = $this->schemaTypeManager->getItem('types', 'Thing');
+    $item = $this->schemaTypeManager->getItem(SchemaDotOrgSchemaTypeManagerInterface::SCHEMA_TYPES, 'Thing');
     $this->assertEquals('https://schema.org/Thing', $item['id']);
     $this->assertEquals('Thing', $item['label']);
     $this->assertEquals('The most generic type of item.', $item['comment']);
 
     // Check getting Schema.org property item returns all fields.
-    $item = $this->schemaTypeManager->getItem('properties', 'name');
+    $item = $this->schemaTypeManager->getItem(SchemaDotOrgSchemaTypeManagerInterface::SCHEMA_PROPERTIES, 'name');
     $this->assertEquals('https://schema.org/name', $item['id']);
     $this->assertEquals('name', $item['label']);
     $this->assertEquals('The name of the item.', $item['comment']);
 
     // Check getting Schema.org type or property item returns selected field.
-    $item = $this->schemaTypeManager->getItem('types', 'Thing', ['label']);
+    $item = $this->schemaTypeManager->getItem(SchemaDotOrgSchemaTypeManagerInterface::SCHEMA_TYPES, 'Thing', ['label']);
     $this->assertArrayNotHasKey('id', $item);
     $this->assertArrayHasKey('label', $item);
     $this->assertArrayNotHasKey('comment', $item);
-    $this->assertFalse($this->schemaTypeManager->getItem('types', 'name'));
+    $this->assertFalse($this->schemaTypeManager->getItem(SchemaDotOrgSchemaTypeManagerInterface::SCHEMA_TYPES, 'name'));
 
     // Check getting Schema.org type.
     $type = $this->schemaTypeManager->getType('Thing');
@@ -187,7 +188,7 @@ class SchemaDotOrgSchemaTypeManagerTest extends SchemaDotOrgKernelTestBase {
     $this->assertNull($this->schemaTypeManager->getPropertyUnit('cholesterolContent', NULL));
 
     // Check getting Schema.org type or property items.
-    $items = $this->schemaTypeManager->getItems('types', ['Thing', 'Place']);
+    $items = $this->schemaTypeManager->getItems(SchemaDotOrgSchemaTypeManagerInterface::SCHEMA_TYPES, ['Thing', 'Place']);
     $this->assertEquals('https://schema.org/Thing', $items['Thing']['id']);
     $this->assertEquals('Thing', $items['Thing']['label']);
     $this->assertEquals('The most generic type of item.', $items['Thing']['comment']);
@@ -233,6 +234,9 @@ class SchemaDotOrgSchemaTypeManagerTest extends SchemaDotOrgKernelTestBase {
     foreach ($properties as $property) {
       $this->assertArrayHasKey($property, $type_properties);
     }
+    // Check getting a Schema.org type's properties for an Enumeration which
+    // has not properties.
+    $this->assertEquals([], $this->schemaTypeManager->getTypeProperties('Abdomen', ['label']));
 
     // Check getting all child Schema.org types below a specified type.
     $type_children = $this->schemaTypeManager->getTypeChildren('Person');
@@ -288,6 +292,20 @@ class SchemaDotOrgSchemaTypeManagerTest extends SchemaDotOrgKernelTestBase {
     ];
     $actual_data_types = $this->schemaTypeManager->getDataTypes();
     $this->assertEquals($expected_data_types, $actual_data_types);
+
+    // Check getting parent Schema.org types for specified Schema.org type.
+    $expected_parent_types = [
+      'Thing' => 'Thing',
+      'Organization' => 'Organization',
+      'Place' => 'Place',
+      'LocalBusiness' => 'LocalBusiness',
+      'MedicalOrganization' => 'MedicalOrganization',
+      'CivicStructure' => 'CivicStructure',
+      'EmergencyService' => 'EmergencyService',
+      'Hospital' => 'Hospital',
+    ];
+    $actual_parent_types = $this->schemaTypeManager->getParentTypes('Hospital');
+    $this->assertEquals($expected_parent_types, $actual_parent_types);
 
     // Check getting all Schema.org subtypes below specified Schema.org types.
     $expected_all_sub_types = [

@@ -19,6 +19,27 @@ default_properties:
       sugarContent: decimal
       transFatContent: decimal
       unsaturatedFatContent: decimal
+  doseSchedule:
+    type: DoseSchedule
+    properties:
+      targetPopulation: string
+      doseValue: decimal
+      doseUnit: string
+      frequency: string
+  recommendedIntake:
+    type: RecommendedDoseSchedule
+    properties:
+      targetPopulation: string
+      doseValue: decimal
+      doseUnit: string
+      frequency: string
+  maximumIntake:
+    type: DoseSchedule
+    properties:
+      targetPopulation: string
+      doseValue: decimal
+      doseUnit: string
+      frequency: string
   FAQPage--mainEntity:
     type: Question
     properties:

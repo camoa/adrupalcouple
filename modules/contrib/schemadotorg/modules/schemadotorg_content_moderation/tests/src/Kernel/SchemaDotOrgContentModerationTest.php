@@ -68,6 +68,15 @@ class SchemaDotOrgContentModerationTest extends SchemaDotOrgKernelEntityTestBase
       ['event', 'place'],
       $content_moderation->getBundlesForEntityType('node')
     );
+
+    // Check hiding content moderation control widget from all view modes
+    // except full.
+    /** @var \Drupal\Core\Entity\EntityDisplayRepositoryInterface $entity_display_repository */
+    $entity_display_repository = \Drupal::service('entity_display.repository');
+    $view_display = $entity_display_repository->getViewDisplay('node', 'event', 'full');
+    $this->assertNotNull($view_display->getComponent('content_moderation_control'));
+    $view_display = $entity_display_repository->getViewDisplay('node', 'event', 'teaser');
+    $this->assertNull($view_display->getComponent('content_moderation_control'));
   }
 
 }

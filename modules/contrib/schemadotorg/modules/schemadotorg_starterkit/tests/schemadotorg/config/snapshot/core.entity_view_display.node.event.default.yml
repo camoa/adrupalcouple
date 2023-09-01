@@ -9,8 +9,32 @@ dependencies:
     - node.type.event
   module:
     - datetime
+    - field_group
     - text
     - user
+third_party_settings:
+  field_group:
+    group_general:
+      children:
+        - body
+        - title
+      label: General
+      parent_name: ''
+      region: content
+      weight: -5
+      format_type: fieldset
+      format_settings: {  }
+    group_event:
+      children:
+        - schema_duration
+        - schema_end_date
+        - schema_start_date
+      label: Event
+      parent_name: ''
+      region: content
+      weight: 0
+      format_type: fieldset
+      format_settings: {  }
 id: node.event.default
 targetEntityType: node
 bundle: event
@@ -21,7 +45,7 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 12
+    weight: 17
     region: content
   links:
     settings: {  }

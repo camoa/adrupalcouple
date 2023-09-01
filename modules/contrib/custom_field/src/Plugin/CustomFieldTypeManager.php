@@ -59,33 +59,47 @@ class CustomFieldTypeManager extends DefaultPluginManager implements CustomField
           case 'boolean':
             $type = 'checkbox';
             break;
+
           case 'color':
             $type = 'color';
             break;
+
           case 'email':
             $type = 'email';
             break;
+
           case 'decimal':
             $type = 'decimal';
             break;
+
           case 'float':
             $type = 'float';
             break;
+
           case 'integer':
             $type = 'integer';
             break;
+
           case 'map':
             $type = 'map_key_value';
             break;
+
           case 'string_long':
             $type = 'textarea';
             break;
+
+          case 'telephone':
+            $type = 'telephone';
+            break;
+
           case 'uuid':
             $type = 'uuid';
             break;
+
           case 'uri':
             $type = 'url';
             break;
+
           default:
             $type = 'text';
         }
@@ -99,6 +113,7 @@ class CustomFieldTypeManager extends DefaultPluginManager implements CustomField
           'data_type' => $column['type'],
           'precision' => $column['precision'],
           'scale' => $column['scale'],
+          'check_empty' => $settings['check_empty'] ?? FALSE,
           'widget_settings' => $settings['widget_settings'] ?? [],
           'formatter_settings' => $settings['formatter_settings'] ?? [],
         ]);
@@ -146,11 +161,14 @@ class CustomFieldTypeManager extends DefaultPluginManager implements CustomField
    * Sort fields by weight.
    *
    * @param array $columns1
-   *   Columns from \Drupal\custom_field\Plugin\Field\FieldType\CustomItem settings.
+   *   Columns from \Drupal\custom_field\Plugin\Field\FieldType\CustomItem
+   *   settings.
    * @param array $field_settings
-   *   Field settings \Drupal\custom_field\Plugin\Field\FieldType\CustomItem settings.
+   *   Field settings \Drupal\custom_field\Plugin\Field\FieldType\CustomItem
+   *   settings.
    *
    * @return array
+   *   An array of fields sorted by weight.
    */
   private function sortFieldsByWeight(array $columns1, array $field_settings): array {
     $columns = [];
@@ -164,6 +182,121 @@ class CustomFieldTypeManager extends DefaultPluginManager implements CustomField
     });
 
     return $columns;
+  }
+
+  /**
+   * An array of data types and properties keyed by type name.
+   *
+   * @return array[]
+   *   Returns an array of data types.
+   */
+  public function dataTypes(): array {
+    return [
+      'string' => [
+        'label' => 'Text',
+        'schema' => [
+          'type' => 'varchar',
+          'length' => 255,
+        ],
+      ],
+      'string_long' => [
+        'label' => 'Text (long)',
+        'schema' => [
+          'type' => 'text',
+          'size' => 'big',
+        ],
+      ],
+      'boolean' => [
+        'label' => 'Boolean',
+        'schema' => [
+          'type' => 'int',
+          'size' => 'tiny',
+        ],
+      ],
+      'color' => [
+        'label' => 'Color',
+        'schema' => [
+          'type' => 'varchar',
+          'length' => 7,
+        ],
+      ],
+      'decimal' => [
+        'label' => 'Number (decimal)',
+        'schema' => [
+          'type' => 'numeric',
+          'precision' => 10,
+          'scale' => 2,
+        ],
+      ],
+      'float' => [
+        'label' => 'Number (float)',
+        'schema' => [
+          'type' => 'float',
+        ],
+      ],
+      'integer' => [
+        'label' => 'Number (integer)',
+        'schema' => [
+          'type' => 'int',
+          'size' => 'normal',
+          'unsigned' => FALSE,
+        ],
+      ],
+      'email' => [
+        'label' => 'Email',
+        'schema' => [
+          'type' => 'varchar',
+          'length' => 254,
+        ],
+      ],
+      'uuid' => [
+        'label' => 'UUID',
+        'schema' => [
+          'type' => 'varchar_ascii',
+          'length' => 128,
+        ],
+      ],
+      'map' => [
+        'label' => 'Map (serialized array)',
+        'schema' => [
+          'type' => 'blob',
+          'size' => 'big',
+          'serialize' => TRUE,
+          'description' => 'A serialized array of values.',
+        ],
+      ],
+      'uri' => [
+        'label' => 'URI',
+        'schema' => [
+          'type' => 'varchar',
+          'length' => 2048,
+        ],
+      ],
+      'telephone' => [
+        'label' => 'Telephone',
+        'schema' => [
+          'type' => 'varchar',
+          'length' => 255,
+        ],
+      ],
+    ];
+  }
+
+  /**
+   * Builds options for a select list based on dataTypes.
+   *
+   * @return array
+   *   An array of options suitable for a select list.
+   */
+  public function dataTypeOptions(): array {
+    $data_types = $this->dataTypes();
+    $options = [];
+
+    foreach ($data_types as $key => $data_type) {
+      $options[$key] = t('@label', ['@label' => $data_type['label']]);
+    }
+
+    return $options;
   }
 
 }

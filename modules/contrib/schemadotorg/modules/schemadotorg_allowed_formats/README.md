@@ -33,7 +33,7 @@ Configuration
 - Go to the Schema.org properties configuration page.  
   (/admin/config/search/schemadotorg/settings/properties)
 - Go to the 'Allowed formats settings' details.
-- Hide the help link /About text formats/.
+- Hide the help link 'About text formats'.
 - Hide text format guidelines.
 - Restrict which text formats are allowed, given the user has the required permissions.
 - Enter allowed formats for specific Schema.org properties.

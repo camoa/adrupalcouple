@@ -37,7 +37,7 @@ class SchemaDotOrgCustomFieldSettingsFormTest extends SchemaDotOrgBrowserTestBas
   }
 
   /**
-   * Test Schema.org Taxonomy settings form.
+   * Test Schema.org custom field settings form.
    */
   public function testSettingsForm(): void {
     $this->assertSaveSettingsConfigForm('schemadotorg_custom_field.settings', '/admin/config/search/schemadotorg/settings/properties');

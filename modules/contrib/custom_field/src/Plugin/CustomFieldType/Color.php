@@ -29,7 +29,6 @@ class Color extends CustomFieldTypeBase {
   public function widget(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state): array {
     // Get the base form element properties.
     $element = parent::widget($items, $delta, $element, $form, $form_state);
-    $settings = $this->getWidgetSetting('settings');
 
     // Add our widget type and additional properties and return.
     return [

@@ -4,6 +4,8 @@ declare(strict_types = 1);
 
 namespace Drupal\schemadotorg;
 
+use Drupal\Component\Utility\NestedArray;
+use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityDisplayRepositoryInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
@@ -21,6 +23,8 @@ class SchemaDotOrgEntityTypeBuilder implements SchemaDotOrgEntityTypeBuilderInte
   /**
    * Constructs a SchemaDotOrgBuilder object.
    *
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
+   *   The configuration object factory.
    * @param \Drupal\Core\Messenger\MessengerInterface $messenger
    *   The messenger service.
    * @param \Drupal\Core\Extension\ModuleHandlerInterface $moduleHandler
@@ -37,6 +41,7 @@ class SchemaDotOrgEntityTypeBuilder implements SchemaDotOrgEntityTypeBuilderInte
    *   The Schema.org entity display builder.
    */
   public function __construct(
+    protected ConfigFactoryInterface $configFactory,
     protected MessengerInterface $messenger,
     protected ModuleHandlerInterface $moduleHandler,
     protected EntityTypeManagerInterface $entityTypeManager,
@@ -120,6 +125,13 @@ class SchemaDotOrgEntityTypeBuilder implements SchemaDotOrgEntityTypeBuilderInte
       // Schema.org type and property.
       'schema_type' => NULL,
       'schema_property' => NULL,
+      // Additional defaults.
+      'field_values' => [],
+      'field_storage_values' => [],
+      'widget_id' => NULL,
+      'widget_settings' => [],
+      'formatter_id' => NULL,
+      'formatter_settings' => [],
     ];
 
     /** @var \Drupal\field\FieldStorageConfigInterface $field_storage_config */
@@ -153,6 +165,7 @@ class SchemaDotOrgEntityTypeBuilder implements SchemaDotOrgEntityTypeBuilderInte
       'allowed_values' => $field_allowed_values,
       'max_length' => $field_max_length,
     ];
+    $field_storage_values = NestedArray::mergeDeep($field['field_storage_values'], $field_storage_values);
 
     // Set field instance values.
     $field_values = [
@@ -163,12 +176,13 @@ class SchemaDotOrgEntityTypeBuilder implements SchemaDotOrgEntityTypeBuilderInte
       'description' => $field_description,
       'required' => $field_required,
     ];
+    $field_values = NestedArray::mergeDeep($field['field_values'], $field_values);
 
     // Initialize widget and formatter id and settings.
-    $widget_id = NULL;
-    $widget_settings = [];
-    $formatter_id = NULL;
-    $formatter_settings = [];
+    $widget_id = $field['widget_id'];
+    $widget_settings = $field['widget_settings'];
+    $formatter_id = $field['formatter_id'];
+    $formatter_settings = $field['formatter_settings'];
 
     // If new field UI field we need to get the preconfigured field.
     // These preconfigured field are typically used for entity references.
@@ -199,10 +213,10 @@ class SchemaDotOrgEntityTypeBuilder implements SchemaDotOrgEntityTypeBuilderInte
       }
 
       // Get widget and format id and settings.
-      $widget_id = $field_options['entity_form_display']['type'] ?? NULL;
-      $widget_settings = $field_options['entity_form_display']['settings'] ?? [];
-      $formatter_id = $field_options['entity_view_display']['type'] ?? NULL;
-      $formatter_settings = $field_options['entity_view_display']['settings'] ?? [];
+      $widget_id = $field_options['entity_form_display']['type'] ?? $widget_id;
+      $widget_settings = $field_options['entity_form_display']['settings'] ?? $widget_settings;
+      $formatter_id = $field_options['entity_view_display']['type'] ?? $formatter_id;
+      $formatter_settings = $field_options['entity_view_display']['settings'] ?? $formatter_settings;
     }
 
     // Alter field values.
@@ -424,6 +438,16 @@ class SchemaDotOrgEntityTypeBuilder implements SchemaDotOrgEntityTypeBuilderInte
     ?string &$formatter_id,
     array &$formatter_settings
   ): void {
+
+    // Set default formatter settings by schema type and property.
+    $default_field_formatter_settings = $this->configFactory
+      ->get('schemadotorg.settings')
+      ->get('schema_properties.default_field_formatter_settings');
+    $formatter_settings += $default_field_formatter_settings["$schema_type--$schema_property"]
+      ?? $default_field_formatter_settings[$schema_property]
+      ?? [];
+
+    // Set default by field storage type.
     switch ($field_storage_values['type']) {
       case 'boolean':
         $field_values['settings'] = [

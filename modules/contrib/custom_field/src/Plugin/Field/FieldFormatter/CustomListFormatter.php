@@ -7,13 +7,13 @@ use Drupal\Core\Field\FieldItemInterface;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
- * Plugin implementation of the 'custom_list formatter.
+ * Plugin implementation of the custom_list formatter.
  *
- * Renders the customfield items as an item list
+ * Renders the items as an item list.
  *
  * @FieldFormatter(
  *   id = "custom_list",
- *   label = @Translation("HTML List"),
+ *   label = @Translation("HTML list"),
  *   weight = 3,
  *   field_types = {
  *     "custom"
@@ -27,7 +27,7 @@ class CustomListFormatter extends CustomFormatterBase {
    */
   public static function defaultSettings(): array {
     return [
-      'list_type' => 'ul'
+      'list_type' => 'ul',
     ] + parent::defaultSettings();
   }
 
@@ -39,10 +39,10 @@ class CustomListFormatter extends CustomFormatterBase {
 
     $form['list_type'] = [
       '#type' => 'select',
-      '#title' => t('List Type'),
+      '#title' => $this->t('List type'),
       '#options' => [
-        'ul' => 'Unordered List',
-        'ol' => 'Numbered List',
+        'ul' => $this->t('Unordered list'),
+        'ol' => $this->t('Numbered list'),
       ],
       '#default_value' => $this->getSetting('list_type'),
     ];
@@ -55,10 +55,10 @@ class CustomListFormatter extends CustomFormatterBase {
    */
   public function settingsSummary(): array {
     $options = [
-      'ul' => 'Un-ordered List',
-      'ol' => 'Numbered List',
+      'ul' => $this->t('Unordered list'),
+      'ol' => $this->t('Numbered list'),
     ];
-    $summary[] = t('List type: @type', ['@type' => $options[$this->getSetting('list_type')]]);
+    $summary[] = $this->t('List type: @type', ['@type' => $options[$this->getSetting('list_type')]]);
 
     return $summary;
   }
@@ -82,17 +82,20 @@ class CustomListFormatter extends CustomFormatterBase {
       ],
       '#list_type' => $this->getSetting('list_type'),
       '#attributes' => [
-        'class' => [$class, $class . '--list']
+        'class' => [$class, $class . '--list'],
       ],
     ];
 
-    /** @var \Drupal\custom_field\Plugin\CustomFieldTypeInterface $customItem */
     foreach ($this->getCustomFieldItems() as $name => $customItem) {
+      $markup = $customItem->value($item);
+      if ($markup === '' || $markup === NULL) {
+        continue;
+      }
       $output['#items'][] = [
-        '#markup' => $customItem->getLabel() . ': ' . $customItem->value($item),
+        '#markup' => $customItem->getLabel() . ': ' . $markup,
         '#wrapper_attributes' => [
           'class' => [$class . '__' . Html::cleanCssIdentifier($name)],
-        ]
+        ],
       ];
     }
 

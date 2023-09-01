@@ -1,0 +1,20 @@
+schemadotorg_diagram.settings:
+  type: config_entity
+  label: Schema.org Diagram settings
+  mapping:
+    diagrams:
+      type: sequence
+      label: Diagrams
+      sequence:
+        type: mapping
+        label: Diagrams
+        mapping:
+          title:
+            type: label
+            label: 'Title'
+          parent:
+            type: string
+            label: 'Parent Schema.org property'
+          child:
+            type: string
+            label: 'Child Schema.org property'

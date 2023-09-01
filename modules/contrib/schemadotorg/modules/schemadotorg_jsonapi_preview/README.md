@@ -24,7 +24,7 @@ Configuration
 -------------
 
 - Configure 'Schema.org Blueprints JSON:API Preview' permission.  
-  (/admin/people/permissions/module/schemadotorg_jsonapi_preview)
+  (/admin/people/permissions/module/schemadotorg\_jsonapi\_preview)
 - Go to the 'JSON:API preview visibility' details.
 - Go to the Schema.org JSON:API configuration page.  
   (/admin/config/search/schemadotorg/settings/jsonapi)

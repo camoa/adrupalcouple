@@ -56,7 +56,7 @@ class SchemaDotOrgExportTest extends SchemaDotOrgBrowserTestBase {
     // Check Schema.org mapping CSV export.
     $this->drupalGet('/admin/config/search/schemadotorg/export');
     $assert_session->responseContains('entity_type,bundle,schema_type,schema_subtyping,schema_properties');
-    $assert_session->responseContains('node,thing,Thing,Yes,"subtype; alternateName; name"');
+    $assert_session->responseContains('node,thing,Thing,Yes,"alternateName; name; subtype');
 
     // Check Schema.org mapping set overview CSV export.
     $this->drupalGet('/admin/config/search/schemadotorg/sets/export');

@@ -12,7 +12,7 @@ use Drupal\Core\Form\FormStateInterface;
  *
  * @FieldFormatter(
  *   id = "custom_template",
- *   label = @Translation("Custom Template"),
+ *   label = @Translation("Custom template"),
  *   weight = 4,
  *   field_types = {
  *     "custom"
@@ -26,7 +26,7 @@ class CustomTemplateFormatter extends CustomFormatterBase {
    */
   public static function defaultSettings(): array {
     return [
-      'template' => ''
+      'template' => '',
     ] + parent::defaultSettings();
   }
 
@@ -40,17 +40,16 @@ class CustomTemplateFormatter extends CustomFormatterBase {
     $tokens = [
       '#theme' => 'item_list',
     ];
-    /** @var \Drupal\custom_field\Plugin\CustomFieldTypeInterface $customitem */
-    foreach ($this->getCustomFieldItems() as $name => $customitem) {
-      $label = $customitem->getLabel();
+    foreach ($this->getCustomFieldItems() as $name => $customItem) {
+      $label = $customItem->getLabel();
       $tokens['#items'][] = "[$name]: $label value";
       $tokens['#items'][] = "[$name:label]: $label label";
     }
 
     $form['template'] = [
       '#type' => 'textarea',
-      '#title' => t('Template'),
-      '#description' => t('Output custom field items using a custom template. The following tokens are available for replacement: <br>') . \Drupal::service('renderer')->render($tokens),
+      '#title' => $this->t('Template'),
+      '#description' => $this->t('Output custom field items using a custom template. The following tokens are available for replacement: <br>') . \Drupal::service('renderer')->render($tokens),
       '#rows' => 5,
       '#default_value' => $this->getSetting('template'),
     ];
@@ -62,7 +61,7 @@ class CustomTemplateFormatter extends CustomFormatterBase {
    * {@inheritdoc}
    */
   public function settingsSummary(): array {
-    $summary[] = t('Template: @template', ['@template' => $this->getSetting('template')]);
+    $summary[] = $this->t('Template: @template', ['@template' => $this->getSetting('template')]);
 
     return $summary;
   }
@@ -78,10 +77,13 @@ class CustomTemplateFormatter extends CustomFormatterBase {
    */
   protected function viewValue(FieldItemInterface $item): array {
     $replacements = [];
-    /** @var \Drupal\custom_field\Plugin\CustomFieldTypeInterface $customitem */
-    foreach ($this->getCustomFieldItems() as $name => $customitem) {
-      $replacements["[$name]"] = $customitem->value($item);
-      $replacements["[$name:label]"] = $customitem->getLabel();
+    foreach ($this->getCustomFieldItems() as $name => $customItem) {
+      $markup = $customItem->value($item);
+      if ($markup === '' || $markup === NULL) {
+        continue;
+      }
+      $replacements["[$name]"] = $markup;
+      $replacements["[$name:label]"] = $customItem->getLabel();
     }
     $output = strtr($this->getSetting('template'), $replacements);
 

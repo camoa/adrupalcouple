@@ -3,11 +3,8 @@ status: true
 dependencies:
   config:
     - field.field.node.organization.body
-    - field.field.node.organization.schema_address
-    - field.field.node.organization.schema_email
     - field.field.node.organization.schema_image
     - field.field.node.organization.schema_same_as
-    - field.field.node.organization.schema_telephone
     - node.type.organization
   module:
     - image
@@ -31,23 +28,9 @@ content:
     third_party_settings: {  }
     weight: 200
     region: content
-  schema_address:
-    type: basic_string
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    weight: 110
-    region: content
-  schema_email:
-    type: email_mailto
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    weight: 19
-    region: content
   schema_image:
     type: image
-    label: above
+    label: hidden
     settings:
       image_link: ''
       image_style: ''
@@ -67,12 +50,5 @@ content:
       target: ''
     third_party_settings: {  }
     weight: 136
-    region: content
-  schema_telephone:
-    type: basic_string
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    weight: 18
     region: content
 hidden: {  }

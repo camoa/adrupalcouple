@@ -163,11 +163,7 @@ n   */
     $this->assertEquals(221, $component['weight']);
 
     // Check (re)settings entity display field weights for Schema.org properties.
-    $this->schemaEntityDisplayBuilder->setFieldWeights(
-      'node',
-      'thing',
-      $mapping->getSchemaProperties()
-    );
+    $this->schemaEntityDisplayBuilder->setFieldWeights($mapping, $mapping->getSchemaProperties());
     $view_display = $this->entityDisplayRepository->getViewDisplay('node', 'thing', 'default');
     $this->assertEquals(2, $view_display->getComponent('schema_disambiguating_desc')['weight']);
     $this->assertEquals(3, $view_display->getComponent('body')['weight']);
@@ -185,12 +181,11 @@ n   */
         ],
       ])->save();
 
-    $this->schemaFieldGroupEntityDisplayBuilder->setFieldGroups(
-      'node',
-      'thing',
-      'Thing',
-      $mapping->getSchemaProperties()
-    );
+    // Reset original schema.org properties so that all properties are
+    // considered new.
+    // @see \Drupal\schemadotorg\SchemaDotOrgMappingInterface::getNewSchemaProperties
+    $mapping->setOriginalSchemaProperties([]);
+    $this->schemaFieldGroupEntityDisplayBuilder->setFieldGroups($mapping);
 
     $view_display = $this->entityDisplayRepository->getViewDisplay('node', 'thing', 'default');
     $this->assertEquals(2, $view_display->getComponent('schema_disambiguating_desc')['weight']);

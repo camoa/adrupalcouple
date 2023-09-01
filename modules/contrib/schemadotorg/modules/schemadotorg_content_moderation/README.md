@@ -19,6 +19,7 @@ Features
 
 - Enables content moderation workflows for Schema.org (content) types as
   they are created.
+- Hides content moderation control widget from all view modes except full.
 
 
 Requirements

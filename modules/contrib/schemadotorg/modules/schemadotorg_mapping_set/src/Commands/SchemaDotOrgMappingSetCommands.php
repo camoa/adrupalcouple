@@ -27,9 +27,7 @@ class SchemaDotOrgMappingSetCommands extends DrushCommands {
   public function __construct(
     protected ConfigFactoryInterface $configFactory,
     protected SchemaDotOrgMappingSetManagerInterface $schemaMappingSetManager
-  ) {
-    parent::__construct();
-  }
+  ) {}
 
   /* ************************************************************************ */
   // Setup.

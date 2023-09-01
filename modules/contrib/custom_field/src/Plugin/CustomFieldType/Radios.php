@@ -28,7 +28,7 @@ class Radios extends ListBase {
   public function widget(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state): array {
     // Get the base form element properties.
     $element = parent::widget($items, $delta, $element, $form, $form_state);
-    $settings = $this->widget_settings['settings'];
+    $settings = $this->widgetSettings['settings'];
     // Add our widget type and additional properties and return.
     $element['#type'] = 'radios';
     if (!$settings['required']) {

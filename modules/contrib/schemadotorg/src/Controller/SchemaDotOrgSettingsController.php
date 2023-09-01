@@ -86,7 +86,7 @@ class SchemaDotOrgSettingsController extends ControllerBase {
     $build = [];
     $this->moduleHandler()->invokeAllWith('help', function (callable $hook, string $module) use (&$build, $route_match): void {
       if ($help = $hook($route_match->getRouteName(), $route_match)) {
-        $build[] = is_array($help) ? $help : ['#markup' => $help];
+        $build[] = is_array($help) ? $help : ['#plain_text' => strip_tags($help)];
       }
     });
     return $this->renderer->render($build);

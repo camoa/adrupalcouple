@@ -85,15 +85,25 @@ function schemadotorg_paragraphs_paragraphs_type_presave(ParagraphsTypeInterface
   $module_names['schemadotorg_paragraphs'] = 'schemadotorg_paragraphs';
 
   foreach ($module_names as $module_name) {
-    $icon_path = $module_extension_list->getPath($module_name) . '/images/schemadotorg_paragraphs/' . $paragraphs_type->id() . '.svg';
-    if (file_exists($icon_path)) {
-      $icon_directory = 'public://paragraphs_type_icon';
-      $file_system->prepareDirectory($icon_directory, $file_system::CREATE_DIRECTORY || $file_system::MODIFY_PERMISSIONS);
+    $paragraphs_type_id = $paragraphs_type->id();
+    while ($paragraphs_type_id) {
+      $icon_path = $module_extension_list->getPath($module_name) . '/images/schemadotorg_paragraphs/' . $paragraphs_type_id . '.svg';
+      if (file_exists($icon_path)) {
+        $icon_directory = 'public://paragraphs_type_icon';
+        $file_system->prepareDirectory($icon_directory, $file_system::CREATE_DIRECTORY || $file_system::MODIFY_PERMISSIONS);
 
-      $file_uri = $file_system->copy($icon_path, $icon_directory . '/' . $file_system->basename($icon_path), $file_system::EXISTS_REPLACE);
-      $file_entity = File::create(['uri' => $file_uri]);
-      $file_entity->save();
-      $paragraphs_type->set('icon_uuid', $file_entity->uuid());
+        $file_uri = $file_system->copy($icon_path, $icon_directory . '/' . $file_system->basename($icon_path), $file_system::EXISTS_REPLACE);
+        $file_entity = File::create(['uri' => $file_uri]);
+        $file_entity->save();
+        $paragraphs_type->set('icon_uuid', $file_entity->uuid());
+        break;
+      }
+      elseif (!str_contains($paragraphs_type_id, '_')) {
+        break;
+      }
+      else {
+        $paragraphs_type_id = preg_replace('/_[a-z]*$/', '', $paragraphs_type_id);
+      }
     }
   }
 }
@@ -333,10 +343,6 @@ function schemadotorg_paragraphs_form_entity_embed_dialog_alter(array &$form, Fo
  * Implements hook_form_FORM_ID_alter().
  */
 function schemadotorg_paragraphs_form_schemadotorg_types_settings_form_alter(array &$form, FormStateInterface $form_state): void {
-  if (!\Drupal::moduleHandler()->moduleExists('paragraphs_library')) {
-    return;
-  }
-
   $form['schemadotorg_paragraphs'] = [
     '#type' => 'details',
     '#title' => t('Paragraphs settings'),
@@ -350,6 +356,7 @@ function schemadotorg_paragraphs_form_schemadotorg_types_settings_form_alter(arr
     '#title' => t('Schema.org types that default to using the Paragraphs library'),
     '#description' => t('Enter Schema.org types that default to using the Paragraphs library.'),
     '#description_link' => 'types',
+    '#access' => \Drupal::moduleHandler()->moduleExists('paragraphs_library'),
   ];
   $form['schemadotorg_paragraphs']['property_access'] = [
     '#type' => 'schemadotorg_settings',

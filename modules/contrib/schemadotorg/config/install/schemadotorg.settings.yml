@@ -1,5 +1,3 @@
-field_prefix: schema_
-field_prefix_ui: false
 schema_types:
   default_types:
     WebPage:
@@ -11,13 +9,19 @@ schema_types:
     QAPage:
       name: qa
       label: 'Q&A'
+    HealthTopicContent:
+      name: health_topic
+      label: Health Topic
     MedicalClinic:
       name: clinic
       label: Clinic
+    MedicalWebPage:
+      name: med_page
+      label: Medical Page
   main_properties:
     AudioObject: null
-    Comment: text
     Clip: null
+    Comment: text
     Duration: null
     Energy: null
     ImageObject: null
@@ -56,12 +60,11 @@ schema_types:
       - startDate
     CreativeWorkSeries:
       - description
-      - endDate
       - image
       - name
-      - startDate
     PodcastSeries:
       - actor
+      - sameAs
       - webFeed
     TVSeries:
       - actor
@@ -76,6 +79,7 @@ schema_types:
     Drawing:
       - name
     Episode:
+      - associatedMedia
       - datePublished
       - description
       - duration
@@ -83,11 +87,13 @@ schema_types:
       - name
     PodcastEpisode:
       - actor
-    Statement:
-      - text
+      - sameAs
+    TVSeason:
+      - partOfSeries
     TVEpisode:
       - actor
       - director
+      - partOfSeason
     ExercisePlan:
       - name
     Game:
@@ -100,7 +106,6 @@ schema_types:
       - name
     HowTo:
       - image
-      - keywords
       - name
       - step
       - supply
@@ -112,6 +117,7 @@ schema_types:
       - '-tool'
       - cookTime
       - cookingMethod
+      - isFamilyFriendly
       - nationality
       - nutrition
       - prepTime
@@ -154,7 +160,6 @@ schema_types:
       - video
     Menu:
       - description
-      - hasMenuSection
       - hasMenuSection
       - name
     MenuSection:
@@ -234,6 +239,8 @@ schema_types:
       - schoolClosuresInfo
       - travelBans
       - webFeed
+    Statement:
+      - text
     Thesis:
       - name
     VisualArtwork:
@@ -257,11 +264,11 @@ schema_types:
       - text
     CollectionPage:
       - '-primaryImageOfPage'
-      - '-significantLink'
       - '-relatedLink'
+      - '-significantLink'
+      - hasPart
       - name
       - text
-      - hasPart
     FAQPage:
       - mainEntity
     MedicalWebPage:
@@ -314,8 +321,8 @@ schema_types:
       - timeToComplete
     ItemList:
       - description
-      - name
       - itemListElement
+      - name
     JobPosting:
       - applicationContact
       - benefits
@@ -373,11 +380,11 @@ schema_types:
       - servicePostalAddress
       - serviceUrl
     ContactPoint:
-      - contactType
       - contactOption
-      - telephone
+      - contactType
       - email
       - hoursAvailable
+      - telephone
     PostalAddress:
       - addressCountry
       - addressLocality
@@ -427,26 +434,33 @@ schema_types:
     MedicalCondition:
       - epidemiology
       - expectedPrognosis
-      - medicineSystem
+      - naturalProgression
+      - pathophysiology
       - possibleComplication
       - possibleTreatment
       - primaryPrevention
-      - relevantSpecialty
       - riskFactor
       - secondaryPrevention
       - signOrSymptom
+      - study
+      - typicalTest
     InfectiousDisease:
       - infectiousAgent
       - infectiousAgentClass
       - transmissionMethod
     MedicalSignOrSymptom:
+      - '-epidemiology'
       - '-expectedPrognosis'
-      - '-medicineSystem'
+      - '-naturalProgression'
+      - '-pathophysiology'
       - '-possibleComplication'
-      - '-relevantSpecialty'
+      - '-possibleTreatment'
+      - '-primaryPrevention'
       - '-riskFactor'
       - '-secondaryPrevention'
       - '-signOrSymptom'
+      - '-study'
+      - '-typicalTest'
     MedicalDevice:
       - adverseOutcome
       - contraindication
@@ -458,13 +472,10 @@ schema_types:
       - followup
       - howPerformed
       - preparation
-      - procedureType
     MedicalRiskFactor:
       - increasesRiskOf
     MedicalStudy:
       - healthCondition
-      - medicineSystem
-      - relevantSpecialty
       - sponsor
       - status
       - studyLocation
@@ -472,13 +483,13 @@ schema_types:
     MedicalTrial:
       - trialDesign
     MedicalTest:
-      - affectedBy
       - usedToDiagnose
       - usesDevice
     Substance:
       - activeIngredient
       - maximumIntake
     DietarySupplement:
+      - alternateName
       - isProprietary
       - maximumIntake
       - mechanismOfAction
@@ -496,7 +507,6 @@ schema_types:
       - foodWarning
       - isAvailableGenerically
       - isProprietary
-      - manufacturer
       - maximumIntake
       - mechanismOfAction
       - nonProprietaryName
@@ -504,19 +514,19 @@ schema_types:
       - proprietaryName
       - relatedDrug
     Organization:
-      - address
       - description
-      - email
       - image
       - name
       - sameAs
-      - telephone
     EducationalOrganization:
       - alumni
       - nonprofitStatus
     LocalBusiness:
+      - address
+      - email
       - employee
       - openingHours
+      - telephone
     Hospital:
       - availableService
       - medicalSpecialty
@@ -538,14 +548,12 @@ schema_types:
       - smokingAllowed
       - starRating
     MedicalBusiness:
-      - availableService
       - amenityFeature
-      - email
+      - availableService
       - hospitalAffiliation
       - isAcceptingNewPatients
       - medicalSpecialty
       - openingHours
-      - telephone
     MedicalClinic:
       - availableService
       - medicalSpecialty
@@ -564,7 +572,6 @@ schema_types:
       - additionalName
       - description
       - email
-      - telephone
       - familyName
       - givenName
       - image
@@ -572,6 +579,7 @@ schema_types:
       - memberOf
       - name
       - sameAs
+      - telephone
       - worksFor
     Place:
       - address
@@ -590,14 +598,8 @@ schema_types:
       - includesAttraction
       - touristType
     Product:
-      - alternateName
-      - brand
-      - category
       - description
       - image
-      - manufacturer
-      - material
-      - model
       - name
     Vehicle:
       - accelerationTime
@@ -691,6 +693,14 @@ schema_types:
       - text_with_summary
 schema_properties:
   range_includes:
+    CollectionPage--hasPart:
+      - WebPage
+      - Statement
+      - Quotation
+      - ItemList
+      - AudioObject
+      - ImageObject
+      - VideoObject
     FAQPage--mainEntity:
       - Question
     HowTo--step:
@@ -701,14 +711,6 @@ schema_properties:
     HowToStep--itemListElement:
       - HowToDirection
       - HowToTip
-    CollectionPage--hasPart:
-      - WebPage
-      - Statement
-      - Quotation
-      - ItemList
-      - AudioObject
-      - ImageObject
-      - VideoObject
     ImageGallery--hasPart:
       - ImageObject
     MediaGallery--hasPart:
@@ -717,22 +719,32 @@ schema_properties:
     MenuItem--offers:
       - Offer
       - Demand
+    PodcastEpisode--associatedMedia:
+      - AudioObject
     PodcastSeason--episode:
       - PodcastEpisode
     PodcastSeries--containsSeason:
       - PodcastSeason
     QAPage--mainEntity:
       - Question
+    TVEpisode--associatedMedia:
+      - VideoObject
     TVSeason--episode:
       - TVEpisode
     TVSeries--containsSeason:
       - TVSeason
     VideoGallery--hasPart:
       - VideoObject
+    worksFor:
+      - LocalBusiness
+    employee:
+      - Person
     itemListElement:
       - CreativeWork
     member:
-      - Organization
+      - Person
+    studyLocation:
+      - Place
   ignored_properties:
     - accessMode
     - accessModeSufficient
@@ -741,14 +753,11 @@ schema_properties:
     - accessibilityFeature
     - accessibilityHazard
     - accessibilitySummary
-    - accountablePerson
     - acquireLicensePage
     - actionableFeedbackPolicy
     - additionalProperty
-    - additionalType
     - answerCount
     - assesses
-    - associatedMedia
     - branchCode
     - conditionsOfAccess
     - contentLocation
@@ -821,6 +830,10 @@ schema_properties:
     FAQPage--mainEntity:
       label: Questions
       unlimited: true
+    ImageGallery--hasPart:
+      label: Images
+    MediaGallery--hasPart:
+      label: Media
     MenuItem--offers:
       type: decimal
       name: offers_price
@@ -840,10 +853,6 @@ schema_properties:
       label: Answer
     Question--name:
       label: Question
-    MediaGallery--hasPart:
-      label: Media
-    ImageGallery--hasPart:
-      label: Images
     VideoGallery--hasPart:
       label: Videos
     about:
@@ -857,6 +866,8 @@ schema_properties:
     actor:
       label: Actors
       unlimited: true
+    additionalType:
+      type: string
     affectedBy:
       unlimited: true
     affiliation:
@@ -888,6 +899,9 @@ schema_properties:
     artist:
       label: Artists
       unlimited: true
+    asin:
+      label: 'Amazon Standard Identification Number (ASIN)'
+      max_length: 10
     attendee:
       label: Attendees
       unlimited: true
@@ -933,11 +947,16 @@ schema_properties:
     colleague:
       label: Colleagues
       unlimited: true
+    cookingMethod:
+      unlimited: true
     comment:
       label: Comments
       unlimited: true
     contactPoint:
       label: 'Contact points'
+      unlimited: true
+    containsPlace:
+      label: 'Contains places'
       unlimited: true
     containsSeason:
       label: Seasons
@@ -954,7 +973,7 @@ schema_properties:
     deathPlace:
       type: string
     department:
-      label: 'Departments'
+      label: Departments
       unlimited: true
     description:
       type: text_long
@@ -962,6 +981,8 @@ schema_properties:
       unlimited: true
     disambiguatingDescription:
       type: text_long
+    doseSchedule:
+      unlimited: true
     educationRequirements:
       unlimited: true
     educationalLevel:
@@ -1005,7 +1026,18 @@ schema_properties:
       label: 'Game platforms'
       unlimited: true
     geo:
-      label: 'Geolocation'
+      label: Geolocation
+    globalLocationNumber:
+      label: 'Global Location Number (GLN)'
+      max_length: 13
+    gtin12:
+      max_length: 12
+    gtin13:
+      max_length: 13
+    gtin14:
+      max_length: 14
+    gtin8:
+      max_length: 8
     hasCourseInstance:
       label: 'Course instances'
       unlimited: true
@@ -1025,26 +1057,25 @@ schema_properties:
       label: 'Menu sections'
       unlimited: true
     hasPart:
-      label: 'Items'
       unlimited: true
     healthCondition:
       label: 'Health conditions'
       unlimited: true
     height:
       type: string
-    howPerformed:
-      type: text_long
     honorificPrefix:
-      label: 'Honorific'
+      label: Honorific
     honorificSuffix:
-      label: 'Degree'
+      label: Degree
     hospitalAffiliation:
       unlimited: true
-    increasesRiskOf:
-      unlimited: true
-    itemListElement:
-      label: Items
+    howPerformed:
       type: text_long
+    increasesRiskOf:
+      type: text_long
+    itemListElement:
+      type: text_long
+      label: Items
       unlimited: true
     jobBenefits:
       type: text_long
@@ -1053,17 +1084,19 @@ schema_properties:
     knowsLanguage:
       label: 'Knows languages'
       unlimited: true
+    latitude:
+      type: decimal
     learningResourceType:
       label: 'Learning resource types'
       unlimited: true
     longitude:
       type: decimal
-    latitude:
-      type: decimal
     manufacturer:
       type: string
     material:
       label: Materials
+      unlimited: true
+    maximumIntake:
       unlimited: true
     mechanismOfAction:
       type: text_long
@@ -1084,20 +1117,36 @@ schema_properties:
       unlimited: true
     musicBy:
       unlimited: true
+    naturalProgression:
+      type: text_long
+    nonProprietaryName:
+      label: 'Non proprietary names'
+      unlimited: true
+    nsn:
+      label: 'NATO Stock Number (NSN)'
+      max_length: 13
     occupationalCategory:
       label: 'Occupational categories'
       unlimited: true
     openingHours:
-      label: Opening hours
+      label: 'Opening hours'
       unlimited: true
     openingHoursSpecification:
-      label: Opening hours
+      label: 'Opening hours'
       unlimited: true
     organizer:
       label: Organizers
       unlimited: true
     overdosage:
       type: text_long
+    parentOrganization:
+      unlimited: true
+    pathophysiology:
+      type: text_long
+    partOfSeason:
+      required: true
+    partOfSeries:
+      required: true
     performer:
       label: Performers
       unlimited: true
@@ -1112,8 +1161,13 @@ schema_properties:
     possibleTreatment:
       label: 'Possible treatments'
       unlimited: true
+    primaryImageOfPage:
+      name: image
     primaryPrevention:
+      label: 'Primary preventions'
       unlimited: true
+    preparation:
+      type: text_long
     productionCompany:
       label: 'Production companies'
       unlimited: true
@@ -1137,6 +1191,8 @@ schema_properties:
     recipeInstructions:
       type: string_long
       unlimited: true
+    recommendedIntake:
+      unlimited: true
     relatedDrug:
       label: 'Related drugs'
       unlimited: true
@@ -1158,6 +1214,7 @@ schema_properties:
     sameAs:
       unlimited: true
     secondaryPrevention:
+      label: 'Secondary preventions'
       unlimited: true
     signOrSymptom:
       label: 'Sign or symptoms'
@@ -1178,6 +1235,8 @@ schema_properties:
       unlimited: true
     subjectOf:
       unlimited: true
+    subOrganization:
+      unlimited: true
     suitableForDiet:
       label: 'Suitable for diets'
       unlimited: true
@@ -1194,34 +1253,25 @@ schema_properties:
     trailer:
       label: Trailers
       unlimited: true
-    usedToDiagnose:
+    typicalTest:
+      label: 'Typical tests'
       unlimited: true
+    usedToDiagnose:
+      type: text_long
     usesDevice:
       type: text_long
-      label: Devices
-      unlimited: true
     width:
       type: string
     worksFor:
       type: string
       unlimited: true
-    asin:
-      label: 'Amazon Standard Identification Number (ASIN)'
-      max_length: 10
-    globalLocationNumber:
-      label: 'Global Location Number (GLN)'
-      max_length: 13
-    gtin8:
-      max_length: 8
-    gtin12:
-      max_length: 12
-    gtin13:
-      max_length: 13
-    gtin14:
-      max_length: 14
-    nsn:
-      label: 'NATO Stock Number (NSN)'
-      max_length: 13
+  default_field_formatter_settings:
+    address:
+      label: hidden
+    image:
+      label: hidden
+    primaryImageOfPage:
+      label: hidden
   default_field_types: {  }
   default_field_weights:
     - subtype

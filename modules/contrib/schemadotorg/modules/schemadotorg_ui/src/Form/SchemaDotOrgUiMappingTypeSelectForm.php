@@ -89,16 +89,14 @@ class SchemaDotOrgUiMappingTypeSelectForm extends FormBase {
       '#attributes' => ['class' => ['container-inline']],
     ];
     $form['find']['type'] = [
-      '#type' => 'textfield',
+      '#type' => 'schemadotorg_autocomplete',
       '#title' => $this->t('Find a @label', $t_args),
       '#title_display' => 'invisible',
       '#placeholder' => $this->t('Find a Schema.org @label', $t_args),
       '#size' => 30,
       '#required' => TRUE,
-      '#autocomplete_route_name' => 'schemadotorg.autocomplete',
-      '#autocomplete_route_parameters' => ['table' => 'Thing'],
-      '#attributes' => ['class' => ['schemadotorg-autocomplete']],
-      '#attached' => ['library' => ['schemadotorg/schemadotorg.autocomplete']],
+      '#target_type' => 'Thing',
+      '#action' => Url::fromRoute('<current>')->toString() . '?type=',
     ];
     $form['find']['submit'] = [
       '#type' => 'submit',

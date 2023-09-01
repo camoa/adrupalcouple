@@ -4,6 +4,8 @@ dependencies: {  }
 id: node
 target_entity_type_id: node
 multiple: false
+label_prefix: ''
+id_prefix: ''
 recommended_schema_types:
   quick_start:
     label: 'Quick Start'

@@ -4,6 +4,8 @@ dependencies: {  }
 id: paragraph
 target_entity_type_id: paragraph
 multiple: false
+label_prefix: ''
+id_prefix: ''
 recommended_schema_types:
   quick_start:
     label: 'Quick Start'
@@ -62,7 +64,17 @@ recommended_schema_types:
       - MedicalTherapy
       - MedicalSignOrSymptom
 default_schema_types: {  }
-default_schema_type_properties: {  }
+default_schema_type_properties:
+  MedicalProcedure:
+    - '-bodyLocation'
+    - '-followup'
+    - '-howPerformed'
+    - '-preparation'
+  MedicalRiskFactor:
+    - '-increasesRiskOf'
+  MedicalTest:
+    - '-usedToDiagnose'
+    - '-usesDevice'
 default_schema_type_view_displays: {  }
 default_base_fields:
   uuid: {  }

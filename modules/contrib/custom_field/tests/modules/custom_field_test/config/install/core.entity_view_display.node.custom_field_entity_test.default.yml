@@ -1,0 +1,82 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.custom_field_entity_test.field_custom_field_test
+    - field.field.node.custom_field_entity_test.field_custom_field_test_multiple
+    - field.field.node.custom_field_entity_test.field_custom_field_test_unlimite
+    - node.type.custom_field_entity_test
+  module:
+    - custom_field
+    - user
+id: node.custom_field_entity_test.default
+targetEntityType: node
+bundle: custom_field_entity_test
+mode: default
+content:
+  field_custom_field_test:
+    type: custom_formatter
+    label: above
+    settings:
+      label_display:
+        string_test: above
+        string_long_test: above
+        integer_test: above
+        decimal_test: above
+        float_test: above
+        email_test: above
+        telephone_test: above
+        uri_test: above
+        boolean_test: above
+        uuid_test: above
+        color_test: above
+        map_test: above
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  field_custom_field_test_multiple:
+    type: custom_formatter
+    label: above
+    settings:
+      label_display:
+        string_test: above
+        string_long_test: above
+        integer_test: above
+        decimal_test: above
+        float_test: above
+        email_test: above
+        telephone_test: above
+        uri_test: above
+        boolean_test: above
+        uuid_test: above
+        color_test: above
+        map_test: above
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  field_custom_field_test_unlimite:
+    type: custom_formatter
+    label: above
+    settings:
+      label_display:
+        string_test: above
+        string_long_test: above
+        integer_test: above
+        decimal_test: above
+        float_test: above
+        email_test: above
+        telephone_test: above
+        uri_test: above
+        boolean_test: above
+        uuid_test: above
+        color_test: above
+        map_test: above
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden: {  }

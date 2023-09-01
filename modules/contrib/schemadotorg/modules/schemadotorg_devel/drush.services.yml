@@ -1,0 +1,6 @@
+services:
+  schemadotorg_devel.commands:
+    class: Drupal\schemadotorg_devel\Commands\SchemaDotOrgDevelCommands
+    arguments: ['@extension.list.module', '@extension.path.resolver']
+    tags:
+      - { name: drush.command }

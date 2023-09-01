@@ -45,14 +45,14 @@ abstract class NumericBase extends CustomFieldTypeBase {
     $element = parent::widget($items, $delta, $element, $form, $form_state);
     $settings = $this->getWidgetSetting('settings');
 
-    // Number form element type
+    // Number form element type.
     $element['#type'] = 'number';
     $element['#step'] = 'any';
     if (!empty($settings['placeholder'])) {
       $element['#placeholder'] = $settings['placeholder'];
     }
 
-    // Add min/max if set
+    // Add min/max if set.
     if (isset($settings['min']) && is_numeric($settings['min'])) {
       $element['#min'] = $settings['min'];
     }
@@ -79,45 +79,48 @@ abstract class NumericBase extends CustomFieldTypeBase {
   public function widgetSettingsForm(array $form, FormStateInterface $form_state): array {
 
     $element = parent::widgetSettingsForm($form, $form_state);
-    $settings = $this->widget_settings['settings'] + self::defaultWidgetSettings()['settings'];
+    $settings = $this->widgetSettings['settings'] + self::defaultWidgetSettings()['settings'];
+    $unsigned = $this->configuration['unsigned'];
 
     $element['settings']['placeholder'] = [
       '#type' => 'textfield',
-      '#title' => t('Placeholder'),
+      '#title' => $this->t('Placeholder'),
       '#default_value' => $settings['placeholder'],
-      '#description' => t('Text that will be shown inside the field until a value is entered. This hint is usually a sample value or a brief description of the expected format.'),
+      '#description' => $this->t('Text that will be shown inside the field until a value is entered. This hint is usually a sample value or a brief description of the expected format.'),
     ];
 
     $element['settings']['min'] = [
       '#type' => 'number',
-      '#title' => t('Minimum'),
+      '#title' => $this->t('Minimum'),
       '#default_value' => $settings['min'],
-      '#description' => t('The minimum value that should be allowed in this field. Leave blank for no minimum.'),
+      '#min' => $unsigned ? 0 : NULL,
+      '#description' => $this->t('The minimum value that should be allowed in this field. Leave blank for no minimum.'),
       '#prefix' => '<div class="customfield-settings-inline">',
     ];
 
     $element['settings']['max'] = [
       '#type' => 'number',
-      '#title' => t('Maximum'),
+      '#title' => $this->t('Maximum'),
       '#default_value' => $settings['max'],
-      '#description' => t('The maximum value that should be allowed in this field. Leave blank for no maximum.'),
+      '#min' => $unsigned ? 0 : NULL,
+      '#description' => $this->t('The maximum value that should be allowed in this field. Leave blank for no maximum.'),
       '#suffix' => '</div>',
     ];
 
     $element['settings']['prefix'] = [
       '#type' => 'textfield',
-      '#title' => t('Prefix'),
+      '#title' => $this->t('Prefix'),
       '#default_value' => $settings['prefix'],
       '#size' => 60,
-      '#description' => t("Define a string that should be prefixed to the value, like '$ ' or '&euro; '. Leave blank for none. Separate singular and plural values with a pipe ('pound|pounds')."),
+      '#description' => $this->t("Define a string that should be prefixed to the value, like '$ ' or '&euro; '. Leave blank for none. Separate singular and plural values with a pipe ('pound|pounds')."),
     ];
 
     $element['settings']['suffix'] = [
       '#type' => 'textfield',
-      '#title' => t('Suffix'),
+      '#title' => $this->t('Suffix'),
       '#default_value' => $settings['suffix'],
       '#size' => 60,
-      '#description' => t("Define a string that should be suffixed to the value, like ' m', ' kb/s'. Leave blank for none. Separate singular and plural values with a pipe ('pound|pounds')."),
+      '#description' => $this->t("Define a string that should be suffixed to the value, like ' m', ' kb/s'. Leave blank for none. Separate singular and plural values with a pipe ('pound|pounds')."),
     ];
 
     return $element;
@@ -131,7 +134,7 @@ abstract class NumericBase extends CustomFieldTypeBase {
 
     $form['prefix_suffix'] = [
       '#type' => 'checkbox',
-      '#title' => t('Display prefix and suffix'),
+      '#title' => $this->t('Display prefix and suffix'),
       '#default_value' => $this->getFormatterSetting('prefix_suffix'),
     ];
     return $form;
@@ -142,6 +145,12 @@ abstract class NumericBase extends CustomFieldTypeBase {
    */
   public function value(CustomItem $item): ?string {
     $settings = $this->getWidgetSetting('settings');
+    $render = $this->getFormatterSetting('render');
+
+    if ($render === 'hidden') {
+      return NULL;
+    }
+
     $value = parent::value($item);
 
     // Avoid doing unnecessary work on empty values.
@@ -153,8 +162,14 @@ abstract class NumericBase extends CustomFieldTypeBase {
 
     // Account for prefix and suffix.
     if ($this->getFormatterSetting('prefix_suffix')) {
-      $prefixes = isset($settings['prefix']) ? array_map(['Drupal\Core\Field\FieldFilteredMarkup', 'create'], explode('|', $settings['prefix'])) : [''];
-      $suffixes = isset($settings['suffix']) ? array_map(['Drupal\Core\Field\FieldFilteredMarkup', 'create'], explode('|', $settings['suffix'])) : [''];
+      $prefixes = isset($settings['prefix']) ? array_map(
+        ['Drupal\Core\Field\FieldFilteredMarkup', 'create'],
+        explode('|', $settings['prefix'])
+      ) : [''];
+      $suffixes = isset($settings['suffix']) ? array_map(
+        ['Drupal\Core\Field\FieldFilteredMarkup', 'create'],
+        explode('|', $settings['suffix'])
+      ) : [''];
       $prefix = (count($prefixes) > 1) ? $this->formatPlural($value, $prefixes[0], $prefixes[1]) : $prefixes[0];
       $suffix = (count($suffixes) > 1) ? $this->formatPlural($value, $suffixes[0], $suffixes[1]) : $suffixes[0];
       $output = $prefix . $output . $suffix;

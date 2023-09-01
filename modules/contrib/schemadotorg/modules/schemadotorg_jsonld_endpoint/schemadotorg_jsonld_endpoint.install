@@ -28,7 +28,7 @@ function schemadotorg_jsonld_endpoint_requirements(string $phase): ?array {
     ];
     $requirements['schemadotorg_jsonld_endpoint_jsonapi_meta'] = [
       'title' => t('Schema.org JSON-LD Endpoint'),
-      'value' => t('Unable to add Schema.org JSON-LD URI to related JSON:API resource meta data.'),
+      'value' => t('Unable to add Schema.org JSON-LD URI to related JSON:API resource meta data. THIS PATCH IS CURRENTLY BREAKING NEXT.JS SUPPORT.'),
       'description' => t('Please <a href=":review_href">review the change record</a> and <a href=":patch_href">apply the recommended patch</a>.', $t_args),
       'severity' => REQUIREMENT_WARNING,
     ];

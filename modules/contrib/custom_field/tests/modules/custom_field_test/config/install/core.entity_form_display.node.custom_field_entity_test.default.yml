@@ -1,0 +1,140 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.custom_field_entity_test.field_custom_field_test
+    - field.field.node.custom_field_entity_test.field_custom_field_test_multiple
+    - field.field.node.custom_field_entity_test.field_custom_field_test_unlimite
+    - node.type.custom_field_entity_test
+  module:
+    - custom_field
+    - path
+id: node.custom_field_entity_test.default
+targetEntityType: node
+bundle: custom_field_entity_test
+mode: default
+content:
+  created:
+    type: datetime_timestamp
+    weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_custom_field_test:
+    type: custom_default
+    weight: 121
+    region: content
+    settings:
+      label: true
+      wrapper: div
+      open: true
+      customize: true
+      proportions:
+        string_test: one
+        string_long_test: one
+        integer_test: one
+        decimal_test: one
+        float_test: one
+        email_test: one
+        telephone_test: one
+        uri_test: one
+        boolean_test: one
+        uuid_test: one
+        color_test: one
+        map_test: one
+      breakpoint: ''
+    third_party_settings: {  }
+  field_custom_field_test_multiple:
+    type: custom_default
+    weight: 121
+    region: content
+    settings:
+      label: true
+      wrapper: div
+      open: true
+      customize: true
+      proportions:
+        string_test: one
+        string_long_test: one
+        integer_test: one
+        decimal_test: one
+        float_test: one
+        email_test: one
+        telephone_test: one
+        uri_test: one
+        boolean_test: one
+        uuid_test: one
+        color_test: one
+        map_test: one
+      breakpoint: ''
+    third_party_settings: {  }
+  field_custom_field_test_unlimite:
+    type: custom_default
+    weight: 121
+    region: content
+    settings:
+      label: true
+      wrapper: div
+      open: true
+      customize: true
+      proportions:
+        string_test: one
+        string_long_test: one
+        integer_test: one
+        decimal_test: one
+        float_test: one
+        email_test: one
+        telephone_test: one
+        uri_test: one
+        boolean_test: one
+        uuid_test: one
+        color_test: one
+        map_test: one
+      breakpoint: ''
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 30
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  promote:
+    type: boolean_checkbox
+    weight: 15
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    weight: 120
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  sticky:
+    type: boolean_checkbox
+    weight: 16
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: -5
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  uid:
+    type: entity_reference_autocomplete
+    weight: 5
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden: {  }

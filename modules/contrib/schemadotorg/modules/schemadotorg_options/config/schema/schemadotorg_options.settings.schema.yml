@@ -11,3 +11,9 @@ schemadotorg_options.settings:
         sequence:
           type: text
           label: 'Text'
+    property_allowed_values_suffixes:
+      type: sequence
+      label: 'Schema.org property allowed values suffixes'
+      sequence:
+        type: text
+        label: 'Schema.org property  allowed values suffix'

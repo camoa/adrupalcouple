@@ -11,7 +11,7 @@ field_name: schema_same_as
 entity_type: node
 bundle: person
 label: 'Same as'
-description: 'URL of a reference Web page that unambiguously indicates the item''s identity. E.g. the URL of the item''s Wikipedia page, Wikidata entry, or official website.'
+description: "URL of a reference Web page that unambiguously indicates the item's identity. E.g. the URL of the item's Wikipedia page, Wikidata entry, or official website."
 required: false
 translatable: true
 default_value: {  }
