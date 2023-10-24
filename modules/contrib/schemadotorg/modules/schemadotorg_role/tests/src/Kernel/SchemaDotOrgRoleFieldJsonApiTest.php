@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace Drupal\Tests\schemadotorg_role\Kernel;
 
+use Drupal\schemadotorg\SchemaDotOrgMappingManagerInterface;
 use Drupal\Tests\schemadotorg_jsonapi\Kernel\SchemaDotOrgJsonApiKernelTestBase;
 
 /**
@@ -15,9 +16,9 @@ use Drupal\Tests\schemadotorg_jsonapi\Kernel\SchemaDotOrgJsonApiKernelTestBase;
 class SchemaDotOrgRoleFieldJsonApiTest extends SchemaDotOrgJsonApiKernelTestBase {
 
   /**
-   * Modules to install.
+   * Modules to enable.
    *
-   * @var string[]
+   * @var array
    */
   protected static $modules = [
     'schemadotorg_role',
@@ -25,10 +26,8 @@ class SchemaDotOrgRoleFieldJsonApiTest extends SchemaDotOrgJsonApiKernelTestBase
 
   /**
    * The Schema.org mapping manager.
-   *
-   * @var \Drupal\schemadotorg\SchemaDotOrgMappingManagerInterface
    */
-  protected $mappingManager;
+  protected SchemaDotOrgMappingManagerInterface $mappingManager;
 
   /**
    * {@inheritdoc}

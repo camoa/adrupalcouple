@@ -5,13 +5,14 @@ declare(strict_types = 1);
 namespace Drupal\Tests\schemadotorg\Functional;
 
 use Drupal\Component\Serialization\Yaml;
+use Drupal\Core\File\FileSystemInterface;
 
 /**
  * Base tests for Schema.org Blueprints config snapshot.
  *
  * For working instance of this base test see SchemaDotOrgConfigSnapshotTest.
  *
- * To create a config snapshot (../../schemadorg/config/snapshot).
+ * To create a config snapshot (../../schemadotorg/config/snapshot).
  *
  * - Create a config snapshot test by copying and adjusting
  *   SchemaDotOrgConfigSnapshotTest.php.
@@ -33,20 +34,16 @@ abstract class SchemaDotOrgConfigSnapshotTestBase extends SchemaDotOrgBrowserTes
 
   /**
    * The Schema.org Blueprints config snapshot directory.
-   *
-   * @var string
    */
-  protected $snapshotDirectory;
+  protected string $snapshotDirectory;
 
   /**
    * Configuration file prefixes to create and test snapshots.
    *
    * The below list of file prefix targets any configuration generated
    * by the core Schema.org Blueprints module.
-   *
-   * @var string[]
    */
-  protected $configPrefixes = [
+  protected array $configPrefixes = [
     'block_content.type.',
     'core.entity_form_display.',
     'core.entity_form_mode.',
@@ -66,18 +63,14 @@ abstract class SchemaDotOrgConfigSnapshotTestBase extends SchemaDotOrgBrowserTes
    * Schema.org entity types that should be setup.
    *
    * Use `entity_type:SchemaType`, for example
-   * `node:Article`' will setup an article content type.
-   *
-   * @var array
+   * `node:Article`' will set up an article content type.
    */
-  protected $entityTypes = [];
+  protected array $entityTypes = [];
 
   /**
    * The file system service.
-   *
-   * @var \Drupal\Core\File\FileSystemInterface
    */
-  protected $fileSystem;
+  protected FileSystemInterface $fileSystem;
 
   /**
    * {@inheritdoc}

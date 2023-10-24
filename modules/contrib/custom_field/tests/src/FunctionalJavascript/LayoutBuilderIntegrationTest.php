@@ -53,6 +53,8 @@ class LayoutBuilderIntegrationTest extends InlineBlockTestBase {
               'unsigned' => FALSE,
               'precision' => 10,
               'scale' => 2,
+              'size' => 'normal',
+              'datetime_type' => 'datetime',
             ],
             'string_2' => [
               'name' => 'string_2',
@@ -61,6 +63,8 @@ class LayoutBuilderIntegrationTest extends InlineBlockTestBase {
               'unsigned' => FALSE,
               'precision' => 10,
               'scale' => 2,
+              'size' => 'normal',
+              'datetime_type' => 'datetime',
             ],
           ],
         ],
@@ -158,8 +162,8 @@ class LayoutBuilderIntegrationTest extends InlineBlockTestBase {
 
     $page->clickLink('Add block');
     $assert_session->assertWaitOnAjaxRequest();
-    $this->assertNotEmpty($assert_session->waitForLink('Create custom block'));
-    $this->clickLink('Create custom block');
+    $this->assertNotEmpty($assert_session->waitForLink('Create content block'));
+    $this->clickLink('Create content block');
     $assert_session->assertWaitOnAjaxRequest();
     $textarea = $assert_session->waitForElement('css', '[name="settings[block_form][body][0][value]"]');
     $this->assertNotEmpty($textarea);

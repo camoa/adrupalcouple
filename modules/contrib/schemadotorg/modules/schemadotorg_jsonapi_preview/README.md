@@ -27,5 +27,5 @@ Configuration
   (/admin/people/permissions/module/schemadotorg\_jsonapi\_preview)
 - Go to the 'JSON:API preview visibility' details.
 - Go to the Schema.org JSON:API configuration page.  
-  (/admin/config/search/schemadotorg/settings/jsonapi)
+  (/admin/config/schemadotorg/settings/jsonapi)
 - Enter JSON:API preview visibility settings.

@@ -8,7 +8,6 @@ use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Markup;
 use Drupal\Core\Serialization\Yaml;
-use Drupal\schemadotorg\Element\SchemaDotOrgSettings;
 
 /**
  * Provides a Scheme.org Blueprint Settings Element test form.
@@ -39,40 +38,35 @@ class SchemaDotOrgSettingsElementTestForm extends ConfigFormBase {
 
     // Create examples of all settings types.
     $settings_types = [
-      SchemaDotOrgSettings::INDEXED,
-      SchemaDotOrgSettings::INDEXED_GROUPED,
-      SchemaDotOrgSettings::INDEXED_GROUPED_NAMED,
-      SchemaDotOrgSettings::ASSOCIATIVE,
-      SchemaDotOrgSettings::ASSOCIATIVE_GROUPED,
-      SchemaDotOrgSettings::ASSOCIATIVE_GROUPED_NAMED,
-      SchemaDotOrgSettings::LINKS,
-      SchemaDotOrgSettings::LINKS_GROUPED,
-      SchemaDotOrgSettings::YAML,
+      'indexed',
+      'indexed_grouped',
+      'indexed_grouped_named',
+      'associative',
+      'associative_grouped',
+      'associative_grouped_named',
+      'links_grouped',
+      'associative_advanced',
+      'yaml',
+      'yaml_raw',
+      'json_raw',
     ];
     foreach ($settings_types as $settings_type) {
       $form['schemadotorg_settings_element_test'][$settings_type] = [
         '#type' => 'schemadotorg_settings',
         '#title' => $settings_type,
-        '#settings_type' => $settings_type,
+        '#mode' => str_starts_with($settings_type, 'json') ? 'json' : 'yaml',
+        '#raw' => str_ends_with($settings_type, '_raw'),
       ];
     }
 
     // Add 'Browse Schema.org types.' to the first element.
-    $form['schemadotorg_settings_element_test'][SchemaDotOrgSettings::INDEXED]['#description_link'] = 'types';
+    $form['schemadotorg_settings_element_test']['indexed']['#description_link'] = 'types';
+    $form['schemadotorg_settings_element_test']['indexed']['#token_link'] = TRUE;
 
-    // Add advanced associate settings with mapping.
-    $form['schemadotorg_settings_element_test']['associative_advanced'] = [
-      '#type' => 'schemadotorg_settings',
-      '#title' => 'associative_advanced',
-      '#settings_type' => SchemaDotOrgSettings::ASSOCIATIVE,
-    ];
-
-    // Add advanced associate settings with mapping.
-    $form['schemadotorg_settings_element_test']['associative_grouped_invalid'] = [
-      '#type' => 'schemadotorg_settings',
-      '#title' => 'associative_grouped_invalid',
-      '#settings_type' => SchemaDotOrgSettings::ASSOCIATIVE_GROUPED,
-    ];
+    // Add an example to the first element.
+    $form['schemadotorg_settings_element_test']['indexed']['#example'] = '- one
+- two
+- three';
 
     $form['submit'] = [
       '#type' => 'submit',

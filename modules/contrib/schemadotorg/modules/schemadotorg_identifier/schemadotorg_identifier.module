@@ -10,7 +10,6 @@ declare(strict_types = 1);
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\schemadotorg\Element\SchemaDotOrgSettings;
 use Drupal\schemadotorg\Entity\SchemaDotOrgMapping;
 use Drupal\schemadotorg\SchemaDotOrgMappingInterface;
 
@@ -26,6 +25,10 @@ function schemadotorg_identifier_schemadotorg_mapping_insert(SchemaDotOrgMapping
   $identifier_manager = \Drupal::service('schemadotorg_identifier.manager');
   $identifier_manager->mappingInsert($mapping);
 }
+
+/* ************************************************************************** */
+// JSON-LD.
+/* ************************************************************************** */
 
 /**
  * Implements hook_schemadotorg_jsonld_schema_type_entity_load().
@@ -72,6 +75,10 @@ function schemadotorg_identifier_schemadotorg_jsonld_schema_type_entity_load(arr
   }
 }
 
+/* ************************************************************************** */
+// JSON:API.
+/* ************************************************************************** */
+
 /**
  * Implements hook_jsonapi_resource_config_presave().
  */
@@ -113,30 +120,44 @@ function schemadotorg_identifier_jsonapi_resource_config_presave(EntityInterface
   $entity->set('resourceFields', $resource_fields);
 }
 
+/* ************************************************************************** */
+// Schema.org properties settings form.
+/* ************************************************************************** */
+
 /**
  * Implements hook_form_FORM_ID_alter().
+ *
+ * @see \Drupal\schemadotorg\Form\SchemaDotOrgSettingsFormBase::afterBuildDetails
+ * @see \Drupal\schemadotorg\Form\SchemaDotOrgSettingsFormBase::formAlter
  */
 function schemadotorg_identifier_form_schemadotorg_properties_settings_form_alter(array &$form, FormStateInterface $form_state): void {
   $form['schemadotorg_identifier'] = [
     '#type' => 'details',
     '#title' => t('Identifier settings'),
-    '#open' => TRUE,
-    '#tree' => TRUE,
   ];
   $form['schemadotorg_identifier']['field_definitions'] = [
     '#type' => 'schemadotorg_settings',
-    '#settings_type' => SchemaDotOrgSettings::ASSOCIATIVE_GROUPED,
-    '#settings_format' => "base_field_name| or field_name|property_id:ID,field_name:name,label:Label,description:Some description,required:true,max_length:10",
-    '#array_name' => 'definition',
     '#title' => t('Identifier field definitions'),
     '#description' => t('Enter identifier base field name or custom field definitions which will be available to Schema.org types.'),
+    '#example' => '
+field_name:
+  property_id: ID
+  field_name: name
+  label: Label
+  description: Some description
+  required: true
+  max_length: 10
+',
   ];
   $form['schemadotorg_identifier']['schema_types'] = [
     '#type' => 'schemadotorg_settings',
-    '#settings_type' => SchemaDotOrgSettings::INDEXED_GROUPED,
-    '#settings_format' => "SchemaType|field_name01,field_name02",
-    '#array_name' => 'definition',
     '#title' => t('Schema.org types identifiers'),
     '#description' => t('Enter Schema.org types and their identifiers.'),
+    '#example' => '
+SchemaType:
+  - field_name01
+  - field_name02
+  - field_name03
+',
   ];
 }

@@ -1,7 +1,7 @@
 # Settings
 
 schemadotorg_report.settings:
-  path: '/admin/config/search/schemadotorg/settings/references'
+  path: '/admin/config/schemadotorg/settings/references'
   defaults:
     _title: 'Schema.org: References'
     _form: 'Drupal\schemadotorg_report\Form\SchemaDotOrgReportSettingsForm'
@@ -104,25 +104,6 @@ schemadotorg_report.properties.identifier:
   requirements:
     _permission: 'access site reports'
 
-# Mappings
-
-schemadotorg_report.mappings.recommendations:
-  path: '/admin/reports/schemadotorg/docs/mappings/recommendations'
-  defaults:
-    _title: 'Schema.org: Mappings recommendations'
-    _controller: '\Drupal\schemadotorg_report\Controller\SchemaDotOrgReportMappingsController::recommendations'
-  requirements:
-    _permission: 'access site reports'
-
-schemadotorg_report.mappings.relationships:
-  path: '/admin/reports/schemadotorg/docs/mappings/relationships'
-  defaults:
-    _title: 'Schema.org: Mappings relationships'
-    _controller: '\Drupal\schemadotorg_report\Controller\SchemaDotOrgReportMappingsController::relationships'
-  requirements:
-    _permission: 'access site reports'
-
-
 # Names
 
 schemadotorg_report.names:
@@ -167,6 +148,26 @@ schemadotorg_report.names.abbreviations:
     _title: 'Schema.org: Abbreviated names'
     _controller: '\Drupal\schemadotorg_report\Controller\SchemaDotOrgReportNamesController::index'
     display: 'abbreviations'
+  requirements:
+    _permission: 'access site reports'
+
+# Descriptions
+
+schemadotorg_report.descriptions.types:
+  path: '/admin/reports/schemadotorg/docs/descriptions/types'
+  defaults:
+    _title: 'Schema.org: Type descriptions'
+    _controller: '\Drupal\schemadotorg_report\Controller\SchemaDotOrgReportDescriptionsController::index'
+    table: 'types'
+  requirements:
+    _permission: 'access site reports'
+
+schemadotorg_report.descriptions.properties:
+  path: '/admin/reports/schemadotorg/docs/descriptions/properties'
+  defaults:
+    _title: 'Schema.org: Property descriptions'
+    _controller: '\Drupal\schemadotorg_report\Controller\SchemaDotOrgReportDescriptionsController::index'
+    table: 'properties'
   requirements:
     _permission: 'access site reports'
 

@@ -1,4 +1,11 @@
 visibility:
   request_path:
     negate: true
-    pages: "*/layout\r\n/dashboard/*\r\n/user/*/\r\n/node/preview/*"
+    pages: |
+      */layout
+      /dashboard/*
+      /user/*/
+      /node/add/*
+      /node/edit/*
+      /node/preview/*
+      *mercury-editor*

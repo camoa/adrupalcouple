@@ -28,7 +28,7 @@ Configuration
 -------------
 
 - Go to the Schema.org properties configuration page.  
-  (/admin/config/search/schemadotorg/settings/properties)
+  (/admin/config/schemadotorg/settings/properties)
 - Go to the 'Options settings' details.
 - Enter Schema.org properties with allowed values.
 
@@ -36,7 +36,7 @@ Configuration
 Notes
 -----
 
-Allowed values
+Sources for allowed values in [schemadotorg_options.settings.yml](config%2Finstall%2Fschemadotorg_options.settings.yml)
 
 - [dosageForm](https://schema.org/dosageForm)
   @see https://www.fda.gov/industry/structured-product-labeling-resources/dosage-forms

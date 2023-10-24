@@ -24,15 +24,14 @@
     "drupal/cer": "^5.0",
     "drupal/config_rewrite": "^1.0",
     "drupal/content_browser": "^1.0",
-    "drupal/custom_field": "1.0.0-rc3",
+    "drupal/custom_field": "^2.0",
     "drupal/embed": "^1.0",
     "drupal/entity_browser": "^2.0",
     "drupal/entity_embed": "^1.0",
     "drupal/entity_usage": "^2.0",
     "drupal/existing_values_autocomplete_widget": "^2.0",
     "drupal/field_group": "^3.0",
-    "drupal/field_validation": "^1.0",
-    "drupal/flexfield": "^2.0",
+    "drupal/field_validation": "^3.0",
     "drupal/geolocation": "^3.0",
     "drupal/entity_reference_tree": "^2.0",
     "drupal/entity_reference_override": "^2.0",
@@ -40,14 +39,13 @@
     "drupal/focal_point": "^2.0",
     "drupal/inline_entity_form": "^2.0",
     "drupal/jsonapi_extras": "^3.0",
-    "drupal/layout_paragraphs": "^2.0",
-    "drupal/link_attributes": "^2.0",
     "drupal/metatag": "^2.0",
     "drupal/office_hours": "^1.0",
     "drupal/paragraphs": "^1.0",
+    "drupal/pathauto": "^1.0",
     "drupal/scheduler": "^2.0",
     "drupal/simple_sitemap": "^4.0",
-    "drupal/smart_date": "^4.0",
+    "drupal/smart_date": "^4.1",
     "drupal/type_tray": "^1.0",
     "masonry/masonry": "*",
     "michelf/php-markdown": "^1.0"
@@ -58,6 +56,10 @@
       "drupal/core": "-p2"
     },
     "patches": {
+      "drupal/core": {
+        "Issue #3388047: Suppress Drupal core entity reference errors": "https://www.drupal.org/files/issues/2023-09-18/schemadotorg-drupal-core-3388047-2.patch",
+        "Issue #3345064: Media library field_widget_id is not unique enough": "https://www.drupal.org/files/issues/2023-02-28/3345064.patch"
+      },
       "drupal/address": {
         "Issue #2819251: generateSampleValue": "https://www.drupal.org/files/issues/2022-05-16/address-2819251-6.patch"
       },
@@ -65,7 +67,7 @@
         "Issue #3364996: Parent form entity builders run on IEF resulting in fatal errors": "https://www.drupal.org/files/issues/2023-07-18/3364996-7.patch"
       },
       "drupal/paragraphs": {
-        "Issue #3067265: Paragraph templates: unable to access parent-node tokens from child-paragraphs in the default installed setup": "https://git.drupalcode.org/project/paragraphs/-/merge_requests/28.diff"
+        "Issue #3067265: Paragraph templates: unable to access parent-node tokens from child-paragraphs in the default installed setup": "https://www.drupal.org/files/issues/2023-09-06/3067265-13.patch"
       }
     }
   }

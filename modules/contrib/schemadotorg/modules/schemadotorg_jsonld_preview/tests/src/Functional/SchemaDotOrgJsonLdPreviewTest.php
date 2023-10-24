@@ -15,9 +15,9 @@ use Drupal\Tests\schemadotorg\Functional\SchemaDotOrgBrowserTestBase;
 class SchemaDotOrgJsonLdPreviewTest extends SchemaDotOrgBrowserTestBase {
 
   /**
-   * Modules to install.
+   * Modules to enable.
    *
-   * @var string[]
+   * @var array
    */
   protected static $modules = ['schemadotorg_jsonld', 'schemadotorg_jsonld_preview'];
 
@@ -68,7 +68,7 @@ class SchemaDotOrgJsonLdPreviewTest extends SchemaDotOrgBrowserTestBase {
 
     // Update JSON-LD preview configuration to not be displayed on the node.
     $this->drupalLogin($this->rootUser);
-    $this->drupalGet('/admin/config/search/schemadotorg/settings/jsonld');
+    $this->drupalGet('/admin/config/schemadotorg/settings/jsonld');
     $edit = ['schemadotorg_jsonld_preview[visibility][request_path][pages]' => '/node/' . $node->id()];
     $this->submitForm($edit, 'Save configuration');
 

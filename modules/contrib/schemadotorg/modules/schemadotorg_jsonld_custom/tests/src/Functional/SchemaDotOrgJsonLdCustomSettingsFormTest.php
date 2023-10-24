@@ -9,7 +9,6 @@ use Drupal\Tests\schemadotorg\Functional\SchemaDotOrgBrowserTestBase;
 /**
  * Tests the functionality of the Schema.org JSON-LD custom settings form.
  *
- * @covers \Drupal\schemadotorg_jsonapi\Form\SchemaDotOrgDemoSettingsForm
  * @group schemadotorg
  */
 class SchemaDotOrgJsonLdCustomSettingsFormTest extends SchemaDotOrgBrowserTestBase {
@@ -35,7 +34,7 @@ class SchemaDotOrgJsonLdCustomSettingsFormTest extends SchemaDotOrgBrowserTestBa
    * Test Schema.org JSON-LD settings form.
    */
   public function testSettingsForm(): void {
-    $this->assertSaveSettingsConfigForm('schemadotorg_jsonld_custom.settings', '/admin/config/search/schemadotorg/settings/jsonld');
+    $this->assertSaveSettingsConfigForm('schemadotorg_jsonld_custom.settings', '/admin/config/schemadotorg/settings/jsonld');
   }
 
 }

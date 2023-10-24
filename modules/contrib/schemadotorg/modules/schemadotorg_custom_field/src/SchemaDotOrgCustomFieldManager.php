@@ -8,6 +8,7 @@ use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Field\FieldItemInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\custom_field\Plugin\CustomFieldTypeManagerInterface;
+use Drupal\custom_field\Plugin\CustomFieldWidgetManager;
 use Drupal\schemadotorg\Entity\SchemaDotOrgMapping;
 use Drupal\schemadotorg\SchemaDotOrgEntityFieldManagerInterface;
 use Drupal\schemadotorg\SchemaDotOrgMappingInterface;
@@ -29,12 +30,15 @@ class SchemaDotOrgCustomFieldManager implements SchemaDotOrgCustomFieldManagerIn
    *   The Schema.org entity field manager.
    * @param \Drupal\custom_field\Plugin\CustomFieldTypeManagerInterface $customFieldTypeManager
    *   The custom field type manager.
+   * @param \Drupal\custom_field\Plugin\CustomFieldWidgetManager $customFieldWidgetManager
+   *   The custom field type manager.
    */
   public function __construct(
     protected ConfigFactoryInterface $configFactory,
     protected SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager,
     protected SchemaDotOrgEntityFieldManagerInterface $schemaEntityFieldManager,
-    protected CustomFieldTypeManagerInterface $customFieldTypeManager
+    protected CustomFieldTypeManagerInterface $customFieldTypeManager,
+    protected CustomFieldWidgetManager $customFieldWidgetManager
   ) {}
 
   /**
@@ -131,7 +135,7 @@ class SchemaDotOrgCustomFieldManager implements SchemaDotOrgCustomFieldManagerIn
             'description' => $description,
           ] + $default_widget_settings['settings'],
         ],
-        'check_empty' => '1',
+        'check_empty' => FALSE,
         'weight' => $weight,
       ];
       $unit = $this->schemaTypeManager->getPropertyUnit($schema_property);
@@ -206,9 +210,9 @@ class SchemaDotOrgCustomFieldManager implements SchemaDotOrgCustomFieldManagerIn
    *   An associate array of custom field default widget settings.
    */
   protected function getDefaultWidgetSettings(string $widget_type): array {
-    /** @var \Drupal\custom_field\Plugin\CustomFieldTypeInterface $custom_field_type */
-    $custom_field_type = $this->customFieldTypeManager->createInstance($widget_type);
-    $default_widget_settings = $custom_field_type::defaultWidgetSettings();
+    /** @var \Drupal\custom_field\Plugin\CustomFieldWidgetInterface $custom_field_widget */
+    $custom_field_widget = $this->customFieldWidgetManager->createInstance($widget_type);
+    $default_widget_settings = $custom_field_widget::defaultWidgetSettings();
 
     switch ($widget_type) {
       case 'decimal':

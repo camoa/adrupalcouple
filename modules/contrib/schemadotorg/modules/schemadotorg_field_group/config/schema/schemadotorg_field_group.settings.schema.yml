@@ -1,6 +1,6 @@
 schemadotorg_field_group.settings:
   type: config_entity
-  label: Schema.org Field Group settings
+  label: 'Schema.org Field group settings'
   mapping:
     default_field_groups:
       type: sequence
@@ -14,22 +14,19 @@ schemadotorg_field_group.settings:
           mapping:
             label:
               type: string
-              label: 'Label'
+              label: Label
             properties:
               type: sequence
-              label: 'Properties'
+              label: Properties
               sequence:
                 type: string
-                label: 'Property'
+                label: Property
     default_schema_type_field_groups:
       type: sequence
       label: 'Default Schema.org type field groups'
       sequence:
         type: string
         label: 'Default Schema.org type field group'
-    default_label_suffix:
-      type: label
-      label: 'Default field group label suffix'
     default_form_type:
       type: string
       label: 'Default field group form type'

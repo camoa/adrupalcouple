@@ -4,11 +4,18 @@ declare(strict_types = 1);
 
 namespace Drupal\schemadotorg_starterkit\Form;
 
+use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Extension\ModuleExtensionList;
+use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Form\ConfirmFormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\Url;
+use Drupal\schemadotorg\SchemaDotOrgMappingManagerInterface;
+use Drupal\schemadotorg\SchemaDotOrgSchemaTypeBuilderInterface;
+use Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface;
 use Drupal\schemadotorg\Traits\SchemaDotOrgBuildTrait;
+use Drupal\schemadotorg_starterkit\SchemaDotOrgStarterkitManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -20,52 +27,38 @@ class SchemaDotOrgStarterkitConfirmForm extends ConfirmFormBase {
 
   /**
    * The module list service.
-   *
-   * @var \Drupal\Core\Extension\ModuleExtensionList
    */
-  protected $moduleList;
+  protected ModuleExtensionList $moduleList;
 
   /**
    * The module handler to invoke the alter hook.
-   *
-   * @var \Drupal\Core\Extension\ModuleHandlerInterface
    */
-  protected $moduleHandler;
+  protected ModuleHandlerInterface $moduleHandler;
 
   /**
    * The entity type manager.
-   *
-   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
    */
-  protected $entityTypeManager;
+  protected EntityTypeManagerInterface $entityTypeManager;
 
   /**
    * The Schema.org schema type manager.
-   *
-   * @var \Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface
    */
-  protected $schemaTypeManager;
+  protected SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager;
 
   /**
    * The Schema.org schema type builder.
-   *
-   * @var \Drupal\schemadotorg\SchemaDotOrgSchemaTypeBuilderInterface
    */
-  protected $schemaTypeBuilder;
+  protected SchemaDotOrgSchemaTypeBuilderInterface $schemaTypeBuilder;
 
   /**
    * The Schema.org mapping manager service.
-   *
-   * @var \Drupal\schemadotorg\SchemaDotOrgMappingManagerInterface
    */
-  protected $schemaMappingManager;
+  protected SchemaDotOrgMappingManagerInterface $schemaMappingManager;
 
   /**
-   * The Schema.org starterkitmanager service.
-   *
-   * @var \Drupal\schemadotorg_starterkit\SchemaDotOrgStarterkitManagerInterface
+   * The Schema.org starter kit manager service.
    */
-  protected $schemaStarterkitManager;
+  protected SchemaDotOrgStarterkitManagerInterface $schemaStarterkitManager;
 
   /**
    * {@inheritdoc}
@@ -97,7 +90,7 @@ class SchemaDotOrgStarterkitConfirmForm extends ConfirmFormBase {
       '@action' => $this->getAction(),
       '%name' => $this->getLabel(),
     ];
-    return $this->t("Are you sure you want to @action the %name starterkit?", $t_args);
+    return $this->t("Are you sure you want to @action the %name starter kit?", $t_args);
   }
 
   /**
@@ -108,7 +101,7 @@ class SchemaDotOrgStarterkitConfirmForm extends ConfirmFormBase {
       '@action' => $this->getAction(),
       '%name' => $this->getLabel(),
     ];
-    return $this->t('Please confirm that you want @action the %name starterkit.', $t_args);
+    return $this->t('Please confirm that you want @action the %name starter kit.', $t_args);
   }
 
   /**
@@ -119,18 +112,14 @@ class SchemaDotOrgStarterkitConfirmForm extends ConfirmFormBase {
   }
 
   /**
-   * The starterkitname.
-   *
-   * @var string
+   * The starter kit name.
    */
-  protected $name;
+  protected string $name;
 
   /**
-   * The starterkitoperation to be performed.
-   *
-   * @var string
+   * The starter kit operation to be performed.
    */
-  protected $operation;
+  protected string $operation;
 
   /**
    * {@inheritdoc}
@@ -205,6 +194,7 @@ class SchemaDotOrgStarterkitConfirmForm extends ConfirmFormBase {
 
     $operations = [];
     $operations['install'] = $this->t('installed');
+    $operations['update'] = $this->t('updated');
     $operations['generate'] = $this->t('generated');
     $operations['kill'] = $this->t('killed');
 
@@ -216,7 +206,7 @@ class SchemaDotOrgStarterkitConfirmForm extends ConfirmFormBase {
         '@action' => $operations[$this->operation],
         '%name' => $this->getLabel(),
       ];
-      $this->messenger()->addStatus($this->t('The %name starterkit has been @action.', $t_args));
+      $this->messenger()->addStatus($this->t('The %name starter kit has been @action.', $t_args));
     }
     catch (\Exception $exception) {
       // Display a custom message.
@@ -224,19 +214,19 @@ class SchemaDotOrgStarterkitConfirmForm extends ConfirmFormBase {
         '@action' => $operations[$this->operation],
         '%name' => $this->getLabel(),
       ];
-      $this->messenger()->addStatus($this->t('The %name starterkit has failed to be @action.', $t_args));
+      $this->messenger()->addStatus($this->t('The %name starter kit has failed to be @action.', $t_args));
       $this->messenger->addError($exception->getMessage());
     }
 
-    // Redirect to the starterkit manage page.
+    // Redirect to the starter kit manage page.
     $form_state->setRedirectUrl($this->getCancelUrl());
   }
 
   /**
-   * Get the current starterkit's label.
+   * Get the current starter kit's label.
    *
    * @return string
-   *   The current starterkit's label.
+   *   The current starter kit's label.
    */
   protected function getLabel(): string {
     $starterkit = $this->schemaStarterkitManager->getStarterkit($this->name);
@@ -247,10 +237,10 @@ class SchemaDotOrgStarterkitConfirmForm extends ConfirmFormBase {
   }
 
   /**
-   * Get the current starterkit's action.
+   * Get the current starter kit's action.
    *
    * @return string
-   *   The current starterkit's action.
+   *   The current starter kit's action.
    */
   protected function getAction(): TranslatableMarkup {
     $is_installed = $this->moduleHandler->moduleExists($this->name);
@@ -260,9 +250,12 @@ class SchemaDotOrgStarterkitConfirmForm extends ConfirmFormBase {
         $operations['install'] = $this->t('install');
       }
     }
-    elseif ($this->moduleHandler->moduleExists('devel_generate')) {
-      $operations['generate'] = $this->t('generate');
-      $operations['kill'] = $this->t('kill');
+    else {
+      $operations['update'] = $this->t('update');
+      if ($this->moduleHandler->moduleExists('devel_generate')) {
+        $operations['generate'] = $this->t('generate');
+        $operations['kill'] = $this->t('kill');
+      }
     }
     if (!isset($operations[$this->operation])) {
       throw new NotFoundHttpException();
@@ -271,20 +264,20 @@ class SchemaDotOrgStarterkitConfirmForm extends ConfirmFormBase {
   }
 
   /**
-   * Get the current starterkit's name.
+   * Get the current starter kit's name.
    *
    * @return string
-   *   the current starterkit's name.
+   *   the current starter kit's name.
    */
   public function getName(): string {
     return $this->name;
   }
 
   /**
-   * Get the current starterkit's operation.
+   * Get the current starter kit's operation.
    *
    * @return string
-   *   the current starterkit's operation.
+   *   the current starter kit's operation.
    */
   public function getOperation(): string {
     return $this->operation;
@@ -311,13 +304,14 @@ class SchemaDotOrgStarterkitConfirmForm extends ConfirmFormBase {
       [$entity_type_id, $schema_type] = explode(':', $type);
 
       // Reload the mapping default without any alterations.
-      if ($operation !== 'install') {
+      if (!in_array($operation, ['install', 'update'])) {
         $mapping_defaults = $this->schemaMappingManager->getMappingDefaults($entity_type_id, $mapping_defaults['entity']['id'], $schema_type);
       }
 
       $details = $this->buildSchemaType($type, $mapping_defaults);
       switch ($operation) {
         case 'install':
+        case 'update':
           $mapping = $mapping_storage->loadBySchemaType($entity_type_id, $schema_type);
           $details['#title'] .= ' - ' . ($mapping ? $this->t('Exists') : '<em>' . $this->t('Missing') . '</em>');
           $details['#summary_attributes']['class'] = [($mapping) ? 'color-success' : 'color-warning'];

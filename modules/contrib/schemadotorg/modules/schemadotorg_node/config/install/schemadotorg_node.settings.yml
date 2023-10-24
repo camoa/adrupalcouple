@@ -1,0 +1,6 @@
+menu_ui:
+  Thing:
+    available_menus: { }
+    parent: ''
+display_submitted:
+  Thing: false

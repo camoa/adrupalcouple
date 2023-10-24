@@ -18,9 +18,9 @@ class SchemaDotOrgSubtypeListBuilderTest extends SchemaDotOrgBrowserTestBase {
   use SchemaDotOrgTestSubtypeTrait;
 
   /**
-   * Modules to install.
+   * Modules to enable.
    *
-   * @var string[]
+   * @var array
    */
   protected static $modules = ['schemadotorg_subtype'];
 
@@ -45,7 +45,7 @@ class SchemaDotOrgSubtypeListBuilderTest extends SchemaDotOrgBrowserTestBase {
 
     /* ********************************************************************** */
 
-    $this->drupalGet('/admin/config/search/schemadotorg');
+    $this->drupalGet('/admin/config/schemadotorg/mappings');
 
     // Check subtype header.
     $assert_session->responseContains('<th class="priority-low" width="10%">Schema.org subtyping</th>');
@@ -59,7 +59,7 @@ class SchemaDotOrgSubtypeListBuilderTest extends SchemaDotOrgBrowserTestBase {
       ->setSchemaPropertyMapping('schema_thing_subtype', 'subtype')
       ->save();
 
-    $this->drupalGet('/admin/config/search/schemadotorg');
+    $this->drupalGet('/admin/config/schemadotorg/mappings');
 
     // Check subtype cell is set to Yes.
     $assert_session->responseNotContains('<td class="priority-low">No</td>');

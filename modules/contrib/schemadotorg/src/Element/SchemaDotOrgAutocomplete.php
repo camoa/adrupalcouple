@@ -132,7 +132,7 @@ class SchemaDotOrgAutocomplete extends Textfield {
 
     // For #tags convert the value to an array of ids.
     if ($element['#tags']) {
-      $form_state->setValueForElement($element, $schema_ids);
+      $form_state->setValueForElement($element, array_combine($schema_ids, $schema_ids));
     }
   }
 

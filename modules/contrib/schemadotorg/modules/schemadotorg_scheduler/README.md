@@ -33,7 +33,7 @@ Configuration
 -------------
 
 - Go to the Schema.org types configuration page.  
-  (/admin/config/search/schemadotorg/settings/types)
+  (/admin/config/schemadotorg/settings/types)
 - Go to the 'Scheduler settings' details.
 - Enter the Schema.org types that support scheduling.
 

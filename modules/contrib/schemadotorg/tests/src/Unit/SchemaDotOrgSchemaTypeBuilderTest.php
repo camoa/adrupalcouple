@@ -4,8 +4,12 @@ declare(strict_types = 1);
 
 namespace Drupal\Tests\schemadotorg\Unit\SchemaDotOrgSchemaTypeBuilderTest;
 
+use Drupal\Core\Extension\ModuleHandlerInterface;
+use Drupal\Core\Session\AccountInterface;
 use Drupal\schemadotorg\SchemaDotOrgSchemaTypeBuilder;
+use Drupal\schemadotorg\SchemaDotOrgSchemaTypeManager;
 use Drupal\Tests\UnitTestCase;
+use PHPUnit\Framework\MockObject\MockObject;
 
 /**
  * @coversDefaultClass \Drupal\schemadotorg\SchemaDotOrgSchemaTypeBuilder::getItemUrl
@@ -15,31 +19,23 @@ class SchemaDotOrgSchemaTypeBuilderTest extends UnitTestCase {
 
   /**
    * The mock module handler.
-   *
-   * @var \Drupal\Core\Extension\ModuleHandlerInterface|\PHPUnit\Framework\MockObject\MockObject
    */
-  protected $moduleHandler;
+  protected ModuleHandlerInterface|MockObject $moduleHandler;
 
   /**
    * The mock current user.
-   *
-   * @var \Drupal\Core\Session\AccountInterface|\PHPUnit\Framework\MockObject\MockObject
    */
-  protected $currentUser;
+  protected AccountInterface|MockObject $currentUser;
 
   /**
    * The mock Schema.org type manager.
-   *
-   * @var \Drupal\schemadotorg\SchemaDotOrgSchemaTypeManager|\PHPUnit\Framework\MockObject\MockObject
    */
-  protected $schemaTypeManager;
+  protected SchemaDotOrgSchemaTypeManager|MockObject $schemaTypeManager;
 
   /**
    * The Schema.org type builder.
-   *
-   * @var \Drupal\schemadotorg\SchemaDotOrgSchemaTypeBuilder
    */
-  protected $schemaTypeBuilder;
+  protected SchemaDotOrgSchemaTypeBuilder $schemaTypeBuilder;
 
   /**
    * {@inheritdoc}

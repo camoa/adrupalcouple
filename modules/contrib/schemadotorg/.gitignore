@@ -5,3 +5,6 @@ interdiff-*.txt
 
 # Ignore all *.features.yml files.
 *.features.yml
+
+# Ignore help directory generated via `drush schemadotorg:generate-help`
+help/*

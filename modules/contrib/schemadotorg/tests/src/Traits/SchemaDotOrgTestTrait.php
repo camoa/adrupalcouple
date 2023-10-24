@@ -86,6 +86,7 @@ trait SchemaDotOrgTestTrait {
   protected function appendSchemaTypeDefaultProperties(string $type, array|string $property): void {
     $config = \Drupal::configFactory()->getEditable('schemadotorg.settings');
     $default_properties = $config->get('schema_types.default_properties');
+    $default_properties[$type] = $default_properties[$type] ?? [];
     $default_properties[$type] = array_merge($default_properties[$type], (array) $property);
     $default_properties[$type] = array_unique($default_properties[$type]);
     asort($default_properties[$type]);

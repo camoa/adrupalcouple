@@ -1,6 +1,6 @@
 schemadotorg_report.settings:
   type: config_entity
-  label: Schema.org Report settings
+  label: 'Schema.org Report settings'
   mapping:
     about:
       type: sequence
@@ -11,10 +11,10 @@ schemadotorg_report.settings:
         mapping:
           title:
             type: string
-            label: 'Title'
+            label: Title
           uri:
             type: uri
-            label: 'URI'
+            label: URI
     types:
       type: sequence
       label: 'Schema.org types'
@@ -27,10 +27,10 @@ schemadotorg_report.settings:
           mapping:
             title:
               type: string
-              label: 'Title'
+              label: Title
             uri:
               type: uri
-              label: 'URI'
+              label: URI
     issues:
       type: sequence
       label: 'Schema.org issues/discussions'
@@ -43,7 +43,7 @@ schemadotorg_report.settings:
           mapping:
             title:
               type: string
-              label: 'Title'
+              label: Title
             uri:
               type: uri
-              label: 'URI'
+              label: URI

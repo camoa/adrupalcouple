@@ -8,7 +8,6 @@
 declare(strict_types = 1);
 
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\schemadotorg\Element\SchemaDotOrgSettings;
 use Drupal\schemadotorg\SchemaDotOrgMappingInterface;
 
 /**
@@ -126,24 +125,34 @@ function schemadotorg_type_tray_schemadotorg_mapping_insert(SchemaDotOrgMappingI
   $node_type->save();
 }
 
+/* ************************************************************************** */
+// Schema.org types settings form.
+/* ************************************************************************** */
+
 /**
  * Implements hook_form_FORM_ID_alter().
+ *
+ * @see \Drupal\schemadotorg\Form\SchemaDotOrgSettingsFormBase::afterBuildDetails
+ * @see \Drupal\schemadotorg\Form\SchemaDotOrgSettingsFormBase::formAlter
  */
 function schemadotorg_type_tray_form_schemadotorg_types_settings_form_alter(array &$form, FormStateInterface $form_state): void {
   $form['schemadotorg_type_tray'] = [
     '#type' => 'details',
-    '#title' => t('Type Tray settings'),
-    '#open' => TRUE,
-    '#tree' => TRUE,
+    '#title' => t('Type tray settings'),
   ];
   $form['schemadotorg_type_tray']['schema_types'] = [
     '#type' => 'schemadotorg_settings',
-    '#settings_type' => SchemaDotOrgSettings::INDEXED_GROUPED_NAMED,
-    '#settings_format' => 'group_name|Group label|SchemaType01,SchemaType01,SchemaType01',
-    '#array_name' => 'types',
     '#title' => t('Schema.org types'),
     '#description' => t('Enter Schema.org types to be place in type tray categories.'),
     '#description_link' => 'types',
+    '#example' => '
+group_name:
+  name: Group label
+  types:
+    - SchemaType01
+    - SchemaType02
+    - SchemaType03
+',
   ];
   $form['schemadotorg_type_tray']['existing_nodes_link_text'] = [
     '#type' => 'textfield',

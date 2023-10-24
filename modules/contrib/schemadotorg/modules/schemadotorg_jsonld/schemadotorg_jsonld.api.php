@@ -57,6 +57,10 @@ function hook_schemadotorg_jsonld(\Drupal\Core\Routing\RouteMatchInterface $rout
   ];
 }
 
+/* ************************************************************************** */
+// Schema.org JSON-LD.
+/* ************************************************************************** */
+
 /**
  * Alter the Schema.org JSON-LD data for the current route.
  *
@@ -154,9 +158,9 @@ function hook_schemadotorg_jsonld_schema_type_entity_alter(array &$data, \Drupal
 
   // Append isDefinedTermSet or isCategoryCodeSet data to the type data.
   $vocabulary = $entity->get('vid')->entity;
-  /** @var \Drupal\schemadotorg_jsonld\SchemaDotOrgJsonLdBuilderInterface $builder */
-  $builder = \Drupal::service('schemadotorg_json.builder');
-  $vocabulary_data = $builder->buildEntity($vocabulary);
+  /** @var \Drupal\schemadotorg_jsonld\SchemaDotOrgJsonLdBuilderInterface $jsonld_builder */
+  $jsonld_builder = \Drupal::service('schemadotorg_jsonld.builder');
+  $vocabulary_data = $jsonld_builder->buildEntity($vocabulary);
   $data["in{$schema_type}Set"] = $vocabulary_data;
 }
 

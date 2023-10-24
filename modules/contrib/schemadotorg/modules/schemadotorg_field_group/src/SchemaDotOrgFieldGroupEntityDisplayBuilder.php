@@ -188,10 +188,8 @@ class SchemaDotOrgFieldGroupEntityDisplayBuilder implements SchemaDotOrgFieldGro
       if (isset($base_field_names[$field_name])) {
         return;
       }
-      $default_label_suffix = $config->get('default_label_suffix');
       $group_name = $this->schemaNames->schemaIdToDrupalName('types', $schema_type);
-      $group_label = $this->schemaNames->camelCaseToSentenceCase($schema_type)
-        . ($default_label_suffix ? ' ' . $default_label_suffix : '');
+      $group_label = $this->schemaNames->camelCaseToSentenceCase($schema_type);
       $group_weight = $max_group_weight;
     }
     else {

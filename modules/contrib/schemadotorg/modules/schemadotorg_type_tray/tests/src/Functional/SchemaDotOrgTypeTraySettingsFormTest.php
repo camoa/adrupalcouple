@@ -34,7 +34,7 @@ class SchemaDotOrgTypeTraySettingsFormTest extends SchemaDotOrgBrowserTestBase {
    * Test Schema.org type tray settings form.
    */
   public function testSettingsForm(): void {
-    $this->assertSaveSettingsConfigForm('schemadotorg_type_tray.settings', '/admin/config/search/schemadotorg/settings/types');
+    $this->assertSaveSettingsConfigForm('schemadotorg_type_tray.settings', '/admin/config/schemadotorg/settings/types');
   }
 
 }

@@ -13,7 +13,6 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\node\NodeInterface;
-use Drupal\schemadotorg\Element\SchemaDotOrgSettings;
 
 /**
  * Implements hook_schemadotorg_property_field_alter().
@@ -160,36 +159,42 @@ function schemadotorg_epp_node_links_alter(array &$links, NodeInterface $node, a
   }
 }
 
+/* ************************************************************************** */
+// Schema.org properties settings form.
+/* ************************************************************************** */
+
 /**
  * Implements hook_form_FORM_ID_alter().
+ *
+ * @see \Drupal\schemadotorg\Form\SchemaDotOrgSettingsFormBase::afterBuildDetails
+ * @see \Drupal\schemadotorg\Form\SchemaDotOrgSettingsFormBase::formAlter
  */
 function schemadotorg_epp_form_schemadotorg_properties_settings_form_alter(array &$form, FormStateInterface $form_state): void {
   $form['schemadotorg_epp'] = [
     '#type' => 'details',
-    '#title' => t('Entity Prepopulate settings'),
-    '#open' => TRUE,
-    '#tree' => TRUE,
+    '#title' => t('Entity prepopulate settings'),
   ];
   $form['schemadotorg_epp']['node_links'] = [
     '#type' => 'schemadotorg_settings',
-    '#settings_type' => SchemaDotOrgSettings::ASSOCIATIVE_GROUPED,
-    '#settings_format' => 'SchemaType|property:SchemaType',
     '#title' => t('Node links'),
     '#description' => t('Enter Schema.org parent type with child properties and types that support entity reference prepopulation.'),
     '#description_link' => 'properties',
+    '#example' => '
+SchemaType:
+  property: SchemaType
+',
   ];
   $form['schemadotorg_epp']['node_links_dropdown'] = [
     '#type' => 'checkbox',
     '#title' => t('Display node links as a dropdown'),
     '#description' => t('If checked, the entity prepopulation node links will be displayed as an operation dropdown menu.'),
-    '#return_value' => TRUE,
   ];
 
   $form['#submit'][] = 'schemadotorg_epp_schemadotorg_properties_settings_submit';
 }
 
 /**
- * Form submission handler for schemadotorg_description_settings_form().
+ * Form submission handler for schemadotorg_epp_settings_form().
  *
  * @see schemadotorg_epp_form_schemadotorg_schemadotorg_properties_settings_form_alter()
  */

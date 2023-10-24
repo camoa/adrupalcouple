@@ -13,3 +13,7 @@
   margin-bottom: 0;
   padding-bottom: 0;
 }
+
+.schemadotorg-jsonapi-preview-endpoints a {
+  word-wrap: break-word;
+}

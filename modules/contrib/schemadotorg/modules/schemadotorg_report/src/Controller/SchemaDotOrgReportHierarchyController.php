@@ -5,7 +5,7 @@ declare(strict_types = 1);
 namespace Drupal\schemadotorg_report\Controller;
 
 /**
- * Returns responses for Schema.org report heirarchy routes.
+ * Returns responses for Schema.org report hierarchy routes.
  */
 class SchemaDotOrgReportHierarchyController extends SchemaDotOrgReportControllerBase {
 
@@ -13,7 +13,7 @@ class SchemaDotOrgReportHierarchyController extends SchemaDotOrgReportController
    * Builds the Schema.org types hierarchy.
    *
    * @param string $type
-   *   The root  Schema.org type.
+   *   The root Schema.org type.
    *
    * @return array
    *   A renderable array containing Schema.org types hierarchy.

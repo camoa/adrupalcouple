@@ -10,7 +10,6 @@ declare(strict_types = 1);
 use Drupal\Core\Entity\Entity\EntityFormMode;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\node\NodeTypeInterface;
-use Drupal\schemadotorg\Element\SchemaDotOrgSettings;
 
 /**
  * Implements hook_ENTITY_TYPE_insert().
@@ -109,38 +108,50 @@ function schemadotorg_inline_entity_form_schemadotorg_property_field_alter(
   }
 }
 
+/* ************************************************************************** */
+// Schema.org properties settings form.
+/* ************************************************************************** */
+
 /**
  * Implements hook_form_FORM_ID_alter().
+ *
+ * @see \Drupal\schemadotorg\Form\SchemaDotOrgSettingsFormBase::afterBuildDetails
+ * @see \Drupal\schemadotorg\Form\SchemaDotOrgSettingsFormBase::formAlter
  */
 function schemadotorg_inline_entity_form_form_schemadotorg_properties_settings_form_alter(array &$form, FormStateInterface $form_state): void {
   $form['schemadotorg_inline_entity_form'] = [
     '#type' => 'details',
     '#title' => t('Inline entity form settings'),
-    '#open' => TRUE,
-    '#tree' => TRUE,
   ];
   $form['schemadotorg_inline_entity_form']['default_properties'] = [
     '#type' => 'schemadotorg_settings',
-    '#settings_type' => SchemaDotOrgSettings::INDEXED,
-    '#settings_format' => 'propertyName or SchemaType--propertyName',
     '#title' => t('Default inline entity form properties'),
     '#description' => t('Enter Schema.org properties that should use the inline entity form.'),
     '#description_link' => 'properties',
+    '#example' => '
+- propertyName
+- SchemaType--propertyName
+',
   ];
   $form['schemadotorg_inline_entity_form']['default_form_displays'] = [
     '#type' => 'schemadotorg_settings',
-    '#settings_type' => SchemaDotOrgSettings::INDEXED,
-    '#settings_format' => 'SchemaType',
     '#title' => t('Default Schema.org type form displays'),
     '#description' => t('Enter Schema.org type that should have the inline entity form display enabled by default.'),
     '#description_link' => 'types',
+    '#example' => '
+- SchemaType01
+- SchemaType02
+- SchemaType03
+',
   ];
   $form['schemadotorg_inline_entity_form']['default_form_display_components'] = [
     '#type' => 'schemadotorg_settings',
-    '#settings_type' => SchemaDotOrgSettings::INDEXED,
-    '#settings_format' => 'field_name or propertyName',
     '#title' => t('Default form display components'),
     '#description' => t('Enter component field and property names that should be included in the default inline entity form display.'),
+    '#example' => '
+- field_name
+- propertyName
+',
   ];
 }
 

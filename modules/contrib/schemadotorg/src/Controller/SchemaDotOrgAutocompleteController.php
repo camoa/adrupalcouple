@@ -5,6 +5,8 @@ declare(strict_types = 1);
 namespace Drupal\schemadotorg\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
+use Drupal\Core\Database\Connection;
+use Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,17 +18,13 @@ class SchemaDotOrgAutocompleteController extends ControllerBase {
 
   /**
    * The database connection.
-   *
-   * @var \Drupal\Core\Database\Connection
    */
-  protected $database;
+  protected Connection $database;
 
   /**
    * The Schema.org schema type manager.
-   *
-   * @var \Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface
    */
-  protected $schemaTypeManager;
+  protected SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager;
 
   /**
    * {@inheritdoc}
@@ -55,9 +53,7 @@ class SchemaDotOrgAutocompleteController extends ControllerBase {
       return new JsonResponse([]);
     }
 
-    $types = NULL;
     if ($this->schemaTypeManager->isType($table)) {
-      // @todo Possibly cache the children to reduce the number of db queries.
       $children = array_keys($this->schemaTypeManager->getAllTypeChildren($table, ['label'], ['Enumeration']));
       sort($children);
       $labels = [];
@@ -76,9 +72,6 @@ class SchemaDotOrgAutocompleteController extends ControllerBase {
       $query->addField($table, 'label', 'value');
       $query->addField($table, 'label', 'label');
       $query->condition('label', '%' . $input . '%', 'LIKE');
-      if ($types) {
-        $query->condition('label', $types, 'IN');
-      }
       $query->orderBy('label');
       $query->range(0, 10);
       $labels = $query->execute()->fetchAllAssoc('label');

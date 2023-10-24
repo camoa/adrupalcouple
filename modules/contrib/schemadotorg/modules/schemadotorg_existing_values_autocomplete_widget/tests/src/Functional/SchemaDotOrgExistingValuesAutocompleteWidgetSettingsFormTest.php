@@ -34,7 +34,7 @@ class SchemaDotOrgExistingValuesAutocompleteWidgetSettingsFormTest extends Schem
    * Test Schema.org Existing values autocomplete widget settings form.
    */
   public function testSettingsForm(): void {
-    $this->assertSaveSettingsConfigForm('schemadotorg_existing_values_autocomplete_widget.settings', '/admin/config/search/schemadotorg/settings/properties');
+    $this->assertSaveSettingsConfigForm('schemadotorg_existing_values_autocomplete_widget.settings', '/admin/config/schemadotorg/settings/properties');
   }
 
 }

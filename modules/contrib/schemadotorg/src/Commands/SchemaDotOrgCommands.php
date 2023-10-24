@@ -7,7 +7,6 @@ namespace Drupal\schemadotorg\Commands;
 use Consolidation\AnnotatedCommand\CommandData;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\schemadotorg\SchemaDotOrgConfigManagerInterface;
-use Drupal\schemadotorg\SchemaDotOrgEntityRelationshipManagerInterface;
 use Drupal\schemadotorg\SchemaDotOrgInstallerInterface;
 use Drupal\schemadotorg\SchemaDotOrgMappingManagerInterface;
 use Drush\Commands\DrushCommands;
@@ -27,8 +26,6 @@ class SchemaDotOrgCommands extends DrushCommands {
    *   The Schema.org installer service.
    * @param \Drupal\schemadotorg\SchemaDotOrgConfigManagerInterface $schemaConfigManager
    *   The Schema.org schema config manager.
-   * @param \Drupal\schemadotorg\SchemaDotOrgEntityRelationshipManagerInterface $schemaEntityRelationshipManager
-   *   The Schema.org schema entity relationship manager.
    * @param \Drupal\schemadotorg\SchemaDotOrgMappingManagerInterface $schemaMappingManager
    *   The Schema.org mapping manager.
    */
@@ -36,7 +33,6 @@ class SchemaDotOrgCommands extends DrushCommands {
     protected EntityTypeManagerInterface $entityTypeManager,
     protected SchemaDotOrgInstallerInterface $schemaInstaller,
     protected SchemaDotOrgConfigManagerInterface $schemaConfigManager,
-    protected SchemaDotOrgEntityRelationshipManagerInterface $schemaEntityRelationshipManager,
     protected SchemaDotOrgMappingManagerInterface $schemaMappingManager
   ) {}
 
@@ -97,32 +93,6 @@ class SchemaDotOrgCommands extends DrushCommands {
     $this->schemaInstaller->install();
 
     $this->output()->writeln(dt('Updated Schema.org data.'));
-  }
-
-  /**
-   * Update Schema.org repair.
-   *
-   * @command schemadotorg:repair
-   *
-   * @usage schemadotorg:repair
-   *
-   * @aliases sorp
-   *
-   * @see \Drupal\schemadotorg_report\Controller\SchemaDotOrgReportMappingsController::relationships
-   */
-  public function repair(): void {
-    if (!$this->io()->confirm(dt('Are you sure you want to repair Schema.org configuration and relationships?'))) {
-      throw new UserAbortException();
-    }
-
-    // Configuration.
-    $this->schemaConfigManager->repair();
-
-    // Relationships.
-    $messages = $this->schemaEntityRelationshipManager->repair();
-    foreach ($messages as $message) {
-      $this->io->success($message);
-    }
   }
 
   /* ************************************************************************ */

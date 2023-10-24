@@ -9,6 +9,10 @@ declare(strict_types = 1);
 
 use Drupal\Core\Routing\RouteMatchInterface;
 
+/* ************************************************************************** */
+// Schema.org JSON-LD.
+/* ************************************************************************** */
+
 /**
  * Implements hook_schemadotorg_jsonld().
  *

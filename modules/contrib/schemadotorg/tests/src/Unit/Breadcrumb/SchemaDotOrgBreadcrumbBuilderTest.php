@@ -99,8 +99,7 @@ class SchemaDotOrgBreadcrumbBuilderTest extends UnitTestCase {
       Link::createFromRoute('Home', '<front>'),
       Link::createFromRoute('Administration', 'system.admin'),
       Link::createFromRoute('Configuration', 'system.admin_config'),
-      Link::createFromRoute('Search and metadata', 'system.admin_config_search'),
-      Link::createFromRoute('Schema.org', 'entity.schemadotorg_mapping.collection'),
+      Link::createFromRoute('Schema.org', 'schemadotorg'),
     ];
     $this->assertEquals($expected, $breadcrumb->getLinks());
 
@@ -110,7 +109,7 @@ class SchemaDotOrgBreadcrumbBuilderTest extends UnitTestCase {
     // Check the breadcrumb cache max-age.
     $this->assertEquals(Cache::PERMANENT, $breadcrumb->getCacheMaxAge());
 
-    // Check the mapping  add breadcrumb links.
+    // Check the mapping add breadcrumb links.
     $route_match = $this->createMock('Drupal\Core\Routing\RouteMatchInterface');
     $route_match->method('getRouteName')->willReturn('entity.schemadotorg_mapping.add_form');
     $breadcrumb = $breadcrumb_builder->build($route_match);
@@ -118,8 +117,7 @@ class SchemaDotOrgBreadcrumbBuilderTest extends UnitTestCase {
       Link::createFromRoute('Home', '<front>'),
       Link::createFromRoute('Administration', 'system.admin'),
       Link::createFromRoute('Configuration', 'system.admin_config'),
-      Link::createFromRoute('Search and metadata', 'system.admin_config_search'),
-      Link::createFromRoute('Schema.org', 'entity.schemadotorg_mapping.collection'),
+      Link::createFromRoute('Schema.org', 'schemadotorg'),
       Link::createFromRoute('Mappings', 'entity.schemadotorg_mapping.collection'),
     ];
     $this->assertEquals($expected, $breadcrumb->getLinks());
@@ -132,8 +130,7 @@ class SchemaDotOrgBreadcrumbBuilderTest extends UnitTestCase {
       Link::createFromRoute('Home', '<front>'),
       Link::createFromRoute('Administration', 'system.admin'),
       Link::createFromRoute('Configuration', 'system.admin_config'),
-      Link::createFromRoute('Search and metadata', 'system.admin_config_search'),
-      Link::createFromRoute('Schema.org', 'entity.schemadotorg_mapping.collection'),
+      Link::createFromRoute('Schema.org', 'schemadotorg'),
       Link::createFromRoute('Mapping types', 'entity.schemadotorg_mapping_type.collection'),
     ];
     $this->assertEquals($expected, $breadcrumb->getLinks());

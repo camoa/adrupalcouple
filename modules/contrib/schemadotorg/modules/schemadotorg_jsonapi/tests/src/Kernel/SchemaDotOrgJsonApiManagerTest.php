@@ -17,9 +17,9 @@ use Drupal\node\Entity\NodeType;
 class SchemaDotOrgJsonApiManagerTest extends SchemaDotOrgJsonApiKernelTestBase {
 
   /**
-   * Modules to install.
+   * Modules to enable.
    *
-   * @var string[]
+   * @var array
    */
   protected static $modules = [
     'schemadotorg_subtype',
@@ -91,7 +91,7 @@ class SchemaDotOrgJsonApiManagerTest extends SchemaDotOrgJsonApiKernelTestBase {
     // @see \Drupal\schemadotorg_jsonapi\SchemaDotOrgJsonApi::updateMappingResourceConfig
     /* ********************************************************************** */
 
-    // Remove alterateName from mapping.
+    // Remove alternateName from mapping.
     $thing_mapping
       ->removeSchemaProperty('schema_alternate_name')
       ->save();
@@ -138,7 +138,7 @@ class SchemaDotOrgJsonApiManagerTest extends SchemaDotOrgJsonApiKernelTestBase {
       ->setSchemaPropertyMapping('schema_description', 'description')
       ->save();
 
-    // Check that new Schema.org field is now added to the  JSON:API resource.
+    // Check that new Schema.org field is now added to the JSON:API resource.
     $resource = $this->loadResource('node--thing');
     $resource_fields = $resource->get('resourceFields');
     $this->assertArrayHasKey('schema_description', $resource_fields);

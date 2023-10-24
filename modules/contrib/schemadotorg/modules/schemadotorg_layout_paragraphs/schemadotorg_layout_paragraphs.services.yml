@@ -1,7 +1,0 @@
-services:
-  schemadotorg_layout_paragraphs.installer:
-    class: Drupal\schemadotorg_layout_paragraphs\SchemaDotOrgLayoutParagraphsInstaller
-    arguments: ['@module_handler', '@entity_type.manager', '@entity_display.repository', '@schemadotorg.names', '@schemadotorg.mapping_manager']
-  schemadotorg_layout_paragraphs.manager:
-    class: Drupal\schemadotorg_layout_paragraphs\SchemaDotOrgLayoutParagraphsManager
-    arguments: ['@module_handler', '@config.factory', '@entity_type.manager', '@schemadotorg.names']

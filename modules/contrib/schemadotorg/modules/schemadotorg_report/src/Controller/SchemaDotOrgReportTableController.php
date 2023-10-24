@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace Drupal\schemadotorg_report\Controller;
 
 use Drupal\Core\Database\Query\PagerSelectExtender;
+use Drupal\Core\Routing\RouteMatchInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -15,10 +16,8 @@ class SchemaDotOrgReportTableController extends SchemaDotOrgReportControllerBase
 
   /**
    * The route match.
-   *
-   * @var \Drupal\Core\Routing\RouteMatchInterface
    */
-  protected $routeMatch;
+  protected RouteMatchInterface $routeMatch;
 
   /**
    * {@inheritdoc}

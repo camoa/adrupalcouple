@@ -18,19 +18,83 @@ content:
     type: custom_formatter
     label: above
     settings:
-      label_display:
-        string_test: above
-        string_long_test: above
-        integer_test: above
-        decimal_test: above
-        float_test: above
-        email_test: above
-        telephone_test: above
-        uri_test: above
-        boolean_test: above
-        uuid_test: above
-        color_test: above
-        map_test: above
+      fields:
+        string_test:
+          format_type: string
+          formatter_settings:
+            label_display: above
+            prefix_suffix: false
+        string_long_test:
+          format_type: text_default
+          formatter_settings:
+            label_display: above
+        integer_test:
+          format_type: number_integer
+          formatter_settings:
+            label_display: above
+            prefix_suffix: false
+            thousand_separator: ','
+        decimal_test:
+          format_type: number_decimal
+          formatter_settings:
+            decimal_separator: .
+            label_display: above
+            prefix_suffix: false
+            scale: 2
+            thousand_separator: ','
+        float_test:
+          format_type: number_decimal
+          formatter_settings:
+            decimal_separator: .
+            label_display: above
+            prefix_suffix: false
+            scale: 2
+            thousand_separator: ','
+        email_test:
+          format_type: email_mailto
+          formatter_settings:
+            label_display: above
+        telephone_test:
+          format_type: telephone_link
+          formatter_settings:
+            label_display: above
+            title: ''
+        uri_test:
+          format_type: uri_link
+          formatter_settings:
+            label_display: above
+            title: ''
+            trim_length: 80
+            url_plain: false
+            rel: false
+            target: false
+        boolean_test:
+          format_type: boolean
+          formatter_settings:
+            format: yes-no
+            format_custom_true: ''
+            format_custom_false: ''
+        uuid_test:
+          format_type: string
+          formatter_settings:
+            label_display: above
+            prefix_suffix: false
+        color_test:
+          format_type: string
+          formatter_settings:
+            label_display: above
+            prefix_suffix: false
+        map_test:
+          format_type: string
+          formatter_settings:
+            label_display: above
+            prefix_suffix: false
+        datetime_test:
+          format_type: datetime_default
+          formatter_settings:
+            label_display: above
+            timezone_override: ''
+            format_type: medium
     third_party_settings: {  }
     weight: 101
     region: content
@@ -38,19 +102,83 @@ content:
     type: custom_formatter
     label: above
     settings:
-      label_display:
-        string_test: above
-        string_long_test: above
-        integer_test: above
-        decimal_test: above
-        float_test: above
-        email_test: above
-        telephone_test: above
-        uri_test: above
-        boolean_test: above
-        uuid_test: above
-        color_test: above
-        map_test: above
+      fields:
+        string_test:
+          format_type: string
+          formatter_settings:
+            label_display: above
+            prefix_suffix: false
+        string_long_test:
+          format_type: text_default
+          formatter_settings:
+            label_display: above
+        integer_test:
+          format_type: number_integer
+          formatter_settings:
+            label_display: above
+            prefix_suffix: false
+            thousand_separator: ','
+        decimal_test:
+          format_type: number_decimal
+          formatter_settings:
+            decimal_separator: .
+            label_display: above
+            prefix_suffix: false
+            scale: 2
+            thousand_separator: ','
+        float_test:
+          format_type: number_decimal
+          formatter_settings:
+            decimal_separator: .
+            label_display: above
+            prefix_suffix: false
+            scale: 2
+            thousand_separator: ','
+        email_test:
+          format_type: email_mailto
+          formatter_settings:
+            label_display: above
+        telephone_test:
+          format_type: telephone_link
+          formatter_settings:
+            label_display: above
+            title: ''
+        uri_test:
+          format_type: uri_link
+          formatter_settings:
+            label_display: above
+            title: ''
+            trim_length: 80
+            url_plain: false
+            rel: false
+            target: false
+        boolean_test:
+          format_type: boolean
+          formatter_settings:
+            format: yes-no
+            format_custom_true: ''
+            format_custom_false: ''
+        uuid_test:
+          format_type: string
+          formatter_settings:
+            label_display: above
+            prefix_suffix: false
+        color_test:
+          format_type: string
+          formatter_settings:
+            label_display: above
+            prefix_suffix: false
+        map_test:
+          format_type: string
+          formatter_settings:
+            label_display: above
+            prefix_suffix: false
+        datetime_test:
+          format_type: datetime_default
+          formatter_settings:
+            label_display: above
+            timezone_override: ''
+            format_type: medium
     third_party_settings: {  }
     weight: 101
     region: content
@@ -58,19 +186,83 @@ content:
     type: custom_formatter
     label: above
     settings:
-      label_display:
-        string_test: above
-        string_long_test: above
-        integer_test: above
-        decimal_test: above
-        float_test: above
-        email_test: above
-        telephone_test: above
-        uri_test: above
-        boolean_test: above
-        uuid_test: above
-        color_test: above
-        map_test: above
+      fields:
+        string_test:
+          format_type: string
+          formatter_settings:
+            label_display: above
+            prefix_suffix: false
+        string_long_test:
+          format_type: text_default
+          formatter_settings:
+            label_display: above
+        integer_test:
+          format_type: number_integer
+          formatter_settings:
+            label_display: above
+            prefix_suffix: false
+            thousand_separator: ','
+        decimal_test:
+          format_type: number_decimal
+          formatter_settings:
+            decimal_separator: .
+            label_display: above
+            prefix_suffix: false
+            scale: 2
+            thousand_separator: ','
+        float_test:
+          format_type: number_decimal
+          formatter_settings:
+            decimal_separator: .
+            label_display: above
+            prefix_suffix: false
+            scale: 2
+            thousand_separator: ','
+        email_test:
+          format_type: email_mailto
+          formatter_settings:
+            label_display: above
+        telephone_test:
+          format_type: telephone_link
+          formatter_settings:
+            label_display: above
+            title: ''
+        uri_test:
+          format_type: uri_link
+          formatter_settings:
+            label_display: above
+            title: ''
+            trim_length: 80
+            url_plain: false
+            rel: false
+            target: false
+        boolean_test:
+          format_type: boolean
+          formatter_settings:
+            format: yes-no
+            format_custom_true: ''
+            format_custom_false: ''
+        uuid_test:
+          format_type: string
+          formatter_settings:
+            label_display: above
+            prefix_suffix: false
+        color_test:
+          format_type: string
+          formatter_settings:
+            label_display: above
+            prefix_suffix: false
+        map_test:
+          format_type: string
+          formatter_settings:
+            label_display: above
+            prefix_suffix: false
+        datetime_test:
+          format_type: datetime_default
+          formatter_settings:
+            label_display: above
+            timezone_override: ''
+            format_type: medium
     third_party_settings: {  }
     weight: 101
     region: content

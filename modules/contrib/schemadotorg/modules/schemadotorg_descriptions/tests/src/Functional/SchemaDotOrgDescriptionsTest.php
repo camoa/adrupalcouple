@@ -14,9 +14,9 @@ use Drupal\Tests\schemadotorg\Functional\SchemaDotOrgBrowserTestBase;
 class SchemaDotOrgDescriptionsTest extends SchemaDotOrgBrowserTestBase {
 
   /**
-   * Modules to install.
+   * Modules to enable.
    *
-   * @var string[]
+   * @var array
    */
   protected static $modules = [
     'field_ui',
@@ -95,10 +95,10 @@ class SchemaDotOrgDescriptionsTest extends SchemaDotOrgBrowserTestBase {
     $assert_session->responseContains('An alias for the item.');
 
     // Add custom descriptions for Thing and alternateName.
-    $this->drupalGet('/admin/config/search/schemadotorg/settings/general');
+    $this->drupalGet('/admin/config/schemadotorg/settings/general');
     $edit = [
-      'schemadotorg_descriptions[custom_descriptions]' => 'Thing|This is a custom description for a Thing.'
-      . PHP_EOL . 'alternateName|This is a custom description for an alternateName',
+      'schemadotorg_descriptions[custom_descriptions]' => 'Thing: This is a custom description for a Thing.'
+      . PHP_EOL . 'alternateName: This is a custom description for an alternateName.',
     ];
     $this->submitForm($edit, 'Save configuration');
 
@@ -119,27 +119,27 @@ class SchemaDotOrgDescriptionsTest extends SchemaDotOrgBrowserTestBase {
     $this->drupalGet('/node/add/thing');
     $assert_session->responseNotContains('An alias for the item.');
     $assert_session->responseContains('This is a custom description for a Thing.');
-    $assert_session->responseContains('This is a custom description for an alternateName');
+    $assert_session->responseContains('This is a custom description for an alternateName.');
 
     // Add custom descriptions for Thing and alternateName.
-    $this->drupalGet('/admin/config/search/schemadotorg/settings/general');
+    $this->drupalGet('/admin/config/schemadotorg/settings/general');
     $edit = [
-      'schemadotorg_descriptions[custom_descriptions]' => 'Thing|This is a custom description for a Thing.'
-      . PHP_EOL . 'alternateName|This is a custom description for an alternateName'
-      . PHP_EOL . 'Thing--alternateName|This is a custom description for an Thing--alternateName',
+      'schemadotorg_descriptions[custom_descriptions]' => 'Thing: This is a custom description for a Thing.'
+      . PHP_EOL . 'alternateName: This is a custom description for an alternateName.'
+      . PHP_EOL . 'Thing--alternateName: This is a custom description for an Thing--alternateName',
     ];
     $this->submitForm($edit, 'Save configuration');
 
     // Check that the Thing--alternateName custom description is uses.
     $this->drupalGet('/node/add/thing');
     $assert_session->responseContains('This is a custom description for a Thing.');
-    $assert_session->responseNotContains('This is a custom description for an alternateName');
+    $assert_session->responseNotContains('This is a custom description for an alternateName.');
     $assert_session->responseContains('This is a custom description for an Thing--alternateName');
 
     // Remove custom descriptions for Thing and alternateName.
-    $this->drupalGet('/admin/config/search/schemadotorg/settings/general');
+    $this->drupalGet('/admin/config/schemadotorg/settings/general');
     $edit = [
-      'schemadotorg_descriptions[custom_descriptions]' => 'Thing' . PHP_EOL . 'alternateName',
+      'schemadotorg_descriptions[custom_descriptions]' => 'Thing: null' . PHP_EOL . 'alternateName: null',
     ];
     $this->submitForm($edit, 'Save configuration');
 
@@ -157,7 +157,7 @@ class SchemaDotOrgDescriptionsTest extends SchemaDotOrgBrowserTestBase {
     $this->drupalGet('/node/add/thing');
     $assert_session->responseNotContains('An alias for the item.');
     $assert_session->responseNotContains('This is a custom description for a Thing.');
-    $assert_session->responseNotContains('This is a custom description for an alternateName');
+    $assert_session->responseNotContains('This is a custom description for an alternateName.');
 
     // Create 'Offer' with 'price' which has a long description.
     $this->drupalGet('/admin/structure/types/schemadotorg', ['query' => ['type' => 'Offer']]);
@@ -167,15 +167,6 @@ class SchemaDotOrgDescriptionsTest extends SchemaDotOrgBrowserTestBase {
     $this->drupalGet('/node/add/offer');
     $assert_session->responseContains('The offer price of a product, or of a price component when attached to PriceSpecification and its subtypes.');
     $assert_session->responseNotContains('Usage guidelines:');
-
-    // Disable trim descriptions.
-    $this->drupalGet('/admin/config/search/schemadotorg/settings/general');
-    $edit = ['schemadotorg_descriptions[trim_descriptions]' => FALSE];
-    $this->submitForm($edit, 'Save configuration');
-
-    // Check that the price and priceCurrency descriptions are NOT trimmed.
-    $this->drupalGet('/node/add/offer');
-    $assert_session->responseContains('Usage guidelines:');
 
     /** @var \Drupal\Core\Extension\ModuleInstallerInterface $module_installer */
     $module_installer = \Drupal::service('module_installer');

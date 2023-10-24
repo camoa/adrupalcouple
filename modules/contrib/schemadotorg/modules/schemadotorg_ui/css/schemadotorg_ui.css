@@ -3,15 +3,17 @@
  * Schema.org UI styles.
  */
 
+/* stylelint-disable custom-property-pattern */
+
 .schemadotorg-mapping-form .form-actions {
   clear: both;
 }
 
 .schemadotorg-ui-quick-start {
+  margin-bottom: .5em;
+  padding: .5em 0;
   border: 1px solid #ccc;
   border-radius: var(--ginBorderDefault);
-  padding: .5em 0;
-  margin-bottom: .5em;
 }
 
 details.schemadotorg-ui--add-field {
@@ -46,14 +48,14 @@ details.schemadotorg-ui--add-field {
   line-height: 1;
 }
 
-.schemadotorg-ui-properties-filter.form-item input.schemadotorg-ui-properties-filter-text {
+.schemadotorg-ui-properties-filter.form-item input.schemadotorg-ui-properties-filter-reset {
   padding-right: 2em;
 }
 
 .schemadotorg-ui-properties-filter.form-item {
+  float: left;
   margin-top: 0;
   margin-bottom: 1rem;
-  float: left;
 }
 
 .schemadotorg-ui-properties-filter-matches tbody > tr {
@@ -95,8 +97,8 @@ details.schemadotorg-ui--add-field {
 
 /* Gin theme enhancements */
 .schemadotorg-ui-gin .schemadotorg-ui-properties-toggle-wrapper {
-  float: right;
   display: inline-block;
+  float: right;
   min-height: 3rem;
   line-height: 3rem;
 }
@@ -110,7 +112,7 @@ details.schemadotorg-ui--add-field {
  *
  * This approach blocks user with JS disabled from managing the mappings.
  *
- * Using `htmls.js .schemadotorg-ui-properties` causes a massive content flicker.
+ * Using `html.js .schemadotorg-ui-properties` causes a massive content flicker.
  *
  * @todo Determine a more accessible was to hide the table only when JS is enabled.
  */

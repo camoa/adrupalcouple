@@ -6,26 +6,26 @@ namespace Drupal\schemadotorg;
 
 use Drupal\Core\Config\Entity\ConfigEntityStorage;
 use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Storage controller class for "schemadotorg_mapping_type" configuration entities.
+ *
+ * The Schema.org mapping type storage manages which and how Drupal entity
+ * type can be mapped to Schema.org types.
  */
 class SchemaDotOrgMappingTypeStorage extends ConfigEntityStorage implements SchemaDotOrgMappingTypeStorageInterface {
 
   /**
    * The entity type manager.
-   *
-   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
    */
-  protected $entityTypeManager;
+  protected EntityTypeManagerInterface $entityTypeManager;
 
   /**
    * The Schema.org schema type manager.
-   *
-   * @var \Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface
    */
-  protected $schemaTypeManager;
+  protected SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager;
 
   /**
    * {@inheritdoc}

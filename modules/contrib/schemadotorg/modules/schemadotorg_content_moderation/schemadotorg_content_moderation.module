@@ -9,7 +9,6 @@ declare(strict_types = 1);
 
 use Drupal\content_moderation\Plugin\WorkflowType\ContentModerationInterface;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\schemadotorg\Element\SchemaDotOrgSettings;
 use Drupal\schemadotorg\SchemaDotOrgMappingInterface;
 use Drupal\workflows\Entity\Workflow;
 
@@ -59,21 +58,28 @@ function schemadotorg_content_moderation_schemadotorg_mapping_insert(SchemaDotOr
   }
 }
 
+/* ************************************************************************** */
+// Schema.org types settings form.
+/* ************************************************************************** */
+
 /**
  * Implements hook_form_FORM_ID_alter().
+ *
+ * @see \Drupal\schemadotorg\Form\SchemaDotOrgSettingsFormBase::afterBuildDetails
+ * @see \Drupal\schemadotorg\Form\SchemaDotOrgSettingsFormBase::formAlter
  */
 function schemadotorg_content_moderation_form_schemadotorg_types_settings_form_alter(array &$form, FormStateInterface $form_state): void {
   $form['schemadotorg_content_moderation'] = [
     '#type' => 'details',
     '#title' => t('Content moderation settings'),
-    '#open' => TRUE,
-    '#tree' => TRUE,
   ];
   $form['schemadotorg_content_moderation']['default_workflows'] = [
     '#type' => 'schemadotorg_settings',
-    '#settings_type' => SchemaDotOrgSettings::ASSOCIATIVE,
-    '#settings_format' => 'entity_type|workflow_id or entity_type--SchemaType|workflow_id or entity_type--SchemaType|',
     '#title' => t('Default content moderation workflows'),
-    '#description' => t('Enter the default content moderation workflow per entity type and Schema.org type. Leave the blank to not set a workflow for a Schema.org type.'),
+    '#description' => t('Enter the default content moderation workflow per entity type and Schema.org type. Set to <em>null</em> to not set a workflow for a Schema.org type.'),
+    '#example' => '
+entity_type: workflow_id
+entity_type--SchemaType01: workflow_id
+entity_type--SchemaType02: null',
   ];
 }

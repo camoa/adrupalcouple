@@ -34,7 +34,8 @@ class SchemaDotOrgMetatagSettingsFormTest extends SchemaDotOrgBrowserTestBase {
    * Test Schema.org Metatag settings form.
    */
   public function testSettingsForm(): void {
-    $this->assertSaveSettingsConfigForm('schemadotorg_metatag.settings', '/admin/config/search/schemadotorg/settings/types');
+    $this->assertSaveSettingsConfigForm('schemadotorg_metatag.settings', '/admin/config/schemadotorg/settings/types');
+    $this->assertSaveSettingsConfigForm('schemadotorg_metatag.settings', '/admin/config/schemadotorg/settings/properties');
   }
 
 }

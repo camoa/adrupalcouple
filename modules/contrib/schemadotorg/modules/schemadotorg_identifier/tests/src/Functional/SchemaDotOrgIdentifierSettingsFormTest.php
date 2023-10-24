@@ -34,7 +34,7 @@ class SchemaDotOrgIdentifierSettingsFormTest extends SchemaDotOrgBrowserTestBase
    * Test Schema.org identifier settings form.
    */
   public function testSettingsForm(): void {
-    $this->assertSaveSettingsConfigForm('schemadotorg_identifier.settings', '/admin/config/search/schemadotorg/settings/properties');
+    $this->assertSaveSettingsConfigForm('schemadotorg_identifier.settings', '/admin/config/schemadotorg/settings/properties');
   }
 
 }

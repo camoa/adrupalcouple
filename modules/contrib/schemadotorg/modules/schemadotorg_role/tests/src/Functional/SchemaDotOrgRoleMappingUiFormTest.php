@@ -38,7 +38,7 @@ class SchemaDotOrgRoleMappingUiFormTest extends SchemaDotOrgBrowserTestBase {
     $assert_session->responseContains('<ul data-drupal-selector="edit-mapping-properties-actor-field-data-fields">');
     $assert_session->responseContains('<li>Hosts (schema_role_host)</li>');
     $assert_session->responseContains('<li>Guests (schema_role_guest)</li>');
-    $assert_session->responseContains('<a href="' . $base_path . 'admin/config/search/schemadotorg/settings/properties?destination=' . $base_path . 'admin/structure/types/schemadotorg%3Ftype%3DPodcastEpisode#edit-schemadotorg-role" class="button button--small button--extrasmall" data-drupal-selector="edit-mapping-properties-actor-field-data-edit" id="edit-mapping-properties-actor-field-data-edit">Edit settings</a>');
+    $assert_session->responseContains('<a href="' . $base_path . 'admin/config/schemadotorg/settings/properties?destination=' . $base_path . 'admin/structure/types/schemadotorg%3Ftype%3DPodcastEpisode#edit-schemadotorg-role" class="button button--small button--extrasmall" data-drupal-selector="edit-mapping-properties-actor-field-data-edit" id="edit-mapping-properties-actor-field-data-edit">Edit settings</a>');
   }
 
 }

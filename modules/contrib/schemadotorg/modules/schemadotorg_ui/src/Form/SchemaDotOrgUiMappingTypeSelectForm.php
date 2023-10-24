@@ -4,9 +4,13 @@ declare(strict_types = 1);
 
 namespace Drupal\schemadotorg_ui\Form;
 
+use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
+use Drupal\schemadotorg\SchemaDotOrgSchemaTypeBuilderInterface;
+use Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -16,31 +20,23 @@ class SchemaDotOrgUiMappingTypeSelectForm extends FormBase {
 
   /**
    * The module handler.
-   *
-   * @var \Drupal\Core\Extension\ModuleHandlerInterface
    */
-  protected $moduleHandler;
+  protected ModuleHandlerInterface $moduleHandler;
 
   /**
    * The entity type manager.
-   *
-   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
    */
-  protected $entityTypeManager;
+  protected EntityTypeManagerInterface $entityTypeManager;
 
   /**
    * The Schema.org schema type manager.
-   *
-   * @var \Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface
    */
-  protected $schemaTypeManager;
+  protected SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager;
 
   /**
    * The Schema.org schema type builder service.
-   *
-   * @var \Drupal\schemadotorg\SchemaDotOrgSchemaTypeBuilderInterface
    */
-  protected $schemaTypeBuilder;
+  protected SchemaDotOrgSchemaTypeBuilderInterface $schemaTypeBuilder;
 
   /**
    * {@inheritdoc}

@@ -37,10 +37,10 @@ use Drupal\schemadotorg\SchemaDotOrgMappingInterface;
  *   config_prefix = "schemadotorg_mapping",
  *   admin_permission = "administer schemadotorg",
  *   links = {
- *     "collection" = "/admin/config/search/schemadotorg-mapping",
- *     "add-form" = "/admin/config/search/schemadotorg-mapping/add",
- *     "edit-form" = "/admin/config/search/schemadotorg-mapping/{schemadotorg_mapping}",
- *     "delete-form" = "/admin/config/search/schemadotorg-mapping/{schemadotorg_mapping}/delete"
+ *     "collection" = "/admin/config/schemadotorg/mappings",
+ *     "add-form" = "/admin/config/schemadotorg/mappings/add",
+ *     "edit-form" = "/admin/config/schemadotorg/mappings/{schemadotorg_mapping}",
+ *     "delete-form" = "/admin/config/schemadotorg/mappings/{schemadotorg_mapping}/delete"
  *   },
  *   entity_keys = {
  *     "id" = "id",
@@ -60,52 +60,38 @@ class SchemaDotOrgMapping extends ConfigEntityBase implements SchemaDotOrgMappin
 
   /**
    * Unique ID for the config entity.
-   *
-   * @var string
    */
-  protected $id;
+  protected string $id;
 
   /**
    * Entity type to be mapped.
-   *
-   * @var string
    */
-  protected $target_entity_type_id;
+  protected string $target_entity_type_id;
 
   /**
    * Bundle to be mapped.
-   *
-   * @var string
    */
-  protected $target_bundle;
+  protected string $target_bundle;
 
   /**
    * Schema.org type.
-   *
-   * @var string
    */
-  protected $schema_type;
+  protected ?string $schema_type;
 
   /**
    * List of Schema.org property mappings, keyed by field name.
-   *
-   * @var array
    */
-  protected $schema_properties = [];
+  protected array $schema_properties = [];
 
   /**
    * List of original Schema.org property mappings.
-   *
-   * @var array
    */
-  protected $original_schema_properties = [];
+  protected array $original_schema_properties = [];
 
   /**
    * The Schema.org mapping defaults.
-   *
-   * @var array
    */
-  protected $mappingDefaults;
+  protected array $mappingDefaults;
 
   /**
    * {@inheritdoc}

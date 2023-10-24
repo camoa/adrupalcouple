@@ -1,6 +1,6 @@
 schemadotorg_jsonld_preview.settings:
   type: config_entity
-  label: Schema.org JSON-LD preview settings
+  label: 'Schema.org JSON-LD preview settings'
   mapping:
     visibility:
       type: mapping
@@ -12,7 +12,7 @@ schemadotorg_jsonld_preview.settings:
           mapping:
             pages:
               type: string
-              label: 'Pages'
+              label: Pages
             negate:
               type: boolean
               label: 'Hide for the listed pages'

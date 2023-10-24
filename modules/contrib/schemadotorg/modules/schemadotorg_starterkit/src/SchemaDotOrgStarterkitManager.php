@@ -9,6 +9,7 @@ use Drupal\config_rewrite\ConfigRewriter;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Extension\ModuleExtensionList;
+use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Extension\ModuleInstallerInterface;
 use Drupal\Core\File\FileSystemInterface;
 use Drupal\devel_generate\DevelGeneratePluginManager;
@@ -32,6 +33,8 @@ class SchemaDotOrgStarterkitManager implements SchemaDotOrgStarterkitManagerInte
    *   The module extension list.
    * @param \Drupal\Core\Extension\ModuleInstallerInterface $moduleInstaller
    *   The module installer service.
+   * @param \Drupal\Core\Extension\ModuleHandlerInterface $moduleHandler
+   *   The module handler.
    * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
    *   The configuration object factory.
    * @param \Drupal\config_rewrite\ConfigRewriter|null $configRewriter
@@ -49,6 +52,7 @@ class SchemaDotOrgStarterkitManager implements SchemaDotOrgStarterkitManagerInte
     protected FileSystemInterface $fileSystem,
     protected ModuleExtensionList $extensionListModule,
     protected ModuleInstallerInterface $moduleInstaller,
+    protected ModuleHandlerInterface $moduleHandler,
     protected ConfigFactoryInterface $configFactory,
     protected ?ConfigRewriter $configRewriter,
     protected EntityTypeManagerInterface $entityTypeManager,
@@ -81,13 +85,15 @@ class SchemaDotOrgStarterkitManager implements SchemaDotOrgStarterkitManagerInte
   /**
    * {@inheritdoc}
    */
-  public function getStarterkits(): array {
+  public function getStarterkits(bool $installed = FALSE): array {
     $modules = $this->extensionListModule->getAllAvailableInfo();
     foreach ($modules as $module_name => $module_info) {
       if (!str_starts_with($module_name, 'schemadotorg_')
         || !$this->isStarterkit($module_name)) {
         unset($modules[$module_name]);
-        continue;
+      }
+      elseif ($installed && !$this->moduleHandler->moduleExists($module_name)) {
+        unset($modules[$module_name]);
       }
     }
     return $modules;
@@ -107,20 +113,33 @@ class SchemaDotOrgStarterkitManager implements SchemaDotOrgStarterkitManagerInte
   }
 
   /**
-   * Install a Schema.org starterkit.
+   * Install a Schema.org starter kit.
    *
    * @param string $module
-   *   A Schema.org starterkit module name.
+   *   A Schema.org starter kit module name.
    */
   public function install(string $module): void {
     $this->moduleInstaller->install([$module]);
   }
 
   /**
-   * Generate a Schema.org starterkit's content.
+   * {@inheritdoc}
+   */
+  public function update(string $module): void {
+    if (!$this->isStarterkit($module)) {
+      return;
+    }
+
+    $this->rewriteConfig($module);
+    $this->setupSchemaTypes($module);
+    $this->rewriteConfig($module, '/\.yml$/i');
+  }
+
+  /**
+   * Generate a Schema.org starter kit's content.
    *
    * @param string $module
-   *   A Schema.org starterkit module name.
+   *   A Schema.org starter kit module name.
    */
   public function generate(string $module): void {
     $settings = $this->getStarterkitSettings($module);
@@ -129,10 +148,10 @@ class SchemaDotOrgStarterkitManager implements SchemaDotOrgStarterkitManagerInte
   }
 
   /**
-   * Kill a Schema.org starterkit's content.
+   * Kill a Schema.org starter kit's content.
    *
    * @param string $module
-   *   A Schema.org starterkit module name.
+   *   A Schema.org starter kit module name.
    */
   public function kill(string $module): void {
     $settings = $this->getStarterkitSettings($module);
@@ -148,7 +167,7 @@ class SchemaDotOrgStarterkitManager implements SchemaDotOrgStarterkitManagerInte
       return;
     }
 
-    $this->rewriteSchemaConfig($module);
+    $this->rewriteConfig($module);
     $this->installDependencies($module);
     $this->setupSchemaTypes($module);
   }
@@ -175,7 +194,7 @@ class SchemaDotOrgStarterkitManager implements SchemaDotOrgStarterkitManagerInte
       }
     }
 
-    // Repair configuration if the starterkit has written any
+    // Repair configuration if the starter kit has written any
     // schemadotorg* configuration.
     // @see https://www.drupal.org/project/config_rewrite/issues/3152228
     if ($has_schema_config_rewrite) {
@@ -191,8 +210,11 @@ class SchemaDotOrgStarterkitManager implements SchemaDotOrgStarterkitManagerInte
    *
    * @param string $module
    *   A module.
+   * @param string $mask
+   *   The preg_match() regular expression for files to be included.
+   *   Default to 'schemadotorg.*.yml' filed.
    */
-  protected function rewriteSchemaConfig(string $module): void {
+  protected function rewriteConfig(string $module, string $mask = '/^schemadotorg.*\.yml$/i'): void {
     if (is_null($this->configRewriter)) {
       return;
     }
@@ -203,7 +225,7 @@ class SchemaDotOrgStarterkitManager implements SchemaDotOrgStarterkitManagerInte
       return;
     }
 
-    $files = $this->fileSystem->scanDirectory($rewrite_dir, '/^schemadotorg.*\.yml$/i', ['recurse' => FALSE]) ?: [];
+    $files = $this->fileSystem->scanDirectory($rewrite_dir, $mask, ['recurse' => FALSE]) ?: [];
     if (empty($files)) {
       return;
     }
@@ -232,7 +254,7 @@ class SchemaDotOrgStarterkitManager implements SchemaDotOrgStarterkitManagerInte
   }
 
   /**
-   * Set up a starterkit  module based on the module's settings.
+   * Set up a starter kit module based on the module's settings.
    *
    * @param string $module
    *   A module.

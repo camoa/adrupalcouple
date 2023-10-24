@@ -19,9 +19,9 @@ class SchemaDotOrgUiMappingFormTest extends SchemaDotOrgBrowserTestBase {
   use MediaTypeCreationTrait;
 
   /**
-   * Modules to install.
+   * Modules to enable.
    *
-   * @var string[]
+   * @var array
    */
   protected static $modules = [
     'media',
@@ -230,7 +230,7 @@ class SchemaDotOrgUiMappingFormTest extends SchemaDotOrgBrowserTestBase {
     $expected_field_settings = [
       'schema_address' => [],
       'schema_contact_point' => [
-        'handler' => 'default:paragraph',
+        'handler' => 'schemadotorg:paragraph',
         'handler_settings' => [
           'target_bundles' => [
             'contact_point' => 'contact_point',

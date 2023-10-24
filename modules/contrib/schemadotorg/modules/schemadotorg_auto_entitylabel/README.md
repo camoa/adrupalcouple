@@ -32,6 +32,6 @@ Configuration
 -------------
 
 - Go to the Schema.org types configuration page.  
-  (/admin/config/search/schemadotorg/settings/types)
+  (/admin/config/schemadotorg/settings/types)
 - Go to the 'Automatic entity labels settings' details.
 - Enter default Schema.org type auto entity label settings.

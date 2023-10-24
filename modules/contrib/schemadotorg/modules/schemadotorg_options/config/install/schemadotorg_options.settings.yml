@@ -14,14 +14,14 @@ property_allowed_values:
     Mr: Mr
     Mx: Mx
   honorificSuffix:
-    MD: 'M.D.'
-    PHD: 'PhD'
-    MSCSW: 'MSCSW'
+    MD: M.D.
+    PHD: PhD
+    MSCSW: MSCSW
   dosageForm:
     Aerosol: Aerosol
     Bead: Bead
     Capsule: Capsule
-    Chewable Gel: Chewable Gel
+    'Chewable Gel': 'Chewable Gel'
     Cloth: Cloth
     Concentrate: Concentrate
     Cream: Cream
@@ -38,7 +38,7 @@ property_allowed_values:
     Gel: Gel
     Globule: Globule
     Granule: Granule
-    Gum, Chewing: Gum, Chewing
+    'Gum, Chewing': 'Gum, Chewing'
     Implant: Implant
     Inhalant: Inhalant
     Injection: Injection

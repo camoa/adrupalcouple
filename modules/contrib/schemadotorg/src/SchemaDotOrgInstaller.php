@@ -13,6 +13,20 @@ use Drupal\schemadotorg\Utility\SchemaDotOrgStringHelper;
 
 /**
  * Schema.org installer service.
+ *
+ * The Schema.org installer service creates the 'schemadotorg_types' and
+ * 'schemadotorg_properties' database tables and populates these tables using
+ * the CSV data provided by Schema.org.
+ *
+ * This service also checks the requirements for installing the Schema.org
+ * Blueprints module and allows Schema.org label and comments to be translated
+ * using Drupal's string translation system.
+ *
+ * @see https://github.com/schemaorg/schemaorg/tree/main/data
+ * @see data/VERSION/schemaorg-current-https-types.csv
+ * @see data/VERSION/schemaorg-current-https-properties.csv
+ * @see data/VERSION/schemaorg-current-https-properties.csv
+ * @see data/VERSION/schemaorg-current-https-types.csv
  */
 class SchemaDotOrgInstaller implements SchemaDotOrgInstallerInterface {
   use StringTranslationTrait;
@@ -162,7 +176,7 @@ class SchemaDotOrgInstaller implements SchemaDotOrgInstallerInterface {
         'uri' => 'https://git.drupalcode.org/project/schemadotorg/-/tree/1.0.x/modules/schemadotorg_taxonomy)**',
       ],
     ];
-    foreach ($integration_modules as $module_name => $intergration_module) {
+    foreach ($integration_modules as $module_name => $integration_module) {
       if (!$this->moduleHandler->moduleExists($module_name)
         || $this->moduleHandler->moduleExists('schemadotorg_' . $module_name)) {
         unset($integration_modules[$module_name]);
@@ -458,7 +472,7 @@ class SchemaDotOrgInstaller implements SchemaDotOrgInstallerInterface {
         }
         $strings[] = '';
       }
-      $filename = __DIR__ . '/../data/' . static::VERSION . '/schemaorgdotorg.translations.' . $table . '.inc';
+      $filename = __DIR__ . '/../data/' . static::VERSION . '/schemaorg.translations.' . $table . '.inc';
       $translatable_strings = implode(PHP_EOL, $strings);
       $contents = <<<EOT
         <?php
@@ -534,9 +548,10 @@ class SchemaDotOrgInstaller implements SchemaDotOrgInstallerInterface {
 
     // Get field names.
     $fields = fgetcsv($handle);
-    array_walk($fields, function (&$field_name): void {
-      $field_name = $this->schemaNames->camelCaseToSnakeCase($field_name);
-    });
+    array_walk(
+      $fields,
+      fn(&$field_name) => ($field_name = $this->schemaNames->camelCaseToSnakeCase($field_name))
+    );
 
     // Insert multiple records.
     $query = $this->database->insert($table)->fields($fields);

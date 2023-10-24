@@ -5,9 +5,9 @@ declare(strict_types = 1);
 namespace Drupal\schemadotorg\Form;
 
 use Drupal\Core\Entity\ContentEntityTypeInterface;
+use Drupal\Core\Entity\EntityDisplayRepositoryInterface;
 use Drupal\Core\Entity\EntityForm;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\schemadotorg\Element\SchemaDotOrgSettings;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -19,10 +19,7 @@ class SchemaDotOrgMappingTypeForm extends EntityForm {
 
   /**
    * The entity display repository.
-   *
-   * @var \Drupal\Core\Entity\EntityDisplayRepositoryInterface
-   */
-  protected $entityDisplayRepository;
+   */protected EntityDisplayRepositoryInterface $entityDisplayRepository;
 
   /**
    * {@inheritdoc}
@@ -87,48 +84,55 @@ class SchemaDotOrgMappingTypeForm extends EntityForm {
     $form['types']['id_prefix'] = [
       '#type' => 'textfield',
       '#title' => $this->t('ID prefix'),
-      '#description' => $this->t("Enter prefix to prepended to bundle names. For example, you can enter 'schema_' to create 'schema_*' namespace."),
+      '#description' => $this->t("Enter prefix to prepended to bundle names. For example, you can enter 'schema_' to create a 'schema_*' namespace for bundles."),
       '#pattern' => '^[a-z0-9_]+$',
       '#default_value' => $entity->get('id_prefix'),
     ];
     $form['types']['recommended_schema_types'] = [
       '#type' => 'schemadotorg_settings',
-      '#settings_type' => SchemaDotOrgSettings::INDEXED_GROUPED_NAMED,
-      '#settings_format' => 'group_name|Group label|SchemaType01,SchemaType01,SchemaType01',
-      '#array_name' => 'types',
       '#title' => $this->t('Recommended Schema.org types'),
       '#description' => $this->t('Enter recommended Schema.org types to be displayed when creating a new Schema.org type. Recommended Schema.org types will only be displayed on entity types that support adding new Schema.org types.'),
       '#description_link' => 'types',
       '#config_name' => $config_name,
       '#config_key' => 'recommended_schema_types',
+      '#example' => '
+group_name:
+  name: Group label
+  types:
+    - SchemaType01
+    - SchemaType01
+    - SchemaType01
+',
     ];
     $form['types']['default_schema_types'] = [
       '#type' => 'schemadotorg_settings',
-      '#settings_type' => SchemaDotOrgSettings::ASSOCIATIVE,
-      '#settings_format' => 'entity_type|schema_type',
       '#title' => $this->t('Default Schema.org types'),
       '#description' => $this->t('Enter default Schema.org types that will automatically be assigned to an existing entity type/bundle.'),
       '#description_link' => 'types',
       '#config_name' => $config_name,
       '#config_key' => 'default_schema_types',
+      '#example' => 'entity_type: SchemaType',
     ];
     $view_modes = $this->entityDisplayRepository->getViewModes($entity->id());
     $view_modes = array_intersect_key($view_modes, ['teaser' => 'teaser']);
     if ($view_modes) {
       $form['types']['default_schema_type_view_displays'] = [
-        '#type' => 'details',
+        '#type' => 'fieldset',
         '#title' => $this->t('Default Schema.org type view displays'),
         '#open' => TRUE,
       ];
       foreach ($view_modes as $view_mode_id => $view_mode) {
         $form['types']['default_schema_type_view_displays'][$view_mode_id] = [
           '#type' => 'schemadotorg_settings',
-          '#settings_type' => SchemaDotOrgSettings::INDEXED_GROUPED,
-          '#settings_format' => 'SchemaType|property_name_01,property_name_02',
           '#title' => $view_mode['label'],
           '#description' => $this->t('Enter Schema.org types default view display for @display.', ['@display' => $view_mode['label']]),
           '#config_name' => $config_name,
           '#config_key' => 'default_schema_type_view_displays.' . $view_mode_id,
+          '#example' => '
+SchemaType:
+  - property_name_01
+  - property_name_02
+',
         ];
       }
     }
@@ -141,8 +145,6 @@ class SchemaDotOrgMappingTypeForm extends EntityForm {
     ];
     $form['properties']['default_schema_type_properties'] = [
       '#type' => 'schemadotorg_settings',
-      '#settings_type' => SchemaDotOrgSettings::INDEXED_GROUPED,
-      '#settings_format' => 'SchemaType|propertyName01,propertyName02,propertyName02',
       '#title' => $this->t('Default Schema.org type properties'),
       '#description' => $this->t('Enter default Schema.org type properties.')
       . '<br/><br/>'
@@ -152,27 +154,42 @@ class SchemaDotOrgMappingTypeForm extends EntityForm {
       '#description_link' => 'types',
       '#config_name' => $config_name,
       '#config_key' => 'default_schema_type_properties',
+      '#example' => "
+SchemaType:
+  - '-removedPropertyName01'
+  - '-removedPropertyName02'
+  - '-removedPropertyName03'
+  - propertyName01
+  - propertyName02
+  - propertyName03
+",
     ];
     $form['properties']['default_base_fields'] = [
       '#type' => 'schemadotorg_settings',
-      '#settings_type' => SchemaDotOrgSettings::INDEXED_GROUPED,
-      '#settings_format' => 'base_field_name| or base_field_name|property_name_01,property_name_02',
       '#title' => $this->t('Default base field to Schema.org property mappings'),
       '#description' => $this->t('Enter default base field mappings from existing entity properties and fields to Schema.org properties.')
       . ' ' . $this->t('Leave the property_name value blank to allow the base field to be available but not mapped to a Schema.org property.'),
       '#description_link' => 'properties',
       '#config_name' => $config_name,
       '#config_key' => 'default_base_fields',
+      '#example' => '
+base_field_name: null
+base_field_name:
+  - property_name_01
+  - property_name_02
+',
     ];
     $form['properties']['default_component_weights'] = [
       '#type' => 'schemadotorg_settings',
-      '#settings_type' => SchemaDotOrgSettings::ASSOCIATIVE,
-      '#settings_format' => 'component_name|100 or field_name|100',
       '#title' => $this->t('Default component display weights'),
       '#description' => $this->t('Enter default display component weights.')
       . ' ' . $this->t('Generally, existing component weights should come after Schema.org fields and their weighting should start at 200.'),
       '#config_name' => $config_name,
       '#config_key' => 'default_component_weights',
+      '#example' => '
+component_name: 100
+field_name: 100
+',
     ];
     return $form;
   }

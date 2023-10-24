@@ -13,8 +13,11 @@ interface SchemaDotOrgFocalPointManagerInterface {
    * Reset focal point image styles.
    *
    * @param array $settings
-   *   An associative array of image style data keyed by the image style label.
+   *   An associative array of image styles.
+   * @param array|null $original_settings
+   *   An associative array of original image styles.  Defaults to image
+   *   styles saved via configuration.
    */
-  public function resetImageStyles(array $settings): void;
+  public function resetImageStyles(array $settings, ?array $original_settings = NULL): void;
 
 }

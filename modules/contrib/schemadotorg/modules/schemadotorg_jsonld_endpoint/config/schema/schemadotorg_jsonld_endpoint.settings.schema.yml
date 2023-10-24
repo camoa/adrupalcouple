@@ -1,6 +1,6 @@
 schemadotorg_jsonld_endpoint.settings:
   type: config_entity
-  label: Schema.org JSON-LD endpoint settings
+  label: 'Schema.org JSON-LD endpoint settings'
   mapping:
     entity_type_endpoints:
       type: sequence

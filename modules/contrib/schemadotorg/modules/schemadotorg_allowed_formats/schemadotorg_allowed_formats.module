@@ -8,15 +8,6 @@
 declare(strict_types = 1);
 
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\schemadotorg\Element\SchemaDotOrgSettings;
-
-/**
- * Implements hook_modules_installed().
- */
-function schemadotorg_allowed_formats_modules_installed(array $modules): void {
-  \Drupal::moduleHandler()->loadInclude('schemadotorg_allowed_formats', 'install');
-  _schemadotorg_allowed_formats_modules_installed($modules);
-}
 
 /**
  * Implements hook_schemadotorg_property_field_alter().
@@ -60,8 +51,15 @@ function schemadotorg_allowed_formats_schemadotorg_property_field_alter(
   }
 }
 
+/* ************************************************************************** */
+// Schema.org properties settings form.
+/* ************************************************************************** */
+
 /**
  * Implements hook_form_FORM_ID_alter().
+ *
+ * @see \Drupal\schemadotorg\Form\SchemaDotOrgSettingsFormBase::afterBuildDetails
+ * @see \Drupal\schemadotorg\Form\SchemaDotOrgSettingsFormBase::formAlter
  */
 function schemadotorg_allowed_formats_form_schemadotorg_properties_settings_form_alter(array &$form, FormStateInterface $form_state): void {
   $allowed_formats_options = [];
@@ -72,8 +70,26 @@ function schemadotorg_allowed_formats_form_schemadotorg_properties_settings_form
   $form['schemadotorg_allowed_formats'] = [
     '#type' => 'details',
     '#title' => t('Allowed formats settings'),
-    '#open' => TRUE,
-    '#tree' => TRUE,
+  ];
+  $form['schemadotorg_allowed_formats']['default_allowed_formats'] = [
+    '#type' => 'checkboxes',
+    '#title' => t('Default allowed formats'),
+    '#description' => t('Restrict which text formats are allowed, given the user has the required permissions. If no text formats are selected, then all the ones the user has access to will be available.'),
+    '#options' => $allowed_formats_options,
+  ];
+  $form['schemadotorg_allowed_formats']['property_allowed_formats'] = [
+    '#type' => 'schemadotorg_settings',
+    '#title' => t('Property allowed formats'),
+    '#description' => t('Enter allowed formats for specific Schema.org properties.'),
+    '#description_link' => 'properties',
+    '#example' => '
+schemaProperty:
+  - full_html
+  - basic_html
+SchemaType--propertyName:
+  - full_html
+  - basic_html
+',
   ];
   $form['schemadotorg_allowed_formats']['default_hide_help'] = [
     '#type' => 'checkbox',
@@ -84,20 +100,5 @@ function schemadotorg_allowed_formats_form_schemadotorg_properties_settings_form
     '#type' => 'checkbox',
     '#title' => t('Hide text format guidelines.'),
     '#description' => t('If checked, the text format guidelines will be hidden when text format widgets are created.'),
-  ];
-  $form['schemadotorg_allowed_formats']['default_allowed_formats'] = [
-    '#type' => 'checkboxes',
-    '#title' => t('Default allowed formats'),
-    '#description' => t('Restrict which text formats are allowed, given the user has the required permissions. If no text formats are selected, then all the ones the user has access to will be available.'),
-    '#options' => $allowed_formats_options,
-    '#element_validate' => [['\Drupal\schemadotorg\Utility\SchemaDotOrgElementHelper', 'validateMultipleOptions']],
-  ];
-  $form['schemadotorg_allowed_formats']['property_allowed_formats'] = [
-    '#type' => 'schemadotorg_settings',
-    '#title' => t('Property allowed formats'),
-    '#description' => t('Enter allowed formats for specific Schema.org properties.'),
-    '#description_link' => 'properties',
-    '#settings_type' => SchemaDotOrgSettings::INDEXED_GROUPED,
-    '#settings_format' => 'schemaProperty|full_html,basic_html or SchemaType--schemaProperty|full_html,basic_html',
   ];
 }

@@ -7,9 +7,16 @@ namespace Drupal\schemadotorg;
 use Drupal\Core\Database\Connection;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\schemadotorg\Utility\SchemaDotOrgStringHelper;
 
 /**
  * Schema.org schema type manager.
+ *
+ * The Schema.org schema type manager provides an API for understanding and
+ * access Schema.org types, properties, and relatioships in Drupal.
+ *
+ * This service queries and collects data from 'schemadotorg_types' and
+ * 'schemadotorg_properties' database tables.
  */
 class SchemaDotOrgSchemaTypeManager implements SchemaDotOrgSchemaTypeManagerInterface {
   use StringTranslationTrait;
@@ -17,28 +24,22 @@ class SchemaDotOrgSchemaTypeManager implements SchemaDotOrgSchemaTypeManagerInte
   /**
    * Cache of Schema.org tree data.
    *
-   * @var array
-   *
    * @see \Drupal\schemadotorg\SchemaDotOrgSchemaTypeManager::getAllSubTypes
    */
   protected array $tree;
 
   /**
    * Schema.org items cache.
-   *
-   * @var array
    */
   protected array $itemsCache = [];
 
   /**
    * Schema.org superseded cache.
-   *
-   * @var array
    */
   protected array $supersededCache;
 
   /**
-   * Constructs a SchemaDotOrgTypeManger object.
+   * Constructs a SchemaDotOrgSchemaTypeManager object.
    *
    * @param \Drupal\Core\Database\Connection $database
    *   The database connection.
@@ -450,16 +451,33 @@ class SchemaDotOrgSchemaTypeManager implements SchemaDotOrgSchemaTypeManagerInte
   /**
    * {@inheritdoc}
    */
-  public function getAllTypeChildrenAsOptions(string $type, string $indent = ''): array {
+  public function getAllTypeChildrenAsOptions(string $type, array $ignored_types = []): array {
+    return $this->getAllTypeChildrenAsOptionsRecursive($type, $ignored_types);
+  }
+
+  /**
+   * Gets all child Schema.org types below a specified type recursively.
+   *
+   * @param string $type
+   *   The Schema.org type.
+   * @param array $ignored_types
+   *   An array of ignored Schema.org type ids.
+   * @param string $indent
+   *   The indentation.
+   *
+   * @return array
+   *   An associative array of Schema.org types as options
+   */
+  protected function getAllTypeChildrenAsOptionsRecursive(string $type, array $ignored_types = [], string $indent = ''): array {
     $options = [];
     $types = $this->getTypeChildren($type);
     foreach ($types as $subtype) {
-      if ($this->isSuperseded($subtype)) {
+      if ($this->isSuperseded($subtype) || in_array($subtype, $ignored_types)) {
         continue;
       }
       $title = $this->schemaNames->camelCaseToTitleCase($subtype);
       $options[$subtype] = ($indent ? $indent . ' ' : '') . $title;
-      $options += $this->getAllTypeChildrenAsOptions($subtype, $indent . '-');
+      $options += $this->getAllTypeChildrenAsOptionsRecursive($subtype, $ignored_types, $indent . '-');
     }
     return $options;
   }
@@ -741,8 +759,9 @@ class SchemaDotOrgSchemaTypeManager implements SchemaDotOrgSchemaTypeManagerInte
    *   An associative array containing Schema.org type or property item.
    *
    * @return array|false|null
-   *   The Schema.org type or property item with a 'drupal_name' and
-   *   'drupal_label', if the Schema.org label is included with the item.
+   *   The Schema.org type or property item with a 'drupal_name',
+   *   'drupal_label', and 'drupal_description' if the Schema.org label or
+   *    description (a.k.a comment) is included with the item.
    */
   protected function setItemDrupalFields(string $table, array|FALSE|NULL $item): array|FALSE|NULL {
     if (empty($item) || !isset($item['label'])) {
@@ -751,6 +770,7 @@ class SchemaDotOrgSchemaTypeManager implements SchemaDotOrgSchemaTypeManagerInte
 
     $item['drupal_name'] = $this->schemaNames->schemaIdToDrupalName($table, $item['label']);
     $item['drupal_label'] = $this->schemaNames->schemaIdToDrupalLabel($table, $item['label']);
+    $item['drupal_description'] = SchemaDotOrgStringHelper::getFirstSentence($item['comment'] ?? '');
     return $item;
   }
 

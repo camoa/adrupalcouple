@@ -6,6 +6,9 @@ namespace Drupal\schemadotorg_export\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\schemadotorg\SchemaDotOrgEntityFieldManagerInterface;
+use Drupal\schemadotorg\SchemaDotOrgMappingManagerInterface;
+use Drupal\schemadotorg\SchemaDotOrgNamesInterface;
+use Drupal\schemadotorg_mapping_set\SchemaDotOrgMappingSetManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -17,24 +20,18 @@ class SchemaDotOrgExportMappingSetController extends ControllerBase {
 
   /**
    * The Schema.org schema names services.
-   *
-   * @var \Drupal\schemadotorg\SchemaDotOrgNamesInterface
    */
-  protected $schemaNames;
+  protected SchemaDotOrgNamesInterface $schemaNames;
 
   /**
    * The Schema.org mapping manager service.
-   *
-   * @var \Drupal\schemadotorg\SchemaDotOrgMappingManagerInterface
    */
-  protected $schemaMappingManager;
+  protected SchemaDotOrgMappingManagerInterface $schemaMappingManager;
 
   /**
    * The Schema.org mapping set manager service.
-   *
-   * @var \Drupal\schemadotorg_mapping_set\SchemaDotOrgMappingSetManagerInterface
    */
-  protected $schemaMappingSetManager;
+  protected SchemaDotOrgMappingSetManagerInterface $schemaMappingSetManager;
 
   /**
    * {@inheritdoc}

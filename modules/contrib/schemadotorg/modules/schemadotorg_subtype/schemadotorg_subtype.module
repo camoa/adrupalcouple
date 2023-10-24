@@ -12,7 +12,6 @@ use Drupal\Core\Field\FieldFilteredMarkup;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\field\Entity\FieldStorageConfig;
-use Drupal\schemadotorg\Element\SchemaDotOrgSettings;
 use Drupal\schemadotorg\SchemaDotOrgEntityFieldManagerInterface;
 use Drupal\schemadotorg\Utility\SchemaDotOrgElementHelper;
 
@@ -21,7 +20,7 @@ use Drupal\schemadotorg\Utility\SchemaDotOrgElementHelper;
  */
 function schemadotorg_subtype_help(string $route_name, RouteMatchInterface $route_match): string|array|NULL {
   if ($route_name === 'schemadotorg_subtype.settings') {
-    return '<p>' . t('The <em>Schema.org subtype settings</em> page allows administrators to configure default setting for subtyping.') . '<p>';
+    return '<p>' . t('The <strong>Schema.org subtype settings</strong> page allows administrators to configure default setting for subtyping.') . '<p>';
   }
 
   return NULL;
@@ -102,16 +101,15 @@ function schemadotorg_subtype_schemadotorg_mapping_defaults_alter(array &$defaul
     + $default_properties;
 }
 
+/* ************************************************************************** */
+// Schema.org JSON-LD.
+/* ************************************************************************** */
+
 /**
- * Alter the Schema.org JSON-LD data for an entity.
+ * Implements hook_schemadotorg_jsonld_schema_type_entity_alter().
  *
  * Besides, altering an existing Schema.org mapping's JSON-LD data, modules can
  * define custom JSON-LD data for any entity type.
- *
- * @param array $data
- *   The Schema.org JSON-LD data for an entity.
- * @param \Drupal\Core\Entity\EntityInterface $entity
- *   The entity.
  */
 function schemadotorg_subtype_schemadotorg_jsonld_schema_type_entity_alter(array &$data, EntityInterface $entity): void {
   // Check that the subtype property is set, if not exit.
@@ -165,7 +163,7 @@ function schemadotorg_subtype_form_schemadotorg_mapping_form_alter(array &$form,
   $mapping_defaults = $form_state->get('mapping_defaults');
   $subtype_defaults = $mapping_defaults['properties']['subtype'] ?? NULL;
 
-  // Make sure the current Schema.org type supports subtypeing.
+  // Make sure the current Schema.org type supports subtyping.
   if (empty($subtype_defaults)) {
     return;
   }
@@ -252,8 +250,6 @@ function schemadotorg_subtype_form_schemadotorg_mapping_form_alter(array &$form,
   ];
   $form['mapping']['subtype'][$add_field]['allowed_values'] = [
     '#type' => 'schemadotorg_settings',
-    '#settings_type' => SchemaDotOrgSettings::ASSOCIATIVE,
-    '#settings_description' => FALSE,
     '#title' => t('Allowed values'),
     '#description' => '<p>'
     . t('The possible values this field can contain. Enter one value per line, in the format key|label.') . '<br/>'
@@ -263,6 +259,7 @@ function schemadotorg_subtype_form_schemadotorg_mapping_form_alter(array &$form,
     . '<p>' . t('Allowed HTML tags in labels: @tags', ['@tags' => FieldFilteredMarkup::displayAllowedTags()]) . '</p>',
     '#required' => TRUE,
     '#default_value' => $subtype_defaults['allowed_values'],
+    '#example' => 'value: text',
   ];
 
   SchemaDotOrgElementHelper::setElementParents(
@@ -277,13 +274,14 @@ function schemadotorg_subtype_form_schemadotorg_mapping_form_alter(array &$form,
 
 /**
  * Implements hook_form_FORM_ID_alter().
+ *
+ * @see \Drupal\schemadotorg\Form\SchemaDotOrgSettingsFormBase::afterBuildDetails
+ * @see \Drupal\schemadotorg\Form\SchemaDotOrgSettingsFormBase::formAlter
  */
 function schemadotorg_subtype_form_schemadotorg_types_settings_form_alter(array &$form, FormStateInterface $form_state): void {
   $form['schemadotorg_subtype'] = [
     '#type' => 'details',
     '#title' => t('Subtype settings'),
-    '#open' => TRUE,
-    '#tree' => TRUE,
   ];
   $form['schemadotorg_subtype']['default_field_suffix'] = [
     '#type' => 'textfield',
@@ -303,20 +301,27 @@ function schemadotorg_subtype_form_schemadotorg_types_settings_form_alter(array 
   ];
   $form['schemadotorg_subtype']['default_subtypes'] = [
     '#type' => 'schemadotorg_settings',
-    '#settings_type' => SchemaDotOrgSettings::INDEXED,
-    '#settings_format' => 'SchemaType',
     '#title' => t('Default subtypes'),
     '#description' => t('Enter Schema.org types that support subtyping by default.'),
     '#description_link' => 'subtypes',
+    '#example' => '
+- SchemaType01
+- SchemaType02
+- SchemaType03
+',
   ];
   $form['schemadotorg_subtype']['default_allowed_values'] = [
     '#type' => 'schemadotorg_settings',
-    '#settings_type' => SchemaDotOrgSettings::ASSOCIATIVE_GROUPED,
-    '#settings_format' => 'SchemaType|SchemaSubtype01:Subtype 01,SchemaSubtype02:Subtype 02,SchemaSubtype03:Subtype 03',
     '#title' => t('Schema.org default subtypes allowed values'),
     '#description' => t('Enter default subtype allowed values for Schema.org types.')
       . ' '
       . t('Subtype allowed values that are not valid Schema.org types will be rendered as an <a href=":href">additionalType</a> property via JSON-LD', [':href' => 'https://schema.org/additionalType']),
     '#description_link' => 'types',
+    '#example' => '
+SchemaType:
+  SchemaSubtype01: Subtype 01
+  SchemaSubtype02: Subtype 02
+  SchemaSubtype03: Subtype 03
+',
   ];
 }

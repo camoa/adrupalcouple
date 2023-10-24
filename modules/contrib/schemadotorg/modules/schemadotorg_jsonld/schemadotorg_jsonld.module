@@ -16,7 +16,7 @@ use Drupal\Core\Routing\RouteMatchInterface;
  */
 function schemadotorg_jsonld_help(string $route_name, RouteMatchInterface $route_match): string|array|NULL {
   if ($route_name === 'schemadotorg_jsonld.settings') {
-    return '<p>' . t('The <em>Schema.org JSON-LD settings</em> page allows administrators to configure the default settings for the Schema.org JSON-LD data and endpoints.') . '<p>';
+    return '<p>' . t('The <strong>Schema.org JSON-LD settings</strong> page allows administrators to configure the default settings for the Schema.org JSON-LD data and endpoints.') . '<p>';
   }
 
   return NULL;

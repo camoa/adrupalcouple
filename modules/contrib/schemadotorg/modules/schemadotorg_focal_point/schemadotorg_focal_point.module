@@ -9,7 +9,6 @@ declare(strict_types = 1);
 
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\field\Entity\FieldConfig;
-use Drupal\schemadotorg\Element\SchemaDotOrgSettings;
 use Drupal\schemadotorg\SchemaDotOrgMappingInterface;
 
 /**
@@ -83,23 +82,37 @@ function schemadotorg_focal_point_schemadotorg_property_field_alter(
   }
 }
 
+/* ************************************************************************** */
+// Schema.org properties settings form.
+/* ************************************************************************** */
+
 /**
  * Implements hook_form_FORM_ID_alter().
+ *
+ * @see \Drupal\schemadotorg\Form\SchemaDotOrgSettingsFormBase::afterBuildDetails
+ * @see \Drupal\schemadotorg\Form\SchemaDotOrgSettingsFormBase::formAlter
  */
 function schemadotorg_focal_point_form_schemadotorg_properties_settings_form_alter(array &$form, FormStateInterface $form_state): void {
   $form['schemadotorg_focal_point'] = [
     '#type' => 'details',
     '#title' => t('Focal point settings'),
-    '#open' => TRUE,
-    '#tree' => TRUE,
+  ];
+  $form['schemadotorg_focal_point']['original_image_styles'] = [
+    '#type' => 'value',
+    '#value' => \Drupal::config('schemadotorg_focal_point.settings')->get('image_styles'),
   ];
   $form['schemadotorg_focal_point']['image_styles'] = [
     '#type' => 'schemadotorg_settings',
-    '#settings_type' => SchemaDotOrgSettings::ASSOCIATIVE_GROUPED_NAMED,
-    '#settings_format' => 'name|Image style label|width:1000,height:1000',
-    '#array_name' => 'data',
     '#title' => t('Image styles'),
-    '#description' => t('Enter focal point images styles for decoupled front-ends.'),
+    '#description' => t('Enter focal point responsive images styles for decoupled front-ends.')
+    . ' ' . t('The <code>ratio</code> and <code>max-width</code> are required.')
+    . ' ' . t('The default <code>increment</code> is 100.'),
+    '#example' => "
+4x3:
+  ratio: '4:3'
+  max-width: 1200
+  min-width: 300
+",
   ];
 
   // Add validation callback.
@@ -118,11 +131,19 @@ function schemadotorg_focal_point_settings_form_validate(array &$form, FormState
   $values = $form_state->getValue('schemadotorg_focal_point');
   $element = $form['schemadotorg_focal_point']['image_styles'];
   foreach ($values['image_styles'] as $name => $settings) {
-    $t_args = ['%label' => $name];
-
-    // Validate that width and height are set.
-    if (!isset($settings['data']['width']) || !isset($settings['data']['height'])) {
-      $form_state->setError($element, t('A width and height is required for the %label image style.', $t_args));
+    // Validate required settings.
+    $required_settings = [
+      'ratio',
+      'max-width',
+    ];
+    foreach ($required_settings as $required_setting) {
+      if (!isset($settings[$required_setting])) {
+        $t_args = [
+        '@setting' => $required_setting,
+        '%label' => $name,
+        ];
+        $form_state->setError($element, t('A @setting is required for the %label image style.', $t_args));
+      }
     }
   }
 }
@@ -133,9 +154,10 @@ function schemadotorg_focal_point_settings_form_validate(array &$form, FormState
  * @see schemadotorg_focal_point_form_schemadotorg_properties_settings_form_alter()
  */
 function schemadotorg_focal_point_settings_form_submit(array &$form, FormStateInterface $form_state): void {
+  $original_image_styles = $form_state->getValue(['schemadotorg_focal_point', 'original_image_styles']);
+  $image_styles = $form_state->getValue(['schemadotorg_focal_point', 'image_styles']);
+
   /** @var \Drupal\schemadotorg_focal_point\SchemaDotOrgFocalPointManagerInterface $focal_point_manager */
   $focal_point_manager = \Drupal::service('schemadotorg_focal_point.manager');
-
-  $image_styles = $form_state->getValue(['schemadotorg_focal_point', 'image_styles']);
-  $focal_point_manager->resetImageStyles($image_styles);
+  $focal_point_manager->resetImageStyles($image_styles, $original_image_styles);
 }

@@ -1,7 +1,0 @@
-schemadotorg_translation.settings:
-  path: '/admin/config/search/schemadotorg/settings/translate'
-  defaults:
-    _title: 'Schema.org translations settings'
-    _form: 'Drupal\schemadotorg_translation\Form\SchemaDotOrgTranslationSettingsForm'
-  requirements:
-    _permission: 'administer schemadotorg'

@@ -16,8 +16,12 @@ translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:
-  handler: 'default:node'
+  handler: 'schemadotorg:node'
   handler_settings:
+    target_type: node
+    schema_types:
+      Organization: Organization
+      ProgramMembership: ProgramMembership
     target_bundles:
       organization: organization
 field_type: entity_reference

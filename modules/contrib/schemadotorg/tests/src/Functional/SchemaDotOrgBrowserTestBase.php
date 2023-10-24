@@ -5,6 +5,8 @@ declare(strict_types = 1);
 namespace Drupal\Tests\schemadotorg\Functional;
 
 use Drupal\schemadotorg\SchemaDotOrgMappingInterface;
+use Drupal\schemadotorg\SchemaDotOrgMappingManagerInterface;
+use Drupal\schemadotorg\SchemaDotOrgMappingStorage;
 use Drupal\Tests\BrowserTestBase;
 use Drupal\Tests\schemadotorg\Traits\SchemaDotOrgTestTrait;
 
@@ -15,9 +17,7 @@ abstract class SchemaDotOrgBrowserTestBase extends BrowserTestBase {
   use SchemaDotOrgTestTrait;
 
   /**
-   * Set default theme to stable.
-   *
-   * @var string
+   * {@inheritdoc}
    */
   protected $defaultTheme = 'stark';
 
@@ -31,17 +31,13 @@ abstract class SchemaDotOrgBrowserTestBase extends BrowserTestBase {
 
   /**
    * The Schema.org mapping storage.
-   *
-   * @var \Drupal\schemadotorg\SchemaDotOrgMappingStorage
    */
-  protected $mappingStorage;
+  protected SchemaDotOrgMappingStorage $mappingStorage;
 
   /**
    * The Schema.org mapping manager.
-   *
-   * @var \Drupal\schemadotorg\SchemaDotOrgMappingManagerInterface
    */
-  protected $mappingManager;
+  protected SchemaDotOrgMappingManagerInterface $mappingManager;
 
   /**
    * {@inheritdoc}

@@ -5,7 +5,6 @@ declare(strict_types = 1);
 namespace Drupal\schemadotorg_jsonld\Form;
 
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\schemadotorg\Element\SchemaDotOrgSettings;
 use Drupal\schemadotorg\Form\SchemaDotOrgSettingsFormBase;
 
 /**
@@ -34,24 +33,24 @@ class SchemaDotOrgJsonLdSettingsForm extends SchemaDotOrgSettingsFormBase {
     $form['schemadotorg_jsonld'] = [
       '#type' => 'details',
       '#title' => $this->t('JSON-LD settings'),
-      '#open' => TRUE,
-      '#tree' => TRUE,
     ];
     $form['schemadotorg_jsonld']['property_order'] = [
       '#type' => 'schemadotorg_settings',
-      '#settings_type' => SchemaDotOrgSettings::INDEXED,
-      '#settings_format' => 'propertyName',
       '#title' => $this->t('Schema.org property order'),
       '#description' => $this->t('Enter the default Schema.org property order.'),
       '#description_link' => 'properties',
+      '#example' => '
+- propertyName01
+- propertyName02
+- propertyName03
+',
     ];
     $form['schemadotorg_jsonld']['property_image_styles'] = [
       '#type' => 'schemadotorg_settings',
-      '#settings_type' => SchemaDotOrgSettings::ASSOCIATIVE,
-      '#settings_format' => 'propertyName|image_style',
       '#title' => $this->t('Schema.org property image styles'),
       '#description' => $this->t('Enter the Schema.org property and the desired image style.'),
       '#description_link' => 'properties',
+      '#example' => 'propertyName: image_style',
     ];
     return parent::buildForm($form, $form_state);
   }

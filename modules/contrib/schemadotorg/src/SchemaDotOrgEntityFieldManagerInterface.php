@@ -104,7 +104,7 @@ interface SchemaDotOrgEntityFieldManagerInterface {
    * - Schema.org entity reference.
    * - Schema.org enumerations.
    * - Drupal allowed values.
-   * - Schema.org (data) type  specific field types.
+   * - Schema.org (data) type specific field types.
    * - String or entity reference.
    * - Alter field types.
    *

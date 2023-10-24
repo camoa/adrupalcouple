@@ -20,7 +20,7 @@ use Drupal\Core\Form\FormStateInterface;
  *   }
  * )
  */
-class CustomListFormatter extends CustomFormatterBase {
+class CustomListFormatter extends BaseFormatter {
 
   /**
    * {@inheritdoc}
@@ -54,6 +54,7 @@ class CustomListFormatter extends CustomFormatterBase {
    * {@inheritdoc}
    */
   public function settingsSummary(): array {
+    $summary = parent::settingsSummary();
     $options = [
       'ul' => $this->t('Unordered list'),
       'ol' => $this->t('Numbered list'),
@@ -74,6 +75,7 @@ class CustomListFormatter extends CustomFormatterBase {
    */
   protected function viewValue(FieldItemInterface $item): array {
     $class = Html::cleanCssIdentifier($this->fieldDefinition->get('field_name'));
+    $langcode = $item->getLangcode();
     $output = [
       '#theme' => [
         'item_list',
@@ -85,16 +87,13 @@ class CustomListFormatter extends CustomFormatterBase {
         'class' => [$class, $class . '--list'],
       ],
     ];
+    $values = $this->getFormattedValues($item, $langcode);
 
-    foreach ($this->getCustomFieldItems() as $name => $customItem) {
-      $markup = $customItem->value($item);
-      if ($markup === '' || $markup === NULL) {
-        continue;
-      }
+    foreach ($values as $value) {
       $output['#items'][] = [
-        '#markup' => $customItem->getLabel() . ': ' . $markup,
+        '#markup' => $value['label'] . ': ' . $value['value']['#markup'],
         '#wrapper_attributes' => [
-          'class' => [$class . '__' . Html::cleanCssIdentifier($name)],
+          'class' => [$class . '__' . Html::cleanCssIdentifier($value['name'])],
         ],
       ];
     }

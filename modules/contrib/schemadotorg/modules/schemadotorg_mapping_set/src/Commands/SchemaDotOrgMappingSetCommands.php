@@ -205,13 +205,15 @@ class SchemaDotOrgMappingSetCommands extends DrushCommands {
    */
   protected function interactChooseMappingSet(InputInterface $input, string $action): void {
     $name = $input->getArgument('name');
-    if (!$name) {
-      $sets = $this->configFactory->get('schemadotorg_mapping_set.settings')->get('sets');
-      $sets = array_keys($sets);
-      $choices = array_combine($sets, $sets);
-      $choice = $this->io()->choice(dt('Choose a Schema.org mapping set to @action', ['@action' => $action]), $choices);
-      $input->setArgument('name', $choice);
+    if ($name) {
+      return;
     }
+
+    $sets = $this->configFactory->get('schemadotorg_mapping_set.settings')->get('sets');
+    $sets = array_keys($sets);
+    $choices = array_combine($sets, $sets);
+    $choice = $this->io()->choice(dt('Choose a Schema.org mapping set to @action', ['@action' => $action]), $choices);
+    $input->setArgument('name', $choice);
   }
 
   /**

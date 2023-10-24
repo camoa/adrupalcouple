@@ -17,6 +17,8 @@ settings:
       unsigned: 0
       precision: '10'
       scale: '2'
+      size: normal
+      datetime_type: datetime
     string_long_test:
       name: string_long_test
       type: string_long
@@ -24,6 +26,8 @@ settings:
       unsigned: 0
       precision: '10'
       scale: '2'
+      size: normal
+      datetime_type: datetime
     integer_test:
       name: integer_test
       type: integer
@@ -31,6 +35,8 @@ settings:
       unsigned: 0
       precision: '10'
       scale: '2'
+      size: normal
+      datetime_type: datetime
     decimal_test:
       name: decimal_test
       type: decimal
@@ -38,6 +44,8 @@ settings:
       unsigned: 0
       precision: '10'
       scale: '2'
+      size: normal
+      datetime_type: datetime
     float_test:
       name: float_test
       type: float
@@ -45,6 +53,8 @@ settings:
       unsigned: 0
       precision: '10'
       scale: '2'
+      size: normal
+      datetime_type: datetime
     email_test:
       name: email_test
       type: email
@@ -52,6 +62,8 @@ settings:
       unsigned: 0
       precision: '10'
       scale: '2'
+      size: normal
+      datetime_type: datetime
     telephone_test:
       name: telephone_test
       type: telephone
@@ -59,6 +71,8 @@ settings:
       unsigned: 0
       precision: '10'
       scale: '2'
+      size: normal
+      datetime_type: datetime
     uri_test:
       name: uri_test
       type: uri
@@ -66,6 +80,8 @@ settings:
       unsigned: 0
       precision: '10'
       scale: '2'
+      size: normal
+      datetime_type: datetime
     boolean_test:
       name: boolean_test
       type: boolean
@@ -73,6 +89,8 @@ settings:
       unsigned: 0
       precision: '10'
       scale: '2'
+      size: normal
+      datetime_type: datetime
     uuid_test:
       name: uuid_test
       type: uuid
@@ -80,6 +98,8 @@ settings:
       unsigned: 0
       precision: '10'
       scale: '2'
+      size: normal
+      datetime_type: datetime
     color_test:
       name: color_test
       type: color
@@ -87,6 +107,8 @@ settings:
       unsigned: 0
       precision: '10'
       scale: '2'
+      size: normal
+      datetime_type: datetime
     map_test:
       name: map_test
       type: map
@@ -94,6 +116,17 @@ settings:
       unsigned: 0
       precision: '10'
       scale: '2'
+      size: normal
+      datetime_type: datetime
+    datetime_test:
+      name: datetime_test
+      type: datetime
+      max_length: '255'
+      unsigned: 0
+      precision: '10'
+      scale: '2'
+      size: normal
+      datetime_type: datetime
 module: custom_field
 locked: false
 cardinality: 3

@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace Drupal\Tests\schemadotorg_epp\Functional;
 
+use Drupal\field\Entity\FieldConfig;
 use Drupal\Tests\schemadotorg\Functional\SchemaDotOrgBrowserTestBase;
 
 /**
@@ -16,7 +17,9 @@ class SchemaDotOrgEntityPrepopulateNodeLinksTest extends SchemaDotOrgBrowserTest
 
   // phpcs:disable
   /**
-   * Disabled config schema checking until the cer.module has fixed its schema.
+   * Disabled config schema checking until the epp.module has fixed its schema.
+   *
+   * @see https://www.drupal.org/project/epp/issues/3348759
    */
   protected $strictConfigSchema = FALSE;
   // phpcs:enable
@@ -26,13 +29,7 @@ class SchemaDotOrgEntityPrepopulateNodeLinksTest extends SchemaDotOrgBrowserTest
    *
    * @var array
    */
-  protected static $modules = [
-    'system',
-    'user',
-    'node',
-    'schemadotorg_cer',
-    'schemadotorg_epp',
-  ];
+  protected static $modules = ['schemadotorg_epp'];
 
   /**
    * Test Schema.org Entity Prepopulate node links.
@@ -40,16 +37,30 @@ class SchemaDotOrgEntityPrepopulateNodeLinksTest extends SchemaDotOrgBrowserTest
   public function testNodeLinks(): void {
     $assert_session = $this->assertSession();
 
-    $this->drupalLogin($this->rootUser);
-
-    /* ********************************************************************** */
-
-    $this->appendSchemaTypeDefaultProperties('Organization', ['member']);
+    $this->appendSchemaTypeDefaultProperties('Organization', ['member', 'subOrganization', 'parentOrganization']);
     $this->appendSchemaTypeDefaultProperties('LocalBusiness', ['-member', 'employee']);
+    $this->config('schemadotorg.settings')
+      ->set('schema_properties.default_fields.worksFor.type', 'field_ui:entity_reference:node')
+      ->set('schema_properties.default_fields.memberOf.type', 'field_ui:entity_reference:node')
+      ->set('schema_properties.default_fields.subOrganization.type', 'field_ui:entity_reference:node')
+      ->set('schema_properties.default_fields.parentOrganization.type', 'field_ui:entity_reference:node')
+      ->save();
 
     $this->createSchemaEntity('node', 'Person');
     $this->createSchemaEntity('node', 'Organization');
     $this->createSchemaEntity('node', 'LocalBusiness');
+
+    $this->drupalLogin($this->rootUser);
+
+    /* ********************************************************************** */
+
+    // Exclude LocalBusiness from Person.memberOf entity reference.
+    /** @var \Drupal\Core\Field\FieldConfigInterface $field_config */
+    $field_config = FieldConfig::load('node.person.schema_member_of');
+    $handler_settings = $field_config->getSetting('handler_settings');
+    $handler_settings['excluded_schema_types'] = ['LocalBusiness' => 'LocalBusiness'];
+    $field_config->setSetting('handler_settings', $handler_settings);
+    $field_config->save();
 
     $organization_node = $this->drupalCreateNode(['type' => 'organization']);
     $local_business_node = $this->drupalCreateNode(['type' => 'local_business']);
@@ -81,7 +92,7 @@ class SchemaDotOrgEntityPrepopulateNodeLinksTest extends SchemaDotOrgBrowserTest
 
     // Check node links dropdown via the UI to trigger cache clear.
     // @see schemadotorg_epp_schemadotorg_properties_settings_submit()
-    $this->drupalGet('/admin/config/search/schemadotorg/settings/properties');
+    $this->drupalGet('/admin/config/schemadotorg/settings/properties');
     $this->submitForm(['schemadotorg_epp[node_links_dropdown]' => FALSE], 'Save configuration');
 
     // Check that node links are NOT displayed as dropdown.

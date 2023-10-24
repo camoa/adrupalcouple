@@ -1,24 +1,23 @@
 schemadotorg_focal_point.settings:
   type: config_entity
-  label: Schema.org Focal Point settings
+  label: 'Schema.org Focal point settings'
   mapping:
     image_styles:
       type: sequence
-      label: 'Image style'
+      label: 'Image styles'
       sequence:
         type: mapping
         label: 'Image style'
         mapping:
-          label:
+          ratio:
             type: string
-            label: Label
-          data:
-            type: mapping
-            label: Data
-            mapping:
-              width:
-                type: integer
-                label: Width
-              height:
-                type: integer
-                label: Height
+            label: Ratio
+          max-width:
+            type: integer
+            label: Max-width
+          min-width:
+            type: integer
+            label: Min-width
+          increment:
+            type: integer
+            label: Increment

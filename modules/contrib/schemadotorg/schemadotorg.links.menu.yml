@@ -1,26 +1,23 @@
 schemadotorg.overview:
-  title: 'Schema.org'
-  parent: system.admin_config_search
+  title: Schema.org
+  parent: system.admin_config
   description: 'List of Schema.org mappings to extend site functionality.'
-  route_name: entity.schemadotorg_mapping.collection
-
+  route_name: schemadotorg
 schemadotorg.mappings:
-  title: 'Mappings'
+  title: Mappings
   parent: schemadotorg.overview
-  description: 'List of Schema.org mappings to extend site functionality.'
+  description: 'List of mappings from Drupal entities to Schema.org types.'
   route_name: entity.schemadotorg_mapping.collection
   weight: 0
-
 schemadotorg.mapping_types:
   title: 'Mapping types'
   parent: schemadotorg.overview
-  description: 'List of all available mapping types with default settings for available Drupal entity types.'
+  description: 'List of mapping types with default settings for Drupal entity types.'
   route_name: entity.schemadotorg_mapping_type.collection
   weight: 10
-
 schemadotorg.settings:
-  title: 'Settings'
+  title: Settings
   parent: schemadotorg.overview
-  description: 'Configure the default settings for the Schema.org Blueprints module.'
+  description: 'Configuration settings for the Schema.org Blueprints module and sub-modules.'
   route_name: schemadotorg.settings
   weight: 100

@@ -22,7 +22,7 @@ Features
 - List of all Schema.org types.
 - List of all Schema.org properties.
 - Overview of Schema.org to Drupal naming conventions and pattern.
-- Overview of Schema.org mappings.
+- Overview of Schema.org descriptiona.
 - References to blog posts and articles about Schema.org types.
 
 
@@ -30,6 +30,6 @@ Configuration
 -------------
 
 - Go to the Schema.org report references settings page.  
-  (/admin/config/search/schemadotorg/settings/references)
+  (/admin/config/schemadotorg/settings/references)
 - Enter links to general information about Schema.org.
 - Enter links to specific issues/discussions about Schema.org types.

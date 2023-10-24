@@ -11,7 +11,6 @@ use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Field\FieldItemInterface;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\schemadotorg\Element\SchemaDotOrgSettings;
 use Drupal\schemadotorg\Entity\SchemaDotOrgMapping;
 use Drupal\schemadotorg\SchemaDotOrgMappingInterface;
 
@@ -61,6 +60,7 @@ function schemadotorg_role_schemadotorg_property_field_alter(
     'link' => TRUE,
     'override_action' => 'suffix',
   ];
+
 }
 
 /**
@@ -256,41 +256,58 @@ function schemadotorg_role_jsonapi_resource_config_presave(EntityInterface $enti
 }
 
 /* ************************************************************************** */
-// Settings form.
+// Schema.org properties settings form.
 /* ************************************************************************** */
 
 /**
  * Implements hook_form_FORM_ID_alter().
+ *
+ * @see \Drupal\schemadotorg\Form\SchemaDotOrgSettingsFormBase::afterBuildDetails
+ * @see \Drupal\schemadotorg\Form\SchemaDotOrgSettingsFormBase::formAlter
  */
 function schemadotorg_role_form_schemadotorg_properties_settings_form_alter(array &$form, FormStateInterface $form_state): void {
   $form['schemadotorg_role'] = [
     '#type' => 'details',
     '#title' => t('Role settings'),
-    '#open' => TRUE,
-    '#tree' => TRUE,
   ];
   $form['schemadotorg_role']['field_definitions'] = [
     '#type' => 'schemadotorg_settings',
-    '#settings_type' => SchemaDotOrgSettings::ASSOCIATIVE_GROUPED,
-    '#settings_format' => "field_name|field_name:name,label:Label,description:Some description,unlimited:true,required:true,role_name:name",
-    '#array_name' => 'definition',
     '#title' => t('Role field definitions'),
     '#description' => t('Enter role field definitions which will be available to Schema.org properties.'),
+    '#example' => "
+field_name:
+  field_name: name,
+  label: Label
+  description: Some description
+  unlimited: true
+  required: true
+  role_name: name
+",
   ];
   $form['schemadotorg_role']['schema_types'] = [
     '#type' => 'schemadotorg_settings',
-    '#settings_type' => SchemaDotOrgSettings::INDEXED_GROUPED,
-    '#settings_format' => 'propertyName|field_name01,field_name02 or SchemaType--propertyName|field_name01,field_name02',
     '#array_name' => 'definition',
     '#title' => t('Schema.org types roles'),
     '#description' => t('Enter Schema.org properties and their roles.'),
+    '#example' => '
+propertyName:
+  - field_name01
+  - field_name02
+SchemaType--propertyName:
+  - field_name01
+  - field_name02
+',
   ];
   $form['schemadotorg_role']['entity_reference_overrides'] = [
     '#type' => 'schemadotorg_settings',
-    '#settings_type' => SchemaDotOrgSettings::INDEXED,
     '#title' => t('Entity reference overrides'),
     '#description' => t('Enter the Schema.org properties that should should use the Entity Reference Override field to capture an entity references roles.'),
     '#description_link' => 'properties',
     '#access' => \Drupal::moduleHandler()->moduleExists('entity_reference_override'),
+    '#example' => '
+- propertyName01
+- propertyName02
+- propertyName03
+',
   ];
 }

@@ -1,10 +1,10 @@
-schemadotorg.schemadotorg_mapping.*.*:
+'schemadotorg.schemadotorg_mapping.*.*':
   type: config_entity
-  label: Schema.org mapping
+  label: 'Schema.org mapping'
   mapping:
     id:
       type: string
-      label: 'ID'
+      label: ID
     target_entity_type_id:
       type: string
       label: 'Target entity type'

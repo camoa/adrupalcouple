@@ -34,14 +34,14 @@ class SchemaDotOrgJsonLdCustomValidationTest extends SchemaDotOrgBrowserTestBase
     $this->drupalLogin($this->rootUser);
 
     // Check validation of associative array setting's JSON.
-    $this->drupalGet('/admin/config/search/schemadotorg/settings/jsonld');
-    $this->submitForm(['schemadotorg_jsonld_custom[default_schema_type_json]' => 'xxx|yyy'], 'Save configuration');
-    $assert_session->responseContains('The JSON is not valid for <em class="placeholder">xxx</em>. <em class="placeholder">Syntax error</em>');
+    $this->drupalGet('/admin/config/schemadotorg/settings/jsonld');
+    $this->submitForm(['schemadotorg_jsonld_custom[default_schema_type_json]' => 'xxx: yyy'], 'Save configuration');
+    $assert_session->responseContains('Default Schema.org type custom JSON-LD field is not valid JSON for <em class="placeholder">xxx</em>. <em class="placeholder">Syntax error</em>');
 
     // Check validation of a mapping's JSON.
     $this->drupalGet('/admin/structure/types/schemadotorg', ['query' => ['type' => 'Article']]);
     $this->submitForm(['mapping[third_party_settings][schemadotorg_jsonld_custom][json]' => 'xxx'], 'Save');
-    $assert_session->responseContains('The JSON is not valid. <em class="placeholder">Syntax error</em>');
+    $assert_session->responseContains('Custom JSON-LD field is not valid JSON. <em class="placeholder">Syntax error</em>');
   }
 
 }

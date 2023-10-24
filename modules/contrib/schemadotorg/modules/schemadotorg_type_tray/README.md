@@ -21,6 +21,7 @@ Features
   - MODULE\_NAME/images/schemadotorg\_type\_tray/icon 
   - MODULE\_NAME/images/schemadotorg\_type\_tray/thumbnail
 
+
 Requirements
 ------------
 

@@ -50,7 +50,7 @@ content:
     third_party_settings: {  }
   schema_related_link:
     type: link_default
-    weight: 87
+    weight: 89
     region: content
     settings:
       placeholder_url: ''
@@ -58,7 +58,7 @@ content:
     third_party_settings: {  }
   schema_significant_link:
     type: link_default
-    weight: 86
+    weight: 88
     region: content
     settings:
       placeholder_url: ''

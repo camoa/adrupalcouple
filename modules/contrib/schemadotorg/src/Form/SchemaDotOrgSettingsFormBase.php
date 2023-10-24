@@ -6,6 +6,7 @@ namespace Drupal\schemadotorg\Form;
 
 use Drupal\Component\Utility\NestedArray;
 use Drupal\Core\Config\Config;
+use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Element;
@@ -18,10 +19,8 @@ abstract class SchemaDotOrgSettingsFormBase extends ConfigFormBase {
 
   /**
    * The module handler.
-   *
-   * @var \Drupal\Core\Extension\ModuleHandlerInterface
    */
-  protected $moduleHandler;
+  protected ModuleHandlerInterface $moduleHandler;
 
   /**
    * {@inheritdoc}
@@ -40,6 +39,9 @@ abstract class SchemaDotOrgSettingsFormBase extends ConfigFormBase {
     $config_name = reset($config_names);
     $config = $this->config($config_name);
 
+    // Set the default values for the form being built.
+    // Sub-modules default values are set via a form alter hook.
+    // @see \Drupal\schemadotorg\Form\SchemaDotOrgSettingsFormBase::formAlter
     $settings_name = explode('.', $config_name)[1];
     if (isset($form[$settings_name])) {
       $elements = $form[$settings_name];
@@ -47,8 +49,9 @@ abstract class SchemaDotOrgSettingsFormBase extends ConfigFormBase {
     else {
       $elements = $form;
     }
-    static::setDefaultValuesRecursive($elements, $config);
+    static::setElementRecursive($elements, $config);
 
+    $form['#tree'] = TRUE;
     $form['#after_build'][] = [get_class($this), 'afterBuildDetails'];
     return parent::buildForm($form, $form_state);
   }
@@ -60,7 +63,7 @@ abstract class SchemaDotOrgSettingsFormBase extends ConfigFormBase {
     $form_id = $form_state->getFormObject()->getFormId();
 
     // Only open the first details element.
-    $is_first = TRUE;
+    $is_first = ($form_id !== 'schemadotorg_general_settings_form');
     $has_details = FALSE;
     foreach (Element::children($form) as $child_key) {
       if (NestedArray::getValue($form, [$child_key, '#type']) === 'details') {
@@ -107,13 +110,15 @@ abstract class SchemaDotOrgSettingsFormBase extends ConfigFormBase {
   /**
    * Alter Schema.org settings forms.
    *
-   * Automatically set the default values for Schema.org settings forms that
-   * are altered by sub-modules.
+   * Automatically set the default values and additional properties for
+   * Schema.org settings forms that are altered by sub-modules.
    *
    * @param array $form
    *   An associative array containing the structure of the form.
    * @param \Drupal\Core\Form\FormStateInterface $form_state
    *   The current state of the form.
+   *
+   * @see schemadotorg_form_alter()
    */
   public static function formAlter(array &$form, FormStateInterface $form_state): void {
     if (!$form_state->getFormObject() instanceof SchemaDotOrgSettingsFormBase) {
@@ -123,13 +128,13 @@ abstract class SchemaDotOrgSettingsFormBase extends ConfigFormBase {
     foreach (Element::children($form) as $module_name) {
       $config = \Drupal::configFactory()->getEditable("$module_name.settings");
       if (!$config->isNew()) {
-        static::setDefaultValuesRecursive($form[$module_name], $config);
+        static::setElementRecursive($form[$module_name], $config);
       }
     }
   }
 
   /**
-   * Set Schema.org settings form element default values.
+   * Set Schema.org settings form element properties and default values.
    *
    * @param array $element
    *   A form element.
@@ -138,20 +143,46 @@ abstract class SchemaDotOrgSettingsFormBase extends ConfigFormBase {
    * @param array $parents
    *   The form element's parent and config key path.
    */
-  protected static function setDefaultValuesRecursive(array &$element, Config $config, array $parents = []): void {
+  protected static function setElementRecursive(array &$element, Config $config, array $parents = []): void {
     $children = Element::children($element);
     if ($children) {
       foreach ($children as $child) {
-        static::setDefaultValuesRecursive($element[$child], $config, array_merge($parents, [$child]));
+        static::setElementRecursive($element[$child], $config, array_merge($parents, [$child]));
       }
     }
-    else {
+    elseif (isset($element['#type'])) {
+      // Set checkbox #return_value to TRUE.
+      if ($element['#type'] === 'checkbox') {
+        $element['#return_value'] = $element['#return_value'] ?? TRUE;
+      }
+
+      // Set checkboxes #element_validate callback to filter submitted values.
+      // @see \Drupal\schemadotorg\Utility\SchemaDotOrgElementHelper::validateCheckboxes
+      if ($element['#type'] === 'checkboxes') {
+        $element['#element_validate'][] = '::validateCheckboxes';
+      }
+
+      // Set the default value for the config settings.
       $config_key = implode('.', $element['#parents'] ?? $parents);
       $config_value = $config->get($config_key);
       if (!isset($element['#default_value']) && !is_null($config_value)) {
         $element['#default_value'] = $config_value;
       }
     }
+  }
+
+  /**
+   * Form API callback. Remove unchecked options from #value array.
+   */
+  public static function validateCheckboxes(array &$element, FormStateInterface $form_state, array &$completed_form): void {
+    $values = $element['#value'] ?: [];
+    // Filter unchecked/unselected options whose value is 0.
+    $values = array_filter(
+      $values,
+      fn($value) => $value !== 0
+    );
+    $values = array_values($values);
+    $form_state->setValueForElement($element, $values);
   }
 
 }

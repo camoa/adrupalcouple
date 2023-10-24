@@ -35,6 +35,10 @@ function duration_field_schemadotorg_property_field_alter(
   $field_values['settings'] = ['granularity' => 'h:i'];
 }
 
+/* ************************************************************************** */
+// Schema.org JSON-LD.
+/* ************************************************************************** */
+
 /**
  * Implements hook_schemadotorg_jsonld_schema_property_alter() for the duration_field.module.
  */

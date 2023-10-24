@@ -16,12 +16,15 @@ use Drupal\Core\StringTranslation\StringTranslationTrait;
 
 /**
  * Schema.org entity type builder service.
+ *
+ * The Schema.org entity type builder service handle the creation of an entity
+ * bundle for Schema.org along with adding fields to the entity bundle.
  */
 class SchemaDotOrgEntityTypeBuilder implements SchemaDotOrgEntityTypeBuilderInterface {
   use StringTranslationTrait;
 
   /**
-   * Constructs a SchemaDotOrgBuilder object.
+   * Constructs a SchemaDotOrgEntityTypeBuilder object.
    *
    * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
    *   The configuration object factory.
@@ -391,20 +394,29 @@ class SchemaDotOrgEntityTypeBuilder implements SchemaDotOrgEntityTypeBuilderInte
       $field_values['description'] = $existing_field_config->get('description');
     }
 
-    // Set widget id and settings from existing form display.
+    // Set widget id and settings and third_party_settings
+    // from the existing form display.
     $form_display = $this->entityDisplayRepository->getFormDisplay($entity_type_id, $existing_bundle);
     $existing_form_component = $form_display->getComponent($field_name);
     if ($existing_form_component) {
       $widget_id = $existing_form_component['type'];
       $widget_settings = $existing_form_component['settings'];
+      if (!empty($existing_form_component['third_party_settings'])) {
+        $widget_settings['third_party_settings'] = $existing_form_component['third_party_settings'];
+      }
     }
 
-    // Set formatter id and settings from existing view display.
+    // Set formatter id and settings, label, and third_party_settings
+    // from the existing view display.
     $view_display = $this->entityDisplayRepository->getViewDisplay($entity_type_id, $existing_bundle);
     $existing_view_component = $view_display->getComponent($field_name);
     if ($existing_view_component) {
       $formatter_id = $existing_view_component['type'];
       $formatter_settings = $existing_view_component['settings'];
+      $formatter_settings['label'] = $existing_view_component['label'];
+      if (!$existing_view_component['third_party_settings']) {
+        $formatter_settings['third_party_settings'] = $existing_view_component['third_party_settings'];
+      }
     }
   }
 
@@ -458,6 +470,7 @@ class SchemaDotOrgEntityTypeBuilder implements SchemaDotOrgEntityTypeBuilderInte
 
       case 'datetime':
         switch ($schema_property) {
+          case 'expires':
           case 'dateCreated':
           case 'dateDeleted':
           case 'dateIssued':
@@ -485,21 +498,25 @@ class SchemaDotOrgEntityTypeBuilder implements SchemaDotOrgEntityTypeBuilderInte
 
       case 'entity_reference':
       case 'entity_reference_revisions':
-        /** @var \Drupal\schemadotorg\SchemaDotOrgMappingStorageInterface $mapping_storage */
-        $mapping_storage = $this->entityTypeManager
-          ->getStorage('schemadotorg_mapping');
-
         $target_type = $field_storage_values['settings']['target_type'] ?? 'node';
-        $target_bundles = $mapping_storage->getSchemaPropertyTargetBundles($target_type, $schema_type, $schema_property);
-        if (!$target_bundles) {
-          return;
+        /** @var \Drupal\schemadotorg\SchemaDotOrgMappingStorageInterface $mapping_storage */
+        $mapping_storage = $this->entityTypeManager->getStorage('schemadotorg_mapping');
+        $range_includes = $mapping_storage->getSchemaPropertyRangeIncludes($schema_type, $schema_property);
+
+        // Make sure that the ranges includes only includes Things
+        // and not DataTypes or Enumerations.
+        foreach ($range_includes as $range_include_type) {
+          if (!$this->schemaTypeManager->isThing($range_include_type)) {
+            unset($range_includes[$range_include_type]);
+          }
         }
 
         $handler_settings = [];
-        $handler_settings['target_bundles'] = $target_bundles;
+        $handler_settings['target_type'] = $target_type;
+        $handler_settings['schema_types'] = $range_includes;
 
         $field_values['settings'] = [
-          'handler' => 'default:' . $target_type,
+          'handler' => 'schemadotorg:' . $target_type,
           'handler_settings' => $handler_settings,
         ];
         break;

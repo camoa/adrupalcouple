@@ -10,7 +10,6 @@ declare(strict_types = 1);
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\schemadotorg\Element\SchemaDotOrgSettings;
 use Drupal\schemadotorg\SchemaDotOrgMappingInterface;
 
 /**
@@ -148,6 +147,10 @@ function _schemadotorg_scheduler_get_third_party_settings(string $schema_type): 
   return NULL;
 }
 
+/* ************************************************************************** */
+// Schema.org JSON-LD.
+/* ************************************************************************** */
+
 /**
  * Implements hook_schemadotorg_jsonld_schema_type_entity_load().
  */
@@ -185,23 +188,33 @@ function schemadotorg_scheduler_schemadotorg_jsonld_schema_type_entity_load(arra
   }
 }
 
+/* ************************************************************************** */
+// Schema.org types settings form.
+/* ************************************************************************** */
+
 /**
  * Implements hook_form_FORM_ID_alter().
+ *
+ * @see \Drupal\schemadotorg\Form\SchemaDotOrgSettingsFormBase::afterBuildDetails
+ * @see \Drupal\schemadotorg\Form\SchemaDotOrgSettingsFormBase::formAlter
  */
 function schemadotorg_scheduler_form_schemadotorg_types_settings_form_alter(array &$form, FormStateInterface $form_state): void {
   $form['schemadotorg_scheduler'] = [
     '#type' => 'details',
     '#title' => t('Scheduler settings'),
-    '#open' => TRUE,
-    '#tree' => TRUE,
   ];
   $form['schemadotorg_scheduler']['scheduled_types'] = [
     '#type' => 'schemadotorg_settings',
-    '#settings_type' => SchemaDotOrgSettings::INDEXED_GROUPED,
-    '#settings_format' => 'SchemeType|publish,unpublish or SchemaType|publish',
     '#title' => t('Scheduled Schema.org types'),
     '#description' => t('Enter the Schema.org types that support scheduling and whether the Schema.org types should publish, unpublish or both.')
     . ' '
     . t('Scheduled Schema.org type settings will be applied to all subtypes. For example, entering <code>Thing|publish,unpublish</code> will enable scheduling for all content types.'),
+    '#example' => '
+SchemeType:
+  - publish
+  - unpublish
+SchemaType:
+  - publish
+',
   ];
 }

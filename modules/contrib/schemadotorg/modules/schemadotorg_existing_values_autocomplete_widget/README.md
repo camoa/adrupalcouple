@@ -33,7 +33,7 @@ Configuration
 -------------
 
 - Go to the Schema.org properties configuration page.  
-  (/admin/config/search/schemadotorg/settings/properties)
+  (/admin/config/schemadotorg/settings/properties)
 - Go to the 'Existing values autocomplete widget settings' details.
 - Enter Schema.org properties that should use the Existing Values Autocomplete Widget.
 

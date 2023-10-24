@@ -7,7 +7,7 @@ namespace Drupal\schemadotorg\Traits;
 use Drupal\schemadotorg\SchemaDotOrgMappingInterface;
 
 /**
- * Trait for devel generate.
+ * Trait for devel generate using my Schema.org mapping sets and starter kits.
  */
 trait SchemaDotOrgDevelGenerateTrait {
 

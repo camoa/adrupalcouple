@@ -14,9 +14,9 @@ use Drupal\Tests\schemadotorg\Functional\SchemaDotOrgBrowserTestBase;
 class SchemaDotOrgSubtypeTest extends SchemaDotOrgBrowserTestBase {
 
   /**
-   * Modules to install.
+   * Modules to enable.
    *
-   * @var string[]
+   * @var array
    */
   protected static $modules = [
     'schemadotorg_ui',
@@ -134,12 +134,12 @@ class SchemaDotOrgSubtypeTest extends SchemaDotOrgBrowserTestBase {
     /* ********************************************************************** */
 
     // Update subtype configuration settings.
-    $this->drupalGet('/admin/config/search/schemadotorg/settings/types');
+    $this->drupalGet('/admin/config/schemadotorg/settings/types');
     $edit = [
       'schemadotorg_subtype[default_field_label]' => 'Type',
       'schemadotorg_subtype[default_field_suffix]' => '_type',
       'schemadotorg_subtype[default_field_description]' => 'Custom subtype description',
-      'schemadotorg_subtype[default_subtypes]' => 'Person',
+      'schemadotorg_subtype[default_subtypes]' => '- Person',
     ];
     $this->submitForm($edit, 'Save configuration');
 

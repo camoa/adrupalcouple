@@ -1,6 +1,6 @@
 schemadotorg_auto_entitylabel.settings:
   type: config_entity
-  label: Schema.org Inline Entity Form settings
+  label: 'Schema.org Inline Entity Form settings'
   mapping:
     default_types:
       type: sequence

@@ -55,21 +55,6 @@ schemadotorg_report.properties.identifier:
   route_name: schemadotorg_report.properties.identifier
   parent_id: schemadotorg_report.properties
 
-# Mappings
-
-schemadotorg_report.mappings:
-  title: Mappings
-  route_name: schemadotorg_report.mappings.recommendations
-  base_route: schemadotorg_report
-schemadotorg_report.mappings.recommendations:
-  title: Recommendations
-  route_name: schemadotorg_report.mappings.recommendations
-  parent_id: schemadotorg_report.mappings
-schemadotorg_report.mappings.relationships:
-  title: Relationships
-  route_name: schemadotorg_report.mappings.relationships
-  parent_id: schemadotorg_report.mappings
-
 # Names
 
 schemadotorg_report.names:
@@ -96,6 +81,21 @@ schemadotorg_report.names.abbreviations:
   title: Abbreviated names
   route_name: schemadotorg_report.names.abbreviations
   parent_id: schemadotorg_report.names
+
+# Descriptions
+
+schemadotorg_report.descriptions:
+  title: Descriptions
+  route_name: schemadotorg_report.descriptions.types
+  base_route: schemadotorg_report
+schemadotorg_report.descriptions.types:
+  title: Type descriptions
+  route_name: schemadotorg_report.descriptions.types
+  parent_id: schemadotorg_report.descriptions
+schemadotorg_report.descriptions.properties:
+  title: Property descriptions
+  route_name: schemadotorg_report.descriptions.properties
+  parent_id: schemadotorg_report.descriptions
 
 # References
 

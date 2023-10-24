@@ -11,13 +11,13 @@ schema_types:
       label: 'Q&A'
     HealthTopicContent:
       name: health_topic
-      label: Health Topic
+      label: 'Health Topic'
     MedicalClinic:
       name: clinic
       label: Clinic
     MedicalWebPage:
       name: med_page
-      label: Medical Page
+      label: 'Medical Page'
   main_properties:
     AudioObject: null
     Clip: null
@@ -226,19 +226,18 @@ schema_types:
     WebApplication:
       - browserRequirements
     SoftwareSourceCode:
-      - codeRepositor
+      - codeRepository
       - codeSampleType
       - programmingLanguage
       - runtimePlatform
       - targetProduct
     SpecialAnnouncement:
-      - announcementLocation
+      - category
+      - datePosted
+      - expires
       - name
-      - newsUpdatesAndGuidelines
-      - publicTransportClosuresInfo
-      - schoolClosuresInfo
-      - travelBans
-      - webFeed
+      - text
+      - url
     Statement:
       - text
     Thesis:
@@ -250,7 +249,6 @@ schema_types:
       - artworkSurface
       - name
     WebContent:
-      - about
       - description
       - image
       - name
@@ -818,7 +816,6 @@ schema_properties:
     - sdPublisher
     - sha256
     - spatial
-    - spatialCoverage
     - suggestedAnswer
     - taxID
     - temporal
@@ -853,6 +850,10 @@ schema_properties:
       label: Answer
     Question--name:
       label: Question
+    SpecialAnnouncement--category:
+      type: string
+      label: Category
+      unlimited: false
     VideoGallery--hasPart:
       label: Videos
     about:
@@ -1224,6 +1225,8 @@ schema_properties:
       unlimited: true
     skills:
       unlimited: true
+    spoken_by_character:
+      label: 'Spoken by'
     sponsor:
       label: Sponsors
       unlimited: true
@@ -1301,8 +1304,10 @@ schema_properties:
     - postalCode
     - dayOfWeek
     - opens
-    - hoursAvailable
     - closes
+    - postedDate
+    - expires
+    - hoursAvailable
     - openingHours
     - openingHoursSpecification
     - termCode

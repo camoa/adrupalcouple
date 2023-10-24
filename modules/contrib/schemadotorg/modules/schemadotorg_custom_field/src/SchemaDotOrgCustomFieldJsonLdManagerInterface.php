@@ -14,6 +14,8 @@ interface SchemaDotOrgCustomFieldJsonLdManagerInterface {
   /**
    * Alter the Schema.org property JSON-LD value for an entity's field item.
    *
+   * Appends units to custom_field JSON-LD data.
+   *
    * @param mixed $value
    *   Alter the Schema.org property JSON-LD value.
    * @param \Drupal\Core\Field\FieldItemInterface $item

@@ -8,6 +8,7 @@ use Drupal\Core\Link;
 use Drupal\Core\Serialization\Yaml;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\Url;
+use Drupal\schemadotorg\SchemaDotOrgMappingManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -18,10 +19,8 @@ class SchemaDotOrgReportItemController extends SchemaDotOrgReportControllerBase 
 
   /**
    * The Schema.org mapping manager service.
-   *
-   * @var \Drupal\schemadotorg\SchemaDotOrgMappingManagerInterface
    */
-  protected $schemaMappingManager;
+  protected SchemaDotOrgMappingManagerInterface $schemaMappingManager;
 
   /**
    * {@inheritdoc}

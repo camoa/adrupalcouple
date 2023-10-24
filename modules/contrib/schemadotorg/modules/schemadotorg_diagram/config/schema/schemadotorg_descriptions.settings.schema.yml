@@ -1,6 +1,6 @@
 schemadotorg_diagram.settings:
   type: config_entity
-  label: Schema.org Diagram settings
+  label: 'Schema.org Diagram settings'
   mapping:
     diagrams:
       type: sequence
@@ -11,7 +11,7 @@ schemadotorg_diagram.settings:
         mapping:
           title:
             type: label
-            label: 'Title'
+            label: Title
           parent:
             type: string
             label: 'Parent Schema.org property'

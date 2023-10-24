@@ -56,7 +56,7 @@ _The below manual JavaScript tests should be moved to automated tests._
 
 **schemadotorg.form.js**
 
-@see /admin/config/search/schemadotorg/sets/common/setup
+@see /admin/config/schemadotorg/sets/common/setup
 
 - Check that the form is only be submitted once with progress throbber.
 
@@ -66,6 +66,18 @@ _The below manual JavaScript tests should be moved to automated tests._
 
 - Check that Schema.org type hierarchical tree works as expected.
 - Check that Schema.org types link to the Schema.org type details page.
+
+**schemadotorg.mermaid.js**
+
+@see /admin/help/schemadotorg/schemadotorg_diagram
+
+- Check that diagrams display as expected.
+
+**schemadotorg.settings.element.js**
+
+@see /admin/config/schemadotorg/settings
+
+- Check that 'Example' slide out works as expected.
 
 **schemadotorg_ui.js**
 
@@ -82,7 +94,7 @@ _The below manual JavaScript tests should be moved to automated tests._
 @see /admin/structure/types/manage/page/fields/add-field
 
 - Allow the Schema.org field prefix to be selected via the field UI.
-  @see /admin/config/search/schemadotorg/settings/properties
+  @see /admin/config/schemadotorg/settings/properties
 - Check that the machine name is updated for field_ and schema_ field prefixes.
 
 **schemadotorg_jsonld_preview.js**

@@ -9,7 +9,7 @@ field_name: schema_given_name
 entity_type: node
 bundle: person
 label: 'First name'
-description: 'Given name. In the U.S., the first name of a Person.'
+description: 'Given name.'
 required: true
 translatable: true
 default_value: {  }

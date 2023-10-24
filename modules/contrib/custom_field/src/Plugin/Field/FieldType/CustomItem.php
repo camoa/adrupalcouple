@@ -4,16 +4,16 @@ namespace Drupal\custom_field\Plugin\Field\FieldType;
 
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemBase;
-use Drupal\field\Entity\FieldConfig;
-use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\TypedData\DataDefinition;
-use Drupal\Core\TypedData\MapDataDefinition;
-use Drupal\custom_field\Plugin\CustomFieldTypeManagerInterface;
 use Drupal\custom_field\CustomFieldGenerateDataInterface;
+use Drupal\custom_field\Plugin\CustomFieldTypeInterface;
+use Drupal\custom_field\Plugin\CustomFieldTypeManagerInterface;
+use Drupal\field\Entity\FieldConfig;
+use Drupal\field\Entity\FieldStorageConfig;
 
 /**
  * Plugin implementation of the 'custom' field type.
@@ -47,6 +47,7 @@ class CustomItem extends FieldItemBase {
           'scale' => 2,
           'precision' => 10,
           'size' => 'normal',
+          'datetime_type' => CustomFieldTypeInterface::DATETIME_TYPE_DATETIME,
         ],
       ],
     ] + parent::defaultStorageSettings();
@@ -55,170 +56,43 @@ class CustomItem extends FieldItemBase {
   /**
    * {@inheritdoc}
    */
-  public static function propertyDefinitions(FieldStorageDefinitionInterface $field_definition): array {
+  public static function schema(FieldStorageDefinitionInterface $field_definition): array {
+    /** @var \Drupal\custom_field\Plugin\CustomFieldTypeManager $plugin_service */
+    $plugin_service = \Drupal::service('plugin.manager.custom_field_type');
+    $schema = [];
 
-    $properties = [];
-
-    // Prevent early t() calls by using the TranslatableMarkup.
     foreach ($field_definition->getSetting('columns') as $item) {
-      $data_type = 'string';
-      switch ($item['type']) {
-        case 'boolean':
-          $data_type = 'boolean';
-          break;
-
-        case 'decimal':
-        case 'telephone':
-          $data_type = 'string';
-          break;
-
-        case 'float':
-          $data_type = 'float';
-          break;
-
-        case 'integer':
-          $data_type = 'integer';
-          break;
-
-        case 'email':
-          $data_type = 'email';
-          break;
-
-        case 'map':
-          $data_type = 'map';
-          break;
-
-        case 'timestamp':
-          $data_type = 'timestamp';
-          break;
-
-        case 'uri':
-          $data_type = 'uri';
-          break;
-      }
-      if ($data_type == 'map') {
-        // The properties are dynamic and can not be defined statically.
-        $properties[$item['name']] = MapDataDefinition::create()
-          ->setLabel(new TranslatableMarkup('%name value', ['%name' => $item['name']]));
-      }
-      else {
-        $properties[$item['name']] = DataDefinition::create($data_type)
-          ->setLabel(new TranslatableMarkup('%name value', ['%name' => $item['name']]))
-          ->setRequired(FALSE);
-      }
+      $plugin = $plugin_service->createInstance($item['type']);
+      $field_schema = $plugin->schema($item);
+      $schema['columns'][$item['name']] = $field_schema;
     }
 
-    return $properties;
+    return $schema;
   }
 
   /**
    * {@inheritdoc}
    */
-  public static function schema(FieldStorageDefinitionInterface $field_definition): array {
-
-    $schema = [];
+  public static function propertyDefinitions(FieldStorageDefinitionInterface $field_definition): array {
+    /** @var \Drupal\custom_field\Plugin\CustomFieldTypeManager $plugin_service */
+    $plugin_service = \Drupal::service('plugin.manager.custom_field_type');
+    $properties = [];
 
     foreach ($field_definition->getSetting('columns') as $item) {
-      switch ($item['type']) {
-        case 'string':
-          $schema['columns'][$item['name']] = [
-            'type' => 'varchar',
-            'length' => $item['max_length'],
-          ];
-          break;
-
-        case 'string_long':
-          $schema['columns'][$item['name']] = [
-            'type' => 'text',
-            'size' => 'big',
-          ];
-          break;
-
-        case 'boolean':
-          $schema['columns'][$item['name']] = [
-            'type' => 'int',
-            'size' => 'tiny',
-          ];
-          break;
-
-        case 'color':
-          $schema['columns'][$item['name']] = [
-            'type' => 'varchar',
-            'description' => 'The hexadecimal color value',
-            'length' => 7,
-          ];
-          break;
-
-        case 'decimal':
-          $schema['columns'][$item['name']] = [
-            'type' => 'numeric',
-            'unsigned' => $item['unsigned'],
-            'precision' => $item['precision'],
-            'scale' => $item['scale'],
-          ];
-          break;
-
-        case 'float':
-          $schema['columns'][$item['name']] = [
-            'type' => 'float',
-            'unsigned' => $item['unsigned'],
-            'size' => $item['size'] ?? 'normal',
-          ];
-          break;
-
-        case 'integer':
-          $schema['columns'][$item['name']] = [
-            'type' => 'int',
-            'unsigned' => $item['unsigned'],
-            'size' => $item['size'] ?? 'normal',
-          ];
-          break;
-
-        case 'email':
-          $schema['columns'][$item['name']] = [
-            'type' => 'varchar',
-            'length' => 254,
-          ];
-          break;
-
-        case 'map':
-          $schema['columns'][$item['name']] = [
-            'type' => 'blob',
-            'size' => 'big',
-            'serialize' => TRUE,
-            'description' => 'A serialized array of values.',
-          ];
-          break;
-
-        case 'timestamp':
-          $schema['columns'][$item['name']] = [
-            'type' => 'int',
-          ];
-          break;
-
-        case 'uuid':
-          $schema['columns'][$item['name']] = [
-            'type' => 'varchar_ascii',
-            'length' => 128,
-          ];
-          break;
-
-        case 'uri':
-          $schema['columns'][$item['name']] = [
-            'type' => 'varchar',
-            'length' => 2048,
-          ];
-          break;
-
-        default:
-          $schema['columns'][$item['name']] = [
-            'type' => 'varchar',
-            'length' => (int) $item['max_length'],
-          ];
+      $plugin = $plugin_service->createInstance($item['type']);
+      $properties[$item['name']] = $plugin->propertyDefinitions($item);
+      // Add computed properties.
+      if ($item['type'] == 'uri') {
+        $properties[$item['name'] . '__url'] = DataDefinition::create('uri')
+          ->setLabel(new TranslatableMarkup('%name url', ['%name' => $item['name']]))
+          ->setComputed(TRUE)
+          ->setClass('\Drupal\custom_field\Computed\UriUrl')
+          ->setSetting('uri source', $item['name'])
+          ->setInternal(FALSE);
       }
     }
 
-    return $schema;
+    return $properties;
   }
 
   /**
@@ -242,60 +116,26 @@ class CustomItem extends FieldItemBase {
    */
   public function getConstraints(): array {
     $constraints = parent::getConstraints();
-
-    foreach ($this->getSetting('columns') as $item) {
-      $constraint_manager = \Drupal::typedDataManager()->getValidationConstraintManager();
-      switch ($item['type']) {
-        case 'string':
-        case 'telephone':
-          if ($max_length = $item['max_length']) {
-            $constraints[] = $constraint_manager->create('ComplexData', [
-              $item['name'] => [
-                'Length' => [
-                  'max' => $max_length,
-                  'maxMessage' => $this->t('%name: may not be longer than @max characters.', [
-                    '%name' => $item['name'],
-                    '@max' => $max_length,
-                  ]),
-                ],
-              ],
-            ]);
-          }
-          break;
-
-        case 'integer':
-          // If this is an unsigned integer, add a validation constraint for
-          // the integer to be positive.
-          if ($item['unsigned']) {
-            $constraints[] = $constraint_manager->create('ComplexData', [
-              $item['name'] => [
-                'Range' => [
-                  'min' => 0,
-                  'minMessage' => $this->t('%name: The integer must be larger or equal to %min.', [
-                    '%name' => $item['name'],
-                    '%min' => 0,
-                  ]),
-                ],
-              ],
-            ]);
-          }
-          break;
-
-        case 'email':
-          $constraints[] = $constraint_manager->create('ComplexData', [
-            $item['name'] => [
-              'Length' => [
-                'max' => 254,
-                'maxMessage' => $this->t('%name: the email address can not be longer than @max characters.', [
-                  '%name' => $item['name'],
-                  '%max' => 254,
-                ]),
-              ],
-            ],
-          ]);
-          break;
+    $constraint_manager = \Drupal::typedDataManager()->getValidationConstraintManager();
+    /** @var \Drupal\custom_field\Plugin\CustomFieldTypeManager $plugin_service */
+    $plugin_service = \Drupal::service('plugin.manager.custom_field_type');
+    $field_constraints = [];
+    $field_settings = $this->getSetting('field_settings');
+    foreach ($this->getSetting('columns') as $id => $item) {
+      $plugin = $plugin_service->createInstance($item['type']);
+      if (method_exists($plugin, 'getConstraints')) {
+        $widget_settings = $field_settings[$id]['widget_settings']['settings'] ?? [];
+        $settings = $item;
+        if (isset($widget_settings['min'])) {
+          $settings['min'] = $widget_settings['min'];
+        }
+        if (isset($widget_settings['max'])) {
+          $settings['max'] = $widget_settings['max'];
+        }
+        $field_constraints[$item['name']] = $plugin->getConstraints($settings);
       }
     }
+    $constraints[] = $constraint_manager->create('ComplexData', $field_constraints);
 
     return $constraints;
   }
@@ -307,14 +147,13 @@ class CustomItem extends FieldItemBase {
     parent::preSave();
 
     $settings = $this->getSetting('columns');
-    $field_settings = $this->getSetting('field_settings');
 
     foreach ($settings as $name => $setting) {
       switch ($setting['type']) {
         case 'color':
           $color = is_string($this->{$name}) ? trim($this->{$name}) : '';
 
-          if (substr($color, 0, 1) === '#') {
+          if (str_starts_with($color, '#')) {
             $color = substr($color, 1);
           }
 
@@ -326,12 +165,10 @@ class CustomItem extends FieldItemBase {
           if (!is_array($this->{$name}) || empty($this->{$name})) {
             $this->{$name} = NULL;
           }
-          if ($field_settings[$name]['type'] === 'map_key_value') {
-            $map_values = $this->get($name)->getValue();
-            // The table widget has a default value of data until values exist.
-            if (isset($map_values['data'])) {
-              $this->{$name} = NULL;
-            }
+          $map_values = $this->get($name)->getValue();
+          // The table widget has a default value of data until values exist.
+          if (isset($map_values['data'])) {
+            $this->{$name} = NULL;
           }
           break;
       }
@@ -534,6 +371,23 @@ class CustomItem extends FieldItemBase {
           ],
         ],
       ];
+      $elements['items'][$i]['datetime_type'] = [
+        '#type' => 'select',
+        '#title' => $this->t('Date type'),
+        '#description' => $this->t('Choose the type of date to create.'),
+        '#default_value' => $item['datetime_type'] ?? $default_settings['datetime_type'],
+        '#disabled' => $has_data,
+        '#options' => [
+          CustomFieldTypeInterface::DATETIME_TYPE_DATETIME => $this->t('Date and time'),
+          CustomFieldTypeInterface::DATETIME_TYPE_DATE => $this->t('Date only'),
+        ],
+        '#required' => TRUE,
+        '#states' => [
+          'visible' => [
+            ':input[name="settings[items][' . $i . '][type]"]' => ['value' => 'datetime'],
+          ],
+        ],
+      ];
       $elements['items'][$i]['remove'] = [
         '#type' => 'submit',
         '#value' => $this->t('Remove'),
@@ -695,7 +549,7 @@ class CustomItem extends FieldItemBase {
       // Skip ourself.
       if ($this->getFieldDefinition()->getName() != $field_name) {
         foreach ($info['bundles'] as $bundleName) {
-          $group = $bundleInfo[$bundleName]['label'] ?? '';
+          $group = (string) $bundleInfo[$bundleName]['label'] ?? '';
           $info = FieldConfig::loadByName($entity_type_id, $bundleName, $field_name);
           $sources[$group][$bundleName . '.' . $info->getName()] = $info->getLabel();
         }
@@ -742,7 +596,6 @@ class CustomItem extends FieldItemBase {
         '',
         $this->t('Type'),
         $this->t('Settings'),
-        $this->t('Output'),
         $this->t('Check empty?'),
         $this->t('Weight'),
       ],
@@ -782,59 +635,10 @@ class CustomItem extends FieldItemBase {
         '#markup' => '<span></span>',
       ];
       $column = $columns[$name];
-
       $options = $this->getCustomFieldManager()->getCustomFieldWidgetOptions($column['type']);
-
-      switch ($column['type']) {
-        case 'boolean':
-          $default_option = 'checkbox';
-          break;
-
-        case 'color':
-          $default_option = 'color';
-          break;
-
-        case 'decimal':
-          $default_option = 'decimal';
-          break;
-
-        case 'float':
-          $default_option = 'float';
-          break;
-
-        case 'integer':
-          $default_option = 'integer';
-          break;
-
-        case 'string_long':
-          $default_option = 'textarea';
-          break;
-
-        case 'email':
-          $default_option = 'email';
-          break;
-
-        case 'uuid':
-          $default_option = 'uuid';
-          break;
-
-        case 'map':
-          $default_option = 'map_key_value';
-          break;
-
-        case 'uri':
-          $default_option = 'url';
-          break;
-
-        case 'telephone':
-          $default_option = 'telephone';
-          break;
-
-        default:
-          $default_option = 'text';
-      }
-      $type = $field_settings[$name]['type'] ?? $default_option;
+      $type = $field_settings[$name]['type'] ?? $definition['default_widget'];
       $options_count = count($options);
+
       $elements['field_settings'][$name]['type'] = [
         '#type' => 'select',
         '#title' => $this->t('%name type', ['%name' => $name]),
@@ -849,9 +653,10 @@ class CustomItem extends FieldItemBase {
         ],
       ];
 
-      // Add our plugin widget and formatter settings form.
-      $elements['field_settings'][$name]['widget_settings'] = $customItem->widgetSettingsForm($form, $form_state);
-      $elements['field_settings'][$name]['formatter_settings'] = $customItem->formatterSettingsForm($form, $form_state);
+      // Add our plugin widget settings form.
+      $widget_manager = \Drupal::service('plugin.manager.custom_field_widget');
+      $widget = $widget_manager->createInstance($type);
+      $elements['field_settings'][$name]['widget_settings'] = $widget->widgetSettingsForm($form_state, $customItem);
 
       $elements['field_settings'][$name]['check_empty'] = [
         '#type' => 'checkbox',
@@ -897,7 +702,7 @@ class CustomItem extends FieldItemBase {
    *   Returns the 'custom' field type plugin manager.
    */
   public function getCustomFieldManager(): CustomFieldTypeManagerInterface {
-    return \Drupal::service('plugin.manager.customfield_type');
+    return \Drupal::service('plugin.manager.custom_field_type');
   }
 
   /**

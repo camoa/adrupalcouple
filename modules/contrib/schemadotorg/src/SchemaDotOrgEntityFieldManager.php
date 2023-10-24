@@ -16,6 +16,17 @@ use Drupal\field\FieldStorageConfigInterface;
 
 /**
  * Schema.org entity field manager.
+ *
+ * The Schema.org entity field manager manages the creation and configuration
+ * of fields based on Schema.org properties.
+ *
+ * This service is primarily using by the SchemaDotOrgMappingManager.
+ *
+ * Features include:
+ * - Determining the default field type for a Schema.org property.
+ * - Determining the default allowed values for a Schema.org property.
+ *
+ * @see \Drupal\schemadotorg\SchemaDotOrgMappingManager
  */
 class SchemaDotOrgEntityFieldManager implements SchemaDotOrgEntityFieldManagerInterface {
   use StringTranslationTrait;
@@ -114,7 +125,7 @@ class SchemaDotOrgEntityFieldManager implements SchemaDotOrgEntityFieldManagerIn
     $default_field += [
       'name' => $property_definition['drupal_name'],
       'label' => $property_definition['drupal_label'],
-      'description' => $property_definition['comment'],
+      'description' => $property_definition['drupal_description'],
       'unlimited' => $this->unlimitedProperties[$property] ?? FALSE,
       'required' => FALSE,
     ];

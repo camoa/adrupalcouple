@@ -5,6 +5,7 @@ Table of contents
 * Requirements
 * Installation
 * Configuration
+* Ecosystem
 
 
 Introduction
@@ -37,21 +38,36 @@ Additional documentation
 Features
 --------
 
-- Installs Schema.org CSV into Drupal
+General
+- Installs Schema.org's data from a CSV into Drupal
+- Provides form elements for editing configuration settings 
+  and Schema.org autocompletion
+- Manages reusable JavaScript libraries for UI and sub-modules
+- Removes all dependencies from starter kits and demos to make them
+  easy to uninstall.
+
+Schema.org
 - Exposes Schema.org types and properties to Drupal modules
 - Defines Schema.org mapping and mapping type entities
-- Allow Schema.org types, properties, and names to be configured
-- Build entity types and fields from Schema.org types and properties
-- Ensure that Schema.org naming conventions work with Drupal's internal
+- Allows Schema.org types, properties, and names to be configured
+- Ensures that Schema.org's naming conventions works with Drupal's internal
   naming conventions
+
+Mappings
+- Builds entity types and fields from Schema.org types and properties
 - Provides Drush commands to create and delete Schema.org mappings
+- Manages configuration edit form for all sub-modules.
+
+Plugins
+- Provides Schema.org type entity selection plugin
+- Provides Schema.org type Views filter plugin
 
 
 Requirements
 ------------
 
-This module requires the Field, Text, and Options modules included with
-Drupal core.
+This module requires the Field, Text, and Options modules included
+with Drupal core.
 
 
 Installation
@@ -60,12 +76,16 @@ Installation
 Install the Schema.org Blueprints module as you would normally
 [install a contributed Drupal module](https://www.drupal.org/node/1897420).
 
-Use the included composer.libraries.json file to quickly install ALL 
-sub-module dependencies.
+Use the included [composer.libraries.json](https://git.drupalcode.org/project/schemadotorg/-/blob/1.0.x/composer.libraries.json)
+file to quickly install sub-module dependencies.
 
 As your Schema.org Blueprints project evolves, you may want to copy and adjust
 the dependencies from the composer.libraries.json file into your project's
 root composer.json.
+
+[Watch how to install and set up the Schema.org Blueprints module](https://www.youtube.com/watch?v=Dludw8Eomh4)
+
+---
 
 Below is an example of what must be added to your projects composer.json file
 to include Schema.org Blueprints dependencies. Adjust it to match the location 
@@ -101,7 +121,7 @@ View a diff of the changes in [install/composer.example.json](install/composer.e
 - [install/composer.example.json.txt](install/composer.example.json.txt)
 - [install/composer.example.json.html](install/composer.example.json.html)
 
-To understand and enable Schema.org Blueprints sub-mdoules
+To understand and enable Schema.org Blueprints sub-modules
 enable the Schema.org Blueprints Help module and go to (/admin/help)
 
 Use the below Drush command to enable all sub-modules
@@ -117,12 +137,50 @@ Configuration
 - Configure 'Schema.org Blueprints' administer permission.  
   (/admin/people/permissions/module/schemadotorg)
 - Review Schema.org types configuration.  
-  (/admin/config/search/schemadotorg/settings/types)
+  (/admin/config/schemadotorg/settings/types)
 - Review Schema.org properties configuration.  
-  (/admin/config/search/schemadotorg/settings/properties)
+  (/admin/config/schemadotorg/settings/properties)
 - Review Schema.org naming conventions configuration.  
-  (/admin/config/search/schemadotorg/settings/names)
+  (/admin/config/schemadotorg/settings/names)
 - Review Schema.org mappings.  
-  (/admin/config/search/schemadotorg)
+  (/admin/config/schemadotorg)
 - Review Schema.org mapping types.  
-  (/admin/config/search/schemadotorg/types)
+  (/admin/config/schemadotorg/types)
+
+
+Ecosystem
+---------
+
+The [Schema.org Blueprints module](https://www.drupal.org/project/schemadotorg)
+comprises [50+ sub-modules](https://git.drupalcode.org/project/schemadotorg/-/blob/1.0.x/docs/MODULES.md) 
+that provide integrations with various contributed modules to provide the best-structured data with the ideal content authoring and administration user
+experiences. Besides sub-modules, other Schema.org Blueprints projects support 
+complex, experimental, and deprecated integrations. Schema.org Blueprint 
+starter kits provide support for different industries and use cases. 
+Additionally, there is a full feature demo of the 
+entire Schema.org Blueprints ecosystem.
+
+All [sub-modules include README.md files](https://git.drupalcode.org/project/schemadotorg/-/blob/1.0.x/docs/MODULES.md) describing the 
+sub-module's use case, features, dependencies, and configuration. 
+Every sub-module includes extensive test coverage, which makes it easier 
+for people to contribute code to fix or improve an integration or feature set.
+
+The Schema.org Blueprints module provides pristine APIs; for integration with a [decoupled Next.js front-end](https://www.drupal.org/project/schemadotorg_next),
+there is a dedicated project. Similarly, there is an 
+[experimental project](https://www.drupal.org/project/schemadotorg_experimental) 
+for supporting the Mercury Editor with Layout Paragraphs. Lastly, 
+deprecated sub-modules and integrations live (and die) in the 
+[Schema.org Blueprints Deprecated project](https://www.drupal.org/project/schemadotorg_deprecated).
+
+Schema.org Blueprints Starter Kits extend the generated Schema.org types to include additional functionality, including default configuration, views, and SEO URLs. 
+Starter kits include support for 
+[events](https://www.drupal.org/project/schemadotorg_starterkit_events),
+[podcasts](https://www.drupal.org/project/schemadotorg_starterkit_podcast),
+[recipes](https://www.drupal.org/project/schemadotorg_starterkit_recipes),
+[organizations](https://www.drupal.org/project/schemadotorg_starterkit_organization),
+[hospitals](https://www.drupal.org/project/schemadotorg_starterkit_hospital),
+and [medical information](https://www.drupal.org/project/schemadotorg_starterkit_medical).
+
+Finally, the [Schema.org Blueprint Demo project](https://www.drupal.org/project/schemadotorg_demo) and installation profile provide an 
+opinionated demo of the Schema.org Blueprints ecosystem built on top 
+of Drupal’s standard profile.

@@ -9,9 +9,20 @@ mix.settings:
     dev_mode:
       type: boolean
       label: 'Enable development mode'
+    hide_submit:
+      type: boolean
+      label: 'Hide submit button'
     remove_x_generator:
       type: boolean
       label: 'Remove X-Generator'
+    show_content_sync_id:
+      type: boolean
+      label: 'Show content sync ID'
+    content_sync_ids:
+      type: sequence
+      label: 'List of content configuration names'
+      sequence:
+        type: string
     register_password:
       type: boolean
       label: 'Register password'
@@ -37,7 +48,50 @@ mix.settings:
           label: 'Ignored config names'
           sequence:
             type: string
+    meta:
+      type: mapping
+      label: 'Meta settings'
+      mapping:
+        frontpage:
+          type: mapping
+          label: 'Frontpage'
+          mapping:
+            active:
+              type: boolean
+              label: 'Active'
+            title:
+              type: string
+              label: 'Page title'
+            description:
+              type: string
+              label: 'Description'
+            keywords:
+              type: string
+              label: 'Keywords'
+            metatags:
+              type: string
+              label: 'Meta tags'
+        node:
+          type: mapping
+          label: 'Node'
+          mapping:
+            active:
+              type: boolean
+              label: 'Active'
+            description:
+              type: string
+              label: 'Description'
 
+# schema for Content sync.
+mix.content_sync.*:
+  type: config_entity
+  label: Block content as config
+  mapping:
+    entity:
+      type: ignore
+      label: Normalized entity.
+
+# schema for block class.
 block.block.*.third_party.mix:
   type: mapping
   label: Block third party settings

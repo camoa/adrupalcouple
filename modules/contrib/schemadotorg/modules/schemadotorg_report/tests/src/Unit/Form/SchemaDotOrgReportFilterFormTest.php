@@ -19,10 +19,8 @@ class SchemaDotOrgReportFilterFormTest extends UnitTestCase {
 
   /**
    * The Schema.org report filter type or property form being tested.
-   *
-   * @var \Drupal\schemadotorg_report\Form\SchemaDotOrgReportFilterForm
    */
-  protected $filterForm;
+  protected SchemaDotOrgReportFilterForm $filterForm;
 
   /**
    * {@inheritdoc}

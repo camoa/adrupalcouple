@@ -2,9 +2,9 @@
 
 namespace Drupal\custom_field\Plugin\Field\FieldWidget;
 
+use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Field\FieldItemListInterface;
 
 /**
  * Plugin implementation of the 'custom_flex' widget.
@@ -73,19 +73,7 @@ class CustomFlexWidget extends CustomWidgetBase {
         $elements['columns'][$name]['#wrapper_attributes']['class'][] = 'custom-field-col-' . $columns[$name];
       }
 
-      $is_disabled = FALSE;
-      switch ($plugin_id) {
-        case 'color_boxes':
-        case 'map_key_value':
-          $is_disabled = TRUE;
-          break;
-
-        case 'textarea':
-          if ($customItem->getWidgetSetting('settings')['formatted']) {
-            $is_disabled = TRUE;
-          }
-          break;
-      }
+      $is_disabled = in_array($plugin_id, ['color_boxes', 'map_key_value']);
 
       if ($is_disabled) {
         $elements['columns'][$name]['#default_value'] = 12;
@@ -130,6 +118,7 @@ class CustomFlexWidget extends CustomWidgetBase {
    */
   public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state): array {
     $element = parent::formElement($items, $delta, $element, $form, $form_state);
+    $field_settings = $this->getFieldSetting('field_settings');
 
     $element['#attached']['library'][] = 'custom_field/custom-field-flex';
     $classes = ['custom-field-row'];
@@ -142,10 +131,30 @@ class CustomFlexWidget extends CustomWidgetBase {
 
     $columns = $this->getSettings()['columns'];
     foreach ($this->getCustomFieldItems() as $name => $customItem) {
-      $element[$name] = $customItem->widget($items, $delta, $element, $form, $form_state);
-      $element[$name]['#wrapper_attributes']['class'][] = 'custom-field-col';
-      if (isset($columns[$name])) {
-        $element[$name]['#wrapper_attributes']['class'][] = 'custom-field-col-' . $columns[$name];
+      $definition = $customItem->getPluginDefinition();
+      $type = $field_settings[$name]['type'] ?? $definition['default_widget'];
+      $widget_plugin = $this->customFieldWidgetManager->createInstance($type);
+      $widget_settings = $customItem->getWidgetSetting('settings');
+      if (!empty($widget_plugin)) {
+        $element[$name] = $widget_plugin->widget($items, $delta, $element, $form, $form_state, $customItem);
+        switch ($definition['id']) {
+          case 'datetime':
+            $attributes = '#attributes';
+            break;
+
+          case 'string_long':
+            // Check for wysiwyg enabled.
+            $formatted = $widget_settings['formatted'] ?? FALSE;
+            $attributes = $formatted ? '#attributes' : '#wrapper_attributes';
+            break;
+
+          default:
+            $attributes = '#wrapper_attributes';
+        }
+        $element[$name][$attributes]['class'][] = 'custom-field-col';
+        if (isset($columns[$name])) {
+          $element[$name][$attributes]['class'][] = 'custom-field-col-' . $columns[$name];
+        }
       }
     }
 

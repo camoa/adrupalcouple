@@ -12,12 +12,19 @@ use Drupal\Core\StringTranslation\StringTranslationTrait;
 
 /**
  * Schema.org mapping manager service.
+ *
+ * The Schema.org mapping manager service provides a API for get the mapping
+ * defaults for create an entity bundle with fields for a Schema.org type
+ * and properties and then use these mapping defaults to create
+ * entity bundle with fields.
+ *
+ * This service is used by the UI, mapping sets, and starter kits.
  */
 class SchemaDotOrgMappingManager implements SchemaDotOrgMappingManagerInterface {
   use StringTranslationTrait;
 
   /**
-   * Constructs a SchemaDotOrgBuilder object.
+   * Constructs a SchemaDotOrgMappingManager object.
    *
    * @param \Drupal\Core\Extension\ModuleHandlerInterface $moduleHandler
    *   The module handler.
@@ -130,7 +137,9 @@ class SchemaDotOrgMappingManager implements SchemaDotOrgMappingManagerInterface 
     if ($mapping) {
       $defaults['label'] = $mapping->label();
       $defaults['id'] = $bundle;
-      $defaults['description'] = $mapping->get('description');
+      $defaults['description'] = ($mapping->getTargetEntityBundleEntity())
+        ? $mapping->getTargetEntityBundleEntity()->get('description')
+        : $this->schemaTypeManager->getType($mapping->getSchemaType())['drupal_description'];
       return $defaults;
     }
 
@@ -159,7 +168,11 @@ class SchemaDotOrgMappingManager implements SchemaDotOrgMappingManagerInterface 
       $defaults['label'] = $label_prefix . $label;
       $defaults['id'] = $id_prefix . $id;
     }
-    $defaults['description'] = $default_type['description'] ?? $this->schemaTypeBuilder->formatComment($type_definition['comment'], ['base_path' => 'https://schema.org/']);
+    $defaults['description'] = $default_type['description']
+      ?? $this->schemaTypeBuilder->formatComment(
+        $type_definition['drupal_description'],
+        ['base_path' => 'https://schema.org/']
+      );
     return $defaults;
   }
 
@@ -296,7 +309,10 @@ class SchemaDotOrgMappingManager implements SchemaDotOrgMappingManagerInterface 
     $defaults['machine_name'] = $default_field['name'];
     $defaults['unlimited'] = $default_field['unlimited'];
     $defaults['required'] = $default_field['required'];
-    $defaults['description'] = $this->schemaTypeBuilder->formatComment($default_field['description'], ['base_path' => 'https://schema.org/']);
+    $defaults['description'] = $this->schemaTypeBuilder->formatComment(
+      $default_field['description'],
+      ['base_path' => 'https://schema.org/']
+    );
     return $defaults;
   }
 
@@ -439,6 +455,35 @@ class SchemaDotOrgMappingManager implements SchemaDotOrgMappingManagerInterface 
   /**
    * {@inheritdoc}
    */
+  public function createDefaultTypes(string $entity_type_id): void {
+    // Get default Schema.org types for the entity type.
+    /** @var array $default_schema_types */
+    $default_schema_types = $this->entityTypeManager
+      ->getStorage('schemadotorg_mapping_type')
+      ->load($entity_type_id)
+      ->get('default_schema_types');
+
+    // Compare the default Schema.org types with the existing bundles.
+    $bundle_entity_type_id = $this->entityTypeManager
+      ->getDefinition($entity_type_id)
+      ->getBundleEntityType();
+    $bundle_entity_types = $this->entityTypeManager
+      ->getStorage($bundle_entity_type_id)
+      ->loadMultiple();
+    $install_schema_types = array_unique(
+      array_values(
+        array_intersect_key($default_schema_types, $bundle_entity_types)
+      )
+    );
+
+    foreach ($install_schema_types as $install_schema_type) {
+      $this->createType($entity_type_id, $install_schema_type);
+    }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function deleteTypeValidate(string $entity_type_id, string $schema_type): void {
     $mappings = $this->entityTypeManager
       ->getStorage('schemadotorg_mapping')
@@ -534,7 +579,7 @@ class SchemaDotOrgMappingManager implements SchemaDotOrgMappingManagerInterface 
    *   The entity type ID.
    *
    * @return \Drupal\schemadotorg\SchemaDotOrgMappingTypeInterface|null
-   *   A Schema.org mapping tyup.
+   *   A Schema.org mapping type.
    */
   protected function loadMappingType(string $entity_type_id): ?SchemaDotOrgMappingTypeInterface {
     return $this->entityTypeManager

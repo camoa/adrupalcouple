@@ -1,6 +1,6 @@
 schemadotorg_jsonapi_preview.settings:
   type: config_entity
-  label: Schema.org JSON:API preview settings
+  label: 'Schema.org JSON:API preview settings'
   mapping:
     visibility:
       type: mapping
@@ -12,7 +12,7 @@ schemadotorg_jsonapi_preview.settings:
           mapping:
             pages:
               type: string
-              label: 'Pages'
+              label: Pages
             negate:
               type: boolean
               label: 'Hide for the listed pages'

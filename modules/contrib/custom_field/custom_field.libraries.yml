@@ -4,12 +4,6 @@ customfield-admin:
     component:
       css/customfield.admin.css: {}
 
-customfield-inline:
-  version: 1.x
-  css:
-    component:
-      css/customfield-inline.css: {}
-
 custom-field-flex:
   version: 1.x
   css:
@@ -22,13 +16,6 @@ custom-field-flex-admin:
     js/custom-field-flex.widget-settings.js: {}
   dependencies:
     - custom_field/custom-field-flex
-
-customfield-inline-admin:
-  version: 1.x
-  js:
-    js/customfield-inline.widget-settings.js: {}
-  dependencies:
-    - custom_field/customfield-inline
 
 custom-field-color-box:
   version: 1.x

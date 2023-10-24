@@ -4,8 +4,11 @@ declare(strict_types = 1);
 
 namespace Drupal\schemadotorg\Form;
 
+use Drupal\Core\Entity\EntityFieldManagerInterface;
 use Drupal\Core\Entity\EntityForm;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\schemadotorg\SchemaDotOrgSchemaTypeBuilderInterface;
+use Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -17,24 +20,18 @@ class SchemaDotOrgMappingForm extends EntityForm {
 
   /**
    * The entity field manager.
-   *
-   * @var \Drupal\Core\Entity\EntityFieldManagerInterface
    */
-  protected $entityFieldManager;
+  protected EntityFieldManagerInterface $entityFieldManager;
 
   /**
    * The Schema.org schema type manager.
-   *
-   * @var \Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface
    */
-  protected $schemaTypeManager;
+  protected SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager;
 
   /**
    * The Schema.org schema type builder service.
-   *
-   * @var \Drupal\schemadotorg\SchemaDotOrgSchemaTypeBuilderInterface
    */
-  protected $schemaTypeBuilder;
+  protected SchemaDotOrgSchemaTypeBuilderInterface $schemaTypeBuilder;
 
   /**
    * {@inheritdoc}

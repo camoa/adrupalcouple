@@ -33,7 +33,7 @@ Configuration
 -------------
 
 - Go to the Schema.org properties configuration page.  
-  (/admin/config/search/schemadotorg/settings/properties)
-- Go to the 'Entity Prepopulate settings' details.
+  (/admin/config/schemadotorg/settings/properties)
+- Go to the 'Entity prepopulate settings' details.
 - Enter Schema.org types with property that support entity reference prepopulation.
 - Check or uncheck displaying node links as a dropdown.

@@ -1,6 +1,6 @@
 schemadotorg_media.settings:
   type: config_entity
-  label: Schema.org Media settings
+  label: 'Schema.org Media settings'
   mapping:
     default_sources:
       type: sequence

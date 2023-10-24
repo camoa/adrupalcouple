@@ -15,9 +15,9 @@ use Drupal\Tests\schemadotorg\Functional\SchemaDotOrgBrowserTestBase;
 class SchemaDotOrgDescriptionsNodeTitleTest extends SchemaDotOrgBrowserTestBase {
 
   /**
-   * Modules to install.
+   * Modules to enable.
    *
-   * @var string[]
+   * @var array
    */
   protected static $modules = [
     'schemadotorg_ui',

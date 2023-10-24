@@ -4,11 +4,13 @@ declare(strict_types = 1);
 
 namespace Drupal\schemadotorg_mapping_set\Form;
 
+use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Form\ConfirmFormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\Url;
 use Drupal\schemadotorg_mapping_set\Controller\SchemadotorgMappingSetController;
+use Drupal\schemadotorg_mapping_set\SchemaDotOrgMappingSetManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -19,17 +21,13 @@ class SchemaDotOrgMappingSetConfirmForm extends ConfirmFormBase {
 
   /**
    * The module handler to invoke the alter hook.
-   *
-   * @var \Drupal\Core\Extension\ModuleHandlerInterface
    */
-  protected $moduleHandler;
+  protected ModuleHandlerInterface $moduleHandler;
 
   /**
    * The Schema.org mapping set manager service.
-   *
-   * @var \Drupal\schemadotorg_mapping_set\SchemaDotOrgMappingSetManagerInterface
    */
-  protected $schemaMappingSetManager;
+  protected SchemaDotOrgMappingSetManagerInterface $schemaMappingSetManager;
 
   /**
    * {@inheritdoc}
@@ -79,17 +77,13 @@ class SchemaDotOrgMappingSetConfirmForm extends ConfirmFormBase {
 
   /**
    * The mapping set name.
-   *
-   * @var string
    */
-  protected $name;
+  protected string $name;
 
   /**
    * The mapping set operation to be performed.
-   *
-   * @var string
    */
-  protected $operation;
+  protected string $operation;
 
   /**
    * {@inheritdoc}

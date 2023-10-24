@@ -11,29 +11,29 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Storage controller class for "schemadotorg_mapping" configuration entities.
+ *
+ * The Schema.org mapping storage makes is easier to load and examine
+ * Schema.org mappings for types and properties to bundles and fields.
+ *
+ * This storage service also makes it possible to look up related entity
+ * bundles based on Schema.org types.
  */
 class SchemaDotOrgMappingStorage extends ConfigEntityStorage implements SchemaDotOrgMappingStorageInterface {
 
   /**
    * The Schema.org names service.
-   *
-   * @var \Drupal\schemadotorg\SchemaDotOrgNamesInterface
    */
-  protected $schemaNames;
+  protected SchemaDotOrgNamesInterface $schemaNames;
 
   /**
    * The Schema.org schema type manager.
-   *
-   * @var \Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface
    */
-  protected $schemaTypeManager;
+  protected SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager;
 
   /**
    * The Schema.org entity display builder.
-   *
-   * @var \Drupal\schemadotorg\SchemaDotOrgEntityDisplayBuilderInterface
    */
-  protected $schemaEntityDisplayBuilder;
+  protected SchemaDotOrgEntityDisplayBuilderInterface $schemaEntityDisplayBuilder;
 
   /**
    * {@inheritdoc}
@@ -111,9 +111,24 @@ class SchemaDotOrgMappingStorage extends ConfigEntityStorage implements SchemaDo
   /**
    * {@inheritdoc}
    */
-  public function getRangeIncludesTargetBundles(string $target_type, array $range_includes): array {
-    // Remove 'Thing' because it is too generic.
-    unset($range_includes['Thing']);
+  public function getRangeIncludesTargetBundles(string $target_type, array $range_includes, $ignore_thing = TRUE): array {
+    // Ignore 'Thing' because it is too generic.
+    if ($ignore_thing) {
+      unset($range_includes['Thing']);
+    }
+
+    // If the range includes Thing, we can return all the mapping
+    // target bundles.
+    if (isset($range_includes['Thing'])) {
+      /** @var \Drupal\schemadotorg\SchemaDotOrgMappingInterface[] $mappings */
+      $mappings = $this->loadByProperties(['target_entity_type_id' => $target_type]);
+      $target_bundles = [];
+      foreach ($mappings as $mapping) {
+        $target_bundle = $mapping->getTargetBundle();
+        $target_bundles[$target_bundle] = $target_bundle;
+      }
+      return $target_bundles;
+    }
 
     $subtypes = $this->schemaTypeManager->getAllSubTypes($range_includes);
     $entity_ids = $this->getQuery()
@@ -128,8 +143,8 @@ class SchemaDotOrgMappingStorage extends ConfigEntityStorage implements SchemaDo
     $mappings = $this->loadMultiple($entity_ids);
     $target_bundles = [];
     foreach ($mappings as $mapping) {
-      $target = $mapping->getTargetBundle();
-      $target_bundles[$target] = $target;
+      $target_bundle = $mapping->getTargetBundle();
+      $target_bundles[$target_bundle] = $target_bundle;
     }
     return $target_bundles;
   }

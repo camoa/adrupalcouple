@@ -16,9 +16,9 @@ require_once __DIR__ . '/../../../schemadotorg_smart_date.install';
 class SchemaDotOrgSmartDateInstallTest extends KernelTestBase {
 
   /**
-   * Modules to install.
+   * Modules to enable.
    *
-   * @var string[]
+   * @var array
    */
   protected static $modules = [
     'schemadotorg',
@@ -40,7 +40,7 @@ class SchemaDotOrgSmartDateInstallTest extends KernelTestBase {
   public function testInstallAndUninstall(): void {
     $config = $this->config('schemadotorg.settings');
 
-    // Check performing setup tasks when the Schema.org Smart Date module is installed.
+    // Check performing set up tasks when the Schema.org Smart Date module is installed.
     schemadotorg_smart_date_install(FALSE);
 
     $event_properties = $config->get('schema_types.default_properties.Event');

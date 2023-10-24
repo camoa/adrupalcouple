@@ -50,4 +50,4 @@ default_properties:
     properties:
       name: string_long
       acceptedAnswer: string_long
-default_format: 'basic_html'
+default_format: basic_html

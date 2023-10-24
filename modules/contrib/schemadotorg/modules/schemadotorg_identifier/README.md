@@ -26,7 +26,7 @@ Configuration
 -------------
 
 - Go to the Schema.org properties configuration page.  
-  (/admin/config/search/schemadotorg/settings/properties)
+  (/admin/config/schemadotorg/settings/properties)
 - Go to the 'Identifier settings' details.
 - Enter identifier field definitions which will be available to 
   Schema.org types.

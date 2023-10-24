@@ -17,9 +17,9 @@ form .CodeMirror-scroll {
 }
 
 pre.schemadotorg-codemirror-mode {
-  border: 1px solid #999;
-  background-color: #efefef;
-  padding: 1em;
-  max-height: 400px;
   overflow: scroll;
+  max-height: 400px;
+  padding: 1em;
+  border: 1px solid #999;
+  background-color: #f7f7f7;
 }

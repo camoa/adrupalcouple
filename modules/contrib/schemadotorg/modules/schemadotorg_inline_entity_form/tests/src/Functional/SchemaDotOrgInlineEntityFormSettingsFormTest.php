@@ -34,7 +34,7 @@ class SchemaDotOrgInlineEntityFormSettingsFormTest extends SchemaDotOrgBrowserTe
    * Test Schema.org Inline Entity Form settings form.
    */
   public function testSettingsForm(): void {
-    $this->assertSaveSettingsConfigForm('schemadotorg_inline_entity_form.settings', '/admin/config/search/schemadotorg/settings/properties');
+    $this->assertSaveSettingsConfigForm('schemadotorg_inline_entity_form.settings', '/admin/config/schemadotorg/settings/properties');
   }
 
 }

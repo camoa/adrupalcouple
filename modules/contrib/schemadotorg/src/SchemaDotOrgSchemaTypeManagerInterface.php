@@ -358,13 +358,13 @@ interface SchemaDotOrgSchemaTypeManagerInterface {
    *
    * @param string $type
    *   The Schema.org type.
-   * @param string $indent
-   *   The indentation.
+   * @param array $ignored_types
+   *   An array of ignored Schema.org type ids.
    *
    * @return array
    *   An associative array of Schema.org types as options
    */
-  public function getAllTypeChildrenAsOptions(string $type, string $indent = ''): array;
+  public function getAllTypeChildrenAsOptions(string $type, array $ignored_types = []): array;
 
   /**
    * Gets Schema.org subtypes.
@@ -415,7 +415,7 @@ interface SchemaDotOrgSchemaTypeManagerInterface {
    *
    * @return array
    *   An array of Schema.org subtypes which includes the specified
-   *   Schema.org types
+   *   Schema.org types.
    */
   public function getAllSubTypes(array $types): array;
 

@@ -5,7 +5,3 @@ services:
     tags:
       - { name: config.factory.override }
       - { name: event_subscriber }
-  schemadotorg_descriptions.breadcrumb:
-    class: Drupal\schemadotorg_descriptions\Breadcrumb\SchemaDotOrgDescriptionsBreadcrumbBuilder
-    tags:
-      - { name: breadcrumb_builder, priority: 1000 }

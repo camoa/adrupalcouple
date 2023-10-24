@@ -7,13 +7,17 @@
 
 use Drupal\block\BlockInterface;
 use Drupal\block\Entity\Block;
+use Drupal\Component\Utility\Xss;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\BubbleableMetadata;
 use Drupal\Core\Render\Markup;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Url;
+use Drupal\mix\Controller\MixContentSyncController;
+use Drupal\views\ViewExecutable;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\image\Entity\ImageStyle;
+use Drupal\mix\Controller\Mix;
 use Drupal\user\Entity\Role;
 
 /**
@@ -33,6 +37,12 @@ function mix_help($route_name, RouteMatchInterface $route_match) {
  * Implements hook_form_alter().
  */
 function mix_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+
+  // Hide submit button.
+  if (\Drupal::config('mix.settings')->get('hide_submit')) {
+    // Attach hide submit button library to form.
+    $form['#attached']['library'][] = 'mix/hide_submit';
+  }
 
   // Show form id.
   if (\Drupal::state()->get('mix.show_form_id')) {
@@ -65,6 +75,26 @@ function hook_form_{{ form_id }}_alter(&$form, \Drupal\Core\Form\FormStateInterf
   if ($currentUser->id() != 1 && $hideRevisionField) {
     $form['revision_information']['#access'] = FALSE;
   }
+
+  // Ajax forms.
+  // @see AjaxHelperTrait::isAjax()
+  $isAjax = in_array(\Drupal::request()->get('_wrapper_format'), [
+    'drupal_ajax',
+    'drupal_dialog',
+    'drupal_modal',
+  ]);
+
+  if ($isAjax && isset($form['#mix_ajax_form']) && $form['#mix_ajax_form']) {
+    $wrapper_id = "mix_ajax_form_" . $form_id;
+    $form['#prefix'] = '<div id="' . $wrapper_id . '">';
+    $form['#suffix'] = '</div>';
+    $form['actions']['submit']['#ajax'] = [
+      'callback' => '\Drupal\mix\Controller\Mix::ajaxFormSubmit',
+      'wrapper' => $wrapper_id,
+      'effect' => 'fade',
+    ];
+  }
+
 }
 
 /**
@@ -171,6 +201,109 @@ function mix_page_attachments_alter(array &$attachments): void {
 }
 
 /**
+ * Implements template_preprocess_html().
+ */
+function mix_preprocess_html(&$variables) {
+
+  // Add meta tags and change page title based on the meta settings.
+  $metaConfig = \Drupal::config('mix.settings')->get('meta');
+  $token_service = \Drupal::token();
+
+  // Meta tags for front page.
+  $is_front = \Drupal::service('path.matcher')->isFrontPage();
+  if ($is_front && $metaConfig['frontpage']['active']) {
+    // Set page title.
+    if ($metaConfig['frontpage']['title']) {
+      $frontpage_title = $metaConfig['frontpage']['title'];
+      // Replace token.
+      if ($token_service->scan($frontpage_title)) {
+        $frontpage_title = $token_service->replace($frontpage_title);
+      }
+      $variables['head_title'] = html_entity_decode($frontpage_title, ENT_QUOTES);
+    }
+
+    // Add pre-defined meta tags.
+    $meta_names = ['description', 'keywords'];
+    foreach ($meta_names as $name) {
+      if ($metaConfig['frontpage']['description']) {
+        $meta = [
+          '#tag' => 'meta',
+          '#attributes' => [
+            'name' => $name,
+            'content' => $metaConfig['frontpage'][$name],
+          ],
+        ];
+        $variables['#attached']['html_head'][] = [$meta, $name];
+      }
+    }
+
+    // Add user-defined meta tags.
+    if ($metaConfig['frontpage']['metatags']) {
+      // Parse metatags.
+      $meta_tags_array = Mix::getMetaTags($metaConfig['frontpage']['metatags']);
+      foreach ($meta_tags_array as $m) {
+        $meta = [
+          '#tag' => 'meta',
+          '#attributes' => [
+            $m['attribute'] => $m['value'],
+            'content' => $m['content'],
+          ],
+        ];
+        $name = $m['attribute'] . '-' . $m['value'];
+        $variables['#attached']['html_head'][] = [$meta, $name];
+      }
+    }
+
+  }
+
+  // Node.
+  // Add meta tags for full node pages.
+  $route_match = \Drupal::routeMatch();
+  if ($route_match->getRouteName() == 'entity.node.canonical' && $metaConfig['node']['active']) {
+
+    if ($metaConfig['node']['description']) {
+      $content = $metaConfig['node']['description'];
+
+      // Replace token as needed.
+      if ($token_service->scan($content)) {
+        $node = $route_match->getParameter('node');
+        if ($node) {
+          $content = Xss::filter($token_service->replace($content, ['node' => $node]));
+        }
+      }
+
+      // Add tags.
+      $meta = [
+        '#tag' => 'meta',
+        '#attributes' => [
+          'name' => 'description',
+          'content' => $content,
+        ],
+      ];
+      $variables['#attached']['html_head'][] = [$meta, 'description'];
+    }
+  }
+
+}
+
+/**
+ * Implements hook_perprocess_views_view_field().
+ */
+function mix_preprocess_views_view_field(&$variables) {
+  $view = $variables['view'];
+  $field = $variables['field'];
+
+  if (\Drupal::config('mix.settings')->get('show_content_sync_id')) {
+    // Add content sync widget after block title.
+    // @see mix_views_pre_render()
+    if ($view->id() == 'block_content' && $view->current_display == 'page_1' && $field->options['id'] == 'info') {
+      $markup = $variables['output'] . ' ' . MixContentSyncController::getWidget($variables['row']->content_sync_id);
+      $variables['output'] = ['#markup' => $markup];
+    }
+  }
+}
+
+/**
  * Implements hook_form_FORM_ID_alter().
  */
 function mix_form_block_form_alter(&$form, FormStateInterface $form_state, $form_id) {
@@ -200,6 +333,23 @@ function mix_form_block_form_alter(&$form, FormStateInterface $form_state, $form
       '#type' => 'checkbox',
       '#default_value' => $block->getThirdPartySetting('mix', 'dropdown'),
     ];
+  }
+}
+
+/**
+ * Implements hook_views_pre_render().
+ */
+function mix_views_pre_render(ViewExecutable $view) {
+
+  if (\Drupal::config('mix.settings')->get('show_content_sync_id')) {
+    // Add the content sync ID to the "Custom block library" view.
+    if ($view->id() == 'block_content' && $view->current_display == 'page_1') {
+      foreach ($view->result as $key => $row) {
+        $entity = $row->_entity;
+        $content_sync_id = 'mix.content_sync.' . $entity->getEntityTypeId() . '.' . $entity->bundle() . '.' . $entity->uuid();
+        $view->result[$key]->content_sync_id = $content_sync_id;
+      }
+    }
   }
 }
 
@@ -246,6 +396,25 @@ function mix_preprocess_block(&$variables) {
       // Rplace #theme to use custom template.
       // @see mix_theme_registry_alter().
       $variables['content']['#theme'] = 'mix_menu';
+    }
+  }
+
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function mix_form_menu_edit_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+
+  // Add the content sync ID to the menu edit form.
+  if (\Drupal::config('mix.settings')->get('show_content_sync_id')) {
+    foreach ($form['links']['links'] as $key => $link) {
+      if (strpos($key, 'menu_plugin_id:menu_link_content:') === 0) {
+        if (isset($link['title'][1])) {
+          $content_sync_id = 'mix.content_sync.' . str_replace(':', '.', $link['id']['#value']);
+          $form['links']['links'][$key]['title'][1]['#suffix'] = ' ' . MixContentSyncController::getWidget($content_sync_id);
+        }
+      }
     }
   }
 
@@ -593,6 +762,21 @@ function _mix_preprocess_menu_item(&$variables, &$items) {
     }
   }
 
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function mix_form_taxonomy_overview_terms_alter(&$form, FormStateInterface $form_state, $form_id) {
+  // Add the content sync ID to the taxonomy_overview_terms form.
+  if (\Drupal::config('mix.settings')->get('show_content_sync_id')) {
+    foreach ($form['terms'] as $key => $link) {
+      if (strpos($key, 'tid:') === 0) {
+        $content_sync_id = 'mix.content_sync.taxonomy.term.' . $link['#term']->uuid();
+        $form['terms'][$key]['term']['#suffix'] = ' ' . MixContentSyncController::getWidget($content_sync_id);
+      }
+    }
+  }
 }
 
 /**

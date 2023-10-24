@@ -34,7 +34,7 @@ class SchemaDotOrgFieldValidationSettingsFormTest extends SchemaDotOrgBrowserTes
    * Test Schema.org field validation settings form.
    */
   public function testSettingsForm(): void {
-    $this->assertSaveSettingsConfigForm('schemadotorg_field_validation.settings', '/admin/config/search/schemadotorg/settings/properties');
+    $this->assertSaveSettingsConfigForm('schemadotorg_field_validation.settings', '/admin/config/schemadotorg/settings/properties');
   }
 
 }

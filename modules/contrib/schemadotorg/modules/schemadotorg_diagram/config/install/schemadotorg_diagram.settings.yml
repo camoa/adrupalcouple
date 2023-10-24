@@ -12,7 +12,7 @@ diagrams:
     parent: parentOrganization
     child: subOrganization
   departments:
-    title: 'Departments'
+    title: Departments
     parent: ''
     child: department
   employee:
@@ -40,7 +40,7 @@ diagrams:
     parent: ''
     child: healthCondition
   study:
-    title: 'Study'
+    title: Study
     parent: ''
     child: study
   relatedDrug:

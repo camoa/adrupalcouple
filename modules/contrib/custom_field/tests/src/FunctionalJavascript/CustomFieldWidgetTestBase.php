@@ -2,7 +2,6 @@
 
 namespace Drupal\Tests\custom_field\FunctionalJavascript;
 
-use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\FunctionalJavascriptTests\WebDriverTestBase;
 
 /**
@@ -20,10 +19,25 @@ abstract class CustomFieldWidgetTestBase extends WebDriverTestBase {
     'user',
     'system',
     'field',
+    'field_ui',
     'text',
     'node',
     'path',
   ];
+
+  /**
+   * The field manager service.
+   *
+   * @var \Drupal\Core\Entity\EntityFieldManagerInterface
+   */
+  protected $entityFieldManager;
+
+  /**
+   * The custom field generate data service.
+   *
+   * @var \Drupal\custom_field\CustomFieldGenerateDataInterface
+   */
+  protected $customFieldDataGenerator;
 
   /**
    * {@inheritdoc}
@@ -42,63 +56,13 @@ abstract class CustomFieldWidgetTestBase extends WebDriverTestBase {
    */
   protected function setUp(): void {
     parent::setUp();
+    $this->entityFieldManager = $this->container->get('entity_field.manager');
+    $this->customFieldDataGenerator = $this->container->get('custom_field.generate_data');
 
-    /** @var \Drupal\Core\Entity\EntityFieldManagerInterface $entity_field_manager */
-    $entity_field_manager = \Drupal::service('entity_field.manager');
-
-    $this->fields = $entity_field_manager
+    $this->fields = $this->entityFieldManager
       ->getFieldDefinitions('node', 'custom_field_entity_test');
 
     $this->drupalLogin($this->drupalCreateUser([], NULL, TRUE));
-  }
-
-  /**
-   * Generates random form data that is ready to save.
-   *
-   * @param \Drupal\Core\Field\FieldDefinitionInterface $field_definition
-   *   The field to generate form data for.
-   * @param array|int[] $deltas
-   *   An array of deltas to generate form data for.
-   *
-   * @return array|string[]
-   *   An associative array of form data.
-   */
-  protected function generateSampleFormData(FieldDefinitionInterface $field_definition, $deltas = NULL) {
-    $field_name = $field_definition->getName();
-    if ($deltas === NULL) {
-      $deltas = [0];
-    }
-
-    $form_values = [];
-
-    /** @var \Drupal\custom_field\CustomFieldGenerateDataInterface $random_generator */
-    $random_generator = \Drupal::service('custom_field.generate_data');
-    $field_settings = $field_definition->getSetting('field_settings');
-    $columns = $field_definition->getSetting('columns');
-
-    foreach ($deltas as $delta) {
-      $random_values = $random_generator->generateFieldData($columns, $field_settings);
-
-      // UUID's can't be unset through the GUI.
-      unset($random_values['uuid_test']);
-
-      // @todo Hardening: floating point calculation can randomly fail.
-      $random_values['decimal_test'] = '0.50';
-      $random_values['float_test'] = '10.775';
-
-      // @todo Hardening: we need to treat maps specially due to ajax.
-      unset($random_values['map_test']);
-
-      // @todo Hardening: why do color fields not set using ::submitForm?
-      unset($random_values['color_test']);
-
-      $keys = array_map(static function ($key) use ($field_name, $delta) {
-        return "{$field_name}[$delta][$key]";
-      }, array_keys($random_values));
-
-      $form_values[] = array_combine($keys, $random_values);
-    }
-    return array_merge(['title[0][value]' => 'Test'], ...$form_values);
   }
 
   /**
@@ -110,9 +74,10 @@ abstract class CustomFieldWidgetTestBase extends WebDriverTestBase {
   public function testWidgets() {
     $assert = $this->assertSession();
     $this->drupalGet('/node/add/custom_field_entity_test');
+    $generator = $this->customFieldDataGenerator;
 
     // Fill out the single cardinality field.
-    $form_values = $this->generateSampleFormData($this->fields['field_custom_field_test']);
+    $form_values = $generator->generateSampleFormData($this->fields['field_custom_field_test']);
 
     $this->submitForm($form_values, 'Save');
 
@@ -125,7 +90,7 @@ abstract class CustomFieldWidgetTestBase extends WebDriverTestBase {
     }
 
     // Fill out the multiple cardinality field.
-    $form_values = $this->generateSampleFormData(
+    $form_values = $generator->generateSampleFormData(
       $this->fields['field_custom_field_test_multiple'],
       [0, 1, 2]
     );
@@ -144,7 +109,7 @@ abstract class CustomFieldWidgetTestBase extends WebDriverTestBase {
       $page->pressButton('Add another item');
       $assert->assertWaitOnAjaxRequest();
     }
-    $form_values = $this->generateSampleFormData(
+    $form_values = $generator->generateSampleFormData(
       $this->fields['field_custom_field_test_unlimite'],
       [0, 1, 2, 3, 4]
     );

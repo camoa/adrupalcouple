@@ -30,8 +30,6 @@ class SchemaDotOrgAllowedFormatsSettingsFormTest extends SchemaDotOrgBrowserTest
     FilterFormat::create([
       'format' => 'full_html',
       'name' => 'Full HTML',
-      'weight' => 1,
-      'filters' => [],
     ])->save();
 
     $account = $this->drupalCreateUser(['administer schemadotorg']);
@@ -42,7 +40,7 @@ class SchemaDotOrgAllowedFormatsSettingsFormTest extends SchemaDotOrgBrowserTest
    * Test Schema.org Allowed Formats settings form.
    */
   public function testSettingsForm(): void {
-    $this->assertSaveSettingsConfigForm('schemadotorg_allowed_formats.settings', '/admin/config/search/schemadotorg/settings/properties');
+    $this->assertSaveSettingsConfigForm('schemadotorg_allowed_formats.settings', '/admin/config/schemadotorg/settings/properties');
   }
 
 }

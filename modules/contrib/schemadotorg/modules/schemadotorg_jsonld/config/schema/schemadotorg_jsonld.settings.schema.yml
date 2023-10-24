@@ -1,6 +1,6 @@
 schemadotorg_jsonld.settings:
   type: config_entity
-  label: Schema.org JSON-LD settings
+  label: 'Schema.org JSON-LD settings'
   mapping:
     property_order:
       type: sequence

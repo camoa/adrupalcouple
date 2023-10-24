@@ -34,6 +34,6 @@ Permissions
 Settings
 
 - Go to the Schema.org JSON-LD configuration page.  
-  (/admin/config/search/schemadotorg/settings/jsonld)
+  (/admin/config/schemadotorg/settings/jsonld)
 - Go to the 'JSON-LD preview visibility' details.
 - Enter JSON-LD preview visibility settings.

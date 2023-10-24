@@ -1,6 +1,6 @@
 schemadotorg_subtype.settings:
   type: config_entity
-  label: Schema.org Subtype settings
+  label: 'Schema.org Subtype settings'
   mapping:
     default_field_suffix:
       type: string

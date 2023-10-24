@@ -33,9 +33,9 @@ Features
 Configuration
 -------------
 
-- Go to the Schema.org translations settings page
-  (/admin/config/search/schemadotorg/settings/translations)
-- Go to the 'Taxonomy settings' details.
+- Go to the Schema.org general settings page
+  (/admin/config/schemadotorg/settings)
+- Go to the 'Translation settings' details.
 - Enter Schema.org types that should never be translated.
 - Enter Schema.org properties that should never be translated.
 - Enter field names that should never be translated.

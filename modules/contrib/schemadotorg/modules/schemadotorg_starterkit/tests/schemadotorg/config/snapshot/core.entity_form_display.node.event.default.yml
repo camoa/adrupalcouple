@@ -67,7 +67,7 @@ content:
     third_party_settings: {  }
   schema_duration:
     type: string_textfield
-    weight: 100
+    weight: 110
     region: content
     settings:
       size: 60

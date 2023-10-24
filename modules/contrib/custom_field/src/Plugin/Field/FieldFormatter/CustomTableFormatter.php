@@ -4,6 +4,7 @@ namespace Drupal\custom_field\Plugin\Field\FieldFormatter;
 
 use Drupal\Component\Utility\Html;
 use Drupal\Core\Field\FieldItemListInterface;
+use Drupal\Core\Form\FormStateInterface;
 
 /**
  * Plugin implementation of the 'custom_table' formatter.
@@ -19,15 +20,19 @@ use Drupal\Core\Field\FieldItemListInterface;
  *   }
  * )
  */
-class CustomTableFormatter extends CustomFormatterBase {
+class CustomTableFormatter extends BaseFormatter {
 
   /**
    * {@inheritdoc}
    */
-  public function settingsSummary(): array {
-    $summary[] = $this->t('Custom field items will be rendered as a table.');
+  public function settingsForm(array $form, FormStateInterface $form_state): array {
+    $form = parent::settingsForm($form, $form_state);
 
-    return $summary;
+    foreach ($this->getCustomFieldItems() as $name => $customItem) {
+      unset($form['fields'][$name]['label_display']);
+    }
+
+    return $form;
   }
 
   /**
@@ -56,10 +61,13 @@ class CustomTableFormatter extends CustomFormatterBase {
     // Build the table rows and columns.
     foreach ($items as $delta => $item) {
       $elements[0]['#rows'][$delta]['class'][] = $component . '__item';
+      $values = $this->getFormattedValues($item, $langcode);
       foreach ($customItems as $name => $customItem) {
-        $markup = $customItem->value($item);
+        $markup = $values[$name]['value']['#markup'] ?? NULL;
         $elements[0]['#rows'][$delta]['data'][$name] = [
-          'data' => ['#markup' => $markup],
+          'data' => [
+            '#markup' => $markup,
+          ],
           'class' => [$component . '__' . Html::cleanCssIdentifier($name)],
         ];
       }

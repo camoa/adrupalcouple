@@ -12,9 +12,7 @@ use Drupal\Core\Config\Entity\ConfigEntityBundleBase;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\field\FieldConfigInterface;
-use Drupal\schemadotorg\Element\SchemaDotOrgSettings;
 use Drupal\schemadotorg\Entity\SchemaDotOrgMapping;
-use Drupal\schemadotorg\Utility\SchemaDotOrgStringHelper;
 use Drupal\schemadotorg_ui\Form\SchemaDotOrgUiMappingForm;
 
 /**
@@ -36,8 +34,6 @@ function schemadotorg_descriptions_entity_load(array $entities, string $entity_t
   $schema_type_builder = \Drupal::service('schemadotorg.schema_type_builder');
 
   $options = ['base_path' => 'https://schema.org/'];
-  $trim_descriptions = \Drupal::config('schemadotorg_descriptions.settings')
-    ->get('trim_descriptions');
   $custom_descriptions = \Drupal::config('schemadotorg_descriptions.settings')
     ->get('custom_descriptions');
 
@@ -61,12 +57,7 @@ function schemadotorg_descriptions_entity_load(array $entities, string $entity_t
     }
     else {
       $type_definition = $schema_type_manager->getType($schema_type);
-      $comment = $type_definition['comment'];
-      // Trim description.
-      if ($trim_descriptions) {
-        $comment = SchemaDotOrgStringHelper::getFirstSentence($comment);
-      }
-      $description = $schema_type_builder->formatComment($comment, $options);
+      $description = $schema_type_builder->formatComment($type_definition['drupal_description'], $options);
     }
 
     if ($description) {
@@ -78,7 +69,7 @@ function schemadotorg_descriptions_entity_load(array $entities, string $entity_t
 /**
  * Implements hook_form_FORM_ID_alter().
  *
- * Sets the node title field's description to the coresponding
+ * Sets the node title field's description to the corresponding
  * Schema.org property's comment.
  */
 function schemadotorg_descriptions_form_node_form_alter(array &$form, FormStateInterface $form_state, string $form_id): void {
@@ -116,6 +107,7 @@ function schemadotorg_descriptions_form_schemadotorg_mapping_form_alter(array &$
   if (!\Drupal::moduleHandler()->moduleExists('schemadotorg_ui')) {
     return;
   }
+
   /** @var \Drupal\schemadotorg\Form\SchemaDotOrgMappingForm $form_object */
   $form_object = $form_state->getFormObject();
   /** @var \Drupal\schemadotorg\SchemaDotOrgMappingInterface $mapping */
@@ -140,7 +132,10 @@ function schemadotorg_descriptions_form_schemadotorg_mapping_form_alter(array &$
   $config = \Drupal::config('schemadotorg_descriptions.settings');
   $type_definition = $schema_type_manager->getType($schema_type);
   $description = $config->get("custom_descriptions.$schema_type")
-    ?? $schema_type_builder->formatComment($type_definition['comment'], ['base_path' => 'https://schema.org/']);
+    ?? $schema_type_builder->formatComment(
+      $type_definition['drupal_description'],
+      ['base_path' => 'https://schema.org/']
+    );
 
   // Unset the entity's default value and append a note to the description.
   if (isset($form['mapping']['entity']['description'])
@@ -228,7 +223,7 @@ function schemadotorg_descriptions_schemadotorg_bundle_entity_alter(array &$valu
   $schema_type_builder = \Drupal::service('schemadotorg.schema_type_builder');
 
   $definition = $schema_type_manager->getType($schema_type);
-  $description = $schema_type_builder->formatComment($definition['comment'], ['base_path' => 'https://schema.org/']);
+  $description = $schema_type_builder->formatComment($definition['drupal_description'], ['base_path' => 'https://schema.org/']);
   if ($entity_values['description'] === $description) {
     $entity_values['description'] = '';
   }
@@ -272,36 +267,37 @@ function schemadotorg_descriptions_schemadotorg_property_field_alter(
   }
 }
 
+/* ************************************************************************** */
+// Schema.org general settings form.
+/* ************************************************************************** */
+
 /**
  * Implements hook_form_FORM_ID_alter().
+ *
+ * @see \Drupal\schemadotorg\Form\SchemaDotOrgSettingsFormBase::afterBuildDetails
+ * @see \Drupal\schemadotorg\Form\SchemaDotOrgSettingsFormBase::formAlter
  */
 function schemadotorg_descriptions_form_schemadotorg_general_settings_form_alter(array &$form, FormStateInterface $form_state): void {
   $form['schemadotorg_descriptions'] = [
     '#type' => 'details',
     '#title' => t('Description settings'),
-    '#open' => TRUE,
-    '#tree' => TRUE,
-    '#weight' => -10,
   ];
   $form['schemadotorg_descriptions']['custom_descriptions'] = [
     '#title' => t('Custom Schema.org type and property descriptions'),
     '#type' => 'schemadotorg_settings',
-    '#settings_type' => SchemaDotOrgSettings::ASSOCIATIVE,
-    '#settings_format' => 'SchemeType or SchemeType|description or propertyName or propertyName|description',
-    '#description' => t('Enter custom Schema.org type and property descriptions. Leave the description blank to remove the default description provided by Schema.org.'),
+    '#description' => t('Enter custom Schema.org type and property descriptions. Set to <em>null</em> to remove the default description provided by Schema.org.'),
     '#description_link' => 'types',
-  ];
-  $form['schemadotorg_descriptions']['trim_descriptions'] = [
-    '#title' => t('Trim long Schema.org type and property descriptions'),
-    '#type' => 'checkbox',
-    '#description' => t("If checked, long Schema.org type and property descriptions will be truncated to the first paragraphs and a 'learn more' link will be appended to the description."),
-    '#return_value' => TRUE,
+    '#example' => '
+SchemeType: null
+SchemeType: description
+propertyName: null
+propertyName: description
+',
   ];
   $form['schemadotorg_descriptions']['help_descriptions'] = [
     '#title' => t('Set explanation or submission guidelines to the Schema.org type descriptions'),
     '#type' => 'checkbox',
     '#description' => t("If checked, Schema.org type descriptions will also be displayed as the explanation/submission guidelines. Explanation/submission guidelines are only applicable to content types."),
-    '#return_value' => TRUE,
   ];
 
   $form['#submit'][] = 'schemadotorg_descriptions_general_settings_submit';

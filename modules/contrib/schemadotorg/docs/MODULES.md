@@ -11,7 +11,7 @@ on Schema.org types.
 - **[Schema.org Blueprints](https://git.drupalcode.org/project/schemadotorg)**  
   Uses Schema.org as the blueprint for the content architecture and structured data in a Drupal website.
 
-- **[Schema.org Blueprints UI](https://git.drupalcode.org/project/schemadotorg/-/tree/1.0.x/modules/schemadotorg_ui)**  
+- **[Schema.org Blueprints UI](https://git.drupalcode.org/project/schemadotorg/-/tree/1.0.x/modules/schemadotorg_ui)**    
   Allows administrators to attach custom Schema.org properties to fieldable types.
 
 - **[Schema.org Blueprints Report](https://git.drupalcode.org/project/schemadotorg/-/tree/1.0.x/modules/schemadotorg_report)**  
@@ -35,9 +35,9 @@ Schema.org types.
   Manages identifiers (https://schema.org/identifier) for Schema.org types.
 
 - **[Schema.org Blueprints Mapping Set](https://git.drupalcode.org/project/schemadotorg/-/tree/1.0.x/modules/schemadotorg_mapping_set)**  
-  Provides the ability to create a set of related Schema.org types via Drush.
+  Provides the ability to create a set of related Schema.org types via the UI and Drush.
 
-- **[Schema.org Blueprints Role](https://git.drupalcode.org/project/schemadotorg/-/tree/1.0.x/modules/schemadotorg_role)**    
+- **[Schema.org Blueprints Role](https://git.drupalcode.org/project/schemadotorg/-/tree/1.0.x/modules/schemadotorg_role)**  
   Manages roles (https://schema.org/Role) for Schema.org properties.
 
 - **[Schema.org Blueprints Subtype](https://git.drupalcode.org/project/schemadotorg/-/tree/1.0.x/modules/schemadotorg_subtype)**  
@@ -66,10 +66,10 @@ and field configuration settings.
 - **[Schema.org Blueprints Automatic Entity Labels](https://git.drupalcode.org/project/schemadotorg/-/tree/1.0.x/modules/schemadotorg_auto_entitylabel)**  
   Creates automatic entity label settings for Schema.org types.
 
-- **[Schema.org Blueprints Corresponding Entity References](https://git.drupalcode.org/project/schemadotorg/-/tree/1.0.x/modules/schemadotorg_cer)**
+- **[Schema.org Blueprints Corresponding Entity References](https://git.drupalcode.org/project/schemadotorg/-/tree/1.0.x/modules/schemadotorg_cer)**  
   Improves https://inverseOf support using the Corresponding Entity References module.
 
-- **[Schema.org Blueprints Entity Prepopulate](https://git.drupalcode.org/project/schemadotorg/-/tree/1.0.x/modules/schemadotorg_epp)**
+- **[Schema.org Blueprints Entity Prepopulate](https://git.drupalcode.org/project/schemadotorg/-/tree/1.0.x/modules/schemadotorg_epp)**  
   Configures and manages entity prepopulation for Schema.org relationships (i.e. entity references).
 
 - **[Schema.org Blueprints Existing Values Autocomplete Widget](https://git.drupalcode.org/project/schemadotorg/-/tree/1.0.x/modules/schemadotorg_existing_values_autocomplete_widget)**  
@@ -80,9 +80,6 @@ and field configuration settings.
 
 - **[Schema.org Blueprints Field Validation](https://git.drupalcode.org/project/schemadotorg/-/tree/1.0.x/modules/schemadotorg_field_validation)**  
   Adds field validation/constraint rules to Schema.org properties.
-
-- **[Schema.org Blueprints Flex Field](https://git.drupalcode.org/project/schemadotorg/-/tree/1.0.x/modules/schemadotorg_flexfield)**  
-  Allows a Flex field to be used to create Schema.org relationships within an entity type/bundle Schema.org mapping.
 
 - **[Schema.org Blueprints Focal Point](https://git.drupalcode.org/project/schemadotorg/-/tree/1.0.x/modules/schemadotorg_focal_point)**  
   Enables focal point for Schema.org images and generates default image styles for decoupled front-ends.
@@ -99,12 +96,6 @@ and field configuration settings.
 - **[Schema.org Blueprints Options](https://git.drupalcode.org/project/schemadotorg/-/tree/1.0.x/modules/schemadotorg_options)**  
   Set allowed values for list (options) fields.
 
-- **[Schema.org Blueprints Sidebar](https://git.drupalcode.org/project/schemadotorg/-/tree/1.0.x/modules/schemadotorg_sidebar)**  
-  Adds paragraph types to the sidebar on node edit forms.
-
-- **[Schema.org Blueprints Editorial](https://git.drupalcode.org/project/schemadotorg/-/tree/1.0.x/modules/schemadotorg_editorial)**  
-  Adds an 'Editorial information' paragraph to the sidebar on node edit forms.
-
 - **[Schema.org Blueprints Smart Date](https://git.drupalcode.org/project/schemadotorg/-/tree/1.0.x/modules/schemadotorg_smart_date)**  
   Allows a Smart date field to be used to create date ranges and event schedules included in a site's Schema.org JSON-LD.
 
@@ -112,6 +103,12 @@ and field configuration settings.
 
 The below entity type related module provide support and mappings for
 common entity types.
+
+- **[Schema.org Blueprints Node](https://git.drupalcode.org/project/schemadotorg/-/tree/1.0.x/modules/schemadotorg_node)**  
+  Enhances content type integration with the Schema.org Blueprints module.
+
+- **[Schema.org Blueprints Block Content](https://git.drupalcode.org/project/schemadotorg/-/tree/1.0.x/modules/schemadotorg_block_content)**  
+  Integrates content blocks with the Schema.org Blueprints module.
 
 - **[Schema.org Blueprints Media](https://git.drupalcode.org/project/schemadotorg/-/tree/1.0.x/modules/schemadotorg_media)**  
   Integrates the Media and Media Library module with the Schema.org Blueprints module.
@@ -121,20 +118,6 @@ common entity types.
 
 - **[Schema.org Blueprints Taxonomy](https://git.drupalcode.org/project/schemadotorg/-/tree/1.0.x/modules/schemadotorg_taxonomy)**  
   Assists with creating and mapping taxonomy vocabularies and terms.
-
-# Layout
-
-The below layout related modules provide support for building layouts using
-Layout Paragraphs based on Schema.org types.
-
-- **[Schema.org Blueprints Action](https://git.drupalcode.org/project/schemadotorg/-/tree/1.0.x/modules/schemadotorg_action)**  
-  Provides support for https:://schema.org/Action using a call to action paragraph type.
-
-- **[Schema.org Layout Paragraphs](https://git.drupalcode.org/project/schemadotorg/-/tree/1.0.x/modules/schemadotorg_layout_paragraphs)**  
-  Provides integration with the Layout Paragraphs module.
-
-- **[Style Options](https://www.drupal.org/project/style_options)**  
-  Provides configurable styles management for attaching various style plugins to Layouts and Paragraphs.
 
 # SEO
 
@@ -146,6 +129,9 @@ SEO modules.
 
 - **[Schema.org Blueprints Simple Sitemap](https://git.drupalcode.org/project/schemadotorg/-/tree/1.0.x/modules/schemadotorg_simple_sitemap)**  
   Automatically adds Schema.org types to sitemap.xml.
+
+- **[Schema.org Blueprints Pathauto](https://git.drupalcode.org/project/schemadotorg/-/tree/1.0.x/modules/schemadotorg_pathauto)**  
+  Automatically enables URL aliases (via pathauto) for Schema.org types.
 
 # Workflow
 
@@ -202,10 +188,36 @@ a Next.js front-end.
 - **[Schema.org Blueprints Next.js Components](https://git.drupalcode.org/project/schemadotorg_next/-/tree/1.0.x/modules/schemadotorg_next_components)**  
   Generates and previews Next.js React components to assist with the integration of Schema.org Blueprints with Next.js
 
-# Development
+# [Experimental](https://www.drupal.org/project/schemadotorg_experimental)
 
-- **[Schema.org Blueprints Devel](https://git.drupalcode.org/project/schemadotorg/-/tree/1.0.x/modules/schemadotorg_devel)**  
+- **[Schema.org Blueprints Action](https://git.drupalcode.org/project/schemadotorg_experimental/-/tree/1.0.x/modules/schemadotorg_action)**  
+  Provides support for https:://schema.org/Action using a call to action paragraph type.
+
+- **[Schema.org Blueprints Block Content](https://git.drupalcode.org/project/schemadotorg_experimental/-/tree/1.0.x/modules/schemadotorg_block_content_status)**  
+  Displays Schema.org content blocks as status message.
+
+- **[Schema.org Blueprints Components](https://git.drupalcode.org/project/schemadotorg_experimental/-/tree/1.0.x/modules/schemadotorg_components)**  
+  Provides support for Single Directory Components (SDC) based on Schema.org types.
+
+- **[Schema.org Blueprints Devel](https://git.drupalcode.org/project/schemadotorg_experimental/-/tree/1.0.x/modules/schemadotorg_devel)**  
   Provides development tools for the Schema.org Blueprints module.
+
+- **[Schema.org Blueprints Editorial](https://git.drupalcode.org/project/schemadotorg_experimental/-/tree/1.0.x/modules/schemadotorg_editorial)**  
+  Adds an 'Editorial information' paragraph to the sidebar on node edit forms.
+
+- **[Schema.org Blueprints Embedded Content](https://git.drupalcode.org/project/schemadotorg_experimental/-/tree/1.0.x/modules/schemadotorg_embedded_content)**  
+  Provides support for inserting rich and styled Schema.org type into HTML via CKEditor.
+
+- **[Schema.org Blueprints Sidebar](https://git.drupalcode.org/project/schemadotorg_experimental/-/tree/1.0.x/modules/schemadotorg_sidebar)**  
+  Adds paragraph types to the sidebar on node edit forms.
+
+- **[Schema.org Blueprints Layout Paragraphs](https://git.drupalcode.org/project/schemadotorg_experimental/-/tree/1.0.x/modules/schemadotorg_layout_paragraphs)**  
+  Provides integration with the Layout Paragraphs module.
+
+# [Deprecated](https://www.drupal.org/project/schemadotorg_deprecated)
+
+- **[Schema.org Blueprints Flex Field](https://git.drupalcode.org/project/schemadotorg_deprecated/-/tree/1.0.x/modules/schemadotorg_flexfield)**  
+  Allows a Flex field to be used to create Schema.org relationships within an entity type/bundle Schema.org mapping.
 
 # Demo
 

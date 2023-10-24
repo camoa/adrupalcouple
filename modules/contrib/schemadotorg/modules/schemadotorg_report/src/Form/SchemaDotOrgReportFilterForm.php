@@ -17,17 +17,13 @@ class SchemaDotOrgReportFilterForm extends FormBase {
 
   /**
    * The Schema.org schema type manager.
-   *
-   * @var \Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface
    */
-  protected $schemaTypeManager;
+  protected SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager;
 
   /**
    * Schema.org table.
-   *
-   * @var string
    */
-  protected $table;
+  protected ?string $table;
 
   /**
    * {@inheritdoc}

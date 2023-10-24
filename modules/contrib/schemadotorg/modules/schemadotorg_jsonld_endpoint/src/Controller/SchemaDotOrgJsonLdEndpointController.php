@@ -8,6 +8,8 @@ use Drupal\Core\Access\AccessResultInterface;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Session\AccountInterface;
+use Drupal\schemadotorg_jsonld\SchemaDotOrgJsonLdBuilderInterface;
+use Drupal\schemadotorg_jsonld\SchemaDotOrgJsonLdManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -19,17 +21,13 @@ class SchemaDotOrgJsonLdEndpointController extends ControllerBase {
 
   /**
    * The Schema.org JSON-LD manager.
-   *
-   * @var \Drupal\schemadotorg_jsonld\SchemaDotOrgJsonLdManagerInterface
    */
-  protected $manager;
+  protected SchemaDotOrgJsonLdManagerInterface $manager;
 
   /**
    * The Schema.org JSON-LD builder.
-   *
-   * @var \Drupal\schemadotorg_jsonld\SchemaDotOrgJsonLdBuilderInterface
    */
-  protected $builder;
+  protected SchemaDotOrgJsonLdBuilderInterface $builder;
 
   /**
    * {@inheritdoc}

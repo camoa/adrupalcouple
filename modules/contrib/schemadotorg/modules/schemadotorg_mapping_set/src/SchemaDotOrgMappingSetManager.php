@@ -9,7 +9,6 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\State\StateInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\devel_generate\DevelGeneratePluginManager;
-use Drupal\schemadotorg\SchemaDotOrgEntityRelationshipManagerInterface;
 use Drupal\schemadotorg\SchemaDotOrgMappingManagerInterface;
 use Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface;
 use Drupal\schemadotorg\Traits\SchemaDotOrgDevelGenerateTrait;
@@ -32,8 +31,6 @@ class SchemaDotOrgMappingSetManager implements SchemaDotOrgMappingSetManagerInte
    *   The entity type manager.
    * @param \Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager
    *   The Schema.org schema type manager.
-   * @param \Drupal\schemadotorg\SchemaDotOrgEntityRelationshipManagerInterface $schemaEntityRelationshipManager
-   *   The Schema.org schema entity relationship manager.
    * @param \Drupal\schemadotorg\SchemaDotOrgMappingManagerInterface $schemaMappingManager
    *   The Schema.org mapping manager.
    * @param \Drupal\devel_generate\DevelGeneratePluginManager|null $develGenerateManager
@@ -44,7 +41,6 @@ class SchemaDotOrgMappingSetManager implements SchemaDotOrgMappingSetManagerInte
     protected ConfigFactoryInterface $configFactory,
     protected EntityTypeManagerInterface $entityTypeManager,
     protected SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager,
-    protected SchemaDotOrgEntityRelationshipManagerInterface $schemaEntityRelationshipManager,
     protected SchemaDotOrgMappingManagerInterface $schemaMappingManager,
     protected ?DevelGeneratePluginManager $develGenerateManager = NULL
   ) {}
@@ -146,9 +142,6 @@ class SchemaDotOrgMappingSetManager implements SchemaDotOrgMappingSetManagerInte
       // Display message.
       $t_args = ['@types' => implode(', ', $types)];
       $messages[] = $this->t('Schema.org types (@types) created.', $t_args);
-
-      // Repair.
-      $this->schemaEntityRelationshipManager->repair();
     }
 
     return $messages;

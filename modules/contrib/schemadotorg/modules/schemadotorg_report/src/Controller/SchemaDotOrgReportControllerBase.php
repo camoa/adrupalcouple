@@ -5,9 +5,14 @@ declare(strict_types = 1);
 namespace Drupal\schemadotorg_report\Controller;
 
 use Drupal\Core\Ajax\AjaxHelperTrait;
+use Drupal\Core\Block\BlockManagerInterface;
 use Drupal\Core\Controller\ControllerBase;
+use Drupal\Core\Database\Connection;
 use Drupal\Core\Link;
 use Drupal\Core\Url;
+use Drupal\schemadotorg\SchemaDotOrgSchemaTypeBuilderInterface;
+use Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface;
+use Drupal\schemadotorg\Utility\SchemaDotOrgStringHelper;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -18,38 +23,23 @@ abstract class SchemaDotOrgReportControllerBase extends ControllerBase {
 
   /**
    * The database connection.
-   *
-   * @var \Drupal\Core\Database\Connection
    */
-  protected $database;
+  protected Connection $database;
 
   /**
    * The block manager.
-   *
-   * @var \Drupal\Core\Block\BlockManagerInterface
    */
-  protected $blockManager;
-
-  /**
-   * The form builder service.
-   *
-   * @var \Drupal\Core\Form\FormBuilderInterface
-   */
-  protected $formBuilder;
+  protected BlockManagerInterface $blockManager;
 
   /**
    * The Schema.org schema type manager.
-   *
-   * @var \Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface
    */
-  protected $schemaTypeManager;
+  protected SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager;
 
   /**
    * The Schema.org schema type builder service.
-   *
-   * @var \Drupal\schemadotorg\SchemaDotOrgSchemaTypeBuilderInterface
    */
-  protected $schemaTypeBuilder;
+  protected SchemaDotOrgSchemaTypeBuilderInterface $schemaTypeBuilder;
 
   /**
    * {@inheritdoc}
@@ -58,7 +48,6 @@ abstract class SchemaDotOrgReportControllerBase extends ControllerBase {
     $instance = parent::create($container);
     $instance->database = $container->get('database');
     $instance->blockManager = $container->get('plugin.manager.block');
-    $instance->formBuilder = $container->get('form_builder');
     $instance->schemaTypeManager = $container->get('schemadotorg.schema_type_manager');
     $instance->schemaTypeBuilder = $container->get('schemadotorg.schema_type_builder');
     return $instance;
@@ -115,7 +104,7 @@ abstract class SchemaDotOrgReportControllerBase extends ControllerBase {
    *   The form array.
    */
   protected function getFilterForm(string $table, ?string $id = NULL): array {
-    return $this->formBuilder->getForm('\Drupal\schemadotorg_report\Form\SchemaDotOrgReportFilterForm', $table, $id);
+    return $this->formBuilder()->getForm('\Drupal\schemadotorg_report\Form\SchemaDotOrgReportFilterForm', $table, $id);
   }
 
   /**
@@ -187,7 +176,13 @@ abstract class SchemaDotOrgReportControllerBase extends ControllerBase {
   protected function buildTableCell(string $name, string $value): array|string {
     switch ($name) {
       case 'comment':
-        return ['data' => ['#markup' => $this->schemaTypeBuilder->formatComment($value)]];
+        return [
+          'data' => [
+            '#markup' => $this->schemaTypeBuilder->formatComment(
+              SchemaDotOrgStringHelper::getFirstSentence($value)
+            ),
+          ],
+        ];
 
       default:
         $links = $this->schemaTypeBuilder->buildItemsLinks($value);

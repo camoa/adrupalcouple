@@ -46,12 +46,12 @@ Configuration
 -------------
 
 - Go to the Schema.org types configuration page.  
-  (/admin/config/search/schemadotorg/settings/type)
+  (/admin/config/schemadotorg/settings/type)
 - Go to the 'Taxonomy settings' details.
 - Enter default vocabulary field group names and labels.
 - Enter default vocabularies that will be added to every Schema.org
   content type.
 - Go to the Schema.org properties configuration page.  
-  (/admin/config/search/schemadotorg/settings/properties)
+  (/admin/config/schemadotorg/settings/properties)
 - Go to the 'Taxonomy settings' details.
 - Enter Schema.org properties that should be mapped to a vocabulary.

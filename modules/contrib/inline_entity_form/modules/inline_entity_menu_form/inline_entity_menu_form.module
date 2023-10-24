@@ -13,18 +13,27 @@
 use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\CloseDialogCommand;
 use Drupal\Core\Ajax\OpenModalDialogCommand;
+use Drupal\Core\Entity\EntityFormInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
+use Drupal\menu_item_extras\Entity\MenuItemExtrasMenuLinkContentInterface;
 
 
 /**
  * Implements hook_form_BASE_FORM_ID_alter().
  */
 function inline_entity_menu_form_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $formObject = $form_state->getFormObject();
+  $formName = '';
+  if ($formObject instanceof EntityFormInterface && $formObject->getEntity() instanceof MenuItemExtrasMenuLinkContentInterface) {
+    $formName = $formObject->getEntity()->get('menu_name')->value;
+  }
   if (in_array($form_id, [
     'menu_link_content_menu_link_content_form',
-    'menu_link_content_menu_link_content_delete_form'
-  ])) {
+    'menu_link_content_menu_link_content_delete_form',
+    'menu_link_content_' . $formName . '_form',
+    'menu_link_content_' . $formName . '_delete_form',
+  ], true)) {
     $input = $form_state->getUserInput();
     if (!empty($input['_drupal_ajax'])) {
       $form['actions']['submit']['#submit'][] = '_inline_entity_menu_form_ajax_submit_reopen';

@@ -211,15 +211,12 @@ class SchemaDotOrgDescriptionsConfigFactoryOverride extends ConfigFactoryOverrid
    *   The Schema.org type.
    *
    * @return array
-   *   Donfiguration override descriptions for Schema.org types or properties.
+   *   Configuration override descriptions for Schema.org types or properties.
    */
   protected function setItemDescriptionOverrides(string $table, array &$overrides, string $type = ''): array {
     $items = $this->schemaTypeManager->getItems($table, $overrides, ['label', 'comment']);
     $options = ['base_path' => 'https://schema.org/'];
 
-    $trim_descriptions = $this->configFactory
-      ->getEditable('schemadotorg_descriptions.settings')
-      ->get('trim_descriptions');
     $help_descriptions = $this->configFactory
       ->getEditable('schemadotorg_descriptions.settings')
       ->get('help_descriptions');
@@ -240,9 +237,7 @@ class SchemaDotOrgDescriptionsConfigFactoryOverride extends ConfigFactoryOverrid
         // Tidy <br/> tags.
         $comment = preg_replace('#<br[^>]*]>#', '<br/>', $comment);
         // Trim description.
-        if ($trim_descriptions) {
-          $comment = SchemaDotOrgStringHelper::getFirstSentence($comment);
-        }
+        $comment = SchemaDotOrgStringHelper::getFirstSentence($comment);
         $description = $this->schemaTypeBuilder->formatComment($comment, $options);
         $help = $description;
       }

@@ -1,5 +1,0 @@
-config_rewrite:
-  replace: ['paragraph_types.sidebar_test']
-paragraph_types:
-  sidebar_test:
-    - Thing

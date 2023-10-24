@@ -28,10 +28,8 @@ class SchemaDotOrgJsonLdEndpointEntityUuidConverter extends EntityConverter {
 
   /**
    * The language manager.
-   *
-   * @var \Drupal\Core\Language\LanguageManagerInterface
    */
-  protected $languageManager;
+  protected LanguageManagerInterface $languageManager;
 
   /**
    * Injects the language manager.

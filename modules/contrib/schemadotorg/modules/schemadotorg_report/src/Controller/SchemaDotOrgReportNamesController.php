@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace Drupal\schemadotorg_report\Controller;
 
+use Drupal\schemadotorg\SchemaDotOrgNamesInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -12,11 +13,9 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class SchemaDotOrgReportNamesController extends SchemaDotOrgReportControllerBase {
 
   /**
-   * The Schema.org Names service.
-   *
-   * @var \Drupal\schemadotorg\SchemaDotOrgNamesInterface
+   * The Schema.org names service.
    */
-  protected $schemaDotOrgNames;
+  protected SchemaDotOrgNamesInterface $schemaDotOrgNames;
 
   /**
    * {@inheritdoc}
@@ -220,14 +219,17 @@ class SchemaDotOrgReportNamesController extends SchemaDotOrgReportControllerBase
     }
 
     // Remove words that are less than 5 characters.
-    $words = array_filter($words, function ($word) {
-      return strlen($word) > 5;
-    }, ARRAY_FILTER_USE_KEY);
+    $words = array_filter(
+      $words,
+      fn($word) => strlen($word) > 5,
+      ARRAY_FILTER_USE_KEY
+    );
 
     // Remove words that are only used once.
-    $words = array_filter($words, function ($usage) {
-      return $usage > 1;
-    });
+    $words = array_filter(
+      $words,
+      fn($usage) => $usage > 1
+    );
 
     // Sort by usage.
     asort($words, SORT_NUMERIC);

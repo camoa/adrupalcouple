@@ -16,10 +16,8 @@ class SchemaDotOrgJsonLdEmbedManager implements SchemaDotOrgJsonLdEmbedInterface
 
   /**
    * Xpath selector for finding embedded media.
-   *
-   * @var string
    */
-  protected $xpath = 'descendant-or-self::*[(@data-entity-type) and (@data-entity-uuid)]';
+  protected string $xpath = 'descendant-or-self::*[(@data-entity-type) and (@data-entity-uuid)]';
 
   /**
    * Constructs a SchemaDotOrgJsonLdEmbedManager object.

@@ -427,7 +427,7 @@ class ComposerStaticInit5c7f23189dfdbae478d03c4985419aea
         ),
         'Doctrine\\Common\\Collections\\' => 
         array (
-            0 => __DIR__ . '/..' . '/doctrine/collections/lib/Doctrine/Common/Collections',
+            0 => __DIR__ . '/..' . '/doctrine/collections/src',
         ),
         'Doctrine\\Common\\Annotations\\' => 
         array (

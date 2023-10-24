@@ -7,9 +7,8 @@ namespace Drupal\Tests\schemadotorg_diagram\Functional;
 use Drupal\Tests\schemadotorg\Functional\SchemaDotOrgBrowserTestBase;
 
 /**
- * Tests the functionality of the Schema.org Diagram settings form.
+ * Tests the functionality of the Schema.org diagram settings form.
  *
- * @covers \Drupal\schemadotorg_diagram\Form\SchemaDotOrgSubtypeSettingsForm
  * @group schemadotorg
  */
 class SchemaDotOrgDiagramSettingsFormTest extends SchemaDotOrgBrowserTestBase {
@@ -35,7 +34,7 @@ class SchemaDotOrgDiagramSettingsFormTest extends SchemaDotOrgBrowserTestBase {
    * Test Schema.org Diagram settings form.
    */
   public function testSettingsForm(): void {
-    $this->assertSaveSettingsConfigForm('schemadotorg_diagram.settings', '/admin/config/search/schemadotorg/settings/general');
+    $this->assertSaveSettingsConfigForm('schemadotorg_diagram.settings', '/admin/config/schemadotorg/settings/general');
   }
 
 }

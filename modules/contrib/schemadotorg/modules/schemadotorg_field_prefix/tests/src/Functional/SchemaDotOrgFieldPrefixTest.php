@@ -17,9 +17,9 @@ use Drupal\Tests\schemadotorg\Functional\SchemaDotOrgBrowserTestBase;
 class SchemaDotOrgFieldPrefixTest extends SchemaDotOrgBrowserTestBase {
 
   /**
-   * Modules to install.
+   * Modules to enable.
    *
-   * @var string[]
+   * @var array
    */
   protected static $modules = [
     'field_ui',
@@ -41,7 +41,7 @@ class SchemaDotOrgFieldPrefixTest extends SchemaDotOrgBrowserTestBase {
     $assert_session->fieldExists('field_prefix');
     // Check the field prefix options.
     $assert_session->responseContains('<option value="field_" selected="selected">field_</option><option value="field_page_">field_page_</option><option value="schema_">schema_</option><option value="schema_page_">schema_page_</option><option value="">&lt;none&gt;</option>');
-    // Check the field prefix descripion.
+    // Check the field prefix description.
     $assert_session->responseContains("Select the field's prefix. Use <code>&lt;none&gt;</code> with caution because the machine-readable name can conflict with existing base field/property names.");
 
     // Check missing label validation.
@@ -86,7 +86,7 @@ class SchemaDotOrgFieldPrefixTest extends SchemaDotOrgBrowserTestBase {
     $this->submitForm($edit, 'Save and continue');
     $assert_session->responseContains('There was a problem creating field <em class="placeholder">Test</em>: &#039;field_storage_config&#039; entity with ID &#039;node.schema_test&#039; already exists.');
 
-    // Check that clearing the field option remove the  field prefix select menu.
+    // Check that clearing the field option remove the field prefix select menu.
     $this->config('schemadotorg_field_prefix.settings')
       ->set('field_prefix_options', [])
       ->save();

@@ -7,17 +7,20 @@
 
 declare(strict_types = 1);
 
+use Drupal\Component\Utility\NestedArray;
 use Drupal\Component\Utility\Unicode;
 use Drupal\Core\Access\AccessResult;
+use Drupal\Core\Field\FieldConfigInterface;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Session\AccountInterface;
+use Drupal\entity_reference_revisions\EntityReferenceRevisionsFieldItemList;
 use Drupal\file\Entity\File;
 use Drupal\paragraphs\ParagraphInterface;
 use Drupal\paragraphs\ParagraphsTypeInterface;
-use Drupal\schemadotorg\Element\SchemaDotOrgSettings;
+use Drupal\paragraphs\Plugin\Field\FieldWidget\ParagraphsWidget;
 use Drupal\schemadotorg\SchemaDotOrgMappingInterface;
 
 /**
@@ -54,6 +57,36 @@ function schemadotorg_paragraphs_schemadotorg_property_field_alter(
     $formatter_id,
     $formatter_settings
   );
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_presave().
+ */
+function schemadotorg_paragraphs_field_config_presave(FieldConfigInterface $field_config): void {
+  /** @var \Drupal\schemadotorg_paragraphs\SchemaDotOrgParagraphsManagerInterface $schema_paragraphs_manager */
+  $schema_paragraphs_manager = \Drupal::service('schemadotorg_paragraphs.manager');
+  $schema_paragraphs_manager->fieldConfigPresave($field_config);
+}
+
+/**
+ * Implements field_widget_complete_form_alter().
+ */
+function schemadotorg_paragraphs_field_widget_complete_form_alter(array &$field_widget_complete_form, FormStateInterface $form_state, array $context): void {
+  // Make sure the paragraphs field widget that is built using the
+  // 'schemadotorg:paragraph' selection handler has the 'add from library' link
+  // last because the paragraphs field widget only support sorted bundled the
+  // 'default:paragraphs' selection handler.
+  // @see \Drupal\paragraphs\Plugin\Field\FieldWidget\ParagraphsWidget::getAllowedTypes
+  if ($context['widget'] instanceof ParagraphsWidget
+    && $context['items'] instanceof EntityReferenceRevisionsFieldItemList
+    && $context['items']->getFieldDefinition()->getSetting('handler') === 'schemadotorg:paragraph') {
+    $parents = ['widget', 'add_more', 'operations', '#links', 'add_more_button_from_library'];
+    $add_from_library_link = NestedArray::getValue($field_widget_complete_form, $parents);
+    if ($add_from_library_link) {
+      NestedArray::unsetValue($field_widget_complete_form, $parents);
+      NestedArray::setValue($field_widget_complete_form, $parents, $add_from_library_link);
+    }
+  }
 }
 
 /* ************************************************************************** */
@@ -341,29 +374,37 @@ function schemadotorg_paragraphs_form_entity_embed_dialog_alter(array &$form, Fo
 
 /**
  * Implements hook_form_FORM_ID_alter().
+ *
+ * @see \Drupal\schemadotorg\Form\SchemaDotOrgSettingsFormBase::afterBuildDetails
+ * @see \Drupal\schemadotorg\Form\SchemaDotOrgSettingsFormBase::formAlter
  */
 function schemadotorg_paragraphs_form_schemadotorg_types_settings_form_alter(array &$form, FormStateInterface $form_state): void {
   $form['schemadotorg_paragraphs'] = [
     '#type' => 'details',
     '#title' => t('Paragraphs settings'),
-    '#open' => TRUE,
-    '#tree' => TRUE,
   ];
   $form['schemadotorg_paragraphs']['paragraphs_library'] = [
     '#type' => 'schemadotorg_settings',
-    '#settings_type' => SchemaDotOrgSettings::INDEXED,
-    '#settings_format' => 'SchemaType',
     '#title' => t('Schema.org types that default to using the Paragraphs library'),
     '#description' => t('Enter Schema.org types that default to using the Paragraphs library.'),
     '#description_link' => 'types',
     '#access' => \Drupal::moduleHandler()->moduleExists('paragraphs_library'),
+    '#example' => '
+- SchemaType01
+- SchemaType02
+- SchemaType03
+',
   ];
   $form['schemadotorg_paragraphs']['property_access'] = [
     '#type' => 'schemadotorg_settings',
-    '#settings_type' => SchemaDotOrgSettings::INDEXED_GROUPED,
-    '#settings_format' => 'ParentSchemaType--ParagraphSchemaType|property01,property02',
     '#title' => t('Schema.org type property access'),
-    '#description' => t("Enter Schema.org parent type and paragraph types that have limited Schema.org properties. For example, you limit a Person's ContactPoint to only display contactType and telephone."),
+    '#description' => t("Enter Schema.org parent type and paragraph types that have limited Schema.org properties. For example, you can limit a Person's ContactPoint to only display contactType and telephone."),
     '#description_link' => 'types',
+    '#example' => '
+ParentSchemaType--ParagraphSchemaType:
+  - property01
+  - property02
+  - property03
+',
   ];
 }

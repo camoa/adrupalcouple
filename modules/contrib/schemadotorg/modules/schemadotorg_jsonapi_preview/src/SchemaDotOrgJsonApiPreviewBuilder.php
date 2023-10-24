@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace Drupal\schemadotorg_jsonapi_preview;
 
+use Drupal\Component\Utility\Unicode;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\RevisionableInterface;
 use Drupal\Core\Render\RenderContext;
@@ -111,7 +112,8 @@ class SchemaDotOrgJsonApiPreviewBuilder implements SchemaDotOrgJsonApiPreviewBui
       'link' => [
         '#type' => 'link',
         '#url' => $jsonapi_url,
-        '#title' => $jsonapi_url->toString(),
+        '#title' => Unicode::truncate($jsonapi_url->toString(), 255, FALSE, TRUE),
+        '#attributes' => ['title' => $jsonapi_url->toString()],
       ],
     ];
     return $build;
@@ -122,7 +124,7 @@ class SchemaDotOrgJsonApiPreviewBuilder implements SchemaDotOrgJsonApiPreviewBui
    *
    * @param \Drupal\Core\Entity\EntityInterface $entity
    *   The entity to generate the JSON from.
-   * @param string[] $includes
+   * @param array $includes
    *   The list of includes.
    *
    * @return \Drupal\Core\Url

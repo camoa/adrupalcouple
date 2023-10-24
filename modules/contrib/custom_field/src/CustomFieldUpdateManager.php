@@ -2,20 +2,21 @@
 
 namespace Drupal\custom_field;
 
+use Drupal\Core\Database\Connection;
+use Drupal\Core\DependencyInjection\DependencySerializationTrait;
 use Drupal\Core\Entity\EntityDefinitionUpdateManagerInterface;
 use Drupal\Core\Entity\EntityLastInstalledSchemaRepositoryInterface;
-use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Entity\EntityTypeBundleInfoInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Entity\Sql\SqlContentEntityStorage;
-use Drupal\Core\Database\Connection;
+use Drupal\Core\KeyValueStore\KeyValueFactoryInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\custom_field\Plugin\CustomFieldTypeManagerInterface;
-use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\field\Entity\FieldConfig;
-use Drupal\Core\DependencyInjection\DependencySerializationTrait;
+use Drupal\field\Entity\FieldStorageConfig;
 
 /**
- * My custom service class.
+ * Provides the CustomFieldUpdateManager service.
  */
 class CustomFieldUpdateManager implements CustomFieldUpdateManagerInterface {
 
@@ -64,6 +65,13 @@ class CustomFieldUpdateManager implements CustomFieldUpdateManagerInterface {
   protected $lastInstalledSchemaRepository;
 
   /**
+   * The Key-Value Factory service.
+   *
+   * @var \Drupal\Core\KeyValueStore\KeyValueFactoryInterface
+   */
+  protected $keyValue;
+
+  /**
    * Constructs a new CustomFieldUpdateManager object.
    *
    * @param \Drupal\Core\Entity\EntityDefinitionUpdateManagerInterface $entity_definition_update_manager
@@ -78,6 +86,8 @@ class CustomFieldUpdateManager implements CustomFieldUpdateManagerInterface {
    *   The plugin manager for custom field types.
    * @param \Drupal\Core\Entity\EntityLastInstalledSchemaRepositoryInterface $last_installed_schema_repository
    *   The installed entity definition repository.
+   * @param \Drupal\Core\KeyValueStore\KeyValueFactoryInterface $key_value
+   *   The Key-Value Factory service.
    */
   public function __construct(
     EntityDefinitionUpdateManagerInterface $entity_definition_update_manager,
@@ -85,7 +95,8 @@ class CustomFieldUpdateManager implements CustomFieldUpdateManagerInterface {
     EntityTypeBundleInfoInterface $entity_type_bundle_info,
     Connection $database,
     CustomFieldTypeManagerInterface $custom_field_type_manager,
-    EntityLastInstalledSchemaRepositoryInterface $last_installed_schema_repository
+    EntityLastInstalledSchemaRepositoryInterface $last_installed_schema_repository,
+    KeyValueFactoryInterface $key_value
   ) {
     $this->entityDefinitionUpdateManager = $entity_definition_update_manager;
     $this->entityTypeManager = $entity_type_manager;
@@ -93,6 +104,7 @@ class CustomFieldUpdateManager implements CustomFieldUpdateManagerInterface {
     $this->database = $database;
     $this->customFieldTypeManager = $custom_field_type_manager;
     $this->lastInstalledSchemaRepository = $last_installed_schema_repository;
+    $this->keyValue = $key_value->get('entity.storage_schema.sql');
   }
 
   /**
@@ -120,14 +132,10 @@ class CustomFieldUpdateManager implements CustomFieldUpdateManagerInterface {
 
     // Return early if no storage definition.
     if (!$field_storage_definition) {
-      $message = $this->t('There is no field storage definition for field @field_name and entity type @type.', [
-        '@field_name' => $field_name,
-        '@type' => $entity_type_id,
-      ]);
+      $message = 'There is no field storage definition for field ' . $field_name . ' and entity type ' . $entity_type_id . '.';
       throw new \Exception($message);
     }
 
-    $entity_storage_schema_sql = \Drupal::keyValue('entity.storage_schema.sql');
     $storage = $this->entityTypeManager->getStorage($entity_type_id);
     $data_types = $this->customFieldTypeManager->dataTypes();
     $column = array_key_exists($data_type, $data_types) ? $this->customFieldTypeManager->dataTypes()[$data_type] : NULL;
@@ -135,10 +143,7 @@ class CustomFieldUpdateManager implements CustomFieldUpdateManagerInterface {
     // If we don't have a matching data type, return early.
     if (!$column) {
       $allowed_data_types = implode(', ', array_keys($this->customFieldTypeManager->dataTypes()));
-      $message = $this->t('@data_type is an invalid data type. Use one of these: [@data_types]', [
-        '@data_type' => $data_type,
-        '@data_types' => $allowed_data_types,
-      ]);
+      $message = $data_type . ' is an invalid data type. Allowed data types are: ' . $allowed_data_types . '.';
       throw new \Exception($message);
     }
     $spec = $column['schema'];
@@ -205,16 +210,14 @@ class CustomFieldUpdateManager implements CustomFieldUpdateManagerInterface {
       }
       else {
         // Show message that field already exists.
-        throw new \Exception($this->t('The column @column already exists in table @table', [
-          '@column' => $column_name,
-          '@table' => $table_name,
-        ]));
+        $message = 'The column ' . $column_name . ' already exists in table ' . $table_name . '.';
+        throw new \Exception($message);
       }
     }
 
     // Load the installed field schema so that it can be updated.
     $schema_key = "$entity_type_id.field_schema_data.$field_name";
-    $field_schema_data = $entity_storage_schema_sql->get($schema_key);
+    $field_schema_data = $this->keyValue->get($schema_key);
 
     // Add the new column to the installed field schema.
     foreach ($field_schema_data as $table_name => $fieldSchema) {
@@ -222,7 +225,7 @@ class CustomFieldUpdateManager implements CustomFieldUpdateManagerInterface {
     }
 
     // Save changes to the installed field schema.
-    $entity_storage_schema_sql->set($schema_key, $field_schema_data);
+    $this->keyValue->set($schema_key, $field_schema_data);
 
     // Update cached entity definitions for entity types.
     if ($table_mapping->allowsSharedTableStorage($field_storage_definition)) {
@@ -275,14 +278,10 @@ class CustomFieldUpdateManager implements CustomFieldUpdateManagerInterface {
 
     // Return early if no storage definition.
     if (!$field_storage_definition) {
-      $message = $this->t('There is no field storage definition for field @field_name and entity type @type.', [
-        '@field_name' => $field_name,
-        '@type' => $entity_type_id,
-      ]);
+      $message = 'There is no field storage definition for field ' . $field_name . ' and entity type ' . $entity_type_id . '.';
       throw new \Exception($message);
     }
 
-    $entity_storage_schema_sql = \Drupal::keyValue('entity.storage_schema.sql');
     $schema = $this->database->schema();
     $entity_storage = $this->entityTypeManager->getStorage($entity_type_id);
     /** @var \Drupal\Core\Entity\Sql\DefaultTableMapping $table_mapping */
@@ -296,24 +295,21 @@ class CustomFieldUpdateManager implements CustomFieldUpdateManagerInterface {
 
     // Return early if there's only one column or if $property doesn't exist.
     if (!isset($table_columns[$property])) {
-      $message = $this->t("@column can't be removed because it doesn't exist for @field", [
-        '@column' => $column_name,
-        '@field' => $field_name,
-      ]);
+      $message = $column_name . ' cannot be removed because it does not exist for ' . $field_name;
       throw new \Exception($message);
     }
     elseif (count($table_columns) <= 1) {
-      $message = $this->t('Removing column @column would leave no remaining columns. The custom field requires at least 1 column.', ['@column' => $column_name]);
+      $message = 'Removing column ' . $column_name . ' would leave no remaining columns. The custom field requires at least 1 column.';
       throw new \Exception($message);
     }
 
     // Load the installed field schema so that it can be updated.
     $schema_key = "$entity_type_id.field_schema_data.$field_name";
-    $field_schema_data = $entity_storage_schema_sql->get($schema_key);
+    $field_schema_data = $this->keyValue->get($schema_key);
 
     // Save changes to the installed field schema.
+    $existing_data = [];
     if ($field_schema_data) {
-      $existing_data = [];
       foreach ($table_names as $table_name) {
         $field_exists = $schema->fieldExists($table_name, $column_name);
         $table_exists = $schema->tableExists($table_name);
@@ -330,7 +326,7 @@ class CustomFieldUpdateManager implements CustomFieldUpdateManagerInterface {
         }
       }
       // Update schema definition in database.
-      $entity_storage_schema_sql->set($schema_key, $field_schema_data);
+      $this->keyValue->set($schema_key, $field_schema_data);
       // Try to drop field data.
       $this->database->schema()->dropField($table, $column_name);
     }
@@ -366,11 +362,6 @@ class CustomFieldUpdateManager implements CustomFieldUpdateManagerInterface {
           /** @var \Drupal\Core\Entity\Display\EntityFormDisplayInterface $display */
           foreach ($displays as $display) {
             if ($component = $display->getComponent($field_name)) {
-              // Check for settings to remove in the custom_default plugin.
-              if (isset($component['settings']['proportions'][$property])) {
-                unset($component['settings']['proportions'][$property]);
-                $display->setComponent($field_name, $component)->save();
-              }
               // Check for settings to remove in the custom_flex plugin.
               if (isset($component['settings']['columns'][$property])) {
                 unset($component['settings']['columns'][$property]);
@@ -388,8 +379,8 @@ class CustomFieldUpdateManager implements CustomFieldUpdateManagerInterface {
           /** @var \Drupal\Core\Entity\Display\EntityViewDisplayInterface $display */
           foreach ($displays as $display) {
             if ($component = $display->getComponent($field_name)) {
-              if (isset($component['settings']['label_display'][$property])) {
-                unset($component['settings']['label_display'][$property]);
+              if (isset($component['settings']['fields'][$property])) {
+                unset($component['settings']['fields'][$property]);
                 $display->setComponent($field_name, $component)->save();
               }
             }
@@ -399,13 +390,12 @@ class CustomFieldUpdateManager implements CustomFieldUpdateManagerInterface {
     }
 
     // Restore the data after removing the column.
-    foreach ($existing_data as $table => $fields) {
-      foreach ($fields as $key => $field) {
-        unset($existing_data[$table][$key][$column_name]);
-      }
-    }
-
     if (!empty($existing_data)) {
+      foreach ($existing_data as $table => $fields) {
+        foreach ($fields as $key => $field) {
+          unset($existing_data[$table][$key][$column_name]);
+        }
+      }
       $this->restoreData($table_names, $existing_data);
     }
   }
@@ -420,12 +410,16 @@ class CustomFieldUpdateManager implements CustomFieldUpdateManagerInterface {
    */
   private function restoreData(array $tables, array $existing_data): void {
     $batch_size = 50;
+    $tables_count = count($tables);
 
     // Initialize the batch.
     $batch = [
       'title' => $this->t('Restoring data...'),
       'operations' => [],
-      'init_message' => $this->t('Starting data restoration for @count tables...', ['@count' => count($tables)]),
+      'init_message' => $this->formatPlural($tables_count,
+        'Starting data restoration for 1 table...',
+        'Starting data restoration for @count tables...',
+        ['@count' => count($tables)]),
       'error_message' => $this->t('An error occurred during data restoration. Please check the logs for errors.'),
       'finished' => [$this, 'restoreDataBatchFinished'],
     ];

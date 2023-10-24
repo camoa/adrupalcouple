@@ -8,9 +8,10 @@
 declare(strict_types = 1);
 
 use Drupal\Component\Utility\NestedArray;
+use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\media\MediaInterface;
 use Drupal\media\MediaTypeInterface;
-use Drupal\schemadotorg\Element\SchemaDotOrgSettings;
 
 /* ************************************************************************** */
 // Create Schema.org Media mapping.
@@ -230,11 +231,34 @@ function schemadotorg_media_schemadotorg_property_field_alter(
 }
 
 /* ************************************************************************** */
+// Schema.org JSON-LD.
+/* ************************************************************************** */
+
+/**
+ * Implements hook_schemadotorg_jsonld_schema_type_entity_alter().
+ */
+function schemadotorg_media_schemadotorg_jsonld_schema_type_entity_alter(array &$data, EntityInterface $entity): void {
+  if (!$entity instanceof MediaInterface) {
+    return;
+  }
+
+  // Remove the URL from media URL because no one should be accessing
+  // media directly.
+  if (isset($data['@url'])
+    && $data['@url'] === $entity->toUrl()->setAbsolute()->toString()) {
+    unset($data['@url']);
+  }
+}
+
+/* ************************************************************************** */
 // Schema.org types settings form.
 /* ************************************************************************** */
 
 /**
  * Implements hook_form_FORM_ID_alter().
+ *
+ * @see \Drupal\schemadotorg\Form\SchemaDotOrgSettingsFormBase::afterBuildDetails
+ * @see \Drupal\schemadotorg\Form\SchemaDotOrgSettingsFormBase::formAlter
  */
 function schemadotorg_media_form_schemadotorg_types_settings_form_alter(array &$form, FormStateInterface $form_state): void {
   /** @var \Drupal\media\MediaSourceManager $source_manager */
@@ -243,8 +267,6 @@ function schemadotorg_media_form_schemadotorg_types_settings_form_alter(array &$
   $form['schemadotorg_media'] = [
     '#type' => 'details',
     '#title' => t('Media settings'),
-    '#open' => TRUE,
-    '#tree' => TRUE,
   ];
   $t_args = [
     ':href' => 'https://schema.org/MediaObject',
@@ -252,30 +274,29 @@ function schemadotorg_media_form_schemadotorg_types_settings_form_alter(array &$
   ];
   $form['schemadotorg_media']['default_sources'] = [
     '#type' => 'schemadotorg_settings',
-    '#settings_type' => SchemaDotOrgSettings::ASSOCIATIVE,
-    '#settings_format' => 'SchemaType|source_plugin_id',
     '#title' => t('Default media sources'),
     '#description' => t('Enter the default media source plugin ids (i.e. %plugins) used when creating Schema.org <a href=":href">MediaObject</a> types.', $t_args),
     '#description_link' => 'types',
+    '#example' => 'SchemaType: source_plugin_id',
   ];
 }
 
 /**
  * Implements hook_form_FORM_ID_alter().
+ *
+ * @see \Drupal\schemadotorg\Form\SchemaDotOrgSettingsFormBase::afterBuildDetails
+ * @see \Drupal\schemadotorg\Form\SchemaDotOrgSettingsFormBase::formAlter
  */
 function schemadotorg_media_form_schemadotorg_properties_settings_form_alter(array &$form, FormStateInterface $form_state): void {
   $form['schemadotorg_media'] = [
     '#type' => 'details',
     '#title' => t('Media settings'),
-    '#open' => TRUE,
-    '#tree' => TRUE,
   ];
   $form['schemadotorg_media']['source_field_mappings'] = [
     '#type' => 'schemadotorg_settings',
-    '#settings_type' => SchemaDotOrgSettings::ASSOCIATIVE,
-    '#settings_format' => 'field_name|propertyName',
     '#title' => t('Source field mappings'),
     '#description' => t('Enter the media type source field to Schema.org property mapping.'),
     '#description_link' => 'properties',
+    '#example' => 'field_name: propertyName',
   ];
 }

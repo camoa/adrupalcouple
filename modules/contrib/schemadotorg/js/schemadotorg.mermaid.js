@@ -1,31 +1,30 @@
+/* eslint-disable no-undef */
+
 /**
  * @file
  * Schema.org mermaid behaviors.
  */
 
-"use strict";
-
 ((Drupal, mermaid, once) => {
-
   /**
    * Schema.org mermaid behaviors.
    *
    * @type {Drupal~behavior}
    */
   Drupal.behaviors.schemaDotOrgMermaid = {
-    attach: function (context) {
+    attach: function attach(context) {
       const mermaids = once('mermaid', '.mermaid', context);
       if (!mermaids.length) {
         return;
       }
 
-      let closedDetails = [];
+      const closedDetails = [];
       mermaids.forEach((element) => {
         // Track closed details and open them to after diagram is rendered.
         let parentElement = element.parentNode;
         while (parentElement) {
-          if (parentElement.tagName === 'DETAILS'
-            && !parentElement.getAttribute('open')) {
+          // eslint-disable-next-line
+          if (parentElement.tagName === 'DETAILS' && !parentElement.getAttribute('open')) {
             parentElement.setAttribute('open', 'open');
             closedDetails.push(parentElement);
           }
@@ -42,7 +41,6 @@
           closedDetails.forEach((element) => element.removeAttribute('open'));
         }, 1000);
       }
-    }
+    },
   };
-
 })(Drupal, mermaid, once);

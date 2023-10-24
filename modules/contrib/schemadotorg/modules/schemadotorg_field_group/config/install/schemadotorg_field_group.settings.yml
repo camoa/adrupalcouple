@@ -1,3 +1,4 @@
+# eslint-disable
 default_field_groups:
   user:
     biographical:
@@ -229,11 +230,12 @@ default_schema_type_field_groups:
   Person: general
   Event: event
   MedicalEntity: medical
-default_label_suffix: ''
 default_form_type: details
 default_view_type: fieldset
 disable_field_groups:
+  - 'block_content'
   - 'node--view--teaser'
+  - 'node--mainEntity'
   - 'paragraph--form--default'
   - 'paragraph--Quotation'
   - 'paragraph--Statement'

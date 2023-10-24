@@ -22,6 +22,7 @@ Features
   Schema.org type.
 - Appends units field suffix to custom_field widget edit forms and
   custom_field view displays.
+- Appends units to custom_field JSON-LD data.
 
 
 Requirements
@@ -35,7 +36,7 @@ Configuration
 -------------
 
 - Go to the Schema.org properties configuration page.  
-  (/admin/config/search/schemadotorg/settings/properties)
+  (/admin/config/schemadotorg/settings/properties)
 - Go to the 'Custom field settings' details.
 - Set Schema.org properties that should use custom_fields and define the
   custom_field item data types.

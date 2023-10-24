@@ -17,9 +17,9 @@ class SchemaDotOrgMappingSetListBuilderTest extends SchemaDotOrgBrowserTestBase 
   use MediaTypeCreationTrait;
 
   /**
-   * Modules to install.
+   * Modules to enable.
    *
-   * @var string[]
+   * @var array
    */
   protected static $modules = [
     'media',
@@ -61,28 +61,28 @@ class SchemaDotOrgMappingSetListBuilderTest extends SchemaDotOrgBrowserTestBase 
     $this->assertEmpty($mapping_storage->loadMultiple());
 
     // Check that the required and common mapping sets are displayed.
-    $this->drupalGet('/admin/config/search/schemadotorg/sets');
+    $this->drupalGet('/admin/config/schemadotorg/sets');
     $assert_session->responseContains('Required');
     $assert_session->responseContains('<td>media:AudioObject, media:DataDownload, media:ImageObject, media:VideoObject, taxonomy_term:DefinedTerm, node:Person</td>');
-    $assert_session->linkByHrefExists($base_path . 'admin/config/search/schemadotorg/sets/required/setup');
+    $assert_session->linkByHrefExists($base_path . 'admin/config/schemadotorg/sets/required/setup');
     $assert_session->responseContains('Common');
-    $assert_session->linkByHrefExists($base_path . 'admin/config/search/schemadotorg/sets/common/setup');
+    $assert_session->linkByHrefExists($base_path . 'admin/config/schemadotorg/sets/common/setup');
     $assert_session->responseContains('<td>node:Place, node:Organization, node:Person, node:Event, node:Article, node:WebPage</td>');
 
-    // Check access allowed to common setup confirm form.
-    $this->drupalGet('/admin/config/search/schemadotorg/sets/common/setup');
+    // Check access allowed to common set up confirm form.
+    $this->drupalGet('/admin/config/schemadotorg/sets/common/setup');
     $assert_session->statusCodeEquals(200);
     // Check access denied to common teardown, generate, and kill confirm form.
-    $this->drupalGet('/admin/config/search/schemadotorg/sets/common/teardown');
+    $this->drupalGet('/admin/config/schemadotorg/sets/common/teardown');
     $assert_session->statusCodeEquals(404);
-    $this->drupalGet('/admin/config/search/schemadotorg/sets/common/generate');
+    $this->drupalGet('/admin/config/schemadotorg/sets/common/generate');
     $assert_session->statusCodeEquals(404);
-    $this->drupalGet('/admin/config/search/schemadotorg/sets/common/kill');
+    $this->drupalGet('/admin/config/schemadotorg/sets/common/kill');
     $assert_session->statusCodeEquals(404);
 
     // Check that required and common mapping set types are displayed on the
     // confirm form.
-    $this->drupalGet('/admin/config/search/schemadotorg/sets/common/setup');
+    $this->drupalGet('/admin/config/schemadotorg/sets/common/setup');
     $assert_session->responseContains('Person (node:Person) - <em>Creating</em>');
     $assert_session->responseContains('Page (node:WebPage) - <em>Creating</em>');
 
@@ -100,7 +100,7 @@ class SchemaDotOrgMappingSetListBuilderTest extends SchemaDotOrgBrowserTestBase 
     ])->save();
 
     // Check that the required and common mapping sets are updated.
-    $this->drupalGet('/admin/config/search/schemadotorg/sets');
+    $this->drupalGet('/admin/config/schemadotorg/sets');
     $assert_session->responseContains('Required');
     $assert_session->responseContains('<td>media:ImageObject, node:ContactPoint, node:Person</td>');
     $assert_session->responseContains('Common');
@@ -118,14 +118,14 @@ class SchemaDotOrgMappingSetListBuilderTest extends SchemaDotOrgBrowserTestBase 
     $assert_session->responseContains('The <em class="placeholder">Place</em> Schema.org type is part of the');
 
     // Create required types.
-    $this->drupalGet('/admin/config/search/schemadotorg/sets/required/setup');
+    $this->drupalGet('/admin/config/schemadotorg/sets/required/setup');
     $assert_session->responseContains('Image Object (media:ImageObject) - <em>Creating</em>');
     $assert_session->responseContains('Contact Point (node:ContactPoint) - <em>Creating</em>');
     $assert_session->responseContains('Person (node:Person) - <em>Creating</em>');
     $this->submitForm([], 'Confirm');
 
     // Check common (and required) types.
-    $this->drupalGet('/admin/config/search/schemadotorg/sets/common/setup');
+    $this->drupalGet('/admin/config/schemadotorg/sets/common/setup');
     $assert_session->responseContains('Person (node:Person) - Exists');
     $assert_session->responseContains('Place (node:Place) - <em>Creating</em>');
     $this->submitForm([], 'Confirm');
@@ -146,21 +146,21 @@ class SchemaDotOrgMappingSetListBuilderTest extends SchemaDotOrgBrowserTestBase 
 
     // Check the common mapping set operations have changed but
     // generate and kill operations are missing.
-    $this->drupalGet('/admin/config/search/schemadotorg/sets');
-    $assert_session->linkByHrefNotExists($base_path . 'admin/config/search/schemadotorg/sets/common/setup');
-    $assert_session->linkByHrefNotExists($base_path . 'admin/config/search/schemadotorg/sets/common/generate');
-    $assert_session->linkByHrefNotExists($base_path . 'admin/config/search/schemadotorg/sets/common/kill');
-    $assert_session->linkByHrefExists($base_path . 'admin/config/search/schemadotorg/sets/common/teardown');
+    $this->drupalGet('/admin/config/schemadotorg/sets');
+    $assert_session->linkByHrefNotExists($base_path . 'admin/config/schemadotorg/sets/common/setup');
+    $assert_session->linkByHrefNotExists($base_path . 'admin/config/schemadotorg/sets/common/generate');
+    $assert_session->linkByHrefNotExists($base_path . 'admin/config/schemadotorg/sets/common/kill');
+    $assert_session->linkByHrefExists($base_path . 'admin/config/schemadotorg/sets/common/teardown');
 
-    // Check access denied to common setup confirm form.
-    $this->drupalGet('/admin/config/search/schemadotorg/sets/common/setup');
+    // Check access denied to common set up confirm form.
+    $this->drupalGet('/admin/config/schemadotorg/sets/common/setup');
     $assert_session->statusCodeEquals(404);
     // Check access allowed to common teardown, generate, and kill confirm form.
-    $this->drupalGet('/admin/config/search/schemadotorg/sets/common/teardown');
+    $this->drupalGet('/admin/config/schemadotorg/sets/common/teardown');
     $assert_session->statusCodeEquals(200);
-    $this->drupalGet('/admin/config/search/schemadotorg/sets/common/generate');
+    $this->drupalGet('/admin/config/schemadotorg/sets/common/generate');
     $assert_session->statusCodeEquals(404);
-    $this->drupalGet('/admin/config/search/schemadotorg/sets/common/kill');
+    $this->drupalGet('/admin/config/schemadotorg/sets/common/kill');
     $assert_session->statusCodeEquals(404);
 
     // Install the devel_generate.module.
@@ -169,42 +169,42 @@ class SchemaDotOrgMappingSetListBuilderTest extends SchemaDotOrgBrowserTestBase 
     $module_installer->install(['devel_generate']);
 
     // Check the common mapping now has generate and kill operations.
-    $this->drupalGet('/admin/config/search/schemadotorg/sets');
-    $assert_session->linkByHrefExists($base_path . 'admin/config/search/schemadotorg/sets/common/generate');
-    $assert_session->linkByHrefExists($base_path . 'admin/config/search/schemadotorg/sets/common/kill');
+    $this->drupalGet('/admin/config/schemadotorg/sets');
+    $assert_session->linkByHrefExists($base_path . 'admin/config/schemadotorg/sets/common/generate');
+    $assert_session->linkByHrefExists($base_path . 'admin/config/schemadotorg/sets/common/kill');
 
-    // Check access denied to common setup confirm form.
-    $this->drupalGet('/admin/config/search/schemadotorg/sets/common/setup');
+    // Check access denied to common set up confirm form.
+    $this->drupalGet('/admin/config/schemadotorg/sets/common/setup');
     $assert_session->statusCodeEquals(404);
     // Check access allowed to common teardown, generate, and kill confirm form.
-    $this->drupalGet('/admin/config/search/schemadotorg/sets/common/teardown');
+    $this->drupalGet('/admin/config/schemadotorg/sets/common/teardown');
     $assert_session->statusCodeEquals(200);
-    $this->drupalGet('/admin/config/search/schemadotorg/sets/common/generate');
+    $this->drupalGet('/admin/config/schemadotorg/sets/common/generate');
     $assert_session->statusCodeEquals(200);
-    $this->drupalGet('/admin/config/search/schemadotorg/sets/common/kill');
+    $this->drupalGet('/admin/config/schemadotorg/sets/common/kill');
     $assert_session->statusCodeEquals(200);
 
     // Generate common mapping set nodes.
-    $this->drupalGet('/admin/config/search/schemadotorg/sets/common/generate');
+    $this->drupalGet('/admin/config/schemadotorg/sets/common/generate');
     $this->submitForm([], 'Confirm');
 
     // Check that 10 nodes where created.
     $this->assertEquals(15, count($node_storage->getQuery()->accessCheck(FALSE)->execute()));
 
     // Check required teardown type states.
-    $this->drupalGet('/admin/config/search/schemadotorg/sets/required/teardown');
+    $this->drupalGet('/admin/config/schemadotorg/sets/required/teardown');
     $assert_session->responseContains('Image Object (media:ImageObject)');
     $assert_session->responseContains('Contact Point (node:ContactPoint)');
     $assert_session->responseContains('Person (node:Person) - Used by <em class="placeholder">Common</em>');
 
     // Check common teardown type states.
-    $this->drupalGet('/admin/config/search/schemadotorg/sets/common/teardown');
+    $this->drupalGet('/admin/config/schemadotorg/sets/common/teardown');
     $assert_session->responseContains('Person (node:Person) - Used by <em class="placeholder">Required</em>');
     $assert_session->responseContains('Place (node:Place)');
     $assert_session->responseContains('Yes, I want to teardown the <em class="placeholder">Common</em> mapping set and all associated content.');
 
     // Teardown common.
-    $this->drupalGet('/admin/config/search/schemadotorg/sets/common/teardown');
+    $this->drupalGet('/admin/config/schemadotorg/sets/common/teardown');
     $this->submitForm(['confirm' => TRUE], 'Confirm');
 
     // Check node.place was removed.
@@ -214,7 +214,7 @@ class SchemaDotOrgMappingSetListBuilderTest extends SchemaDotOrgBrowserTestBase 
     $this->assertEquals(0, count($node_storage->getQuery()->accessCheck(FALSE)->execute()));
 
     // Teardown the required mapping set.
-    $this->drupalGet('/admin/config/search/schemadotorg/sets/required/teardown');
+    $this->drupalGet('/admin/config/schemadotorg/sets/required/teardown');
     $this->submitForm(['confirm' => TRUE], 'Confirm');
 
     // Check media.image and node.contact_point were removed.
@@ -230,11 +230,11 @@ class SchemaDotOrgMappingSetListBuilderTest extends SchemaDotOrgBrowserTestBase 
     ])->save();
 
     // Check invalid type handling.
-    $this->drupalGet('/admin/config/search/schemadotorg/sets');
+    $this->drupalGet('/admin/config/schemadotorg/sets');
     $assert_session->responseContains('Required');
     $assert_session->responseContains('<td><strong>not:Valid</strong></td>');
-    $assert_session->responseContains('<em class="placeholder">not:Valid</em> in <em class="placeholder">Required</em> are not valid. <a href="' . $base_path . 'admin/config/search/schemadotorg/sets/settings">Please update this information.</a>');
-    $assert_session->linkByHrefNotExists($base_path . 'admin/config/search/schemadotorg/sets/required/setup');
+    $assert_session->responseContains('<em class="placeholder">not:Valid</em> in <em class="placeholder">Required</em> are not valid. <a href="' . $base_path . 'admin/config/schemadotorg/sets/settings">Please update this information.</a>');
+    $assert_session->linkByHrefNotExists($base_path . 'admin/config/schemadotorg/sets/required/setup');
   }
 
 }

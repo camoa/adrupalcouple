@@ -4,8 +4,8 @@ namespace Drupal\Tests\custom_field\Kernel;
 
 use Drupal\Core\Field\FieldItemInterface;
 use Drupal\Core\Field\FieldItemListInterface;
-use Drupal\KernelTests\KernelTestBase;
 use Drupal\field\Entity\FieldStorageConfig;
+use Drupal\KernelTests\KernelTestBase;
 use Drupal\node\Entity\Node;
 use Drupal\Tests\node\Traits\NodeCreationTrait;
 use Drupal\Tests\user\Traits\UserCreationTrait;
@@ -112,7 +112,7 @@ class CustomFieldUpdateManagerTest extends KernelTestBase {
 
     // Get the services required for testing.
     $this->customFieldUpdateManager = $this->container->get('custom_field.update_manager');
-    $this->customFieldTypeManager = $this->container->get('plugin.manager.customfield_type');
+    $this->customFieldTypeManager = $this->container->get('plugin.manager.custom_field_type');
     $this->entityDefinitionUpdateManager = $this->container->get('entity.definition_update_manager');
     $this->entityTypeManager = $this->container->get('entity_type.manager');
     $this->entityTypeBundleInfo = $this->container->get('entity_type.bundle.info');

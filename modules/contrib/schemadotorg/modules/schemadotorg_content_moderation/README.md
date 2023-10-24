@@ -33,7 +33,7 @@ Configuration
 -------------
 
 - Go to the Schema.org types configuration page.  
-  (/admin/config/search/schemadotorg/settings/types)
+  (/admin/config/schemadotorg/settings/types)
 - Go to the 'Content moderation settings' details.
 - Enter the default content moderation workflow per entity type and Schema.org type.
 

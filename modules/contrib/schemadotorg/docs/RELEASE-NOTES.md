@@ -46,6 +46,19 @@ Steps for creating a new release
     ../vendor/bin/phpcs --runtime-set testVersion 8.0 --standard=../vendor/phpcompatibility/php-compatibility/PHPCompatibility --extensions=php,module,inc,install,test,profile,theme modules/sandbox/schemadotorg > ~/schemadotorg-php-compatibility.txt
     cat ~/schemadotorg-php-compatibility.txt
 
+[YAML](https://www.drupal.org/node/3226497)
+
+    # Install Eslint. (One-time)
+    cd ~/Sites/drupal_next/web/core
+    yarn install
+
+    cd ~/Sites/drupal_next/web/core
+    yarn run lint:yaml ../modules/sandbox/schemadotorg --fix
+
+    # Tidy YAML files using custom Drush command. 
+    drush schemadotorg:tidy-yaml modules/sandbox/schemadotorg
+
+
 [JavaScript](https://www.drupal.org/node/2873849)
 
 @see https://stackoverflow.com/questions/58424718/how-can-i-disable-the-error-prettier-prettier-on-eslint
@@ -132,6 +145,8 @@ Run Drupal Rector
 3. Generate release notes
 -------------------------
 
+[Generate release notes](https://drupal-mrn.dev/) for projects hosted on Drupal.org
+
 [Git Release Notes for Drush](https://www.drupal.org/project/grn)
 
     drush release-notes --nouser 1.0.0-VERSION 1.0.x
@@ -154,7 +169,7 @@ Run Drupal Rector
 5. Tag and create a hotfix release
 ----------------------------------
 
-    # Creete hotfix branch
+    # Create hotfix branch
     git checkout 1.0.LATEST-VERSION
     git checkout -b 1.0.NEXT-VERSION-hotfix
     git push -u origin 1.0.NEXT-VERSION-hotfix

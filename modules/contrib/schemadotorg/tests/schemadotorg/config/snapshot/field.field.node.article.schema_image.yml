@@ -11,7 +11,7 @@ field_name: schema_image
 entity_type: node
 bundle: article
 label: Image
-description: 'An image of the item. This can be a <a href="https://schema.org/URL">URL</a> or a fully described <a href="https://schema.org/ImageObject">ImageObject</a>.'
+description: 'An image of the item.'
 required: false
 translatable: true
 default_value: {  }

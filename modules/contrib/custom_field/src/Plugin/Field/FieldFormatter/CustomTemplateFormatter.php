@@ -8,7 +8,7 @@ use Drupal\Core\Form\FormStateInterface;
 /**
  * Plugin implementation of the 'custom_template' formatter.
  *
- * Render the customfield using a custom template with token replacement.
+ * Render the custom field using a custom template with token replacement.
  *
  * @FieldFormatter(
  *   id = "custom_template",
@@ -19,7 +19,7 @@ use Drupal\Core\Form\FormStateInterface;
  *   }
  * )
  */
-class CustomTemplateFormatter extends CustomFormatterBase {
+class CustomTemplateFormatter extends BaseFormatter {
 
   /**
    * {@inheritdoc}
@@ -27,15 +27,16 @@ class CustomTemplateFormatter extends CustomFormatterBase {
   public static function defaultSettings(): array {
     return [
       'template' => '',
-    ] + parent::defaultSettings();
+    ];
   }
 
   /**
    * {@inheritdoc}
    */
   public function settingsForm(array $form, FormStateInterface $form_state): array {
-
     $form = parent::settingsForm($form, $form_state);
+    // Remove field level settings as they are not applicable.
+    unset($form['fields']);
 
     $tokens = [
       '#theme' => 'item_list',

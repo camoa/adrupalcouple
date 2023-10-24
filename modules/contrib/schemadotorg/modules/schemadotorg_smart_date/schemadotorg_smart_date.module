@@ -9,10 +9,6 @@ declare(strict_types = 1);
 
 use Drupal\Core\Field\FieldItemListInterface;
 
-/* ************************************************************************** */
-// Schema.org field alter hooks.
-/* ************************************************************************** */
-
 /**
  * Implements hook_schemadotorg_property_field_alter().
  */
@@ -65,7 +61,7 @@ function schemadotorg_smart_date_schemadotorg_property_field_alter(
 }
 
 /* ************************************************************************** */
-// Schema.org JSON-LD alterations.
+// Schema.org JSON-LD.
 /* ************************************************************************** */
 
 /**

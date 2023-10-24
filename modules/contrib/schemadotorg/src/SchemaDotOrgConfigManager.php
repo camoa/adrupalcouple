@@ -5,22 +5,36 @@ declare(strict_types = 1);
 namespace Drupal\schemadotorg;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
+use Drupal\Core\Config\Schema\SchemaCheckTrait;
+use Drupal\Core\Config\TypedConfigManagerInterface;
 
 /**
  * Schema.org config manager service.
+ *
+ * The Schema.org config manager service allows modules and starter kits to
+ * easily set and unset a Schema.org types default properties.
+ *
+ * This service also provides a validate configuration and
+ * repair method which cleans up configuration.
+ *
+ * @see \Drupal\schemadotorg\Element\SchemaDotOrgSettings
  */
 class SchemaDotOrgConfigManager implements SchemaDotOrgConfigManagerInterface {
+  use SchemaCheckTrait;
 
   /**
    * Constructs a SchemaDotOrgConfigManager object.
    *
    * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
    *   The configuration object factory.
+   * @param \Drupal\Core\Config\TypedConfigManagerInterface $typedConfigManager
+   *   The typed configuration manager.
    * @param \Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager
    *   The Schema.org schema type manager.
    */
   public function __construct(
     protected ConfigFactoryInterface $configFactory,
+    protected TypedConfigManagerInterface $typedConfigManager,
     protected SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager
   ) {}
 
@@ -115,9 +129,10 @@ class SchemaDotOrgConfigManager implements SchemaDotOrgConfigManagerInterface {
    */
   protected function unsetProperties(array &$properties, array|string $unset_properties): void {
     $unset_properties = (array) $unset_properties;
-    $properties = array_filter($properties, function ($property) use ($unset_properties) {
-      return !in_array($property, $unset_properties);
-    });
+    $properties = array_filter(
+      $properties,
+      fn($property) => !in_array($property, $unset_properties)
+    );
     sort($properties);
   }
 
@@ -184,6 +199,16 @@ class SchemaDotOrgConfigManager implements SchemaDotOrgConfigManagerInterface {
       }
       $config->save();
     }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function checkConfigValue(string $config_name, string $key, mixed $value): bool|array {
+    $config = clone $this->configFactory->getEditable($config_name);
+    // Purge all config except the config key/value.
+    $config_data = $config->setData([])->set($key, $value)->get();
+    return $this->checkConfigSchema($this->typedConfigManager, $config_name, $config_data);
   }
 
 }

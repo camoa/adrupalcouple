@@ -2,11 +2,12 @@
 
 namespace Drupal\custom_field\Plugin;
 
-use Drupal\custom_field\Plugin\Field\FieldType\CustomItem;
-use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Component\Plugin\PluginBase;
+use Drupal\Core\Field\FieldItemInterface;
+use Drupal\Core\Field\FieldItemListInterface;
+use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
+use Drupal\Core\Url;
 
 /**
  * Base class for CustomField Type plugins.
@@ -51,18 +52,25 @@ abstract class CustomFieldTypeBase extends PluginBase implements CustomFieldType
   protected $widgetSettings = [];
 
   /**
-   * An array of formatter settings.
-   *
-   * @var array
-   */
-  protected $formatterSettings = [];
-
-  /**
    * Should this field item be included in the empty check?
    *
    * @var bool
    */
   protected $checkEmpty = FALSE;
+
+  /**
+   * Returns the 'scale' field storage value.
+   *
+   * @var int|mixed
+   */
+  protected $scale;
+
+  /**
+   * Returns the 'datetime_type' field storage value.
+   *
+   * @var string
+   */
+  protected $datetimeType;
 
   /**
    * {@inheritdoc}
@@ -79,15 +87,6 @@ abstract class CustomFieldTypeBase extends PluginBase implements CustomFieldType
   }
 
   /**
-   * {@inheritdoc}
-   */
-  public static function defaultFormatterSettings(): array {
-    return [
-      'render' => 'value',
-    ];
-  }
-
-  /**
    * Construct a CustomFieldType plugin instance.
    */
   public function __construct(array $configuration, $plugin_id, $plugin_definition) {
@@ -97,9 +96,10 @@ abstract class CustomFieldTypeBase extends PluginBase implements CustomFieldType
     $this->maxLength = $this->configuration['max_length'] ?? 255;
     $this->unsigned = $this->configuration['unsigned'] ?? FALSE;
     $this->widgetSettings = $this->configuration['widget_settings'] ?? [];
-    $this->formatterSettings = $this->configuration['formatter_settings'] ?? [];
     $this->dataType = $this->configuration['data_type'] ?? '';
     $this->checkEmpty = $this->configuration['check_empty'] ?? FALSE;
+    $this->scale = $this->configuration['scale'] ?? 2;
+    $this->datetimeType = $this->configuration['datetime_type'] ?? static::DATETIME_TYPE_DATETIME;
 
     // We want to default the label to the column name, so we do that before the
     // merge and only if it's unset since a value of '' may be what the user
@@ -110,7 +110,6 @@ abstract class CustomFieldTypeBase extends PluginBase implements CustomFieldType
 
     // Merge defaults.
     $this->widgetSettings = $this->widgetSettings + self::defaultWidgetSettings();
-    $this->formatterSettings = $this->formatterSettings + self::defaultFormatterSettings();
   }
 
   /**
@@ -192,31 +191,15 @@ abstract class CustomFieldTypeBase extends PluginBase implements CustomFieldType
   /**
    * {@inheritdoc}
    */
-  public function formatterSettingsForm(array $form, FormStateInterface $form_state): array {
-    return [
-      'render' => [
-        '#type' => 'select',
-        '#title' => $this->t('Render'),
-        '#options' => [
-          'value' => $this->t('Value'),
-          'hidden' => $this->t('Hidden'),
-        ],
-        '#default_value' => $this->getFormatterSetting('render'),
-      ],
-    ];
+  public function value(FieldItemInterface $item): mixed {
+    return $item->{$this->name};
   }
 
   /**
    * {@inheritdoc}
    */
-  public function value(CustomItem $item): mixed {
-    $render = $this->getFormatterSetting('render');
-
-    if ($render === 'hidden') {
-      return NULL;
-    }
-
-    return $item->{$this->name};
+  public function getDefaultFormatter(): string {
+    return $this->getPluginDefinition()['default_formatter'];
   }
 
   /**
@@ -236,15 +219,43 @@ abstract class CustomFieldTypeBase extends PluginBase implements CustomFieldType
   /**
    * {@inheritdoc}
    */
-  public function getWidgetSetting(string $name): array {
-    return $this->widgetSettings[$name] ?? static::defaultWidgetSettings()[$name];
+  public function getMaxlength(): int {
+    return $this->maxLength;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getFormatterSetting(string $name) {
-    return $this->formatterSettings[$name] ?? static::defaultFormatterSettings()[$name];
+  public function getDataType(): string {
+    return $this->dataType;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function isUnsigned(): bool {
+    return $this->unsigned;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getScale(): int {
+    return $this->scale;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getDatetimeType(): string {
+    return $this->datetimeType;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getWidgetSetting(string $name): array {
+    return $this->widgetSettings[$name] ?? static::defaultWidgetSettings()[$name];
   }
 
   /**
@@ -257,15 +268,46 @@ abstract class CustomFieldTypeBase extends PluginBase implements CustomFieldType
   /**
    * {@inheritdoc}
    */
-  public function getFormatterSettings(): array {
-    return $this->formatterSettings;
+  public function checkEmpty(): bool {
+    return $this->checkEmpty;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function checkEmpty(): bool {
-    return $this->checkEmpty;
+  public static function schema(array $settings): array {
+    return [
+      'type' => 'varchar',
+      'length' => $settings['max_length'] ?? 255,
+    ];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function propertyDefinitions(array $settings): mixed {
+    return NULL;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getConstraints(array $settings): array {
+    return [];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getUrl(FieldItemInterface $item) {
+    return Url::fromUri($item->{$this->name});
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function isExternal(FieldItemInterface $item) {
+    return $this->getUrl($item)->isExternal();
   }
 
 }

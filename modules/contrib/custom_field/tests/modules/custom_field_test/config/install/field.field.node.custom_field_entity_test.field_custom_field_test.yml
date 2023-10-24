@@ -14,20 +14,7 @@ label: 'Custom Field Test'
 description: ''
 required: false
 translatable: false
-default_value:
-  -
-    string_test: ''
-    string_long_test: null
-    integer_test: null
-    decimal_test: null
-    float_test: null
-    email_test: ''
-    telephone_test: ''
-    uri_test: null
-    boolean_test: 0
-    uuid_test: null
-    color_test: '#000000'
-    map_test: null
+default_value: {  }
 default_value_callback: ''
 settings:
   field_settings:
@@ -35,9 +22,6 @@ settings:
       type: text
       weight: 0
       check_empty: false
-      formatter_settings:
-        render: value
-        prefix_suffix: 0
       widget_settings:
         label: 'String test'
         settings:
@@ -54,8 +38,6 @@ settings:
       type: textarea
       weight: 0
       check_empty: false
-      formatter_settings:
-        render: value
       widget_settings:
         label: 'String long test'
         settings:
@@ -75,9 +57,6 @@ settings:
       type: integer
       weight: 0
       check_empty: false
-      formatter_settings:
-        render: value
-        prefix_suffix: 0
       widget_settings:
         label: 'Integer test'
         settings:
@@ -86,7 +65,6 @@ settings:
           placeholder: ''
           min: null
           max: null
-          thousand_separator: ''
           prefix: ''
           suffix: ''
           required: false
@@ -94,9 +72,6 @@ settings:
       type: decimal
       weight: 0
       check_empty: false
-      formatter_settings:
-        render: value
-        prefix_suffix: 0
       widget_settings:
         label: 'Decimal test'
         settings:
@@ -105,9 +80,6 @@ settings:
           placeholder: ''
           min: null
           max: null
-          decimal_separator: .
-          scale: 2
-          thousand_separator: ''
           prefix: ''
           suffix: ''
           required: false
@@ -115,9 +87,6 @@ settings:
       type: float
       weight: 0
       check_empty: false
-      formatter_settings:
-        render: value
-        prefix_suffix: 0
       widget_settings:
         label: 'Float test'
         settings:
@@ -126,9 +95,6 @@ settings:
           placeholder: ''
           min: null
           max: null
-          decimal_separator: .
-          scale: 2
-          thousand_separator: ''
           prefix: ''
           suffix: ''
           required: false
@@ -136,8 +102,6 @@ settings:
       type: email
       weight: 0
       check_empty: false
-      formatter_settings:
-        render: value
       widget_settings:
         label: 'Email test'
         settings:
@@ -150,9 +114,6 @@ settings:
       type: telephone
       weight: 0
       check_empty: false
-      formatter_settings:
-        render: value
-        prefix_suffix: 0
       widget_settings:
         label: 'Telephone test'
         settings:
@@ -165,12 +126,11 @@ settings:
           prefix: ''
           suffix: ''
           required: false
+          pattern: ''
     uri_test:
       type: url
       weight: 0
       check_empty: false
-      formatter_settings:
-        render: value
       widget_settings:
         label: 'Uri test'
         settings:
@@ -178,17 +138,16 @@ settings:
           description_display: after
           size: 60
           placeholder: ''
-          maxlength: 255
+          maxlength: 254
           maxlength_js: false
           required: false
+          link_type: 17
+          field_prefix: default
+          field_prefix_custom: ''
     boolean_test:
       type: checkbox
       weight: 0
       check_empty: false
-      formatter_settings:
-        render: value
-        value_checked: 'Yes'
-        value_unchecked: 'No'
       widget_settings:
         label: 'Boolean test'
         settings:
@@ -199,14 +158,10 @@ settings:
       type: uuid
       weight: 0
       check_empty: false
-      formatter_settings:
-        render: value
     color_test:
       type: color
       weight: 0
       check_empty: false
-      formatter_settings:
-        render: value
       widget_settings:
         label: 'Color test'
         settings:
@@ -217,8 +172,6 @@ settings:
       type: map_key_value
       weight: 0
       check_empty: false
-      formatter_settings:
-        render: table
       widget_settings:
         label: 'Map test'
         settings:
@@ -226,5 +179,15 @@ settings:
           description_display: after
           key_label: Key
           value_label: Value
+          required: false
+    datetime_test:
+      type: datetime_default
+      weight: 0
+      check_empty: false
+      widget_settings:
+        label: 'Datetime test'
+        settings:
+          description: ''
+          description_display: after
           required: false
 field_type: custom

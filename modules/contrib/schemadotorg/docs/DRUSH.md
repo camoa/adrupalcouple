@@ -84,7 +84,7 @@ drush schemadotorg:delete-type -y --delete-entity paragraph:ContactPoint paragra
 drush schemadotorg:delete-type -y --delete-entity node:Person node:Organization node:Place node:Event
 ```
 
-## Setup, generate, ki``ll and teardown a set Schema.org types.
+## Setup, generate, kill and teardown a set Schema.org types.
 
 ```
 # Setup Schema.org mapping set.
@@ -98,6 +98,25 @@ drush schemadotorg:set-kill common
 
 # Teardown (delete) Schema.org mapping set content.
 drush schemadotorg:set-teardown common
+```
+
+## Setup, generate, kill and teardown a Schema.org starter kit.
+
+```
+# Enable Schema.org Starter Kits (API).
+drush enable schemadotorg_starterkit
+
+# Install the Schema.org Blueprints: Events Starterkit.
+drush schemadotorg:starterkit-install events
+
+# Generate Schema.org Blueprints: Events Starterkit content.
+drush schemadotorg:starterkit-generate events
+
+# Kill (delete) Schema.org Blueprints: Events Starterkit content.
+drush schemadotorg:starterkit-kill events
+
+# Update the Schema.org Blueprints: Events Starterkit.
+drush schemadotorg:starterkit-update events
 ```
 
 # Download, install, and update the Schema.org CSV files to the latest version.

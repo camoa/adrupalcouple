@@ -54,6 +54,8 @@ class CheckEmptyTest extends BrowserTestBase {
                   'unsigned' => FALSE,
                   'precision' => 10,
                   'scale' => 2,
+                  'size' => 'normal',
+                  'datetime_type' => 'datetime',
                 ],
                 'string_2' => [
                   'name' => 'string_2',
@@ -62,6 +64,8 @@ class CheckEmptyTest extends BrowserTestBase {
                   'unsigned' => FALSE,
                   'precision' => 10,
                   'scale' => 2,
+                  'size' => 'normal',
+                  'datetime_type' => 'datetime',
                 ],
               ],
             ],

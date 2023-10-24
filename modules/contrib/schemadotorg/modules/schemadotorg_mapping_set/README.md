@@ -26,6 +26,7 @@ Use cases include...
 - **Medical organization**	(Physician, clinics, labs, hospitals, tests, and audience)
 - **Medical information** (Conditions, symptoms, risks, causes, tests, procedures, and trials)
 
+
 Features
 --------
 
@@ -39,7 +40,7 @@ Configuration
 -------------
 
 - Go to the Schema.org Mapping Sets configuration page.  
-  (/admin/config/search/schemadotorg/sets/settings)
+  (/admin/config/schemadotorg/sets/settings)
 - Enter Schema.org mapping sets.
 
 

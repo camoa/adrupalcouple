@@ -33,9 +33,4 @@ interface SchemaDotOrgCorrespondingReferenceManagerInterface {
    */
   public function mappingInsert(SchemaDotOrgMappingInterface $mapping): void;
 
-  /**
-   * Sync entity references target bundles for all Schema.org mappings.
-   */
-  public function syncEntityReferencesTargetBundles(): void;
-
 }

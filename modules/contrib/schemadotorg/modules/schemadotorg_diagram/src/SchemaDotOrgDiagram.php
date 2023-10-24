@@ -41,27 +41,21 @@ class SchemaDotOrgDiagram implements SchemaDotOrgDiagramInterface {
 
   /**
    * Max depth for hierarchy.
-   *
-   * @var int
    */
-  protected $maxDepth = 3;
+  protected int $maxDepth = 3;
 
   /**
    * The parent Schema.org property.
-   *
-   * @var string|null
    */
-  protected $parentProperty;
+  protected string|null $parentProperty;
 
   /**
    * The child Schema.org property.
-   *
-   * @var string|null
    */
-  protected $childProperty;
+  protected string|null $childProperty;
 
   /**
-   * Constructs a SchemaDotOrgStarterkitHeirarchy object.
+   * Constructs a SchemaDotOrgDiagram object.
    *
    * @param \Drupal\Core\Session\AccountInterface $currentUser
    *   The current user.

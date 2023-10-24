@@ -1,6 +1,6 @@
 schemadotorg_jsonapi.settings:
   type: config_entity
-  label: Schema.org JSON:API settings
+  label: 'Schema.org JSON:API settings'
   mapping:
     default_base_fields:
       type: sequence

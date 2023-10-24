@@ -7,8 +7,11 @@ namespace Drupal\schemadotorg_mapping_set\Controller;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Link;
 use Drupal\Core\Url;
+use Drupal\schemadotorg\SchemaDotOrgMappingManagerInterface;
+use Drupal\schemadotorg\SchemaDotOrgSchemaTypeBuilderInterface;
+use Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface;
 use Drupal\schemadotorg\Traits\SchemaDotOrgBuildTrait;
-use Drupal\schemadotorg\Utility\SchemaDotOrgStringHelper;
+use Drupal\schemadotorg_mapping_set\SchemaDotOrgMappingSetManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -19,50 +22,34 @@ class SchemadotorgMappingSetController extends ControllerBase {
   use SchemaDotOrgBuildTrait;
 
   /**
-   * The redirect destination.
-   *
-   * @var \Drupal\Core\Routing\RedirectDestinationInterface
-   */
-  protected $redirectDestination;
-
-  /**
-   * The Schema.org mapping manager service.
-   *
-   * @var \Drupal\schemadotorg\SchemaDotOrgMappingManagerInterface
-   */
-  protected $schemaMappingManager;
-
-  /**
-   * The Schema.org mapping set manager service.
-   *
-   * @var \Drupal\schemadotorg_mapping_set\SchemaDotOrgMappingSetManagerInterface
-   */
-  protected $schemaMappingSetManager;
-
-  /**
    * The Schema.org schema type manager.
-   *
-   * @var \Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface
    */
-  protected $schemaTypeManager;
+  protected SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager;
 
   /**
    * The Schema.org schema type builder.
-   *
-   * @var \Drupal\schemadotorg\SchemaDotOrgSchemaTypeBuilderInterface
    */
-  protected $schemaTypeBuilder;
+  protected SchemaDotOrgSchemaTypeBuilderInterface $schemaTypeBuilder;
+
+  /**
+   * The Schema.org mapping manager service.
+   */
+  protected SchemaDotOrgMappingManagerInterface $schemaMappingManager;
+
+  /**
+   * The Schema.org mapping set manager service.
+   */
+  protected SchemaDotOrgMappingSetManagerInterface $schemaMappingSetManager;
 
   /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
     $instance = new static();
-    $instance->redirectDestination = $container->get('redirect.destination');
-    $instance->schemaMappingManager = $container->get('schemadotorg.mapping_manager');
-    $instance->schemaMappingSetManager = $container->get('schemadotorg_mapping_set.manager');
     $instance->schemaTypeManager = $container->get('schemadotorg.schema_type_manager');
     $instance->schemaTypeBuilder = $container->get('schemadotorg.schema_type_builder');
+    $instance->schemaMappingManager = $container->get('schemadotorg.mapping_manager');
+    $instance->schemaMappingSetManager = $container->get('schemadotorg_mapping_set.manager');
     return $instance;
   }
 
@@ -197,21 +184,19 @@ class SchemadotorgMappingSetController extends ControllerBase {
    *   A renderable array containing a mapping set's summary.
    */
   public function buildSummary(string $name): array {
-    $mapping_set = $this->config('schemadotorg_mapping_set.settings')->get("sets.$name");
-
     /** @var \Drupal\schemadotorg\SchemaDotOrgMappingStorageInterface $mapping_storage */
     $mapping_storage = $this->entityTypeManager()
       ->getStorage('schemadotorg_mapping');
 
+    $mapping_set = $this->config('schemadotorg_mapping_set.settings')->get("sets.$name");
     foreach ($mapping_set['types'] as $type) {
       if (!$this->schemaMappingSetManager->isValidType($type)) {
         continue;
       }
       [$entity_type_id, $schema_type] = explode(':', $type);
-
-      $mapping = $mapping_storage->loadBySchemaType($entity_type_id, $schema_type);
       $mapping_defaults = $this->schemaMappingManager->getMappingDefaults($entity_type_id, NULL, $schema_type);
 
+      $mapping = $mapping_storage->loadBySchemaType($entity_type_id, $schema_type);
       if ($mapping) {
         $status = $this->t('Exists');
 
@@ -233,7 +218,7 @@ class SchemadotorgMappingSetController extends ControllerBase {
           ->getBundleEntityType();
         $route_name = "schemadotorg.{$bundle_entity_type}.type_add";
         $route_options = [
-          'query' => ['type' => $schema_type] + $this->redirectDestination->getAsArray(),
+          'query' => ['type' => $schema_type] + $this->getRedirectDestination()->getAsArray(),
         ];
         $url = Url::fromRoute($route_name, [], $route_options);
         $operation = Link::fromTextAndUrl($this->t('Add type'), $url)->toRenderable();
@@ -249,7 +234,7 @@ class SchemadotorgMappingSetController extends ControllerBase {
             '#suffix' => '</strong> (' . $entity_type_id . ')<br/>',
           ],
           'comment' => [
-            '#markup' => SchemaDotOrgStringHelper::getFirstSentence($mapping_defaults['entity']['description']),
+            '#markup' => $mapping_defaults['entity']['description'],
           ],
         ],
       ];
@@ -277,7 +262,7 @@ class SchemadotorgMappingSetController extends ControllerBase {
       'operations' => [
         'data' => [
           '#type' => 'operations',
-          '#links' => $this->getOperations($name, ['query' => $this->redirectDestination->getAsArray()]),
+          '#links' => $this->getOperations($name, ['query' => $this->getRedirectDestination()->getAsArray()]),
         ],
         'style' => 'white-space: nowrap',
       ],
@@ -285,7 +270,7 @@ class SchemadotorgMappingSetController extends ControllerBase {
 
     $header = [
       'schema_type' => ['data' => $this->t('Schema.org type'), 'width' => '15%'],
-      'entitu_type' => ['data' => $this->t('Entity label (type) / description'), 'width' => '65%'],
+      'entity_type' => ['data' => $this->t('Entity label (type) / description'), 'width' => '65%'],
       'status' => ['data' => $this->t('Status'), 'width' => '10%'],
       'operation' => ['data' => $this->t('Operations'), 'width' => '10%'],
     ];
@@ -343,9 +328,7 @@ class SchemadotorgMappingSetController extends ControllerBase {
           if (count($mapping_sets) > 1) {
             unset($mapping_sets[$name]);
             $labels = array_map(
-              function ($mapping_set) {
-                return $mapping_set['label'];
-              },
+              fn($mapping_set) => $mapping_set['label'],
               $mapping_sets
             );
             $t_args = ['%labels' => implode(', ', $labels)];

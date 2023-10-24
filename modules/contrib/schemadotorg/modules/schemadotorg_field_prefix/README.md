@@ -24,7 +24,7 @@ Configuration
 -------------
 
 - Go to the Schema.org properties configuration page.  
-  (/admin/config/search/schemadotorg/settings/properties)
+  (/admin/config/schemadotorg/settings/properties)
 - Go to the 'Field prefix settings' details.
 - Enter the field prefix to be prepended to a Schema.org property when added to 
   an entity type.

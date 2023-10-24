@@ -1,6 +1,6 @@
 schemadotorg_epp.settings:
   type: config_entity
-  label: Schema.org Entity Prepopualte settings
+  label: 'Schema.org Entity prepopulate settings'
   mapping:
     node_links:
       type: sequence

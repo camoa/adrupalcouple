@@ -7,7 +7,7 @@ services:
     arguments: ['@config.factory']
   schemadotorg.config_manager:
     class: Drupal\schemadotorg\SchemaDotOrgConfigManager
-    arguments: ['@config.factory', '@schemadotorg.schema_type_manager']
+    arguments: ['@config.factory', '@config.typed', '@schemadotorg.schema_type_manager']
   schemadotorg.schema_type_manager:
     class: Drupal\schemadotorg\SchemaDotOrgSchemaTypeManager
     arguments: ['@database', '@schemadotorg.names']
@@ -23,9 +23,6 @@ services:
   schemadotorg.entity_field_manager:
     class: Drupal\schemadotorg\SchemaDotOrgEntityFieldManager
     arguments: ['@module_handler', '@config.factory', '@entity_type.manager', '@entity_field.manager', '@plugin.manager.field.field_type', '@schemadotorg.schema_type_manager']
-  schemadotorg.entity_relationship_manager:
-    class: Drupal\schemadotorg\SchemaDotOrgEntityRelationshipManager
-    arguments: ['@entity_type.manager', '@schemadotorg.schema_type_manager']
   schemadotorg.mapping_manager:
     class: Drupal\schemadotorg\SchemaDotOrgMappingManager
     arguments: ['@module_handler', '@config.factory', '@entity_type.manager', '@entity_field.manager', '@schemadotorg.names', '@schemadotorg.schema_type_manager', '@schemadotorg.schema_type_builder', '@schemadotorg.entity_field_manager', '@schemadotorg.entity_type_builder', '@schemadotorg.entity_display_builder']
@@ -33,6 +30,3 @@ services:
     class: Drupal\schemadotorg\Breadcrumb\SchemaDotOrgBreadcrumbBuilder
     tags:
       - { name: breadcrumb_builder, priority: 1000 }
-  schemadotorg.config_schema_check_manager:
-    class: Drupal\schemadotorg\SchemaDotOrgConfigSchemaCheckManager
-    arguments: ['@config.factory', '@config.typed']

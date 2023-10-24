@@ -14,9 +14,9 @@ use Drupal\Tests\schemadotorg\Functional\SchemaDotOrgBrowserTestBase;
 class SchemaDotOrgJsonApiPreviewTest extends SchemaDotOrgBrowserTestBase {
 
   /**
-   * Modules to install.
+   * Modules to enable.
    *
-   * @var string[]
+   * @var array
    */
   protected static $modules = ['schemadotorg_jsonapi', 'schemadotorg_jsonapi_preview'];
 
@@ -51,7 +51,7 @@ class SchemaDotOrgJsonApiPreviewTest extends SchemaDotOrgBrowserTestBase {
 
     // Update JSON:API preview configuration to not be displayed on the node.
     $this->drupalLogin($this->rootUser);
-    $this->drupalGet('/admin/config/search/schemadotorg/settings/jsonapi');
+    $this->drupalGet('/admin/config/schemadotorg/settings/jsonapi');
     $edit = ['schemadotorg_jsonapi_preview[visibility][request_path][pages]' => '/node/' . $node->id()];
     $this->submitForm($edit, 'Save configuration');
 

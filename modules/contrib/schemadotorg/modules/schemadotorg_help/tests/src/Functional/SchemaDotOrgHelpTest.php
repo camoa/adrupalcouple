@@ -14,9 +14,9 @@ use Drupal\Tests\schemadotorg\Functional\SchemaDotOrgBrowserTestBase;
 class SchemaDotOrgHelpTest extends SchemaDotOrgBrowserTestBase {
 
   /**
-   * Modules to install.
+   * Modules to enable.
    *
-   * @var string[]
+   * @var array
    */
   protected static $modules = ['schemadotorg_help', 'schemadotorg_diagram'];
 
@@ -33,7 +33,7 @@ class SchemaDotOrgHelpTest extends SchemaDotOrgBrowserTestBase {
     $this->drupalGet('/admin/help');
     $assert_session->responseContains('<h2>Schema.org Blueprints</h2>');
     $assert_session->responseContains('<p>The Schema.org Blueprints module uses Schema.org as the blueprint for the content architecture and structured data in a Drupal website.</p>');
-    $assert_session->responseContains('<li><a href="' . $base_path . 'admin/help/schemadotorg/schemadotorg">Schema.org Blueprints</a></li>');
+    $assert_session->responseContains('<li><strong><a href="' . $base_path . 'admin/help/schemadotorg/schemadotorg">Schema.org Blueprints</a></strong></li>');
     $assert_session->responseContains('<li><a href="' . $base_path . 'admin/help/schemadotorg/schemadotorg_diagram">Diagram</a></li>');
     $assert_session->responseContains('<li><a href="' . $base_path . 'admin/help/schemadotorg/schemadotorg_help">Help</a></li>');
     $assert_session->responseNotContains('<li><a href="' . $base_path . 'admin/help/schemadotorg/schemadotorg_diagram">Schema.org Blueprints Diagram</a></li>');

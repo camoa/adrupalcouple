@@ -11,12 +11,13 @@ Table of contents
 Introduction
 ------------
 
-The **Schema.org Blueprints Diagramn** module provides
+The **Schema.org Blueprints Diagram** module provides
 diagrams for Schema.org relationships.
 
 Example of diagram via DIAGRAM.html.
 
 @see DIAGRAM.html#example
+
 
 Features
 --------
@@ -36,9 +37,9 @@ Permissions
 Settings
 
 - Go to the Schema.org general configuration page.  
-  (/admin/config/search/schemadotorg/settings/general)
+  (/admin/config/schemadotorg/settings/general)
 - Go to the 'Diagram settings' details.
-- Enter Schema.org diagrams title, parent, and child Schema.org properties.
+- Enter Schema.org diagram title, parent, and child Schema.org properties.
 
 
 Requirements

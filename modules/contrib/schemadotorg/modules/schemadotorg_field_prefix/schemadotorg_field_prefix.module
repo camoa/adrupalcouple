@@ -9,7 +9,6 @@ declare(strict_types = 1);
 
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\field\Entity\FieldStorageConfig;
-use Drupal\schemadotorg\Element\SchemaDotOrgSettings;
 
 /**
  * Implements hook_form_FORM_ID_alter().
@@ -93,15 +92,20 @@ function schemadotorg_field_prefix_form_field_ui_field_storage_add_form_validate
   }
 }
 
+/* ************************************************************************** */
+// Schema.org properties settings form.
+/* ************************************************************************** */
+
 /**
  * Implements hook_form_FORM_ID_alter().
+ *
+ * @see \Drupal\schemadotorg\Form\SchemaDotOrgSettingsFormBase::afterBuildDetails
+ * @see \Drupal\schemadotorg\Form\SchemaDotOrgSettingsFormBase::formAlter
  */
 function schemadotorg_field_prefix_form_schemadotorg_properties_settings_form_alter(array &$form, FormStateInterface $form_state): void {
   $form['schemadotorg_field_prefix'] = [
     '#type' => 'details',
     '#title' => t('Field prefix settings'),
-    '#open' => TRUE,
-    '#tree' => TRUE,
   ];
   $form['schemadotorg_field_prefix']['field_prefix'] = [
     '#type' => 'textfield',
@@ -115,11 +119,15 @@ function schemadotorg_field_prefix_form_schemadotorg_properties_settings_form_al
   }
   $form['schemadotorg_field_prefix']['field_prefix_options'] = [
     '#type' => 'schemadotorg_settings',
-    '#settings_type' => SchemaDotOrgSettings::ASSOCIATIVE,
-    '#settings_format' => 'prefix_|prefix_ - Description',
     '#title' => t('Field prefix options'),
     '#description' => t('Enter the field options that a site builder can choose from. Leave blank to not display the field prefix select menu when adding new fields.'),
-    '#description_link' => NULL,
+    '#example' => "
+field_: field_
+'field_[bundle]_': 'field_[bundle]_'
+schema_: schema_
+'schema_[bundle]_': 'schema_[bundle]_'
+'': '<none>'
+",
   ];
   $form['schemadotorg_field_prefix']['field_prefix_description'] = [
     '#type' => 'textarea',

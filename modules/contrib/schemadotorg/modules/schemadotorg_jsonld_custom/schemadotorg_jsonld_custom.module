@@ -66,16 +66,20 @@ function schemadotorg_jsonld_custom_form_schemadotorg_mapping_form_alter(array &
     '#open' => (boolean) $json,
   ];
   $form['mapping']['third_party_settings']['schemadotorg_jsonld_custom']['json'] = [
-    '#type' => 'textarea',
+    '#type' => 'schemadotorg_settings',
+    '#mode' => 'json',
+    '#raw' => TRUE,
+    '#description_link' => 'properties',
+    '#token_link' => TRUE,
     '#title' => t('Custom JSON-LD'),
     '#description' => t('Enter valid JSON to be added to this Schema.org mappings JSON-LD.'),
     '#default_value' => $json,
     '#element_validate' => ['_schemadotorg_jsonld_custom_json_element_validate'],
-    '#attributes' => [
-      'class' => ['schemadotorg-codemirror'],
-      'data-mode' => 'application/ld+json',
-    ],
-    '#attached' => ['library' => ['schemadotorg/codemirror.javascript']],
+    '#example' => '
+{
+  "additionalType": "SomeOtherType"
+}
+',
   ];
 }
 
@@ -84,53 +88,64 @@ function schemadotorg_jsonld_custom_form_schemadotorg_mapping_form_alter(array &
  */
 function _schemadotorg_jsonld_custom_json_element_validate(array &$element, FormStateInterface $form_state, array &$completed_form): void {
   $json = $element['#value'];
-
   if ($json === '') {
     $form_state->unsetValue($element['#parents']);
   }
-  else {
-    // Replace all tokens with 'null' to allow the JSON to be validated.
-    $json = preg_replace('#\[[a-z][^]]+\]#', 'null', $json);
-    @json_decode($json);
-    if (json_last_error() !== JSON_ERROR_NONE) {
-      $form_state->setError($element, t('The JSON is not valid. %error', ['%error' => json_last_error_msg()]));
-    }
-  }
 }
+
+/* ************************************************************************** */
+// Schema.org JSON-LD settings form.
+/* ************************************************************************** */
 
 /**
  * Implements hook_form_FORM_ID_alter().
+ *
+ * @see \Drupal\schemadotorg\Form\SchemaDotOrgSettingsFormBase::afterBuildDetails
+ * @see \Drupal\schemadotorg\Form\SchemaDotOrgSettingsFormBase::formAlter
  */
 function schemadotorg_jsonld_custom_form_schemadotorg_jsonld_settings_form_alter(array &$form, FormStateInterface $form_state): void {
   $form['schemadotorg_jsonld_custom'] = [
     '#type' => 'details',
     '#title' => t('JSON-LD custom settings'),
-    '#open' => TRUE,
-    '#tree' => TRUE,
   ];
   $form['schemadotorg_jsonld_custom']['path_json'] = [
     '#type' => 'schemadotorg_settings',
-    '#settings_type' => SchemaDotOrgSettings::ASSOCIATIVE,
-    '#settings_format' => '/some/path|JSON',
     '#title' => t('Path custom JSON-LD'),
     '#description' => t('Enter the custom JSON-LD for a path.'),
     '#element_validate' => ['_schemadotorg_jsonld_custom_json_settings_validate'],
+    '#example' => '
+\'/some/path\':  |
+  {
+    "copyrightHolder": "[site:name]",
+    "copyrightYear": [current-date:html_year]
+  }
+',
   ];
   $form['schemadotorg_jsonld_custom']['default_schema_type_json'] = [
     '#type' => 'schemadotorg_settings',
-    '#settings_type' => SchemaDotOrgSettings::ASSOCIATIVE,
-    '#settings_format' => 'entity_type--SchemaType|JSON or SchemaType|JSON',
     '#title' => t('Default Schema.org type custom JSON-LD'),
     '#description' => t('Enter the default JSON-LD for Schema.org types.'),
     '#element_validate' => ['_schemadotorg_jsonld_custom_json_settings_validate'],
+    '#example' => '
+node--CreativeWork: |
+  {
+    "copyrightHolder": "[site:name]",
+    "copyrightYear": [current-date:html_year]
+  }
+',
   ];
   $form['schemadotorg_jsonld_custom']['default_schema_mapping_json'] = [
     '#type' => 'schemadotorg_settings',
-    '#settings_type' => SchemaDotOrgSettings::ASSOCIATIVE,
-    '#settings_format' => 'entity_type--SchemaType|JSON or SchemaType|JSON',
     '#title' => t('Default Schema.org mapping custom JSON-LD'),
     '#description' => t('Enter the default JSON-LD for new Schema.org mappings.'),
     '#element_validate' => ['_schemadotorg_jsonld_custom_json_settings_validate'],
+    '#example' => '
+node--CreativeWork: |
+  {
+    "copyrightHolder": "[site:name]",
+    "copyrightYear": [current-date:html_year]
+  }
+',
   ];
 }
 
@@ -140,15 +155,16 @@ function schemadotorg_jsonld_custom_form_schemadotorg_jsonld_settings_form_alter
 function _schemadotorg_jsonld_custom_json_settings_validate(array &$element, FormStateInterface $form_state, array &$completed_form): void {
   $value = $form_state->getValue($element['#parents']);
   foreach ($value as $key => $json) {
-    // Replace all tokens with 'null' to allow the JSON to be validated.
-    $json = preg_replace('#\[[a-z][^]]+\]#', 'null', $json);
-    @json_decode($json);
-    if (json_last_error() !== JSON_ERROR_NONE) {
+    try {
+      SchemaDotOrgSettings::validate('json', $json);
+    }
+    catch (\Exception $exception) {
       $t_args = [
+        '@name' => $element['#title'],
         '%key' => $key,
-        '%error' => json_last_error_msg(),
+        '%error' => $exception->getMessage(),
       ];
-      $form_state->setError($element, t('The JSON is not valid for %key. %error', $t_args));
+      $form_state->setError($element, t('@name field is not valid JSON for %key. %error', $t_args));
     }
   }
 }

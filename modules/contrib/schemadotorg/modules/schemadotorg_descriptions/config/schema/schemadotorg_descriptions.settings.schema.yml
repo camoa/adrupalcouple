@@ -1,6 +1,6 @@
 schemadotorg_descriptions.settings:
   type: config_entity
-  label: Schema.org Descriptions settings
+  label: 'Schema.org Descriptions settings'
   mapping:
     custom_descriptions:
       type: sequence
@@ -8,9 +8,6 @@ schemadotorg_descriptions.settings:
       sequence:
         type: string
         label: 'Schema.org type and property description'
-    trim_descriptions:
-      type: boolean
-      label: 'Trim long Schema.org type and property descriptions'
     help_descriptions:
       type: boolean
       label: 'Set explanation or submission guidelines to Schema.org type description (Only applies to nodes).'

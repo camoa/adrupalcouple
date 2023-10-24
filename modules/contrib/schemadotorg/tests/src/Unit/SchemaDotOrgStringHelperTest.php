@@ -65,6 +65,22 @@ class SchemaDotOrgStringHelperTest extends UnitTestCase {
       'A <a href="https://schema.org/FAQPage">FAQPage</a> is a <a href="https://schema.org/WebPage">WebPage</a> presenting one or more "<a href="https://en.wikipedia.org/wiki/FAQ">Frequently asked questions</a>" (see also <a href="https://schema.org/QAPage">QAPage</a>).',
       'A <a href="https://schema.org/FAQPage">FAQPage</a> is a <a href="https://schema.org/WebPage">WebPage</a> presenting one or more "<a href="https://en.wikipedia.org/wiki/FAQ">Frequently asked questions</a>" (see also <a href="https://schema.org/QAPage">QAPage</a>).',
     ];
+    $tests[] = [
+      'This is a link (source Wikipedia.org).',
+      'This is a link (source Wikipedia.org).',
+    ];
+    $tests[] = [
+      'A discrete unit of inheritance which affects one or more biological traits (Source: <a href="https://en.wikipedia.org/wiki/Gene">https://en.wikipedia.org/wiki/Gene</a>). Examples include FOXP2 (Forkhead box protein P2), SCARNA21 (small Cajal body-specific RNA 21), A- (agouti genotype).',
+      'A discrete unit of inheritance which affects one or more biological traits (Source: <a href="https://en.wikipedia.org/wiki/Gene">https://en.wikipedia.org/wiki/Gene</a>).',
+    ];
+    $tests[] = [
+      'A meeting room, conference room, or conference hall is a room provided for singular events such as business conferences and meetings (source: Wikipedia, the free encyclopedia, see http://en.wikipedia.org/wiki/Conference_hall).',
+      'A meeting room, conference room, or conference hall is a room provided for singular events such as business conferences and meetings.',
+    ];
+    $tests[] = [
+      'An image of the item. This can be a <a href="https://schema.org/URL">URL</a> or a fully described <a href="https://schema.org/ImageObject">ImageObject</a>.',
+      'An image of the item.',
+    ];
     return $tests;
   }
 

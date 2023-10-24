@@ -23,7 +23,7 @@ sets:
       - 'node:WebPage'
       - 'node:WebSite'
   media:
-    label: 'Media'
+    label: Media
     types:
       - 'node:MediaGallery'
       - 'node:ImageGallery'

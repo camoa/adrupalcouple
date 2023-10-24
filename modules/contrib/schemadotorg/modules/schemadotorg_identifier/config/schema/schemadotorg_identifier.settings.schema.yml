@@ -1,6 +1,6 @@
 schemadotorg_identifier.settings:
   type: config_entity
-  label: Schema.org Identifier settings
+  label: 'Schema.org Identifier settings'
   mapping:
     field_definitions:
       type: sequence

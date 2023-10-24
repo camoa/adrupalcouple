@@ -47,7 +47,7 @@ interface SchemaDotOrgJsonLdManagerInterface {
    *   An associative array of Schema.org properties.
    *
    * @return array
-   *   The Schema.org propertiesin specified order and then alphabetically.
+   *   The Schema.org properties in specified order and then alphabetically.
    */
   public function sortProperties(array $properties): array;
 

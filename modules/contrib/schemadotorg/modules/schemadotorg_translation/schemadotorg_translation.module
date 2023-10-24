@@ -9,20 +9,9 @@ declare(strict_types = 1);
 
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\EntityInterface;
-use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Form\FormStateInterface;
 use Drupal\field\FieldConfigInterface;
 use Drupal\schemadotorg\SchemaDotOrgMappingInterface;
-
-/**
- * Implements hook_help().
- */
-function schemadotorg_translation_help(string $route_name, RouteMatchInterface $route_match): string|array|NULL {
-  if ($route_name === 'schemadotorg_translation.settings') {
-    return '<p>' . t('The <em>Schema.org translations settings</em> page allows administrators to configure which field names and types are excluded or included for allowing translations.') . '<p>';
-  }
-
-  return NULL;
-}
 
 /**
  * Implements hook_schemadotorg_mapping_insert().
@@ -45,6 +34,10 @@ function schemadotorg_translation_field_config_insert(FieldConfigInterface $fiel
   $manager = \Drupal::service('schemadotorg_translation.manager');
   $manager->enableMappingField($field_config);
 }
+
+/* ************************************************************************** */
+// Schema.org JSON-LD.
+/* ************************************************************************** */
 
 /**
  * Implements hook_schemadotorg_jsonld_schema_type_entity_alter().
@@ -107,4 +100,72 @@ function schemadotorg_translation_schemadotorg_jsonld_schema_type_entity_alter(a
     $default_translation = $entity->getTranslation($default_language->getId());
     $data['translationOfWork'] = ['@id' => $default_translation->toUrl()->setAbsolute()->toString()];
   }
+}
+
+/* ************************************************************************** */
+// Schema.org general settings form.
+/* ************************************************************************** */
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * @see \Drupal\schemadotorg\Form\SchemaDotOrgSettingsFormBase::afterBuildDetails
+ * @see \Drupal\schemadotorg\Form\SchemaDotOrgSettingsFormBase::formAlter
+ */
+function schemadotorg_translation_form_schemadotorg_general_settings_form_alter(array &$form, FormStateInterface $form_state): void {
+  $form['schemadotorg_translation'] = [
+    '#type' => 'details',
+    '#title' => t('Translation settings'),
+  ];
+  $form['schemadotorg_translation']['excluded_schema_types'] = [
+    '#type' => 'schemadotorg_settings',
+    '#title' => t('Excluded Schema.org types'),
+    '#description' => t('Enter Schema.org types that should never be translated.'),
+    '#description_link' => 'types',
+    '#example' => '
+- SchemaType01
+- SchemaType02
+- SchemaType03
+',
+  ];
+  $form['schemadotorg_translation']['excluded_schema_properties'] = [
+    '#type' => 'schemadotorg_settings',
+    '#title' => t('Excluded Schema.org properties'),
+    '#description' => t('Enter Schema.org properties that should never be translated.'),
+    '#description_link' => 'properties',
+    '#example' => '
+- propertyName
+- SchemaType--propertyName
+',
+  ];
+  $form['schemadotorg_translation']['excluded_field_names'] = [
+    '#type' => 'schemadotorg_settings',
+    '#title' => t('Excluded field names'),
+    '#description' => t('Enter field names that should never be translated.'),
+    '#example' => '
+- field_name_01
+- field_name_02
+- field_name_03
+',
+  ];
+  $form['schemadotorg_translation']['included_field_names'] = [
+    '#type' => 'schemadotorg_settings',
+    '#title' => t('Included field names'),
+    '#description' => t('Enter field names that should always be translated.'),
+    '#example' => '
+- field_name_01
+- field_name_02
+- field_name_03
+',
+  ];
+  $form['schemadotorg_translation']['included_field_types'] = [
+    '#type' => 'schemadotorg_settings',
+    '#title' => t('Included field types'),
+    '#description' => t('Enter field types that should always be translated.'),
+    '#example' => '
+- field_type_01
+- field_type_02
+- field_type_03
+',
+  ];
 }

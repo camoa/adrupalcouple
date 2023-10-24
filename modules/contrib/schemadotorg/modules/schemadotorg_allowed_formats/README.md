@@ -17,7 +17,7 @@ for Schema.org properties within an entity type/bundle Schema.org mapping.
 Features
 --------
 
-- Set default allowed formats, hide help link, and hide format guidelines.
+- Sets default allowed formats, hide help link, and hide format guidelines.
 
 
 Requirements
@@ -31,7 +31,7 @@ Configuration
 -------------
 
 - Go to the Schema.org properties configuration page.  
-  (/admin/config/search/schemadotorg/settings/properties)
+  (/admin/config/schemadotorg/settings/properties)
 - Go to the 'Allowed formats settings' details.
 - Hide the help link 'About text formats'.
 - Hide text format guidelines.

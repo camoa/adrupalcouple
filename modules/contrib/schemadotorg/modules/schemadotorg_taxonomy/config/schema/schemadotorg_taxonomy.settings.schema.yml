@@ -1,6 +1,6 @@
 schemadotorg_taxonomy.settings:
   type: config_entity
-  label: Schema.org Taxonomy settings
+  label: 'Schema.org Taxonomy settings'
   mapping:
     default_field_groups:
       type: sequence

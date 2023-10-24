@@ -6,6 +6,7 @@ namespace Drupal\Tests\schemadotorg_taxonomy\Functional;
 
 use Drupal\Core\Url;
 use Drupal\schemadotorg\Entity\SchemaDotOrgMapping;
+use Drupal\schemadotorg_jsonld\SchemaDotOrgJsonLdBuilderInterface;
 use Drupal\taxonomy\Entity\Term;
 use Drupal\taxonomy\Entity\Vocabulary;
 use Drupal\Tests\schemadotorg\Functional\SchemaDotOrgBrowserTestBase;
@@ -18,9 +19,9 @@ use Drupal\Tests\schemadotorg\Functional\SchemaDotOrgBrowserTestBase;
 class SchemaDotOrgTaxonomyJsonLdTest extends SchemaDotOrgBrowserTestBase {
 
   /**
-   * Modules to install.
+   * Modules to enable.
    *
-   * @var string[]
+   * @var array
    */
   protected static $modules = [
     'filter',
@@ -32,10 +33,8 @@ class SchemaDotOrgTaxonomyJsonLdTest extends SchemaDotOrgBrowserTestBase {
 
   /**
    * Schema.org JSON-LD builder.
-   *
-   * @var \Drupal\schemadotorg_jsonld\SchemaDotOrgJsonLdBuilderInterface
    */
-  protected $builder;
+  protected SchemaDotOrgJsonLdBuilderInterface $builder;
 
   /**
    * {@inheritdoc}

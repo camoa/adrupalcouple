@@ -1,6 +1,6 @@
 schemadotorg_allowed_formats.settings:
   type: config_entity
-  label: Schema.org Allowed Formats settings
+  label: 'Schema.org Allowed Formats settings'
   mapping:
     default_hide_help:
       type: boolean

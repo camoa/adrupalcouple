@@ -10,12 +10,17 @@ use Drupal\Core\Entity\EntityForm;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Theme\ThemeManagerInterface;
 use Drupal\Core\Url;
 use Drupal\schemadotorg\SchemaDotOrgEntityFieldManagerInterface;
 use Drupal\schemadotorg\SchemaDotOrgMappingInterface;
+use Drupal\schemadotorg\SchemaDotOrgMappingManagerInterface;
 use Drupal\schemadotorg\SchemaDotOrgMappingStorageInterface;
 use Drupal\schemadotorg\SchemaDotOrgMappingTypeInterface;
 use Drupal\schemadotorg\SchemaDotOrgMappingTypeStorageInterface;
+use Drupal\schemadotorg\SchemaDotOrgNamesInterface;
+use Drupal\schemadotorg\SchemaDotOrgSchemaTypeBuilderInterface;
+use Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -34,59 +39,43 @@ class SchemaDotOrgUiMappingForm extends EntityForm {
 
   /**
    * The service container.
-   *
-   * @var \Symfony\Component\DependencyInjection\ContainerInterface
    */
-  protected $container;
+  protected ContainerInterface $container;
 
   /**
    * The theme manager.
-   *
-   * @var \Drupal\Core\Theme\ThemeManagerInterface
    */
-  protected $themeManager;
+  protected ThemeManagerInterface $themeManager;
 
   /**
    * The Schema.org schema names services.
-   *
-   * @var \Drupal\schemadotorg\SchemaDotOrgNamesInterface
    */
-  protected $schemaNames;
+  protected SchemaDotOrgNamesInterface $schemaNames;
 
   /**
    * The Schema.org schema type manager.
-   *
-   * @var \Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface
    */
-  protected $schemaTypeManager;
+  protected SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager;
 
   /**
    * The Schema.org schema type builder service.
-   *
-   * @var \Drupal\schemadotorg\SchemaDotOrgSchemaTypeBuilderInterface
    */
-  protected $schemaTypeBuilder;
+  protected SchemaDotOrgSchemaTypeBuilderInterface $schemaTypeBuilder;
 
   /**
    * The Schema.org entity field manager.
-   *
-   * @var \Drupal\schemadotorg\SchemaDotOrgEntityFieldManagerInterface
    */
-  protected $schemaEntityFieldManager;
+  protected SchemaDotOrgEntityFieldManagerInterface $schemaEntityFieldManager;
 
   /**
    * The Schema.org mapping manager.
-   *
-   * @var \Drupal\schemadotorg\SchemaDotOrgMappingManagerInterface
    */
-  protected $schemaMappingManager;
+  protected SchemaDotOrgMappingManagerInterface $schemaMappingManager;
 
   /**
    * Available fields as options.
-   *
-   * @var array
    */
-  protected $fieldOptions;
+  protected array $fieldOptions;
 
   /**
    * {@inheritdoc}
@@ -474,7 +463,7 @@ class SchemaDotOrgUiMappingForm extends EntityForm {
       $form['entity_type'] = [
         '#type' => 'item',
         '#title' => $target_entity_type_bundle_definition->getLabel(),
-        'link' => $link + ['#suffx' => ' (' . $entity_type_bundle->id() . ')'],
+        'link' => $link + ['#suffix' => ' (' . $entity_type_bundle->id() . ')'],
         '#weight' => -20,
       ];
     }
@@ -528,7 +517,7 @@ class SchemaDotOrgUiMappingForm extends EntityForm {
       '#suffix' => '</div>',
     ];
     $form['schema_type']['comment'] = [
-      '#markup' => $this->schemaTypeBuilder->formatComment($type_definition['comment']),
+      '#markup' => $this->schemaTypeBuilder->formatComment($type_definition['drupal_description']),
       '#prefix' => '<div>',
       '#suffix' => '</div>',
     ];
@@ -604,7 +593,7 @@ class SchemaDotOrgUiMappingForm extends EntityForm {
     // Header.
     $header = [];
     $header['property'] = ['data' => $this->t('Schema.org property'), 'width' => '50%'];
-    $header['field'] = ['data' => $this->t('Field'), 'width' => '50%'];
+    $header['field'] = ['data' => $this->t('Drupal field'), 'width' => '50%'];
 
     // Rows.
     $rows = [];
@@ -706,7 +695,7 @@ class SchemaDotOrgUiMappingForm extends EntityForm {
         '#suffix' => '</strong></div>',
       ],
       'comment' => [
-        '#markup' => $this->schemaTypeBuilder->formatComment($definition['comment'], $options),
+        '#markup' => $this->schemaTypeBuilder->formatComment($definition['drupal_description'], $options),
         '#prefix' => '<div class="schemadotorg-ui-property--comment">',
         '#suffix' => '</div>',
       ],
@@ -824,7 +813,7 @@ class SchemaDotOrgUiMappingForm extends EntityForm {
     $form[static::ADD_FIELD]['machine_name'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Machine-readable name'),
-      '#descripion' => $this->t('A unique machine-readable name containing letters, numbers, and underscores.'),
+      '#description' => $this->t('A unique machine-readable name containing letters, numbers, and underscores.'),
       '#maxlength' => $property_maxlength,
       '#size' => $property_maxlength,
       '#pattern' => '[_0-9a-z]+',

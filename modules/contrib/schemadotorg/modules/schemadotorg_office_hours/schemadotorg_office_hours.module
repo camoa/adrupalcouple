@@ -45,6 +45,10 @@ function schemadotorg_office_hours_schemadotorg_property_field_alter(
   ];
 }
 
+/* ************************************************************************** */
+// Schema.org JSON-LD.
+/* ************************************************************************** */
+
 /**
  * Implements hook_schemadotorg_jsonld_schema_property_alter().
  */

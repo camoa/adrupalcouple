@@ -1,6 +1,6 @@
 schemadotorg_custom_field.settings:
   type: config_entity
-  label: Schema.org Custom field settings
+  label: 'Schema.org Custom field settings'
   mapping:
     default_properties:
       type: sequence
@@ -20,4 +20,4 @@ schemadotorg_custom_field.settings:
               label: Property
     default_format:
       type: string
-      label: Default format
+      label: 'Default format'

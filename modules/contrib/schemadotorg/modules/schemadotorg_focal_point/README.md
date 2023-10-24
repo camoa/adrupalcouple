@@ -20,7 +20,7 @@ Features
 --------
 
 - Enables focal point for Schema.org images
-- Generates default image styles for decoupled front-ends.
+- Generates default responsive image styles.
 
 
 Requirements
@@ -34,9 +34,9 @@ Configuration
 -------------
 
 - Go to the Schema.org properties configuration page.  
-  (/admin/config/search/schemadotorg/settings/properties)
+  (/admin/config/schemadotorg/settings/properties)
 - Go to the 'Focal point settings' details.
-- Enter focal point images styles for decoupled front-ends.
+- Enter focal point images styles for responsive (or decoupled) front-ends.
 
 
 Notes
@@ -44,7 +44,7 @@ Notes
 
 - Generate focal point image styles assume that the front-end framework will
   further optimize the image.
-- Drupal with focal point is  only used for image cropping
+- Drupal with focal point is only used for image cropping
 - Original images should be horizontal with minimum width of 1600 pixels.
 
 

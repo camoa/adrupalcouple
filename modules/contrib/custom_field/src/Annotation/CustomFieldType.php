@@ -56,7 +56,7 @@ class CustomFieldType extends Plugin {
    * @var bool
    *
    * @ingroup plugin_translatable
-   * @see \Drupal\custom_field\Plugin\CustomFieldType\Uuid
+   * @see \Drupal\custom_field\Plugin\CustomField\FieldType\Uuid
    */
   public bool $never_check_empty = FALSE;
 
@@ -70,10 +70,25 @@ class CustomFieldType extends Plugin {
   public string $category = 'general';
 
   /**
-   * An array of data types the widget supports.
+   * The plugin_id of the default widget for this field type.
    *
-   * @var array
+   * This widget must be available whenever the field type is available (i.e.
+   * provided by the field type module, or by a module the field type module
+   * depends on).
+   *
+   * @var string
    */
-  public array $data_types = [];
+  public $default_widget;
+
+  /**
+   * The plugin_id of the default formatter for this field type.
+   *
+   * This formatter must be available whenever the field type is available (i.e.
+   * provided by the field type module, or by a module the field type module
+   * depends on).
+   *
+   * @var string
+   */
+  public $default_formatter;
 
 }

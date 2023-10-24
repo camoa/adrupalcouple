@@ -10,7 +10,7 @@ namespace Drupal\schemadotorg_smart_date;
 interface SchemadotorgSmartDateInstallerInterface {
 
   /**
-   * Perform setup tasks when the Schema.org Smart Date module is installed.
+   * Perform set up tasks when the Schema.org Smart Date module is installed.
    *
    * @param bool $is_syncing
    *   TRUE if the module is being installed as part of a configuration import.

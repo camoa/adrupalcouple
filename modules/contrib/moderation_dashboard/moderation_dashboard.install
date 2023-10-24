@@ -105,7 +105,9 @@ function moderation_dashboard_update_8102() {
     // Second delete the page_manager moderation dashboard.
     // @phpstan-ignore-next-line
     $page_manage = Page::load('moderation_dashboard');
-    $page_manage->delete();
+    if(!empty($page_manage)){
+        $page_manage->delete();
+    }
 
     // Lastly import the new configuration for working with layout builder.
     \Drupal::service('config.installer')

@@ -2,7 +2,10 @@
 
 namespace Drupal\custom_field\Feeds\Target;
 
+use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Field\FieldDefinitionInterface;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\custom_field\Plugin\CustomFieldTypeInterface;
 use Drupal\feeds\Exception\EmptyFeedException;
 use Drupal\feeds\Exception\TargetValidationException;
 use Drupal\feeds\FieldTargetDefinition;
@@ -17,6 +20,56 @@ use Drupal\feeds\Plugin\Type\Target\FieldTargetBase;
  * )
  */
 class CustomField extends FieldTargetBase {
+
+  /**
+   * {@inheritdoc}
+   */
+  public function defaultConfiguration() {
+    return parent::defaultConfiguration() + ['timezone' => 'UTC'];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function buildConfigurationForm(array $form, FormStateInterface $form_state) {
+    $form = parent::buildConfigurationForm($form, $form_state);
+    $form['timezone'] = [
+      '#type' => 'select',
+      '#title' => $this->t('Timezone handling'),
+      '#options' => $this->getTimezoneOptions(),
+      '#default_value' => $this->configuration['timezone'],
+      '#description' => $this->t('This value will only be used if the timezone is missing.'),
+    ];
+
+    return $form;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getSummary() {
+    $summary = parent::getSummary();
+
+    $options = $this->getTimezoneOptions();
+
+    $summary[] = $this->t('Default timezone: %zone', [
+      '%zone' => $options[$this->configuration['timezone']],
+    ]);
+
+    return $summary;
+  }
+
+  /**
+   * Returns the timezone options.
+   *
+   * @return array
+   *   A map of timezone options.
+   */
+  public function getTimezoneOptions() {
+    return [
+      '__SITE__' => $this->t('Site default'),
+    ] + system_time_zones();
+  }
 
   /**
    * {@inheritdoc}
@@ -82,7 +135,13 @@ class CustomField extends FieldTargetBase {
               break;
 
             case 'uri':
-              $values[$name] = is_string($value) && filter_var($value, FILTER_VALIDATE_URL) ? $value : NULL;
+              $values[$name] = is_string($value) ? $this->convertUrl($value) : NULL;
+              break;
+
+            case 'datetime':
+              $datetime_type = $columns[$name]['datetime_type'];
+              $storage_format = $datetime_type === 'date' ? CustomFieldTypeInterface::DATE_STORAGE_FORMAT : CustomFieldTypeInterface::DATETIME_STORAGE_FORMAT;
+              $values[$name] = isset($value) ? $this->convertDateTime((string) $value, $storage_format) : NULL;
               break;
 
             default:
@@ -112,8 +171,7 @@ class CustomField extends FieldTargetBase {
       }
       catch (TargetValidationException $e) {
         // Validation failed.
-        $this->messenger()->addError($e->getMessage());
-
+        $this->addMessage($e->getFormattedMessage(), 'error');
       }
     }
     return $return;
@@ -160,7 +218,7 @@ class CustomField extends FieldTargetBase {
    *   The value, converted to a hexadecimal or NULL.
    */
   protected function convertColor(string $color): ?string {
-    if (substr($color, 0, 1) === '#') {
+    if (str_starts_with($color, '#')) {
       $color = substr($color, 1);
     }
 
@@ -191,6 +249,106 @@ class CustomField extends FieldTargetBase {
     }
 
     return NULL;
+  }
+
+  /**
+   * Converts a value to date string or null.
+   *
+   * @param string $value
+   *   The date value to convert.
+   * @param string $format
+   *   The date format.
+   *
+   * @return string|null
+   *   A formatted date, in UTC time or NULL.
+   */
+  protected function convertDateTime(string $value, string $format): ?string {
+    $date = $this->convertDate($value);
+
+    if (isset($date) && !$date->hasErrors()) {
+      return $date->format($format, [
+        'timezone' => CustomFieldTypeInterface::STORAGE_TIMEZONE,
+      ]);
+    }
+
+    return NULL;
+  }
+
+  /**
+   * Converts a value to Date object or null.
+   *
+   * @param string $value
+   *   The date value to convert.
+   *
+   * @return \Drupal\Core\Datetime\DrupalDateTime|null
+   *   A datetime object or null, if there is no value or if the date value
+   *   has errors.
+   */
+  protected function convertDate(string $value): mixed {
+    $value = trim($value);
+
+    // This is a year value.
+    if (ctype_digit($value) && strlen($value) === 4) {
+      $value = 'January ' . $value;
+    }
+
+    if (is_numeric($value)) {
+      $date = DrupalDateTime::createFromTimestamp($value, $this->getTimezoneConfiguration());
+    }
+
+    elseif (strtotime($value)) {
+      $date = new DrupalDateTime($value, $this->getTimezoneConfiguration());
+    }
+
+    if (isset($date) && !$date->hasErrors()) {
+      return $date;
+    }
+
+    return NULL;
+  }
+
+  /**
+   * Converts a value to valid Url or null.
+   *
+   * @param string $url
+   *   The uri string to evaluate and convert.
+   *
+   * @return string|null
+   *   The url if valid, otherwise NULL.
+   */
+  protected function convertUrl(string $url): ?string {
+    // Support linking to nothing.
+    if (in_array($url, ['<nolink>', '<none>'], TRUE)) {
+      $url = 'route:' . $url;
+    }
+    // Detect a schemeless string, map to 'internal:' URI.
+    elseif (!empty($url) && parse_url($url, PHP_URL_SCHEME) === NULL) {
+      // @todo '<front>' is valid input for BC reasons, may be removed by
+      //   https://www.drupal.org/node/2421941
+      // - '<front>' -> '/'
+      // - '<front>#foo' -> '/#foo'
+      if (strpos($url, '<front>') === 0) {
+        $url = '/' . substr($url, strlen('<front>'));
+      }
+      // Prepend only with 'internal:' if the uri starts with '/', '?' or '#'.
+      if (in_array($url[0], ['/', '?', '#'], TRUE)) {
+        $url = 'internal:' . $url;
+      }
+    }
+    // Test for valid url.
+    elseif (!filter_var($url, FILTER_VALIDATE_URL)) {
+      return NULL;
+    }
+
+    return $url;
+  }
+
+  /**
+   * Returns the timezone configuration.
+   */
+  public function getTimezoneConfiguration() {
+    return ($this->configuration['timezone'] == '__SITE__') ?
+      \Drupal::config('system.date')->get('timezone.default') : $this->configuration['timezone'];
   }
 
 }

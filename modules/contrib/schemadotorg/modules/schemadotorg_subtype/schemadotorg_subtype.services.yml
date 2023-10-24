@@ -4,7 +4,3 @@ services:
     arguments: ['@current_route_match', '@entity_type.manager']
     tags:
       - { name: event_subscriber }
-  schemadotorg_subtype.breadcrumb:
-    class: Drupal\schemadotorg_subtype\Breadcrumb\SchemaDotOrgSubtypeBreadcrumbBuilder
-    tags:
-      - { name: breadcrumb_builder, priority: 1000 }

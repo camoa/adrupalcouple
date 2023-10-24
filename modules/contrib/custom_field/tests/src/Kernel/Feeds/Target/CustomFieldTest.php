@@ -69,7 +69,7 @@ class CustomFieldTest extends FeedsKernelTestBase {
     $this->installConfig(['custom_field', 'custom_field_test']);
 
     // Get the services required for testing.
-    $this->customFieldTypeManager = $this->container->get('plugin.manager.customfield_type');
+    $this->customFieldTypeManager = $this->container->get('plugin.manager.custom_field_type');
     $fieldStorageConfig = FieldStorageConfig::loadByName($this->entityTypeId, $this->fieldName);
     $columns = $fieldStorageConfig->getSetting('columns');
 
@@ -121,7 +121,6 @@ class CustomFieldTest extends FeedsKernelTestBase {
     ]);
     $feed->import();
     $this->assertNodeCount(3);
-    $fieldStorageConfig = FieldStorageConfig::loadByName($this->entityTypeId, $this->fieldName);
     $expected_values = [
       1 => [
         'string_test' => 'String 1',
@@ -139,6 +138,7 @@ class CustomFieldTest extends FeedsKernelTestBase {
           'key1' => 'value1',
           'key2' => 'value2',
         ],
+        'datetime_test' => '2023-01-01T00:00:00',
       ],
       2 => [
         'string_test' => 'String 2',
@@ -148,11 +148,12 @@ class CustomFieldTest extends FeedsKernelTestBase {
         'float_test' => '0.5778',
         'email_test' => NULL,
         'telephone_test' => '-9876543210',
-        'uri_test' => 'https://www.example.org',
+        'uri_test' => 'internal:/',
         'boolean_test' => '1',
         'uuid_test' => '123e4567-e89b-12d3-a456-556642440000',
         'color_test' => NULL,
         'map_test' => NULL,
+        'datetime_test' => '2009-09-03T00:12:00',
       ],
       3 => [
         'string_test' => 'String 3',
@@ -162,11 +163,12 @@ class CustomFieldTest extends FeedsKernelTestBase {
         'float_test' => '0.577',
         'email_test' => NULL,
         'telephone_test' => NULL,
-        'uri_test' => 'https://www.example.com',
+        'uri_test' => 'route:<nolink>',
         'boolean_test' => '1',
         'uuid_test' => '123e4567-e89b-12d3-a456-556642440001',
         'color_test' => '#FFFFFF',
         'map_test' => NULL,
+        'datetime_test' => '2018-02-09T00:00:00',
       ],
     ];
     foreach ($expected_values as $nid => $data) {

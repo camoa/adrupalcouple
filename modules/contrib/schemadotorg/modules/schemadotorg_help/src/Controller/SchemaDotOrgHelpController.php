@@ -7,7 +7,11 @@ namespace Drupal\schemadotorg_help\Controller;
 use Drupal\Component\Serialization\Json;
 use Drupal\Component\Utility\Html;
 use Drupal\Core\Controller\ControllerBase;
+use Drupal\Core\Extension\ExtensionLifecycle;
+use Drupal\Core\Extension\ExtensionPathResolver;
+use Drupal\Core\Extension\ModuleExtensionList;
 use Drupal\Core\Url;
+use Drupal\schemadotorg\Utility\SchemaDotOrgHtmlHelper;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -16,32 +20,20 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class SchemaDotOrgHelpController extends ControllerBase {
 
   /**
-   * The module handler to invoke the alter hook.
-   *
-   * @var \Drupal\Core\Extension\ModuleHandlerInterface
-   */
-  protected $moduleHandler;
-
-  /**
    * Module extension list.
-   *
-   * @var \Drupal\Core\Extension\ModuleExtensionList
    */
-  protected $moduleExtensionList;
+  protected ModuleExtensionList $moduleExtensionList;
 
   /**
    * The extension path resolver.
-   *
-   * @var \Drupal\Core\Extension\ExtensionPathResolver
    */
-  protected $extensionPathResolver;
+  protected ExtensionPathResolver $extensionPathResolver;
 
   /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
     $instance = new static();
-    $instance->moduleHandler = $container->get('module_handler');
     $instance->moduleExtensionList = $container->get('extension.list.module');
     $instance->extensionPathResolver = $container->get('extension.path.resolver');
     return $instance;
@@ -58,9 +50,16 @@ class SchemaDotOrgHelpController extends ControllerBase {
    *   \Drupal\Core\Render\RendererInterface::render().
    *
    * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+   *
+   * @see \Drupal\help\Controller\HelpController::helpPage
    */
   public function helpPage(string $name): array {
     global $base_path;
+
+    $info = $this->moduleExtensionList->getExtensionInfo($name);
+    if ($info[ExtensionLifecycle::LIFECYCLE_IDENTIFIER] === ExtensionLifecycle::EXPERIMENTAL) {
+      $this->messenger()->addWarning($this->t('This module is experimental. <a href=":url">Experimental modules</a> are provided for testing purposes only. Use at your own risk.', [':url' => 'https://www.drupal.org/core/experimental']));
+    }
 
     $build = [];
 
@@ -99,58 +98,33 @@ class SchemaDotOrgHelpController extends ControllerBase {
 
     $build['#title'] = $this->moduleHandler()->getName($name);
 
-    $contents = file_get_contents($module_readme);
+    $markdown = file_get_contents($module_readme);
+    $html = SchemaDotOrgHtmlHelper::fromMarkdown($markdown);
 
-    // Remove the table of contents.
-    $contents = preg_replace('/^.*?(Introduction\s+------------)/s', '$1', $contents);
+    // Add base path to hrefs.
+    $html = preg_replace('#\(/(admin/.*?)\)#', '(<a href="' . $base_path . '$1">/$1</a>)', $html);
 
-    if (class_exists('\Michelf\Markdown')) {
-      // phpcs:ignore Drupal.Classes.FullyQualifiedNamespace.UseStatementMissing
-      $markup = \Michelf\Markdown::defaultTransform($contents);
+    // Fix install/ hrefs.
+    $html = str_replace('"install/', '"' . $base_path . $module_path . '/install/', $html);
 
-      // Convert <p><code> to <pre> tag.
-      $markup = str_replace('<p><code>', '<pre>', $markup);
-      $markup = str_replace('</code></p>', '</pre>', $markup);
+    // Replace @see DIAGRAM.html.
+    $module_diagram = $module_path . '/DIAGRAM.html';
+    if (file_exists($module_diagram) && str_contains($html, 'DIAGRAM.html')) {
+      $document = Html::load(file_get_contents($module_diagram));
+      $html = preg_replace_callback(
+        '/<p>@see DIAGRAM\.html#([-_A-Za-z0-9]+)<\/p>/',
+        fn ($matches) => ($dom_node = $document->getElementById($matches[1]))
+          ? $document->saveXML($dom_node)
+          : '',
+        $html
+      );
 
-      // Add base path to hrefs.
-      $markup = preg_replace('#\(/(admin/.*?)\)#', '(<a href="' . $base_path . '$1">/$1</a>)', $markup);
-
-      // Create fake filter object with settings.
-      $filter = (object) ['settings' => ['filter_url_length' => 255]];
-      $markup = _filter_url($markup, $filter);
-
-      // Replace @see DIAGRAM.html.
-      $module_diagram = $module_path . '/DIAGRAM.html';
-      if (file_exists($module_diagram) && str_contains($markup, 'DIAGRAM.html')) {
-        $document = Html::load(file_get_contents($module_diagram));
-        $markup = preg_replace_callback(
-          '/<p>@see DIAGRAM\.html#([-_A-Za-z0-9]+)<\/p>/',
-          function ($matches) use ($document) {
-            $dom_node = $document->getElementById($matches[1]);
-            if ($dom_node) {
-              return $document->saveXML($dom_node);
-            }
-            else {
-              return '';
-            }
-          },
-          $markup
-        );
-
-        $build['#attached']['library'][] = 'schemadotorg/schemadotorg.mermaid';
-      }
-
-      $build['readme'] = [
-        '#markup' => $markup,
-      ];
+      $build['#attached']['library'][] = 'schemadotorg/schemadotorg.mermaid';
     }
-    else {
-      $build['readme'] = [
-        '#plain_text' => $contents,
-        '#prefix' => '<pre>',
-        '#suffix' => '</pre>',
-      ];
-    }
+
+    $build['readme'] = [
+      '#markup' => $html,
+    ];
 
     if ($name === 'schemadotorg') {
       $build['modules'] = [
@@ -177,6 +151,21 @@ class SchemaDotOrgHelpController extends ControllerBase {
         'title' => $this->t('Schema.org Blueprints for Drupal @ Pittsburgh 2023'),
         'content' => $this->t("This presentation is for anyone who has created a website using Drupal and is interested in discovering a standardized, simpler, and faster way to model and build a website's content and information architecture."),
         'youtube_id' => 'Yo6Vw-s1FtM',
+      ],
+      [
+        'title' => $this->t('Schema.org Blueprints Installation & Setup'),
+        'content' => $this->t("This presentation walks-through installing and setting up the Schema.org Blueprints module."),
+        'youtube_id' => 'Dludw8Eomh4',
+      ],
+      [
+        'title' => $this->t('Schema.org Blueprints Mapping Sets & Starter Kits'),
+        'content' => $this->t("This presentation walks-through using the Schema.org Blueprints mapping sets and starter kit."),
+        'youtube_id' => 'CeCY3fq86Xc',
+      ],
+      [
+        'title' => $this->t('Schema.org Blueprints Demo'),
+        'content' => $this->t("This presentation walks-through installing and setting up the Schema.org Blueprints Demo profile and module."),
+        'youtube_id' => 'Jm_AztNEhCc',
       ],
       [
         'title' => $this->t('Schema.org Blueprints module in 7 minutes'),
@@ -306,18 +295,43 @@ class SchemaDotOrgHelpController extends ControllerBase {
    * Build a list of Schema.org Blueprints drush commands to enable sub-modules.
    *
    * @return array
-   *   A renderable array containing a list of Schema.org Blueprints drush
-   *   commands to enable sub-modules.
+   *   A renderable array containing a list of Schema.org Blueprints
+   *   Drush commands to enable sub-modules.
    */
   protected function buildDrushCommand(): array {
-    // Get all Schema.org packages.
+    // Get all Schema.org Blueprint packages and modules.
     $packages = [];
-    foreach ($this->moduleExtensionList->getAllAvailableInfo() as $info) {
-      if (str_starts_with($info['package'], 'Schema.org Blueprints')) {
-        $packages[$info['package']] = $info['package'];
+    $all_modules = [];
+    $production_modules = [];
+    $development_modules = [];
+    foreach ($this->moduleExtensionList->getAllAvailableInfo() as $module_name => $module_info) {
+      $package = $module_info['package'];
+
+      // Skip test modules and none schemadotorg modules.
+      if ($package === 'Schema.org Blueprints Test'
+        || !str_starts_with($module_name, 'schemadotorg')) {
+        continue;
+      }
+
+      // Collect packages.
+      if (str_starts_with($package, 'Schema.org Blueprints')) {
+        $packages[$package] = $package;
+      }
+
+      // Collect all, production, and development modules.
+      $all_modules[$module_name] = $module_name;
+      if (!empty($module_info['schemadotorg_production'])) {
+        $production_modules[$module_name] = $module_name;
+      }
+      else {
+        $development_modules[$module_name] = $module_name;
       }
     }
     ksort($packages);
+    ksort($all_modules);
+    ksort($production_modules);
+    ksort($development_modules);
+
     $packages = ['Schema.org Blueprints Core' => 'Schema.org Blueprints Core'] + $packages;
 
     $commands = [];
@@ -331,12 +345,23 @@ class SchemaDotOrgHelpController extends ControllerBase {
       $commands[] = "drush pm-list --format=list --package='$package' | xargs drush install -y";
       $commands[] = '';
     }
+    $commands[] = '------------------------------------------------------------------------------------------';
+    $commands[] = '';
+    $commands[] = "# Install all Schema.org Blueprints modules.";
+    $commands[] = "drush install -y " . implode('\\' . PHP_EOL . '  ', $all_modules) . ';';
+    $commands[] = '';
+    $commands[] = "# Install Schema.org Blueprints production modules.";
+    $commands[] = "# The below modules should always be enabled on the production environment.";
+    $commands[] = "drush install -y " . implode('\\' . PHP_EOL . '  ', $production_modules) . ';';
+    $commands[] = '';
+    $commands[] = "# Install Schema.org Blueprints development modules.";
+    $commands[] = "# The below modules should generally be enabled on only development environments.";
+    $commands[] = "drush install -y " . implode('\\' . PHP_EOL . '  ', $development_modules) . ';';
 
     return [
       '#type' => 'details',
       '#title' => $this->t('Drush commands'),
       '#description' => $this->t('Use the below Drush commands to install all or a package of Schema.org Blueprints modules.'),
-      '#open' => TRUE,
       'commands' => [
         '#plain_text' => implode(PHP_EOL, $commands),
         '#prefix' => '<pre>',
@@ -352,35 +377,47 @@ class SchemaDotOrgHelpController extends ControllerBase {
    *   A renderable array containing Schema.org Blueprints sub-modules.
    */
   protected function buildModules(): array {
-    $modules = array_filter($this->moduleExtensionList->getAllAvailableInfo(), function (array $info): bool {
-      return str_starts_with($info['package'], 'Schema.org Blueprints');
-    });
+    $modules = array_filter(
+      $this->moduleExtensionList->getAllAvailableInfo(),
+      fn (array $info) => str_starts_with($info['package'], 'Schema.org Blueprints')
+    );
     ksort($modules);
 
     $header = [
       'title' => [
         'data' => $this->t('Title / Description'),
-        'width' => '55%',
+        'width' => '50%',
       ],
       'status' => [
-        'data' => $this->t('Status'),
+        'data' => $this->t('Module status'),
         'class' => [RESPONSIVE_PRIORITY_LOW],
-        'width' => '15%',
+        'width' => '10%',
+      ],
+      'install' => [
+        'data' => $this->t('Installation hooks'),
+        'class' => [RESPONSIVE_PRIORITY_LOW],
+        'width' => '10%',
+      ],
+      'production' => [
+        'data' => $this->t('Recommended for production'),
+        'class' => [RESPONSIVE_PRIORITY_LOW],
+        'width' => '10%',
       ],
       'jsonld' => [
         'data' => $this->t('JSON-LD integration'),
         'class' => [RESPONSIVE_PRIORITY_LOW],
-        'width' => '15%',
+        'width' => '10%',
       ],
       'configuration' => [
         'data' => $this->t('Configuration'),
         'class' => [RESPONSIVE_PRIORITY_LOW],
-        'width' => '15%',
+        'width' => '10%',
       ],
     ];
 
     $build = [];
     foreach ($modules as $module_name => $module_info) {
+      $module_path = $this->moduleExtensionList->getPath($module_name);
       $package = $module_info['package'];
       // Skip test modules.
       if ($package === 'Schema.org Blueprints Test') {
@@ -414,7 +451,6 @@ class SchemaDotOrgHelpController extends ControllerBase {
             'description' => ['#markup' => $module_info['description']],
           ],
         ];
-        $row['status'] = $this->t('Installed');
       }
       else {
         $row['title'] = [
@@ -427,13 +463,34 @@ class SchemaDotOrgHelpController extends ControllerBase {
             'description' => ['#markup' => $module_info['description']],
           ],
         ];
-        $row['status'] = '';
       }
 
-      $path = $this->moduleExtensionList->getPath($module_name);
+      $row['status'] = $this->moduleHandler->moduleExists($module_name)
+        ? $this->t('Installed')
+        : $this->t('Not installed');
+      if ($module_info['lifecycle'] !== 'stable') {
+        $row['status'] .= ' (' . $module_info['lifecycle'] . ')';
+      }
+
+      $install_hooks = [];
+      if (file_exists("$module_path/$module_name.install")) {
+        $install_contents = file_get_contents("$module_path/$module_name.install");
+        if (str_contains($install_contents, 'hook_install()')) {
+          $install_hooks[] = $this->t('Install');
+        }
+        if (str_contains($install_contents, 'hook_uninstall()')) {
+          $install_hooks[] = $this->t('Uninstall');
+        }
+      }
+      $row['install'] = implode(' / ', $install_hooks);
+
+      $row['production'] = (empty($module_info['schemadotorg_production']))
+        ? ''
+        : $this->t('Yes');
+
       if (!str_contains($module_name, '_jsonld')
-        && file_exists("$path/$module_name.module")
-        && str_contains(file_get_contents("$path/$module_name.module"), '_schemadotorg_jsonld_')) {
+        && file_exists("$module_path/$module_name.module")
+        && str_contains(file_get_contents("$module_path/$module_name.module"), '_schemadotorg_jsonld_')) {
         $row['jsonld'] = $this->t('Yes');
       }
       else {
@@ -484,9 +541,10 @@ class SchemaDotOrgHelpController extends ControllerBase {
    *   An array of operations.
    */
   protected function getHelpTopicsAsOperations(): array {
-    $modules = array_filter($this->moduleExtensionList->getAllInstalledInfo(), function (array $info): bool {
-      return str_starts_with($info['package'], 'Schema.org Blueprints');
-    });
+    $modules = array_filter(
+      $this->moduleExtensionList->getAllInstalledInfo(),
+      fn(array $info) => str_starts_with($info['package'], 'Schema.org Blueprints')
+    );
     ksort($modules);
 
     $operations = [];

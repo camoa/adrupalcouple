@@ -20,7 +20,7 @@ use Drupal\Core\Form\FormStateInterface;
  *   }
  * )
  */
-class CustomInlineFormatter extends CustomFormatterBase {
+class CustomInlineFormatter extends BaseFormatter {
 
   /**
    * {@inheritdoc}
@@ -37,7 +37,6 @@ class CustomInlineFormatter extends CustomFormatterBase {
    * {@inheritdoc}
    */
   public function settingsForm(array $form, FormStateInterface $form_state): array {
-
     $form = parent::settingsForm($form, $form_state);
     $id = 'customfield-show-labels';
 
@@ -74,7 +73,7 @@ class CustomInlineFormatter extends CustomFormatterBase {
    * {@inheritdoc}
    */
   public function settingsSummary(): array {
-    $summary = [];
+    $summary = parent::settingsSummary();
 
     $summary[] = $this->t('Show labels: @show_labels', ['@show_labels' => $this->getSetting('label_display') ? 'Yes' : 'No']);
     if ($this->getSetting('label_display')) {
@@ -96,15 +95,17 @@ class CustomInlineFormatter extends CustomFormatterBase {
    */
   protected function viewValue(FieldItemInterface $item): array {
     $output = [];
+    $values = $this->getFormattedValues($item, $item->getLangcode());
 
-    foreach ($this->getCustomFieldItems() as $customItem) {
-      $markup = $customItem->value($item);
-      if ($markup === '' || $markup === NULL) {
+    foreach ($values as $value) {
+      // Skip 'map' custom field types.
+      if ($value['type'] == 'map') {
         continue;
       }
+      $markup = $value['value']['#markup'];
       if ($this->getSetting('show_labels')) {
         $output[] = implode($this->getSetting('label_separator'), [
-          $customItem->getLabel(),
+          $value['label'],
           $markup,
         ]);
       }

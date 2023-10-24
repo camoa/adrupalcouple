@@ -72,6 +72,22 @@ interface SchemaDotOrgMappingManagerInterface {
   public function createType(string $entity_type_id, string $schema_type, array $defaults = []): void;
 
   /**
+   * Create default Schema.org for a specified entity type.
+   *
+   * This method is generally called with an Schema.org entity type specific
+   * module is installed.
+   *
+   * @param string $entity_type_id
+   *   The entity type ID.
+   *
+   * @see schemadotorg_media_install()
+   * @see schemadotorg_block_install()
+   * @see \Drupal\Tests\schemadotorg_media\Kernel\SchemaDotOrgMediaInstallKernelTest
+   * @see \Drupal\Tests\schemadotorg_block\Kernel\SchemaDotOrgBlockInstallTest
+   */
+  public function createDefaultTypes(string $entity_type_id): void;
+
+  /**
    * Validate delete Schema.org type.
    *
    * @param string $entity_type_id

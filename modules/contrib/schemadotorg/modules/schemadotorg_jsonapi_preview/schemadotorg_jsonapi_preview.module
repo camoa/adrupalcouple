@@ -11,7 +11,43 @@ use Drupal\Core\Cache\Cache;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
+ * Implements hook_preprocess_html().
+ */
+function schemadotorg_jsonapi_preview_preprocess_html(array &$variables): void {
+  /** @var \Drupal\schemadotorg_jsonapi_preview\SchemaDotOrgJsonApiPreviewAccessCheckerInterface $access_checker */
+  $access_checker = \Drupal::service('schemadotorg_jsonapi_preview.access_checker');
+  if (!$access_checker->access()) {
+    return;
+  }
+
+  /** @var \Drupal\schemadotorg_jsonapi_preview\SchemaDotOrgJsonApiPreviewBuilderInterface $preview_builder */
+  $preview_builder = \Drupal::service('schemadotorg_jsonapi_preview.builder');
+  $build = $preview_builder->build();
+  if (!$build) {
+    return;
+  }
+
+  // Make sure the cache is cleared when any Schema.org mapping is updated.
+  // @todo Determine how best to invalidate cache when a mapping is updated.
+  $mapping_definition = \Drupal::entityTypeManager()->getDefinition('schemadotorg_mapping');
+  $build += ['#cache' => []];
+  $build['#cache'] += ['tags' => []];
+  $build['#cache']['tags'] = array_merge($build['#cache']['tags'], $mapping_definition->getListCacheTags());
+
+  if ($build) {
+    $variables['page']['content']['schemadotorg_jsonapi_preview'] = $build;
+  }
+}
+
+/* ************************************************************************** */
+// Schema.org JSON:API settings form.
+/* ************************************************************************** */
+
+/**
  * Implements hook_form_FORM_ID_alter().
+ *
+ * @see \Drupal\schemadotorg\Form\SchemaDotOrgSettingsFormBase::afterBuildDetails
+ * @see \Drupal\schemadotorg\Form\SchemaDotOrgSettingsFormBase::formAlter
  */
 function schemadotorg_jsonapi_preview_form_schemadotorg_jsonapi_settings_form_alter(array &$form, FormStateInterface $form_state): void {
   $config = \Drupal::configFactory()->getEditable('schemadotorg_jsonapi_preview.settings');
@@ -29,8 +65,6 @@ function schemadotorg_jsonapi_preview_form_schemadotorg_jsonapi_settings_form_al
     '#type' => 'details',
     '#title' => t('JSON:API preview visibility'),
     '#description' => t('Use the below configuration settings to determine what pages the JSON:API preview is displayed on.'),
-    '#open' => TRUE,
-    '#tree' => TRUE,
     'visibility' => [],
   ];
   // Append the request path condition configuration form.
@@ -68,33 +102,4 @@ function schemadotorg_jsonapi_preview_settings_form_submit(array &$form, FormSta
     $config->set($key, $value);
   }
   $config->save();
-}
-
-/**
- * Implements hook_preprocess_html().
- */
-function schemadotorg_jsonapi_preview_preprocess_html(array &$variables): void {
-  /** @var \Drupal\schemadotorg_jsonapi_preview\SchemaDotOrgJsonApiPreviewAccessCheckerInterface $access_checker */
-  $access_checker = \Drupal::service('schemadotorg_jsonapi_preview.access_checker');
-  if (!$access_checker->access()) {
-    return;
-  }
-
-  /** @var \Drupal\schemadotorg_jsonapi_preview\SchemaDotOrgJsonApiPreviewBuilderInterface $preview_builder */
-  $preview_builder = \Drupal::service('schemadotorg_jsonapi_preview.builder');
-  $build = $preview_builder->build();
-  if (!$build) {
-    return;
-  }
-
-  // Make sure the cache is cleared when any Schema.org mapping is updated.
-  // @todo Determine how best to invalidate cache when a mapping is updated.
-  $mapping_definition = \Drupal::entityTypeManager()->getDefinition('schemadotorg_mapping');
-  $build += ['#cache' => []];
-  $build['#cache'] += ['tags' => []];
-  $build['#cache']['tags'] = array_merge($build['#cache']['tags'], $mapping_definition->getListCacheTags());
-
-  if ($build) {
-    $variables['page']['content']['schemadotorg_jsonapi_preview'] = $build;
-  }
 }

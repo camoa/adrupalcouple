@@ -1,6 +1,6 @@
 schemadotorg.settings:
   type: config_entity
-  label: Schema.org settings
+  label: 'Schema.org settings'
   mapping:
     schema_types:
       type: mapping
@@ -15,7 +15,7 @@ schemadotorg.settings:
             mapping:
               name:
                 type: string
-                label: Machine name
+                label: 'Machine name'
               label:
                 type: text
                 label: Label
@@ -111,7 +111,7 @@ schemadotorg.settings:
             mapping:
               label:
                 type: string
-                label: 'Label'
+                label: Label
         default_field_types:
           type: sequence
           label: 'Default field types'

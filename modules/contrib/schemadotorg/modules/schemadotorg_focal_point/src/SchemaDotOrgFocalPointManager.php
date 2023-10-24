@@ -28,44 +28,59 @@ class SchemaDotOrgFocalPointManager implements SchemaDotOrgFocalPointManagerInte
   /**
    * {@inheritdoc}
    */
-  public function resetImageStyles(array $settings): void {
+  public function resetImageStyles(array $settings, ?array $original_settings = NULL): void {
     $config = $this->configFactory->getEditable('schemadotorg_focal_point.settings');
 
     /** @var \Drupal\image\ImageStyleStorageInterface $image_style_storage */
     $image_style_storage = $this->entityTypeManager->getStorage('image_style');
 
     // Delete removed image styles.
-    $original_settings = $config->get('image_styles');
+    $original_settings = $original_settings ?? $config->get('image_styles');
     $deleted_settings = array_diff_key(
       $original_settings,
       $settings
     );
     if ($deleted_settings) {
       $deleted_image_style_names = array_keys($deleted_settings);
-      $deleted_image_styles = $image_style_storage->loadMultiple($deleted_image_style_names);
-      foreach ($deleted_image_styles as $deleted_image_style) {
-        $deleted_image_style->delete();
+      $pattern = '/^(' . implode('|', $deleted_image_style_names) . ')/';
+      $image_styles = $image_style_storage->loadMultiple();
+      foreach ($image_styles as $image_style_id => $image_style) {
+        if (preg_match($pattern, $image_style_id)) {
+          $image_style->delete();
+        }
       }
     }
 
     // Load or create new image styles.
-    foreach ($settings as $name => $setting) {
-      $label = $setting['label'];
-      $data = $setting['data'];
+    foreach ($settings as $prefix => $setting) {
+      $ratio = $setting['ratio'];
+      [$x, $y] = explode(':', $ratio);
 
-      $image_style = $image_style_storage->load($name)
-        ?? $image_style_storage->create(['name' => $name]);
+      $max_width = $setting['max-width'];
+      $min_width = $setting['min-width'] ?? $setting['max-width'];
+      $increment = $setting['increment'] ?? 100;
 
-      $image_style->set('label', $label . " ({$data['width']}×{$data['height']})");
-      $image_style->set('effects', []);
-      $image_style->addImageEffect([
-        'id' => 'focal_point_scale_and_crop',
-        'data' => $data + [
-          'crop_type' => 'focal_point',
-        ],
-      ]);
+      $width = $max_width;
+      while ($width >= $min_width) {
+        $height = ceil(($width / $x) * $y);
+        $image_style_id = $prefix . 'w' . $width;
+        $image_style = $image_style_storage->load($image_style_id)
+          ?? $image_style_storage->create(['name' => $image_style_id]);
 
-      $image_style->save();
+        $image_style->set('label', "$ratio ({$width}×{$height})");
+        $image_style->set('effects', []);
+        $image_style->addImageEffect([
+          'id' => 'focal_point_scale_and_crop',
+          'data' => [
+            'crop_type' => 'focal_point',
+            'width' => $width,
+            'height' => $height,
+          ],
+        ]);
+        $image_style->save();
+
+        $width -= $increment;
+      }
     }
 
     $config->set('image_styles', $settings);

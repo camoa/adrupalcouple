@@ -16,9 +16,9 @@ use Drupal\Tests\schemadotorg\Functional\SchemaDotOrgBrowserTestBase;
 class SchemaDotOrgJsonApiListBuilderTest extends SchemaDotOrgBrowserTestBase {
 
   /**
-   * Modules to install.
+   * Modules to enable.
    *
-   * @var string[]
+   * @var array
    */
   protected static $modules = ['schemadotorg_jsonapi'];
 
@@ -54,7 +54,7 @@ class SchemaDotOrgJsonApiListBuilderTest extends SchemaDotOrgBrowserTestBase {
   public function testSchemaDotOrgListBuilder(): void {
     $assert_session = $this->assertSession();
 
-    $this->drupalGet('/admin/config/search/schemadotorg');
+    $this->drupalGet('/admin/config/schemadotorg/mappings');
 
     // Check JSON:API header.
     $assert_session->responseContains('<th class="priority-low" width="27%">JSON:API</th>');

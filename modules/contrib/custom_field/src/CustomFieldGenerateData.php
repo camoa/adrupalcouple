@@ -4,6 +4,8 @@ namespace Drupal\custom_field;
 
 use Drupal\Component\Utility\Random;
 use Drupal\Component\Uuid\UuidInterface;
+use Drupal\Core\Field\FieldDefinitionInterface;
+use Drupal\custom_field\Plugin\CustomFieldTypeInterface;
 
 /**
  * The CustomFieldGenerateData class.
@@ -28,15 +30,7 @@ class CustomFieldGenerateData implements CustomFieldGenerateDataInterface {
   }
 
   /**
-   * Generates field data for custom field.
-   *
-   * @param array $columns
-   *   Array of field columns from the field storage settings.
-   * @param array $field_settings
-   *   Optional array of field widget settings.
-   *
-   * @return array
-   *   Array of key/value pairs to populate custom field.
+   * {@inheritdoc}
    */
   public function generateFieldData(array $columns, array $field_settings = []): array {
     $random = new Random();
@@ -113,13 +107,19 @@ class CustomFieldGenerateData implements CustomFieldGenerateDataInterface {
           break;
 
         case 'uri':
-          $tlds = ['com', 'net', 'gov', 'org', 'edu', 'biz', 'info'];
-          $domain_length = mt_rand(7, 15);
-          $protocol = mt_rand(0, 1) ? 'https' : 'http';
-          $www = mt_rand(0, 1) ? 'www.' : '';
-          $domain = $random->word($domain_length);
-          $tld = $tlds[mt_rand(0, (count($tlds) - 1))];
-          $value = "$protocol://$www$domain.$tld";
+          $link_type = $widget_settings['link_type'] ?? NULL;
+          if ($link_type & CustomFieldTypeInterface::LINK_EXTERNAL) {
+            $tlds = ['com', 'net', 'gov', 'org', 'edu', 'biz', 'info'];
+            $domain_length = mt_rand(7, 15);
+            $protocol = mt_rand(0, 1) ? 'https' : 'http';
+            $www = mt_rand(0, 1) ? 'www.' : '';
+            $domain = $random->word($domain_length);
+            $tld = $tlds[mt_rand(0, (count($tlds) - 1))];
+            $value = "$protocol://$www$domain.$tld";
+          }
+          else {
+            $value = 'base:' . $random->name(mt_rand(1, 64));
+          }
           break;
 
         case 'boolean':
@@ -145,6 +145,17 @@ class CustomFieldGenerateData implements CustomFieldGenerateDataInterface {
           $value = $map_values;
           break;
 
+        case 'datetime':
+          $datetime_type = $column['datetime_type'];
+          $timestamp = \Drupal::time()->getRequestTime() - mt_rand(0, 86400 * 365);
+          if ($datetime_type == CustomFieldTypeInterface::DATETIME_TYPE_DATE) {
+            $value = gmdate(CustomFieldTypeInterface::DATE_STORAGE_FORMAT, $timestamp);
+          }
+          else {
+            $value = gmdate(CustomFieldTypeInterface::DATETIME_STORAGE_FORMAT, $timestamp);
+          }
+          break;
+
         default:
           $value = NULL;
       }
@@ -153,6 +164,49 @@ class CustomFieldGenerateData implements CustomFieldGenerateDataInterface {
     }
 
     return $items;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function generateSampleFormData(FieldDefinitionInterface $field, $deltas = NULL): array {
+    $field_name = $field->getName();
+    if ($deltas === NULL) {
+      $deltas = [0];
+    }
+
+    $form_values = [];
+
+    // Generate data for the field.
+    $field_settings = $field->getSetting('field_settings');
+    $columns = $field->getSetting('columns');
+
+    foreach ($deltas as $delta) {
+      $random_values = self::generateFieldData($columns, $field_settings);
+
+      // UUID's can't be unset through the GUI.
+      unset($random_values['uuid_test']);
+
+      // @todo Hardening: floating point calculation can randomly fail.
+      $random_values['decimal_test'] = '0.50';
+      $random_values['float_test'] = '10.775';
+
+      // @todo Hardening: we need to treat maps specially due to ajax.
+      unset($random_values['map_test']);
+
+      // @todo Hardening: why do color fields not set using ::submitForm?
+      unset($random_values['color_test']);
+
+      // @todo Hardening: figure out why an array fails as datetime value.
+      unset($random_values['datetime_test']);
+
+      $keys = array_map(static function ($key) use ($field_name, $delta) {
+        return "{$field_name}[$delta][$key]";
+      }, array_keys($random_values));
+
+      $form_values[] = array_combine($keys, $random_values);
+    }
+    return array_merge(['title[0][value]' => 'Test'], ...$form_values);
   }
 
   /**
@@ -211,14 +265,15 @@ class CustomFieldGenerateData implements CustomFieldGenerateDataInterface {
    * @param array $allowed_values
    *   An array of allowed values.
    *
-   * @return array
-   *   An array of random items.
+   * @return int|string
+   *   A random key from allowed values array.
    */
-  protected static function getRandomOptions(array $allowed_values): array {
+  protected static function getRandomOptions(array $allowed_values): int|string {
     $randoms = [];
     foreach ($allowed_values as $value) {
       $randoms[$value['key']] = $value['value'];
     }
+
     return array_rand($randoms, 1);
   }
 

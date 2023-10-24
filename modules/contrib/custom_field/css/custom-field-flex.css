@@ -7,17 +7,17 @@
   --custom-field-gutter-x: 1.5rem;
   display: flex;
   flex-wrap: wrap;
-  margin-left: calc(var(--custom-field-gutter-x)*-.5);
   margin-right: calc(var(--custom-field-gutter-x)*-.5);
+  margin-left: calc(var(--custom-field-gutter-x)*-.5);
 }
 
 .custom-field-row > * {
   flex-shrink: 0;
-  max-width: 100%;
-  padding-left: calc(var(--custom-field-gutter-x)*.5);
-  padding-right: calc(var(--custom-field-gutter-x)*.5);
   width: 100%;
+  max-width: 100%;
   box-sizing: border-box;
+  padding-right: calc(var(--custom-field-gutter-x)*.5);
+  padding-left: calc(var(--custom-field-gutter-x)*.5);
 }
 
 .custom-field-col.form-type--number input,
@@ -31,69 +31,73 @@
   width: 100%;
 }
 
+.custom-field-col > .form-type--textarea {
+  margin-top: 0;
+}
+
 .custom-field-row > .custom-field-col-auto {
   flex: 0 0 auto;
-  width: auto
+  width: auto;
 }
 
 .custom-field-row > .custom-field-col-1 {
   flex: 0 0 auto;
-  width: 8.33333333%
+  width: 8.33333333%;
 }
 
 .custom-field-row > .custom-field-col-2 {
   flex: 0 0 auto;
-  width: 16.66666667%
+  width: 16.66666667%;
 }
 
 .custom-field-row > .custom-field-col-3 {
   flex: 0 0 auto;
-  width: 25%
+  width: 25%;
 }
 
 .custom-field-row > .custom-field-col-4 {
   flex: 0 0 auto;
-  width: 33.33333333%
+  width: 33.33333333%;
 }
 
 .custom-field-row > .custom-field-col-5 {
   flex: 0 0 auto;
-  width: 41.66666667%
+  width: 41.66666667%;
 }
 
 .custom-field-row > .custom-field-col-6 {
   flex: 0 0 auto;
-  width: 50%
+  width: 50%;
 }
 
 .custom-field-row > .custom-field-col-7 {
   flex: 0 0 auto;
-  width: 58.33333333%
+  width: 58.33333333%;
 }
 
 .custom-field-row > .custom-field-col-8 {
   flex: 0 0 auto;
-  width: 66.66666667%
+  width: 66.66666667%;
 }
 
 .custom-field-row > .custom-field-col-9 {
   flex: 0 0 auto;
-  width: 75%
+  width: 75%;
 }
 
 .custom-field-row > .custom-field-col-10 {
   flex: 0 0 auto;
-  width: 83.33333333%
+  width: 83.33333333%;
 }
 
 .custom-field-row > .custom-field-col-11 {
   flex: 0 0 auto;
-  width: 91.66666667%
+  width: 91.66666667%;
 }
 
 .custom-field-row > .custom-field-col-12 {
   flex: 0 0 auto;
-  width: 100%
+  width: 100%;
 }
 
 /* 768px on Seven theme */

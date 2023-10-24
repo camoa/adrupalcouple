@@ -33,10 +33,10 @@ class SchemaDotOrgCorrespondingReferenceSettingsFormTest extends SchemaDotOrgBro
   }
 
   /**
-   * Test Schema.org Corresponding Entity Reference  settings form.
+   * Test Schema.org Corresponding Entity Reference settings form.
    */
   public function testSettingsForm(): void {
-    $this->assertSaveSettingsConfigForm('schemadotorg_cer.settings', '/admin/config/search/schemadotorg/settings/types');
+    $this->assertSaveSettingsConfigForm('schemadotorg_cer.settings', '/admin/config/schemadotorg/settings/types');
   }
 
 }

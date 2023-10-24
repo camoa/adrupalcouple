@@ -1,6 +1,6 @@
 schemadotorg_role.settings:
   type: config_entity
-  label: Schema.org Role settings
+  label: 'Schema.org Role settings'
   mapping:
     field_definitions:
       type: sequence
@@ -38,7 +38,7 @@ schemadotorg_role.settings:
           label: 'Role field'
     entity_reference_overrides:
       type: sequence
-      label: Entity reference overrides
+      label: 'Entity reference overrides'
       sequence:
         type: string
-        label: Schema.org property
+        label: 'Schema.org property'

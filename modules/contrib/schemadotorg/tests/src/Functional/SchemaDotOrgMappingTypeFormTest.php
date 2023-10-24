@@ -4,6 +4,8 @@ declare(strict_types = 1);
 
 namespace Drupal\Tests\schemadotorg\Functional;
 
+use Drupal\schemadotorg\SchemaDotOrgMappingTypeStorage;
+
 /**
  * Tests the functionality of the Schema.org mapping type form.
  *
@@ -13,18 +15,16 @@ namespace Drupal\Tests\schemadotorg\Functional;
 class SchemaDotOrgMappingTypeFormTest extends SchemaDotOrgBrowserTestBase {
 
   /**
-   * Modules to install.
+   * Modules to enable.
    *
-   * @var string[]
+   * @var array
    */
   protected static $modules = ['user', 'node'];
 
   /**
    * The Schema.org mapping type storage.
-   *
-   * @var \Drupal\schemadotorg\SchemaDotOrgMappingTypeStorage
    */
-  protected $storage;
+  protected SchemaDotOrgMappingTypeStorage $storage;
 
   /**
    * {@inheritdoc}
@@ -49,7 +49,7 @@ class SchemaDotOrgMappingTypeFormTest extends SchemaDotOrgBrowserTestBase {
     // expected values.
     $mapping_type = $this->storage->load('node');
     $mapping_type_value = $mapping_type->toArray();
-    $this->drupalGet('/admin/config/search/schemadotorg/types/node');
+    $this->drupalGet('/admin/config/schemadotorg/types/node');
     $this->submitForm([], 'Save');
     $assert_session->responseContains('Updated <em class="placeholder">Content</em> mapping type.');
     $this->storage->resetCache();
@@ -60,7 +60,7 @@ class SchemaDotOrgMappingTypeFormTest extends SchemaDotOrgBrowserTestBase {
     $this->createSchemaEntity('node', 'Thing');
 
     // Check deleting a Schema.org type that has mappings assigned to it.
-    $this->drupalGet('/admin/config/search/schemadotorg/types/node/delete');
+    $this->drupalGet('/admin/config/schemadotorg/types/node/delete');
     $assert_session->responseContains('The <em class="placeholder">Content</em> Schema.org mapping type is used by 1 Schema.org mapping on your site. You can not remove this Schema.org mapping type until you have removed all of the <em class="placeholder">Content</em> Schema.org mappings.');
   }
 

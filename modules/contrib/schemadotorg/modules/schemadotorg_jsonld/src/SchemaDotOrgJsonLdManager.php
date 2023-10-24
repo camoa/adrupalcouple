@@ -175,7 +175,7 @@ class SchemaDotOrgJsonLdManager implements SchemaDotOrgJsonLdManagerInterface {
 
       case 'link':
         /** @var \Drupal\link\LinkItemInterface $item */
-        return $item->getUrl()->setAbsolute()->toString();
+        return ($item->uri) ? $item->getUrl()->setAbsolute()->toString() : NULL;
 
       case 'text_long':
       case 'text_with_summary':
@@ -185,7 +185,7 @@ class SchemaDotOrgJsonLdManager implements SchemaDotOrgJsonLdManagerInterface {
 
       case 'image':
       case 'file':
-        return $this->getImageDeriativeUrl($item) ?: $this->getFileUrl($item);
+        return $this->getImageDerivativeUrl($item) ?: $this->getFileUrl($item);
 
       case 'daterange':
         /** @var \Drupal\schemadotorg\SchemaDotOrgMappingStorageInterface $mapping_storage */
@@ -425,15 +425,15 @@ class SchemaDotOrgJsonLdManager implements SchemaDotOrgJsonLdManagerInterface {
   }
 
   /**
-   * Gets the image deriative URL for a field item.
+   * Gets the image derivative URL for a field item.
    *
    * @param \Drupal\Core\Field\FieldItemInterface $item
    *   The field item.
    *
    * @return string|null
-   *   The image deriative URL for a field item.
+   *   The image derivative URL for a field item.
    */
-  protected function getImageDeriativeUrl(FieldItemInterface $item): ?string {
+  protected function getImageDerivativeUrl(FieldItemInterface $item): ?string {
     $field_type = $item->getFieldDefinition()->getFieldStorageDefinition()->getType();
     if ($field_type !== 'image') {
       return NULL;

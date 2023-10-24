@@ -1,6 +1,6 @@
 schemadotorg_options.settings:
   type: config_entity
-  label: Schema.org Options settings
+  label: 'Schema.org Options settings'
   mapping:
     property_allowed_values:
       type: sequence
@@ -10,10 +10,10 @@ schemadotorg_options.settings:
         label: 'Allowed values'
         sequence:
           type: text
-          label: 'Text'
+          label: Text
     property_allowed_values_suffixes:
       type: sequence
       label: 'Schema.org property allowed values suffixes'
       sequence:
         type: text
-        label: 'Schema.org property  allowed values suffix'
+        label: 'Schema.org property allowed values suffix'

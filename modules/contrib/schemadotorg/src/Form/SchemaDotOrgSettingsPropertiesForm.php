@@ -5,7 +5,6 @@ declare(strict_types = 1);
 namespace Drupal\schemadotorg\Form;
 
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\schemadotorg\Element\SchemaDotOrgSettings;
 
 /**
  * Configure Schema.org properties settings for properties.
@@ -30,58 +29,98 @@ class SchemaDotOrgSettingsPropertiesForm extends SchemaDotOrgSettingsFormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state): array {
+    /** @var \Drupal\Core\Field\FieldTypePluginManagerInterface $field_type_manager */
+    $field_type_manager = \Drupal::service('plugin.manager.field.field_type');
+    $definitions = $field_type_manager->getDefinitions();
+    $field_types = [];
+    $field_types[] = '# Available field types';
+    $field_types[] = '# ---------------------';
+    foreach ($definitions as $field_type => $definition) {
+      $field_types[] = '# ' . $field_type . ' = ' . $definition['label'];
+    }
     $form['schema_properties'] = [
       '#type' => 'details',
       '#title' => $this->t('Property settings'),
-      '#open' => TRUE,
-      '#tree' => TRUE,
     ];
     $form['schema_properties']['default_fields'] = [
       '#type' => 'schemadotorg_settings',
-      '#settings_type' => SchemaDotOrgSettings::ASSOCIATIVE_GROUPED,
-      '#settings_format' => 'SchemaType--propertyName|type:string,label:Property name,unlimited:1,required:1 or propertyName|type:string',
       '#title' => $this->t('Default Schema.org property fields'),
       '#rows' => 20,
       '#description' => $this->t('Enter default Schema.org property field definition used when adding a Schema.org property to an entity type.'),
       '#description_link' => 'properties',
+      '#example' => implode(PHP_EOL, $field_types) . '
+SchemaType--propertyName:
+  type: string
+  label: Property name
+  unlimited: true
+  required: true
+propertyName:
+  type: string
+',
     ];
     $form['schema_properties']['default_field_formatter_settings'] = [
       '#type' => 'schemadotorg_settings',
-      '#settings_type' => SchemaDotOrgSettings::ASSOCIATIVE_GROUPED,
-      '#settings_format' => 'SchemaType--propertyName|label:hidden or propertyName|label:hidden',
       '#title' => $this->t('Default Schema.org property field formatter settings'),
       '#rows' => 20,
       '#description' => $this->t('Enter default Schema.org property field formatter settings used when adding a Schema.org property to an entity type.'),
       '#description_link' => 'properties',
+      '#example' => '
+SchemaType--propertyName:
+  label: hidden
+propertyName:
+  label: hidden
+',
     ];
     $form['schema_properties']['default_field_types'] = [
       '#type' => 'schemadotorg_settings',
-      '#settings_type' => SchemaDotOrgSettings::INDEXED_GROUPED,
-      '#settings_format' => 'schemaProperty|field_type_01,field_type_02,field_type_03 or SchemaType--schemaProperty|field_type_01,field_type_02,field_type_03',
       '#title' => $this->t('Default Schema.org property field types'),
       '#description' => $this->t('Enter the field types applied to a Schema.org property when the property is added to an entity type.'),
       '#description_link' => 'properties',
+      '#example' => '
+schemaProperty:
+  - field_type_01
+  - field_type_02
+  - field_type_03
+SchemaType--propertyName:
+  - field_type_01
+  - field_type_02
+  - field_type_03
+',
     ];
     $form['schema_properties']['default_field_weights'] = [
       '#type' => 'schemadotorg_settings',
-      '#settings_type' => SchemaDotOrgSettings::INDEXED,
       '#title' => $this->t('Default Schema.org property field weights'),
-      '#description' => $this->t('Enter Schema.org property default field weights to help organize fields as they are added to entity types.'),
+      '#description' => $this->t('Enter Schema.org property default field order/weight to help order fields as they are added to entity types.'),
+      '#example' => '
+- field_name_01
+- field_name_02
+- field_name_03
+',
     ];
     $form['schema_properties']['range_includes'] = [
       '#type' => 'schemadotorg_settings',
-      '#settings_type' => SchemaDotOrgSettings::INDEXED_GROUPED,
-      '#settings_format' => 'TypeName--propertyName|Type01,Type02 or propertyName|Type01,Type02',
       '#title' => $this->t('Schema.org type/property custom range includes'),
       '#description' => $this->t('Enter custom range includes for Schema.org types/properties.'),
       '#description_link' => 'types',
+      '#example' => '
+TypeName--propertyName:
+  - Type01
+  - Type02
+propertyName:
+  - Type01
+  - Type02
+',
     ];
     $form['schema_properties']['ignored_properties'] = [
       '#type' => 'schemadotorg_settings',
-      '#settings_type' => SchemaDotOrgSettings::INDEXED,
       '#title' => $this->t('Ignored Schema.org properties'),
       '#description' => $this->t('Enter Schema.org properties that should ignored and not displayed on the Schema.org mapping form and simplifies the user experience.'),
       '#description_link' => 'properties',
+      '#example' => '
+- propertyName01
+- propertyName02
+- propertyName03
+',
     ];
     return parent::buildForm($form, $form_state);
   }

@@ -4,6 +4,8 @@ declare(strict_types = 1);
 
 namespace Drupal\schemadotorg_help\Plugin\HelpSection;
 
+use Drupal\Core\Extension\ExtensionLifecycle;
+use Drupal\Core\Extension\ModuleExtensionList;
 use Drupal\Core\Link;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Url;
@@ -25,10 +27,8 @@ class SchemaDotOrgHelpSection extends HelpSectionPluginBase implements Container
 
   /**
    * The module extension list.
-   *
-   * @var \Drupal\Core\Extension\ModuleExtensionList
    */
-  protected $moduleExtensionList;
+  protected ModuleExtensionList $moduleExtensionList;
 
   /**
    * {@inheritdoc}
@@ -43,9 +43,10 @@ class SchemaDotOrgHelpSection extends HelpSectionPluginBase implements Container
    * {@inheritdoc}
    */
   public function listTopics() {
-    $modules = array_filter($this->moduleExtensionList->getAllInstalledInfo(), function (array $info): bool {
-      return str_starts_with($info['package'], 'Schema.org Blueprints');
-    });
+    $modules = array_filter(
+      $this->moduleExtensionList->getAllInstalledInfo(),
+      fn(array $info) => str_starts_with($info['package'], 'Schema.org Blueprints')
+    );
     ksort($modules);
 
     $topics = [];
@@ -53,8 +54,14 @@ class SchemaDotOrgHelpSection extends HelpSectionPluginBase implements Container
       $title = $module_info['name'];
       $title = str_replace('Schema.org Blueprints ', '', $title);
       $url = Url::fromRoute('schemadotorg_help.page', ['name' => $module_name]);
-      $topics[$module_name] = Link::fromTextAndUrl($title, $url)->toString();
+      $topics[$module_name] = Link::fromTextAndUrl($title, $url)->toRenderable();
+      if ($module_info[ExtensionLifecycle::LIFECYCLE_IDENTIFIER] === ExtensionLifecycle::EXPERIMENTAL) {
+        $topics[$module_name]['#suffix'] = ' (' . $this->t('Experimental') . ')';
+      }
     }
+    // Bold the core Schema.org Blueprints module's help page.
+    $topics['schemadotorg']['#prefix'] = '<strong>';
+    $topics['schemadotorg']['#suffix'] = '</strong>';
     return $topics;
   }
 

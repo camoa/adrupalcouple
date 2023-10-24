@@ -1,6 +1,6 @@
 schemadotorg_existing_values_autocomplete_widget.settings:
   type: config_entity
-  label: Schema.org Existing values autocomplete widget settings
+  label: 'Schema.org Existing values autocomplete widget settings'
   mapping:
     default_properties:
       type: sequence

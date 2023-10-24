@@ -1,7 +1,7 @@
 dependencies:
   - schemadotorg_starterkit_test
 types:
-  node:Person:
+  'node:Person':
     properties:
       givenName: false
       familyName: false

@@ -11,6 +11,12 @@ use Drupal\Core\Url;
 
 /**
  * Schema.org schema type builder service.
+ *
+ * The Schema.org schema type builder service helps render Schema.org's types
+ * and properties via Drupal.
+ *
+ * The service is primarily used by the Schema.org Blueprints UI
+ * and report modules.
  */
 class SchemaDotOrgSchemaTypeBuilder implements SchemaDotOrgSchemaTypeBuilderInterface {
 

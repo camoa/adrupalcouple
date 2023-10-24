@@ -1,5 +1,0 @@
-schenadotorg_editorial.admin:
-  title: 'Editorial'
-  parent_id: system.admin_content
-  route_name: view.editorial.page
-  weight: 100

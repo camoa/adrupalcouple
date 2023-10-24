@@ -37,7 +37,7 @@ content:
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 110
+    weight: 120
     region: content
   schema_image:
     type: image

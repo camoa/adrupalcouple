@@ -21,9 +21,9 @@ class SchemaDotOrgDiagramTest extends SchemaDotOrgBrowserTestBase {
   // phpcs:enable
 
   /**
-   * Modules to install.
+   * Modules to enable.
    *
-   * @var string[]
+   * @var array
    */
   protected static $modules = ['schemadotorg_cer', 'schemadotorg_diagram'];
 

@@ -10,23 +10,24 @@ Introduction
 ------------
 
 The **Schema.org Blueprints Role** module manages roles 
-(https://schema.org/role) for Schema.org propertis.
+(https://schema.org/role) for Schema.org properties.
 
 
 Features
 --------
 
-- Allows dedicated role fields to be created with Schema.org type.
-- Adds role field values to JSON-LD property.
-- Exposes role fields to JSON:API.
-- Use Entity Reference Override fields for role related fields.
+- Allows dedicated 'Role' fields to be created for a Schema.org type.
+- Adds 'Role' field values to JSON-LD property.
+- Exposes 'Role' fields to JSON:API.
+- Uses [Entity Reference Override](https://www.drupal.org/project/entity_reference_override)
+  fields for 'Role' related fields.
 
 
 Configuration
 -------------
 
 - Go to the Schema.org properties configuration page.  
-  (/admin/config/search/schemadotorg/settings/properties)
+  (/admin/config/schemadotorg/settings/properties)
 - Go to the 'Role settings' details.
 - Enter role field definitions which will be available to Schema.org properties.
 - Enter Schema.org properties and their roles.

@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace Drupal\schemadotorg_paragraphs;
 
+use Drupal\Core\Field\FieldConfigInterface;
 use Drupal\schemadotorg\SchemaDotOrgMappingInterface;
 
 /**
@@ -49,5 +50,13 @@ interface SchemaDotOrgParagraphsManagerInterface {
     ?string &$formatter_id,
     array &$formatter_settings
   ): void;
+
+  /**
+   * Update Schema.org paragraph field config before it is saved.
+   *
+   * @param \Drupal\Core\Field\FieldConfigInterface $field_config
+   *   The field config.
+   */
+  public function fieldConfigPresave(FieldConfigInterface $field_config): void;
 
 }

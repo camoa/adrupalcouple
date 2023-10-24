@@ -100,11 +100,13 @@ interface SchemaDotOrgMappingStorageInterface extends ConfigEntityStorageInterfa
    *   The target entity type ID.
    * @param array $range_includes
    *   An array of Schema.org types.
+   * @param bool $ignore_thing
+   *   Ignore Schema.org Thing type when calculated target bundles.
    *
    * @return array
    *   The Schema.org range includes target bundles.
    */
-  public function getRangeIncludesTargetBundles(string $target_type, array $range_includes): array;
+  public function getRangeIncludesTargetBundles(string $target_type, array $range_includes, bool $ignore_thing = TRUE): array;
 
   /**
    * Determine if Schema.org type is mapped to an entity.

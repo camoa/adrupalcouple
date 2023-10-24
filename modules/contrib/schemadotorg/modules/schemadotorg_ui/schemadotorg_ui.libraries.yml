@@ -1,9 +1,9 @@
 schemadotorg_ui:
   js:
-    js/schemadotorg_ui.js: {}
+    js/schemadotorg_ui.js: {  }
   css:
     component:
-      css/schemadotorg_ui.css: {}
+      css/schemadotorg_ui.css: {  }
   dependencies:
     - core/drupal
     - core/drupal.announce

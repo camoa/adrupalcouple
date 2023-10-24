@@ -22,7 +22,7 @@ Features
 - Sets Schema.org type descriptions as the explanation/submission guidelines.  
   (For content types only)
 - Sets entity type and field descriptions and help via configuration overrides.
-- Sets the node title field's description to the coresponding
+- Sets the node title field's description to the corresponding
   Schema.org property's comment.
 
 
@@ -30,11 +30,10 @@ Configuration
 -------------
 
 - Go to the Schema.org general configuration page.  
-  (/admin/config/search/schemadotorg/settings/general)
+  (/admin/config/schemadotorg/settings/general)
 - Go to the 'Description settings' details.
 - Enter custom descriptions or suppress the default Schema.org type 
   and property descriptions.
-- Enable/disable the trimming of Schema.org type and property descriptions.
 - Enable/disable setting explanation or submission guidelines to the Schema.org 
   type descriptions.
 

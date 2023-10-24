@@ -12,19 +12,21 @@ namespace Drupal\Tests\schemadotorg\Functional;
 class SchemaDotOrgConfigSnapshotTest extends SchemaDotOrgConfigSnapshotTestBase {
 
   /**
-   * {@inheritdoc}
+   * Modules to enable.
+   *
+   * @var array
    */
   protected static $modules = ['schemadotorg'];
 
   /**
    * {@inheritdoc}
    */
-  protected $snapshotDirectory = __DIR__ . '/../../schemadotorg/config/snapshot';
+  protected string $snapshotDirectory = __DIR__ . '/../../schemadotorg/config/snapshot';
 
   /**
    * {@inheritdoc}
    */
-  protected $entityTypes = [
+  protected array $entityTypes = [
     'node:Place',
     'node:Organization',
     'node:Person',

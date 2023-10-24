@@ -1,6 +1,6 @@
 schemadotorg_mapping_set.settings:
   type: config_entity
-  label: Schema.org mapping set settings
+  label: 'Schema.org mapping set settings'
   mapping:
     sets:
       type: sequence
@@ -11,10 +11,10 @@ schemadotorg_mapping_set.settings:
         mapping:
           label:
             type: string
-            label: 'Label'
+            label: Label
           types:
             type: sequence
-            label: 'Types'
+            label: Types
             sequence:
               type: string
-              label: 'Type'
+              label: Type

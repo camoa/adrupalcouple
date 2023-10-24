@@ -18,9 +18,9 @@ require_once __DIR__ . '/../../../schemadotorg_geolocation.install';
 class SchemaDotOrgGeolocationInstallTest extends KernelTestBase {
 
   /**
-   * Modules to install.
+   * Modules to enable.
    *
-   * @var string[]
+   * @var array
    */
   protected static $modules = [
     'schemadotorg',

@@ -29,21 +29,6 @@ field.storage_settings.custom:
 field.widget.settings.*:
   type: custom_field_widget_base
 
-field.widget.settings.custom_default:
-  type: custom_field_widget_base
-  mapping:
-    customize:
-      type: boolean
-      label: 'Customize Customfield item proportions'
-    proportions:
-      type: sequence
-      label: 'Proportions'
-      sequence:
-        type: string
-    breakpoint:
-      type: string
-      label: 'Stack items on:'
-
 field.widget.settings.custom_flex:
   type: custom_field_widget_base
   mapping:
@@ -70,21 +55,94 @@ custom_field_widget_base:
       type: boolean
       label: 'Show open by default?'
 
-field.formatter.settings.custom_formatter:
+custom_field_formatter_base:
   type: mapping
-  label: 'Customfield'
+  label: 'Custom field formatter settings'
   mapping:
-    label:
-      type: boolean
-      label: 'Label'
-    label_display:
+    fields:
       type: sequence
-      label: 'Label display'
+      label: 'Field settings'
       sequence:
-        type: custom_field.label_display.[%field]
+        type: custom_field.formatter.[%formatter]
+
+custom_field.formatter.*:
+  type: mapping
+  label: 'Formatter settings'
+  mapping:
+    format_type:
+      type: string
+      label: 'Format type'
+    formatter_settings:
+      type: mapping
+      label: 'Settings'
+      mapping:
+        decimal_separator:
+          type: string
+          label: 'Decimal marker'
+        format:
+          type: string
+          label: 'Output format'
+        format_custom_true:
+          type: string
+          label: 'Custom output for TRUE'
+        format_custom_false:
+          type: string
+          label: 'Custom output for FALSE'
+        key_label:
+          type: string
+          label: 'Display'
+        label_display:
+          type: string
+          label: 'Label display'
+        prefix_suffix:
+          type: boolean
+          label: 'Display prefix/suffix'
+        title:
+          type: string
+          label: 'Title'
+        trim_length:
+          type: integer
+          label: 'Trim link text length'
+        url_plain:
+          type: boolean
+          label: 'Show URL as plain text'
+        rel:
+          type: boolean
+          label: 'Add rel="nofollow" to links'
+        scale:
+          type: integer
+          label: 'Scale'
+        target:
+          type: boolean
+          label: 'Open link in new window'
+        thousand_separator:
+          type: string
+          label: 'Thousand marker'
+        timezone_override:
+          type: string
+          label: 'Time zone override'
+        format_type:
+          type: string
+          label: 'Date format'
+        date_format:
+          type: string
+          label: 'Date/time format'
+        future_format:
+          type: string
+          label: 'Future format'
+        past_format:
+          type: string
+          label: 'Past format'
+        granularity:
+          type: integer
+          label: 'Granularity'
+
+field.formatter.settings.custom_formatter:
+  type: custom_field_formatter_base
+  label: 'Default'
 
 field.formatter.settings.custom_inline:
-  type: mapping
+  type: custom_field_formatter_base
   label: 'Inline'
   mapping:
     show_labels:
@@ -98,12 +156,16 @@ field.formatter.settings.custom_inline:
       label: 'Item separator'
 
 field.formatter.settings.custom_list:
-  type: mapping
+  type: custom_field_formatter_base
   label: 'HTML list'
   mapping:
     list_type:
       type: string
       label: 'List type'
+
+field.formatter.settings.custom_table:
+  type: custom_field_formatter_base
+  label: 'Table'
 
 field.formatter.settings.custom_template:
   type: mapping
@@ -112,10 +174,6 @@ field.formatter.settings.custom_template:
     template:
       type: string
       label: 'Template'
-
-custom_field.label_display.*:
-  type: string
-  label: 'Label display'
 
 custom_field.column:
   type: mapping
@@ -142,6 +200,9 @@ custom_field.column:
     size:
       type: string
       label: 'Size'
+    datetime_type:
+      type: string
+      label: 'Date type'
 
 custom_field.widget.*:
   type: mapping
@@ -156,22 +217,6 @@ custom_field.widget.*:
     check_empty:
       type: boolean
       label: 'Check empty?'
-    formatter_settings:
-      type: mapping
-      label: 'Output'
-      mapping:
-        render:
-          type: string
-          label: 'Render'
-        prefix_suffix:
-          type: integer
-          label: 'Display prefix/suffix'
-        value_checked:
-          type: string
-          label: 'Checked value'
-        value_unchecked:
-          type: string
-          label: 'Unchecked value'
     widget_settings:
       type: mapping
       label: 'Settings'
@@ -213,15 +258,9 @@ custom_field.widget.*:
             max:
               type: integer
               label: 'Maximum'
-            decimal_separator:
+            pattern:
               type: string
-              label: 'Decimal marker'
-            scale:
-              type: integer
-              label: 'Scale'
-            thousand_separator:
-              type: string
-              label: 'Thousand marker'
+              label: 'Telephone format'
             prefix:
               type: string
               label: 'Prefix'
@@ -269,3 +308,21 @@ custom_field.widget.*:
                 help:
                   type: boolean
                   label: 'Show format help'
+            link_type:
+              type: integer
+              label: 'Allowed link type'
+            field_prefix:
+              type: string
+              label: 'Field prefix'
+            field_prefix_custom:
+              type: string
+              label: 'Custom field prefix'
+            date_order:
+              type: string
+              label: 'Date part order'
+            time_type:
+              type: string
+              label: 'Time type'
+            increment:
+              type: integer
+              label: 'increment'

@@ -21,9 +21,9 @@ class SchemaDotOrgUiRouteTest extends SchemaDotOrgBrowserTestBase {
   use MediaTypeCreationTrait;
 
   /**
-   * Modules to install.
+   * Modules to enable.
    *
-   * @var string[]
+   * @var array
    */
   protected static $modules = [
     'block',

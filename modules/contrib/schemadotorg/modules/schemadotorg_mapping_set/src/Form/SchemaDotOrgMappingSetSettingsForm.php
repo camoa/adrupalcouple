@@ -4,9 +4,10 @@ declare(strict_types = 1);
 
 namespace Drupal\schemadotorg_mapping_set\Form;
 
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\schemadotorg\Element\SchemaDotOrgSettings;
+use Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -23,17 +24,13 @@ class SchemaDotOrgMappingSetSettingsForm extends ConfigFormBase {
 
   /**
    * The entity type manager.
-   *
-   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
    */
-  protected $entityTypeManager;
+  protected EntityTypeManagerInterface $entityTypeManager;
 
   /**
    * The Schema.org schema type manager.
-   *
-   * @var \Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface
    */
-  protected $schemaTypeManager;
+  protected SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager;
 
   /**
    * {@inheritdoc}
@@ -59,14 +56,18 @@ class SchemaDotOrgMappingSetSettingsForm extends ConfigFormBase {
     $form['sets'] = [
       '#type' => 'schemadotorg_settings',
       '#rows' => 12,
-      '#settings_type' => SchemaDotOrgSettings::INDEXED_GROUPED_NAMED,
-      '#settings_format' => 'set_name|Set label|entity_type_id:SchemaType01,entity_type_id:SchemaType02',
-      '#array_name' => 'types',
       '#title' => $this->t('Mapping sets'),
       '#description' => $this->t('Enter Schema.org mapping sets by name, label, and entity type to Schema.org type.'),
       '#description_link' => 'types',
       '#config_name' => 'schemadotorg_mapping_set.settings',
       '#config_key' => 'sets',
+      '#example' => "
+set_name:
+  name: 'Set label'
+  types:
+  - 'entity_type_id:SchemaType01'
+  - 'entity_type_id:SchemaType02'
+",
     ];
     return parent::buildForm($form, $form_state);
   }

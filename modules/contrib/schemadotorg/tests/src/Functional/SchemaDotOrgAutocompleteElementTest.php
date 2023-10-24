@@ -7,7 +7,7 @@ namespace Drupal\Tests\schemadotorg\Functional;
 /**
  * Tests the functionality of the Schema.org autocomplete element.
  *
- * @see \Drupal\Tests\schemadotorg\Kernel\SchemaDotOrgAutocompleteControllerTest
+ * @see \Drupal\Tests\schemadotorg\Kernel\SchemaDotOrgAutocompleteControllerKernelTest
  * @covers \Drupal\schemadotorg\Element\SchemaDotOrgAutocomplete
  * @group schemadotorg
  */
@@ -31,14 +31,14 @@ class SchemaDotOrgAutocompleteElementTest extends SchemaDotOrgBrowserTestBase {
     $this->submitForm([], 'Submit');
     $expected_data = "schemadotorg_autocomplete_type: Person
 schemadotorg_autocomplete_types:
-  - Person
-  - Organization
+  Person: Person
+  Organization: Organization
 schemadotorg_autocomplete_novalidate: Dog
 schemadotorg_autocomplete_thing: Thing
 schemadotorg_autocomplete_property: name
 schemadotorg_autocomplete_properties:
-  - name
-  - additionalName
+  name: name
+  additionalName: additionalName
 schemadotorg_autocomplete_action_path: ''
 schemadotorg_autocomplete_action_query: ''";
     $assert_session->responseContains($expected_data);

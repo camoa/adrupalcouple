@@ -11,7 +11,6 @@ declare(strict_types = 1);
 
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\field\FieldConfigInterface;
-use Drupal\schemadotorg\Element\SchemaDotOrgSettings;
 use Drupal\schemadotorg\SchemaDotOrgMappingInterface;
 
 /**
@@ -76,15 +75,20 @@ function field_group_field_config_delete(FieldConfigInterface $field_config): vo
   }
 }
 
+/* ************************************************************************** */
+// Schema.org properties settings form.
+/* ************************************************************************** */
+
 /**
  * Implements hook_form_FORM_ID_alter().
+ *
+ * @see \Drupal\schemadotorg\Form\SchemaDotOrgSettingsFormBase::afterBuildDetails
+ * @see \Drupal\schemadotorg\Form\SchemaDotOrgSettingsFormBase::formAlter
  */
 function schemadotorg_field_group_form_schemadotorg_properties_settings_form_alter(array &$form, FormStateInterface $form_state): void {
   $form['schemadotorg_field_group'] = [
     '#type' => 'details',
     '#title' => t('Field group settings'),
-    '#open' => TRUE,
-    '#tree' => TRUE,
   ];
   $form['schemadotorg_field_group']['default_field_groups'] = [
     '#type' => 'container',
@@ -97,34 +101,30 @@ function schemadotorg_field_group_form_schemadotorg_properties_settings_form_alt
     $t_args = ['@type' => $entity_type_label];
     $form['schemadotorg_field_group']['default_field_groups'][$entity_type_id] = [
       '#type' => 'schemadotorg_settings',
-      '#settings_type' => SchemaDotOrgSettings::INDEXED_GROUPED_NAMED,
-      '#settings_format' => 'group_name|Group label|property01,property02,property03',
-      '#array_name' => 'properties',
       '#title' => t('Default @type field groups', ['@type' => $entity_type_label]),
       '#description' => t('Enter the default field groups and field order used to group Schema.org properties as they are added to the @type entity type.', $t_args),
       '#description_link' => 'properties',
+      '#example' => '
+group_name:
+  name: Group label
+  properties:
+    - property01
+    - property02
+    - property03
+',
     ];
   }
   $form['schemadotorg_field_group']['default_schema_type_field_groups'] = [
     '#type' => 'schemadotorg_settings',
-    '#settings_type' => SchemaDotOrgSettings::ASSOCIATIVE,
-    '#settings_format' => 'SchemaType:group_name',
-    '#array_name' => 'type',
     '#title' => t('Default Schema.org type field groups'),
     '#description' => t('Enter the default Schema.org type field groups.'),
     '#description_link' => 'properties',
+    '#example' => 'SchemaType: group_name',
   ];
   $type_options = [
     'details' => t('Details'),
     'html_element' => t('HTML element'),
     'fieldset' => t('Fieldset'),
-  ];
-  $form['schemadotorg_field_group']['default_label_suffix'] = [
-    '#type' => 'textfield',
-    '#title' => t('Default field group label suffix'),
-    '#description' => t('Enter the field group label suffix used when creating new field groups.')
-    . ' '
-    . t('Leave blank to not append a suffix to field group labels.'),
   ];
   $form['schemadotorg_field_group']['default_form_type'] = [
     '#type' => 'select',
@@ -142,9 +142,14 @@ function schemadotorg_field_group_form_schemadotorg_properties_settings_form_alt
   ];
   $form['schemadotorg_field_group']['disable_field_groups'] = [
     '#type' => 'schemadotorg_settings',
-    '#settings_type' => SchemaDotOrgSettings::INDEXED,
-    '#settings_format' => 'entity_type--display or entity_type--display--mode or entity_type--SchemaType or propertyName',
     '#title' => t('Disable field groups'),
     '#description' => t('Enter the Schema.org types and properties that should NOT have field groups.'),
+    '#example' => '
+- entity_type--display
+- entity_type--display--mode
+- entity_type--SchemaType
+- entity_type
+- SchemaType
+',
   ];
 }

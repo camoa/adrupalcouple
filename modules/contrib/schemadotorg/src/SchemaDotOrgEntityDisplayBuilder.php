@@ -13,11 +13,14 @@ use Drupal\Core\Extension\ModuleHandlerInterface;
 
 /**
  * Schema.org entity display builder service.
+ *
+ * The Schema.org entity display builder service sets a Schema.org property's
+ * field's entity display component settings ana weight.
  */
 class SchemaDotOrgEntityDisplayBuilder implements SchemaDotOrgEntityDisplayBuilderInterface {
 
   /**
-   * Constructs a SchemaDotOrgBuilder object.
+   * Constructs a SchemaDotOrgEntityDisplayBuilder object.
    *
    * @param \Drupal\Core\Extension\ModuleHandlerInterface $moduleHandler
    *   The module handler service.
@@ -47,9 +50,10 @@ class SchemaDotOrgEntityDisplayBuilder implements SchemaDotOrgEntityDisplayBuild
       ->get('schema_properties.default_field_weights');
     $weights = array_flip($weights);
     // Start field weights at 1 since most default fields are set to 0.
-    array_walk($weights, function (&$weight): void {
-      $weight += 1;
-    });
+    array_walk(
+      $weights,
+      fn (&$weight) => ($weight += 1)
+    );
     return $weights;
   }
 

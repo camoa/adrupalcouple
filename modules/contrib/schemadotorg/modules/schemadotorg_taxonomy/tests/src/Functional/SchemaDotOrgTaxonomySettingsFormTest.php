@@ -34,8 +34,8 @@ class SchemaDotOrgTaxonomySettingsFormTest extends SchemaDotOrgBrowserTestBase {
    * Test Schema.org Taxonomy settings form.
    */
   public function testSettingsForm(): void {
-    $this->assertSaveSettingsConfigForm('schemadotorg_taxonomy.settings', '/admin/config/search/schemadotorg/settings/types');
-    $this->assertSaveSettingsConfigForm('schemadotorg_taxonomy.settings', '/admin/config/search/schemadotorg/settings/properties');
+    $this->assertSaveSettingsConfigForm('schemadotorg_taxonomy.settings', '/admin/config/schemadotorg/settings/types');
+    $this->assertSaveSettingsConfigForm('schemadotorg_taxonomy.settings', '/admin/config/schemadotorg/settings/properties');
   }
 
 }

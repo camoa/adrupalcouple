@@ -21,75 +21,75 @@ content:
     settings: {  }
     third_party_settings: {  }
   field_custom_field_test:
-    type: custom_default
+    type: custom_flex
     weight: 121
     region: content
     settings:
       label: true
       wrapper: div
       open: true
-      customize: true
-      proportions:
-        string_test: one
-        string_long_test: one
-        integer_test: one
-        decimal_test: one
-        float_test: one
-        email_test: one
-        telephone_test: one
-        uri_test: one
-        boolean_test: one
-        uuid_test: one
-        color_test: one
-        map_test: one
+      columns:
+        string_test: '12'
+        string_long_test: '12'
+        integer_test: '12'
+        decimal_test: '12'
+        float_test: '12'
+        email_test: '12'
+        telephone_test: '12'
+        uri_test: '12'
+        boolean_test: '12'
+        uuid_test: '12'
+        color_test: '12'
+        map_test: '12'
+        datetime_test: '12'
       breakpoint: ''
     third_party_settings: {  }
   field_custom_field_test_multiple:
-    type: custom_default
+    type: custom_flex
     weight: 121
     region: content
     settings:
       label: true
       wrapper: div
       open: true
-      customize: true
-      proportions:
-        string_test: one
-        string_long_test: one
-        integer_test: one
-        decimal_test: one
-        float_test: one
-        email_test: one
-        telephone_test: one
-        uri_test: one
-        boolean_test: one
-        uuid_test: one
-        color_test: one
-        map_test: one
+      columns:
+        string_test: '12'
+        string_long_test: '12'
+        integer_test: '12'
+        decimal_test: '12'
+        float_test: '12'
+        email_test: '12'
+        telephone_test: '12'
+        uri_test: '12'
+        boolean_test: '12'
+        uuid_test: '12'
+        color_test: '12'
+        map_test: '12'
+        datetime_test: '12'
       breakpoint: ''
     third_party_settings: {  }
   field_custom_field_test_unlimite:
-    type: custom_default
+    type: custom_flex
     weight: 121
     region: content
     settings:
       label: true
       wrapper: div
       open: true
-      customize: true
-      proportions:
-        string_test: one
-        string_long_test: one
-        integer_test: one
-        decimal_test: one
-        float_test: one
-        email_test: one
-        telephone_test: one
-        uri_test: one
-        boolean_test: one
-        uuid_test: one
-        color_test: one
-        map_test: one
+      columns:
+        string_test: '12'
+        string_long_test: '12'
+        integer_test: '12'
+        decimal_test: '12'
+        float_test: '12'
+        email_test: '12'
+        telephone_test: '12'
+        uri_test: '12'
+        boolean_test: '12'
+        uuid_test: '12'
+        color_test: '12'
+        map_test: '12'
+        datetime_test: '12'
       breakpoint: ''
     third_party_settings: {  }
   path:

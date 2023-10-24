@@ -32,8 +32,7 @@ class SchemaDotOrgBreadcrumbBuilder implements BreadcrumbBuilderInterface {
     $breadcrumb->addLink(Link::createFromRoute($this->t('Home'), '<front>'));
     $breadcrumb->addLink(Link::createFromRoute($this->t('Administration'), 'system.admin'));
     $breadcrumb->addLink(Link::createFromRoute($this->t('Configuration'), 'system.admin_config'));
-    $breadcrumb->addLink(Link::createFromRoute($this->t('Search and metadata'), 'system.admin_config_search'));
-    $breadcrumb->addLink(Link::createFromRoute($this->t('Schema.org'), 'entity.schemadotorg_mapping.collection'));
+    $breadcrumb->addLink(Link::createFromRoute($this->t('Schema.org'), 'schemadotorg'));
 
     $route_name = $route_match->getRouteName();
     switch ($route_name) {
