@@ -1,0 +1,17 @@
+uuid: f6023837-6db0-4353-8273-6c391bcbb614
+langcode: en
+status: true
+dependencies:
+  module:
+    - focal_point
+name: 2x3
+label: '2:3 (720×1080)'
+effects:
+  f5c0889c-0fab-4b21-ab90-24c7f51cb152:
+    uuid: f5c0889c-0fab-4b21-ab90-24c7f51cb152
+    id: focal_point_scale_and_crop
+    weight: null
+    data:
+      width: 720
+      height: 1080
+      crop_type: focal_point

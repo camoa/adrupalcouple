@@ -1,0 +1,7 @@
+_core:
+  default_config_hash: OWmasRVW8wUGUQEVbMWSgv2DxILcfLorO5kB6j4zQPg
+default_hide_help: true
+default_hide_guidelines: true
+default_allowed_formats:
+  - full_html
+property_allowed_formats: {  }

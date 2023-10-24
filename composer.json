@@ -52,7 +52,6 @@
         "drupal/paragraphs": "^1.15",
         "drupal/pathauto": "^1.11",
         "drupal/schemadotorg": "^1.0@alpha",
-        "drupal/schemadotorg_devel": "^1.0@alpha",
         "drupal/simple_sitemap": "^4.1",
         "drupal/smart_date": "^4.0",
         "drush/drush": "^12.0"

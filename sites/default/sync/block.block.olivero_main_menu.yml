@@ -1,4 +1,4 @@
-uuid: 46aec796-8165-460d-aa8a-4c6d6d79fb7e
+uuid: 1ba2500a-0e4c-451b-907f-65378ec6b6ab
 langcode: en
 status: true
 dependencies:
@@ -13,7 +13,7 @@ _core:
 id: olivero_main_menu
 theme: olivero
 region: primary_menu
-weight: -6
+weight: 0
 provider: null
 plugin: 'system_menu_block:main'
 settings:

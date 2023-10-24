@@ -1,0 +1,17 @@
+uuid: b21b74b4-9951-4eb8-b655-64ce958684a9
+langcode: en
+status: true
+dependencies:
+  module:
+    - focal_point
+name: 2x1
+label: '2:1 (1200×600)'
+effects:
+  ce1c7d96-adb8-456d-a9ae-1eff79de0233:
+    uuid: ce1c7d96-adb8-456d-a9ae-1eff79de0233
+    id: focal_point_scale_and_crop
+    weight: null
+    data:
+      width: 1200
+      height: 600
+      crop_type: focal_point

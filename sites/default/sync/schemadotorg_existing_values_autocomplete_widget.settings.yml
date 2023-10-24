@@ -1,0 +1,12 @@
+_core:
+  default_config_hash: ClM02rj686xjRtbt9CMysM5SjedH476DohHeXyIr_bU
+default_properties:
+  - alumniOf
+  - birthPlace
+  - industry
+  - jobTitle
+  - keywords
+  - skills
+  - physicalRequirement
+  - programType
+  - teaches

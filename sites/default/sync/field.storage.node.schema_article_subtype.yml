@@ -1,0 +1,75 @@
+uuid: 3e41ad8c-cbb6-404f-b36d-7e6dfd29cede
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - options
+id: node.schema_article_subtype
+field_name: schema_article_subtype
+entity_type: node
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: AdvertiserContentArticle
+      label: 'Advertiser Content Article'
+    -
+      value: NewsArticle
+      label: 'News Article'
+    -
+      value: AnalysisNewsArticle
+      label: '- Analysis News Article'
+    -
+      value: AskPublicNewsArticle
+      label: '- Ask Public News Article'
+    -
+      value: BackgroundNewsArticle
+      label: '- Background News Article'
+    -
+      value: OpinionNewsArticle
+      label: '- Opinion News Article'
+    -
+      value: ReportageNewsArticle
+      label: '- Reportage News Article'
+    -
+      value: ReviewNewsArticle
+      label: '- Review News Article'
+    -
+      value: Report
+      label: Report
+    -
+      value: SatiricalArticle
+      label: 'Satirical Article'
+    -
+      value: ScholarlyArticle
+      label: 'Scholarly Article'
+    -
+      value: MedicalScholarlyArticle
+      label: '- Medical Scholarly Article'
+    -
+      value: SocialMediaPosting
+      label: 'Social Media Posting'
+    -
+      value: BlogPosting
+      label: '- Blog Posting'
+    -
+      value: LiveBlogPosting
+      label: '-- Live Blog Posting'
+    -
+      value: DiscussionForumPosting
+      label: '- Discussion Forum Posting'
+    -
+      value: TechArticle
+      label: 'Tech Article'
+    -
+      value: APIReference
+      label: '- API Reference'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

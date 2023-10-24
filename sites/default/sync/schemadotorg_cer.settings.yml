@@ -1,0 +1,9 @@
+_core:
+  default_config_hash: vJ_aRWjmJMeU7wRETzUHXh7twiLhItDencDstFkn41o
+default_properties:
+  subOrganization: parentOrganization
+  memberOf: member
+  subjectOf: about
+  containedInPlace: containsPlace
+  worksFor: employee
+  department: department

@@ -1,4 +1,4 @@
-uuid: ea69e882-6746-4a1e-be4c-563fa14616b9
+uuid: 08a04dd2-8d6c-4974-91bf-3ceaaa8c38df
 langcode: en
 status: true
 dependencies:
@@ -23,12 +23,22 @@ settings:
       - '|'
       - blockQuote
       - drupalInsertImage
+      - drupalMedia
+      - specialCharacters
+      - alignment
       - '|'
       - heading
       - code
       - '|'
       - sourceEditing
+      - codeBlock
   plugins:
+    ckeditor5_alignment:
+      enabled_alignments:
+        - center
+        - justify
+        - left
+        - right
     ckeditor5_heading:
       enabled_headings:
         - heading2
@@ -56,6 +66,52 @@ settings:
         - '<h4 id>'
         - '<h5 id>'
         - '<h6 id>'
+    media_media:
+      allow_view_mode_override: false
+    ckeditor5_codeBlock:
+      languages:
+        -
+          label: 'Plain text'
+          language: plaintext
+        -
+          label: C
+          language: c
+        -
+          label: 'C#'
+          language: cs
+        -
+          label: C++
+          language: cpp
+        -
+          label: CSS
+          language: css
+        -
+          label: Diff
+          language: diff
+        -
+          label: HTML
+          language: html
+        -
+          label: Java
+          language: java
+        -
+          label: JavaScript
+          language: javascript
+        -
+          label: PHP
+          language: php
+        -
+          label: Python
+          language: python
+        -
+          label: Ruby
+          language: ruby
+        -
+          label: TypeScript
+          language: typescript
+        -
+          label: XML
+          language: xml
 image_upload:
   status: true
   scheme: public

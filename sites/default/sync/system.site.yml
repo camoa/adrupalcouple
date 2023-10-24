@@ -1,7 +1,8 @@
 _core:
   default_config_hash: VDJxTZtQR21qB4lvOq8zszJZLvLKrSPQpdn2E3T71Ww
 langcode: en
-name: 'A Droupla Couple'
+uuid: 6b905249-4230-4c8c-aba3-aafbe2493b6d
+name: 'A Drupal Couple'
 mail: info@adrupalcouple.com
 slogan: ''
 page:

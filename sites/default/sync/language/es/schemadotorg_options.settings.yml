@@ -1,0 +1,6 @@
+property_allowed_values:
+  gender:
+    Male: Masculino
+    Female: Femenino
+  contactType:
+    Home: Inicio

@@ -1,0 +1,134 @@
+uuid: 13228489-23c8-47e3-9299-4458aa68c455
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.article.body
+    - field.field.node.article.field_metatag
+    - field.field.node.article.field_tags
+    - field.field.node.article.schema_about
+    - field.field.node.article.schema_abstract
+    - field.field.node.article.schema_article_subtype
+    - field.field.node.article.schema_author
+    - field.field.node.article.schema_image
+    - field.field.node.article.schema_subject_of
+    - node.type.article
+  module:
+    - field_group
+    - text
+    - user
+third_party_settings:
+  field_group:
+    group_general:
+      children:
+        - schema_author
+      label: General
+      parent_name: ''
+      region: content
+      weight: 3
+      format_type: fieldset
+      format_settings: {  }
+    group_relationships:
+      children:
+        - schema_subject_of
+        - schema_about
+      label: Relationships
+      parent_name: ''
+      region: content
+      weight: 5
+      format_type: fieldset
+      format_settings: {  }
+    group_article:
+      children:
+        - schema_abstract
+      label: Article
+      parent_name: ''
+      region: content
+      weight: 4
+      format_type: fieldset
+      format_settings: {  }
+    group_taxonomy:
+      children:
+        - field_tags
+      label: 'Categories and Services'
+      parent_name: ''
+      region: content
+      weight: 6
+      format_type: fieldset
+      format_settings: {  }
+id: node.article.default
+targetEntityType: node
+bundle: article
+mode: default
+content:
+  body:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  content_moderation_control:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_tags:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 102
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 7
+    region: content
+  schema_about:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 14
+    region: content
+  schema_abstract:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 100
+    region: content
+  schema_author:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 17
+    region: content
+  schema_image:
+    type: entity_reference_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  schema_subject_of:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 13
+    region: content
+hidden:
+  field_editorial: true
+  field_metatag: true
+  langcode: true
+  schema_article_subtype: true

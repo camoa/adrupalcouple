@@ -1,0 +1,19 @@
+uuid: ff746b4b-e0d8-42d9-a4a0-033e3b56c0bf
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.schema_abstract
+    - node.type.article
+id: node.article.schema_abstract
+field_name: schema_abstract
+entity_type: node
+bundle: article
+label: Abstract
+description: 'An abstract is a short description that summarizes a <a href="https://schema.org/CreativeWork">CreativeWork</a>.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

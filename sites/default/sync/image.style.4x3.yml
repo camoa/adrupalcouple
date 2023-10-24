@@ -1,0 +1,17 @@
+uuid: ed95baae-e01d-4784-9d65-8970ff498076
+langcode: en
+status: true
+dependencies:
+  module:
+    - focal_point
+name: 4x3
+label: '4:3 (1200×900)'
+effects:
+  7668690d-668c-4064-9a9c-57472570140b:
+    uuid: 7668690d-668c-4064-9a9c-57472570140b
+    id: focal_point_scale_and_crop
+    weight: null
+    data:
+      width: 1200
+      height: 900
+      crop_type: focal_point

@@ -1,0 +1,231 @@
+uuid: a4ebcf21-de10-4e4f-bdb8-dd25cb3495e6
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.person.body
+    - field.field.node.person.field_metatag
+    - field.field.node.person.field_tags
+    - field.field.node.person.schema_additional_name
+    - field.field.node.person.schema_birth_date
+    - field.field.node.person.schema_email
+    - field.field.node.person.schema_family_name
+    - field.field.node.person.schema_given_name
+    - field.field.node.person.schema_image
+    - field.field.node.person.schema_knows_language
+    - field.field.node.person.schema_member_of
+    - field.field.node.person.schema_same_as
+    - field.field.node.person.schema_subject_of
+    - field.field.node.person.schema_telephone
+    - field.field.node.person.schema_url
+    - field.field.node.person.schema_works_for
+    - node.type.person
+  module:
+    - datetime
+    - field_group
+    - link
+    - options
+    - text
+    - user
+third_party_settings:
+  field_group:
+    group_general:
+      children:
+        - schema_additional_name
+        - body
+        - schema_family_name
+        - schema_given_name
+        - schema_image
+        - schema_knows_language
+        - title
+        - schema_birth_date
+      label: General
+      parent_name: ''
+      region: content
+      weight: -5
+      format_type: fieldset
+      format_settings: {  }
+    group_contact:
+      children:
+        - schema_email
+        - schema_telephone
+      label: Contact
+      parent_name: ''
+      region: content
+      weight: -1
+      format_type: fieldset
+      format_settings: {  }
+    group_relationships:
+      children:
+        - schema_member_of
+        - schema_subject_of
+        - schema_works_for
+      label: Relationships
+      parent_name: ''
+      region: content
+      weight: 30
+      format_type: fieldset
+      format_settings: {  }
+    group_links:
+      children:
+        - schema_same_as
+        - schema_url
+      label: Links
+      parent_name: ''
+      region: content
+      weight: 20
+      format_type: fieldset
+      format_settings: {  }
+    group_taxonomy:
+      children:
+        - field_tags
+      label: 'Categories and Services'
+      parent_name: ''
+      region: content
+      weight: 99
+      format_type: fieldset
+      format_settings: {  }
+id: node.person.default
+targetEntityType: node
+bundle: person
+mode: default
+content:
+  body:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 14
+    region: content
+  content_moderation_control:
+    settings: {  }
+    third_party_settings: {  }
+    weight: -20
+    region: content
+  field_tags:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 102
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 200
+    region: content
+  schema_additional_name:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 6
+    region: content
+  schema_birth_date:
+    type: datetime_default
+    label: above
+    settings:
+      timezone_override: ''
+      format_type: medium
+    third_party_settings: {  }
+    weight: 11
+    region: content
+  schema_email:
+    type: email_mailto
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 6
+    region: content
+  schema_family_name:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 7
+    region: content
+  schema_given_name:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  schema_image:
+    type: entity_reference_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
+    weight: 20
+    region: content
+  schema_knows_language:
+    type: list_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 12
+    region: content
+  schema_member_of:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 8
+    region: content
+  schema_same_as:
+    type: link
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  schema_subject_of:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 13
+    region: content
+  schema_telephone:
+    type: basic_string
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  schema_url:
+    type: link
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    weight: 136
+    region: content
+  schema_works_for:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 3
+    region: content
+hidden:
+  field_metatag: true
+  langcode: true

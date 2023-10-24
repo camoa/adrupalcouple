@@ -1,0 +1,41 @@
+_core:
+  default_config_hash: BHuUSvqxDiF45ZgtUJMBao0IfjPcdo0zDrxl72ey4BQ
+field_definitions:
+  principle_investigator:
+    field_name: schema_role_pi
+    label: 'Principal investigator'
+    description: 'Lead researcher for the research project.'
+  coprinciple_investigator:
+    field_name: schem_role_copi
+    label: 'Co-principle investigator'
+    description: 'Assists the principal investigator in the management and leadership of the research project.'
+    unlimited: true
+  host:
+    field_name: schema_role_host
+    label: Hosts
+    description: 'Person responsible for guests at an event.'
+    role_name: Host
+  guest:
+    field_name: schema_role_guest
+    label: Guests
+    description: 'Person visiting or attending an event.'
+    role_name: Guest
+  primary_physician:
+    field_name: schema_role_primary_physician
+    label: 'Primary physician'
+    description: "Primary physician for a doctor's office."
+    role_name: 'Primary physician'
+    required: true
+schema_types:
+  MedicalTrial--sponsor:
+    - principle_investigator
+    - coprinciple_investigator
+  PodcastSeries--actor:
+    - host
+  PodcastSeason--actor:
+    - host
+  PodcastEpisode--actor:
+    - host
+    - guest
+  Physician--employee:
+    - primary_physician

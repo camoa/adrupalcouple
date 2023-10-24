@@ -1,61 +1,140 @@
 _core:
   default_config_hash: R4IF-ClDHXxblLcG0L7MgsLvfBIMAvi_skumNFQwkDc
 module:
+  address: 0
   admin_toolbar: 0
-  admin_toolbar_search: 0
   admin_toolbar_tools: 0
+  allowed_formats: 0
+  auto_entitylabel: 0
   automated_cron: 0
+  autosave_form: 0
   big_pipe: 0
   block: 0
   block_content: 0
   breakpoint: 0
+  cer: 0
   ckeditor5: 0
   comment: 0
   config: 0
   config_translation: 0
   contact: 0
+  content_moderation: 0
   contextual: 0
+  crop: 0
   ctools: 0
+  custom_field: 0
   datetime: 0
   dblog: 0
+  devel: 0
+  devel_generate: 0
   dropdown_language: 0
   dynamic_page_cache: 0
+  eck: 0
   editor: 0
+  embed: 0
+  entity_browser: 0
+  entity_embed: 0
+  entity_reference_revisions: 0
+  entity_usage: 0
+  existing_values_autocomplete_widget: 0
   field: 0
+  field_group: 0
   field_ui: 0
+  field_validation: 0
   file: 0
   filter: 0
+  focal_point: 0
   help: 0
   history: 0
   image: 0
+  inline_entity_form: 0
+  jquery_ui: 0
+  jquery_ui_draggable: 0
+  jsonapi: 0
+  jsonapi_extras: 0
   language: 0
   layout_builder: 0
   layout_discovery: 0
   link: 0
+  link_attributes: 0
   locale: 0
+  media: 0
+  media_library: 0
   menu_link_content: 0
   menu_ui: 0
+  metatag: 0
+  metatag_facebook: 0
+  metatag_google_cse: 0
+  metatag_mobile: 0
+  metatag_open_graph: 0
+  metatag_open_graph_products: 0
+  metatag_twitter_cards: 0
+  mix: 0
+  moderation_dashboard: 0
+  moderation_sidebar: 0
   mysql: 0
   node: 0
+  node_edit_protection: 0
   options: 0
   page_cache: 0
   path: 0
   path_alias: 0
+  phpass: 0
+  responsive_image: 0
+  schemadotorg: 0
+  schemadotorg_address: 0
+  schemadotorg_allowed_formats: 0
+  schemadotorg_auto_entitylabel: 0
+  schemadotorg_cer: 0
+  schemadotorg_content_moderation: 0
+  schemadotorg_custom_field: 0
+  schemadotorg_existing_values_autocomplete_widget: 0
+  schemadotorg_export: 0
+  schemadotorg_field_group: 0
+  schemadotorg_field_validation: 0
+  schemadotorg_focal_point: 0
+  schemadotorg_help: 0
+  schemadotorg_identifier: 0
+  schemadotorg_inline_entity_form: 0
+  schemadotorg_jsonld: 0
+  schemadotorg_jsonld_breadcrumb: 0
+  schemadotorg_jsonld_embed: 0
+  schemadotorg_jsonld_preview: 0
+  schemadotorg_mapping_set: 0
+  schemadotorg_media: 0
+  schemadotorg_metatag: 0
+  schemadotorg_options: 0
+  schemadotorg_report: 0
+  schemadotorg_role: 0
+  schemadotorg_simple_sitemap: 0
+  schemadotorg_smart_date: 0
+  schemadotorg_subtype: 0
+  schemadotorg_taxonomy: 0
+  schemadotorg_translation: 0
+  schemadotorg_ui: 0
   search: 0
+  serialization: 0
   shortcut: 0
+  simple_sitemap: 0
+  simple_sitemap_engines: 0
+  smart_date: 0
   system: 0
   taxonomy: 0
+  telephone: 0
   text: 0
   token: 0
   toolbar: 0
   tour: 0
   user: 0
   views_ui: 0
+  workflows: 0
   pathauto: 1
   content_translation: 10
+  schemadotorg_descriptions: 10
   views: 10
   standard: 1000
 theme:
   olivero: 0
   claro: 0
+  gin: 0
 profile: standard

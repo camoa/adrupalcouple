@@ -1,0 +1,17 @@
+uuid: 80f1ce58-96d0-4722-8c44-2636c41e1722
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.media.document.field_media_audio_file
+    - media.type.document
+id: media.document
+target_entity_type_id: media
+target_bundle: document
+schema_type: DataDownload
+schema_properties:
+  field_media_audio_file: contentUrl
+  created: dateCreated
+  changed: dateModified
+  langcode: inLanguage
+  name: name

@@ -4897,43 +4897,6 @@
             "install-path": "../../modules/contrib/schemadotorg"
         },
         {
-            "name": "drupal/schemadotorg_devel",
-            "version": "1.0.0-alpha8",
-            "version_normalized": "1.0.0.0-alpha8",
-            "require": {
-                "drupal/core": "^10.1",
-                "drupal/devel": "*",
-                "drupal/schemadotorg": "*"
-            },
-            "type": "metapackage",
-            "extra": {
-                "drupal": {
-                    "version": "1.0.0-alpha8",
-                    "datestamp": "1694546559",
-                    "security-coverage": {
-                        "status": "not-covered",
-                        "message": "Alpha releases are not covered by Drupal security advisories."
-                    }
-                }
-            },
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "jrockowitz",
-                    "homepage": "https://www.drupal.org/user/371407"
-                }
-            ],
-            "description": "Provides development tools for the Schema.org Blueprints module.",
-            "homepage": "https://www.drupal.org/project/schemadotorg",
-            "support": {
-                "source": "https://git.drupalcode.org/project/schemadotorg"
-            },
-            "install-path": null
-        },
-        {
             "name": "drupal/simple_sitemap",
             "version": "4.1.6",
             "version_normalized": "4.1.6.0",

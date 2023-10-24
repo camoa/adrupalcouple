@@ -1,0 +1,32 @@
+schema_properties:
+  default_fields:
+    hasPart:
+      label: Elementos
+    ImageGallery--hasPart:
+      label: Imágenes
+    MediaGallery--hasPart:
+      label: Multimedia
+    Person--familyName:
+      label: Apellidos
+    Person--givenName:
+      label: Nombre
+    Question--acceptedAnswer:
+      label: Respuesta
+    Question--name:
+      label: Pregunta
+    comment:
+      label: Comentarios
+    educationalLevel:
+      label: Dificultad
+    hasMenu:
+      label: Menús
+    itemListElement:
+      label: Elementos
+    step:
+      label: Pasos
+    tool:
+      label: Herramientas
+schema_types:
+  default_types:
+    WebPage:
+      label: Página

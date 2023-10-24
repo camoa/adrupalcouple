@@ -1,0 +1,22 @@
+uuid: 333dc3ce-8471-487b-b953-b9638926e215
+langcode: en
+status: true
+dependencies:
+  module:
+    - taxonomy
+id: tax_url
+label: 'Tax URL'
+type: 'canonical_entities:taxonomy_term'
+pattern: '[term:name]'
+selection_criteria:
+  d5981563-8abe-487f-9cf9-57664b068e56:
+    id: 'entity_bundle:taxonomy_term'
+    negate: false
+    uuid: d5981563-8abe-487f-9cf9-57664b068e56
+    context_mapping:
+      taxonomy_term: taxonomy_term
+    bundles:
+      tags: tags
+selection_logic: and
+weight: -5
+relationships: {  }
