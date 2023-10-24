@@ -38,6 +38,8 @@
         "drupal/flexfield": "^2.0@beta",
         "drupal/focal_point": "^2.0",
         "drupal/geolocation": "^3.12",
+        "drupal/gin": "^3.0@rc",
+        "drupal/gin_toolbar": "^1.0@rc",
         "drupal/inline_entity_form": "^2.0@RC",
         "drupal/jsonapi_extras": "^3.23",
         "drupal/layout_paragraphs": "^2.0",
