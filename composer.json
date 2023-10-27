@@ -54,6 +54,8 @@
         "drupal/paragraphs": "^1.15",
         "drupal/pathauto": "^1.11",
         "drupal/purge": "^3.5",
+        "drupal/redirect": "^1.9",
+        "drupal/redirect_404": "^1.9",
         "drupal/schemadotorg": "^1.0@alpha",
         "drupal/seckit": "^2.0",
         "drupal/security_review": "^2.0",
