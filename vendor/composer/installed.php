@@ -3,7 +3,7 @@
         'name' => 'drupal/recommended-project',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => 'a169b1301d0173c4aab75bdd7fa91959df93d382',
+        'reference' => '4539f7213fc4729a08eb887332131d3e0474609b',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -631,6 +631,15 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
+        'drupal/google_tag' => array(
+            'pretty_version' => '2.0.2',
+            'version' => '2.0.2.0',
+            'reference' => '2.0.2',
+            'type' => 'drupal-module',
+            'install_path' => __DIR__ . '/../../modules/contrib/google_tag',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'drupal/http_cache_control' => array(
             'pretty_version' => '2.1.0',
             'version' => '2.1.0.0',
@@ -796,7 +805,7 @@
         'drupal/recommended-project' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => 'a169b1301d0173c4aab75bdd7fa91959df93d382',
+            'reference' => '4539f7213fc4729a08eb887332131d3e0474609b',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

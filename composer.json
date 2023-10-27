@@ -41,6 +41,7 @@
         "drupal/geolocation": "^3.12",
         "drupal/gin": "^3.0@rc",
         "drupal/gin_toolbar": "^1.0@rc",
+        "drupal/google_tag": "^2.0",
         "drupal/http_cache_control": "^2.1",
         "drupal/inline_entity_form": "^2.0@RC",
         "drupal/jsonapi_extras": "^3.23",
