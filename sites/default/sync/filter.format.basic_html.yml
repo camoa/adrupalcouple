@@ -2,6 +2,8 @@ uuid: 870a5a68-5c4e-4098-9e9f-39d64ae8876e
 langcode: en
 status: true
 dependencies:
+  config:
+    - core.entity_view_mode.media.link_to_file
   module:
     - editor
     - media
@@ -57,9 +59,12 @@ filters:
     status: true
     weight: 100
     settings:
-      default_view_mode: default
-      allowed_view_modes: {  }
-      allowed_media_types: {  }
+      default_view_mode: link_to_file
+      allowed_view_modes:
+        default: default
+      allowed_media_types:
+        document: document
+        image: image
   filter_image_lazy_load:
     id: filter_image_lazy_load
     provider: filter

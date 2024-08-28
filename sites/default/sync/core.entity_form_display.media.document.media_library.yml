@@ -6,7 +6,22 @@ dependencies:
     - core.entity_form_mode.media.media_library
     - field.field.media.document.field_media_audio_file
     - field.field.media.document.field_media_document
+    - field.field.media.document.schema_description
     - media.type.document
+  module:
+    - field_group
+third_party_settings:
+  field_group:
+    group_data_download:
+      children:
+        - schema_description
+      label: 'Data download'
+      region: content
+      parent_name: ''
+      weight: 0
+      format_type: details
+      format_settings:
+        open: true
 _core:
   default_config_hash: dcpfpqyLXOSGpulacMAJW3H-G34_LeNsjdfxd1_oCfY
 id: media.document.media_library
@@ -21,11 +36,19 @@ content:
     settings:
       include_locked: true
     third_party_settings: {  }
+  schema_description:
+    type: string_textarea
+    weight: 12
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
   translation:
     weight: 10
+    region: content
     settings: {  }
     third_party_settings: {  }
-    region: content
 hidden:
   created: true
   field_media_audio_file: true

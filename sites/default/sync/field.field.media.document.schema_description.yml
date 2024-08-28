@@ -1,0 +1,19 @@
+uuid: 2d3656a9-4fd8-4c8b-937a-e6777840ef19
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.media.schema_description
+    - media.type.document
+id: media.document.schema_description
+field_name: schema_description
+entity_type: media
+bundle: document
+label: Description
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

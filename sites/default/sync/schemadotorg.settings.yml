@@ -1,5 +1,7 @@
 _core:
   default_config_hash: LwwGRN6cJW2Mo_MZ3PKGqvhNY7XXybeXoyMJ0MHAI-U
+field_prefix: schema_
+field_prefix_ui: false
 schema_types:
   default_types:
     WebPage:
@@ -1314,5 +1316,3 @@ schema_properties:
     - relatedLink
     - hasPart
     - mainEntity
-field_prefix: schema_
-field_prefix_ui: false

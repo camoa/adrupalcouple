@@ -1,0 +1,52 @@
+<?php
+
+/**
+ * @file
+ * Contains hook implementations for Config Overlay.
+ */
+
+use Drupal\config_overlay\Config\ExtensionStorageFactory;
+use Drupal\config_overlay\EventSubscriber\ConfigDeleteSubscriber;
+use Drupal\Core\Config\MemoryStorage;
+use Drupal\Core\Config\StorageInterface;
+
+/**
+ * Implements hook_module_preinstall().
+ */
+function config_overlay_module_preinstall(string $module): void {
+  // At this point the extension list has already been updated with the newly
+  // (to be) installed module, so simply create a new extension storage and set
+  // it on the configuration subscriber.
+  $activeStorage = \Drupal::service('config.storage');
+
+  $extensionStorageFactory = \Drupal::service('config_overlay.extension_storage_factory');
+  assert($extensionStorageFactory instanceof ExtensionStorageFactory);
+  $extensionStorage = $extensionStorageFactory->create($activeStorage);
+
+  $configDeleteSubscriber = \Drupal::service('config_overlay.config_subscriber.deletion');
+  assert($configDeleteSubscriber instanceof ConfigDeleteSubscriber);
+  $configDeleteSubscriber->setExtensionStorage($extensionStorage);
+}
+
+/**
+ * Implements hook_module_preuninstall().
+ */
+function config_overlay_module_preuninstall(string $module): void {
+  // At this point the module list still contains the (to be) uninstalled
+  // so we need to create a dedicated in-memory storage ourselves.
+  $activeStorage = \Drupal::service('config.storage');
+  assert($activeStorage instanceof StorageInterface);
+  $extensionConfig = $activeStorage->read('core.extension') + ['module' => []];
+  unset($extensionConfig['module'][$module]);
+
+  $memoryStorage = (new MemoryStorage());
+  $memoryStorage->write('core.extension', $extensionConfig);
+
+  $extensionStorageFactory = \Drupal::service('config_overlay.extension_storage_factory');
+  assert($extensionStorageFactory instanceof ExtensionStorageFactory);
+  $extensionStorage = $extensionStorageFactory->create($memoryStorage);
+
+  $configDeleteSubscriber = \Drupal::service('config_overlay.config_subscriber.deletion');
+  assert($configDeleteSubscriber instanceof ConfigDeleteSubscriber);
+  $configDeleteSubscriber->setExtensionStorage($extensionStorage);
+}

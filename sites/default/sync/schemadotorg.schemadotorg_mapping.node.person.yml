@@ -13,7 +13,6 @@ dependencies:
     - field.field.node.person.schema_knows_language
     - field.field.node.person.schema_same_as
     - field.field.node.person.schema_subject_of
-    - field.field.node.person.schema_url
     - node.type.person
 id: node.person
 target_entity_type_id: node
@@ -31,4 +30,3 @@ schema_properties:
   title: name
   schema_same_as: sameAs
   schema_subject_of: subjectOf
-  schema_url: url

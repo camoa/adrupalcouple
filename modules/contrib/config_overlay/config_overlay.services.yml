@@ -1,0 +1,25 @@
+services:
+  config_overlay.extension_storage_factory:
+    class: Drupal\config_overlay\Config\ExtensionStorageFactory
+    arguments: ['@extension.list.profile']
+  # This is the storage internally used by the configuration transform
+  # subscriber, except that the subscriber uses the storage to be transformed to
+  # read the list of extensions while this uses the active storage.
+  config_overlay.extension_storage:
+    class: Drupal\Core\Config\StorageInterface
+    factory: ['@config_overlay.extension_storage_factory', 'create']
+    arguments: ['@config.storage']
+  config_overlay.config_subscriber.transform_early:
+    class: Drupal\config_overlay\EventSubscriber\ConfigTransformEarlySubscriber
+    arguments:
+      - '@extension.list.profile'
+      - '%install_profile%'
+      - '@config_overlay.extension_storage_factory'
+      - '@config.storage'
+    tags:
+      - { name: event_subscriber }
+  config_overlay.config_subscriber.deletion:
+    class: Drupal\config_overlay\EventSubscriber\ConfigDeleteSubscriber
+    arguments: ['@config_overlay.extension_storage', '@config.factory']
+    tags:
+      - { name: event_subscriber }
