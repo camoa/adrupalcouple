@@ -16,6 +16,7 @@ module:
   ckeditor5: 0
   comment: 0
   config: 0
+  config_overlay: 0
   config_translation: 0
   contact: 0
   content_moderation: 0
@@ -90,37 +91,6 @@ module:
   redirect: 0
   redirect_404: 0
   responsive_image: 0
-  schemadotorg: 0
-  schemadotorg_address: 0
-  schemadotorg_allowed_formats: 0
-  schemadotorg_auto_entitylabel: 0
-  schemadotorg_cer: 0
-  schemadotorg_content_moderation: 0
-  schemadotorg_custom_field: 0
-  schemadotorg_existing_values_autocomplete_widget: 0
-  schemadotorg_export: 0
-  schemadotorg_field_group: 0
-  schemadotorg_field_validation: 0
-  schemadotorg_focal_point: 0
-  schemadotorg_help: 0
-  schemadotorg_identifier: 0
-  schemadotorg_inline_entity_form: 0
-  schemadotorg_jsonld: 0
-  schemadotorg_jsonld_breadcrumb: 0
-  schemadotorg_jsonld_embed: 0
-  schemadotorg_jsonld_preview: 0
-  schemadotorg_mapping_set: 0
-  schemadotorg_media: 0
-  schemadotorg_metatag: 0
-  schemadotorg_options: 0
-  schemadotorg_report: 0
-  schemadotorg_role: 0
-  schemadotorg_simple_sitemap: 0
-  schemadotorg_smart_date: 0
-  schemadotorg_subtype: 0
-  schemadotorg_taxonomy: 0
-  schemadotorg_translation: 0
-  schemadotorg_ui: 0
   search: 0
   seckit: 0
   security_review: 0
@@ -141,7 +111,6 @@ module:
   workflows: 0
   pathauto: 1
   content_translation: 10
-  schemadotorg_descriptions: 10
   views: 10
   standard: 1000
 theme:
