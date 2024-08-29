@@ -1,3 +1,0 @@
-schemadotorg_ui.fields:
-  class: Drupal\Core\Menu\LocalTaskDefault
-  deriver: \Drupal\schemadotorg_ui\Plugin\Derivative\SchemaDotOrgUiLocalTask

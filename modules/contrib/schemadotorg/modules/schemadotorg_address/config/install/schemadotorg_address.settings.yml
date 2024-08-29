@@ -1,6 +1,0 @@
-field_overrides:
-  address:
-    givenName: optional
-    additionalName: optional
-    familyName: optional
-    organization: optional

@@ -1,5 +1,0 @@
-services:
-  schemadotorg_report.breadcrumb:
-    class: Drupal\schemadotorg_report\Breadcrumb\SchemaDotOrgReportBreadcrumbBuilder
-    tags:
-      - { name: breadcrumb_builder, priority: 1000 }

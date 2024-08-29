@@ -60,14 +60,13 @@
         "drupal/purge": "^3.5",
         "drupal/redirect": "^1.9",
         "drupal/redirect_404": "^1.9",
-        "drupal/schemadotorg": "^1.0@alpha",
         "drupal/seckit": "^2.0",
         "drupal/security_review": "^2.0",
         "drupal/simple_sitemap": "^4.1",
         "drupal/smart_date": "^4.0",
         "drupal/upgrade_status": "^4.3",
         "drupal/yoast_seo": "^1.8",
-        "drush/drush": "^12.0"
+        "drush/drush": "^13"
     },
     "conflict": {
         "drupal/drupal": "*"
