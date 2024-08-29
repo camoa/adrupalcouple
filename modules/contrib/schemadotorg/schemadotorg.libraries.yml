@@ -1,3 +1,8 @@
+schemadotorg.logo:
+  css:
+    component:
+      css/schemadotorg.logo.css: {}
+
 schemadotorg.autocomplete:
   js:
     js/schemadotorg.autocomplete.js: {}

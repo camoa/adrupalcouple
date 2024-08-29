@@ -104,6 +104,16 @@ schemadotorg_report.properties.identifier:
   requirements:
     _permission: 'access site reports'
 
+# Relationships
+
+schemadotorg_report.relationships:
+  path: '/admin/reports/schemadotorg/docs/relationships'
+  defaults:
+    _title: 'Schema.org: Relationships'
+    _controller: '\Drupal\schemadotorg_report\Controller\SchemaDotOrgReportRelationshipsController::index'
+  requirements:
+    _permission: 'access site reports'
+
 # Names
 
 schemadotorg_report.names:
@@ -153,7 +163,7 @@ schemadotorg_report.names.abbreviations:
 
 # Descriptions
 
-schemadotorg_report.descriptions.types:
+schemadotorg_report.types.descriptions:
   path: '/admin/reports/schemadotorg/docs/descriptions/types'
   defaults:
     _title: 'Schema.org: Type descriptions'
@@ -162,7 +172,7 @@ schemadotorg_report.descriptions.types:
   requirements:
     _permission: 'access site reports'
 
-schemadotorg_report.descriptions.properties:
+schemadotorg_report.properties.descriptions:
   path: '/admin/reports/schemadotorg/docs/descriptions/properties'
   defaults:
     _title: 'Schema.org: Property descriptions'

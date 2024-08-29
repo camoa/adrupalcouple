@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\Tests\mapping_set\Kernel;
 
@@ -16,9 +16,7 @@ use Drupal\Tests\schemadotorg\Kernel\SchemaDotOrgEntityKernelTestBase;
 class SchemaDotOrgMappingSetManagerKernelTest extends SchemaDotOrgEntityKernelTestBase {
 
   /**
-   * Modules to enable.
-   *
-   * @var array
+   * {@inheritdoc}
    */
   protected static $modules = [
     'schemadotorg_mapping_set',
@@ -61,12 +59,6 @@ class SchemaDotOrgMappingSetManagerKernelTest extends SchemaDotOrgEntityKernelTe
     // Check determining if a Schema.org mapping set is already setup.
     $this->assertFalse($this->schemaMappingSetManager->isSetup('required'));
     $this->assertFalse($this->schemaMappingSetManager->isSetup('common'));
-
-    // Check determining if a mapping set type is valid.
-    $this->assertFalse($this->schemaMappingSetManager->isValidType('test'));
-    $this->assertFalse($this->schemaMappingSetManager->isValidType('node:Test'));
-    $this->assertFalse($this->schemaMappingSetManager->isValidType('test:Thing'));
-    $this->assertTrue($this->schemaMappingSetManager->isValidType('node:Thing'));
 
     // Check getting mapping sets for an entity type and Schema.org type.
     $mapping_sets = $this->schemaMappingSetManager->getMappingSets('node', 'ContactPoint');

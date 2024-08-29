@@ -6,12 +6,11 @@ use Drupal\Component\Datetime\DateTimePlus;
 use Drupal\Core\Datetime\DateFormatterInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
-use Drupal\datetime\Plugin\Field\FieldType\DateTimeItemInterface;
+use Drupal\date_popup\DatePopupHelper;
 use Drupal\views\FieldAPIHandlerTrait;
 use Drupal\views\Plugin\views\filter\Date as CoreDate;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Drupal\date_popup\DatePopupHelper;
 
 /**
  * Date/time views filter, with granularity patch applied.
@@ -26,6 +25,13 @@ use Drupal\date_popup\DatePopupHelper;
 class Date extends CoreDate implements ContainerFactoryPluginInterface {
 
   use FieldAPIHandlerTrait;
+
+  /**
+   * The date formatter.
+   *
+   * @var \Drupal\Core\Datetime\DateFormatterInterface
+   */
+  protected $dateFormatter;
 
   /**
    * The request stack used to determine current time.
@@ -67,13 +73,70 @@ class Date extends CoreDate implements ContainerFactoryPluginInterface {
     );
   }
 
+  /**
+   * {@inheritdoc}
+   */
   protected function defineOptions() {
     $options = parent::defineOptions();
 
-    // value is already set up properly, we're just adding our new field to it.
+    // Value is already set up properly, we're just adding our new field to it.
     $options['value']['contains']['granularity']['default'] = 'second';
 
     return $options;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function operators(): array {
+    $add_operators = FALSE;
+    // Only attempt to retrieve field type if necessary parameters are met.
+    if (method_exists($this, 'getFieldDefinition') && !empty($this->definition['field_name'])) {
+      if ($this->getFieldDefinition()?->getType() === "smartdate") {
+        $add_operators = TRUE;
+      }
+    }
+    if (!$add_operators) {
+      return parent::operators();
+    }
+    return parent::operators() + [
+      'daterange_contains' => [
+        'title' => $this->t('Contains'),
+        'method' => 'opContains',
+        'short' => $this->t('contains'),
+        'values' => 1,
+      ],
+      'daterange_not_contains' => [
+        'title' => $this->t('Does not contain'),
+        'method' => 'opContains',
+        'short' => $this->t('not contains'),
+        'values' => 1,
+      ],
+      'daterange_starts_or_ends' => [
+        'title' => $this->t('Starts or ends at'),
+        'method' => 'opContains',
+        'short' => $this->t('starts or ends'),
+        'values' => 1,
+      ],
+      'daterange_contains_range' => [
+        'title' => $this->t('Contains range'),
+        'method' => 'opContainsRange',
+        'short' => $this->t('contains range'),
+        'values' => 2,
+      ],
+      'daterange_not_contains_range' => [
+        'title' => $this->t('Does not contain range'),
+        'method' => 'opContainsRange',
+        'short' => $this->t('not contains range'),
+        'values' => 2,
+      ],
+      'daterange_starts_or_ends_range' => [
+        'title' => $this->t('Starts or ends at range'),
+        'method' => 'opContainsRange',
+        'short' => $this->t('starts or ends range'),
+        'values' => 2,
+      ],
+    ];
   }
 
   /**
@@ -102,143 +165,94 @@ class Date extends CoreDate implements ContainerFactoryPluginInterface {
   }
 
   /**
-   * {@inheritdoc}
-   */
-  public function query() {
-    $granularity = $this->options['value']['granularity'];
-    // Set the date format based on granularity.
-    if (isset($this->dateFormats[$granularity])) {
-      $this->dateFormat = $this->dateFormats[$granularity];
-    }
-
-    parent::query();
-  }
-
-  /**
    * Override parent method, which deals with dates as integers.
    */
   protected function opBetween($field) {
-    $timezone = $this->getTimezone();
-    $granularity = $this->options['value']['granularity'];
-
-    // Convert value to DateTimePlus for additional processing.
-    $a = new DateTimePlus($this->value['min'], new \DateTimeZone($timezone));
-    $b = new DateTimePlus($this->value['max'], new \DateTimeZone($timezone));
-    // Granularity requires some conversion.
-    if ($granularity != 'second') {
-      $min = [
-        'year' => $a->format('Y'),
-        'month' => $a->format('n'),
-        'day' => $a->format('j'),
-        'hour' => $a->format('G'),
-        'minute' => $a->format('i'),
-        'second' => $a->format('s'),
-      ];
-      $max = [
-        'year' => $b->format('Y'),
-        'month' => $b->format('n'),
-        'day' => $b->format('j'),
-        'hour' => $b->format('G'),
-        'minute' => $b->format('i'),
-        'second' => $b->format('s'),
-      ];
-      switch ($granularity) {
-        case 'year':
-          $min['month'] = '01';
-          $max['month'] = '12';
-          $max['day'] = '31';
-        case 'month':
-          $min['day'] = '01';
-          if ($granularity != 'year') {
-            $max['day'] = $b->format('t');
-          }
-        case 'day':
-          $min['hour'] = '00';
-          $max['hour'] = '23';
-        case 'hour':
-          $min['minute'] = '00';
-          $max['minute'] = '59';
-        case 'minute':
-          $min['second'] = '00';
-          $max['second'] = '59';
-      }
-      // Update the range with our altered values.
-      $a = $a->createFromArray($min);
-      $b = $b->createFromArray($max);
-    }
-
-    // This is safe because we forced the provided values to DateTimePlus.
+    [$min_value, $max_value] = $this->getMinAndMax(FALSE);
     $operator = strtoupper($this->operator);
-    $start = $a->format('U');
-    $end = $b->format('U');
-    $this->query->addWhereExpression($this->options['group'], "$field $operator $start AND $end");
+    $this->query->addWhereExpression($this->options['group'], "$field $operator $min_value AND $max_value");
   }
 
   /**
    * Override parent method, to add granularity options.
    */
   protected function opSimple($field) {
-    $timezone = $this->getTimezone();
-    $granularity = $this->options['value']['granularity'];
-
-    // Convert value to DateTimePlus for additional processing.
-    $date_value = $this->value['value'];
-    $value = new DateTimePlus($date_value, new \DateTimeZone($timezone));
-    // Granularity requires some conversion.
-    if ($granularity != 'second') {
-      $value_array = [
-        'year' => $value->format('Y'),
-        'month' => $value->format('n'),
-        'day' => $value->format('j'),
-        'hour' => $value->format('G'),
-        'minute' => $value->format('i'),
-        'second' => $value->format('s'),
-      ];
-      $min = $max = $value_array;
-      switch ($granularity) {
-        case 'year':
-          $min['month'] = '01';
-          $max['month'] = '12';
-          $max['day'] = '31';
-        case 'month':
-          $min['day'] = '01';
-          if ($granularity != 'year') {
-            $max['day'] = $value->format('t');
-          }
-        case 'day':
-          $min['hour'] = '00';
-          $max['hour'] = '23';
-        case 'hour':
-          $min['minute'] = '00';
-          $max['minute'] = '59';
-        case 'minute':
-          $min['second'] = '00';
-          $max['second'] = '59';
-      }
-
+    [$min_value, $max_value] = $this->getMinAndMax();
+    $operator = $this->operator;
+    if ($this->options['value']['granularity'] !== 'second') {
       // Additional, operator-specific logic.
-      if (substr($this->operator, 0, 1) == '>') {
-        $value = $value->createFromArray($min, $timezone);
+      if ($operator[0] === '>') {
+        $value = $min_value;
       }
-      elseif (substr($this->operator, 0, 1) == '<') {
-        $value = $value->createFromArray($max, $timezone);
+      elseif ($operator[0] === '<') {
+        $value = $max_value;
       }
       else {
-        $min_value = $value->createFromArray($min, $timezone)->format('U');
-        $max_value = $value->createFromArray($max, $timezone)->format('U');
-        if ($this->operator == '=') {
+        if ($operator === '=') {
           $operator = 'BETWEEN';
         }
-        elseif ($this->operator == '!=') {
+        elseif ($operator === '!=') {
           $operator = 'NOT BETWEEN';
         }
         $this->query->addWhereExpression($this->options['group'], "$field $operator $min_value AND $max_value");
         return;
       }
     }
-
+    else {
+      $value = $min_value;
+    }
     // This is safe because we forced the provided value to a DateTimePlus.
-    $this->query->addWhereExpression($this->options['group'], "$field $this->operator " . $value->format('U'));
+    $this->query->addWhereExpression($this->options['group'], "$field $operator $value");
+  }
+
+  /**
+   * Add conditions to the query.
+   */
+  protected function opContains($field): void {
+    [$min_value, $max_value] = $this->getMinAndMax();
+    $this->containsConditions($field, $min_value, $max_value);
+  }
+
+  /**
+   * Add conditions to the query.
+   */
+  protected function opContainsRange($field): void {
+    [$min_value, $max_value] = $this->getMinAndMax(FALSE);
+    $this->containsConditions($field, $min_value, $max_value);
+  }
+
+  /**
+   * Helper function to add the conditions to the query.
+   *
+   * @param string $field
+   *   The field name.
+   * @param string $min_value
+   *   The minimum date(time) value.
+   * @param string $max_value
+   *   The maximum date(time) value.
+   */
+  protected function containsConditions(string $field, string $min_value, string $max_value): void {
+    if (strpos($field, '_end_value') !== FALSE) {
+      // Filter is using the end value, so adjust variables accordingly.
+      $field_end = $field;
+      $field = substr_replace($field, '_value', strrpos($field, '_end_value'));
+    }
+    else {
+      $field_end = substr_replace($field, '_end_value', strrpos($field, '_value'));
+    }
+    switch ($this->operator) {
+      case 'daterange_contains':
+        $this->query->addWhereExpression($this->options['group'], "$field <= $min_value AND $field_end >= $max_value");
+        break;
+
+      case 'daterange_not_contains':
+        $this->query->addWhereExpression($this->options['group'], "$field >= $max_value OR $field_end <= $min_value");
+        break;
+
+      case 'daterange_starts_or_ends':
+        $this->query->addWhereExpression($this->options['group'], "($field >= $min_value AND $field <= $max_value) OR ($field_end >= $min_value AND $field_end <= $max_value)");
+        break;
+    }
   }
 
   /**
@@ -253,6 +267,70 @@ class Date extends CoreDate implements ContainerFactoryPluginInterface {
    */
   protected function getTimezone() {
     return date_default_timezone_get();
+  }
+
+  /**
+   * Helper function to prepare min and max values for op* callbacks.
+   *
+   * @param bool $singleValueMode
+   *   TRUE, if the values should be calculated on the single "value" field.
+   *   Otherwise, set to FALSE to calculate based on "min" and "max" values.
+   *
+   * @return array
+   *   An array containing the fully prepared min and max values ready to be
+   *   used by query conditions.
+   */
+  protected function getMinAndMax(bool $singleValueMode = TRUE): array {
+    $timezone = $this->getTimezone();
+    $granularity = $this->options['value']['granularity'];
+
+    // Convert form field value(s) to DateTimePlus for additional processing.
+    if ($singleValueMode) {
+      $a = $b = new DateTimePlus($this->value['value'], new \DateTimeZone($timezone));
+    }
+    else {
+      $a = new DateTimePlus($this->value['min'], new \DateTimeZone($timezone));
+      $b = new DateTimePlus($this->value['max'], new \DateTimeZone($timezone));
+    }
+    $min = [
+      'year' => $a->format('Y'),
+      'month' => $a->format('n'),
+      'day' => $a->format('j'),
+      'hour' => $a->format('G'),
+      'minute' => $a->format('i'),
+      'second' => $a->format('s'),
+    ];
+    $max = [
+      'year' => $b->format('Y'),
+      'month' => $b->format('n'),
+      'day' => $b->format('j'),
+      'hour' => $b->format('G'),
+      'minute' => $b->format('i'),
+      'second' => $b->format('s'),
+    ];
+    switch ($granularity) {
+      case 'year':
+        $min['month'] = '01';
+        $max['month'] = '12';
+        $max['day'] = '31';
+      case 'month':
+        $min['day'] = '01';
+        if ($granularity !== 'year') {
+          $max['day'] = $b->format('t');
+        }
+      case 'day':
+        $min['hour'] = '00';
+        $max['hour'] = '23';
+      case 'hour':
+        $min['minute'] = '00';
+        $max['minute'] = '59';
+      case 'minute':
+        $min['second'] = '00';
+        $max['second'] = '59';
+    }
+    $min_value = $a::createFromArray($min, $timezone)->format('U');
+    $max_value = $b::createFromArray($max, $timezone)->format('U');
+    return [$min_value, $max_value];
   }
 
   /**

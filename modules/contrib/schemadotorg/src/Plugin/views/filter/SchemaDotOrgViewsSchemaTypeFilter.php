@@ -1,12 +1,13 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg\Plugin\views\filter;
 
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface;
+use Drupal\schemadotorg\Traits\SchemaDotOrgMappingStorageTrait;
 use Drupal\views\Plugin\views\display\DisplayPluginBase;
 use Drupal\views\Plugin\views\filter\InOperator;
 use Drupal\views\ViewExecutable;
@@ -21,6 +22,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * @ViewsFilter("schemadotorg_type")
  */
 class SchemaDotOrgViewsSchemaTypeFilter extends InOperator {
+  use SchemaDotOrgMappingStorageTrait;
 
   /**
    * The entity type for the filter.
@@ -46,7 +48,6 @@ class SchemaDotOrgViewsSchemaTypeFilter extends InOperator {
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
-    /** @var \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager */
     $instance = parent::create($container, $configuration, $plugin_id, $plugin_definition);
     $instance->entityTypeManager = $container->get('entity_type.manager');
     $instance->schemaTypeManager = $container->get('schemadotorg.schema_type_manager');
@@ -56,7 +57,7 @@ class SchemaDotOrgViewsSchemaTypeFilter extends InOperator {
   /**
    * {@inheritdoc}
    */
-  public function init(ViewExecutable $view, DisplayPluginBase $display, ?array &$options = NULL) {
+  public function init(ViewExecutable $view, DisplayPluginBase $display, ?array &$options = NULL): void {
     parent::init($view, $display, $options);
 
     $this->entityTypeId = $this->getEntityType();
@@ -67,13 +68,13 @@ class SchemaDotOrgViewsSchemaTypeFilter extends InOperator {
    * {@inheritdoc}
    */
   public function getValueOptions() {
+    // @phpstan-ignore-next-line
     if (!isset($this->valueOptions)) {
-      $this->valueTitle = $this->t('Schema.org type');
+      $this->valueTitle = (string) $this->t('Schema.org type');
 
       // Get all the available Schema.org types with their parent types.
       /** @var \Drupal\schemadotorg\SchemaDotOrgMappingInterface[] $mappings */
-      $mappings = $this->entityTypeManager
-        ->getStorage('schemadotorg_mapping')
+      $mappings = $this->getMappingStorage()
         ->loadByProperties(['target_entity_type_id' => $this->entityTypeId]);
       $parent_types = [];
       foreach ($mappings as $mapping) {
@@ -94,9 +95,7 @@ class SchemaDotOrgViewsSchemaTypeFilter extends InOperator {
    * {@inheritdoc}
    */
   protected function opSimple(): void {
-    /** @var \Drupal\schemadotorg\SchemaDotOrgMappingStorageInterface $mapping_storage */
-    $mapping_storage = $this->entityTypeManager->getStorage('schemadotorg_mapping');
-    $bundles = $mapping_storage->getRangeIncludesTargetBundles($this->entityTypeId, $this->value, FALSE);
+    $bundles = $this->getMappingStorage()->getRangeIncludesTargetBundles($this->entityTypeId, $this->value, FALSE);
 
     // Replace $this->value which is Schema.org types with bundles so that
     // parent::opSimple() continues to work as expected.
@@ -111,7 +110,7 @@ class SchemaDotOrgViewsSchemaTypeFilter extends InOperator {
   /**
    * {@inheritdoc}
    */
-  public function adminSummary() {
+  public function adminSummary(): string {
     $summary = (string) parent::adminSummary();
     if ($summary) {
       $summary = preg_replace('/ -+ /', ' ', $summary);

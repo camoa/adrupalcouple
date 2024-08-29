@@ -1,10 +1,11 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg\Form;
 
 use Drupal\Core\Form\FormStateInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Configure Schema.org properties settings for properties.
@@ -12,10 +13,26 @@ use Drupal\Core\Form\FormStateInterface;
 class SchemaDotOrgSettingsPropertiesForm extends SchemaDotOrgSettingsFormBase {
 
   /**
+   * The field type manager.
+   *
+   * @var \Drupal\Core\Field\FieldTypePluginManagerInterface
+   */
+  protected $fieldTypeManager;
+
+  /**
    * {@inheritdoc}
    */
   public function getFormId(): string {
     return 'schemadotorg_properties_settings_form';
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container): static {
+    $instance = parent::create($container);
+    $instance->fieldTypeManager = $container->get('plugin.manager.field.field_type');
+    return $instance;
   }
 
   /**
@@ -29,9 +46,7 @@ class SchemaDotOrgSettingsPropertiesForm extends SchemaDotOrgSettingsFormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state): array {
-    /** @var \Drupal\Core\Field\FieldTypePluginManagerInterface $field_type_manager */
-    $field_type_manager = \Drupal::service('plugin.manager.field.field_type');
-    $definitions = $field_type_manager->getDefinitions();
+    $definitions = $this->fieldTypeManager->getDefinitions();
     $field_types = [];
     $field_types[] = '# Available field types';
     $field_types[] = '# ---------------------';
@@ -123,6 +138,17 @@ propertyName:
 ',
     ];
     return parent::buildForm($form, $form_state);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function submitForm(array &$form, FormStateInterface $form_state): void {
+    $this->config('schemadotorg.settings')
+      ->set('schema_properties', $form_state->getValue('schema_properties'))
+      ->save();
+
+    parent::submitForm($form, $form_state);
   }
 
 }

@@ -1,12 +1,13 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg_smart_date;
 
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Field\FieldItemInterface;
 use Drupal\Core\Field\FieldItemListInterface;
+use Drupal\Core\Render\BubbleableMetadata;
 use Drupal\schemadotorg\Entity\SchemaDotOrgMapping;
 use Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface;
 use Drupal\smart_date_recur\Entity\SmartDateOverride;
@@ -27,13 +28,13 @@ class SchemaDotOrgSmartDateJsonLdManager implements SchemaDotOrgSmartDateJsonLdM
    */
   public function __construct(
     protected EntityTypeManagerInterface $entityTypeManager,
-    protected SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager
+    protected SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager,
   ) {}
 
   /**
    * {@inheritdoc}
    */
-  public function alterProperties(array &$data, FieldItemListInterface $items): void {
+  public function alterProperties(array &$data, FieldItemListInterface $items, BubbleableMetadata $bubbleable_metadata): void {
     $field_definition = $items->getFieldDefinition();
     if ($field_definition->getType() !== 'smartdate') {
       return;
@@ -68,6 +69,7 @@ class SchemaDotOrgSmartDateJsonLdManager implements SchemaDotOrgSmartDateJsonLdM
     $rules = [];
     $event_schedules = [];
     foreach ($items as $item) {
+      /** @var \Drupal\smart_date_recur\Entity\SmartDateRule|null $rule */
       $rule = (!empty($item->rrule)) ? $this->entityTypeManager
         ->getStorage('smart_date_rule')
         ->load($item->rrule) : NULL;

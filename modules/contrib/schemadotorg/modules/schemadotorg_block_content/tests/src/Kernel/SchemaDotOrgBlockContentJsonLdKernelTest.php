@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\Tests\schemadotorg_block_content\Kernel;
 
@@ -44,7 +44,7 @@ class SchemaDotOrgBlockContentJsonLdKernelTest extends SchemaDotOrgJsonLdKernelT
       '@type' => 'WebContent',
       'name' => 'Some content',
       'inLanguage' => 'en',
-      'dateModified' => $this->dateFormatter->format($block_content->getChangedTime(), 'custom', 'Y-m-d H:i:s P'),
+      'dateModified' => $this->formatDateTime($block_content->getChangedTime()),
     ];
     $actual_value = $this->builder->buildEntity($block_content);
     $this->assertEquals($expected_value, $actual_value);

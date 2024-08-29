@@ -10,10 +10,10 @@ field.field_settings.custom:
   mapping:
     field_settings:
       type: sequence
-      label: 'Settings'
+      label: 'Field settings'
       sequence:
         type: custom_field.widget.[%widget]
-        label: 'Custom field'
+        label: 'Custom field widget'
 
 field.storage_settings.custom:
   type: mapping
@@ -219,17 +219,17 @@ custom_field.widget.*:
       label: 'Check empty?'
     widget_settings:
       type: mapping
-      label: 'Settings'
+      label: 'Widget settings'
       mapping:
         label:
-          type: string
+          type: label
           label: 'Label'
         settings:
           type: mapping
           label: 'Settings'
           mapping:
             description:
-              type: string
+              type: text
               label: 'Help text'
             description_display:
               type: string
@@ -238,13 +238,13 @@ custom_field.widget.*:
               type: integer
               label: 'Size of textfield'
             placeholder:
-              type: string
+              type: label
               label: 'Placeholder'
             key_label:
-              type: string
+              type: label
               label: 'Key label'
             value_label:
-              type: string
+              type: label
               label: 'Value label'
             maxlength:
               type: integer
@@ -262,10 +262,10 @@ custom_field.widget.*:
               type: string
               label: 'Telephone format'
             prefix:
-              type: string
+              type: label
               label: 'Prefix'
             suffix:
-              type: string
+              type: label
               label: 'Suffix'
             required:
               type: boolean
@@ -278,17 +278,17 @@ custom_field.widget.*:
               label: 'Empty option'
             allowed_values:
               type: sequence
-              label: 'Options'
+              label: 'Allowed values list'
               sequence:
                 type: mapping
-                label: 'Option'
+                label: 'Allowed value with label'
                 mapping:
                   key:
                     type: string
-                    label: 'Key'
-                  value:
-                    type: string
                     label: 'Value'
+                  value:
+                    type: label
+                    label: 'Label'
             rows:
               type: integer
               label: 'Rows'

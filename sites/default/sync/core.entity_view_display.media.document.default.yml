@@ -5,9 +5,21 @@ dependencies:
   config:
     - field.field.media.document.field_media_audio_file
     - field.field.media.document.field_media_document
+    - field.field.media.document.schema_description
     - media.type.document
   module:
-    - file
+    - field_group
+third_party_settings:
+  field_group:
+    group_data_download:
+      children:
+        - schema_description
+      label: 'Data download'
+      parent_name: ''
+      region: content
+      weight: 0
+      format_type: fieldset
+      format_settings: {  }
 _core:
   default_config_hash: XxUyhaTuM0OUUZpr8G6jdrFBEh5eag7auWxBKhm6cvY
 id: media.document.default
@@ -15,28 +27,25 @@ targetEntityType: media
 bundle: document
 mode: default
 content:
-  field_media_audio_file:
-    type: file_audio
-    label: above
+  name:
+    type: string
+    label: hidden
     settings:
-      controls: true
-      autoplay: false
-      loop: false
-      multiple_file_display_type: tags
+      link_to_entity: true
     third_party_settings: {  }
     weight: 0
     region: content
-  field_media_document:
-    type: file_default
-    label: visually_hidden
-    settings:
-      use_description_as_link_text: true
+  schema_description:
+    type: basic_string
+    label: above
+    settings: {  }
     third_party_settings: {  }
-    weight: 0
+    weight: 12
     region: content
 hidden:
   created: true
+  field_media_audio_file: true
+  field_media_document: true
   langcode: true
-  name: true
   thumbnail: true
   uid: true

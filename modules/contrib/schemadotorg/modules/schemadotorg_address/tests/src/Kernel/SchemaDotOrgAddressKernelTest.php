@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\Tests\schemadotorg_address\Kernel;
 
@@ -16,9 +16,7 @@ use Drupal\Tests\schemadotorg\Kernel\SchemaDotOrgEntityKernelTestBase;
 class SchemaDotOrgAddressKernelTest extends SchemaDotOrgEntityKernelTestBase {
 
   /**
-   * Modules to enable.
-   *
-   * @var array
+   * {@inheritdoc}
    */
   protected static $modules = [
     'address',
@@ -67,7 +65,7 @@ class SchemaDotOrgAddressKernelTest extends SchemaDotOrgEntityKernelTestBase {
     $this->createSchemaEntity('node', 'Place');
 
     // Check address field override settings.
-    /** @var \Drupal\field\FieldConfigInterface $field_config */
+    /** @var \Drupal\field\FieldConfigInterface|null $field_config */
     $field_config = FieldConfig::loadByName('node', 'place', 'schema_address');
     $expected_settings = [
       'available_countries' => [],

@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg_mapping_set\Form;
 
@@ -8,12 +8,14 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface;
+use Drupal\schemadotorg\Traits\SchemaDotOrgMappingStorageTrait;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Configure Schema.org mapping set settings.
  */
 class SchemaDotOrgMappingSetSettingsForm extends ConfigFormBase {
+  use SchemaDotOrgMappingStorageTrait;
 
   /**
    * {@inheritdoc}
@@ -35,7 +37,7 @@ class SchemaDotOrgMappingSetSettingsForm extends ConfigFormBase {
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container) {
+  public static function create(ContainerInterface $container): static {
     $instance = parent::create($container);
     $instance->entityTypeManager = $container->get('entity_type.manager');
     $instance->schemaTypeManager = $container->get('schemadotorg.schema_type_manager');
@@ -90,7 +92,7 @@ set_name:
           $form_state->setErrorByName('sets', $message);
         }
         else {
-          [$entity_type_id, $schema_type] = explode(':', $type);
+          [$entity_type_id, , $schema_type] = $this->getMappingStorage()->parseType($type);
           if (!$this->entityTypeManager->hasDefinition($entity_type_id)) {
             $t_args['%entity_type_id'] = $entity_type_id;
             $message = $this->t('%entity_type_id in %set is not valid entity type.', $t_args);

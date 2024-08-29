@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg\Form;
 
@@ -36,7 +36,7 @@ class SchemaDotOrgMappingForm extends EntityForm {
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container) {
+  public static function create(ContainerInterface $container): static {
     $instance = parent::create($container);
     $instance->entityFieldManager = $container->get('entity_field.manager');
     $instance->schemaTypeManager = $container->get('schemadotorg.schema_type_manager');
@@ -48,7 +48,7 @@ class SchemaDotOrgMappingForm extends EntityForm {
    * {@inheritdoc}
    */
   public function form(array $form, FormStateInterface $form_state): array {
-    /** @var \Drupal\schemadotorg\SchemaDotOrgMappingInterface $entity */
+    /** @var \Drupal\schemadotorg\SchemaDotOrgMappingInterface|null $entity */
     $entity = $this->getEntity();
 
     $form['#title'] = $this->t('Schema.org mapping');

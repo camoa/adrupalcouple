@@ -6,7 +6,6 @@
 @import "../navigation/toolbar-menu";
 @import "../navigation/toolbar-block";
 @import "../navigation/toolbar-link";
-@import "../navigation/tooltip";
 
 // Toolbar Variables
 :root {
@@ -20,7 +19,7 @@
 
   @include mq(medium) {
     --gin-toolbar-height: 0px; // Needs px to work in calc() functions.
-    --gin-toolbar-secondary-height: 60px;
+    --gin-toolbar-secondary-height: 52px;
     --gin-toolbar-x-offset: var(--drupal-displace-offset-left, 64px);
     --gin-scroll-offset: 130px;
     --gin-sticky-offset: var(--gin-height-sticky);
@@ -40,6 +39,10 @@ body.gin--navigation {
   }
 }
 
+.gin--navigation .gin-secondary-toolbar:not(.gin-secondary-toolbar--frontend) {
+  margin-bottom: var(--gin-spacing-xxs);
+}
+
 .gin--navigation .gin-secondary-toolbar--frontend {
   z-index: 102;
   margin-inline-start: var(--gin-toolbar-x-offset);
@@ -55,18 +58,23 @@ body.gin--navigation {
 // Navigation
 // ----------
 .gin--navigation {
-  font-family: var(--gin-font);
   padding-top: 0 !important;
 
   .admin-toolbar {
+    font-family: var(--gin-font);
     top: 0;
-    border-right: 1px solid var(--gin-border-color-layer);
     overflow-y: initial;
     padding-inline: 0;
     padding-block-start: 0;
+    border-right: 1px solid var(--gin-border-color-layer);
 
     // Hide on smaller screens for now as this is not ready yet.
     @include mq($to: medium) {
+      display: none;
+    }
+
+    // Beta 1
+    &::after {
       display: none;
     }
   }
@@ -102,7 +110,16 @@ body.gin--navigation {
 
   // Navigation header
   .admin-toolbar__header {
-    margin-bottom: -4px;
+    margin-bottom: -.5rem;
+
+    &:has(img) {
+      margin-bottom: -1.25rem;
+    }
+  }
+
+  // Content block
+  .toolbar-block__content.toolbar-block__content--content {
+    margin-block-start: var(--space-s);
   }
 
   // Navigation link
@@ -111,14 +128,32 @@ body.gin--navigation {
     font-weight: normal;
   }
 
-  // Focus
-  .toolbar-menu__item--level-1 > .toolbar-link:focus {
-    outline: none;
-    box-shadow: 0 0 0 1px var(--gin-color-focus-border), 0 0 0 4px var(--gin-color-focus);
+  // Toolbar menu
+  .toolbar-menu {
+    margin-inline: 0;
   }
 
-  .navigation-menu-wrapper.menu--logo {
-    margin-bottom: 1.75rem;
+  // Focus
+  .toolbar-menu__item--level-1 {
+    > .toolbar-link {
+      padding-block: calc(var(--gin-spacing-xs) + 1px);
+      margin-bottom: var(--gin-spacing-xxxs);
+
+      &:focus {
+        outline: none;
+        box-shadow: 0 0 0 1px var(--gin-color-focus-border), 0 0 0 4px var(--gin-color-focus);
+      }
+    }
+
+    // Beta 1
+    > .toolbar-link--create {
+      margin-top: var(--gin-spacing-l);
+    }
+
+    // Beta 1
+    > .toolbar-link--sidebar-toggle {
+      margin-bottom: calc(var(--gin-spacing-xxs) * -1);
+    }
   }
 
   .menu-item.current > .toolbar-link {
@@ -132,7 +167,8 @@ body.gin--navigation {
   //Active menu item
   .toolbar-menu__item--level-1.menu-item--expanded,
   .toolbar-menu__item--level-1.current,
-  .toolbar-menu__item--level-1.active-path {
+  .toolbar-menu__item--level-1.active-path,
+  .toolbar-menu__item--level-2.active-path {
     background-color: transparent;
 
     > .toolbar-link {
@@ -143,6 +179,10 @@ body.gin--navigation {
       &::before,
       &::after {
         background: var(--gin-color-primary);
+
+        @media (forced-colors: active) {
+          background-color: LinkText;
+        }
       }
 
       &:hover,
@@ -164,12 +204,16 @@ body.gin--navigation {
   .toolbar-link--sidebar-toggle:hover,
   .toolbar-link--sidebar-toggle:focus {
     color: var(--gin-color-primary-hover);
-    background-color: var(--gin-color-primary-light-hover);
+    background-color: var(--gin-bg-item-hover);
 
     // Icons
     &::before,
     &::after {
       background: var(--gin-color-primary);
+
+      @media (forced-colors: active) {
+        background-color: LinkText;
+      }
     }
   }
 
@@ -177,7 +221,13 @@ body.gin--navigation {
   .toolbar-menu__item--level-1 > .toolbar-link--manage-fields,
   .toolbar-menu__item--level-1 > .toolbar-link--manage-form-display,
   .toolbar-menu__item--level-1 > .toolbar-link--manage-display,
-  .toolbar-menu__item--level-1 > .toolbar-link--delete {
+  .toolbar-menu__item--level-1 > .toolbar-link--manage-permissions,
+  .toolbar-menu__item--level-1 > .toolbar-link--delete,
+  .toolbar-menu__item--level-1 > .toolbar-link--announcements-feed-announcement,
+  .toolbar-menu__item--level-1 > .toolbar-link[class*="toolbar-link--admin-toolbar-tools-extra-"],
+  // Beta 1: Hide Admin Toolbar Extra links from Level 1
+  .toolbar-menu__item--level-1[data-url*="/media/add/"]
+  {
     display: none;
   }
 
@@ -208,6 +258,16 @@ body.gin--navigation {
   .toolbar .toolbar-menu .toolbar-menu a {
     color: var(--gin-color-text);
   }
+
+  // Beta 1
+  .admin-toolbar__item {
+    flex-basis: unset;
+    flex-grow: unset;
+  }
+
+  .admin-toolbar__item > .toolbar-menu {
+    margin-block-start: 0;
+  }
 }
 
 // Submenu
@@ -225,10 +285,6 @@ html:not(.admin-toolbar-expanded) .gin--navigation .toolbar-menu__item--level-1.
 
 .toolbar-menu__item--to-title {
   padding-inline: 6px;
-
-  .toolbar-link:hover {
-    color: var(--gin-color-primary-hover);
-  }
 }
 
 .toolbar-menu__item--level-1 .toolbar-link,
@@ -244,11 +300,57 @@ html:not(.admin-toolbar-expanded) .gin--navigation .toolbar-menu__item--level-1.
 }
 
 // --------------
+// Text overflow
+// --------------
+.toolbar-menu .toolbar-link--has-icon {
+  &,
+  .toolbar-link__label {
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+
+  &::before,
+  &::after {
+    flex-shrink: 0;
+  }
+}
+
+// --------------
+// Sidebar toggle
+// --------------
+button.toolbar-link--sidebar-toggle {
+  background: var(--gin-bg-layer2);
+
+  &::before {
+    opacity: .75;
+    position: relative;
+    mask-size: var(--space-s) var(--space-s);
+    transition: transform var(--gin-transition);
+  }
+
+  &:hover::before,
+  &:active::before,
+  &:focus::before {
+    opacity: 1;
+  }
+
+  &[aria-expanded=false]::before {
+    left: 1px;
+    transform: rotate(-90deg);
+  }
+
+  &[aria-expanded=true]::before {
+    left: -1px;
+    transform: rotate(90deg);
+  }
+}
+
+// --------------
 // Icon overrides
 // --------------
 
 .toolbar-link--has-icon {
-  --icon: icon('fallback'); /* Default icon, aka --basic */
+  --icon: #{icon('fallback')}; /* Default icon, aka --basic */
 
   &::before {
     width: var(--gin-icon-size-toolbar);
@@ -263,104 +365,73 @@ html:not(.admin-toolbar-expanded) .gin--navigation .toolbar-menu__item--level-1.
   }
 }
 
-// Custom Gin Home logo
-.toolbar-link--gin-home {
-  color: var(--gin-bg-layer2);
-  box-sizing: border-box;
-  max-width: 30px;
-  padding: 5px !important; // make the logo 32px
-  margin: 8px 8px 4px !important;
+// Beta 1: Logo
+.admin-toolbar__logo {
+  margin: 0;
+  overflow: unset;
 
-  &, &:hover, &:focus {
-    background: var(--gin-color-primary) !important;
+  img {
+    width: 40px;
+    height: auto;
   }
 
-  &::before {
-    --icon: #{icon('drupal')};
-    background: var(--gin-bg-layer2) !important;
+  .toolbar-link:not(.toolbar-link--gin-home) {
+    padding: var(--gin-spacing-xxs) !important;
+    margin-top: var(--gin-spacing-xxs);
   }
 
-  span {
-    display: none;
-  }
+  // Custom Gin Home logo
+  .toolbar-link--gin-home {
+    color: var(--gin-bg-layer2);
+    box-sizing: border-box;
+    width: 40px;
+    height: 40px;
+    max-width: 40px;
+    padding: 10px !important;
+    margin: 6px var(--gin-spacing-xxs) 0 !important;
 
-  // Navigation expanded
-  .admin-toolbar-expanded & {
-    margin-inline-start: 0;
+    &, &:hover, &:focus {
+      background: var(--gin-color-primary) !important;
+
+      @media (forced-colors: active) {
+        background: CanvasText !important;
+      }
+    }
 
     &::before {
-      margin-inline-end: 0;
+      --icon: #{icon('drupal')};
+      background: var(--gin-bg-layer2) !important;
+
+      @media (forced-colors: active) {
+        background: Canvas !important;
+      }
+    }
+
+    span {
+      display: none;
+    }
+
+    // Navigation expanded
+    .admin-toolbar-expanded & {
+      margin-inline-start: 0;
+
+      &::before {
+        margin-inline-end: 0;
+      }
     }
   }
 }
 
-.toolbar-link--tools::before {
-  --icon: #{icon('tool')};
+// Beta 1
+.admin-toolbar__content .toolbar-block:nth-last-child(n+2)::after {
+  margin-top: calc(var(--gin-spacing-s) - var(--gin-spacing-xxs));
+  padding-top: calc(var(--gin-spacing-xs) + var(--gin-spacing-xxs));
+  content: "";
+  display: block;
+  border-top: 1px solid var(--gin-border-color-table);
 }
 
-.toolbar-link--appearance::before {
-  --icon: #{icon('appearance')};
-}
-
-.toolbar-link--blocks::before {
-  --icon: #{icon('blocks')};
-}
-
-.toolbar-link--bookmarks::before {
-  --icon: #{icon('bookmarks')};
-}
-
-.toolbar-link--configuration::before {
-  --icon: #{icon('config')};
-}
-
-.toolbar-link--content::before {
-  --icon: #{icon('content')};
-}
-
-.toolbar-link--create::before {
-  --icon: #{icon('create')};
-}
-
-.toolbar-link--extend::before {
-  --icon: #{icon('extend-new')};
-}
-
-.toolbar-link--files::before {
-  --icon: #{icon('files')};
-}
-
-.toolbar-link--help::before {
-  --icon: #{icon('help')};
-}
-
-.toolbar-link--media::before {
-  --icon: #{icon('media')};
-}
-
-.toolbar-link--people::before {
-  --icon: #{icon('people-new')};
-}
-
-.toolbar-link--reports::before {
-  --icon: #{icon('reports')};
-}
-
-.toolbar-link--structure::before {
-  --icon: #{icon('structure')};
-}
-
-.toolbar-link--sidebar-toggle[aria-expanded=true]::before {
-  --icon: #{icon('toggle-collapse')};
-}
-
-.toolbar-link--sidebar-toggle[aria-expanded=false]::before {
-  --icon: #{icon('toggle-expand')};
-}
-
-.toolbar-link--user::before {
-  --icon: #{icon('user')};
-}
+@import "../helpers/toolbar-icons";
 
 // -------------
 // Secondary nav
@@ -389,14 +460,6 @@ html:not(.admin-toolbar-expanded) .gin--navigation .toolbar-menu__item--level-1.
 // of secondary one
 .gin--navigation .toolbar-link--user {
   display: none !important;
-}
-
-// -----------
-// Sticky menu
-// -----------
-.admin-toolbar__sticky-section .toolbar-menu {
-  display: flex;
-  flex-direction: column;
 }
 
 // -----------------------

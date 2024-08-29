@@ -1,13 +1,13 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg_custom_field;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Field\FieldItemInterface;
 use Drupal\Core\Field\FieldItemListInterface;
-use Drupal\custom_field\Plugin\CustomFieldTypeManagerInterface;
+use Drupal\custom_field\Plugin\CustomFieldTypeManager;
 use Drupal\custom_field\Plugin\CustomFieldWidgetManager;
 use Drupal\schemadotorg\Entity\SchemaDotOrgMapping;
 use Drupal\schemadotorg\SchemaDotOrgEntityFieldManagerInterface;
@@ -28,7 +28,7 @@ class SchemaDotOrgCustomFieldManager implements SchemaDotOrgCustomFieldManagerIn
    *   The Schema.org schema type manager.
    * @param \Drupal\schemadotorg\SchemaDotOrgEntityFieldManagerInterface $schemaEntityFieldManager
    *   The Schema.org entity field manager.
-   * @param \Drupal\custom_field\Plugin\CustomFieldTypeManagerInterface $customFieldTypeManager
+   * @param \Drupal\custom_field\Plugin\CustomFieldTypeManager $customFieldTypeManager
    *   The custom field type manager.
    * @param \Drupal\custom_field\Plugin\CustomFieldWidgetManager $customFieldWidgetManager
    *   The custom field type manager.
@@ -37,16 +37,16 @@ class SchemaDotOrgCustomFieldManager implements SchemaDotOrgCustomFieldManagerIn
     protected ConfigFactoryInterface $configFactory,
     protected SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager,
     protected SchemaDotOrgEntityFieldManagerInterface $schemaEntityFieldManager,
-    protected CustomFieldTypeManagerInterface $customFieldTypeManager,
-    protected CustomFieldWidgetManager $customFieldWidgetManager
+    protected CustomFieldTypeManager $customFieldTypeManager,
+    protected CustomFieldWidgetManager $customFieldWidgetManager,
   ) {}
 
   /**
    * {@inheritdoc}
    */
   public function propertyFieldTypeAlter(array &$field_types, string $schema_type, string $schema_property): void {
-    $default_properties = $this->getDefaultProperties($schema_type, $schema_property);
-    if ($default_properties) {
+    $default_schema_properties = $this->getDefaultProperties($schema_type, $schema_property);
+    if ($default_schema_properties) {
       $field_types = ['custom' => 'custom'] + $field_types;
     }
   }
@@ -64,8 +64,8 @@ class SchemaDotOrgCustomFieldManager implements SchemaDotOrgCustomFieldManagerIn
   public function propertyFieldPrepare(array &$default_field, string $schema_type, string $schema_property): void {
     // Make sure the main entity field has a unique name by prefixing it with
     // the bundle name.
-    $default_properties = $this->getDefaultProperties($schema_type, $schema_property);
-    if ($default_properties && $schema_property === 'mainEntity') {
+    $default_schema_properties = $this->getDefaultProperties($schema_type, $schema_property);
+    if ($default_schema_properties && $schema_property === 'mainEntity') {
       $default_type = $this->configFactory
         ->get('schemadotorg.settings')
         ->get("schema_types.default_types.$schema_type") ?? [];
@@ -88,7 +88,7 @@ class SchemaDotOrgCustomFieldManager implements SchemaDotOrgCustomFieldManagerIn
     ?string &$widget_id,
     array &$widget_settings,
     ?string &$formatter_id,
-    array &$formatter_settings
+    array &$formatter_settings,
   ): void {
     // Make sure the field type is set to 'custom' (field).
     if ($field_storage_values['type'] !== 'custom') {
@@ -96,26 +96,33 @@ class SchemaDotOrgCustomFieldManager implements SchemaDotOrgCustomFieldManagerIn
     }
 
     // Check to see if the property has custom field settings.
-    $default_properties = $this->getDefaultProperties($schema_type, $schema_property);
-    if (!$default_properties) {
+    $default_schema_properties = $this->getDefaultProperties($schema_type, $schema_property);
+    if (!$default_schema_properties) {
       return;
     }
 
-    $custom_field_schema_type = $default_properties['type'] ?? '';
-    $custom_field_schema_properties = $default_properties['properties'] ?? [];
+    $custom_field_schema_type = $default_schema_properties['type'] ?? '';
+    $custom_field_schema_properties = $default_schema_properties['properties'] ?? [];
 
     $weight = 0;
+
     $field_storage_columns = [];
     $field_settings = [];
-    foreach ($custom_field_schema_properties as $schema_property => $data_type) {
-      $default_field = $this->schemaEntityFieldManager->getPropertyDefaultField($custom_field_schema_type, $schema_property);
 
+    $formatter_id = 'custom_formatter';
+    $formatter_settings = [];
+
+    foreach ($custom_field_schema_properties as $schema_property => $data_type) {
+      /** @var \Drupal\custom_field\Plugin\CustomFieldTypeInterface $field_type */
+      $field_type = $this->customFieldTypeManager->createInstance($data_type);
+
+      $default_field = $this->schemaEntityFieldManager->getPropertyDefaultField($custom_field_schema_type, $schema_property);
       $name = $default_field['name'];
       $label = $default_field['label'];
       $description = $default_field['description'];
 
-      $widget_type = $this->getDefaultWidgetType($data_type);
-      $default_widget_settings = $this->getDefaultWidgetSettings($widget_type);
+      $widget_type = $field_type->getDefaultWidget();
+      $default_widget_settings = $this->getDefaultWidgetSettings($widget_type, $schema_type, $schema_property);
 
       $field_storage_columns[$name] = [
         'name' => $name,
@@ -141,7 +148,9 @@ class SchemaDotOrgCustomFieldManager implements SchemaDotOrgCustomFieldManagerIn
       $unit = $this->schemaTypeManager->getPropertyUnit($schema_property);
       if ($unit) {
         $field_settings[$name]['widget_settings']['settings']['suffix'] = ' ' . $unit;
-        $field_settings[$name]['formatter_settings']['prefix_suffix'] = TRUE;
+
+        $formatter_settings['fields'][$name]['format_type'] = $field_type->getDefaultFormatter();
+        $formatter_settings['fields'][$name]['formatter_settings']['prefix_suffix'] = TRUE;
       }
 
       $weight++;
@@ -163,8 +172,8 @@ class SchemaDotOrgCustomFieldManager implements SchemaDotOrgCustomFieldManagerIn
    */
   public function getDefaultProperties(string $schema_type, string $schema_property): ?array {
     $config = $this->configFactory->get('schemadotorg_custom_field.settings');
-    return $config->get("default_properties.$schema_type--$schema_property")
-      ?? $config->get("default_properties.$schema_property")
+    return $config->get("default_schema_properties.$schema_type--$schema_property")
+      ?? $config->get("default_schema_properties.$schema_property")
       ?? NULL;
   }
 
@@ -179,45 +188,38 @@ class SchemaDotOrgCustomFieldManager implements SchemaDotOrgCustomFieldManagerIn
   }
 
   /**
-   * Get custom field default widget type for a custom field data type.
-   *
-   * @param string $data_type
-   *   A custom field data type.
-   *
-   * @return string
-   *   A custom field widget type.
-   */
-  protected function getDefaultWidgetType(string $data_type): string {
-    switch ($data_type) {
-      case 'string':
-        return 'text';
-
-      case 'string_long':
-        return 'textarea';
-
-      default:
-        return $data_type;
-    }
-  }
-
-  /**
    * Get custom field default widget settings for a custom field widget type.
    *
    * @param string $widget_type
    *   A custom field widget type.
+   * @param string $schema_type
+   *   A Schema.org type.
+   * @param string $schema_property
+   *   A Schema.org property.
    *
    * @return array
    *   An associate array of custom field default widget settings.
    */
-  protected function getDefaultWidgetSettings(string $widget_type): array {
+  protected function getDefaultWidgetSettings(string &$widget_type, string $schema_type, string $schema_property): array {
+    // Check for allowed values, if there are allowed values then switch
+    // the widget type to a 'select' widget.
+    $allow_values = $this->getAllowedValues($schema_type, $schema_property);
+    if ($allow_values) {
+      $widget_type = 'select';
+    }
+
     /** @var \Drupal\custom_field\Plugin\CustomFieldWidgetInterface $custom_field_widget */
     $custom_field_widget = $this->customFieldWidgetManager->createInstance($widget_type);
-    $default_widget_settings = $custom_field_widget::defaultWidgetSettings();
+    $default_widget_settings = $custom_field_widget::defaultSettings();
 
     switch ($widget_type) {
       case 'decimal':
       case 'float':
         $default_widget_settings['settings']['scale'] = 2;
+        break;
+
+      case 'select':
+        $default_widget_settings['settings']['allowed_values'] = $allow_values;
         break;
 
       case 'text':
@@ -245,6 +247,42 @@ class SchemaDotOrgCustomFieldManager implements SchemaDotOrgCustomFieldManagerIn
     ];
 
     return $default_widget_settings;
+  }
+
+  /**
+   * Get allowed values for Schema.org property.
+   *
+   * @param string $schema_type
+   *   A Schema.org type.
+   * @param string $schema_property
+   *   A Schema.org property.
+   *
+   * @return array|null
+   *   Allowed values for Schema.org property.
+   *
+   * @see schemadotorg_options_schemadotorg_property_field_type_alter()
+   */
+  protected function getAllowedValues(string $schema_type, string $schema_property): ?array {
+    $schema_property_allowed_values = $this->configFactory
+      ->get('schemadotorg_options.settings')
+      ->get('schema_property_allowed_values') ?? [];
+    $setting_parts = [
+      'schema_type' => $schema_type,
+      'schema_property' => $schema_property,
+    ];
+    $allowed_values = $this->schemaTypeManager
+      ->getSetting($schema_property_allowed_values, $setting_parts);
+    if (!$allowed_values) {
+      return NULL;
+    }
+
+    // Convert key/value pairs to a nested array of key/values.
+    // (i.e, ['key' => 'value'] => [[key => key', value => 'value']).
+    array_walk(
+      $allowed_values,
+      fn(&$value, $key) => $value = ['value' => $value, 'key' => $key]
+    );
+    return array_values($allowed_values);
   }
 
 }

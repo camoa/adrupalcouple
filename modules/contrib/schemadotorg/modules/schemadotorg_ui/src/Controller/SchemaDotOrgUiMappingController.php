@@ -1,16 +1,18 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg_ui\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Url;
+use Drupal\schemadotorg\Traits\SchemaDotOrgMappingStorageTrait;
 
 /**
  * Returns responses for Schema.org UI routes.
  */
 class SchemaDotOrgUiMappingController extends ControllerBase {
+  use SchemaDotOrgMappingStorageTrait;
 
   /**
    * Returns response for Schema.org UI create and update mappings.
@@ -55,11 +57,8 @@ class SchemaDotOrgUiMappingController extends ControllerBase {
    *   An array containing add Schema.org mapping links.
    */
   protected function getCreateMappingLinks(): array {
-    /** @var \Drupal\schemadotorg\SchemaDotOrgMappingTypeStorageInterface $mapping_type_storage */
-    $mapping_type_storage = $this->entityTypeManager()->getStorage('schemadotorg_mapping_type');
-
     $content = [];
-    $entity_type_definitions = $mapping_type_storage->getEntityTypeBundleDefinitions();
+    $entity_type_definitions = $this->getMappingTypeStorage()->getEntityTypeBundleDefinitions();
     foreach ($entity_type_definitions as $entity_type_id => $entity_type_definition) {
       $bundle_entity_type_id = $entity_type_definition->id();
       $url = Url::fromRoute("schemadotorg.{$bundle_entity_type_id}.type_add");
@@ -80,15 +79,9 @@ class SchemaDotOrgUiMappingController extends ControllerBase {
    *   An array containing update Schema.org mapping links.
    */
   protected function getUpdateMappingLinks(): array {
-    /** @var \Drupal\schemadotorg\SchemaDotOrgMappingTypeInterface $mapping_storage */
-    $mapping_storage = $this->entityTypeManager()->getStorage('schemadotorg_mapping');
-
-    /** @var \Drupal\schemadotorg\SchemaDotOrgMappingTypeStorageInterface $mapping_type_storage */
-    $mapping_type_storage = $this->entityTypeManager()->getStorage('schemadotorg_mapping_type');
-
     $content = [];
     /** @var \Drupal\schemadotorg\SchemaDotOrgMappingTypeInterface[] $mapping_types */
-    $mapping_types = $mapping_type_storage->loadMultiple();
+    $mapping_types = $this->getMappingTypeStorage()->loadMultiple();
     foreach ($mapping_types as $entity_type_id => $mapping_type) {
       $default_schema_types = $mapping_type->get('default_schema_types');
       // Make sure the default schema types are set and the entity is supported.
@@ -102,7 +95,7 @@ class SchemaDotOrgUiMappingController extends ControllerBase {
 
       foreach ($default_schema_types as $bundle => $schema_type) {
         // Skipped mapped entities.
-        if ($mapping_storage->isBundleMapped($entity_type_id, $bundle)) {
+        if ($this->getMappingStorage()->isBundleMapped($entity_type_id, $bundle)) {
           continue;
         }
 

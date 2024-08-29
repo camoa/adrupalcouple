@@ -24,8 +24,9 @@
         }
 
         // jQuery UI autocomplete submit onclick result.
-        // Must use jQuery to bind to a custom event.
+        // Must use jQuery to bind for custom events.
         // @see http://stackoverflow.com/questions/5366068/jquery-ui-autocomplete-submit-onclick-result
+        // eslint-disable-next-line
         $(element).bind('autocompleteselect', function (event, ui) {
           if (!ui.item) {
             return;

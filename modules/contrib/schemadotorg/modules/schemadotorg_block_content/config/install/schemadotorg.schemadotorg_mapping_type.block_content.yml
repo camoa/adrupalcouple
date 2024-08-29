@@ -1,6 +1,8 @@
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  module:
+    - block_content
 id: block_content
 target_entity_type_id: block_content
 multiple: false

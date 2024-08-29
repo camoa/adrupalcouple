@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\Tests\schemadotorg\Kernel;
 
@@ -16,9 +16,7 @@ use Drupal\schemadotorg\SchemaDotOrgMappingTypeStorageInterface;
 class SchemaDotOrgInstallerKernelTest extends SchemaDotOrgKernelTestBase {
 
   /**
-   * Modules to enable.
-   *
-   * @var array
+   * {@inheritdoc}
    */
   protected static $modules = ['media'];
 
@@ -38,6 +36,8 @@ class SchemaDotOrgInstallerKernelTest extends SchemaDotOrgKernelTestBase {
   protected function setUp(): void {
     parent::setUp();
 
+    $this->installSchemaDotOrg();
+
     $this->installer = $this->container->get('schemadotorg.installer');
     $this->mappingTypeStorage = $this->container->get('entity_type.manager')->getStorage('schemadotorg_mapping_type');
   }
@@ -48,33 +48,44 @@ class SchemaDotOrgInstallerKernelTest extends SchemaDotOrgKernelTestBase {
    * @covers ::requirements
    */
   public function testRequirements(): void {
-    // Check installation recommended requirements.
+    // Check Schema.org names requirements are not returning an error.
+    // @see \Drupal\schemadotorg\SchemaDotOrgInstaller::checkNamesRequirements
+    $requirements = $this->installer->requirements('runtime');
+    $this->assertArrayNotHasKey('schemadotorg_names', $requirements);
+
+    // Check Schema.org names requirements are returning an error.
+    \Drupal::configFactory()
+      ->getEditable('schemadotorg.names')
+      ->set('custom_names', [])
+      ->save();
+    $requirements = $this->installer->requirements('runtime');
+    $this->assertArrayHasKey('schemadotorg_names', $requirements);
+
+    // Check installation recommended modules requirements.
+    // @see \Drupal\schemadotorg\SchemaDotOrgInstaller::checkRecommendedRequirements
     $requirements = $this->installer->requirements('runtime');
     $this->assertNotEmpty($requirements);
+    $this->assertArrayHasKey('schemadotorg_recommended_modules', $requirements);
     $this->assertEquals('Schema.org Blueprints: Recommended modules missing', $requirements['schemadotorg_recommended_modules']['title']);
 
-    // Check installation recommended requirements exists.
+    // Check that installation recommended modules requirements can be disabled.
+    $this->config('schemadotorg.settings')
+      ->set('requirements.recommended_modules', FALSE)
+      ->save();
+    $requirements = $this->installer->requirements('runtime');
+    $this->assertArrayNotHasKey('schemadotorg_recommended_modules', $requirements);
+
+    // Check installation integration requirements exists.
     $requirements = $this->installer->requirements('runtime');
     $this->assertNotEmpty($requirements);
     $this->assertArrayHasKey('schemadotorg_integration_modules', $requirements);
     $this->assertEquals('Schema.org Blueprints: Integration modules missing', $requirements['schemadotorg_integration_modules']['title']);
 
     // Check installation recommended requirements does not exist.
+    // @see \Drupal\schemadotorg\SchemaDotOrgInstaller::checkIntegrationRequirements
     $this->uninstallModule('media');
     $requirements = $this->installer->requirements('runtime');
     $this->assertArrayNotHasKey('schemadotorg_integration_modules', $requirements);
-  }
-
-  /**
-   * Tests SchemaDotOrgInstallerInterface::installModules().
-   *
-   * @covers ::installModules
-   */
-  public function testInstallModules(): void {
-    // Check creating mapping types for modules that provide a content entities.
-    $this->assertNull($this->mappingTypeStorage->load('storage'));
-    $this->installer->installModules(['storage']);
-    $this->assertNotNull($this->mappingTypeStorage->load('storage'));
   }
 
 }

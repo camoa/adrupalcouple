@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg_translation;
 
@@ -13,11 +13,13 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Field\FieldConfigBase;
 use Drupal\schemadotorg\SchemaDotOrgMappingInterface;
 use Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface;
+use Drupal\schemadotorg\Traits\SchemaDotOrgMappingStorageTrait;
 
 /**
  * Schema.org translate manager.
  */
 class SchemaDotOrgTranslationManager implements SchemaDotOrgTranslationManagerInterface {
+  use SchemaDotOrgMappingStorageTrait;
 
   /**
    * Constructs a SchemaDotOrgTranslationManager object.
@@ -38,7 +40,7 @@ class SchemaDotOrgTranslationManager implements SchemaDotOrgTranslationManagerIn
     protected EntityTypeManagerInterface $entityTypeManager,
     protected EntityFieldManagerInterface $fieldManager,
     protected ContentTranslationManagerInterface $contentTranslationManager,
-    protected SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager
+    protected SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager,
   ) {}
 
   /**
@@ -125,22 +127,6 @@ class SchemaDotOrgTranslationManager implements SchemaDotOrgTranslationManagerIn
       $field_config = $field_definition->getConfig($bundle);
       $this->enableMappingField($field_config);
     }
-  }
-
-  /**
-   * Load Schema.org mapping.
-   *
-   * @param string $entity_type_id
-   *   The entity type ID.
-   * @param string $bundle
-   *   The entity bundle.
-   *
-   * @return \Drupal\schemadotorg\SchemaDotOrgMappingInterface|null
-   *   A Schema.org mapping.
-   */
-  protected function loadMapping(string $entity_type_id, string $bundle): ?SchemaDotOrgMappingInterface {
-    $mapping_storage = $this->entityTypeManager->getStorage('schemadotorg_mapping');
-    return $mapping_storage->load("$entity_type_id.$bundle");
   }
 
   /**

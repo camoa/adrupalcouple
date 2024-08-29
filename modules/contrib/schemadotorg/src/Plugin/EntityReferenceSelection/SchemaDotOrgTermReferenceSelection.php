@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg\Plugin\EntityReferenceSelection;
 
@@ -59,7 +59,11 @@ class SchemaDotOrgTermReferenceSelection extends SchemaDotOrgEntityReferenceSele
     foreach ($bundle_names as $bundle) {
       if ($vocabulary = Vocabulary::load($bundle)) {
         /** @var \Drupal\taxonomy\TermInterface[] $terms */
-        if ($terms = $this->entityTypeManager->getStorage('taxonomy_term')->loadTree($vocabulary->id(), 0, NULL, TRUE)) {
+        $terms = $this->entityTypeManager->getStorage('taxonomy_term')->loadTree(
+          vid: $vocabulary->id(),
+          load_entities: TRUE,
+        );
+        if ($terms) {
           foreach ($terms as $term) {
             if (!$has_admin_access && (!$term->isPublished() || in_array($term->parent->target_id, $unpublished_terms))) {
               $unpublished_terms[] = $term->id();

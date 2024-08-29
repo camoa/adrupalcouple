@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg_jsonapi;
 
@@ -44,7 +44,7 @@ class SchemaDotOrgJsonApiManager implements SchemaDotOrgJsonApiManagerInterface 
     protected EntityTypeManagerInterface $entityTypeManager,
     protected EntityFieldManagerInterface $fieldManager,
     protected ConfigurableResourceTypeRepository $resourceTypeRepository,
-    protected SchemaDotOrgNamesInterface $schemaNames
+    protected SchemaDotOrgNamesInterface $schemaNames,
   ) {}
 
   /* ************************************************************************ */
@@ -73,7 +73,7 @@ class SchemaDotOrgJsonApiManager implements SchemaDotOrgJsonApiManagerInterface 
     $entity_type_id = $resource_type->getEntityTypeId();
     $bundle = $resource_type->getBundle();
 
-    /** @var \Drupal\schemadotorg\SchemaDotOrgMappingInterface $mapping */
+    /** @var \Drupal\schemadotorg\SchemaDotOrgMappingInterface|null $mapping */
     $mapping = $this->entityTypeManager
       ->getStorage('schemadotorg_mapping')
       ->load("$entity_type_id.$bundle");
@@ -103,7 +103,7 @@ class SchemaDotOrgJsonApiManager implements SchemaDotOrgJsonApiManagerInterface 
       // @todo Determine how many include levels should be returned.
       if ($level < 1) {
         $field_type = $field_definition->getType();
-        if (in_array($field_type, ['entity_reference', 'entity_reference_revisions'])) {
+        if (str_starts_with($field_type, 'entity_reference')) {
           $settings = $field_definition->getSettings();
           $target_type = $settings['target_type'];
           $target_bundles = NestedArray::getValue($settings, ['handler_settings', 'target_bundles']) ?? [];
@@ -202,20 +202,20 @@ class SchemaDotOrgJsonApiManager implements SchemaDotOrgJsonApiManagerInterface 
   /**
    * {@inheritdoc}
    */
-  public function insertFieldConfigResource(FieldConfigInterface $field): void {
+  public function insertFieldConfigResource(FieldConfigInterface $field_config): void {
     // Do not insert field into JSON:API resource config if the
     // Scheme.org entity type builder is adding it.
     // @see \Drupal\schemadotorg\SchemaDotOrgEntityTypeBuilder::addFieldToEntity
-    if (!empty($field->schemaDotOrgType) && !empty($field->schemaDotOrgProperty)) {
+    if (!empty($field_config->schemaDotOrgType) && !empty($field_config->schemaDotOrgProperty)) {
       return;
     }
 
-    $entity_type_id = $field->getTargetEntityTypeId();
-    $bundle = $field->getTargetBundle();
-    $field_name = $field->getName();
+    $entity_type_id = $field_config->getTargetEntityTypeId();
+    $bundle = $field_config->getTargetBundle();
+    $field_name = $field_config->getName();
 
     $mapping_storage = $this->entityTypeManager->getStorage('schemadotorg_mapping');
-    /** @var \Drupal\schemadotorg\SchemaDotOrgMappingInterface $mapping */
+    /** @var \Drupal\schemadotorg\SchemaDotOrgMappingInterface|null $mapping */
     $mapping = $mapping_storage->load("$entity_type_id.$bundle");
     if (!$mapping) {
       return;
@@ -257,7 +257,9 @@ class SchemaDotOrgJsonApiManager implements SchemaDotOrgJsonApiManagerInterface 
    *   JSON:API resource config storage.
    */
   protected function getResourceConfigStorage(): ConfigEntityStorageInterface {
-    return $this->entityTypeManager->getStorage('jsonapi_resource_config');
+    /** @var \Drupal\Core\Config\Entity\ConfigEntityStorageInterface $storage */
+    $storage = $this->entityTypeManager->getStorage('jsonapi_resource_config');
+    return $storage;
   }
 
   /**
@@ -273,7 +275,10 @@ class SchemaDotOrgJsonApiManager implements SchemaDotOrgJsonApiManagerInterface 
     $target_entity_type_id = $mapping->getTargetEntityTypeId();
     $target_bundle = $mapping->getTargetBundle();
     $resource_id = $target_entity_type_id . '--' . $target_bundle;
-    return $this->getResourceConfigStorage()->load($resource_id);
+
+    /** @var \Drupal\jsonapi_extras\Entity\JsonapiResourceConfig|null $resource_config */
+    $resource_config = $this->getResourceConfigStorage()->load($resource_id);
+    return $resource_config;
   }
 
   /* ************************************************************************ */
@@ -385,14 +390,19 @@ class SchemaDotOrgJsonApiManager implements SchemaDotOrgJsonApiManagerInterface 
       ->get('schemadotorg_jsonapi.settings');
 
     $entity_type_id = $mapping->getTargetEntityTypeId();
+    $property = $mapping->getSchemaPropertyMapping($field_name);
 
     $is_base_field = $this->isBaseField($entity_type_id, $field_name);
     $resource_base_field_schemadotorg = $config->get('resource_base_field_schemadotorg');
     $resource_field_schemadotorg = $config->get('resource_field_schemadotorg');
 
-    if (($is_base_field && $resource_base_field_schemadotorg)
+    $custom_public_names = $config->get('custom_public_names');
+    $custom_public_name = $custom_public_names[$field_name] ?? $custom_public_names[$property] ?? NULL;
+    if ($custom_public_name) {
+      return $custom_public_name;
+    }
+    elseif (($is_base_field && $resource_base_field_schemadotorg)
       || (!$is_base_field && $resource_field_schemadotorg)) {
-      $property = $mapping->getSchemaPropertyMapping($field_name);
       return ($property) ? $this->schemaNames->camelCaseToSnakeCase($property) : $field_name;
     }
     else {
@@ -415,7 +425,6 @@ class SchemaDotOrgJsonApiManager implements SchemaDotOrgJsonApiManagerInterface 
     if ($mapping->getSchemaPropertyMapping($field_name)) {
       return FALSE;
     }
-
     $default_base_fields = $this->configFactory
       ->get('schemadotorg_jsonapi.settings')
       ->get('default_base_fields');

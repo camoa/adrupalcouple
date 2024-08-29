@@ -1,5 +1,5 @@
 schemadotorg_paragraphs.settings:
-  type: config_entity
+  type: config_object
   label: 'Schema.org Paragraphs settings'
   mapping:
     paragraphs_library:
@@ -8,7 +8,7 @@ schemadotorg_paragraphs.settings:
       sequence:
         type: string
         label: 'Schema.org type'
-    property_access:
+    schema_property_access:
       type: sequence
       label: 'Schema.org type property access'
       sequence:

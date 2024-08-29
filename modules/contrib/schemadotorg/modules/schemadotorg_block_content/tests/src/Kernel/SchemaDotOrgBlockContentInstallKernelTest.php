@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\Tests\schemadotorg_block_content\Kernel;
 
@@ -37,7 +37,7 @@ class SchemaDotOrgBlockContentInstallKernelTest extends SchemaDotOrgEntityKernel
     \Drupal::moduleHandler()->loadInclude('schemadotorg_block_content', 'install');
     schemadotorg_block_content_install(FALSE);
 
-    /** @var \Drupal\schemadotorg\SchemaDotOrgMappingInterface $mapping */
+    /** @var \Drupal\schemadotorg\SchemaDotOrgMappingInterface|null $mapping */
     $mapping = SchemaDotOrgMapping::load('block_content.basic');
 
     // Confirm block_content.basic mapping is created and mapped to WebContent.

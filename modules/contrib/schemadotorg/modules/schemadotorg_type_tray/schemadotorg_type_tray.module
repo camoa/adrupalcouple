@@ -5,7 +5,7 @@
  * Adds Schema.org content types to the add content type tray.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\schemadotorg\SchemaDotOrgMappingInterface;
@@ -14,115 +14,9 @@ use Drupal\schemadotorg\SchemaDotOrgMappingInterface;
  * Implements hook_schemadotorg_mapping_insert().
  */
 function schemadotorg_type_tray_schemadotorg_mapping_insert(SchemaDotOrgMappingInterface $mapping): void {
-  if (\Drupal::isConfigSyncing()) {
-    return;
-  }
-
-  global $base_path;
-
-  // Type tray is only applicable to nodes.
-  $entity_type_id = $mapping->getTargetEntityTypeId();
-  if ($entity_type_id !== 'node') {
-    return;
-  }
-
-  // Build Schema.org type to type tray category lookup.
-  $category_lookup = [];
-  $type_tray_schema_types = \Drupal::config('schemadotorg_type_tray.settings')
-    ->get('schema_types');
-  foreach ($type_tray_schema_types as $name => $type_tray_schema_type) {
-    $category_lookup += array_fill_keys($type_tray_schema_type['types'], $name);
-  }
-
-  // Get the Schema.org type breadcrumbs.
-  /** @var \Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface $schema_type_manager */
-  $schema_type_manager = \Drupal::service('schemadotorg.schema_type_manager');
-  $schema_type = $mapping->getSchemaType();
-  $breadcrumbs = $schema_type_manager->getTypeBreadcrumbs($schema_type);
-
-  // Look for the Schema.org type's category.
-  $type_category = NULL;
-  $type_weight = 0;
-  foreach ($breadcrumbs as $breadcrumb) {
-    $breadcrumb_types = array_reverse($breadcrumb);
-    foreach ($breadcrumb_types as $breadcrumb_type) {
-      if (isset($category_lookup[$breadcrumb_type])) {
-        $type_category = $category_lookup[$breadcrumb_type];
-        $type_weights = array_flip($type_tray_schema_types[$type_category]['types']);
-        $type_weight = $type_weights[$breadcrumb_type] - 20;
-        break 2;
-      }
-    }
-  }
-
-  // Exit if no type tray category is found for the Schema.org type.
-  if (!$type_category) {
-    return;
-  }
-
-  // Get installed module names with the 'schemadotorg_type_tray' module last.
-  $module_names = array_keys(\Drupal::moduleHandler()->getModuleList());
-  $module_names = array_combine($module_names, $module_names);
-  unset($module_names['schemadotorg_type_tray']);
-  $module_names['schemadotorg_type_tray'] = 'schemadotorg_type_tray';
-
-  // Look for the Schema.org type's icon.
-  /** @var \Drupal\Core\Extension\ModuleExtensionList $module_extension_list */
-  $module_extension_list = \Drupal::service('extension.list.module');
-  /** @var \Drupal\schemadotorg\SchemaDotOrgNamesInterface $schema_names */
-  $schema_names = \Drupal::service('schemadotorg.names');
-  $type_icon = NULL;
-  foreach ($breadcrumbs as $breadcrumb) {
-    $breadcrumb_types = array_reverse($breadcrumb);
-    foreach ($breadcrumb_types as $breadcrumb_type) {
-      foreach ($module_names as $module_name) {
-        $icon_path = $module_extension_list->getPath($module_name) . '/images/schemadotorg_type_tray/icon/' . $schema_names->camelCaseToSnakeCase($breadcrumb_type) . '.png';
-        if (file_exists($icon_path)) {
-          $type_icon = $base_path . $icon_path;
-          break 3;
-        }
-      }
-    }
-  }
-
-  // Look for the Schema.org type's thumbnail.
-  /** @var \Drupal\Core\Extension\ModuleExtensionList $module_extension_list */
-  $module_extension_list = \Drupal::service('extension.list.module');
-  /** @var \Drupal\schemadotorg\SchemaDotOrgNamesInterface $schema_names */
-  $schema_names = \Drupal::service('schemadotorg.names');
-  $type_thumbnail = NULL;
-  foreach ($breadcrumbs as $breadcrumb) {
-    $breadcrumb_types = array_reverse($breadcrumb);
-    foreach ($breadcrumb_types as $breadcrumb_type) {
-      foreach ($module_names as $module_name) {
-        $thumbnail_path = $module_extension_list->getPath($module_name) . '/images/schemadotorg_type_tray/thumbnail/' . $schema_names->camelCaseToSnakeCase($breadcrumb_type) . '.png';
-        if (file_exists($thumbnail_path)) {
-          $type_thumbnail = $base_path . $thumbnail_path;
-          break 3;
-        }
-      }
-    }
-  }
-
-  // Add type category to the node types third party settings.
-  // @see type_tray_form_node_type_form_alter()
-  // @see type_tray_entity_builder()
-  $node_type = $mapping->getTargetEntityBundleEntity();
-  $existing_nodes_link_text = \Drupal::config('schemadotorg_type_tray.settings')
-    ->get('existing_nodes_link_text');
-  $values = [
-    'type_category' => $type_category,
-    'type_thumbnail' => $type_thumbnail ?? '',
-    'type_icon' => $type_icon ?? '',
-    'existing_nodes_link_text' => $existing_nodes_link_text
-      ? t('View existing %type_label content', ['%type_label' => $node_type->label()])
-      : '',
-    'type_weight' => (string) $type_weight,
-  ];
-  foreach ($values as $key => $value) {
-    $node_type->setThirdPartySetting('type_tray', $key, $value);
-  }
-  $node_type->save();
+  /** @var \Drupal\schemadotorg_type_tray\SchemaDotOrgTypeTrayManagerInterface $type_tray_manager */
+  $type_tray_manager = \Drupal::service('schemadotorg_type_tray.manager');
+  $type_tray_manager->mappingInsert($mapping);
 }
 
 /* ************************************************************************** */
@@ -157,7 +51,7 @@ group_name:
   $form['schemadotorg_type_tray']['existing_nodes_link_text'] = [
     '#type' => 'textfield',
     '#title' => t('Existing content link text'),
-    '#description' => t('Indicate the text to use when building a link to allow quick access to all nodes of a given type, such as "View all Article content". Leave this empty to not display a link to existing content.'),
+    '#description' => t('Indicate the text to use when building a link to allow quick access to all nodes of a given type, such as "View existing %type_label content". Leave this empty to not display a link to existing content.'),
   ];
 
   // Add submit callback.
@@ -171,30 +65,8 @@ group_name:
  */
 function schemadotorg_type_tray_settings_form_submit(array &$form, FormStateInterface $form_state): void {
   $schema_types = $form_state->getValue(['schemadotorg_type_tray', 'schema_types']);
-  _schemadotorg_type_tray_sync_schema_types_with_categories($schema_types);
-}
 
-/* ************************************************************************** */
-// Private functions.
-/* ************************************************************************** */
-
-/**
- * Sync grouped Schema.org types with type tray categories.
- *
- * Schema.org grouping will be prepended to the the type tray categories.
- *
- * @param array $schema_types
- *   An array of grouped Schema.org type.
- */
-function _schemadotorg_type_tray_sync_schema_types_with_categories(array $schema_types): void {
-  $config = \Drupal::configFactory()->getEditable('type_tray.settings');
-  $existing_categories = $config->get('categories') ?? [];
-
-  $schema_categories = [];
-  foreach ($schema_types as $key => $schema_type) {
-    $schema_categories[$key] = $existing_categories[$key] ?? $schema_type['label'];
-  }
-
-  $config->set('categories', $schema_categories + $existing_categories);
-  $config->save();
+  /** @var \Drupal\schemadotorg_type_tray\SchemaDotOrgTypeTrayManagerInterface $type_tray_manager */
+  $type_tray_manager = \Drupal::service('schemadotorg_type_tray.manager');
+  $type_tray_manager->syncCategories($schema_types);
 }

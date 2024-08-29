@@ -43,7 +43,12 @@ class Date extends Formula implements ContainerFactoryPluginInterface {
    */
   protected $argFormat = 'Y-m-d';
 
-  public $option_name = 'default_argument_date';
+  /**
+   * The machine name of the argument.
+   *
+   * @var string
+   */
+  public $option_name = 'default_argument_date'; // phpcs:ignore
 
   /**
    * The route match.
@@ -127,6 +132,9 @@ class Date extends Formula implements ContainerFactoryPluginInterface {
     return $this->dateFormatter->format($when, 'custom', $this->options['format'], 'UTC');
   }
 
+  /**
+   * {@inheritdoc}
+   */
   protected function defineOptions() {
     $options = parent::defineOptions();
 
@@ -140,6 +148,9 @@ class Date extends Formula implements ContainerFactoryPluginInterface {
     return $options;
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public function buildOptionsForm(&$form, FormStateInterface $form_state) {
     parent::buildOptionsForm($form, $form_state);
 
@@ -177,7 +188,7 @@ class Date extends Formula implements ContainerFactoryPluginInterface {
       $this->ensureMyTable();
     }
     else {
-      $this->tableAlias = $this->helper->summaryJoin();
+      // @todo generate a summary of the confirmation.
     }
 
     $formula = $this->getFormula();
@@ -194,7 +205,6 @@ class Date extends Formula implements ContainerFactoryPluginInterface {
   public function defaultArgumentForm(&$form, FormStateInterface $form_state) {
     parent::defaultArgumentForm($form, $form_state);
     $form['default_argument_type']['#options'] += ['date' => $this->t('Current date')];
-    // $form['default_argument_type']['#options'] += ['date_token' => $this->t("Date Token")];
     $form['default_argument_type']['#options'] += ['node_created' => $this->t("Current node's creation time")];
     $form['default_argument_type']['#options'] += ['node_changed' => $this->t("Current node's update time")];
   }
@@ -206,7 +216,10 @@ class Date extends Formula implements ContainerFactoryPluginInterface {
     if (!$raw && $this->options['default_argument_type'] == 'date') {
       return date($this->argFormat, $this->timeService->getRequestTime());
     }
-    elseif (!$raw && in_array($this->options['default_argument_type'], ['node_created', 'node_changed'])) {
+    elseif (!$raw && in_array($this->options['default_argument_type'], [
+      'node_created',
+      'node_changed',
+    ])) {
       $node = $this->routeMatch->getParameter('node');
 
       if (!($node instanceof NodeInterface)) {
@@ -220,7 +233,7 @@ class Date extends Formula implements ContainerFactoryPluginInterface {
       }
     }
 
-    return parent::getDefaultArgument($raw);
+    return parent::getDefaultArgument();
   }
 
   /**

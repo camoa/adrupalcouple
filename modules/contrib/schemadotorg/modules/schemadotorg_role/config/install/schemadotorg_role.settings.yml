@@ -18,25 +18,25 @@ field_definitions:
     label: Guests
     description: 'Person visiting or attending an event.'
     role_name: Guest
-  primary_physician:
-    field_name: schema_role_primary_physician
-    label: 'Primary physician'
-    description: "Primary physician for a doctor's office."
-    role_name: 'Primary physician'
-    required: true
-schema_types:
-  MedicalTrial--sponsor:
-    - principle_investigator
-    - coprinciple_investigator
-  PodcastSeries--actor:
-    - host
-  PodcastSeason--actor:
-    - host
-  PodcastEpisode--actor:
-    - host
-    - guest
-  Physician--employee:
-    - primary_physician
+field_instances:
+  MedicalStudy:
+    sponsor:
+      - principle_investigator
+      - coprinciple_investigator
+  medical_study--ResearchProject:
+    member:
+      - principle_investigator
+      - coprinciple_investigator
+  PodcastSeries:
+    actor:
+      - host
+  PodcastSeason:
+    actor:
+      - host
+  PodcastEpisode:
+    actor:
+      - host
+      - guest
 entity_reference_overrides:
   - member
   - employee

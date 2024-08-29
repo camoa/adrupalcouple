@@ -20,7 +20,7 @@ use Drupal\smart_date_recur\Entity\SmartDateOverride;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Form controller for Smart Date Recur instace override edit forms.
+ * Form controller for Smart Date Recur instance override edit forms.
  *
  * @ingroup smart_date_recur
  */

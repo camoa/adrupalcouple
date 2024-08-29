@@ -1,6 +1,8 @@
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  module:
+    - paragraphs
 id: paragraph
 target_entity_type_id: paragraph
 multiple: false

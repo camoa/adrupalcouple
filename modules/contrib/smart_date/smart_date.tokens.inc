@@ -50,19 +50,19 @@ function smart_date_token_info() {
       ];
       $tokens[$token_type . '-' . $field_name]['format'] = [
         'name' => t('Formatted by Smart Date Format'),
-        'description' => t('Provide the id of a specific smart date format to use it for formattng.'),
+        'description' => t('Provide the id of a specific smart date format to use it for formatting.'),
         'dynamic' => TRUE,
         'module' => 'smart_date',
       ];
       $tokens[$token_type . '-' . $field_name]['value-format'] = [
         'name' => t('Start, formatted by Smart Date Format'),
-        'description' => t('Provide the id of a specific smart date format to use it for formattng.'),
+        'description' => t('Provide the id of a specific smart date format to use it for formatting.'),
         'dynamic' => TRUE,
         'module' => 'smart_date',
       ];
       $tokens[$token_type . '-' . $field_name]['end_value-format'] = [
         'name' => t('End, formatted by Smart Date Format'),
-        'description' => t('Provide the id of a specific smart date format to use it for formattng.'),
+        'description' => t('Provide the id of a specific smart date format to use it for formatting.'),
         'dynamic' => TRUE,
         'module' => 'smart_date',
       ];
@@ -98,7 +98,7 @@ function smart_date_tokens($type, $tokens, array $data, array $options, Bubbleab
       if (count($parts) > 1) {
         $parts = explode(':', $parts[1], 2);
         $property_name = $parts[0];
-        $format_value = isset($parts[1]) ? $parts[1] : NULL;
+        $format_value = $parts[1] ?? NULL;
       }
       else {
         continue;
@@ -106,7 +106,7 @@ function smart_date_tokens($type, $tokens, array $data, array $options, Bubbleab
     }
     else {
       $property_name = $parts[0];
-      $format_value = isset($parts[1]) ? $parts[1] : NULL;
+      $format_value = $parts[1] ?? NULL;
     }
     // Now parse out the pieces of the token name.
     $name_parts = explode('-', $property_name);
@@ -136,7 +136,7 @@ function smart_date_tokens($type, $tokens, array $data, array $options, Bubbleab
         $field_ts = $field->get($prop_needed)->getValue();
         $replacements[$original] = \Drupal::service('smart_date.manager')->formatSmartDate($field_ts, $field_ts, $settings, NULL, 'string');
       }
-      // Otherise, format the whole range.
+      // Otherwise, format the whole range.
       else {
         $start = $field->get('value')->getValue();
         $end = $field->get('end_value')->getValue();

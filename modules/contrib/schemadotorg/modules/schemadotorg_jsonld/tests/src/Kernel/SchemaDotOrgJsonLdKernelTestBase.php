@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\Tests\schemadotorg_jsonld\Kernel;
 
@@ -8,6 +8,7 @@ use Drupal\Core\Datetime\DateFormatterInterface;
 use Drupal\schemadotorg_jsonld\SchemaDotOrgJsonLdBuilderInterface;
 use Drupal\schemadotorg_jsonld\SchemaDotOrgJsonLdManagerInterface;
 use Drupal\Tests\schemadotorg\Kernel\SchemaDotOrgEntityKernelTestBase;
+use Drupal\Tests\schemadotorg_jsonld\Traits\SchemaDotOrgJsonLdTestTrait;
 
 /**
  * Base class to testing Schema.org JSON-LD.
@@ -15,11 +16,10 @@ use Drupal\Tests\schemadotorg\Kernel\SchemaDotOrgEntityKernelTestBase;
  * @group schemadotorg
  */
 abstract class SchemaDotOrgJsonLdKernelTestBase extends SchemaDotOrgEntityKernelTestBase {
+  use SchemaDotOrgJsonLdTestTrait;
 
   /**
-   * Modules to enable.
-   *
-   * @var array
+   * {@inheritdoc}
    */
   protected static $modules = [
     'filter',

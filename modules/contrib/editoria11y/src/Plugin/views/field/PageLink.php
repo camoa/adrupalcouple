@@ -23,18 +23,23 @@ class PageLink extends Standard {
     $value = parent::render($values);
 
     if (!empty($value)) {
+      $path = $values->editoria11y_results_page_path ?? $values->editoria11y_dismissals_page_path;
 
-      if (isset($values->editoria11y_results_page_path)) {
-        $path = $values->editoria11y_results_page_path;
-      }
-      else {
-        $path = $values->editoria11y_dismissals_page_path;
+      // @phpstan-ignore-next-line
+      $config = \Drupal::config('editoria11y.settings');
+      $prefix = $config->get('redundant_prefix');
+      if (!empty($prefix)) {
+        // Replace first instance.
+        $pos = strpos($path, $prefix);
+        if ($pos !== FALSE) {
+          $path = substr_replace($path, "", $pos, strlen($prefix));
+        }
       }
 
       $url = Url::fromUserInput($path, [
         'query' => [
-          'ed1ref' => $path
-        ]
+          'ed1ref' => $path,
+        ],
       ]);
 
       $value = Link::fromTextAndUrl($value, $url)->toString();

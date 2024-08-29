@@ -5,13 +5,13 @@
  * Primary module hooks for Schema.org module.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 use Drupal\Component\Utility\NestedArray;
-use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Extension\Extension;
 use Drupal\Core\Field\FieldConfigInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Render\Element;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\StringTranslation\PluralTranslatableMarkup;
 use Drupal\schemadotorg\Entity\SchemaDotOrgMapping;
@@ -24,64 +24,50 @@ use Drupal\schemadotorg\Plugin\EntityReferenceSelection\SchemaDotOrgEntityRefere
 /**
  * Implements hook_help().
  */
-function schemadotorg_help(string $route_name, RouteMatchInterface $route_match): string|array|NULL {
-  switch ($route_name) {
-    case 'schemadotorg':
-      return '<p>' . t('The <strong>Schema.org Blueprints</strong> module uses Schema.org as the blueprint for the content architecture and structured data in a Drupal website.') . '</p>';
+function schemadotorg_help(string $route_name, RouteMatchInterface $route_match): string|NULL {
+  return match ($route_name) {
+    'schemadotorg' =>
+      '<p>' . t('The <strong>Schema.org Blueprints</strong> module uses Schema.org as the blueprint for the content architecture and structured data in a Drupal website.') . '</p>',
 
-    case 'entity.schemadotorg_mapping.collection':
-      return '<p>' . t('The <strong>Schema.org mappings</strong> page lists mappings from Drupal entity types to Schema.org types.') . '</p>';
+    'entity.schemadotorg_mapping.collection' =>
+      '<p>' . t('The <strong>Schema.org mappings</strong> page lists mappings from Drupal entity types to Schema.org types.') . '</p>',
 
-    case 'entity.schemadotorg_mapping_type.collection':
-      return '<p>' . t('The <strong>Schema.org mapping types</strong> page lists mapping types with default settings for available Drupal entity types.') . '</p>';
+    'entity.schemadotorg_mapping_type.collection' =>
+      '<p>' . t('The <strong>Schema.org mapping types</strong> page lists mapping types with default settings for available Drupal entity types.') . '</p>',
 
-    case 'schemadotorg.settings.general':
-      return '<p>' . t('The <strong>Schema.org general settings</strong> page allows administrators to configure the general settings for the Schema.org Blueprints module.') . '</p>';
+    'schemadotorg.settings.general' =>
+      '<p>' . t('The <strong>Schema.org general settings</strong> page allows administrators to configure the general settings for the Schema.org Blueprints module.') . '</p>',
 
-    case 'schemadotorg.settings.types':
-      return '<p>' . t('The <strong>Schema.org types settings</strong> page allows administrators to configure the default settings for Schema.org types.') . '</p>';
+    'schemadotorg.settings.types' =>
+      '<p>' . t('The <strong>Schema.org types settings</strong> page allows administrators to configure the default settings for Schema.org types.') . '</p>',
 
-    case 'schemadotorg.settings':
-      return '<p>' . t('The <strong>Schema.org settings</strong> page allows administrators to configure the default settings for the Schema.org Blueprints module.') . '</p>';
+    'schemadotorg.settings' =>
+      '<p>' . t('The <strong>Schema.org settings</strong> page allows administrators to configure the default settings for the Schema.org Blueprints module.') . '</p>',
 
-    case 'schemadotorg.settings.properties':
-      return '<p>' . t('The <strong>Schema.org properties settings</strong> page allows administrators to configure the default settings for Schema.org properties.') . '</p>';
+    'schemadotorg.settings.properties' =>
+      '<p>' . t('The <strong>Schema.org properties settings</strong> page allows administrators to configure the default settings for Schema.org properties.') . '</p>',
 
-    case 'schemadotorg.settings.names':
-      return '<p>'
+    'schemadotorg.settings.names' =>
+      '<p>'
         . t("The <strong>Schema.org names settings</strong> page allows administrators to configure how Schema.org's naming conventions for types and properties are converted to Drupal's naming conventions for bundles and fields.")
         . ' '
-        . t('For example, Schema.org uses camel case (camelCase) and Drupal uses snake case (snake_case) and Drupal limits all entity ids and field names to 32 characters.')
-        . '</p>';
+        . t('For example, Schema.org uses camel (camelCase) and Drupal uses snake (snake_case) and Drupal limits all entity ids and field names to 32 characters.')
+        . '</p>',
 
-    default:
-      return NULL;
-  }
+    default => NULL,
+  };
 }
 
 /**
  * Implements hook_system_info_alter().
  */
-function schemadotorg_system_info_alter(array &$info, Extension $file, $type): void {
+function schemadotorg_system_info_alter(array &$info, Extension $file, string $type): void {
   // Remove all dependencies from starter kits and demos to make them
   // easy to uninstall.
   if ($type === 'module'
     && preg_match('/^schemadotorg_(demo|starterkit)/', $file->getName())
     && \Drupal::moduleHandler()->moduleExists($file->getName())) {
     $info['dependencies'] = ['schemadotorg'];
-  }
-}
-
-/**
- * Implements hook_modules_installed().
- *
- * Create mapping types for modules that provide a content entities.
- */
-function schemadotorg_modules_installed(array $modules): void {
-  if (!\Drupal::isConfigSyncing()) {
-    /** @var \Drupal\schemadotorg\SchemaDotOrgInstallerInterface $installer */
-    $installer = \Drupal::service('schemadotorg.installer');
-    $installer->installModules($modules);
   }
 }
 
@@ -97,10 +83,41 @@ function schemadotorg_module_implements_alter(array &$implementations, string $h
 }
 
 /**
+ * Implements hook_page_attachments().
+ */
+function schemadotorg_page_attachments(array &$attachments): void {
+  $attachments['#attached']['drupalSettings']['schemadotorg'] = [];
+  // Add request information because JavaScript can't access this information.
+  // @see js/schemadotorg.details.js
+  $attachments['#attached']['drupalSettings']['schemadotorg']['request'] = [
+    'method' => \Drupal::request()->getMethod(),
+  ];
+}
+
+/**
  * Implements hook_form_alter().
  */
 function schemadotorg_form_alter(array &$form, FormStateInterface $form_state): void {
   SchemaDotOrgSettingsFormBase::formAlter($form, $form_state);
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function schemadotorg_form_system_modules_alter(array &$form, FormStateInterface $form_state): void {
+  // Add fragment/hash to a sub-module's configure link so that
+  // administrators can directly access a sub module's configuration.
+  foreach (Element::children($form['modules']) as $package_name) {
+    foreach ($form['modules'][$package_name] as $module_name => $module_build) {
+      if (str_starts_with($module_name, 'schemadotorg_')
+        && isset($module_build['links']['configure'])) {
+        /** @var \Drupal\Core\Url $url */
+        $url = $module_build['links']['configure']['#url'];
+        $fragment = 'edit-' . str_replace('_', '-', $module_name);
+        $url->setOption('fragment', $fragment);
+      }
+    }
+  }
 }
 
 /**
@@ -109,15 +126,19 @@ function schemadotorg_form_alter(array &$form, FormStateInterface $form_state): 
  * @todo Move this to SchemaDotOrgMapping::onDependencyRemoval.
  * @see \Drupal\schemadotorg\Entity\SchemaDotOrgMapping::onDependencyRemoval
  */
-function schemadotorg_field_config_delete(EntityInterface $entity): void {
-  $bundle = $entity->getTargetBundle();
-  $entity_type = $entity->getTargetEntityTypeId();
+function schemadotorg_field_config_delete(FieldConfigInterface $field_config): void {
+  if ($field_config->isSyncing()) {
+    return;
+  }
+
+  $bundle = $field_config->getTargetBundle();
+  $entity_type = $field_config->getTargetEntityTypeId();
 
   // Make sure a property is removed.
-  /** @var \Drupal\schemadotorg\SchemaDotOrgMappingInterface $mapping */
+  /** @var \Drupal\schemadotorg\SchemaDotOrgMappingInterface|null $mapping */
   $mapping = SchemaDotOrgMapping::load("$entity_type.$bundle");
   if ($mapping) {
-    $mapping->removeSchemaProperty($entity->getName());
+    $mapping->removeSchemaProperty($field_config->getName());
   }
 }
 
@@ -130,6 +151,10 @@ function schemadotorg_field_config_delete(EntityInterface $entity): void {
  * Implements hook_schemadotorg_mapping_insert().
  */
 function schemadotorg_schemadotorg_mapping_insert(SchemaDotOrgMapping $mapping): void {
+  if ($mapping->isSyncing()) {
+    return;
+  }
+
   // Trigger field config save to update the target bundles for the
   // Schema.org entity reference selection handler.
   /** @var \Drupal\Core\Field\FieldConfigInterface[] $field_configs */
@@ -148,7 +173,7 @@ function schemadotorg_schemadotorg_mapping_insert(SchemaDotOrgMapping $mapping):
  * Implements hook_ENTITY_TYPE_presave().
  */
 function schemadotorg_field_config_presave(FieldConfigInterface $field_config): void {
-  if (\Drupal::isConfigSyncing()) {
+  if ($field_config->isSyncing()) {
     return;
   }
 
@@ -177,7 +202,7 @@ function schemadotorg_field_config_presave(FieldConfigInterface $field_config): 
 function schemadotorg_form_field_config_edit_form_alter(array &$form, FormStateInterface $form_state): void {
   /** @var \Drupal\field_ui\Form\FieldConfigEditForm $form_object */
   $form_object = $form_state->getFormObject();
-  /** @var \Drupal\field\FieldConfigInterface $field_config */
+  /** @var \Drupal\field\FieldConfigInterface|null $field_config */
   $field_config = $form_object->getEntity();
 
   // Get the handler id.
@@ -192,11 +217,13 @@ function schemadotorg_form_field_config_edit_form_alter(array &$form, FormStateI
     return;
   }
 
-  // Get the field's related Schema.org mapping.
   /** @var \Drupal\schemadotorg\SchemaDotOrgMappingStorageInterface $mapping_storage */
   $mapping_storage = \Drupal::entityTypeManager()->getStorage('schemadotorg_mapping');
+
+  // Get the field's related Schema.org mapping.
   $entity_type_id = $field_config->getTargetEntityTypeId();
   $bundle = $field_config->getTargetBundle();
+  /** @var \Drupal\schemadotorg\SchemaDotOrgMappingInterface|null $mapping */
   $mapping = $mapping_storage->load("$entity_type_id.$bundle");
   if (!$mapping) {
     return;
@@ -261,4 +288,30 @@ function schemadotorg_views_data_alter(array &$data): void {
       ];
     }
   }
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for page title templates.
+ */
+function schemadotorg_preprocess_page_title(array &$variables): void {
+  if (!str_contains(\Drupal::routeMatch()->getRouteName(), 'schemadotorg')) {
+    return;
+  }
+
+  // Add the Schema.org Blueprints logo to all 'schemadotorg' routes.
+  $module_path = \Drupal::service('extension.list.module')->getPath('schemadotorg');
+  $variables['title'] = [
+    'image' => [
+      [
+        '#theme' => 'image',
+        '#uri' => $module_path . '/logo.png',
+        '#alt' => t('Logo for the Schema.org Blueprints project'),
+        '#attributes' => ['class' => ['schemadotorg-logo']],
+        '#attached' => ['library' => ['schemadotorg/schemadotorg.logo']],
+      ],
+    ],
+    'title' => [
+      '#markup' => $variables['title'],
+    ],
+  ];
 }

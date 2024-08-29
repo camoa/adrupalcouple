@@ -1,8 +1,8 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
-namespace Drupal\Tests\schemadotorg\Unit\SchemaDotOrgSchemaTypeBuilderTest;
+namespace Drupal\Tests\schemadotorg\Unit;
 
 use Drupal\schemadotorg\Utility\SchemaDotOrgHtmlHelper;
 use Drupal\Tests\UnitTestCase;
@@ -42,6 +42,11 @@ class SchemaDotOrgHtmlHelperTest extends UnitTestCase {
       'Some text',
       '<p>Some text</p>',
     ];
+    // Check converting URLs.
+    $tests[] = [
+      'https://drupal.org',
+      '<p><a href="https://drupal.org">https://drupal.org</a></p>',
+    ];
     // Check removing the table of contents.
     $tests[] = [
       'Table of contents
@@ -66,18 +71,19 @@ Some text',
     ];
     // Check convert <p><code> tags to <pre> tags.
     $tests[] = [
-      '```
+      '```text
 Some code
 ```
 ',
-      '<pre>Some code</pre>',
+      '<pre><code class="language-text">Some code
+</code></pre>',
     ];
     $tests[] = [
       '
     Some code
 ',
-      '<pre>Some code
-</pre>',
+      '<pre><code>Some code
+</code></pre>',
     ];
 
     return $tests;

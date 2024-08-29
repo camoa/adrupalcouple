@@ -9,11 +9,13 @@ use Drupal\smart_date\TypedData\Plugin\DataType\SmartDate;
 /**
  * Converts values for TimestampItem to and from common formats.
  *
- * Overrides FieldItemNormalizer to use \Drupal\serialization\Normalizer\TimestampNormalizer.
+ * Overrides FieldItemNormalizer to use
+ * \Drupal\serialization\Normalizer\TimestampNormalizer.
  *
  * Overrides FieldItemNormalizer to
  * - during normalization, add the 'format' key to assist consumers
- * - during denormalization, use \Drupal\serialization\Normalizer\TimestampNormalizer
+ * - during denormalization, use
+ *   \Drupal\serialization\Normalizer\TimestampNormalizer
  */
 class SmartDateItemNormalizer extends TimestampItemNormalizer {
 

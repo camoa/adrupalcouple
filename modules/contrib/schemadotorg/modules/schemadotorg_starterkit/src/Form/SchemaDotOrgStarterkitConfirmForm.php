@@ -1,9 +1,10 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg_starterkit\Form;
 
+use Drupal\Component\Utility\NestedArray;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Extension\ModuleExtensionList;
 use Drupal\Core\Extension\ModuleHandlerInterface;
@@ -12,6 +13,7 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\Url;
 use Drupal\schemadotorg\SchemaDotOrgMappingManagerInterface;
+use Drupal\schemadotorg\SchemaDotOrgNamesInterface;
 use Drupal\schemadotorg\SchemaDotOrgSchemaTypeBuilderInterface;
 use Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface;
 use Drupal\schemadotorg\Traits\SchemaDotOrgBuildTrait;
@@ -41,6 +43,11 @@ class SchemaDotOrgStarterkitConfirmForm extends ConfirmFormBase {
   protected EntityTypeManagerInterface $entityTypeManager;
 
   /**
+   * The Schema.org names manager.
+   */
+  protected SchemaDotOrgNamesInterface $schemaNames;
+
+  /**
    * The Schema.org schema type manager.
    */
   protected SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager;
@@ -63,11 +70,12 @@ class SchemaDotOrgStarterkitConfirmForm extends ConfirmFormBase {
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container) {
-    $instance = new static();
+  public static function create(ContainerInterface $container): static {
+    $instance = parent::create($container);
     $instance->moduleList = $container->get('extension.list.module');
     $instance->moduleHandler = $container->get('module_handler');
     $instance->entityTypeManager = $container->get('entity_type.manager');
+    $instance->schemaNames = $container->get('schemadotorg.names');
     $instance->schemaTypeManager = $container->get('schemadotorg.schema_type_manager');
     $instance->schemaTypeBuilder = $container->get('schemadotorg.schema_type_builder');
     $instance->schemaMappingManager = $container->get('schemadotorg.mapping_manager');
@@ -158,7 +166,7 @@ class SchemaDotOrgStarterkitConfirmForm extends ConfirmFormBase {
 
     $form['description'] = [
       'description' => $form['description'] + ['#prefix' => '<p>', '#suffix' => '</p>'],
-      'types' => $this->buildSchemaTypes($settings['types'], $operation),
+      'types' => $this->buildSchemaTypes(),
     ];
 
     switch ($this->operation) {
@@ -188,7 +196,6 @@ class SchemaDotOrgStarterkitConfirmForm extends ConfirmFormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state): void {
-    // Execute the operation.
     $operation = $this->operation;
     $name = $this->name;
 
@@ -239,7 +246,7 @@ class SchemaDotOrgStarterkitConfirmForm extends ConfirmFormBase {
   /**
    * Get the current starter kit's action.
    *
-   * @return string
+   * @return \Drupal\Core\StringTranslation\TranslatableMarkup
    *   The current starter kit's action.
    */
   protected function getAction(): TranslatableMarkup {
@@ -284,35 +291,46 @@ class SchemaDotOrgStarterkitConfirmForm extends ConfirmFormBase {
   }
 
   /**
-   * Build Schema.org types details.
+   * Get starter kit's and dependencies Schema.org types.
    *
-   * @param array $types
-   *   An array of Schema.org types.
-   * @param string|null $operation
-   *   An operation.
+   * @param string $name
+   *   Starter kit name.
+   *
+   * @return array
+   *   Starter kit Schema.org types.
+   */
+  public function getSchemaTypes(string $name): array {
+    $settings = $this->schemaStarterkitManager->getStarterkitSettings($name);
+    $types = $settings['types'];
+    if (isset($settings['dependencies'])) {
+      foreach ($settings['dependencies'] as $dependency) {
+        $types = NestedArray::mergeDeep($settings['types'], $this->getSchemaTypes($dependency));
+      }
+    }
+    return $types;
+  }
+
+  /**
+   * Build Schema.org types details.
    *
    * @return array
    *   A renderable array containing Schema.org types details.
    */
-  protected function buildSchemaTypes(array $types, ?string $operation = NULL): array {
-    /** @var \Drupal\schemadotorg\SchemaDotOrgMappingStorageInterface $mapping_storage */
-    $mapping_storage = $this->entityTypeManager
-      ->getStorage('schemadotorg_mapping');
-
+  protected function buildSchemaTypes(): array {
     $build = [];
+    $types = $this->getSchemaTypes($this->name);
     foreach ($types as $type => $mapping_defaults) {
-      [$entity_type_id, $schema_type] = explode(':', $type);
-
+      [$entity_type_id, , $schema_type] = $this->getMappingStorage()->parseType($type);
       // Reload the mapping default without any alterations.
-      if (!in_array($operation, ['install', 'update'])) {
+      if (!in_array($this->operation, ['install', 'update'])) {
         $mapping_defaults = $this->schemaMappingManager->getMappingDefaults($entity_type_id, $mapping_defaults['entity']['id'], $schema_type);
       }
 
       $details = $this->buildSchemaType($type, $mapping_defaults);
-      switch ($operation) {
+      switch ($this->operation) {
         case 'install':
         case 'update':
-          $mapping = $mapping_storage->loadBySchemaType($entity_type_id, $schema_type);
+          $mapping = $this->getMappingStorage()->loadByType($type);
           $details['#title'] .= ' - ' . ($mapping ? $this->t('Exists') : '<em>' . $this->t('Missing') . '</em>');
           $details['#summary_attributes']['class'] = [($mapping) ? 'color-success' : 'color-warning'];
           break;

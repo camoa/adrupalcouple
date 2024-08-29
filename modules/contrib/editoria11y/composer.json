@@ -2,7 +2,7 @@
   "name": "drupal/editoria11y",
   "description": "Editoria11y (\"editorial accessibility\") is a user-friendly accessibility checker.",
   "type": "drupal-module",
-  "homepage": "http://drupal.org/project/editoria11y",
+  "homepage": "https://drupal.org/project/editoria11y",
   "authors": [
     {
       "name": "John Jameson",
@@ -26,8 +26,11 @@
     }
   ],
   "support": {
-    "issues": "http://drupal.org/project/issues/editoria11y",
+    "issues": "https://drupal.org/project/issues/editoria11y",
     "source": "https://git.drupalcode.org/project/editoria11y"
+  },
+  "conflict": {
+    "drupal/csp": "<1.24"
   },
   "license": "GPL-2.0-or-later",
   "minimum-stability": "dev"

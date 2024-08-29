@@ -5,6 +5,7 @@
  * Provides tokens for the smart_date_recur module.
  */
 
+use Drupal\Component\Utility\DeprecationHelper;
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Render\BubbleableMetadata;
 use Drupal\smart_date\Plugin\Field\FieldType\SmartDateFieldItemList;
@@ -39,13 +40,13 @@ function smart_date_recur_token_info() {
 
       $tokens[$token_type . '-' . $field_name]['prev'] = [
         'name' => t('Previous Instance'),
-        'description' => t('Provide the id of a specific smart date format to use it for formattng.'),
+        'description' => t('Provide the id of a specific smart date format to use it for formatting.'),
         'dynamic' => TRUE,
         'module' => 'smart_date_recur',
       ];
       $tokens[$token_type . '-' . $field_name]['next'] = [
         'name' => t('Next instance'),
-        'description' => t('Provide the id of a specific smart date format to use it for formattng.'),
+        'description' => t('Provide the id of a specific smart date format to use it for formatting.'),
         'dynamic' => TRUE,
         'module' => 'smart_date_recur',
       ];
@@ -56,13 +57,13 @@ function smart_date_recur_token_info() {
       ];
       $tokens[$token_type . '-' . $field_name]['upcoming'] = [
         'name' => t('Display upcoming instances'),
-        'description' => t('Specify the number of values to return, or zero to return all. Optionally provide the id of a specific smart date format to use it for formattng.'),
+        'description' => t('Specify the number of values to return, or zero to return all. Optionally provide the id of a specific smart date format to use it for formatting.'),
         'dynamic' => TRUE,
         'module' => 'smart_date_recur',
       ];
       $tokens[$token_type . '-' . $field_name]['past'] = [
         'name' => t('Display past instances'),
-        'description' => t('Specify the number of values to return, or zero to return all. Optionally provide the id of a specific smart date format to use it for formattng.'),
+        'description' => t('Specify the number of values to return, or zero to return all. Optionally provide the id of a specific smart date format to use it for formatting.'),
         'dynamic' => TRUE,
         'module' => 'smart_date_recur',
       ];
@@ -86,6 +87,9 @@ function smart_date_recur_tokens($type, $tokens, array $data, array $options, Bu
     return $replacements;
   }
 
+  /** @var \Drupal\Core\Render\RendererInterface $renderer */
+  $renderer = \Drupal::service('renderer');
+
   foreach ($tokens as $token => $original) {
     $list = $data[$data['field_name']];
     if (!$list instanceof SmartDateFieldItemList) {
@@ -108,7 +112,13 @@ function smart_date_recur_tokens($type, $tokens, array $data, array $options, Bu
     }
     $property_name = $parts[0];
     // Stop here if it's not a recurring property.
-    if (!in_array($property_name, ['prev', 'next', 'rule_text', 'upcoming', 'past'])) {
+    if (!in_array($property_name, [
+      'prev',
+      'next',
+      'rule_text',
+      'upcoming',
+      'past',
+    ])) {
       continue;
     }
     // Now parse out the pieces of the token name.
@@ -120,7 +130,7 @@ function smart_date_recur_tokens($type, $tokens, array $data, array $options, Bu
 
       $rule_text = [];
       $rrules_processed = [];
-      foreach($list as $field) {
+      foreach ($list as $field) {
         $rrid = $field?->get('rrule')->getValue();
         if (!$rrid || in_array($rrid, $rrules_processed)) {
           continue;
@@ -129,11 +139,21 @@ function smart_date_recur_tokens($type, $tokens, array $data, array $options, Bu
         $rule_text[] = $rule->getTextRule();
         $rrules_processed[] = $rrid;
       }
-      // @todo More structure or markup around mutiple values?
-      $output = \Drupal::service('renderer')->renderPlain($rule_text);
+      // @todo More structure or markup around multiple values?
+      if (!class_exists(DeprecationHelper::class)) {
+        // @phpstan-ignore-next-line
+        $output = $renderer->renderPlain($rule_text);
+      }
+      $output = DeprecationHelper::backwardsCompatibleCall(
+        currentVersion: \Drupal::VERSION,
+        deprecatedVersion: '10.3',
+        currentCallable: fn() => $renderer->renderInIsolation($rule_text),
+        deprecatedCallable: fn() => $renderer->renderPlain($rule_text),
+      );
       $replacements[$original] = $output;
       continue;
-    } // End rule_text token processing.
+      // End rule_text token processing.
+    }
 
     // Provide upcoming or past instances.
     // Default to show only one instance.
@@ -149,7 +169,7 @@ function smart_date_recur_tokens($type, $tokens, array $data, array $options, Bu
       'show_next' => FALSE,
       'add_classes' => FALSE,
       'time_wrapper' => FALSE,
-      'show_next' => FALSE,
+      'current_upcoming' => FALSE,
     ];
     switch ($property_name) {
       case 'upcoming':
@@ -211,7 +231,16 @@ function smart_date_recur_tokens($type, $tokens, array $data, array $options, Bu
       }
     }
 
-    $output = \Drupal::service('renderer')->renderPlain($values);
+    if (!class_exists(DeprecationHelper::class)) {
+      // @phpstan-ignore-next-line
+      $output = $renderer->renderPlain($values);
+    }
+    $output = DeprecationHelper::backwardsCompatibleCall(
+      currentVersion: \Drupal::VERSION,
+      deprecatedVersion: '10.3',
+      currentCallable: fn() => $renderer->renderInIsolation($values),
+      deprecatedCallable: fn() => $renderer->renderPlain($values),
+    );
     $replacements[$original] = $output;
   }
   return $replacements;

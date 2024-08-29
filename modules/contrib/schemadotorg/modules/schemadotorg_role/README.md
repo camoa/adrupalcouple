@@ -27,7 +27,7 @@ Configuration
 -------------
 
 - Go to the Schema.org properties configuration page.  
-  (/admin/config/schemadotorg/settings/properties)
+  (/admin/config/schemadotorg/settings/properties#edit-schemadotorg-role)
 - Go to the 'Role settings' details.
 - Enter role field definitions which will be available to Schema.org properties.
 - Enter Schema.org properties and their roles.

@@ -4,6 +4,7 @@ Table of contents
 * Introduction
 * Features
 
+
 Introduction
 ------------
 
@@ -16,5 +17,7 @@ Features
 
 - Displays help topics for all Schema.org Blueprints sub-modules.
 - Converts a sub-module's README.md markdown into HTML.
-- Embeds diagrams in markdown via DIAGRAM.html and [Mermaid.js](https://mermaid.js.org/).
 - Manages videos and provides a watch dialog.
+- Adds the Schema.org Blueprints logo to the Schema.org Blueprints help section.
+- For each Schema.org Blueprints sub-module's configuration settings the 
+  description includes the sub-module's info with a link to help/documentation.

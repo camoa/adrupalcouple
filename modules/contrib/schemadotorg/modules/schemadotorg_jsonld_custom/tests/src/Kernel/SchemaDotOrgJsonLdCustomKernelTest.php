@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\Tests\schemadotorg_jsonld_custom\Kernel;
 
@@ -10,6 +10,7 @@ use Drupal\node\Entity\Node;
 use Drupal\schemadotorg_jsonld\SchemaDotOrgJsonLdBuilderInterface;
 use Drupal\schemadotorg_jsonld\SchemaDotOrgJsonLdManagerInterface;
 use Drupal\Tests\schemadotorg\Kernel\SchemaDotOrgEntityKernelTestBase;
+use Drupal\Tests\schemadotorg_jsonld\Traits\SchemaDotOrgJsonLdTestTrait;
 
 /**
  * Tests the functionality of the Schema.org JSON-LD custom.
@@ -18,11 +19,10 @@ use Drupal\Tests\schemadotorg\Kernel\SchemaDotOrgEntityKernelTestBase;
  * @group schemadotorg
  */
 class SchemaDotOrgJsonLdCustomKernelTest extends SchemaDotOrgEntityKernelTestBase {
+  use SchemaDotOrgJsonLdTestTrait;
 
   /**
-   * Modules to enable.
-   *
-   * @var array
+   * {@inheritdoc}
    */
   protected static $modules = [
     'token',
@@ -99,8 +99,8 @@ class SchemaDotOrgJsonLdCustomKernelTest extends SchemaDotOrgEntityKernelTestBas
         '@url' => $node->toUrl()->setAbsolute()->toString(),
         'inLanguage' => 'en',
         'headline' => 'Something',
-        'dateCreated' => $this->dateFormatter->format($node->getCreatedTime(), 'custom', 'Y-m-d H:i:s P'),
-        'dateModified' => $this->dateFormatter->format($node->getChangedTime(), 'custom', 'Y-m-d H:i:s P'),
+        'dateCreated' => $this->formatDateTime($node->getCreatedTime()),
+        'dateModified' => $this->formatDateTime($node->getChangedTime()),
         // Check Schema.org type custom JSON-LD is added.
         'publisher' => [
           '@context' => 'https://schema.org',
@@ -120,7 +120,10 @@ class SchemaDotOrgJsonLdCustomKernelTest extends SchemaDotOrgEntityKernelTestBas
     // @see \Drupal\schemadotorg_jsonld_custom\SchemaDotOrgJsonLdCustomManager::alterMappingDefaults
     /** @var \Drupal\schemadotorg\SchemaDotOrgMappingManagerInterface $mapping_manager */
     $mapping_manager = $this->container->get('schemadotorg.mapping_manager');
-    $defaults = $mapping_manager->getMappingDefaults('node', NULL, 'NewsArticle');
+    $defaults = $mapping_manager->getMappingDefaults(
+      entity_type_id: 'node',
+      schema_type: 'NewsArticle',
+    );
     $expected_defaults = [
       'schemadotorg_jsonld_custom' => [
         'json' => '{

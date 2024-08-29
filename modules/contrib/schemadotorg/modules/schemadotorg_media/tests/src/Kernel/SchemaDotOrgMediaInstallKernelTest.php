@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\Tests\schemadotorg_media\Kernel;
 
@@ -17,9 +17,7 @@ use Drupal\Tests\schemadotorg\Kernel\SchemaDotOrgEntityKernelTestBase;
 class SchemaDotOrgMediaInstallKernelTest extends SchemaDotOrgEntityKernelTestBase {
 
   /**
-   * Modules to enable.
-   *
-   * @var array
+   * {@inheritdoc}
    */
   protected static $modules = [
     'schemadotorg_media',
@@ -48,7 +46,7 @@ class SchemaDotOrgMediaInstallKernelTest extends SchemaDotOrgEntityKernelTestBas
     \Drupal::moduleHandler()->loadInclude('schemadotorg_media', 'install');
     schemadotorg_media_install(FALSE);
 
-    /** @var \Drupal\schemadotorg\SchemaDotOrgMappingInterface $mapping */
+    /** @var \Drupal\schemadotorg\SchemaDotOrgMappingInterface|null $mapping */
     $mapping = SchemaDotOrgMapping::load('media.image');
 
     // Confirm media.image mapping is created and mapped to ImageObject.

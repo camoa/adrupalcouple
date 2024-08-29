@@ -3,6 +3,7 @@
 namespace Drupal\editoria11y;
 
 use Drupal\Core\Database\Connection;
+use Drupal\Core\Database\StatementInterface;
 
 /**
  * Handles database calls for DashboardController.
@@ -14,7 +15,7 @@ class DismissalsOnPage {
    *
    * @var \Drupal\Core\Database\Connection
    */
-  protected $database;
+  protected Connection $database;
 
   /**
    * Constructs a new connection object.
@@ -35,7 +36,7 @@ class DismissalsOnPage {
    * @return \Drupal\Core\Database\StatementInterface|null
    *   Return the dismissals.
    */
-  public function getDismissals($page_path) {
+  public function getDismissals($page_path): ?StatementInterface {
 
     $query = $this->database->select('editoria11y_dismissals')
       ->fields('editoria11y_dismissals',

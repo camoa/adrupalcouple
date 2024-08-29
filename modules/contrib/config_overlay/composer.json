@@ -1,0 +1,21 @@
+{
+    "name": "drupal/config_overlay",
+    "description": "Manages exported configuration as an overlay of the configuration shipped by the installed extensions.",
+    "type": "drupal-module",
+    "homepage": "https://www.drupal.org/project/config_overlay",
+    "license": "GPL-2.0-or-later",
+    "authors": [
+        {
+            "name": "Tobias Zimmermann",
+            "email": "tstoeckler@gmail.com"
+        }
+    ],
+    "support": {
+        "issues": "https://www.drupal.org/project/issues/config_overlay",
+        "source": "https://git.drupalcode.org/project/config_overlay"
+    },
+    "require-dev": {
+        "drupal/config_ignore": "^3.0",
+        "drupal/config_split": "^2.0"
+    }
+}

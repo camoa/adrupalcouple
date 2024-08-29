@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\Tests\schemadotorg_taxonomy\Kernel;
 
@@ -19,9 +19,7 @@ use Drupal\Tests\schemadotorg\Kernel\SchemaDotOrgEntityKernelTestBase;
 class SchemaDotOrgTaxonomyPropertyVocabularyManagerKernelTest extends SchemaDotOrgEntityKernelTestBase {
 
   /**
-   * Modules to enable.
-   *
-   * @var array
+   * {@inheritdoc}
    */
   protected static $modules = [
     'language',
@@ -58,7 +56,7 @@ class SchemaDotOrgTaxonomyPropertyVocabularyManagerKernelTest extends SchemaDotO
 
     // Check that recipeCategory property defaults to
     // 'entity_reference:taxonomy_term' field type.
-    /** @var \Drupal\field\FieldConfigInterface $field_config */
+    /** @var \Drupal\field\FieldConfigInterface|null $field_config */
     $field_config = FieldConfig::loadByName('node', 'recipe', 'schema_recipe_category');
     $this->assertEquals('default:taxonomy_term', $field_config->getSetting('handler'));
     $handler_settings = $field_config->getSetting('handler_settings');

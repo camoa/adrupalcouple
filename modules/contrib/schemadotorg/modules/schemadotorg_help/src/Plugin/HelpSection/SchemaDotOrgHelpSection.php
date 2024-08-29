@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg_help\Plugin\HelpSection;
 
@@ -20,10 +20,10 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *   title = @Translation("Schema.org Blueprints"),
  *   weight = 20,
  *   description = @Translation("The Schema.org Blueprints module uses Schema.org as the blueprint for the content architecture and structured data in a Drupal website."),
- *   permission = "access administration pages"
+ *   permission = "access help pages"
  * )
  */
-class SchemaDotOrgHelpSection extends HelpSectionPluginBase implements ContainerFactoryPluginInterface {
+final class SchemaDotOrgHelpSection extends HelpSectionPluginBase implements ContainerFactoryPluginInterface {
 
   /**
    * The module extension list.
@@ -56,7 +56,7 @@ class SchemaDotOrgHelpSection extends HelpSectionPluginBase implements Container
       $url = Url::fromRoute('schemadotorg_help.page', ['name' => $module_name]);
       $topics[$module_name] = Link::fromTextAndUrl($title, $url)->toRenderable();
       if ($module_info[ExtensionLifecycle::LIFECYCLE_IDENTIFIER] === ExtensionLifecycle::EXPERIMENTAL) {
-        $topics[$module_name]['#suffix'] = ' (' . $this->t('Experimental') . ')';
+        $topics[$module_name]['#suffix'] = ' <span class="schemadotorg-help-experimental">(' . $this->t('Experimental') . ')<span>';
       }
     }
     // Bold the core Schema.org Blueprints module's help page.

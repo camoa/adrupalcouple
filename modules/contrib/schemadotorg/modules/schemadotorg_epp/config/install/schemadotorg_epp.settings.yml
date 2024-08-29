@@ -3,8 +3,12 @@ node_links:
     memberOf: Person
     worksFor: Person
     parentOrganization: Organization
-  HealthTopicContent:
-    isPartOf: HealthTopicContent
+  LodgingBusiness:
+    containedInPlace: Accommodation
+  WebPage:
+    isPartOf: WebPage
+  CreativeWork:
+    about: CreativeWork
   MedicalEntity:
-    about: HealthTopicContent
+    about: CreativeWork
 node_links_dropdown: true

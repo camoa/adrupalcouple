@@ -1,10 +1,11 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg_help\Controller;
 
 use Drupal\Component\Serialization\Json;
+use Drupal\Component\Utility\DeprecationHelper;
 use Drupal\Component\Utility\Html;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Extension\ExtensionLifecycle;
@@ -32,8 +33,8 @@ class SchemaDotOrgHelpController extends ControllerBase {
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container) {
-    $instance = new static();
+  public static function create(ContainerInterface $container): static {
+    $instance = parent::create($container);
     $instance->moduleExtensionList = $container->get('extension.list.module');
     $instance->extensionPathResolver = $container->get('extension.path.resolver');
     return $instance;
@@ -96,8 +97,12 @@ class SchemaDotOrgHelpController extends ControllerBase {
       return $build;
     }
 
-    $build['#title'] = $this->moduleHandler()->getName($name);
-
+    $build['#title'] = DeprecationHelper::backwardsCompatibleCall(
+      currentVersion: \Drupal::VERSION,
+      deprecatedVersion: '10.3',
+      currentCallable: fn() => $this->moduleExtensionList->getName($name),
+      deprecatedCallable: fn() => $this->moduleHandler()->getName($name),
+    );
     $markdown = file_get_contents($module_readme);
     $html = SchemaDotOrgHtmlHelper::fromMarkdown($markdown);
 
@@ -107,19 +112,19 @@ class SchemaDotOrgHelpController extends ControllerBase {
     // Fix install/ hrefs.
     $html = str_replace('"install/', '"' . $base_path . $module_path . '/install/', $html);
 
-    // Replace @see DIAGRAM.html.
-    $module_diagram = $module_path . '/DIAGRAM.html';
-    if (file_exists($module_diagram) && str_contains($html, 'DIAGRAM.html')) {
-      $document = Html::load(file_get_contents($module_diagram));
-      $html = preg_replace_callback(
-        '/<p>@see DIAGRAM\.html#([-_A-Za-z0-9]+)<\/p>/',
-        fn ($matches) => ($dom_node = $document->getElementById($matches[1]))
-          ? $document->saveXML($dom_node)
-          : '',
-        $html
-      );
-
+    // Add mermaid.js library.
+    if (str_contains($html, 'class="language-mermaid"')) {
       $build['#attached']['library'][] = 'schemadotorg/schemadotorg.mermaid';
+    }
+
+    if ($name === 'schemadotorg') {
+      $build['logo'] = [
+        '#theme' => 'image',
+        '#uri' => $module_path . '/logo.png',
+        '#alt' => $this->t('Logo for the Schema.org Blueprints project'),
+        '#attributes' => ['class' => ['schemadotorg-help-logo']],
+        '#attached' => ['library' => ['schemadotorg_help/schemadotorg_help.logo']],
+      ];
     }
 
     $build['readme'] = [
@@ -148,73 +153,93 @@ class SchemaDotOrgHelpController extends ControllerBase {
     // Videos.
     $videos = [
       [
+        'title' => $this->t('Going From 0 to 60 With the Schema.org Blueprints Module'),
+        'content' => $this->t('This presentation aims to introduce people to the concept of using Schema.org as the blueprint for an API-first, standardized, and SEO-friendly website and walk through how to implement Schema.org for your organization.'),
+        // cspell:disable-next-line
+        'youtube_id' => 'ImL5WOoHFYk',
+      ],
+      [
         'title' => $this->t('Schema.org Blueprints for Drupal @ Pittsburgh 2023'),
         'content' => $this->t("This presentation is for anyone who has created a website using Drupal and is interested in discovering a standardized, simpler, and faster way to model and build a website's content and information architecture."),
+        // cspell:disable-next-line
         'youtube_id' => 'Yo6Vw-s1FtM',
       ],
       [
         'title' => $this->t('Schema.org Blueprints Installation & Setup'),
         'content' => $this->t("This presentation walks-through installing and setting up the Schema.org Blueprints module."),
+        // cspell:disable-next-line
         'youtube_id' => 'Dludw8Eomh4',
       ],
       [
         'title' => $this->t('Schema.org Blueprints Mapping Sets & Starter Kits'),
         'content' => $this->t("This presentation walks-through using the Schema.org Blueprints mapping sets and starter kit."),
+        // cspell:disable-next-line
         'youtube_id' => 'CeCY3fq86Xc',
       ],
       [
         'title' => $this->t('Schema.org Blueprints Demo'),
         'content' => $this->t("This presentation walks-through installing and setting up the Schema.org Blueprints Demo profile and module."),
+        // cspell:disable-next-line
         'youtube_id' => 'Jm_AztNEhCc',
       ],
       [
         'title' => $this->t('Schema.org Blueprints module in 7 minutes'),
         'content' => $this->t('A presentation and demo of the Schema.org Blueprints for Drupal in 7 minutes.'),
+        // cspell:disable-next-line
         'youtube_id' => 'KzNFAEfbFNw',
       ],
       [
         'title' => $this->t('Defining the goals of the Schema.org Blueprints module for Drupal'),
         'content' => $this->t('This presentation explores implementing a next-generation Content Management System (CMS) that supports progressive decoupling, structured data, advanced content authoring, and omnichannel publishing using the Schema.org Blueprints module for Drupal.'),
+        // cspell:disable-next-line
         'youtube_id' => '5RgPhNvEC4U',
       ],
       [
         'title' => $this->t('Schema.org Blueprints for Drupal'),
         'content' => $this->t('A session about the Schema.org Blueprints for Drupal from DrupalCamp NJ 2023.'),
+        // cspell:disable-next-line
         'youtube_id' => 'VG5Hm0Ar95c',
       ],
       [
         'title' => $this->t('Baking a Recipe using the Schema.org Blueprints module for Drupal'),
         'content' => $this->t("This presentation shows how to create a 'recipe' content type in Drupal based entirely on https://Schema.org/Recipe using two possible approaches via the Paragraphs module or Flex Field module to build out the nutrition information."),
+        // cspell:disable-next-line
         'youtube_id' => 'F31avX4gRm0',
       ],
       [
         'title' => $this->t('Schema.org Blueprints - Short Overview'),
         'content' => $this->t('This short presentation explains the what and why behind the Schema.org Blueprints module and shows how to use it to build a Schema.org Event content type in Drupal.'),
+        // cspell:disable-next-line
         'youtube_id' => 'XkZP6QjJkWs',
       ],
       [
         'title' => $this->t('Schema.org Blueprints - Full Demo'),
         'content' => $this->t('This extended presentation walks through the background, configuration, and future of the Schema.org Blueprints module. It provides an in-depth demo of building an entire website architecture that leverages Schema.org type, properties, and enumerations in 5 minutes.'),
+        // cspell:disable-next-line
         'youtube_id' => '_kk97O1SEw0',
       ],
       [
         'title' => $this->t('Schema.org Blueprints Organization Starter Kit'),
         'content' => $this->t("The Schema.org Blueprints Starter Kit: Organization module provides a starting point for building out an Organization's content and information model using Schema.org."),
+        // cspell:disable-next-line
         'youtube_id' => 'cEJ6pfpBACQ',
       ],
       [
         'title' => $this->t('Schemadotorg Blueprints - Exploration'),
         'content' => $this->t('This video explores the Schema.org Blueprints module for Drupal.'),
+        // cspell:disable-next-line
         'youtube_id' => 'A2p6ij2E5Qw',
       ],
       [
         'title' => $this->t('What is the Drupal Schema.org Blueprints Module?'),
         'content' => $this->t('A box-opening of the new schema.org blueprints module by the wonderful Jacob Rockowitz!'),
+        // cspell:disable-next-line
         'youtube_id' => 'mG7Ic91SOq4',
       ],
       [
         'title' => $this->t('Schema.org - What, How, Why?'),
         'content' => $this->t("This presentation explains why search engines now want metadata, how it works, and what you need to know as a dev (as seen in the context of Yandex, Russia's most used search engine, and schema.org)."),
+        // cspell:disable-next-line
         'youtube_id' => 'hcahQfN5u9Y',
       ],
     ];
@@ -502,7 +527,11 @@ class SchemaDotOrgHelpController extends ControllerBase {
         $row['configuration'] = [
           'data' => [
             '#type' => 'link',
-            '#url' => Url::fromRoute($module_info['configure']),
+            '#url' => Url::fromRoute(
+              $module_info['configure'],
+              [],
+              ['fragment' => Html::cleanCssIdentifier('edit-' . $module_name)]
+            ),
             '#title' => $this->t('Configure'),
             '#attributes' => [
               'style' => 'min-width:5rem',
@@ -515,7 +544,11 @@ class SchemaDotOrgHelpController extends ControllerBase {
         $row['configuration'] = [
           'data' => [
             '#type' => 'link',
-            '#url' => Url::fromRoute('system.modules_list'),
+            '#url' => Url::fromRoute(
+              'system.modules_list',
+              [],
+              ['fragment' => Html::cleanCssIdentifier('module-' . $module_name)]
+            ),
             '#title' => $this->t('Install'),
             '#attributes' => [
               'style' => 'min-width:5rem',

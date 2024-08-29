@@ -27,6 +27,13 @@ class InsertComponentForm extends ComponentFormBase {
   protected $domSelector;
 
   /**
+   * Default values for new paragraph.
+   *
+   * @var array
+   */
+  protected $paragraphDefaults = [];
+
+  /**
    * The jQuery insertion method to use for adding the new component.
    *
    * Must be "before", "after", "prepend", or "append.".
@@ -84,6 +91,8 @@ class InsertComponentForm extends ComponentFormBase {
    *   The uuid of the sibling component.
    * @param string $placement
    *   Where to place the new component - either "before" or "after".
+   * @param array $paragraph_defaults
+   *   Default values for the new paragraph.
    */
   public function buildForm(
     array $form,
@@ -93,9 +102,13 @@ class InsertComponentForm extends ComponentFormBase {
     string $parent_uuid = NULL,
     string $region = NULL,
     string $sibling_uuid = NULL,
-    string $placement = NULL
+    string $placement = NULL,
+    array $paragraph_defaults = []
     ) {
 
+    if (!empty($paragraph_defaults)) {
+      $this->paragraphDefaults = $paragraph_defaults;
+    }
     $this->setLayoutParagraphsLayout($layout_paragraphs_layout);
     $langcode = $this->layoutParagraphsLayout->getEntity()->language()->getId();
     $this->paragraph = $this->newParagraph($paragraph_type, $langcode);
@@ -115,7 +128,9 @@ class InsertComponentForm extends ComponentFormBase {
     else {
       $this->domSelector = '[data-lpb-id="' . $this->layoutParagraphsLayout->id() . '"]';
     }
-    return $this->buildComponentForm($form, $form_state);
+
+    $form_display_mode = $this->layoutParagraphsLayout->getSetting('form_display_mode');
+    return $this->buildComponentForm($form, $form_state, $form_display_mode);
   }
 
   /**
@@ -228,7 +243,8 @@ class InsertComponentForm extends ComponentFormBase {
       ->create([
         $bundle_key => $paragraph_type->id(),
         $langcode_key => $langcode,
-      ]);
+        '_layoutParagraphsLayout' => $this->getLayoutParagraphsLayout(),
+      ] + $this->paragraphDefaults);
     return $paragraph;
   }
 

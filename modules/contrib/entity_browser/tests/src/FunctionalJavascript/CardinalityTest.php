@@ -6,6 +6,7 @@ use Drupal\Core\Field\FieldStorageDefinitionInterface;
 use Drupal\entity_browser\Element\EntityBrowserElement;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
+use Drupal\Tests\ckeditor5\Traits\CKEditor5TestTrait;
 use Drupal\user\Entity\Role;
 
 /**
@@ -14,6 +15,8 @@ use Drupal\user\Entity\Role;
  * @group entity_browser
  */
 class CardinalityTest extends EntityBrowserWebDriverTestBase {
+
+  use CKEditor5TestTrait;
 
   /**
    * Modules to enable.
@@ -148,7 +151,6 @@ class CardinalityTest extends EntityBrowserWebDriverTestBase {
     $aragorn_checkbox->check();
     $gandolf_checkbox->check();
     $this->assertSession()->buttonExists('Select entities')->press();
-    $this->waitForAjaxToFinish();
     $this->assertSession()->pageTextContains('You can only select up to 2 items');
     // If we change the cardinality to 1, we should have radios.
     FieldStorageConfig::load('node.field_fellowship')
@@ -159,15 +161,19 @@ class CardinalityTest extends EntityBrowserWebDriverTestBase {
     $gollum_radio = $this->assertRadioExistsByValue('node:' . $gollum->id());
     $gollum_radio->click();
     $this->assertSession()->buttonExists('Select entities')->press();
+    $this->assertSession()->assertWaitOnAjaxRequest();
     $this->getSession()->switchToIFrame();
-    $this->waitForAjaxToFinish();
+
+    if (!$this->coreVersion('10.2')) {
+      $this->assertSession()->assertWaitOnAjaxRequest();
+    }
+
     // Assert the selected entity.
     $this->assertSession()->pageTextContains('Gollum');
     // Attempt to select more than one element.
     $this->assertSession()->buttonExists('Replace')->press();
     $this->waitForAjaxToFinish();
     $this->getSession()->switchToIFrame('entity_browser_iframe_cardinality');
-    $this->waitForAjaxToFinish();
     $gollum_radio = $this->assertRadioExistsByValue('node:' . $gollum->id());
     $gollum_radio->click();
     $gandolf_radio = $this->assertRadioExistsByValue('node:' . $gandolf->id());
@@ -184,7 +190,6 @@ class CardinalityTest extends EntityBrowserWebDriverTestBase {
     $this->assertSession()->buttonExists('Replace')->press();
     $this->waitForAjaxToFinish();
     $this->getSession()->switchToIFrame('entity_browser_iframe_cardinality');
-    $this->waitForAjaxToFinish();
 
     // Test that cardinality setting persists when using exposed filters form,
     // When applying the exposed filters, the radios should persist.
@@ -208,7 +213,6 @@ class CardinalityTest extends EntityBrowserWebDriverTestBase {
    * Tests cardinality functionality using Entity Embed button.
    */
   public function testEntityEmbed() {
-
     $this->config('entity_browser.browser.bundle_filter')
       ->set('widgets.b882a89d-9ce4-4dfe-9802-62df93af232a.settings.view', 'bundle_filter_exposed')
       ->save();
@@ -230,7 +234,9 @@ class CardinalityTest extends EntityBrowserWebDriverTestBase {
     $humperdinck = $this->createNode(['type' => 'article', 'title' => 'Humperdinck']);
 
     $this->drupalGet('/node/add/test_entity_embed');
-    $this->assertSession()->waitForElement('css', 'a.cke_button__bundle_filter_test')->click();
+
+    $this->waitForEditor();
+    $this->pressEditorButton('Bundle Filter Test Embed');
     $this->assertSession()->waitForElementVisible('xpath', "//iframe[contains(@name, 'entity_browser_iframe_bundle_filter')]", 3000);
     $this->getSession()->switchToIFrame('entity_browser_iframe_bundle_filter');
     $this->assertSession()->waitForElementVisible('xpath', "//div[contains(@class, 'views-exposed-form')]");
@@ -246,7 +252,8 @@ class CardinalityTest extends EntityBrowserWebDriverTestBase {
       ->save();
 
     $this->drupalGet('/node/add/test_entity_embed');
-    $this->assertSession()->waitForElement('css', 'a.cke_button__bundle_filter_test')->click();
+    $this->waitForEditor();
+    $this->pressEditorButton('Bundle Filter Test Embed');
     $this->assertSession()->waitForElementVisible('xpath', "//iframe[contains(@name, 'entity_browser_iframe_bundle_filter')]", 3000);
     $this->getSession()->switchToIFrame('entity_browser_iframe_bundle_filter');
     $this->assertSession()->waitForElementVisible('xpath', "//div[contains(@class, 'views-exposed-form')]");
@@ -369,9 +376,7 @@ class CardinalityTest extends EntityBrowserWebDriverTestBase {
     $open_iframe_link = $this->assertSession()
       ->elementExists('css', 'a[data-drupal-selector="edit-field-fellowship-entity-browser-entity-browser-link"]');
     $open_iframe_link->click();
-    $this->waitForAjaxToFinish();
     $this->getSession()->switchToIFrame('entity_browser_iframe_cardinality');
-    $this->waitForAjaxToFinish();
   }
 
 }

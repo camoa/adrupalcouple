@@ -1,0 +1,23 @@
+include:
+  # View these include files at https://git.drupalcode.org/project/gitlab_templates/
+  - project: $_GITLAB_TEMPLATES_REPO
+    ref: $_GITLAB_TEMPLATES_REF
+    file:
+      - '/includes/include.drupalci.main.yml'
+      - '/includes/include.drupalci.variables.yml'
+      - '/includes/include.drupalci.workflows.yml'
+
+variables:
+  OPT_IN_TEST_PREVIOUS_MINOR: "1"
+  OPT_IN_TEST_NEXT_MINOR: "1"
+  OPT_IN_TEST_PREVIOUS_MAJOR: "1"
+  OPT_IN_TEST_NEXT_MAJOR: "1"
+
+phpunit:
+  before_script:
+    # Drupal core does not support installing from existing configuration with
+    # storage transformers.
+    # See https://www.drupal.org/project/drupal/issues/3426298
+    - cd web
+    - curl https://git.drupalcode.org/project/drupal/-/merge_requests/6952.diff | patch -p1
+    - cd ..

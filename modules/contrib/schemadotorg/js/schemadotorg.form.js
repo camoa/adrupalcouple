@@ -18,22 +18,24 @@
       ).forEach((form) => {
         const submit = form.querySelector('.form-actions input[type="submit"]');
 
-        // Track which button is clicked.
-        // eslint-disable-next-line
-        submit.addEventListener('click', () => submit.classList.add('js-schemadotorg-submit-clicked'));
-
         // Disable the submit button, remove the cancel link,
         // and display a progress throbber.
         form.addEventListener('submit', () => {
-          submit.disabled = true;
+          // Determine if the admin_dialog.module's spinner is enabled.
+          // @see \Drupal\admin_dialogs\AdminDialogsModule::form_alter
+          // eslint-disable-next-line
+          const adminDialogSpinner = submit.parentNode.classList.contains('admin-dialogs-button-wrapper')
+          if (!adminDialogSpinner) {
+            submit.disabled = true;
+            const throbber = Drupal.theme.ajaxProgressThrobber();
+            submit.insertAdjacentHTML('afterend', throbber);
+          }
 
-          const cancelLink = submit.parentNode.querySelector('#edit-cancel');
+          // eslint-disable-next-line
+          const cancelLink = submit.parentNode.parentNode.querySelector('#edit-cancel');
           if (cancelLink) {
             cancelLink.remove();
           }
-
-          const throbber = Drupal.theme.ajaxProgressThrobber();
-          submit.insertAdjacentHTML('afterend', throbber);
         });
       });
     },

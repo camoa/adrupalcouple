@@ -8,7 +8,7 @@ id: node.recipe.schema_recipe_yield
 field_name: schema_recipe_yield
 entity_type: node
 bundle: recipe
-label: 'Recipe yield'
+label: Yield
 description: 'The quantity produced by the recipe (for example, number of people served, number of servings, etc).'
 required: false
 translatable: true

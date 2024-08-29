@@ -15,8 +15,9 @@ use Drupal\smart_date_recur\Entity\SmartDateRule;
 use Drupal\smart_date_recur\Form\SmartDateOverrideDeleteAjaxForm;
 use Drupal\smart_date_recur\Form\SmartDateOverrideForm;
 use Drupal\smart_date_recur\Form\SmartDateRemoveInstanceForm;
-use Symfony\Component\HttpFoundation\RedirectResponse;
+use Drupal\smart_date_recur\SmartDateRecurManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 /**
  * Provides listings of instances (with overrides) for a specified rule.
@@ -68,11 +69,19 @@ class Instances extends ControllerBase {
   protected $formBuilder;
 
   /**
+   * The smart Date RecurManager service.
+   *
+   * @var \Drupal\smart_date_recur\SmartDateRecurManagerInterface
+   */
+  protected $smartDateRecurManager;
+
+  /**
    * {@inheritdoc}
    */
-  public function __construct(FormBuilderInterface $form_builder, EntityTypeManagerInterface $entityTypeManager) {
+  public function __construct(FormBuilderInterface $form_builder, EntityTypeManagerInterface $entityTypeManager, SmartDateRecurManager $smartDateRecurManager) {
     $this->formBuilder = $form_builder;
     $this->entityTypeManager = $entityTypeManager;
+    $this->smartDateRecurManager = $smartDateRecurManager;
   }
 
   /**
@@ -87,6 +96,7 @@ class Instances extends ControllerBase {
     return new static(
       $container->get('form_builder'),
       $container->get('entity_type.manager'),
+      $container->get('smart_date_recur.manager'),
     );
   }
 
@@ -103,7 +113,7 @@ class Instances extends ControllerBase {
     }
 
     if ($this->rrule->limit->isEmpty()) {
-      $month_limit = \Drupal::service('smart_date_recur.manager')->getMonthsLimit($this->rrule);
+      $month_limit = $this->smartDateRecurManager->getMonthsLimit($this->rrule);
       $before = strtotime('+' . (int) $month_limit . ' months');
     }
     else {
@@ -138,8 +148,7 @@ class Instances extends ControllerBase {
         if ($override->entity_id->getString()) {
           // Overridden, retrieve appropriate entity.
           $override_type = 'overridden';
-          $override = $entity_storage
-            ->load($override->entity_id->getString());
+          // @toto retrieve the reference entity from the 'entity_id' property.
           // @todo drill down and retrieve, replace values.
           // @todo drop in the URL to edit.
         }
@@ -330,7 +339,7 @@ class Instances extends ControllerBase {
             $operations['edit']['attributes']['class'][] = 'use-ajax';
           }
 
-        case 'overriden':
+        case 'overridden':
           // Removal handled by the delete action already defined.
           // @todo Update the URL of the Edit button above to point to the
           // entity form of the referenced entity.

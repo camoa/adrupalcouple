@@ -3,6 +3,10 @@
  * Schema.org report styles.
  */
 
+table.schemadotorg-report-table td {
+  vertical-align: top;
+}
+
 /**
  * Hide the filter submit button is dialog and use autocomplete to redirect.
  */
@@ -12,6 +16,12 @@
 
 .ui-dialog hr {
   margin: 1rem 0;
+}
+
+.schemadotorg-report-dialog-header {
+  margin-bottom: 1rem;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid #ccc;
 }
 
 .schemadotorg-report-dialog-header nav {

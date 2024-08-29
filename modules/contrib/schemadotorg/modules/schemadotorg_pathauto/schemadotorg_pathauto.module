@@ -5,7 +5,7 @@
  * Automatically enables URL aliases (via pathauto) for Schema.org types.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
@@ -16,7 +16,7 @@ use Drupal\schemadotorg\SchemaDotOrgMappingInterface;
  * Implements hook_schemadotorg_mapping_insert().
  */
 function schemadotorg_pathauto_schemadotorg_mapping_insert(SchemaDotOrgMappingInterface $mapping): void {
-  if (\Drupal::isConfigSyncing()) {
+  if ($mapping->isSyncing()) {
     return;
   }
 
@@ -28,6 +28,7 @@ function schemadotorg_pathauto_schemadotorg_mapping_insert(SchemaDotOrgMappingIn
   $schema_type_manager = \Drupal::service('schemadotorg.schema_type_manager');
 
   $patterns = \Drupal::config('schemadotorg_pathauto.settings')->get('patterns');
+  $weight = -10;
   foreach ($patterns as $pattern_name => $pattern) {
     [$pattern_entity_type_id, $pattern_schema_type] = explode('--', $pattern_name);
 
@@ -50,8 +51,9 @@ function schemadotorg_pathauto_schemadotorg_mapping_insert(SchemaDotOrgMappingIn
         'label' => $pathauto_pattern_label,
         'type' => 'canonical_entities:' . $entity_type_id,
         'pattern' => $pattern,
-        'weight' => -10,
+        'weight' => $weight,
       ]);
+      $weight--;
       $pathauto_pattern->addSelectionCondition([
         'id' => 'entity_bundle:' . $entity_type_id,
         'negate' => FALSE,
@@ -95,23 +97,23 @@ function schemadotorg_pathauto_form_schemadotorg_types_settings_form_alter(array
     '#type' => 'schemadotorg_settings',
     '#title' => t('Schema.org type pathauto patterns'),
     '#description' => t('Enter the entity types and Schema.org types that support pathauto.')
-    . '  '
-    . t('Note: Only one Pathauto pattern will created for each item and additional Schema.org types will be added to the Pathauto pattern.'),
+      . '  '
+      . t('Note: Only one Pathauto pattern will created for each item and additional Schema.org types will be added to the Pathauto pattern.'),
     '#description_link' => 'types',
     '#token_link' => TRUE,
     '#example' => "
-node--Thing: '[node:schemadotorg:base-path]'
+node--Thing: '[node:schemadotorg:base-path]/[node:title]'
 ",
   ];
   $form['schemadotorg_pathauto']['base_paths'] = [
-      '#type' => 'schemadotorg_settings',
-      '#title' => t('Schema.org type base paths'),
-      '#description' => t('Enter the base paths for Schema.org types.')
-        . '  '
-        . t('Please specify Schema.org type base path from specific types to more general type.'),
+    '#type' => 'schemadotorg_settings',
+    '#title' => t('Schema.org type base paths'),
+    '#description' => t('Enter the base paths for Schema.org types.')
+      . '  '
+      . t('Please specify Schema.org type base path from specific types to more general type.'),
     '#description_link' => 'types',
-      '#token_link' => TRUE,
-      '#example' => "
+    '#token_link' => TRUE,
+    '#example' => "
 Restaurants: restaurants
 Physician: doctors
 MedicalCondition: medical/conditions
@@ -126,6 +128,7 @@ Organization: organizations
     '#type' => 'checkbox',
     '#title' => t('Apply Schema.org pathauto patterns to all existing Schema.org mappings.'),
     '#description' => t('If checked, the above pathauto patterns will be applied to all existing Schema.org mappings.'),
+    '#prefix' => '<hr/>',
   ];
   $form['#submit'][] = 'schemadotorg_pathauto_form_schemadotorg_types_settings_form_submit';
 }

@@ -1,7 +1,10 @@
 schemadotorg_diagram.settings:
-  type: config_entity
+  type: config_object
   label: 'Schema.org Diagram settings'
   mapping:
+    node_task:
+      type: boolean
+      label: 'Display diagrams as a node tab/task.'
     diagrams:
       type: sequence
       label: Diagrams

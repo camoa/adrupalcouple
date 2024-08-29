@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\Tests\schemadotorg_office_hours\Kernel;
 
@@ -20,9 +20,7 @@ require_once __DIR__ . '/../../../schemadotorg_office_hours.install';
 class SchemaDotOrgOfficeHoursJsonLdKernelTest extends SchemaDotOrgJsonLdKernelTestBase {
 
   /**
-   * Modules to enable.
-   *
-   * @var array
+   * {@inheritdoc}
    */
   protected static $modules = [
     'office_hours',
@@ -73,8 +71,8 @@ class SchemaDotOrgOfficeHoursJsonLdKernelTest extends SchemaDotOrgJsonLdKernelTe
     $field_storage_config = FieldStorageConfig::loadByName('node', 'schema_opening_hours_spec');
     $this->assertEquals(-1, $field_storage_config->getCardinality());
     $this->assertEquals([
-      'time_format' => 'G',
-      'element_type' => 'office_hours_datelist',
+      'time_format' => 'g',
+      'element_type' => 'office_hours_datetime',
       'increment' => 30,
       'required_start' => FALSE,
       'limit_start' => '',

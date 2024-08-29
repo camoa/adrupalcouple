@@ -1,22 +1,8 @@
-property_allowed_values:
-  gender:
-    Male: Male
-    Female: Female
-    Unspecified: Unspecified
-  contactType:
-    Home: Home
-    Work: Work
-    Cell: Cell
-  honorificPrefix:
-    Dr: Dr
-    Mrs: Mrs
-    Miss: Miss
-    Mr: Mr
-    Mx: Mx
-  honorificSuffix:
-    MD: M.D.
-    PHD: PhD
-    MSCSW: MSCSW
+schema_property_allowed_values:
+  difficulty:
+    easy: Easy
+    medium: Medium
+    hard: Hard
   dosageForm:
     Aerosol: Aerosol
     Bead: Bead
@@ -81,6 +67,70 @@ property_allowed_values:
     Tincture: Tincture
     Troche: Troche
     Wafer: Wafer
-property_allowed_values_suffixes:
+  doseUnit:
+    gram: gram
+    milligram: milligram
+  contactType:
+    Home: Home
+    Work: Work
+    Cell: Cell
+  frequency:
+    Daily: Daily
+    '2 times a day': '2 times a day'
+    '3 times a day': '3 times a day'
+    '4 times a day': '4 times a day'
+    '5 times a day': '5 times a day'
+    'Every 3 hours': 'Every 3 hours'
+    'Every 6 hours': 'Every 6 hours'
+    'Every 8 hours': 'Every 8 hours'
+    'Every 12 hours': 'Every 12 hours'
+    'Every 24 hours': 'Every 24 hours'
+    'Bedtime': 'Bedtime'
+  gender:
+    Male: Male
+    Female: Female
+    Unspecified: Unspecified
+  honorificPrefix:
+    Dr: Dr
+    Mrs: Mrs
+    Miss: Miss
+    Mr: Mr
+    Mx: Mx
+  honorificSuffix:
+    MD: M.D.
+    PHD: PhD
+    MSCSW: MSCSW
+  priceRange:
+    '$': $
+    '$$': $$
+    '$$$': $$$
+    '$$$$': $$$$
+  starRating:
+    1: ★
+    2: ★★
+    3: ★★★
+    4: ★★★★
+    5: ★★★★★
+  typeOfBed:
+    california_king: 'California king'
+    king: King
+    queen: Queen
+    full: Full
+    double: Double
+    semi_double: 'Semi double'
+    single: Single
+  SpecialAnnouncement--category:
+    information: Information
+    condition: Condition
+    warning: Warning
+    emergency: Emergency
+    error: Error
+schema_property_allowed_values_suffixes:
   suitableForDiet: Diet
   hasHealthAspect: 'Health Aspect'
+allowed_value_uris:
+  condition: 'https://www.wikidata.org/wiki/Q813912'
+  emergency: 'https://www.wikidata.org/wiki/Q5070802'
+  error: 'https://www.wikidata.org/wiki/Q29485'
+  information: 'https://www.wikidata.org/wiki/Q11028'
+  warning: 'https://www.wikidata.org/wiki/Q1759104'

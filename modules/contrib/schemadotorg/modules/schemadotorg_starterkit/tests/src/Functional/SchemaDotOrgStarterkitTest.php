@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\Tests\schemadotorg_starterkit\Functional;
 
@@ -24,9 +24,7 @@ class SchemaDotOrgStarterkitTest extends SchemaDotOrgBrowserTestBase {
   // phpcs:enable DrupalPractice.Objects.StrictSchemaDisabled.StrictConfigSchema
 
   /**
-   * Modules to enable.
-   *
-   * @var array
+   * {@inheritdoc}
    */
   protected static $modules = ['schemadotorg_starterkit_dependency_test'];
 
@@ -77,19 +75,27 @@ class SchemaDotOrgStarterkitTest extends SchemaDotOrgBrowserTestBase {
     $view_storage = \Drupal::entityTypeManager()->getStorage('view');
     $this->assertNotNull($view_storage->load('events'));
 
+    // Check default Thing was created.
+    /** @var \Drupal\node\NodeTypeInterface $node_type */
+    $node_type = $node_type_storage->load('thing');
+    $this->assertEquals('Thing', $node_type->label());
+    /** @var \Drupal\schemadotorg\SchemaDotOrgMappingInterface|null $mapping */
+    $mapping = $mapping_storage->load('node.thing');
+    $expected_properties = [];
+    $this->assertEquals($expected_properties, $mapping->getSchemaProperties());
+
     // Check Thing custom defaults were applied.
     // @see schemadotorg_preinstall_test.schemadotorg.yml
     /** @var \Drupal\node\NodeTypeInterface $node_type */
-    $node_type = $node_type_storage->load('thing');
+    $node_type = $node_type_storage->load('custom_thing');
     $this->assertEquals('Something', $node_type->label());
 
-    /** @var \Drupal\schemadotorg\SchemaDotOrgMappingInterface $mapping */
-    $mapping = $mapping_storage->load('node.thing');
+    /** @var \Drupal\schemadotorg\SchemaDotOrgMappingInterface|null $mapping */
+    $mapping = $mapping_storage->load('node.custom_thing');
     $expected_properties = [
       'schema_description' => 'description',
       'schema_image' => 'image',
       'schema_name' => 'name',
-      'custom' => 'custom',
     ];
     $this->assertEquals($expected_properties, $mapping->getSchemaProperties());
 
@@ -99,7 +105,7 @@ class SchemaDotOrgStarterkitTest extends SchemaDotOrgBrowserTestBase {
     // existing Schema.org types.
     // @see schemadotorg_starterkit_test.schemadotorg_starterkit.yml
     // @see schemadotorg_starterkit_dependency_test.schemadotorg_starterkit.yml
-    /** @var \Drupal\schemadotorg\SchemaDotOrgMappingInterface $mapping */
+    /** @var \Drupal\schemadotorg\SchemaDotOrgMappingInterface|null $mapping */
     $mapping = $mapping_storage->load('node.person');
     $expected_properties = [
       'schema_additional_name' => 'additionalName',

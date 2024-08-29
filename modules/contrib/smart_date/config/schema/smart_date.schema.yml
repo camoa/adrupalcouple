@@ -226,6 +226,12 @@ field.widget.settings.smartdate_timezone:
     hide_date:
       type: boolean
       label: 'Hide end date unless different'
+    allday:
+      type: boolean
+      label: 'Show an all day checkbox'
+    remove_seconds:
+      type: boolean
+      label: 'Remove any seconds, if present, from existing values'
     separator:
       type: string
       label: 'Separator'

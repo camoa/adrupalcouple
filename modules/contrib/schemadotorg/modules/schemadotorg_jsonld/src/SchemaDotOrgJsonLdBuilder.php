@@ -1,17 +1,21 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg_jsonld;
 
+use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Field\FieldItemInterface;
 use Drupal\Core\Field\FieldItemListInterface;
+use Drupal\Core\Render\BubbleableMetadata;
 use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Utility\Token;
 use Drupal\file\FileInterface;
-use Drupal\node\NodeInterface;
+use Drupal\schemadotorg\Entity\SchemaDotOrgMapping;
+use Drupal\schemadotorg\SchemaDotOrgMappingInterface;
 use Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface;
 
 /**
@@ -41,6 +45,8 @@ class SchemaDotOrgJsonLdBuilder implements SchemaDotOrgJsonLdBuilderInterface {
    *   The module handler.
    * @param \Drupal\Core\Routing\RouteMatchInterface $routeMatch
    *   The current route match.
+   * @param \Drupal\Core\Utility\Token $token
+   *   The token service.
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
    *   The entity type manager.
    * @param \Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager
@@ -51,23 +57,27 @@ class SchemaDotOrgJsonLdBuilder implements SchemaDotOrgJsonLdBuilderInterface {
   public function __construct(
     protected ModuleHandlerInterface $moduleHandler,
     protected RouteMatchInterface $routeMatch,
+    protected Token $token,
     protected EntityTypeManagerInterface $entityTypeManager,
     protected SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager,
-    protected SchemaDotOrgJsonLdManagerInterface $schemaJsonLdManager
+    protected SchemaDotOrgJsonLdManagerInterface $schemaJsonLdManager,
   ) {}
 
   /**
    * {@inheritdoc}
    */
-  public function build(?RouteMatchInterface $route_match = NULL): ?array {
+  public function build(?RouteMatchInterface $route_match = NULL, ?BubbleableMetadata $bubbleable_metadata = NULL): ?array {
     $route_match = $route_match ?: $this->routeMatch;
+    $bubbleable_metadata = $bubbleable_metadata ?: new BubbleableMetadata();
+    $bubbleable_metadata->addCacheContexts(static::ROUTE_MATCH_CACHE_CONTEXTS);
+    $bubbleable_metadata->addCacheTags(static::ROUTE_MATCH_CACHE_TAGS);
 
     $data = [];
 
     // Add custom data based on the route match.
     // @see hook_schemadotorg_jsonld()
-    $this->moduleHandler->invokeAllWith('schemadotorg_jsonld', function (callable $hook, string $module) use (&$data, $route_match): void {
-      $module_data = $hook($route_match);
+    $this->moduleHandler->invokeAllWith('schemadotorg_jsonld', function (callable $hook, string $module) use (&$data, $route_match, $bubbleable_metadata): void {
+      $module_data = $hook($route_match, $bubbleable_metadata);
       if ($module_data) {
         $data[$module . '_schemadotorg_jsonld'] = $module_data;
       }
@@ -75,14 +85,17 @@ class SchemaDotOrgJsonLdBuilder implements SchemaDotOrgJsonLdBuilderInterface {
 
     // Add entity data.
     $entity = $this->schemaJsonLdManager->getRouteMatchEntity($route_match);
-    $entity_data = $this->buildEntity($entity);
+    $entity_data = $this->buildEntity(
+      entity: $entity,
+      bubbleable_metadata: $bubbleable_metadata,
+    );
     if ($entity_data) {
       $data['schemadotorg_jsonld_entity'] = $entity_data;
     }
 
     // Alter Schema.org JSON-LD data for the current route.
     // @see hook_schemadotorg_jsonld_alter()
-    $this->moduleHandler->alter('schemadotorg_jsonld', $data, $route_match);
+    $this->moduleHandler->alter('schemadotorg_jsonld', $data, $route_match, $bubbleable_metadata);
 
     // Return NULL if the data is empty.
     if (empty($data)) {
@@ -96,25 +109,46 @@ class SchemaDotOrgJsonLdBuilder implements SchemaDotOrgJsonLdBuilderInterface {
   /**
    * {@inheritdoc}
    */
-  public function buildEntity(?EntityInterface $entity = NULL): ?array {
-    if (!$entity || !$entity->access('view')) {
+  public function buildEntity(?EntityInterface $entity = NULL, ?SchemaDotOrgMappingInterface $mapping = NULL, ?BubbleableMetadata $bubbleable_metadata = NULL): ?array {
+    if (!$entity) {
       return [];
     }
 
-    $data = $this->buildMappedEntity($entity);
+    // If the mapping is not defined, load the entity's Schema.org mapping.
+    $mapping = $mapping
+      ?? SchemaDotOrgMapping::loadByEntity($entity);
+
+    $bubbleable_metadata = $bubbleable_metadata ?? new BubbleableMetadata();
+    $bubbleable_metadata->addCacheContexts(static::ENTITY_CACHE_CONTEXTS);
+    $bubbleable_metadata->addCacheTags(static::ENTITY_CACHE_TAGS);
+
+    // Track the entity via bubbleable metadata.
+    $bubbleable_metadata->addCacheableDependency($entity);
+
+    if (!$entity->access('view')) {
+      return [];
+    }
+
+    /** @var \Drupal\Core\Entity\ContentEntityInterface $entity */
+    $data = $this->buildMappedEntity($entity, $mapping, $bubbleable_metadata);
 
     // Load Schema.org JSON-LD entity data.
     // @see schemadotorg_jsonld_schema_type_entity_load()
     $this->moduleHandler->invokeAllWith(
       'schemadotorg_jsonld_schema_type_entity_load',
-      function (callable $hook) use (&$data, $entity): void {
-        $hook($data, $entity);
+      function (callable $hook) use (&$data, $entity, $mapping, $bubbleable_metadata): void {
+        $hook($data, $entity, $mapping, $bubbleable_metadata);
       }
     );
 
     // Alter Schema.org type JSON-LD using the entity.
     // @see schemadotorg_jsonld_schema_type_entity_alter()
-    $this->moduleHandler->alter('schemadotorg_jsonld_schema_type_entity', $data, $entity);
+    $this->moduleHandler->invokeAllWith(
+      'schemadotorg_jsonld_schema_type_entity_alter',
+      function (callable $hook) use (&$data, $entity, $mapping, $bubbleable_metadata): void {
+        $hook($data, $entity, $mapping, $bubbleable_metadata);
+      }
+    );
 
     // Sort Schema.org properties in specified order and then alphabetically.
     $data = $this->schemaJsonLdManager->sortProperties($data);
@@ -130,16 +164,30 @@ class SchemaDotOrgJsonLdBuilder implements SchemaDotOrgJsonLdBuilderInterface {
    *
    * @param \Drupal\Core\Entity\EntityInterface $entity
    *   The entity.
+   * @param \Drupal\schemadotorg\SchemaDotOrgMappingInterface|null $mapping
+   *   The entity Schema.org mapping. This is optional an only required
+   *   if entity is not mapping to Schema.org type or needs to be mapped to
+   *   second Schema.org type.
+   * @param \Drupal\Core\Render\BubbleableMetadata|null $bubbleable_metadata
+   *   Object to collect JSON-LD's bubbleable metadata.
    *
-   * @return array|bool
+   * @return array
    *   The JSON-LD for an entity that is mapped to a Schema.org type.
    */
-  protected function buildMappedEntity(EntityInterface $entity): array {
-    /** @var \Drupal\schemadotorg\SchemaDotOrgMappingStorageInterface $mapping_storage */
-    $mapping_storage = $this->entityTypeManager->getStorage('schemadotorg_mapping');
-    $mapping = $mapping_storage->loadByEntity($entity);
-    if (!$mapping) {
+  protected function buildMappedEntity(EntityInterface $entity, ?SchemaDotOrgMappingInterface $mapping = NULL, ?BubbleableMetadata $bubbleable_metadata = NULL): array {
+    // Only content entities can support a Schema.org (field) mapping.
+    if (!$entity instanceof ContentEntityInterface) {
       return [];
+    }
+
+    // Load the entity's Schema.org mapping if it is not defined.
+    if (!$mapping) {
+      /** @var \Drupal\schemadotorg\SchemaDotOrgMappingStorageInterface $mapping_storage */
+      $mapping_storage = $this->entityTypeManager->getStorage('schemadotorg_mapping');
+      $mapping = $mapping_storage->loadByEntity($entity);
+      if (!$mapping) {
+        return [];
+      }
     }
 
     $type_data = [];
@@ -156,7 +204,7 @@ class SchemaDotOrgJsonLdBuilder implements SchemaDotOrgJsonLdBuilderInterface {
       // Get property values from field items.
       /** @var \Drupal\Core\Field\FieldItemListInterface $field_items */
       $field_items = $entity->get($field_name);
-      $property_values = $this->getSchemaPropertyFieldItems($schema_type, $schema_property, $field_items);
+      $property_values = $this->getSchemaPropertyFieldItems($schema_type, $schema_property, $field_items, $bubbleable_metadata);
 
       if ($property_values) {
         // If the cardinality is 1, return the first property data item.
@@ -167,16 +215,13 @@ class SchemaDotOrgJsonLdBuilder implements SchemaDotOrgJsonLdBuilderInterface {
       }
     }
 
-    if (!$type_data) {
-      return [];
-    }
-
     // Prepend the @type to the returned data.
     $default_data = [];
     $default_data['@type'] = $mapping->getSchemaType();
 
     // Prepend the @url to the returned data.
-    if ($entity->hasLinkTemplate('canonical') && $entity->access('view')) {
+    if ($this->schemaJsonLdManager->hasSchemaUrl($entity)
+      && $entity->access('view')) {
       $default_data['@url'] = $entity->toUrl('canonical')->setAbsolute()->toString();
     }
 
@@ -191,9 +236,9 @@ class SchemaDotOrgJsonLdBuilder implements SchemaDotOrgJsonLdBuilderInterface {
         continue;
       }
 
-      /** @var \Drupal\Core\Field\FieldItemListInterface $items */
+      /** @var \Drupal\Core\Field\FieldItemListInterface $field_items */
       $field_items = $entity->get($field_name);
-      $this->alterSchemaTypeFieldItems($data, $field_items);
+      $this->alterSchemaTypeFieldItems($data, $field_items, $bubbleable_metadata);
     }
 
     return $data;
@@ -206,28 +251,31 @@ class SchemaDotOrgJsonLdBuilder implements SchemaDotOrgJsonLdBuilderInterface {
    *   The Schema.org JSON-LD data for an entity.
    * @param \Drupal\Core\Field\FieldItemListInterface $items
    *   A field item list.
+   * @param \Drupal\Core\Render\BubbleableMetadata|null $bubbleable_metadata
+   *   Object to collect JSON-LD's bubbleable metadata.
    */
-  protected function alterSchemaTypeFieldItems(array &$data, FieldItemListInterface $items): void {
+  protected function alterSchemaTypeFieldItems(array &$data, FieldItemListInterface $items, ?BubbleableMetadata $bubbleable_metadata = NULL): void {
     $data += $this->schemaJsonLdManager->getSchemaTypeProperties($items);
-    $this->moduleHandler->alter('schemadotorg_jsonld_schema_type_field', $data, $items);
+    $this->moduleHandler->alter('schemadotorg_jsonld_schema_type_field', $data, $items, $bubbleable_metadata);
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getSchemaPropertyFieldItems(string $schema_type, string $schema_property, FieldItemListInterface $items): array {
+  public function getSchemaPropertyFieldItems(string $schema_type, string $schema_property, FieldItemListInterface $items, ?BubbleableMetadata $bubbleable_metadata = NULL): array {
     $total_items = $items->count();
 
     $position = 1;
     $property_values = [];
     foreach ($items as $item) {
-      $property_value = $this->getSchemaPropertyFieldItem($schema_type, $schema_property, $item);
+      $property_value = $this->getSchemaPropertyFieldItem($schema_type, $schema_property, $item, $bubbleable_metadata);
 
       // Alter the Schema.org property's individual value.
       $this->moduleHandler->alter(
         'schemadotorg_jsonld_schema_property',
         $property_value,
-        $item
+        $item,
+        $bubbleable_metadata
       );
 
       // If there is more than 1 item, see if we need to its position.
@@ -251,7 +299,8 @@ class SchemaDotOrgJsonLdBuilder implements SchemaDotOrgJsonLdBuilderInterface {
     $this->moduleHandler->alter(
       'schemadotorg_jsonld_schema_properties',
       $property_values,
-      $items
+      $items,
+      $bubbleable_metadata
     );
 
     return $property_values;
@@ -266,13 +315,23 @@ class SchemaDotOrgJsonLdBuilder implements SchemaDotOrgJsonLdBuilderInterface {
    *   The Schema.org property.
    * @param \Drupal\Core\Field\FieldItemInterface|null $item
    *   The field item.
+   * @param \Drupal\Core\Render\BubbleableMetadata|null $bubbleable_metadata
+   *   Object to collect JSON-LD's bubbleable metadata.
    *
    * @return mixed
    *   A data type.
    */
-  protected function getSchemaPropertyFieldItem(string $schema_type, string $schema_property, ?FieldItemInterface $item = NULL): mixed {
+  protected function getSchemaPropertyFieldItem(string $schema_type, string $schema_property, ?FieldItemInterface $item = NULL, ?BubbleableMetadata $bubbleable_metadata = NULL): mixed {
     if (is_null($item)) {
       return NULL;
+    }
+
+    // Make sure mapped and unmapped entities are tracked
+    // via bubbleable metadata.
+    if ($item->entity
+      && $item->entity instanceof EntityInterface
+      && $bubbleable_metadata) {
+      $bubbleable_metadata->addCacheableDependency($item->entity);
     }
 
     // Handle entity reference except for files (and images).
@@ -280,26 +339,58 @@ class SchemaDotOrgJsonLdBuilder implements SchemaDotOrgJsonLdBuilderInterface {
     if ($item->entity
       && $item->entity instanceof EntityInterface
       && !$item->entity instanceof FileInterface) {
-      // Return node reference's type, url, and label or just the node's label.
-      if ($item->entity instanceof NodeInterface) {
-        $node = $item->entity;
-        /** @var \Drupal\schemadotorg\SchemaDotOrgMappingStorageInterface $mapping_storage */
-        $mapping_storage = $this->entityTypeManager->getStorage('schemadotorg_mapping');
-        $node_mapping = $mapping_storage->loadByEntity($node);
-        if ($node_mapping) {
-          $node_schema_property = $node_mapping->getSchemaPropertyMapping('title') ?? 'name';
-          return [
-            '@type' => $node_mapping->getSchemaType(),
-            '@url' => $node->toUrl('canonical')->setAbsolute()->toString(),
-            $node_schema_property => $node->label(),
-          ];
-        }
-        else {
-          return $node->label();
-        }
+      $target_entity = $item->entity;
+      if (!$target_entity->access('view')) {
+        return NULL;
       }
-      else {
-        return $this->buildEntity($item->entity) ?: NULL;
+
+      // For Schema.org properties that can only contain a URL,
+      // we need to return the entity's absolute URL.
+      // @see https://schema.org/URL
+      // @see https://schema.org/relatedLink
+      // @see https://schema.org/significantLink
+      $range_includes = $this->schemaTypeManager->getPropertyRangeIncludes($schema_property);
+      if (isset($range_includes['URL']) && count($range_includes) === 1) {
+        return $target_entity->toUrl('canonical')->setAbsolute()->toString();
+      }
+
+      $entity_reference_display = $this->schemaJsonLdManager->getSchemaTypeEntityReferenceDisplay($target_entity);
+      switch ($entity_reference_display) {
+        case SchemaDotOrgJsonLdManagerInterface::ENTITY_REFERENCE_DISPLAY_NONE:
+          return NULL;
+
+        case SchemaDotOrgJsonLdManagerInterface::ENTITY_REFERENCE_DISPLAY_ENTITY:
+          return $this->buildEntity(
+            entity: $item->entity,
+            bubbleable_metadata: $bubbleable_metadata,
+          ) ?: NULL;
+
+        case SchemaDotOrgJsonLdManagerInterface::ENTITY_REFERENCE_DISPLAY_URL:
+          /** @var \Drupal\schemadotorg\SchemaDotOrgMappingStorageInterface $mapping_storage */
+          $mapping_storage = $this->entityTypeManager->getStorage('schemadotorg_mapping');
+          $mapping = $mapping_storage->loadByEntity($target_entity);
+          $mapping_schema_property = ($mapping)
+            ? $mapping->getSchemaPropertyMapping('title') ?? 'name'
+            : 'name';
+          $data = [
+            '@type' => ($mapping) ? $mapping->getSchemaType() : 'Thing',
+            $mapping_schema_property => $target_entity->label(),
+          ];
+          if ($this->schemaJsonLdManager->hasSchemaUrl($target_entity)) {
+            $data['@url'] = $target_entity->toUrl('canonical')->setAbsolute()->toString();
+          }
+          return $data;
+
+        case SchemaDotOrgJsonLdManagerInterface::ENTITY_REFERENCE_DISPLAY_LABEL:
+        default:
+          if (str_starts_with($entity_reference_display, '[')
+            && str_ends_with($entity_reference_display, ']')) {
+            $data = [$target_entity->getEntityTypeId() => $target_entity];
+            return $this->token->replace($entity_reference_display, $data, [], $bubbleable_metadata);
+          }
+          else {
+            return $target_entity->label();
+          }
       }
     }
     else {

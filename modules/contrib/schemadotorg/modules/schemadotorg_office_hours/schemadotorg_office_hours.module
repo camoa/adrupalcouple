@@ -5,10 +5,11 @@
  * Allows an Office hours field to be used to create OpeningHoursSpecification.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 use Drupal\Core\Field\FieldItemInterface;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
+use Drupal\Core\Render\BubbleableMetadata;
 
 /**
  * Implements hook_schemadotorg_property_field_alter().
@@ -21,7 +22,7 @@ function schemadotorg_office_hours_schemadotorg_property_field_alter(
   ?string &$widget_id,
   array &$widget_settings,
   ?string &$formatter_id,
-  array &$formatter_settings
+  array &$formatter_settings,
 ): void {
   // Make sure the field type is set to 'office_hours'.
   if ($field_storage_values['type'] !== 'office_hours') {
@@ -32,8 +33,8 @@ function schemadotorg_office_hours_schemadotorg_property_field_alter(
   $field_storage_values['cardinality'] = FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED;
   // Set default settings.
   $field_storage_values['settings'] = [
-    'time_format' => 'G',
-    'element_type' => 'office_hours_datelist',
+    'time_format' => 'g',
+    'element_type' => 'office_hours_datetime',
     'increment' => 30,
     'required_start' => FALSE,
     'limit_start' => '',
@@ -52,7 +53,7 @@ function schemadotorg_office_hours_schemadotorg_property_field_alter(
 /**
  * Implements hook_schemadotorg_jsonld_schema_property_alter().
  */
-function schemadotorg_office_hours_schemadotorg_jsonld_schema_property_alter(mixed &$value, FieldItemInterface $item): void {
+function schemadotorg_office_hours_schemadotorg_jsonld_schema_property_alter(mixed &$value, FieldItemInterface $item, BubbleableMetadata $bubbleable_metadata): void {
   $field_type = $item->getFieldDefinition()->getType();
   if ($field_type !== 'office_hours') {
     return;

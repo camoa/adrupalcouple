@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\Tests\schemadotorg\Kernel;
 
@@ -8,6 +8,7 @@ use Drupal\Core\Entity\Entity\EntityFormMode;
 use Drupal\Core\Entity\Entity\EntityViewMode;
 use Drupal\Core\Entity\EntityDisplayRepositoryInterface;
 use Drupal\field\Entity\FieldConfig;
+use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\schemadotorg\SchemaDotOrgEntityFieldManagerInterface;
 use Drupal\schemadotorg\SchemaDotOrgEntityTypeBuilderInterface;
 
@@ -92,7 +93,7 @@ class SchemaDotOrgEntityTypeBuilderKernelTest extends SchemaDotOrgEntityKernelTe
     $this->assertEquals(['custom' => 'Custom'], $this->entityDisplayRepository->getFormModeOptionsByBundle('node', 'thing'));
     $this->assertEquals(['teaser' => 'Teaser', 'custom' => 'Custom'], $this->entityDisplayRepository->getViewModeOptionsByBundle('node', 'thing'));
 
-    // Check adding an alternateName field to an entity.
+    // Check adding an alternateName (string) field to an entity.
     $field = [
       'name' => SchemaDotOrgEntityFieldManagerInterface::ADD_FIELD,
       'type' => 'string',
@@ -101,10 +102,16 @@ class SchemaDotOrgEntityTypeBuilderKernelTest extends SchemaDotOrgEntityKernelTe
       'description' => '',
       'unlimited' => '1',
       'required' => '1',
+      'max_length' => 50,
       'schema_type' => 'Thing',
       'schema_property' => 'alternateName',
     ];
     $this->schemaEntityTypeBuilder->addFieldToEntity('node', 'thing', $field);
+
+    /** @var \Drupal\field\FieldStorageConfigInterface|null $field_storage */
+    $field_storage = FieldStorageConfig::load('node.schema_alternate_name');
+    $this->assertEquals(50, $field_storage->getSetting('max_length'));
+    $this->assertEquals(-1, $field_storage->getCardinality());
 
     /** @var \Drupal\field\FieldConfigInterface $field */
     $field = FieldConfig::load('node.thing.schema_alternate_name');
@@ -168,7 +175,7 @@ class SchemaDotOrgEntityTypeBuilderKernelTest extends SchemaDotOrgEntityKernelTe
     $this->assertEquals('text_summary_or_trimmed', $body_component['type']);
     $this->assertEquals('hidden', $body_component['label']);
 
-    // Check adding an alternateName field to an entity.
+    // Check adding an image field to an entity.
     $field = [
       'name' => SchemaDotOrgEntityFieldManagerInterface::ADD_FIELD,
       'type' => 'image',
@@ -186,6 +193,36 @@ class SchemaDotOrgEntityTypeBuilderKernelTest extends SchemaDotOrgEntityKernelTe
     $view_component = $this->entityDisplayRepository->getViewDisplay('node', 'thing', 'default')
       ->getComponent('schema_image');
     $this->assertEquals('hidden', $view_component['label']);
+
+    // Check adding a additionalType field to an entity.
+    $field = [
+      'name' => SchemaDotOrgEntityFieldManagerInterface::ADD_FIELD,
+      'type' => 'list_string',
+      'label' => 'Additional type',
+      'machine_name' => 'schema_additional_type',
+      'schema_type' => 'Thing',
+      'schema_property' => 'additionalType',
+      'default_value' => 'one',
+      'allowed_values' => [
+        'one' => 'One',
+        'two' => 'Two',
+        'three' => 'Three',
+      ],
+    ];
+    $this->schemaEntityTypeBuilder->addFieldToEntity('node', 'thing', $field);
+
+    /** @var \Drupal\field\FieldStorageConfigInterface|null $field_storage */
+    $field_storage = FieldStorageConfig::load('node.schema_additional_type');
+    $expected_allowed_values = [
+      'one' => 'One',
+      'two' => 'Two',
+      'three' => 'Three',
+    ];
+    $this->assertEquals($expected_allowed_values, $field_storage->getSetting('allowed_values'));
+
+    /** @var \Drupal\field\FieldConfigInterface $field */
+    $field = FieldConfig::load('node.thing.schema_additional_type');
+    $this->assertEquals(['value' => 'one'], $field->get('default_value'));
   }
 
 }

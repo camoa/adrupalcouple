@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\Tests\schemadotorg\Kernel;
 
@@ -34,7 +34,7 @@ class SchemaDotOrgEntityDisplayBuilderKernelTest extends SchemaDotOrgEntityKerne
    * Test Schema.org entity display builder.
    */
   public function testEntityDisplayBuilder(): void {
-    $mapping = $this->createSchemaEntity('node', 'thing');
+    $mapping = $this->createSchemaEntity('node', 'Thing');
 
     // Check getting default field weights.
     $default_field_weights = $this->schemaEntityDisplayBuilder->getDefaultFieldWeights();

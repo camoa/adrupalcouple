@@ -1,6 +1,8 @@
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  module:
+    - user
 id: user
 target_entity_type_id: user
 multiple: false

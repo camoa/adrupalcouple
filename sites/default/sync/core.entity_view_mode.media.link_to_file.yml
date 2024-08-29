@@ -1,0 +1,11 @@
+uuid: afac4448-795a-415a-87e5-ff1c0c2e84b9
+langcode: en
+status: true
+dependencies:
+  module:
+    - media
+id: media.link_to_file
+label: 'Link to File'
+description: ''
+targetEntityType: media
+cache: true

@@ -3,7 +3,7 @@
 namespace Drupal\smart_date\Plugin\FullcalendarViewProcessor;
 
 use Drupal\fullcalendar_view\Plugin\FullcalendarViewProcessorBase;
-use Drupal\smart_date\SmartDateTrait;
+use Drupal\smart_date\SmartDatePluginTrait;
 
 /**
  * Smart Date plugin.
@@ -18,7 +18,7 @@ use Drupal\smart_date\SmartDateTrait;
  */
 class SmartDateProcessor extends FullcalendarViewProcessorBase {
 
-  use SmartDateTrait;
+  use SmartDatePluginTrait;
 
   /**
    * Process retrieved values before being passed to Fullcalendar.
@@ -111,7 +111,7 @@ class SmartDateProcessor extends FullcalendarViewProcessorBase {
   }
 
   /**
-   * Helper function to update the FCV-created data arrary.
+   * Helper function to update the FCV-created data array.
    *
    * @param array $entry
    *   The original data, created by Fullcalendar View.
@@ -121,8 +121,8 @@ class SmartDateProcessor extends FullcalendarViewProcessorBase {
    *   Formatting options from the specified Smart Date Format.
    */
   private function updateEntry(array &$entry, array $row_data, array $format) {
-    $start = $row_data['value'];
-    $end = $row_data['end_value'];
+    $start = $row_data['value'] ?? NULL;
+    $end = $row_data['end_value'] ?? NULL;
     if (empty($entry) || empty($start) || empty($end) || !ctype_digit($start) || !ctype_digit($end)) {
       return FALSE;
     }

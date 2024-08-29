@@ -5,7 +5,7 @@
  * Provides an endpoint to get an entity's Schema.org JSON-LD.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 use Drupal\Core\Form\FormStateInterface;
 

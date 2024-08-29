@@ -9,10 +9,10 @@ label: 'Basic title url'
 type: 'canonical_entities:node'
 pattern: '[node:title]'
 selection_criteria:
-  e4ada22a-aec5-4d6a-94a1-4418bbd236bf:
+  26431d51-3597-4da1-a92d-bd4feceba00c:
     id: 'entity_bundle:node'
     negate: false
-    uuid: e4ada22a-aec5-4d6a-94a1-4418bbd236bf
+    uuid: 26431d51-3597-4da1-a92d-bd4feceba00c
     context_mapping:
       node: node
     bundles:

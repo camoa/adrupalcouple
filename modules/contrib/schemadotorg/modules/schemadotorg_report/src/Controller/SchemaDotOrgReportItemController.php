@@ -1,14 +1,16 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg_report\Controller;
 
+use Drupal\Component\Serialization\Yaml;
 use Drupal\Core\Link;
-use Drupal\Core\Serialization\Yaml;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\Url;
 use Drupal\schemadotorg\SchemaDotOrgMappingManagerInterface;
+use Drupal\schemadotorg\Traits\SchemaDotOrgMappingStorageTrait;
+use Drupal\schemadotorg_additional_mappings\SchemaDotOrgAdditionalMappingsManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -16,18 +18,28 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  * Returns responses for Schema.org report about and item routes.
  */
 class SchemaDotOrgReportItemController extends SchemaDotOrgReportControllerBase {
-
+  use SchemaDotOrgMappingStorageTrait;
+  use SchemaDotOrgMappingStorageTrait;
   /**
    * The Schema.org mapping manager service.
    */
   protected SchemaDotOrgMappingManagerInterface $schemaMappingManager;
 
   /**
+   * The Schema.org additional mappings manager service.
+   */
+  protected ?SchemaDotOrgAdditionalMappingsManagerInterface $additionalMappingsManager;
+
+  /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container) {
+  public static function create(ContainerInterface $container): static {
     $instance = parent::create($container);
     $instance->schemaMappingManager = $container->get('schemadotorg.mapping_manager');
+    $instance->additionalMappingsManager = $container->has('schemadotorg_additional_mappings.manager')
+      ? $container->get('schemadotorg_additional_mappings.manager')
+      : NULL;
+
     return $instance;
   }
 
@@ -225,9 +237,9 @@ class SchemaDotOrgReportItemController extends SchemaDotOrgReportControllerBase 
             $type_items = $this->config('schemadotorg_report.settings')->get("$link_type.$id");
             if ($type_items) {
               $type_links = $this->buildReportLinks($type_items);
-              foreach ($type_links as &$ype_link) {
-                $ype_link['#prefix'] = '<div>';
-                $ype_link['#suffix'] .= '</div>';
+              foreach ($type_links as &$type_link) {
+                $type_link['#prefix'] = '<div>';
+                $type_link['#suffix'] .= '</div>';
               }
               $build[$link_type] = [
                 '#type' => 'item',
@@ -283,12 +295,10 @@ class SchemaDotOrgReportItemController extends SchemaDotOrgReportControllerBase 
 
             // Display all entity types that have differing default properties.
             // This generally only applies to nodes.
-            $mapping_type_storage = $this->entityTypeManager()->getStorage('schemadotorg_mapping_type');
-            /** @var \Drupal\Core\Config\Entity\ConfigEntityType[] $entity_type_definitions */
-            $entity_type_definitions = $mapping_type_storage->getEntityTypeBundleDefinitions();
+            $entity_type_definitions = $this->getMappingTypeStorage()->getEntityTypeBundleDefinitions();
             foreach ($entity_type_definitions as $entity_type_id => $entity_type_definition) {
               $bundle_entity_type_id = $entity_type_definition->id();
-              $mapping_type = $mapping_type_storage->load($entity_type_id);
+              $mapping_type = $this->loadMappingType($entity_type_id);
               $bundle_entity_type_label = ($entity_type_id === 'paragraph')
                 ? 'paragraph type'
                 : $this->entityTypeManager()->getDefinition($bundle_entity_type_id)->getSingularLabel();
@@ -302,6 +312,27 @@ class SchemaDotOrgReportItemController extends SchemaDotOrgReportControllerBase 
                   'links' => $this->schemaTypeBuilder->buildItemsLinks($mapping_default_properties),
                 ];
               }
+            }
+          }
+
+          // Get additional mappings properties.
+          if ($this->moduleHandler()->moduleExists('schemadotorg_additional_mappings')) {
+            $additional_mappings = $this->additionalMappingsManager
+              ->getDefaultAdditionalMappings('node', NULL, $id);
+            if ($additional_mappings) {
+              $additional_mappings_links = [];
+              foreach ($additional_mappings as $schema_type => $additional_mapping) {
+                $additional_mappings_links[$schema_type] = $this->schemaTypeBuilder->buildItemsLinks($additional_mapping['schema_properties'])
+                  + [
+                    '#suffix' => '<br/>',
+                    '#prefix' => $additional_mapping['schema_type'] . ' | ',
+                  ];
+              }
+              $build[$name]['schemadotorg_additional_mappings'] = [
+                '#type' => 'item',
+                '#title' => $this->t('Default additional mappings properties'),
+                'links' => $additional_mappings_links,
+              ];
             }
           }
 
@@ -363,7 +394,10 @@ class SchemaDotOrgReportItemController extends SchemaDotOrgReportControllerBase 
     // Get mapping defaults.
     if ($table === 'types') {
       $default_entity_type_id = $this->getDefaultEntityTypeId($id);
-      $mapping_defaults = $this->schemaMappingManager->getMappingDefaults($default_entity_type_id, NULL, $id);
+      $mapping_defaults = $this->schemaMappingManager->getMappingDefaults(
+        entity_type_id: $default_entity_type_id,
+        schema_type: $id,
+      );
       $build['mapping_defaults'] = [
         '#type' => 'details',
         '#title' => $this->t('Mapping defaults'),
@@ -461,6 +495,7 @@ class SchemaDotOrgReportItemController extends SchemaDotOrgReportControllerBase 
       '#type' => 'table',
       '#header' => $header,
       '#rows' => $rows,
+      '#attributes' => ['class' => ['schemadotorg-report-table']],
     ];
   }
 
@@ -545,6 +580,7 @@ class SchemaDotOrgReportItemController extends SchemaDotOrgReportControllerBase 
         '#type' => 'table',
         '#header' => $header,
         '#rows' => $rows,
+        '#attributes' => ['class' => ['schemadotorg-report-table']],
       ],
     ];
   }
@@ -569,13 +605,10 @@ class SchemaDotOrgReportItemController extends SchemaDotOrgReportControllerBase 
       return NULL;
     }
 
-    /** @var \Drupal\schemadotorg\SchemaDotOrgMappingTypeStorageInterface $mapping_type_storage */
-    $mapping_type_storage = $this->entityTypeManager()->getStorage('schemadotorg_mapping_type');
-
     // Get operations.
     $operations = [];
     /** @var \Drupal\Core\Config\Entity\ConfigEntityType[] $entity_type_definitions */
-    $entity_type_definitions = $mapping_type_storage->getEntityTypeBundleDefinitions();
+    $entity_type_definitions = $this->getMappingTypeStorage()->getEntityTypeBundleDefinitions();
     foreach ($entity_type_definitions as $entity_type_id => $entity_type_definition) {
       $bundle_entity_type_id = $entity_type_definition->id();
       $bundle_entity_type_label = ($entity_type_id === 'paragraph')
@@ -620,14 +653,12 @@ class SchemaDotOrgReportItemController extends SchemaDotOrgReportControllerBase 
    *   The default entity type id for the Schema.org type.
    */
   protected function getDefaultEntityTypeId(string $type): string {
-    /** @var \Drupal\schemadotorg\SchemaDotOrgMappingTypeStorageInterface $mapping_type_storage */
-    $mapping_type_storage = $this->entityTypeManager()->getStorage('schemadotorg_mapping_type');
     if ($this->schemaTypeManager->isSubTypeOf($type, 'Intangible')
-      && $mapping_type_storage->load('paragraph')) {
+      && $this->loadMappingType('paragraph')) {
       return 'paragraph';
     }
     elseif ($this->schemaTypeManager->isSubTypeOf($type, 'MediaObject')
-      && $mapping_type_storage->load('media')) {
+      && $this->loadMappingType('media')) {
       return 'media';
     }
     else {

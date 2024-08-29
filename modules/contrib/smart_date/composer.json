@@ -11,8 +11,11 @@
     "source": "https://git.drupalcode.org/project/smart_date"
   },
   "require": {
-    "php": ">=8.0",
+    "php": ">=8.1",
     "simshaun/recurr": "^5"
+  },
+  "require-dev": {
+    "drush/drush": "*"
   },
   "suggest": {
     "drupal/multiple_fields_remove_button": "Provides a button for editors to remove unwanted rows."

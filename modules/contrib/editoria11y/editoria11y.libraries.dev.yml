@@ -12,6 +12,9 @@ editoria11y:
     library/js/ed11y-test-text.js: {preprocess: false}
     library/js/ed11y.js: {preprocess: false}
     js/editoria11y-drupal.js: {preprocess: false}
+  css:
+    theme:
+      library/css/editoria11y.css: { preprocess: false }
   dependencies:
     - core/drupal
     - core/drupalSettings
@@ -31,6 +34,9 @@ editoria11y-localized:
     library/js/ed11y.js: {preprocess: false}
     js/editoria11y-localization.js: {}
     js/editoria11y-drupal.js: {preprocess: false}
+  css:
+    theme:
+      library/css/editoria11y.css: {preprocess: false}
   dependencies:
     - core/drupal
     - core/drupalSettings
@@ -60,6 +66,9 @@ editoria11y-nocache:
     library/js/ed11y-test-text.js: {preprocess: false}
     library/js/ed11y.js: {preprocess: false}
     js/editoria11y-drupal.js: {preprocess: false}
+  css:
+    theme:
+      library/css/editoria11y.css: { preprocess: false }
   dependencies:
     - core/drupal
     - core/drupalSettings

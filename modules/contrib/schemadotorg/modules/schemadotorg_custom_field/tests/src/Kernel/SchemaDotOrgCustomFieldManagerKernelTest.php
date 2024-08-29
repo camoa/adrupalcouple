@@ -1,10 +1,11 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\Tests\schemadotorg_custom_field\Kernel;
 
 use Drupal\Core\Entity\Entity\EntityFormDisplay;
+use Drupal\Core\Entity\Entity\EntityViewDisplay;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\Tests\schemadotorg\Kernel\SchemaDotOrgEntityKernelTestBase;
@@ -22,15 +23,14 @@ class SchemaDotOrgCustomFieldManagerKernelTest extends SchemaDotOrgEntityKernelT
    * Disabled config schema checking until the custom field module has a schema.
    */
   protected $strictConfigSchema = FALSE;
-  // phpcs:enable
+  // phpcs:enabled
 
   /**
-   * Modules to enable.
-   *
-   * @var array
+   * {@inheritdoc}
    */
   protected static $modules = [
     'custom_field',
+    'schemadotorg_options',
     'schemadotorg_custom_field',
   ];
 
@@ -40,21 +40,21 @@ class SchemaDotOrgCustomFieldManagerKernelTest extends SchemaDotOrgEntityKernelT
   protected function setUp(): void {
     parent::setUp();
 
-    $this->installConfig(['schemadotorg_custom_field']);
+    $this->installConfig(static::$modules);
   }
 
   /**
    * Test Schema.org custom field manager.
    */
   public function testManager(): void {
-    // Create a Recipe and FAQPage.
-    $this->createSchemaEntity('node', 'Recipe');
-    $this->createSchemaEntity('node', 'FAQPage');
-
+    /* ********************************************************************** */
+    // Recipe.
     /* ********************************************************************** */
 
+    $this->createSchemaEntity('node', 'Recipe');
+
     // Check recipe nutrition custom field storage columns.
-    /** @var \Drupal\field\FieldStorageConfigInterface $field_storage_config */
+    /** @var \Drupal\field\FieldStorageConfigInterface|null $field_storage_config */
     $field_storage_config = FieldStorageConfig::loadByName('node', 'schema_nutrition');
     $expected_settings = [
       'columns' => [
@@ -68,7 +68,7 @@ class SchemaDotOrgCustomFieldManagerKernelTest extends SchemaDotOrgEntityKernelT
         ],
         'calories' => [
           'name' => 'calories',
-          'type' => 'decimal',
+          'type' => 'integer',
           'max_length' => '255',
           'unsigned' => 0,
           'precision' => '10',
@@ -76,7 +76,7 @@ class SchemaDotOrgCustomFieldManagerKernelTest extends SchemaDotOrgEntityKernelT
         ],
         'carbohydrate_content' => [
           'name' => 'carbohydrate_content',
-          'type' => 'decimal',
+          'type' => 'integer',
           'max_length' => '255',
           'unsigned' => 0,
           'precision' => '10',
@@ -84,7 +84,7 @@ class SchemaDotOrgCustomFieldManagerKernelTest extends SchemaDotOrgEntityKernelT
         ],
         'cholesterol_content' => [
           'name' => 'cholesterol_content',
-          'type' => 'decimal',
+          'type' => 'integer',
           'max_length' => '255',
           'unsigned' => 0,
           'precision' => '10',
@@ -92,7 +92,7 @@ class SchemaDotOrgCustomFieldManagerKernelTest extends SchemaDotOrgEntityKernelT
         ],
         'fat_content' => [
           'name' => 'fat_content',
-          'type' => 'decimal',
+          'type' => 'integer',
           'max_length' => '255',
           'unsigned' => 0,
           'precision' => '10',
@@ -100,7 +100,7 @@ class SchemaDotOrgCustomFieldManagerKernelTest extends SchemaDotOrgEntityKernelT
         ],
         'fiber_content' => [
           'name' => 'fiber_content',
-          'type' => 'decimal',
+          'type' => 'integer',
           'max_length' => '255',
           'unsigned' => 0,
           'precision' => '10',
@@ -108,7 +108,7 @@ class SchemaDotOrgCustomFieldManagerKernelTest extends SchemaDotOrgEntityKernelT
         ],
         'protein_content' => [
           'name' => 'protein_content',
-          'type' => 'decimal',
+          'type' => 'integer',
           'max_length' => '255',
           'unsigned' => 0,
           'precision' => '10',
@@ -116,7 +116,7 @@ class SchemaDotOrgCustomFieldManagerKernelTest extends SchemaDotOrgEntityKernelT
         ],
         'saturated_fat_content' => [
           'name' => 'saturated_fat_content',
-          'type' => 'decimal',
+          'type' => 'integer',
           'max_length' => '255',
           'unsigned' => 0,
           'precision' => '10',
@@ -124,7 +124,7 @@ class SchemaDotOrgCustomFieldManagerKernelTest extends SchemaDotOrgEntityKernelT
         ],
         'sodium_content' => [
           'name' => 'sodium_content',
-          'type' => 'decimal',
+          'type' => 'integer',
           'max_length' => '255',
           'unsigned' => 0,
           'precision' => '10',
@@ -132,7 +132,7 @@ class SchemaDotOrgCustomFieldManagerKernelTest extends SchemaDotOrgEntityKernelT
         ],
         'sugar_content' => [
           'name' => 'sugar_content',
-          'type' => 'decimal',
+          'type' => 'integer',
           'max_length' => '255',
           'unsigned' => 0,
           'precision' => '10',
@@ -140,7 +140,7 @@ class SchemaDotOrgCustomFieldManagerKernelTest extends SchemaDotOrgEntityKernelT
         ],
         'trans_fat_content' => [
           'name' => 'trans_fat_content',
-          'type' => 'decimal',
+          'type' => 'integer',
           'max_length' => '255',
           'unsigned' => 0,
           'precision' => '10',
@@ -148,32 +148,7 @@ class SchemaDotOrgCustomFieldManagerKernelTest extends SchemaDotOrgEntityKernelT
         ],
         'unsaturated_fat_content' => [
           'name' => 'unsaturated_fat_content',
-          'type' => 'decimal',
-          'max_length' => '255',
-          'unsigned' => 0,
-          'precision' => '10',
-          'scale' => '2',
-        ],
-      ],
-    ];
-    $this->assertEquals($expected_settings, $field_storage_config->getSettings());
-
-    // Check FAQ page main entity custom field storage columns.
-    /** @var \Drupal\field\FieldStorageConfigInterface $field_storage_config */
-    $field_storage_config = FieldStorageConfig::loadByName('node', 'schema_faq_main_entity');
-    $expected_settings = [
-      'columns' => [
-        'name' => [
-          'name' => 'name',
-          'type' => 'string_long',
-          'max_length' => '255',
-          'unsigned' => 0,
-          'precision' => '10',
-          'scale' => '2',
-        ],
-        'accepted_answer' => [
-          'name' => 'accepted_answer',
-          'type' => 'string_long',
+          'type' => 'integer',
           'max_length' => '255',
           'unsigned' => 0,
           'precision' => '10',
@@ -208,7 +183,7 @@ class SchemaDotOrgCustomFieldManagerKernelTest extends SchemaDotOrgEntityKernelT
     ];
     $this->assertEquals($expected_settings_serving_size, $settings['field_settings']['serving_size']);
     $expected_settings_calories = [
-      'type' => 'decimal',
+      'type' => 'integer',
       'widget_settings' => [
         'label' => 'Calories',
         'settings' => [
@@ -220,14 +195,141 @@ class SchemaDotOrgCustomFieldManagerKernelTest extends SchemaDotOrgEntityKernelT
           'prefix' => '',
           'suffix' => ' calories',
           'required' => FALSE,
-          'scale' => 2,
         ],
       ],
-      'formatter_settings' => ['prefix_suffix' => TRUE],
       'check_empty' => FALSE,
       'weight' => 1,
     ];
     $this->assertEquals($expected_settings_calories, $settings['field_settings']['calories']);
+
+    // Check custom field form display.
+    /** @var \Drupal\Core\Entity\Display\EntityFormDisplayInterface $entity_form_display */
+    $entity_form_display = EntityFormDisplay::load('node.recipe.default');
+    $components = $entity_form_display->getComponents();
+    $expected_component = [
+      'type' => 'custom_stacked',
+      'weight' => 150,
+      'region' => 'content',
+      'settings' => [
+        'label' => TRUE,
+        'wrapper' => 'fieldset',
+        'open' => TRUE,
+      ],
+      'third_party_settings' => [],
+    ];
+    $this->assertEquals($expected_component, $components['schema_nutrition']);
+
+    // Check custom field view display.
+    /** @var \Drupal\Core\Entity\Display\EntityViewDisplayInterface $entity_form_display */
+    $entity_view_display = EntityViewDisplay::load('node.recipe.default');
+    $components = $entity_view_display->getComponents();
+    $expected_component = [
+      'type' => 'custom_formatter',
+      'label' => 'above',
+      'settings' => [
+        'fields' => [
+          'calories' => [
+            'format_type' => 'number_integer',
+            'formatter_settings' => ['prefix_suffix' => TRUE],
+          ],
+          'carbohydrate_content' => [
+            'format_type' => 'number_integer',
+            'formatter_settings' => [
+              'prefix_suffix' => TRUE,
+            ],
+          ],
+          'cholesterol_content' => [
+            'format_type' => 'number_integer',
+            'formatter_settings' => [
+              'prefix_suffix' => TRUE,
+            ],
+          ],
+          'fat_content' => [
+            'format_type' => 'number_integer',
+            'formatter_settings' => [
+              'prefix_suffix' => TRUE,
+            ],
+          ],
+          'fiber_content' => [
+            'format_type' => 'number_integer',
+            'formatter_settings' => [
+              'prefix_suffix' => TRUE,
+            ],
+          ],
+          'protein_content' => [
+            'format_type' => 'number_integer',
+            'formatter_settings' => [
+              'prefix_suffix' => TRUE,
+            ],
+          ],
+          'saturated_fat_content' => [
+            'format_type' => 'number_integer',
+            'formatter_settings' => [
+              'prefix_suffix' => TRUE,
+            ],
+          ],
+          'sodium_content' => [
+            'format_type' => 'number_integer',
+            'formatter_settings' => [
+              'prefix_suffix' => TRUE,
+            ],
+          ],
+          'sugar_content' => [
+            'format_type' => 'number_integer',
+            'formatter_settings' => [
+              'prefix_suffix' => TRUE,
+            ],
+          ],
+          'trans_fat_content' => [
+            'format_type' => 'number_integer',
+            'formatter_settings' => [
+              'prefix_suffix' => TRUE,
+            ],
+          ],
+          'unsaturated_fat_content' => [
+            'format_type' => 'number_integer',
+            'formatter_settings' => [
+              'prefix_suffix' => TRUE,
+            ],
+          ],
+        ],
+      ],
+      'third_party_settings' => [],
+      'weight' => 150,
+      'region' => 'content',
+    ];
+    $this->assertEquals($expected_component, $components['schema_nutrition']);
+
+    /* ********************************************************************** */
+    // FAQPage.
+    /* ********************************************************************** */
+
+    $this->createSchemaEntity('node', 'FAQPage');
+
+    // Check FAQ page main entity custom field storage columns.
+    /** @var \Drupal\field\FieldStorageConfigInterface|null $field_storage_config */
+    $field_storage_config = FieldStorageConfig::loadByName('node', 'schema_faq_main_entity');
+    $expected_settings = [
+      'columns' => [
+        'name' => [
+          'name' => 'name',
+          'type' => 'string_long',
+          'max_length' => '255',
+          'unsigned' => 0,
+          'precision' => '10',
+          'scale' => '2',
+        ],
+        'accepted_answer' => [
+          'name' => 'accepted_answer',
+          'type' => 'string_long',
+          'max_length' => '255',
+          'unsigned' => 0,
+          'precision' => '10',
+          'scale' => '2',
+        ],
+      ],
+    ];
+    $this->assertEquals($expected_settings, $field_storage_config->getSettings());
 
     // Check faq page main entity custom field column widget settings.
     /** @var \Drupal\Core\Field\FieldConfigInterface $field_config */
@@ -258,12 +360,85 @@ class SchemaDotOrgCustomFieldManagerKernelTest extends SchemaDotOrgEntityKernelT
     ];
     $this->assertEquals($expected_settings_serving_size, $settings['field_settings']['name']);
 
-    // Check custom field form display.
-    /** @var \Drupal\Core\Entity\Display\EntityViewDisplayInterface $entity_view_display */
-    $entity_form_display = EntityFormDisplay::load('node.recipe.default');
-    $components = $entity_form_display->getComponents();
-    $this->assertEquals('custom_stacked', $components['schema_nutrition']['type']);
-    $this->assertEquals('fieldset', $components['schema_nutrition']['settings']['wrapper']);
+    /* ********************************************************************** */
+    // DietarySupplement.
+    /* ********************************************************************** */
+
+    $this->createSchemaEntity('node', 'DietarySupplement');
+
+    // Check dietary supplement maximum intake custom field storage columns.
+    /** @var \Drupal\field\FieldStorageConfigInterface|null $field_storage_config */
+    $field_storage_config = FieldStorageConfig::loadByName('node', 'schema_max_intake');
+    $expected_settings = [
+      'columns' => [
+        'target_population' => [
+          'name' => 'target_population',
+          'type' => 'string',
+          'max_length' => '255',
+          'unsigned' => 0,
+          'precision' => '10',
+          'scale' => '2',
+        ],
+        'dose_value' => [
+          'name' => 'dose_value',
+          'type' => 'integer',
+          'max_length' => '255',
+          'unsigned' => 0,
+          'precision' => '10',
+          'scale' => '2',
+        ],
+        'dose_unit' => [
+          'name' => 'dose_unit',
+          'type' => 'string',
+          'max_length' => '255',
+          'unsigned' => 0,
+          'precision' => '10',
+          'scale' => '2',
+        ],
+        'frequency' => [
+          'name' => 'frequency',
+          'type' => 'string',
+          'max_length' => '255',
+          'unsigned' => 0,
+          'precision' => '10',
+          'scale' => '2',
+        ],
+      ],
+    ];
+    $this->assertEquals($expected_settings, $field_storage_config->getSettings());
+
+    // Check dietary supplement maximum intake custom field column widget settings.
+    /** @var \Drupal\Core\Field\FieldConfigInterface $field_config */
+    $field_config = FieldConfig::loadByName('node', 'dietary_supplement', 'schema_max_intake');
+    $settings = $field_config->getSettings();
+    $expected_settings_frequency = [
+      'type' => 'select',
+      'weight' => 3,
+      'check_empty' => FALSE,
+      'widget_settings' => [
+        'label' => 'Frequency',
+        'settings' => [
+          'description' => 'How often the dose is taken, e.g. \'daily\'.',
+          'description_display' => 'after',
+          'required' => FALSE,
+          'empty_option' => '- Select -',
+          'allowed_values' => [
+            ['key' => 'Daily', 'value' => 'Daily'],
+            ['key' => '2 times a day', 'value' => '2 times a day'],
+            ['key' => '3 times a day', 'value' => '3 times a day'],
+            ['key' => '4 times a day', 'value' => '4 times a day'],
+            ['key' => '5 times a day', 'value' => '5 times a day'],
+            ['key' => 'Every 3 hours', 'value' => 'Every 3 hours'],
+            ['key' => 'Every 6 hours', 'value' => 'Every 6 hours'],
+            ['key' => 'Every 8 hours', 'value' => 'Every 8 hours'],
+            ['key' => 'Every 12 hours', 'value' => 'Every 12 hours'],
+            ['key' => 'Every 24 hours', 'value' => 'Every 24 hours'],
+            ['key' => 'Bedtime', 'value' => 'Bedtime'],
+          ],
+        ],
+      ],
+    ];
+    $this->assertEquals($expected_settings_frequency, $settings['field_settings']['frequency']);
   }
 
 }

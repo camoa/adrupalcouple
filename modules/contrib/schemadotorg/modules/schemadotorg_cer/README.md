@@ -14,6 +14,7 @@ Introduction
 The **Schema.org Blueprints Corresponding Entity References module** improves 
 https://inverseOf support using the Corresponding Entity References module.
 
+
 Features
 --------
 
@@ -38,7 +39,7 @@ Configuration
 -------------
 
 - Go to the Schema.org properties configuration page.  
-  (/admin/config/schemadotorg/settings/properties)
+  (/admin/config/schemadotorg/settings/properties#edit-schemadotorg-cer)
 - Go to the 'Corresponding entity references settings' details.
 - Enter default Schema.org property inverse of relationships.
 

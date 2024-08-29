@@ -550,8 +550,9 @@ class CustomItem extends FieldItemBase {
       if ($this->getFieldDefinition()->getName() != $field_name) {
         foreach ($info['bundles'] as $bundleName) {
           $group = (string) $bundleInfo[$bundleName]['label'] ?? '';
-          $info = FieldConfig::loadByName($entity_type_id, $bundleName, $field_name);
-          $sources[$group][$bundleName . '.' . $info->getName()] = $info->getLabel();
+          if ($info = FieldConfig::loadByName($entity_type_id, $bundleName, $field_name)) {
+            $sources[$group][$bundleName . '.' . $info->getName()] = $info->getLabel();
+          }
         }
       }
     }
@@ -660,7 +661,7 @@ class CustomItem extends FieldItemBase {
 
       $elements['field_settings'][$name]['check_empty'] = [
         '#type' => 'checkbox',
-        '#title' => $this->t('Check Empty?'),
+        '#title' => $this->t('Check empty?'),
         '#description' => $this->t('When saving the field, if an element with this value checked is empty, the row will be removed.'),
         '#default_value' => $field_settings[$name]['check_empty'] ?? FALSE,
       ];

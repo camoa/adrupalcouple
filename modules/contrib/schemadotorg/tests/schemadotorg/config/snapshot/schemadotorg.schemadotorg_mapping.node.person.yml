@@ -14,6 +14,8 @@ dependencies:
     - field.field.node.person.schema_telephone
     - field.field.node.person.schema_works_for
     - node.type.person
+  module:
+    - node
 id: node.person
 target_entity_type_id: node
 target_bundle: person
@@ -31,3 +33,4 @@ schema_properties:
   schema_same_as: sameAs
   schema_telephone: telephone
   schema_works_for: worksFor
+additional_mappings: {  }

@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg;
 
@@ -26,7 +26,7 @@ class SchemaDotOrgNames implements SchemaDotOrgNamesInterface {
    *   The configuration object factory.
    */
   public function __construct(
-    protected ConfigFactoryInterface $configFactory
+    protected ConfigFactoryInterface $configFactory,
   ) {}
 
   /**

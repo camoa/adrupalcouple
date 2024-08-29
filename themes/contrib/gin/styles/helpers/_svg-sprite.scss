@@ -6,6 +6,7 @@ $sprites: (
     'trash': "../../media/sprite.svg#trash-view",
     'asterisk': "../../media/sprite.svg#asterisk-view",
     'checked': "../../media/sprite.svg#checked-view",
+    'toggle-unchecked': "../../media/sprite.svg#toggle-unchecked-view",
     'add': "../../media/sprite.svg#add-view",
     'calendar': "../../media/sprite.svg#calendar-view",
     'circle': "../../media/sprite.svg#circle-view",
@@ -26,6 +27,7 @@ $sprites: (
     'question': "../../media/sprite.svg#question-view",
     'status': "../../media/sprite.svg#status-view",
     'warning': "../../media/sprite.svg#warning-view",
+    'announcement': "../../media/sprite.svg#announcement-view",
     'block': "../../media/sprite.svg#block-view",
     'blocks': "../../media/sprite.svg#blocks-view",
     'bookmarks': "../../media/sprite.svg#bookmarks-view",
@@ -35,8 +37,6 @@ $sprites: (
     'files': "../../media/sprite.svg#files-view",
     'media': "../../media/sprite.svg#media-view",
     'people-new': "../../media/sprite.svg#people-new-view",
-    'toggle-collapse': "../../media/sprite.svg#toggle-collapse-view",
-    'toggle-expand': "../../media/sprite.svg#toggle-expand-view",
     'first': "../../media/sprite.svg#first-view",
     'last': "../../media/sprite.svg#last-view",
     'next': "../../media/sprite.svg#next-view",
@@ -46,6 +46,8 @@ $sprites: (
     'php': "../../media/sprite.svg#php-view",
     'server': "../../media/sprite.svg#server-view",
     'drag-dots': "../../media/sprite.svg#drag-dots-view",
+    'drag-x': "../../media/sprite.svg#drag-x-view",
+    'drag-y': "../../media/sprite.svg#drag-y-view",
     'drag': "../../media/sprite.svg#drag-view",
     'sort-asc': "../../media/sprite.svg#sort-asc-view",
     'sort-desc': "../../media/sprite.svg#sort-desc-view",
@@ -105,6 +107,10 @@ $sizes: (
         'height': 24px
     ),
     'checked': (
+        'width': 24px,
+        'height': 24px
+    ),
+    'toggle-unchecked': (
         'width': 24px,
         'height': 24px
     ),
@@ -188,6 +194,10 @@ $sizes: (
         'width': 24px,
         'height': 24px
     ),
+    'announcement': (
+        'width': 24px,
+        'height': 24px
+    ),
     'block': (
         'width': 24px,
         'height': 24px
@@ -201,8 +211,8 @@ $sizes: (
         'height': 24px
     ),
     'chevron-down': (
-        'width': 14px,
-        'height': 9px
+        'width': 24px,
+        'height': 24px
     ),
     'create': (
         'width': 24px,
@@ -221,14 +231,6 @@ $sizes: (
         'height': 24px
     ),
     'people-new': (
-        'width': 24px,
-        'height': 24px
-    ),
-    'toggle-collapse': (
-        'width': 24px,
-        'height': 24px
-    ),
-    'toggle-expand': (
         'width': 24px,
         'height': 24px
     ),
@@ -265,6 +267,14 @@ $sizes: (
         'height': 24px
     ),
     'drag-dots': (
+        'width': 24px,
+        'height': 24px
+    ),
+    'drag-x': (
+        'width': 24px,
+        'height': 24px
+    ),
+    'drag-y': (
         'width': 24px,
         'height': 24px
     ),

@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg_role;
 
@@ -47,6 +47,21 @@ interface SchemaDotOrgRoleFieldManagerInterface {
   public function mappingInsert(SchemaDotOrgMappingInterface $mapping): void;
 
   /**
+   * Get role field definitions.
+   *
+   * @param string $entity_type_id
+   *   The entity type ID.
+   * @param string|null $bundle
+   *   The bundle.
+   * @param string $schema_type
+   *   The Schema.org type.
+   *
+   * @return array
+   *   The role field definitions.
+   */
+  public function getFieldDefinitions(string $entity_type_id = '', ?string $bundle = NULL, string $schema_type = ''): array;
+
+  /**
    * Get role field definitions for a Schema.org mapping.
    *
    * @param \Drupal\schemadotorg\SchemaDotOrgMappingInterface $mapping
@@ -55,17 +70,6 @@ interface SchemaDotOrgRoleFieldManagerInterface {
    * @return array
    *   The role field definitions for a Schema.org mapping.
    */
-  public function getMappingFieldDefinitions(SchemaDotOrgMappingInterface $mapping): array;
-
-  /**
-   * Get role field definitions for a Schema.org type.
-   *
-   * @param string $schema_type
-   *   The Schema.org type.
-   *
-   * @return array
-   *   The role field definitions for a Schema.org type.
-   */
-  public function getSchemaTypeFieldDefinitions(string $schema_type): array;
+  public function getFieldDefinitionsFromMapping(SchemaDotOrgMappingInterface $mapping): array;
 
 }

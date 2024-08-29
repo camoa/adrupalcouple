@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg\Form;
 
@@ -20,11 +20,12 @@ class SchemaDotOrgMappingTypeDeleteForm extends EntityDeleteForm {
   public function buildForm(array $form, FormStateInterface $form_state) {
     $form = parent::buildForm($form, $form_state);
 
-    /** @var \Drupal\schemadotorg\SchemaDotOrgMappingTypeInterface $entity */
+    /** @var \Drupal\schemadotorg\SchemaDotOrgMappingTypeInterface|null $mapping_type */
     $mapping_type = $this->getEntity();
     $target_entity_type_id = $mapping_type->id();
     $num_mappings = $this->entityTypeManager->getStorage('schemadotorg_mapping')
       ->getQuery()
+      ->accessCheck()
       ->condition('target_entity_type_id', $target_entity_type_id)
       ->count()
       ->execute();

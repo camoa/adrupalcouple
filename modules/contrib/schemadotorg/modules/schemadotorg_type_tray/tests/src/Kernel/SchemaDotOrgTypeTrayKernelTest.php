@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\Tests\schemadotorg_type_tray\Kernel;
 
@@ -14,9 +14,7 @@ use Drupal\Tests\schemadotorg\Kernel\SchemaDotOrgEntityKernelTestBase;
 class SchemaDotOrgTypeTrayKernelTest extends SchemaDotOrgEntityKernelTestBase {
 
   /**
-   * Modules to enable.
-   *
-   * @var array
+   * {@inheritdoc}
    */
   protected static $modules = [
     'type_tray',
@@ -52,6 +50,7 @@ class SchemaDotOrgTypeTrayKernelTest extends SchemaDotOrgEntityKernelTestBase {
       'web' => 'Web',
       'content' => 'Content',
       'organization' => 'Organization',
+      'hospitality' => 'Hospitality',
       'education' => 'Education',
       'food' => 'Food',
       'podcast' => 'Podcast',

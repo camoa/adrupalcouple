@@ -17,6 +17,8 @@ dependencies:
     - field.field.node.recipe.schema_suitable_for_diet
     - field.field.node.recipe.schema_total_time
     - node.type.recipe
+  module:
+    - node
 id: node.recipe
 target_entity_type_id: node
 target_bundle: recipe
@@ -40,3 +42,4 @@ schema_properties:
   schema_suitable_for_diet: suitableForDiet
   body: text
   schema_total_time: totalTime
+additional_mappings: {  }

@@ -6,8 +6,7 @@ use Drupal\Core\Messenger\MessengerTrait;
 use Drupal\views\Plugin\views\area\AreaPluginBase;
 
 /**
- * Checks if the disable_sync is enabled or not, and issues a warning if he
- * doesn't.
+ * Warns if sync is disabled.
  *
  * @ingroup views_area_handlers
  *
@@ -23,13 +22,14 @@ class SyncCheckMessage extends AreaPluginBase {
   public function preRender(array $results) {
     parent::preRender($results);
 
+    // @phpstan-ignore-next-line
     $config = \Drupal::config('editoria11y.settings');
 
     // Force standard bool.
     $sync = $config->get('disable_sync');
     if (!!$sync) {
       $msg = t("Dashboard sync is disabled in Editoria11y configuration.");
-      $this->messenger()->addWarning($msg, FALSE);
+      $this->messenger()->addWarning($msg);
     }
 
   }
@@ -37,7 +37,7 @@ class SyncCheckMessage extends AreaPluginBase {
   /**
    * {@inheritdoc}
    */
-  public function render($empty = FALSE) {
+  public function render($empty = FALSE): array {
     // Do nothing for this handler by returning an empty render array.
     return [];
   }

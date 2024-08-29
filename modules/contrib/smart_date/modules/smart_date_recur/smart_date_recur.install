@@ -5,7 +5,7 @@
  * Install, update and uninstall functions for smart_date_recur module.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 use Drupal\Core\Field\BaseFieldDefinition;
 

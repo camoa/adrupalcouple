@@ -1,15 +1,14 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
-namespace Drupal\Tests\schemadotorg\Unit\SchemaDotOrgSchemaTypeBuilderTest;
+namespace Drupal\Tests\schemadotorg\Unit;
 
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\schemadotorg\SchemaDotOrgSchemaTypeBuilder;
 use Drupal\schemadotorg\SchemaDotOrgSchemaTypeManager;
 use Drupal\Tests\UnitTestCase;
-use PHPUnit\Framework\MockObject\MockObject;
 
 /**
  * @coversDefaultClass \Drupal\schemadotorg\SchemaDotOrgSchemaTypeBuilder::getItemUrl
@@ -20,17 +19,17 @@ class SchemaDotOrgSchemaTypeBuilderTest extends UnitTestCase {
   /**
    * The mock module handler.
    */
-  protected ModuleHandlerInterface|MockObject $moduleHandler;
+  protected ModuleHandlerInterface $moduleHandler;
 
   /**
    * The mock current user.
    */
-  protected AccountInterface|MockObject $currentUser;
+  protected AccountInterface $currentUser;
 
   /**
    * The mock Schema.org type manager.
    */
-  protected SchemaDotOrgSchemaTypeManager|MockObject $schemaTypeManager;
+  protected SchemaDotOrgSchemaTypeManager $schemaTypeManager;
 
   /**
    * The Schema.org type builder.
@@ -47,7 +46,7 @@ class SchemaDotOrgSchemaTypeBuilderTest extends UnitTestCase {
 
     $this->currentUser = $this->createMock('Drupal\Core\Session\AccountInterface');
 
-    $this->schemaTypeManager = $this->createMock('\Drupal\schemadotorg\SchemaDotOrgSchemaTypeManager');
+    $this->schemaTypeManager = $this->createMock('Drupal\schemadotorg\SchemaDotOrgSchemaTypeManager');
 
     $this->schemaTypeBuilder = new SchemaDotOrgSchemaTypeBuilder(
       $this->moduleHandler,

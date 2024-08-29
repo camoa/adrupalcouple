@@ -20,10 +20,19 @@ on Schema.org types.
 - **[Schema.org Blueprints Help](https://git.drupalcode.org/project/schemadotorg/-/tree/1.0.x/modules/schemadotorg_help)**  
   Provides a dedicated help section for the Schema.org Blueprints module and submodules.
 
+- **[Schema.org Blueprints Additional Mappings](https://git.drupalcode.org/project/schemadotorg/-/tree/1.0.x/modules/schemadotorg_addtional_mappings)**  
+  Allows additional Schema.org mappings to applied to a Schema.org mapping.
+
+- **[Schema.org Blueprints Additional Type](https://git.drupalcode.org/project/schemadotorg/-/tree/1.0.x/modules/schemadotorg_additional_type)**  
+  Enhances the Schema.org additional type property to allow additional type specificity without having to create dedicated entity types for every appropriate Schema.org type.
+
 # UI/UX
 
 The below UI/UX modules help enhance the creation and management
 Schema.org types.
+
+- **[Schema.org Blueprints Content Model Documentation](https://git.drupalcode.org/project/schemadotorg/-/tree/1.0.x/modules/schemadotorg_content_model_documentation)**  
+  Integrates the Content Model Documentation module with the Schema.org Blueprints module.
 
 - **[Schema.org Blueprints Descriptions](https://git.drupalcode.org/project/schemadotorg/-/tree/1.0.x/modules/schemadotorg_descriptions)**  
   Sets entity type and field descriptions to their corresponding Schema.org type and property comments.
@@ -31,17 +40,11 @@ Schema.org types.
 - **[Schema.org Blueprints Diagram](https://git.drupalcode.org/project/schemadotorg/-/tree/1.0.x/modules/schemadotorg_diagram)**  
   Provides a CSV export of Schema.org type mappings.
 
-- **[Schema.org Blueprints Identifier](https://git.drupalcode.org/project/schemadotorg/-/tree/1.0.x/modules/schemadotorg_identifier)**  
-  Manages identifiers (https://schema.org/identifier) for Schema.org types.
-
 - **[Schema.org Blueprints Mapping Set](https://git.drupalcode.org/project/schemadotorg/-/tree/1.0.x/modules/schemadotorg_mapping_set)**  
   Provides the ability to create a set of related Schema.org types via the UI and Drush.
 
 - **[Schema.org Blueprints Role](https://git.drupalcode.org/project/schemadotorg/-/tree/1.0.x/modules/schemadotorg_role)**  
   Manages roles (https://schema.org/Role) for Schema.org properties.
-
-- **[Schema.org Blueprints Subtype](https://git.drupalcode.org/project/schemadotorg/-/tree/1.0.x/modules/schemadotorg_subtype)**  
-  Subtypes allow more specificity without having to create dedicated entity types for every appropriate Schema.org type.
 
 - **[Schema.org Blueprints Translation](https://git.drupalcode.org/project/schemadotorg/-/tree/1.0.x/modules/schemadotorg_translation)**  
   Manages translations for Schema.org types and properties as they are created.
@@ -177,21 +180,7 @@ The below API related modules creates APIs based on Schema.org types
 - **[Schema.org Blueprints JSON:API Preview](https://git.drupalcode.org/project/schemadotorg/-/tree/1.0.x/modules/schemadotorg_jsonapi_preivew)**  
   Allows users to preview a web page's Schema.org JSON:API.
 
-# Next.js
-
-The below Next.js related modules helps front-end developers build and maintain
-a Next.js front-end.
-
-- **[Schema.org Blueprints Next.js](https://git.drupalcode.org/project/schemadotorg_next/-/tree/1.0.x)**  
-  Assists with the integration of Schema.org Blueprints with Next.js.
-
-- **[Schema.org Blueprints Next.js Components](https://git.drupalcode.org/project/schemadotorg_next/-/tree/1.0.x/modules/schemadotorg_next_components)**  
-  Generates and previews Next.js React components to assist with the integration of Schema.org Blueprints with Next.js
-
 # [Experimental](https://www.drupal.org/project/schemadotorg_experimental)
-
-- **[Schema.org Blueprints Action](https://git.drupalcode.org/project/schemadotorg_experimental/-/tree/1.0.x/modules/schemadotorg_action)**  
-  Provides support for https:://schema.org/Action using a call to action paragraph type.
 
 - **[Schema.org Blueprints Block Content](https://git.drupalcode.org/project/schemadotorg_experimental/-/tree/1.0.x/modules/schemadotorg_block_content_status)**  
   Displays Schema.org content blocks as status message.
@@ -216,8 +205,15 @@ a Next.js front-end.
 
 # [Deprecated](https://www.drupal.org/project/schemadotorg_deprecated)
 
+- **[Schema.org Blueprints Action](https://git.drupalcode.org/project/schemadotorg_experimental/-/tree/1.0.x/modules/schemadotorg_action)**  
+  Provides support for https:://schema.org/Action using a call to action paragraph type.
+
 - **[Schema.org Blueprints Flex Field](https://git.drupalcode.org/project/schemadotorg_deprecated/-/tree/1.0.x/modules/schemadotorg_flexfield)**  
   Allows a Flex field to be used to create Schema.org relationships within an entity type/bundle Schema.org mapping.
+
+- **[Schema.org Blueprints WebPage](https://git.drupalcode.org/project/schemadotorg/-/tree/1.0.x/modules/schemadotorg_webpage)**  
+  Allows https://schema.org/WebPage to be applied to all content types.
+
 
 # Demo
 

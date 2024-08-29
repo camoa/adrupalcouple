@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg_jsonld_endpoint\ParamConverter;
 
@@ -46,15 +46,15 @@ class SchemaDotOrgJsonLdEndpointEntityUuidConverter extends EntityConverter {
    */
   public function convert($value, mixed $definition, $name, array $defaults): ?EntityInterface {
     $entity_type_id = $this->getEntityTypeFromDefaults($definition, $name, $defaults);
-    $definition = $this->entityTypeManager->getDefinition($entity_type_id);
-    $uuid_key = $definition->getKey('uuid');
-
-    $storage = $this->entityTypeManager->getStorage($entity_type_id);
-    if (!$storage) {
+    if (!$this->entityTypeManager->hasDefinition($entity_type_id)) {
       return NULL;
     }
 
-    $entities = $storage->loadByProperties([$uuid_key => $value]);
+    $definition = $this->entityTypeManager->getDefinition($entity_type_id);
+    $uuid_key = $definition->getKey('uuid');
+    $entities = $this->entityTypeManager
+      ->getStorage($entity_type_id)
+      ->loadByProperties([$uuid_key => $value]);
     if (!$entities) {
       return NULL;
     }
@@ -65,7 +65,10 @@ class SchemaDotOrgJsonLdEndpointEntityUuidConverter extends EntityConverter {
     // translation object for the current context.
     if ($entity instanceof TranslatableInterface && $entity->isTranslatable()) {
       // @see https://www.drupal.org/project/drupal/issues/2624770
-      $entity = $this->entityRepository->getTranslationFromContext($entity, NULL, ['operation' => 'entity_upcast']);
+      $entity = $this->entityRepository->getTranslationFromContext(
+        entity: $entity,
+        context: ['operation' => 'entity_upcast'],
+      );
     }
 
     return $entity;

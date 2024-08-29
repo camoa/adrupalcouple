@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\Tests\schemadotorg_smart_date\Kernel;
 
@@ -16,11 +16,10 @@ require_once __DIR__ . '/../../../schemadotorg_smart_date.install';
 class SchemaDotOrgSmartDateInstallTest extends KernelTestBase {
 
   /**
-   * Modules to enable.
-   *
-   * @var array
+   * {@inheritdoc}
    */
   protected static $modules = [
+    'node',
     'schemadotorg',
     'schemadotorg_smart_date',
   ];

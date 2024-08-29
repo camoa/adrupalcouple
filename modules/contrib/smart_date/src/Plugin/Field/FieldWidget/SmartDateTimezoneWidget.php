@@ -2,6 +2,8 @@
 
 namespace Drupal\smart_date\Plugin\Field\FieldWidget;
 
+use Drupal\Component\Utility\DeprecationHelper;
+use Drupal\Core\Datetime\TimeZoneFormHelper;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
@@ -39,11 +41,8 @@ class SmartDateTimezoneWidget extends SmartDateInlineWidget implements Container
 
     // Set default, based on field config.
     $default_label = $this->t('- default: @tz_label -', ['@tz_label' => $this->getSiteTimezone()]);
+    $default_timezone = '';
     switch ($this->getSetting('default_tz')) {
-      case '':
-        $default_timezone = '';
-        break;
-
       case 'user':
         $default_timezone = date_default_timezone_get();
         break;
@@ -162,7 +161,18 @@ class SmartDateTimezoneWidget extends SmartDateInlineWidget implements Container
    * Helper function to retrieve available timezones.
    */
   public function getTimezones($grouped = TRUE) {
-    return system_time_zones(FALSE, $grouped);
+    if (!class_exists(DeprecationHelper::class)) {
+      // @phpstan-ignore-next-line
+      return system_time_zones(FALSE, $grouped);
+    }
+    return DeprecationHelper::backwardsCompatibleCall(
+      \Drupal::VERSION,
+      '10.1',
+      static function () use ($grouped) {
+        return $grouped ? TimeZoneFormHelper::getOptionsListByRegion() : TimeZoneFormHelper::getOptionsList();
+      },
+      static fn () => system_time_zones(FALSE, $grouped)
+    );
   }
 
   /**
@@ -183,7 +193,7 @@ class SmartDateTimezoneWidget extends SmartDateInlineWidget implements Container
       // expression.
       if (preg_match('!^((Africa|America|Antarctica|Arctic|Asia|Atlantic|Australia|Europe|Indian|Pacific)/|UTC$)!', $zone)) {
         $zones[$value] = $this->t('@zone', [
-          '@zone' => $this->t(str_replace('_', ' ', $zone)),
+          '@zone' => $this->t(str_replace('_', ' ', $zone)), // phpcs:ignore
         ]);
       }
     }
@@ -237,6 +247,7 @@ class SmartDateTimezoneWidget extends SmartDateInlineWidget implements Container
   public function getSiteTimezone() {
     // Ignore PHP strict notice if time zone has not yet been set in the php.ini
     // configuration.
+    // @phpstan-ignore-next-line
     $config = \Drupal::config('system.date');
     $config_data_default_timezone = $config
       ->get('timezone.default');

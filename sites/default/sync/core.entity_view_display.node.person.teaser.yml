@@ -18,10 +18,11 @@ dependencies:
     - field.field.node.person.schema_same_as
     - field.field.node.person.schema_subject_of
     - field.field.node.person.schema_telephone
-    - field.field.node.person.schema_url
     - field.field.node.person.schema_works_for
+    - image.style.media_library
     - node.type.person
   module:
+    - media
     - text
     - user
 id: node.person.teaser
@@ -48,11 +49,13 @@ content:
     weight: 200
     region: content
   schema_image:
-    type: entity_reference_entity_view
+    type: media_thumbnail
     label: above
     settings:
-      view_mode: default
-      link: false
+      image_link: content
+      image_style: media_library
+      image_loading:
+        attribute: lazy
     third_party_settings: {  }
     weight: 5
     region: content
@@ -70,5 +73,4 @@ hidden:
   schema_same_as: true
   schema_subject_of: true
   schema_telephone: true
-  schema_url: true
   schema_works_for: true

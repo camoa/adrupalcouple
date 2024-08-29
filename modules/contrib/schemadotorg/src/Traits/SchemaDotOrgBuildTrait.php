@@ -1,16 +1,23 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg\Traits;
 
 use Drupal\Core\Link;
 use Drupal\schemadotorg\SchemaDotOrgEntityFieldManagerInterface;
+use Drupal\schemadotorg\SchemaDotOrgMappingManagerInterface;
 
 /**
  * Trait for building Schema.org types.
  */
 trait SchemaDotOrgBuildTrait {
+  use SchemaDotOrgMappingStorageTrait;
+
+  /**
+   * The Schema.org mapping manager.
+   */
+  protected SchemaDotOrgMappingManagerInterface $schemaMappingManager;
 
   /**
    * Build a Schema.org type's details.
@@ -23,13 +30,10 @@ trait SchemaDotOrgBuildTrait {
    * @see \Drupal\schemadotorg_starterkit\Form\SchemaDotOrgStarterkitConfirmForm::buildSchemaType
    */
   protected function buildSchemaType(string $type, array $mapping_defaults): array {
-    [$entity_type_id, $schema_type] = explode(':', $type);
+    [$entity_type_id, $bundle, $schema_type] = $this->getMappingStorage()->parseType($type);
+    $mapping = $this->getMappingStorage()->loadByType($type);
 
-    /** @var \Drupal\schemadotorg\SchemaDotOrgMappingStorageInterface $mapping_storage */
-    $mapping_storage = $this->entityTypeManager
-      ->getStorage('schemadotorg_mapping');
-
-    $mapping = $mapping_storage->loadBySchemaType($entity_type_id, $schema_type);
+    $bundle = $bundle ?? $mapping_defaults['entity']['id'];
     if ($mapping) {
       if ($mapping->getTargetEntityBundleEntity()) {
         $entity_type = $mapping->getTargetEntityBundleEntity()
@@ -40,13 +44,13 @@ trait SchemaDotOrgBuildTrait {
       }
       else {
         $entity_type = [
-          '#markup' => $entity_type_id . ':' . $mapping_defaults['entity']['id'],
+          '#markup' => $entity_type_id . ':' . $bundle,
         ];
       }
     }
     else {
       $entity_type = [
-        '#markup' => $entity_type_id . ':' . $mapping_defaults['entity']['id'],
+        '#markup' => $entity_type_id . ':' . $bundle,
       ];
     }
 
@@ -84,9 +88,7 @@ trait SchemaDotOrgBuildTrait {
 
     // Properties.
     $rows = [];
-    /** @var \Drupal\schemadotorg\SchemaDotOrgNamesInterface $schema_names */
-    $schema_names = \Drupal::service('schemadotorg.names');
-    $field_prefix = $schema_names->getFieldPrefix();
+    $field_prefix = $this->schemaNames->getFieldPrefix();
     foreach ($mapping_defaults['properties'] as $property_name => $property_definition) {
       if (empty($property_definition['name'])) {
         continue;
@@ -136,20 +138,58 @@ trait SchemaDotOrgBuildTrait {
         'class' => [$exists ? 'color-success' : 'color-warning'],
       ];
     }
-    $details['properties'] = [
-      '#type' => 'table',
-      '#header' => [
-        'label' => ['data' => $this->t('Label / Description'), 'width' => '35%'],
-        'property' => ['data' => $this->t('Schema.org property'), 'width' => '15%'],
-        'arrow' => ['data' => '', 'width' => '1%'],
-        'name' => ['data' => $this->t('Field name'), 'width' => '15%'],
-        'existing' => ['data' => $this->t('Existing field'), 'width' => '10%'],
-        'type' => ['data' => $this->t('Field type'), 'width' => '15%'],
-        'unlimited' => ['data' => $this->t('Unlimited values'), 'width' => '5%'],
-        'required' => ['data' => $this->t('Required field'), 'width' => '5%'],
-      ],
-      '#rows' => $rows,
-    ];
+    if ($rows) {
+      $details['properties'] = [
+        '#type' => 'table',
+        '#header' => [
+          'label' => ['data' => $this->t('Label / Description'), 'width' => '35%'],
+          'property' => ['data' => $this->t('Schema.org property'), 'width' => '15%'],
+          'arrow' => ['data' => '', 'width' => '1%'],
+          'name' => ['data' => $this->t('Field name'), 'width' => '15%'],
+          'existing' => ['data' => $this->t('Existing field'), 'width' => '10%'],
+          'type' => ['data' => $this->t('Field type'), 'width' => '15%'],
+          'unlimited' => ['data' => $this->t('Unlimited values'), 'width' => '5%'],
+          'required' => ['data' => $this->t('Required field'), 'width' => '5%'],
+        ],
+        '#rows' => $rows,
+      ];
+    }
+
+    // Additional mappings.
+    if (isset($mapping_defaults['additional_mappings'])) {
+      $details['additional_mappings'] = [];
+      foreach ($mapping_defaults['additional_mappings'] as $additional_mapping) {
+        $additional_mapping_schema_type = $additional_mapping['schema_type'];
+        $additional_mapping_schema_properties = $additional_mapping['schema_properties'];
+        $additional_mapping_type = "$entity_type_id:$bundle:$additional_mapping_schema_type";
+
+        // Get the additional mapping defaults.
+        $additional_mapping_defaults = $this->schemaMappingManager->getMappingDefaults(
+          entity_type_id: $entity_type_id,
+          bundle: $bundle,
+          schema_type: $additional_mapping_schema_type,
+        );
+        foreach ($additional_mapping_defaults['properties'] as $property_name => &$property_definition) {
+          if (!in_array($property_name, $additional_mapping_schema_properties)) {
+            $property_definition['name'] = '';
+          }
+          else {
+            $property_definition['name'] = $property_definition['name']
+              ?: SchemaDotOrgEntityFieldManagerInterface::ADD_FIELD;
+          }
+        }
+
+        // Set the entity label to additional mappings Schema.org type label.
+        $additional_mapping_schema_type_definition = $this->schemaTypeManager->getType($additional_mapping_schema_type);
+        $additional_mapping_defaults['entity']['label'] = $additional_mapping_schema_type_definition['drupal_label'];
+
+        // Remove nested additional mappings.
+        unset($additional_mapping_defaults['additional_mappings']);
+
+        $details['additional_mappings'][$additional_mapping_type] = $this->buildSchemaType($additional_mapping_type, $additional_mapping_defaults);
+      }
+    }
+
     $details['#attached']['library'][] = 'schemadotorg/schemadotorg.dialog';
     return $details;
   }

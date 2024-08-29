@@ -33,7 +33,7 @@ third_party_settings:
       label: Event
       region: content
       parent_name: ''
-      weight: 0
+      weight: -1
       format_type: details
       format_settings:
         open: true

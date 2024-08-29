@@ -5,7 +5,7 @@
  * Builds placeholder replacement tokens for Schema.org path data.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 use Drupal\Core\Render\BubbleableMetadata;
 
@@ -50,14 +50,14 @@ function schemadotorg_pathauto_tokens(string $type, array $tokens, array $data, 
   /** @var \Drupal\Core\Entity\ContentEntityInterface $entity */
   $entity = $data[$type];
 
-  // Get subtype and replace the schema type, if it is valid subtype.
-  // @see schemadotorg_subtype.module.
-  $subtype = NULL;
-  $subtype_field_name = $mapping->getSchemaPropertyFieldName('subtype');
-  if ($subtype_field_name && $entity->hasField($subtype_field_name)) {
-    $subtype = $entity->{$subtype_field_name}->value;
-    if ($subtype && $schema_type_manager->isType($subtype)) {
-      $schema_type = $subtype;
+  // Get additionalType and replace the schema type, if it is valid subtype.
+  // @see schemadotorg_additional_type.module.
+  $additional_type = NULL;
+  $additional_type_field_name = $mapping->getSchemaPropertyFieldName('additionalType');
+  if ($additional_type_field_name && $entity->hasField($additional_type_field_name)) {
+    $additional_type = $entity->{$additional_type_field_name}->value;
+    if ($additional_type && $schema_type_manager->isType($additional_type)) {
+      $schema_type = $additional_type;
     }
   }
 
@@ -68,7 +68,7 @@ function schemadotorg_pathauto_tokens(string $type, array $tokens, array $data, 
         $paths = \Drupal::config('schemadotorg_pathauto.settings')->get('base_paths');
         foreach ($paths as $path_schema_type => $path) {
           // Allows custom subtypes to have base paths.
-          if ($path_schema_type === $subtype
+          if ($path_schema_type === $additional_type
             || $schema_type_manager->isSubTypeOf($schema_type, $path_schema_type)) {
             $replacements[$original] = \Drupal::token()->replace($path, $data, $options, $bubbleable_metadata);
             break;

@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\Tests\schemadotorg_scheduler\Kernel;
 
@@ -17,9 +17,7 @@ use Drupal\Tests\schemadotorg_jsonld\Kernel\SchemaDotOrgJsonLdKernelTestBase;
 class SchemaDotOrgSchedulerJsonLdKernelTest extends SchemaDotOrgJsonLdKernelTestBase {
 
   /**
-   * Modules to enable.
-   *
-   * @var array
+   * {@inheritdoc}
    */
   protected static $modules = [
     'scheduler',
@@ -52,9 +50,6 @@ class SchemaDotOrgSchedulerJsonLdKernelTest extends SchemaDotOrgJsonLdKernelTest
 
     $this->createSchemaEntity('node', 'Article');
 
-    /** @var \Drupal\Core\Datetime\DateFormatterInterface $date_formatter */
-    $date_formatter = \Drupal::service('date.formatter');
-
     $node = Node::create([
       'type' => 'article',
       'title' => 'Some article',
@@ -68,10 +63,10 @@ class SchemaDotOrgSchedulerJsonLdKernelTest extends SchemaDotOrgJsonLdKernelTest
       '@url' => $node->toUrl()->setAbsolute()->toString(),
       'inLanguage' => 'en',
       'headline' => 'Some article',
-      'dateCreated' => $date_formatter->format($node->getCreatedTime(), 'custom', 'Y-m-d H:i:s P'),
-      'dateModified' => $date_formatter->format($node->getChangedTime(), 'custom', 'Y-m-d H:i:s P'),
-      'datePublished' => $date_formatter->format(strtotime('2020-01-01'), 'custom', 'Y-m-d H:i:s P'),
-      'expires' => $date_formatter->format(strtotime('2021-01-01'), 'custom', 'Y-m-d H:i:s P'),
+      'dateCreated' => $this->formatDateTime($node->getCreatedTime()),
+      'dateModified' => $this->formatDateTime($node->getChangedTime()),
+      'datePublished' => $this->formatDateTime(strtotime('2020-01-01')),
+      'expires' => $this->formatDateTime(strtotime('2021-01-01')),
     ];
     $actual_value = $this->builder->buildEntity($node);
     $this->assertEquals($expected_value, $actual_value);

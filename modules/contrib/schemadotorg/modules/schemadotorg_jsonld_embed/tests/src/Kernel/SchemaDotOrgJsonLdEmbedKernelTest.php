@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\Tests\schemadotorg_jsonld_embed\Kernel;
 
@@ -12,6 +12,7 @@ use Drupal\node\Entity\Node;
 use Drupal\schemadotorg_jsonld\SchemaDotOrgJsonLdBuilderInterface;
 use Drupal\schemadotorg_jsonld\SchemaDotOrgJsonLdManagerInterface;
 use Drupal\Tests\schemadotorg\Kernel\SchemaDotOrgEntityKernelTestBase;
+use Drupal\Tests\schemadotorg_jsonld\Traits\SchemaDotOrgJsonLdTestTrait;
 
 /**
  * Tests the functionality of the Schema.org JSON-LD embed.
@@ -19,11 +20,10 @@ use Drupal\Tests\schemadotorg\Kernel\SchemaDotOrgEntityKernelTestBase;
  * @group schemadotorg
  */
 class SchemaDotOrgJsonLdEmbedKernelTest extends SchemaDotOrgEntityKernelTestBase {
+  use SchemaDotOrgJsonLdTestTrait;
 
   /**
-   * Modules to enable.
-   *
-   * @var array
+   * {@inheritdoc}
    */
   protected static $modules = [
     'filter',
@@ -68,10 +68,7 @@ class SchemaDotOrgJsonLdEmbedKernelTest extends SchemaDotOrgEntityKernelTestBase
    * Test Schema.org JSON-LD embed.
    */
   public function testEmbed(): void {
-    // Allow Schema.org Thing to have default properties.
-    $this->config('schemadotorg.settings')
-      ->set('schema_types.default_properties.Thing', ['name', 'description'])
-      ->save();
+    $this->appendSchemaTypeDefaultProperties('Thing', ['name', 'description']);
 
     $this->createMediaImage();
     $this->createSchemaEntity('media', 'ImageObject');
@@ -115,21 +112,24 @@ class SchemaDotOrgJsonLdEmbedKernelTest extends SchemaDotOrgEntityKernelTestBase
     // Check building JSON-LD while include embedded media (and content).
     $image_style_storage = \Drupal::entityTypeManager()->getStorage('image_style');
 
-    /** @var \Drupal\image\ImageStyleInterface $thumbnail_image_style */
+    /** @var \Drupal\image\ImageStyleInterface $large_image_style */
     $large_image_style = $image_style_storage->load('large');
     /** @var \Drupal\image\ImageStyleInterface $thumbnail_image_style */
     $thumbnail_image_style = $image_style_storage->load('thumbnail');
 
+    /** @var \Drupal\file\FileInterface $file */
+    $file = $media->field_media_image->entity;
+    $file_uri = $file->getFileUri();
     $expected_result = [
       0 => [
         '@context' => 'https://schema.org',
         '@type' => 'ImageObject',
         'inLanguage' => 'en',
         'name' => 'Some image',
-        'dateCreated' => $this->dateFormatter->format($media->getCreatedTime(), 'custom', 'Y-m-d H:i:s P'),
-        'dateModified' => $this->dateFormatter->format($media->getChangedTime(), 'custom', 'Y-m-d H:i:s P'),
-        'image' => $large_image_style->buildUrl($media->field_media_image->entity->getFileUri()),
-        'thumbnail' => $thumbnail_image_style->buildUrl($media->thumbnail->entity->getFileUri()),
+        'dateCreated' => $this->formatDateTime($media->getCreatedTime()),
+        'dateModified' => $this->formatDateTime($media->getChangedTime()),
+        'image' => $large_image_style->buildUrl($file_uri),
+        'thumbnail' => $thumbnail_image_style->buildUrl($file_uri),
       ],
       [
         '@context' => 'https://schema.org',

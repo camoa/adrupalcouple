@@ -126,7 +126,6 @@ class InlineEntityFormComplex extends InlineEntityFormBase implements ContainerF
   public static function defaultSettings() {
     $defaults = parent::defaultSettings();
     $defaults += [
-      'allow_new' => TRUE,
       'allow_existing' => FALSE,
       'add_existing_widget' => 'autocomplete',
       'allow_edit' => TRUE,
@@ -155,11 +154,6 @@ class InlineEntityFormComplex extends InlineEntityFormBase implements ContainerF
         '#default_value' => $this->getSetting('auto_open'),
       ];
     }
-    $element['allow_new'] = [
-      '#type' => 'checkbox',
-      '#title' => $this->t('Allow users to add new @label.', ['@label' => $labels['plural']]),
-      '#default_value' => $this->getSetting('allow_new'),
-    ];
     $element['allow_existing'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Allow users to add existing @label.', ['@label' => $labels['plural']]),
@@ -227,13 +221,6 @@ class InlineEntityFormComplex extends InlineEntityFormBase implements ContainerF
   public function settingsSummary() {
     $summary = parent::settingsSummary();
     $labels = $this->getEntityTypeLabels();
-
-    if ($this->getSetting('allow_new')) {
-      $summary[] = $this->t('New @label can be added.', ['@label' => $labels['plural']]);
-    }
-    else {
-      $summary[] = $this->t('New @label can not be created.', ['@label' => $labels['plural']]);
-    }
 
     if ($this->getSetting('allow_existing')) {
       if ($this->getSetting('match_operator')) {
@@ -756,7 +743,6 @@ class InlineEntityFormComplex extends InlineEntityFormBase implements ContainerF
 
       if ($settings['allow_existing']) {
         $this->createInlineFormHandler();
-        $labels = $this->inlineFormHandler->getEntityTypeLabels();
         $element['actions']['ief_add_existing'] = [
           '#type' => 'submit',
           '#value' => $this->t('Add existing @type_singular', ['@type_singular' => $labels['singular']]),
@@ -813,7 +799,7 @@ class InlineEntityFormComplex extends InlineEntityFormBase implements ContainerF
           // values in $form_state.
           '#parents' => array_merge($parents, [$new_key]),
           '#entity_type' => $target_type,
-          '#ief_labels' => $this->inlineFormHandler->getEntityTypeLabels(),
+          '#ief_labels' => $labels,
           '#match_operator' => $this->getSetting('match_operator'),
           '#ief_items' => $items,
           '#ief_add_existing_widget' => $this->getSetting('add_existing_widget'),

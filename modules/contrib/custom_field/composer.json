@@ -11,7 +11,7 @@
     "source": "http://cgit.drupalcode.org/custom_field"
   },
   "require": {
-    "drupal/core": "^9.4 || ^10"
+    "drupal/core": "^9.4 || ^10.1"
   },
   "require-dev": {
     "drupal/feeds": "3.x-dev"

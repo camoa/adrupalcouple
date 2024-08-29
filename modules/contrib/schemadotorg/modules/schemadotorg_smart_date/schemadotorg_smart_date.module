@@ -5,9 +5,10 @@
  * Allows Smart Dates to be used to create Schema.org relationships.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 use Drupal\Core\Field\FieldItemListInterface;
+use Drupal\Core\Render\BubbleableMetadata;
 
 /**
  * Implements hook_schemadotorg_property_field_alter().
@@ -20,7 +21,7 @@ function schemadotorg_smart_date_schemadotorg_property_field_alter(
   ?string &$widget_id,
   array &$widget_settings,
   ?string &$formatter_id,
-  array &$formatter_settings
+  array &$formatter_settings,
 ): void {
   // Make sure the field type is set to 'smartdate'.
   if ($field_storage_values['type'] !== 'smartdate') {
@@ -67,8 +68,8 @@ function schemadotorg_smart_date_schemadotorg_property_field_alter(
 /**
  * Implements hook_schemadotorg_jsonld_schema_type_field_alter().
  */
-function schemadotorg_smart_date_schemadotorg_jsonld_schema_type_field_alter(array &$data, FieldItemListInterface $items): void {
+function schemadotorg_smart_date_schemadotorg_jsonld_schema_type_field_alter(array &$data, FieldItemListInterface $items, BubbleableMetadata $bubbleable_metadata): void {
   /** @var \Drupal\schemadotorg_smart_date\SchemaDotOrgSmartDateJsonLdManagerInterface $jsonld_manager */
   $jsonld_manager = \Drupal::service('schemadotorg_smart_date.jsonld_manager');
-  $jsonld_manager->alterProperties($data, $items);
+  $jsonld_manager->alterProperties($data, $items, $bubbleable_metadata);
 }

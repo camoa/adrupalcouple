@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\Tests\schemadotorg_media\Functional;
 
@@ -16,9 +16,7 @@ use Drupal\Tests\schemadotorg\Functional\SchemaDotOrgBrowserTestBase;
 class SchemaDotOrgMediaTest extends SchemaDotOrgBrowserTestBase {
 
   /**
-   * Modules to enable.
-   *
-   * @var array
+   * {@inheritdoc}
    */
   protected static $modules = [
     'schemadotorg_ui',
@@ -29,7 +27,7 @@ class SchemaDotOrgMediaTest extends SchemaDotOrgBrowserTestBase {
    * Test Schema.org media UI.
    */
   public function testMedia(): void {
-    $assert_session = $this->assertSession();
+    $assert = $this->assertSession();
 
     /* ********************************************************************** */
     // Mapping defaults.
@@ -37,9 +35,15 @@ class SchemaDotOrgMediaTest extends SchemaDotOrgBrowserTestBase {
     /* ********************************************************************** */
 
     // Check mapping defaults for Schema media type that include source.
-    $defaults = $this->getMappingDefaults('media', NULL, 'ImageObject');
+    $defaults = $this->getMappingDefaults(
+      entity_type_id: 'media',
+      schema_type: 'ImageObject',
+    );
     $this->assertEquals('image', $defaults['entity']['source']);
-    $defaults = $this->getMappingDefaults('media', NULL, 'VideoObject');
+    $defaults = $this->getMappingDefaults(
+      entity_type_id: 'media',
+      schema_type: 'VideoObject',
+    );
     $this->assertEquals('oembed:video', $defaults['entity']['source']);
 
     /* ********************************************************************** */
@@ -50,9 +54,9 @@ class SchemaDotOrgMediaTest extends SchemaDotOrgBrowserTestBase {
     $this->drupalLogin($this->rootUser);
 
     // Check that media source field is added to the add media form.
-    $this->drupalGet('/admin/structure/media/schemadotorg', ['query' => ['type' => 'ImageObject']]);
-    $assert_session->responseContains('Media source');
-    $assert_session->elementExists('css', 'select[name="mapping[entity][source]"]');
+    $this->drupalGet('admin/structure/media/schemadotorg', ['query' => ['type' => 'ImageObject']]);
+    $assert->responseContains('Media source');
+    $assert->elementExists('css', 'select[name="mapping[entity][source]"]');
 
     /* ********************************************************************** */
     // Schema.org mapping media type create.
@@ -61,7 +65,7 @@ class SchemaDotOrgMediaTest extends SchemaDotOrgBrowserTestBase {
     // @see schemadotorg_media_schemadotorg_property_field_alter(()
     /* ********************************************************************** */
 
-    $this->drupalGet('/admin/structure/media/schemadotorg', ['query' => ['type' => 'ImageObject']]);
+    $this->drupalGet('admin/structure/media/schemadotorg', ['query' => ['type' => 'ImageObject']]);
     $this->submitForm([], 'Save');
 
     // Check that media is created with default settings as expected.
@@ -107,7 +111,7 @@ class SchemaDotOrgMediaTest extends SchemaDotOrgBrowserTestBase {
    * Get the mapping defaults for a Schema.org mapping.
    *
    * @param string $entity_type_id
-   *   THe entity type.
+   *   The entity type.
    * @param string|null $bundle
    *   The bundle.
    * @param string $schema_type
@@ -116,7 +120,7 @@ class SchemaDotOrgMediaTest extends SchemaDotOrgBrowserTestBase {
    * @return array
    *   The mapping defaults.
    */
-  protected function getMappingDefaults(string $entity_type_id, ?string $bundle, string $schema_type): array {
+  protected function getMappingDefaults(string $entity_type_id = '', ?string $bundle = NULL, string $schema_type = ''): array {
     $defaults = [];
     schemadotorg_media_schemadotorg_mapping_defaults_alter($defaults, $entity_type_id, $bundle, $schema_type);
     return $defaults;

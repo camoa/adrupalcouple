@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg\Form;
 
@@ -24,7 +24,7 @@ class SchemaDotOrgMappingTypeForm extends EntityForm {
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container) {
+  public static function create(ContainerInterface $container): static {
     $instance = parent::create($container);
     $instance->entityDisplayRepository = $container->get('entity_display.repository');
     return $instance;
@@ -78,13 +78,13 @@ class SchemaDotOrgMappingTypeForm extends EntityForm {
     $form['types']['label_prefix'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Label prefix'),
-      '#description' => $this->t("Enter prefix to prepended to bundle label. For example, you can enter 'Schema.org: ' to distinguish Schema,org type from existing bundles."),
+      '#description' => $this->t("Enter the prefix to be prepended to the bundle's label. For example, you can enter 'Schema.org: ' to distinguish a Schema.org type from existing bundles."),
       '#default_value' => $entity->get('label_prefix'),
     ];
     $form['types']['id_prefix'] = [
       '#type' => 'textfield',
       '#title' => $this->t('ID prefix'),
-      '#description' => $this->t("Enter prefix to prepended to bundle names. For example, you can enter 'schema_' to create a 'schema_*' namespace for bundles."),
+      '#description' => $this->t("Enter the prefix to prepended to bundle names. For example, you can enter 'schema_' to create a 'schema_*' namespace for all Schema.org related bundles."),
       '#pattern' => '^[a-z0-9_]+$',
       '#default_value' => $entity->get('id_prefix'),
     ];

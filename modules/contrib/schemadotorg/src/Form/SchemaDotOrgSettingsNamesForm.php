@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg\Form;
 
@@ -21,7 +21,7 @@ class SchemaDotOrgSettingsNamesForm extends SchemaDotOrgSettingsFormBase {
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container) {
+  public static function create(ContainerInterface $container): static {
     $instance = parent::create($container);
     $instance->entityTypeManager = $container->get('entity_type.manager');
     return $instance;

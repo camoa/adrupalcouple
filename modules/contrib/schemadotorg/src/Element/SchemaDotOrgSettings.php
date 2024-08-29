@@ -3,16 +3,16 @@
 /* phpcs:disable SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingAnyTypeHint */
 /* phpcs:disable SlevomatCodingStandard.TypeHints.ReturnTypeHint.MissingAnyTypeHint */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg\Element;
 
 use Drupal\Component\Serialization\Exception\InvalidDataTypeException;
 use Drupal\Component\Serialization\Json;
+use Drupal\Component\Serialization\Yaml;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Link;
 use Drupal\Core\Render\Element\Textarea;
-use Drupal\Core\Serialization\Yaml;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\Url;
 
@@ -53,6 +53,7 @@ class SchemaDotOrgSettings extends Textarea {
       '#description' => '',
       '#description_link' => '',
       '#token_link' => FALSE,
+      '#token_types' => [],
       '#example' => '',
       '#config_name' => '',
       '#config_key' => '',
@@ -86,7 +87,7 @@ class SchemaDotOrgSettings extends Textarea {
   /**
    * Processes a 'schemadotorg_settings' element.
    */
-  public static function processSchemaDotOrgSettings(&$element, FormStateInterface $form_state, &$complete_form) {
+  public static function processSchemaDotOrgSettings(array &$element, FormStateInterface $form_state, array &$complete_form): array {
     $mode = $element['#mode'];
     $raw = $element['#raw'];
 
@@ -102,12 +103,30 @@ class SchemaDotOrgSettings extends Textarea {
     // Append token tree link to the description.
     if ($element['#token_link']
       && \Drupal::moduleHandler()->moduleExists('token')) {
-      /** @var \Drupal\Core\Render\RendererInterface $renderer */
-      $renderer = \Drupal::service('renderer');
+      // Build the token tree link.
       $build = [
         '#theme' => 'token_tree_link',
-        '#token_types' => ['node', 'user', 'taxonomy'],
+        '#token_types' => $element['#token_types'],
       ];
+
+      // If token types are empty, set the token types to support mapping types.
+      if (empty($build['#token_types'])) {
+        $mapping_types = \Drupal::entityTypeManager()
+          ->getStorage('schemadotorg_mapping_type')
+          ->loadMultiple();
+        if ($mapping_types) {
+          $mapping_type_ids = array_keys($mapping_types);
+          $token_types = array_combine($mapping_type_ids, $mapping_type_ids);
+          if (isset($token_types['taxonomy_term'])) {
+            $token_types['term'] = 'term';
+          }
+          $build['#token_types'] = $token_types;
+        }
+      }
+
+      // Render and append the token tree link to the description.
+      /** @var \Drupal\Core\Render\RendererInterface $renderer */
+      $renderer = \Drupal::service('renderer');
       $element['#description'] = $element['#description'] ?? '';
       $element['#description'] .= '<br/>';
       $element['#description'] .= $renderer->render($build);
@@ -272,16 +291,11 @@ class SchemaDotOrgSettings extends Textarea {
    *   The raw data YAML or JSON string decoded into an array.
    */
   protected static function decode(string $mode, ?string $raw): array {
-    switch ($mode) {
-      case 'yaml':
-        return $raw ? Yaml::decode($raw) : [];
-
-      case 'json':
-        return ($raw) ? Json::decode($raw) : [];
-
-      default;
-        throw new \Exception('Unknown "' . $mode . '" settings mode.');
-    }
+    return match ($mode) {
+      'yaml' => $raw ? Yaml::decode($raw) : [],
+      'json' => $raw ? Json::decode($raw) : [],
+      default => throw new \Exception('Unknown "' . $mode . '" settings mode.'),
+    };
   }
 
   /**

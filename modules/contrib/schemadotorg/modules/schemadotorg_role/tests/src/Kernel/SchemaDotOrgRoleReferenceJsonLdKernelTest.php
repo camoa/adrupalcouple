@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\Tests\schemadotorg_role\Kernel;
 
@@ -28,9 +28,7 @@ class SchemaDotOrgRoleReferenceJsonLdKernelTest extends SchemaDotOrgJsonLdKernel
   // phpcs:enable
 
   /**
-   * Modules to enable.
-   *
-   * @var array
+   * {@inheritdoc}
    */
   protected static $modules = [
     'schemadotorg_role',

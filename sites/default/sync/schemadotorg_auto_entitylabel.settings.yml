@@ -1,5 +1,0 @@
-_core:
-  default_config_hash: H7UUoJlKPrKXCRWv8qN3SW60T8xEaU7wceNW9-XaR-w
-default_types:
-  Person:
-    pattern: '[givenName] [familyName]'

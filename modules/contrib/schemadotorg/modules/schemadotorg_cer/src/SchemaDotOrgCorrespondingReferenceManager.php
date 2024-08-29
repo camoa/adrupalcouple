@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg_cer;
 
@@ -34,7 +34,7 @@ class SchemaDotOrgCorrespondingReferenceManager implements SchemaDotOrgCorrespon
     protected ConfigFactoryInterface $configFactory,
     protected EntityTypeManagerInterface $entityTypeManager,
     protected MessengerInterface $messenger,
-    protected SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager
+    protected SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager,
   ) {}
 
   /**
@@ -45,10 +45,10 @@ class SchemaDotOrgCorrespondingReferenceManager implements SchemaDotOrgCorrespon
       return;
     }
 
-    $default_properties = $this->configFactory
+    $default_schema_properties = $this->configFactory
       ->get('schemadotorg_cer.settings')
-      ->get('default_properties');
-    foreach ($default_properties as $first_property_name => $second_property_name) {
+      ->get('default_schema_properties');
+    foreach ($default_schema_properties as $first_property_name => $second_property_name) {
       if (isset($defaults['properties'][$first_property_name])) {
         $defaults['properties'][$first_property_name]['type'] = 'field_ui:entity_reference:node';
       }
@@ -80,10 +80,10 @@ class SchemaDotOrgCorrespondingReferenceManager implements SchemaDotOrgCorrespon
       $schema_property_field_names += array_flip($mapping->getSchemaProperties());
     }
 
-    $default_properties = $this->configFactory
+    $default_schema_properties = $this->configFactory
       ->get('schemadotorg_cer.settings')
-      ->get('default_properties');
-    foreach ($default_properties as $first_property_name => $second_property_name) {
+      ->get('default_schema_properties');
+    foreach ($default_schema_properties as $first_property_name => $second_property_name) {
       $first_field_name = $schema_property_field_names[$first_property_name] ?? NULL;
       $second_field_name = $schema_property_field_names[$second_property_name] ?? NULL;
 

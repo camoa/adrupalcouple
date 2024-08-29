@@ -1,8 +1,9 @@
 types:
   node:Person: { }
   node:Event: { }
+  node:Thing: { }
   # Define custom mapping defaults.
-  node:Thing:
+  node:custom_thing:Thing:
     entity:
       label: 'Something'
     properties:

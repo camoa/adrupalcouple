@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\Tests\schemadotorg_cer\Kernel;
 
@@ -23,9 +23,7 @@ class SchemaDotOrgCorrespondingReferenceKernelTest extends SchemaDotOrgEntityKer
   // phpcs:enable
 
   /**
-   * Modules to enable.
-   *
-   * @var array
+   * {@inheritdoc}
    */
   protected static $modules = [
     'cer',
@@ -85,7 +83,7 @@ class SchemaDotOrgCorrespondingReferenceKernelTest extends SchemaDotOrgEntityKer
     $this->assertEquals($person_node->id(), $page_node->schema_about->target_id);
 
     // Remove the page from person's subject of field.
-    $person_node->schema_subject_of->target_id = NULL;
+    $person_node->schema_subject_of->setValue([]);
     $person_node->save();
 
     // Reload the updated corresponding page node.

@@ -1,3 +1,4 @@
+node_task: true
 diagrams:
   subjectOf:
     title: 'Subject of / About'
@@ -7,6 +8,14 @@ diagrams:
     title: 'Is part of / Has part'
     parent: isPartOf
     child: hasPart
+  containsPlace:
+    title: 'Contains place'
+    parent: ''
+    child: containsPlace
+  containedInPlace:
+    title: 'Contained in place'
+    parent: containedInPlace
+    child: ''
   parentOrganization:
     title: 'Parent organizations / Sub-organizations'
     parent: parentOrganization

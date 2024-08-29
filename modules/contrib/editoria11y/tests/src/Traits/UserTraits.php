@@ -10,11 +10,11 @@ trait UserTraits {
   /**
    * Views aggregation causes intractable incorrect schema errors.
    *
-   * @see \Drupal\Core\Config\Testing\ConfigSchemaChecker
-   *
    * @var bool
+   *
+   * @see \Drupal\Core\Config\Development\ConfigSchemaChecker
    */
-  protected $strictConfigSchema = FALSE; // phpcs:ignore
+  protected bool $strictConfigSchema = FALSE;
 
   /**
    * Define a new administrator user.

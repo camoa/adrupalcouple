@@ -1,6 +1,6 @@
 # Schema for the configuration files of the Smart Date Recur module.
 field.formatter.settings.smartdate_recurring:
-  type: field.formatter.settings.datetime_default
+  type: field.formatter.settings.smartdate_default
   label: 'Smart date default display format settings'
   mapping:
     timezone_override:
@@ -34,6 +34,10 @@ field.formatter.settings.smartdate_recurring:
     show_next:
       type: boolean
       label: 'Show next instance separately'
+      translation context: 'Smart date display'
+    current_upcoming:
+      type: boolean
+      label: 'Treat current events as upcoming'
       translation context: 'Smart date display'
 
 field.formatter.settings.smartdate_dailyrange:

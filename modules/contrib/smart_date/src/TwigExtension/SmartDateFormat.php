@@ -2,16 +2,16 @@
 
 namespace Drupal\smart_date\TwigExtension;
 
+use Drupal\smart_date\SmartDatePluginTrait;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
-use Drupal\smart_date\SmartDateTrait;
 
 /**
  * Custom twig functions.
  */
 class SmartDateFormat extends AbstractExtension {
 
-  use SmartDateTrait;
+  use SmartDatePluginTrait;
 
   /**
    * The configuration for the field whose values are being output.
@@ -24,12 +24,13 @@ class SmartDateFormat extends AbstractExtension {
    * Declare the twig filter.
    *
    * @return array|TwigFilter[]
+   *   The formatted date.
    */
-  public function getFilters() {
+  public function getFilters(): array {
     return [
       new TwigFilter('smart_date_format',
-        [$this, 'formatInput'],
-      )
+        $this->formatInput(...),
+      ),
     ];
   }
 
@@ -52,12 +53,14 @@ class SmartDateFormat extends AbstractExtension {
       // Retrieve the field definition for later use.
       $this->fieldDefinition = $input['#object']->getFieldDefinition($input['#field_name']);
       // Get the current language.
+      // @phpstan-ignore-next-line
       $language = \Drupal::languageManager()->getCurrentLanguage()->getId();
       // Use the Smart Date Trait function for processing values.
       $output = $this->viewElements($input['#items'], $language, $format);
     }
     elseif (!empty($input['#value'])) {
       // Handle a specific field values.
+      // @phpstan-ignore-next-line
       $entity_storage_manager = \Drupal::entityTypeManager()
         ->getStorage('smart_date_format');
       $format_obj = $entity_storage_manager->load($format);
@@ -84,14 +87,16 @@ class SmartDateFormat extends AbstractExtension {
    * @return mixed
    *   The setting from the field definition, if available, or FALSE.
    */
-  private function getSetting($key) {
+  private function getSetting($key): mixed { // phpcs:ignore
     // @todo Find a way to get the formatter settings.
     return $this->fieldDefinition->getSetting($key) ?? FALSE;
   }
 
   /**
    * {@inheritdoc}
+   *
    * @return string
+   *   The machine name, as a string.
    */
   public function getName() {
     return 'smart_date_format.twig_extension';

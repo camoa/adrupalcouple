@@ -1,5 +1,5 @@
 schemadotorg_jsonld_custom.settings:
-  type: config_entity
+  type: config_object
   label: 'Schema.org JSON-LD custom settings'
   mapping:
     path_json:

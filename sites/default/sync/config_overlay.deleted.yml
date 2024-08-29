@@ -1,0 +1,9 @@
+_core:
+  default_config_hash: 9KUf4Qxs6W81x7hZM51_Hpq3qTWhznHSznF5P12JFhg
+names:
+  - block.block.olivero_syndicate
+  - core.entity_view_display.node.article.rss
+  - field.field.node.article.comment
+  - field.field.node.article.field_image
+  - field.storage.node.comment
+  - field.storage.node.field_image

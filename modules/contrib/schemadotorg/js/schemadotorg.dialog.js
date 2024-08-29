@@ -26,7 +26,7 @@
           url: link.getAttribute('href'),
           event: 'click',
           dialogType: 'modal',
-          dialog: { width: '90%' },
+          dialog: { width: '1000px' },
           element: link,
         });
       });

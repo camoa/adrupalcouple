@@ -2,10 +2,10 @@
 
 namespace Drupal\smart_date_recur\Entity;
 
-use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Entity\ContentEntityBase;
 use Drupal\Core\Entity\EntityChangedTrait;
 use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\Core\Field\BaseFieldDefinition;
 
 /**
  * Defines the Smart Date override entity.
@@ -86,6 +86,7 @@ class SmartDateOverride extends ContentEntityBase {
    * {@inheritdoc}
    */
   public function onChange($property_name, $notify = TRUE) {
+    // @todo trigger own notification based on $notify.
     // Enforce that the computed date is recalculated.
     if ($property_name == 'value') {
       $this->start_time = NULL;
@@ -93,7 +94,7 @@ class SmartDateOverride extends ContentEntityBase {
     elseif ($property_name == 'end_value') {
       $this->end_time = NULL;
     }
-    parent::onChange($property_name, $notify);
+    parent::onChange($property_name);
   }
 
 }

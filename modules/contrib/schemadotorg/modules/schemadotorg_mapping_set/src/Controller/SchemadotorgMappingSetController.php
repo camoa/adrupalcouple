@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg_mapping_set\Controller;
 
@@ -8,6 +8,7 @@ use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Link;
 use Drupal\Core\Url;
 use Drupal\schemadotorg\SchemaDotOrgMappingManagerInterface;
+use Drupal\schemadotorg\SchemaDotOrgNamesInterface;
 use Drupal\schemadotorg\SchemaDotOrgSchemaTypeBuilderInterface;
 use Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface;
 use Drupal\schemadotorg\Traits\SchemaDotOrgBuildTrait;
@@ -20,6 +21,11 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  */
 class SchemadotorgMappingSetController extends ControllerBase {
   use SchemaDotOrgBuildTrait;
+
+  /**
+   * The Schema.org names manager.
+   */
+  protected SchemaDotOrgNamesInterface $schemaNames;
 
   /**
    * The Schema.org schema type manager.
@@ -44,8 +50,9 @@ class SchemadotorgMappingSetController extends ControllerBase {
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container) {
-    $instance = new static();
+  public static function create(ContainerInterface $container): static {
+    $instance = parent::create($container);
+    $instance->schemaNames = $container->get('schemadotorg.names');
     $instance->schemaTypeManager = $container->get('schemadotorg.schema_type_manager');
     $instance->schemaTypeBuilder = $container->get('schemadotorg.schema_type_builder');
     $instance->schemaMappingManager = $container->get('schemadotorg.mapping_manager');
@@ -65,9 +72,6 @@ class SchemadotorgMappingSetController extends ControllerBase {
       'operations' => ['data' => $this->t('Operations'), 'width' => '10%'],
     ];
 
-    /** @var \Drupal\schemadotorg\SchemaDotOrgMappingStorageInterface $mapping_storage */
-    $mapping_storage = $this->entityTypeManager()->getStorage('schemadotorg_mapping');
-
     // Rows.
     $rows = [];
     $mapping_sets = $this->config('schemadotorg_mapping_set.settings')->get('sets');
@@ -78,9 +82,8 @@ class SchemadotorgMappingSetController extends ControllerBase {
       $invalid_types = [];
       $types = $mapping_set['types'];
       foreach ($types as $index => $type) {
-        if ($this->schemaMappingSetManager->isValidType($type)) {
-          [$entity_type_id, $schema_type] = explode(':', $type);
-          $mapping = $mapping_storage->loadBySchemaType($entity_type_id, $schema_type);
+        if ($this->getMappingStorage()->isValidType($type)) {
+          $mapping = $this->getMappingStorage()->loadByType($type);
           if ($mapping) {
             $entity_type_bundle = $mapping->getTargetEntityBundleEntity();
             $types[$index] = $entity_type_bundle->toLink($type, 'edit-form')->toString();
@@ -152,6 +155,7 @@ class SchemadotorgMappingSetController extends ControllerBase {
     return [
       'table' => [
         '#type' => 'table',
+        '#sticky' => TRUE,
         '#header' => $header,
         '#rows' => $rows,
       ],
@@ -184,19 +188,14 @@ class SchemadotorgMappingSetController extends ControllerBase {
    *   A renderable array containing a mapping set's summary.
    */
   public function buildSummary(string $name): array {
-    /** @var \Drupal\schemadotorg\SchemaDotOrgMappingStorageInterface $mapping_storage */
-    $mapping_storage = $this->entityTypeManager()
-      ->getStorage('schemadotorg_mapping');
-
     $mapping_set = $this->config('schemadotorg_mapping_set.settings')->get("sets.$name");
     foreach ($mapping_set['types'] as $type) {
-      if (!$this->schemaMappingSetManager->isValidType($type)) {
+      if (!$this->getMappingStorage()->isValidType($type)) {
         continue;
       }
-      [$entity_type_id, $schema_type] = explode(':', $type);
-      $mapping_defaults = $this->schemaMappingManager->getMappingDefaults($entity_type_id, NULL, $schema_type);
-
-      $mapping = $mapping_storage->loadBySchemaType($entity_type_id, $schema_type);
+      [$entity_type_id, , $schema_type] = $this->getMappingStorage()->parseType($type);
+      $mapping = $this->getMappingStorage()->loadByType($type);
+      $mapping_defaults = $this->schemaMappingManager->getMappingDefaultsByType($type);
       if ($mapping) {
         $status = $this->t('Exists');
 
@@ -226,6 +225,9 @@ class SchemadotorgMappingSetController extends ControllerBase {
 
       $row = [];
       $row['schema_type'] = $schema_type;
+      if (!empty($mapping_defaults['additional_mappings'])) {
+        $row['schema_type'] .= ' (' . implode(', ', array_keys($mapping_defaults['additional_mappings'])) . ')';
+      }
       $row['entity_type'] = [
         'data' => [
           'label' => [
@@ -269,7 +271,7 @@ class SchemadotorgMappingSetController extends ControllerBase {
     ];
 
     $header = [
-      'schema_type' => ['data' => $this->t('Schema.org type'), 'width' => '15%'],
+      'schema_type' => ['data' => $this->t('Schema.org type(s)'), 'width' => '15%'],
       'entity_type' => ['data' => $this->t('Entity label (type) / description'), 'width' => '65%'],
       'status' => ['data' => $this->t('Status'), 'width' => '10%'],
       'operation' => ['data' => $this->t('Operations'), 'width' => '10%'],
@@ -296,21 +298,15 @@ class SchemadotorgMappingSetController extends ControllerBase {
   public function buildDetails(string $name, string $operation = 'view'): array {
     $mapping_set = $this->config('schemadotorg_mapping_set.settings')->get("sets.$name");
 
-    /** @var \Drupal\schemadotorg\SchemaDotOrgMappingStorageInterface $mapping_storage */
-    $mapping_storage = $this->entityTypeManager()
-      ->getStorage('schemadotorg_mapping');
-
     $build = [];
     foreach ($mapping_set['types'] as $type) {
-      if (!$this->schemaMappingSetManager->isValidType($type)) {
+      if (!$this->getMappingStorage()->isValidType($type)) {
         continue;
       }
 
-      [$entity_type_id, $schema_type] = explode(':', $type);
-
-      $mapping = $mapping_storage->loadBySchemaType($entity_type_id, $schema_type);
-      $mapping_defaults = $this->schemaMappingManager->getMappingDefaults($entity_type_id, NULL, $schema_type);
-
+      [$entity_type_id, , $schema_type] = $this->getMappingStorage()->parseType($type);
+      $mapping = $this->getMappingStorage()->loadByType($type);
+      $mapping_defaults = $this->schemaMappingManager->getMappingDefaultsByType($type);
       $details = $this->buildSchemaType($type, $mapping_defaults);
       switch ($operation) {
         case 'view':

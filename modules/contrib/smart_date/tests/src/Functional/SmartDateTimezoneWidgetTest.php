@@ -1,7 +1,7 @@
 <?php
+
 namespace Drupal\Tests\smart_date\Functional;
 
-use Drupal\Core\Entity\EntityDisplayRepositoryInterface;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
 
@@ -50,21 +50,21 @@ class SmartDateTimezoneWidgetTest extends SmartDateTestBase {
       'weight' => 122,
       'region' => 'content',
       'settings' => [
-        'modal' => false,
+        'modal' => FALSE,
         'default_tz' => '',
         'custom_tz' => '',
         'allowed_timezones' => [],
         'default_duration' => 60,
         'default_duration_increments' => "30\r\n60|1 hour\r\n90\r\n120|2 hours\r\ncustom",
-        'show_extra' => false,
-        'hide_date' => true,
+        'show_extra' => FALSE,
+        'hide_date' => TRUE,
         'separator' => 'to',
         'add_abbreviations' => '',
-        ],
+      ],
       'third_party_settings' => [],
     ];
 
-    /** @var EntityDisplayRepositoryInterface $display_repository */
+    /** @var \Drupal\Core\Entity\EntityDisplayRepositoryInterface $display_repository */
     $display_repository = \Drupal::service('entity_display.repository');
     $display_repository->getFormDisplay('node', 'smart_date_content')
       ->setComponent('field_date', $settings)
@@ -105,7 +105,7 @@ class SmartDateTimezoneWidgetTest extends SmartDateTestBase {
       'Pacific/Saipan',
     ];
 
-    /** @var EntityDisplayRepositoryInterface $display_repository */
+    /** @var \Drupal\Core\Entity\EntityDisplayRepositoryInterface $display_repository */
     $display_repository = \Drupal::service('entity_display.repository');
     $display = $display_repository->getFormDisplay('node', 'smart_date_content');
     $component = $display->getComponent('field_date');

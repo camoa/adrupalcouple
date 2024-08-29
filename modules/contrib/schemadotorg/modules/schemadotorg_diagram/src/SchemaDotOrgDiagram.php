@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg_diagram;
 
@@ -11,11 +11,13 @@ use Drupal\Core\Field\EntityReferenceFieldItemListInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
+use Drupal\Core\Url;
 use Drupal\node\NodeInterface;
 use Drupal\schemadotorg\SchemaDotOrgSchemaTypeBuilderInterface;
+use Drupal\schemadotorg\Traits\SchemaDotOrgMappingStorageTrait;
 
 /**
- * Base class for Schema.org diagram service.
+ * Schema.org diagram service.
  *
  * @see https://mermaid.js.org/intro/
  * @see https://mermaid.js.org/syntax/flowchart.html
@@ -23,6 +25,7 @@ use Drupal\schemadotorg\SchemaDotOrgSchemaTypeBuilderInterface;
  */
 class SchemaDotOrgDiagram implements SchemaDotOrgDiagramInterface {
   use StringTranslationTrait;
+  use SchemaDotOrgMappingStorageTrait;
 
   /**
    * Current node.
@@ -73,13 +76,33 @@ class SchemaDotOrgDiagram implements SchemaDotOrgDiagramInterface {
     protected ConfigFactoryInterface $configFactory,
     protected RouteMatchInterface $routeMatch,
     protected EntityTypeManagerInterface $entityTypeManager,
-    protected SchemaDotOrgSchemaTypeBuilderInterface $schemaTypeBuilder
+    protected SchemaDotOrgSchemaTypeBuilderInterface $schemaTypeBuilder,
   ) {}
 
   /**
    * {@inheritdoc}
    */
-  public function build(NodeInterface $node, ?string $parent_property, ?string $child_property, ?string $title): ?array {
+  public function buildDiagrams(NodeInterface $node): array {
+    $diagram_settings = $this->configFactory
+      ->get('schemadotorg_diagram.settings')
+      ->get('diagrams');
+
+    $diagrams = [];
+    foreach ($diagram_settings as $diagram_name => $diagram_setting) {
+      $diagrams[$diagram_name] = $this->buildDiagram(
+        $node,
+        $diagram_setting['parent'] ?? NULL,
+        $diagram_setting['child'] ?? NULL,
+        $diagram_setting['title'] ?? NULL,
+      );
+    }
+    return array_filter($diagrams);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function buildDiagram(NodeInterface $node, ?string $parent_property, ?string $child_property, ?string $title): ?array {
     $this->parentProperty = $parent_property;
     $this->childProperty = $child_property;
 
@@ -178,8 +201,11 @@ class SchemaDotOrgDiagram implements SchemaDotOrgDiagramInterface {
     $node_id = '1-' . $node->id();
 
     foreach ($node->$parent_field_name as $item) {
-      /** @var \Drupal\node\NodeInterface $parent_node */
+      /** @var \Drupal\node\NodeInterface|null $parent_node */
       $parent_node = $item->entity;
+      if (!$parent_node) {
+        continue;
+      }
 
       $parent_id = '0-' . $parent_node->id();
 
@@ -209,7 +235,7 @@ class SchemaDotOrgDiagram implements SchemaDotOrgDiagramInterface {
 
     $parent_id = ($depth - 1) . '-' . $node->id();
     foreach ($node->$child_field_name as $item) {
-      /** @var \Drupal\node\NodeInterface $child_node */
+      /** @var \Drupal\node\NodeInterface|null $child_node */
       $child_node = $item->entity;
       if (!$child_node) {
         continue;
@@ -255,7 +281,10 @@ class SchemaDotOrgDiagram implements SchemaDotOrgDiagramInterface {
    */
   protected function appendNodeToOutput(array &$output, string $id, NodeInterface $node, ?string $type = NULL): void {
     // URI.
-    $node_uri = $node->toUrl()->setAbsolute()->toString();
+    $node_url = ($this->routeMatch->getRouteName() === 'entity.node.schemadotorg_diagram')
+      ? Url::fromRoute('entity.node.schemadotorg_diagram', ['node' => $node->id()])
+      : $node->toUrl();
+    $node_uri = $node_url->setAbsolute()->toString();
 
     // Title with Schema.org type.
     $node_title = '**' . $node->label() . '**';
@@ -294,14 +323,12 @@ class SchemaDotOrgDiagram implements SchemaDotOrgDiagramInterface {
    *   A node's Schema.org type.
    */
   protected function getNodeSchemaType(NodeInterface $node): ?string {
-    /** @var \Drupal\schemadotorg\SchemaDotOrgMappingStorage $mapping_storage */
-    $mapping_storage = $this->entityTypeManager->getStorage('schemadotorg_mapping');
-    $mapping = $mapping_storage->loadByEntity($node);
+    $mapping = $this->getMappingStorage()->loadByEntity($node);
     if (!$mapping) {
       return NULL;
     }
 
-    $field_name = $mapping->getSchemaPropertyFieldName('subtype');
+    $field_name = $mapping->getSchemaPropertyFieldName('additionalType');
     return ($field_name && $node->hasField($field_name) && $node->get($field_name)->value)
       ? $node->get($field_name)->value
       : $mapping->getSchemaType();
@@ -323,9 +350,7 @@ class SchemaDotOrgDiagram implements SchemaDotOrgDiagramInterface {
       return NULL;
     }
 
-    /** @var \Drupal\schemadotorg\SchemaDotOrgMappingStorage $mapping_storage */
-    $mapping_storage = $this->entityTypeManager->getStorage('schemadotorg_mapping');
-    $mapping = $mapping_storage->loadByEntity($node);
+    $mapping = $this->getMappingStorage()->loadByEntity($node);
     if (!$mapping) {
       return NULL;
     }

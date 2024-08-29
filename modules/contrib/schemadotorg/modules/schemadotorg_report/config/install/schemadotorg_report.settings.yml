@@ -13,6 +13,8 @@ about:
     uri: 'https://moz.com/blog/schema-hidden-gems'
   - title: 'Semantic SEO explained: Why connected schema is the missing piece in your SEO strategy'
     uri: 'https://www.danielkcheung.com.au/how-to-implement-semantic-seo/'
+  - title: 'Schema.org Best Practices'
+    uri: 'https://support.schemaapp.com/support/solutions/folders/33000203526'
   - title: 'Yoast SEO features: Schema.org markup'
     uri: 'https://developer.yoast.com/features/schema/'
   - title: 'Schema.org - What, How, Why? [VIDEO]'
@@ -96,6 +98,9 @@ types:
       uri: 'https://developers.google.com/search/docs/advanced/structured-data/how-to'
     - title: 'A guide to implementing Google’s “How-to” schema'
       uri: 'https://www.searchenginewatch.com/2019/05/30/implement-googles-how-to-schema/'
+  Hospital:
+    - title: 'Hospital Page Best Practices'
+      uri: 'https://support.schemaapp.com/support/solutions/articles/33000288122-hospital-page-best-practices'
   ItemList:
     - title: 'Carousel Search Results'
       uri: 'https://developers.google.com/search/docs/advanced/structured-data/carousel'
@@ -131,12 +136,18 @@ types:
       uri: 'https://www.schemaapp.com/healthcare-schema-markup-definitive-guide/'
     - title: 'Schema Markup for the Healthcare Industry'
       uri: 'https://www.youtube.com/watch?v=xLEzdjMd-2w'
+    - title: 'Medical Service Page Best Practices'
+      uri: 'https://support.schemaapp.com/support/solutions/articles/33000288356-medical-service-page-best-practices'
     - title: 'Science On Schema.Org (SOSO) Guidance Documents'
       uri: 'https://github.com/ESIPFed/science-on-schema.org'
     - title: Bioschemas
       uri: 'https://bioschemas.org'
     - title: 'Healthcare Schema Vocabulary Community Group'
       uri: 'https://www.w3.org/community/schemed/'
+  MedicalCondition:
+    - title: 'Medical Condition Page Best Practices'
+      uri: 'https://support.schemaapp.com/support/solutions/articles/33000288355-medical-condition-page-best-practices'
+
   Menu:
     - title: "Schema.org Just Released New Restaurant Menu Markup — Here's How to Get Started"
       uri: 'https://moz.com/blog/schema-new-restaurant-menu-markup'
@@ -170,6 +181,10 @@ types:
   Physician:
     - title: 'Medical Professionals'
       uri: 'https://jsonld.com/person/medical-professionals/'
+    - title: 'Schema.org V24.0 Release: Changes to Physician Schema Markup'
+      uri: 'https://www.schemaapp.com/schema-app-news/schema-org-v24-0-release-changes-to-physician-schema-markup/'
+    - title: 'Physician Page Best Practices'
+      uri: 'https://support.schemaapp.com/support/solutions/articles/33000288120-physician-page-best-practices'
   PodcastSeries:
     - title: 'Proposal: Podcast and PodcastEpisode #373'
       uri: 'https://github.com/schemaorg/schemaorg/issues/373'
@@ -241,6 +256,8 @@ types:
   Thing:
     - title: 'How to use additionalType and sameAs to link to Wikipedia'
       uri: 'https://support.schemaapp.com/support/solutions/articles/33000277321-how-to-use-additionaltype-and-sameas-to-link-to-wikipedia'
+    - title: 'WikiData Lookup by Name (for http://schema.org/about and http://schema.org/additionalType)'
+      uri: 'https://www.schemaapp.com/wikidata-lookup-by-name/'
   Vehicle:
     - title: 'Markup for Autos'
       uri: 'https://schema.org/docs/automotive.html'
@@ -258,6 +275,9 @@ types:
     - title: 'WebSite JSON-LD Sample Code'
       uri: 'https://jsonld.com/website/'
 issues:
+  MedicalCondition:
+    - title: 'Add "cause" as available property for MedicalCondition'
+      uri: 'https://github.com/schemaorg/schemaorg/issues/2878'
   Person:
     - title: 'Quasi-enumerable value for gender #541'
       uri: 'https://github.com/schemaorg/schemaorg/issues/541'

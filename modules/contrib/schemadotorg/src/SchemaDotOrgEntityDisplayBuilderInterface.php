@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg;
 
@@ -8,6 +8,11 @@ namespace Drupal\schemadotorg;
  * Schema.org entity display builder interface.
  */
 interface SchemaDotOrgEntityDisplayBuilderInterface {
+
+  /**
+   * Hide component from entity display.
+   */
+  const COMPONENT_HIDDEN = 'schemadotorg_component_hidden';
 
   /**
    * Gets default field weights.
@@ -60,7 +65,7 @@ interface SchemaDotOrgEntityDisplayBuilderInterface {
     ?string $widget_id,
     array $widget_settings,
     ?string $formatter_id,
-    array $formatter_settings
+    array $formatter_settings,
   ): void;
 
   /**

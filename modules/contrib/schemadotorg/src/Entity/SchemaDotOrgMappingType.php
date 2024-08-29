@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg\Entity;
 
@@ -282,6 +282,16 @@ class SchemaDotOrgMappingType extends ConfigEntityBase implements SchemaDotOrgMa
    */
   public function getDefaultComponentWeights(): array {
     return $this->get('default_component_weights');
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function calculateDependencies(): SchemaDotOrgMappingTypeInterface {
+    parent::calculateDependencies();
+    $target_entity_type = $this->entityTypeManager()->getDefinition($this->target_entity_type_id);
+    $this->addDependency('module', $target_entity_type->getProvider());
+    return $this;
   }
 
 }

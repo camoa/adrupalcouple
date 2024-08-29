@@ -2,10 +2,11 @@
 
 namespace Drupal\smart_date\Plugin\Field\FieldType;
 
+use Drupal\Component\Utility\DeprecationHelper;
 use Drupal\options\Plugin\Field\FieldType\ListItemBase;
 
 /**
- * Abstract clss meant to expose parse and related functions for lists.
+ * Abstract class meant to expose parse and related functions for lists.
  */
 abstract class SmartDateListItemBase extends ListItemBase {
 
@@ -14,8 +15,20 @@ abstract class SmartDateListItemBase extends ListItemBase {
    */
   public static function parseValues($values) {
     // Use the ListItemBase parsing function, but don't allow generated keys.
-    $result = static::extractAllowedValues($values, 1);
-    return $result;
+    if (!class_exists(DeprecationHelper::class)) {
+      return static::extractAllowedValues($values, 1);
+    }
+    return DeprecationHelper::backwardsCompatibleCall(
+      \Drupal::VERSION,
+      '10.2',
+      static function () use ($values) {
+        $list = (is_array($values)) ? $values : explode("\n", $values);
+        $list = array_map('trim', $list);
+        $list = array_filter($list, 'strlen');
+        return static::extractAllowedValues($list, 1);
+      },
+      static fn () => self::extractAllowedValues($values, 1)
+    );
   }
 
   /**

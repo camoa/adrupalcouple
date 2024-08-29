@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\Tests\starterkit\Kernel;
 
@@ -16,9 +16,7 @@ use Drupal\Tests\schemadotorg\Kernel\SchemaDotOrgEntityKernelTestBase;
 class SchemaDotOrgStarterkitManagerKernelTest extends SchemaDotOrgEntityKernelTestBase {
 
   /**
-   * Modules to enable.
-   *
-   * @var array
+   * {@inheritdoc}
    */
   protected static $modules = [
     'schemadotorg_starterkit',
@@ -61,10 +59,10 @@ class SchemaDotOrgStarterkitManagerKernelTest extends SchemaDotOrgEntityKernelTe
 
     // Check getting a module's Schema.org Blueprints starter kit settings.
     $settings = $this->schemaStarterkitManager->getStarterkitSettings('schemadotorg_starterkit_test');
-    $this->assertEquals('Something', $settings['types']['node:Thing']['entity']['label']);
-    $this->assertEquals('_add_', $settings['types']['node:Thing']['properties']['name']['name']);
-    $this->assertEquals('_add_', $settings['types']['node:Thing']['properties']['description']['name']);
-    $this->assertEquals('_add_', $settings['types']['node:Thing']['properties']['image']['name']);
+    $this->assertEquals('Something', $settings['types']['node:custom_thing:Thing']['entity']['label']);
+    $this->assertEquals('_add_', $settings['types']['node:custom_thing:Thing']['properties']['name']['name']);
+    $this->assertEquals('_add_', $settings['types']['node:custom_thing:Thing']['properties']['description']['name']);
+    $this->assertEquals('_add_', $settings['types']['node:custom_thing:Thing']['properties']['image']['name']);
   }
 
 }

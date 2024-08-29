@@ -176,7 +176,7 @@ class SmartDateDurationFormatter extends SmartDateFormatterBase {
       }
       else {
         if ($unit = $this->getSetting('unit')) {
-          // Nonstadard duration formatting configured, make our own diff obj.
+          // Non-standard duration formatting configured, make our own diff obj.
           $suffix = $this->getSetting('suffix');
           $date_time_from = new \DateTime();
           $date_time_from->setTimestamp($start_ts);

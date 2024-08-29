@@ -2,7 +2,7 @@ composer.example.json diff
 Produced: 8/26/23 8:56:14 AM
 
 Mode:  All
-File: 
+File:
 {                                                                                                 =  {
     "name": "drupal/recommended-project",                                                                "name": "drupal/recommended-project",
     "description": "Project template for Drupal projects with a relocated document root",                "description": "Project template for Drupal projects with a relocated document root",
@@ -24,9 +24,9 @@ File:
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
                                                                                                   -+         "drupal/admin_toolbar": "^3.4",
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        "drupal/core-composer-scaffold": "^10.1",                                                 =          "drupal/core-composer-scaffold": "^10.1",
-        "drupal/core-project-message": "^10.1",                                                              "drupal/core-project-message": "^10.1",
-        "drupal/core-recommended": "^10.1",                                                                  "drupal/core-recommended": "^10.1",
+        "drupal/core-composer-scaffold": "^10.2",                                                 =          "drupal/core-composer-scaffold": "^10.2",
+        "drupal/core-project-message": "^10.2",                                                              "drupal/core-project-message": "^10.2",
+        "drupal/core-recommended": "^10.2",                                                                  "drupal/core-recommended": "^10.2",
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
                                                                                                   -+         "drupal/devel": "^5.1",
                                                                                                              "drupal/schemadotorg": "^1.0@alpha",

@@ -14,16 +14,13 @@ Introduction
 The **Schema.org Blueprints Diagram** module provides
 diagrams for Schema.org relationships.
 
-Example of diagram via DIAGRAM.html.
-
-@see DIAGRAM.html#example
-
 
 Features
 --------
 
-- Provides a Schema.org Organization diagram using a flow chart 
-  generated using Mermaid.js.
+- Provides a block for displaying diagrams for the
+  current route matches entity.
+- Provides a node tab/task for displaying diagrams.
 
 
 Configuration
@@ -36,10 +33,18 @@ Permissions
 
 Settings
 
-- Go to the Schema.org general configuration page.  
-  (/admin/config/schemadotorg/settings/general)
-- Go to the 'Diagram settings' details.
+- Go to the Schema.org General configuration page.  
+  (/admin/config/schemadotorg/settings/general#edit-schemadotorg-diagrams)
+- Go to the 'Schema.org Diagrams settings' details.
+- Check/uncheck display diagrams as a node tab/task.
 - Enter Schema.org diagram title, parent, and child Schema.org properties.
+
+Block
+
+- Go to the Block layout page page.  
+  (/admin/structure/block)
+- Select, configure, and place the 'Schema.org Blueprints Diagrams' block
+  on the page.
 
 
 Requirements

@@ -1,0 +1,19 @@
+uuid: 0660ff84-167d-489e-bbaa-75b98f785849
+langcode: en
+status: true
+dependencies: {  }
+id: from_module
+label: 'Test shipped configuration split'
+description: ''
+weight: 0
+# cspell:ignore stackable
+stackable: false
+storage: database
+folder: ''
+module:
+  field: 0
+theme: {  }
+complete_list:
+  - core.date_format.html_date
+partial_list: {  }
+no_patching: false

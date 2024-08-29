@@ -7,7 +7,9 @@ dependencies:
   module:
     - comment
     - contextual
+    - editoria11y
     - file
+    - help
     - node
     - path
     - system
@@ -25,6 +27,7 @@ permissions:
   - 'access content overview'
   - 'access contextual links'
   - 'access files overview'
+  - 'access help pages'
   - 'access toolbar'
   - 'access tour'
   - 'administer url aliases'
@@ -33,7 +36,9 @@ permissions:
   - 'delete own files'
   - 'edit own comments'
   - 'edit terms in tags'
+  - 'mark as hidden in editoria11y'
   - 'revert all revisions'
   - 'view all revisions'
+  - 'view editoria11y checker'
   - 'view own unpublished content'
   - 'view the administration theme'

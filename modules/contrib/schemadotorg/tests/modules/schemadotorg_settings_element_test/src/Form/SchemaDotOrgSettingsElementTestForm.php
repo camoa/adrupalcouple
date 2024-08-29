@@ -1,13 +1,13 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg_settings_element_test\Form;
 
+use Drupal\Component\Serialization\Yaml;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Markup;
-use Drupal\Core\Serialization\Yaml;
 
 /**
  * Provides a Scheme.org Blueprint Settings Element test form.

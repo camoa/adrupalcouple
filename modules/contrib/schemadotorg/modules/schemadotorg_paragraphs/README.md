@@ -34,8 +34,8 @@ Configuration
 -------------
 
 - Go to the Schema.org types configuration page.  
-  (/admin/config/schemadotorg/settings/types)
-- Enter Schema.org types that default to using the Paragraphs library.
+  (/admin/config/schemadotorg/settings/types#edit-schemadotorg-paragraphs)
+- Enter Schema.org types that should automatically support being used via the Paragraphs library.
 - Enter Schema.org parent type and paragraph types that have limited 
   Schema.org properties.
 

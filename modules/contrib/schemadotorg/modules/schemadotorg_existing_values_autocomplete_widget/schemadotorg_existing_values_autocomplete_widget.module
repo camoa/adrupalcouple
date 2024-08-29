@@ -5,7 +5,7 @@
  * Allows Existing Values Autocomplete Widgets to be used to create Schema.org relationships.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 use Drupal\Core\Form\FormStateInterface;
 
@@ -20,15 +20,15 @@ function schemadotorg_existing_values_autocomplete_widget_schemadotorg_property_
   ?string &$widget_id,
   array &$widget_settings,
   ?string &$formatter_id,
-  array &$formatter_settings
+  array &$formatter_settings,
 ): void {
   if ($field_storage_values['type'] !== 'string') {
     return;
   }
 
-  $default_properties = \Drupal::config('schemadotorg_existing_values_autocomplete_widget.settings')
-    ->get("default_properties");
-  if (in_array($schema_property, $default_properties)) {
+  $default_schema_properties = \Drupal::config('schemadotorg_existing_values_autocomplete_widget.settings')
+    ->get("default_schema_properties");
+  if (in_array($schema_property, $default_schema_properties)) {
     $widget_id = 'existing_autocomplete_field_widget';
   }
 }
@@ -48,7 +48,7 @@ function schemadotorg_existing_values_autocomplete_widget_form_schemadotorg_prop
     '#type' => 'details',
     '#title' => t('Existing values autocomplete widget settings'),
   ];
-  $form['schemadotorg_existing_values_autocomplete_widget']['default_properties'] = [
+  $form['schemadotorg_existing_values_autocomplete_widget']['default_schema_properties'] = [
     '#type' => 'schemadotorg_settings',
     '#title' => t('Default existing values autocomplete widget properties'),
     '#description' => t('Enter Schema.org properties that should use the existing values autocomplete widget.'),

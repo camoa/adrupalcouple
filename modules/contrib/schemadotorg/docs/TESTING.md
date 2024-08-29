@@ -22,8 +22,8 @@ modules/schemadotorg_demo/scripts/schemadotorg_demo.sh install_demo_admin;
 # Install Schema.org Blueprints standard demo + translations.
 modules/schemadotorg_demo/scripts/schemadotorg_demo.sh install_demo_translation;
 
-# Install Schema.org Blueprints standard demo + Next.js.
-modules/schemadotorg_demo/scripts/schemadotorg_demo.sh install_demo_next;
+# Install Schema.org Blueprints standard demo + headless.
+modules/schemadotorg_demo/scripts/schemadotorg_demo.sh install_demo_headless;
 ```
 
 # Manual JavaScript tests
@@ -44,8 +44,12 @@ _The below manual JavaScript tests should be moved to automated tests._
 
 @see /node/add/person
 
+- Check bookmark (i.e, #edit-schemadotorg-descriptions) always opens
+  the associated details widget.
 - Check on node edit form that all details hide/close state is saved 
   and 'Expand all' button is visible.
+- Check on node edit form 'Expand all' expands descriptions 
+  in the Gin Admin Theme.
 - Check on node view via the Schema.org details widget's hide/close state is saved.
 
 **schemadotorg.dialog.js**
@@ -102,9 +106,3 @@ _The below manual JavaScript tests should be moved to automated tests._
 @see /node/add/person
 
 - Check that Schema.org JSON-LD can be copied-n-pasted into the Schema Markup Validator.
-
-**schemadotorg_next_components.js**
-
-@see /node/add/person
-
-- Check that Next.js** component can be downloaded and copied-n-pasted

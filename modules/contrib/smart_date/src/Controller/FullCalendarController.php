@@ -70,7 +70,7 @@ class FullCalendarController extends CalendarEventController {
    *   The Symfony-processed request from the user to update entity data.
    *
    * @return Symfony\Component\HttpFoundation\Response
-   *   An HTTP reponse based on the outcome of the operation.
+   *   An HTTP response based on the outcome of the operation.
    */
   public function updateEvent(Request $request) {
 

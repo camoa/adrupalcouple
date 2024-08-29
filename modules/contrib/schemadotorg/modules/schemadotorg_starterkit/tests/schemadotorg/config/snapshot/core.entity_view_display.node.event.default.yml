@@ -32,7 +32,7 @@ third_party_settings:
       label: Event
       parent_name: ''
       region: content
-      weight: 0
+      weight: -1
       format_type: fieldset
       format_settings: {  }
 id: node.event.default

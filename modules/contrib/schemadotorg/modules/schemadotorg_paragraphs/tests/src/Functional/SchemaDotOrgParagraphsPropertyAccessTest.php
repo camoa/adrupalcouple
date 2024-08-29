@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\Tests\schemadotorg_paragraphs\Functional;
 
@@ -17,9 +17,7 @@ use Drupal\Tests\schemadotorg\Functional\SchemaDotOrgBrowserTestBase;
 class SchemaDotOrgParagraphsPropertyAccessTest extends SchemaDotOrgBrowserTestBase {
 
   /**
-   * Modules to enable.
-   *
-   * @var array
+   * {@inheritdoc}
    */
   protected static $modules = ['schemadotorg_paragraphs'];
 
@@ -27,7 +25,7 @@ class SchemaDotOrgParagraphsPropertyAccessTest extends SchemaDotOrgBrowserTestBa
    * Test Schema.org Paragraphs property access.
    */
   public function testPropertyAccess(): void {
-    $assert_session = $this->assertSession();
+    $assert = $this->assertSession();
 
     // Create Person and Organization with ContactPoint.
     $this->appendSchemaTypeDefaultProperties('ContactPoint', 'faxNumber');
@@ -61,42 +59,42 @@ class SchemaDotOrgParagraphsPropertyAccessTest extends SchemaDotOrgBrowserTestBa
     $this->drupalLogin($this->rootUser);
 
     // Check that Person view does NOT include the fax number field.
-    $this->drupalGet($person_node->toUrl()->toString());
-    $assert_session->responseContains('{Contact Point}');
-    $assert_session->responseContains('888-888-888');
-    $assert_session->responseNotContains('666-666-666');
+    $this->drupalGet($person_node->toUrl());
+    $assert->responseContains('{Contact Point}');
+    $assert->responseContains('888-888-888');
+    $assert->responseNotContains('666-666-666');
 
     // Check that Person edit does NOT include the fax number field.
-    $this->drupalGet('/node/' . $person_node->id() . '/edit');
-    $assert_session->responseContains('{Contact Point}');
-    $assert_session->responseContains('888-888-888');
-    $assert_session->responseNotContains('666-666-666');
+    $this->drupalGet('node/' . $person_node->id() . '/edit');
+    $assert->responseContains('{Contact Point}');
+    $assert->responseContains('888-888-888');
+    $assert->responseNotContains('666-666-666');
 
     // Check that Person create does NOT include the fax number field.
-    $this->drupalGet('/node/add/person');
+    $this->drupalGet('node/add/person');
     $this->submitForm([], 'Add Contact Point');
-    $assert_session->fieldExists('schema_contact_point[0][subform][schema_contact_type][0][value]');
-    $assert_session->fieldExists('schema_contact_point[0][subform][schema_telephone][0][value]');
-    $assert_session->fieldNotExists('schema_contact_point[0][subform][schema_fax_number][0][value]');
+    $assert->fieldExists('schema_contact_point[0][subform][schema_contact_type][0][value]');
+    $assert->fieldExists('schema_contact_point[0][subform][schema_telephone][0][value]');
+    $assert->fieldNotExists('schema_contact_point[0][subform][schema_fax_number][0][value]');
 
     // Check that Organization view does include the fax number field.
-    $this->drupalGet($organization_node->toUrl()->toString());
-    $assert_session->responseContains('{Contact Point}');
-    $assert_session->responseContains('888-888-888');
-    $assert_session->responseContains('666-666-666');
+    $this->drupalGet($organization_node->toUrl());
+    $assert->responseContains('{Contact Point}');
+    $assert->responseContains('888-888-888');
+    $assert->responseContains('666-666-666');
 
     // Check that Organization edit does include the fax number field.
-    $this->drupalGet('/node/' . $organization_node->id() . '/edit');
-    $assert_session->responseContains('{Contact Point}');
-    $assert_session->responseContains('888-888-888');
-    $assert_session->responseContains('666-666-666');
+    $this->drupalGet('node/' . $organization_node->id() . '/edit');
+    $assert->responseContains('{Contact Point}');
+    $assert->responseContains('888-888-888');
+    $assert->responseContains('666-666-666');
 
     // Check that Organization edit does include the fax number field.
-    $this->drupalGet('/node/add/organization');
+    $this->drupalGet('node/add/organization');
     $this->submitForm([], 'Add Contact Point');
-    $assert_session->fieldExists('schema_contact_point[0][subform][schema_contact_type][0][value]');
-    $assert_session->fieldExists('schema_contact_point[0][subform][schema_telephone][0][value]');
-    $assert_session->fieldExists('schema_contact_point[0][subform][schema_fax_number][0][value]');
+    $assert->fieldExists('schema_contact_point[0][subform][schema_contact_type][0][value]');
+    $assert->fieldExists('schema_contact_point[0][subform][schema_telephone][0][value]');
+    $assert->fieldExists('schema_contact_point[0][subform][schema_fax_number][0][value]');
   }
 
 }

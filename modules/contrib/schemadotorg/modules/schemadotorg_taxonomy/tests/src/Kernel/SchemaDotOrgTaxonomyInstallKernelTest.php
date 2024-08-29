@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\Tests\schemadotorg_taxonomy\Kernel;
 
@@ -17,9 +17,7 @@ use Drupal\Tests\schemadotorg\Kernel\SchemaDotOrgEntityKernelTestBase;
 class SchemaDotOrgTaxonomyInstallKernelTest extends SchemaDotOrgEntityKernelTestBase {
 
   /**
-   * Modules to enable.
-   *
-   * @var array
+   * {@inheritdoc}
    */
   protected static $modules = [
     'taxonomy',
@@ -46,7 +44,7 @@ class SchemaDotOrgTaxonomyInstallKernelTest extends SchemaDotOrgEntityKernelTest
     \Drupal::moduleHandler()->loadInclude('schemadotorg_taxonomy', 'install');
     schemadotorg_taxonomy_install(FALSE);
 
-    /** @var \Drupal\schemadotorg\SchemaDotOrgMappingInterface $mapping */
+    /** @var \Drupal\schemadotorg\SchemaDotOrgMappingInterface|null $mapping */
     $mapping = SchemaDotOrgMapping::load('taxonomy_term.tags');
 
     // Confirm that Add tags to all content types.

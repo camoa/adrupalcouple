@@ -23,6 +23,7 @@ to Schema.org types with default tags for Schema.org properties.
 Features
 --------
 
+- Removes Metatag Schema.org module from requirements.
 - Automatically adds a metatag field to Schema.org types.
 - Sets default metatags using tokens based on Schema.org properties. 
 
@@ -41,12 +42,12 @@ Configuration
 -------------
 
 - Go to the Schema.org types configuration page.  
-  (/admin/config/schemadotorg/settings/types)
+  (/admin/config/schemadotorg/settings/types#edit-schemadotorg-metatag)
 - Go to the 'Metatag settings' details.
 - Enter allowed meta tag groups to be displayed on node edit forms.
 
 - Go to the Schema.org properties configuration page.  
-  (/admin/config/schemadotorg/settings/properties)
+  (/admin/config/schemadotorg/settings/properties#edit-schemadotorg-metatag)
 - Go to the 'Metatag settings' details.
 - Enter Schema.org properties which are mapped to meta tags.
 

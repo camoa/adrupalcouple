@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\Tests\schemadotorg_cer\Functional;
 
@@ -22,9 +22,7 @@ class SchemaDotOrgCorrespondingReferenceFormAlterTest extends SchemaDotOrgBrowse
   // phpcs:enable
 
   /**
-   * Modules to enable.
-   *
-   * @var array
+   * {@inheritdoc}
    */
   protected static $modules = [
     'schemadotorg_cer',
@@ -34,7 +32,7 @@ class SchemaDotOrgCorrespondingReferenceFormAlterTest extends SchemaDotOrgBrowse
    * Test Schema.org Corresponding Entity Reference form alter.
    */
   public function testFormAlter(): void {
-    $assert_session = $this->assertSession();
+    $assert = $this->assertSession();
 
     $this->drupalLogin($this->rootUser);
 
@@ -42,9 +40,9 @@ class SchemaDotOrgCorrespondingReferenceFormAlterTest extends SchemaDotOrgBrowse
 
     // Check that no alterations are needed because there are no corresponding
     // reference entities.
-    $this->drupalGet('/admin/config/content/cer/add');
-    $assert_session->responseNotContains('<optgroup label="field">');
-    $assert_session->responseNotContains('<optgroup label="schema">');
+    $this->drupalGet('admin/config/content/cer/add');
+    $assert->responseNotContains('<optgroup label="field">');
+    $assert->responseNotContains('<optgroup label="schema">');
 
     // Create the Person and WebPage entities which creates the
     // 'Schema.org: Subject of ↔ About' corresponding reference entity.
@@ -53,13 +51,13 @@ class SchemaDotOrgCorrespondingReferenceFormAlterTest extends SchemaDotOrgBrowse
 
     // Check that the corresponding reference entity form include 'schema_*'
     // field names.
-    $this->drupalGet('/admin/config/content/cer/schema_subject_of');
-    $assert_session->selectExists('first_field');
-    $assert_session->responseNotContains('<optgroup label="field">');
-    $assert_session->responseContains('<optgroup label="schema">');
-    $assert_session->responseContains('<option value="schema_subject_of" selected="selected">schema_subject_of</option>');
-    $assert_session->responseContains('<option value="schema_about" selected="selected">schema_about</option>');
-    $assert_session->responseContains('<option value="node:*" selected="selected">node: *</option>');
+    $this->drupalGet('admin/config/content/cer/schema_subject_of');
+    $assert->selectExists('first_field');
+    $assert->responseNotContains('<optgroup label="field">');
+    $assert->responseContains('<optgroup label="schema">');
+    $assert->responseContains('<option value="schema_subject_of" selected="selected">schema_subject_of</option>');
+    $assert->responseContains('<option value="schema_about" selected="selected">schema_about</option>');
+    $assert->responseContains('<option value="node:*" selected="selected">node: *</option>');
   }
 
 }

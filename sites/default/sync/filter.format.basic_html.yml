@@ -2,6 +2,8 @@ uuid: 870a5a68-5c4e-4098-9e9f-39d64ae8876e
 langcode: en
 status: true
 dependencies:
+  config:
+    - core.entity_view_mode.media.link_to_file
   module:
     - editor
     - media
@@ -11,15 +13,12 @@ name: 'Basic HTML'
 format: basic_html
 weight: 0
 filters:
-  filter_html:
-    id: filter_html
-    provider: filter
+  editor_file_reference:
+    id: editor_file_reference
+    provider: editor
     status: true
-    weight: -10
-    settings:
-      allowed_html: '<br> <p class="text-align-left text-align-center text-align-right text-align-justify"> <h2 id class="text-align-left text-align-center text-align-right text-align-justify"> <h3 id class="text-align-left text-align-center text-align-right text-align-justify"> <h4 id class="text-align-left text-align-center text-align-right text-align-justify"> <h5 id class="text-align-left text-align-center text-align-right text-align-justify"> <h6 id class="text-align-left text-align-center text-align-right text-align-justify"> <cite> <dl> <dt> <dd> <a hreflang href> <blockquote cite> <ul type> <ol start type> <strong> <em> <code class="language-*"> <pre class="text-align-left text-align-center text-align-right text-align-justify"> <li> <img src alt height width data-entity-uuid data-entity-type data-caption data-align> <drupal-media data-entity-type data-entity-uuid alt data-caption data-align>'
-      filter_html_help: false
-      filter_html_nofollow: false
+    weight: 11
+    settings: {  }
   filter_align:
     id: filter_align
     provider: filter
@@ -32,17 +31,26 @@ filters:
     status: true
     weight: 8
     settings: {  }
+  filter_html:
+    id: filter_html
+    provider: filter
+    status: true
+    weight: -10
+    settings:
+      allowed_html: '<br> <p class="text-align-left text-align-center text-align-right text-align-justify"> <h2 id class="text-align-left text-align-center text-align-right text-align-justify"> <h3 id class="text-align-left text-align-center text-align-right text-align-justify"> <h4 id class="text-align-left text-align-center text-align-right text-align-justify"> <h5 id class="text-align-left text-align-center text-align-right text-align-justify"> <h6 id class="text-align-left text-align-center text-align-right text-align-justify"> <cite> <dl> <dt> <dd> <a hreflang href> <blockquote cite> <ul type> <ol start type> <strong> <em> <code class="language-*"> <pre class="text-align-left text-align-center text-align-right text-align-justify"> <li> <img src alt height width data-entity-uuid data-entity-type data-caption data-align> <drupal-media data-entity-type data-entity-uuid alt data-caption data-align>'
+      filter_html_help: false
+      filter_html_nofollow: false
   filter_html_image_secure:
     id: filter_html_image_secure
     provider: filter
     status: true
     weight: 9
     settings: {  }
-  editor_file_reference:
-    id: editor_file_reference
-    provider: editor
+  filter_image_lazy_load:
+    id: filter_image_lazy_load
+    provider: filter
     status: true
-    weight: 11
+    weight: 12
     settings: {  }
   filter_url:
     id: filter_url
@@ -57,12 +65,9 @@ filters:
     status: true
     weight: 100
     settings:
-      default_view_mode: default
-      allowed_view_modes: {  }
-      allowed_media_types: {  }
-  filter_image_lazy_load:
-    id: filter_image_lazy_load
-    provider: filter
-    status: true
-    weight: 12
-    settings: {  }
+      default_view_mode: link_to_file
+      allowed_view_modes:
+        default: default
+      allowed_media_types:
+        document: document
+        image: image

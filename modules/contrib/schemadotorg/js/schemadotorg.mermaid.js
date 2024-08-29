@@ -13,7 +13,7 @@
    */
   Drupal.behaviors.schemaDotOrgMermaid = {
     attach: function attach(context) {
-      const mermaids = once('mermaid', '.mermaid', context);
+      const mermaids = once('mermaid', '.mermaid, .language-mermaid', context);
       if (!mermaids.length) {
         return;
       }
@@ -32,15 +32,13 @@
         }
       });
 
-      // Display mermaid containers after they're rendered.
-      mermaid.initialize();
-
-      // Close opened details.
-      if (closedDetails) {
-        setTimeout(() => {
+      // Via post render close opened details.
+      mermaid.run({
+        querySelector: '.mermaid, .language-mermaid',
+        postRenderCallback: () => {
           closedDetails.forEach((element) => element.removeAttribute('open'));
-        }, 1000);
-      }
+        },
+      });
     },
   };
 })(Drupal, mermaid, once);

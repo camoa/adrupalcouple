@@ -75,6 +75,15 @@ sets:
       - 'node:Service'
       - 'node:JobPosting'
       - 'node:LocalBusiness'
+  hotel:
+    label: Hotel
+    types:
+      - 'paragraph:BedDetails'
+      - 'paragraph:ContactPoint'
+      - 'node:Person'
+      - 'node:Organization'
+      - 'node:HotelRoom'
+      - 'node:Hotel'
   medical_doctor:
     label: 'Medical doctor'
     types:

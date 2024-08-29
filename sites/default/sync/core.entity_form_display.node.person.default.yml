@@ -17,7 +17,6 @@ dependencies:
     - field.field.node.person.schema_same_as
     - field.field.node.person.schema_subject_of
     - field.field.node.person.schema_telephone
-    - field.field.node.person.schema_url
     - field.field.node.person.schema_works_for
     - node.type.person
     - workflows.workflow.editorial
@@ -77,7 +76,6 @@ third_party_settings:
     group_links:
       children:
         - schema_same_as
-        - schema_url
       label: Links
       region: content
       parent_name: ''
@@ -248,14 +246,6 @@ content:
     region: content
     settings:
       placeholder: ''
-    third_party_settings: {  }
-  schema_url:
-    type: link_default
-    weight: 136
-    region: content
-    settings:
-      placeholder_url: ''
-      placeholder_title: ''
     third_party_settings: {  }
   schema_works_for:
     type: entity_reference_autocomplete

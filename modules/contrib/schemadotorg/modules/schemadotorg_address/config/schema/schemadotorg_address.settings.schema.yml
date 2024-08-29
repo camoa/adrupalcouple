@@ -1,5 +1,5 @@
 schemadotorg_address.settings:
-  type: config_entity
+  type: config_object
   label: 'Schema.org Address settings'
   mapping:
     field_overrides:

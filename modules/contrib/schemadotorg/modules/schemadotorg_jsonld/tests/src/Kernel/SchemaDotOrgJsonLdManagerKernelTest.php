@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\Tests\schemadotorg_jsonld\Kernel;
 
@@ -8,6 +8,8 @@ use Drupal\Core\Language\LanguageInterface;
 use Drupal\filter\Entity\FilterFormat;
 use Drupal\media\Entity\Media;
 use Drupal\node\Entity\Node;
+use Drupal\node\Entity\NodeType;
+use Drupal\schemadotorg_jsonld\SchemaDotOrgJsonLdManagerInterface;
 
 /**
  * Tests the functionality of the Schema.org JSON-LD manager.
@@ -33,6 +35,7 @@ class SchemaDotOrgJsonLdManagerKernelTest extends SchemaDotOrgJsonLdKernelTestBa
     $this->createSchemaEntity('media', 'ImageObject');
     $this->createSchemaEntity('node', 'Place');
     $this->createSchemaEntity('node', 'Event');
+    $this->createSchemaEntity('node', 'ContactPoint');
 
     // Filter format.
     FilterFormat::create([
@@ -73,6 +76,21 @@ class SchemaDotOrgJsonLdManagerKernelTest extends SchemaDotOrgJsonLdKernelTestBa
       ],
     ]);
     $place_node->save();
+
+    // ContactPoint node.
+    $contact_point_node = Node::create([
+      'type' => 'contact_point',
+      'title' => 'Some contact',
+    ]);
+    $contact_point_node->save();
+
+    // Not mapping node.
+    NodeType::create(['type' => 'page'])->save();
+    $page_node = Node::create([
+      'type' => 'page',
+      'title' => 'Some page',
+    ]);
+    $page_node->save();
 
     /* ********************************************************************** */
 
@@ -147,6 +165,31 @@ class SchemaDotOrgJsonLdManagerKernelTest extends SchemaDotOrgJsonLdKernelTestBa
       ['@type' => 'Offer', 'price' => 100.00, 'priceCurrency' => 'USD'],
       $this->manager->getSchemaPropertyValueDefaultType('MenuItem', 'offers', ['@type' => 'Offer', 'price' => 100.00])
     );
+
+    // Check getting how an entity reference should be included in JSON-LD.
+    $this->assertEquals(
+      SchemaDotOrgJsonLdManagerInterface::ENTITY_REFERENCE_DISPLAY_URL,
+      $this->manager->getSchemaTypeEntityReferenceDisplay($place_node)
+    );
+    $this->assertEquals(
+      SchemaDotOrgJsonLdManagerInterface::ENTITY_REFERENCE_DISPLAY_ENTITY,
+      $this->manager->getSchemaTypeEntityReferenceDisplay($contact_point_node)
+    );
+    $this->assertEquals(
+      SchemaDotOrgJsonLdManagerInterface::ENTITY_REFERENCE_DISPLAY_LABEL,
+      $this->manager->getSchemaTypeEntityReferenceDisplay($page_node)
+    );
+    $this->config('schemadotorg_jsonld.settings')
+      ->set('schema_type_entity_references_display.node--page', 'none')
+      ->save();
+    $this->assertEquals(
+      SchemaDotOrgJsonLdManagerInterface::ENTITY_REFERENCE_DISPLAY_NONE,
+      $this->manager->getSchemaTypeEntityReferenceDisplay($page_node)
+    );
+
+    // Check determining if the entity's Schema should include an @url.
+    $this->assertTrue($this->manager->hasSchemaUrl($place_node));
+    $this->assertFalse($this->manager->hasSchemaUrl($media));
   }
 
 }
