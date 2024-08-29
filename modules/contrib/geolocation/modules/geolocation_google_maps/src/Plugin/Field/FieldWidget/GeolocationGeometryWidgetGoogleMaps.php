@@ -14,13 +14,13 @@ use Drupal\geolocation\Plugin\Field\FieldWidget\GeolocationGeometryWidgetBase;
  *   label = @Translation("Geolocation Geometry Google Maps API - GeoJSON"),
  *   field_types = {
  *     "geolocation_geometry_point",
- *     "geolocation_geometry_multipoint",
+ *     "geolocation_geometry_multi_point",
  *     "geolocation_geometry_linestring",
- *     "geolocation_geometry_multilinestring",
+ *     "geolocation_geometry_multi_linestring",
  *     "geolocation_geometry_polygon",
- *     "geolocation_geometry_multipolygon",
+ *     "geolocation_geometry_multi_polygon",
  *     "geolocation_geometry_geometry",
- *     "geolocation_geometry_geometrycollection"
+ *     "geolocation_geometry_multi_geometry"
  *   }
  * )
  */
@@ -29,12 +29,12 @@ class GeolocationGeometryWidgetGoogleMaps extends GeolocationGeometryWidgetBase 
   /**
    * {@inheritdoc}
    */
-  static protected $mapProviderId = 'google_maps';
+  static protected string $mapProviderId = 'google_maps';
 
   /**
    * {@inheritdoc}
    */
-  static protected $mapProviderSettingsFormId = 'google_map_settings';
+  static protected string $mapProviderSettingsFormId = 'google_map_settings';
 
   /**
    * {@inheritdoc}

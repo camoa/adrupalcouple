@@ -1,0 +1,62 @@
+<div {{ attributes.addClass('geolocation-geometry') }} typeof="Place">
+
+  <span class="geometry" data-type="{{ geometry.type }}">
+    {% if geometry.type == 'point' %}
+      <span property="geo" typeof="GeoCoordinates">
+        <meta property="latitude" content="{{ geometry.lat }}" />
+        <meta property="longitude" content="{{ geometry.lng }}" />
+      </span>
+    {% elseif geometry.type == 'line' %}
+      <span property="geo" typeof="GeoShape">
+        <meta property="line" content="
+          {%- for point in geometry.points %}
+            {{- point.lat ~ ',' ~ point.lng ~ ' ' -}}
+          {% endfor -%}
+        ">
+      </span>
+    {% elseif geometry.type == 'polygon' %}
+      <span property="geo" typeof="GeoShape">
+        <meta property="polygon" content="
+          {%- for point in geometry.points %}
+            {{- point.lat ~ ',' ~ point.lng ~ ' ' -}}
+          {% endfor -%}
+        ">
+      </span>
+    {% elseif geometry.type == 'multipoint' %}
+      {% for point in geometry.points %}
+        <span property="geo" typeof="GeoCoordinates">
+          <meta property="latitude" content="{{ point.lat }}" />
+          <meta property="longitude" content="{{ point.lng }}" />
+        </span>
+      {% endfor %}
+    {% elseif geometry.type == 'multiline' %}
+      {% for line in geometry.lines %}
+        <span property="geo" typeof="GeoShape">
+          <meta property="line" content="
+            {%- for point in line.points %}
+              {{- point.lat ~ ',' ~ point.lng ~ ' ' -}}
+            {% endfor -%}
+          ">
+        </span>
+      {% endfor %}
+    {% elseif geometry.type == 'multipolygon' %}
+      {% for polygon in geometry.polygons %}
+        <span property="geo" typeof="GeoShape">
+          <meta property="polygon" content="
+            {%- for point in polygon.points %}
+              {{- point.lat ~ ',' ~ point.lng ~ ' ' -}}
+            {% endfor -%}
+          ">
+        </span>
+      {% endfor %}
+    {% endif %}
+  </span>
+
+  {% if title is not empty %}
+    <h2 class="title" property="name">{{ title }}</h2>
+  {% endif %}
+
+  {% if children is not empty %}
+    <div class="content">{{ children }}</div>
+  {% endif %}
+</div>

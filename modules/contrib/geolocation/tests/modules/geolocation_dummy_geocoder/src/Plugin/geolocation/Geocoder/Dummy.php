@@ -22,7 +22,7 @@ class Dummy extends GeocoderBase {
    *
    * @var array
    */
-  public static $targets = [
+  public static array $targets = [
     'Berlin' => [
       'lat' => 52.517037,
       'lng' => 13.38886,
@@ -40,7 +40,7 @@ class Dummy extends GeocoderBase {
   /**
    * {@inheritdoc}
    */
-  public function formAttachGeocoder(array &$render_array, $element_name) {
+  public function alterRenderArray(array &$render_array, $identifier): ?array {
     $render_array['geolocation_geocoder_dummy'] = [
       '#type' => 'textfield',
       '#description' => $this->t('Enter one of the statically defined targets. See geolocation/Geocoder/Dummy.php.'),
@@ -49,7 +49,7 @@ class Dummy extends GeocoderBase {
           'form-autocomplete',
           'geolocation-geocoder-dummy',
         ],
-        'data-source-identifier' => $element_name,
+        'data-source-identifier' => $identifier,
       ],
     ];
 
@@ -68,18 +68,20 @@ class Dummy extends GeocoderBase {
         'class' => [
           'geolocation-geocoder-dummy-state',
         ],
-        'data-source-identifier' => $element_name,
+        'data-source-identifier' => $identifier,
       ],
     ];
+
+    return $render_array;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function geocode($address) {
+  public function geocode($address): ?array {
 
     if (empty($address)) {
-      return FALSE;
+      return NULL;
     }
 
     if (!empty(self::$targets[$address])) {
@@ -97,7 +99,7 @@ class Dummy extends GeocoderBase {
       ];
     }
     else {
-      return FALSE;
+      return NULL;
     }
   }
 

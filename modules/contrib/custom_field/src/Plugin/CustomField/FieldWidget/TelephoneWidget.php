@@ -23,7 +23,7 @@ class TelephoneWidget extends TextWidget {
   /**
    * {@inheritdoc}
    */
-  public static function defaultWidgetSettings(): array {
+  public static function defaultSettings(): array {
     return [
       'settings' => [
         'size' => 60,
@@ -33,8 +33,8 @@ class TelephoneWidget extends TextWidget {
         'prefix' => '',
         'suffix' => '',
         'pattern' => NULL,
-      ],
-    ] + parent::defaultWidgetSettings();
+      ] + parent::defaultSettings()['settings'],
+    ] + parent::defaultSettings();
   }
 
   /**
@@ -58,7 +58,7 @@ class TelephoneWidget extends TextWidget {
    */
   public function widgetSettingsForm(FormStateInterface $form_state, CustomFieldTypeInterface $field): array {
     $element = parent::widgetSettingsForm($form_state, $field);
-    $settings = $field->getWidgetSetting('settings') + self::defaultWidgetSettings()['settings'];
+    $settings = $field->getWidgetSetting('settings') + self::defaultSettings()['settings'];
 
     $element['settings']['pattern'] = [
       '#type' => 'select',

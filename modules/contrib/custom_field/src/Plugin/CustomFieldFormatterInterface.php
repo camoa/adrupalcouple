@@ -2,6 +2,7 @@
 
 namespace Drupal\custom_field\Plugin;
 
+use Drupal\Core\Field\FieldItemInterface;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
@@ -49,12 +50,40 @@ interface CustomFieldFormatterInterface {
   /**
    * Returns the field value as formatted.
    *
+   * @param \Drupal\Core\Field\FieldItemInterface $item
+   *   The field item.
+   * @param \Drupal\custom_field\Plugin\CustomFieldTypeInterface $field
+   *   The custom field type object.
    * @param array $settings
    *   An array of settings.
    *
    * @return mixed
    *   The formatted value.
    */
-  public function formatValue(array $settings);
+  public function formatValue(FieldItemInterface $item, CustomFieldTypeInterface $field, array $settings);
+
+  /**
+   * Returns calculated dependencies for formatter plugin.
+   *
+   * @param array $settings
+   *   The formatter settings for the plugin.
+   *
+   * @return array
+   *   The dependencies.
+   */
+  public function calculateFormatterDependencies(array $settings): array;
+
+  /**
+   * Returns the changed settings for formatter plugin.
+   *
+   * @param array $dependencies
+   *   The formatter dependencies array.
+   * @param array $settings
+   *   The formatter settings for the plugin.
+   *
+   * @return array
+   *   The changed formatter settings.
+   */
+  public function onFormatterDependencyRemoval(array $dependencies, array $settings): array;
 
 }

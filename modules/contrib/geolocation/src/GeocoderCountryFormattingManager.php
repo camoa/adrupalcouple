@@ -8,6 +8,8 @@ use Drupal\Core\Plugin\DefaultPluginManager;
 
 /**
  * Search plugin manager.
+ *
+ * @method GeocoderCountryFormattingInterface createInstance($plugin_id, array $configuration = [])
  */
 class GeocoderCountryFormattingManager extends DefaultPluginManager {
 
@@ -29,17 +31,17 @@ class GeocoderCountryFormattingManager extends DefaultPluginManager {
   }
 
   /**
-   * Return Country plugin by country code.
+   * Get country formatter.
    *
    * @param string $country_code
-   *   Plugin ID.
+   *   Country code.
    * @param string $geocoder_id
    *   Geocoder ID.
    *
-   * @return \Drupal\geolocation\GeocoderCountryFormattingInterface
-   *   Geocoder instance.
+   * @return ?\Drupal\geolocation\GeocoderCountryFormattingInterface
+   *   Formatter.
    */
-  public function getCountry($country_code, $geocoder_id) {
+  public function getCountry(string $country_code, string $geocoder_id): ?GeocoderCountryFormattingInterface {
     $country_code = strtolower($country_code);
 
     foreach ($this->getDefinitions() as $plugin_id => $definition) {
@@ -56,8 +58,7 @@ class GeocoderCountryFormattingManager extends DefaultPluginManager {
       $instance = $this->createInstance($geocoder_id . '_standard');
     }
 
-    /** @var \Drupal\geolocation\GeocoderCountryFormattingInterface $instance */
-    return $instance;
+    return $instance ?? NULL;
   }
 
 }

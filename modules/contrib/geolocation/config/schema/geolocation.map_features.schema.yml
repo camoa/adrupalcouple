@@ -1,14 +1,29 @@
-plugin.plugin_configuration.geolocation.map_feature.geolocation_marker_scroll_to_id:
+plugin.plugin_configuration.geolocation.map_feature.control_loading_indicator:
   type: geolocation.map_feature_settings
-  label: 'Scroll to ID'
+  label: 'Map Control - Loading Indicator'
   mapping:
     settings:
       type: mapping
       label: 'Settings'
       mapping:
-        scroll_target_id:
+        position:
           type: string
-          label: 'Anchor'
+          label: 'Position'
+        loading_label:
+          type: string
+          label: 'Loading Label'
+
+plugin.plugin_configuration.geolocation.map_feature.control_tile_layers:
+  type: geolocation.map_feature_settings
+  label: 'Map Control - Tile Layers'
+  mapping:
+    settings:
+      type: mapping
+      label: 'Settings'
+      mapping:
+        position:
+          type: string
+          label: 'Position'
 
 plugin.plugin_configuration.geolocation.map_feature.geolocation_shapes:
   type: geolocation.map_feature_settings

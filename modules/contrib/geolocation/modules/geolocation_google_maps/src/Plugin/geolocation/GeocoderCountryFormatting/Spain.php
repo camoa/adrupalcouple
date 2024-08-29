@@ -18,7 +18,7 @@ class Spain extends GoogleCountryFormattingBase {
   /**
    * {@inheritdoc}
    */
-  public function format(array $atomics) {
+  public function format(array $atomics): ?array {
     $address_elements = parent::format($atomics);
     if (
       isset($atomics['county'])

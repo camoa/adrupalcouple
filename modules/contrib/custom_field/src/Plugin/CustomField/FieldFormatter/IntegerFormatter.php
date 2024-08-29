@@ -13,7 +13,7 @@ namespace Drupal\custom_field\Plugin\CustomField\FieldFormatter;
  *   id = "number_integer",
  *   label = @Translation("Default"),
  *   field_types = {
- *     "integer"
+ *     "integer",
  *   }
  * )
  */
@@ -26,13 +26,14 @@ class IntegerFormatter extends NumericFormatterBase {
     return [
       'thousand_separator' => ',',
       'prefix_suffix' => FALSE,
-    ];
+    ] + parent::defaultSettings();
   }
 
   /**
    * {@inheritdoc}
    */
   protected function numberFormat($number, array $settings) {
+    $settings += static::defaultSettings();
     return number_format($number, 0, '', $settings['thousand_separator']);
   }
 

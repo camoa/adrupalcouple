@@ -16,7 +16,7 @@ class NumberWidgetBase extends CustomFieldWidgetBase {
   /**
    * {@inheritdoc}
    */
-  public static function defaultWidgetSettings(): array {
+  public static function defaultSettings(): array {
     return [
       'settings' => [
         'min' => '',
@@ -25,7 +25,7 @@ class NumberWidgetBase extends CustomFieldWidgetBase {
         'suffix' => '',
         'placeholder' => '',
       ],
-    ] + parent::defaultWidgetSettings();
+    ] + parent::defaultSettings();
   }
 
   /**
@@ -68,7 +68,7 @@ class NumberWidgetBase extends CustomFieldWidgetBase {
    */
   public function widgetSettingsForm(FormStateInterface $form_state, CustomFieldTypeInterface $field): array {
     $element = parent::widgetSettingsForm($form_state, $field);
-    $settings = $field->getWidgetSetting('settings') + self::defaultWidgetSettings()['settings'];
+    $settings = $field->getWidgetSetting('settings') + self::defaultSettings()['settings'];
     $unsigned = $field->isUnsigned();
 
     $element['settings']['placeholder'] = [

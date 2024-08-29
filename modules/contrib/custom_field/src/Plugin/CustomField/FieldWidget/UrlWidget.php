@@ -9,6 +9,7 @@ use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\Url;
 use Drupal\custom_field\Plugin\CustomFieldTypeInterface;
 use Drupal\custom_field\Plugin\CustomFieldWidgetBase;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Plugin implementation of the 'url' custom field widget.
@@ -25,20 +26,35 @@ use Drupal\custom_field\Plugin\CustomFieldWidgetBase;
 class UrlWidget extends CustomFieldWidgetBase {
 
   /**
+   * The current user.
+   *
+   * @var \Drupal\Core\Session\AccountProxyInterface
+   */
+  protected $currentUser;
+
+  /**
    * {@inheritdoc}
    */
-  public static function defaultWidgetSettings(): array {
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+    $instance = parent::create($container, $configuration, $plugin_id, $plugin_definition);
+    $instance->currentUser = $container->get('current_user');
+
+    return $instance;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function defaultSettings(): array {
     return [
       'settings' => [
         'size' => 60,
         'placeholder' => '',
-        'maxlength' => 254,
-        'maxlength_js' => FALSE,
         'link_type' => CustomFieldTypeInterface::LINK_GENERIC,
         'field_prefix' => 'default',
         'field_prefix_custom' => '',
-      ],
-    ] + parent::defaultWidgetSettings();
+      ] + parent::defaultSettings()['settings'],
+    ] + parent::defaultSettings();
   }
 
   /**
@@ -46,7 +62,7 @@ class UrlWidget extends CustomFieldWidgetBase {
    */
   public function widgetSettingsForm(FormStateInterface $form_state, CustomFieldTypeInterface $field): array {
     $element = parent::widgetSettingsForm($form_state, $field);
-    $settings = $field->getWidgetSetting('settings') + self::defaultWidgetSettings()['settings'];
+    $settings = $field->getWidgetSetting('settings') + self::defaultSettings()['settings'];
     $field_name = $field->getName();
 
     $element['settings']['link_type'] = [
@@ -101,19 +117,6 @@ class UrlWidget extends CustomFieldWidgetBase {
       '#default_value' => $settings['placeholder'],
       '#description' => $this->t('Text that will be shown inside the field until a value is entered. This hint is usually a sample value or a brief description of the expected format.'),
     ];
-    $element['settings']['maxlength'] = [
-      '#type' => 'number',
-      '#title' => $this->t('Max length'),
-      '#description' => $this->t('The maximum amount of characters in the field'),
-      '#default_value' => $settings['maxlength'],
-      '#min' => 1,
-      '#max' => 254,
-    ];
-    $element['settings']['maxlength_js'] = [
-      '#type' => 'checkbox',
-      '#title' => $this->t('Show max length character count'),
-      '#default_value' => $settings['maxlength_js'],
-    ];
 
     return $element;
   }
@@ -124,20 +127,15 @@ class UrlWidget extends CustomFieldWidgetBase {
   public function widget(FieldItemListInterface $items, int $delta, array $element, array &$form, FormStateInterface $form_state, CustomFieldTypeInterface $field): array {
     $element = parent::widget($items, $delta, $element, $form, $form_state, $field);
     $item = $items[$delta];
-    $settings = $field->getWidgetSetting('settings') + self::defaultWidgetSettings()['settings'];
-    // Add our widget type and additional properties and return.
-    if (isset($settings['maxlength_js']) && $settings['maxlength_js']) {
-      $element['#maxlength_js'] = TRUE;
-    }
+    $settings = $field->getWidgetSetting('settings') + self::defaultSettings()['settings'];
     $link = [
       '#type' => 'url',
-      '#maxlength' => $settings['maxlength'],
       '#placeholder' => $settings['placeholder'] ?? NULL,
       '#size' => $settings['size'] ?? NULL,
       // The current field value could have been entered by a different user.
       // However, if it is inaccessible to the current user, do not display it
       // to them.
-      '#default_value' => (!empty($item->{$field->getName()}) && (\Drupal::currentUser()->hasPermission('link to any page') || $field->getUrl($item)->access())) ? static::getUriAsDisplayableString($item->{$field->getName()}) : NULL,
+      '#default_value' => (!empty($item->{$field->getName()}) && ($this->currentUser->hasPermission('link to any page') || $field->getUrl($item)->access())) ? static::getUriAsDisplayableString($item->{$field->getName()}) : NULL,
       '#element_validate' => [[static::class, 'validateUriElement']],
       '#link_type' => $settings['link_type'] ?? CustomFieldTypeInterface::LINK_GENERIC,
     ];
@@ -345,9 +343,9 @@ class UrlWidget extends CustomFieldWidgetBase {
   /**
    * {@inheritdoc}
    */
-  public function massageFormValue(mixed $value, $column): mixed {
-    $uri = trim($value);
-    if ($uri === '') {
+  public function massageFormValue(mixed $value, $column): ?string {
+    $uri = !empty($value) ? trim($value) : NULL;
+    if (empty($uri)) {
       return NULL;
     }
 

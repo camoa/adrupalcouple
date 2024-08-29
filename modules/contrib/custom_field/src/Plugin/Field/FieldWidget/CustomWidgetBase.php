@@ -2,35 +2,31 @@
 
 namespace Drupal\custom_field\Plugin\Field\FieldWidget;
 
-use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
 use Drupal\Core\Field\WidgetBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
-use Drupal\custom_field\Plugin\CustomFieldTypeManagerInterface;
-use Drupal\custom_field\Plugin\CustomFieldWidgetManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Validator\ConstraintViolationInterface;
 
 /**
  * Base widget definition for custom field type.
  */
-abstract class CustomWidgetBase extends WidgetBase implements ContainerFactoryPluginInterface {
+abstract class CustomWidgetBase extends WidgetBase {
 
   /**
    * The custom field type manager.
    *
    * @var \Drupal\custom_field\Plugin\CustomFieldTypeManagerInterface
    */
-  protected CustomFieldTypeManagerInterface $customFieldManager;
+  protected $customFieldManager;
 
   /**
    * The custom field widget manager.
    *
    * @var \Drupal\custom_field\Plugin\CustomFieldWidgetManager
    */
-  protected CustomFieldWidgetManager $customFieldWidgetManager;
+  protected $customFieldWidgetManager;
 
   /**
    * {@inheritdoc}
@@ -44,52 +40,14 @@ abstract class CustomWidgetBase extends WidgetBase implements ContainerFactoryPl
   }
 
   /**
-   * Constructs a new CustomFieldWidgetBase object.
-   *
-   * @param string $plugin_id
-   *   The plugin_id for the widget.
-   * @param mixed $plugin_definition
-   *   The plugin implementation definition.
-   * @param \Drupal\Core\Field\FieldDefinitionInterface $field_definition
-   *   The definition of the field to which the widget is associated.
-   * @param array $settings
-   *   The widget settings.
-   * @param array $third_party_settings
-   *   Any third party settings.
-   * @param \Drupal\custom_field\Plugin\CustomFieldTypeManagerInterface $custom_field_type_manager
-   *   An instance of the customFieldTypeManager service.
-   * @param \Drupal\custom_field\Plugin\CustomFieldWidgetManager $widget_manager
-   *   And instance of the customFieldWidgetManager service.
-   */
-  public function __construct(
-    $plugin_id,
-    $plugin_definition,
-    FieldDefinitionInterface $field_definition,
-    array $settings,
-    array $third_party_settings,
-    CustomFieldTypeManagerInterface $custom_field_type_manager,
-    CustomFieldWidgetManager $widget_manager
-  ) {
-    parent::__construct($plugin_id, $plugin_definition, $field_definition, $settings, $third_party_settings);
-    $this->customFieldManager = $custom_field_type_manager;
-    $this->customFieldWidgetManager = $widget_manager;
-  }
-
-  /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
-    // Inject our custom_field plugin manager to this plugin's constructor.
-    // Made possible with ContainerFactoryPluginInterface.
-    return new static(
-      $plugin_id,
-      $plugin_definition,
-      $configuration['field_definition'],
-      $configuration['settings'],
-      $configuration['third_party_settings'],
-      $container->get('plugin.manager.custom_field_type'),
-      $container->get('plugin.manager.custom_field_widget')
-    );
+    $instance = parent::create($container, $configuration, $plugin_id, $plugin_definition);
+    $instance->customFieldManager = $container->get('plugin.manager.custom_field_type');
+    $instance->customFieldWidgetManager = $container->get('plugin.manager.custom_field_widget');
+
+    return $instance;
   }
 
   /**

@@ -1,0 +1,28 @@
+<?php
+
+/**
+ * @file
+ * Geolocation demo setup.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function geolocation_yandex_test_install(): void {
+  /** @var \Drupal\Core\Config\Config $config */
+  $config = \Drupal::service('config.factory')->getEditable('geolocation_yandex.settings');
+  if (empty($config->get('api_key'))) {
+    $config->set('api_key', '060d60d6-6907-44a6-99cb-ca9c56796211')->save();
+  }
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function geolocation_yandex_test_uninstall(): void {
+  /** @var \Drupal\Core\Config\Config $config */
+  $config = \Drupal::service('config.factory')->getEditable('geolocation_yandex.settings');
+  if ($config->get('api_key') == '060d60d6-6907-44a6-99cb-ca9c56796211') {
+    $config->set('api_key', '')->save();
+  }
+}

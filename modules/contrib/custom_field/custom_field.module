@@ -5,9 +5,10 @@
  * Contains custom_field.module.
  */
 
-use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Field\FieldTypeCategoryManagerInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Template\Attribute;
 
 /**
  * Implements hook_help().
@@ -29,58 +30,83 @@ function custom_field_help($route_name, RouteMatchInterface $route_match) {
  * Implements hook_theme().
  */
 function custom_field_theme(): array {
+  $item = ['render element' => 'elements'];
   return [
-    'customfield' => [
-      'variables' => [
-        'items' => [],
-        'field_name' => [],
-      ],
-      'file' => 'custom_field.theme.inc',
-    ],
+    'custom_field' => $item,
+    'custom_field_item' => $item,
   ];
 }
 
 /**
- * Implements hook_form_alter().
+ * Implements hook_theme_suggestions_HOOK().
  */
-function custom_field_form_alter(&$form, FormStateInterface $form_state, $form_id) {
-  if ($form_id == 'field_storage_config_edit_form') {
-    if (($field_config = $form_state->get('field_config')) && $field_config->get('field_type') == 'custom') {
-      array_unshift(
-        $form['actions']['submit']['#submit'],
-        'Drupal\custom_field\Plugin\Field\FieldType\CustomItem::submitStorageConfigEditForm'
-      );
-    }
-  }
-
+function custom_field_theme_suggestions_custom_field(array $variables): array {
+  return [
+    'custom_field__' . $variables['elements']['#field_name'],
+  ];
 }
 
 /**
- * Implements hook_ENTITY_TYPE_update().
+ * Implements hook_theme_suggestions_HOOK().
  */
-function custom_field_field_storage_config_update(EntityInterface $entity): void {
-  /** @var \Drupal\field\Entity\FieldStorageConfig $entity */
-  if ($entity->getType() == 'custom') {
-    $settings = $entity->getSettings();
-    $original_settings = $entity->original->getSettings();
+function custom_field_theme_suggestions_custom_field_item(array $variables): array {
+  $hook = 'custom_field_item';
+  return [
+    $hook . '__' . $variables['elements']['#field_name'],
+    $hook . '__' . $variables['elements']['#field_name'] . '__' . $variables['elements']['#type'],
+    $hook . '__' . $variables['elements']['#field_name'] . '__' . $variables['elements']['#type'] . '__' . $variables['elements']['#name'],
+    $hook . '__' . $variables['elements']['#field_name'] . '__' . $variables['elements']['#name'],
+  ];
+}
 
-    $isChanged = FALSE;
-    $changed_columns = array_diff_key($original_settings['columns'], $settings['columns']);
-    if (!empty($changed_columns)) {
-      $isChanged = TRUE;
+/**
+ * Prepares variables for custom-field-item template.
+ */
+function template_preprocess_custom_field(array &$variables): void {
+  $variables['items'] = $variables['elements']['#items'];
+  $variables['field_name'] = $variables['elements']['#field_name'];
+  // Set the item attributes.
+  foreach ($variables['elements']['#items'] as &$item) {
+    // Attributes are optional, so we check if it's set first and process
+    // appropriately.
+    if (isset($item['attributes'])) {
+      $item['attributes'] = new Attribute($item['attributes']);
     }
     else {
-      foreach ($settings['columns'] as $name => $column) {
-        if (!empty($original_settings['columns'][$name]) && $column['type'] != $original_settings['columns'][$name]['type']) {
-          $isChanged = TRUE;
-          break;
-        }
-      }
-    }
-    if ($isChanged) {
-      Drupal::messenger()
-        ->addWarning(t('Since storage type has changed you may need to verify the configuration of corresponding widget on form display page.'));
+      $item['attributes'] = new Attribute();
     }
   }
+}
 
+/**
+ * Prepares variables for custom-field-item template.
+ */
+function template_preprocess_custom_field_item(array &$variables): void {
+  $variables['label'] = $variables['elements']['#label'];
+  $variables['label_display'] = $variables['elements']['#label_display'];
+  $variables['value'] = $variables['elements']['#value'];
+  $variables['name'] = $variables['elements']['#name'];
+  $variables['type'] = $variables['elements']['#type'];
+  $variables['field_name'] = $variables['elements']['#field_name'];
+}
+
+/**
+ * Implements hook_form_BASE_FORM_ID_alter().
+ */
+function custom_field_form_field_config_edit_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  if (($field_config = $form_state->get('field_config')) && $field_config->get('field_type') == 'custom') {
+    array_unshift(
+      $form['actions']['submit']['#submit'],
+      'Drupal\custom_field\Plugin\Field\FieldType\CustomItem::submitStorageConfigEditForm'
+    );
+  }
+}
+
+/**
+ * Implements hook_field_type_category_info_alter().
+ */
+function custom_field_field_type_category_info_alter(&$definitions) {
+  // The `custom` field type belongs in the `general` category, so the libraries
+  // need to be attached using an alter hook.
+  $definitions[FieldTypeCategoryManagerInterface::FALLBACK_CATEGORY]['libraries'][] = 'custom_field/drupal.custom-icon';
 }

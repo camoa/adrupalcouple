@@ -28,7 +28,7 @@ class CustomTableFormatter extends BaseFormatter {
   public function settingsForm(array $form, FormStateInterface $form_state): array {
     $form = parent::settingsForm($form, $form_state);
 
-    foreach ($this->getCustomFieldItems() as $name => $customItem) {
+    foreach ($this->getCustomFieldItems() as $name => $custom_item) {
       unset($form['fields'][$name]['label_display']);
     }
 
@@ -41,10 +41,10 @@ class CustomTableFormatter extends BaseFormatter {
   public function viewElements(FieldItemListInterface $items, $langcode): array {
     $elements = [];
     $component = Html::cleanCssIdentifier($this->fieldDefinition->get('field_name'));
-    $customItems = $this->getCustomFieldItems();
+    $custom_items = $this->getCustomFieldItems();
     $header = [];
-    foreach ($customItems as $customItem) {
-      $header[] = $customItem->getLabel();
+    foreach ($custom_items as $custom_item) {
+      $header[] = $custom_item->getLabel();
     }
 
     // Jam the whole table in the first row since we're rendering the main field
@@ -62,7 +62,7 @@ class CustomTableFormatter extends BaseFormatter {
     foreach ($items as $delta => $item) {
       $elements[0]['#rows'][$delta]['class'][] = $component . '__item';
       $values = $this->getFormattedValues($item, $langcode);
-      foreach ($customItems as $name => $customItem) {
+      foreach ($custom_items as $name => $custom_item) {
         $markup = $values[$name]['value']['#markup'] ?? NULL;
         $elements[0]['#rows'][$delta]['data'][$name] = [
           'data' => [

@@ -10,7 +10,7 @@ use Drupal\Core\StringTranslation\StringTranslationTrait;
 /**
  * Provides the custom field widget plugin manager.
  */
-class CustomFieldWidgetManager extends DefaultPluginManager {
+class CustomFieldWidgetManager extends DefaultPluginManager implements CustomFieldWidgetManagerInterface {
 
   use StringTranslationTrait;
 
@@ -36,6 +36,32 @@ class CustomFieldWidgetManager extends DefaultPluginManager {
 
     $this->alterInfo('custom_field_widget_info');
     $this->setCacheBackend($cache_backend, 'custom_field_widget_plugins');
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function processDefinition(&$definition, $plugin_id) {
+    parent::processDefinition($definition, $plugin_id);
+    // Ensure that every field type has a category.
+    if (empty($definition['category'])) {
+      $definition['category'] = $this->t('General');
+    }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getWidgetsForField(string $type): array {
+    $definitions = $this->getDefinitions();
+    $widgets = [];
+    foreach ($definitions as $definition) {
+      if (in_array($type, $definition['data_types'])) {
+        $widgets[] = $definition['id'];
+      }
+    }
+
+    return $widgets;
   }
 
 }

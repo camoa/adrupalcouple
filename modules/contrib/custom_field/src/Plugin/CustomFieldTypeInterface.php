@@ -4,8 +4,6 @@ namespace Drupal\custom_field\Plugin;
 
 use Drupal\Component\Plugin\PluginInspectionInterface;
 use Drupal\Core\Field\FieldItemInterface;
-use Drupal\Core\Field\FieldItemListInterface;
-use Drupal\Core\Form\FormStateInterface;
 
 /**
  * Defines an interface for custom field Type plugins.
@@ -61,59 +59,6 @@ interface CustomFieldTypeInterface extends PluginInspectionInterface {
   public static function defaultWidgetSettings(): array;
 
   /**
-   * Returns a form for the widget settings for this custom field type.
-   *
-   * @param array $form
-   *   The form where the settings form is being included in. Provided as a
-   *   reference. Implementations of this method should return a new form
-   *   element which will be inserted into the main settings form.
-   * @param \Drupal\Core\Form\FormStateInterface $form_state
-   *   The form state of the (entire) configuration form.
-   *
-   * @return array
-   *   The form definition for the widget settings.
-   */
-  public function widgetSettingsForm(array $form, FormStateInterface $form_state): array;
-
-  /**
-   * Returns the Custom field item widget as form array.
-   *
-   * Called from the Custom field widget plugin formElement method.
-   *
-   * @param \Drupal\Core\Field\FieldItemListInterface $items
-   *   Array of default values for this field.
-   * @param int $delta
-   *   The order of this item in the array of sub-elements (0, 1, 2, etc.).
-   * @param array $element
-   *   A form element array containing basic properties for the widget:
-   *   - #field_parents: The 'parents' space for the field in the form. Most
-   *       widgets can simply overlook this property. This identifies the
-   *       location where the field values are placed within
-   *       $form_state->getValues(), and is used to access processing
-   *       information for the field through the getWidgetState() and
-   *       setWidgetState() methods.
-   *   - #title: The sanitized element label for the field, ready for output.
-   *   - #description: The sanitized element description for the field, ready
-   *     for output.
-   *   - #required: A Boolean indicating whether the element value is required;
-   *     for required multiple value fields, only the first widget's values are
-   *     required.
-   *   - #delta: The order of this item in the array of sub-elements; see $delta
-   *     above.
-   * @param array $form
-   *   The form structure where widgets are being attached to. This might be a
-   *   full form structure, or a sub-element of a larger form.
-   * @param \Drupal\Core\Form\FormStateInterface $form_state
-   *   The current state of the form.
-   *
-   * @return array
-   *   The form elements for a single widget for this field.
-   *
-   * @see \Drupal\Core\Field\WidgetInterface::formElement()
-   */
-  public function widget(FieldItemListInterface $items, int $delta, array $element, array &$form, FormStateInterface $form_state): array;
-
-  /**
    * Render the stored value of the custom field item.
    *
    * @param \Drupal\Core\Field\FieldItemInterface $item
@@ -125,12 +70,20 @@ interface CustomFieldTypeInterface extends PluginInspectionInterface {
   public function value(FieldItemInterface $item): mixed;
 
   /**
-   * The formatter plugin type.
+   * The default formatter plugin type.
    *
    * @return string
    *   The machine name of the formatter plugin.
    */
   public function getDefaultFormatter(): string;
+
+  /**
+   * The default widget plugin type.
+   *
+   * @return string
+   *   The machine name of the widget plugin.
+   */
+  public function getDefaultWidget(): string;
 
   /**
    * The label for the custom field item.
@@ -173,12 +126,20 @@ interface CustomFieldTypeInterface extends PluginInspectionInterface {
   public function isUnsigned(): bool;
 
   /**
-   * The unsigned value from the custom field item.
+   * The scale value from the custom field item.
    *
    * @return int
    *   The scale value of the column.
    */
   public function getScale(): int;
+
+  /**
+   * The precision value from the custom field item.
+   *
+   * @return int
+   *   The precision value of the column.
+   */
+  public function getPrecision(): int;
 
   /**
    * The datetime_type value from the custom field item.
@@ -187,6 +148,14 @@ interface CustomFieldTypeInterface extends PluginInspectionInterface {
    *   The datetime_type value of the column.
    */
   public function getDatetimeType(): string;
+
+  /**
+   * The target_type value from the custom field item.
+   *
+   * @return string
+   *   The target_type value of the column.
+   */
+  public function getTargetType(): string;
 
   /**
    * Gets a widget setting by name.
@@ -200,12 +169,12 @@ interface CustomFieldTypeInterface extends PluginInspectionInterface {
   public function getWidgetSetting(string $name): array;
 
   /**
-   * The widget settings for the custom field item.
+   * Gets a fields configuration.
    *
    * @return array
-   *   An array of widget settings.
+   *   The configuration array.
    */
-  public function getWidgetSettings(): array;
+  public function getConfiguration(): array;
 
   /**
    * Should the field item be included in the empty check?
@@ -238,6 +207,19 @@ interface CustomFieldTypeInterface extends PluginInspectionInterface {
   public static function propertyDefinitions(array $settings): mixed;
 
   /**
+   * Generates placeholder field values.
+   *
+   * @param \Drupal\custom_field\Plugin\CustomFieldTypeInterface $field
+   *   An instance of the custom field.
+   * @param string $target_entity_type
+   *   The entity type of the field this custom field is attached to.
+   *
+   * @return mixed
+   *   A sample value for the custom field.
+   */
+  public static function generateSampleValue(CustomFieldTypeInterface $field, string $target_entity_type): mixed;
+
+  /**
    * Returns an array of constraints.
    *
    * @param array $settings
@@ -247,6 +229,44 @@ interface CustomFieldTypeInterface extends PluginInspectionInterface {
    *   Array of constraints.
    */
   public function getConstraints(array $settings): array;
+
+  /**
+   * Returns an array of calculated dependencies.
+   *
+   * @param \Drupal\custom_field\Plugin\CustomFieldTypeInterface $item
+   *   The custom field type interface.
+   * @param array $default_value
+   *   A default value array for the field.
+   *
+   * @return array
+   *   An array of dependencies.
+   */
+  public static function calculateDependencies(CustomFieldTypeInterface $item, array $default_value): array;
+
+  /**
+   * Returns an array of calculated storage dependencies.
+   *
+   * @param array $settings
+   *   An array of settings for the stored column.
+   *
+   * @return array
+   *   An array of storage dependencies.
+   */
+  public static function calculateStorageDependencies(array $settings): array;
+
+  /**
+   * Returns an array of widget settings to change when dependency is removed.
+   *
+   * @param \Drupal\custom_field\Plugin\CustomFieldTypeInterface $item
+   *   The custom field type interface.
+   * @param array $dependencies
+   *   An array of dependencies that will be deleted keyed by dependency type.
+   *   Dependency types are, for example, entity, module and theme.
+   *
+   * @return array
+   *   An array of settings that changed.
+   */
+  public static function onDependencyRemoval(CustomFieldTypeInterface $item, array $dependencies): array;
 
   /**
    * Returns Url object for a field.

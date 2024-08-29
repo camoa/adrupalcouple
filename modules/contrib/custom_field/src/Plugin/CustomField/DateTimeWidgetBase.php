@@ -7,11 +7,29 @@ use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\custom_field\Plugin\CustomFieldTypeInterface;
 use Drupal\custom_field\Plugin\CustomFieldWidgetBase;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Base plugin class for datetime custom field widgets.
  */
 class DateTimeWidgetBase extends CustomFieldWidgetBase {
+
+  /**
+   * The entity type manager service.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
+  protected $entityTypeManager;
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+    $instance = parent::create($container, $configuration, $plugin_id, $plugin_definition);
+    $instance->entityTypeManager = $container->get('entity_type.manager');
+
+    return $instance;
+  }
 
   /**
    * {@inheritdoc}
@@ -42,15 +60,6 @@ class DateTimeWidgetBase extends CustomFieldWidgetBase {
     }
 
     return $date + $element;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function widgetSettingsForm(FormStateInterface $form_state, CustomFieldTypeInterface $field): array {
-    $element = parent::widgetSettingsForm($form_state, $field);
-
-    return $element;
   }
 
   /**

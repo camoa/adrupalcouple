@@ -23,13 +23,6 @@ use Symfony\Component\Validator\ConstraintViolationInterface;
 class TextareaWidget extends CustomFieldWidgetBase {
 
   /**
-   * Cached processed text.
-   *
-   * @var \Drupal\filter\FilterProcessResult|null
-   */
-  protected $processed = NULL;
-
-  /**
    * The field type.
    *
    * @var \Drupal\custom_field\Plugin\CustomFieldTypeInterface
@@ -39,7 +32,7 @@ class TextareaWidget extends CustomFieldWidgetBase {
   /**
    * {@inheritdoc}
    */
-  public static function defaultWidgetSettings(): array {
+  public static function defaultSettings(): array {
     return [
       'settings' => [
         'rows' => 5,
@@ -52,8 +45,8 @@ class TextareaWidget extends CustomFieldWidgetBase {
           'guidelines' => TRUE,
           'help' => TRUE,
         ],
-      ],
-    ] + parent::defaultWidgetSettings();
+      ] + parent::defaultSettings()['settings'],
+    ] + parent::defaultSettings();
   }
 
   /**
@@ -61,7 +54,7 @@ class TextareaWidget extends CustomFieldWidgetBase {
    */
   public function widget(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state, CustomFieldTypeInterface $field): array {
     $element = parent::widget($items, $delta, $element, $form, $form_state, $field);
-    $settings = $field->getWidgetSetting('settings') + self::defaultWidgetSettings()['settings'];
+    $settings = $field->getWidgetSetting('settings') + self::defaultSettings()['settings'];
     // Add our widget type and additional properties and return.
     $type = isset($settings['formatted']) && $settings['formatted'] ? 'text_format' : 'textarea';
 
@@ -94,7 +87,7 @@ class TextareaWidget extends CustomFieldWidgetBase {
     $element = parent::widgetSettingsForm($form_state, $field);
     $formats = filter_formats();
     $format_options = [];
-    $settings = $field->getWidgetSetting('settings') + self::defaultWidgetSettings()['settings'];
+    $settings = $field->getWidgetSetting('settings') + self::defaultSettings()['settings'];
 
     foreach ($formats as $key => $format) {
       $format_options[$key] = $format->get('name');
@@ -183,15 +176,9 @@ class TextareaWidget extends CustomFieldWidgetBase {
   public function massageFormValue(mixed $value, $column): mixed {
     // If text field is formatted, the value is an array.
     if (is_array($value)) {
-      if (trim($value['value']) === '') {
-        return NULL;
-      }
-      else {
-        $processed = check_markup($value['value'], $value['format']);
-        return $processed;
-      }
+      $value = $value['value'];
     }
-    elseif (trim($value) === '') {
+    if (trim($value) === '') {
       return NULL;
     }
 
@@ -211,7 +198,7 @@ class TextareaWidget extends CustomFieldWidgetBase {
    */
   public function callUnsetFilters(array $element, FormStateInterface $form_state): array {
     $settings = $this->field->getWidgetSetting('settings');
-    return $this->unsetFilters($element, $form_state, $settings);
+    return static::unsetFilters($element, $form_state, $settings);
   }
 
   /**
@@ -227,7 +214,7 @@ class TextareaWidget extends CustomFieldWidgetBase {
    * @return array
    *   The modified form element.
    */
-  public function unsetFilters(array $element, FormStateInterface $formState, array $settings): array {
+  public static function unsetFilters(array $element, FormStateInterface $formState, array $settings): array {
     $hide_guidelines = FALSE;
     $hide_help = FALSE;
     if (!$settings['format']['guidelines']) {
@@ -241,7 +228,6 @@ class TextareaWidget extends CustomFieldWidgetBase {
     if ($hide_guidelines && $hide_help) {
       unset($element['format']['#theme_wrappers']);
     }
-    $element['format']['format']['#access'] = FALSE;
 
     return $element;
   }

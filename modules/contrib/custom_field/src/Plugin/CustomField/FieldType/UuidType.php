@@ -5,6 +5,7 @@ namespace Drupal\custom_field\Plugin\CustomField\FieldType;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\TypedData\DataDefinition;
 use Drupal\custom_field\Plugin\CustomFieldTypeBase;
+use Drupal\custom_field\Plugin\CustomFieldTypeInterface;
 
 /**
  * Plugin implementation of the 'uuid' custom field type.
@@ -30,19 +31,34 @@ class UuidType extends CustomFieldTypeBase {
    * {@inheritdoc}
    */
   public static function schema(array $settings): array {
-    return [
+    ['name' => $name] = $settings;
+
+    $columns[$name] = [
       'type' => 'varchar_ascii',
       'length' => 128,
     ];
+
+    return $columns;
   }
 
   /**
    * {@inheritdoc}
    */
-  public static function propertyDefinitions(array $settings): DataDefinition {
-    return DataDefinition::create('string')
-      ->setLabel(new TranslatableMarkup('%name value', ['%name' => $settings['name']]))
+  public static function propertyDefinitions(array $settings): array {
+    ['name' => $name] = $settings;
+
+    $properties[$name] = DataDefinition::create('string')
+      ->setLabel(new TranslatableMarkup('@name', ['@name' => $name]))
       ->setRequired(FALSE);
+
+    return $properties;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function generateSampleValue(CustomFieldTypeInterface $field, string $target_entity_type): mixed {
+    return \Drupal::service('uuid')->generate();
   }
 
 }

@@ -72,8 +72,8 @@ class GeolocationLatlngWidget extends WidgetBase {
         !empty($geolocation['lat'])
         && !empty($geolocation['lng'])
       ) {
-        $latitude = GeolocationItem::sexagesimalToDecimal($values[$index]['lat']);
-        $longitude = GeolocationItem::sexagesimalToDecimal($values[$index]['lng']);
+        $latitude = GeolocationItem::sexagesimalToDecimal($geolocation['lat']);
+        $longitude = GeolocationItem::sexagesimalToDecimal($geolocation['lng']);
 
         if (!empty($latitude) && !empty($longitude)) {
           $values[$index]['lat'] = $latitude;

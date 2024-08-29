@@ -4,11 +4,8 @@ namespace Drupal\custom_field\Plugin\CustomField\FieldWidget;
 
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\custom_field\Plugin\CustomField\DateTimeWidgetBase;
 use Drupal\custom_field\Plugin\CustomFieldTypeInterface;
-use Drupal\custom_field\Plugin\CustomFieldWidgetInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Plugin implementation of the 'datetime_default' custom field widget.
@@ -22,24 +19,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *   }
  * )
  */
-class DateTimeDefaultWidget extends DateTimeWidgetBase implements ContainerFactoryPluginInterface, CustomFieldWidgetInterface {
-
-  /**
-   * The entity type manager service.
-   *
-   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
-   */
-  protected $entityTypeManager;
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
-    $plugin = new static($configuration, $plugin_id, $plugin_definition);
-    $plugin->entityTypeManager = $container->get('entity_type.manager');
-
-    return $plugin;
-  }
+class DateTimeDefaultWidget extends DateTimeWidgetBase {
 
   /**
    * {@inheritdoc}

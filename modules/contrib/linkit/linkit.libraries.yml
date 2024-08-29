@@ -26,15 +26,6 @@ linkit.autocomplete:
     - core/drupal.autocomplete
     - core/once
 
-linkit.filter_html.admin:
-  version: VERSION
-  js:
-    js/linkit.filter_html.admin.js: {}
-  dependencies:
-    - core/jquery
-    - core/drupal
-    - core/once
-
 ckeditor5:
   version: VERSION
   js:

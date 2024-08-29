@@ -28,7 +28,7 @@ class GeolocationViewsProximityArgumentTest extends BrowserTestBase {
    *
    * @var string
    */
-  protected $viewsPath = 'geolocation-demo/proximity_argument_and_sort';
+  protected string $viewsPath = 'geolocation-demo/proximity_argument_and_sort';
 
   /**
    * {@inheritdoc}
@@ -38,7 +38,7 @@ class GeolocationViewsProximityArgumentTest extends BrowserTestBase {
   /**
    * Tests the CommonMap style.
    */
-  public function testProximityNoLocations() {
+  public function testProximityNoLocations(): void {
     $this->drupalGet($this->viewsPath);
     $this->assertSession()->statusCodeEquals(200);
   }
@@ -46,7 +46,7 @@ class GeolocationViewsProximityArgumentTest extends BrowserTestBase {
   /**
    * Tests the CommonMap style.
    */
-  public function testNoProximityLocations() {
+  public function testNoProximityLocations(): void {
     $entity_test_storage = \Drupal::entityTypeManager()->getStorage('node');
 
     $entity_test_storage->create([
@@ -112,7 +112,7 @@ class GeolocationViewsProximityArgumentTest extends BrowserTestBase {
   /**
    * Tests to ensure rounding error doesn't occur (d.o #2796999).
    */
-  public function testRoundingError() {
+  public function testRoundingError(): void {
     $entity_test_storage = \Drupal::entityTypeManager()->getStorage('node');
 
     $entity_test_storage->create([
@@ -134,7 +134,7 @@ class GeolocationViewsProximityArgumentTest extends BrowserTestBase {
   /**
    * Tests to ensure views argument is parsed correctly (d.o #2856948)
    */
-  public function testArgumentParse() {
+  public function testArgumentParse(): void {
     $entity_test_storage = \Drupal::entityTypeManager()->getStorage('node');
 
     $entity_test_storage->create([

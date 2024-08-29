@@ -22,7 +22,7 @@ class GeoProximityArgument extends ProximityArgument {
   /**
    * {@inheritdoc}
    */
-  public function getFormula() {
+  public function getFormula(): ?string {
     // Parse argument for reference location.
     $values = $this->getParsedReferenceLocation();
     // Make sure we have enough information to start with.
@@ -42,9 +42,8 @@ class GeoProximityArgument extends ProximityArgument {
 
       return !empty($formula) ? str_replace('***table***', $this->tableAlias, $formula) : FALSE;
     }
-    else {
-      return FALSE;
-    }
+
+    return NULL;
   }
 
 }

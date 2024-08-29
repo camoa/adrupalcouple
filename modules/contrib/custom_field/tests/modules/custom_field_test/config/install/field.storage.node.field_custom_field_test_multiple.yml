@@ -127,6 +127,38 @@ settings:
       scale: '2'
       size: normal
       datetime_type: datetime
+    entity_reference_test:
+      name: entity_reference_test
+      type: entity_reference
+      max_length: '255'
+      unsigned: 0
+      precision: '10'
+      scale: '2'
+      size: normal
+      datetime_type: datetime
+      target_type: node
+    file_test:
+      name: file_test
+      type: file
+      max_length: '255'
+      unsigned: 0
+      precision: '10'
+      scale: '2'
+      size: normal
+      datetime_type: datetime
+      target_type: file
+      uri_scheme: public
+    image_test:
+      name: image_test
+      type: image
+      max_length: '255'
+      unsigned: 0
+      precision: '10'
+      scale: '2'
+      size: normal
+      datetime_type: datetime
+      target_type: file
+      uri_scheme: public
 module: custom_field
 locked: false
 cardinality: 3

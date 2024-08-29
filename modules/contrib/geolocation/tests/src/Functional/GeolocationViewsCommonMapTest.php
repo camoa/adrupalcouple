@@ -33,7 +33,7 @@ class GeolocationViewsCommonMapTest extends BrowserTestBase {
   /**
    * Tests the boundary filter.
    */
-  public function testStaticCommonMap() {
+  public function testStaticCommonMap(): void {
     $this->drupalGet('geolocation-demo/common-map');
     $this->assertSession()->statusCodeEquals(200);
   }
@@ -41,7 +41,7 @@ class GeolocationViewsCommonMapTest extends BrowserTestBase {
   /**
    * Tests the boundary filter.
    */
-  public function testAjaxCommonMap() {
+  public function testAjaxCommonMap(): void {
     $this->drupalGet('geolocation-demo/common-map-ajax');
     $this->assertSession()->statusCodeEquals(200);
   }

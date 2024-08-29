@@ -3,6 +3,7 @@
 namespace Drupal\custom_field\Plugin\CustomField\FieldFormatter;
 
 use Drupal\Core\Datetime\DrupalDateTime;
+use Drupal\Core\Field\FieldItemInterface;
 use Drupal\custom_field\Plugin\CustomFieldTypeInterface;
 
 /**
@@ -21,8 +22,8 @@ class DateTimeTimeAgoFormatter extends TimestampAgoFormatter {
   /**
    * {@inheritdoc}
    */
-  public function formatValue(array $settings) {
-    $formatter_settings = $settings['formatter_settings'] ?? parent::defaultSettings();
+  public function formatValue(FieldItemInterface $item, CustomFieldTypeInterface $field, array $settings) {
+    $formatter_settings = $settings['formatter_settings'] + static::defaultSettings();
     $datetime_type = $settings['configuration']['datetime_type'];
 
     /** @var \Drupal\Core\Datetime\DrupalDateTime $date */
@@ -85,6 +86,7 @@ class DateTimeTimeAgoFormatter extends TimestampAgoFormatter {
     catch (\Exception $e) {
       // @todo Handle this.
     }
+
     return $date_object;
   }
 

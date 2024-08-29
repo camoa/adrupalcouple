@@ -7,11 +7,11 @@ use Drupal\Component\Plugin\Exception\PluginNotFoundException;
 use Drupal\Component\Utility\Unicode;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\TranslatableInterface;
+use Drupal\Core\Field\FieldItemInterface;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
-use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\Url;
-use Drupal\custom_field\Plugin\CustomFieldFormatterInterface;
+use Drupal\custom_field\Plugin\CustomFieldFormatterBase;
+use Drupal\custom_field\Plugin\CustomFieldTypeInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -21,13 +21,11 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *   id = "uri_link",
  *   label = @Translation("Link"),
  *   field_types = {
- *     "uri"
+ *     "uri",
  *   }
  * )
  */
-class UriLinkFormatter implements CustomFieldFormatterInterface, ContainerFactoryPluginInterface {
-
-  use StringTranslationTrait;
+class UriLinkFormatter extends CustomFieldFormatterBase {
 
   /**
    * The entity type manager service.
@@ -44,34 +42,14 @@ class UriLinkFormatter implements CustomFieldFormatterInterface, ContainerFactor
   protected $entityRepository;
 
   /**
-   * The renderer service.
-   *
-   * @var \Drupal\Core\Render\RendererInterface
-   */
-  protected $renderer;
-
-  /**
-   * Creates an instance of the plugin.
-   *
-   * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
-   *   The container to pull out services used in the plugin.
-   * @param array $configuration
-   *   A configuration array containing information about the plugin instance.
-   * @param string $plugin_id
-   *   The plugin ID for the plugin instance.
-   * @param mixed $plugin_definition
-   *   The plugin implementation definition.
-   *
-   * @return static
-   *   Returns an instance of this plugin.
+   * {@inheritdoc}
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
-    $plugin = new static();
-    $plugin->entityTypeManager = $container->get('entity_type.manager');
-    $plugin->entityRepository = $container->get('entity.repository');
-    $plugin->renderer = $container->get('renderer');
+    $instance = parent::create($container, $configuration, $plugin_id, $plugin_definition);
+    $instance->entityTypeManager = $container->get('entity_type.manager');
+    $instance->entityRepository = $container->get('entity.repository');
 
-    return $plugin;
+    return $instance;
   }
 
   /**
@@ -91,49 +69,40 @@ class UriLinkFormatter implements CustomFieldFormatterInterface, ContainerFactor
    * {@inheritdoc}
    */
   public function settingsForm(array $form, FormStateInterface $form_state, array $settings) {
-    $default_settings = self::defaultSettings();
+    $settings += static::defaultSettings();
     $elements['title'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Title'),
       '#description' => $this->t('Leave blank to render the url.'),
-      '#default_value' => $settings['title'] ?? $default_settings['title'],
+      '#default_value' => $settings['title'],
     ];
     $elements['trim_length'] = [
       '#type' => 'number',
       '#title' => $this->t('Trim link text length'),
       '#field_suffix' => $this->t('characters'),
-      '#default_value' => $settings['trim_length'] ?? $default_settings['trim_length'],
+      '#default_value' => $settings['trim_length'],
       '#min' => 1,
       '#description' => $this->t('Leave blank to allow unlimited link text lengths.'),
     ];
     $elements['url_plain'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Show URL as plain text'),
-      '#default_value' => $settings['url_plain'] ?? $default_settings['url_plain'],
+      '#default_value' => $settings['url_plain'],
     ];
     $elements['rel'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Add rel="nofollow" to links'),
       '#return_value' => 'nofollow',
-      '#default_value' => $settings['rel'] ?? $default_settings['rel'],
+      '#default_value' => $settings['rel'],
     ];
     $elements['target'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Open link in new window'),
       '#return_value' => '_blank',
-      '#default_value' => $settings['target'] ?? $default_settings['target'],
+      '#default_value' => $settings['target'],
     ];
 
     return $elements;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function settingsSummary() {
-    $summary = [];
-
-    return $summary;
   }
 
   /**
@@ -146,7 +115,7 @@ class UriLinkFormatter implements CustomFieldFormatterInterface, ContainerFactor
    *   A Url object.
    */
   protected function buildUrl(array $settings) {
-    $formatter_settings = $settings['formatter_settings'] ?? self::defaultSettings();
+    $formatter_settings = $settings['formatter_settings'] + static::defaultSettings();
     try {
       $url = $this->getUrl($settings['value']);
     }
@@ -199,16 +168,16 @@ class UriLinkFormatter implements CustomFieldFormatterInterface, ContainerFactor
   /**
    * {@inheritdoc}
    */
-  public function formatValue(array $settings) {
-    $formatter_settings = $settings['formatter_settings'] ?? self::defaultSettings();
+  public function formatValue(FieldItemInterface $item, CustomFieldTypeInterface $field, array $settings) {
+    $formatter_settings = $settings['formatter_settings'] + static::defaultSettings();
     $url = $this->buildUrl($settings);
     // Use the full URL as the link title by default.
     $link_title = $url->toString();
+    $link_entity = NULL;
     if ($url->isRouted() && preg_match('/^entity\.(\w+)\.canonical$/', $url->getRouteName(), $matches)) {
       // Check access to the canonical entity route.
       $link_entity_type = $matches[1];
       if (!empty($url->getRouteParameters()[$link_entity_type])) {
-        $link_entity = NULL;
         $link_entity_param = $url->getRouteParameters()[$link_entity_type];
         if ($link_entity_param instanceof EntityInterface) {
           $link_entity = $link_entity_param;
@@ -227,14 +196,10 @@ class UriLinkFormatter implements CustomFieldFormatterInterface, ContainerFactor
         }
         if ($link_entity instanceof EntityInterface) {
           $access = $link_entity->access('view', NULL, TRUE);
-          // Add the access result's cacheability, ::view() needs it.
-          // How do we handle this?
-          // $item->_accessCacheability =
-          // CacheableMetadata::createFromObject($access);
-          $link_title = $link_entity->label();
           if (!$access->isAllowed()) {
             return NULL;
           }
+          $link_title = $link_entity->label();
         }
       }
     }

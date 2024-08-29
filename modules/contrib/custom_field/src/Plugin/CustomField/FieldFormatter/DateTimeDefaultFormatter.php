@@ -4,7 +4,6 @@ namespace Drupal\custom_field\Plugin\CustomField\FieldFormatter;
 
 use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\custom_field\Plugin\CustomFieldFormatterInterface;
 
 /**
  * Plugin implementation of the 'Default' formatter for 'datetime' fields.
@@ -17,7 +16,7 @@ use Drupal\custom_field\Plugin\CustomFieldFormatterInterface;
  *   }
  * )
  */
-class DateTimeDefaultFormatter extends DateTimeFormatterBase implements CustomFieldFormatterInterface {
+class DateTimeDefaultFormatter extends DateTimeFormatterBase {
 
   /**
    * {@inheritdoc}

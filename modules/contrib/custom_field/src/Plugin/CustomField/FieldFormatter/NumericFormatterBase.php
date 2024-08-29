@@ -2,16 +2,15 @@
 
 namespace Drupal\custom_field\Plugin\CustomField\FieldFormatter;
 
+use Drupal\Core\Field\FieldItemInterface;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\StringTranslation\StringTranslationTrait;
-use Drupal\custom_field\Plugin\CustomFieldFormatterInterface;
+use Drupal\custom_field\Plugin\CustomFieldFormatterBase;
+use Drupal\custom_field\Plugin\CustomFieldTypeInterface;
 
 /**
  * Parent plugin for decimal and integer formatters.
  */
-abstract class NumericFormatterBase implements CustomFieldFormatterInterface {
-
-  use StringTranslationTrait;
+abstract class NumericFormatterBase extends CustomFieldFormatterBase {
 
   /**
    * {@inheritdoc}
@@ -30,6 +29,7 @@ abstract class NumericFormatterBase implements CustomFieldFormatterInterface {
    * {@inheritdoc}
    */
   public function settingsForm(array $form, FormStateInterface $form_state, array $settings) {
+    $settings += static::defaultSettings();
     $visible = $form['#visibility_path'];
     $options = [
       ''  => $this->t('- None -'),
@@ -73,15 +73,6 @@ abstract class NumericFormatterBase implements CustomFieldFormatterInterface {
   }
 
   /**
-   * {@inheritdoc}
-   */
-  public function settingsSummary() {
-    $summary = [];
-
-    return $summary;
-  }
-
-  /**
    * Formats a number.
    *
    * @param mixed $number
@@ -97,10 +88,9 @@ abstract class NumericFormatterBase implements CustomFieldFormatterInterface {
   /**
    * {@inheritdoc}
    */
-  public function formatValue(array $settings) {
-    $formatter_settings = $settings['formatter_settings'] ?? self::defaultSettings();
+  public function formatValue(FieldItemInterface $item, CustomFieldTypeInterface $field, array $settings) {
+    $formatter_settings = $settings['formatter_settings'] + static::defaultSettings();
     $allowed_values = $settings['widget_settings']['allowed_values'] ?? [];
-    $formatter_settings += self::defaultSettings();
     $output = $this->numberFormat($settings['value'], $formatter_settings);
     if (!empty($allowed_values) && $formatter_settings['key_label'] == 'label') {
       $index = array_search($output, array_column($allowed_values, 'key'));

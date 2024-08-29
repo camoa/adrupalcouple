@@ -20,11 +20,6 @@ class GoogleStaticMaps extends GoogleMapsProviderBase {
   /**
    * {@inheritdoc}
    */
-  public static $googleMapsApiUrlPath = '/maps/api/staticmap';
-
-  /**
-   * {@inheritdoc}
-   */
   public static function getDefaultSettings(): array {
     return array_replace_recursive(
       parent::getDefaultSettings(),
@@ -40,8 +35,8 @@ class GoogleStaticMaps extends GoogleMapsProviderBase {
   /**
    * {@inheritdoc}
    */
-  public function getSettingsForm(array $settings, array $parents = []): array {
-    $form = parent::getSettingsForm($settings, $parents);
+  public function getSettingsForm(array $settings, array $parents = [], array $context = []): array {
+    $form = parent::getSettingsForm($settings, $parents, $context);
     $parents_string = '';
     if ($parents) {
       $parents_string = implode('][', $parents) . '][';
@@ -150,7 +145,7 @@ class GoogleStaticMaps extends GoogleMapsProviderBase {
   /**
    * {@inheritdoc}
    */
-  public function alterRenderArray(array $render_array, array $map_settings, array $context = []): array {
+  public function alterRenderArray(array $render_array, array $map_settings = [], array $context = []): array {
     $additional_parameters = [
       'type' => strtolower($map_settings['type']),
       'size' => filter_var($map_settings['width'], FILTER_SANITIZE_NUMBER_INT) . 'x' . filter_var($map_settings['height'], FILTER_SANITIZE_NUMBER_INT),
@@ -164,7 +159,7 @@ class GoogleStaticMaps extends GoogleMapsProviderBase {
       $additional_parameters['center'] = $render_array['#centre']['lat'] . ',' . $render_array['#centre']['lng'];
     }
 
-    $static_map_url = $this->getGoogleMapsApiUrl($additional_parameters);
+    $static_map_url = $this->googleMapsService->getGoogleMapsApiUrl($additional_parameters, '/staticmap');
 
     $locations = GeolocationMap::getLocations($render_array);
 

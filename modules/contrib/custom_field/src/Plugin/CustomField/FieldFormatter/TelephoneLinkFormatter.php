@@ -2,12 +2,11 @@
 
 namespace Drupal\custom_field\Plugin\CustomField\FieldFormatter;
 
+use Drupal\Core\Field\FieldItemInterface;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
-use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\Url;
-use Drupal\custom_field\Plugin\CustomFieldFormatterInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\custom_field\Plugin\CustomFieldFormatterBase;
+use Drupal\custom_field\Plugin\CustomFieldTypeInterface;
 
 /**
  * Plugin implementation of the 'telephone_link' formatter.
@@ -16,42 +15,11 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *   id = "telephone_link",
  *   label = @Translation("Telephone link"),
  *   field_types = {
- *     "telephone"
+ *     "telephone",
  *   }
  * )
  */
-class TelephoneLinkFormatter implements CustomFieldFormatterInterface, ContainerFactoryPluginInterface {
-
-  use StringTranslationTrait;
-
-  /**
-   * The renderer service.
-   *
-   * @var \Drupal\Core\Render\RendererInterface
-   */
-  protected $renderer;
-
-  /**
-   * Creates an instance of the plugin.
-   *
-   * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
-   *   The container to pull out services used in the plugin.
-   * @param array $configuration
-   *   A configuration array containing information about the plugin instance.
-   * @param string $plugin_id
-   *   The plugin ID for the plugin instance.
-   * @param mixed $plugin_definition
-   *   The plugin implementation definition.
-   *
-   * @return static
-   *   Returns an instance of this plugin.
-   */
-  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
-    $plugin = new static();
-    $plugin->renderer = $container->get('renderer');
-
-    return $plugin;
-  }
+class TelephoneLinkFormatter extends CustomFieldFormatterBase {
 
   /**
    * {@inheritdoc}
@@ -66,6 +34,7 @@ class TelephoneLinkFormatter implements CustomFieldFormatterInterface, Container
    * {@inheritdoc}
    */
   public function settingsForm(array $form, FormStateInterface $form_state, array $settings) {
+    $settings += static::defaultSettings();
     $elements['title'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Title'),
@@ -79,15 +48,8 @@ class TelephoneLinkFormatter implements CustomFieldFormatterInterface, Container
   /**
    * {@inheritdoc}
    */
-  public function settingsSummary() {
-    return [];
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function formatValue(array $settings) {
-    $formatter_settings = $settings['formatter_settings'] ?? self::defaultSettings();
+  public function formatValue(FieldItemInterface $item, CustomFieldTypeInterface $field, array $settings) {
+    $formatter_settings = $settings['formatter_settings'] + self::defaultSettings();
     // If the telephone number is 5 or less digits, parse_url() will think
     // it's a port number rather than a phone number which causes the link
     // formatter to throw an InvalidArgumentException. Avoid this by inserting

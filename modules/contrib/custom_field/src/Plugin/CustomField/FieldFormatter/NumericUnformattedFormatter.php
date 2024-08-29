@@ -2,8 +2,9 @@
 
 namespace Drupal\custom_field\Plugin\CustomField\FieldFormatter;
 
+use Drupal\Core\Field\FieldItemInterface;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\StringTranslation\StringTranslationTrait;
+use Drupal\custom_field\Plugin\CustomFieldTypeInterface;
 
 /**
  * Plugin implementation of the 'number_unformatted' formatter.
@@ -14,13 +15,11 @@ use Drupal\Core\StringTranslation\StringTranslationTrait;
  *   field_types = {
  *     "integer",
  *     "decimal",
- *     "float"
+ *     "float",
  *   }
  * )
  */
 class NumericUnformattedFormatter extends DecimalFormatter {
-
-  use StringTranslationTrait;
 
   /**
    * {@inheritdoc}
@@ -34,15 +33,7 @@ class NumericUnformattedFormatter extends DecimalFormatter {
   /**
    * {@inheritdoc}
    */
-  public function settingsSummary() {
-    return [];
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function formatValue(array $settings) {
-
+  public function formatValue(FieldItemInterface $item, CustomFieldTypeInterface $field, array $settings) {
     return $settings['value'];
   }
 

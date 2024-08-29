@@ -23,13 +23,18 @@ class ListWidgetBase extends CustomFieldWidgetBase {
   /**
    * {@inheritdoc}
    */
-  public static function defaultWidgetSettings(): array {
+  public static function defaultSettings(): array {
     return [
       'settings' => [
-        'allowed_values' => [],
+        'allowed_values' => [
+          [
+            'key' => NULL,
+            'value' => '',
+          ],
+        ],
         'empty_option' => '- Select -',
-      ],
-    ] + parent::defaultWidgetSettings();
+      ] + parent::defaultSettings()['settings'],
+    ] + parent::defaultSettings();
   }
 
   /**
@@ -37,7 +42,7 @@ class ListWidgetBase extends CustomFieldWidgetBase {
    */
   public function widget(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state, CustomFieldTypeInterface $field): array {
     $element = parent::widget($items, $delta, $element, $form, $form_state, $field);
-    $settings = $field->getWidgetSetting('settings');
+    $settings = $field->getWidgetSetting('settings') + static::defaultSettings()['settings'];
 
     $options = [];
     if (!empty($settings['allowed_values'])) {
@@ -58,24 +63,23 @@ class ListWidgetBase extends CustomFieldWidgetBase {
    */
   public function widgetSettingsForm(FormStateInterface $form_state, CustomFieldTypeInterface $field): array {
     $element = parent::widgetSettingsForm($form_state, $field);
-    $settings = $field->getWidgetSetting('settings') + self::defaultWidgetSettings()['settings'];
+    $settings = $field->getWidgetSetting('settings') + static::defaultSettings()['settings'];
     $name = $field->getName();
 
     static::$storageType = $field->getDataType();
 
-    $values = $form_state->getValues();
-    if (empty($values)) {
-      $allowed_values = $settings['allowed_values'] ?: [];
-    }
-    else {
-      $value_settings = $values['settings']['field_settings'][$name]['widget_settings']['settings'];
-      $allowed_values = $value_settings['allowed_values'] ?? [];
-    }
+    $allowed_values = $form_state->getValue([
+      'settings',
+      'field_settings',
+      $name,
+      'widget_settings',
+      'settings',
+      'allowed_values',
+    ]) ?? $settings['allowed_values'];
 
     if ($form_state->isRebuilding()) {
       $trigger = $form_state->getTriggeringElement();
       if ($trigger['#name'] == 'add_row:' . $name) {
-        $allowed_values = is_array($allowed_values) ? $allowed_values : [];
         $allowed_values[] = [
           'key' => NULL,
           'value' => '',
@@ -112,58 +116,54 @@ class ListWidgetBase extends CustomFieldWidgetBase {
       ],
       '#element_validate' => [[static::class, 'validateAllowedValues']],
     ];
-    if (!empty($allowed_values)) {
-      $allowed_values_count = count($allowed_values);
-      foreach ($allowed_values as $key => $value) {
-        $key_properties = [
-          '#title' => $this->t('Value'),
-          '#title_display' => 'invisible',
-          '#default_value' => $value['key'],
-          '#required' => TRUE,
-        ];
-        // Change the field type based on how data is stored.
-        switch ($field->getDataType()) {
-          case 'integer':
-            if ($field->isUnsigned()) {
-              $key_properties['#min'] = 0;
-            }
-            $element['settings']['allowed_values'][$key]['key'] = [
-              '#type' => 'number',
-            ] + $key_properties;
-            break;
+    $allowed_values_count = count($allowed_values);
+    foreach ($allowed_values as $key => $value) {
+      $key_properties = [
+        '#title' => $this->t('Value'),
+        '#title_display' => 'invisible',
+        '#default_value' => $value['key'],
+        '#required' => TRUE,
+      ];
+      // Change the field type based on how data is stored.
+      $data_type = $field->getDataType();
+      switch ($data_type) {
+        case 'integer':
+        case 'float':
+          if ($field->isUnsigned()) {
+            $key_properties['#min'] = 0;
+          }
+          if ($data_type == 'float') {
+            $key_properties['#step'] = 'any';
+          }
+          $element['settings']['allowed_values'][$key]['key'] = [
+            '#type' => 'number',
+          ] + $key_properties;
+          break;
 
-          case 'float':
-            $element['settings']['allowed_values'][$key]['key'] = [
-              '#type' => 'number',
-              '#step' => 'any',
-            ] + $key_properties;
-            break;
-
-          default:
-            $element['settings']['allowed_values'][$key]['key'] = [
-              '#type' => 'textfield',
-            ] + $key_properties;
-        }
-        $element['settings']['allowed_values'][$key]['value'] = [
-          '#type' => 'textfield',
-          '#title' => $this->t('Label'),
-          '#title_display' => 'invisible',
-          '#default_value' => $value['value'],
-          '#required' => TRUE,
-        ];
-        $element['settings']['allowed_values'][$key]['remove'] = [
-          '#type' => 'submit',
-          '#value' => $this->t('Remove'),
-          '#submit' => [get_class($this) . '::removeSubmit'],
-          '#name' => 'remove:' . $name . '_' . $key,
-          '#delta' => $key,
-          '#disabled' => $allowed_values_count <= 1,
-          '#ajax' => [
-            'callback' => [$this, 'actionCallback'],
-            'wrapper' => $options_wrapper_id,
-          ],
-        ];
+        default:
+          $element['settings']['allowed_values'][$key]['key'] = [
+            '#type' => 'textfield',
+          ] + $key_properties;
       }
+      $element['settings']['allowed_values'][$key]['value'] = [
+        '#type' => 'textfield',
+        '#title' => $this->t('Label'),
+        '#title_display' => 'invisible',
+        '#default_value' => $value['value'],
+        '#required' => TRUE,
+      ];
+      $element['settings']['allowed_values'][$key]['remove'] = [
+        '#type' => 'submit',
+        '#value' => $this->t('Remove'),
+        '#submit' => [get_class($this) . '::removeSubmit'],
+        '#name' => 'remove:' . $name . '_' . $key,
+        '#delta' => $key,
+        '#disabled' => $allowed_values_count <= 1,
+        '#ajax' => [
+          'callback' => [$this, 'actionCallback'],
+          'wrapper' => $options_wrapper_id,
+        ],
+      ];
     }
     $element['settings']['add_row'] = [
       '#type' => 'submit',

@@ -5,6 +5,7 @@ namespace Drupal\custom_field\Plugin\CustomField\FieldType;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\TypedData\DataDefinition;
 use Drupal\custom_field\Plugin\CustomFieldTypeBase;
+use Drupal\custom_field\Plugin\CustomFieldTypeInterface;
 
 /**
  * Plugin implementation of the 'integer' custom field type.
@@ -24,20 +25,28 @@ class IntegerType extends CustomFieldTypeBase {
    * {@inheritdoc}
    */
   public static function schema(array $settings): array {
-    return [
+    ['name' => $name] = $settings;
+
+    $columns[$name] = [
       'type' => 'int',
       'size' => $settings['size'] ?? 'normal',
       'unsigned' => $settings['unsigned'] ?? FALSE,
     ];
+
+    return $columns;
   }
 
   /**
    * {@inheritdoc}
    */
-  public static function propertyDefinitions(array $settings): DataDefinition {
-    return DataDefinition::create('integer')
-      ->setLabel(new TranslatableMarkup('%name value', ['%name' => $settings['name']]))
+  public static function propertyDefinitions(array $settings): array {
+    ['name' => $name] = $settings;
+
+    $properties[$name] = DataDefinition::create('integer')
+      ->setLabel(new TranslatableMarkup('@name', ['@name' => $name]))
       ->setRequired(FALSE);
+
+    return $properties;
   }
 
   /**
@@ -115,6 +124,21 @@ class IntegerType extends CustomFieldTypeBase {
     $size = $settings['size'] ?? 'normal';
 
     return $size_map[$size];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function generateSampleValue(CustomFieldTypeInterface $field, string $target_entity_type): string|int {
+    $widget_settings = $field->getWidgetSetting('settings');
+    if (!empty($widget_settings['allowed_values'])) {
+      return static::getRandomOptions($widget_settings['allowed_values']);
+    }
+    $default_min = $field->isUnsigned() ? 0 : -1000;
+    $min = isset($widget_settings['min']) && is_numeric($widget_settings['min']) ? $widget_settings['min'] : $default_min;
+    $max = isset($widget_settings['max']) && is_numeric($widget_settings['max']) ? $widget_settings['max'] : 1000;
+
+    return mt_rand($min, $max);
   }
 
 }

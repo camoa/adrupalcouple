@@ -4,19 +4,16 @@ namespace Drupal\custom_field\Plugin\CustomField\FieldFormatter;
 
 use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Datetime\TimeZoneFormHelper;
+use Drupal\Core\Field\FieldItemInterface;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
-use Drupal\Core\StringTranslation\StringTranslationTrait;
-use Drupal\custom_field\Plugin\CustomFieldFormatterInterface;
+use Drupal\custom_field\Plugin\CustomFieldFormatterBase;
 use Drupal\custom_field\Plugin\CustomFieldTypeInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Base class for 'DateTime custom field formatter' plugin implementations.
  */
-abstract class DateTimeFormatterBase implements CustomFieldFormatterInterface, ContainerFactoryPluginInterface {
-
-  use StringTranslationTrait;
+abstract class DateTimeFormatterBase extends CustomFieldFormatterBase {
 
   /**
    * The entity type manager service.
@@ -40,35 +37,15 @@ abstract class DateTimeFormatterBase implements CustomFieldFormatterInterface, C
   protected $dateFormatStorage;
 
   /**
-   * The renderer service.
-   *
-   * @var \Drupal\Core\Render\RendererInterface
-   */
-  protected $renderer;
-
-  /**
-   * Creates an instance of the plugin.
-   *
-   * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
-   *   The container to pull out services used in the plugin.
-   * @param array $configuration
-   *   A configuration array containing information about the plugin instance.
-   * @param string $plugin_id
-   *   The plugin ID for the plugin instance.
-   * @param mixed $plugin_definition
-   *   The plugin implementation definition.
-   *
-   * @return static
-   *   Returns an instance of this plugin.
+   * {@inheritdoc}
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
-    $plugin = new static();
-    $plugin->entityTypeManager = $container->get('entity_type.manager');
-    $plugin->renderer = $container->get('renderer');
-    $plugin->dateFormatter = $container->get('date.formatter');
-    $plugin->dateFormatStorage = $container->get('entity_type.manager')->getStorage('date_format');
+    $instance = parent::create($container, $configuration, $plugin_id, $plugin_definition);
+    $instance->entityTypeManager = $container->get('entity_type.manager');
+    $instance->dateFormatter = $container->get('date.formatter');
+    $instance->dateFormatStorage = $container->get('entity_type.manager')->getStorage('date_format');
 
-    return $plugin;
+    return $instance;
   }
 
   /**
@@ -99,18 +76,9 @@ abstract class DateTimeFormatterBase implements CustomFieldFormatterInterface, C
   /**
    * {@inheritdoc}
    */
-  public function settingsSummary() {
-    $summary = [];
-
-    return $summary;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function formatValue(array $settings) {
-    $formatter_settings = $settings['formatter_settings'] ?? static::defaultSettings();
-    $datetime_type = $settings['configuration']['datetime_type'];
+  public function formatValue(FieldItemInterface $item, CustomFieldTypeInterface $field, array $settings) {
+    $formatter_settings = $settings['formatter_settings'] + static::defaultSettings();
+    $datetime_type = $field->getDatetimeType();
 
     /** @var \Drupal\Core\Datetime\DrupalDateTime $date */
     $date = $this->getDate($settings['value'], $datetime_type);

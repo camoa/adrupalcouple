@@ -8,11 +8,9 @@
 use Drupal\Core\Url;
 
 /**
- * {@inheritdoc}
- *
  * Implements hook_requirements().
  */
-function geolocation_baidu_requirements($phase) {
+function geolocation_baidu_requirements(string $phase): array {
   $requirements = [];
   if ($phase == 'runtime') {
     $requirements['geolocation_baidu_api_key'] = [
@@ -35,6 +33,6 @@ function geolocation_baidu_requirements($phase) {
 /**
  * Implements hook_requirements().
  */
-function geolocation_baidu_uninstall() {
+function geolocation_baidu_uninstall(): void {
   Drupal::configFactory()->getEditable('baidu_maps.settings')->delete();
 }

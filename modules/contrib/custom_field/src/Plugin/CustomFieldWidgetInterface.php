@@ -16,7 +16,7 @@ interface CustomFieldWidgetInterface {
    * @return array
    *   A list of default settings, keyed by the setting name.
    */
-  public static function defaultWidgetSettings(): array;
+  public static function defaultSettings(): array;
 
   /**
    * Returns a form for the widget settings for this custom field type.
@@ -83,5 +83,13 @@ interface CustomFieldWidgetInterface {
    *   The new value.
    */
   public function massageFormValue(mixed $value, array $column): mixed;
+
+  /**
+   * Helper function to return array of widget settings.
+   *
+   * @return array
+   *   The array of settings.
+   */
+  public function getWidgetSettings(): array;
 
 }

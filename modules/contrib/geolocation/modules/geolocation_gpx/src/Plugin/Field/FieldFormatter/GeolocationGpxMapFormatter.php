@@ -9,12 +9,11 @@ use Drupal\geolocation\Plugin\Field\FieldFormatter\GeolocationMapFormatterBase;
  * Plugin implementation of the 'geofield' formatter.
  *
  * @FieldFormatter(
- *   id = "geolocation_gpx_file",
+ *   id = "geolocation_gpx_map",
  *   module = "geolocation",
  *   label = @Translation("Geolocation GPX Formatter - Map"),
  *   field_types = {
- *     "geolocation_gpx_file",
- *     "file"
+ *     "geolocation_gpx"
  *   }
  * )
  */
@@ -23,12 +22,12 @@ class GeolocationGpxMapFormatter extends GeolocationMapFormatterBase {
   /**
    * {@inheritdoc}
    */
-  static protected $dataProviderId = 'geolocation_gpx';
+  static protected string $dataProviderId = 'geolocation_gpx';
 
   /**
    * {@inheritdoc}
    */
-  public function settingsForm(array $form, FormStateInterface $form_state) {
+  public function settingsForm(array $form, FormStateInterface $form_state): array {
     $element = parent::settingsForm($form, $form_state);
 
     unset($element['set_marker']);

@@ -4,9 +4,8 @@ namespace Drupal\geolocation_google_places_api\Plugin\geolocation\Geocoder;
 
 use Drupal\Component\Serialization\Json;
 use Drupal\Core\Render\BubbleableMetadata;
-use Drupal\geolocation\KeyProvider;
+use Drupal\Core\Utility\Error;
 use Drupal\geolocation_google_maps\GoogleGeocoderBase;
-use Drupal\geolocation_google_maps\Plugin\geolocation\MapProvider\GoogleMaps;
 use GuzzleHttp\Exception\RequestException;
 
 /**
@@ -27,48 +26,34 @@ class GooglePlacesAPI extends GoogleGeocoderBase {
   /**
    * {@inheritdoc}
    */
-  public function formAttachGeocoder(array &$render_array, $element_name) {
-    parent::formAttachGeocoder($render_array, $element_name);
+  public function alterRenderArray(array &$render_array, string $identifier): ?array {
+    $render_array = parent::alterRenderArray($render_array, $identifier);
 
     $render_array['#attached'] = BubbleableMetadata::mergeAttachments(
-      $render_array['#attached'],
+      $render_array['#attached'] ?? [],
       [
         'library' => [
-          'geolocation_google_places_api/geolocation_google_places_api.geocoder.googleplacesapi',
+          'geolocation_google_places_api/geolocation_google_places_api.googleplacesicons',
         ],
       ]
     );
+
+    return $render_array;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function geocode($address) {
+  public function geocode($address): ?array {
 
     if (empty($address)) {
-      return FALSE;
+      return NULL;
     }
 
     $config = \Drupal::config('geolocation_google_maps.settings');
 
-    $request_url = GoogleMaps::$googleMapsApiUrlBase;
-    if ($config->get('china_mode')) {
-      $request_url = GoogleMaps::$googleMapsApiUrlBaseChina;
-    }
-    $request_url .= '/maps/api/place/autocomplete/json?input=' . $address;
+    $request_url = $this->googleMapsService->getGoogleMapsApiUrl() . '/maps/api/place/autocomplete/json?input=' . $address;
 
-    $google_key = '';
-
-    if (!empty($config->get('google_map_api_server_key'))) {
-      $google_key = KeyProvider::getKeyValue($config->get('google_map_api_server_key'));
-    }
-    elseif (!empty($config->get('google_map_api_key'))) {
-      $google_key = KeyProvider::getKeyValue($config->get('google_map_api_key'));
-    }
-
-    if (!empty($google_key)) {
-      $request_url .= '&key=' . $google_key;
-    }
     if (!empty($this->configuration['component_restrictions']['country'])) {
       $request_url .= '&components=country:' . $this->configuration['component_restrictions']['country'];
     }
@@ -80,46 +65,34 @@ class GooglePlacesAPI extends GoogleGeocoderBase {
       $result = Json::decode(\Drupal::httpClient()->request('GET', $request_url)->getBody());
     }
     catch (RequestException $e) {
-      watchdog_exception('geolocation', $e);
-      return FALSE;
+      $logger = \Drupal::logger('geolocation');
+      Error::logException($logger, $e);
+      return NULL;
     }
 
     if (
       $result['status'] != 'OK'
       || empty($result['predictions'][0]['place_id'])
     ) {
-      return FALSE;
+      return NULL;
     }
 
     try {
-      if (!empty($config->get('google_maps_base_url'))) {
-        $details_url = $config->get('google_maps_base_url');
-      }
-      elseif ($config->get('china_mode')) {
-        $details_url = GoogleMaps::$googleMapsApiUrlBaseChina;
-      }
-      else {
-        $details_url = GoogleMaps::$googleMapsApiUrlBase;
-      }
-
-      $details_url .= '/maps/api/place/details/json?placeid=' . $result['predictions'][0]['place_id'];
-
-      if (!empty($google_key)) {
-        $details_url .= '&key=' . $google_key;
-      }
+      $details_url = $this->googleMapsService->getGoogleMapsApiUrl() . '/maps/api/place/details/json?placeid=' . $result['predictions'][0]['place_id'];
       $details = Json::decode(\Drupal::httpClient()->request('GET', $details_url)->getBody());
 
     }
     catch (RequestException $e) {
-      watchdog_exception('geolocation', $e);
-      return FALSE;
+      $logger = \Drupal::logger('geolocation');
+      Error::logException($logger, $e);
+      return NULL;
     }
 
     if (
       $details['status'] != 'OK'
       || empty($details['result']['geometry']['location'])
     ) {
-      return FALSE;
+      return NULL;
     }
 
     return [

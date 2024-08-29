@@ -96,7 +96,7 @@ class CustomFieldUpdateManager implements CustomFieldUpdateManagerInterface {
     Connection $database,
     CustomFieldTypeManagerInterface $custom_field_type_manager,
     EntityLastInstalledSchemaRepositoryInterface $last_installed_schema_repository,
-    KeyValueFactoryInterface $key_value
+    KeyValueFactoryInterface $key_value,
   ) {
     $this->entityDefinitionUpdateManager = $entity_definition_update_manager;
     $this->entityTypeManager = $entity_type_manager;
@@ -136,9 +136,10 @@ class CustomFieldUpdateManager implements CustomFieldUpdateManagerInterface {
       throw new \Exception($message);
     }
 
+    $entity_type = $this->entityTypeManager->getDefinition($entity_type_id);
     $storage = $this->entityTypeManager->getStorage($entity_type_id);
     $data_types = $this->customFieldTypeManager->dataTypes();
-    $column = array_key_exists($data_type, $data_types) ? $this->customFieldTypeManager->dataTypes()[$data_type] : NULL;
+    $column = $data_types[$data_type] ?? NULL;
 
     // If we don't have a matching data type, return early.
     if (!$column) {
@@ -146,7 +147,7 @@ class CustomFieldUpdateManager implements CustomFieldUpdateManagerInterface {
       $message = $data_type . ' is an invalid data type. Allowed data types are: ' . $allowed_data_types . '.';
       throw new \Exception($message);
     }
-    $spec = $column['schema'];
+    $spec = current($column['schema']);
     $spec['not null'] = FALSE;
     $spec['default'] = NULL;
 
@@ -189,14 +190,22 @@ class CustomFieldUpdateManager implements CustomFieldUpdateManagerInterface {
     $table_mapping = $storage->getTableMapping([
       $field_name => $field_storage_definition,
     ]);
+
     $table_names = $table_mapping->getDedicatedTableNames();
     $column_name = "{$field_storage_definition->getName()}_{$new_property}";
     $schema = $this->database->schema();
 
     $existing_data = [];
+    $is_revisionable = $entity_type->isRevisionable() && $field_storage_definition->isRevisionable();
     foreach ($table_names as $table_name) {
       $field_exists = $schema->fieldExists($table_name, $column_name);
       $table_exists = $schema->tableExists($table_name);
+
+      // Skip revision tables for non-revisionable entity types.
+      if ($table_name === $entity_type_id . '_revision__' . $field_name && !$is_revisionable) {
+        continue;
+      }
+
       // Add the new column.
       if (!$field_exists && $table_exists) {
         $schema->addField($table_name, $column_name, $spec);
@@ -227,10 +236,15 @@ class CustomFieldUpdateManager implements CustomFieldUpdateManagerInterface {
     // Save changes to the installed field schema.
     $this->keyValue->set($schema_key, $field_schema_data);
 
+    // Tell Drupal we have handled column changes.
+    $new_field_storage_definition = $this->entityDefinitionUpdateManager->getFieldStorageDefinition($field_name, $entity_type_id);
+    $new_field_storage_definition->setSetting('column_changes_handled', TRUE);
+    $this->entityDefinitionUpdateManager->updateFieldStorageDefinition($new_field_storage_definition);
+
     // Update cached entity definitions for entity types.
-    if ($table_mapping->allowsSharedTableStorage($field_storage_definition)) {
+    if ($table_mapping->allowsSharedTableStorage($new_field_storage_definition)) {
       $definitions = $this->lastInstalledSchemaRepository->getLastInstalledFieldStorageDefinitions($entity_type_id);
-      $definitions[$field_name] = $field_storage_definition;
+      $definitions[$field_name] = $new_field_storage_definition;
       $this->lastInstalledSchemaRepository->setLastInstalledFieldStorageDefinitions($entity_type_id, $definitions);
     }
 
@@ -283,9 +297,10 @@ class CustomFieldUpdateManager implements CustomFieldUpdateManagerInterface {
     }
 
     $schema = $this->database->schema();
-    $entity_storage = $this->entityTypeManager->getStorage($entity_type_id);
+    $entity_type = $this->entityTypeManager->getDefinition($entity_type_id);
+    $storage = $this->entityTypeManager->getStorage($entity_type_id);
     /** @var \Drupal\Core\Entity\Sql\DefaultTableMapping $table_mapping */
-    $table_mapping = $entity_storage->getTableMapping([
+    $table_mapping = $storage->getTableMapping([
       $field_name => $field_storage_definition,
     ]);
     $table_names = $table_mapping->getDedicatedTableNames();
@@ -309,10 +324,17 @@ class CustomFieldUpdateManager implements CustomFieldUpdateManagerInterface {
 
     // Save changes to the installed field schema.
     $existing_data = [];
+    $is_revisionable = $entity_type->isRevisionable() && $field_storage_definition->isRevisionable();
     if ($field_schema_data) {
       foreach ($table_names as $table_name) {
         $field_exists = $schema->fieldExists($table_name, $column_name);
         $table_exists = $schema->tableExists($table_name);
+
+        // Skip revision tables for non-revisionable entity types.
+        if ($table_name === $entity_type_id . '_revision__' . $field_name && !$is_revisionable) {
+          continue;
+        }
+
         // Remove the new column.
         if ($field_exists && $table_exists) {
           // Get the old data.
@@ -327,8 +349,10 @@ class CustomFieldUpdateManager implements CustomFieldUpdateManagerInterface {
       }
       // Update schema definition in database.
       $this->keyValue->set($schema_key, $field_schema_data);
-      // Try to drop field data.
-      $this->database->schema()->dropField($table, $column_name);
+
+      // Tell Drupal we have handled column changes.
+      $field_storage_definition->setSetting('column_changes_handled', TRUE);
+      $this->entityDefinitionUpdateManager->updateFieldStorageDefinition($field_storage_definition);
     }
 
     // Update the field storage config.
@@ -388,6 +412,9 @@ class CustomFieldUpdateManager implements CustomFieldUpdateManagerInterface {
         }
       }
     }
+
+    // Try to drop field data.
+    $this->database->schema()->dropField($table, $column_name);
 
     // Restore the data after removing the column.
     if (!empty($existing_data)) {

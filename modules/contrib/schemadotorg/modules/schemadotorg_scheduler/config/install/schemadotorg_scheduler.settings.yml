@@ -1,8 +1,0 @@
-scheduled_types:
-  Article:
-    - publish
-  Event:
-    - publish
-    - unpublish
-  Episode:
-    - publish

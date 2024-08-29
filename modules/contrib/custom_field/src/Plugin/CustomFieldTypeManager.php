@@ -59,14 +59,16 @@ class CustomFieldTypeManager extends DefaultPluginManager implements CustomField
         $items[$name] = $this->createInstance($type, [
           'name' => $column['name'],
           'max_length' => (int) $column['max_length'],
-          'unsigned' => $column['unsigned'],
+          'unsigned' => $column['unsigned'] ?? FALSE,
           'data_type' => $column['type'],
           'precision' => (int) $column['precision'],
           'scale' => (int) $column['scale'],
           'size' => $column['size'] ?? 'normal',
+          'target_type' => $column['target_type'] ?? NULL,
           'datetime_type' => $column['datetime_type'] ?? 'datetime',
           'check_empty' => $settings['check_empty'] ?? FALSE,
           'widget_settings' => $settings['widget_settings'] ?? [],
+          'uri_scheme' => $column['uri_scheme'] ?? NULL,
         ]);
       }
       catch (PluginException $e) {
@@ -80,51 +82,12 @@ class CustomFieldTypeManager extends DefaultPluginManager implements CustomField
   /**
    * {@inheritdoc}
    */
-  public function getCustomFieldWidgetOptions($type): array {
-    $options = [];
-    $plugin_service = \Drupal::service('plugin.manager.custom_field_widget');
-    $definitions = $plugin_service->getDefinitions();
-    // Remove undefined widgets for data_type.
-    foreach ($definitions as $key => $definition) {
-      if (!in_array($type, $definition['data_types'])) {
-        unset($definitions[$key]);
-      }
+  public function processDefinition(&$definition, $plugin_id) {
+    parent::processDefinition($definition, $plugin_id);
+    // Ensure that every field type has a category.
+    if (empty($definition['category'])) {
+      $definition['category'] = $this->t('General');
     }
-    // Sort the widgets by category and then by name.
-    uasort($definitions, function ($a, $b) {
-      if ($a['category'] != $b['category']) {
-        return strnatcasecmp($a['category'], $b['category']);
-      }
-      return strnatcasecmp($a['label'], $b['label']);
-    });
-    foreach ($definitions as $id => $definition) {
-      $category = $definition['category'];
-      // Add category grouping for multiple options.
-      $options[(string) $category][$id] = $definition['label'];
-    }
-    if (count($options) <= 1) {
-      $options = array_values($options)[0];
-    }
-
-    return $options;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getCustomFieldFormatterOptions(string $type): array {
-    $options = [];
-    $plugin_service = \Drupal::service('plugin.manager.custom_field_formatter');
-    $definitions = $plugin_service->getDefinitions();
-    // Remove undefined widgets for field_type.
-    foreach ($definitions as $id => $definition) {
-      if (!in_array($type, $definition['field_types'])) {
-        continue;
-      }
-      $options[$id] = $definition['label'];
-    }
-
-    return $options;
   }
 
   /**
@@ -155,10 +118,7 @@ class CustomFieldTypeManager extends DefaultPluginManager implements CustomField
   }
 
   /**
-   * An array of data types and properties keyed by type name.
-   *
-   * @return array[]
-   *   Returns an array of data types.
+   * {@inheritdoc}
    */
   public function dataTypes(): array {
     $definitions = $this->getDefinitions();
@@ -167,7 +127,8 @@ class CustomFieldTypeManager extends DefaultPluginManager implements CustomField
       try {
         /** @var \Drupal\custom_field\Plugin\CustomFieldTypeInterface $plugin */
         $plugin = $this->createInstance($id);
-        $schema = $plugin->schema([]);
+        // @todo Refactor this schema logic only needed for update manager.
+        $schema = $plugin->schema(['name' => $id, 'target_type' => 'node']);
         $data_types[$id] = [
           'label' => $plugin->getPluginDefinition()['label'],
           'schema' => $schema,
@@ -182,18 +143,22 @@ class CustomFieldTypeManager extends DefaultPluginManager implements CustomField
   }
 
   /**
-   * Builds options for a select list based on dataTypes.
-   *
-   * @return array
-   *   An array of options suitable for a select list.
+   * {@inheritdoc}
    */
-  public function dataTypeOptions(): array {
-    $data_types = $this->dataTypes();
+  public function fieldTypeOptions(): array {
     $options = [];
-
-    foreach ($data_types as $key => $data_type) {
-      // The label is already translated in the plugin.
-      $options[$key] = $data_type['label'];
+    $definitions = $this->getDefinitions();
+    // Sort the types by category and then by name.
+    uasort($definitions, function ($a, $b) {
+      if ($a['category'] != $b['category']) {
+        return strnatcasecmp($a['category'], $b['category']);
+      }
+      return strnatcasecmp($a['label'], $b['label']);
+    });
+    foreach ($definitions as $id => $definition) {
+      $category = $definition['category'];
+      // Add category grouping for multiple options.
+      $options[(string) $category][$id] = $definition['label'];
     }
 
     return $options;

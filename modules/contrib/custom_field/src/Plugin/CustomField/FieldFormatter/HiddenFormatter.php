@@ -2,9 +2,9 @@
 
 namespace Drupal\custom_field\Plugin\CustomField\FieldFormatter;
 
-use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\StringTranslation\StringTranslationTrait;
-use Drupal\custom_field\Plugin\CustomFieldFormatterInterface;
+use Drupal\Core\Field\FieldItemInterface;
+use Drupal\custom_field\Plugin\CustomFieldFormatterBase;
+use Drupal\custom_field\Plugin\CustomFieldTypeInterface;
 
 /**
  * Plugin implementation of the 'hidden' formatter.
@@ -25,32 +25,19 @@ use Drupal\custom_field\Plugin\CustomFieldFormatterInterface;
  *     "integer",
  *     "float",
  *     "datetime",
+ *     "file",
+ *     "entity_reference",
+ *     "image",
  *   }
  * )
  */
-class HiddenFormatter implements CustomFieldFormatterInterface {
-
-  use StringTranslationTrait;
+class HiddenFormatter extends CustomFieldFormatterBase {
 
   /**
    * {@inheritdoc}
    */
-  public function formatValue(array $settings) {
+  public function formatValue(FieldItemInterface $item, CustomFieldTypeInterface $field, array $settings) {
     return NULL;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function settingsForm(array $form, FormStateInterface $form_state, array $settings) {
-    return [];
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function settingsSummary() {
-    return [];
   }
 
 }

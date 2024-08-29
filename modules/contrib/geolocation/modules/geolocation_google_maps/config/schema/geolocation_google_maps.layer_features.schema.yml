@@ -1,0 +1,253 @@
+plugin.plugin_configuration.geolocation.layer_feature.marker_clusterer:
+  type: geolocation.layer_feature_settings
+  label: 'Marker clusterer'
+  mapping:
+    settings:
+      type: mapping
+      label: 'Settings'
+      mapping:
+        image_path:
+          type: string
+          label: 'Image path'
+        styles:
+          type: string
+          label: 'Styles'
+        max_zoom:
+          type: integer
+          label: 'Max Zoom'
+        minimum_cluster_size:
+          type: integer
+          label: 'Minimum Cluster Size'
+        zoom_on_click:
+          type: boolean
+          label: 'Zoom on Click'
+        average_center:
+          type: boolean
+          label: 'Average Center'
+        grid_size:
+          type: integer
+          label: 'Grid Size'
+
+plugin.plugin_configuration.geolocation.layer_feature.marker_infowindow:
+  type: geolocation.layer_feature_settings
+  label: 'Marker InfoWindow'
+  mapping:
+    settings:
+      type: mapping
+      label: 'Settings'
+      mapping:
+        info_window_solitary:
+          type: boolean
+          label: 'Show only one window at a time'
+        disable_auto_pan:
+          type: boolean
+          label: 'Do not move map on window open'
+        info_auto_display:
+          type: boolean
+          label: 'Show info window on map start'
+        max_width:
+          type: integer
+          label: 'Max width'
+
+plugin.plugin_configuration.geolocation.layer_feature.marker_icon:
+  type: geolocation.layer_feature_settings
+  label: 'Marker Icon Adjustments'
+  mapping:
+    settings:
+      type: mapping
+      label: 'Settings'
+      mapping:
+        marker_icon_path:
+          type: string
+          label: 'Marker Icon Path'
+        anchor:
+          type: mapping
+          label: 'Anchor'
+          mapping:
+            x:
+              type: integer
+              label: 'X'
+            y:
+              type: integer
+              label: 'Y'
+        origin:
+          type: mapping
+          label: 'Origin'
+          mapping:
+            x:
+              type: integer
+              label: 'X'
+            y:
+              type: integer
+              label: 'Y'
+        label_origin:
+          type: mapping
+          label: 'Label Origin'
+          mapping:
+            x:
+              type: integer
+              label: 'X'
+            y:
+              type: integer
+              label: 'Y'
+        size:
+          type: mapping
+          label: 'Size'
+          mapping:
+            width:
+              type: integer
+              label: 'Width'
+            height:
+              type: integer
+              label: 'Height'
+        scaled_size:
+          type: mapping
+          label: 'Scaled Size'
+          mapping:
+            width:
+              type: integer
+              label: 'Width'
+            height:
+              type: integer
+              label: 'Height'
+
+plugin.plugin_configuration.geolocation.layer_feature.marker_opacity:
+  type: geolocation.layer_feature_settings
+  label: 'Marker Opacity'
+  mapping:
+    settings:
+      type: mapping
+      label: 'Settings'
+      mapping:
+        opacity:
+          type: float
+          label: 'Marker Opacity'
+
+plugin.plugin_configuration.geolocation.layer_feature.marker_label:
+  type: geolocation.layer_feature_settings
+  label: 'Marker Label'
+  mapping:
+    settings:
+      type: mapping
+      label: 'Settings'
+      mapping:
+        color:
+          type: string
+          label: 'Color'
+        font_family:
+          type: string
+          label: 'Font Family'
+        font_size:
+          type: string
+          label: 'Font Size'
+        font_weight:
+          type: string
+          label: 'Font Weight'
+
+plugin.plugin_configuration.geolocation.layer_feature.marker_infobubble:
+  type: geolocation.layer_feature_settings
+  label: 'Marker InfoBubble'
+  mapping:
+    settings:
+      type: mapping
+      label: 'Settings'
+      mapping:
+        close_other:
+          type: integer
+          label: 'Close other'
+        close_button:
+          type: integer
+          label: 'Close Button'
+        close_button_src:
+          type: string
+          label: 'URL to button'
+        shadow_style:
+          type: integer
+          label: 'Shadow style'
+        padding:
+          type: integer
+          label: 'Padding'
+        border_radius:
+          type: integer
+          label: 'Border Radius'
+        border_width:
+          type: integer
+          label: 'Border Width'
+        border_color:
+          type: string
+          label: 'Border color'
+        background_color:
+          type: string
+          label: 'Background color'
+        min_width:
+          type: integer
+          label: 'Min Width'
+        max_width:
+          type: integer
+          label: 'Max Width'
+        min_height:
+          type: integer
+          label: 'Min Height'
+        max_height:
+          type: integer
+          label: 'Max Height'
+        arrow_style:
+          type: integer
+          label: 'Array Style'
+        arrow_position:
+          type: integer
+          label: 'Array Position'
+        arrow_size:
+          type: integer
+          label: 'Array Size'
+
+plugin.plugin_configuration.geolocation.layer_feature.spiderfying:
+  type: geolocation.layer_feature_settings
+  label: 'Spiderfying'
+  mapping:
+    settings:
+      type: mapping
+      label: 'Settings'
+      mapping:
+        spiderfiable_marker_path:
+          type: string
+          label: 'Marker Path'
+        markersWontMove:
+          type: boolean
+          label: 'Setting'
+        markersWontHide:
+          type: boolean
+          label: 'Setting'
+        keepSpiderfied:
+          type: boolean
+          label: 'Setting'
+        ignoreMapClick:
+          type: boolean
+          label: 'Setting'
+        nearbyDistance:
+          type: integer
+          label: 'Setting'
+        circleSpiralSwitchover:
+          type: integer
+          label: 'Setting'
+        circleFootSeparation:
+          type: integer
+          label: 'Setting'
+        spiralFootSeparation:
+          type: integer
+          label: 'Setting'
+        spiralLengthStart:
+          type: integer
+          label: 'Setting'
+        spiralLengthFactor:
+          type: integer
+          label: 'Setting'
+        legWeight:
+          type: float
+          label: 'Setting'
+        spiralIconWidth:
+          type: integer
+          label: 'Setting'
+        spiralIconHeight:
+          type: integer
+          label: 'Setting'

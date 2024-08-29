@@ -20,10 +20,10 @@ class Layer extends GeolocationStyleBase {
   /**
    * {@inheritdoc}
    */
-  public function render() {
+  public function render(): array {
 
     $render = parent::render();
-    if ($render === FALSE) {
+    if (!$render) {
       return [];
     }
 
@@ -32,7 +32,7 @@ class Layer extends GeolocationStyleBase {
       '#attributes' => [
         'id' => $this->displayHandler->display['id'],
         'class' => [
-          'geolocation-layer',
+          'geolocation-map-layer',
         ],
       ],
     ];

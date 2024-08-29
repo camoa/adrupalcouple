@@ -4,6 +4,7 @@ namespace Drupal\geolocation_leaflet\Plugin\geolocation\MapFeature;
 
 use Drupal\Core\Render\BubbleableMetadata;
 use Drupal\geolocation\MapFeatureBase;
+use Drupal\geolocation\MapProviderInterface;
 
 /**
  * Provides rotation control.
@@ -20,7 +21,14 @@ class LeafletRotate extends MapFeatureBase {
   /**
    * {@inheritdoc}
    */
-  public static function getDefaultSettings() {
+  protected array $scripts = [
+    'https://unpkg.com/leaflet-rotate@0.1.2/dist/leaflet-rotate-src.js',
+  ];
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function getDefaultSettings(): array {
     $default_settings = parent::getDefaultSettings();
 
     $default_settings['bearing'] = 0;
@@ -32,7 +40,8 @@ class LeafletRotate extends MapFeatureBase {
   /**
    * {@inheritdoc}
    */
-  public function getSettingsForm(array $settings, array $parents) {
+  public function getSettingsForm(array $settings, array $parents = [], MapProviderInterface $mapProvider = NULL): array {
+    $form = parent::getSettingsForm($settings, $parents, $mapProvider);
 
     $form['display_control'] = [
       '#type' => 'checkbox',
@@ -56,28 +65,18 @@ class LeafletRotate extends MapFeatureBase {
   /**
    * {@inheritdoc}
    */
-  public function alterMap(array $render_array, array $feature_settings, array $context = []) {
-    $render_array = parent::alterMap($render_array, $feature_settings, $context);
+  public function alterMap(array $render_array, array $feature_settings = [], array $context = [], MapProviderInterface $mapProvider = NULL): array {
+    $render_array = parent::alterMap($render_array, $feature_settings, $context, $mapProvider);
 
     $render_array['#attached'] = BubbleableMetadata::mergeAttachments(
-      empty($render_array['#attached']) ? [] : $render_array['#attached'],
+      $render_array['#attached'] ?? [],
       [
-        'library' => [
-          'geolocation_leaflet/mapfeature.' . $this->getPluginId(),
-        ],
         'drupalSettings' => [
           'geolocation' => [
             'maps' => [
               $render_array['#id'] => [
                 'settings' => [
-                  'leaflet_settings' => [
-                    'rotate' => TRUE,
-                  ],
-                ],
-                $this->getPluginId() => [
-                  'enable' => TRUE,
-                  'bearing' => (int) $feature_settings['bearing'],
-                  'display_control' => (bool) $feature_settings['display_control'],
+                  'rotate' => TRUE,
                 ],
               ],
             ],

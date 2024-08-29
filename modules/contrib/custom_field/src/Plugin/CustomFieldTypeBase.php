@@ -4,8 +4,6 @@ namespace Drupal\custom_field\Plugin;
 
 use Drupal\Component\Plugin\PluginBase;
 use Drupal\Core\Field\FieldItemInterface;
-use Drupal\Core\Field\FieldItemListInterface;
-use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\Url;
 
@@ -15,6 +13,13 @@ use Drupal\Core\Url;
 abstract class CustomFieldTypeBase extends PluginBase implements CustomFieldTypeInterface {
 
   use StringTranslationTrait;
+
+  /**
+   * The custom field separator for extended properties.
+   *
+   * @var
+   */
+  const SEPARATOR = '__';
 
   /**
    * The name of the custom field item.
@@ -115,82 +120,6 @@ abstract class CustomFieldTypeBase extends PluginBase implements CustomFieldType
   /**
    * {@inheritdoc}
    */
-  public function widget(FieldItemListInterface $items, int $delta, array $element, array &$form, FormStateInterface $form_state): array {
-    // Prep the element base properties. Implementations of the plugin can
-    // override as necessary or just set #type and be on their merry way.
-    $settings = $this->widgetSettings['settings'];
-    $is_required = $items->getFieldDefinition()->isRequired();
-    $item = $items[$delta];
-    return [
-      '#title' => $this->widgetSettings['label'],
-      '#description' => $settings['description'] ?: NULL,
-      '#description_display' => $settings['description_display'] ?: NULL,
-      '#default_value' => $item->{$this->name} ?? NULL,
-      '#required' => !($form_state->getBuildInfo()['base_form_id'] == 'field_config_form') && $is_required && $settings['required'],
-    ];
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function widgetSettingsForm(array $form, FormStateInterface $form_state): array {
-    $settings = $this->widgetSettings['settings'];
-
-    // Some table columns containing raw markup.
-    $element['label'] = [
-      '#type' => 'textfield',
-      '#title' => $this->t('Label'),
-      '#default_value' => $this->widgetSettings['label'],
-      '#required' => TRUE,
-    ];
-    $element['settings'] = [
-      '#type' => 'details',
-      '#title' => $this->t('Settings'),
-    ];
-
-    // Keep settings open during ajax updates.
-    if ($form_state->isRebuilding()) {
-      $trigger = $form_state->getTriggeringElement();
-      $parents = $trigger['#parents'];
-      if (in_array($this->getName(), $parents)) {
-        $element['settings']['#open'] = TRUE;
-      }
-    }
-
-    // Some table columns containing raw markup.
-    $element['settings']['required'] = [
-      '#type' => 'checkbox',
-      '#title' => $this->t('Required'),
-      '#description' => $this->t('This setting is only applicable when the field itself is required.'),
-      '#default_value' => $settings['required'],
-    ];
-
-    // Some table columns containing raw markup.
-    $element['settings']['description'] = [
-      '#type' => 'textarea',
-      '#title' => $this->t('Help text'),
-      '#description' => $this->t('Instructions to present to the user below this field on the editing form.'),
-      '#rows' => 2,
-      '#default_value' => $settings['description'],
-    ];
-
-    $element['settings']['description_display'] = [
-      '#type' => 'radios',
-      '#title' => $this->t('Help text position'),
-      '#options' => [
-        'before' => $this->t('Before input'),
-        'after' => $this->t('After input'),
-      ],
-      '#default_value' => $settings['description_display'],
-      '#required' => TRUE,
-    ];
-
-    return $element;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function value(FieldItemInterface $item): mixed {
     return $item->{$this->name};
   }
@@ -200,6 +129,13 @@ abstract class CustomFieldTypeBase extends PluginBase implements CustomFieldType
    */
   public function getDefaultFormatter(): string {
     return $this->getPluginDefinition()['default_formatter'];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getDefaultWidget(): string {
+    return $this->getPluginDefinition()['default_widget'];
   }
 
   /**
@@ -247,8 +183,22 @@ abstract class CustomFieldTypeBase extends PluginBase implements CustomFieldType
   /**
    * {@inheritdoc}
    */
+  public function getPrecision(): int {
+    return $this->configuration['precision'];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function getDatetimeType(): string {
     return $this->datetimeType;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getTargetType(): string {
+    return $this->configuration['target_type'] ?? '';
   }
 
   /**
@@ -261,8 +211,8 @@ abstract class CustomFieldTypeBase extends PluginBase implements CustomFieldType
   /**
    * {@inheritdoc}
    */
-  public function getWidgetSettings(): array {
-    return $this->widgetSettings;
+  public function getConfiguration(): array {
+    return $this->configuration;
   }
 
   /**
@@ -292,7 +242,35 @@ abstract class CustomFieldTypeBase extends PluginBase implements CustomFieldType
   /**
    * {@inheritdoc}
    */
+  public static function generateSampleValue(CustomFieldTypeInterface $field, string $target_entity_type): mixed {
+    return NULL;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function getConstraints(array $settings): array {
+    return [];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function calculateDependencies(CustomFieldTypeInterface $item, array $default_value): array {
+    return [];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function calculateStorageDependencies(array $settings): array {
+    return [];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function onDependencyRemoval(CustomFieldTypeInterface $item, array $dependencies): array {
     return [];
   }
 
@@ -308,6 +286,58 @@ abstract class CustomFieldTypeBase extends PluginBase implements CustomFieldType
    */
   public function isExternal(FieldItemInterface $item) {
     return $this->getUrl($item)->isExternal();
+  }
+
+  /**
+   * Helper method to flatten an array of allowed values and randomize.
+   *
+   * @param array $allowed_values
+   *   An array of allowed values.
+   *
+   * @return int|string
+   *   A random key from allowed values array.
+   */
+  protected static function getRandomOptions(array $allowed_values): int|string {
+    $randoms = [];
+    foreach ($allowed_values as $value) {
+      $randoms[$value['key']] = $value['value'];
+    }
+
+    return array_rand($randoms, 1);
+  }
+
+  /**
+   * Helper method to truncate a decimal number to a given number of decimals.
+   *
+   * @param float $decimal
+   *   Decimal number to truncate.
+   * @param int $num
+   *   Number of digits the output will have.
+   *
+   * @return float
+   *   Decimal number truncated.
+   */
+  protected static function truncateDecimal(float $decimal, int $num): float {
+    return floor($decimal * pow(10, $num)) / pow(10, $num);
+  }
+
+  /**
+   * Helper method to get the number of decimal digits out of a decimal number.
+   *
+   * @param int $decimal
+   *   The number to calculate the number of decimals digits from.
+   *
+   * @return int
+   *   The number of decimal digits.
+   */
+  protected static function getDecimalDigits(int $decimal): int {
+    $digits = 0;
+    while ($decimal - round($decimal)) {
+      $decimal *= 10;
+      $digits++;
+    }
+
+    return $digits;
   }
 
 }

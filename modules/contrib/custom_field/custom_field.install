@@ -96,3 +96,16 @@ function custom_field_update_8003() {
 
   return t("No existing display components were impacted by this update.");
 }
+
+/**
+ * Update entity field definitions for new 'image' field.
+ */
+function custom_field_update_8004() {
+  $entity_type_manager = \Drupal::entityTypeManager();
+  $entity_type_manager->clearCachedDefinitions();
+  $change_summary = \Drupal::service('entity.definition_update_manager')->getChangeSummary();
+  foreach ($change_summary as $entity_type_id => $change_list) {
+    $entity_type = $entity_type_manager->getDefinition($entity_type_id);
+    \Drupal::entityDefinitionUpdateManager()->installEntityType($entity_type);
+  }
+}

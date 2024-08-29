@@ -1,0 +1,5 @@
+geolocation_bing.settings:
+  route_name: geolocation_bing.settings
+  title: 'Bing Maps settings'
+  parent: system.admin_config_services
+  description: 'Configure Bing Maps settings.'

@@ -31,7 +31,7 @@ class GeolocationViewsProximityByEntityTest extends BrowserTestBase {
   /**
    * Tests the proximity sort.
    */
-  public function testEmpty() {
+  public function testEmpty(): void {
     $this->drupalGet('geolocation-demo/proximity-by-entity-id/');
     $this->assertSession()->statusCodeEquals(200);
 
@@ -42,7 +42,7 @@ class GeolocationViewsProximityByEntityTest extends BrowserTestBase {
   /**
    * Tests the proximity sort.
    */
-  public function testProximityByEntity() {
+  public function testProximityByEntity(): void {
     /** @var \Drupal\node\NodeStorageInterface $entity_test_storage */
     $entity_test_storage = \Drupal::entityTypeManager()->getStorage('node');
 

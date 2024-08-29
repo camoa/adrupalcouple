@@ -25,7 +25,7 @@ class TextWidget extends CustomFieldWidgetBase {
   /**
    * {@inheritdoc}
    */
-  public static function defaultWidgetSettings(): array {
+  public static function defaultSettings(): array {
     return [
       'settings' => [
         'size' => 60,
@@ -34,8 +34,8 @@ class TextWidget extends CustomFieldWidgetBase {
         'maxlength_js' => FALSE,
         'prefix' => '',
         'suffix' => '',
-      ],
-    ] + parent::defaultWidgetSettings();
+      ] + parent::defaultSettings()['settings'],
+    ] + parent::defaultSettings();
   }
 
   /**
@@ -74,7 +74,7 @@ class TextWidget extends CustomFieldWidgetBase {
    */
   public function widgetSettingsForm(FormStateInterface $form_state, CustomFieldTypeInterface $field): array {
     $element = parent::widgetSettingsForm($form_state, $field);
-    $settings = $field->getWidgetSetting('settings') + self::defaultWidgetSettings()['settings'];
+    $settings = $field->getWidgetSetting('settings') + self::defaultSettings()['settings'];
     $default_maxlength = $field->getMaxLength();
     if (is_numeric($settings['maxlength']) && $settings['maxlength'] < $field->getMaxLength()) {
       $default_maxlength = $settings['maxlength'];
@@ -97,8 +97,10 @@ class TextWidget extends CustomFieldWidgetBase {
       '#title' => $this->t('Max length'),
       '#description' => $this->t('The maximum amount of characters in the field'),
       '#default_value' => $default_maxlength,
+      '#value' => $default_maxlength,
       '#min' => 1,
       '#max' => $field->getMaxLength(),
+      '#required' => TRUE,
     ];
     $element['settings']['maxlength_js'] = [
       '#type' => 'checkbox',

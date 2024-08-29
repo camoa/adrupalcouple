@@ -24,14 +24,14 @@ class DateTimeDatelistWidget extends DateTimeWidgetBase {
   /**
    * {@inheritdoc}
    */
-  public static function defaultWidgetSettings(): array {
+  public static function defaultSettings(): array {
     return [
       'settings' => [
         'increment' => '15',
         'date_order' => 'YMD',
         'time_type' => '24',
-      ],
-    ] + parent::defaultWidgetSettings();
+      ] + parent::defaultSettings()['settings'],
+    ] + parent::defaultSettings();
   }
 
   /**
@@ -39,7 +39,7 @@ class DateTimeDatelistWidget extends DateTimeWidgetBase {
    */
   public function widgetSettingsForm(FormStateInterface $form_state, CustomFieldTypeInterface $field): array {
     $element = parent::widgetSettingsForm($form_state, $field);
-    $settings = $field->getWidgetSetting('settings') + self::defaultWidgetSettings()['settings'];
+    $settings = $field->getWidgetSetting('settings') + static::defaultSettings()['settings'];
     $datetime_type = $field->getDatetimeType();
 
     $element['settings']['date_order'] = [
@@ -97,7 +97,7 @@ class DateTimeDatelistWidget extends DateTimeWidgetBase {
    */
   public function widget(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state, CustomFieldTypeInterface $field): array {
     $element = parent::widget($items, $delta, $element, $form, $form_state, $field);
-    $settings = $field->getWidgetSetting('settings');
+    $settings = $field->getWidgetSetting('settings') + static::defaultSettings()['settings'];
     $datetime_type = $field->getDatetimeType();
     $date_order = $settings['date_order'];
     $time_type = $datetime_type == 'datetime' ? $settings['time_type'] : '';

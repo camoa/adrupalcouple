@@ -18,7 +18,7 @@ class PhotonItaly extends NominatimRoadFirstFormattingBase {
   /**
    * {@inheritdoc}
    */
-  public function format(array $atomics) {
+  public function format(array $atomics): ?array {
     $address_elements = parent::format($atomics);
     if (\Drupal::hasService('address.subdivision_repository')) {
       $subdivisions = \Drupal::service('address.subdivision_repository')->getList(['it']);
