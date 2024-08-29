@@ -6,7 +6,6 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\RevisionLogInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Element\RenderElement;
-use Drupal\Core\TypedData\TranslatableInterface;
 use Drupal\inline_entity_form\ElementSubmit;
 use Drupal\inline_entity_form\TranslationHelper;
 
@@ -132,10 +131,8 @@ class InlineEntityForm extends RenderElement {
       }
     }
     // Prepare the entity form and the entity itself for translating.
-    if ($entity_form['#entity'] instanceof TranslatableInterface) {
-      $entity_form['#entity'] = TranslationHelper::prepareEntity($entity_form['#entity'], $form_state);
-      $entity_form['#translating'] = TranslationHelper::isTranslating($form_state) && $entity_form['#entity']->isTranslatable();
-    }
+    $entity_form['#entity'] = TranslationHelper::prepareEntity($entity_form['#entity'], $form_state);
+    $entity_form['#translating'] = TranslationHelper::isTranslating($form_state) && $entity_form['#entity']->isTranslatable();
 
     // Handle revisioning if the entity supports it.
     if ($entity_type->isRevisionable() && $entity_form['#revision']) {
@@ -177,18 +174,13 @@ class InlineEntityForm extends RenderElement {
    *   The entity form.
    * @param \Drupal\Core\Form\FormStateInterface $form_state
    *   The current state of the form.
-   *
-   * @return Drupal\Core\Entity\EntityInterface|null
-   *   Returns saved entity if true, else null.
    */
   public static function submitEntityForm(array &$entity_form, FormStateInterface $form_state) {
     $inline_form_handler = static::getInlineFormHandler($entity_form['#entity_type']);
     $inline_form_handler->entityFormSubmit($entity_form, $form_state);
     if ($entity_form['#save_entity']) {
       $inline_form_handler->save($entity_form['#entity']);
-      return $entity_form['#entity'];
     }
-    return NULL;
   }
 
   /**

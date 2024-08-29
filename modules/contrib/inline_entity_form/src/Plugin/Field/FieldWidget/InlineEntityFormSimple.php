@@ -38,20 +38,13 @@ class InlineEntityFormSimple extends InlineEntityFormBase {
     $form_state->set(['inline_entity_form', $ief_id], []);
 
     $element = [
-      '#type' => 'fieldset',
+      '#type' => $this->getSetting('collapsible') ? 'details' : 'fieldset',
       '#field_title' => $this->fieldDefinition->getLabel(),
       '#after_build' => [
         [get_class($this), 'removeTranslatabilityClue'],
       ],
     ] + $element;
-    if ($this->getSetting('hide_fieldset')) {
-      $element['#attributes']['style'] = 'display: contents';
-      if ($this->getSetting('hide_title')) {
-        $element['#title_display'] = 'invisible';
-      }
-    }
-    elseif ($this->getSetting('collapsible')) {
-      $element['#type'] = 'details';
+    if ($element['#type'] == 'details') {
       // If there's user input, keep the details open. Otherwise, use settings.
       $element['#open'] = $form_state->getUserInput() ?: !$this->getSetting('collapsed');
     }
@@ -99,7 +92,7 @@ class InlineEntityFormSimple extends InlineEntityFormBase {
     // If we're using unlimited cardinality we don't display one empty item.
     // Form validation will kick in if left empty which essentially means
     // people won't be able to submit without creating another entity.
-    if (!$form_state->isSubmitted() && !$form_state->isRebuilding() && $element['#cardinality'] == FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED && $element['#max_delta'] > 0) {
+    if (!$form_state->isSubmitted() && $element['#cardinality'] == FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED && $element['#max_delta'] > 0) {
       $max = $element['#max_delta'];
       unset($element[$max]);
       $element['#max_delta'] = $max - 1;
@@ -112,19 +105,8 @@ class InlineEntityFormSimple extends InlineEntityFormBase {
       static::setWidgetState($parents, $field_name, $form_state, $field_state);
     }
 
-    $context = [
-      'parent_entity' => $items->getEntity(),
-      'parent_entity_type' => $this->fieldDefinition->getTargetEntityTypeId(),
-      'parent_bundle' => $this->fieldDefinition->getTargetBundle(),
-      'field_name' => $this->fieldDefinition->getName(),
-      'entity_type' => $this->getFieldSetting('target_type'),
-      'allowed_bundles' => $this->getTargetBundles(),
-    ];
-
-    $allow_new = $this->getSetting('allow_new') && $this->canAddNew($context);
-
     // Remove add options if the user cannot add new entities.
-    if (!$allow_new) {
+    if (!$this->canAddNew()) {
       if (isset($element['add_more'])) {
         unset($element['add_more']);
       }
@@ -161,18 +143,13 @@ class InlineEntityFormSimple extends InlineEntityFormBase {
         /** @var \Drupal\Core\Entity\EntityInterface $entity */
         $entity = $element['inline_entity_form']['#entity'];
         $weight = $submitted_values[$delta]['_weight'] ?? 0;
-        $values[] = ['entity' => $entity, 'weight' => $weight];
+        $values[$weight] = ['entity' => $entity];
       }
     }
 
     // Sort items base on weights.
-    usort($values, function ($a, $b) {
-      return $a['weight'] <=> $b['weight'];
-    });
-
-    $values = array_map(function ($item) {
-      return $item['entity'];
-    }, $values);
+    ksort($values);
+    $values = array_values($values);
 
     // Let the widget massage the submitted values.
     $values = $this->massageFormValues($values, $form, $form_state);

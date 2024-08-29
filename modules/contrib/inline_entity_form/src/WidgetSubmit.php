@@ -52,20 +52,16 @@ class WidgetSubmit {
         if (!empty($entity_item['entity']) && !empty($entity_item['needs_save'])) {
           /** @var \Drupal\Core\Entity\ContentEntityInterface $entity */
           $entity = $entity_item['entity'];
-          $is_new = $entity->isNew();
           $handler = InlineEntityForm::getInlineFormHandler($entity->getEntityTypeId());
           $referenceUpgrader->upgradeEntityReferences($entity);
           $handler->save($entity);
           $referenceUpgrader->registerEntity($entity);
           $entity_item['needs_save'] = FALSE;
-          \Drupal::moduleHandler()->invokeAll('inline_entity_form_entity_save',
-          [&$form_state, $entity, $is_new]);
         }
       }
 
       /** @var \Drupal\Core\Entity\ContentEntityInterface $entities */
       foreach ($widget_state['delete'] as $entity) {
-        \Drupal::moduleHandler()->invokeAll('inline_entity_form_entity_delete',[&$form_state, $entity]);
         $entity->delete();
       }
       unset($widget_state['delete']);

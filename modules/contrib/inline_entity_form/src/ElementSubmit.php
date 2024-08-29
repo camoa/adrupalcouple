@@ -31,13 +31,9 @@ class ElementSubmit {
     $form['#ief_element_submit_attached'] = TRUE;
 
     // Entity form actions.
-    if (!empty($form['actions'])) {
-      foreach ($form['actions'] as $action_key => $action) {
-        if (is_array($action)
-          && array_key_exists('#submit', $action)
-          && in_array('::save', $action['#submit'])) {
-          self::addCallback($form['actions'][$action_key], $form);
-        }
+    foreach (['submit', 'publish', 'unpublish'] as $action) {
+      if (!empty($form['actions'][$action])) {
+        self::addCallback($form['actions'][$action], $form);
       }
     }
     // Generic submit button.

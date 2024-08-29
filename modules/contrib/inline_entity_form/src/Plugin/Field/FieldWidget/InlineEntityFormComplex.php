@@ -2,7 +2,6 @@
 
 namespace Drupal\inline_entity_form\Plugin\Field\FieldWidget;
 
-use Drupal\Component\Utility\Html;
 use Drupal\Component\Utility\NestedArray;
 use Drupal\Component\Utility\Tags;
 use Drupal\Core\Entity\Element\EntityAutocomplete;
@@ -16,7 +15,6 @@ use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Render\Element;
-use Drupal\Core\Render\Markup;
 use Drupal\inline_entity_form\TranslationHelper;
 use Drupal\rat\v1\RenderArray;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -64,13 +62,6 @@ class InlineEntityFormComplex extends InlineEntityFormBase implements ContainerF
    * @var \Drupal\Core\Entity\EntityReferenceSelection\SelectionPluginManagerInterface
    */
   protected $selectionManager;
-
-  /**
-   * Set bundle id.
-   *
-   * @var string
-   */
-  protected $bundleId;
 
   /**
    * Constructs a InlineEntityFormComplex object.
@@ -126,14 +117,11 @@ class InlineEntityFormComplex extends InlineEntityFormBase implements ContainerF
   public static function defaultSettings() {
     $defaults = parent::defaultSettings();
     $defaults += [
+      'allow_new' => TRUE,
       'allow_existing' => FALSE,
-      'add_existing_widget' => 'autocomplete',
-      'allow_edit' => TRUE,
       'removed_reference' => self::REMOVED_OPTIONAL,
       'match_operator' => 'CONTAINS',
       'allow_duplicate' => FALSE,
-      'auto_open' => TRUE,
-      'auto_open_edit_form' => FALSE,
     ];
 
     return $defaults;
@@ -147,33 +135,15 @@ class InlineEntityFormComplex extends InlineEntityFormBase implements ContainerF
 
     $labels = $this->getEntityTypeLabels();
     $states_prefix = 'fields[' . $this->fieldDefinition->getName() . '][settings_edit_form][settings]';
-    if ($this->fieldDefinition->isRequired()) {
-      $element['auto_open'] = [
-        '#type' => 'checkbox',
-        '#title' => $this->t('Automatically open entity creation form'),
-        '#default_value' => $this->getSetting('auto_open'),
-      ];
-    }
+    $element['allow_new'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Allow users to add new @label.', ['@label' => $labels['plural']]),
+      '#default_value' => $this->getSetting('allow_new'),
+    ];
     $element['allow_existing'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Allow users to add existing @label.', ['@label' => $labels['plural']]),
       '#default_value' => $this->getSetting('allow_existing'),
-    ];
-    $element['add_existing_widget'] = [
-      '#type' => 'select',
-      '#title' => $this->t('Widget to add existing @label.', ['@label' => $labels['plural']]),
-      '#default_value' => $this->getSetting('add_existing_widget'),
-      '#options' => $this->getAddExistingWidgetOptions(),
-      '#states' => [
-        'visible' => [
-          ':input[name="' . $states_prefix . '[allow_existing]"]' => ['checked' => TRUE],
-        ],
-      ],
-    ];
-    $element['allow_edit'] = [
-      '#type' => 'checkbox',
-      '#title' => $this->t('Allow users to edit existing @label.', ['@label' => $labels['plural']]),
-      '#default_value' => $this->getSetting('allow_edit'),
     ];
     $element['match_operator'] = [
       '#type' => 'select',
@@ -191,11 +161,6 @@ class InlineEntityFormComplex extends InlineEntityFormBase implements ContainerF
       '#type' => 'checkbox',
       '#title' => $this->t('Allow users to duplicate @label.', ['@label' => $labels['plural']]),
       '#default_value' => $this->getSetting('allow_duplicate'),
-    ];
-    $element['auto_open_edit_form'] = [
-      '#type' => 'checkbox',
-      '#title' => $this->t('Auto-open the edit form when an entity is attached.'),
-      '#default_value' => $this->getSetting('auto_open_edit_form'),
     ];
 
     $description = $this->t('Select whether a @child should be deleted altogether if removed as a reference here.<br />
@@ -222,21 +187,19 @@ class InlineEntityFormComplex extends InlineEntityFormBase implements ContainerF
     $summary = parent::settingsSummary();
     $labels = $this->getEntityTypeLabels();
 
+    if ($this->getSetting('allow_new')) {
+      $summary[] = $this->t('New @label can be added.', ['@label' => $labels['plural']]);
+    }
+    else {
+      $summary[] = $this->t('New @label can not be created.', ['@label' => $labels['plural']]);
+    }
+
+    $match_operator_options = $this->getMatchOperatorOptions();
     if ($this->getSetting('allow_existing')) {
-      if ($this->getSetting('match_operator')) {
-        $match_operator_options = $this->getMatchOperatorOptions();
-        $summary[] = $this->t('Existing @label can be referenced and are matched with the %operator operator.', [
-          '@label' => $labels['plural'],
-          '%operator' => $match_operator_options[$this->getSetting('match_operator')],
-        ]);
-      }
-      if ($this->getSetting('add_existing_widget')) {
-        $add_existing_widget_options = $this->getAddExistingWidgetOptions();
-        $summary[] = $this->t('Existing @label can be added via %widget widget.', [
-          '@label' => $labels['plural'],
-          '%widget' => $add_existing_widget_options[$this->getSetting('add_existing_widget')],
-        ]);
-      }
+      $summary[] = $this->t('Existing @label can be referenced and are matched with the %operator operator.', [
+        '@label' => $labels['plural'],
+        '%operator' => $match_operator_options[$this->getSetting('match_operator')],
+      ]);
     }
     else {
       $summary[] = $this->t('Existing @label can not be referenced.', ['@label' => $labels['plural']]);
@@ -247,14 +210,6 @@ class InlineEntityFormComplex extends InlineEntityFormBase implements ContainerF
     }
     else {
       $summary[] = $this->t('@label can not be duplicated.', ['@label' => $labels['plural']]);
-    }
-
-    if ($this->getSetting('auto_open') && $this->fieldDefinition->isRequired()) {
-      $summary[] = $this->t('Automatically open creation form');
-    }
-
-    if ($this->getSetting('auto_open_edit_form')) {
-      $summary[] = $this->t('Auto-open edit form');
     }
 
     switch ($this->getSetting('removed_reference')) {
@@ -272,47 +227,6 @@ class InlineEntityFormComplex extends InlineEntityFormBase implements ContainerF
     }
 
     return $summary;
-  }
-  /**
-   * Returns the options for the "add existing" widget.
-   *
-   * @return array
-   *   List of options.
-   */
-  protected function getAddExistingWidgetOptions() {
-    return [
-      'autocomplete' => $this->t('Autocomplete'),
-      'select' => $this->t('Select'),
-    ];
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  protected function prepareFormState(FormStateInterface $form_state, FieldItemListInterface $items, $translating = FALSE) {
-    $widget_state = $form_state->get(['inline_entity_form', $this->iefId]);
-    if (empty($widget_state)) {
-      $widget_state = [
-        'instance' => $this->fieldDefinition,
-        'form' => NULL,
-        'delete' => [],
-        'entities' => [],
-      ];
-      // Store $items entities in the widget state, for further manipulation.
-      foreach ($items->referencedEntities() as $delta => $entity) {
-        // Display the entity in the correct translation.
-        if ($translating) {
-          $entity = TranslationHelper::prepareEntity($entity, $form_state);
-        }
-        $widget_state['entities'][$delta] = [
-          'entity' => $entity,
-          'weight' => $delta,
-          'form' => $this->getSetting('auto_open_edit_form') ? 'edit' : NULL,
-          'needs_save' => $entity->isNew(),
-        ];
-      }
-      $form_state->set(['inline_entity_form', $this->iefId], $widget_state);
-    }
   }
 
   /**
@@ -347,7 +261,7 @@ class InlineEntityFormComplex extends InlineEntityFormBase implements ContainerF
    */
   public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
     $target_type = $this->getFieldSetting('target_type');
-    $this->bundleId = $this->determineBundle($form_state);
+    // Get the entity type labels for the UI strings.
     $labels = $this->getEntityTypeLabels();
 
     // Build a parents array for this element's values in the form.
@@ -365,10 +279,10 @@ class InlineEntityFormComplex extends InlineEntityFormBase implements ContainerF
     $parent_langcode = $items->getEntity()->language()->getId();
 
     // Determine the wrapper ID for the entire element.
-    $wrapper = self::getWrapperId($this->getIefId());
+    $wrapper = 'inline-entity-form-' . $this->getIefId();
 
     $element = [
-      '#type' => 'fieldset',
+      '#type' => $this->getSetting('collapsible') ? 'details' : 'fieldset',
       '#tree' => TRUE,
       '#description' => $this->getFilteredDescription(),
       '#prefix' => '<div id="' . $wrapper . '">',
@@ -381,27 +295,20 @@ class InlineEntityFormComplex extends InlineEntityFormBase implements ContainerF
         [get_class($this), 'removeTranslatabilityClue'],
       ],
     ] + $element;
-    if ($this->getSetting('hide_fieldset')) {
-      $element['#attributes']['style'] = 'display: contents';
-      if ($this->getSetting('hide_title')) {
-        $element['#title_display'] = 'invisible';
-      }
-    }
-    elseif ($this->getSetting('collapsible')) {
-      $element['#type'] = 'details';
+    if ($element['#type'] == 'details') {
       // If there's user input, keep the details open. Otherwise, use settings.
       $element['#open'] = $form_state->getUserInput() ?: !$this->getSetting('collapsed');
     }
 
-    $this->prepareFormState($form_state, $items);
+    $this->prepareFormState($form_state, $items, $element['#translating']);
     $entities = $form_state->get([
       'inline_entity_form', $this->getIefId(),
       'entities',
     ]);
     $entities_count = count($entities);
 
-    // Determine if there are multiple existing entities that could be
-    // referenced.
+    // Determine if there are multiple existing entities
+    // that could be referenced.
     $selection_settings = $this->getFieldSetting('handler_settings') ? $this->getFieldSetting('handler_settings') : [];
     $options = [
       'target_type' => $this->getFieldSetting('target_type'),
@@ -464,8 +371,6 @@ class InlineEntityFormComplex extends InlineEntityFormBase implements ContainerF
       $entity = $value['entity'];
       $element['entities'][$key]['#label'] = $this->inlineFormHandler->getEntityLabel($value['entity']);
       $element['entities'][$key]['#entity'] = $value['entity'];
-      $element['entities'][$key]['#id'] = sprintf('ief-scrollto--%s-%s', $entity->getEntityTypeId(), $entity->id());
-
       $element['entities'][$key]['#needs_save'] = $value['needs_save'];
 
       // Handle row weights.
@@ -496,8 +401,6 @@ class InlineEntityFormComplex extends InlineEntityFormBase implements ContainerF
               $value['form'] == 'edit' ? $entity : $entity->createDuplicate()
             ),
           ];
-          $this->bundleId = $entity->bundle();
-          $element['entities'][$key]['form']['inline_entity_form']['#ief_labels'] = $this->getEntityTypeLabels();
 
           $element['entities'][$key]['form']['inline_entity_form']['#process'] = [
             [
@@ -526,13 +429,12 @@ class InlineEntityFormComplex extends InlineEntityFormBase implements ContainerF
         }
       }
       else {
-        // This is needed for accessibility.
-        $weight_label = '<span class="visually-hidden">' . $this->t('Weight for row @number', ['@number' => $key]) . '</span>';
         $row = &$element['entities'][$key];
         $row['title'] = [];
         $row['delta'] = [
           '#type' => 'weight',
-          '#title' => Markup::create($weight_label),
+          '#title' => $this->t('Weight for row @number', ['@number' => $key + 1]),
+          '#title_display' => 'invisible',
           '#delta' => $weight_delta,
           '#default_value' => $value['weight'],
           '#attributes' => ['class' => ['ief-entity-delta']],
@@ -545,7 +447,7 @@ class InlineEntityFormComplex extends InlineEntityFormBase implements ContainerF
 
         // Make sure entity_access is not checked for unsaved entities.
         $entity_id = $entity->id();
-        if (empty($entity_id) || ($settings['allow_edit'] && $entity->access('update'))) {
+        if (empty($entity_id) || $entity->access('update')) {
           $row['actions']['ief_entity_edit'] = [
             '#type' => 'submit',
             '#value' => $this->t('Edit'),
@@ -608,6 +510,7 @@ class InlineEntityFormComplex extends InlineEntityFormBase implements ContainerF
             '#submit' => ['inline_entity_form_open_row_form'],
             '#ief_row_delta' => $key,
             '#ief_row_form' => 'remove',
+            // It's OK to set #access when creating the whole element.
             '#access' => !$element['#translating'],
           ];
         }
@@ -641,25 +544,12 @@ class InlineEntityFormComplex extends InlineEntityFormBase implements ContainerF
       return $element;
     }
 
-    $context = [
-      'parent_entity' => $items->getEntity(),
-      'parent_entity_type' => $this->fieldDefinition->getTargetEntityTypeId(),
-      'parent_bundle' => $this->fieldDefinition->getTargetBundle(),
-      'field_name' => $this->fieldDefinition->getName(),
-      'entity_type' => $target_type,
-      'allowed_bundles' => $target_bundles,
-    ];
-    $create_bundles = $this->getCreateBundles($context);
-
-    // Let modules modify the create_bundles array.
-    $context['widget'] = $this;
-    $this->moduleHandler->alter('inline_entity_form_create_bundles', $create_bundles, $context);
-
+    $create_bundles = $this->getCreateBundles();
     $create_bundles_count = count($create_bundles);
     $allow_new = $settings['allow_new'] && !empty($create_bundles);
     $hide_cancel = FALSE;
     // If the field is required and empty try to open one of the forms.
-    if (empty($entities) && $this->getSetting('auto_open') && $this->fieldDefinition->isRequired()) {
+    if (empty($entities) && $this->fieldDefinition->isRequired()) {
       if ($settings['allow_existing'] && !$allow_new) {
         $form_state->set(['inline_entity_form', $this->getIefId(), 'form'], 'ief_add_existing');
         $hide_cancel = TRUE;
@@ -709,16 +599,7 @@ class InlineEntityFormComplex extends InlineEntityFormBase implements ContainerF
           $element['actions']['bundle'] = [
             '#type' => 'select',
             '#options' => $bundles,
-            '#default_value' => $this->bundleId,
           ];
-          if ($this->getSetting('override_labels') !== NULL
-            && $this->getSetting('labels') !== NULL
-            && $this->getSetting('config_labels_button') === 'complex_label') {
-            $element['actions']['bundle']['#ajax'] = [
-              'callback' => 'inline_entity_form_change_bundle_form',
-              'wrapper' => $wrapper,
-            ];
-          }
         }
         else {
           $element['actions']['bundle'] = [
@@ -742,7 +623,6 @@ class InlineEntityFormComplex extends InlineEntityFormBase implements ContainerF
       }
 
       if ($settings['allow_existing']) {
-        $this->createInlineFormHandler();
         $element['actions']['ief_add_existing'] = [
           '#type' => 'submit',
           '#value' => $this->t('Add existing @type_singular', ['@type_singular' => $labels['singular']]),
@@ -774,8 +654,6 @@ class InlineEntityFormComplex extends InlineEntityFormBase implements ContainerF
             array_merge($parents, [$new_key])
           ),
         ];
-        $this->bundleId = $element['form']['inline_entity_form']['#bundle'];
-        $element['form']['inline_entity_form']['#ief_labels'] = $this->getEntityTypeLabels();
         $element['form']['inline_entity_form']['#process'] = [
           [
             '\Drupal\inline_entity_form\Element\InlineEntityForm',
@@ -786,23 +664,17 @@ class InlineEntityFormComplex extends InlineEntityFormBase implements ContainerF
         ];
       }
       elseif ($form_state->get(['inline_entity_form', $this->getIefId(), 'form']) == 'ief_add_existing') {
-        // Display the default target type and not change the default behaviour.
-        $this->createInlineFormHandler();
         $element['form'] = [
           '#type' => 'fieldset',
           '#attributes' => ['class' => ['ief-form', 'ief-form-bottom']],
           // Identifies the IEF widget to which the form belongs.
           '#ief_id' => $this->getIefId(),
-          // Used when multiple complex form at same page.
-          '#ref_id' => $wrapper,
           // Used by Field API and controller methods to find the relevant
           // values in $form_state.
           '#parents' => array_merge($parents, [$new_key]),
           '#entity_type' => $target_type,
-          '#ief_labels' => $labels,
+          '#ief_labels' => $this->getEntityTypeLabels(),
           '#match_operator' => $this->getSetting('match_operator'),
-          '#ief_items' => $items,
-          '#ief_add_existing_widget' => $this->getSetting('add_existing_widget'),
         ];
 
         $element['form'] += inline_entity_form_reference_form($element['form'], $form_state);
@@ -835,23 +707,6 @@ class InlineEntityFormComplex extends InlineEntityFormBase implements ContainerF
     }
     $triggering_element = $form_state->getTriggeringElement();
     if (empty($triggering_element['#ief_submit_trigger'])) {
-      $field_name = $this->fieldDefinition->getName();
-      $parents = array_merge($form['#parents'], [$field_name, 'form']);
-      // Build IEF ID form inline field
-      $ief_id = $this->makeIefId($parents);
-      $this->setIefId($ief_id);
-      // Get values entities by IEF ID in inline_entity_form
-      $widget_state = &$form_state->get(['inline_entity_form', $ief_id]);
-      // Sort items items base on weights.
-      if(isset($widget_state['entities']) && !empty($widget_state['entities'])){
-        $values = $widget_state['entities'];
-        uasort($values, '\Drupal\Component\Utility\SortArray::sortByWeightElement');
-        // Let the widget massage the submitted values.
-        $values = $this->massageFormValues($values, $form, $form_state);
-        // Assign the values and remove the empty ones.
-        $items->setValue($values);
-        $items->filterEmptyItems();
-      }
       return;
     }
 
@@ -881,10 +736,58 @@ class InlineEntityFormComplex extends InlineEntityFormBase implements ContainerF
         $parent = NestedArray::getValue($form, [$field_name, 'widget', 'form']);
         $element = $parent['entity_id'] ?? [];
         if (!empty($element['#value'])) {
-          // @see inline_entity_form_extract_select
-          // @see inline_entity_form_extract_autocomplete
-          $extract_values_callback = $element['#ief_extract_values_callback'];
-          $extract_values_callback($element, $form_state, $values);
+          $options = [
+            'target_type' => $element['#target_type'],
+            'handler' => $element['#selection_handler'],
+          ] + $element['#selection_settings'];
+          /** @var \Drupal\Core\Entity\EntityReferenceSelection\SelectionInterface $handler */
+          $handler = $this->selectionManager->getInstance($options);
+          $input_values = $element['#tags'] ? Tags::explode($element['#value']) : [$element['#value']];
+
+          foreach ($input_values as $input) {
+            $match = EntityAutocomplete::extractEntityIdFromAutocompleteInput($input);
+            if ($match === NULL) {
+              // Try to get a match from the input string when the user didn't
+              // use.
+              // the autocomplete but filled in a value manually.
+              $entities_by_bundle = $handler->getReferenceableEntities($input, '=');
+              $entities = array_reduce($entities_by_bundle, function ($flattened, $bundle_entities) {
+                return $flattened + $bundle_entities;
+              }, []);
+              $params = [
+                '%value' => $input,
+                '@value' => $input,
+              ];
+              if (empty($entities)) {
+                $form_state->setError($element, $this->t('There are no entities matching "%value".', $params));
+              }
+              elseif (count($entities) > 5) {
+                $params['@id'] = key($entities);
+                // Error if there are more than 5 matching entities.
+                $form_state->setError($element, $this->t('Many entities are called %value. Specify the one you want by appending the id in parentheses, like "@value (@id)".', $params));
+              }
+              elseif (count($entities) > 1) {
+                // More helpful error if there are only a few matching entities.
+                $multiples = [];
+                foreach ($entities as $id => $name) {
+                  $multiples[] = $name . ' (' . $id . ')';
+                }
+                $params['@id'] = $id;
+                $form_state->setError($element, $this->t('Multiple entities match this reference; "%multiple". Specify the one you want by appending the id in parentheses, like "@value (@id)".', ['%multiple' => implode('", "', $multiples)] + $params));
+              }
+              else {
+                // Take the one and only matching entity.
+                $values += [
+                  'target_id' => key($entities),
+                ];
+              }
+            }
+            else {
+              $values += [
+                'target_id' => $match,
+              ];
+            }
+          }
         }
       }
     }
@@ -930,7 +833,7 @@ class InlineEntityFormComplex extends InlineEntityFormBase implements ContainerF
       '#attributes' => ['class' => ['ief-entity-submit']],
       '#ajax' => [
         'callback' => 'inline_entity_form_get_element',
-        'wrapper' => self::getWrapperId($element['#ief_id']),
+        'wrapper' => 'inline-entity-form-' . $element['#ief_id'],
       ],
     ];
     $element['actions']['ief_' . $element['#op'] . '_cancel'] = [
@@ -940,7 +843,7 @@ class InlineEntityFormComplex extends InlineEntityFormBase implements ContainerF
       '#limit_validation_errors' => [],
       '#ajax' => [
         'callback' => 'inline_entity_form_get_element',
-        'wrapper' => self::getWrapperId($element['#ief_id']),
+        'wrapper' => 'inline-entity-form-' . $element['#ief_id'],
       ],
     ];
 
@@ -1040,7 +943,7 @@ class InlineEntityFormComplex extends InlineEntityFormBase implements ContainerF
       '#limit_validation_errors' => [$form['#parents']],
       '#ajax' => [
         'callback' => 'inline_entity_form_get_element',
-        'wrapper' => self::getWrapperId($form['#ief_id']),
+        'wrapper' => 'inline-entity-form-' . $form['#ief_id'],
       ],
       '#allow_existing' => $this->getSetting('allow_existing'),
       '#removed_reference' => $this->getSetting('removed_reference'),
@@ -1055,7 +958,7 @@ class InlineEntityFormComplex extends InlineEntityFormBase implements ContainerF
       '#limit_validation_errors' => [],
       '#ajax' => [
         'callback' => 'inline_entity_form_get_element',
-        'wrapper' => self::getWrapperId($form['#ief_id']),
+        'wrapper' => 'inline-entity-form-' . $form['#ief_id'],
       ],
       '#submit' => [[get_class($this), 'submitCloseRow']],
       '#ief_row_delta' => $form['#ief_row_delta'],
@@ -1101,20 +1004,15 @@ class InlineEntityFormComplex extends InlineEntityFormBase implements ContainerF
 
     /** @var \Drupal\Core\Entity\EntityInterface $entity */
     $entity = $element['entities'][$delta]['form']['#entity'];
-    $entity_id = NULL;
-
-    // If the entity has not been saved yet, then it won't have an ID.
-    if ($entity !== FALSE && !$entity->isNew()) {
-      $entity_id = $entity->id();
-    }
+    $entity_id = $entity->id();
 
     $form_values = NestedArray::getValue($form_state->getValues(), $element['entities'][$delta]['form']['#parents']);
     $form_state->setRebuild();
 
     $widget_state = $form_state->get(['inline_entity_form', $element['#ief_id']]);
 
-    // The entity hasn't been saved yet, or is being deleted, so remove
-    // the reference.
+    // The entity hasn't been saved yet, or is being deleted,
+    // so remove the reference.
     unset($widget_state['entities'][$delta]);
 
     // If the entity has been saved, delete it if either the widget is set to
@@ -1235,55 +1133,8 @@ class InlineEntityFormComplex extends InlineEntityFormBase implements ContainerF
    *   The form state of the parent form.
    */
   public static function closeChildForms(array $form, FormStateInterface &$form_state) {
-    // Get the button triggering this action.
-    $triggering_element = $form_state->getTriggeringElement();
-    // Slice off 'ief_edit_cancel' and 'actions' keys from it's array parents to
-    // get to the inline_entity_form.
-    $array_parents = array_slice($triggering_element['#array_parents'], 0, -2);
-    // Get the parent IEF form element of the triggering button.
-    $element = NestedArray::getValue($form, $array_parents);
-
-    // Find and close all nested IEF forms of the triggering element.
-    foreach (Element::children($element) as $key) {
-      $iefId = NestedArray::getValue($element[$key], ['widget', '#ief_id']);
-      if (!empty($iefId)) {
-        inline_entity_form_close_all_forms($element[$key], $form_state);
-      }
-    }
-  }
-
-  /**
-   * Retrieves the labels for the entity type.
-   *
-   * @return array|\Drupal\Core\Entity\EntityTypeInterface
-   *   An array with entity type labels or labels from parent class.
-   */
-  protected function getEntityTypeLabels() {
-    if ($this->getSetting('override_labels')) {
-      if ($this->bundleId != NULL && !empty($this->getSetting('labels'))
-        && $this->getSetting('config_labels_button') === 'complex_label') {
-        return [
-          'singular' => $this->getSetting('labels')['label_singular_' . $this->bundleId],
-          'plural' => $this->getSetting('labels')['label_plural_' . $this->bundleId],
-        ];
-      }
-    }
-    return parent::getEntityTypeLabels();
-  }
-
-  /**
-   * Generate unique wrapper id for IEF element.
-   *
-   * @param string $ief_id
-   *   The ID of the IEF element.
-   */
-  public static function getWrapperId($ief_id) {
-    static $ids = [];
-    if (!isset($ids[$ief_id])) {
-      $ids[$ief_id] = Html::getUniqueId('inline-entity-form-' . $ief_id);
-    }
-    return $ids[$ief_id];
-
+    $element = inline_entity_form_get_element($form, $form_state);
+    inline_entity_form_close_all_forms($element, $form_state);
   }
 
 }

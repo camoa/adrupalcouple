@@ -22,18 +22,9 @@ field.widget.settings.inline_entity_form_simple:
     allow_existing:
       type: boolean
       label: "Allow existing"
-    add_existing_widget:
-      type: string
-      label: "Add-existing widget"
     match_operator:
       type: string
       label: "Match operator"
-    hide_fieldset:
-      type: boolean
-      label: "Hide fieldset"
-    hide_title:
-      type: boolean
-      label: "Hide title"
     collapsible:
       type: boolean
       label: "Collapsible"
@@ -43,9 +34,6 @@ field.widget.settings.inline_entity_form_simple:
     revision:
       type: boolean
       label: "Create new revision"
-    auto_open_edit_form:
-      type: boolean
-      label: "Auto-open edit form"
     removed_reference:
       type: string
       label: "Keep or delete unreferenced items"
@@ -66,30 +54,18 @@ field.widget.settings.inline_entity_form_complex:
     label_plural:
       type: label
       label: "Label (plural)"
-    auto_open:
-      type: boolean
-      label: "Automatically open entity creation form"
     allow_new:
       type: boolean
       label: "Allow new"
     allow_existing:
       type: boolean
       label: "Allow existing"
-    allow_edit:
-      type: boolean
-      label: "Allow edit"
     match_operator:
       type: string
       label: "Match operator"
     allow_duplicate:
       type: boolean
       label: "Allow duplicate"
-    hide_fieldset:
-      type: boolean
-      label: "Hide fieldset"
-    hide_title:
-      type: boolean
-      label: "Hide title"
     collapsible:
       type: boolean
       label: "Collapsible"
