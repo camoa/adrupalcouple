@@ -2,7 +2,6 @@
 
 namespace Drupal\inline_entity_form\Plugin\Field\FieldWidget;
 
-use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\EntityDisplayRepositoryInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeBundleInfoInterface;
@@ -113,7 +112,7 @@ abstract class InlineEntityFormBase extends WidgetBase implements ContainerFacto
   /**
    * {@inheritdoc}
    */
-  public function __sleep() {
+  public function __sleep(): array {
     $keys = array_diff(parent::__sleep(), ['inlineFormHandler']);
     return $keys;
   }
@@ -121,7 +120,7 @@ abstract class InlineEntityFormBase extends WidgetBase implements ContainerFacto
   /**
    * {@inheritdoc}
    */
-  public function __wakeup() {
+  public function __wakeup(): void {
     parent::__wakeup();
     $this->createInlineFormHandler();
   }
@@ -197,17 +196,13 @@ abstract class InlineEntityFormBase extends WidgetBase implements ContainerFacto
   /**
    * Gets the bundles for which the current user has create access.
    *
-   * @param array $context
-   *   (optional) An array of key-value pairs to pass additional context when
-   *   needed.
-   *
    * @return string[]
    *   The list of bundles.
    */
-  protected function getCreateBundles(array $context = []) {
+  protected function getCreateBundles() {
     $create_bundles = [];
     foreach ($this->getTargetBundles() as $bundle) {
-      if ($this->getAccessHandler()->createAccess($bundle, NULL, $context)) {
+      if ($this->getAccessHandler()->createAccess($bundle)) {
         $create_bundles[] = $bundle;
       }
     }
@@ -223,15 +218,10 @@ abstract class InlineEntityFormBase extends WidgetBase implements ContainerFacto
       'form_mode' => 'default',
       'revision' => FALSE,
       'override_labels' => FALSE,
-      'config_labels_button' => '_none',
       'label_singular' => '',
       'label_plural' => '',
-      'labels' => [],
-      'hide_fieldset' => FALSE,
-      'hide_title' => FALSE,
       'collapsible' => FALSE,
       'collapsed' => FALSE,
-      'allow_new' => TRUE,
     ];
   }
 
@@ -259,44 +249,6 @@ abstract class InlineEntityFormBase extends WidgetBase implements ContainerFacto
       '#title' => $this->t('Override labels'),
       '#default_value' => $this->getSetting('override_labels'),
     ];
-    $element['config_labels_button'] = [
-      '#type' => 'select',
-      '#title' => $this->t('Choose config labels buttons'),
-      '#default_value' => $this->getSetting('config_labels_button'),
-      '#options' => $this->getLabelButtonsOptions(),
-      '#states' => [
-        'visible' => [
-          ':input[name="' . $states_prefix . '[override_labels]"]' => ['checked' => TRUE],
-        ],
-      ],
-    ];
-    $element['labels'] = [
-      '#type' => 'container',
-    ];
-
-    foreach ($this->getCreateBundles() as $bundle) {
-      $labels = $this->getSetting('labels');
-      $element['labels']['label_singular_' . $bundle] = [
-        '#type' => 'textfield',
-        '#title' => $this->t('Singular label @bundle', ['@bundle' => $bundle]),
-        '#default_value' => ($labels ? $labels['label_singular_' . $bundle] : NULL),
-        '#states' => [
-          'visible' => [
-            ':input[name="' . $states_prefix . '[config_labels_button]"]' => ['value' => 'complex_label'],
-          ],
-        ],
-      ];
-      $element['labels']['label_plural_' . $bundle] = [
-        '#type' => 'textfield',
-        '#title' => $this->t('Plural label @bundle', ['@bundle' => $bundle]),
-        '#default_value' => ($labels ? $labels['label_plural_' . $bundle] : NULL),
-        '#states' => [
-          'visible' => [
-            ':input[name="' . $states_prefix . '[config_labels_button]"]' => ['value' => 'complex_label'],
-          ],
-        ],
-      ];
-    }
     $element['label_singular'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Singular label'),
@@ -304,8 +256,6 @@ abstract class InlineEntityFormBase extends WidgetBase implements ContainerFacto
       '#states' => [
         'visible' => [
           ':input[name="' . $states_prefix . '[override_labels]"]' => ['checked' => TRUE],
-          'and',
-          ':input[name="' . $states_prefix . '[config_labels_button]"]' => [['!value' => 'complex_label']],
         ],
       ],
     ];
@@ -316,23 +266,6 @@ abstract class InlineEntityFormBase extends WidgetBase implements ContainerFacto
       '#states' => [
         'visible' => [
           ':input[name="' . $states_prefix . '[override_labels]"]' => ['checked' => TRUE],
-          'and',
-          ':input[name="' . $states_prefix . '[config_labels_button]"]' => ['!value' => 'complex_label'],
-        ],
-      ],
-    ];
-    $element['hide_fieldset'] = [
-      '#type' => 'checkbox',
-      '#title' => $this->t('Hide fieldset'),
-      '#default_value' => $this->getSetting('hide_fieldset'),
-    ];
-    $element['hide_title'] = [
-      '#type' => 'checkbox',
-      '#title' => $this->t('Hide element title'),
-      '#default_value' => $this->getSetting('hide_title'),
-      '#states' => [
-        'visible' => [
-          ':input[name="' . $states_prefix . '[hide_fieldset]"]' => ['checked' => TRUE],
         ],
       ],
     ];
@@ -340,11 +273,6 @@ abstract class InlineEntityFormBase extends WidgetBase implements ContainerFacto
       '#type' => 'checkbox',
       '#title' => $this->t('Collapsible'),
       '#default_value' => $this->getSetting('collapsible'),
-      '#states' => [
-        'visible' => [
-          ':input[name="' . $states_prefix . '[hide_fieldset]"]' => ['checked' => FALSE],
-        ],
-      ],
     ];
     $element['collapsed'] = [
       '#type' => 'checkbox',
@@ -355,11 +283,6 @@ abstract class InlineEntityFormBase extends WidgetBase implements ContainerFacto
           ':input[name="' . $states_prefix . '[collapsible]"]' => ['checked' => TRUE],
         ],
       ],
-    ];
-    $element['allow_new'] = [
-      '#type' => 'checkbox',
-      '#title' => $this->t('Allow users to add new @label.', ['@label' => $this->getSetting('label_plural')]),
-      '#default_value' => $this->getSetting('allow_new'),
     ];
 
     return $element;
@@ -394,20 +317,8 @@ abstract class InlineEntityFormBase extends WidgetBase implements ContainerFacto
       $summary[] = $this->t('Create new revision');
     }
 
-    if ($this->getSetting('hide_fieldset')) {
-      $summary[] = $this->getSetting('hide_title') ? $this->t('Hide fieldset and title.') : $this->t('Hide fieldset and title.');
-    }
-    else {
-      $summary[] = $this->t('Display in a %state fieldset.',
-        ['%state' => $this->getSetting('collapsible') ? ($this->getSetting('collapsed') ? $this->t('collapsed') : $this->t('collapsible')) : $this->t('plain')]
-      );
-    }
-
-    if ($this->getSetting('allow_new')) {
-      $summary[] = $this->t('New @label can be added.', ['@label' => $this->getSetting('label_plural')]);
-    }
-    else {
-      $summary[] = $this->t('New @label can not be created.', ['@label' => $this->getSetting('label_plural')]);
+    if ($this->getSetting('collapsible')) {
+      $summary[] = $this->getSetting('collapsed') ? $this->t('Collapsible, collapsed by default') : $this->t('Collapsible');
     }
 
     return $summary;
@@ -464,8 +375,10 @@ abstract class InlineEntityFormBase extends WidgetBase implements ContainerFacto
    *   The form state.
    * @param \Drupal\Core\Field\FieldItemListInterface $items
    *   The field values.
+   * @param bool $translating
+   *   Whether there's a translation in progress.
    */
-  protected function prepareFormState(FormStateInterface $form_state, FieldItemListInterface $items) {
+  protected function prepareFormState(FormStateInterface $form_state, FieldItemListInterface $items, $translating = FALSE) {
     $widget_state = $form_state->get(['inline_entity_form', $this->iefId]);
     if (empty($widget_state)) {
       $widget_state = [
@@ -478,33 +391,18 @@ abstract class InlineEntityFormBase extends WidgetBase implements ContainerFacto
       // manipulation.
       foreach ($items->referencedEntities() as $delta => $entity) {
         // Display the entity in the correct translation.
-        $entity = TranslationHelper::prepareEntity($entity, $form_state);
-
+        if ($translating) {
+          $entity = TranslationHelper::prepareEntity($entity, $form_state);
+        }
         $widget_state['entities'][$delta] = [
           'entity' => $entity,
           'weight' => $delta,
-          'form' => self::entityIsOpenFromQuery($entity, $form_state) ? 'edit' : NULL,
+          'form' => NULL,
           'needs_save' => $entity->isNew(),
         ];
       }
       $form_state->set(['inline_entity_form', $this->iefId], $widget_state);
     }
-  }
-
-  /**
-   * Checks if the entity is opened from the query parameter in the form state.
-   */
-  public static function entityIsOpenFromQuery(ContentEntityInterface $entity, FormStateInterface $form_state) {
-    $query = \Drupal::request()->query;
-    if ($query->has('ief_open') && !$form_state->has('inline_entity_form_open')) {
-      $form_state->set('inline_entity_form_open', $query->get('ief_open'));
-    }
-    if ($form_state->has('inline_entity_form_open')) {
-      $ief_open = $form_state->get('inline_entity_form_open');
-      $query_value = sprintf('%s:%s', $entity->getEntityTypeId(), $entity->id());
-      return in_array($query_value, $ief_open);
-    }
-    return FALSE;
   }
 
   /**
@@ -570,8 +468,10 @@ abstract class InlineEntityFormBase extends WidgetBase implements ContainerFacto
    * @todo Replace line 472 \Drupal call with Dependency Injection.
    */
   protected function isTranslating(FormStateInterface $form_state) {
+    // phpcs:disable DrupalPractice.Objects.GlobalDrupal.GlobalDrupal
     if (\Drupal::hasService('content_translation.manager') && TranslationHelper::isTranslating($form_state)) {
       $translation_manager = \Drupal::service('content_translation.manager');
+      //phpcs:enable
       $target_type = $this->getFieldSetting('target_type');
       foreach ($this->getTargetBundles() as $bundle) {
         if ($translation_manager->isEnabled($target_type, $bundle)) {
@@ -692,12 +592,7 @@ abstract class InlineEntityFormBase extends WidgetBase implements ContainerFacto
    */
   public function form(FieldItemListInterface $items, array &$form, FormStateInterface $form_state, $get_delta = NULL) {
     if ($this->canBuildForm($form_state)) {
-      $elements = parent::form($items, $form, $form_state, $get_delta);
-      // Signal to content_translation that this field should be treated as
-      // multilingual and not be hidden, see
-      // \Drupal\content_translation\ContentTranslationHandler::entityFormSharedElements().
-      $elements['#multilingual'] = TRUE;
-      return $elements;
+      return parent::form($items, $form, $form_state, $get_delta);
     }
     return [];
   }
@@ -705,29 +600,12 @@ abstract class InlineEntityFormBase extends WidgetBase implements ContainerFacto
   /**
    * Determines if the current user can add any new entities.
    *
-   * @param array $context
-   *   (optional) An array of key-value pairs to pass additional context when
-   *   needed.
-   *
    * @return bool
    *   Returns bool to allow or not new entity additions.
    */
-  protected function canAddNew(array $context = []) {
-    $create_bundles = $this->getCreateBundles($context);
+  protected function canAddNew() {
+    $create_bundles = $this->getCreateBundles();
     return !empty($create_bundles);
-  }
-
-  /**
-   * Returns the options for the settings label bundles.
-   *
-   * @return array
-   *   List of options.
-   */
-  protected function getLabelButtonsOptions() {
-    return [
-      'simple_label' => $this->t('Configure simple text'),
-      'complex_label' => $this->t('Configure label button for each type'),
-    ];
   }
 
 }

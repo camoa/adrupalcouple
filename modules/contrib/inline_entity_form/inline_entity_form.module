@@ -11,16 +11,13 @@
  */
 
 use Drupal\Component\Utility\NestedArray;
-use Drupal\Component\Utility\Tags;
-use Drupal\Core\Entity\Element\EntityAutocomplete;
-use Drupal\Core\Config\Entity\ConfigEntityTypeInterface;
-use Drupal\Core\Entity\ContentEntityTypeInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Element;
 use Drupal\inline_entity_form\ElementSubmit;
-use Drupal\inline_entity_form\WidgetSubmit;
-use Drupal\inline_entity_form\Plugin\Field\FieldWidget\InlineEntityFormComplex;
+use Drupal\inline_entity_form\Form\EntityInlineForm;
 use Drupal\inline_entity_form\MigrationHelper;
+use Drupal\inline_entity_form\Plugin\Field\FieldWidget\InlineEntityFormComplex;
+use Drupal\inline_entity_form\WidgetSubmit;
 use Drupal\migrate\Plugin\MigrateSourceInterface;
 use Drupal\migrate\Plugin\MigrationInterface;
 use Drupal\migrate\Row;
@@ -36,12 +33,7 @@ function inline_entity_form_entity_type_build(array &$entity_types) {
 
   foreach ($entity_types as &$entity_type) {
     if (!$entity_type->hasHandlerClass('inline_form')) {
-      if ($entity_type instanceof ContentEntityTypeInterface) {
-        $entity_type->setHandlerClass('inline_form', '\Drupal\inline_entity_form\Form\EntityInlineForm');
-      }
-      elseif ($entity_type instanceof ConfigEntityTypeInterface) {
-        $entity_type->setHandlerClass('inline_form', '\Drupal\inline_entity_form\Form\ConfigEntityInlineForm');
-      }
+      $entity_type->setHandlerClass('inline_form', '\Drupal\inline_entity_form\Form\EntityInlineForm');
     }
   }
 }
@@ -91,41 +83,18 @@ function inline_entity_form_reference_form(array $reference_form, FormStateInter
 
   $reference_form['#title'] = t('Add existing @type_singular', ['@type_singular' => $labels['singular']]);
 
-  if ($reference_form['#ief_add_existing_widget'] === 'select') {
-    /** @var \Drupal\Core\Field\FieldItemListInterface $items */
-    $items = $reference_form['#ief_items'];
-    $options = $items->getFieldDefinition()
-      ->getFieldStorageDefinition()
-      ->getOptionsProvider('target_id', $items->getEntity())
-      ->getSettableOptions(\Drupal::currentUser());
-    $reference_form['entity_id'] = [
-      '#type' => 'select',
-      '#title' => t('@label', ['@label' => ucfirst($labels['singular'])]),
-      '#title_display' => 'invisible',
-      '#target_type' => $instance->getSetting('target_type'),
-      '#selection_handler' => $instance->getSetting('handler'),
-      '#selection_settings' => $selection_settings,
-      '#required' => TRUE,
-      '#options' => $options,
-      '#empty_option' => t('- Select -'),
-      '#ief_extract_values_callback' => 'inline_entity_form_extract_select',
-    ];
-  } else {
-    // In all other cases fall back to legacy 'autocomplete'.
-    $reference_form['entity_id'] = [
-      '#type' => 'entity_autocomplete',
-      // @todo Use bundle defined singular/plural labels as soon as
-      //   https://www.drupal.org/node/2765065 is committed.
-      // @see https://www.drupal.org/node/2765065
-      '#title' => t('@label', ['@label' => ucfirst($labels['singular'])]),
-      '#target_type' => $instance->getSetting('target_type'),
-      '#selection_handler' => $instance->getSetting('handler'),
-      '#selection_settings' => $selection_settings,
-      '#required' => TRUE,
-      '#maxlength' => 255,
-      '#ief_extract_values_callback' => 'inline_entity_form_extract_autocomplete',
-    ];
-  }
+  $reference_form['entity_id'] = [
+    '#type' => 'entity_autocomplete',
+    // @todo Use bundle defined singular/plural labels as soon as
+    //   https://www.drupal.org/node/2765065 is committed.
+    // @see https://www.drupal.org/node/2765065
+    '#title' => t('@label', ['@label' => ucfirst($labels['singular'])]),
+    '#target_type' => $instance->getSetting('target_type'),
+    '#selection_handler' => $instance->getSetting('handler'),
+    '#selection_settings' => $selection_settings,
+    '#required' => TRUE,
+    '#maxlength' => 255,
+  ];
   // Add the actions.
   $reference_form['actions'] = [
     '#type' => 'container',
@@ -139,7 +108,7 @@ function inline_entity_form_reference_form(array $reference_form, FormStateInter
     '#attributes' => ['class' => ['ief-entity-submit']],
     '#ajax' => [
       'callback' => 'inline_entity_form_get_element',
-      'wrapper' => $reference_form['#ref_id'],
+      'wrapper' => 'inline-entity-form-' . $reference_form['#ief_id'],
     ],
   ];
   InlineEntityFormComplex::addSubmitCallbacks($reference_form['actions']['ief_reference_save']);
@@ -150,7 +119,7 @@ function inline_entity_form_reference_form(array $reference_form, FormStateInter
     '#limit_validation_errors' => [],
     '#ajax' => [
       'callback' => 'inline_entity_form_get_element',
-      'wrapper' => $reference_form['#ref_id'],
+      'wrapper' => 'inline-entity-form-' . $reference_form['#ief_id'],
     ],
     '#submit' => [
       [
@@ -168,89 +137,6 @@ function inline_entity_form_reference_form(array $reference_form, FormStateInter
   \Drupal::theme()->alter('inline_entity_form_reference_form', $reference_form, $form_state);
 
   return $reference_form;
-}
-
-/**
- * Extract select values.
- *
- * @param $element
- *   The element.
- * @param \Drupal\Core\Form\FormStateInterface $form_state
- *   The form state.
- * @param $values
- *   The values.
- */
-function inline_entity_form_extract_select($element, FormStateInterface $form_state, &$values) {
-  $values += [
-    'target_id' => $element['#value'],
-  ];
-}
-
-/**
- * Extract autocomplete values.
- *
- * @param $element
- *   The element.
- * @param \Drupal\Core\Form\FormStateInterface $form_state
- *   The form state.
- * @param $values
- *   The values.
- */
-function inline_entity_form_extract_autocomplete($element, FormStateInterface $form_state, &$values) {
-  $options = [
-    'target_type' => $element['#target_type'],
-    'handler' => $element['#selection_handler'],
-    'handler_settings' => $element['#selection_settings'],
-  ];
-  /** @var \Drupal\Core\Entity\EntityReferenceSelection\SelectionPluginManagerInterface $selectionManager */
-  $selectionManager = \Drupal::service('plugin.manager.entity_reference_selection');
-  /** @var \Drupal\Core\Entity\EntityReferenceSelection\SelectionInterface $handler */
-  $handler = $selectionManager->getInstance($options);
-  $input_values = $element['#tags'] ? Tags::explode($element['#value']) : [$element['#value']];
-
-  foreach ($input_values as $input) {
-    $match = EntityAutocomplete::extractEntityIdFromAutocompleteInput($input);
-    if ($match === NULL) {
-      // Try to get a match from the input string when the user didn't use
-      // the autocomplete but filled in a value manually.
-      $entities_by_bundle = $handler->getReferenceableEntities($input, '=');
-      $entities = array_reduce($entities_by_bundle, function ($flattened, $bundle_entities) {
-        return $flattened + $bundle_entities;
-      }, []);
-      $params = [
-        '%value' => $input,
-        '@value' => $input,
-      ];
-      if (empty($entities)) {
-        $form_state->setError($element, t('There are no entities matching "%value".', $params));
-      }
-      elseif (count($entities) > 5) {
-        $params['@id'] = key($entities);
-        // Error if there are more than 5 matching entities.
-        $form_state->setError($element, t('Many entities are called %value. Specify the one you want by appending the id in parentheses, like "@value (@id)".', $params));
-      }
-      elseif (count($entities) > 1) {
-        // More helpful error if there are only a few matching entities.
-        $multiples = [];
-        foreach ($entities as $id => $name) {
-          $multiples[] = $name . ' (' . $id . ')';
-        }
-        $params['@id'] = $id;
-        $form_state->setError($element, t('Multiple entities match this reference; "%multiple". Specify the one you want by appending the id in parentheses, like "@value (@id)".', ['%multiple' => implode('", "', $multiples)] + $params));
-      }
-      else {
-        // Take the one and only matching entity.
-        $values += [
-          'target_id' => key($entities),
-        ];
-      }
-    }
-    else {
-      $values += [
-        'target_id' => $match,
-      ];
-    }
-  }
 }
 
 /**
@@ -341,11 +227,6 @@ function inline_entity_form_open_form(array $form, FormStateInterface $form_stat
       'bundle' => $form_values['actions']['bundle'],
     ]);
   }
-  elseif ($element['actions']['bundle']['#type'] == 'value') {
-    $form_state->set(['inline_entity_form', $ief_id, 'form settings'], [
-      'bundle' => $element['actions']['bundle']['#value'],
-    ]);
-  }
 }
 
 /**
@@ -358,9 +239,7 @@ function inline_entity_form_open_form(array $form, FormStateInterface $form_stat
  */
 function inline_entity_form_cleanup_form_state(array $form, FormStateInterface $form_state) {
   $element = inline_entity_form_get_element($form, $form_state);
-  $entity_type = $element['form']['inline_entity_form']['#entity_type'];
-  $handler = \Drupal::entityTypeManager()->getHandler($entity_type, 'inline_form');
-  get_class($handler)::submitCleanFormState($element['form']['inline_entity_form'], $form_state);
+  EntityInlineForm::submitCleanFormState($element['form']['inline_entity_form'], $form_state);
 }
 
 /**
@@ -426,8 +305,7 @@ function inline_entity_form_cleanup_row_form_state(array $form, FormStateInterfa
   $element = inline_entity_form_get_element($form, $form_state);
   $delta = $form_state->getTriggeringElement()['#ief_row_delta'];
   $entity_form = $element['entities'][$delta]['form']['inline_entity_form'];
-  $handler = \Drupal::entityTypeManager()->getHandler($entity_form['#entity_type'], 'inline_form');
-  get_class($handler)::submitCleanFormState($entity_form, $form_state);
+  EntityInlineForm::submitCleanFormState($entity_form, $form_state);
 }
 
 /**
@@ -479,7 +357,7 @@ function template_preprocess_inline_entity_form_entity_table(array &$variables) 
   $first = TRUE;
   foreach ($fields as $field_name => $field) {
     $column = [
-      'data' => isset($field['label']) ? $field['label'] : NULL,
+      'data' => $field['label'],
       'class' => ['inline-entity-form-' . $entity_type . '-' . $field_name],
     ];
     // The first column gets a special class.
@@ -606,22 +484,4 @@ function inline_entity_form_migrate_prepare_row(Row $row, MigrateSourceInterface
 function inline_entity_form_migration_plugins_alter(array &$migrations) {
   \Drupal::classResolver(MigrationHelper::class)
     ->alterPlugins($migrations);
-}
-
-/**
- * Change text button by type of bundle.
- *
- * @param array $form
- *   The complete parent form.
- * @param \Drupal\Core\Form\FormStateInterface $form_state
- *   The form state of the parent form.
- */
-function inline_entity_form_change_bundle_form(array $form, FormStateInterface $form_state) {
-  $element = inline_entity_form_get_element($form, $form_state);
-  $elements = $form_state->getTriggeringElement();
-
-  $element['actions']['ief_add']['#value'] = t('Add new @type', [
-    '@type' => $elements['#options'][$elements['#value']],
-  ]);
-  return $element;
 }

@@ -2,7 +2,6 @@
 
 namespace Drupal\inline_entity_form;
 
-use Drupal\migrate_plus\Entity\MigrationGroup;
 use Drupal\Component\Utility\NestedArray;
 use Drupal\field\Plugin\migrate\source\d7\FieldInstance;
 use Drupal\field\Plugin\migrate\source\d7\FieldInstancePerFormDisplay;
@@ -91,7 +90,7 @@ class MigrationHelper {
         $widget = $row->get('widget/type');
         if ($widget === 'inline_entity_form_single' || $widget === 'inline_entity_form') {
           $data = $row->get('field_definition/data');
-          $definition = unserialize($data);
+          $definition = unserialize(($data), ['allowed_classes' => FALSE]);
           if (empty($definition['settings']['handler_settings']['target_bundles'])) {
             $entity_type = $row->get('entity_type');
             $bundles = $this->getBundles($source, $entity_type);
@@ -153,7 +152,8 @@ class MigrationHelper {
   protected function getMigrationWithSharedConfiguration(array &$migration) {
     // Integrate shared group configuration into the migration.
     if (!empty($migration['migration_group']) && class_exists('\Drupal\migrate_plus\Entity\MigrationGroup')) {
-      $group = MigrationGroup::load($migration['migration_group']);
+      // phpcs:ignore Drupal.Classes.FullyQualifiedNamespace
+      $group = \Drupal\migrate_plus\Entity\MigrationGroup::load($migration['migration_group']);
       $shared_configuration = !empty($group) ? $group->get('shared_configuration') : [];
       if (!empty($shared_configuration)) {
         foreach ($shared_configuration as $key => $group_value) {

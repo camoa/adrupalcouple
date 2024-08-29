@@ -76,7 +76,7 @@ class SimpleWidgetTest extends InlineEntityFormTestBase {
         $assert_session->buttonNotExists('Add another item');
         $assert_session->elementExists('xpath', $title_field_xpath)->setValue('Host node');
         $assert_session->elementExists('xpath', $first_nested_title_field_xpath)->setValue('Nested single node');
-        $assert_session->elementExists('xpath', $first_positive_int_field_xpath)->setValue(42);
+        $assert_session->elementExists('xpath', $first_positive_int_field_xpath)->setValue('42');
         $page->pressButton('Save');
         $assert_session->pageTextContains('IEF simple single Host node has been created.');
         $host_node = $this->getNodeByTitle('Host node');
@@ -86,9 +86,9 @@ class SimpleWidgetTest extends InlineEntityFormTestBase {
         $assert_session->buttonNotExists('Add another item');
         $assert_session->elementExists('xpath', $title_field_xpath)->setValue('Host node 2');
         $assert_session->elementExists('xpath', $first_nested_title_field_xpath)->setValue('Nested single node 2');
-        $assert_session->elementExists('xpath', $first_positive_int_field_xpath)->setValue(42);
+        $assert_session->elementExists('xpath', $first_positive_int_field_xpath)->setValue('42');
         $assert_session->elementExists('xpath', $second_nested_title_field_xpath)->setValue('Nested single node 3');
-        $assert_session->elementExists('xpath', $second_positive_int_field_xpath)->setValue(42);
+        $assert_session->elementExists('xpath', $second_positive_int_field_xpath)->setValue('42');
         $page->pressButton('Save');
         $assert_session->pageTextContains('IEF simple single Host node 2 has been created.');
         $host_node = $this->getNodeByTitle('Host node 2');
@@ -98,7 +98,7 @@ class SimpleWidgetTest extends InlineEntityFormTestBase {
         // and an 'Add another item' button should appear.
         $assert_session->elementExists('xpath', $title_field_xpath)->setValue('Host node 3');
         $assert_session->elementExists('xpath', $first_nested_title_field_xpath)->setValue('Nested single node 4');
-        $assert_session->elementExists('xpath', $first_positive_int_field_xpath)->setValue(42);
+        $assert_session->elementExists('xpath', $first_positive_int_field_xpath)->setValue('42');
         $assert_session->elementNotExists('xpath', $second_positive_int_field_xpath);
 
         // Press the 'add another item' button and add a second item.
@@ -108,12 +108,7 @@ class SimpleWidgetTest extends InlineEntityFormTestBase {
         // Assert an extra item isn't added at the same time.
         $assert_session->elementNotExists('xpath', $third_nested_title_field_xpath);
         $assert_session->elementExists('xpath', $second_nested_title_field_xpath)->setValue('Nested single node 5');
-        $assert_session->elementExists('xpath', $second_positive_int_field_xpath)->setValue(42);
-
-        // Check that an unrelated AJAX call with #executes_submit_callback set
-        // to FALSE doesn't interfere.
-        $assert_session->buttonExists('No submit callbacks')->press();
-        $assert_session->waitForText('AJAX complete');
+        $assert_session->elementExists('xpath', $second_positive_int_field_xpath)->setValue('42');
 
         // Press the 'add another item' button and add a third item.
         $assert_session->buttonExists('Add another item')->press();
@@ -122,7 +117,7 @@ class SimpleWidgetTest extends InlineEntityFormTestBase {
         // Assert an extra item isn't added at the same time.
         $assert_session->elementNotExists('xpath', $fourth_nested_title_field_xpath);
         $assert_session->elementExists('xpath', $third_nested_title_field_xpath)->setValue('Nested single node 6');
-        $assert_session->elementExists('xpath', $third_positive_int_field_xpath)->setValue(42);
+        $assert_session->elementExists('xpath', $third_positive_int_field_xpath)->setValue('42');
         $page->pressButton('Save');
         $assert_session->pageTextContains('IEF simple single Host node 3 has been created.');
         $host_node = $this->getNodeByTitle('Host node 3');
@@ -166,7 +161,7 @@ class SimpleWidgetTest extends InlineEntityFormTestBase {
 
     $child_title = 'Child node ' . $this->randomString();
     $assert_session->elementExists('xpath', $nested_title_field_xpath)->setValue($child_title);
-    $assert_session->elementExists('xpath', $positive_int_field_xpath)->setValue(-1);
+    $assert_session->elementExists('xpath', $positive_int_field_xpath)->setValue('-1');
     $page->pressButton('Save');
 
     // Assert field validation fires on Inline Entity Form widget.
@@ -175,7 +170,7 @@ class SimpleWidgetTest extends InlineEntityFormTestBase {
     // Assert that we're still on form due to to validation error.
     $this->assertSession()->addressEquals('node/add/ief_simple_single');
 
-    $assert_session->elementExists('xpath', $positive_int_field_xpath)->setValue(1);
+    $assert_session->elementExists('xpath', $positive_int_field_xpath)->setValue('1');
     $page->pressButton('Save');
 
     // Assert title validation passes on Inline Entity Form widget.

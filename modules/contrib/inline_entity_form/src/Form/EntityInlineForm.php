@@ -5,15 +5,15 @@ namespace Drupal\inline_entity_form\Form;
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\ContentEntityTypeInterface;
 use Drupal\Core\Entity\Entity\EntityFormDisplay;
-use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityFieldManagerInterface;
+use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Field\WidgetBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\Render\Element;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\Theme\ThemeManagerInterface;
 use Drupal\inline_entity_form\InlineFormInterface;
 use Drupal\rat\v1\RenderArray;
@@ -107,10 +107,9 @@ class EntityInlineForm implements InlineFormInterface {
    * {@inheritdoc}
    */
   public function getEntityTypeLabels() {
-    $lowercase_label = $this->entityType->getSingularLabel();
     return [
-      'singular' => $lowercase_label,
-      'plural' => $this->t('@entity_type entities', ['@entity_type' => $lowercase_label]),
+      'singular' => $this->entityType->getSingularLabel(),
+      'plural' => $this->entityType->getPluralLabel(),
     ];
   }
 
@@ -183,9 +182,6 @@ class EntityInlineForm implements InlineFormInterface {
   public function entityForm(array $entity_form, FormStateInterface $form_state) {
     /** @var \Drupal\Core\Entity\ContentEntityInterface $entity */
     $entity = $entity_form['#entity'];
-
-    $this->prepareInvokeAll($entity, 'entity_prepare_form', $form_state);
-    $this->prepareInvokeAll($entity, $entity->getEntityTypeId() . '_prepare_form', $form_state);
     $form_display = $this->getFormDisplay($entity, $entity_form['#form_mode']);
     $form_display->buildForm($entity, $entity_form, $form_state);
     $entity_form['#ief_element_submit'][] = [
@@ -262,22 +258,6 @@ class EntityInlineForm implements InlineFormInterface {
   }
 
   /**
-   * Invokes the specified prepare hook variant.
-   *
-   * @param \Drupal\Core\Entity\ContentEntityInterface $entity
-   *   The entity object.
-   * @param string $hook
-   *   The hook variant name.
-   * @param \Drupal\Core\Form\FormStateInterface $form_state
-   *   The current state of the form.
-   */
-  protected function prepareInvokeAll(ContentEntityInterface $entity, $hook, FormStateInterface $form_state) {
-    $this->moduleHandler->invokeAllWith($hook, function (callable $hook, string $module) use (&$entity, &$form_state) {
-      $hook($entity, 'add', $form_state);
-    });
-  }
-
-  /**
    * {@inheritdoc}
    */
   public function entityFormValidate(array &$entity_form, FormStateInterface $form_state) {
@@ -289,19 +269,15 @@ class EntityInlineForm implements InlineFormInterface {
       $entity = $entity_form['#entity'];
       $this->buildEntity($entity_form, $entity, $form_state);
       $form_display = $this->getFormDisplay($entity, $entity_form['#form_mode']);
-
-      // Do the entity validation.
-      $violations = $entity->validate();
-      $violations->filterByFieldAccess();
-
-      // Flag entity level violations.
-      foreach ($violations->getEntityViolations() as $violation) {
-        /** @var \Symfony\Component\Validator\ConstraintViolationInterface $violation */
-        $form_state->setError($triggering_element, $violation->getMessage());
-      }
-
-      $form_display->flagWidgetsErrorsFromViolations($violations, $entity_form, $form_state);
+      $form_display->validateFormValues($entity, $entity_form, $form_state);
       $entity->setValidationRequired(FALSE);
+
+      foreach ($form_state->getErrors() as $message) {
+        // $name may be unknown in $form_state and
+        // $form_state->setErrorByName($name, $message) may suppress the error
+        // message.
+        $form_state->setError($triggering_element, $message);
+      }
     }
   }
 
@@ -336,12 +312,12 @@ class EntityInlineForm implements InlineFormInterface {
    *
    * @param array $entity_form
    *   The entity form.
-   * @param \Drupal\Core\Entity\EntityInterface $entity
+   * @param \Drupal\Core\Entity\ContentEntityInterface $entity
    *   The entity.
    * @param \Drupal\Core\Form\FormStateInterface $form_state
    *   The current state of the form.
    */
-  protected function buildEntity(array $entity_form, EntityInterface $entity, FormStateInterface $form_state) {
+  protected function buildEntity(array $entity_form, ContentEntityInterface $entity, FormStateInterface $form_state) {
     $form_display = $this->getFormDisplay($entity, $entity_form['#form_mode']);
     $form_display->extractFormValues($entity, $entity_form, $form_state);
     // Invoke all specified builders for copying form values to entity fields.

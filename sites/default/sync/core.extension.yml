@@ -43,6 +43,7 @@ module:
   field_group: 0
   field_ui: 0
   field_validation: 0
+  field_validation_legacy: 0
   file: 0
   filter: 0
   focal_point: 0
@@ -106,6 +107,8 @@ module:
   token: 0
   toolbar: 0
   tour: 0
+  update: 0
+  upgrade_status: 0
   user: 0
   views_ui: 0
   workflows: 0
