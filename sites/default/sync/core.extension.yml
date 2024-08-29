@@ -7,12 +7,10 @@ module:
   admin_toolbar_tools: 0
   allowed_formats: 0
   automated_cron: 0
-  autosave_form: 0
   big_pipe: 0
   block: 0
   block_content: 0
   breakpoint: 0
-  cer: 0
   ckeditor5: 0
   comment: 0
   config: 0
@@ -35,12 +33,9 @@ module:
   entity_browser: 0
   entity_reference_revisions: 0
   entity_usage: 0
-  existing_values_autocomplete_widget: 0
   field: 0
   field_group: 0
   field_ui: 0
-  field_validation: 0
-  field_validation_legacy: 0
   file: 0
   filter: 0
   focal_point: 0
@@ -72,10 +67,8 @@ module:
   metatag_open_graph_products: 0
   metatag_twitter_cards: 0
   moderation_dashboard: 0
-  moderation_sidebar: 0
   mysql: 0
   node: 0
-  node_edit_protection: 0
   options: 0
   page_cache: 0
   path: 0
