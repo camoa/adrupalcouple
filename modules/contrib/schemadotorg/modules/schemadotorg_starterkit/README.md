@@ -5,6 +5,8 @@ Table of contents
 * Features
 * Notes
 * Usage
+* Tips
+* Checklist
 * Todo
 
 
@@ -96,9 +98,32 @@ Tips
 
 `MODULE_NAME.schemadotorg_starterkit.yml` file
 
+- You can set the bundle names by using `entity_type_id:bundle:schema_type` 
+  (i.e., `node:page:WebPage`)
 - Explicitly include any Schema.org properties that are required.
 - Generally, you want to add include additional Schema.org properties 
   and not excluded any Schema.org properties. 
+
+
+Checklist
+---------
+
+Below are common steps for building a starter kit.
+
+- [ ] Determine Schema.org types
+- [ ] Determine Schema.org properties
+- [ ] Determine relationships
+  - Adjust schemadotorg.settings.schema_properties.range_includes
+- [ ] Review type tray
+- [ ] Review diagrams
+- [ ] Review node edit forms
+- [ ] Review entity prepopulation
+- [ ] Review field settings
+- [ ] Create config/optional
+- [ ] Create config/rewrite
+- [ ] Create README.md
+- [ ] Generate Schema.org type information via markdown using `drush schemadotorg:starterkit-info`.
+- [ ] Generate help which can be used as the starter kits project page using `drush schemadotorg:generate-help`.
 
 
 Todo

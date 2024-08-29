@@ -42,7 +42,24 @@ const ed11yLangDrupal = {
     Drupal.t("graphic of"),
     Drupal.t("picture of"),
     Drupal.t("placeholder"),
-    Drupal.t("photo of")
+    Drupal.t("photo of"),
+    Drupal.t('spacer'),
+    Drupal.t('tbd'),
+    Drupal.t('todo')
+  ],
+  meaninglessAlt: [
+    Drupal.t('alt'),
+    Drupal.t('chart'),
+    Drupal.t('decorative'),
+    Drupal.t('image'),
+    Drupal.t('graphic'),
+    Drupal.t('photo'),
+    Drupal.t('placeholder'),
+    Drupal.t('placeholder image'),
+    Drupal.t('spacer'),
+    Drupal.t('tbd'),
+    Drupal.t('todo'),
+    Drupal.t('to do')
   ],
   linksUrls: ['http:/', 'https:/', '.asp', '.htm', '.php', '.edu/', '.com/'],
   linkStringsNewWindows: new RegExp(`(${[
@@ -50,39 +67,39 @@ const ed11yLangDrupal = {
     Drupal.t('tab'),
     Drupal.t('download'),
     Drupal.t('file'),
-    'window','tab,','download','file',
+    'window','tab','download','file',
   ].join('|')})`, 'g'),
-  linksMeaningless: new RegExp(`(${[
-    'learn','to','more','now','this','page','link','site','website','check','out','view','our','read','download','form','here','click',
-    Drupal.t('learn'),
-    Drupal.t('to'),
-    Drupal.t('more'),
-    Drupal.t('now'),
-    Drupal.t('this'),
-    Drupal.t('page'),
-    Drupal.t('link'),
-    Drupal.t('site'),
-    Drupal.t('website'),
-    Drupal.t('check'),
-    Drupal.t('out'),
-    Drupal.t('view'),
-    Drupal.t('our'),
-    Drupal.t('read'),
-    Drupal.t('download'),
-    Drupal.t('form'),
-    Drupal.t('here'),
-    Drupal.t('click'),
-    Drupal.t('learn more'),
-    Drupal.t('this page'),
-    Drupal.t('this link'),
-    Drupal.t('this site'),
-    Drupal.t('our website'),
-    Drupal.t('check out'),
-    Drupal.t('view our'),
-    Drupal.t('click here'),
-    '\\.',"'",'"',":",'<','>','\\s'
-  ].join('|')})`, 'g'),
-
+  linksMeaningless: new RegExp(`(
+    ${[
+      'learn','to','more','now','this','page','link','site','website','check','out','view','our','read','download','form','here','click',
+      Drupal.t('learn'),
+      Drupal.t('to'),
+      Drupal.t('more'),
+      Drupal.t('now'),
+      Drupal.t('this'),
+      Drupal.t('page'),
+      Drupal.t('link'),
+      Drupal.t('site'),
+      Drupal.t('website'),
+      Drupal.t('check'),
+      Drupal.t('out'),
+      Drupal.t('view'),
+      Drupal.t('our'),
+      Drupal.t('read'),
+      Drupal.t('download'),
+      Drupal.t('form'),
+      Drupal.t('here'),
+      Drupal.t('click'),
+      Drupal.t('learn more'),
+      Drupal.t('this page'),
+      Drupal.t('this link'),
+      Drupal.t('this site'),
+      Drupal.t('our website'),
+      Drupal.t('check out'),
+      Drupal.t('view our'),
+      Drupal.t('click here'),
+      '\\.',"'",'"',":",'<','>','\\s','\\?','-',',',':'
+    ].join('|')})+`, 'g'),
 
   // Tooltips base ======================================
 
@@ -182,6 +199,27 @@ const ed11yLangDrupal = {
     tip: () => Drupal.t("" +
       "<p>Screen readers assume images with empty alt text are only for decoration (spacers and backgrounds), and do not mention they exist. If this image is meaningful, an alt should be provided.</p>") +
        Ed11y.M.altAttributeExample,
+  },
+
+  altMeaningless : {
+    title: Drupal.t('Alt text is meaningless'),
+    tip: (alt) =>
+      `${Ed11y.M.altAttributeProvided(alt)}
+        <p>${Drupal.t(`To fix: set this image's alternative text to a concise description of what this image means in this context.`)}</p>
+        ${Ed11y.M.altAttributeExample}`
+    ,
+  },
+  altMeaninglessLinked : {
+    title: 'Linked alt text is meaningless',
+    tip: (alt) =>
+        Ed11y.M.altAttributeProvided(alt) +
+         Drupal.t(`<p>When a link includes an image, the image's alt text becomes part of the link text announced by screen readers.
+            Links should clearly and concisely describe their destination; a URL (usually pronounced by the screen reader one letter at a time) does not.</p>
+            <ul>
+                <li>Good link text: "About us"</li>
+                <li>Bad link text: "H T T P S colon forward slash forward slash example dot com forward slash aye bee oh you tee you ess</li>
+            </ul>`)
+    ,
   },
 
   altURL : {

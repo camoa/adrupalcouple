@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg_jsonld_endpoint\Routing;
 
@@ -14,7 +14,7 @@ use Symfony\Component\Routing\RouteCollection;
 /**
  * Defines dynamic routes for Schema.org JSON-LD endpoint module.
  */
-class SchemaDotOrgJsonLdEndpointRoutes implements ContainerInjectionInterface {
+final class SchemaDotOrgJsonLdEndpointRoutes implements ContainerInjectionInterface {
 
   /**
    * A key with which to flag a route as belonging to the Schema.org JSON-LD endpoint module.
@@ -34,7 +34,7 @@ class SchemaDotOrgJsonLdEndpointRoutes implements ContainerInjectionInterface {
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container) {
+  public static function create(ContainerInterface $container): static {
     $instance = new static();
     $instance->configFactory = $container->get('config.factory');
     $instance->entityTypeManager = $container->get('entity_type.manager');

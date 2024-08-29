@@ -10,7 +10,7 @@
  * @see schemadotorg_jsonld.schemadotorg.inc
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 // phpcs:disable DrupalPractice.CodeAnalysis.VariableAnalysis.UnusedVariable
 
@@ -28,11 +28,13 @@ declare(strict_types = 1);
  *
  * @param \Drupal\Core\Routing\RouteMatchInterface $route_match
  *   The current route match.
+ * @param \Drupal\Core\Render\BubbleableMetadata $bubbleable_metadata
+ *   Object to collect JSON-LD's bubbleable metadata.
  *
  * @return array|null
  *   Custom Schema.org JSON-LD data.
  */
-function hook_schemadotorg_jsonld(\Drupal\Core\Routing\RouteMatchInterface $route_match): ?array {
+function hook_schemadotorg_jsonld(\Drupal\Core\Routing\RouteMatchInterface $route_match, \Drupal\Core\Render\BubbleableMetadata $bubbleable_metadata): ?array {
   return [
     '@context' => 'https://schema.org',
     '@type' => 'BreadcrumbList',
@@ -68,8 +70,10 @@ function hook_schemadotorg_jsonld(\Drupal\Core\Routing\RouteMatchInterface $rout
  *   The Schema.org JSON-LD data for the current route.
  * @param \Drupal\Core\Routing\RouteMatchInterface $route_match
  *   The current route match.
+ * @param \Drupal\Core\Render\BubbleableMetadata $bubbleable_metadata
+ *   Object to collect JSON-LD's bubbleable metadata.
  */
-function hook_schemadotorg_jsonld_alter(array &$data, \Drupal\Core\Routing\RouteMatchInterface $route_match): void {
+function hook_schemadotorg_jsonld_alter(array &$data, \Drupal\Core\Routing\RouteMatchInterface $route_match, \Drupal\Core\Render\BubbleableMetadata $bubbleable_metadata): void {
   /** @var \Drupal\schemadotorg_jsonld\SchemaDotOrgJsonLdManagerInterface $manager */
   $manager = \Drupal::service('schemadotorg_jsonld.manager');
   $entity = $manager->getRouteMatchEntity($route_match);
@@ -101,19 +105,15 @@ function hook_schemadotorg_jsonld_alter(array &$data, \Drupal\Core\Routing\Route
  *   The Schema.org JSON-LD data for an entity.
  * @param \Drupal\Core\Entity\EntityInterface $entity
  *   The entity.
+ * @param \Drupal\schemadotorg\SchemaDotOrgMappingInterface $mapping
+ *   The entity's Schema.org mapping.
+ * @param \Drupal\Core\Render\BubbleableMetadata $bubbleable_metadata
+ *   Object to collect JSON-LD's bubbleable metadata.
  */
-function hook_schemadotorg_jsonld_schema_type_entity_load(array &$data, \Drupal\Core\Entity\EntityInterface $entity): void {
-  if (!$entity instanceof \Drupal\taxonomy\VocabularyInterface) {
-    return;
-  }
-
-  // Alter a vocabulary's Schema.org type data to use DefinedTermSet @type.
-  // @see \Drupal\schemadotorg_taxonomy\SchemaDotOrgTaxonomyManager::load
-  /** @var \Drupal\schemadotorg\SchemaDotOrgMappingStorageInterface $mapping_storage */
-  $mapping_storage = \Drupal::entityTypeManager()->getStorage('schemadotorg_mapping');
-  /** @var \Drupal\schemadotorg\SchemaDotOrgMappingInterface[] $mappings */
-  $mapping = $mapping_storage->loadByEntity($entity);
-  if (!$mapping) {
+function hook_schemadotorg_jsonld_schema_type_entity_load(array &$data, \Drupal\Core\Entity\EntityInterface $entity, \Drupal\schemadotorg\SchemaDotOrgMappingInterface $mapping, \Drupal\Core\Render\BubbleableMetadata $bubbleable_metadata): void {
+  // Make sure this is a taxonomy term entity with a mapping.
+  if (!$entity instanceof \Drupal\taxonomy\VocabularyInterface
+    || !$mapping) {
     return;
   }
 
@@ -135,17 +135,14 @@ function hook_schemadotorg_jsonld_schema_type_entity_load(array &$data, \Drupal\
  *   The Schema.org JSON-LD data for an entity.
  * @param \Drupal\Core\Entity\EntityInterface $entity
  *   The entity.
+ * @param \Drupal\schemadotorg\SchemaDotOrgMappingInterface|null $mapping
+ *   The entity's Schema.org mapping.
+ * @param \Drupal\Core\Render\BubbleableMetadata $bubbleable_metadata
+ *   Object to collect JSON-LD's bubbleable metadata.
  */
-function hook_schemadotorg_jsonld_schema_type_entity_alter(array &$data, \Drupal\Core\Entity\EntityInterface $entity): void {
-  if (!$entity instanceof \Drupal\taxonomy\TermInterface) {
-    return;
-  }
-
-  // Alter a term's Schema.org type data to include isDefinedTermSet property.
-  // @see \Drupal\schemadotorg_taxonomy\SchemaDotOrgTaxonomyManager::alter
-  $mapping_storage = \Drupal::entityTypeManager()->getStorage('schemadotorg_mapping');
-  $mapping = $mapping_storage->loadByEntity($entity);
-  if (!$mapping) {
+function hook_schemadotorg_jsonld_schema_type_entity_alter(array &$data, \Drupal\Core\Entity\EntityInterface $entity, ?\Drupal\schemadotorg\SchemaDotOrgMappingInterface $mapping, \Drupal\Core\Render\BubbleableMetadata $bubbleable_metadata): void {
+  if (!$entity instanceof \Drupal\taxonomy\TermInterface
+    || !$mapping) {
     return;
   }
 
@@ -174,8 +171,10 @@ function hook_schemadotorg_jsonld_schema_type_entity_alter(array &$data, \Drupal
  *   The Schema.org JSON-LD data for an entity.
  * @param \Drupal\Core\Field\FieldItemListInterface $items
  *   A field item list.
+ * @param \Drupal\Core\Render\BubbleableMetadata $bubbleable_metadata
+ *   Object to collect JSON-LD's bubbleable metadata.
  */
-function hook_schemadotorg_jsonld_schema_type_field_alter(array &$data, \Drupal\Core\Field\FieldItemListInterface $items): void {
+function hook_schemadotorg_jsonld_schema_type_field_alter(array &$data, \Drupal\Core\Field\FieldItemListInterface $items, \Drupal\Core\Render\BubbleableMetadata $bubbleable_metadata): void {
   $field_storage = $items->getFieldDefinition()->getFieldStorageDefinition();
   $field_type = $field_storage->getType();
   if ($field_type === 'text_with_summary') {
@@ -204,8 +203,10 @@ function hook_schemadotorg_jsonld_schema_type_field_alter(array &$data, \Drupal\
  *   Alter the Schema.org property JSON-LD value.
  * @param \Drupal\Core\Field\FieldItemInterface $item
  *   The entity's field item.
+ * @param \Drupal\Core\Render\BubbleableMetadata $bubbleable_metadata
+ *   Object to collect JSON-LD's bubbleable metadata.
  */
-function hook_schemadotorg_jsonld_schema_property_alter(mixed &$value, \Drupal\Core\Field\FieldItemInterface $item): void {
+function hook_schemadotorg_jsonld_schema_property_alter(mixed &$value, \Drupal\Core\Field\FieldItemInterface $item, \Drupal\Core\Render\BubbleableMetadata $bubbleable_metadata): void {
   // Get entity information.
   $entity = $item->getEntity();
   $entity_type_id = $entity->getEntityTypeId();
@@ -243,8 +244,10 @@ function hook_schemadotorg_jsonld_schema_property_alter(mixed &$value, \Drupal\C
  *   Alter the Schema.org property JSON-LD values.
  * @param \Drupal\Core\Field\FieldItemListInterface $items
  *   The entity's field items.
+ * @param \Drupal\Core\Render\BubbleableMetadata $bubbleable_metadata
+ *   Object to collect JSON-LD's bubbleable metadata.
  */
-function hook_schemadotorg_jsonld_schema_properties_alter(array &$values, \Drupal\Core\Field\FieldItemListInterface $items): void {
+function hook_schemadotorg_jsonld_schema_properties_alter(array &$values, \Drupal\Core\Field\FieldItemListInterface $items, \Drupal\Core\Render\BubbleableMetadata $bubbleable_metadata): void {
   // @todo Provide some example code.
 }
 

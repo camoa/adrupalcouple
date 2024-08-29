@@ -5,7 +5,7 @@
  * Builds placeholder replacement tokens for Schema.org mapping data.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Render\BubbleableMetadata;
@@ -85,8 +85,8 @@ function _schemadotorg_tokens_get_mapping(string $type, array $data): ?SchemaDot
   }
 
   // Check that the content entity is mapped to a Schema.org type.
-  /** @var \Drupal\schemadotorg\SchemaDotOrgMappingInterface $mapping */
-  return \Drupal::entityTypeManager()
-    ->getStorage('schemadotorg_mapping')
-    ->loadByEntity($entity);
+  /** @var \Drupal\schemadotorg\SchemaDotOrgMappingStorageInterface $mapping_storage */
+  $mapping_storage = \Drupal::entityTypeManager()
+    ->getStorage('schemadotorg_mapping');
+  return $mapping_storage->loadByEntity($entity);
 }

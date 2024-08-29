@@ -1,5 +1,5 @@
 schemadotorg_auto_entitylabel.settings:
-  type: config_entity
+  type: config_object
   label: 'Schema.org Inline Entity Form settings'
   mapping:
     default_types:

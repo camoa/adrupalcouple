@@ -1,7 +1,7 @@
 langcode: en
 status: true
 dependencies: {  }
-name: Something
+name: Thing
 type: thing
 description: 'The most generic type of item.'
 help: null

@@ -26,7 +26,7 @@ Configuration
 General
 
 - Go to the Schema.org JSON:LD configuration page.  
-  (/admin/config/schemadotorg/settings/jsonld)
+  (/admin/config/schemadotorg/settings/jsonld#edit-schemadotorg-jsonld-custom)
 - Go to the 'JSON-LD custom settings' details
 - Enter the custom JSON-LD for a path.
 - Enter the default JSON-LD for Schema.org types.

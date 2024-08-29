@@ -28,7 +28,7 @@ Configuration
 -------------
 
 - Go to the Schema.org types configuration page.  
-  (/admin/config/schemadotorg/settings/types)
+  (/admin/config/schemadotorg/settings/types#edit-schemadotorg-media)
 - Enter default sources for Schema.org MediaObject types.
 
 

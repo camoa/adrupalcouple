@@ -5,7 +5,7 @@
  * Primary module hooks for Schema.org Report module.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Url;
@@ -13,7 +13,7 @@ use Drupal\Core\Url;
 /**
  * Implements hook_help().
  */
-function schemadotorg_report_help(string $route_name, RouteMatchInterface $route_match): string|array|NULL {
+function schemadotorg_report_help(string $route_name, RouteMatchInterface $route_match): string|NULL {
   switch ($route_name) {
     case 'schemadotorg_report':
       /** @var \Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface $schema_type_manager */
@@ -50,11 +50,20 @@ function schemadotorg_report_help(string $route_name, RouteMatchInterface $route
     case 'schemadotorg_report.types.data_types':
       return '<p>' . t('The <strong>Schema.org: Data type</strong> page displays a hierarchical tree of the basic data types available to Schema.org properties, such as Integers, Strings, etc.') . '</p>';
 
+    case 'schemadotorg_report.types.descriptions':
+      return '<p>' . t('The <strong>Schema.org: Type descriptions</strong> report lists Schema.org type default and custom descriptions.') . '</p>';
+
     case 'schemadotorg_report.properties':
       return '<p>' . t('The <strong>Schema.org: Properties</strong> report lists Schema.org properties.') . '</p>';
 
     case 'schemadotorg_report.properties.inverse_of':
       return '<p>' . t('The <strong>Schema.org: Inverse of</strong> report lists Schema.org properties that have inverse relationships.') . '</p>';
+
+    case 'schemadotorg_report.properties.descriptions':
+      return '<p>' . t('The <strong>Schema.org: Property descriptions</strong> report lists Schema.org property default and custom descriptions.') . '</p>';
+
+    case 'schemadotorg_report.relationships':
+      return '<p>' . t("The <strong>Schema.org: Relationships overview</strong> report summarizes the relationships between content types and other entities.") . '</p>';
 
     case 'schemadotorg_report.names':
       return '<p>' . t("The <strong>Schema.org: Names overview</strong> report summarizes the abbreviations used to convert Schema.org type and property names to Drupal entity type and field names.") . '</p>';
@@ -73,12 +82,6 @@ function schemadotorg_report_help(string $route_name, RouteMatchInterface $route
 
     case 'schemadotorg_report.names':
       return '<p>' . t("The <strong>Schema.org: Names overview</strong> report summarizes the abbreviations used to convert Schema.org type and property names to Drupal entity type and field names.") . '</p>';
-
-    case 'schemadotorg_report.descriptions.types':
-      return '<p>' . t('The <strong>Schema.org: Type descriptions</strong> report lists Schema.org type default and custom descriptions.') . '</p>';
-
-    case 'schemadotorg_report.descriptions.properties':
-      return '<p>' . t('The <strong>Schema.org: Property descriptions</strong> report lists Schema.org property default and custom descriptions.') . '</p>';
 
     case 'schemadotorg_report.references':
       return '<p>' . t('The <strong>Schema.org: References</strong> page lists Schema.org references and issues.') . '</p>';

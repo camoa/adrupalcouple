@@ -2,9 +2,9 @@
 
 namespace Drupal\smart_date\Form;
 
+use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Config\ConfigFactoryInterface;
 
 /**
  * Class SmartDateSettingsForm.

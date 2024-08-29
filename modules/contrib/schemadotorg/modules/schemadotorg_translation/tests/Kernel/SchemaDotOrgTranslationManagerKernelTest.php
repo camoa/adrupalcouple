@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\Tests\schemadotorg_translation\Kernel;
 
@@ -23,9 +23,7 @@ class SchemaDotOrgTranslationManagerKernelTest extends SchemaDotOrgEntityKernelT
   use SchemaDotOrgTestTrait;
 
   /**
-   * Modules to enable.
-   *
-   * @var array
+   * {@inheritdoc}
    */
   protected static $modules = [
     'language',

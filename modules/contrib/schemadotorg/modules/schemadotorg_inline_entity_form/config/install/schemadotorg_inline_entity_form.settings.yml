@@ -1,7 +1,7 @@
-default_properties:
+default_schema_properties:
   - episode
   - hasCourseInstance
-default_form_displays:
+default_schema_type_form_displays:
   - Episode
   - Course
   - Person

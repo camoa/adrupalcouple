@@ -5,7 +5,7 @@
  * Allows the schema_* field prefix and other field prefixes to be customized.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\field\Entity\FieldStorageConfig;
@@ -18,6 +18,11 @@ use Drupal\field\Entity\FieldStorageConfig;
 function schemadotorg_field_prefix_form_field_ui_field_storage_add_form_alter(array &$form, FormStateInterface $form_state): void {
   $field_prefix_options = \Drupal::config('schemadotorg_field_prefix.settings')->get('field_prefix_options');
   if (empty($field_prefix_options)) {
+    return;
+  }
+
+  // Make sure the new field storage wrapper exists.
+  if (!isset($form['new_storage_wrapper'])) {
     return;
   }
 
@@ -58,7 +63,13 @@ function schemadotorg_field_prefix_form_field_ui_field_storage_add_form_alter(ar
   $form['new_storage_wrapper']['field_name']['#maxlength'] = FieldStorageConfig::NAME_MAX_LENGTH - strlen($field_prefix_value);
 
   // Validation callback to set the field name using the custom field prefix.
-  $form['#validate'][] = 'schemadotorg_field_prefix_form_field_ui_field_storage_add_form_validate';
+  if (version_compare(\Drupal::VERSION, '10.3', '>=')) {
+    $form['actions']['submit']['#validate'][] = 'schemadotorg_field_prefix_form_field_ui_field_storage_add_form_validate';
+  }
+  else {
+    // @todo Remove the below code when drupal:10.3.0 is full supported.
+    $form['#validate'][] = 'schemadotorg_field_prefix_form_field_ui_field_storage_add_form_validate';
+  }
 }
 
 /**

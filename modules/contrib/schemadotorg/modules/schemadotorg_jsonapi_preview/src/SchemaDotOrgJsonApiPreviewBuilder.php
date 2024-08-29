@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg_jsonapi_preview;
 
@@ -9,7 +9,6 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\RevisionableInterface;
 use Drupal\Core\Render\RenderContext;
 use Drupal\Core\Render\RendererInterface;
-use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\Url;
 use Drupal\jsonapi\ResourceType\ResourceTypeRepositoryInterface;
@@ -23,12 +22,10 @@ class SchemaDotOrgJsonApiPreviewBuilder implements SchemaDotOrgJsonApiPreviewBui
   use StringTranslationTrait;
 
   /**
-   * Constructs a SchemaDotOrgJsonApiPreviewBuilder object.
+   * Constructs a SchemaDotOrgJsonApiPreviewManager object.
    *
-   * @param \Drupal\Core\Routing\RouteMatchInterface $routeMatch
-   *   The current route match.
    * @param \Drupal\Core\Render\RendererInterface $renderer
-   *   The renderer.
+   *   The resource type repository.
    * @param \Drupal\jsonapi\ResourceType\ResourceTypeRepositoryInterface $resourceTypeRepository
    *   The resource type repository.
    * @param \Drupal\jsonapi_extras\EntityToJsonApi $entityToJsonApi
@@ -37,22 +34,16 @@ class SchemaDotOrgJsonApiPreviewBuilder implements SchemaDotOrgJsonApiPreviewBui
    *   The Schema.org JSON:API manager.
    */
   public function __construct(
-    protected RouteMatchInterface $routeMatch,
     protected RendererInterface $renderer,
     protected ResourceTypeRepositoryInterface $resourceTypeRepository,
     protected EntityToJsonApi $entityToJsonApi,
-    protected SchemaDotOrgJsonApiManagerInterface $schemaJsonApiManager
+    protected SchemaDotOrgJsonApiManagerInterface $schemaJsonApiManager,
   ) {}
 
   /**
    * {@inheritdoc}
    */
-  public function build(): ?array {
-    $entity = $this->getRouteMatchEntity();
-    if (!$entity) {
-      return NULL;
-    }
-
+  public function build(EntityInterface $entity): ?array {
     // Get includes.
     $resource_type = $this->resourceTypeRepository->get(
       $entity->getEntityTypeId(),
@@ -77,11 +68,8 @@ class SchemaDotOrgJsonApiPreviewBuilder implements SchemaDotOrgJsonApiPreviewBui
 
     // Display the JSON:API using a details element.
     $build = [
-      '#type' => 'details',
-      '#title' => $this->t('Schema.org JSON:API'),
-      '#weight' => 1010,
+      '#type' => 'container',
       '#attributes' => [
-        'data-schemadotorg-details-key' => 'schemadotorg-jsonapi-preview',
         'class' => ['schemadotorg-jsonapi-preview'],
       ],
       '#attached' => ['library' => ['schemadotorg_jsonapi_preview/schemadotorg_jsonapi_preview']],
@@ -146,24 +134,6 @@ class SchemaDotOrgJsonApiPreviewBuilder implements SchemaDotOrgJsonApiPreviewBui
       $route_options['query']['include'] = implode(',', $includes);
     }
     return Url::fromRoute($route_name, ['entity' => $entity->uuid()], $route_options);
-  }
-
-  /**
-   * Returns the entity of the current route.
-   *
-   * @return \Drupal\Core\Entity\EntityInterface|null
-   *   The entity or NULL if this is not an entity route.
-   *
-   * @see metatag_get_route_entity()
-   */
-  protected function getRouteMatchEntity(): EntityInterface|NULL {
-    $route_name = $this->routeMatch->getRouteName();
-    if (preg_match('/entity\.(.*)\.(latest[_-]version|canonical)/', $route_name, $matches)) {
-      return $this->routeMatch->getParameter($matches[1]);
-    }
-    else {
-      return NULL;
-    }
   }
 
 }

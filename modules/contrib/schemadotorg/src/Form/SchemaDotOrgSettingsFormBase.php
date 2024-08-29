@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg\Form;
 
@@ -25,7 +25,7 @@ abstract class SchemaDotOrgSettingsFormBase extends ConfigFormBase {
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container) {
+  public static function create(ContainerInterface $container): static {
     $instance = parent::create($container);
     $instance->moduleHandler = $container->get('module_handler');
     return $instance;
@@ -44,10 +44,10 @@ abstract class SchemaDotOrgSettingsFormBase extends ConfigFormBase {
     // @see \Drupal\schemadotorg\Form\SchemaDotOrgSettingsFormBase::formAlter
     $settings_name = explode('.', $config_name)[1];
     if (isset($form[$settings_name])) {
-      $elements = $form[$settings_name];
+      $elements =& $form[$settings_name];
     }
     else {
-      $elements = $form;
+      $elements =& $form;
     }
     static::setElementRecursive($elements, $config);
 
@@ -74,6 +74,17 @@ abstract class SchemaDotOrgSettingsFormBase extends ConfigFormBase {
       }
     }
     $form['#attached']['library'][] = 'schemadotorg/schemadotorg.details';
+
+    // Make sure all the schemadotorg_* module settings are sorted alphabetically.
+    $weight = 0;
+    $keys = Element::children($form);
+    sort($keys);
+    foreach ($keys as $key) {
+      if (str_starts_with($key, 'schemadotorg_')
+        && !NestedArray::keyExists($form, [$key, 'weight'])) {
+        $form[$key]['#weight'] = $weight++;
+      }
+    }
 
     // Hide the submit button if the form has no details elements.
     if (!$has_details) {

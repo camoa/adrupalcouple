@@ -10,7 +10,7 @@ use Drupal\editoria11y\DashboardInterface;
 /**
  * Provides route responses for the Editoria11y module.
  */
-class DashboardController extends ControllerBase {
+final class DashboardController extends ControllerBase {
   /**
    * Dashboard property.
    *
@@ -32,7 +32,7 @@ class DashboardController extends ControllerBase {
    * {@inheritdoc}
    */
   public static function create($container) {
-    return new static(
+    return new self(
       $container->get('editoria11y.dashboard'),
     );
   }
@@ -74,7 +74,7 @@ class DashboardController extends ControllerBase {
    */
   public function dashboard(): array {
 
-    $render = [
+    return [
       '#type' => 'container',
       '#attributes' => [
         'class' => ['layout-container'],
@@ -164,8 +164,6 @@ class DashboardController extends ControllerBase {
 
         ],
     ];
-
-    return $render;
   }
 
 }

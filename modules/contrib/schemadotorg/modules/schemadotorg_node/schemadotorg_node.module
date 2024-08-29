@@ -5,16 +5,53 @@
  * Enhance content type integration with the Schema.org Blueprints module.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
+use Drupal\Component\Utility\SortArray;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\schemadotorg\SchemaDotOrgMappingInterface;
+
+/**
+ * Implements hook_module_implements_alter().
+ */
+function schemadotorg_node_module_implements_alter(array &$implementations, string $hook): void {
+  if ($hook === 'local_tasks_alter') {
+    $implementation = $implementations['schemadotorg_node'];
+    unset($implementations['schemadotorg_node']);
+    $implementations['schemadotorg_node'] = $implementation;
+  }
+}
+
+/**
+ * Implements hook_local_tasks_alter().
+ */
+function schemadotorg_node_local_tasks_alter(array &$local_tasks): void {
+  $schemadotorg_tasks = [];
+  foreach ($local_tasks as $name => $local_task) {
+    if (str_starts_with($name, 'entity.node.schemadotorg_')) {
+      $schemadotorg_tasks[$name] = $local_task;
+    }
+  }
+  if (count($schemadotorg_tasks) <= 1) {
+    return;
+  }
+
+  uasort($schemadotorg_tasks, [SortArray::class, 'sortByWeightElement']);
+  $local_tasks['entity.node.schemadotorg'] = reset($schemadotorg_tasks);
+  $local_tasks['entity.node.schemadotorg']['title'] = t('Schema.org');
+  $local_tasks['entity.node.schemadotorg']['provider'] = 'schemadotorg_node';
+  $local_tasks['entity.node.schemadotorg']['id'] = 'entity.node.schemadotorg';
+  foreach (array_keys($schemadotorg_tasks) as $name) {
+    $local_tasks[$name]['base_route'] = NULL;
+    $local_tasks[$name]['parent_id'] = 'entity.node.schemadotorg';
+  }
+}
 
 /**
  * Implements hook_schemadotorg_mapping_insert().
  */
 function schemadotorg_node_schemadotorg_mapping_insert(SchemaDotOrgMappingInterface $mapping): void {
-  if (\Drupal::isConfigSyncing()) {
+  if ($mapping->isSyncing()) {
     return;
   }
 
@@ -98,8 +135,8 @@ Thing: false
     '#access' => \Drupal::moduleHandler()->moduleExists('menu_ui'),
     '#example' => "
 Thing:
-available_menus: { }
-parent: ''
+  available_menus: { }
+  parent: ''
 ",
   ];
 }

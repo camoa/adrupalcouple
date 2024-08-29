@@ -5,6 +5,7 @@ namespace Drupal\smart_date_recur\Form;
 use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\ReplaceCommand;
 use Drupal\Core\DependencyInjection\ClassResolverInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\ConfirmFormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
@@ -46,13 +47,23 @@ class SmartDateRemoveInstanceForm extends ConfirmFormBase {
   protected $oid;
 
   /**
+   * Definition of form entity type manager service.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
+  protected $entityTypeManager;
+
+  /**
    * Constructs a smart date instance removal confirmation form.
    *
    * @param \Drupal\Core\DependencyInjection\ClassResolverInterface $classResolver
    *   The class resolver service.
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
+   *   The entity type manager service.
    */
-  public function __construct(ClassResolverInterface $classResolver) {
+  public function __construct(ClassResolverInterface $classResolver, EntityTypeManagerInterface $entityTypeManager) {
     $this->classResolver = $classResolver;
+    $this->entityTypeManager = $entityTypeManager;
   }
 
   /**
@@ -61,6 +72,7 @@ class SmartDateRemoveInstanceForm extends ConfirmFormBase {
   public static function create(ContainerInterface $container) {
     return new static(
       $container->get('class_resolver'),
+      $container->get('entity_type.manager'),
     );
   }
 
@@ -77,11 +89,10 @@ class SmartDateRemoveInstanceForm extends ConfirmFormBase {
   public function buildForm(array $form, FormStateInterface $form_state, SmartDateRule $rrule = NULL, string $index = NULL, $ajax = FALSE) {
     $this->rrule = $rrule;
     $this->index = $index;
-    $result = \Drupal::entityQuery('smart_date_override')
-      ->condition('rrule', $rrule->id())
-      ->condition('rrule_index', $index)
-      ->accessCheck(TRUE)
-      ->execute();
+    $query = $this->entityTypeManager->getStorage('smart_date_override')->getQuery();
+    $query->condition('rrule', $rrule->id())
+      ->condition('rrule_index', $index);
+    $result = $query->accessCheck(TRUE)->execute();
     if ($result && $override = SmartDateOverride::load(array_pop($result))) {
       $this->oid = $override->id();
     }

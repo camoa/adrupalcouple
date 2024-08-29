@@ -1,5 +1,5 @@
 schemadotorg_taxonomy.settings:
-  type: config_entity
+  type: config_object
   label: 'Schema.org Taxonomy settings'
   mapping:
     default_field_groups:
@@ -30,7 +30,7 @@ schemadotorg_taxonomy.settings:
           group:
             type: string
             label: 'Group name'
-    property_vocabularies:
+    schema_property_vocabularies:
       type: sequence
       label: 'Default properties'
       sequence:

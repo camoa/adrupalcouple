@@ -24,7 +24,7 @@ class SmartDateTestBase extends BrowserTestBase {
   /**
    * {@inheritDoc}
    */
-  protected function setUp() {
+  protected function setUp(): void {
     parent::setup();
     $web_user = $this->drupalCreateUser([
       'access content',

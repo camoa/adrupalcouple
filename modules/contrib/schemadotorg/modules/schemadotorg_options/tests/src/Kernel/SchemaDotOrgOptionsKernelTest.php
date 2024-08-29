@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\Tests\schemadotorg_options\Kernel;
 
@@ -15,9 +15,7 @@ use Drupal\Tests\schemadotorg\Kernel\SchemaDotOrgEntityKernelTestBase;
 class SchemaDotOrgOptionsKernelTest extends SchemaDotOrgEntityKernelTestBase {
 
   /**
-   * Modules to enable.
-   *
-   * @var array
+   * {@inheritdoc}
    */
   protected static $modules = [
     'schemadotorg_options',
@@ -35,14 +33,14 @@ class SchemaDotOrgOptionsKernelTest extends SchemaDotOrgEntityKernelTestBase {
   /**
    * Test Schema.org options.
    */
-  public function testEntityDisplayBuilder(): void {
+  public function testOptions(): void {
     $this->appendSchemaTypeDefaultProperties('Person', ['gender']);
     $this->createSchemaEntity('node', 'Person');
     $this->createSchemaEntity('node', 'Recipe');
     $this->createSchemaEntity('node', 'MedicalStudy');
 
     // Check that gender is assigned custom allowed values..
-    /** @var \Drupal\field\FieldStorageConfigInterface $field */
+    /** @var \Drupal\field\FieldStorageConfigInterface|null $field_storage */
     $field_storage = FieldStorageConfig::load('node.schema_gender');
     $expected_allowed_values = [
       'Male' => 'Male',
@@ -52,12 +50,12 @@ class SchemaDotOrgOptionsKernelTest extends SchemaDotOrgEntityKernelTestBase {
     $this->assertEquals($expected_allowed_values, $field_storage->getSetting('allowed_values'));
 
     // Check that knowsLanguage is assigned an allowed values function.
-    /** @var \Drupal\field\FieldStorageConfigInterface $field */
+    /** @var \Drupal\field\FieldStorageConfigInterface|null $field_storage */
     $field_storage = FieldStorageConfig::load('node.schema_knows_language');
     $this->assertEquals('schemadotorg_options_allowed_values_language', $field_storage->getSetting('allowed_values_function'));
 
     // Check that suitableForDiet is assigned an allowed values function.
-    /** @var \Drupal\field\FieldStorageConfigInterface $field */
+    /** @var \Drupal\field\FieldStorageConfigInterface|null $field_storage */
     $field_storage = FieldStorageConfig::load('node.schema_suitable_for_diet');
     $expected_allowed_values = [
       'DiabeticDiet' => 'Diabetic',
@@ -75,7 +73,7 @@ class SchemaDotOrgOptionsKernelTest extends SchemaDotOrgEntityKernelTestBase {
     $this->assertEquals($expected_allowed_values, $field_storage->getSetting('allowed_values'));
 
     // Check that status allowed values use OptGroup for multiple enumerations..
-    /** @var \Drupal\field\FieldStorageConfigInterface $field */
+    /** @var \Drupal\field\FieldStorageConfigInterface|null $field_storage */
     $field_storage = FieldStorageConfig::load('node.schema_status');
     $expected_allowed_values = [
       'EventCancelled' => 'Event Cancelled',
@@ -108,7 +106,7 @@ class SchemaDotOrgOptionsKernelTest extends SchemaDotOrgEntityKernelTestBase {
     // Check that the property's field type if a default field type is defined.
     $field_types = ['string' => 'string'];
     schemadotorg_options_schemadotorg_property_field_type_alter($field_types, 'SpecialAnnouncement', 'category');
-    $this->assertEquals(['string' => 'string'], $field_types);
+    $this->assertEquals(['list_string' => 'list_string', 'string' => 'string'], $field_types);
 
     // Check that the property's field type if a default field type is defined.
     $field_types = ['string' => 'string'];

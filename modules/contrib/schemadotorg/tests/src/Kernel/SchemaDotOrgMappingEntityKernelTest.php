@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\Tests\schemadotorg\Kernel;
 
@@ -134,6 +134,12 @@ class SchemaDotOrgMappingEntityKernelTest extends SchemaDotOrgEntityKernelTestBa
     $this->assertEquals('Cat', $node_mapping->getSchemaType());
     $node_mapping->setSchemaType('Thing');
 
+    // Check getting the Schema.org types to be mapped.
+    $this->assertEquals(['Thing' => 'Thing'], $node_mapping->getAllSchemaTypes());
+    $node_mapping->setAdditionalMapping('WebPage', ['schema_related_link' => 'relatedLink']);
+    $this->assertEquals(['Thing' => 'Thing', 'WebPage' => 'WebPage'], $node_mapping->getAllSchemaTypes());
+    $node_mapping->set('additional_mappings', []);
+
     // Check getting the mappings for Schema.org properties.
     $expected_schema_properties = [
       'title' => 'name',
@@ -154,12 +160,29 @@ class SchemaDotOrgMappingEntityKernelTest extends SchemaDotOrgEntityKernelTestBa
     $node_mapping->setSchemaPropertyMapping('body', 'description');
     $this->assertEquals(['body' => 'description'], $node_mapping->getNewSchemaProperties());
 
+    // Check getting the Schema.org properties for the main and additional mappings.
+    $node_mapping->setAdditionalMapping('WebPage', ['schema_related_link' => 'relatedLink']);
+    $expected_schema_properties = [
+      'title' => 'name',
+      'schema_alternate_name' => 'alternateName',
+      'body' => 'description',
+      'schema_related_link' => 'relatedLink',
+    ];
+    $this->assertEquals($expected_schema_properties, $node_mapping->getAllSchemaProperties());
+    $node_mapping->set('additional_mappings', []);
+
     // Check getting the mapping set for a property.
     $this->assertEquals('name', $node_mapping->getSchemaPropertyMapping('title'));
 
     // Check setting the mapping for a Schema.org property.
-    $node_mapping->setSchemaPropertyMapping('created', 'dateCreated');
-    $this->assertEquals('dateCreated', $node_mapping->getSchemaPropertyMapping('created'));
+    $node_mapping->setSchemaPropertyMapping('field_thing_type', 'additionalType');
+    $this->assertEquals('additionalType', $node_mapping->getSchemaPropertyMapping('field_thing_type'));
+
+    // Check that setting the mapping for an invalid Schema.org property
+    // throws an exception.
+    $this->expectException(\Exception::class);
+    $this->expectExceptionMessage("The 'notValid' property does not exist in Schema.org type 'Thing'.");
+    $node_mapping->setSchemaPropertyMapping('field_not_validate', 'notValid');
 
     // Check removing the Schema.org property mapping.
     $node_mapping->removeSchemaProperty('created');
@@ -170,12 +193,68 @@ class SchemaDotOrgMappingEntityKernelTest extends SchemaDotOrgEntityKernelTestBa
     $this->assertEquals('title', $node_mapping->getSchemaPropertyFieldName('name'));
     $this->assertEquals('schema_alternate_name', $node_mapping->getSchemaPropertyFieldName('alternateName'));
 
+    // Check getting the field name for an additional mapping's property.
+    // Check setting an additional Schema.org mapping.
+    $node_mapping->setAdditionalMapping('WebPage', ['schema_related_link' => 'relatedLink']);
+    $this->assertEquals('schema_related_link', $node_mapping->getSchemaPropertyFieldName('relatedLink'));
+    $node_mapping->set('additional_mappings', []);
+
+    // Check determining if a Schema.org property is mapped to a Drupal field.
+    $this->assertTrue($node_mapping->hasSchemaPropertyMapping('name'));
+    $this->assertFalse($node_mapping->hasSchemaPropertyMapping('not_name'));
+
+    // Check getting additional Schema.org mappings.
+    $this->assertEquals([], $node_mapping->getAdditionalMappings());
+
+    // Check that setting an additional Schema.org mapping with an invalid
+    // Schema.org property throws an exception.
+    $this->expectException(\Exception::class);
+    $this->expectExceptionMessage("The 'notValid' property does not exist in Schema.org type 'Thing'.");
+    $node_mapping->setAdditionalMapping('WebPage', ['field_not_validate' => 'notValid']);
+
+    // Check setting an additional Schema.org mapping.
+    $additional_schema_type = 'WebPage';
+    $additional_schema_properties = [
+      'title' => 'name',
+      'schema_image' => 'primaryImageOfPage',
+      'schema_related_link' => 'relatedLink',
+      'schema_significant_link' => 'significantLink',
+    ];
+    $node_mapping->setAdditionalMapping($additional_schema_type, $additional_schema_properties);
+    $expected_additional_mapping = [
+      'schema_type' => $additional_schema_type,
+      'schema_properties' => $additional_schema_properties,
+    ];
+    $expected_additional_mappings = [
+      $additional_schema_type => $expected_additional_mapping,
+    ];
+    $this->assertEquals($expected_additional_mappings, $node_mapping->getAdditionalMappings());
+
+    // Check getting Schema.org properties for all additional Schema.org mappings.
+    $expected_schema_properties = [
+      'title' => 'name',
+      'schema_image' => 'primaryImageOfPage',
+      'schema_related_link' => 'relatedLink',
+      'schema_significant_link' => 'significantLink',
+    ];
+    $this->assertEquals($expected_schema_properties, $node_mapping->getAdditionalMappingsSchemaProperties());
+
+    // Check getting an additional Schema.org mapping.
+    $this->assertEquals($expected_additional_mapping, $node_mapping->getAdditionalMapping($additional_schema_type));
+    $this->assertEquals(NULL, $node_mapping->getAdditionalMapping('Thing'));
+
+    // Check removing an additional Schema.org mapping.
+    $this->assertEquals($node_mapping, $node_mapping->removeAdditionalMapping($additional_schema_type));
+    $this->assertEquals(NULL, $node_mapping->getAdditionalMapping($additional_schema_type));
+    $this->assertEquals([], $node_mapping->getAdditionalMappings());
+
     // Check calculating and getting the configuration dependencies.
     $expected_dependencies = [
       'config' => [
         'field.field.node.thing.schema_alternate_name',
         'node.type.thing',
       ],
+      'module' => ['node'],
     ];
     $actual_dependencies = $node_mapping->calculateDependencies()->getDependencies();
     $this->assertEquals($expected_dependencies, $actual_dependencies);
@@ -184,6 +263,7 @@ class SchemaDotOrgMappingEntityKernelTest extends SchemaDotOrgEntityKernelTestBa
     $this->assertEquals('alternateName', $node_mapping->getSchemaPropertyMapping('schema_alternate_name'));
     FieldConfig::load('node.thing.schema_alternate_name')->delete();
     $this->mappingStorage->resetCache();
+    /** @var \Drupal\schemadotorg\SchemaDotOrgMappingInterface $node_mapping */
     $node_mapping = $this->mappingStorage->load('node.thing');
     $this->assertNull($node_mapping->getSchemaPropertyMapping('schema_alter_name'));
 

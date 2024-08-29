@@ -1,5 +1,6 @@
-default_properties:
+default_schema_properties:
   subOrganization: parentOrganization
+  subEvent: superEvent
   memberOf: member
   subjectOf: about
   containedInPlace: containsPlace

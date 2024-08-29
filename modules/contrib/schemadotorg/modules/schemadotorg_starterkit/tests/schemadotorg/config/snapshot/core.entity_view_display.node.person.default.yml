@@ -44,17 +44,17 @@ third_party_settings:
       label: Contact
       parent_name: ''
       region: content
-      weight: -1
+      weight: -2
       format_type: fieldset
       format_settings: {  }
-    group_relationships:
+    group_organization:
       children:
         - schema_member_of
         - schema_works_for
-      label: Relationships
+      label: Organization
       parent_name: ''
       region: content
-      weight: 30
+      weight: 4
       format_type: fieldset
       format_settings: {  }
     group_links:
@@ -139,7 +139,7 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 11
+    weight: 5
     region: content
   schema_same_as:
     type: link
@@ -151,7 +151,7 @@ content:
       rel: ''
       target: ''
     third_party_settings: {  }
-    weight: 1
+    weight: 3
     region: content
   schema_telephone:
     type: basic_string
@@ -166,6 +166,6 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 6
+    weight: 0
     region: content
 hidden: {  }

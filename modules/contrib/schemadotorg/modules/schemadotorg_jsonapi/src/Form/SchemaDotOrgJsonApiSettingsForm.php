@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg_jsonapi\Form;
 
@@ -44,6 +44,18 @@ class SchemaDotOrgJsonApiSettingsForm extends SchemaDotOrgSettingsFormBase {
 - field_name
 - entity_type--field_name
 - entity_type--bundle--field_name
+',
+    ];
+    $form['schemadotorg_jsonapi']['custom_public_names'] = [
+      '#type' => 'schemadotorg_settings',
+      '#title' => $this->t('Custom public names'),
+      '#description' => $this->t('Enter custom public names for fields and Schema.org properties.')
+        . ' '
+        . $this->t('Custom public names can be used to ensure that when the same field is mapped to two different Schema.org properties the JSON:API public name is consistent.')
+        . ' '
+        . $this->t("For example, the 'primaryImageOfPage' and 'image' Schema.org property both map to the 'schema_image' fields. For JSON:API, both properties should use 'image' as there public name."),
+      '#example' => '
+primaryImageOfPage: image
 ',
     ];
     $form['schemadotorg_jsonapi']['resource_type_schemadotorg'] = [

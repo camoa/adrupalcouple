@@ -70,10 +70,9 @@ class ConfigurationTest extends WebDriverTestBase {
 
     $this->clickLink('Add Entity browser');
     $this->assertSession()->fieldExists('label')->setValue('Test entity browser');
-    $this->getSession()->executeScript("jQuery('.visually-hidden').removeClass('visually-hidden');");
+    $this->getSession()->executeScript("jQuery('.visually-hidden, .hidden').removeClass('visually-hidden hidden');");
     $this->assertSession()->fieldExists('name')->setValue('test_entity_browser');
     $this->assertSession()->selectExists('display')->selectOption('modal');
-    $this->assertSession()->assertWaitOnAjaxRequest();
     // Make sure fields in details elements are visible.
     $this->getSession()->executeScript("jQuery('details').attr('open', 'open');");
     $this->assertSession()->fieldExists('display_configuration[width]')->setValue('700');
@@ -226,7 +225,7 @@ class ConfigurationTest extends WebDriverTestBase {
     $this->drupalGet('/admin/config/content/entity_browser');
     $this->clickLink('Add Entity browser');
     $this->assertSession()->fieldExists('label')->setValue('Test entity browser');
-    $this->getSession()->executeScript("jQuery('.visually-hidden').removeClass('visually-hidden');");
+    $this->getSession()->executeScript("jQuery('.visually-hidden, .hidden').removeClass('visually-hidden hidden');");
     $this->assertSession()->fieldExists('name')->setValue('test_entity_browser');
     // Use defaults and save to go to WidgetsConfig form.
     $this->submitForm([], 'Save');

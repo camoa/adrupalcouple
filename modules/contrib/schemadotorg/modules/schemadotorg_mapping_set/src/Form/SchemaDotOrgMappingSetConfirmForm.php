@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg_mapping_set\Form;
 
@@ -20,6 +20,11 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class SchemaDotOrgMappingSetConfirmForm extends ConfirmFormBase {
 
   /**
+   * The service container.
+   */
+  protected ContainerInterface $container;
+
+  /**
    * The module handler to invoke the alter hook.
    */
   protected ModuleHandlerInterface $moduleHandler;
@@ -32,8 +37,9 @@ class SchemaDotOrgMappingSetConfirmForm extends ConfirmFormBase {
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container) {
-    $instance = new static();
+  public static function create(ContainerInterface $container): static {
+    $instance = parent::create($container);
+    $instance->container = $container;
     $instance->moduleHandler = $container->get('module_handler');
     $instance->schemaMappingSetManager = $container->get('schemadotorg_mapping_set.manager');
     return $instance;
@@ -95,7 +101,7 @@ class SchemaDotOrgMappingSetConfirmForm extends ConfirmFormBase {
     $form = parent::buildForm($form, $form_state);
 
     /** @var \Drupal\schemadotorg_mapping_set\Controller\SchemadotorgMappingSetController $controller */
-    $controller = SchemadotorgMappingSetController::create(\Drupal::getContainer());
+    $controller = SchemadotorgMappingSetController::create($this->container);
     $form['description'] = [
       'description' => $form['description'] + ['#prefix' => '<p>', '#suffix' => '</p>'],
       'types' => $controller->buildDetails($this->name, $operation),
@@ -199,7 +205,7 @@ class SchemaDotOrgMappingSetConfirmForm extends ConfirmFormBase {
   /**
    * Get the current mapping set's action.
    *
-   * @return string
+   * @return \Drupal\Core\StringTranslation\TranslatableMarkup
    *   The current mapping set's action.
    */
   protected function getAction(): TranslatableMarkup {

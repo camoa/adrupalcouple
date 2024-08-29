@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\Tests\schemadotorg_ui\Functional;
 
@@ -21,9 +21,7 @@ class SchemaDotOrgUiRouteTest extends SchemaDotOrgBrowserTestBase {
   use MediaTypeCreationTrait;
 
   /**
-   * Modules to enable.
-   *
-   * @var array
+   * {@inheritdoc}
    */
   protected static $modules = [
     'block',
@@ -59,7 +57,7 @@ class SchemaDotOrgUiRouteTest extends SchemaDotOrgBrowserTestBase {
   public function testSchemaDotOrgUiRoutes(): void {
     global $base_path;
 
-    $assert_session = $this->assertSession();
+    $assert = $this->assertSession();
 
     /* ********************************************************************** */
     // Routes.
@@ -68,13 +66,13 @@ class SchemaDotOrgUiRouteTest extends SchemaDotOrgBrowserTestBase {
 
     // Check that node 'Add Schema.org type' route exists.
     $this->assertRouteExists('schemadotorg.node_type.type_add');
-    $this->drupalGet('/admin/structure/types/schemadotorg');
-    $assert_session->statusCodeEquals(200);
+    $this->drupalGet('admin/structure/types/schemadotorg');
+    $assert->statusCodeEquals(200);
 
     // Check that media 'Add Schema.org type' route does exist.
     $this->assertRouteExists('schemadotorg.media_type.type_add');
-    $this->drupalGet('/admin/structure/media/schemadotorg');
-    $assert_session->statusCodeEquals(200);
+    $this->drupalGet('admin/structure/media/schemadotorg');
+    $assert->statusCodeEquals(200);
 
     /* ********************************************************************** */
     // Local actions.
@@ -82,16 +80,16 @@ class SchemaDotOrgUiRouteTest extends SchemaDotOrgBrowserTestBase {
     /* ********************************************************************** */
 
     // Check that node 'Add Schema.org type' action exists.
-    $this->drupalGet('/admin/structure/types');
-    $assert_session->statusCodeEquals(200);
-    $assert_session->linkExists('Add Schema.org type');
-    $assert_session->linkByHrefExists($base_path . 'admin/structure/types/schemadotorg');
+    $this->drupalGet('admin/structure/types');
+    $assert->statusCodeEquals(200);
+    $assert->linkExists('Add Schema.org type');
+    $assert->linkByHrefExists($base_path . 'admin/structure/types/schemadotorg');
 
     // Check that media 'Add Schema.org type' action exists.
-    $this->drupalGet('/admin/structure/media');
-    $assert_session->statusCodeEquals(200);
-    $assert_session->linkExists('Add Schema.org type');
-    $assert_session->linkByHrefExists($base_path . 'admin/structure/media/schemadotorg');
+    $this->drupalGet('admin/structure/media');
+    $assert->statusCodeEquals(200);
+    $assert->linkExists('Add Schema.org type');
+    $assert->linkByHrefExists($base_path . 'admin/structure/media/schemadotorg');
 
     /* ********************************************************************** */
     // Local tasks.
@@ -102,29 +100,29 @@ class SchemaDotOrgUiRouteTest extends SchemaDotOrgBrowserTestBase {
     $content_type = $this->drupalCreateContentType();
     $content_type_id = $content_type->id();
     $this->drupalGet("/admin/structure/types/manage/$content_type_id/fields");
-    $assert_session->statusCodeEquals(200);
-    $assert_session->linkExists('Schema.org');
-    $assert_session->linkByHrefExists($base_path . "admin/structure/types/manage/$content_type_id/schemadotorg");
+    $assert->statusCodeEquals(200);
+    $assert->linkExists('Schema.org');
+    $assert->linkByHrefExists($base_path . "admin/structure/types/manage/$content_type_id/schemadotorg");
     $this->drupalGet("/admin/structure/types/manage/$content_type_id/schemadotorg");
-    $assert_session->statusCodeEquals(200);
+    $assert->statusCodeEquals(200);
 
     // Check that media 'Schema.org' task exists.
     $media_type = $this->createMediaType('image', ['id' => 'image']);
     $media_type_id = $media_type->id();
     $this->drupalGet("/admin/structure/media/manage/$media_type_id/fields");
-    $assert_session->statusCodeEquals(200);
-    $assert_session->linkExists('Schema.org');
-    $assert_session->linkByHrefExists($base_path . "admin/structure/media/manage/$media_type_id/schemadotorg");
+    $assert->statusCodeEquals(200);
+    $assert->linkExists('Schema.org');
+    $assert->linkByHrefExists($base_path . "admin/structure/media/manage/$media_type_id/schemadotorg");
     $this->drupalGet("/admin/structure/media/manage/$media_type_id/schemadotorg");
-    $assert_session->statusCodeEquals(200);
+    $assert->statusCodeEquals(200);
 
     // Check that user 'Schema.org' task exists.
     $this->drupalGet("/admin/config/people/accounts/fields");
-    $assert_session->statusCodeEquals(200);
-    $assert_session->linkExists('Schema.org');
-    $assert_session->linkByHrefExists($base_path . "admin/config/people/accounts/schemadotorg");
+    $assert->statusCodeEquals(200);
+    $assert->linkExists('Schema.org');
+    $assert->linkByHrefExists($base_path . "admin/config/people/accounts/schemadotorg");
     $this->drupalGet("/admin/config/people/accounts/schemadotorg");
-    $assert_session->statusCodeEquals(200);
+    $assert->statusCodeEquals(200);
 
     /* ********************************************************************** */
     // Menu links.
@@ -154,12 +152,12 @@ class SchemaDotOrgUiRouteTest extends SchemaDotOrgBrowserTestBase {
     drupal_flush_all_caches();
 
     // Check that add Schema.org media type route is removed.
-    $this->drupalGet('/admin/structure/media/schemadotorg');
-    $assert_session->statusCodeEquals(404);
+    $this->drupalGet('admin/structure/media/schemadotorg');
+    $assert->statusCodeEquals(404);
     // Check that Add Schema.org media type action is removed.
-    $this->drupalGet('/admin/structure/media');
-    $assert_session->linkNotExists('Add Schema.org type');
-    $assert_session->linkByHrefNotExists($base_path . 'admin/structure/media/schemadotorg');
+    $this->drupalGet('admin/structure/media');
+    $assert->linkNotExists('Add Schema.org type');
+    $assert->linkByHrefNotExists($base_path . 'admin/structure/media/schemadotorg');
     // Check that Add Schema.org media type menu link is removed.
     $menu_links = $menu_link_manager->loadLinksByRoute('schemadotorg.media_type.type_add');
     $this->assertCount(0, $menu_links);

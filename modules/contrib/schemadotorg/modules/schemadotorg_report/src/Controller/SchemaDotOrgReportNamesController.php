@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg_report\Controller;
 
@@ -20,7 +20,7 @@ class SchemaDotOrgReportNamesController extends SchemaDotOrgReportControllerBase
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container) {
+  public static function create(ContainerInterface $container): static {
     $instance = parent::create($container);
     $instance->schemaDotOrgNames = $container->get('schemadotorg.names');
     return $instance;
@@ -150,6 +150,7 @@ class SchemaDotOrgReportNamesController extends SchemaDotOrgReportControllerBase
             $this->t('Max length'),
           ],
           '#rows' => $truncated,
+          '#attributes' => ['class' => ['schemadotorg-report-table']],
         ],
       ];
     }
@@ -273,6 +274,7 @@ class SchemaDotOrgReportNamesController extends SchemaDotOrgReportControllerBase
       '#type' => 'table',
       '#header' => $header,
       '#rows' => $rows,
+      '#attributes' => ['class' => ['schemadotorg-report-table']],
     ];
 
     // Replacements.
@@ -293,6 +295,7 @@ class SchemaDotOrgReportNamesController extends SchemaDotOrgReportControllerBase
         '#type' => 'table',
         '#header' => [$label, $this->t('Replacement')],
         '#rows' => $used_replacements_rows,
+        '#attributes' => ['class' => ['schemadotorg-report-table']],
       ],
     ];
     if ($unused_replacements_rows) {
@@ -303,6 +306,7 @@ class SchemaDotOrgReportNamesController extends SchemaDotOrgReportControllerBase
           '#type' => 'table',
           '#header' => [$label, $this->t('Replacement')],
           '#rows' => $unused_replacements_rows,
+          '#attributes' => ['class' => ['schemadotorg-report-table']],
         ],
       ];
     }
@@ -415,6 +419,7 @@ class SchemaDotOrgReportNamesController extends SchemaDotOrgReportControllerBase
       '#type' => 'table',
       '#header' => $header,
       '#rows' => $rows,
+      '#attributes' => ['class' => ['schemadotorg-report-table']],
     ];
     return $build;
   }

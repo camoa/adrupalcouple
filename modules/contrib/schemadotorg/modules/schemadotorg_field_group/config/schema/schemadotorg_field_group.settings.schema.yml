@@ -1,5 +1,5 @@
 schemadotorg_field_group.settings:
-  type: config_entity
+  type: config_object
   label: 'Schema.org Field group settings'
   mapping:
     default_field_groups:

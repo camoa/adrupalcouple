@@ -5,7 +5,7 @@
  * Allows Inline Entity Forms to be used to create Schema.org relationships.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 use Drupal\Core\Entity\Entity\EntityFormMode;
 use Drupal\Core\Form\FormStateInterface;
@@ -18,6 +18,10 @@ use Drupal\node\NodeTypeInterface;
  * type mappings.
  */
 function schemadotorg_inline_entity_form_node_type_insert(NodeTypeInterface $node_type): void {
+  if ($node_type->isSyncing()) {
+    return;
+  }
+
   // Make sure we are insert node type that is mapped to a Schema.org type.
   // @see \Drupal\schemadotorg\SchemaDotOrgEntityTypeBuilder::addEntityBundle
   if (empty($node_type->schemaDotOrgType)) {
@@ -28,10 +32,10 @@ function schemadotorg_inline_entity_form_node_type_insert(NodeTypeInterface $nod
   // enabled by default.
   /** @var \Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface $schema_type_manager */
   $schema_type_manager = \Drupal::service('schemadotorg.schema_type_manager');
-  $default_form_displays = \Drupal::configFactory()
+  $default_schema_type_form_displays = \Drupal::configFactory()
     ->get('schemadotorg_inline_entity_form.settings')
-    ->get('default_form_displays');
-  if (!$schema_type_manager->isSubTypeOf($node_type->schemaDotOrgType, $default_form_displays)) {
+    ->get('default_schema_type_form_displays');
+  if (!$schema_type_manager->isSubTypeOf($node_type->schemaDotOrgType, $default_schema_type_form_displays)) {
     return;
   }
 
@@ -78,7 +82,7 @@ function schemadotorg_inline_entity_form_schemadotorg_property_field_alter(
   ?string &$widget_id,
   array &$widget_settings,
   ?string &$formatter_id,
-  array &$formatter_settings
+  array &$formatter_settings,
 ): void {
   if ($field_storage_values['type'] !== 'entity_reference'
     || !_schemadotorg_inline_entity_form_enabled($schema_type, $schema_property)) {
@@ -123,9 +127,9 @@ function schemadotorg_inline_entity_form_form_schemadotorg_properties_settings_f
     '#type' => 'details',
     '#title' => t('Inline entity form settings'),
   ];
-  $form['schemadotorg_inline_entity_form']['default_properties'] = [
+  $form['schemadotorg_inline_entity_form']['default_schema_properties'] = [
     '#type' => 'schemadotorg_settings',
-    '#title' => t('Default inline entity form properties'),
+    '#title' => t('Default inline entity form Schema.org properties'),
     '#description' => t('Enter Schema.org properties that should use the inline entity form.'),
     '#description_link' => 'properties',
     '#example' => '
@@ -133,7 +137,7 @@ function schemadotorg_inline_entity_form_form_schemadotorg_properties_settings_f
 - SchemaType--propertyName
 ',
   ];
-  $form['schemadotorg_inline_entity_form']['default_form_displays'] = [
+  $form['schemadotorg_inline_entity_form']['default_schema_type_form_displays'] = [
     '#type' => 'schemadotorg_settings',
     '#title' => t('Default Schema.org type form displays'),
     '#description' => t('Enter Schema.org type that should have the inline entity form display enabled by default.'),
@@ -167,11 +171,11 @@ function schemadotorg_inline_entity_form_form_schemadotorg_properties_settings_f
  *   TRUE if the inline entity form should be used for Schema.org property.
  */
 function _schemadotorg_inline_entity_form_enabled(string $schema_type, string $schema_property): bool {
-  $default_properties = \Drupal::config('schemadotorg_inline_entity_form.settings')
-    ->get('default_properties');
+  $default_schema_properties = \Drupal::config('schemadotorg_inline_entity_form.settings')
+    ->get('default_schema_properties');
 
   // Check the property.
-  if (in_array($schema_property, $default_properties)) {
+  if (in_array($schema_property, $default_schema_properties)) {
     return TRUE;
   }
 
@@ -182,7 +186,7 @@ function _schemadotorg_inline_entity_form_enabled(string $schema_type, string $s
   foreach ($breadcrumbs as $breadcrumb) {
     $breadcrumb = array_reverse($breadcrumb);
     foreach ($breadcrumb as $breadcrumb_type) {
-      if (in_array("$breadcrumb_type--$schema_property", $default_properties)) {
+      if (in_array("$breadcrumb_type--$schema_property", $default_schema_properties)) {
         return TRUE;
       }
     }

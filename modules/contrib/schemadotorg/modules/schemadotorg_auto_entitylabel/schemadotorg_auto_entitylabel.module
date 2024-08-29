@@ -5,7 +5,7 @@
  * Creates automatic entity label settings for Schema.org types.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 use Drupal\auto_entitylabel\AutoEntityLabelManager;
 use Drupal\Core\Form\FormStateInterface;
@@ -23,14 +23,16 @@ function schemadotorg_auto_entitylabel_schemadotorg_mapping_insert(SchemaDotOrgM
   $schema_type_manager = \Drupal::service('schemadotorg.schema_type_manager');
 
   // Get the Schema.org type's auto entity label settings.
-  $schema_type = $mapping->getSchemaType();
+  $schema_types = $mapping->getAllSchemaTypes();
   $default_types = \Drupal::config('schemadotorg_auto_entitylabel.settings')
     ->get('default_types');
   $settings = NULL;
-  foreach ($default_types as $default_type => $default_type_settings) {
-    if ($schema_type_manager->isSubTypeOf($schema_type, $default_type)) {
-      $settings = $default_type_settings;
-      break;
+  foreach ($schema_types as $schema_type) {
+    foreach ($default_types as $default_type => $default_type_settings) {
+      if ($schema_type_manager->isSubTypeOf($schema_type, $default_type)) {
+        $settings = $default_type_settings;
+        break;
+      }
     }
   }
   if (empty($settings)) {
@@ -59,7 +61,7 @@ function schemadotorg_auto_entitylabel_schemadotorg_mapping_insert(SchemaDotOrgM
 
   // Replace pattern Schema.org properties with tokens.
   $pattern = $values['pattern'];
-  $schema_properties = $mapping->getSchemaProperties();
+  $schema_properties = $mapping->getAllSchemaProperties();
   foreach ($schema_properties as $field_name => $schema_property) {
     $pattern = str_replace("[$schema_property]", "[$entity_type_id:$field_name]", $pattern);
   }
@@ -74,12 +76,13 @@ function schemadotorg_auto_entitylabel_schemadotorg_mapping_insert(SchemaDotOrgM
 
   // Set dependencies.
   // Look up the content entity's bundle entity's config prefix.
-  $bundle_entity_type = \Drupal::entityTypeManager()->getStorage($entity_type_id)
+  $bundle_entity_type_id = \Drupal::entityTypeManager()->getStorage($entity_type_id)
     ->getEntityType()
     ->getBundleEntityType();
-  $config_prefix = \Drupal::entityTypeManager()->getStorage($bundle_entity_type)
-    ->getEntityType()
-    ->getConfigPrefix();
+  /** @var \Drupal\Core\Config\Entity\ConfigEntityTypeInterface $bundle_entity_type */
+  $bundle_entity_type = \Drupal::entityTypeManager()->getStorage($bundle_entity_type_id)
+    ->getEntityType();
+  $config_prefix = $bundle_entity_type->getConfigPrefix();
   $config->set('dependencies', ['config' => [$config_prefix . '.' . $bundle]]);
 
   // Save configuration.

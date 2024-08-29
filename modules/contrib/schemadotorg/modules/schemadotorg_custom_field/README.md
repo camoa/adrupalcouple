@@ -36,7 +36,7 @@ Configuration
 -------------
 
 - Go to the Schema.org properties configuration page.  
-  (/admin/config/schemadotorg/settings/properties)
+  (/admin/config/schemadotorg/settings/properties#edit-schemadotorg-custom-field)
 - Go to the 'Custom field settings' details.
 - Set Schema.org properties that should use custom_fields and define the
   custom_field item data types.

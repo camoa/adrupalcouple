@@ -5,7 +5,7 @@
  * Automatically enables content moderation Schema.org types.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 use Drupal\content_moderation\Plugin\WorkflowType\ContentModerationInterface;
 use Drupal\Core\Form\FormStateInterface;
@@ -16,7 +16,7 @@ use Drupal\workflows\Entity\Workflow;
  * Implements hook_schemadotorg_mapping_insert().
  */
 function schemadotorg_content_moderation_schemadotorg_mapping_insert(SchemaDotOrgMappingInterface $mapping): void {
-  if (\Drupal::isConfigSyncing()) {
+  if ($mapping->isSyncing()) {
     return;
   }
 

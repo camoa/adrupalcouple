@@ -96,7 +96,7 @@ class ListWidgetBase extends CustomFieldWidgetBase {
     $element['#suffix'] = '</div>';
     $element['settings']['empty_option'] = [
       '#type' => 'textfield',
-      '#title' => $this->t('Empty Option'),
+      '#title' => $this->t('Empty option'),
       '#description' => $this->t('Option to show when field is not required.'),
       '#default_value' => $settings['empty_option'],
       '#required' => TRUE,
@@ -104,10 +104,10 @@ class ListWidgetBase extends CustomFieldWidgetBase {
 
     $element['settings']['allowed_values'] = [
       '#type' => 'table',
-      '#caption' => $this->t('<strong>Options</strong>'),
+      '#caption' => $this->t('<strong>Allowed values list</strong>'),
       '#header' => [
-        $this->t('Key'),
         $this->t('Value'),
+        $this->t('Label'),
         '',
       ],
       '#element_validate' => [[static::class, 'validateAllowedValues']],
@@ -116,7 +116,7 @@ class ListWidgetBase extends CustomFieldWidgetBase {
       $allowed_values_count = count($allowed_values);
       foreach ($allowed_values as $key => $value) {
         $key_properties = [
-          '#title' => $this->t('Key'),
+          '#title' => $this->t('Value'),
           '#title_display' => 'invisible',
           '#default_value' => $value['key'],
           '#required' => TRUE,
@@ -146,7 +146,7 @@ class ListWidgetBase extends CustomFieldWidgetBase {
         }
         $element['settings']['allowed_values'][$key]['value'] = [
           '#type' => 'textfield',
-          '#title' => $this->t('Value'),
+          '#title' => $this->t('Label'),
           '#title_display' => 'invisible',
           '#default_value' => $value['value'],
           '#required' => TRUE,

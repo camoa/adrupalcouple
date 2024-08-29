@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\Tests\schemadotorg\Kernel;
 
@@ -20,9 +20,7 @@ use Drupal\schemadotorg\SchemaDotOrgEntityFieldManagerInterface;
 class SchemaDotOrgEntityFieldManagerKernelTest extends SchemaDotOrgEntityKernelTestBase {
 
   /**
-   * Modules to enable.
-   *
-   * @var array
+   * {@inheritdoc}
    */
   protected static $modules = [
     'filter',
@@ -48,6 +46,9 @@ class SchemaDotOrgEntityFieldManagerKernelTest extends SchemaDotOrgEntityKernelT
   protected function setUp(): void {
     parent::setUp();
 
+    $this->installSchema('file', ['file_usage']);
+    $this->installEntitySchema('file');
+
     $this->installEntitySchema('node');
     $this->installEntitySchema('node_type');
     $this->installEntitySchema('paragraph');
@@ -57,6 +58,8 @@ class SchemaDotOrgEntityFieldManagerKernelTest extends SchemaDotOrgEntityKernelT
     // 'schema_types.default_field_types.PostalAddress' settings.
     \Drupal::moduleHandler()->loadInclude('schemadotorg_address', 'install');
     schemadotorg_address_install(FALSE);
+
+    $this->installConfig(['schemadotorg_options']);
 
     // Set Schema.org field manager.
     $this->fieldManager = $this->container->get('schemadotorg.entity_field_manager');
@@ -133,60 +136,58 @@ class SchemaDotOrgEntityFieldManagerKernelTest extends SchemaDotOrgEntityKernelT
     // Check getting a Schema.org property's available field types as options.
     $expected_field_type_options = [
       'Recommended' => [
-          'string' => 'Text (plain)',
-          'string_long' => 'Text (plain, long)',
-          'list_string' => 'List (text)',
-          'text' => 'Text (formatted)',
-          'text_long' => 'Text (formatted, long)',
-          'text_with_summary' => 'Text (formatted, long, with summary)',
+        'string' => 'Text (plain)',
+        'string_long' => 'Text (plain, long)',
+        'list_string' => 'List (text)',
+        'text' => 'Text (formatted)',
+        'text_long' => 'Text (formatted, long)',
+        'text_with_summary' => 'Text (formatted, long, with summary)',
       ],
-      'Address' => [
-          'address' => 'Address',
-          'address_country' => 'Country',
-          'address_zone' => 'Zone',
+      'Date and time' => [
+        'datetime' => 'Date',
+        'timestamp' => 'Timestamp',
       ],
-      'Field' => [
-          'field_test' => 'Test field item',
-          'serialized_item_test' => 'Test serialized field item',
-          'serialized_property_item_test' => 'Test serialized property field item',
+      'File upload' => [
+        'file' => 'File',
+        'image' => 'Image',
       ],
       'General' => [
-          'boolean' => 'Boolean',
-          'datetime' => 'Date',
-          'email' => 'Email',
-          'link' => 'Link',
-          'shape' => 'Shape',
-          'shape_required' => 'Shape (required)',
-          'timestamp' => 'Timestamp',
+        'address' => 'Address',
+        'boolean' => 'Boolean',
+        'address_country' => 'Country',
+        'email' => 'Email',
+        'internal_property_test' => 'Internal Property (test)',
+        'link' => 'Link',
+        'field_ui:entity_reference:media' => 'Media',
+        'field_ui:entity_reference_revisions:paragraph' => 'Paragraphs',
+        'shape' => 'Shape',
+        'shape_required' => 'Shape (required)',
+        'single_internal_property_test' => 'Single Internal Property (test)',
+        'telephone' => 'Telephone number',
+        'field_test' => 'Test field item',
+        'serialized_item_test' => 'Test serialized field item',
+        'serialized_property_item_test' => 'Test serialized property field item',
+        'address_zone' => 'Zone',
       ],
       'Number' => [
-          'list_float' => 'List (float)',
-          'list_integer' => 'List (integer)',
-          'decimal' => 'Number (decimal)',
-          'float' => 'Number (float)',
-          'integer' => 'Number (integer)',
-          'telephone' => 'Telephone number',
+        'decimal' => 'Number (decimal)',
+        'float' => 'Number (float)',
+        'integer' => 'Number (integer)',
       ],
       'Reference' => [
-          'field_ui:entity_reference:node' => 'Content',
-          'field_ui:entity_reference:block_content' => 'Custom block',
-          'entity_reference' => 'Entity reference',
-          'file' => 'File',
-          'image' => 'Image',
-          'field_ui:entity_reference:media' => 'Media',
-          'field_ui:entity_reference:user' => 'User',
+        'field_ui:entity_reference:node' => 'Content',
+        'field_ui:entity_reference:block_content' => 'Custom block',
+        'entity_reference' => 'Entity reference',
+        'entity_reference_revisions' => 'Entity reference revisions',
+        'field_ui:entity_reference:user' => 'User',
       ],
-      'Reference revisions' => [
-          'entity_reference_revisions' => 'Entity reference revisions',
-          'field_ui:entity_reference_revisions:paragraph' => 'Paragraph',
-      ],
-      'Test' => [
-          'internal_property_test' => 'Internal Property (test)',
-          'single_internal_property_test' => 'Single Internal Property (test)',
+      'Selection list' => [
+        'list_float' => 'List (float)',
+        'list_integer' => 'List (integer)',
       ],
     ];
     $actual_field_type_options = $this->fieldManager->getPropertyFieldTypeOptions('Thing', 'alternateName');
-    $this->convertMarkupToStrings($actual_field_type_options);
+    $this->convertArrayValuesToStrings($actual_field_type_options);
     $this->assertEquals($expected_field_type_options, $actual_field_type_options);
 
     // Check getting available fields as options.
@@ -211,7 +212,7 @@ class SchemaDotOrgEntityFieldManagerKernelTest extends SchemaDotOrgEntityKernelT
       ],
     ];
     $actual_field_options = $this->fieldManager->getFieldOptions('node', 'thing');
-    $this->convertMarkupToStrings($actual_field_options);
+    $this->convertArrayValuesToStrings($actual_field_options);
     $this->assertEquals($expected_field_options, $actual_field_options);
 
     // Add link as the default field type to alternateName.

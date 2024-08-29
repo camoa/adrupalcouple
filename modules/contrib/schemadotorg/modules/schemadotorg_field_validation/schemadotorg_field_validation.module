@@ -5,7 +5,7 @@
  * Adds field validation/constraint rules to Schema.org properties.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 use Drupal\Core\Field\FieldConfigInterface;
 use Drupal\Core\Form\FormStateInterface;
@@ -13,17 +13,17 @@ use Drupal\Core\Form\FormStateInterface;
 /**
  * Implements hook_field_config_insert().
  */
-function schemadotorg_field_validation_field_config_insert(FieldConfigInterface $field): void {
-  if (\Drupal::isConfigSyncing()) {
+function schemadotorg_field_validation_field_config_insert(FieldConfigInterface $field_config): void {
+  if ($field_config->isSyncing()) {
     return;
   }
 
-  if (empty($field->schemaDotOrgProperty) || $field->getType() !== 'string') {
+  if (empty($field_config->schemaDotOrgProperty) || $field_config->getType() !== 'string') {
     return;
   }
 
-  $field_name = $field->getName();
-  $schema_property = $field->schemaDotOrgProperty;
+  $field_name = $field_config->getName();
+  $schema_property = $field_config->schemaDotOrgProperty;
 
   $validation_rules = \Drupal::config('schemadotorg_field_validation.settings')
     ->get('rules');
@@ -34,9 +34,9 @@ function schemadotorg_field_validation_field_config_insert(FieldConfigInterface 
     return;
   }
 
-  $entity_type_id = $field->getTargetEntityTypeId();
-  $bundle = $field->getTargetBundle();
-  $field_label = $field->getLabel();
+  $entity_type_id = $field_config->getTargetEntityTypeId();
+  $bundle = $field_config->getTargetBundle();
+  $field_label = $field_config->getLabel();
 
   // Load or create validation rule set.
   // @see \Drupal\field_validation\Form\FieldValidationRuleSetAddForm::validateForm

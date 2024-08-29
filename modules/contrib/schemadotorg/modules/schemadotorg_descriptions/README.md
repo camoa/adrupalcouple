@@ -30,7 +30,7 @@ Configuration
 -------------
 
 - Go to the Schema.org general configuration page.  
-  (/admin/config/schemadotorg/settings/general)
+  (/admin/config/schemadotorg/settings/general#edit-schemadotorg-descriptions)
 - Go to the 'Description settings' details.
 - Enter custom descriptions or suppress the default Schema.org type 
   and property descriptions.

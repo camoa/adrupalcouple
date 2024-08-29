@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\Tests\schemadotorg\Kernel;
 
@@ -122,7 +122,7 @@ class SchemaDotOrgSchemaTypeManagerKernelTest extends SchemaDotOrgKernelTestBase
       ],
     ];
     foreach ($tests as $test) {
-      $expected = $test[0] ? array_combine($test[1], $test[1]) : [];
+      $expected = array_combine($test[1], $test[1]);
       $this->assertEquals($expected, $this->schemaTypeManager->parseIds($test[0]));
     }
 
@@ -441,6 +441,83 @@ class SchemaDotOrgSchemaTypeManagerKernelTest extends SchemaDotOrgKernelTestBase
     $this->assertTrue($this->schemaTypeManager->hasSubtypes('Thing'));
     $this->assertTrue($this->schemaTypeManager->hasSubtypes('Person'));
     $this->assertFalse($this->schemaTypeManager->hasSubtypes('Patient'));
+
+    // Check getting setting from an associative array by type and property.
+    $settings = [
+      'Recipe--isFamilyFriendly' => 'Recipe is family friendly',
+      'CreativeWork--additionalType' => 'Creative work has additional type',
+      'medical_study--ResearchProject' => 'Medical studies are also research projects.',
+      'Place' => 'This is a place.',
+      'Thing' => 'This is thing',
+      'name' => 'A name',
+    ];
+
+    $setting_parts = [
+      'schema_type' => 'Recipe',
+      'schema_property' => 'isFamilyFriendly',
+    ];
+    $this->assertEquals(
+      'Recipe is family friendly',
+      $this->schemaTypeManager->getSetting($settings, $setting_parts)
+    );
+
+    $setting_parts = [
+      'schema_type' => 'Recipe',
+      'schema_property' => 'additionalType',
+    ];
+    $this->assertEquals(
+      'Creative work has additional type',
+      $this->schemaTypeManager->getSetting($settings, $setting_parts)
+    );
+
+    $setting_parts = [
+      'schema_type' => 'Recipe',
+      'schema_property' => 'name',
+    ];
+    $this->assertEquals(
+      'A name',
+      $this->schemaTypeManager->getSetting($settings, $setting_parts)
+    );
+    $setting_parts = [
+      'schema_type' => 'CreativeWork',
+      'schema_property' => 'name',
+    ];
+    $this->assertEquals(
+      'A name',
+      $this->schemaTypeManager->getSetting($settings, $setting_parts)
+    );
+    $setting_parts = [
+      'bundle' => 'medical_study',
+      'schema_type' => 'ResearchProject',
+    ];
+    $this->assertEquals(
+      'Medical studies are also research projects.',
+      $this->schemaTypeManager->getSetting($settings, $setting_parts)
+    );
+
+    $setting_parts = [
+      'schema_type' => 'Place',
+    ];
+    $this->assertEquals(
+      'This is a place.',
+      $this->schemaTypeManager->getSetting($settings, $setting_parts)
+    );
+    $this->assertEquals(
+      [
+        'Place' => 'This is a place.',
+        'Thing' => 'This is thing',
+      ],
+      $this->schemaTypeManager->getSetting($settings, $setting_parts, TRUE)
+    );
+
+    // Check getting setting from an indexed array by type and property.
+    $settings = ['name'];
+    $this->assertTrue(
+      $this->schemaTypeManager->getSetting($settings, ['schema_property' => 'name'])
+    );
+    $this->assertNull(
+      $this->schemaTypeManager->getSetting($settings, ['schema_property' => 'not_name'])
+    );
   }
 
 }

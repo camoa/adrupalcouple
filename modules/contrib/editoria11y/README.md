@@ -15,12 +15,12 @@ checker that addresses three critical needs for content authors:
 
 1. It runs automatically. Modern spellcheck works so well because it is always
    running; put spellcheck behind a button and few users remember to run it!
-1. It focuses exclusively on straightforward issues a content author can easily
+2. It focuses exclusively on straightforward issues a content author can easily
    understand and easily fix. Comprehensive testing should be a key part of site
    creation, but if a tool is going to run automatically, it will do more harm
    than good if it is constantly alerting on code they do not understand
    and cannot fix.
-1. It runs in context. Views, Layout Builder, Paragraphs and all the other
+3. It runs in context. Views, Layout Builder, Paragraphs and all the other
    modules Drupal uses to assemble a page means that tools that run inside
    CKEditor cannot "see" many of the issues on a typical page.
 
@@ -85,7 +85,74 @@ checker that addresses three critical needs for content authors:
 
 ## Extending and modifying Editorially
 
-### JS events provided by the library
+### Programmatically modifying the options array
+
+Before initiating the object, the module checks to see if a module or theme has
+requested to modify the array.
+
+Example use (in JS in your theme or module) to provide a default ignored item,
+or add it to the list provided in the GUI:
+
+```js
+var editoria11yOptionsOverride = true;
+var editoria11yOptions = function(options) {
+  if (options['ignoreElements'] === false) {
+    // Replace with default value.
+    options['ignoreElements'] = `.example`;
+  } else {
+    // Append default value with comma separator.
+    options['ignoreElements'] = `${options['ignoreElements']}, .example`
+  }
+  return options;
+}
+```
+
+### Attaching custom CSS
+
+First set up the options override, as above.
+
+For simple overrides of color and font, try using the exposed parameters:
+```js
+var editoria11yOptionsOverride = true;
+var editoria11yOptions = function(options) {
+  sleekTheme: {
+    bg: '#fffffe',
+      bgHighlight: '#7b1919',
+      text: '#20160c',
+      primary: '#276499',
+      primaryText: '#fffdf7',
+      button: 'transparent', // deprecate?
+      panelBar: '#fffffe',
+      panelBarText: '#20160c',
+      panelBarShadow: 'inset 0 -1px #0002, -1px 0 #0002',
+      panelBorder: '0px',
+      activeTab: '#276499',
+      activeTabText: '#fffffe',
+      outlineWidth: 0,
+      borderRadius: '1px',
+      ok: '#1f5381',
+      warning: '#fad859',
+      alert: '#b80519',
+      focusRing: '#007aff',
+  },
+  buttonZIndex: 9999, 
+  baseFontSize: '14px', // px
+  baseFontFamily: '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif',
+
+  return options;
+}
+```
+
+If you want to provide your own CSS entirely, place a file in the filesystem and add it to the 'cssUrls' array, e.g.:
+```js
+var editoria11yOptionsOverride = true;
+var editoria11yOptions = function(options) {
+  options['cssUrls'].push('/path/to/my/file/overrides.css')
+  return options;
+}
+```
+
+### Using JS events provided by the library
 
 #### The main panel has opened
 
@@ -134,56 +201,7 @@ document.addEventListener("ed11yHiddenHandler", function (event) {
 });
 ```
 
-### Programmatically modifying the options array
-
-Before initiating the object, the module checks to see if a module or theme has
-requested to modify the array.
-
-Example use (in JS in your theme or module) to provide a default ignored item,
-or add it to the list provided in the GUI:
-
-```js
-var editoria11yOptionsOverride = true;
-var editoria11yOptions = function(options) {
-  if (options['ignoreElements'] === false) {
-    // Replace with default value.
-    options['ignoreElements'] = `.example`;
-  } else {
-    // Append default value with comma separator.
-    options['ignoreElements'] = `${options['ignoreElements']}, .example`
-  }
-  return options;
-}
-```
-
-
-## Troubleshooting FAQ
-
-### The checker does not appear
-
-* If it does not appear for *at all*
-    * Make sure a selector has not been added to the "Disable the scanner if..."
-      configuration setting that matches something on every page.
-    * Make sure it's not just there-but-hidden. Use your browser inspector to
-      inspect the page and see if an element with an ID of "ed11y-main-toggle"
-      is present. If it is there, see if something in your theme is covering
-      it (z-index) or clipping it (overflow: hidden). You may need to use a
-      little CSS to increase the z-index of `#ed11y-panel` or translate it up or
-      left to get it out from under another component.
-    * Make sure there are no JS errors in your browser console. Typos in
-      selectors on the config page will throw an error and block the checker
-      from running.
-    * Make sure something (anything) is set in the "Tests" preference for when
-      the panel should open automatically. If this configuration option gets
-      unset sometimes the panel never appears.
-    * If you are running Advagg, don't check the button to force preprocess for all files. See issue "[Does not work with Advanced CSS/JS Aggregator + jSqueeze](https://www.drupal.org/project/editoria11y/issues/3230850)"
-* If it does not appear for some *users*:
-    * Make sure the user's role has permission granted to "View the Editoria11y
-      Checker."
-* If it does not appear on some *pages*
-    * Make sure a selector has not been added to the "Disable the scanner if..."
-      configuration setting that matches something on the page.
-    * Check for JS errors in your browser console.
+## Troubleshooting
 
 ### The checker reports false positives on an element
 
@@ -197,6 +215,33 @@ var editoria11yOptions = function(options) {
   from "Smart" or "Always" to "Never." Editoria11y will still *check* every page
   and insert an issue count on the toggle, but it will stop auto-highlighting
   errors.
+
+### The checker does not appear
+
+* If it does not appear for *at all*
+    * Clear cache...
+    * Make sure a selector has not been added to the "Disable the scanner if..."
+      configuration setting that matches something on every page.
+    * Make sure it's not hidden due to config or CSS. Use your browser inspector to
+      inspect the page and see if an element with an ID of "ed11y-main-toggle"
+      is present. If it is _there_, see if something in your theme is covering
+      it (z-index) or clipping it (overflow: hidden). You may need to use a
+      little CSS to increase the z-index of `#ed11y-panel` or translate it up or
+      left to get it out from under another component.
+    * Make sure there are no JS errors in your browser console. Typos in
+      selectors on the config page _will_ throw an error and block the checker
+      from running.
+    * Make sure something (anything) is set in the "Tests" preference for when
+      the panel should open automatically. If this configuration option gets
+      unset sometimes the panel never appears.
+    * If you are running Advagg, don't check the button to "force preprocess for all files." See issue "[Does not work with Advanced CSS/JS Aggregator + jSqueeze](https://www.drupal.org/project/editoria11y/issues/3230850)"
+* If it does not appear for some *users*:
+    * Make sure the user's role has permission granted to "View the Editoria11y
+      Checker."
+* If it does not appear on some *pages*
+    * Make sure a selector has not been added to the "Disable the scanner if..."
+      configuration setting that matches something on the page.
+    * Check for JS errors in your browser console.
 
 ### You don't like the default error messages
 

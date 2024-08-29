@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\Tests\schemadotorg_block_content\Functional;
 
@@ -20,12 +20,9 @@ use Drupal\Tests\schemadotorg\Functional\SchemaDotOrgBrowserTestBase;
 class SchemaDotOrgBlockContentTest extends SchemaDotOrgBrowserTestBase {
 
   /**
-   * Modules to enable.
-   *
-   * @var array
+   * {@inheritdoc}
    */
   protected static $modules = [
-    'schemadotorg_jsonld',
     'schemadotorg_block_content',
   ];
 
@@ -65,21 +62,12 @@ class SchemaDotOrgBlockContentTest extends SchemaDotOrgBrowserTestBase {
    * Test Schema.org block_content.
    */
   public function testBlockContent(): void {
-    $assert_session = $this->assertSession();
-
-    // Check that the content block's JSON is included.
-    // @see schemadotorg_block_content_schemadotorg_jsonld()
-    $assert_session->responseContains('"@type": "Statement"');
-    $assert_session->responseContains('"text": "This is a test"');
-
-    // Check that the content block's JSON does not include @url.
-    // @see schemadotorg_block_content_schemadotorg_jsonld_schema_type_entity_alter()
-    $assert_session->responseNotContains('"@url"');
+    $assert = $this->assertSession();
 
     // Check that the content block is displayed.
     // @see schemadotorg_block_content_block_view_alter()
     $this->drupalGet('<front>');
-    $assert_session->responseContains('<div>This is a test</div>');
+    $assert->responseContains('<div>This is a test</div>');
   }
 
 }

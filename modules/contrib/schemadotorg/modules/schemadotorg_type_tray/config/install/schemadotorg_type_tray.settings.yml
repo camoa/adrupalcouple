@@ -25,6 +25,11 @@ schema_types:
       - Organization
       - Service
       - JobPosting
+  hospitality:
+    label: Hospitality
+    types:
+      - LodgingBusiness
+      - Accommodation
   education:
     label: Education
     types:

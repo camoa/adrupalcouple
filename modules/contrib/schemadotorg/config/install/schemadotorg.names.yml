@@ -3,6 +3,7 @@ custom_words:
   gtin: GTIN
   rxcui: RxCUI
 custom_names:
+  agent_interaction_statistic: agent_interaction_stat
   applies_to_delivery_method: applies_to_delivery_meth
   checkout_page_url_template: checkout_pg_url_template
   currency_conversion_service: currency_conv_service
@@ -27,6 +28,7 @@ prefixes:
   approved: appr
   associated: assoc
   benefits: bene
+  certification: cert
   currency: cur
   customer: cust
   customer_remorse_return: cust_rem_ret
@@ -99,8 +101,8 @@ suffixes:
   affiliation: affl
   amount: amt
   application: app
-  aspect: asp
   article: art
+  aspect: asp
   audience: aud
   buildings: bld
   business: biz

@@ -2,11 +2,11 @@
 
 namespace Drupal\http_cache_control\EventSubscriber;
 
+use Drupal\Core\Config\ConfigFactory;
+use Drupal\Core\Site\Settings;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\ResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
-use Drupal\Core\Site\Settings;
-use Drupal\Core\Config\ConfigFactory;
 
 /**
  * Subscriber for adding http cache control headers.
@@ -67,6 +67,11 @@ class CacheControlEventSubscriber implements EventSubscriberInterface {
         break;
     }
 
+    // Incase current TTL is set to null.
+    if (is_null($ttl)) {
+      $ttl = 0;
+    }
+
     if ($ttl != $response->getMaxAge()) {
       $response->setClientTtl($ttl);
       $response->setSharedMaxAge($ttl);
@@ -106,7 +111,7 @@ class CacheControlEventSubscriber implements EventSubscriberInterface {
   /**
    * {@inheritdoc}
    */
-  public static function getSubscribedEvents() {
+  public static function getSubscribedEvents(): array {
     // Response: set header content for security policy.
     $events[KernelEvents::RESPONSE][] = ['setHeaderCacheControl', -10];
     return $events;

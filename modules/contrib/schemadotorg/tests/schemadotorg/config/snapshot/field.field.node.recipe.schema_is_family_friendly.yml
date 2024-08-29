@@ -12,7 +12,8 @@ label: 'Is family friendly'
 description: 'Indicates whether this content is family friendly.'
 required: false
 translatable: true
-default_value: {  }
+default_value:
+  value: true
 default_value_callback: ''
 settings:
   on_label: 'Yes'

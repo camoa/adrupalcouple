@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\Tests\schemadotorg\Kernel;
 
@@ -10,6 +10,16 @@ namespace Drupal\Tests\schemadotorg\Kernel;
  * @group schemadotorg
  */
 class SchemaDotOrgEntityKernelTest extends SchemaDotOrgEntityKernelTestBase {
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function setUp(): void {
+    parent::setUp();
+
+    $this->installSchema('file', ['file_usage']);
+    $this->installEntitySchema('file');
+  }
 
   /**
    * Tests creating common entity type/bundle Schema.org types.

@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\Tests\schemadotorg_media\Kernel;
 
@@ -50,8 +50,8 @@ class SchemaDotOrgMediaJsonLdKernelTest extends SchemaDotOrgJsonLdKernelTestBase
       'name' => 'Some image',
       'thumbnail' => $image_style->buildUrl($thumbnail->getFileUri()),
       'inLanguage' => 'en',
-      'dateCreated' => $this->dateFormatter->format($media->getCreatedTime(), 'custom', 'Y-m-d H:i:s P'),
-      'dateModified' => $this->dateFormatter->format($media->getChangedTime(), 'custom', 'Y-m-d H:i:s P'),
+      'dateCreated' => $this->formatDateTime($media->getCreatedTime()),
+      'dateModified' => $this->formatDateTime($media->getChangedTime()),
     ];
     $actual_value = $this->builder->buildEntity($media);
     $this->assertEquals($expected_value, $actual_value);

@@ -5,7 +5,7 @@
  * Improves https://inverseOf support using the CER module.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 use Drupal\cer\Form\CorrespondingReferenceForm;
 use Drupal\Core\Form\FormStateInterface;
@@ -24,7 +24,7 @@ function schemadotorg_cer_schemadotorg_mapping_defaults_alter(array &$defaults, 
  * Implements hook_schemadotorg_mapping_insert().
  */
 function schemadotorg_cer_schemadotorg_mapping_insert(SchemaDotOrgMappingInterface $mapping): void {
-  if (\Drupal::isConfigSyncing()) {
+  if ($mapping->isSyncing()) {
     return;
   }
 
@@ -135,7 +135,7 @@ function schemadotorg_cer_form_schemadotorg_properties_settings_form_alter(array
     '#type' => 'details',
     '#title' => t('Corresponding entity references settings'),
   ];
-  $form['schemadotorg_cer']['default_properties'] = [
+  $form['schemadotorg_cer']['default_schema_properties'] = [
     '#type' => 'schemadotorg_settings',
     '#title' => t('Default Schema.org property inverse of relationship'),
     '#description' => t('Enter default Schema.org property inverse of relationship with the childProperty followed by the parentProperty.'),

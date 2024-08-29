@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg;
 
@@ -88,11 +88,11 @@ abstract class SchemaDotOrgConfigEntityListBuilderBase extends ConfigEntityListB
   /**
    * Get the current request details toggle state.
    *
-   * @return bool|int
+   * @return bool
    *   The current request details toggle state.
    */
-  protected function getDetailsToggle(): bool|int {
-    return (boolean) $this->request->query->get('details') ?? 0;
+  protected function getDetailsToggle(): bool {
+    return (boolean) ($this->request->query->get('details') ?? 0);
   }
 
   /**

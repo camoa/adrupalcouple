@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\Tests\schemadotorg_office_hours\Kernel;
 
@@ -18,11 +18,10 @@ require_once __DIR__ . '/../../../schemadotorg_office_hours.install';
 class SchemaDotOrgOfficeHoursInstallTest extends KernelTestBase {
 
   /**
-   * Modules to enable.
-   *
-   * @var array
+   * {@inheritdoc}
    */
   protected static $modules = [
+    'node',
     'schemadotorg',
     'schemadotorg_office_hours',
   ];

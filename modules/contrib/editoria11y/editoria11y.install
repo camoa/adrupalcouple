@@ -7,9 +7,12 @@
 
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\user\Entity\Role;
+use Symfony\Component\Yaml\Yaml;
 
 /**
  * Implements hook_install().
+ *
+ * @throws \Drupal\Core\Entity\EntityStorageException
  */
 function editoria11y_install() {
   // Assign default access to roles likely to have content editing access.
@@ -27,8 +30,8 @@ function editoria11y_install() {
 /**
  * Results table definition.
  */
-function editoria11y_results_table() {
-  $data = [
+function editoria11y_results_table(): array {
+  return [
     'description' => 'Stores Editoria11y issue list',
     'fields' => [
       'id' => [
@@ -136,14 +139,13 @@ function editoria11y_results_table() {
       'entity_id' => ['entity_id'],
     ],
   ];
-  return $data;
 }
 
 /**
  * Returns dismissals array.
  */
-function editoria11y_dismissals_table() {
-  $data = [
+function editoria11y_dismissals_table(): array {
+  return [
     'description' => 'Stores Editoria11y warnings and dismissals',
     'fields' => [
       'id' => [
@@ -279,13 +281,12 @@ function editoria11y_dismissals_table() {
       ],
     ],
   ];
-  return $data;
 }
 
 /**
  * Implements hook_schema().
  */
-function editoria11y_schema() {
+function editoria11y_schema(): array {
   $schema['editoria11y_results'] = editoria11y_results_table();
   $schema['editoria11y_dismissals'] = editoria11y_dismissals_table();
   return $schema;
@@ -297,8 +298,10 @@ function editoria11y_schema() {
  * Note that "Ignore containers" has become
  * "Ignore elements." Make a note of your setting
  * before proceeding as it will need to be rewritten.
+ *
+ * @throws \Drupal\Core\Entity\EntityStorageException
  */
-function editoria11y_update_9001(&$sandbox) {
+function editoria11y_update_9001() {
   // Add ability to hide results to current viewers.
   /** @var \Drupal\user\RoleInterface $role */
   foreach (Role::loadMultiple() as $role) {
@@ -309,8 +312,8 @@ function editoria11y_update_9001(&$sandbox) {
   }
 
   // Set defaults for new config items.
-  $config_factory = \Drupal::configFactory();
-  $config = $config_factory->getEditable('editoria11y.configuration');
+  $config_factory = Drupal::configFactory();
+  $config = $config_factory->getEditable('editoria11y.settings');
   $config->set('ed11y_theme', 'lightTheme');
   $config->set('disable_sync', FALSE);
   $config->save(TRUE);
@@ -335,15 +338,15 @@ function editoria11y_update_9001(&$sandbox) {
  * Note when updating between 2.x Betas that this will restore any previously
  * hidden alerts.
  */
-function editoria11y_update_9003(&$sandbox) {
+function editoria11y_update_9003() {
 
-  $config_factory = \Drupal::configFactory();
-  $config = $config_factory->getEditable('editoria11y.configuration');
+  $config_factory = Drupal::configFactory();
+  $config = $config_factory->getEditable('editoria11y.settings');
   $config->set('preserve_params', 'search,keys,page,language,language_content_entity');
   $config->save(TRUE);
 
   // Create new DB tables.
-  $database = \Drupal::database();
+  $database = Drupal::database();
   $schema = $database->schema();
 
   if ($schema->tableExists('editoria11y_results')) {
@@ -364,13 +367,10 @@ function editoria11y_update_9003(&$sandbox) {
 }
 
 /**
- * Updates tables to include entity IDs.
- * Adds node delete hooks to auto-update dashboard.
- * Converts dashboard displays to admin-editable Views.
- *
+ * Adds entity IDs, node delete hooks and admin-editable Views.
  */
-function editoria11y_update_9004(&$sandbox) {
-  $schema = \Drupal::database()->schema();
+function editoria11y_update_9004() {
+  $schema = Drupal::database()->schema();
 
   // Only needed on sites installed at 2.x versions between 9003 and 9004.
   if (!$schema->fieldExists('editoria11y_results', 'entity_id')) {
@@ -383,7 +383,7 @@ function editoria11y_update_9004(&$sandbox) {
           'unsigned' => TRUE,
           'not null' => TRUE,
           'default' => 0,
-        ]
+        ],
       ],
       'indexes' => [
         'entity_id' => ['entity_id'],
@@ -397,16 +397,35 @@ function editoria11y_update_9004(&$sandbox) {
   }
 
   // Install views.
-  if (\Drupal::moduleHandler()->moduleExists('views')) {
+  if (Drupal::moduleHandler()->moduleExists('views')) {
     $config_id = 'views.view.editoria11y_dismissals';
-    $config_path = \Drupal::service('extension.list.module')->getPath('editoria11y') . '/config/optional/' . $config_id .'.yml';
-    $data = \Symfony\Component\Yaml\Yaml::parseFile($config_path);
-    \Drupal::configFactory()->getEditable($config_id)->setData($data)->save(TRUE);
+    $config_path = Drupal::service('extension.list.module')->getPath('editoria11y') . '/config/optional/' . $config_id . '.yml';
+    $data = Yaml::parseFile($config_path);
+    Drupal::configFactory()->getEditable($config_id)->setData($data)->save(TRUE);
 
     $config_id = 'views.view.editoria11y_results';
-    $config_path = \Drupal::service('extension.list.module')->getPath('editoria11y') . '/config/optional/' . $config_id .'.yml';
-    $data = \Symfony\Component\Yaml\Yaml::parseFile($config_path);
-    \Drupal::configFactory()->getEditable($config_id)->setData($data)->save(TRUE);
+    $config_path = Drupal::service('extension.list.module')->getPath('editoria11y') . '/config/optional/' . $config_id . '.yml';
+    $data = Yaml::parseFile($config_path);
+    Drupal::configFactory()->getEditable($config_id)->setData($data)->save(TRUE);
   }
 }
 
+/**
+ * Updates default config for Link Purpose compatibility.
+ */
+function editoria11y_update_9005() {
+
+  $config_factory = Drupal::configFactory();
+  $config = $config_factory->getEditable('editoria11y.settings');
+  $config->set('link_ignore_selector', 'svg.ext, svg.mailto, .link-purpose-text');
+  $config->save(TRUE);
+}
+
+/**
+ * Issue 3422440: Fix config schema error.
+ */
+function editoria11y_update_9006() {
+  $config_factory = Drupal::configFactory();
+  $config = $config_factory->getEditable('editoria11y.configuration');
+  $config->delete();
+}

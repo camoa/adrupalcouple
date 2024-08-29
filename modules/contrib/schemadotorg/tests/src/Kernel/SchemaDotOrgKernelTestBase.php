@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\Tests\schemadotorg\Kernel;
 
@@ -14,11 +14,9 @@ abstract class SchemaDotOrgKernelTestBase extends EntityKernelTestBase {
   use SchemaDotOrgTestTrait;
 
   /**
-   * Modules to enable.
-   *
-   * @var array
+   * {@inheritdoc}
    */
-  protected static $modules = ['schemadotorg'];
+  protected static $modules = ['node', 'user', 'schemadotorg'];
 
   /**
    * Installs the Schema.org module's entities, config, and tables.

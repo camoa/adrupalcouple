@@ -1,11 +1,13 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg\Plugin\EntityReferenceSelection;
 
 use Drupal\Component\Utility\Html;
+use Drupal\Core\Config\Entity\ConfigEntityStorageInterface;
 use Drupal\Core\Entity\EntityReferenceSelection\SelectionPluginBase;
+use Drupal\Core\Entity\EntityReferenceSelection\SelectionWithAutocreateInterface;
 use Drupal\Core\Entity\EntityRepositoryInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Entity\Exception\UnsupportedEntityTypeDefinitionException;
@@ -38,7 +40,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *   deriver = "\Drupal\schemadotorg\Plugin\Derivative\SchemaDotOrgEntitySelectionDeriver"
  * )
  */
-class SchemaDotOrgEntityReferenceSelection extends SelectionPluginBase implements ContainerFactoryPluginInterface {
+abstract class SchemaDotOrgEntityReferenceSelection extends SelectionPluginBase implements ContainerFactoryPluginInterface, SelectionWithAutocreateInterface {
 
   /**
    * The current user.
@@ -58,7 +60,7 @@ class SchemaDotOrgEntityReferenceSelection extends SelectionPluginBase implement
   /**
    * The mapping storage.
    */
-  protected SchemaDotOrgMappingStorageInterface $mappingStorage;
+  protected SchemaDotOrgMappingStorageInterface|ConfigEntityStorageInterface $mappingStorage;
 
   /**
    * The entity repository.
@@ -68,12 +70,19 @@ class SchemaDotOrgEntityReferenceSelection extends SelectionPluginBase implement
   /**
    * {@inheritdoc}
    */
+  final public function __construct(array $configuration, $plugin_id, $plugin_definition) {
+    parent::__construct($configuration, $plugin_id, $plugin_definition);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
     $instance = new static($configuration, $plugin_id, $plugin_definition);
     $instance->currentUser = $container->get('current_user');
     $instance->schemaTypeManager = $container->get('schemadotorg.schema_type_manager');
     $instance->entityTypeManager = $container->get('entity_type.manager');
-    $instance->mappingStorage = $instance->entityTypeManager->getStorage('schemadotorg_mapping');
+    $instance->mappingStorage = $container->get('entity_type.manager')->getStorage('schemadotorg_mapping');
     $instance->entityRepository = $container->get('entity.repository');
     return $instance;
   }
@@ -81,7 +90,7 @@ class SchemaDotOrgEntityReferenceSelection extends SelectionPluginBase implement
   /**
    * {@inheritdoc}
    */
-  public function defaultConfiguration() {
+  public function defaultConfiguration(): array {
     return [
       'schema_types' => [],
       'excluded_schema_types' => [],
@@ -92,7 +101,7 @@ class SchemaDotOrgEntityReferenceSelection extends SelectionPluginBase implement
   /**
    * {@inheritdoc}
    */
-  public function setConfiguration(array $configuration) {
+  public function setConfiguration(array $configuration): void {
     // Convert 'schema_types' that are passed as a string to an array.
     // The 'schema_types' will be a string when this handler is validated
     // via form submit.
@@ -211,8 +220,6 @@ class SchemaDotOrgEntityReferenceSelection extends SelectionPluginBase implement
   /**
    * {@inheritdoc}
    *
-   * The.
-   *
    * @see \Drupal\Core\Entity\Plugin\EntityReferenceSelection\DefaultSelection::createNewEntity
    */
   public function createNewEntity($entity_type_id, $bundle, $label, $uid) {
@@ -233,6 +240,21 @@ class SchemaDotOrgEntityReferenceSelection extends SelectionPluginBase implement
     }
 
     return $entity;
+  }
+
+  /**
+   * {@inheritdoc}
+   *
+   * @see \Drupal\Core\Entity\Plugin\EntityReferenceSelection\DefaultSelection::validateReferenceableNewEntities
+   */
+  public function validateReferenceableNewEntities(array $entities): array {
+    return array_filter($entities, function ($entity) {
+      $target_bundles = $this->getConfiguration()['target_bundles'];
+      if (isset($target_bundles)) {
+        return in_array($entity->bundle(), $target_bundles);
+      }
+      return TRUE;
+    });
   }
 
   /**

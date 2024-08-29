@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\Tests\schemadotorg_descriptions\Functional;
 
@@ -15,9 +15,7 @@ use Drupal\Tests\schemadotorg\Functional\SchemaDotOrgBrowserTestBase;
 class SchemaDotOrgDescriptionsNodeTitleTest extends SchemaDotOrgBrowserTestBase {
 
   /**
-   * Modules to enable.
-   *
-   * @var array
+   * {@inheritdoc}
    */
   protected static $modules = [
     'schemadotorg_ui',
@@ -30,19 +28,19 @@ class SchemaDotOrgDescriptionsNodeTitleTest extends SchemaDotOrgBrowserTestBase 
    * @covers schemadotorg_descriptions_form_node_form_alter()
    */
   public function testNodeTitle(): void {
-    $assert_session = $this->assertSession();
+    $assert = $this->assertSession();
 
     $this->drupalLogin($this->rootUser);
 
     // Create the 'article' content type.
-    $this->drupalGet('/admin/structure/types/schemadotorg', ['query' => ['type' => 'Article']]);
+    $this->drupalGet('admin/structure/types/schemadotorg', ['query' => ['type' => 'Article']]);
     $this->submitForm([], 'Save');
-    $assert_session->responseContains('The content type <em class="placeholder">Article</em> has been added.');
+    $assert->statusMessageContains('The content type Article has been added.', 'status');
 
     // Check that the Article's title description is set to the headline property's comment.
     $this->drupalGet('node/add/article');
-    $assert_session->responseContains('<label for="edit-title-0-value" class="js-form-required form-required">Headline</label>');
-    $assert_session->responseContains('Headline of the article.');
+    $assert->responseContains('<label for="edit-title-0-value" class="js-form-required form-required">Headline</label>');
+    $assert->responseContains('Headline of the article.');
 
     // Set a custom description for headline.
     $this->config('schemadotorg_descriptions.settings')
@@ -51,7 +49,7 @@ class SchemaDotOrgDescriptionsNodeTitleTest extends SchemaDotOrgBrowserTestBase 
 
     // Check that the Article's title description is set to the headline property's custom description.
     $this->drupalGet('node/add/article');
-    $assert_session->responseContains('This is custom headline description.');
+    $assert->responseContains('This is custom headline description.');
   }
 
 }

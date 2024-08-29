@@ -1,10 +1,12 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\Tests\schemadotorg_jsonld\Kernel;
 
+use Drupal\Core\Datetime\Entity\DateFormat;
 use Drupal\filter\Entity\FilterFormat;
+use Drupal\media\Entity\Media;
 use Drupal\node\Entity\Node;
 
 /**
@@ -16,32 +18,65 @@ use Drupal\node\Entity\Node;
 class SchemaDotOrgJsonLdBuilderKernelTest extends SchemaDotOrgJsonLdKernelTestBase {
 
   /**
+   * {@inheritdoc}
+   */
+  protected static $modules = ['token'];
+
+  /**
    * Test Schema.org JSON-LD builder.
    */
   public function testBuilder(): void {
     \Drupal::currentUser()->setAccount($this->createUser(['access content']));
 
-    /** @var \Drupal\Core\Datetime\DateFormatterInterface $data_formatter */
-    $data_formatter = \Drupal::service('date.formatter');
     $now = time();
 
-    // Append subjectOf and alternateName to CreativeWork default properties.
-    $default_properties = $this->config('schemadotorg.settings')
-      ->get('schema_types.default_properties.CreativeWork');
-    $this->config('schemadotorg.settings')
-      ->set('schema_types.default_properties.CreativeWork', array_merge($default_properties, ['subjectOf', 'alternateName']))
-      ->save();
+    // Create media image.
+    $this->createSchemaEntity('media', 'ImageObject');
 
+    // Create thing with sameAs.
+    $this->appendSchemaTypeDefaultProperties('Thing', ['name', 'sameAs']);
+    $this->config('schemadotorg.settings')
+      ->set('schema_properties.default_fields.Thing--sameAs.type', 'field_ui:entity_reference:node')
+      ->save();
+    $this->createSchemaEntity('node', 'Thing');
+
+    // Create a creative work.
+    $this->appendSchemaTypeDefaultProperties('CreativeWork', ['subjectOf', 'alternateName', 'image']);
     $this->createSchemaEntity('node', 'CreativeWork');
+
+    DateFormat::create([
+      'id' => 'fallback',
+      'label' => 'Fallback',
+      'pattern' => 'Y-m-d',
+    ])->save();
 
     FilterFormat::create([
       'format' => 'empty_format',
       'name' => 'Empty format',
     ])->save();
 
-    $node = Node::create([
+    // Image file.
+    $file = $this->createFileImage();
+
+    // Media.
+    $media = Media::create([
+      'bundle' => 'image',
+      'name' => 'Some image',
+      'field_media_image' => [
+        'target_id' => $file->id(),
+        'alt' => 'default alt',
+        'title' => 'default title',
+      ],
+    ]);
+    $media->save();
+
+    // Node.
+    $creative_work_node = Node::create([
       'type' => 'creative_work',
       'title' => 'Something',
+      'schema_image' => [
+        'target_id' => $media->id(),
+      ],
       'schema_alternate_name' => [
         'value' => 'Something else',
       ],
@@ -56,18 +91,19 @@ class SchemaDotOrgJsonLdBuilderKernelTest extends SchemaDotOrgJsonLdKernelTestBa
       'created' => $now,
       'changed' => $now,
     ]);
-    $node->save();
+    $creative_work_node->save();
 
     // Check building JSON-LD for an entity that is mapped to a Schema.org type.
     $expected_result = [
       '@type' => 'CreativeWork',
-      '@url' => $node->toUrl()->setAbsolute()->toString(),
+      '@url' => $creative_work_node->toUrl()->setAbsolute()->toString(),
       'name' => 'Something',
       'alternateName' => [
         'Something else',
       ],
       'description' => 'A summary',
       'text' => 'Some description',
+      'image' => \Drupal::service('file_url_generator')->generateAbsoluteString($file->getFileUri()),
       'subjectOf' => [
         [
           '@type' => 'CreativeWork',
@@ -75,10 +111,36 @@ class SchemaDotOrgJsonLdBuilderKernelTest extends SchemaDotOrgJsonLdKernelTestBa
         ],
       ],
       'inLanguage' => 'en',
-      'dateCreated' => $data_formatter->format($now, 'custom', 'Y-m-d H:i:s P'),
-      'dateModified' => $data_formatter->format($now, 'custom', 'Y-m-d H:i:s P'),
+      'dateCreated' => $this->formatDateTime($now),
+      'dateModified' => $this->formatDateTime($now),
     ];
-    $this->assertEquals($expected_result, $this->builder->buildEntity($node));
+    $this->assertEquals($expected_result, $this->builder->buildEntity($creative_work_node));
+
+    /* ********************************************************************* */
+
+    // Set relatedLink to use an entity reference field instead of a link field.
+    $this->config('schemadotorg.settings')
+      ->set('schema_properties.default_fields.relatedLink.type', 'field_ui:entity_reference:node')
+      ->save();
+    $this->createSchemaEntity('node', 'WebPage');
+
+    $node_1 = Node::create([
+      'type' => 'page',
+      'title' => 'Node 1',
+    ]);
+    $node_1->save();
+
+    $node_2 = Node::create([
+      'type' => 'page',
+      'title' => 'Node 2',
+      'schema_related_link' => ['target_id' => $node_1->id()],
+    ]);
+    $node_2->save();
+
+    // Check that for Schema.org properties that can only contain a URL,
+    // we return the entity's absolute URL.
+    $jsonld = $this->builder->buildEntity($node_2);
+    $this->assertEquals([$node_1->toUrl()->setAbsolute()->toString()], $jsonld['relatedLink']);
   }
 
 }

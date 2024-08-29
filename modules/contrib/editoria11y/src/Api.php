@@ -3,9 +3,9 @@
 namespace Drupal\editoria11y;
 
 use Drupal\Core\Cache\Cache;
+use Drupal\Core\Database\Connection;
 use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\Core\Session\AccountInterface;
-use Drupal\Core\Database\Connection;
 use Drupal\editoria11y\Exception\Editoria11yApiException;
 
 /**
@@ -29,8 +29,6 @@ class Api {
 
   /**
    * The manager property.
-   *
-   * @var Drupal\Core\Entity\EntityTypeManager
    */
   protected EntityTypeManager $manager;
 
@@ -38,17 +36,13 @@ class Api {
    * Constructs an Api object.
    *
    * @param \Drupal\Core\Session\AccountInterface $account
-   *   The current user.
+   *   Current User.
    * @param \Drupal\Core\Database\Connection $connection
-   *   The current database connection.
-   * @param Drupal\Core\Entity\EntityTypeManager $manager
-   *   The manager property.
+   *   Database.
+   * @param \Drupal\Core\Entity\EntityTypeManager $manager
+   *   Entity types.
    */
-  public function __construct(
-        AccountInterface $account,
-        Connection $connection,
-        EntityTypeManager $manager
-    ) {
+  public function __construct(AccountInterface $account, Connection $connection, EntityTypeManager $manager) {
     $this->account = $account;
     $this->connection = $connection;
     $this->manager = $manager;
@@ -56,6 +50,9 @@ class Api {
 
   /**
    * Function to test the results.
+   *
+   * @throws \Drupal\editoria11y\Exception\Editoria11yApiException
+   *    Oopsie.
    */
   public function testResults($results) {
     $now = time();
@@ -207,6 +204,9 @@ class Api {
 
   /**
    * The Purge page function.
+   *
+   * @throws \Drupal\editoria11y\Exception\Editoria11yApiException
+   *   Oopsie.
    */
   public function purgePage($page) {
     $this->validatePath($page["page_path"]);
@@ -229,6 +229,9 @@ class Api {
 
   /**
    * The purge dismissal function.
+   *
+   * @throws \Drupal\editoria11y\Exception\Editoria11yApiException
+   *   Oopsie.
    */
   public function purgeDismissal($data) {
     $this->validatePath($data["page_path"]);
@@ -238,7 +241,7 @@ class Api {
       ->condition('page_path', $data["page_path"])
       ->condition('result_name', $data["result_name"])
       ->condition('dismissal_status', $data["marked"])
-      ->condition('uid', $data["by"])
+      ->condition('uid', str_replace(",", "", $data["by"]))
       ->execute();
     // Clear cache for the referring page and dashboard.
     Cache::invalidateTags(
@@ -252,6 +255,9 @@ class Api {
 
   /**
    * The dismiss function.
+   *
+   * @throws \Drupal\editoria11y\Exception\Editoria11yApiException
+   *   Oopsie.
    */
   public function dismiss(string $operation, $dismissal) {
     $this->validatePath($dismissal["page_path"]);
@@ -338,37 +344,49 @@ class Api {
 
   /**
    * This function to do validate of the elements.
+   *
+   * @throws \Drupal\editoria11y\Exception\Editoria11yApiException
+   *   Oopsie.
    */
   private function validateNotNull($user_input) {
     if (empty($user_input)) {
-      throw new Editoria11yApiException("Missing value: {$key}");
+      throw new Editoria11yApiException("Missing value");
     }
   }
 
   /**
    * This function is used to validate the requested path.
+   *
+   * @throws \Drupal\editoria11y\Exception\Editoria11yApiException
+   *   Oopsie.
    */
   private function validatePath($user_input) {
     if (strpos($user_input, '/') !== 0) {
-      throw new Editoria11yApiException("Invalid page path: {$user_input}");
+      throw new Editoria11yApiException("Invalid page path: $user_input");
     }
   }
 
   /**
    * Validate dismissal status function.
+   *
+   * @throws \Drupal\editoria11y\Exception\Editoria11yApiException
+   *   Oopsie.
    */
   private function validateDismissalStatus($user_input) {
     if (!($user_input === 'ok' || $user_input === 'hide' || $user_input === 'reset')) {
-      throw new Editoria11yApiException("Invalid dismissal operation: {$user_input}");
+      throw new Editoria11yApiException("Invalid dismissal operation: $user_input");
     }
   }
 
   /**
    * Validate number function.
+   *
+   * @throws \Drupal\editoria11y\Exception\Editoria11yApiException
+   *   Oopsie.
    */
   private function validateNumber($user_input) {
     if (!(is_numeric($user_input))) {
-      throw new Editoria11yApiException("Nan: {$user_input}");
+      throw new Editoria11yApiException("Nan: $user_input");
     }
   }
 

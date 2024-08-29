@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg;
 
@@ -10,6 +10,7 @@ use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
 use Drupal\Core\Entity\EntityDisplayRepositoryInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
+use Drupal\schemadotorg\Traits\SchemaDotOrgMappingStorageTrait;
 
 /**
  * Schema.org entity display builder service.
@@ -18,6 +19,7 @@ use Drupal\Core\Extension\ModuleHandlerInterface;
  * field's entity display component settings ana weight.
  */
 class SchemaDotOrgEntityDisplayBuilder implements SchemaDotOrgEntityDisplayBuilderInterface {
+  use SchemaDotOrgMappingStorageTrait;
 
   /**
    * Constructs a SchemaDotOrgEntityDisplayBuilder object.
@@ -38,7 +40,7 @@ class SchemaDotOrgEntityDisplayBuilder implements SchemaDotOrgEntityDisplayBuild
     protected ConfigFactoryInterface $configFactory,
     protected EntityTypeManagerInterface $entityTypeManager,
     protected EntityDisplayRepositoryInterface $entityDisplayRepository,
-    protected SchemaDotOrgNamesInterface $schemaNames
+    protected SchemaDotOrgNamesInterface $schemaNames,
   ) {}
 
   /**
@@ -83,7 +85,7 @@ class SchemaDotOrgEntityDisplayBuilder implements SchemaDotOrgEntityDisplayBuild
       : 0;
 
     // Get the field storage entity.
-    /** @var \Drupal\field\FieldStorageConfigInterface $field_storage */
+    /** @var \Drupal\field\FieldStorageConfigInterface|null $field_storage */
     $field_storage = $this->entityTypeManager
       ->getStorage('field_storage_config')
       ->load("$entity_type_id.$field_name");
@@ -118,6 +120,7 @@ class SchemaDotOrgEntityDisplayBuilder implements SchemaDotOrgEntityDisplayBuild
       // Entity references.
       'entity_reference' => 60 + $max_field_weight,
       'entity_reference_revisions' => 61 + $max_field_weight,
+      'entity_reference_entity_modify' => 62 + $max_field_weight,
     ];
     $field_weight = $field_type_weights[$field_storage->getType()]
       ?? 50 + $max_field_weight;
@@ -141,49 +144,51 @@ class SchemaDotOrgEntityDisplayBuilder implements SchemaDotOrgEntityDisplayBuild
     ?string $widget_id,
     array $widget_settings,
     ?string $formatter_id,
-    array $formatter_settings
+    array $formatter_settings,
   ): void {
     $entity_type_id = $field_values['entity_type'];
     $bundle = $field_values['bundle'];
     $field_name = $field_values['field_name'];
 
-    /** @var \Drupal\schemadotorg\SchemaDotOrgMappingTypeInterface $mapping_type */
-    $mapping_type = $this->entityTypeManager->getStorage('schemadotorg_mapping_type')
-      ->load($entity_type_id);
+    $mapping_type = $this->loadMappingType($entity_type_id);
 
     // Form display.
-    $form_modes = $this->getFormModes($entity_type_id, $bundle);
-    foreach ($form_modes as $form_mode) {
-      $form_display = $this->entityDisplayRepository->getFormDisplay($entity_type_id, $bundle, $form_mode);
-      $this->setComponent($form_display, $field_name, $widget_id, $widget_settings);
-      $form_display->schemaDotOrgType = $schema_type;
-      $form_display->schemaDotOrgProperty = $schema_property;
-      $form_display->save();
+    if ($widget_id !== static::COMPONENT_HIDDEN) {
+      $form_modes = $this->getFormModes($entity_type_id, $bundle);
+      foreach ($form_modes as $form_mode) {
+        $form_display = $this->entityDisplayRepository->getFormDisplay($entity_type_id, $bundle, $form_mode);
+        $this->setComponent($form_display, $field_name, $widget_id, $widget_settings);
+        $form_display->schemaDotOrgType = $schema_type;
+        $form_display->schemaDotOrgProperty = $schema_property;
+        $form_display->save();
+      }
     }
 
     // View display.
-    $view_modes = $this->getViewModes($entity_type_id, $bundle);
-    foreach ($view_modes as $view_mode) {
-      $view_display = $this->entityDisplayRepository->getViewDisplay($entity_type_id, $bundle, $view_mode);
+    if ($formatter_id !== static::COMPONENT_HIDDEN) {
+      $view_modes = $this->getViewModes($entity_type_id, $bundle);
+      foreach ($view_modes as $view_mode) {
+        $view_display = $this->entityDisplayRepository->getViewDisplay($entity_type_id, $bundle, $view_mode);
 
-      $display_properties = $mapping_type->getSchemaTypeViewDisplayProperties($schema_type, $view_mode);
-      if ($display_properties) {
-        if (!isset($display_properties[$schema_property])) {
-          continue;
+        $display_properties = $mapping_type->getSchemaTypeViewDisplayProperties($schema_type, $view_mode);
+        if ($display_properties) {
+          if (!isset($display_properties[$schema_property])) {
+            continue;
+          }
+
+          // Alter text with summary field to show trimmed summary.
+          $type = $field_storage_values['type'] ?? NULL;
+          if ($type === 'text_with_summary') {
+            $formatter_id = 'text_summary_or_trimmed';
+            $formatter_settings = ['label' => 'hidden'];
+          }
         }
 
-        // Alter text with summary field to show trimmed summary.
-        $type = $field_storage_values['type'] ?? NULL;
-        if ($type === 'text_with_summary') {
-          $formatter_id = 'text_summary_or_trimmed';
-          $formatter_settings = ['label' => 'hidden'];
-        }
+        $this->setComponent($view_display, $field_name, $formatter_id, $formatter_settings);
+        $view_display->schemaDotOrgType = $schema_type;
+        $view_display->schemaDotOrgProperty = $schema_property;
+        $view_display->save();
       }
-
-      $this->setComponent($view_display, $field_name, $formatter_id, $formatter_settings);
-      $view_display->schemaDotOrgType = $schema_type;
-      $view_display->schemaDotOrgProperty = $schema_property;
-      $view_display->save();
     }
   }
 
@@ -287,10 +292,7 @@ class SchemaDotOrgEntityDisplayBuilder implements SchemaDotOrgEntityDisplayBuild
     $entity_type_id = $mapping->getTargetEntityTypeId();
     $bundle = $mapping->getTargetBundle();
 
-    /** @var \Drupal\schemadotorg\SchemaDotOrgMappingTypeInterface $mapping_type */
-    $mapping_type = $this->entityTypeManager
-      ->getStorage('schemadotorg_mapping_type')
-      ->load($entity_type_id);
+    $mapping_type = $this->loadMappingType($entity_type_id);
     if (!$mapping_type) {
       return;
     }

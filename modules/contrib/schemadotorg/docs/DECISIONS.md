@@ -32,6 +32,12 @@ non-function decisions behind the Schema.org Blueprints module.
 
 ##### Form elements should include a title and description that states the element's intent and usage
 
+##### All hooks and APIS should be documented.
+- [schemadotorg/schemadotorg.api.php](https://git.drupalcode.org/project/schemadotorg/-/blob/1.0.x/schemadotorg.api.php)
+- [schemadotorg/modules/schemadotorg_jsonld/schemadotorg_jsonld.api.php](https://git.drupalcode.org/project/schemadotorg/-/blob/1.0.x/modules/schemadotorg_jsonld/schemadotorg_jsonld.api.php)
+
+#### Use [CommonMark](https://commonmark.thephpleague.com/) with [GitHub-Flavored Markdown](https://github.github.com/gfm/).
+
 
 # 2000 - Code architecture
 
@@ -39,6 +45,7 @@ non-function decisions behind the Schema.org Blueprints module.
 - @see [RELEASE-NOTES.md](RELEASE-NOTES.md)
 
 ##### Namespace everything with schemadotorg_* or SchemaDotOrg* prefix
+- Sub-modules should be prefixed with schemadotorg_{module_name}
 - Ensures all Schema.org code is searchable and identifiable. 
 
 ##### Use loosely coupled sub-modules that do one thing over monolithic modules doing many things
@@ -50,8 +57,7 @@ non-function decisions behind the Schema.org Blueprints module.
 
 ##### Use for simple sub-modules use hooks and use services for complex sub-modules.
 
-##### Create dedicated projects for integration with other ecosystems
-- Including [Next.js](https://www.drupal.org/project/schemadotorg_next)
+##### Create dedicated projects for integration with other ecosystems (i.e, Next.js and Drupal Commerce)
 
 ##### Use hooks for simple and basic integrations on a contributed module's behalf
 - @see [schemadotorg.schemadotorg.inc](../schemadotorg.schemadotorg.inc)
@@ -97,11 +103,15 @@ non-function decisions behind the Schema.org Blueprints module.
   - worksFor ↔ employee: Used to associate a Person with a (physical) LocalBusiness
   - containedInPlace ↔ containsPlace: Used to associate Place within a Place
 - [CreativeWork](https://schema.org/CreativeWork) relationships
+  - isPartOf ↔ hasPart: Used to build CreativeWork (with WebPage) parent/child relationships and hierarchies across multiple pages and datasets.
   - subjectOf ↔ about: Used to associate a Thing with a CreativeWork  (@see [mentions](https://schema.org/mentions))
-  - isPartOf ↔ hasPart: Used to build CreativeWork parent/child relationships and hierarchies across multiple pages and datasets.
   - mainEntity ↔ mainEntityOfPage: Used to build CreativeWork parent/child relationships within a single page
 - References
   - [Case Study: Does Webpage Schema (About & Mentions) Improve Rankings?](https://inlinks.com/case-studies/case-study-does-webpage-schema-about-mentions-improve-rankings/)
+
+##### Allow Schema.org mappings to have additional mappings.
+- The main/primary mapping is the equivalent the https://schema.org/mainEntityOfPage.
+- All public facing content (a.k.a. nodes) should have https://schema.org/WebPage as an additional mapping.
 
 
 # 4000 - User experience
@@ -122,7 +132,7 @@ non-function decisions behind the Schema.org Blueprints module.
   - Long form mostly text documents
   - Documents that require simple embedded elements which include images, videos, quotes, etc…
   - Content that could be redistributed via an API
-- Use page builder (i.e. Paragraph Layouts) for
+- Use page builder (i.e. Paragraph Layouts with Mercury Editor) for
   - Multi-column layouts on a webpage
   - Webpages that require complex widgets including forms, slideshows, tabs, etc…
   - Content that is not generally distributed via an API
@@ -227,13 +237,19 @@ for managing optional dependencies and patches.
 - [Convert Bundles](https://www.drupal.org/project/convert_bundles) for convert Schema.org types to more specific types
 - [Focal Point](https://www.drupal.org/project/focal_point) ⭐ for automated cropping of images
 - [Field Group](https://www.drupal.org/project/field_group) ⭐ for grouping related fields
-- [Entity Clone](https://www.drupal.org/project/entity_clone) for cloning entities
 - [Entity Prepopulate](https://www.drupal.org/project/epp) for prepopulating entity reference via query string parameters
 - [Entity Print](https://www.drupal.org/project/entity_print) for printing entities as PDF documents
 - [Linkit](https://www.drupal.org/project/linkit) for managing internal links
+- [Markup](https://git.drupalcode.org/project/markup) for inline help text for entity forms
 - [Link Attributes](https://www.drupal.org/project/link_attributes) for adding attributes to links
+- [Quick Node Clone](https://www.drupal.org/project/quick_node_clone) for quickly cloning a node.
 - [Token Filter](https://www.drupal.org/project/token_filter) for allowing tokens to be used within a text format
 - [Context Stack](https://www.drupal.org/project/context_stack) for accessing entity tokens via the token filter
+
+##### For Demo & Starter Kits: Use Menu enhancements as needed
+- [Menu Select](https://www.drupal.org/project/menu_select) for improving node menu select field functionality
+  - Alternatives [Node Menu Placer](https://www.drupal.org/project/node_menu_placer) 
+    and [Menu tree](https://www.drupal.org/project/menu_tree)
 
 ##### For Demo & Starter Kits: Use Views enhancements as needed
 - [Better Exposed Filters](https://www.drupal.org/project/better_exposed_filters) form improving a view's exposed filter
@@ -247,8 +263,9 @@ for managing optional dependencies and patches.
 - [Autosave Form](https://www.drupal.org/project/autosave_form) preventing editors from losing data
 - [Chosen](https://www.drupal.org/project/chosen) improving multi-select UX
 - [DropzoneJS](https://www.drupal.org/project/dropzonejs) for drag-n-drop file uploads
-- [Multiple Fields Remove Button](https://www.drupal.org/project/multiple_fields_remove_button) for removing multiple field values
-- [Same Page Preview](https://www.drupal.org/project/same_page_preview) to allow editors to preview changes on the same page
+- To be considered
+  - [Same Page Preview](https://www.drupal.org/project/same_page_preview) to allow editors to preview changes on the same page  
+    _(Bugs are creating an unexpected UX)_
 
 ##### For Demo & Starter Kits: Use CKEditor 5 feature and enhancement modules as needed
 - [CKEditor Anchor Link](https://www.drupal.org/project/anchor_link) adds the anchor link support
@@ -270,20 +287,25 @@ for managing optional dependencies and patches.
 
 ##### For Demo: Use administration improvement modules as needed.
 - [Admin Dialogs](https://www.drupal.org/project/admin_dialogs) for opening simple forms and tasks in a dialog (modal).
-- [Admin Toolbar Language Switcher](https://www.drupal.org/project/toolbar_language_switcher) for switching languages via the Gin Admin theme
-- [Content Model Documentation](https://www.drupal.org/project/content_model_documentation) for displaying entity relationship diagrams (ERD)
+- [Content Model Documentation](https://www.drupal.org/project/content_model_documentation) ⭐ for displaying entity relationship diagrams (ERD)
 - [Dashboards with Layout Builder](https://www.drupal.org/project/dashboards) for providing customizable dashboards to users
 - [Environment Indicator](https://www.drupal.org/project/environment_indicator) for displaying the current environment to administrators
 - [Type Tray](https://www.drupal.org/project/type_tray) for improving the 'Add content' UI/UX
 - [Queue UI](https://www.drupal.org/project/queue_ui) for viewing and managing queues
 - [Ultimate Cron](https://www.drupal.org/project/ultimate_cron) for viewing and managing cron tasks
 - [File Delete](https://www.drupal.org/project/file_delete) for easily deleting files
+- [Media file delete](https://www.drupal.org/project/media_file_delete) for deleting the associated file when deleting a media entity.
 - [Help Topics](https://www.drupal.org/node/2354963) for better documentation
 - [Field Compare](https://www.drupal.org/project/field_compare) for comparing field configuration across content types
+
+##### For Demo: Use translation improvement modules as needed.
+- [Admin Toolbar Language Switcher](https://www.drupal.org/project/toolbar_language_switcher) for switching languages via the Gin Admin theme
+- [Content Translation Redirect](https://www.drupal.org/project/content_translation_redirect) for redirecting from non-existent translations.
 
 ##### For Demo: Use access control and redirect improvement modules as needed.
 - [Login Destination](https://www.drupal.org/project/login_destination) redirect authenticated users to the appropriate dashboard
 - [Redirect 403 to User Login](https://www.drupal.org/project/r4032login]) redirect access denied pages to user log in. 
+- [Redirect Metrics](https://www.drupal.org/project/redirect_metrics) for recording statistics about redirects.
 - [Unpublished 404](https://www.drupal.org/project/unpublished_404]) return 404 for unpublished nodes
 - [Masquerade](https://www.drupal.org/project/masquerade) for switching users and reviewing access controls
 
@@ -307,6 +329,6 @@ for managing optional dependencies and patches.
 ##### Use the [Paragraphs](https://www.drupal.org/project/paragraphs) ⭐ for complex data. (i.e., https://schema.org/HowTo)
 
 ##### Use the [Layout Paragraphs](https://www.drupal.org/project/layout_paragraphs) ⭐ for structured data layout
-- [Mercury Editor](https://www.drupal.org/project/mercury_editor) for effortless, drag-and-drop editing
+- [Mercury Editor](https://www.drupal.org/project/mercury_editor) ⭐ for effortless, drag-and-drop editing
 - Drupal's [Layout Builder](https://www.drupal.org/docs/8/core/modules/layout-builder)
   does not provide easy to understand structured data that be mapped to Schema.org 

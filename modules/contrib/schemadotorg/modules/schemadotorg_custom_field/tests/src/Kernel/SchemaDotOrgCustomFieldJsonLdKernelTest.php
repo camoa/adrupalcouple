@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\Tests\schemadotorg_jsonld_embed\Kernel;
 
@@ -23,9 +23,7 @@ class SchemaDotOrgCustomFieldJsonLdKernelTest extends SchemaDotOrgJsonLdKernelTe
   // phpcs:enable
 
   /**
-   * Modules to enable.
-   *
-   * @var array
+   * {@inheritdoc}
    */
   protected static $modules = [
     'custom_field',

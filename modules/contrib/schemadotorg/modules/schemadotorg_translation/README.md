@@ -34,16 +34,17 @@ Configuration
 -------------
 
 - Go to the Schema.org general settings page
-  (/admin/config/schemadotorg/settings)
+  (/admin/config/schemadotorg/settings#edit-schemadotorg-translation)
 - Go to the 'Translation settings' details.
 - Enter Schema.org types that should never be translated.
 - Enter Schema.org properties that should never be translated.
 - Enter field names that should never be translated.
 - Enter field types that should always be translated.
+- Apply translation settings to all existing Schema.org mappings.
 
 
-Todo
-----
+References
+----------
 
-- Determine how best to translate the default English Schema.org type
-  and property descriptions.
+- [Translate custom modules in Drupal 8+ using .po files](https://julian.pustkuchen.com/en/translate-custom-modules-drupal-8-using-.po-files)
+- [How-to deploy Drupal interface translations](https://medium.com/limoengroen/how-to-deploy-drupal-interface-translations-5653294c4af6)

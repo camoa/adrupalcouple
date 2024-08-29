@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\Tests\schemadotorg_allowed_formats\Kernel;
 
@@ -18,9 +18,7 @@ use Drupal\Tests\schemadotorg\Kernel\SchemaDotOrgEntityKernelTestBase;
 class SchemaDotOrgAllowedFormatsKernelTest extends SchemaDotOrgEntityKernelTestBase {
 
   /**
-   * Modules to enable.
-   *
-   * @var array
+   * {@inheritdoc}
    */
   protected static $modules = [
     'filter',
@@ -58,8 +56,11 @@ class SchemaDotOrgAllowedFormatsKernelTest extends SchemaDotOrgEntityKernelTestB
    * Test Schema.org allowed formats.
    */
   public function testAllowedFormats(): void {
+    $default_allowed_formats = $this->config('schemadotorg_allowed_formats.settings')
+      ->get('default_allowed_formats');
+    $default_allowed_formats = ['articleBody' => ['full_html', 'basic_html']] + $default_allowed_formats;
     $this->config('schemadotorg_allowed_formats.settings')
-      ->set('property_allowed_formats', ['articleBody' => ['full_html', 'basic_html']])
+      ->set('default_allowed_formats', $default_allowed_formats)
       ->save();
 
     $this->createSchemaEntity('node', 'WebPage');

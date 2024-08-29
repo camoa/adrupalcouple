@@ -1,6 +1,0 @@
-services:
-  schemadotorg_starterkit.commands:
-    class: Drupal\schemadotorg_starterkit\Commands\SchemaDotOrgStarterkitCommands
-    arguments: ['@schemadotorg_starterkit.manager']
-    tags:
-      - { name: drush.command }

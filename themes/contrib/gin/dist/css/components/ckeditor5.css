@@ -1,5 +1,5 @@
 .ck {
-  --ck-spacing-small: var(--gin-spacing-xs);
+  --ck-spacing-small: var(--gin-spacing-xxs);
   --ck-color-text: var(--gin-color-text);
   --ck-color-toolbar-background: var(--gin-bg-layer3);
   --ck-color-toolbar-border: var(--gin-border-color-form-element);
@@ -54,8 +54,21 @@
   top: calc(var(--gin-toolbar-y-offset) + var(--gin-sticky-offset)) !important;
 }
 
+.ck[data-fullscreen=fullscreeneditor] .ck-sticky-panel__content.ck-sticky-panel__content_sticky {
+  top: 0 !important;
+}
+
 .ck .ck-toolbar__separator {
   opacity: .3;
+}
+
+.ck .ck-toolbar_grouping:focus,
+.ck .ck-toolbar__items:focus {
+  box-shadow: none;
+}
+
+.ck .ck.ck-editor__editable_inline {
+  padding: 0 var(--gin-spacing-s);
 }
 
 .ck .ck-button[aria-pressed=true] {
@@ -96,5 +109,10 @@
 .ck .ck-content .drupal-media > figcaption {
   color: var(--ck-color-image-caption-text);
   background: var(--ck-color-image-caption-background);
+}
+
+.ck .ck.ck.ck-balloon-panel.ck-powered-by-balloon {
+  z-index: 2;
+  transform: translateY(-13px);
 }
 

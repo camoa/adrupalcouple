@@ -1,5 +1,5 @@
 schemadotorg_translation.settings:
-  type: config_entity
+  type: config_object
   label: 'Schema.org Translation settings'
   mapping:
     excluded_schema_types:

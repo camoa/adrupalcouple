@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg;
 
@@ -106,6 +106,7 @@ class SchemaDotOrgMappingTypeListBuilder extends SchemaDotOrgConfigEntityListBui
    * {@inheritdoc}
    */
   public function buildRow(EntityInterface $entity): array {
+    /** @var \Drupal\Core\Config\Entity\ConfigEntityInterface $entity */
     // Type.
     $row['entity_type'] = $entity->label();
 

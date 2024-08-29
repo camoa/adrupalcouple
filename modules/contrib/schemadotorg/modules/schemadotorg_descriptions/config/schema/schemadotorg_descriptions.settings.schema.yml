@@ -1,5 +1,5 @@
 schemadotorg_descriptions.settings:
-  type: config_entity
+  type: config_object
   label: 'Schema.org Descriptions settings'
   mapping:
     custom_descriptions:

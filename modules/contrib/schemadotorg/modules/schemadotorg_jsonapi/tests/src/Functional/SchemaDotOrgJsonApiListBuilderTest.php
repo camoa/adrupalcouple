@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\Tests\schemadotorg_jsonapi\Functional;
 
@@ -16,9 +16,7 @@ use Drupal\Tests\schemadotorg\Functional\SchemaDotOrgBrowserTestBase;
 class SchemaDotOrgJsonApiListBuilderTest extends SchemaDotOrgBrowserTestBase {
 
   /**
-   * Modules to enable.
-   *
-   * @var array
+   * {@inheritdoc}
    */
   protected static $modules = ['schemadotorg_jsonapi'];
 
@@ -52,18 +50,18 @@ class SchemaDotOrgJsonApiListBuilderTest extends SchemaDotOrgBrowserTestBase {
    * Test Schema.org list builder enhancements.
    */
   public function testSchemaDotOrgListBuilder(): void {
-    $assert_session = $this->assertSession();
+    $assert = $this->assertSession();
 
-    $this->drupalGet('/admin/config/schemadotorg/mappings');
+    $this->drupalGet('admin/config/schemadotorg/mappings');
 
     // Check JSON:API header.
-    $assert_session->responseContains('<th class="priority-low" width="27%">JSON:API</th>');
+    $assert->responseContains('<th class="priority-low" width="27%">JSON:API</th>');
 
     // Check link to Thing JSON:API endpoint exists.
-    $assert_session->linkExists('/jsonapi/node/thing');
+    $assert->linkExists('/jsonapi/node/thing');
 
     // Check link to Person JSON:API endpoint exists.
-    $assert_session->linkExists('/jsonapi/node/person');
+    $assert->linkExists('/jsonapi/node/person');
 
   }
 

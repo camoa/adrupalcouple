@@ -1,5 +1,5 @@
 schemadotorg_role.settings:
-  type: config_entity
+  type: config_object
   label: 'Schema.org Role settings'
   mapping:
     field_definitions:
@@ -27,15 +27,18 @@ schemadotorg_role.settings:
           role_name:
             type: string
             label: 'Role name'
-    schema_types:
+    field_instances:
       type: sequence
-      label: 'Schema.org types'
+      label: 'Field instances'
       sequence:
         type: sequence
-        label: 'Schema.org type'
+        label: 'Field instance'
         sequence:
-          type: string
-          label: 'Role field'
+          type: sequence
+          label: 'Schema.org property'
+          sequence:
+            type: string
+            label: 'Field name'
     entity_reference_overrides:
       type: sequence
       label: 'Entity reference overrides'

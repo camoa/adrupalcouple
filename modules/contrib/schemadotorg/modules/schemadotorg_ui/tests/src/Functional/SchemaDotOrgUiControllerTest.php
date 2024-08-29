@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\Tests\schemadotorg_ui\Functional;
 
@@ -17,9 +17,7 @@ class SchemaDotOrgUiControllerTest extends SchemaDotOrgBrowserTestBase {
   use MediaTypeCreationTrait;
 
   /**
-   * Modules to enable.
-   *
-   * @var array
+   * {@inheritdoc}
    */
   protected static $modules = [
     'media',
@@ -41,13 +39,13 @@ class SchemaDotOrgUiControllerTest extends SchemaDotOrgBrowserTestBase {
    * Test SSchema.org UI controller.
    */
   public function testController(): void {
-    $assert_session = $this->assertSession();
+    $assert = $this->assertSession();
 
     // Check that access is denied to 'Add Schema.org type' page.
     $account = $this->drupalCreateUser();
     $this->drupalLogin($account);
-    $this->drupalGet('/admin/config/schemadotorg/mappings/add');
-    $assert_session->statusCodeEquals(403);
+    $this->drupalGet('admin/config/schemadotorg/mappings/add');
+    $assert->statusCodeEquals(403);
 
     // Check that access is allowed to 'Add Schema.org type' page.
     $account = $this->drupalCreateUser([
@@ -60,11 +58,11 @@ class SchemaDotOrgUiControllerTest extends SchemaDotOrgBrowserTestBase {
     ]);
     $this->drupalLogin($account);
 
-    $this->drupalGet('/admin/config/schemadotorg/mappings/add');
-    $assert_session->statusCodeEquals(200);
-    $assert_session->linkExists('Content type');
-    $assert_session->linkExists('Paragraphs type');
-    $assert_session->linkExists('User (Person)');
+    $this->drupalGet('admin/config/schemadotorg/mappings/add');
+    $assert->statusCodeEquals(200);
+    $assert->linkExists('Content type');
+    $assert->linkExists('Paragraphs type');
+    $assert->linkExists('User (Person)');
 
     // Check that access is allowed to 'Add Schema.org type' page.
     $account = $this->drupalCreateUser(['administer schemadotorg']);
@@ -72,11 +70,11 @@ class SchemaDotOrgUiControllerTest extends SchemaDotOrgBrowserTestBase {
 
     // Check that access is allowed to 'Add Schema.org type' page but
     // denied to entity type pages.
-    $this->drupalGet('/admin/config/schemadotorg/mappings/add');
-    $assert_session->statusCodeEquals(200);
-    $assert_session->linkNotExists('Content type');
-    $assert_session->linkNotExists('Paragraphs type');
-    $assert_session->linkNotExists('User (Person)');
+    $this->drupalGet('admin/config/schemadotorg/mappings/add');
+    $assert->statusCodeEquals(200);
+    $assert->linkNotExists('Content type');
+    $assert->linkNotExists('Paragraphs type');
+    $assert->linkNotExists('User (Person)');
   }
 
 }

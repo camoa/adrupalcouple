@@ -121,8 +121,10 @@ class InlineEntityFormSimple extends InlineEntityFormBase {
       'allowed_bundles' => $this->getTargetBundles(),
     ];
 
+    $allow_new = $this->getSetting('allow_new') && $this->canAddNew($context);
+
     // Remove add options if the user cannot add new entities.
-    if (!$this->canAddNew($context)) {
+    if (!$allow_new) {
       if (isset($element['add_more'])) {
         unset($element['add_more']);
       }

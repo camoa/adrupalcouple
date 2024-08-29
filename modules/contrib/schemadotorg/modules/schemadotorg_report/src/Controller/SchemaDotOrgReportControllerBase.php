@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg_report\Controller;
 
@@ -44,7 +44,7 @@ abstract class SchemaDotOrgReportControllerBase extends ControllerBase {
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container) {
+  public static function create(ContainerInterface $container): static {
     $instance = parent::create($container);
     $instance->database = $container->get('database');
     $instance->blockManager = $container->get('plugin.manager.block');
@@ -119,42 +119,17 @@ abstract class SchemaDotOrgReportControllerBase extends ControllerBase {
    *   A renderable array containing info.
    */
   protected function buildInfo(string $type, int|string $count): array {
-    switch ($type) {
-      case 'Thing':
-        $info = $this->formatPlural($count, '@count thing', '@count things');
-        break;
-
-      case 'Intangible':
-        $info = $this->formatPlural($count, '@count intangible', '@count intangibles');
-        break;
-
-      case 'Enumeration':
-        $info = $this->formatPlural($count, '@count enumeration', '@count enumerations');
-        break;
-
-      case 'StructuredValue':
-        $info = $this->formatPlural($count, '@count structured value', '@count structured values');
-        break;
-
-      case 'DataTypes':
-        $info = $this->formatPlural($count, '@count data type', '@count data types');
-        break;
-
-      case 'types':
-        $info = $this->formatPlural($count, '@count type', '@count types');
-        break;
-
-      case 'properties':
-        $info = $this->formatPlural($count, '@count property', '@count properties');
-        break;
-
-      case 'abbreviations':
-        $info = $this->formatPlural($count, '@count abbreviation', '@count abbreviations');
-        break;
-
-      default:
-        $info = $this->formatPlural($count, '@count item', '@count items');
-    }
+    $info = match ($type) {
+      'Thing' => $this->formatPlural($count, '@count thing', '@count things'),
+      'Intangible' => $this->formatPlural($count, '@count intangible', '@count intangibles'),
+      'Enumeration' => $this->formatPlural($count, '@count enumeration', '@count enumerations'),
+      'StructuredValue' => $this->formatPlural($count, '@count structured value', '@count structured values'),
+      'DataTypes' => $this->formatPlural($count, '@count data type', '@count data types'),
+      'types' => $this->formatPlural($count, '@count type', '@count types'),
+      'properties' => $this->formatPlural($count, '@count property', '@count properties'),
+      'abbreviations' => $this->formatPlural($count, '@count abbreviation', '@count abbreviations'),
+      default => $this->formatPlural($count, '@count item', '@count items'),
+    };
     return [
       '#markup' => $info,
       '#prefix' => '<p>',

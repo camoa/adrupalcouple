@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\Tests\schemadotorg\Kernel;
 
@@ -29,10 +29,10 @@ class SchemaDotOrgMappingTypeEntityKernelTest extends SchemaDotOrgEntityKernelTe
    * Test Schema.org mapping entity.
    */
   public function testSchemaDotOrgMappingTypeEntity(): void {
-    $user_mapping_type = $this->mappingTypeStorage->load('user');
-    $node_mapping_type = $this->mappingTypeStorage->load('node');
-    $media_mapping_type = $this->mappingTypeStorage->load('media');
-    $paragraph_mapping_type = $this->mappingTypeStorage->load('paragraph');
+    $user_mapping_type = $this->loadMappingType('user');
+    $node_mapping_type = $this->loadMappingType('node');
+    $media_mapping_type = $this->loadMappingType('media');
+    $paragraph_mapping_type = $this->loadMappingType('paragraph');
 
     // Check getting the mapping type label.
     $this->assertEquals('User', $user_mapping_type->label());
@@ -46,7 +46,7 @@ class SchemaDotOrgMappingTypeEntityKernelTest extends SchemaDotOrgEntityKernelTe
       ['media', 'AudioObject', ['audio' => 'audio']],
     ];
     foreach ($tests as $test) {
-      $mapping_type = $this->mappingTypeStorage->load($test[0]);
+      $mapping_type = $this->loadMappingType($test[0]);
       $this->assertEquals($test[2], $mapping_type->getDefaultSchemaTypeBundles($test[1]));
     }
 
@@ -56,7 +56,7 @@ class SchemaDotOrgMappingTypeEntityKernelTest extends SchemaDotOrgEntityKernelTe
       ['media', 'audio', 'AudioObject'],
     ];
     foreach ($tests as $test) {
-      $mapping_type = $this->mappingTypeStorage->load($test[0]);
+      $mapping_type = $this->loadMappingType($test[0]);
       $this->assertEquals($test[2], $mapping_type->getDefaultSchemaType($test[1]));
     }
 

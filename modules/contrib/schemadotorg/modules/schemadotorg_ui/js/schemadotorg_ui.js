@@ -20,7 +20,7 @@
       ).forEach((input) => {
         // Reset (For Firefox only).
         let reset;
-        if (window.userAgentString.indexOf('Firefox') !== -1) {
+        if (window.navigator.userAgent.indexOf('Firefox') !== -1) {
           reset = document.createElement('input');
           reset.classList.add('schemadotorg-ui-properties-filter-reset');
           reset.setAttribute('type', 'button');
@@ -32,7 +32,6 @@
             input.dispatchEvent(new Event('keyup'));
             input.focus();
           });
-          input.classList.add('schemadotorg-ui-properties-filter-reset');
           input.parentNode.appendChild(reset);
         }
 

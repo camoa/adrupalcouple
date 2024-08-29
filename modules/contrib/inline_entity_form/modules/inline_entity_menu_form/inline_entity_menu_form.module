@@ -35,7 +35,7 @@ function inline_entity_menu_form_form_alter(&$form, FormStateInterface $form_sta
     'menu_link_content_' . $formName . '_delete_form',
   ], true)) {
     $input = $form_state->getUserInput();
-    if (!empty($input['_drupal_ajax'])) {
+    if (!empty($input['_drupal_ajax'] && Drupal::request()->get('_wrapper_format') !== 'drupal_ajax' )) {
       $form['actions']['submit']['#submit'][] = '_inline_entity_menu_form_ajax_submit_reopen';
       $form['actions']['submit']['#attributes']['class'][] = 'use-ajax-submit';
       $form['actions']['delete']['#access'] = FALSE;

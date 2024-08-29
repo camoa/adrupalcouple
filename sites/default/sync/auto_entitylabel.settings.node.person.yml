@@ -5,3 +5,4 @@ preserve_titles: false
 dependencies:
   config:
     - node.type.person
+new_content_behavior: 1

@@ -1,12 +1,14 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Config\Schema\SchemaCheckTrait;
 use Drupal\Core\Config\TypedConfigManagerInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\schemadotorg\Traits\SchemaDotOrgMappingStorageTrait;
 
 /**
  * Schema.org config manager service.
@@ -21,6 +23,7 @@ use Drupal\Core\Config\TypedConfigManagerInterface;
  */
 class SchemaDotOrgConfigManager implements SchemaDotOrgConfigManagerInterface {
   use SchemaCheckTrait;
+  use SchemaDotOrgMappingStorageTrait;
 
   /**
    * Constructs a SchemaDotOrgConfigManager object.
@@ -29,13 +32,16 @@ class SchemaDotOrgConfigManager implements SchemaDotOrgConfigManagerInterface {
    *   The configuration object factory.
    * @param \Drupal\Core\Config\TypedConfigManagerInterface $typedConfigManager
    *   The typed configuration manager.
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
+   *   The entity type manager.
    * @param \Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager
    *   The Schema.org schema type manager.
    */
   public function __construct(
     protected ConfigFactoryInterface $configFactory,
     protected TypedConfigManagerInterface $typedConfigManager,
-    protected SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager
+    protected EntityTypeManagerInterface $entityTypeManager,
+    protected SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager,
   ) {}
 
   /**
@@ -64,10 +70,7 @@ class SchemaDotOrgConfigManager implements SchemaDotOrgConfigManagerInterface {
    * {@inheritdoc}
    */
   public function setMappingTypeSchemaTypeDefaultProperties(string $entity_type_id, string $schema_type, array|string $properties): void {
-    /** @var \Drupal\schemadotorg\SchemaDotOrgMappingTypeInterface $mapping_type */
-    $mapping_type = \Drupal::entityTypeManager()
-      ->getStorage('schemadotorg_mapping_type')
-      ->load($entity_type_id);
+    $mapping_type = $this->loadMappingType($entity_type_id);
 
     // Get default properties from mapping type.
     $default_schema_type_properties = $mapping_type->get('default_schema_type_properties');
@@ -86,10 +89,7 @@ class SchemaDotOrgConfigManager implements SchemaDotOrgConfigManagerInterface {
    * {@inheritdoc}
    */
   public function unsetMappingTypeSchemaTypeDefaultProperties(string $entity_type_id, string $schema_type, array|string $properties): void {
-    /** @var \Drupal\schemadotorg\SchemaDotOrgMappingTypeInterface $mapping_type */
-    $mapping_type = \Drupal::entityTypeManager()
-      ->getStorage('schemadotorg_mapping_type')
-      ->load($entity_type_id);
+    $mapping_type = $this->loadMappingType($entity_type_id);
 
     // Get default properties from mapping type.
     $default_schema_type_properties = $mapping_type->get('default_schema_type_properties');

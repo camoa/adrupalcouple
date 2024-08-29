@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg_ui\Form;
 
@@ -11,12 +11,14 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
 use Drupal\schemadotorg\SchemaDotOrgSchemaTypeBuilderInterface;
 use Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface;
+use Drupal\schemadotorg\Traits\SchemaDotOrgMappingStorageTrait;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Provides a Schema.org UI type select form.
  */
 class SchemaDotOrgUiMappingTypeSelectForm extends FormBase {
+  use SchemaDotOrgMappingStorageTrait;
 
   /**
    * The module handler.
@@ -48,7 +50,7 @@ class SchemaDotOrgUiMappingTypeSelectForm extends FormBase {
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container) {
+  public static function create(ContainerInterface $container): static {
     $instance = parent::create($container);
     $instance->moduleHandler = $container->get('module_handler');
     $instance->entityTypeManager = $container->get('entity_type.manager');
@@ -60,7 +62,7 @@ class SchemaDotOrgUiMappingTypeSelectForm extends FormBase {
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, FormStateInterface $form_state, $entity_type_id = NULL): array {
+  public function buildForm(array $form, FormStateInterface $form_state, ?string $entity_type_id = NULL): array {
     // Description top.
     if ($this->moduleHandler->moduleExists('schemadotorg_report')
       && $this->currentUser()->hasPermission('access site reports')) {
@@ -105,10 +107,7 @@ class SchemaDotOrgUiMappingTypeSelectForm extends FormBase {
     // Description bottom.
     // Display recommended Schema.org types.
     $entity_type_id = $entity_type_id ?? 'node';
-    /** @var \Drupal\schemadotorg\SchemaDotOrgMappingTypeStorageInterface $mapping_type_storage */
-    $mapping_type_storage = $this->entityTypeManager->getStorage('schemadotorg_mapping_type');
-    /** @var \Drupal\schemadotorg\SchemaDotOrgMappingTypeInterface $mapping_type */
-    $mapping_type = $mapping_type_storage->load($entity_type_id);
+    $mapping_type = $this->loadMappingType($entity_type_id);
     $recommended_types = $mapping_type->getRecommendedSchemaTypes();
     $items = [];
     foreach ($recommended_types as $group_name => $group) {
@@ -206,14 +205,9 @@ class SchemaDotOrgUiMappingTypeSelectForm extends FormBase {
    *   A renderable array containing the Schema.org type item.
    */
   protected function buildSchemaTypeItem(string $entity_type_id, string $schema_type): array {
-    /** @var \Drupal\schemadotorg\SchemaDotOrgMappingStorageInterface $mapping_storage */
-    $mapping_storage = $this->entityTypeManager->getStorage('schemadotorg_mapping');
-    /** @var \Drupal\schemadotorg\SchemaDotOrgMappingTypeStorageInterface $mapping_type_storage */
-    $mapping_type_storage = $this->entityTypeManager->getStorage('schemadotorg_mapping_type');
-    /** @var \Drupal\schemadotorg\SchemaDotOrgMappingTypeInterface $mapping_type */
-    $mapping_type = $mapping_type_storage->load($entity_type_id);
-    if ($mapping_storage->isSchemaTypeMapped($entity_type_id, $schema_type)
-      && !$mapping_type->supportsMultiple()) {
+    $is_mapped = $this->getMappingStorage()->isSchemaTypeMapped($entity_type_id, $schema_type);
+    $supports_multiple = $this->loadMappingType($entity_type_id)->supportsMultiple();
+    if ($is_mapped && !$supports_multiple) {
       return ['#markup' => $schema_type];
     }
     else {

@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\Tests\schemadotorg_role\Kernel;
 
@@ -19,9 +19,7 @@ use Drupal\Tests\schemadotorg\Kernel\SchemaDotOrgEntityKernelTestBase;
 class SchemaDotOrgRoleFieldManagerKernelTest extends SchemaDotOrgEntityKernelTestBase {
 
   /**
-   * Modules to enable.
-   *
-   * @var array
+   * {@inheritdoc}
    */
   protected static $modules = [
     'field_group',
@@ -118,7 +116,7 @@ class SchemaDotOrgRoleFieldManagerKernelTest extends SchemaDotOrgEntityKernelTes
     ];
     $this->assertEquals(
       $expected_field_definitions,
-      $this->roleManager->getMappingFieldDefinitions($mapping)
+      $this->roleManager->getFieldDefinitionsFromMapping($mapping)
     );
   }
 

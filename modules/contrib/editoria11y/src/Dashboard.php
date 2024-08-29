@@ -100,12 +100,10 @@ class Dashboard implements DashboardInterface {
       ->groupBy('entity_type')
       ->groupBy('page_language');
     $query->orderBy('page_result_count', 'DESC');
-    $query->orderBy('page_path', 'ASC');
+    $query->orderBy('page_path');
 
-    $results = $query
+    return $query
       ->execute();
-
-    return $results;
   }
 
   /**
@@ -121,12 +119,10 @@ class Dashboard implements DashboardInterface {
       'entity_type',
       'page_language',
     ]);
-    $query->orderBy('result_name', 'ASC');
-    $query->orderBy('page_path', 'ASC');
-    $results = $query
+    $query->orderBy('result_name');
+    $query->orderBy('page_path');
+    return $query
       ->execute();
-
-    return $results;
   }
 
   /**
@@ -150,9 +146,7 @@ class Dashboard implements DashboardInterface {
       ->orderBy('page_path')
       ->orderBy('result_name');
 
-    $results = $query->execute();
-
-    return $results;
+    return $query->execute();
   }
 
 }

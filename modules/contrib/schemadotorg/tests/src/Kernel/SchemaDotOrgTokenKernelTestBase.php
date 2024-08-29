@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\Tests\schemadotorg\Kernel;
 
@@ -14,9 +14,7 @@ abstract class SchemaDotOrgTokenKernelTestBase extends SchemaDotOrgEntityKernelT
   use TokenTestTrait;
 
   /**
-   * Modules to enable.
-   *
-   * @var array
+   * {@inheritdoc}
    */
   protected static $modules = ['token'];
 

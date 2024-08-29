@@ -1,9 +1,9 @@
 class Ed11yTestImages {
-  
+
   // ESLint config:
   /* global Ed11y */
   /* exported Ed11yTestImages */
-  
+
   check () {
     // todo postpone: https://ryersondmp.github.io/sa11y/examples/headings-images.html
     // todo postpone: flagging alts referencing position or color?
@@ -20,7 +20,7 @@ class Ed11yTestImages {
       let error = false;
       let dismissable = true;
       let parentLink = Ed11y.parentLink(el);
-      
+
       // todo mvp this is now true/false rather than a length measure
       if (typeof alt !== 'string') {
         // No alt attribute at all.
@@ -36,40 +36,49 @@ class Ed11yTestImages {
       }
       else {
         altLabel += alt;
-        // Check if alt text is descriptive.
-        // todo parameterize
-        let altUrl = ['.png', '.jpg', '.jpeg', '.gif'];
-        // todo localize
-        let suspiciousWords = Ed11y.M.suspiciousWords;
-        let check = [null, null];
-        
-        altUrl.forEach((string) => {
-          if (alt.toLowerCase().indexOf(string) >= 0) {
-            check[0] = 'URL';
-          }
-        });
-        
-        suspiciousWords.forEach((string) => {
-          if (alt.toLowerCase().indexOf(string) >= 0) {
-            check[1] = string;
-          }
-        });
+        const altLower = alt.toLowerCase();
 
-        if (check[0] === 'URL') {
-          error = 'altURL';
+        if (Ed11y.M.meaninglessAlt.includes(altLower.trim())) {
+          error = 'altMeaningless';
           dismissable = false;
-        }
-        else if (check[1] !== null) {
-          error = 'altImageOf';
-        }
-        // Alert with deadSpace alt.
-        else if (alt !== '' && alt.replace(/"|'|\s+/g, '') === '') {
-          error = 'altDeadspace';
-          dismissable = false;
-        }
-        // Image error if alt text is too long.
-        else if (alt.length > 160) {
-          error = 'altLong';
+        } else {
+          // Check if alt text is descriptive.
+          // todo parameterize
+          let altUrl = ['.png', '.jpg', '.jpeg', '.gif'];
+          // todo localize
+          let suspiciousWords = Ed11y.M.suspiciousWords;
+          let check = [null, null];
+
+          altUrl.forEach((string) => {
+            if (altLower.indexOf(string) >= 0) {
+              check[0] = 'URL';
+            }
+          });
+
+          suspiciousWords.forEach((string) => {
+            const suspiciousWord = altLower.indexOf(string);
+            if (suspiciousWord > -1 && suspiciousWord < 6) {
+              // photo of, a photo of, the photo is
+              check[1] = string;
+            }
+          });
+
+          if (check[0] === 'URL') {
+            error = 'altURL';
+            dismissable = false;
+          }
+          else if (check[1] !== null) {
+            error = 'altImageOf';
+          }
+          // Alert with deadSpace alt.
+          else if (!parentLink && alt !== '' && alt.replace(/"|'|\?|\.|-|\s+/g, '') === '') {
+            error = 'altDeadspace';
+            dismissable = false;
+          }
+          // Image error if alt text is too long.
+          else if (alt.length > 160) {
+            error = 'altLong';
+          }
         }
 
         // If there is a parent link...
@@ -83,7 +92,7 @@ class Ed11yTestImages {
             // Return the linked version of the message.
             error = error ? error + 'Linked' : error;
           }
-          
+
         }
       }
       // Return results
@@ -93,13 +102,19 @@ class Ed11yTestImages {
         let message = Ed11y.M[error].tip(Ed11y.sanitizeForHTML(alt));
         let baseSrc = src ? src.split('?')[0] : 'nosrc_';
         dismissable = dismissable ? Ed11y.dismissalKey(baseSrc + alt) : false;
-        Ed11y.results.push([el, error, message, 'beforebegin', dismissable]); 
-        altStyle = dismissable === false ? 'error' : 'warning'; 
+        Ed11y.results.push({
+          element: el,
+          test: error,
+          content: message,
+          position: 'beforebegin',
+          dismissalKey: dismissable,
+        });
+        altStyle = dismissable === false ? 'ed11y-error' : 'ed11y-warning';
       }
       Ed11y.imageAlts.push([el, src, altLabel, altStyle]);
 
     });
-    
+
   }
 
 }

@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg\Controller;
 
@@ -34,7 +34,7 @@ class SchemaDotOrgSettingsController extends ControllerBase {
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container) {
+  public static function create(ContainerInterface $container): static {
     $instance = parent::create($container);
     $instance->localTaskManager = $container->get('plugin.manager.menu.local_task');
     $instance->renderer = $container->get('renderer');

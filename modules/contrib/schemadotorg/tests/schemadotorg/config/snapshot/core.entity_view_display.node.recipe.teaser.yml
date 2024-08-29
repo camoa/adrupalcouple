@@ -20,12 +20,21 @@ dependencies:
     - node.type.recipe
   module:
     - image
+    - text
     - user
 id: node.recipe.teaser
 targetEntityType: node
 bundle: recipe
 mode: teaser
 content:
+  body:
+    type: text_summary_or_trimmed
+    label: hidden
+    settings:
+      trim_length: 600
+    third_party_settings: {  }
+    weight: 13
+    region: content
   links:
     settings: {  }
     third_party_settings: {  }
@@ -51,7 +60,6 @@ content:
     weight: 5
     region: content
 hidden:
-  body: true
   schema_cooking_method: true
   schema_is_family_friendly: true
   schema_nutrition: true

@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg_jsonld;
 
@@ -13,6 +13,26 @@ use Drupal\Core\Routing\RouteMatchInterface;
  * Schema.org JSON-LD manager interface.
  */
 interface SchemaDotOrgJsonLdManagerInterface {
+
+  /**
+   * Entity reference display url.
+   */
+  const ENTITY_REFERENCE_DISPLAY_URL = 'url';
+
+  /**
+   * Entity reference display label.
+   */
+  const ENTITY_REFERENCE_DISPLAY_LABEL = 'label';
+
+  /**
+   * Entity reference display entity.
+   */
+  const ENTITY_REFERENCE_DISPLAY_ENTITY = 'entity';
+
+  /**
+   * Entity reference display none.
+   */
+  const ENTITY_REFERENCE_DISPLAY_NONE = 'none';
 
   /**
    * Get an entity's canonical route match.
@@ -83,9 +103,32 @@ interface SchemaDotOrgJsonLdManagerInterface {
    * @param string|mixed $value
    *   The Schema.org property's value.
    *
-   * @return array|string|int|null
+   * @return array|string|int|bool|null
    *   The Schema.org property's value converted to the default Schema.org type.
    */
-  public function getSchemaPropertyValueDefaultType(string $type, string $property, mixed $value): array|string|int|NULL;
+  public function getSchemaPropertyValueDefaultType(string $type, string $property, mixed $value): array|string|int|bool|NULL;
+
+  /**
+   * Get how an entity reference should be included in JSON-LD.
+   *
+   * @param \Drupal\Core\Entity\EntityInterface $entity
+   *   An entity.
+   *
+   * @return string
+   *   How an entity reference should be included in JSON-LD, which can be
+   *   by 'label', 'url', or 'data'.
+   */
+  public function getSchemaTypeEntityReferenceDisplay(EntityInterface $entity): string;
+
+  /**
+   * Determine if the entity's Schema should include an @url.
+   *
+   * @param \Drupal\Core\Entity\EntityInterface $entity
+   *   An entity.
+   *
+   * @return bool
+   *   TRUE if the entity's Schema should include an @url.
+   */
+  public function hasSchemaUrl(EntityInterface $entity): bool;
 
 }

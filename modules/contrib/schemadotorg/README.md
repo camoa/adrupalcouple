@@ -31,22 +31,26 @@ Additional documentation
 - [docs/DECISIONS.md](https://git.drupalcode.org/project/schemadotorg/-/blob/1.0.x/docs/DECISIONS.md)
 - [docs/ROADMAP.md](https://git.drupalcode.org/project/schemadotorg/-/blob/1.0.x/docs/ROADMAP.md)
 - [docs/MODULES.md](https://git.drupalcode.org/project/schemadotorg/-/blob/1.0.x/docs/MODULES.md)
-- [docs/DRUSH.md](https://git.drupalcode.org/project/schemadotorg/-/blob/1.0.x/docs/DRUSH.md)
-- [docs/DEVELOPMENT.md](https://git.drupalcode.org/project/schemadotorg/-/blob/1.0.x/docs/DEVELOPMENT.md)
 
 
 Features
 --------
 
 General
+
 - Installs Schema.org's data from a CSV into Drupal
 - Provides form elements for editing configuration settings 
   and Schema.org autocompletion
 - Manages reusable JavaScript libraries for UI and sub-modules
 - Removes all dependencies from starter kits and demos to make them
   easy to uninstall.
+- Adds the Schema.org Blueprints logo to all 'schemadotorg' routes.
+- Adds fragment/hash to a sub-module's configure link so that
+  administrators can directly access a sub module's configuration.
+  (@see /admin/modules)
 
 Schema.org
+
 - Exposes Schema.org types and properties to Drupal modules
 - Defines Schema.org mapping and mapping type entities
 - Allows Schema.org types, properties, and names to be configured
@@ -54,13 +58,29 @@ Schema.org
   naming conventions
 
 Mappings
+
 - Builds entity types and fields from Schema.org types and properties
 - Provides Drush commands to create and delete Schema.org mappings
 - Manages configuration edit form for all sub-modules.
 
 Plugins
+
 - Provides Schema.org type entity selection plugin
 - Provides Schema.org type Views filter plugin
+
+Contributed Modules  
+(@see schemadotorg.schemadotorg.inc)
+
+- **[Duration](https://www.drupal.org/project/duration_field)**  
+  Sets duration granularity to hours and minutes.
+- **[Content Browser](https://www.drupal.org/project/content_browser)**  
+  Uses the content browser for node entity references.
+- **[Focal Point](https://www.drupal.org/project/focal_point)**
+  Ensures that existing entity image fields use focal point.
+- **[Linkit](https://www.drupal.org/project/linkit)**  
+  Uses linkit for the link URL autocompletion.
+- **[Media Library Media Modify](https://www.drupal.org/project/media_library_media_modify)**  
+  Defaults all 'Media' (reference) fields to use the 'Media with contextual modifications' field type.
 
 
 Requirements
@@ -165,8 +185,8 @@ sub-module's use case, features, dependencies, and configuration.
 Every sub-module includes extensive test coverage, which makes it easier 
 for people to contribute code to fix or improve an integration or feature set.
 
-The Schema.org Blueprints module provides pristine APIs; for integration with a [decoupled Next.js front-end](https://www.drupal.org/project/schemadotorg_next),
-there is a dedicated project. Similarly, there is an 
+The Schema.org Blueprints module provides pristine APIs; for integration with a decoupled/headless front-end. 
+Similarly, there is an 
 [experimental project](https://www.drupal.org/project/schemadotorg_experimental) 
 for supporting the Mercury Editor with Layout Paragraphs. Lastly, 
 deprecated sub-modules and integrations live (and die) in the 

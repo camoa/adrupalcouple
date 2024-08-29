@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg_ui\Plugin\Derivative;
 
@@ -14,7 +14,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 /**
  * Provides menu link definitions for all entity bundles.
  */
-class SchemaDotOrgUiMenuLink extends DeriverBase implements ContainerDeriverInterface {
+final class SchemaDotOrgUiMenuLink extends DeriverBase implements ContainerDeriverInterface {
   use StringTranslationTrait;
 
 

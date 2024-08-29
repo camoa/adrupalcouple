@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg_custom_field;
 
@@ -26,7 +26,7 @@ class SchemaDotOrgCustomFieldJsonLdManager implements SchemaDotOrgCustomFieldJso
   public function __construct(
     protected SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager,
     protected SchemaDotOrgNamesInterface $schemaNames,
-    protected SchemaDotOrgCustomFieldManagerInterface $schemaCustomFieldManager
+    protected SchemaDotOrgCustomFieldManagerInterface $schemaCustomFieldManager,
   ) {}
 
   /**
@@ -43,13 +43,13 @@ class SchemaDotOrgCustomFieldJsonLdManager implements SchemaDotOrgCustomFieldJso
     $schema_property = $mapping->getSchemaPropertyMapping($field_name);
 
     // Check to see if the property has custom field settings.
-    $default_properties = $this->schemaCustomFieldManager->getDefaultProperties($mapping_schema_type, $schema_property);
-    if (!$default_properties) {
+    $default_schema_properties = $this->schemaCustomFieldManager->getDefaultProperties($mapping_schema_type, $schema_property);
+    if (!$default_schema_properties) {
       return;
     }
 
     $data = [
-      '@type' => $default_properties['type'],
+      '@type' => $default_schema_properties['type'],
     ];
     $values = $item->getValue();
     foreach ($values as $item_key => $item_value) {

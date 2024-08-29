@@ -2,7 +2,10 @@ uuid: 17af51a2-318c-4e88-8a3b-177b96697174
 langcode: en
 status: true
 dependencies:
+  config:
+    - workflows.workflow.editorial
   module:
+    - content_moderation
     - node
     - user
   enforced:
@@ -67,6 +70,7 @@ display:
             items_per_page_options_all_label: '- All -'
             offset: false
             offset_label: Offset
+          pagination_heading_level: h4
       style:
         type: default
         options:
@@ -589,7 +593,6 @@ display:
           default_argument_options:
             index: 1
             use_alias: false
-          default_argument_skip_url: false
           summary_options:
             base_path: ''
             count: true
@@ -608,7 +611,8 @@ display:
           not: false
           entity_type: node
           entity_field: uid
-          plugin_id: numeric
+          plugin_id: entity_target_id
+          target_entity_type_id: user
     cache_metadata:
       max-age: -1
       contexts:

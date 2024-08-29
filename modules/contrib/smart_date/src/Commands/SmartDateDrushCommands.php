@@ -2,10 +2,10 @@
 
 namespace Drupal\smart_date\Commands;
 
-use Drush\Commands\DrushCommands;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Database\Connection;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drush\Commands\DrushCommands;
 
 /**
  * A drush command file.
@@ -38,8 +38,7 @@ class SmartDateDrushCommands extends DrushCommands {
   /**
    * {@inheritdoc}
    */
-  public function __construct(ConfigFactoryInterface $configFactory,
-  Connection $database, EntityTypeManagerInterface $entityTypeManager) {
+  public function __construct(ConfigFactoryInterface $configFactory, Connection $database, EntityTypeManagerInterface $entityTypeManager) {
     $this->configFactory = $configFactory;
     $this->database = $database;
     $this->entityTypeManager = $entityTypeManager;
@@ -62,7 +61,7 @@ class SmartDateDrushCommands extends DrushCommands {
    *   Additional configuration options.
    *
    * @command smart_date:migrate
-   * @alises sdm
+   * @aliases sdm
    * @option clear
    *   Clear any data in the destination field.
    * @option entity
@@ -72,11 +71,23 @@ class SmartDateDrushCommands extends DrushCommands {
    * @option langcode
    *   Language code to store.
    */
-  public function migrate($bundle, $dest, $source_start, $source_end = NULL, $source_all_day = NULL, $options = ['clear' => FALSE, 'entity' => 'node', 'default_duration' => 0, 'langcode' => NULL]) {
+  public function migrate(
+    $bundle,
+    $dest,
+    $source_start,
+    $source_end = NULL,
+    $source_all_day = NULL,
+    array $options = [
+      'clear' => FALSE,
+      'entity' => 'node',
+      'default_duration' => 0,
+      'langcode' => NULL,
+    ],
+  ): void {
     // @todo Sanitize provide input.
     $entity = $options['entity'];
     $dest_table = $entity . '__' . $dest;
-    $def_duration = (int) $options['default_duration'];
+    $duration = $def_duration = (int) $options['default_duration'];
     $site_tz_name = $this->configFactory->get('system.date')->get('timezone.default');
 
     $connection = $this->database;
@@ -189,9 +200,8 @@ class SmartDateDrushCommands extends DrushCommands {
           }
 
           if (!$end_date) {
-            // If the end date is bogus, use default duration.
+            // If the end date is bogus, use default duration, set earlier.
             $end_date = $start_date + ($def_duration * 60);
-            $duration = $def_duration;
           }
         }
 

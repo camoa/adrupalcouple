@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\Tests\schemadotorg_existing_values_autocomplete_widget\Kernel;
 
@@ -24,9 +24,7 @@ class SchemaDotOrgExistingValuesAutocompleteWidgetKernelTest extends SchemaDotOr
   // phpcs:enable
 
   /**
-   * Modules to enable.
-   *
-   * @var array
+   * {@inheritdoc}
    */
   protected static $modules = [
     'existing_values_autocomplete_widget',

@@ -34,7 +34,7 @@ Configuration
 -------------
 
 - Go to the Schema.org properties configuration page.  
-  (/admin/config/schemadotorg/settings/properties)
+  (/admin/config/schemadotorg/settings/properties#edit-schemadotorg-inline-entity-form)
 - Go to the 'Inline entity form settings' details.
 - Enter Schema.org properties that should use the inline entity form.
 

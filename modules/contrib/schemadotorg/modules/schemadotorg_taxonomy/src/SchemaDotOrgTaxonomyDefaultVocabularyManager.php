@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg_taxonomy;
 
@@ -48,7 +48,7 @@ class SchemaDotOrgTaxonomyDefaultVocabularyManager implements SchemaDotOrgTaxono
     protected ConfigFactoryInterface $configFactory,
     protected EntityTypeManagerInterface $entityTypeManager,
     protected EntityDisplayRepositoryInterface $entityDisplayRepository,
-    protected ?ContentTranslationManagerInterface $contentTranslationManager = NULL
+    protected ?ContentTranslationManagerInterface $contentTranslationManager = NULL,
   ) {}
 
   /**

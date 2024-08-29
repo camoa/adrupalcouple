@@ -17,7 +17,7 @@ Features
 
 - Defines type categories and associated Schema.org types.
 - Defines default text to be used when building links to existing content.
-- Discovers and set icons and thumbnails placed in the below directories.
+- Discovers and sets icons and thumbnails placed in the below directories.
   - MODULE\_NAME/images/schemadotorg\_type\_tray/icon 
   - MODULE\_NAME/images/schemadotorg\_type\_tray/thumbnail
 
@@ -35,6 +35,8 @@ Notes
 - Icons are generated from free [FontAwesome](https://fontawesome.com/) icons 
   using [Font Awesome 2 PNG ](https://fa2png.app/)
 - Icons are 100px x 100px and #555555 hex and 85-85-85 rgb.
+- See [default icons](https://git.drupalcode.org/project/schemadotorg/-/tree/1.0.x/modules/schemadotorg_type_tray/images/schemadotorg_type_tray/icon?ref_type=heads) 
+  included in the schemadotorg_type_tray.module.
 
 
 References

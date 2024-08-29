@@ -36,7 +36,7 @@ Configuration
 -------------
 
 - Go to the Schema.org properties configuration page.  
-  (/admin/config/schemadotorg/settings/properties)
+  (/admin/config/schemadotorg/settings/properties#edit-schemadotorg-field-group)
 - Go to the 'Field group settings' details.
 - Enter the default field groups and field order used to group Schema.org
   properties as they are added to entity types.

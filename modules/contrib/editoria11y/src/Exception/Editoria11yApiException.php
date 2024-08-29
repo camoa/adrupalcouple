@@ -16,6 +16,7 @@ class Editoria11yApiException extends \Exception {
   public function __construct($class) {
     $message = sprintf('%s', $class);
     parent::__construct($message);
+    // @phpstan-ignore-next-line
     \Drupal::logger('warning')->warning('Warning' . $message . ' in Editoria11y API');
   }
 

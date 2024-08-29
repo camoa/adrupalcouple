@@ -32,6 +32,7 @@ Features
   to select taxonomy terms.
 - Organizes term references in field groups. 
 
+Min
 Optional (Recommended)
 ----------------------
 
@@ -46,12 +47,12 @@ Configuration
 -------------
 
 - Go to the Schema.org types configuration page.  
-  (/admin/config/schemadotorg/settings/type)
+  (/admin/config/schemadotorg/settings/types#edit-schemadotorg-taxonomy)
 - Go to the 'Taxonomy settings' details.
 - Enter default vocabulary field group names and labels.
 - Enter default vocabularies that will be added to every Schema.org
   content type.
 - Go to the Schema.org properties configuration page.  
-  (/admin/config/schemadotorg/settings/properties)
+  (/admin/config/schemadotorg/settings/properties#edit-schemadotorg-taxonomy)
 - Go to the 'Taxonomy settings' details.
 - Enter Schema.org properties that should be mapped to a vocabulary.

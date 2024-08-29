@@ -46,18 +46,18 @@ third_party_settings:
       label: Contact
       region: content
       parent_name: ''
-      weight: -1
+      weight: -2
       format_type: details
       format_settings:
         open: true
-    group_relationships:
+    group_organization:
       children:
         - schema_member_of
         - schema_works_for
-      label: Relationships
+      label: Organization
       region: content
       parent_name: ''
-      weight: 30
+      weight: 4
       format_type: details
       format_settings:
         open: true
@@ -149,7 +149,7 @@ content:
     third_party_settings: {  }
   schema_member_of:
     type: string_textfield
-    weight: 11
+    weight: 5
     region: content
     settings:
       size: 60
@@ -157,7 +157,7 @@ content:
     third_party_settings: {  }
   schema_same_as:
     type: link_default
-    weight: 1
+    weight: 3
     region: content
     settings:
       placeholder_url: ''
@@ -172,7 +172,7 @@ content:
     third_party_settings: {  }
   schema_works_for:
     type: string_textfield
-    weight: 6
+    weight: 0
     region: content
     settings:
       size: 60

@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg_starterkit;
 
@@ -16,6 +16,7 @@ use Drupal\devel_generate\DevelGeneratePluginManager;
 use Drupal\schemadotorg\SchemaDotOrgConfigManagerInterface;
 use Drupal\schemadotorg\SchemaDotOrgEntityFieldManagerInterface;
 use Drupal\schemadotorg\SchemaDotOrgMappingManagerInterface;
+use Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface;
 use Drupal\schemadotorg\Traits\SchemaDotOrgDevelGenerateTrait;
 
 /**
@@ -41,6 +42,8 @@ class SchemaDotOrgStarterkitManager implements SchemaDotOrgStarterkitManagerInte
    *   The configuration rewrite.
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
    *   The entity type manager.
+   * @param \Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager
+   *   The Schema.org schema type manager.
    * @param \Drupal\schemadotorg\SchemaDotOrgMappingManagerInterface $schemaMappingManager
    *   The Schema.org mapping manager.
    * @param \Drupal\schemadotorg\SchemaDotOrgConfigManagerInterface $schemaConfigManager
@@ -56,6 +59,7 @@ class SchemaDotOrgStarterkitManager implements SchemaDotOrgStarterkitManagerInte
     protected ConfigFactoryInterface $configFactory,
     protected ?ConfigRewriter $configRewriter,
     protected EntityTypeManagerInterface $entityTypeManager,
+    protected SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager,
     protected SchemaDotOrgMappingManagerInterface $schemaMappingManager,
     protected SchemaDotOrgConfigManagerInterface $schemaConfigManager,
     protected ?DevelGeneratePluginManager $develGenerateManager,
@@ -88,8 +92,7 @@ class SchemaDotOrgStarterkitManager implements SchemaDotOrgStarterkitManagerInte
   public function getStarterkits(bool $installed = FALSE): array {
     $modules = $this->extensionListModule->getAllAvailableInfo();
     foreach ($modules as $module_name => $module_info) {
-      if (!str_starts_with($module_name, 'schemadotorg_')
-        || !$this->isStarterkit($module_name)) {
+      if (!$this->isStarterkit($module_name)) {
         unset($modules[$module_name]);
       }
       elseif ($installed && !$this->moduleHandler->moduleExists($module_name)) {
@@ -107,16 +110,17 @@ class SchemaDotOrgStarterkitManager implements SchemaDotOrgStarterkitManagerInte
     if ($settings && !empty($settings['types'])) {
       foreach ($settings['types'] as $type => $type_defaults) {
         $settings['types'][$type] = $this->getStarterSettingsTypeDefaults($type, $type_defaults);
+        // Unset empty type defaults.
+        if (empty($settings['types'][$type])) {
+          unset($settings['types'][$type]);
+        }
       }
     }
     return $settings;
   }
 
   /**
-   * Install a Schema.org starter kit.
-   *
-   * @param string $module
-   *   A Schema.org starter kit module name.
+   * {@inheritdoc}
    */
   public function install(string $module): void {
     $this->moduleInstaller->install([$module]);
@@ -263,7 +267,7 @@ class SchemaDotOrgStarterkitManager implements SchemaDotOrgStarterkitManagerInte
     $settings = $this->getStarterkitSettingsData($module);
     if ($settings && !empty($settings['types'])) {
       foreach ($settings['types'] as $type => $type_defaults) {
-        [$entity_type_id, $schema_type] = explode(':', $type);
+        [$entity_type_id, , $schema_type] = $this->getMappingStorage()->parseType($type);
         $defaults = $this->getStarterSettingsTypeDefaults($type, $type_defaults);
         $this->schemaMappingManager->createType($entity_type_id, $schema_type, $defaults);
       }
@@ -303,15 +307,17 @@ class SchemaDotOrgStarterkitManager implements SchemaDotOrgStarterkitManagerInte
    *   Schema.org starter kit type defaults merged with the preconfigured defaults.
    */
   protected function getStarterSettingsTypeDefaults(string $type, array $type_defaults): array {
-    [$entity_type_id, $schema_type] = explode(':', $type);
+    [$entity_type_id, $bundle, $schema_type] = $this->getMappingStorage()->parseType($type);
     if (!$this->entityTypeManager->hasDefinition($entity_type_id)) {
       return [];
     }
 
-    /** @var \Drupal\schemadotorg\SchemaDotOrgMappingInterface $mapping */
-    $mapping = $this->entityTypeManager
-      ->getStorage('schemadotorg_mapping')
-      ->loadBySchemaType($entity_type_id, $schema_type);
+    $mapping_type = $this->loadMappingType($entity_type_id);
+    if (!$mapping_type) {
+      return [];
+    }
+
+    $mapping = $this->getMappingStorage()->loadByType($type);
     if ($mapping) {
       $bundle = $mapping->getTargetBundle();
       // Don't allow properties to be unexpectedly removed.
@@ -319,13 +325,16 @@ class SchemaDotOrgStarterkitManager implements SchemaDotOrgStarterkitManagerInte
         $type_defaults['properties'] = array_filter($type_defaults['properties']);
       }
     }
-    else {
-      $bundle = NULL;
-    }
 
     // Add properties that are explicitly set.
     if (isset($type_defaults['properties'])) {
       foreach ($type_defaults['properties'] as $property_name => $property) {
+        // Skip adding properties that are already mapped.
+        // @todo Skip custom fields.
+        if ($mapping && $mapping->getSchemaPropertyFieldName($property_name)) {
+          continue;
+        }
+
         if (is_array($property)
           && empty($type_defaults['properties'][$property_name]['name'])) {
           $type_defaults['properties'][$property_name]['name'] = SchemaDotOrgEntityFieldManagerInterface::ADD_FIELD;

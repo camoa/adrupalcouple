@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\Tests\schemadotorg_mapping_set\Functional;
 
@@ -15,9 +15,7 @@ use Drupal\Tests\schemadotorg\Functional\SchemaDotOrgBrowserTestBase;
 class SchemaDotOrgMappingSetSettingsFormTest extends SchemaDotOrgBrowserTestBase {
 
   /**
-   * Modules to enable.
-   *
-   * @var array
+   * {@inheritdoc}
    */
   protected static $modules = [
     'media',
@@ -41,50 +39,50 @@ class SchemaDotOrgMappingSetSettingsFormTest extends SchemaDotOrgBrowserTestBase
    * Test Schema.org Mapping Set settings form.
    */
   public function testSettingsForm(): void {
-    $assert_session = $this->assertSession();
+    $assert = $this->assertSession();
 
     // Check saving config form.
     $this->assertSaveSettingsConfigForm('schemadotorg_mapping_set.settings', '/admin/config/schemadotorg/sets/settings');
 
     // Check type validation.
-    $this->drupalGet('/admin/config/schemadotorg/sets/settings');
+    $this->drupalGet('admin/config/schemadotorg/sets/settings');
     $this->submitForm([
     'sets' => "test:
   label: Test
   types:
     - 'test'",
     ], 'Save configuration');
-    $assert_session->responseContains('<em class="placeholder">test</em> in <em class="placeholder">Test</em> is not valid. Please enter the entity type id and Schema.org type (i.e. entity_type_id:SchemaType).');
+    $assert->statusMessageContains('test in Test is not valid. Please enter the entity type id and Schema.org type (i.e. entity_type_id:SchemaType).', 'error');
 
     // Check entity type id validation.
-    $this->drupalGet('/admin/config/schemadotorg/sets/settings');
+    $this->drupalGet('admin/config/schemadotorg/sets/settings');
     $this->submitForm([
     'sets' => "test:
   label: Test
   types:
     - 'test:Test'",
     ], 'Save configuration');
-    $assert_session->responseContains('<em class="placeholder">test</em> in <em class="placeholder">Test</em> is not valid entity type.');
+    $assert->statusMessageContains('test in Test is not valid entity type.', 'error');
 
     // Check Schema.org type validation.
-    $this->drupalGet('/admin/config/schemadotorg/sets/settings');
+    $this->drupalGet('admin/config/schemadotorg/sets/settings');
     $this->submitForm([
     'sets' => "test:
   label: Test
   types:
     - 'node:Test'",
     ], 'Save configuration');
-    $assert_session->responseContains('<em class="placeholder">Test</em> in <em class="placeholder">Test</em> is not valid Schema.org type.');
+    $assert->statusMessageContains('Test in Test is not valid Schema.org type.', 'error');
 
     // Check node:Thing is valid.
-    $this->drupalGet('/admin/config/schemadotorg/sets/settings');
+    $this->drupalGet('admin/config/schemadotorg/sets/settings');
     $this->submitForm([
     'sets' => "test:
   label: Test
   types:
     - 'node:Thing'",
     ], 'Save configuration');
-    $assert_session->responseContains('The configuration options have been saved.');
+    $assert->responseContains('The configuration options have been saved.');
   }
 
 }

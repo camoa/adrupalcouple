@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg_report\Controller;
 
@@ -22,7 +22,7 @@ class SchemaDotOrgReportTableController extends SchemaDotOrgReportControllerBase
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container) {
+  public static function create(ContainerInterface $container): static {
     $instance = parent::create($container);
     $instance->routeMatch = $container->get('current_route_match');
     return $instance;
@@ -76,7 +76,9 @@ class SchemaDotOrgReportTableController extends SchemaDotOrgReportControllerBase
 
     // Result.
     $result_query = clone $base_query;
-    $result_query = $result_query->extend(PagerSelectExtender::class)->limit(100);
+    /** @var \Drupal\Core\Database\Query\PagerSelectExtender $result_query */
+    $result_query = $result_query->extend(PagerSelectExtender::class);
+    $result_query = $result_query->limit(100);
     $result = $result_query->execute();
 
     // Rows.
@@ -105,6 +107,7 @@ class SchemaDotOrgReportTableController extends SchemaDotOrgReportControllerBase
       '#rows' => $rows,
       '#sticky' => TRUE,
       '#empty' => $this->t('No @type found.', $t_args),
+      '#attributes' => ['class' => ['schemadotorg-report-table']],
     ];
     $build['pager'] = [
       '#type' => 'pager',

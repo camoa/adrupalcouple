@@ -108,28 +108,6 @@ default_field_groups:
         - educationalUse
         - learningResourceType
         - hasCourseInstance
-    business:
-      label: Business
-      properties:
-        - openingHours
-        - openingHoursSpecification
-        - paymentAccepted
-        - priceRange
-        - acceptsReservations
-        - nonprofitStatus
-        - availableChannel
-        - hoursAvailable
-        - provider
-        - serviceArea
-        - serviceAudience
-        - serviceOutput
-        - serviceType
-        - starRating
-        - numberOfRooms
-        - checkinTime
-        - checkoutTime
-        - petsAllowed
-        - smokingAllowed
     contact:
       label: Contact
       properties:
@@ -142,6 +120,8 @@ default_field_groups:
         - email
         - contactPoint
         - isAcceptingNewPatients
+        - openingHours
+        - openingHoursSpecification
     event:
       label: Event
       properties:
@@ -179,6 +159,18 @@ default_field_groups:
         - hasHealthAspect
         - isAvailableGenerically
         - isProprietary
+    recipe:
+      label: Recipe
+      properties:
+        - recipeIngredient
+        - recipeInstructions
+        - suitableForDiet
+        - Recipe--isFamilyFriendly
+        - recipeYield
+        - prepTime
+        - cookTime
+        - totalTime
+        - nutrition
     content:
       label: Content
       properties:
@@ -186,37 +178,52 @@ default_field_groups:
     links:
       label: Links
       properties:
-        - webFeed
-        - sameAs
         - relatedLink
         - significantLink
+        - webFeed
+        - sameAs
+    organization:
+      label: Organization
+      properties:
+        - worksFor
+        - department
+        - employee
+        - alumniOf
+        - alumni
+        - memberOf
+        - member
+        - parentOrganization
+        - subOrganization
+        - founder
+        - hospitalAffiliation
+    hierarchy:
+      label: Hierarchy
+      properties:
+        - containedInPlace
+        - containsPlace
+        - isPartOf
+        - hasPart
+        - partOfEpisode
+        - episode
+        - partOfSeason
+        - containsSeason
+        - partOfSeries
+    references:
+      label: References
+      properties:
+        - about
+        - subjectOf
+        - mentions
+        - isBasedOn
     relationships:
       label: Relationships
       properties:
-        - partOfSeries
-        - partOfSeason
         - actor
         - sponsor
-        - founder
-        - employee
-        - worksFor
-        - department
-        - alumni
-        - alumniOf
-        - member
-        - memberOf
-        - subOrganization
-        - parentOrganization
-        - containedInPlace
-        - containsPlace
+        - study
         - studyLocation
         - healthCondition
         - relatedDrug
-        - study
-        - subjectOf
-        - about
-        - isPartOf
-        - hasPart
     taxonomy:
       label: 'Categories/Services'
       properties:
@@ -233,18 +240,11 @@ default_schema_type_field_groups:
 default_form_type: details
 default_view_type: fieldset
 disable_field_groups:
-  - 'block_content'
   - 'node--view--teaser'
   - 'node--mainEntity'
-  - 'paragraph--form--default'
-  - 'paragraph--Quotation'
-  - 'paragraph--Statement'
-  - 'paragraph--ItemList'
-  - 'paragraph--AudioObject'
-  - 'paragraph--VideoObject'
-  - 'paragraph--ImageObject'
-  - 'paragraph--CollectionPage'
-  - 'paragraph--MediaGallery'
-  - 'paragraph--ImageGallery'
-  - 'paragraph--VideoGallery'
+  - 'node--created'
+  - 'node--uid'
+  - 'block_content'
+  - 'media'
+  - 'paragraph'
   - 'taxonomy_term'

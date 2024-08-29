@@ -21,7 +21,6 @@ Features
 
 - Installs the Block content Schema.org mapping type.
 - Appends a visible content block's JSON-LD to the page's JSON-LD.
-- Removes the default @url from content blocks.
 - Ensures that the block content form's vertical tabs and submit button
   are always last.
 
@@ -31,6 +30,7 @@ Notes
 ### About Special Announcements (a.k.a. Notifications)
 
 **General notes**
+
 - Structured Data and Bing's implementation currently targets Covid-19 
   announcements, but it is a real-world implementation of the specification.
 - The SpecialAnnouncement type will likely be used for other notifications in
@@ -39,7 +39,8 @@ Notes
   [Schema.org Blueprints Hospital Starterkit](https://www.drupal.org/project/schemadotorg_starterkit_hospital) module.
 
 **Implementation notes**
-- Site-wide, section, or page-specific notifications should be implemented using content blocsk.
+
+- Site-wide, section, or page-specific notifications should be implemented using content blocks.
 - A content block can be mapped to [SpecialAnnouncement](https://schema.org/SpecialAnnouncement)
   or [WebContent](https://schema.org/WebContent)
 - The [SpecialAnnouncement](https://schema.org/SpecialAnnouncement) properties 
@@ -47,6 +48,7 @@ Notes
 - We can gradually implement more properties as needed
 
 **Recommended properties**
+
 - <https://schema.org/name>
 - <https://schema.org/text>
 - <https://schema.org/category>
@@ -57,6 +59,7 @@ Notes
 - <https://schema.org/about>
 
 **References**
+
 - [SpecialAnnouncement - Schema.org Type](https://schema.org/SpecialAnnouncement)
 - [COVID-19 Announcements (SpecialAnnouncement) Structured Data | Google Search Central | Documentation](https://developers.google.com/search/docs/appearance/structured-data/special-announcements)
 - [Special Announcement specifications - Bing Webmaster Tools](https://www.bing.com/webmasters/help/special-announcement-specifications-5cbd6249)

@@ -35,6 +35,10 @@ schemadotorg_report.types.data_types:
   title: Data types
   route_name: schemadotorg_report.types.data_types
   parent_id: schemadotorg_report.types
+schemadotorg_report.types.descriptions:
+  title: Descriptions
+  route_name: schemadotorg_report.types.descriptions
+  parent_id: schemadotorg_report.types
 
 # Properties
 
@@ -54,6 +58,17 @@ schemadotorg_report.properties.identifier:
   title: Identifiers
   route_name: schemadotorg_report.properties.identifier
   parent_id: schemadotorg_report.properties
+schemadotorg_report.properties.descriptions:
+  title: Descriptions
+  route_name: schemadotorg_report.properties.descriptions
+  parent_id: schemadotorg_report.properties
+
+# Relationships
+
+schemadotorg_report.relationships:
+  title: Relationships
+  route_name: schemadotorg_report.relationships
+  base_route: schemadotorg_report
 
 # Names
 
@@ -81,21 +96,6 @@ schemadotorg_report.names.abbreviations:
   title: Abbreviated names
   route_name: schemadotorg_report.names.abbreviations
   parent_id: schemadotorg_report.names
-
-# Descriptions
-
-schemadotorg_report.descriptions:
-  title: Descriptions
-  route_name: schemadotorg_report.descriptions.types
-  base_route: schemadotorg_report
-schemadotorg_report.descriptions.types:
-  title: Type descriptions
-  route_name: schemadotorg_report.descriptions.types
-  parent_id: schemadotorg_report.descriptions
-schemadotorg_report.descriptions.properties:
-  title: Property descriptions
-  route_name: schemadotorg_report.descriptions.properties
-  parent_id: schemadotorg_report.descriptions
 
 # References
 

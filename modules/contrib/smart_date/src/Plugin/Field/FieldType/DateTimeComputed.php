@@ -4,8 +4,8 @@ namespace Drupal\smart_date\Plugin\Field\FieldType;
 
 use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\TypedData\DataDefinitionInterface;
-use Drupal\Core\TypedData\TypedDataInterface;
 use Drupal\Core\TypedData\TypedData;
+use Drupal\Core\TypedData\TypedDataInterface;
 
 /**
  * A computed property for dates of Smart Date field items.

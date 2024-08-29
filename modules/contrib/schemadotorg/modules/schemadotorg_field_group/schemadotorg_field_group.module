@@ -7,16 +7,20 @@
 
 /* phpcs:disable Drupal.NamingConventions.ValidFunctionName.InvalidPrefix */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\field\FieldConfigInterface;
 use Drupal\schemadotorg\SchemaDotOrgMappingInterface;
 
 /**
- * Implements hook_ENTITY_TYPE_save().
+ * Implements hook_ENTITY_TYPE_presave().
  */
 function schemadotorg_field_group_schemadotorg_mapping_presave(SchemaDotOrgMappingInterface $mapping): void {
+  if ($mapping->isSyncing()) {
+    return;
+  }
+
   /** @var \Drupal\schemadotorg_field_group\SchemaDotOrgFieldGroupEntityDisplayBuilderInterface $schema_field_group_display_builder */
   $schema_field_group_display_builder = \Drupal::service('schemadotorg_field_group.entity_display_builder');
   $schema_field_group_display_builder->setFieldGroups($mapping);
@@ -35,6 +39,10 @@ function schemadotorg_field_group_schemadotorg_mapping_presave(SchemaDotOrgMappi
  * </code>
  */
 function field_group_field_config_delete(FieldConfigInterface $field_config): void {
+  if ($field_config->isSyncing()) {
+    return;
+  }
+
   /** @var \Drupal\Core\Entity\EntityDisplayRepositoryInterface $entity_display_repository */
   $entity_display_repository = \Drupal::service('entity_display.repository');
 
@@ -111,6 +119,7 @@ group_name:
     - property01
     - property02
     - property03
+    - SchemaType01--property04
 ',
     ];
   }

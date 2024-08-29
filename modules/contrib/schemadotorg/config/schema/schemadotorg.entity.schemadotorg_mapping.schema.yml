@@ -20,3 +20,19 @@
       sequence:
         type: string
         label: 'Schema.org property'
+    additional_mappings:
+      type: sequence
+      label: 'Additional mapping'
+      sequence:
+        type: mapping
+        label: 'Additional mapping'
+        mapping:
+          schema_type:
+            type: string
+            label: 'Schema.org type'
+          schema_properties:
+            type: sequence
+            label: 'Schema.org properties'
+            sequence:
+              type: string
+              label: 'Schema.org property'

@@ -5,7 +5,7 @@
  * Installation hooks for the Schema.org Blueprints Pathauto module.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 /**
  * Implements hook_install().

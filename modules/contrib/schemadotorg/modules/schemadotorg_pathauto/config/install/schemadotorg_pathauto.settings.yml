@@ -6,6 +6,8 @@ base_paths:
   Physician: doctors
   DietarySupplement: supplements
   Drug: drugs
+  Room: rooms
+  Hotel: hotels
   PodcastEpisode: podcasts
   PodcastSeries: podcasts
   HealthTopicContent: topics

@@ -5,10 +5,11 @@
  * Allows Custom Fields to be used to create Schema.org relationships.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 use Drupal\Core\Field\FieldItemInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Render\BubbleableMetadata;
 
 /**
  * Implements hook_schemadotorg_property_field_type_alter().
@@ -39,7 +40,7 @@ function schemadotorg_custom_field_schemadotorg_property_field_alter(
   ?string &$widget_id,
   array &$widget_settings,
   ?string &$formatter_id,
-  array &$formatter_settings
+  array &$formatter_settings,
 ): void {
   /** @var \Drupal\schemadotorg_custom_field\SchemaDotOrgCustomFieldManagerInterface $custom_field_manager */
   $custom_field_manager = \Drupal::service('schemadotorg_custom_field.manager');
@@ -62,7 +63,7 @@ function schemadotorg_custom_field_schemadotorg_property_field_alter(
 /**
  * Implements hook_schemadotorg_jsonld_schema_property_alter().
  */
-function schemadotorg_custom_field_schemadotorg_jsonld_schema_property_alter(mixed &$value, FieldItemInterface $item): void {
+function schemadotorg_custom_field_schemadotorg_jsonld_schema_property_alter(mixed &$value, FieldItemInterface $item, BubbleableMetadata $bubbleable_metadata): void {
   /** @var \Drupal\schemadotorg_custom_field\SchemaDotOrgCustomFieldJsonLdManagerInterface $custom_field_jsonld_manager */
   $custom_field_jsonld_manager = \Drupal::service('schemadotorg_custom_field.jsonld_manager');
   $custom_field_jsonld_manager->jsonLdSchemaPropertyAlter($value, $item);
@@ -112,7 +113,7 @@ function schemadotorg_custom_field_form_schemadotorg_properties_settings_form_al
     '#type' => 'details',
     '#title' => t('Custom field settings'),
   ];
-  $form['schemadotorg_custom_field']['default_properties'] = [
+  $form['schemadotorg_custom_field']['default_schema_properties'] = [
     '#type' => 'schemadotorg_settings',
     '#title' => t('Default custom field properties'),
     '#description' => t('Enter Schema.org properties that should be mapped to a Schema.org type using a Custom field.'),
@@ -131,7 +132,7 @@ function schemadotorg_custom_field_form_schemadotorg_properties_settings_form_al
   $form['schemadotorg_custom_field']['default_format'] = [
     '#type' => 'select',
     '#title' => t('Default custom field format'),
-    '#description' => t('Select the default format used by text (plain, long) custom fields. Leave blank to not enable the Wysiwyg editor.'),
+    '#description' => t('Select the default format used by text (plain, long) custom fields.'),
     '#options' => $format_options,
   ];
 }

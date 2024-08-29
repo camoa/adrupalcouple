@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg;
 
@@ -79,6 +79,7 @@ class SchemaDotOrgMappingTypeStorage extends ConfigEntityStorage implements Sche
         continue;
       }
 
+      /** @var \Drupal\Core\Config\Entity\ConfigEntityTypeInterface $entity_type */
       $entity_type = $this->entityTypeManager->getDefinition($entity_type_id);
 
       // Make sure the entity has a field UI.
@@ -106,7 +107,11 @@ class SchemaDotOrgMappingTypeStorage extends ConfigEntityStorage implements Sche
     $entity_types = $this->getEntityTypeBundles();
     foreach ($entity_types as $entity_type_id => $entity_type) {
       $bundle_entity_type_id = $entity_type->getBundleEntityType();
-      $items[$entity_type_id] = $this->entityTypeManager->getDefinition($bundle_entity_type_id);
+
+      /** @var \Drupal\Core\Config\Entity\ConfigEntityTypeInterface $bundle_entity_type */
+      $bundle_entity_type = $this->entityTypeManager->getDefinition($bundle_entity_type_id);
+
+      $items[$entity_type_id] = $bundle_entity_type;
     }
     return $items;
   }

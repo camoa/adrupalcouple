@@ -25,7 +25,7 @@ class SmartDateInlineWidget extends SmartDateDefaultWidget {
   public static function defaultSettings() {
     return [
       'separator' => 'to',
-      ] + parent::defaultSettings();
+    ] + parent::defaultSettings();
   }
 
   /**

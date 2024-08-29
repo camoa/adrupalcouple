@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg_taxonomy;
 
@@ -25,7 +25,7 @@ trait SchemaDotOrgTaxonomyTrait {
   protected function createVocabulary(string $vocabulary_id, array $settings): VocabularyInterface {
     /** @var \Drupal\taxonomy\VocabularyStorageInterface $vocabulary_storage */
     $vocabulary_storage = $this->entityTypeManager->getStorage('taxonomy_vocabulary');
-    /** @var \Drupal\taxonomy\VocabularyInterface $vocabulary */
+    /** @var \Drupal\taxonomy\VocabularyInterface|null $vocabulary */
     $vocabulary = $vocabulary_storage->load($vocabulary_id);
     if ($vocabulary) {
       return $vocabulary;

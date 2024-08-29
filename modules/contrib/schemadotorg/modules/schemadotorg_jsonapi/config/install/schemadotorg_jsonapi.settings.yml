@@ -22,6 +22,9 @@ default_base_fields:
   - term--weight
   - term--parent
   - user--user_picture
+custom_public_names:
+  primaryImageOfPage: image
 resource_type_schemadotorg: false
 resource_base_field_schemadotorg: false
 resource_field_schemadotorg: true
+

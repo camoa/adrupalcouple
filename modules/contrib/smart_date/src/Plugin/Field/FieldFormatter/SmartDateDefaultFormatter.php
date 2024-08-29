@@ -3,9 +3,7 @@
 namespace Drupal\smart_date\Plugin\Field\FieldFormatter;
 
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\datetime\Plugin\Field\FieldFormatter\DateTimeDefaultFormatter;
 use Drupal\smart_date\Entity\SmartDateFormat;
-use Drupal\smart_date\SmartDateTrait;
 
 /**
  * Plugin implementation of the 'Default' formatter for 'smartdate' fields.
@@ -48,9 +46,9 @@ class SmartDateDefaultFormatter extends SmartDateFormatterBase {
    */
   protected function getPartLabels() {
     return [
-        'start' => $this->t('Start'),
-        'end' => $this->t('End'),
-        'duration' => $this->t('Duration'),
+      'start' => $this->t('Start'),
+      'end' => $this->t('End'),
+      'duration' => $this->t('Duration'),
     ];
   }
 
@@ -66,7 +64,7 @@ class SmartDateDefaultFormatter extends SmartDateFormatterBase {
       '#type' => 'checkboxes',
       '#title' => $this->t('Time Parts'),
       '#description' => $this->t('Which parts of the time and range range should be output.'),
-      '#default_value' => $this->getSetting('parts', ['start', 'end']),
+      '#default_value' => $this->getSetting('parts') ?? ['start', 'end'],
       '#options' => $this->getPartLabels(),
       '#weight' => -10,
       '#required' => TRUE,
@@ -97,7 +95,8 @@ class SmartDateDefaultFormatter extends SmartDateFormatterBase {
       '#type' => 'details',
       '#title' => $this->t('Duration'),
       '#description' => $this->t('How the duration should be formatted.'),
-      '#open' => TRUE, // Controls the HTML5 'open' attribute. Defaults to FALSE.
+      // Controls the HTML5 'open' attribute. Defaults to FALSE.
+      '#open' => TRUE,
       '#states' => [
         // Show this option only if the units will be hours.
         'visible' => [

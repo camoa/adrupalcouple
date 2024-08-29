@@ -1,13 +1,13 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg_autocomplete_element_test\Form;
 
+use Drupal\Component\Serialization\Yaml;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Markup;
-use Drupal\Core\Serialization\Yaml;
 use Drupal\schemadotorg\Element\SchemaDotOrgAutocomplete;
 
 /**

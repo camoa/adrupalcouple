@@ -1,7 +1,7 @@
 default_field_groups:
   taxonomy: 'Categories and Services'
 default_vocabularies: {  }
-property_vocabularies:
+schema_property_vocabularies:
   alumniOf:
     id: alumni
     label: Alumni

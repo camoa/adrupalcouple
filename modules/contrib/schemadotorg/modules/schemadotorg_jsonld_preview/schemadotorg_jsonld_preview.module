@@ -5,39 +5,41 @@
  * Allows users to preview a web page's Schema.org JSON-LD.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
-use Drupal\Core\Cache\Cache;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Routing\RouteMatchInterface;
 
 /**
- * Implements hook_preprocess_html().
+ * Implements hook_help().
  */
-function schemadotorg_jsonld_preview_preprocess_html(array &$variables): void {
-  /** @var \Drupal\schemadotorg_jsonld_preview\SchemaDotOrgJsonLdPreviewAccessCheckerInterface $access_checker */
-  $access_checker = \Drupal::service('schemadotorg_jsonld_preview.access_checker');
-  if (!$access_checker->access()) {
-    return;
+function schemadotorg_jsonld_preview_help(string $route_name, RouteMatchInterface $route_match): string|NULL {
+  switch ($route_name) {
+    case 'entity.node.schemadotorg_data':
+      return '<p>' . t('The <strong>Schema.org data preview</strong> displays the Schema.org data for the current node.') . '<p>';
+
+    case 'entity.node.schemadotorg_jsonld':
+      return '<p>' . t('The <strong>Schema.org JSON-LD preview</strong> displays the JSON-LD data for the current node.') . '<p>';
   }
 
-  /** @var \Drupal\schemadotorg_jsonld_preview\SchemaDotOrgJsonLdPreviewBuilderInterface $preview_builder */
-  $preview_builder = \Drupal::service('schemadotorg_jsonld_preview.builder');
-  $build = $preview_builder->build();
+  return NULL;
+}
 
-  // Make sure the cache is cleared when any Schema.org mapping is updated.
-  // @todo Determine how best to invalidate cache when a mapping is updated.
-  $mapping_definition = \Drupal::entityTypeManager()->getDefinition('schemadotorg_mapping');
-  $build += ['#cache' => []];
-  $build['#cache'] += ['tags' => []];
-  $build['#cache']['tags'] = array_merge($build['#cache']['tags'], $mapping_definition->getListCacheTags());
-
-  if ($build) {
-    $variables['page']['content']['schemadotorg_jsonld_preview'] = $build;
+/**
+ * Implements hook_local_tasks_alter().
+ */
+function schemadotorg_jsonld_preview_local_tasks_alter(array &$local_tasks): void {
+  // Determine if  JSON-LD preview should be displayed as a node tab/task.
+  $node_task = \Drupal::configFactory()
+    ->get('schemadotorg_jsonld_preview.settings')
+    ->get('node_task');
+  if (!$node_task) {
+    unset($local_tasks['entity.node.schemadotorg_jsonld']);
   }
 }
 
 /* ************************************************************************** */
-// Schema.org JSON-LD settings form.
+// Schema.org JSON-LD Preview settings form.
 /* ************************************************************************** */
 
 /**
@@ -47,56 +49,28 @@ function schemadotorg_jsonld_preview_preprocess_html(array &$variables): void {
  * @see \Drupal\schemadotorg\Form\SchemaDotOrgSettingsFormBase::formAlter
  */
 function schemadotorg_jsonld_preview_form_schemadotorg_jsonld_settings_form_alter(array &$form, FormStateInterface $form_state): void {
-  $config = \Drupal::configFactory()->getEditable('schemadotorg_jsonld_preview.settings');
-
-  // Load the request path condition plugin.
-  /** @var \Drupal\Core\Condition\ConditionManager $condition_manager */
-  $condition_manager = \Drupal::service('plugin.manager.condition');
-  $condition = $condition_manager->createInstance('request_path');
-
-  // Set the request path condition configuration.
-  $condition->setConfiguration($config->get('visibility.request_path'));
-
-  // Build preview visibility container.
   $form['schemadotorg_jsonld_preview'] = [
     '#type' => 'details',
-    '#title' => t('JSON-LD preview visibility'),
-    '#description' => t('Use the below configuration settings to determine what pages the JSON-LD preview is displayed on.'),
-    'visibility' => [],
+    '#title' => t('JSON-LD preview settings'),
   ];
-  // Append the request path condition configuration form.
-  $form['schemadotorg_jsonld_preview']['visibility']['request_path'] = [];
-  $request_path =& $form['schemadotorg_jsonld_preview']['visibility']['request_path'];
-  $request_path = $condition->buildConfigurationForm($request_path, $form_state);
-
-  // Check negate checkbox to radio so that it aligned with the Block UI.
-  // @see \Drupal\block\BlockForm::buildVisibilityInterface
-  $request_path['negate']['#type'] = 'radios';
-  $request_path['negate']['#default_value'] = (int) $request_path['negate']['#default_value'];
-  $request_path['negate']['#title_display'] = 'invisible';
-  $request_path['negate']['#options'] = [
-    t('Show for the listed pages'),
-    t('Hide for the listed pages'),
+  $form['schemadotorg_jsonld_preview']['node_task'] = [
+    '#type' => 'checkbox',
+    '#title' => t('Display JSON-LD preview as a node tab/task.'),
+    '#description' => t('If checked, a JSON-LD tab/task will be displayed on nodes.'),
   ];
 
+  // Add submit callback.
   $form['#submit'][] = 'schemadotorg_jsonld_preview_settings_form_submit';
 }
 
 /**
- * Form submission handler for schemadotorg_jsonld_settings_form().
+ * Form submission handler for schemadotorg_jsonld_preview_settings_form().
  *
  * @see schemadotorg_jsonld_preview_form_schemadotorg_jsonld_settings_form_alter()
  */
 function schemadotorg_jsonld_preview_settings_form_submit(array &$form, FormStateInterface $form_state): void {
-  $cache_backends = Cache::getBins();
-  if (isset($cache_backends['dynamic_page_cache'])) {
-    $cache_backends['dynamic_page_cache']->deleteAll();
-  }
-
-  $config = \Drupal::configFactory()->getEditable('schemadotorg_jsonld_preview.settings');
-  $values = $form_state->getValue('schemadotorg_jsonld_preview');
-  foreach ($values as $key => $value) {
-    $config->set($key, $value);
-  }
-  $config->save();
+  // Clear all plugin caches.
+  /** @var \Drupal\module_test\PluginManagerCacheClearer $plugin_cache_clearer */
+  $plugin_cache_clearer = \Drupal::service('plugin.cache_clearer');
+  $plugin_cache_clearer->clearCachedDefinitions();
 }

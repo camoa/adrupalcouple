@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg\Utility;
 
@@ -22,30 +22,17 @@ class SchemaDotOrgHtmlHelper {
     // Remove the table of contents.
     $markdown = preg_replace('/^.*?(Introduction\s+------------)/s', '$1', $markdown);
 
-    if (!class_exists('\Michelf\Markdown')) {
+    if (!class_exists('\League\CommonMark\GithubFlavoredMarkdownConverter')) {
       return '<pre>' . $markdown . '</pre>';
     }
 
     // phpcs:ignore Drupal.Classes.FullyQualifiedNamespace.UseStatementMissing
-    $html = \Michelf\Markdown::defaultTransform($markdown);
+    $converter = new \League\CommonMark\GithubFlavoredMarkdownConverter();
+    $html = $converter->convert($markdown)->getContent();
 
     // Remove <p> tags with <li> tags.
     $html = preg_replace('#<li>\s*<p>#m', '<li>', $html);
     $html = preg_replace('#</p>\s*</li>#m', '</li>', $html);
-
-    // Convert <p><code> tags to <pre> tags.
-    $html = preg_replace('#<p>\s*<code>#m', '<pre>', $html);
-    $html = preg_replace('#</code>\s*</p>#m', '</pre>', $html);
-
-    // Convert <pre><code> tags to <pre> tags.
-    $html = preg_replace('#<pre>\s*<code>#m', '<pre>', $html);
-    $html = preg_replace('#</code>\s*</pre>#m', '</pre>', $html);
-
-    // Create fake filter object with filter URL settings.
-    if (function_exists('_filter_url')) {
-      $filter = (object) ['settings' => ['filter_url_length' => 255]];
-      $html = _filter_url($html, $filter);
-    }
 
     // Tidy the HTML markup.
     // @see https://api.html-tidy.org/tidy/quickref_next.html
@@ -59,7 +46,7 @@ class SchemaDotOrgHtmlHelper {
       $tidy = new \tidy();
       $tidy->parseString($html, $config, 'utf8');
       $tidy->cleanRepair();
-      $html = (string) $tidy;
+      $html = tidy_get_output($tidy);
     }
 
     return trim($html);

@@ -7,7 +7,6 @@
 
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
-use \Drupal\Component\Utility\UrlHelper;
 
 /**
  * Implements hook_help().
@@ -24,7 +23,6 @@ function http_cache_control_help($route_name, RouteMatchInterface $route_match) 
     default:
   }
 }
-
 
 /**
  * Implements hook_form_FORM_ID_alter().
@@ -99,10 +97,10 @@ function http_cache_control_form_system_performance_settings_alter(&$form, FormS
   ];
 
   $form['surrogate'] = [
-      '#type' => 'details',
-      '#title' => t('Surrogate Control'),
-      '#open' => FALSE,
-    ];
+    '#type' => 'details',
+    '#title' => t('Surrogate Control'),
+    '#open' => FALSE,
+  ];
 
   $form['surrogate']['surrogate_maxage'] = [
     '#type' => 'select',
@@ -120,10 +118,10 @@ function http_cache_control_form_system_performance_settings_alter(&$form, FormS
   ];
 
   $form['revalidation'] = [
-      '#type' => 'details',
-      '#title' => t('Revalidation'),
-      '#open' => TRUE,
-    ];
+    '#type' => 'details',
+    '#title' => t('Revalidation'),
+    '#open' => TRUE,
+  ];
 
   $form['revalidation']['stale_if_error'] = [
     '#type' => 'select',
@@ -142,10 +140,10 @@ function http_cache_control_form_system_performance_settings_alter(&$form, FormS
   ];
 
   $form['variation'] = [
-      '#type' => 'details',
-      '#title' => t('Variation'),
-      '#open' => TRUE,
-    ];
+    '#type' => 'details',
+    '#title' => t('Variation'),
+    '#open' => TRUE,
+  ];
 
   $form['variation']['vary'] = [
     '#type' => 'textfield',

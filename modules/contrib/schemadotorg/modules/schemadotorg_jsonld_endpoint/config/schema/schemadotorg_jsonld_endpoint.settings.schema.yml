@@ -1,5 +1,5 @@
 schemadotorg_jsonld_endpoint.settings:
-  type: config_entity
+  type: config_object
   label: 'Schema.org JSON-LD endpoint settings'
   mapping:
     entity_type_endpoints:

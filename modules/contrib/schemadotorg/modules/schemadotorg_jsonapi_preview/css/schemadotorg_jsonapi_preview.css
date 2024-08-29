@@ -3,6 +3,10 @@
  * Schema.org JSON:API preview styles.
  */
 
+.block-schemadotorg-jsonapi-preview {
+  margin: 0;
+}
+
 .schemadotorg-jsonapi-preview-endpoints .form-item {
   margin-top: 0;
   margin-bottom: 0;

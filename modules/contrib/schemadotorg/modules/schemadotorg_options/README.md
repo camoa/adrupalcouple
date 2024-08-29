@@ -28,7 +28,7 @@ Configuration
 -------------
 
 - Go to the Schema.org properties configuration page.  
-  (/admin/config/schemadotorg/settings/properties)
+  (/admin/config/schemadotorg/settings/properties#edit-schemadotorg-options)
 - Go to the 'Options settings' details.
 - Enter Schema.org properties with allowed values.
 

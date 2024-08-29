@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg\Form;
 
@@ -108,6 +108,7 @@ SchemaType:
     $this->config('schemadotorg.settings')
       ->set('schema_types', $form_state->getValue('schema_types'))
       ->save();
+
     parent::submitForm($form, $form_state);
   }
 

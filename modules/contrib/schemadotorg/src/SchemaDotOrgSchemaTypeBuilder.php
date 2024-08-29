@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg;
 
@@ -33,7 +33,7 @@ class SchemaDotOrgSchemaTypeBuilder implements SchemaDotOrgSchemaTypeBuilderInte
   public function __construct(
     protected ModuleHandlerInterface $moduleHandler,
     protected AccountInterface $currentUser,
-    protected SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager
+    protected SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager,
   ) {}
 
   /**
@@ -50,12 +50,15 @@ class SchemaDotOrgSchemaTypeBuilder implements SchemaDotOrgSchemaTypeBuilderInte
    * {@inheritdoc}
    */
   public function buildItemsLinks(string|array $text, array $options = []): array {
-    $options += ['attributes' => []];
+    $options += [
+      'prefix' => ', ',
+      'attributes' => [],
+    ];
 
     $ids = (is_string($text)) ? $this->schemaTypeManager->parseIds($text) : $text;
     $links = [];
     foreach ($ids as $id) {
-      $prefix = ($links) ? ', ' : '';
+      $prefix = ($links && $options['prefix']) ? $options['prefix'] : '';
 
       $is_item = $this->schemaTypeManager->isItem($id);
       $is_uri = (str_starts_with($id, 'http'));

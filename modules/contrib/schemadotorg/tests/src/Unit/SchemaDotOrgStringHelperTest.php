@@ -1,8 +1,8 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
-namespace Drupal\Tests\schemadotorg\Unit\SchemaDotOrgSchemaTypeBuilderTest;
+namespace Drupal\Tests\schemadotorg\Unit;
 
 use Drupal\schemadotorg\Utility\SchemaDotOrgStringHelper;
 use Drupal\Tests\UnitTestCase;

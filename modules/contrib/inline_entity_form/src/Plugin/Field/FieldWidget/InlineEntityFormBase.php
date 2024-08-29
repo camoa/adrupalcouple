@@ -231,6 +231,7 @@ abstract class InlineEntityFormBase extends WidgetBase implements ContainerFacto
       'hide_title' => FALSE,
       'collapsible' => FALSE,
       'collapsed' => FALSE,
+      'allow_new' => TRUE,
     ];
   }
 
@@ -355,6 +356,11 @@ abstract class InlineEntityFormBase extends WidgetBase implements ContainerFacto
         ],
       ],
     ];
+    $element['allow_new'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Allow users to add new @label.', ['@label' => $this->getSetting('label_plural')]),
+      '#default_value' => $this->getSetting('allow_new'),
+    ];
 
     return $element;
   }
@@ -395,6 +401,13 @@ abstract class InlineEntityFormBase extends WidgetBase implements ContainerFacto
       $summary[] = $this->t('Display in a %state fieldset.',
         ['%state' => $this->getSetting('collapsible') ? ($this->getSetting('collapsed') ? $this->t('collapsed') : $this->t('collapsible')) : $this->t('plain')]
       );
+    }
+
+    if ($this->getSetting('allow_new')) {
+      $summary[] = $this->t('New @label can be added.', ['@label' => $this->getSetting('label_plural')]);
+    }
+    else {
+      $summary[] = $this->t('New @label can not be created.', ['@label' => $this->getSetting('label_plural')]);
     }
 
     return $summary;

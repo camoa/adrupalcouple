@@ -2,11 +2,7 @@
 
 namespace Drupal\editoria11y;
 
-use Drupal\Component\Utility\Xss;
-use Drupal\Core\Database\Connection;
 use Drupal\Core\Database\StatementInterface;
-use Drupal\Core\Link;
-use Drupal\Core\Url;
 
 /**
  * Handles database calls for DashboardController.
@@ -19,7 +15,7 @@ interface DashboardInterface {
    * @return array
    *   Return the dismissal value options.
    */
-  static public function getDismissalOptions(): array;
+  public static function getDismissalOptions(): array;
 
   /**
    * Gets stale options for select lists.
@@ -30,7 +26,7 @@ interface DashboardInterface {
    * @return array
    *   Return the stale value options.
    */
-  static public function getStaleOptions(): array;
+  public static function getStaleOptions(): array;
 
   /**
    * Gets result name (issue types) options for select lists.
@@ -38,7 +34,7 @@ interface DashboardInterface {
    * @return array
    *   Return the result name value options.
    */
-  static public function getResultNameOptions(): array;
+  public static function getResultNameOptions(): array;
 
   /**
    * Gets entity type options for select lists.
@@ -46,7 +42,7 @@ interface DashboardInterface {
    * @return array
    *   Return the entity type value options.
    */
-  static public function getEntityTypeOptions(): array;
+  public static function getEntityTypeOptions(): array;
 
   /**
    * ExportPages function.

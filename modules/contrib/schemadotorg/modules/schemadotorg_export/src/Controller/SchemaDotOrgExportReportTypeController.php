@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg_export\Controller;
 
@@ -22,7 +22,7 @@ class SchemaDotOrgExportReportTypeController extends ControllerBase {
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container) {
+  public static function create(ContainerInterface $container): static {
     $instance = parent::create($container);
     $instance->schemaTypeManager = $container->get('schemadotorg.schema_type_manager');
     return $instance;

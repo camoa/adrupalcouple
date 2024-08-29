@@ -1,5 +1,5 @@
 schemadotorg_media.settings:
-  type: config_entity
+  type: config_object
   label: 'Schema.org Media settings'
   mapping:
     default_sources:

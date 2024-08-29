@@ -24,12 +24,7 @@ class IssuesByPageLink extends NumericField {
 
     if (!empty($value)) {
 
-      if (isset($values->editoria11y_results_page_path)) {
-        $path = $values->editoria11y_results_page_path;
-      }
-      else {
-        $path = $values->editoria11y_dismissals_page_path;
-      }
+      $path = $values->editoria11y_results_page_path ?? $values->editoria11y_dismissals_page_path;
 
       $url = Url::fromUserInput("/admin/reports/editoria11y/page", [
         'query' => [

@@ -1,11 +1,1 @@
-visibility:
-  request_path:
-    negate: true
-    pages: |
-      */layout
-      /dashboard/*
-      /user/*/
-      /node/add/*
-      /node/edit/*
-      /node/preview/*
-      *mercury-editor*
+node_task: true

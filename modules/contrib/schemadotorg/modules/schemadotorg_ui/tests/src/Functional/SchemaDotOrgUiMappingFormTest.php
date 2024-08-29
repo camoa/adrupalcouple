@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\Tests\schemadotorg_ui\Functional;
 
@@ -19,9 +19,7 @@ class SchemaDotOrgUiMappingFormTest extends SchemaDotOrgBrowserTestBase {
   use MediaTypeCreationTrait;
 
   /**
-   * Modules to enable.
-   *
-   * @var array
+   * {@inheritdoc}
    */
   protected static $modules = [
     'media',
@@ -72,6 +70,7 @@ class SchemaDotOrgUiMappingFormTest extends SchemaDotOrgBrowserTestBase {
       'administer media fields',
       'administer paragraphs types',
       'administer paragraph fields',
+      'administer schemadotorg',
     ]);
     $this->drupalLogin($account);
   }
@@ -80,9 +79,7 @@ class SchemaDotOrgUiMappingFormTest extends SchemaDotOrgBrowserTestBase {
    * Test Schema.org mapping form.
    */
   public function testMappingForm(): void {
-    global $base_path;
-
-    $assert_session = $this->assertSession();
+    $assert = $this->assertSession();
 
     /** @var \Drupal\Core\Entity\EntityFieldManagerInterface $entity_field_manager */
     $entity_field_manager = \Drupal::service('entity_field.manager');
@@ -95,17 +92,17 @@ class SchemaDotOrgUiMappingFormTest extends SchemaDotOrgBrowserTestBase {
     /* ********************************************************************** */
 
     // Check validating the schema type before continuing.
-    $this->drupalGet('/admin/structure/paragraphs_type/schemadotorg', ['query' => ['type' => 'NotThing']]);
-    $assert_session->responseContains('The Schema.org type <em class="placeholder">NotThing</em> is not valid.');
-    $assert_session->buttonExists('Find');
-    $assert_session->buttonNotExists('Save');
+    $this->drupalGet('admin/structure/paragraphs_type/schemadotorg', ['query' => ['type' => 'NotThing']]);
+    $assert->statusMessageContains('The Schema.org type NotThing is not valid.', 'warning');
+    $assert->buttonExists('Find');
+    $assert->buttonNotExists('Save');
 
     // Check displaying Schema.org type property to field mapping form.
-    $this->drupalGet('/admin/structure/paragraphs_type/schemadotorg');
+    $this->drupalGet('admin/structure/paragraphs_type/schemadotorg');
     $this->submitForm(['type' => 'ContactPoint'], 'Find');
-    $assert_session->addressEquals('/admin/structure/paragraphs_type/schemadotorg?type=ContactPoint');
-    $assert_session->buttonNotExists('Find');
-    $assert_session->buttonExists('Save');
+    $assert->addressEquals('/admin/structure/paragraphs_type/schemadotorg?type=ContactPoint');
+    $assert->buttonNotExists('Find');
+    $assert->buttonExists('Save');
 
     /* ********************************************************************** */
     // ImageObject.
@@ -113,12 +110,12 @@ class SchemaDotOrgUiMappingFormTest extends SchemaDotOrgBrowserTestBase {
 
     // Create 'Image' media type and mapping.
     $this->createMediaType('image', ['id' => 'image', 'label' => 'Image']);
-    $this->drupalGet('/admin/structure/media/manage/image/schemadotorg');
+    $this->drupalGet('admin/structure/media/manage/image/schemadotorg');
     $this->submitForm([], 'Save');
-    $assert_session->responseContains('Created <em class="placeholder">Image</em> mapping.');
+    $assert->statusMessageContains('Created Image mapping.', 'status');
 
     // Check the 'ImageObject' mapping.
-    /** @var \Drupal\schemadotorg\SchemaDotOrgMappingInterface $contact_point_mapping */
+    /** @var \Drupal\schemadotorg\SchemaDotOrgMappingInterface $image_object_mapping */
     $image_object_mapping = SchemaDotOrgMapping::load('media.image');
     $this->assertEquals('media', $image_object_mapping->getTargetEntityTypeId());
     $this->assertEquals('image', $image_object_mapping->getTargetBundle());
@@ -138,19 +135,19 @@ class SchemaDotOrgUiMappingFormTest extends SchemaDotOrgBrowserTestBase {
     /* ********************************************************************** */
 
     // Create 'Contact Point' paragraph mapping.
-    $this->drupalGet('/admin/structure/paragraphs_type/schemadotorg', ['query' => ['type' => 'ContactPoint']]);
+    $this->drupalGet('admin/structure/paragraphs_type/schemadotorg', ['query' => ['type' => 'ContactPoint']]);
     $this->submitForm([], 'Save');
-    $assert_session->responseContains('The Paragraphs type <em class="placeholder">Contact Point</em> has been added.');
-    $assert_session->responseContains('Added <em class="placeholder">Contact option; Contact type; Email; Hours available; Telephone</em> fields.');
-    $assert_session->responseContains('Created <em class="placeholder">Contact Point</em> mapping.');
+    $assert->statusMessageContains('The Paragraphs type Contact Point has been added.');
+    $assert->statusMessageContains('Added Contact option; Contact type; Email; Hours available; Telephone fields.');
+    $assert->statusMessageContains('Created Contact Point mapping.');
 
     // Check display warning that new Schema.org type is mapped.
-    $this->drupalGet('/admin/structure/paragraphs_type/schemadotorg', ['query' => ['type' => 'ContactPoint']]);
-    $assert_session->responseContains('<em class="placeholder">ContactPoint</em> is currently mapped to <a href="' . $base_path . 'admin/structure/paragraphs_type/contact_point">Contact Point</a> (contact_point).');
+    $this->drupalGet('admin/structure/paragraphs_type/schemadotorg', ['query' => ['type' => 'ContactPoint']]);
+    $assert->statusMessageContains('ContactPoint is currently mapped to Contact Point (contact_point).', 'warning');
 
     // Check validating the bundle entity before it is created.
     $this->submitForm([], 'Save');
-    $assert_session->responseContains('A <em class="placeholder">contact_point</em> Paragraphs type already exists. Please enter a different name.');
+    $assert->statusMessageContains('A contact_point Paragraphs type already exists. Please enter a different name.', 'error');
 
     // Check validating the new field names before they are created.
     $edit = [
@@ -160,8 +157,8 @@ class SchemaDotOrgUiMappingFormTest extends SchemaDotOrgBrowserTestBase {
       'mapping[properties][contactType][field][_add_][machine_name]' => 'contact_type',
     ];
     $this->submitForm($edit, 'Save');
-    $assert_session->responseContains('Machine-readable name field is required for the alternateName property mapping.');
-    $assert_session->responseContains('A <em class="placeholder">schema_contact_type</em> field already exists. Please enter a different name or select the existing field.');
+    $assert->responseContains('Machine-readable name field is required for the alternateName property mapping.');
+    $assert->statusMessageContains('A schema_contact_type field already exists. Please enter a different name or select the existing field.', 'error');
 
     // Check the 'Contact Point' paragraph id, title, and description.
     /** @var \Drupal\paragraphs\ParagraphsTypeInterface $contact_point */
@@ -200,10 +197,10 @@ class SchemaDotOrgUiMappingFormTest extends SchemaDotOrgBrowserTestBase {
 
     // Create 'Person' user mapping with gender enumeration for
     // testing purposes.
-    $this->drupalGet('/admin/config/people/accounts/schemadotorg');
+    $this->drupalGet('admin/config/people/accounts/schemadotorg');
     $this->submitForm(['mapping[properties][gender][field][name]' => '_add_'], 'Save');
-    $assert_session->responseContains('Added <em class="placeholder">Middle name; Address; Affiliations; Alumni of; Awards; Birth date; Contact points; Description; Last name; Gender; First name; Honorific; Degree; Image; Job title; Knows languages; Member of; Nationality; Same as; Telephone; Works for</em> fields.');
-    $assert_session->responseContains('Created <em class="placeholder">User</em> mapping.');
+    $assert->statusMessageContains('Added Middle name; Address; Affiliations; Alumni of; Awards; Birth date; Contact points; Description; Last name; Gender; First name; Honorific; Degree; Image; Job title; Knows languages; Member of; Nationality; Same as; Telephone; Works for fields.', 'status');
+    $assert->statusMessageContains('Created User mapping.', 'status');
 
     // Check the 'Person' field settings.
     $person_field_definitions = $entity_field_manager->getFieldDefinitions('user', 'user');
@@ -267,8 +264,8 @@ class SchemaDotOrgUiMappingFormTest extends SchemaDotOrgBrowserTestBase {
 
       $actual_field_settings[$field_name] = $person_field_definition->getSettings();
     }
-    $this->convertMarkupToStrings($actual_field_storage_settings);
-    $this->convertMarkupToStrings($actual_field_settings);
+    $this->convertArrayValuesToStrings($actual_field_storage_settings);
+    $this->convertArrayValuesToStrings($actual_field_settings);
     $this->assertEntityArraySubset($expected_field_storage_settings, $actual_field_storage_settings);
     $actual_field_settings = array_intersect_key($actual_field_settings, $expected_field_settings);
     $this->assertEntityArraySubset($expected_field_settings, $actual_field_settings);
@@ -338,11 +335,29 @@ class SchemaDotOrgUiMappingFormTest extends SchemaDotOrgBrowserTestBase {
     /* ********************************************************************** */
 
     // Create 'Place' node mapping.
-    $this->drupalGet('/admin/structure/types/schemadotorg', ['query' => ['type' => 'Place']]);
+    $this->drupalGet('admin/structure/types/schemadotorg', ['query' => ['type' => 'Place']]);
     $this->submitForm([], 'Save');
-    $assert_session->responseContains('The content type <em class="placeholder">Place</em> has been added.');
-    $assert_session->responseContains('Added <em class="placeholder">Address; Image; Latitude; Longitude; Telephone</em> fields.');
-    $assert_session->responseContains('Created <em class="placeholder">Place</em> mapping.');
+    $assert->statusMessageContains('The content type Place has been added.', 'status');
+    $assert->statusMessageContains('Added Address; Image; Latitude; Longitude; Telephone fields.', 'status');
+    $assert->statusMessageContains('Created Place mapping.', 'status');
+
+    /* ********************************************************************** */
+    // Schema.org mapping delete form.
+    /* ********************************************************************** */
+
+    // Check user mapping delete form, cancel, and redirect URLs.
+    $this->drupalGet('admin/config/schemadotorg/mappings/user.user/delete');
+    $assert->linkByHrefExists('/admin/config/people/accounts/schemadotorg');
+    $this->submitForm([], 'Delete');
+    $assert->responseContains('The Schema.org mapping <em class="placeholder">User</em> has been deleted.');
+    $assert->addressEquals('/admin/config/people/accounts/schemadotorg');
+
+    // Check node mapping delete form, cancel, and redirect URLs.
+    $this->drupalGet('admin/config/schemadotorg/mappings/node.place/delete');
+    $assert->linkByHrefExists('/admin/structure/types/manage/place/schemadotorg');
+    $this->submitForm([], 'Delete');
+    $assert->responseContains('The Schema.org mapping <em class="placeholder">Place</em> has been deleted.');
+    $assert->addressEquals('/admin/structure/types/manage/place/schemadotorg');
   }
 
   /**

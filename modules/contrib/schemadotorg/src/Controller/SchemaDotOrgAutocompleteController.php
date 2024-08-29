@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg\Controller;
 
@@ -29,8 +29,8 @@ class SchemaDotOrgAutocompleteController extends ControllerBase {
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container) {
-    $instance = new static();
+  public static function create(ContainerInterface $container): static {
+    $instance = parent::create($container);
     $instance->database = $container->get('database');
     $instance->schemaTypeManager = $container->get('schemadotorg.schema_type_manager');
     return $instance;

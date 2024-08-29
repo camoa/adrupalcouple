@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg;
 
@@ -32,7 +32,21 @@ interface SchemaDotOrgMappingManagerInterface {
    * @return array
    *   Schema.org mapping default values.
    */
-  public function getMappingDefaults(string $entity_type_id, ?string $bundle, string $schema_type, array $defaults = []): array;
+  public function getMappingDefaults(string $entity_type_id = '', ?string $bundle = NULL, string $schema_type = '', array $defaults = []): array;
+
+  /**
+   * Get Schema.org mapping default values using a type.
+   *
+   * @param string $type
+   *   A mapping definition type which can be `entity_type_id:schema_type`
+   *   or `entity_type_id:bundle:schema_type`.
+   * @param array $defaults
+   *   Mapping defaults for the entity and properties.
+   *
+   * @return array
+   *   Schema.org mapping default values.
+   */
+  public function getMappingDefaultsByType(string $type, array $defaults = []): array;
 
   /**
    * Save a Schema.org mapping and create associate entity type and fields.

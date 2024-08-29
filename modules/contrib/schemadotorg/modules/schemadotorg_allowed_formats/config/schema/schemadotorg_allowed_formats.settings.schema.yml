@@ -1,5 +1,5 @@
 schemadotorg_allowed_formats.settings:
-  type: config_entity
+  type: config_object
   label: 'Schema.org Allowed Formats settings'
   mapping:
     default_hide_help:
@@ -12,14 +12,8 @@ schemadotorg_allowed_formats.settings:
       type: sequence
       label: 'Default allowed formats'
       sequence:
-        type: string
-        label: 'Default allowed format'
-    property_allowed_formats:
-      type: sequence
-      label: 'Schema.org property allowed formats'
-      sequence:
         type: sequence
-        label: 'Schema.org property'
+        label: 'Schema.org type/property'
         sequence:
           type: string
           label: 'Allowed formats'

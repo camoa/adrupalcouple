@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\Tests\schemadotorg_custom_field\Functional;
 
@@ -22,9 +22,7 @@ class SchemaDotOrgCustomFieldBuilderTest extends SchemaDotOrgBrowserTestBase {
   // phpcs:enable
 
   /**
-   * Modules to enable.
-   *
-   * @var array
+   * {@inheritdoc}
    */
   protected static $modules = [
     'node',
@@ -36,7 +34,7 @@ class SchemaDotOrgCustomFieldBuilderTest extends SchemaDotOrgBrowserTestBase {
    * Test Schema.org custom field builder.
    */
   public function testBuilder(): void {
-    $assert_session = $this->assertSession();
+    $assert = $this->assertSession();
 
     $this->createSchemaEntity('node', 'Recipe');
 
@@ -44,21 +42,20 @@ class SchemaDotOrgCustomFieldBuilderTest extends SchemaDotOrgBrowserTestBase {
 
     // Check node edit form include units.
     // @see \Drupal\schemadotorg_custom_field\SchemaDotOrgCustomFieldBuilder::fieldWidgetFormAlter
-    $this->drupalGet('/node/add/recipe');
-    $assert_session->responseContains('<span class="field-suffix"> calories</span>');
-    $assert_session->responseContains('<span class="field-suffix"> grams</span>');
+    $this->drupalGet('node/add/recipe');
+    $assert->responseContains('<span class="field-suffix"> calories</span>');
+    $assert->responseContains('<span class="field-suffix"> grams</span>');
 
     // Create a recipe node and confirm that calories includes units.
     $edit = [
       'title[0][value]' => 'Some recipe',
-      'schema_nutrition[0][calories]' => '10.00',
+      'schema_nutrition[0][calories]' => '10',
     ];
     $this->submitForm($edit, 'Save');
 
-    $assert_session->responseContains('<title>Some recipe | Drupal</title>');
-    // @todo Determine why the custom field is not being rendered.
-    // $assert_session->responseContains('<div class="customfield__label">Calories</div>');
-    // $assert_session->responseContains('<div class="customfield__value">10.00 calories</div>');
+    $assert->responseContains('<title>Some recipe | Drupal</title>');
+    $assert->responseContains('<div class="field__label ">Calories</div>');
+    $assert->responseContains('<div class="field__item">10 calories</div>');
   }
 
 }

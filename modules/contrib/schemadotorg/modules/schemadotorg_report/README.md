@@ -22,7 +22,7 @@ Features
 - List of all Schema.org types.
 - List of all Schema.org properties.
 - Overview of Schema.org to Drupal naming conventions and pattern.
-- Overview of Schema.org descriptiona.
+- Overview of Schema.org descriptions.
 - References to blog posts and articles about Schema.org types.
 
 

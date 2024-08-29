@@ -5,7 +5,7 @@
  * Install, update and uninstall functions for smart_date module.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 use Drupal\Core\Entity\Sql\SqlContentEntityStorage;
 use Drupal\node\NodeStorage;
@@ -63,7 +63,7 @@ function smart_date_update_8202() {
   $manager = \Drupal::entityDefinitionUpdateManager();
   $database = \Drupal::database();
   foreach ($rules as $rule) {
-    // @todo: Need to populate $before here?
+    // @todo Need to populate $before here?
     $instances = $rule->getRuleInstances();
     if (!$instances) {
       continue;
@@ -94,7 +94,7 @@ function smart_date_update_8202() {
 }
 
 /**
- * Set site_time_toggle value on Smart Date Formats to match previous behaviour.
+ * Set site_time_toggle value on Smart Date Formats to match previous behavior.
  */
 function smart_date_update_8301() {
   $format_storage = \Drupal::entityTypeManager()
@@ -127,7 +127,7 @@ function _smart_date_field_columns_add($field_type, array $specs, $update_defini
 
   // Iterate through each instance of FieldStorageConfig returned.
   foreach ($field_storage_configs as $field_storage) {
-    // Extract the proeprties needed for other calls.
+    // Extract the properties needed for other calls.
     $field_name = $field_storage->getName();
     $entity_type_id = $field_storage->getTargetEntityTypeId();
     // Now collect the objects we need.

@@ -45,6 +45,7 @@ class DateToken extends ArgumentDefaultPluginBase implements CacheableDependency
    * {@inheritdoc}
    */
   public function getArgument() {
+    // @phpstan-ignore-next-line
     $token_service = \Drupal::token();
     $value = $token_service->replace($this->options['token']);
     return $value;

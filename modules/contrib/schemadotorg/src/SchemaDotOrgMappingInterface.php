@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg;
 
@@ -99,6 +99,15 @@ interface SchemaDotOrgMappingInterface extends ConfigEntityInterface {
   public function getSchemaType(): ?string;
 
   /**
+   * Gets the main Schema.org type to be mapped and the additional mappings Schema.org types.
+   *
+   * @return array
+   *   The main Schema.org type to be mapped
+   *   and the additional mappings Schema.org types.
+   */
+  public function getAllSchemaTypes(): array;
+
+  /**
    * Sets the Schema.org type to be mapped.
    *
    * @param string $type
@@ -141,10 +150,19 @@ interface SchemaDotOrgMappingInterface extends ConfigEntityInterface {
   public function getNewSchemaProperties(): array;
 
   /**
-   * Gets the mapping set for a Schema.org property.
+   * Gets the Schema.org properties for the main and additional mappings.
+   *
+   * @return array
+   *   The array of Schema.org properties for the main and additional mappings,
+   *   keyed by field name.
+   */
+  public function getAllSchemaProperties(): array;
+
+  /**
+   * Gets the field name mapping for a Schema.org property.
    *
    * @param string $name
-   *   The name of the property.
+   *   The field name of the property.
    *
    * @return string|null
    *   The mapping for the Schema.org property, or NULL if the
@@ -153,7 +171,7 @@ interface SchemaDotOrgMappingInterface extends ConfigEntityInterface {
   public function getSchemaPropertyMapping(string $name): ?string;
 
   /**
-   * Sets the mapping for a Schema.org property.
+   * Sets the field name mapping for a Schema.org property.
    *
    * @param string $name
    *   The field name.
@@ -168,7 +186,7 @@ interface SchemaDotOrgMappingInterface extends ConfigEntityInterface {
    * Removes the Schema.org property mapping.
    *
    * @param string $name
-   *   The name of the Schema.org property mapping.
+   *   The field name of the Schema.org property mapping.
    *
    * @return $this
    */
@@ -195,6 +213,57 @@ interface SchemaDotOrgMappingInterface extends ConfigEntityInterface {
    *   TRUE if a Schema.org property is mapped to a Drupal field.
    */
   public function hasSchemaPropertyMapping(string $property): bool;
+
+  /**
+   * Get additional Schema.org mappings.
+   *
+   * @return array
+   *   An associative array keyed by Schema.org types containing
+   *   additional Schema.org mappings.
+   */
+  public function getAdditionalMappings(): array;
+
+  /**
+   * Get Schema.org properties for all additional Schema.org mappings.
+   *
+   * @return array
+   *   The array of Schema.org properties for all additional
+   *   Schema.org mappings, keyed by field name.
+   */
+  public function getAdditionalMappingsSchemaProperties(): array;
+
+  /**
+   * Set an additional Schema.org mapping.
+   *
+   * @param string $schema_type
+   *   A Schema.org type.
+   * @param array $schema_properties
+   *   The array of Schema.org property mappings, keyed by field name.
+   *
+   * @return $this
+   */
+  public function setAdditionalMapping(string $schema_type, array $schema_properties): static;
+
+  /**
+   * Get an additional Schema.org mapping.
+   *
+   * @param string $schema_type
+   *   The additional Schema.org type.
+   *
+   * @return array|null
+   *   An additional Schema.org mapping.
+   */
+  public function getAdditionalMapping(string $schema_type): ?array;
+
+  /**
+   * Remove an additional Schema.org mapping.
+   *
+   * @param string $schema_type
+   *   The Schema.org type to be removed.
+   *
+   * @return $this
+   */
+  public function removeAdditionalMapping(string $schema_type): static;
 
   /**
    * Get the Schema.org mapping default values.

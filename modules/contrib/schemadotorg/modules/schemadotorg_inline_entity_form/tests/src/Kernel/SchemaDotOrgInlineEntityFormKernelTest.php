@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\Tests\schemadotorg_inline_entity_form\Kernel;
 
@@ -26,9 +26,7 @@ class SchemaDotOrgInlineEntityFormKernelTest extends SchemaDotOrgEntityKernelTes
   // phpcs:enable DrupalPractice.Objects.StrictSchemaDisabled.StrictConfigSchema
 
   /**
-   * Modules to enable.
-   *
-   * @var array
+   * {@inheritdoc}
    */
   protected static $modules = [
     'inline_entity_form',
@@ -64,7 +62,7 @@ class SchemaDotOrgInlineEntityFormKernelTest extends SchemaDotOrgEntityKernelTes
   public function testInlineEntityForm(): void {
     // Use an inline entity form for Person:alumniOf.
     $this->config('schemadotorg_inline_entity_form.settings')
-      ->set('default_properties', ['Person--alumniOf'])
+      ->set('default_schema_properties', ['Person--alumniOf'])
       ->save();
 
     // Create organization to be used as the entity reference target for

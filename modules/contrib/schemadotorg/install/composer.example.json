@@ -17,9 +17,9 @@
   "require": {
     "composer/installers": "^2.0",
     "drupal/admin_toolbar": "^3.4",
-    "drupal/core-composer-scaffold": "^10.1",
-    "drupal/core-project-message": "^10.1",
-    "drupal/core-recommended": "^10.1",
+    "drupal/core-composer-scaffold": "^10.2",
+    "drupal/core-project-message": "^10.2",
+    "drupal/core-recommended": "^10.2",
     "drupal/devel": "^5.1",
     "drupal/schemadotorg": "^1.0@alpha",
     "drush/drush": "^12.1",
@@ -98,7 +98,9 @@
       ]
     },
     "merge-plugin": {
-      "include": ["web/modules/contrib/schemadotorg/composer.libraries.json"],
+      "include": [
+        "web/modules/contrib/schemadotorg/composer.libraries.json"
+      ],
       "merge-extra": true,
       "merge-extra-deep": true
     }

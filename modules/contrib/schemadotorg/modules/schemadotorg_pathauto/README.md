@@ -36,7 +36,7 @@ Configuration
 -------------
 
 - Go to the Schema.org types configuration page.  
-  (/admin/config/schemadotorg/settings/types)
+  (/admin/config/schemadotorg/settings/types#edit-schemadotorg-pathauto)
 - Go to the 'Pathauto settings' details.
 - Enter the Schema.org types that support pathauto.
 - Enter the paths for Schema.org types.

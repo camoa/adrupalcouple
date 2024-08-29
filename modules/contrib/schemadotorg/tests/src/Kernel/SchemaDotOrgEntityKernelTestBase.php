@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\Tests\schemadotorg\Kernel;
 
@@ -8,8 +8,9 @@ use Drupal\file\Entity\File;
 use Drupal\media\MediaTypeInterface;
 use Drupal\schemadotorg\SchemaDotOrgMappingInterface;
 use Drupal\schemadotorg\SchemaDotOrgMappingManagerInterface;
-use Drupal\schemadotorg\SchemaDotOrgMappingStorage;
+use Drupal\schemadotorg\SchemaDotOrgMappingStorageInterface;
 use Drupal\schemadotorg\SchemaDotOrgMappingTypeStorageInterface;
+use Drupal\schemadotorg\Traits\SchemaDotOrgMappingStorageTrait;
 use Drupal\Tests\media\Traits\MediaTypeCreationTrait;
 use Drupal\Tests\TestFileCreationTrait;
 
@@ -21,11 +22,10 @@ use Drupal\Tests\TestFileCreationTrait;
 abstract class SchemaDotOrgEntityKernelTestBase extends SchemaDotOrgKernelTestBase {
   use MediaTypeCreationTrait;
   use TestFileCreationTrait;
+  use SchemaDotOrgMappingStorageTrait;
 
   /**
-   * Modules to enable.
-   *
-   * @var array
+   * {@inheritdoc}
    */
   protected static $modules = [
     'node',
@@ -89,7 +89,7 @@ abstract class SchemaDotOrgEntityKernelTestBase extends SchemaDotOrgKernelTestBa
   /**
    * The Schema.org mapping storage.
    */
-  protected SchemaDotOrgMappingStorage $mappingStorage;
+  protected SchemaDotOrgMappingStorageInterface $mappingStorage;
 
   /**
    * The Schema.org mapping manager.
@@ -108,9 +108,12 @@ abstract class SchemaDotOrgEntityKernelTestBase extends SchemaDotOrgKernelTestBa
     $this->installEntitySchema('user');
 
     // Set commonly user Schema.org mapping services.
-    $this->mappingTypeStorage = $this->container->get('entity_type.manager')->getStorage('schemadotorg_mapping_type');
-    $this->mappingStorage = $this->container->get('entity_type.manager')->getStorage('schemadotorg_mapping');
-    $this->mappingManager = $this->container->get('schemadotorg.mapping_manager');
+    $this->mappingTypeStorage = $this->getMappingTypeStorage();
+    $this->mappingStorage = $this->getMappingStorage();
+
+    /** @var \Drupal\schemadotorg\SchemaDotOrgMappingManagerInterface $mapping_manager */
+    $mapping_manager = $this->container->get('schemadotorg.mapping_manager');
+    $this->mappingManager = $mapping_manager;
   }
 
   /**
@@ -153,23 +156,25 @@ abstract class SchemaDotOrgEntityKernelTestBase extends SchemaDotOrgKernelTestBa
    *   The entity type ID.
    * @param string $schema_type
    *   The Schema.org type.
+   * @param array $defaults
+   *   Mapping defaults for the entity and properties.
    *
    * @return \Drupal\schemadotorg\SchemaDotOrgMappingInterface|null
    *   The entity type/bundle's Schema.org mapping.
    */
-  protected function createSchemaEntity(string $entity_type_id, string $schema_type): ?SchemaDotOrgMappingInterface {
+  protected function createSchemaEntity(string $entity_type_id, string $schema_type, array $defaults = []): ?SchemaDotOrgMappingInterface {
     // Install the entity type dependencies.
     $this->installEntityDependencies($entity_type_id);
 
     // Create the entity type and mappings.
-    $this->mappingManager->createType($entity_type_id, $schema_type);
+    $this->mappingManager->createType($entity_type_id, $schema_type, $defaults);
 
-    // Load the newly created Schema.org mapping.
-    $mappings = $this->mappingStorage->loadByProperties([
-      'target_entity_type_id' => $entity_type_id,
-      'schema_type' => $schema_type,
-    ]);
-    return ($mappings) ? reset($mappings) : NULL;
+    $bundle = $defaults['entity']['id'] ?? NULL;
+
+    // Load the newly created Schema.org mapping by bundle or Schema.org type.
+    return ($bundle)
+      ? $this->mappingStorage->loadByBundle($entity_type_id, $bundle)
+      : $this->mappingStorage->loadBySchemaType($entity_type_id, $schema_type);
   }
 
   /**

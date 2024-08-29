@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg_paragraphs;
 
@@ -32,7 +32,7 @@ class SchemaDotOrgParagraphsManager implements SchemaDotOrgParagraphsManagerInte
     protected ConfigFactoryInterface $configFactory,
     protected ModuleHandlerInterface $moduleHandler,
     protected EntityTypeManagerInterface $entityTypeManager,
-    protected SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager
+    protected SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager,
   ) {}
 
   /**
@@ -65,7 +65,7 @@ class SchemaDotOrgParagraphsManager implements SchemaDotOrgParagraphsManagerInte
     ?string &$widget_id,
     array &$widget_settings,
     ?string &$formatter_id,
-    array &$formatter_settings
+    array &$formatter_settings,
   ): void {
     // Check that the field is an entity_reference_revisions type that is
     // targeting paragraphs.

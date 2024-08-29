@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\Tests\schemadotorg_cer\Kernel;
 
@@ -24,9 +24,7 @@ class SchemaDotOrgCorrespondingReferenceManagerKernelTest extends SchemaDotOrgEn
   // phpcs:enable
 
   /**
-   * Modules to enable.
-   *
-   * @var array
+   * {@inheritdoc}
    */
   protected static $modules = [
     'cer',
@@ -59,7 +57,10 @@ class SchemaDotOrgCorrespondingReferenceManagerKernelTest extends SchemaDotOrgEn
   public function testManager(): void {
     // Check altering Schema.org mapping entity defaults value to always
     // enable correspond node references.
-    $mapping_defaults = $this->mappingManager->getMappingDefaults('node', NULL, 'Person');
+    $mapping_defaults = $this->mappingManager->getMappingDefaults(
+      entity_type_id: 'node',
+      schema_type: 'Person',
+    );
     $this->assertEquals('_add_', $mapping_defaults['properties']['subjectOf']['name']);
     $this->assertEquals('field_ui:entity_reference:node', $mapping_defaults['properties']['subjectOf']['type']);
     $this->assertEquals('_add_', $mapping_defaults['properties']['memberOf']['name']);
@@ -70,7 +71,10 @@ class SchemaDotOrgCorrespondingReferenceManagerKernelTest extends SchemaDotOrgEn
 
     $this->assertCount(0, CorrespondingReference::loadMultiple());
 
-    $mapping_defaults = $this->mappingManager->getMappingDefaults('node', NULL, 'WebPage');
+    $mapping_defaults = $this->mappingManager->getMappingDefaults(
+      entity_type_id: 'node',
+      schema_type: 'WebPage',
+    );
     $this->assertEquals('_add_', $mapping_defaults['properties']['about']['name']);
     $this->assertEquals('field_ui:entity_reference:node', $mapping_defaults['properties']['about']['type']);
     $this->assertEquals('schema_subject_of', $mapping_defaults['properties']['subjectOf']['name']);
@@ -80,7 +84,7 @@ class SchemaDotOrgCorrespondingReferenceManagerKernelTest extends SchemaDotOrgEn
 
     // Check adding corresponding entity references when a mapping is
     // inserted or updated.
-    $this->assertCount(1, CorrespondingReference::loadMultiple());
+    $this->assertCount(2, CorrespondingReference::loadMultiple());
 
     /** @var \Drupal\cer\Entity\CorrespondingReferenceInterface $corresponding_reference */
     $corresponding_reference = CorrespondingReference::load('schema_subject_of');

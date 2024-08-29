@@ -8,8 +8,8 @@
 /**
  * Implements hook_views_data().
  */
-function editoria11y_views_data() {
-  $data = [
+function editoria11y_views_data(): array {
+  return [
     'editoria11y_results' => [
       'table' => [
         'group' => t('Editoria11y'),
@@ -520,6 +520,4 @@ function editoria11y_views_data() {
       ],
     ],
   ];
-
-  return $data;
 }

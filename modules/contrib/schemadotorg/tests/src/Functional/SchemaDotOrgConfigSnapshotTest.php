@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\Tests\schemadotorg\Functional;
 
@@ -12,9 +12,7 @@ namespace Drupal\Tests\schemadotorg\Functional;
 class SchemaDotOrgConfigSnapshotTest extends SchemaDotOrgConfigSnapshotTestBase {
 
   /**
-   * Modules to enable.
-   *
-   * @var array
+   * {@inheritdoc}
    */
   protected static $modules = ['schemadotorg'];
 

@@ -1,10 +1,11 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg_report\Controller;
 
 use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\schemadotorg\Utility\SchemaDotOrgStringHelper;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -21,7 +22,7 @@ class SchemaDotOrgReportDescriptionsController extends SchemaDotOrgReportControl
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container) {
+  public static function create(ContainerInterface $container): static {
     $instance = parent::create($container);
     $instance->routeMatch = $container->get('current_route_match');
     return $instance;
@@ -47,18 +48,22 @@ class SchemaDotOrgReportDescriptionsController extends SchemaDotOrgReportControl
     $header = [];
     $header['label'] = [
       'data' => $this->t('Label'),
-      'width' => '20%',
+      'width' => '2 0%',
     ];
     $header['comment'] = [
       'data' => $this->t('Default description'),
-      'width' => '40%',
+      'width' => '35%',
     ];
     if ($descriptions_installed) {
       $header['custom_description'] = [
         'data' => $this->t('Custom description'),
-        'width' => '40%',
+        'width' => '35%',
       ];
     }
+    $header['links'] = [
+      'data' => $this->t('Has links'),
+      'width' => '10%',
+    ];
 
     // Base query.
     $base_query = $this->database->select('schemadotorg_' . $table, $table);
@@ -90,6 +95,7 @@ class SchemaDotOrgReportDescriptionsController extends SchemaDotOrgReportControl
       $label = $record['label'];
       $comment = $default_types[$label]['description'] ?? $record['comment'];
       $custom_description = $custom_descriptions[$label] ?? '';
+      $has_links = str_contains(SchemaDotOrgStringHelper::getFirstSentence($custom_description ?: $comment), '<a');
 
       $row = [];
       $row['label'] = $this->buildTableCell('label', $label);
@@ -101,8 +107,12 @@ class SchemaDotOrgReportDescriptionsController extends SchemaDotOrgReportControl
           ],
         ];
       }
+      $row['has_links'] = $has_links ? $this->t('Yes') : $this->t('No');
 
       if ($custom_description) {
+        $rows[] = ['data' => $row, 'class' => ['color-success']];
+      }
+      elseif ($has_links) {
         $rows[] = ['data' => $row, 'class' => ['color-warning']];
       }
       else {
@@ -123,6 +133,7 @@ class SchemaDotOrgReportDescriptionsController extends SchemaDotOrgReportControl
       '#rows' => $rows,
       '#sticky' => TRUE,
       '#empty' => $this->t('No @type found.', $t_args),
+      '#attributes' => ['class' => ['schemadotorg-report-table']],
     ];
     $build['pager'] = [
       '#type' => 'pager',

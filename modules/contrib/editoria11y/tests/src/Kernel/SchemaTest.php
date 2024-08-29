@@ -7,11 +7,15 @@ use Drupal\KernelTests\KernelTestBase;
 /**
  * Tests with node access enabled.
  *
+ * @noinspection PhpUndefinedMethodInspection
+ *
  * @group content_moderation
  */
 class SchemaTest extends KernelTestBase {
 
   /**
+   * Editoria11y schema test.
+   *
    * {@inheritdoc}
    */
   protected static $modules = [
@@ -19,6 +23,8 @@ class SchemaTest extends KernelTestBase {
   ];
 
   /**
+   * Set up module.
+   *
    * {@inheritdoc}
    */
   protected function setUp(): void {

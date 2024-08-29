@@ -1,7 +1,21 @@
 schemadotorg.settings:
-  type: config_entity
+  type: config_object
   label: 'Schema.org settings'
   mapping:
+    requirements:
+      type: mapping
+      label: Requirements
+      mapping:
+        recommended_modules:
+          type: boolean
+          label: 'Check for recommended modules'
+    schema_data:
+      type: mapping
+      label: 'Schema.org data'
+      mapping:
+        file:
+          type: string
+          label: 'Schema.org data file or URL'
     schema_types:
       type: mapping
       label: 'Schema.org types'
@@ -102,6 +116,9 @@ schemadotorg.settings:
               max_length:
                 type: integer
                 label: 'Maximum length'
+              default_value:
+                type: ignore
+                label: 'Default value'
         default_field_formatter_settings:
           type: sequence
           label: 'Default field formatter settings'

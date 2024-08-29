@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg;
 
@@ -13,13 +13,45 @@ use Drupal\schemadotorg\Utility\SchemaDotOrgStringHelper;
  * Schema.org schema type manager.
  *
  * The Schema.org schema type manager provides an API for understanding and
- * access Schema.org types, properties, and relatioships in Drupal.
+ * access Schema.org types, properties, and relationships in Drupal.
  *
  * This service queries and collects data from 'schemadotorg_types' and
  * 'schemadotorg_properties' database tables.
  */
 class SchemaDotOrgSchemaTypeManager implements SchemaDotOrgSchemaTypeManagerInterface {
   use StringTranslationTrait;
+
+  /**
+   * Pattern used to match settings.
+   *
+   * @see \Drupal\schemadotorg\SchemaDotOrgSchemaTypeManager::getSetting
+   */
+  protected array $settingPatterns = [
+    ['entity_type_id', 'bundle', 'field_name'],
+    ['entity_type_id', 'bundle'],
+    ['entity_type_id', 'field_name'],
+
+    ['entity_type_id', 'schema_type', 'schema_property'],
+    ['entity_type_id', 'schema_type', 'field_name'],
+    ['entity_type_id', 'bundle', 'schema_type', 'schema_property'],
+    ['entity_type_id', 'bundle', 'schema_type'],
+    ['entity_type_id', 'bundle', 'schema_property'],
+    ['entity_type_id', 'schema_property'],
+    ['entity_type_id', 'schema_type'],
+
+    ['bundle', 'field_name'],
+    ['bundle', 'schema_type'],
+    ['bundle', 'schema_property'],
+
+    ['schema_type', 'field_name'],
+    ['schema_type', 'schema_property'],
+
+    ['schema_property'],
+    ['schema_type'],
+    ['field_name'],
+    ['bundle'],
+    ['entity_type_id'],
+  ];
 
   /**
    * Cache of Schema.org tree data.
@@ -48,7 +80,7 @@ class SchemaDotOrgSchemaTypeManager implements SchemaDotOrgSchemaTypeManagerInte
    */
   public function __construct(
     protected Connection $database,
-    protected SchemaDotOrgNamesInterface $schemaNames
+    protected SchemaDotOrgNamesInterface $schemaNames,
   ) {}
 
   /**
@@ -313,7 +345,7 @@ class SchemaDotOrgSchemaTypeManager implements SchemaDotOrgSchemaTypeManagerInte
   /**
    * {@inheritdoc}
    */
-  public function getPropertyUnit(string $property, $value = 0): string|TranslatableMarkup|NULL {
+  public function getPropertyUnit(string $property, int|string|null $value = 0): string|TranslatableMarkup|NULL {
     if ($value === NULL) {
       return NULL;
     }
@@ -331,19 +363,12 @@ class SchemaDotOrgSchemaTypeManager implements SchemaDotOrgSchemaTypeManagerInte
     preg_match('/\b(grams|milligrams|calories)\b/', $property_definition['comment'], $match);
     $unit = $match[1] ?? NULL;
 
-    switch ($unit) {
-      case 'grams':
-        return ($value == '1' ? $this->t('gram') : $this->t('grams'));
-
-      case 'milligrams':
-        return ($value == '1' ? $this->t('milligram') : $this->t('milligrams'));
-
-      case 'calories':
-        return ($value == '1' ? $this->t('calorie') : $this->t('calories'));
-
-      default:
-        return NULL;
-    }
+    return match ($unit) {
+      'grams' => ($value == '1') ? $this->t('gram') : $this->t('grams'),
+      'milligrams' => ($value == '1') ? $this->t('milligram') : $this->t('milligrams'),
+      'calories' => ($value == '1') ? $this->t('calorie') : $this->t('calories'),
+      default => NULL,
+    };
   }
 
   /**
@@ -507,18 +532,23 @@ class SchemaDotOrgSchemaTypeManager implements SchemaDotOrgSchemaTypeManagerInte
    * {@inheritdoc}
    */
   public function getDataTypes(): array {
-    $labels = $this->database->select('schemadotorg_types', 'types')
-      ->fields('types', ['label'])
-      ->condition('sub_type_of', '')
-      ->condition('label', 'Thing', '<>')
-      ->orderBy('label')
-      ->execute()
-      ->fetchCol();
-    $data_types = array_combine($labels, $labels);
-    foreach ($data_types as $data_type) {
-      $data_types += $this->getTypeChildren($data_type);
-    }
-    return $data_types;
+    // Data types are hard coded because they never change.
+    return [
+      'Boolean' => 'Boolean',
+      'Date' => 'Date',
+      'DateTime' => 'DateTime',
+      'False' => 'False',
+      'Number' => 'Number',
+      'Text' => 'Text',
+      'Time' => 'Time',
+      'True' => 'True',
+      'Float' => 'Float',
+      'Integer' => 'Integer',
+      'CssSelectorType' => 'CssSelectorType',
+      'PronounceableText' => 'PronounceableText',
+      'URL' => 'URL',
+      'XPathType' => 'XPathType',
+    ];
   }
 
   /**
@@ -710,7 +740,80 @@ class SchemaDotOrgSchemaTypeManager implements SchemaDotOrgSchemaTypeManagerInte
   public function hasSubtypes(string $type): bool {
     $type_definition = $this->getType($type);
     return (boolean) $type_definition['sub_types'];
+  }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function getSetting(array $settings, SchemaDotOrgMappingInterface|array $parts, bool $multiple = FALSE): mixed {
+    // Get the parts from a Schema.org mapping.
+    if ($parts instanceof SchemaDotOrgMappingInterface) {
+      $parts = [
+        'entity_type_id' => $parts->getTargetEntityTypeId(),
+        'bundle' => $parts->getTargetBundle(),
+        'schema_type' => $parts->getSchemaType(),
+      ];
+    }
+
+    // Ignore empty parts.
+    $parts = array_filter($parts);
+
+    // Set patterns.
+    // @todo Determine if patterns should be customizable.
+    $patterns = $this->settingPatterns;
+
+    // Handle settings that are a simple indexed array.
+    if (array_is_list($settings)) {
+      $settings = array_flip($settings);
+      $settings = array_fill_keys(array_keys($settings), TRUE);
+    }
+
+    // Filter the patterns to only applicable patterns by part name.
+    $part_names = array_flip($parts);
+    foreach ($patterns as $index => $pattern) {
+      // Remove any pattern that does not include all the part names.
+      if (array_diff($pattern, $part_names)) {
+        unset($patterns[$index]);
+      }
+    }
+
+    // Get all the possible searches.
+    if (isset($parts['schema_type'])) {
+      // For Schema.org type, include the parent types in the searches.
+      $parent_types = $this->getParentTypes($parts['schema_type']);
+      $parent_types = array_reverse($parent_types);
+      $searches = [];
+      foreach ($parent_types as $parent_type) {
+        $searches[] = ['schema_type' => $parent_type] + $parts;
+      }
+    }
+    else {
+      $searches = [$parts];
+    }
+
+    // Loop through all the possible searches.
+    $multiple_settings = [];
+    foreach ($searches as $search) {
+      foreach ($patterns as $pattern) {
+        // Populate the search patterns.
+        // There might be a cleaner or faster way to do this.
+        $search_pattern = $pattern;
+        foreach ($search_pattern as $index => $pattern_part) {
+          $search_pattern[$index] = $search[$pattern_part];
+        }
+
+        // Check if the settings name/key exists and return it.
+        $settings_name = implode('--', $search_pattern);
+        if (array_key_exists($settings_name, $settings)) {
+          if (!$multiple) {
+            return $settings[$settings_name];
+          }
+          $multiple_settings[$settings_name] = $settings[$settings_name];
+        }
+      }
+    }
+
+    return $multiple_settings ?: NULL;
   }
 
   /**

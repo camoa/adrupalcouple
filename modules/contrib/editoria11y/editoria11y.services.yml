@@ -10,10 +10,3 @@ services:
   editoria11y.dismissals_on_page:
     class: Drupal\editoria11y\DismissalsOnPage
     arguments: ['@database']
-
-  editoria11y.csp_subscriber:
-    class: Drupal\editoria11y\EventSubscriber\CspSubscriber
-    arguments:
-      - '@library.dependency_resolver'
-    tags:
-      - { name: 'event_subscriber' }

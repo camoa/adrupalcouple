@@ -8,7 +8,7 @@ id: node.recipe.schema_recipe_instructions
 field_name: schema_recipe_instructions
 entity_type: node
 bundle: recipe
-label: 'Recipe instructions'
+label: Instructions
 description: 'A step in making the recipe, in the form of a single item (document, video, etc.) or an ordered list with HowToStep and/or HowToSection items.'
 required: false
 translatable: true

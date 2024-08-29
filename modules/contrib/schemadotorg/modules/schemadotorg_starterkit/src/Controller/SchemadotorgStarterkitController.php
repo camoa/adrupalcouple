@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg_starterkit\Controller;
 
@@ -8,6 +8,8 @@ use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Extension\ModuleExtensionList;
 use Drupal\Core\Link;
 use Drupal\Core\Url;
+use Drupal\schemadotorg\SchemaDotOrgMappingManagerInterface;
+use Drupal\schemadotorg\SchemaDotOrgNamesInterface;
 use Drupal\schemadotorg\SchemaDotOrgSchemaTypeBuilderInterface;
 use Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface;
 use Drupal\schemadotorg\Traits\SchemaDotOrgBuildTrait;
@@ -22,6 +24,16 @@ class SchemadotorgStarterkitController extends ControllerBase {
   use SchemaDotOrgBuildTrait;
 
   /**
+   * The module list service.
+   */
+  protected ModuleExtensionList $moduleList;
+
+  /**
+   * The Schema.org names manager.
+   */
+  protected SchemaDotOrgNamesInterface $schemaNames;
+
+  /**
    * The Schema.org schema type manager.
    */
   protected SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager;
@@ -32,9 +44,9 @@ class SchemadotorgStarterkitController extends ControllerBase {
   protected SchemaDotOrgSchemaTypeBuilderInterface $schemaTypeBuilder;
 
   /**
-   * The module list service.
+   * The Schema.org mapping manager service.
    */
-  protected ModuleExtensionList $moduleList;
+  protected SchemaDotOrgMappingManagerInterface $schemaMappingManager;
 
   /**
    * The Schema.org starter kit manager service.
@@ -44,11 +56,13 @@ class SchemadotorgStarterkitController extends ControllerBase {
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container) {
-    $instance = new static();
+  public static function create(ContainerInterface $container): static {
+    $instance = parent::create($container);
+    $instance->moduleList = $container->get('extension.list.module');
+    $instance->schemaNames = $container->get('schemadotorg.names');
     $instance->schemaTypeManager = $container->get('schemadotorg.schema_type_manager');
     $instance->schemaTypeBuilder = $container->get('schemadotorg.schema_type_builder');
-    $instance->moduleList = $container->get('extension.list.module');
+    $instance->schemaMappingManager = $container->get('schemadotorg.mapping_manager');
     $instance->schemaStarterkitManager = $container->get('schemadotorg_starterkit.manager');
     return $instance;
   }
@@ -65,9 +79,6 @@ class SchemadotorgStarterkitController extends ControllerBase {
       'dependencies' => ['data' => $this->t('Dependencies'), 'width' => '30%'],
       'operations' => ['data' => $this->t('Operations'), 'width' => '10%'],
     ];
-
-    /** @var \Drupal\schemadotorg\SchemaDotOrgMappingStorageInterface $mapping_storage */
-    $mapping_storage = $this->entityTypeManager()->getStorage('schemadotorg_mapping');
 
     $module_data = $this->moduleList->getList();
 
@@ -90,8 +101,7 @@ class SchemadotorgStarterkitController extends ControllerBase {
       $types = [];
       if (!empty($settings['types'])) {
         foreach ($settings['types'] as $type => $type_settings) {
-          [$entity_type_id, $schema_type] = explode(':', $type);
-          $mapping = $mapping_storage->loadBySchemaType($entity_type_id, $schema_type);
+          $mapping = $this->getMappingStorage()->loadByType($type);
           if ($mapping) {
             if ($mapping->getTargetEntityBundleEntity()) {
               $types[$type] = $mapping->getTargetEntityBundleEntity()
@@ -114,7 +124,9 @@ class SchemadotorgStarterkitController extends ControllerBase {
       $dependencies = [];
       foreach ($settings['dependencies'] as $dependency) {
         if (isset($module_data[$dependency])) {
-          $dependencies[] = $module_data[$dependency]->info['name'];
+          $dependency_name = $module_data[$dependency]->info['name'];
+          $dependency_name = str_replace('Schema.org Blueprints Starter Kit: ', '', $dependency_name);
+          $dependencies[] = $dependency_name;
         }
         else {
           $is_installable = FALSE;
@@ -168,8 +180,10 @@ class SchemadotorgStarterkitController extends ControllerBase {
     return [
       'table' => [
         '#type' => 'table',
+        '#sticky' => TRUE,
         '#header' => $header,
         '#rows' => $rows,
+        '#empty' => $this->t('No starter kits found.'),
       ],
     ];
   }
@@ -191,6 +205,7 @@ class SchemadotorgStarterkitController extends ControllerBase {
       '#prefix' => '<p>',
       '#suffix' => '</p>',
     ];
+    $build['dependencies'] = $this->buildDependencies($name);
     $build['summary'] = $this->buildSummary($name);
     $build['details'] = $this->buildDetails($name, 'view');
     return $build;
@@ -205,19 +220,63 @@ class SchemadotorgStarterkitController extends ControllerBase {
    * @return array
    *   A renderable array containing a starter kit's summary.
    */
-  public function buildSummary(string $name): array {
-    /** @var \Drupal\schemadotorg\SchemaDotOrgMappingStorageInterface $mapping_storage */
-    $mapping_storage = $this->entityTypeManager()
-      ->getStorage('schemadotorg_mapping');
+  public function buildDependencies(string $name): array {
+    $settings = $this->schemaStarterkitManager->getStarterkitSettings($name);
+    $module_info = $this->moduleList->getAllAvailableInfo();
 
+    $rows = [];
+    foreach ($settings['dependencies'] as $dependency) {
+      $module_info = $module_info[$dependency];
+      $rows[] = [
+        'name' => [
+          'data' => [
+            'name' => [
+              '#markup' => $module_info['name'],
+              '#prefix' => '<strong>',
+              '#suffix' => '</strong><br/>',
+            ],
+            'description' => ['#markup' => $module_info['description']],
+          ],
+        ],
+        'installed' => $this->moduleHandler()->moduleExists($dependency)
+          ? $this->t('Yes')
+          : $this->t('No'),
+      ];
+    }
+
+    $header = [
+      'name' => ['data' => $this->t('Dependency name / Description'), 'width' => '80%'],
+      'installed' => ['data' => $this->t('Installed'), 'width' => '20%'],
+    ];
+
+    return $rows ? [
+      '#type' => 'table',
+      '#header' => $header,
+      '#rows' => $rows,
+    ] : [];
+  }
+
+  /**
+   * Build a starter kit's summary.
+   *
+   * @param string $name
+   *   The starter kit's name.
+   *
+   * @return array
+   *   A renderable array containing a starter kit's summary.
+   */
+  public function buildSummary(string $name): array {
+    $rows = [];
     $settings = $this->schemaStarterkitManager->getStarterkitSettings($name);
     foreach ($settings['types'] as $type => $mapping_defaults) {
-      [$entity_type_id, $schema_type] = explode(':', $type);
-
-      $mapping = $mapping_storage->loadBySchemaType($entity_type_id, $schema_type);
+      [$entity_type_id, , $schema_type] = $this->getMappingStorage()->parseType($type);
+      $mapping = $this->getMappingStorage()->loadByType($type);
 
       $row = [];
       $row['schema_type'] = $schema_type;
+      if (!empty($mapping_defaults['additional_mappings'])) {
+        $row['schema_type'] .= ' (' . implode(', ', array_keys($mapping_defaults['additional_mappings'])) . ')';
+      }
       $row['entity_type'] = [
         'data' => [
           'label' => [
@@ -249,16 +308,16 @@ class SchemadotorgStarterkitController extends ControllerBase {
     }
 
     $header = [
-      'schema_type' => ['data' => $this->t('Schema.org type'), 'width' => '15%'],
+      'schema_type' => ['data' => $this->t('Schema.org type(s)'), 'width' => '15%'],
       'entity_type' => ['data' => $this->t('Entity label (type) / description'), 'width' => '70%'],
       'status' => ['data' => $this->t('Status'), 'width' => '15%'],
     ];
 
-    return [
+    return $rows ? [
       '#type' => 'table',
       '#header' => $header,
       '#rows' => $rows,
-    ];
+    ] : [];
   }
 
   /**
@@ -273,16 +332,10 @@ class SchemadotorgStarterkitController extends ControllerBase {
    *   A renderable array containing a starter kit's details.
    */
   public function buildDetails(string $name, string $operation = 'view'): array {
-    /** @var \Drupal\schemadotorg\SchemaDotOrgMappingStorageInterface $mapping_storage */
-    $mapping_storage = $this->entityTypeManager()
-      ->getStorage('schemadotorg_mapping');
-
     $build = [];
     $settings = $this->schemaStarterkitManager->getStarterkitSettings($name);
     foreach ($settings['types'] as $type => $mapping_defaults) {
-      [$entity_type_id, $schema_type] = explode(':', $type);
-
-      $mapping = $mapping_storage->loadBySchemaType($entity_type_id, $schema_type);
+      $mapping = $this->getMappingStorage()->loadByType($type);
 
       $details = $this->buildSchemaType($type, $mapping_defaults);
       $details['#title'] .= ' - ' . ($mapping ? $this->t('Exists') : '<em>' . $this->t('Missing') . '</em>');

@@ -1,8 +1,8 @@
 schemadotorg_custom_field.settings:
-  type: config_entity
+  type: config_object
   label: 'Schema.org Custom field settings'
   mapping:
-    default_properties:
+    default_schema_properties:
       type: sequence
       label: 'Schema.org default properties'
       sequence:

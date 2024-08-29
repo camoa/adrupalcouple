@@ -1,5 +1,5 @@
 schemadotorg_type_tray.settings:
-  type: config_entity
+  type: config_object
   label: 'Schema.org Type tray settings'
   mapping:
     schema_types:

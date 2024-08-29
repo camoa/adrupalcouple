@@ -5,7 +5,7 @@
  * Hooks to define and alter mappings, entity types and fields.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 // phpcs:disable DrupalPractice.CodeAnalysis.VariableAnalysis.UnusedVariable
 
@@ -104,33 +104,9 @@ function hook_schemadotorg_property_field_alter(
   ?string &$widget_id,
   array &$widget_settings,
   ?string &$formatter_id,
-  array &$formatter_settings
+  array &$formatter_settings,
 ): void {
-  // Remove the description from the field before it is created.
-  // @see schemadotorg_descriptions_schemadotorg_property_field_alter()
-  /** @var \Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface $schema_type_manager */
-  $schema_type_manager = \Drupal::service('schemadotorg.schema_type_manager');
-  /** @var \Drupal\schemadotorg\SchemaDotOrgSchemaTypeBuilderInterface $schema_type_builder */
-  $schema_type_builder = \Drupal::service('schemadotorg.schema_type_builder');
-
-  // Check Schema.org property and subtype for description.
-  $property_definition = $schema_type_manager->getProperty($schema_property);
-  if ($property_definition) {
-    $description = $schema_type_builder->formatComment($property_definition['comment'], ['base_path' => 'https://schema.org/']);
-  }
-  elseif ($schema_property === 'subtype') {
-    $description = \Drupal::configFactory()
-      ->get('schemadotorg_subtype.settings')
-      ->get('default_field_description');
-  }
-  else {
-    $description = NULL;
-  }
-
-  // Unset the field's description if it has not been altered.
-  if ($field_values['description'] === $description) {
-    $field_values['description'] = '';
-  }
+  // @todo Provide example code.
 }
 
 /**
@@ -146,56 +122,29 @@ function hook_schemadotorg_property_field_alter(
  *   The Schema.org type.
  */
 function hook_schemadotorg_mapping_defaults_alter(array &$defaults, string $entity_type_id, ?string $bundle, string $schema_type): void {
-  // Add custom subtype property to a Schema.org mapping defaults.
-  // @see schemadotorg_subtype_schemadotorg_mapping_defaults_alter()
-  /** @var \Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface $schema_type_manager */
-  $schema_type_manager = \Drupal::service('schemadotorg.schema_type_manager');
-  $allowed_values = $schema_type_manager->getAllTypeChildrenAsOptions($schema_type);
-  if (empty($allowed_values)) {
-    return;
-  }
+  // @todo Provide example code.
+}
 
-  // Add subtype as a custom Schema.org property.
-  $defaults['properties']['subtype'] = [];
-
-  // Handle existing subtype property mapping.
-  /** @var \Drupal\schemadotorg\SchemaDotOrgMappingInterface $mapping */
-  $mapping = \Drupal::entityTypeManager()->getStorage('schemadotorg_mapping')->load("$entity_type_id.$bundle");
-  if ($mapping && $mapping->hasSchemaPropertyMapping('subtype')) {
-    $defaults['properties']['subtype']['name'] = $mapping->getSchemaPropertyFieldName('subtype');
-    return;
-  }
-
-  $config = \Drupal::configFactory()->get('schemadotorg_subtype.settings');
-  $label = $config->get('default_field_label');
-  $description = $config->get('default_field_description');
-  $default_subtypes = $config->get('default_subtypes');
-
-  // Get the field name which can either be _add_ or empty.
-  // This value is displayed via a checkbox.
-  $name = (!$mapping && in_array($schema_type, $default_subtypes))
-    ? \Drupal\schemadotorg\SchemaDotOrgEntityFieldManagerInterface::ADD_FIELD
-    : '';
-
-  // Get machine name with subtype suffix.
-  /** @var \Drupal\schemadotorg\SchemaDotOrgNamesInterface $schema_names */
-  $schema_names = \Drupal::service('schemadotorg.names');
-  $machine_name_suffix = $config->get('default_field_suffix');
-  $machine_name_max_length = $schema_names->getNameMaxLength('properties') - strlen($machine_name_suffix);
-  $options = [
-    'maxlength' => $machine_name_max_length,
-    'truncate' => TRUE,
-  ];
-  $machine_name = $bundle ?: $schema_names->camelCaseToDrupalName($schema_type, $options);
-  $machine_name .= $machine_name_suffix;
-
-  // Sets the Schema.org mapping defaults for creating a subtype property.
-  $defaults['properties']['subtype']['name'] = $name;
-  $defaults['properties']['subtype']['type'] = 'list_string';
-  $defaults['properties']['subtype']['label'] = $label;
-  $defaults['properties']['subtype']['machine_name'] = $machine_name;
-  $defaults['properties']['subtype']['description'] = $description;
-  $defaults['properties']['subtype']['allowed_values'] = $allowed_values;
+/**
+ * Respond to inserts/updates to an entity of a particular type.
+ *
+ * This hook runs after an entity insert or update.
+ * Get the original entity object from $entity->original.
+ *
+ * The below hook is used to add additional Schema.org mappings after a mapping
+ * has been inserted or updated.
+ *
+ * @param \Drupal\Core\Entity\EntityInterface $entity
+ *   The entity object.
+ *
+ * @ingroup entity_crud
+ * @see schemadotorg_additional_mappings_schemadotorg_mapping_postsave()
+ *
+ * @see hook_entity_postsave()
+ * @see https://www.drupal.org/project/drupal/issues/2221347
+ */
+function hook_ENTITY_TYPE_postsave(\Drupal\Core\Entity\EntityInterface $entity): void {
+  // @todo Provide some example code.
 }
 
 /**

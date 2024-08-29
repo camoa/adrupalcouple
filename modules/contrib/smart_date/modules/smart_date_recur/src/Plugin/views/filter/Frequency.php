@@ -21,6 +21,7 @@ class Frequency extends InOperator {
     $this->valueTitle = $this->t('Frequency');
     // @todo Switch to getFrequencyLabelsOrNull to allow filtering on
     // non-recurring events. Currently returns no results if selected.
+    // @phpstan-ignore-next-line
     $this->valueOptions = \Drupal::service('smart_date_recur.manager')->getFrequencyLabels();
   }
 

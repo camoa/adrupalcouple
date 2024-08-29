@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg_role;
 
@@ -48,7 +48,7 @@ class SchemaDotOrgRoleFieldManager implements SchemaDotOrgRoleFieldManagerInterf
     protected SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager,
     protected SchemaDotOrgEntityTypeBuilderInterface $entityTypeBuilder,
     protected SchemaDotOrgMappingManagerInterface $mappingManager,
-    protected ?SchemaDotOrgFieldGroupEntityDisplayBuilderInterface $fieldGroupEntityDisplayBuilder
+    protected ?SchemaDotOrgFieldGroupEntityDisplayBuilderInterface $fieldGroupEntityDisplayBuilder,
   ) {}
 
   /**
@@ -56,7 +56,7 @@ class SchemaDotOrgRoleFieldManager implements SchemaDotOrgRoleFieldManagerInterf
    */
   public function mappingDefaultsAlter(array &$defaults, string $entity_type_id, ?string $bundle, string $schema_type): void {
     // Do not create properties that are using roles field.
-    $field_definitions = $this->getSchemaTypeFieldDefinitions($schema_type);
+    $field_definitions = $this->getFieldDefinitions($entity_type_id, $bundle, $schema_type);
     foreach ($field_definitions as $field_definition) {
       $schema_property = $field_definition['schema_property'];
       if (isset($defaults['properties'][$schema_property])
@@ -72,7 +72,7 @@ class SchemaDotOrgRoleFieldManager implements SchemaDotOrgRoleFieldManagerInterf
   public function mappingFormAlter(array &$form, FormStateInterface $form_state): void {
     /** @var \Drupal\schemadotorg\Form\SchemaDotOrgMappingForm $form_object */
     $form_object = $form_state->getFormObject();
-    /** @var \Drupal\schemadotorg\SchemaDotOrgMappingInterface $mapping */
+    /** @var \Drupal\schemadotorg\SchemaDotOrgMappingInterface|null $mapping */
     $mapping = $form_object->getEntity();
 
     // Exit if no Schema.org type has been selected.
@@ -80,7 +80,7 @@ class SchemaDotOrgRoleFieldManager implements SchemaDotOrgRoleFieldManagerInterf
       return;
     }
 
-    $field_definitions = $this->getMappingFieldDefinitions($mapping);
+    $field_definitions = $this->getFieldDefinitionsFromMapping($mapping);
     if (!$field_definitions) {
       return;
     }
@@ -142,7 +142,7 @@ class SchemaDotOrgRoleFieldManager implements SchemaDotOrgRoleFieldManagerInterf
     $bundle = $mapping->getTargetBundle();
 
     // Build the field definition.
-    $role_field_definitions = $this->getSchemaTypeFieldDefinitions($schema_type);
+    $role_field_definitions = $this->getFieldDefinitionsFromMapping($mapping);
     $properties = [];
     foreach ($role_field_definitions as $role_field_definition) {
       $field_name = $role_field_definition['field_name'];
@@ -171,38 +171,46 @@ class SchemaDotOrgRoleFieldManager implements SchemaDotOrgRoleFieldManagerInterf
   /**
    * {@inheritdoc}
    */
-  public function getSchemaTypeFieldDefinitions(string $schema_type): array {
+  public function getFieldDefinitions(string $entity_type_id = '', ?string $bundle = NULL, string $schema_type = '',): array {
     $config = $this->configFactory->get('schemadotorg_role.settings');
 
-    $field_definitions = [];
+    $parts = [
+      'entity_type_id' => $entity_type_id,
+      'bundle' => $bundle,
+      'schema_type' => $schema_type,
+    ];
+    $role_field_instances = $this->schemaTypeManager->getSetting($config->get('field_instances'), $parts, TRUE);
+    if (!$role_field_instances) {
+      return [];
+    }
 
-    $role_schema_types = $config->get('schema_types');
     $role_field_definitions = $config->get('field_definitions');
-    foreach ($role_schema_types as $role_schema_id => $role_field_names) {
-      [$role_schema_type, $role_schema_property] = explode('--', $role_schema_id);
-      if (!$this->schemaTypeManager->isSubTypeOf($schema_type, $role_schema_type)) {
-        continue;
-      }
-
-      foreach ($role_field_names as $role_field_name) {
-        if (isset($role_field_definitions[$role_field_name])
-          && !isset($field_definitions[$role_field_name])) {
-          $field_definitions[$role_field_name] = [
+    $field_definitions = [];
+    foreach ($role_field_instances as $role_field_instance) {
+      foreach ($role_field_instance as $schema_property => $field_names) {
+        foreach ($field_names as $field_name) {
+          $role_field_definition = $role_field_definitions[$field_name];
+          $role_field_definition['role_name'] = $role_field_definition['role_name']
+            ?? $role_field_definition['label'];
+          $field_definitions[$field_name] = [
             'schema_type' => $schema_type,
-            'schema_property' => $role_schema_property,
-          ] + $role_field_definitions[$role_field_name];
+            'schema_property' => $schema_property,
+          ] + $role_field_definition;
         }
       }
     }
-
     return $field_definitions;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getMappingFieldDefinitions(SchemaDotOrgMappingInterface $mapping): array {
-    return $this->getSchemaTypeFieldDefinitions($mapping->getSchemaType());
+  public function getFieldDefinitionsFromMapping(SchemaDotOrgMappingInterface $mapping): array {
+    return $this->getFieldDefinitions(
+      $mapping->getTargetEntityTypeId(),
+      $mapping->getTargetBundle(),
+      $mapping->getSchemaType()
+    );
   }
 
 }

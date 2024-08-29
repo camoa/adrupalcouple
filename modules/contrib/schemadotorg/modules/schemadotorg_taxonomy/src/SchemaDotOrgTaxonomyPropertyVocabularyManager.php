@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg_taxonomy;
 
@@ -46,7 +46,7 @@ class SchemaDotOrgTaxonomyPropertyVocabularyManager implements SchemaDotOrgTaxon
     protected ConfigFactoryInterface $configFactory,
     protected EntityTypeManagerInterface $entityTypeManager,
     protected SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager,
-    protected ?ContentTranslationManagerInterface $contentTranslationManager = NULL
+    protected ?ContentTranslationManagerInterface $contentTranslationManager = NULL,
   ) {}
 
   /**
@@ -70,7 +70,7 @@ class SchemaDotOrgTaxonomyPropertyVocabularyManager implements SchemaDotOrgTaxon
     ?string &$widget_id,
     array &$widget_settings,
     ?string &$formatter_id,
-    array &$formatter_settings
+    array &$formatter_settings,
   ): void {
     // Make sure the field type is set to 'entity_reference' with the target type
     // set to 'taxonomy_term'.
@@ -140,7 +140,7 @@ class SchemaDotOrgTaxonomyPropertyVocabularyManager implements SchemaDotOrgTaxon
    */
   protected function getPropertyVocabularySettings(string $property): ?array {
     return $this->configFactory->get('schemadotorg_taxonomy.settings')
-      ->get("property_vocabularies.$property");
+      ->get("schema_property_vocabularies.$property");
   }
 
 }
