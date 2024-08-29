@@ -12,7 +12,7 @@ field.field_settings.custom:
       type: sequence
       label: 'Field settings'
       sequence:
-        type: custom_field.widget.[%widget]
+        type: custom_field.widget.[%key]
         label: 'Custom field widget'
 
 field.storage_settings.custom:
@@ -63,7 +63,7 @@ custom_field_formatter_base:
       type: sequence
       label: 'Field settings'
       sequence:
-        type: custom_field.formatter.[%formatter]
+        type: custom_field.formatter.[%key]
 
 custom_field.formatter.*:
   type: mapping
@@ -88,9 +88,25 @@ custom_field.formatter.*:
         format_custom_false:
           type: string
           label: 'Custom output for FALSE'
+        image_link:
+          type: string
+          label: 'Link image to'
+        image_style:
+          type: string
+          label: 'Image style'
+        image_loading:
+          type: mapping
+          label: 'Image loading settings'
+          mapping:
+            attribute:
+              type: string
+              label: 'Loading attribute'
         key_label:
           type: string
-          label: 'Display'
+          label: 'Key label'
+        value_label:
+          type: string
+          label: 'Value label'
         label_display:
           type: string
           label: 'Label display'
@@ -136,6 +152,12 @@ custom_field.formatter.*:
         granularity:
           type: integer
           label: 'Granularity'
+        view_mode:
+          type: string
+          label: 'View mode'
+        link:
+          type: boolean
+          label: 'Link label to the referenced entity'
 
 field.formatter.settings.custom_formatter:
   type: custom_field_formatter_base
@@ -203,6 +225,12 @@ custom_field.column:
     datetime_type:
       type: string
       label: 'Date type'
+    target_type:
+      type: string
+      label: 'Type of item to reference'
+    uri_scheme:
+      type: string
+      label: 'Upload destination'
 
 custom_field.widget.*:
   type: mapping
@@ -228,6 +256,21 @@ custom_field.widget.*:
           type: mapping
           label: 'Settings'
           mapping:
+            alt_field:
+              type: boolean
+              label: 'Enable Alt field'
+            alt_field_required:
+              type: boolean
+              label: 'Alt field required'
+            title_field:
+              type: boolean
+              label: 'Enable Title field'
+            title_field_required:
+              type: boolean
+              label: 'Title field required'
+            preview_image_style:
+              type: string
+              label: 'Preview image style'
             description:
               type: text
               label: 'Help text'
@@ -246,6 +289,12 @@ custom_field.widget.*:
             value_label:
               type: label
               label: 'Value label'
+            max_resolution:
+              type: string
+              label: 'Maximum image resolution'
+            min_resolution:
+              type: string
+              label: 'Minimum image resolution'
             maxlength:
               type: integer
               label: 'Max length'
@@ -326,3 +375,80 @@ custom_field.widget.*:
             increment:
               type: integer
               label: 'increment'
+            file_directory:
+              type: string
+              label: 'File directory'
+            file_extensions:
+              type: string
+              label: 'Allowed file extensions'
+            max_filesize:
+              type: string
+              label: 'Maximum upload size'
+            progress_indicator:
+              type: string
+              label: 'Progress indicator'
+            match_operator:
+              type: string
+              label: 'Match operator'
+            match_limit:
+              type: integer
+              label: 'Match limit'
+            handler:
+              type: string
+              label: 'Handler'
+            handler_settings:
+              type: mapping
+              label: 'Handler settings'
+              mapping:
+                include_anonymous:
+                  type: boolean
+                  label: 'Include anonymous'
+                filter:
+                  type: mapping
+                  label: 'Filter'
+                  mapping:
+                    type:
+                      type: string
+                      label: 'Type'
+                sort:
+                  type: mapping
+                  label: 'Sort'
+                  mapping:
+                    field:
+                      type: string
+                      label: 'Sort by'
+                    direction:
+                      type: string
+                      label: 'Sort direction'
+                auto_create:
+                  type: boolean
+                  label: "Create referenced entities if they don't already exist"
+                target_bundles:
+                  type: sequence
+                  label: 'Target bundles'
+                  sequence:
+                    type: custom_field.target_bundles.[%key]
+                auto_create_bundle:
+                  type: string
+                  label: 'Store new items in'
+                view:
+                  type: mapping
+                  label: 'View used to select the entities'
+                  mapping:
+                    view_name:
+                      type: string
+                      label: 'View machine name'
+                    display_name:
+                      type: string
+                      label: 'View display name'
+                    arguments:
+                      type: sequence
+                      label: 'View arguments'
+                      sequence:
+                        type: custom_field.view_arguments.[%key]
+
+custom_field.target_bundles.*:
+  type: string
+
+custom_field.view_arguments.*:
+  type: string

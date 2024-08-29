@@ -26,7 +26,7 @@ class ColorBoxesWidget extends ColorWidget {
   /**
    * {@inheritdoc}
    */
-  public static function defaultWidgetSettings(): array {
+  public static function defaultSettings(): array {
     return [
       'settings' => [
         'default_colors' => [
@@ -54,8 +54,8 @@ class ColorBoxesWidget extends ColorWidget {
           '#cd74e6',
           '#a47ae2',
         ],
-      ],
-    ] + parent::defaultWidgetSettings();
+      ] + parent::defaultSettings()['settings'],
+    ] + parent::defaultSettings();
   }
 
   /**
@@ -63,7 +63,7 @@ class ColorBoxesWidget extends ColorWidget {
    */
   public function widgetSettingsForm(FormStateInterface $form_state, CustomFieldTypeInterface $field): array {
     $element = parent::widgetSettingsForm($form_state, $field);
-    $settings = $field->getWidgetSetting('settings') + self::defaultWidgetSettings()['settings'];
+    $settings = $field->getWidgetSetting('settings') + self::defaultSettings()['settings'];
     $colors = is_array($settings['default_colors']) ? implode(',', $settings['default_colors']) : $settings['default_colors'];
 
     $element['settings']['default_colors'] = [

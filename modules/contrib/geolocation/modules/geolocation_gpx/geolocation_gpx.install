@@ -8,7 +8,7 @@
 /**
  * Implements hook_requirements().
  */
-function geolocation_gpx_requirements($phase) {
+function geolocation_gpx_requirements($phase): array {
   $requirements = [];
   $requirements['geolocation_gpx_composer'] = [
     'title' => t('Geolocation GPX - Composer dependency'),

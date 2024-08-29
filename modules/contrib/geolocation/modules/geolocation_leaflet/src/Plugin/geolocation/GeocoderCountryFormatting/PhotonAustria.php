@@ -18,7 +18,7 @@ class PhotonAustria extends NominatimRoadFirstFormattingBase {
   /**
    * {@inheritdoc}
    */
-  public function format(array $atomics) {
+  public function format(array $atomics): ?array {
     $address_elements = parent::format($atomics);
     if (
       empty($address_elements['locality'])

@@ -6,9 +6,9 @@ use Drupal\Component\Utility\Random;
 use Drupal\Core\Field\FieldItemInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\custom_field\Plugin\CustomFieldTypeInterface;
-use Drupal\entity_test\Entity\EntityTest;
-use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
+use Drupal\node\Entity\Node;
+use Drupal\node\Entity\NodeType;
 use Drupal\Tests\field\Kernel\FieldKernelTestBase;
 
 /**
@@ -25,7 +25,15 @@ class CustomFieldItemTest extends FieldKernelTestBase {
    */
   protected static $modules = [
     'custom_field',
-    'filter',
+    'custom_field_test',
+    'field',
+    'node',
+    'path',
+    'path_alias',
+    'system',
+    'user',
+    'file',
+    'image',
   ];
 
   /**
@@ -41,6 +49,20 @@ class CustomFieldItemTest extends FieldKernelTestBase {
    * @var \Drupal\field\Entity\FieldConfig
    */
   protected $field;
+
+  /**
+   * The custom fields on the test entity bundle.
+   *
+   * @var array|\Drupal\Core\Field\FieldDefinitionInterface[]
+   */
+  protected $fields = [];
+
+  /**
+   * The field manager service.
+   *
+   * @var \Drupal\Core\Entity\EntityFieldManagerInterface
+   */
+  protected $entityFieldManager;
 
   /**
    * The CustomFieldTypeManager service.
@@ -89,88 +111,41 @@ class CustomFieldItemTest extends FieldKernelTestBase {
    */
   protected function setup(): void {
     parent::setUp();
-    $this->entityType = 'entity_test';
-    $this->bundle = 'entity_test';
-    $this->fieldName = 'field_test';
+
+    $this->installEntitySchema('path_alias');
+    $this->installConfig([
+      'system',
+      'custom_field_test',
+      'node',
+      'field',
+      'user',
+      'file',
+      'image',
+    ]);
+    $this->installEntitySchema('node');
+    $this->installEntitySchema('user');
+    $this->installEntitySchema('file');
+    $this->installSchema('node', ['node_access']);
+    $this->installSchema('file', ['file_usage']);
+
+    // Create the article content type for entity reference support.
+    $node_type = NodeType::create([
+      'type' => 'article',
+    ]);
+    $node_type->save();
 
     // Get the services required for testing.
     $this->customFieldTypeManager = $this->container->get('plugin.manager.custom_field_type');
     $this->customFieldWidgetManager = $this->container->get('plugin.manager.custom_field_widget');
     $this->customFieldFormatterManager = $this->container->get('plugin.manager.custom_field_formatter');
-
-    $columns = [];
-    $widgets = [];
-
-    $default_column = [
-      'max_length' => 255,
-      'unsigned' => FALSE,
-      'precision' => 10,
-      'scale' => 2,
-      'size' => 'normal',
-      'datetime_type' => 'datetime',
-    ];
-
-    $data_types = array_keys($this->customFieldTypeManager->dataTypes());
-    foreach ($data_types as $delta => $data_type) {
-      /** @var \Drupal\custom_field\Plugin\CustomFieldTypeInterface $plugin */
-      $plugin = $this->customFieldTypeManager->createInstance($data_type);
-      $default_widget = $plugin->getPluginDefinition()['default_widget'] ?? NULL;
-      /** @var \Drupal\custom_field\Plugin\CustomFieldWidgetManager $widget_plugin */
-      $widget_plugin = $this->customFieldWidgetManager->createInstance($default_widget);
-
-      // Set the columns.
-      $columns[$data_type] = [
-        'name' => $data_type,
-        'type' => $data_type,
-      ] + $default_column;
-
-      // Add a big integer column.
-      $columns['integer_big'] = [
-        'name' => 'integer_big',
-        'type' => 'integer',
-      ] + $default_column;
-      $columns['integer_big']['size'] = 'big';
-
-      // Set the widget settings for the fields.
-      $widget_settings = $plugin->getWidgetSetting('settings');
-      if (method_exists($widget_plugin, 'defaultWidgetSettings')) {
-        $widget_settings += $widget_plugin->defaultWidgetSettings()['settings'];
-      }
-      if (isset($widget_settings['min'])) {
-        $widget_settings['min'] = 1;
-      }
-      if (isset($widget_settings['max'])) {
-        $widget_settings['max'] = 100;
-      }
-      $widgets[$data_type] = [
-        'type' => $default_widget,
-        'weight' => $delta,
-        'widget_settings' => [
-          'label' => ucfirst(str_replace(['-', '_'], ' ', $data_type)),
-          'settings' => $widget_settings,
-        ],
-      ];
-    }
-
-    // Create a generic custom field for validation.
-    $this->fieldStorage = FieldStorageConfig::create([
-      'field_name' => $this->fieldName,
-      'entity_type' => $this->entityType,
-      'type' => 'custom',
-      'settings' => [
-        'columns' => $columns,
-      ],
-    ]);
-    $this->fieldStorage->save();
-    $this->field = FieldConfig::create([
-      'entity_type' => $this->entityType,
-      'field_name' => $this->fieldName,
-      'bundle' => $this->bundle,
-      'settings' => [
-        'field_settings' => $widgets,
-      ],
-    ]);
-    $this->field->save();
+    $this->entityFieldManager = $this->container->get('entity_field.manager');
+    $this->entityType = 'node';
+    $this->bundle = 'custom_field_entity_test';
+    $this->fieldName = 'field_custom_field_test';
+    $this->fields = $this->entityFieldManager
+      ->getFieldDefinitions('node', 'custom_field_entity_test');
+    $this->field = $this->fields[$this->fieldName];
+    $this->fieldStorage = FieldStorageConfig::loadByName($this->entityType, $this->fieldName);
   }
 
   /**
@@ -309,12 +284,41 @@ class CustomFieldItemTest extends FieldKernelTestBase {
           'class' => 'Drupal\custom_field\Plugin\CustomField\FieldFormatter\DateTimeDefaultFormatter',
         ],
       ],
+      'entity_reference' => [
+        'widget' => [
+          'id' => 'entity_reference_autocomplete',
+          'class' => 'Drupal\custom_field\Plugin\CustomField\FieldWidget\EntityReferenceAutocompleteWidget',
+        ],
+        'formatter' => [
+          'id' => 'entity_reference_label',
+          'class' => 'Drupal\custom_field\Plugin\CustomField\FieldFormatter\EntityReferenceLabelFormatter',
+        ],
+      ],
+      'file' => [
+        'widget' => [
+          'id' => 'file_generic',
+          'class' => 'Drupal\custom_field\Plugin\CustomField\FieldWidget\FileWidget',
+        ],
+        'formatter' => [
+          'id' => 'file_default',
+          'class' => 'Drupal\custom_field\Plugin\CustomField\FieldFormatter\GenericFileFormatter',
+        ],
+      ],
+      'image' => [
+        'widget' => [
+          'id' => 'image_image',
+          'class' => 'Drupal\custom_field\Plugin\CustomField\FieldWidget\ImageWidget',
+        ],
+        'formatter' => [
+          'id' => 'image',
+          'class' => 'Drupal\custom_field\Plugin\CustomField\FieldFormatter\ImageFormatter',
+        ],
+      ],
     ];
 
     // Perform assertions to verify that the storage was added successfully.
-    $fieldStorageConfig = FieldStorageConfig::loadByName($this->entityType, $this->fieldName);
-    $this->assertNotNull($fieldStorageConfig, 'The field storage configuration exists.');
-    $columns = $fieldStorageConfig->getSetting('columns');
+    $this->assertNotNull($this->fieldStorage, 'The field storage configuration exists.');
+    $columns = $this->fieldStorage->getSetting('columns');
     foreach ($columns as $column) {
       $type = $column['type'];
       /** @var \Drupal\custom_field\Plugin\CustomFieldTypeInterface $plugin */
@@ -341,7 +345,10 @@ class CustomFieldItemTest extends FieldKernelTestBase {
     }
 
     // Create an entity.
-    $entity = EntityTest::create();
+    $entity = Node::create([
+      'title' => 'Test node title',
+      'type' => $this->bundle,
+    ]);
     $string_long = $random->paragraphs(4);
     $float = 3.14;
     $email = 'test@example.com';
@@ -361,82 +368,70 @@ class CustomFieldItemTest extends FieldKernelTestBase {
       ],
     ];
     // Test string constraints.
-    $entity->{$this->fieldName}->string = $this->randomString(256);
+    $entity->{$this->fieldName}->string_test = $this->randomString(256);
     $violations = $entity->validate();
     $this->assertCount(1, $violations, 'String exceeding length causes validation error');
     $string = $this->randomString(255);
-    $entity->{$this->fieldName}->string = $string;
+    $entity->{$this->fieldName}->string_test = $string;
 
     // Test integer constraints.
     $integer_max = 2147483647;
-    $integer_max_big = 9223372036854775807;
     $integer_min = -2147483648;
-    $entity->{$this->fieldName}->integer = $integer_max + 1;
-    // Test integer field with 'big' column size.
-    $entity->{$this->fieldName}->integer_big = $integer_max_big;
+    $entity->{$this->fieldName}->integer_test = $integer_max + 1;
     $violations = $entity->validate();
-    $this->assertCount(1, $violations, 'The integer value is exceeds max.');
-    $entity->{$this->fieldName}->integer = $integer_min - 1;
+    $this->assertCount(1, $violations, 'The integer value exceeds max.');
+    $entity->{$this->fieldName}->integer_test = $integer_min - 1;
     $violations = $entity->validate();
     $this->assertCount(1, $violations, 'The integer value is below min.');
     $integer = rand(0, 10);
-    $entity->{$this->fieldName}->integer = $integer;
+    $entity->{$this->fieldName}->integer_test = $integer;
 
     // Test decimal constraints.
-    $entity->{$this->fieldName}->decimal = '20-40';
+    $entity->{$this->fieldName}->decimal_test = '20-40';
     $this->assertCount(1, $violations, 'Wrong decimal value causes validation error');
-    $entity->{$this->fieldName}->decimal = -1;
-    $violations = $entity->validate();
-    $this->assertCount(1, $violations, 'Decimal min value causes validation error');
-    $entity->{$this->fieldName}->decimal = 101.50;
-    $violations = $entity->validate();
-    $this->assertCount(1, $violations, 'Decimal max value causes validation error');
     $decimal = 31.30;
-    $entity->{$this->fieldName}->decimal = $decimal;
-    $entity->{$this->fieldName}->float = $float;
-    $entity->{$this->fieldName}->email = $email;
-    $entity->{$this->fieldName}->telephone = $telephone;
-    $entity->{$this->fieldName}->uri = $uri_external;
-    $entity->{$this->fieldName}->boolean = $boolean;
-    $entity->{$this->fieldName}->color = $color;
-    $entity->{$this->fieldName}->string_long = $string_long;
-    $entity->{$this->fieldName}->map = $map;
-    $entity->{$this->fieldName}->datetime = $datetime;
-    $entity->name->value = $this->randomMachineName();
+    $entity->{$this->fieldName}->decimal_test = $decimal;
+    $entity->{$this->fieldName}->float_test = $float;
+    $entity->{$this->fieldName}->email_test = $email;
+    $entity->{$this->fieldName}->telephone_test = $telephone;
+    $entity->{$this->fieldName}->uri_test = $uri_external;
+    $entity->{$this->fieldName}->boolean_test = $boolean;
+    $entity->{$this->fieldName}->color_test = $color;
+    $entity->{$this->fieldName}->string_long_test = $string_long;
+    $entity->{$this->fieldName}->map_test = $map;
+    $entity->{$this->fieldName}->datetime_test = $datetime;
     $entity->save();
 
     // Verify entity has been created properly.
     $id = $entity->id();
-    $entity = EntityTest::load($id);
+    $entity = Node::load($id);
     $this->assertInstanceOf(FieldItemListInterface::class, $entity->{$this->fieldName});
     $this->assertInstanceOf(FieldItemInterface::class, $entity->{$this->fieldName}[0]);
-    $this->assertEquals($string, $entity->{$this->fieldName}->string);
-    $this->assertEquals($string, $entity->{$this->fieldName}[0]->string);
-    $this->assertEquals(strlen($string_long), strlen($entity->{$this->fieldName}->string_long));
-    $this->assertEquals(strlen($string_long), strlen($entity->{$this->fieldName}[0]->string_long));
-    $this->assertEquals($integer, $entity->{$this->fieldName}->integer);
-    $this->assertEquals($integer, $entity->{$this->fieldName}[0]->integer);
-    $this->assertEquals($integer_max_big, $entity->{$this->fieldName}->integer_big);
-    $this->assertEquals($integer_max_big, $entity->{$this->fieldName}[0]->integer_big);
-    $this->assertEquals((float) $decimal, $entity->{$this->fieldName}->decimal);
-    $this->assertEquals((float) $decimal, $entity->{$this->fieldName}[0]->decimal);
-    $this->assertEquals($float, $entity->{$this->fieldName}->float);
-    $this->assertEquals($float, $entity->{$this->fieldName}[0]->float);
-    $this->assertEquals($email, $entity->{$this->fieldName}->email);
-    $this->assertEquals($email, $entity->{$this->fieldName}[0]->email);
-    $this->assertEquals($telephone, $entity->{$this->fieldName}->telephone);
-    $this->assertEquals($telephone, $entity->{$this->fieldName}[0]->telephone);
-    $this->assertEquals($uri_external, $entity->{$this->fieldName}->uri);
-    $this->assertEquals($uri_external, $entity->{$this->fieldName}[0]->uri);
-    $this->assertEquals($boolean, $entity->{$this->fieldName}->boolean);
-    $this->assertEquals($boolean, $entity->{$this->fieldName}[0]->boolean);
-    $this->assertEquals($color, $entity->{$this->fieldName}->color);
-    $this->assertEquals($color, $entity->{$this->fieldName}[0]->color);
-    $this->assertEquals($map, $entity->{$this->fieldName}->map);
-    $this->assertEquals($map, $entity->{$this->fieldName}[0]->map);
-    $this->assertEquals($datetime, $entity->{$this->fieldName}->datetime);
-    $this->assertEquals($datetime, $entity->{$this->fieldName}[0]->datetime);
-    $this->assertEquals(CustomFieldTypeInterface::STORAGE_TIMEZONE, $entity->{$this->fieldName}[0]->getProperties()['datetime']->getDateTime()->getTimeZone()->getName());
+    $this->assertEquals($string, $entity->{$this->fieldName}->string_test);
+    $this->assertEquals($string, $entity->{$this->fieldName}[0]->string_test);
+    $this->assertEquals(strlen($string_long), strlen($entity->{$this->fieldName}->string_long_test));
+    $this->assertEquals(strlen($string_long), strlen($entity->{$this->fieldName}[0]->string_long_test));
+    $this->assertEquals($integer, $entity->{$this->fieldName}->integer_test);
+    $this->assertEquals($integer, $entity->{$this->fieldName}[0]->integer_test);
+    $this->assertEquals((float) $decimal, $entity->{$this->fieldName}->decimal_test);
+    $this->assertEquals((float) $decimal, $entity->{$this->fieldName}[0]->decimal_test);
+    $this->assertEquals($float, $entity->{$this->fieldName}->float_test);
+    $this->assertEquals($float, $entity->{$this->fieldName}[0]->float_test);
+    $this->assertEquals($email, $entity->{$this->fieldName}->email_test);
+    $this->assertEquals($email, $entity->{$this->fieldName}[0]->email_test);
+    $this->assertEquals($telephone, $entity->{$this->fieldName}->telephone_test);
+    $this->assertEquals($telephone, $entity->{$this->fieldName}[0]->telephone_test);
+    $this->assertEquals($uri_external, $entity->{$this->fieldName}->uri_test);
+    $this->assertEquals($uri_external, $entity->{$this->fieldName}[0]->uri_test);
+    $this->assertEquals($boolean, $entity->{$this->fieldName}->boolean_test);
+    $this->assertEquals($boolean, $entity->{$this->fieldName}[0]->boolean_test);
+    $this->assertEquals($color, $entity->{$this->fieldName}->color_test);
+    $this->assertEquals($color, $entity->{$this->fieldName}[0]->color_test);
+    $this->assertEquals($map, $entity->{$this->fieldName}->map_test);
+    $this->assertEquals($map, $entity->{$this->fieldName}[0]->map_test);
+    $this->assertEquals($datetime, $entity->{$this->fieldName}->datetime_test);
+    $this->assertEquals($datetime, $entity->{$this->fieldName}[0]->datetime_test);
+    $this->assertEquals(CustomFieldTypeInterface::STORAGE_TIMEZONE, $entity->{$this->fieldName}[0]->getProperties()['datetime_test']->getDateTime()->getTimeZone()->getName());
 
     // Verify changing the field values.
     $new_string = $this->randomString(255);
@@ -464,51 +459,54 @@ class CustomFieldItemTest extends FieldKernelTestBase {
         'value' => 'New Value3',
       ],
     ];
-    $entity->{$this->fieldName}->string = $new_string;
-    $this->assertEquals($new_string, $entity->{$this->fieldName}->string);
-    $entity->{$this->fieldName}->integer = $new_integer;
-    $this->assertEquals($new_integer, $entity->{$this->fieldName}->integer);
-    $entity->{$this->fieldName}->decimal = $new_decimal;
-    $this->assertEquals($new_decimal, $entity->{$this->fieldName}->decimal);
-    $entity->{$this->fieldName}->float = $new_float;
-    $this->assertEquals($new_float, $entity->{$this->fieldName}->float);
-    $entity->{$this->fieldName}->email = $new_email;
-    $this->assertEquals($new_email, $entity->{$this->fieldName}->email);
-    $entity->{$this->fieldName}->telephone = $new_telephone;
-    $this->assertEquals($new_telephone, $entity->{$this->fieldName}->telephone);
-    $entity->{$this->fieldName}->uri = $new_uri_external;
-    $this->assertEquals($new_uri_external, $entity->{$this->fieldName}->uri);
-    $entity->{$this->fieldName}->boolean = $new_boolean;
-    $this->assertEquals($new_boolean, $entity->{$this->fieldName}->boolean);
-    $entity->{$this->fieldName}->color = $new_color;
-    $this->assertEquals($new_color, $entity->{$this->fieldName}->color);
-    $entity->{$this->fieldName}->string_long = $new_string_long;
-    $this->assertEquals(strlen($new_string_long), strlen($entity->{$this->fieldName}[0]->string_long));
-    $entity->{$this->fieldName}->map = $new_map;
-    $this->assertEquals($new_map, $entity->{$this->fieldName}[0]->map);
-    $entity->{$this->fieldName}->datetime = $new_datetime;
-    $this->assertEquals($new_datetime, $entity->{$this->fieldName}[0]->datetime);
-    $this->assertEquals(CustomFieldTypeInterface::STORAGE_TIMEZONE, $entity->{$this->fieldName}[0]->getProperties()['datetime']->getDateTime()->getTimeZone()->getName());
+    $entity->{$this->fieldName}->string_test = $new_string;
+    $this->assertEquals($new_string, $entity->{$this->fieldName}->string_test);
+    $entity->{$this->fieldName}->integer_test = $new_integer;
+    $this->assertEquals($new_integer, $entity->{$this->fieldName}->integer_test);
+    $entity->{$this->fieldName}->decimal_test = $new_decimal;
+    $this->assertEquals($new_decimal, $entity->{$this->fieldName}->decimal_test);
+    $entity->{$this->fieldName}->float_test = $new_float;
+    $this->assertEquals($new_float, $entity->{$this->fieldName}->float_test);
+    $entity->{$this->fieldName}->email_test = $new_email;
+    $this->assertEquals($new_email, $entity->{$this->fieldName}->email_test);
+    $entity->{$this->fieldName}->telephone_test = $new_telephone;
+    $this->assertEquals($new_telephone, $entity->{$this->fieldName}->telephone_test);
+    $entity->{$this->fieldName}->uri_test = $new_uri_external;
+    $this->assertEquals($new_uri_external, $entity->{$this->fieldName}->uri_test);
+    $entity->{$this->fieldName}->boolean_test = $new_boolean;
+    $this->assertEquals($new_boolean, $entity->{$this->fieldName}->boolean_test);
+    $entity->{$this->fieldName}->color_test = $new_color;
+    $this->assertEquals($new_color, $entity->{$this->fieldName}->color_test);
+    $entity->{$this->fieldName}->string_long_test = $new_string_long;
+    $this->assertEquals(strlen($new_string_long), strlen($entity->{$this->fieldName}[0]->string_long_test));
+    $entity->{$this->fieldName}->map_test = $new_map;
+    $this->assertEquals($new_map, $entity->{$this->fieldName}[0]->map_test);
+    $entity->{$this->fieldName}->datetime_test = $new_datetime;
+    $this->assertEquals($new_datetime, $entity->{$this->fieldName}[0]->datetime_test);
+    $this->assertEquals(CustomFieldTypeInterface::STORAGE_TIMEZONE, $entity->{$this->fieldName}[0]->getProperties()['datetime_test']->getDateTime()->getTimeZone()->getName());
 
     // Read changed entity and assert changed values.
     $this->entityValidateAndSave($entity);
-    $entity = EntityTest::load($id);
-    $this->assertEquals($new_string, $entity->{$this->fieldName}->string);
-    $this->assertEquals($new_integer, $entity->{$this->fieldName}->integer);
-    $this->assertEquals($new_decimal, $entity->{$this->fieldName}->decimal);
-    $this->assertEquals($new_float, $entity->{$this->fieldName}->float);
-    $this->assertEquals($new_email, $entity->{$this->fieldName}->email);
-    $this->assertEquals($new_telephone, $entity->{$this->fieldName}->telephone);
-    $this->assertEquals($new_uri_external, $entity->{$this->fieldName}->uri);
-    $this->assertEquals($new_boolean, $entity->{$this->fieldName}->boolean);
-    $this->assertEquals($new_color, $entity->{$this->fieldName}->color);
-    $this->assertEquals(strlen($new_string_long), strlen($entity->{$this->fieldName}[0]->string_long));
-    $this->assertEquals($new_map, $entity->{$this->fieldName}[0]->map);
-    $this->assertEquals($new_datetime, $entity->{$this->fieldName}[0]->datetime);
-    $this->assertEquals(CustomFieldTypeInterface::STORAGE_TIMEZONE, $entity->{$this->fieldName}[0]->getProperties()['datetime']->getDateTime()->getTimeZone()->getName());
+    $entity = Node::load($id);
+    $this->assertEquals($new_string, $entity->{$this->fieldName}->string_test);
+    $this->assertEquals($new_integer, $entity->{$this->fieldName}->integer_test);
+    $this->assertEquals($new_decimal, $entity->{$this->fieldName}->decimal_test);
+    $this->assertEquals($new_float, $entity->{$this->fieldName}->float_test);
+    $this->assertEquals($new_email, $entity->{$this->fieldName}->email_test);
+    $this->assertEquals($new_telephone, $entity->{$this->fieldName}->telephone_test);
+    $this->assertEquals($new_uri_external, $entity->{$this->fieldName}->uri_test);
+    $this->assertEquals($new_boolean, $entity->{$this->fieldName}->boolean_test);
+    $this->assertEquals($new_color, $entity->{$this->fieldName}->color_test);
+    $this->assertEquals(strlen($new_string_long), strlen($entity->{$this->fieldName}[0]->string_long_test));
+    $this->assertEquals($new_map, $entity->{$this->fieldName}[0]->map_test);
+    $this->assertEquals($new_datetime, $entity->{$this->fieldName}[0]->datetime_test);
+    $this->assertEquals(CustomFieldTypeInterface::STORAGE_TIMEZONE, $entity->{$this->fieldName}[0]->getProperties()['datetime_test']->getDateTime()->getTimeZone()->getName());
 
     // Test sample item generation.
-    $entity = EntityTest::create();
+    $entity = Node::create([
+      'title' => 'Test node title',
+      'type' => $this->bundle,
+    ]);
     $entity->{$this->fieldName}->generateSampleItems();
     $this->entityValidateAndSave($entity);
   }
@@ -518,27 +516,29 @@ class CustomFieldItemTest extends FieldKernelTestBase {
    */
   public function testDateOnly() {
     $columns = $this->fieldStorage->getSetting('columns');
-    $columns['datetime']['datetime_type'] = 'date';
+    $columns['datetime_test']['datetime_type'] = 'date';
     $this->fieldStorage->setSetting('columns', $columns);
     $this->fieldStorage->save();
 
-    // Verify entity creation.
-    $entity = EntityTest::create();
+    // Create an entity.
+    $entity = Node::create([
+      'title' => 'Test node title',
+      'type' => $this->bundle,
+    ]);
     $date = '2014-01-01';
-    $entity->{$this->fieldName}->datetime = $date;
-    $entity->name->value = $this->randomMachineName();
+    $entity->{$this->fieldName}->datetime_test = $date;
     $this->entityValidateAndSave($entity);
 
     // Verify entity has been created properly.
     $id = $entity->id();
-    $entity = EntityTest::load($id);
+    $entity = Node::load($id);
     $this->assertInstanceOf(FieldItemListInterface::class, $entity->{$this->fieldName});
     $this->assertInstanceOf(FieldItemInterface::class, $entity->{$this->fieldName}[0]);
-    $this->assertEquals($date, $entity->{$this->fieldName}->datetime);
-    $this->assertEquals($date, $entity->{$this->fieldName}[0]->datetime);
-    $this->assertEquals(CustomFieldTypeInterface::STORAGE_TIMEZONE, $entity->{$this->fieldName}[0]->getProperties()['datetime']->getDateTime()->getTimeZone()->getName());
+    $this->assertEquals($date, $entity->{$this->fieldName}->datetime_test);
+    $this->assertEquals($date, $entity->{$this->fieldName}[0]->datetime_test);
+    $this->assertEquals(CustomFieldTypeInterface::STORAGE_TIMEZONE, $entity->{$this->fieldName}[0]->getProperties()['datetime_test']->getDateTime()->getTimeZone()->getName());
     /** @var \Drupal\Core\Datetime\DrupalDateTime $date_object */
-    $date_object = $entity->{$this->fieldName}[0]->getProperties()['datetime']->getDateTime();
+    $date_object = $entity->{$this->fieldName}[0]->getProperties()['datetime_test']->getDateTime();
     $this->assertEquals('00:00:00', $date_object->format('H:i:s'));
     $date_object->setDefaultDateTime();
     $this->assertEquals('12:00:00', $date_object->format('H:i:s'));

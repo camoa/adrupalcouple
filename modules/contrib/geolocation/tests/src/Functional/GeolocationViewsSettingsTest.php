@@ -36,7 +36,7 @@ class GeolocationViewsSettingsTest extends BrowserTestBase {
   /**
    * Tests the Views admin UI and field handlers.
    */
-  public function testViewsMapSettings() {
+  public function testViewsMapSettings(): void {
     $permissions = [
       'access administration pages',
       'administer views',
@@ -57,7 +57,7 @@ class GeolocationViewsSettingsTest extends BrowserTestBase {
   /**
    * Tests the Views admin UI and field handlers.
    */
-  public function testViewsProximitySettings() {
+  public function testViewsProximitySettings(): void {
     $permissions = [
       'access administration pages',
       'administer views',

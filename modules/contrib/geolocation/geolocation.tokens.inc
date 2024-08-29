@@ -7,29 +7,30 @@
 
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Render\BubbleableMetadata;
+use Drupal\Core\Utility\Error;
 
 /**
  * Implements hook_token_info().
  */
-function geolocation_token_info() {
-  if (!\Drupal::hasService('token.entity_mapper')) {
-    return;
+function geolocation_token_info(): array {
+  if (!Drupal::hasService('token.entity_mapper')) {
+    return [];
   }
 
   $types = [];
   $tokens = [];
 
-  foreach (\Drupal::entityTypeManager()->getDefinitions() as $entity_type_id => $entity_type) {
+  foreach (Drupal::entityTypeManager()->getDefinitions() as $entity_type_id => $entity_type) {
     if (!$entity_type->entityClassImplements(ContentEntityInterface::class)) {
       continue;
     }
-    $token_type = \Drupal::service('token.entity_mapper')->getTokenTypeForEntityType($entity_type_id);
+    $token_type = Drupal::service('token.entity_mapper')->getTokenTypeForEntityType($entity_type_id);
     if (empty($token_type)) {
       continue;
     }
 
     /** @var \Drupal\Core\Field\FieldStorageDefinitionInterface[] $fields */
-    $fields = \Drupal::service('entity_field.manager')->getFieldStorageDefinitions($entity_type_id);
+    $fields = Drupal::service('entity_field.manager')->getFieldStorageDefinitions($entity_type_id);
     foreach ($fields as $field_name => $field) {
       if ($field->getType() != 'geolocation') {
         continue;
@@ -62,10 +63,8 @@ function geolocation_token_info() {
 
 /**
  * Implements hook_tokens().
- *
- * {@inheritdoc}
  */
-function geolocation_tokens($type, $tokens, array $data, array $options, BubbleableMetadata $bubbleable_metadata) {
+function geolocation_tokens($type, $tokens, array $data, array $options, BubbleableMetadata $bubbleable_metadata): array {
   $replacements = [];
 
   if (!empty($data['field_property'])) {
@@ -104,14 +103,14 @@ function geolocation_tokens($type, $tokens, array $data, array $options, Bubblea
         case 'data':
           // Handle data tokens.
           $metadata = $item->get('data')->getValue();
-          if (is_array($metadata) || ($metadata instanceof \Traversable)) {
+          if (is_array($metadata) || ($metadata instanceof Traversable)) {
             foreach ($metadata as $key => $value) {
               try {
                 // Maybe there is values inside the values.
-                if (is_array($value) || ($value instanceof \Traversable)) {
+                if (is_array($value) || ($value instanceof Traversable)) {
                   foreach ($value as $deepkey => $deepvalue) {
                     if (is_string($deepvalue)) {
-                      $replacements[$token . ':' . $key . ':' . $deepkey . ']'] = (string) $deepvalue;
+                      $replacements[$token . ':' . $key . ':' . $deepkey . ']'] = $deepvalue;
                     }
                   }
                 }
@@ -119,8 +118,9 @@ function geolocation_tokens($type, $tokens, array $data, array $options, Bubblea
                   $replacements[$token . ':' . $key . ']'] = (string) $value;
                 }
               }
-              catch (\Exception $e) {
-                watchdog_exception('geolocation', $e);
+              catch (Exception $e) {
+                $logger = Drupal::logger('geolocation');
+                Error::logException($logger, $e);
               }
             }
           }

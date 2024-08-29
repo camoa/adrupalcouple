@@ -1,0 +1,9 @@
+{
+  "name": "geolocation-bing-maps",
+  "license": "GPL-2.0",
+  "description": "Geolocation Bing maps module",
+  "private": true,
+  "devDependencies": {
+    "@types/bingmaps": "^0.0.1"
+  }
+}

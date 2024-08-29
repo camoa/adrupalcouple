@@ -42,7 +42,7 @@ class IntegerWidget extends NumberWidgetBase {
    */
   public function widgetSettingsForm(FormStateInterface $form_state, CustomFieldTypeInterface $field): array {
     $element = parent::widgetSettingsForm($form_state, $field);
-    $settings = $field->getWidgetSetting('settings') + self::defaultWidgetSettings()['settings'];
+    $settings = $field->getWidgetSetting('settings') + self::defaultSettings()['settings'];
 
     // Prevent min negative numbers when storage is unsigned.
     if ($field->isUnsigned()) {

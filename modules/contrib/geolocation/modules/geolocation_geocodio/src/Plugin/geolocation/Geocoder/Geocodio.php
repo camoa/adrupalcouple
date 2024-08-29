@@ -2,6 +2,7 @@
 
 namespace Drupal\geolocation_geocodio\Plugin\geolocation\Geocoder;
 
+use Drupal\Core\Utility\Error;
 use Drupal\geolocation\GeocoderBase;
 use Drupal\geolocation\GeocoderInterface;
 use Drupal\geolocation\KeyProvider;
@@ -25,10 +26,10 @@ class Geocodio extends GeocoderBase implements GeocoderInterface {
   /**
    * {@inheritdoc}
    */
-  public function geocode($address) {
+  public function geocode(string $address): ?array {
 
     if (empty($address)) {
-      return FALSE;
+      return NULL;
     }
 
     // Get config.
@@ -55,15 +56,16 @@ class Geocodio extends GeocoderBase implements GeocoderInterface {
       }
     }
     catch (RequestException $e) {
-      watchdog_exception('geolocation', $e);
-      return FALSE;
+      $logger = \Drupal::logger('geolocation');
+      Error::logException($logger, $e);
+      return NULL;
     }
 
     $results = $result->results[0] ?? FALSE;
 
     // If no results, return false.
     if (!$results) {
-      return FALSE;
+      return NULL;
     }
     // Otherwise add location, formatted address and fields.
     else {

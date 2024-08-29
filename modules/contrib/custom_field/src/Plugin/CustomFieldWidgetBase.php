@@ -3,20 +3,50 @@
 namespace Drupal\custom_field\Plugin;
 
 use Drupal\Core\Field\FieldItemListInterface;
+use Drupal\Core\Field\PluginSettingsBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Base class for CustomField Type plugins.
+ * Base class for CustomField widget plugins.
  */
-class CustomFieldWidgetBase implements CustomFieldWidgetInterface {
+abstract class CustomFieldWidgetBase extends PluginSettingsBase implements CustomFieldWidgetInterface, ContainerFactoryPluginInterface {
 
   use StringTranslationTrait;
 
   /**
+   * The widget settings.
+   *
+   * @var array
+   */
+  protected $settings;
+
+  /**
    * {@inheritdoc}
    */
-  public static function defaultWidgetSettings(): array {
+  final public function __construct(array $configuration, $plugin_id, $plugin_definition, array $settings) {
+    parent::__construct($configuration, $plugin_id, $plugin_definition);
+    $this->settings = $settings;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+    return new static(
+      $configuration,
+      $plugin_id,
+      $plugin_definition,
+      $configuration['settings'] ?? self::defaultSettings()
+    );
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function defaultSettings(): array {
     return [
       'label' => '',
       'settings' => [
@@ -35,15 +65,15 @@ class CustomFieldWidgetBase implements CustomFieldWidgetInterface {
     // override as necessary or just set #type and be on their merry way.
     $settings = $field->getWidgetSetting('settings');
     $is_required = $items->getFieldDefinition()->isRequired();
-    $field_name = $field->getName();
     $description = !empty($settings['description']) ? $this->t('@description', ['@description' => $settings['description']]) : NULL;
+    /** @var \Drupal\custom_field\Plugin\Field\FieldType\CustomItem $item */
     $item = $items[$delta];
     return [
       '#title' => $this->t('@label', ['@label' => $field->getLabel()]),
       '#description' => $description,
       '#description_display' => $settings['description_display'] ?: NULL,
-      '#default_value' => $item->{$field_name} ?? NULL,
-      '#required' => !($form_state->getBuildInfo()['base_form_id'] == 'field_config_form') && $is_required && $settings['required'],
+      '#default_value' => $item->{$field->getName()} ?? NULL,
+      '#required' => !(isset($form_state->getBuildInfo()['base_form_id']) && $form_state->getBuildInfo()['base_form_id'] == 'field_config_form') && $is_required && $settings['required'],
     ];
   }
 
@@ -52,7 +82,7 @@ class CustomFieldWidgetBase implements CustomFieldWidgetInterface {
    */
   public function widgetSettingsForm(FormStateInterface $form_state, CustomFieldTypeInterface $field): array {
     $label = $field->getLabel();
-    $settings = $field->getWidgetSetting('settings') + self::defaultWidgetSettings()['settings'];
+    $settings = $field->getWidgetSetting('settings') + self::defaultSettings()['settings'];
 
     // Some table columns containing raw markup.
     $element['label'] = [
@@ -110,7 +140,41 @@ class CustomFieldWidgetBase implements CustomFieldWidgetInterface {
    * {@inheritdoc}
    */
   public function massageFormValue(mixed $value, array $column): mixed {
+    if (is_string($value) && trim($value) === '') {
+      return NULL;
+    }
+
     return $value;
+  }
+
+  /**
+   * Helper function to return widget settings label.
+   *
+   * @return string
+   *   The label.
+   */
+  public function getLabel(): string {
+    return $this->settings['label'];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getWidgetSettings(): array {
+    return $this->settings['settings'] ?? self::defaultSettings()['settings'];
+  }
+
+  /**
+   * Helper function to return a property from settings.
+   *
+   * @param string $key
+   *   The lookup key in the settings array.
+   *
+   * @return mixed
+   *   The property value.
+   */
+  public function getWidgetSetting(string $key): mixed {
+    return $this->settings['settings'][$key] ?? NULL;
   }
 
 }

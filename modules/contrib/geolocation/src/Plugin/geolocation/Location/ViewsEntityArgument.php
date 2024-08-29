@@ -22,7 +22,7 @@ class ViewsEntityArgument extends LocationBase implements LocationInterface {
   /**
    * {@inheritdoc}
    */
-  public function getAvailableLocationOptions($context) {
+  public function getAvailableLocationOptions(array $context = []): array {
     $options = [];
 
     if ($displayHandler = self::getViewsDisplayHandler($context)) {
@@ -41,15 +41,15 @@ class ViewsEntityArgument extends LocationBase implements LocationInterface {
   /**
    * {@inheritdoc}
    */
-  public function getCoordinates($location_option_id, array $location_option_settings, $context = NULL) {
+  public function getCoordinates($location_option_id, array $location_option_settings, $context = NULL): ?array {
     if (!($displayHandler = self::getViewsDisplayHandler($context))) {
       return parent::getCoordinates($location_option_id, $location_option_settings, $context);
     }
 
-    /** @var \Drupal\geolocation\Plugin\views\argument\EntityArgument $handler */
+    /** @var \Drupal\geolocation\Plugin\views\argument\EntityArgument|null $handler */
     $handler = $displayHandler->getHandler('argument', $location_option_id);
     if (empty($handler)) {
-      return FALSE;
+      return NULL;
     }
     if ($values = $handler->getParsedReferenceLocation()) {
       if (isset($values['lat']) && isset($values['lng'])) {

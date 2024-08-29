@@ -1,11 +1,9 @@
 /**
- * @file custom-field-flex.widget-settings.js
+ * @file
+ * Defines Javascript behaviors for widget settings form.
  */
 
-(function (Drupal, drupalSettings) {
-
-  "use strict";
-
+((Drupal) => {
   /**
    * Add the selected column class when one is selected on the widget
    * settings form.
@@ -16,17 +14,20 @@
    *  Attaches the behavior for column classes.
    */
   Drupal.behaviors.customFieldFlexWidgetSettings = {
-    attach: function (context) {
-      var selects = context.querySelectorAll('.custom-field-flex--widget-settings select');
-      Array.prototype.forEach.call(selects, function (select) {
-        select.addEventListener('change', function (event) {
-          var value = this.value;
-          var parent = this.closest('.custom-field-col');
-          parent.className = parent.className.replace(/(^|\s)custom-field-col-.*?\S+/g, '');
-          parent.classList.add('custom-field-col-' + value);
+    attach(context) {
+      const selects = context.querySelectorAll(
+        '.custom-field-flex--widget-settings select',
+      );
+      Array.prototype.forEach.call(selects, (select) => {
+        select.addEventListener('change', function selector() {
+          const parent = this.closest('.custom-field-col');
+          parent.className = parent.className.replace(
+            /(^|\s)custom-field-col-.*?\S+/g,
+            '',
+          );
+          parent.classList.add(`custom-field-col-${this.value}`);
         });
       });
-    }
+    },
   };
-
-})(Drupal, drupalSettings);
+})(Drupal);

@@ -6,6 +6,7 @@ use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\custom_field\Plugin\CustomFieldTypeInterface;
 use Drupal\custom_field\Plugin\CustomFieldWidgetBase;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Plugin implementation of the 'uuid' custom field widget.
@@ -32,6 +33,23 @@ use Drupal\custom_field\Plugin\CustomFieldWidgetBase;
 class UuidWidget extends CustomFieldWidgetBase {
 
   /**
+   * The Uuid service.
+   *
+   * @var \Drupal\Component\Uuid\UuidInterface
+   */
+  protected $uuidService;
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+    $instance = parent::create($container, $configuration, $plugin_id, $plugin_definition);
+    $instance->uuidService = $container->get('uuid');
+
+    return $instance;
+  }
+
+  /**
    * {@inheritdoc}
    */
   public function widget(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state, CustomFieldTypeInterface $field): array {
@@ -44,7 +62,7 @@ class UuidWidget extends CustomFieldWidgetBase {
       '#value' => NULL,
     ];
     if (!$is_config_form) {
-      $element['#value'] = !empty($items[$delta]->{$field_name}) ? $items[$delta]->{$field_name} : \Drupal::service('uuid')->generate();
+      $element['#value'] = !empty($items[$delta]->{$field_name}) ? $items[$delta]->{$field_name} : $this->uuidService->generate();
     }
 
     return $element;
@@ -54,11 +72,6 @@ class UuidWidget extends CustomFieldWidgetBase {
    * {@inheritdoc}
    */
   public function widgetSettingsForm(FormStateInterface $form_state, CustomFieldTypeInterface $field): array {
-    $element = parent::widgetSettingsForm($form_state, $field);
-    unset($element['settings']);
-    unset($element['label']);
-
-    // Some table columns containing raw markup.
     $element['description'] = [
       '#markup' => '<em>This will set a UUID on the custom field item the first time it is created and can be used as a unique identifier for the item in your custom code. This is the main use for this field type.</em>',
     ];

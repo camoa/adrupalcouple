@@ -1,0 +1,45 @@
+bing_maps.settings:
+  type: config_object
+  label: 'Geolocation settings'
+  mapping:
+    key:
+      type: string
+      label: 'Bing API Key'
+
+geolocation.map_provider.bing:
+  type: geolocation_map_provider
+  label: 'Bing Maps settings'
+  mapping:
+    zoom:
+      type: string
+      label: 'Zoom level'
+    height:
+      type: string
+      label: 'Height value'
+    width:
+      type: string
+      label: 'Width value'
+    show_breadcrumb:
+      type: boolean
+      label: 'Show Breadcrumb'
+    show_dashboard:
+      type: boolean
+      label: 'Show Dashboard'
+    show_locate_me_button:
+      type: boolean
+      label: 'Show LocateMe Button'
+    show_map_type_selector:
+      type: boolean
+      label: 'Show MapType selector'
+    show_traffic_button:
+      type: boolean
+      label: 'Show Traffic button'
+    show_terms_link:
+      type: boolean
+      label: 'Show Terms link'
+    show_zoom_buttons:
+      type: boolean
+      label: 'Show Zoom buttons'
+    show_scalebar:
+      type: boolean
+      label: 'Show Scalebar'

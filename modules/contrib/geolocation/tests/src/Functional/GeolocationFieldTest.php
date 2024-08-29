@@ -5,6 +5,7 @@ namespace Drupal\Tests\geolocation\Functional;
 use Drupal\Core\Entity\Entity\EntityFormDisplay;
 use Drupal\Core\Entity\Entity\EntityViewDisplay;
 use Drupal\Tests\BrowserTestBase;
+use Drupal\user\Entity\User;
 
 /**
  * Tests the creation of geolocation fields.
@@ -16,7 +17,7 @@ class GeolocationFieldTest extends BrowserTestBase {
   /**
    * Modules to enable.
    *
-   * @var array
+   * @var string[]
    */
   protected static $modules = [
     'field',
@@ -28,19 +29,11 @@ class GeolocationFieldTest extends BrowserTestBase {
   ];
 
   /**
-   * {@inheritdoc}
+   * Article creator.
+   *
+   * @var \Drupal\user\Entity\User
    */
-  protected $field;
-
-  /**
-   * {@inheritdoc}
-   */
-  protected $webUser;
-
-  /**
-   * {@inheritdoc}
-   */
-  protected $articleCreator;
+  protected User $articleCreator;
 
   /**
    * {@inheritdoc}
@@ -63,7 +56,7 @@ class GeolocationFieldTest extends BrowserTestBase {
   /**
    * Helper function for testGeolocationField().
    */
-  public function testGeolocationFieldLatlngWidget() {
+  public function testGeolocationFieldLatlngWidget(): void {
     EntityFormDisplay::load('node.geolocation_default_article.default')
       ->setComponent('field_geolocation_demo_single', [
         'type' => 'geolocation_latlng',

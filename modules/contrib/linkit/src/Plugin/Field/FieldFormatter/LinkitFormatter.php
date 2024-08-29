@@ -6,7 +6,6 @@ use Drupal\Core\Cache\CacheableDependencyInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\GeneratedUrl;
 use Drupal\Core\Render\BubbleableMetadata;
 use Drupal\link\LinkItemInterface;
 use Drupal\link\Plugin\Field\FieldFormatter\LinkFormatter;
@@ -115,10 +114,6 @@ class LinkitFormatter extends LinkFormatter {
       if ($url = $this->getSubstitutedUrl($link_item)) {
         if ($url instanceof CacheableDependencyInterface) {
           $cacheable_url = $url;
-        }
-        if ($url instanceof GeneratedUrl) {
-          $url = $this->pathValidator->getUrlIfValid($url->getGeneratedUrl());
-          @trigger_error('Drupal\Core\GeneratedUrl in Linkit Substitution plugins is deprecated in linkit:6.0.1 and must return Drupal\Core\Url in linkit:7.0.0. See https://www.drupal.org/project/linkit/issues/3354873', E_USER_DEPRECATED);
         }
         // Keep query and fragment.
         $parsed_url = parse_url($link_item->uri);

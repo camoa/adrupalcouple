@@ -11,9 +11,12 @@
     "source": "http://cgit.drupalcode.org/custom_field"
   },
   "require": {
-    "drupal/core": "^9.4 || ^10.1"
+    "drupal/core": "^10.2 || ^11.0"
   },
   "require-dev": {
-    "drupal/feeds": "3.x-dev"
+    "drupal/feeds": "3.x-dev",
+    "drupal/linkit": "^6.1",
+    "drupal/graphql_compose": "^2.2",
+    "drupal/search_api": "^1.35"
   }
 }

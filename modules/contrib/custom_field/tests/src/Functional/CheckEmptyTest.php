@@ -40,73 +40,73 @@ class CheckEmptyTest extends BrowserTestBase {
 
     // Create a generic custom field for validation.
     FieldStorageConfig::create(
-          [
-            'field_name' => 'field_test',
-            'entity_type' => 'entity_test',
-            'type' => 'custom',
-            'cardinality' => FieldStorageConfig::CARDINALITY_UNLIMITED,
-            'settings' => [
-              'columns' => [
-                'string_1' => [
-                  'name' => 'string_1',
-                  'type' => 'string',
-                  'max_length' => 255,
-                  'unsigned' => FALSE,
-                  'precision' => 10,
-                  'scale' => 2,
-                  'size' => 'normal',
-                  'datetime_type' => 'datetime',
-                ],
-                'string_2' => [
-                  'name' => 'string_2',
-                  'type' => 'string',
-                  'max_length' => 255,
-                  'unsigned' => FALSE,
-                  'precision' => 10,
-                  'scale' => 2,
-                  'size' => 'normal',
-                  'datetime_type' => 'datetime',
-                ],
-              ],
+      [
+        'field_name' => 'field_test',
+        'entity_type' => 'entity_test',
+        'type' => 'custom',
+        'cardinality' => FieldStorageConfig::CARDINALITY_UNLIMITED,
+        'settings' => [
+          'columns' => [
+            'string_1' => [
+              'name' => 'string_1',
+              'type' => 'string',
+              'max_length' => 255,
+              'unsigned' => FALSE,
+              'precision' => 10,
+              'scale' => 2,
+              'size' => 'normal',
+              'datetime_type' => 'datetime',
             ],
-          ]
-      )->save();
+            'string_2' => [
+              'name' => 'string_2',
+              'type' => 'string',
+              'max_length' => 255,
+              'unsigned' => FALSE,
+              'precision' => 10,
+              'scale' => 2,
+              'size' => 'normal',
+              'datetime_type' => 'datetime',
+            ],
+          ],
+        ],
+      ]
+    )->save();
 
     FieldConfig::create(
-          [
-            'entity_type' => 'entity_test',
-            'field_name' => 'field_test',
-            'bundle' => 'entity_test',
-            'settings' => [
-              'field_settings' => [
-                'string_1' => [
-                  'type' => 'text',
-                  'weight' => 0,
-                  'check_empty' => FALSE,
-                  'widget_settings' => [
-                    'label' => 'string_1',
-                    'settings' => [
-                      'description' => '',
-                      'description_display' => 'after',
-                    ],
-                  ],
-                ],
-                'string_2' => [
-                  'type' => 'text',
-                  'weight' => 1,
-                  'check_empty' => TRUE,
-                  'widget_settings' => [
-                    'label' => 'string_2',
-                    'settings' => [
-                      'description' => '',
-                      'description_display' => 'after',
-                    ],
-                  ],
+      [
+        'entity_type' => 'entity_test',
+        'field_name' => 'field_test',
+        'bundle' => 'entity_test',
+        'settings' => [
+          'field_settings' => [
+            'string_1' => [
+              'type' => 'text',
+              'weight' => 0,
+              'check_empty' => FALSE,
+              'widget_settings' => [
+                'label' => 'string_1',
+                'settings' => [
+                  'description' => '',
+                  'description_display' => 'after',
                 ],
               ],
             ],
-          ]
-      )->save();
+            'string_2' => [
+              'type' => 'text',
+              'weight' => 1,
+              'check_empty' => TRUE,
+              'widget_settings' => [
+                'label' => 'string_2',
+                'settings' => [
+                  'description' => '',
+                  'description_display' => 'after',
+                ],
+              ],
+            ],
+          ],
+        ],
+      ]
+    )->save();
   }
 
   /**

@@ -95,6 +95,23 @@ content:
             label_display: above
             timezone_override: ''
             format_type: medium
+        entity_reference_test:
+          format_type: entity_reference_label
+          formatter_settings:
+            label_display: above
+            link: true
+        file_test:
+          format_type: file_default
+          formatter_settings:
+            label_display: above
+        image_test:
+          format_type: image
+          formatter_settings:
+            image_link: content
+            image_style: ''
+            image_loading:
+              attribute: lazy
+            label_display: above
     third_party_settings: {  }
     weight: 101
     region: content
@@ -179,6 +196,23 @@ content:
             label_display: above
             timezone_override: ''
             format_type: medium
+        entity_reference_test:
+          format_type: entity_reference_label
+          formatter_settings:
+            label_display: above
+            link: true
+        file_test:
+          format_type: file_default
+          formatter_settings:
+            label_display: above
+        image_test:
+          format_type: image
+          formatter_settings:
+            image_link: content
+            image_style: ''
+            image_loading:
+              attribute: lazy
+            label_display: above
     third_party_settings: {  }
     weight: 101
     region: content
@@ -263,6 +297,23 @@ content:
             label_display: above
             timezone_override: ''
             format_type: medium
+        entity_reference_test:
+          format_type: entity_reference_label
+          formatter_settings:
+            label_display: above
+            link: true
+        file_test:
+          format_type: file_default
+          formatter_settings:
+            label_display: above
+        image_test:
+          format_type: image
+          formatter_settings:
+            image_link: content
+            image_style: ''
+            image_loading:
+              attribute: lazy
+            label_display: above
     third_party_settings: {  }
     weight: 101
     region: content

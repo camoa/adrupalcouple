@@ -3,14 +3,16 @@
  * Attaches behaviors for Drupal's custom field color_boxes widget.
  */
 
-(function (Drupal, once) {
-
-  'use strict';
-
+((Drupal, once) => {
   /**
    * Add box color picker to color field widget.
+   *
+   * @param {HTMLElement} el
+   *   The element to which the color picker will be added.
+   * @param {Object} props
+   *   Additional properties for configuring the color picker.
    */
-  const addBoxColorPicker = function (el, props) {
+  const addBoxColorPicker = (el, props) => {
     if (!props) {
       props = [];
     }
@@ -21,7 +23,7 @@
       blotchClass: 'colorBox',
       blotchTransparentClass: 'transparentBox',
       addTransparentBlotch: true,
-      clickCallback: function (ignoredColor) {},
+      clickCallback() {},
       iterationCallback: null,
       fillString: '&nbsp;',
       fillStringX: '?',
@@ -50,7 +52,7 @@
         '#CD74E6',
         '#A47AE2',
       ],
-      ...props
+      ...props,
     };
 
     function addBlotchElement(color, blotchClass, index) {
@@ -64,12 +66,12 @@
         elem.classList.add('active');
       }
       if (props.clickCallback) {
-        elem.addEventListener('click', function (event) {
+        elem.addEventListener('click', function clickListener(event) {
           event.preventDefault();
-          const list = this.parentNode.children;
-          for (let item of list) {
-            item.classList.remove('active')
-          }
+          const list = Array.from(this.parentNode.children);
+          list.forEach((item) => {
+            item.classList.remove('active');
+          });
           this.classList.add('active');
           props.clickCallback(this.getAttribute('color'));
         });
@@ -88,7 +90,7 @@
     if (props.addTransparentBlotch) {
       addBlotchElement('', props.blotchTransparentClass);
     }
-  }
+  };
 
   /**
    * Enables box widget on color elements.
@@ -99,29 +101,29 @@
    *   Attaches a box widget to a color input element.
    */
   Drupal.behaviors.color_field = {
-    attach: function (context, settings) {
-      once('customField', '.custom-field-color-box-form', context)
-        .forEach(function (el) {
-          const input = el.previousElementSibling.querySelector(':scope input');
+    attach(context, settings) {
+      once('customField', '.custom-field-color-box-form', context).forEach(
+        (element) => {
+          const input =
+            element.previousElementSibling.querySelector(':scope input');
           input.style.display = 'none';
-          const props = settings.custom_field
-            .color_box
-            .settings[el.getAttribute('id')];
-
-          el.replaceChildren();
-          addBoxColorPicker(el, {
+          const props =
+            settings.custom_field.color_box.settings[
+              element.getAttribute('id')
+            ];
+          element.replaceChildren();
+          addBoxColorPicker(element, {
             currentColor: input.value,
             colors: props.palette,
             blotchClass: 'custom_field_color_box__square',
-            blotchTransparentClass: 'custom_field_color_box__square--transparent',
+            blotchTransparentClass: `custom_field_color_box__square--transparent`,
             addTransparentBlotch: !props.required,
-            clickCallback: function (color) {
+            clickCallback(color) {
               input.value = color;
-            }
+            },
           });
-        });
-
+        },
+      );
     },
   };
-
 })(Drupal, once);

@@ -16,10 +16,15 @@ class GeolocationContains extends JoinPluginBase implements JoinPluginInterface 
 
   /**
    * {@inheritdoc}
+   *
+   * @param \Drupal\Core\Database\Query\SelectInterface $select_query
+   *   Select query.
+   * @param array $table
+   *   Table data.
+   * @param \Drupal\views\Plugin\views\query\QueryPluginBase $view_query
+   *   View query.
    */
-  public function buildJoin($select_query, $table, $view_query) {
-    /** @var \Drupal\Core\Database\Query\Select $select_query */
-
+  public function buildJoin($select_query, $table, $view_query): void {
     $geometry_field = $table['alias'] . '.' . $this->field . '_geometry';
     $latitude_field = $this->leftTable . '.' . $this->leftField . '_lat';
     $longitude_field = $this->leftTable . '.' . $this->leftField . '_lng';

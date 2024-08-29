@@ -17,16 +17,19 @@ class ProximitySort extends SortPluginBase {
   /**
    * {@inheritdoc}
    */
-  public function query() {
+  public function query(): void {
     if (!($this->query instanceof Sql)) {
       return;
     }
 
+    /** @var \Drupal\views\Plugin\views\field\FieldHandlerInterface $field */
     $field = $this->displayHandler->getHandler('field', $this->field);
 
     if (!empty($field->field_alias) && $field->field_alias != 'unknown') {
       $this->query->addOrderBy(NULL, NULL, $this->options['order'], $field->field_alias);
-      $this->tableAlias = $field->tableAlias;
+      if (!empty($field->tableAlias)) {
+        $this->tableAlias = $field->tableAlias;
+      }
     }
   }
 

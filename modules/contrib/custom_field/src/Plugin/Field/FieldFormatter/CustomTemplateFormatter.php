@@ -4,6 +4,7 @@ namespace Drupal\custom_field\Plugin\Field\FieldFormatter;
 
 use Drupal\Core\Field\FieldItemInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Plugin implementation of the 'custom_template' formatter.
@@ -20,6 +21,23 @@ use Drupal\Core\Form\FormStateInterface;
  * )
  */
 class CustomTemplateFormatter extends BaseFormatter {
+
+  /**
+   * The renderer service.
+   *
+   * @var \Drupal\Core\Render\RendererInterface
+   */
+  protected $renderer;
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+    $instance = parent::create($container, $configuration, $plugin_id, $plugin_definition);
+    $instance->renderer = $container->get('renderer');
+
+    return $instance;
+  }
 
   /**
    * {@inheritdoc}
@@ -41,8 +59,8 @@ class CustomTemplateFormatter extends BaseFormatter {
     $tokens = [
       '#theme' => 'item_list',
     ];
-    foreach ($this->getCustomFieldItems() as $name => $customItem) {
-      $label = $customItem->getLabel();
+    foreach ($this->getCustomFieldItems() as $name => $custom_item) {
+      $label = $custom_item->getLabel();
       $tokens['#items'][] = "[$name]: $label value";
       $tokens['#items'][] = "[$name:label]: $label label";
     }
@@ -50,7 +68,7 @@ class CustomTemplateFormatter extends BaseFormatter {
     $form['template'] = [
       '#type' => 'textarea',
       '#title' => $this->t('Template'),
-      '#description' => $this->t('Output custom field items using a custom template. The following tokens are available for replacement: <br>') . \Drupal::service('renderer')->render($tokens),
+      '#description' => $this->t('Output custom field items using a custom template. The following tokens are available for replacement: <br>') . $this->renderer->render($tokens),
       '#rows' => 5,
       '#default_value' => $this->getSetting('template'),
     ];
@@ -78,13 +96,10 @@ class CustomTemplateFormatter extends BaseFormatter {
    */
   protected function viewValue(FieldItemInterface $item): array {
     $replacements = [];
-    foreach ($this->getCustomFieldItems() as $name => $customItem) {
-      $markup = $customItem->value($item);
-      if ($markup === '' || $markup === NULL) {
-        continue;
-      }
+    foreach ($this->getCustomFieldItems() as $name => $custom_item) {
+      $markup = $custom_item->value($item) ?? '';
       $replacements["[$name]"] = $markup;
-      $replacements["[$name:label]"] = $customItem->getLabel();
+      $replacements["[$name:label]"] = $custom_item->getLabel();
     }
     $output = strtr($this->getSetting('template'), $replacements);
 

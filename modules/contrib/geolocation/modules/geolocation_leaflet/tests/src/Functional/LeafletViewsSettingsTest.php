@@ -36,7 +36,7 @@ class LeafletViewsSettingsTest extends BrowserTestBase {
   /**
    * Tests the Views admin UI and field handlers.
    */
-  public function testViewsAdmin() {
+  public function testViewsAdmin(): void {
     $permissions = [
       'access administration pages',
       'administer views',

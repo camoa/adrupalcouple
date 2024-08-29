@@ -33,7 +33,7 @@ class LeafletCommonMapTest extends BrowserTestBase {
   /**
    * Tests the boundary filter.
    */
-  public function testCommonMap() {
+  public function testCommonMap(): void {
     $this->drupalGet('geolocation-demo/leaflet-commonmap');
     $this->assertSession()->statusCodeEquals(200);
   }

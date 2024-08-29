@@ -3,7 +3,6 @@
 namespace Drupal\custom_field\Annotation;
 
 use Drupal\Component\Annotation\Plugin;
-use Drupal\Core\Annotation\Translation;
 
 /**
  * Defines a Custom field Type item annotation object.
@@ -23,51 +22,45 @@ class CustomFieldType extends Plugin {
   public string $id;
 
   /**
-   * The label of the plugin.
+   * The human-readable name of the field type.
    *
    * @var \Drupal\Core\Annotation\Translation
    *
    * @ingroup plugin_translatable
    */
-  public Translation $label;
+  public $label;
 
   /**
-   * A short human readable description for the customfield type.
+   * A short human readable description for the field type.
    *
    * @var \Drupal\Core\Annotation\Translation
    *
    * @ingroup plugin_translatable
    */
-  public Translation $description;
+  public $description;
 
   /**
    * The default value for the check empty field setting.
    *
    * @var bool
-   *
-   * @ingroup plugin_translatable
-   * @see \Drupal\custom_field\Plugin\Field\FieldType\CustomItem
    */
-  public bool $check_empty = FALSE;
+  public $check_empty = FALSE;
 
   /**
    * Flag to restrict this type from empty row checking.
    *
    * @var bool
-   *
-   * @ingroup plugin_translatable
-   * @see \Drupal\custom_field\Plugin\CustomField\FieldType\Uuid
    */
-  public bool $never_check_empty = FALSE;
+  public $never_check_empty = FALSE;
 
   /**
    * The category under which the field type should be listed in the UI.
    *
-   * @var string
+   * @var \Drupal\Core\Annotation\Translation
    *
    * @ingroup plugin_translatable
    */
-  public string $category = 'general';
+  public $category = '';
 
   /**
    * The plugin_id of the default widget for this field type.

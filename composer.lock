@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8e0add11a4451d3990290af6db889781",
+    "content-hash": "c4372e15faa885621ae307d70a596d82",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -124,28 +124,28 @@
         },
         {
             "name": "commerceguys/addressing",
-            "version": "v1.4.2",
+            "version": "v2.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/commerceguys/addressing.git",
-                "reference": "406c7b5f0fbe4f6a64155c0fe03b1adb34d01308"
+                "reference": "4d23e46ea32534268ea121453c93ceda2bc3ee69"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/commerceguys/addressing/zipball/406c7b5f0fbe4f6a64155c0fe03b1adb34d01308",
-                "reference": "406c7b5f0fbe4f6a64155c0fe03b1adb34d01308",
+                "url": "https://api.github.com/repos/commerceguys/addressing/zipball/4d23e46ea32534268ea121453c93ceda2bc3ee69",
+                "reference": "4d23e46ea32534268ea121453c93ceda2bc3ee69",
                 "shasum": ""
             },
             "require": {
-                "doctrine/collections": "^1.2 || ^2.0",
-                "php": ">=7.3"
+                "doctrine/collections": "^1.6 || ^2.0",
+                "php": ">=8.0"
             },
             "require-dev": {
                 "ext-json": "*",
-                "mikey179/vfsstream": "^1.6.10",
-                "phpunit/phpunit": "^9.5",
-                "squizlabs/php_codesniffer": "^3.6",
-                "symfony/validator": "^4.4 || ^5.4 || ^6.0"
+                "mikey179/vfsstream": "^1.6.11",
+                "phpunit/phpunit": "^9.6",
+                "squizlabs/php_codesniffer": "^3.7",
+                "symfony/validator": "^5.4 || ^6.3 || ^7.0"
             },
             "suggest": {
                 "symfony/validator": "to validate addresses"
@@ -153,7 +153,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.x-dev"
+                    "dev-master": "2.x-dev"
                 }
             },
             "autoload": {
@@ -182,9 +182,9 @@
             ],
             "support": {
                 "issues": "https://github.com/commerceguys/addressing/issues",
-                "source": "https://github.com/commerceguys/addressing/tree/v1.4.2"
+                "source": "https://github.com/commerceguys/addressing/tree/v2.2.2"
             },
-            "time": "2023-02-15T10:11:14+00:00"
+            "time": "2024-07-12T11:53:22+00:00"
         },
         {
             "name": "composer/installers",
@@ -1621,31 +1621,33 @@
         },
         {
             "name": "drupal/address",
-            "version": "1.12.0",
+            "version": "2.0.2",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/address.git",
-                "reference": "8.x-1.12"
+                "reference": "2.0.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/address-8.x-1.12.zip",
-                "reference": "8.x-1.12",
-                "shasum": "67dd4699040aabf0cd6169e437706fa6a39b0b3a"
+                "url": "https://ftp.drupal.org/files/projects/address-2.0.2.zip",
+                "reference": "2.0.2",
+                "shasum": "62875933847d9dcab5584de9c88712fa372cab9d"
             },
             "require": {
-                "commerceguys/addressing": "^1.4.2",
-                "drupal/core": "^9.2 || ^10",
-                "php": "^7.3 || ^8.0"
+                "commerceguys/addressing": "^2.1.1",
+                "drupal/core": "^9.5 || ^10 || ^11",
+                "php": "^8.0"
             },
             "require-dev": {
-                "drupal/token": "^1.0"
+                "drupal/diff": "^1",
+                "drupal/feeds": "^3",
+                "drupal/token": "^1"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-1.12",
-                    "datestamp": "1684710176",
+                    "version": "2.0.2",
+                    "datestamp": "1720108676",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -2081,52 +2083,6 @@
             "support": {
                 "source": "https://git.drupalcode.org/project/config_overlay",
                 "issues": "https://www.drupal.org/project/issues/config_overlay"
-            }
-        },
-        {
-            "name": "drupal/content_browser",
-            "version": "1.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://git.drupalcode.org/project/content_browser.git",
-                "reference": "8.x-1.1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/content_browser-8.x-1.1.zip",
-                "reference": "8.x-1.1",
-                "shasum": "a920fcae412af83f64590b484e428cead04fd943"
-            },
-            "require": {
-                "drupal/core": "^8 || ^9 || ^10",
-                "drupal/entity_browser": "*",
-                "drupal/entity_embed": "*"
-            },
-            "type": "drupal-module",
-            "extra": {
-                "drupal": {
-                    "version": "8.x-1.1",
-                    "datestamp": "1670990746",
-                    "security-coverage": {
-                        "status": "covered",
-                        "message": "Covered by Drupal's security advisory policy"
-                    }
-                }
-            },
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "samuel.mortenson",
-                    "homepage": "https://www.drupal.org/user/2582268"
-                }
-            ],
-            "description": "Provides a default Entity Browser for default Content Entity types, using Masonry.",
-            "homepage": "https://www.drupal.org/project/content_browser",
-            "support": {
-                "source": "https://git.drupalcode.org/project/content_browser"
             }
         },
         {
@@ -2621,30 +2577,32 @@
         },
         {
             "name": "drupal/custom_field",
-            "version": "2.0.0-rc6",
+            "version": "3.0.0-rc5",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/custom_field.git",
-                "reference": "2.0.0-rc6"
+                "reference": "3.0.0-rc5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/custom_field-2.0.0-rc6.zip",
-                "reference": "2.0.0-rc6",
-                "shasum": "53db8135daee8c9273006de3ca208ba9de4a74f0"
+                "url": "https://ftp.drupal.org/files/projects/custom_field-3.0.0-rc5.zip",
+                "reference": "3.0.0-rc5",
+                "shasum": "ead6c700f6905f6de7843044e91d270606f8a0e4"
             },
             "require": {
-                "drupal/core": "^9.4 || ^10.1"
+                "drupal/core": "^10.2 || ^11.0"
             },
             "require-dev": {
                 "drupal/feeds": "3.x-dev",
-                "drupal/linkit": "^6"
+                "drupal/graphql_compose": "^2.2",
+                "drupal/linkit": "^6.1",
+                "drupal/search_api": "^1.35"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "2.0.0-rc6",
-                    "datestamp": "1703275144",
+                    "version": "3.0.0-rc5",
+                    "datestamp": "1724622527",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "RC releases are not covered by Drupal security advisories."
@@ -2961,73 +2919,6 @@
             }
         },
         {
-            "name": "drupal/embed",
-            "version": "1.9.0",
-            "source": {
-                "type": "git",
-                "url": "https://git.drupalcode.org/project/embed.git",
-                "reference": "8.x-1.9"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/embed-8.x-1.9.zip",
-                "reference": "8.x-1.9",
-                "shasum": "e6b4875e2b245ddf1a68a8615cbb4c5a378a0e9f"
-            },
-            "require": {
-                "drupal/core": "^9.5 | ^10"
-            },
-            "require-dev": {
-                "drupal/ckeditor": "^1.0"
-            },
-            "type": "drupal-module",
-            "extra": {
-                "drupal": {
-                    "version": "8.x-1.9",
-                    "datestamp": "1723283819",
-                    "security-coverage": {
-                        "status": "covered",
-                        "message": "Covered by Drupal's security advisory policy"
-                    }
-                }
-            },
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "cs_shadow",
-                    "homepage": "https://www.drupal.org/user/2828287"
-                },
-                {
-                    "name": "dave reid",
-                    "homepage": "https://www.drupal.org/user/53892"
-                },
-                {
-                    "name": "Devin Carlson",
-                    "homepage": "https://www.drupal.org/user/290182"
-                },
-                {
-                    "name": "Drupal Media Team",
-                    "homepage": "https://www.drupal.org/user/3260690"
-                },
-                {
-                    "name": "phenaproxima",
-                    "homepage": "https://www.drupal.org/user/205645"
-                },
-                {
-                    "name": "slashrsm",
-                    "homepage": "https://www.drupal.org/user/744628"
-                }
-            ],
-            "description": "Provides a framework for different types of embeds in text editors.",
-            "homepage": "https://www.drupal.org/project/embed",
-            "support": {
-                "source": "https://git.drupalcode.org/project/embed"
-            }
-        },
-        {
             "name": "drupal/entity_browser",
             "version": "2.11.0",
             "source": {
@@ -3120,83 +3011,6 @@
                 "source": "https://git.drupalcode.org/project/entity_browser",
                 "issues": "https://www.drupal.org/project/issues/entity_browser",
                 "irc": "irc://irc.freenode.org/drupal-contribute"
-            }
-        },
-        {
-            "name": "drupal/entity_embed",
-            "version": "1.6.0",
-            "source": {
-                "type": "git",
-                "url": "https://git.drupalcode.org/project/entity_embed.git",
-                "reference": "8.x-1.6"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/entity_embed-8.x-1.6.zip",
-                "reference": "8.x-1.6",
-                "shasum": "9c65a87f4285dc47303783db2e3af5825164d1dc"
-            },
-            "require": {
-                "drupal/core": "^9.5 || ^10",
-                "drupal/embed": "^1.7"
-            },
-            "require-dev": {
-                "drupal/ckeditor": "^1",
-                "drupal/entity_browser": "^2.2"
-            },
-            "type": "drupal-module",
-            "extra": {
-                "drupal": {
-                    "version": "8.x-1.6",
-                    "datestamp": "1712587671",
-                    "security-coverage": {
-                        "status": "covered",
-                        "message": "Covered by Drupal's security advisory policy"
-                    }
-                }
-            },
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "cs_shadow",
-                    "homepage": "https://www.drupal.org/user/2828287"
-                },
-                {
-                    "name": "Dave Reid",
-                    "homepage": "https://www.drupal.org/user/53892"
-                },
-                {
-                    "name": "Devin Carlson",
-                    "homepage": "https://www.drupal.org/user/290182"
-                },
-                {
-                    "name": "Drupal Media Team",
-                    "homepage": "https://www.drupal.org/user/3260690"
-                },
-                {
-                    "name": "oknate",
-                    "homepage": "https://www.drupal.org/user/471638"
-                },
-                {
-                    "name": "phenaproxima",
-                    "homepage": "https://www.drupal.org/user/205645"
-                },
-                {
-                    "name": "slashrsm",
-                    "homepage": "https://www.drupal.org/user/744628"
-                },
-                {
-                    "name": "Wim Leers",
-                    "homepage": "https://www.drupal.org/user/99777"
-                }
-            ],
-            "description": "Allows any entity to be embedded within a text area using a WYSIWYG editor.",
-            "homepage": "https://www.drupal.org/project/entity_embed",
-            "support": {
-                "source": "https://git.drupalcode.org/project/entity_embed"
             }
         },
         {
@@ -3516,54 +3330,6 @@
             }
         },
         {
-            "name": "drupal/flexfield",
-            "version": "2.0.0-beta2",
-            "source": {
-                "type": "git",
-                "url": "https://git.drupalcode.org/project/flexfield.git",
-                "reference": "2.0.0-beta2"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/flexfield-2.0.0-beta2.zip",
-                "reference": "2.0.0-beta2",
-                "shasum": "179d56644831730e4e5c3a989c478ed1f2e40008"
-            },
-            "require": {
-                "drupal/core": "^8 || ^9 || ^10"
-            },
-            "type": "drupal-module",
-            "extra": {
-                "drupal": {
-                    "version": "2.0.0-beta2",
-                    "datestamp": "1680196714",
-                    "security-coverage": {
-                        "status": "not-covered",
-                        "message": "Project has not opted into security advisory coverage!"
-                    }
-                }
-            },
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "license": [
-                "GPL-2.0+"
-            ],
-            "authors": [
-                {
-                    "name": "drclaw",
-                    "homepage": "https://www.drupal.org/user/823702"
-                }
-            ],
-            "description": "Create simple, but flexible, multivalue fields without the hassle of entity references.",
-            "homepage": "https://www.drupal.org/project/flexfield",
-            "keywords": [
-                "Drupal"
-            ],
-            "support": {
-                "source": "http://cgit.drupalcode.org/flexfield",
-                "issues": "https://www.drupal.org/project/issues/flexfield"
-            }
-        },
-        {
             "name": "drupal/focal_point",
             "version": "2.1.1",
             "source": {
@@ -3620,47 +3386,42 @@
         },
         {
             "name": "drupal/geolocation",
-            "version": "3.13.0",
+            "version": "4.0.0-alpha6",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/geolocation.git",
-                "reference": "8.x-3.13"
+                "reference": "4.0.0-alpha6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/geolocation-8.x-3.13.zip",
-                "reference": "8.x-3.13",
-                "shasum": "49029950bc0927f14b1d0ce01f93e03cdd131ee6"
+                "url": "https://ftp.drupal.org/files/projects/geolocation-4.0.0-alpha6.zip",
+                "reference": "4.0.0-alpha6",
+                "shasum": "b70e9b3125aa895f1061797fc99de617292ac9fe"
             },
             "require": {
-                "drupal/core": "^9.3 || ^10",
-                "drupal/jquery_ui": "*",
-                "drupal/jquery_ui_autocomplete": "^2.0",
-                "php": "^7.3 || ^8.0"
+                "drupal/core": "^10.0",
+                "php": "^8.1"
             },
             "require-dev": {
                 "drupal/address": "*",
+                "drupal/feeds": "*",
                 "drupal/geofield": "*",
                 "drupal/geolocation_demo": "*",
                 "drupal/geolocation_geometry": "*",
-                "drupal/geolocation_geometry_data": "*",
                 "drupal/geolocation_google_maps": "*",
                 "drupal/geolocation_google_maps_demo": "*",
                 "drupal/geolocation_google_static_maps": "*",
                 "drupal/geolocation_leaflet": "*",
-                "drupal/geolocation_leaflet_demo": "*",
-                "drupal/search_api": "*",
-                "drupal/search_api_location": "*",
-                "drupal/search_api_location_views": "*"
+                "drupal/search_api": "*"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-3.13",
-                    "datestamp": "1714403539",
+                    "version": "4.0.0-alpha6",
+                    "datestamp": "1714246761",
                     "security-coverage": {
-                        "status": "covered",
-                        "message": "Covered by Drupal's security advisory policy"
+                        "status": "not-covered",
+                        "message": "Alpha releases are not covered by Drupal security advisories."
                     }
                 }
             },
@@ -4116,72 +3877,6 @@
             }
         },
         {
-            "name": "drupal/jquery_ui_autocomplete",
-            "version": "2.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://git.drupalcode.org/project/jquery_ui_autocomplete.git",
-                "reference": "2.1.0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/jquery_ui_autocomplete-2.1.0.zip",
-                "reference": "2.1.0",
-                "shasum": "ecf9500d8bff6c3673e92019a09dcce87ac81fc6"
-            },
-            "require": {
-                "drupal/core": "^9.2 || ^10 || ^11",
-                "drupal/jquery_ui": "^1.7",
-                "drupal/jquery_ui_menu": "^2.1"
-            },
-            "type": "drupal-module",
-            "extra": {
-                "drupal": {
-                    "version": "2.1.0",
-                    "datestamp": "1717035046",
-                    "security-coverage": {
-                        "status": "covered",
-                        "message": "Covered by Drupal's security advisory policy"
-                    }
-                }
-            },
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "bnjmnm",
-                    "homepage": "https://www.drupal.org/user/2369194"
-                },
-                {
-                    "name": "lauriii",
-                    "homepage": "https://www.drupal.org/user/1078742"
-                },
-                {
-                    "name": "nod_",
-                    "homepage": "https://www.drupal.org/user/598310"
-                },
-                {
-                    "name": "phenaproxima",
-                    "homepage": "https://www.drupal.org/user/205645"
-                },
-                {
-                    "name": "Wim Leers",
-                    "homepage": "https://www.drupal.org/user/99777"
-                },
-                {
-                    "name": "zrpnr",
-                    "homepage": "https://www.drupal.org/user/1448368"
-                }
-            ],
-            "description": "Provides jQuery UI Autocomplete library.",
-            "homepage": "https://www.drupal.org/project/jquery_ui_autocomplete",
-            "support": {
-                "source": "https://git.drupalcode.org/project/jquery_ui_autocomplete"
-            }
-        },
-        {
             "name": "drupal/jquery_ui_draggable",
             "version": "2.1.0",
             "source": {
@@ -4232,71 +3927,6 @@
             "homepage": "https://www.drupal.org/project/jquery_ui_draggable",
             "support": {
                 "source": "https://git.drupalcode.org/project/jquery_ui_draggable"
-            }
-        },
-        {
-            "name": "drupal/jquery_ui_menu",
-            "version": "2.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://git.drupalcode.org/project/jquery_ui_menu.git",
-                "reference": "2.1.0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/jquery_ui_menu-2.1.0.zip",
-                "reference": "2.1.0",
-                "shasum": "9aa6958e52ea12c1cdedd7908c5aeb5309b8b4ea"
-            },
-            "require": {
-                "drupal/core": "^9.2 || ^10 || ^11",
-                "drupal/jquery_ui": "^1.7"
-            },
-            "type": "drupal-module",
-            "extra": {
-                "drupal": {
-                    "version": "2.1.0",
-                    "datestamp": "1717031358",
-                    "security-coverage": {
-                        "status": "covered",
-                        "message": "Covered by Drupal's security advisory policy"
-                    }
-                }
-            },
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "bnjmnm",
-                    "homepage": "https://www.drupal.org/user/2369194"
-                },
-                {
-                    "name": "lauriii",
-                    "homepage": "https://www.drupal.org/user/1078742"
-                },
-                {
-                    "name": "nod_",
-                    "homepage": "https://www.drupal.org/user/598310"
-                },
-                {
-                    "name": "phenaproxima",
-                    "homepage": "https://www.drupal.org/user/205645"
-                },
-                {
-                    "name": "Wim Leers",
-                    "homepage": "https://www.drupal.org/user/99777"
-                },
-                {
-                    "name": "zrpnr",
-                    "homepage": "https://www.drupal.org/user/1448368"
-                }
-            ],
-            "description": "Provides jQuery UI Menu library.",
-            "homepage": "https://www.drupal.org/project/jquery_ui_menu",
-            "support": {
-                "source": "https://git.drupalcode.org/project/jquery_ui_menu"
             }
         },
         {
@@ -4473,20 +4103,20 @@
         },
         {
             "name": "drupal/linkit",
-            "version": "6.1.4",
+            "version": "7.0.0-alpha1",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/linkit.git",
-                "reference": "6.1.4"
+                "reference": "7.0.0-alpha1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/linkit-6.1.4.zip",
-                "reference": "6.1.4",
-                "shasum": "f5544a39d691af5efd1532bd5403862a7153f60b"
+                "url": "https://ftp.drupal.org/files/projects/linkit-7.0.0-alpha1.zip",
+                "reference": "7.0.0-alpha1",
+                "shasum": "cf1bc362a7ab99da2f08214e9d8181d2b6a689cd"
             },
             "require": {
-                "drupal/core": "^10.1"
+                "drupal/core": "^10.1 || ^11"
             },
             "require-dev": {
                 "drupal/ckeditor": "*",
@@ -4495,11 +4125,11 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "6.1.4",
-                    "datestamp": "1715203830",
+                    "version": "7.0.0-alpha1",
+                    "datestamp": "1715887209",
                     "security-coverage": {
-                        "status": "covered",
-                        "message": "Covered by Drupal's security advisory policy"
+                        "status": "not-covered",
+                        "message": "Alpha releases are not covered by Drupal security advisories."
                     }
                 }
             },
@@ -11224,10 +10854,11 @@
         "drupal/entity_usage": 10,
         "drupal/existing_values_autocomplete_widget": 10,
         "drupal/field_validation": 10,
-        "drupal/flexfield": 10,
+        "drupal/geolocation": 15,
         "drupal/gin": 5,
         "drupal/gin_toolbar": 5,
-        "drupal/inline_entity_form": 5
+        "drupal/inline_entity_form": 5,
+        "drupal/linkit": 15
     },
     "prefer-stable": true,
     "prefer-lowest": false,

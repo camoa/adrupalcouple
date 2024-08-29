@@ -1,0 +1,61 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.geolocation_us_states.field_geometry_data_geometry
+    - taxonomy.vocabulary.geolocation_us_states
+  module:
+    - geolocation_geometry
+    - taxonomy
+label: 'Geolocation - US States'
+id: geolocation_us_states
+description: ''
+help: ''
+import_period: -1
+fetcher: http
+fetcher_configuration:
+  auto_detect_feeds: false
+  use_pubsubhubbub: false
+  always_download: true
+  fallback_hub: ''
+  request_timeout: 30
+parser: shp
+parser_configuration:
+  delimiter: ','
+  no_headers: 0
+  line_limit: 100
+processor: 'entity:taxonomy_term'
+processor_configuration:
+  values:
+    vid: geolocation_us_states
+  langcode: en
+  insert_new: 1
+  update_existing: 2
+  update_non_existent: _delete
+  skip_hash_check: false
+  authorize: false
+  revision: false
+  expire: -1
+  owner_feed_author: false
+  owner_id: 0
+custom_sources:
+  name:
+    value: NAME
+    label: NAME
+    machine_name: name
+    type: shp
+mappings:
+  -
+    target: field_geometry_data_geometry
+    map:
+      value: geojson
+    settings:
+      language: null
+  -
+    target: name
+    map:
+      value: name
+    settings:
+      language: null
+    unique:
+      value: 1

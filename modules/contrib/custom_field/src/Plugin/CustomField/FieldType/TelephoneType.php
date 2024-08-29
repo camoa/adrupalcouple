@@ -5,6 +5,7 @@ namespace Drupal\custom_field\Plugin\CustomField\FieldType;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\TypedData\DataDefinition;
 use Drupal\custom_field\Plugin\CustomFieldTypeBase;
+use Drupal\custom_field\Plugin\CustomFieldTypeInterface;
 
 /**
  * Plugin implementation of the 'telephone' custom field type.
@@ -24,19 +25,27 @@ class TelephoneType extends CustomFieldTypeBase {
    * {@inheritdoc}
    */
   public static function schema(array $settings): array {
-    return [
+    ['name' => $name] = $settings;
+
+    $columns[$name] = [
       'type' => 'varchar',
-      'length' => 255,
+      'length' => $settings['max_length'] ?? 256,
     ];
+
+    return $columns;
   }
 
   /**
    * {@inheritdoc}
    */
-  public static function propertyDefinitions(array $settings): DataDefinition {
-    return DataDefinition::create('string')
-      ->setLabel(new TranslatableMarkup('%name value', ['%name' => $settings['name']]))
+  public static function propertyDefinitions(array $settings): array {
+    ['name' => $name] = $settings;
+
+    $properties[$name] = DataDefinition::create('string')
+      ->setLabel(new TranslatableMarkup('@name', ['@name' => $name]))
       ->setRequired(FALSE);
+
+    return $properties;
   }
 
   /**
@@ -55,6 +64,17 @@ class TelephoneType extends CustomFieldTypeBase {
     }
 
     return $constraints;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function generateSampleValue(CustomFieldTypeInterface $field, string $target_entity_type): string {
+    $area_code = mt_rand(100, 999);
+    $prefix = mt_rand(100, 999);
+    $line_number = mt_rand(1000, 9999);
+
+    return "$area_code-$prefix-$line_number";
   }
 
 }

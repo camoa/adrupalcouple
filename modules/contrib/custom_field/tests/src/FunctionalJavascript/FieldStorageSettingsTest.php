@@ -64,6 +64,13 @@ class FieldStorageSettingsTest extends WebDriverTestBase {
   protected $fieldName;
 
   /**
+   * The field array path.
+   *
+   * @var string
+   */
+  protected $parentPath;
+
+  /**
    * URL to field's storage configuration form.
    *
    * @var string
@@ -92,7 +99,7 @@ class FieldStorageSettingsTest extends WebDriverTestBase {
 
     $this->fieldName = 'field_custom_field_test';
     $this->bundle = 'custom_field_entity_test';
-    $this->fieldStorageConfigUrl = '/admin/structure/types/manage/' . $this->bundle . '/fields/node.' . $this->bundle . '.' . $this->fieldName . '/storage';
+    $this->fieldStorageConfigUrl = '/admin/structure/types/manage/' . $this->bundle . '/fields/node.' . $this->bundle . '.' . $this->fieldName;
     $this->entityFieldManager = $this->container->get('entity_field.manager');
     $this->customFieldDataGenerator = $this->container->get('custom_field.generate_data');
 
@@ -100,7 +107,10 @@ class FieldStorageSettingsTest extends WebDriverTestBase {
       ->getFieldDefinitions('node', 'custom_field_entity_test');
 
     $this->drupalLogin($this->drupalCreateUser([], NULL, TRUE));
-
+    $this->parentPath = 'field_storage[subform][settings][items]';
+    // Create node bundle for tests.
+    $type = NodeType::create(['name' => 'Article', 'type' => 'article']);
+    $type->save();
   }
 
   /**
@@ -114,33 +124,33 @@ class FieldStorageSettingsTest extends WebDriverTestBase {
     $columns = $field->getSetting('columns');
 
     // Verify the clone settings field exists.
-    $assert_session->elementExists('css', '[name="settings[clone]"]');
-    $delta = 0;
+    $assert_session->elementExists('css', '[name="field_storage[subform][settings][clone]"]');
 
     // Iterate over each column stored in config to test form element.
-    foreach ($columns as $column) {
+    foreach ($columns as $name => $column) {
       $type = $column['type'];
-      $max_length = $page->findField('settings[items][' . $delta . '][max_length]');
+      $max_length = $page->findField($this->parentPath . '[' . $name . '][max_length]');
       $max_length_message = 'The max length field is visible';
-      $size = $page->findField('settings[items][' . $delta . '][size]');
+      $size = $page->findField($this->parentPath . '[' . $name . '][size]');
       $size_message = 'The size field is visible';
-      $precision = $page->findField('settings[items][' . $delta . '][precision]');
+      $precision = $page->findField($this->parentPath . '[' . $name . '][precision]');
       $precision_message = 'The precision field is visible';
-      $scale = $page->findField('settings[items][' . $delta . '][scale]');
+      $scale = $page->findField($this->parentPath . '[' . $name . '][scale]');
       $scale_message = 'The scale field is visible';
-      $unsigned = $page->findField('settings[items][' . $delta . '][unsigned]');
+      $unsigned = $page->findField($this->parentPath . '[' . $name . '][unsigned]');
       $unsigned_message = 'The unsigned checkbox is visible';
-      $datetime_type = $page->findField('settings[items][' . $delta . '][datetime_type]');
+      $datetime_type = $page->findField($this->parentPath . '[' . $name . '][datetime_type]');
       $datetime_type_message = 'The datetime type field is visible';
 
       // Verify the type field is present and required.
-      $this->assertNotEmpty((bool) $this->xpath('//select[@name="settings[items][' . $delta . '][type]" and boolean(@required)]'), 'Type is shown as required.');
+      $this->assertNotEmpty((bool) $this->xpath('//select[@name="' . $this->parentPath . '[' . $name . '][type]" and boolean(@required)]'), 'Type is shown as required.');
       // Verify the type field selected option matches the stored config value.
-      $this->assertOptionSelected('settings[items][' . $delta . '][type]', $type, 'The configured data type is selected.');
+      $this->assertOptionSelected($this->parentPath . '[' . $name . '][type]', $type, 'The configured data type is selected.');
 
       // Perform special assertions based on column type.
       switch ($type) {
         case 'string':
+        case 'telephone':
           $this->assertNotTrue($size->isVisible(), $size_message);
           $this->assertNotTrue($precision->isVisible(), $precision_message);
           $this->assertNotTrue($scale->isVisible(), $scale_message);
@@ -155,7 +165,7 @@ class FieldStorageSettingsTest extends WebDriverTestBase {
           $this->assertNotTrue($max_length->isVisible(), $max_length_message);
           $this->assertNotTrue($datetime_type->isVisible(), $datetime_type_message);
           $this->assertTrue($size->isVisible(), $size_message);
-          $this->assertOptionSelected('settings[items][' . $delta . '][size]', $column['size'], 'The configured size is selected.');
+          $this->assertOptionSelected($this->parentPath . '[' . $name . '][size]', $column['size'], 'The configured size is selected.');
           $this->assertTrue($unsigned->isVisible(), $unsigned_message);
           $this->assertTrue($unsigned->isChecked() === (bool) $unsigned->getValue(), 'The unsigned field is checked if the value is true.');
           break;
@@ -171,13 +181,37 @@ class FieldStorageSettingsTest extends WebDriverTestBase {
 
         case 'datetime':
           $this->assertTrue($datetime_type->isVisible(), $datetime_type_message);
-          $this->assertOptionSelected('settings[items][' . $delta . '][datetime_type]', $column['datetime_type'], 'The configured datetime type is selected.');
+          $this->assertOptionSelected($this->parentPath . '[' . $name . '][datetime_type]', $column['datetime_type'], 'The configured datetime type is selected.');
           $this->assertNotTrue($max_length->isVisible(), $max_length_message);
           $this->assertNotTrue($size->isVisible(), $size_message);
           $this->assertNotTrue($precision->isVisible(), $precision_message);
           $this->assertNotTrue($scale->isVisible(), $scale_message);
           $this->assertNotTrue($unsigned->isVisible(), $unsigned_message);
           break;
+
+        case 'entity_reference':
+          $target_type = $page->findField($this->parentPath . '[' . $name . '][target_type]');
+          $target_type_message = 'The target type field is visible';
+          $this->assertTrue($target_type->isVisible(), $target_type_message);
+          $this->assertNotTrue($max_length->isVisible(), $max_length_message);
+          $this->assertNotTrue($size->isVisible(), $size_message);
+          $this->assertNotTrue($precision->isVisible(), $precision_message);
+          $this->assertNotTrue($scale->isVisible(), $scale_message);
+          $this->assertNotTrue($unsigned->isVisible(), $unsigned_message);
+          $this->assertNotTrue($datetime_type->isVisible(), $datetime_type_message);
+          break;
+
+        case 'file':
+        case 'image':
+          $uri_scheme = $page->findField($this->parentPath . '[' . $name . '][uri_scheme]');
+          $uri_scheme_message = 'The uri scheme field is visible';
+          $this->assertTrue($uri_scheme->isVisible(), $uri_scheme_message);
+          $this->assertNotTrue($max_length->isVisible(), $max_length_message);
+          $this->assertNotTrue($size->isVisible(), $size_message);
+          $this->assertNotTrue($precision->isVisible(), $precision_message);
+          $this->assertNotTrue($scale->isVisible(), $scale_message);
+          $this->assertNotTrue($unsigned->isVisible(), $unsigned_message);
+          $this->assertNotTrue($datetime_type->isVisible(), $datetime_type_message);
 
         default:
           $this->assertNotTrue($max_length->isVisible(), $max_length_message);
@@ -188,7 +222,6 @@ class FieldStorageSettingsTest extends WebDriverTestBase {
           $this->assertNotTrue($datetime_type->isVisible(), $datetime_type_message);
           break;
       }
-      $delta++;
     }
   }
 
@@ -201,35 +234,43 @@ class FieldStorageSettingsTest extends WebDriverTestBase {
     $columns = $field->getSetting('columns');
     $column_count = count($columns);
     $page = $this->getSession()->getPage();
-    $assert_session = $this->assertSession();
     // Remove elements in descending order until getting to the last one.
-    for ($i = $column_count - 1; $i >= 0; $i--) {
-      $this->click('[name="remove:' . $i . '"]');
-      $assert_session->assertWaitOnAjaxRequest();
-      // Verify all items were removed except the first one.
-      if ($i > 0) {
-        $assert_session->elementNotExists('css', '[name="remove:' . $i . '"]');
+    foreach ($columns as $i => $column) {
+      $button_id = 'remove_' . $i;
+      $this->assertSession()->waitForElementVisible('css', '#custom-field-storage-wrapper');
+      $this->assertSession()->waitForElementVisible('css', $button_id);
+      $remove_button = $this->getSession()->getPage()->findButton($button_id);
+      if ($remove_button) {
+        $this->getSession()->getPage()->findButton($button_id)->click();
       }
-      // Verify the first item still exists and remove button is disabled.
-      else {
-        $assert_session->elementExists('css', '[name="remove:' . $i . '"]');
-        $assert_session->elementAttributeExists('css', '[name="remove:' . $i . '"]', 'disabled');
-      }
+      $this->assertSession()->waitForElementVisible('css', '#custom-field-storage-wrapper');
+      $this->assertSession()->buttonNotExists($button_id);
     }
     // Click the Add another button and verify the new element exists.
-    $this->click('#edit-settings-actions-add');
-    $assert_session->assertWaitOnAjaxRequest();
-    $this->getSession()->getPage()->fillField('settings[items][1][type]', 'string');
-    $this->getSession()->getPage()->fillField('settings[items][1][name]', 'new_field');
-    $assert_session->assertWaitOnAjaxRequest();
-    // Verify the new element exists by its remove button.
-    $assert_session->elementExists('css', '[name="remove:1"]');
+    $page->findButton('Add another')->click();
+    $this->assertSession()->waitForElementVisible('css', '#field-combined');
+    /*
+    $fields = $this->getSession()->getPage()->findAll('css', '.js-form-type-machine-name input');
+    // Get the last field from the list.
+    if ($fields) {
+      $new_field = end($fields)->getAttribute('value');
+    }
+    $new_name = $page->findField($this->parentPath . '[' . $new_field . '][name]');
+    $new_name->setValue('new_field');
+    $this->assertSession()->waitForElementVisible('css', '#custom-field-storage-wrapper');
+    $new_type = $page->findField($this->parentPath . '[new_field][type]');
+    $new_type->setValue('string');
+    //$this->getSession()->getPage()->fillField($this->parentPath . '[' . $new_field . '][name]', 'new_field');
+    //$this->getSession()->getPage()->fillField($this->parentPath . '[' . $new_field . '][type]', 'string');
+    //$assert_session->assertWaitOnAjaxRequest();
+    $this->assertSession()->waitForElementVisible('css', '#custom-field-storage-wrapper');
     // Save the form.
-    $page->findButton('Save field settings')->click();
+    $page->findButton('Save settings')->click();
     $this->drupalGet($this->fieldStorageConfigUrl);
-    $new_field_name = $page->findField('settings[items][1][name]');
+    $new_field_name = $page->findField($this->parentPath . '[new_field][name]');
     // Verify the new field name value matches config.
     $this->assertTrue($new_field_name->getValue() === 'new_field');
+    */
   }
 
   /**
@@ -238,9 +279,6 @@ class FieldStorageSettingsTest extends WebDriverTestBase {
   public function testCloneSettings() {
     $field_copy = $this->fields[$this->fieldName];
     $field_copy_columns = $field_copy->getSetting('columns');
-    // Create node bundle for tests.
-    $type = NodeType::create(['name' => 'Article', 'type' => 'article']);
-    $type->save();
 
     // Create a generic custom field for validation.
     $field_storage = FieldStorageConfig::create([
@@ -256,6 +294,7 @@ class FieldStorageSettingsTest extends WebDriverTestBase {
       'label' => 'Generic custom field',
     ]);
     $field_instance->save();
+    $article_config_url = '/admin/structure/types/manage/article/fields/node.article.field_custom_generic';
 
     // Set article's form display.
     $this->formDisplay = EntityFormDisplay::load('node.article.default');
@@ -273,18 +312,19 @@ class FieldStorageSettingsTest extends WebDriverTestBase {
       'type' => 'custom_stacked',
     ])->save();
 
-    $field_config_url = '/admin/structure/types/manage/article/fields/node.article.field_custom_generic/storage';
-    $this->drupalGet($field_config_url);
+    $this->drupalGet($article_config_url);
     $page = $this->getSession()->getPage();
     $assert_session = $this->assertSession();
     // Verify the clone settings field exists.
-    $assert_session->elementExists('css', '[name="settings[clone]"]');
-    $page->fillField('settings[clone]', $this->bundle . '.' . $this->fieldName);
+    $assert_session->elementExists('css', '[name="field_storage[subform][settings][clone]"]');
+    $clone_field = $page->findField('field_storage[subform][settings][clone]');
+    $option_value = 'node.' . $this->bundle . '.' . $this->fieldName;
+    $clone_field->setValue($option_value);
     $this->assertSession()->assertWaitOnAjaxRequest();
     $this->assertSession()->pageTextContainsOnce('The selected custom field field settings will be cloned. Any existing settings for this field will be overwritten. Field widget and formatter settings will not be cloned.');
     // Save the form.
-    $page->findButton('Save field settings')->click();
-    $this->drupalGet($field_config_url);
+    $page->findButton('Save settings')->click();
+    $this->drupalGet($article_config_url);
     $field = FieldConfig::loadByName('node', 'article', 'field_custom_generic');
     $columns = $field->getSetting('columns');
     $this->assertSame($field_copy_columns, $columns, 'The cloned columns match the source columns.');
@@ -313,9 +353,9 @@ class FieldStorageSettingsTest extends WebDriverTestBase {
     // Load the settings page now to evaluate existing data.
     $this->drupalGet($this->fieldStorageConfigUrl);
     // Verify the clone settings field no longer exists.
-    $assert_session->elementNotExists('css', '[name="settings[clone]"]');
+    $assert_session->elementNotExists('css', '[name="field_storage[subform][settings][clone]"]');
     // Verify the add another button is hidden.
-    $assert_session->elementNotExists('css', '#edit-settings-actions-add');
+    $assert_session->elementNotExists('css', '#edit-field-storage-subform-settings-actions-add');
   }
 
   /**

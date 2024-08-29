@@ -1,12 +1,14 @@
 #drupal-off-canvas button.custom_field_color_box__square,
 .custom_field_color_box__square {
-  box-sizing: border-box;
   display: inline-block;
-  border: none;
+  box-sizing: border-box;
   width: 32px;
   height: 32px;
-  box-shadow: 0 0 0 4px #fff, 0 0 0 5px #e7e7e7;
   margin: 8px;
+  border: none;
+  box-shadow:
+    0 0 0 4px #fff,
+    0 0 0 5px #e7e7e7;
 }
 
 #drupal-off-canvas button.custom_field_color_box__square:focus,
@@ -26,19 +28,29 @@
 
 #drupal-off-canvas button.custom_field_color_box__square--transparent,
 .custom_field_color_box__square--transparent {
-  box-sizing: border-box;
-  background-image: linear-gradient(45deg, #f0f0f0 25%, transparent 25%), linear-gradient(-45deg, #f0f0f0 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #f0f0f0 75%), linear-gradient(-45deg, #fff 75%, #f0f0f0 75%);
-  background-position: 0 0, 0 10px, 10px -10px, -10px 0;
-  background-size: 20px 20px;
   display: inline-block;
-  border: none;
+  box-sizing: border-box;
   width: 32px;
   height: 32px;
   margin: 8px;
-  box-shadow: 0 0 0 4px #fff, 0 0 0 5px #e7e7e7;
+  border: none;
+  background-image: linear-gradient(45deg, #f0f0f0 25%, transparent 25%),
+    linear-gradient(-45deg, #f0f0f0 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #f0f0f0 75%),
+    linear-gradient(-45deg, #fff 75%, #f0f0f0 75%);
+  background-position:
+    0 0,
+    0 10px,
+    10px -10px,
+    -10px 0;
+  background-size: 20px 20px;
+  box-shadow:
+    0 0 0 4px #fff,
+    0 0 0 5px #e7e7e7;
 }
 
-#drupal-off-canvas button.custom_field_color_box__square--transparent.active:focus,
+#drupal-off-canvas
+  button.custom_field_color_box__square--transparent.active:focus,
 #drupal-off-canvas button.custom_field_color_box__square--transparent.active,
 .custom_field_color_box__square--transparent.active:focus,
 .custom_field_color_box__square--transparent.active {
@@ -48,7 +60,8 @@
 }
 
 #drupal-off-canvas button.custom_field_color_box__square:hover,
-#drupal-off-canvas button.custom_field_color_box__square--transparent.active:focus,
+#drupal-off-canvas
+  button.custom_field_color_box__square--transparent.active:focus,
 #drupal-off-canvas button.custom_field_color_box__square--transparent.active,
 .custom_field_color_box__square.active,
 .custom_field_color_box__square.active:focus,
@@ -60,7 +73,9 @@
 .custom_field_color_box__square--transparent:hover,
 .page-wrapper .custom_field_color_box__square:focus,
 .page-wrapper .custom_field_color_box__square--transparent:focus {
-  box-shadow: 0 0 0 4px #fff, 0 0 0 6px #000;
+  box-shadow:
+    0 0 0 4px #fff,
+    0 0 0 6px #000;
 }
 
 #drupal-off-canvas button.custom_field_color_box__square:hover,
@@ -73,10 +88,10 @@
 #drupal-off-canvas button.custom_field_color_box__color.required,
 .custom_field_color_box__color.required {
   display: block !important;
+  overflow: hidden;
   width: 0;
   height: 0;
   min-height: 0;
-  overflow: hidden;
   padding: 0;
   border: none;
 }

@@ -1,0 +1,38 @@
+<?php
+
+/**
+ * @file
+ * Handle requirements.
+ */
+
+use Drupal\Core\Url;
+
+/**
+ * Implements hook_requirements().
+ */
+function geolocation_bing_requirements(string $phase): array {
+  $requirements = [];
+  if ($phase == 'runtime') {
+    $requirements['geolocation_bing_api_key'] = [
+      'title' => t('Geolocation - Bing Maps Key'),
+      'value' => t('Bing Maps ID & Code set'),
+      'description' => t('A Bing Maps key is set in the <a href=":geolocation_bing_settings_url">Geolocation settings</a>.', [':geolocation_bing_settings_url' => Url::fromRoute('geolocation_bing.settings')->toString()]),
+      'severity' => REQUIREMENT_OK,
+    ];
+
+    if (empty(\Drupal::config('bing_maps.settings')->get('key'))) {
+      $requirements['geolocation_bing_api_key']['value'] = t('Bing maps key missing');
+      $requirements['geolocation_bing_api_key']['description'] = t('A Bing maps key is missing in the <a href=":geolocation_bing_settings_url">Geolocation settings</a>.', [':geolocation_bing_settings_url' => Url::fromRoute('geolocation_bing.settings')->toString()]);
+      $requirements['geolocation_bing_api_key']['severity'] = REQUIREMENT_WARNING;
+    }
+  }
+
+  return $requirements;
+}
+
+/**
+ * Implements hook_requirements().
+ */
+function geolocation_bing_uninstall(): void {
+  Drupal::configFactory()->getEditable('bing_maps.settings')->delete();
+}

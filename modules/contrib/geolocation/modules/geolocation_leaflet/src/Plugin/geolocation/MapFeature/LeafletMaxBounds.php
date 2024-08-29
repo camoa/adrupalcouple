@@ -2,8 +2,8 @@
 
 namespace Drupal\geolocation_leaflet\Plugin\geolocation\MapFeature;
 
-use Drupal\Core\Render\BubbleableMetadata;
 use Drupal\geolocation\MapFeatureBase;
+use Drupal\geolocation\MapProviderInterface;
 
 /**
  * Provides Leaflet.
@@ -20,19 +20,24 @@ class LeafletMaxBounds extends MapFeatureBase {
   /**
    * {@inheritdoc}
    */
-  public static function getDefaultSettings() {
-    return [
-      'north' => '',
-      'south' => '',
-      'east' => '',
-      'west' => '',
-    ];
+  public static function getDefaultSettings(): array {
+    return array_replace_recursive(
+      parent::getDefaultSettings(),
+      [
+        'north' => '',
+        'south' => '',
+        'east' => '',
+        'west' => '',
+      ]
+    );
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getSettingsForm(array $settings, array $parents) {
+  public function getSettingsForm(array $settings, array $parents = [], MapProviderInterface $mapProvider = NULL): array {
+    $form = parent::getSettingsForm($settings, $parents, $mapProvider);
+
     $form['north'] = [
       '#type' => 'textfield',
       '#title' => $this->t('North'),
@@ -59,39 +64,6 @@ class LeafletMaxBounds extends MapFeatureBase {
     ];
 
     return $form;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function alterMap(array $render_array, array $feature_settings, array $context = []) {
-    $render_array = parent::alterMap($render_array, $feature_settings, $context);
-
-    $render_array['#attached'] = BubbleableMetadata::mergeAttachments(
-      empty($render_array['#attached']) ? [] : $render_array['#attached'],
-      [
-        'library' => [
-          'geolocation_leaflet/mapfeature.' . $this->getPluginId(),
-        ],
-        'drupalSettings' => [
-          'geolocation' => [
-            'maps' => [
-              $render_array['#id'] => [
-                $this->getPluginId() => [
-                  'enable' => TRUE,
-                  'north' => $feature_settings['north'],
-                  'south' => $feature_settings['south'],
-                  'east' => $feature_settings['east'],
-                  'west' => $feature_settings['west'],
-                ],
-              ],
-            ],
-          ],
-        ],
-      ]
-    );
-
-    return $render_array;
   }
 
 }

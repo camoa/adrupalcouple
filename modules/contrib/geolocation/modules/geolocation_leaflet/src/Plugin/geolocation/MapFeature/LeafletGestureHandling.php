@@ -2,7 +2,7 @@
 
 namespace Drupal\geolocation_leaflet\Plugin\geolocation\MapFeature;
 
-use Drupal\geolocation\MapFeatureFrontendBase;
+use Drupal\geolocation\MapFeatureBase;
 
 /**
  * Provides gesture handling.
@@ -14,6 +14,20 @@ use Drupal\geolocation\MapFeatureFrontendBase;
  *   type = "leaflet",
  * )
  */
-class LeafletGestureHandling extends MapFeatureFrontendBase {
+class LeafletGestureHandling extends MapFeatureBase {
+
+  /**
+   * {@inheritdoc}
+   */
+  protected array $scripts = [
+    'https://unpkg.com/leaflet-gesture-handling@1.2.2/dist/leaflet-gesture-handling.min.js',
+  ];
+
+  /**
+   * {@inheritdoc}
+   */
+  protected array $stylesheets = [
+    'https://unpkg.com/leaflet-gesture-handling@1.2.2/dist/leaflet-gesture-handling.min.css',
+  ];
 
 }

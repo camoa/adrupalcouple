@@ -16,7 +16,8 @@
    */
   Drupal.behaviors.geolocationGeometryWidgetGoogleMaps = {
     attach: function (context) {
-      $(once("geolocation-geometry-processed", ".geolocation-geometry-widget-google-maps-geojson", context))
+      $(".geolocation-geometry-widget-google-maps-geojson", context)
+        .once("geolocation-geometry-processed")
         .each(function (index, item) {
           var mapWrapper = $(
             ".geolocation-geometry-widget-google-maps-geojson-map",
@@ -39,17 +40,17 @@
             var availableControls = [];
             switch (geometryType) {
               case "polygon":
-              case "multipolygon":
+              case "multi_polygon":
                 availableControls = ["Polygon"];
                 break;
 
               case "polyline":
-              case "multipolyline":
+              case "multi_polyline":
                 availableControls = ["LineString"];
                 break;
 
               case "point":
-              case "multipoint":
+              case "multi_point":
                 availableControls = ["Point"];
                 break;
 
@@ -114,9 +115,9 @@
 
                   default:
                     var types = {
-                      multipolygon: "MultiPolygon",
-                      multipolyline: "MultiPolyline",
-                      multipoint: "MultiPoint",
+                      multi_polygon: "MultiPolygon",
+                      multi_polyline: "MultiPolyline",
+                      multi_point: "MultiPoint",
                       default: "GeometryCollection",
                     };
 

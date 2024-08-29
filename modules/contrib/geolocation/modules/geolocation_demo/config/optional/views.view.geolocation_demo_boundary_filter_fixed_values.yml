@@ -2,15 +2,16 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.storage.node.field_geolocation_demo_single
     - node.type.geolocation_default_article
     - system.menu.geolocation-demo
-  enforced:
-    module:
-      - geolocation_demo
   module:
     - geolocation
     - node
     - user
+  enforced:
+    module:
+      - geolocation_demo
 id: geolocation_demo_boundary_filter_fixed_values
 label: 'Geolocation Demo - Fixed values boundary filter'
 module: views
@@ -18,7 +19,6 @@ description: ''
 tag: 'Geolocation Demo'
 base_table: node_field_data
 base_field: nid
-core: 8.x
 display:
   default:
     display_plugin: default
@@ -208,7 +208,7 @@ display:
           expose:
             label: ''
           granularity: second
-      title: Geolocation Demo Boundary Filter Fixed Values
+      title: 'Geolocation Demo Boundary Filter Fixed Values'
       header: {  }
       footer: {  }
       empty: {  }
@@ -232,3 +232,4 @@ display:
         weight: 0
         context: '0'
         menu_name: geolocation-demo
+      display_extenders: {  }

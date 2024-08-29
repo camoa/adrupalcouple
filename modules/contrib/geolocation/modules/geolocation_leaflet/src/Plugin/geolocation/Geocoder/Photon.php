@@ -3,8 +3,8 @@
 namespace Drupal\geolocation_leaflet\Plugin\geolocation\Geocoder;
 
 use Drupal\Component\Serialization\Json;
-use Drupal\Core\Render\BubbleableMetadata;
 use Drupal\Core\Url;
+use Drupal\Core\Utility\Error;
 use Drupal\geolocation\GeocoderBase;
 use Drupal\geolocation\GeocoderInterface;
 use GuzzleHttp\Exception\RequestException;
@@ -30,15 +30,13 @@ class Photon extends GeocoderBase implements GeocoderInterface {
    * @var string
    *   Photon URL.
    */
-  public $requestBaseUrl = 'https://photon.komoot.io';
+  public string $requestBaseUrl = 'https://photon.komoot.io';
 
   /**
    * {@inheritdoc}
    */
-  protected function getDefaultSettings() {
+  protected function getDefaultSettings(): array {
     $default_settings = parent::getDefaultSettings();
-
-    $default_settings['autocomplete_min_length'] = 1;
 
     $default_settings['location_priority'] = [
       'lat' => '',
@@ -53,19 +51,11 @@ class Photon extends GeocoderBase implements GeocoderInterface {
   /**
    * {@inheritdoc}
    */
-  public function getOptionsForm() {
+  public function getOptionsForm(): array {
 
     $settings = $this->getSettings();
 
     $form = parent::getOptionsForm();
-
-    $form['autocomplete_min_length'] = [
-      '#title' => $this->t('Autocomplete minimal input length'),
-      '#type' => 'number',
-      '#min' => 1,
-      '#step' => 1,
-      '#default_value' => $settings['autocomplete_min_length'],
-    ];
 
     $form['location_priority'] = [
       '#type' => 'geolocation_input',
@@ -89,41 +79,9 @@ class Photon extends GeocoderBase implements GeocoderInterface {
   /**
    * {@inheritdoc}
    */
-  public function formAttachGeocoder(array &$render_array, $element_name) {
-    parent::formAttachGeocoder($render_array, $element_name);
-
-    $settings = $this->getSettings();
-
-    $render_array['#attached'] = BubbleableMetadata::mergeAttachments(
-      empty($render_array['#attached']) ? [] : $render_array['#attached'],
-      [
-        'library' => [
-          'geolocation_leaflet/geocoder.photon',
-        ],
-        'drupalSettings' => [
-          'geolocation' => [
-            'geocoder' => [
-              $this->getPluginId() => [
-                'autocompleteMinLength' => empty($this->configuration['autocomplete_min_length']) ? 1 : (int) $this->configuration['autocomplete_min_length'],
-                'locationPriority' => [
-                  'lat' => $settings['location_priority']['lat'],
-                  'lon' => $settings['location_priority']['lng'],
-                ],
-                'removeDuplicates' => $settings['remove_duplicates'],
-              ],
-            ],
-          ],
-        ],
-      ]
-    );
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function geocode($address) {
+  public function geocode(string $address): ?array {
     if (empty($address)) {
-      return FALSE;
+      return NULL;
     }
 
     $options = [
@@ -144,14 +102,15 @@ class Photon extends GeocoderBase implements GeocoderInterface {
       $result = Json::decode(\Drupal::httpClient()->get($url->toString())->getBody());
     }
     catch (RequestException $e) {
-      watchdog_exception('geolocation', $e);
-      return FALSE;
+      $logger = \Drupal::logger('geolocation');
+      Error::logException($logger, $e);
+      return NULL;
     }
 
     $location = [];
 
     if (empty($result['features'][0])) {
-      return FALSE;
+      return NULL;
     }
     else {
       $location['location'] = [
@@ -179,7 +138,7 @@ class Photon extends GeocoderBase implements GeocoderInterface {
   /**
    * {@inheritdoc}
    */
-  public function reverseGeocode($latitude, $longitude) {
+  public function reverseGeocode(float $latitude, float $longitude): ?array {
     $url = Url::fromUri($this->requestBaseUrl . '/reverse', [
       'query' => [
         'lat' => $latitude,
@@ -192,17 +151,18 @@ class Photon extends GeocoderBase implements GeocoderInterface {
       $result = Json::decode(\Drupal::httpClient()->get($url->toString())->getBody());
     }
     catch (RequestException $e) {
-      watchdog_exception('geolocation', $e);
-      return FALSE;
+      $logger = \Drupal::logger('geolocation');
+      Error::logException($logger, $e);
+      return NULL;
     }
 
     if (empty($result['features'][0]['properties'])) {
-      return FALSE;
+      return NULL;
     }
 
     $countries = \Drupal::service('address.country_repository')->getList();
     $address_atomics = [];
-    foreach ($result['features'] as $id => $entry) {
+    foreach ($result['features'] as $entry) {
       if (empty($entry['properties']['osm_type'])) {
         continue;
       }
@@ -210,21 +170,20 @@ class Photon extends GeocoderBase implements GeocoderInterface {
       switch ($entry['properties']['osm_type']) {
         case 'N':
           $address_atomics = [
-            'houseNumber' => !empty($entry['properties']['housenumber']) ? $entry['properties']['housenumber'] : '',
-            'road' => $entry['properties']['street'],
-            'city' => $entry['properties']['city'],
-            'postcode' => $entry['properties']['postcode'],
-            'state' => $entry['properties']['state'],
-            'country' => $entry['properties']['country'],
-            'countryCode' => array_search($entry['properties']['country'], $countries),
-            'county' => $entry['properties']['county'],
+            'houseNumber' => $entry['properties']['housenumber'] ?? '',
+            'road' => $entry['properties']['street'] ?? '',
+            'city' => $entry['properties']['city'] ?? '',
+            'postcode' => $entry['properties']['postcode'] ?? '',
+            'state' => $entry['properties']['state'] ?? '',
+            'country' => $entry['properties']['country'] ?? '',
+            'countryCode' => $entry['properties']['countrycode'] ?? array_search($entry['properties']['country'], $countries),
           ];
           break 2;
       }
     }
 
     if (empty($address_atomics)) {
-      return FALSE;
+      return NULL;
     }
 
     return [

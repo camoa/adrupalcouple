@@ -10,7 +10,7 @@ use Drupal\field\FieldStorageConfigInterface;
 /**
  * Implements hook_field_views_data().
  */
-function geolocation_geometry_field_views_data(FieldStorageConfigInterface $field_storage) {
+function geolocation_geometry_field_views_data(FieldStorageConfigInterface $field_storage): array {
 
   $geometry_fields = [];
   foreach (
@@ -25,18 +25,19 @@ function geolocation_geometry_field_views_data(FieldStorageConfigInterface $fiel
       'geolocation_geometry_multipoint',
     ] as $field_type
   ) {
-    foreach (\Drupal::service('entity_field.manager')->getFieldMapByFieldType($field_type) as $entity_type => $geometry_field_list) {
+    foreach (\Drupal::service('entity_field.manager')->getFieldMapByFieldType($field_type) as $entity_type_id => $geometry_field_list) {
       /** @var \Drupal\Core\Entity\Sql\SqlEntityStorageInterface $entity_storage */
-      $entity_storage = \Drupal::entityTypeManager()->getStorage($entity_type);
-      $entity_definition = \Drupal::entityTypeManager()->getDefinition($entity_type);
+      $entity_storage = \Drupal::entityTypeManager()->getStorage($entity_type_id);
+      $entity_definition = \Drupal::entityTypeManager()->getDefinition($entity_type_id);
       $entity_table_mapping = $entity_storage->getTableMapping();
-      $entity_label = (string) $entity_definition->getBundleLabel();
+      $entity_label = $entity_definition->getLabel();
       foreach ($geometry_field_list as $geometry_field_name => $geometry_field_data) {
-        $geometry_field_id = $entity_type . '__' . $geometry_field_name;
+        $geometry_field_id = $entity_type_id . '__' . $geometry_field_name;
         $geometry_fields[$geometry_field_id] = $geometry_field_data;
         $geometry_fields[$geometry_field_id]['field_type'] = $field_type;
-        $geometry_fields[$geometry_field_id]['entity_type'] = $entity_type;
+        $geometry_fields[$geometry_field_id]['entity_type'] = $entity_type_id;
         $geometry_fields[$geometry_field_id]['entity_id_field'] = $entity_definition->getKey('id');
+        // @phpstan-ignore-next-line
         $geometry_fields[$geometry_field_id]['entity_data_table'] = $entity_table_mapping->getDataTable();
         $geometry_fields[$geometry_field_id]['entity_label'] = $entity_label;
         $geometry_fields[$geometry_field_id]['geometry_field_name'] = $geometry_field_name;
@@ -46,16 +47,22 @@ function geolocation_geometry_field_views_data(FieldStorageConfigInterface $fiel
   }
 
   // Make sure views.views.inc is loaded.
-  \Drupal::moduleHandler()->loadInclude('inc', 'views', 'views.views');
+  \Drupal::moduleHandler()->loadInclude('views', 'inc', 'views.views');
 
   $entity_definition = \Drupal::entityTypeManager()->getDefinition($field_storage->getTargetEntityTypeId());
+  $entity_type_storage = \Drupal::entityTypeManager()->getStorage($entity_definition->getBundleEntityType());
+
+  $bundle_labels = [];
+  foreach ($field_storage->getBundles() as $bundle_id) {
+    $bundle_labels[] = $entity_type_storage->load($bundle_id)->label();
+  }
 
   // Get the default data from the views module.
   $data = views_field_default_views_data($field_storage);
 
   $args = ['@field_name' => $field_storage->getName()];
 
-  // Loop through all of the results and set our overrides.
+  // Loop through all the results and set our overrides.
   foreach ($data as $table_name => $table_data) {
     $data[$table_name]['table']['entity type'] = $field_storage->getTargetEntityTypeId();
     foreach ($table_data as $field_name => $field_data) {
@@ -64,15 +71,11 @@ function geolocation_geometry_field_views_data(FieldStorageConfigInterface $fiel
         continue;
       }
       if (isset($field_data['filter'])) {
-        if (substr($field_name, -9, 9) == '_geometry') {
+        if (str_ends_with($field_name, '_geometry')) {
           $data[$table_name][$field_name]['title'] = t('Geometry (@field_name)', $args);
           continue;
         }
-        if (substr($field_name, -4, 4) == '_wkt') {
-          $data[$table_name][$field_name]['title'] = t('WKT/Well Known Text (@field_name)', $args);
-          continue;
-        }
-        if (substr($field_name, -8, 8) == '_geojson') {
+        if (str_ends_with($field_name, '_geojson')) {
           $data[$table_name][$field_name]['title'] = t('GeoJSON (@field_name)', $args);
           continue;
         }
@@ -89,7 +92,10 @@ function geolocation_geometry_field_views_data(FieldStorageConfigInterface $fiel
       }
     }
 
-    $title_short = $help = '';
+    $title_short = '';
+
+    $help = t('Appears in: @bundles.', ['@bundles' => implode(', ', $bundle_labels)]);
+
     // Add proximity handlers.
     $data[$table_name][$args['@field_name'] . '_proximity'] = [
       'group' => $entity_definition->getLabel(),
@@ -183,20 +189,19 @@ function geolocation_geometry_field_views_data(FieldStorageConfigInterface $fiel
         'group' => t('Geolocation Geometry'),
         'title' => t('Geolocation Geometry'),
         'title short' => t('Geolocation Geometry'),
-        'help' => '',
+        'help' => $help,
         'relationship' => [
-          'title' => t('@entity_type by @source_field_name via @field_name geometry', [
+          'title' => t('@entity_type (@field_name) via @source_field_name', [
             '@source_field_name' => $field_storage->getName(),
             '@entity_type' => $geometry_field_data['entity_label'],
             '@field_name' => $geometry_field_data['geometry_field_name'],
           ]),
-          'label' => t('@entity_type by @source_field_name via @field_name geometry', [
+          'label' => t('@entity_type (@field_name) via @source_field_name', [
             '@source_field_name' => $field_storage->getName(),
             '@entity_type' => $geometry_field_data['entity_label'],
             '@field_name' => $geometry_field_data['geometry_field_name'],
           ]),
           'group' => t('Geolocation Geometry'),
-          'help' => '',
           'id' => 'geolocation_geometry',
           'field_type' => $field_storage->getType(),
           'table' => $table_name,
@@ -216,19 +221,26 @@ function geolocation_geometry_field_views_data(FieldStorageConfigInterface $fiel
 /**
  * Implements hook_field_views_data_views_data_alter().
  */
-function geolocation_geometry_field_views_data_views_data_alter(array &$data, FieldStorageConfigInterface $field_storage) {
-  $entity_type = $field_storage->getTargetEntityTypeId();
+function geolocation_geometry_field_views_data_views_data_alter(array &$data, FieldStorageConfigInterface $field_storage): void {
+  $entity_type_id = $field_storage->getTargetEntityTypeId();
   /** @var \Drupal\Core\Entity\Sql\SqlEntityStorageInterface $entity_storage */
-  $entity_storage = \Drupal::entityTypeManager()->getStorage($entity_type);
-  $entity_definition = \Drupal::entityTypeManager()->getDefinition($entity_type);
+  $entity_storage = \Drupal::entityTypeManager()->getStorage($entity_type_id);
+  $entity_definition = \Drupal::entityTypeManager()->getDefinition($entity_type_id);
   $entity_table_mapping = $entity_storage->getTableMapping();
-  $entity_label = (string) $entity_definition->getBundleLabel();
+  $entity_label = $entity_definition->getLabel();
+  $entity_type_storage = \Drupal::entityTypeManager()->getStorage($entity_definition->getBundleEntityType());
 
-  $geometry_field_id = $entity_type . '__' . $field_storage->getName();
+  $bundle_labels = [];
+  foreach ($field_storage->getBundles() as $bundle_id) {
+    $bundle_labels[] = $entity_type_storage->load($bundle_id)->label();
+  }
+
+  $geometry_field_id = $entity_type_id . '__' . $field_storage->getName();
   $geometry_field_data = [
     'field_type' => $field_storage->getType(),
-    'entity_type' => $entity_type,
+    'entity_type' => $entity_type_id,
     'entity_id_field' => $entity_definition->getKey('id'),
+    // @phpstan-ignore-next-line
     'entity_data_table' => $entity_table_mapping->getDataTable(),
     'entity_label' => $entity_label,
     'geometry_field_name' => $field_storage->getName(),
@@ -237,6 +249,7 @@ function geolocation_geometry_field_views_data_views_data_alter(array &$data, Fi
 
   foreach (\Drupal::service('entity_field.manager')->getFieldMapByFieldType('geolocation') as $entity_type => $geolocation_fields) {
     /** @var \Drupal\Core\Entity\Sql\DefaultTableMapping $geolocation_table_mapping */
+    // @phpstan-ignore-next-line
     $geolocation_table_mapping = \Drupal::entityTypeManager()->getStorage($entity_type)->getTableMapping();
 
     foreach ($geolocation_fields as $geolocation_field_name => $geolocation_field_data) {
@@ -245,24 +258,25 @@ function geolocation_geometry_field_views_data_views_data_alter(array &$data, Fi
         continue;
       }
 
+      $help = t('Appears in: @bundles.', ['@bundles' => implode(', ', $bundle_labels)]);
+
       $data[$geolocation_field_table_name][$geometry_field_id] = [
         'group' => t('Geolocation Geometry'),
         'title' => t('Geolocation Geometry'),
         'title short' => t('Geolocation Geometry'),
-        'help' => '',
+        'help' => $help,
         'relationship' => [
-          'title' => t('@entity_type by @source_field_name via @field_name geometry', [
+          'title' => t('@entity_type (@field_name) via @source_field_name', [
             '@source_field_name' => $geolocation_field_name,
             '@entity_type' => $geometry_field_data['entity_label'],
             '@field_name' => $geometry_field_data['geometry_field_name'],
           ]),
-          'label' => t('@entity_type by @source_field_name via @field_name geometry', [
+          'label' => t('@entity_type (@field_name) via @source_field_name', [
             '@source_field_name' => $geolocation_field_name,
             '@entity_type' => $geometry_field_data['entity_label'],
             '@field_name' => $geometry_field_data['geometry_field_name'],
           ]),
           'group' => t('Geolocation Geometry'),
-          'help' => '',
           'id' => 'geolocation_geometry',
           'field_type' => 'geolocation',
           'table' => $geolocation_field_table_name,

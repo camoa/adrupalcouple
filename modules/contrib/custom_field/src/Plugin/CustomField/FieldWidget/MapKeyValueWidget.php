@@ -25,13 +25,13 @@ class MapKeyValueWidget extends MapWidgetBase {
   /**
    * {@inheritdoc}
    */
-  public static function defaultWidgetSettings(): array {
+  public static function defaultSettings(): array {
     return [
       'settings' => [
         'key_label' => 'Key',
         'value_label' => 'Value',
-      ],
-    ] + parent::defaultWidgetSettings();
+      ] + parent::defaultSettings()['settings'],
+    ] + parent::defaultSettings();
   }
 
   /**
@@ -39,7 +39,7 @@ class MapKeyValueWidget extends MapWidgetBase {
    */
   public function widgetSettingsForm(FormStateInterface $form_state, CustomFieldTypeInterface $field): array {
     $element = parent::widgetSettingsForm($form_state, $field);
-    $settings = $field->getWidgetSetting('settings') + self::defaultWidgetSettings()['settings'];
+    $settings = $field->getWidgetSetting('settings') + self::defaultSettings()['settings'];
 
     $element['settings']['key_label'] = [
       '#type' => 'textfield',

@@ -33,6 +33,8 @@ class CustomFieldUpdateManagerTest extends KernelTestBase {
     'custom_field_test',
     'user',
     'path',
+    'file',
+    'image',
   ];
 
   /**
@@ -98,7 +100,9 @@ class CustomFieldUpdateManagerTest extends KernelTestBase {
     parent::setUp();
     $this->installEntitySchema('user');
     $this->installEntitySchema('node');
-    $this->installSchema('node', 'node_access');
+    $this->installEntitySchema('file');
+    $this->installSchema('node', ['node_access']);
+    $this->installSchema('file', ['file_usage']);
     $this->installConfig(['custom_field', 'custom_field_test']);
 
     $bundle = 'custom_field_entity_test';
@@ -201,6 +205,9 @@ class CustomFieldUpdateManagerTest extends KernelTestBase {
     $this->assertEquals('custom', $fieldStorageConfig->getType(), 'The field storage type is "custom".');
     // Create a node.
     $columns = $fieldStorageConfig->getSetting('columns');
+    // Image has extra image columns that alters test.
+    unset($columns['image_test']);
+    $fieldStorageConfig->setSetting('columns', $columns)->save();
     $node = $this->createNode([
       'type' => $bundle,
       'title' => 'Test Node',
@@ -237,6 +244,10 @@ class CustomFieldUpdateManagerTest extends KernelTestBase {
     // If restoreData() is commented out, this should fail. Why is it not?
     $this->assertNotEmpty($field_value, 'The field value is not empty.');
 
+    // Reload fieldSettings and verify the new count.
+    $fieldSettings = $fieldStorageConfig->getSetting('columns');
+    $this->assertCount(1, $fieldSettings, 'The field settings count is 1.');
+
     // Try to remove the last column.
     try {
       $this->customFieldUpdateManager->removeColumn($entityTypeId, $fieldName, $lastColumn);
@@ -250,16 +261,6 @@ class CustomFieldUpdateManagerTest extends KernelTestBase {
     // Verify the last remaining item still exists.
     $columns = $fieldStorageConfig->getSetting('columns');
     $this->assertArrayHasKey($lastColumn, $columns, 'The column "' . $lastColumn . '" still exists in the columns settings.');
-
-    // Verify that we can add everything we removed back to the settings.
-    foreach ($fieldSettings as $columnName => $columnSettings) {
-      $this->customFieldUpdateManager->addColumn($entityTypeId, $fieldName, $columnName, $columnSettings['type']);
-      // Verify each new column is added to the field storage configuration.
-      $fieldStorageConfig = FieldStorageConfig::loadByName($entityTypeId, $fieldName);
-      $columns = $fieldStorageConfig->getSetting('columns');
-      $this->assertArrayHasKey($columnName, $columns, 'The new property "' . $columnName . '" was added to the columns settings.');
-      $this->assertEquals($columnSettings['type'], $columns[$columnName]['type'], 'The new property has the correct data type.');
-    }
   }
 
 }

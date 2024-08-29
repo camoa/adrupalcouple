@@ -74,13 +74,14 @@ class CustomListFormatter extends BaseFormatter {
    *   The textual output generated.
    */
   protected function viewValue(FieldItemInterface $item): array {
-    $class = Html::cleanCssIdentifier($this->fieldDefinition->get('field_name'));
+    $field_name = $this->fieldDefinition->get('field_name');
+    $class = Html::cleanCssIdentifier($field_name);
     $langcode = $item->getLangcode();
     $output = [
       '#theme' => [
         'item_list',
         'item_list__customfield',
-        'item_list__' . $this->fieldDefinition->get('field_name'),
+        'item_list__' . $field_name,
       ],
       '#list_type' => $this->getSetting('list_type'),
       '#attributes' => [

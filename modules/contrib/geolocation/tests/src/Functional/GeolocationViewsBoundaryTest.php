@@ -28,7 +28,7 @@ class GeolocationViewsBoundaryTest extends BrowserTestBase {
    *
    * @var string
    */
-  protected $viewsPath = 'geolocation-demo/boundary-filter-fixed-values';
+  protected string $viewsPath = 'geolocation-demo/boundary-filter-fixed-values';
 
   /**
    * {@inheritdoc}
@@ -38,7 +38,7 @@ class GeolocationViewsBoundaryTest extends BrowserTestBase {
   /**
    * Tests the boundary filter.
    */
-  public function testBoundaryNoLocations() {
+  public function testBoundaryNoLocations(): void {
     $this->drupalGet($this->viewsPath);
     $this->assertSession()->statusCodeEquals(200);
   }
@@ -48,7 +48,7 @@ class GeolocationViewsBoundaryTest extends BrowserTestBase {
    *
    * It's currently locked to filter boundary of NE80,80 to SW20,20.
    */
-  public function testBoundaryLocations() {
+  public function testBoundaryLocations(): void {
     $entity_test_storage = \Drupal::entityTypeManager()->getStorage('node');
 
     $entity_test_storage->create([

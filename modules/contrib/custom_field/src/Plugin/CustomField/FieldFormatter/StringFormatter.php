@@ -2,9 +2,10 @@
 
 namespace Drupal\custom_field\Plugin\CustomField\FieldFormatter;
 
+use Drupal\Core\Field\FieldItemInterface;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\StringTranslation\StringTranslationTrait;
-use Drupal\custom_field\Plugin\CustomFieldFormatterInterface;
+use Drupal\custom_field\Plugin\CustomFieldFormatterBase;
+use Drupal\custom_field\Plugin\CustomFieldTypeInterface;
 
 /**
  * Plugin implementation of the 'string' custom field formatter.
@@ -26,9 +27,7 @@ use Drupal\custom_field\Plugin\CustomFieldFormatterInterface;
  *   }
  * )
  */
-class StringFormatter implements CustomFieldFormatterInterface {
-
-  use StringTranslationTrait;
+class StringFormatter extends CustomFieldFormatterBase {
 
   /**
    * {@inheritdoc}
@@ -44,6 +43,7 @@ class StringFormatter implements CustomFieldFormatterInterface {
    * {@inheritdoc}
    */
   public function settingsForm(array $form, FormStateInterface $form_state, array $settings) {
+    $settings += static::defaultSettings();
     $elements['key_label'] = [
       '#type' => 'radios',
       '#title' => $this->t('Display'),
@@ -52,12 +52,12 @@ class StringFormatter implements CustomFieldFormatterInterface {
         'key' => $this->t('Key'),
         'label' => $this->t('Label'),
       ],
-      '#default_value' => $settings['key_label'] ?? self::defaultSettings()['key_label'],
+      '#default_value' => $settings['key_label'],
     ];
     $elements['prefix_suffix'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Display prefix/suffix'),
-      '#default_value' => $settings['prefix_suffix'] ?? self::defaultSettings()['prefix_suffix'],
+      '#default_value' => $settings['prefix_suffix'],
     ];
 
     return $elements;
@@ -66,15 +66,8 @@ class StringFormatter implements CustomFieldFormatterInterface {
   /**
    * {@inheritdoc}
    */
-  public function settingsSummary() {
-    return [];
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function formatValue(array $settings) {
-    $formatter_settings = $settings['formatter_settings'] ?? self::defaultSettings();
+  public function formatValue(FieldItemInterface $item, CustomFieldTypeInterface $field, array $settings) {
+    $formatter_settings = $settings['formatter_settings'] + static::defaultSettings();
     $allowed_values = $settings['widget_settings']['allowed_values'] ?? [];
     $output = $settings['value'];
 

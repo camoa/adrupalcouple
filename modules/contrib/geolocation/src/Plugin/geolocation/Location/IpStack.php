@@ -4,6 +4,8 @@ namespace Drupal\geolocation\Plugin\geolocation\Location;
 
 use Drupal\geolocation\LocationBase;
 use Drupal\geolocation\LocationInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Fixed coordinates map center.
@@ -19,7 +21,31 @@ class IpStack extends LocationBase implements LocationInterface {
   /**
    * {@inheritdoc}
    */
-  public static function getDefaultSettings() {
+  public function __construct(
+    array $configuration,
+    $plugin_id,
+    $plugin_definition,
+    protected Request $request,
+  ) {
+    parent::__construct($configuration, $plugin_id, $plugin_definition);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): LocationInterface {
+    return new static(
+      $configuration,
+      $plugin_id,
+      $plugin_definition,
+      $container->get('request_stack')->getCurrentRequest()
+    );
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function getDefaultSettings(): array {
     return [
       'access_key' => '',
     ];
@@ -28,7 +54,7 @@ class IpStack extends LocationBase implements LocationInterface {
   /**
    * {@inheritdoc}
    */
-  public function getSettingsForm($option_id = NULL, array $settings = [], $context = NULL) {
+  public function getSettingsForm(string $location_option_id = NULL, array $settings = [], $context = NULL): array {
     $settings = $this->getSettings($settings);
 
     $form['access_key'] = [
@@ -45,21 +71,21 @@ class IpStack extends LocationBase implements LocationInterface {
   /**
    * {@inheritdoc}
    */
-  public function getCoordinates($center_option_id, array $center_option_settings, $context = NULL) {
-    $settings = $this->getSettings($center_option_settings);
+  public function getCoordinates(string $location_option_id, array $location_option_settings, $context = NULL): array {
+    $settings = $this->getSettings($location_option_settings);
     // Access Key is required.
     if (empty($settings['access_key'])) {
       return [];
     }
 
     // Get client IP.
-    $ip = \Drupal::request()->getClientIp();
+    $ip = $this->request->getClientIp();
     if (empty($ip)) {
       return [];
     }
 
     // Get data from api.ipstack.com.
-    $json = file_get_contents("http://api.ipstack.com/" . $ip . "?access_key=" . $settings['access_key']);
+    $json = file_get_contents("https://api.ipstack.com/" . $ip . "?access_key=" . $settings['access_key']);
     if (empty($json)) {
       return [];
     }

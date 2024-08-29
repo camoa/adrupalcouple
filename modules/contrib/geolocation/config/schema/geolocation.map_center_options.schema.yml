@@ -1,18 +1,3 @@
-plugin.plugin_configuration.geolocation.map_center_option.fixed_value:
-  type: geolocation.map_center_option_settings
-  label: 'Fixed Coordinates'
-  mapping:
-    settings:
-      type: mapping
-      label: 'Settings'
-      mapping:
-        latitude:
-          type: float
-          label: 'Latitude'
-        longitude:
-          type: float
-          label: 'Longitude'
-
 plugin.plugin_configuration.geolocation.map_center_option.fit_bounds:
   type: geolocation.map_center_option_settings
   label: 'Fit Locations'
@@ -24,6 +9,18 @@ plugin.plugin_configuration.geolocation.map_center_option.fit_bounds:
         reset_zoom:
           type: boolean
           label: 'Reset zoom'
+        min_zoom:
+          type: integer
+          label: 'Min zoom'
+
+plugin.plugin_configuration.geolocation.map_center_option.fit_shapes:
+  type: geolocation.map_center_option_settings
+  label: 'Fit Shapes'
+  mapping:
+    settings:
+      type: mapping
+      label: 'Settings'
+      mapping:
         min_zoom:
           type: integer
           label: 'Min zoom'
@@ -49,14 +46,24 @@ plugin.plugin_configuration.geolocation.map_center_option.fixed_boundaries:
           type: string
           label: 'East'
 
-plugin.plugin_configuration.geolocation.map_center_option.ipstack:
+plugin.plugin_configuration.geolocation.map_center_option.views_boundary_filter:
   type: geolocation.map_center_option_settings
-  label: 'IpStack'
+  label: 'Boundary filter'
   mapping:
     settings:
       type: mapping
       label: 'Settings'
       mapping:
-        access_key:
-          type: string
-          label: 'Access key'
+        clear_address_input:
+          type: boolean
+          label: 'Clear address input on map bound change'
+
+
+plugin.plugin_configuration.geolocation.map_center_option.location_plugins:
+  type: plugin.plugin_configuration.geolocation.location.[settings.location_option_id]
+  label: 'Location Option'
+  mapping:
+    map_center_id:
+      type: string
+      label: 'Fixed Map Center ID'
+

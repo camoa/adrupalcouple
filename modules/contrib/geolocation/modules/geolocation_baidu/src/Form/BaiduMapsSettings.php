@@ -15,7 +15,7 @@ class BaiduMapsSettings extends ConfigFormBase {
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, FormStateInterface $form_state) {
+  public function buildForm(array $form, FormStateInterface $form_state): array {
     $config = $this->configFactory->get('baidu_maps.settings');
 
     $form['key'] = [
@@ -23,7 +23,7 @@ class BaiduMapsSettings extends ConfigFormBase {
       '#title' => $this->t('Baidu Maps App ID'),
       '#default_value' => $config->get('key'),
       '#description' => $this->t('Baidu Maps requires users to sign up at <a href="@link_baidu_api" target="_blank">Baidu Map API Key</a>.', [
-         '@link_baidu_api' => 'https://lbsyun.baidu.com/apiconsole/key'
+        '@link_baidu_api' => 'https://lbsyun.baidu.com/apiconsole/key',
       ]),
     ];
 
@@ -33,14 +33,14 @@ class BaiduMapsSettings extends ConfigFormBase {
   /**
    * {@inheritdoc}
    */
-  public function getFormId() {
+  public function getFormId(): string {
     return 'geolocation_baidu_settings';
   }
 
   /**
    * {@inheritdoc}
    */
-  protected function getEditableConfigNames() {
+  protected function getEditableConfigNames(): array {
     return [
       'baidu_maps.settings',
     ];
@@ -49,7 +49,7 @@ class BaiduMapsSettings extends ConfigFormBase {
   /**
    * {@inheritdoc}
    */
-  public function submitForm(array &$form, FormStateInterface $form_state) {
+  public function submitForm(array &$form, FormStateInterface $form_state): void {
     $config = $this->configFactory()->getEditable('baidu_maps.settings');
     $config->set('key', $form_state->getValue('key'));
 

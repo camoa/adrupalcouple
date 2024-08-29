@@ -34,10 +34,7 @@ class CustomFormatter extends BaseFormatter {
     $field_name = $this->fieldDefinition->get('field_name');
     $langcode = $item->getLangcode();
     $output = [
-      '#theme' => [
-        'customfield',
-        'customfield__' . $field_name,
-      ],
+      '#theme' => 'custom_field',
       '#field_name' => $field_name,
       '#items' => [],
     ];
@@ -46,13 +43,13 @@ class CustomFormatter extends BaseFormatter {
 
     foreach ($values as $value) {
       $output['#items'][] = [
-        'name' => $value['name'],
-        'value' => [
-          '#markup' => $value['value']['#markup'],
-        ],
-        'label' => $value['label'],
-        'label_display' => $value['label_display'],
-        'type' => $value['type'],
+        '#theme' => 'custom_field_item',
+        '#field_name' => $field_name,
+        '#name' => $value['name'],
+        '#value' => $value['value']['#markup'],
+        '#label' => $value['label'],
+        '#label_display' => $value['label_display'],
+        '#type' => $value['type'],
       ];
     }
 

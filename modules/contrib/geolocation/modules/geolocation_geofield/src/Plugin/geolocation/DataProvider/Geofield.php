@@ -24,14 +24,14 @@ class Geofield extends DataProviderBase implements DataProviderInterface {
   /**
    * {@inheritdoc}
    */
-  public function isViewsGeoOption(FieldPluginBase $views_field) {
+  public function isViewsGeoOption(FieldPluginBase $viewsField): bool {
     if (
-      $views_field instanceof EntityField
-      && in_array($views_field->getPluginId(), ['field', 'search_api_field'])
+      $viewsField instanceof EntityField
+      && in_array($viewsField->getPluginId(), ['field', 'search_api_field'])
     ) {
-      $field_storage_definitions = $this->entityFieldManager->getFieldStorageDefinitions($views_field->getEntityType());
-      if (!empty($field_storage_definitions[$views_field->field])) {
-        $field_storage_definition = $field_storage_definitions[$views_field->field];
+      $field_storage_definitions = $this->entityFieldManager->getFieldStorageDefinitions($viewsField->getEntityType());
+      if (!empty($field_storage_definitions[$viewsField->field])) {
+        $field_storage_definition = $field_storage_definitions[$viewsField->field];
 
         if ($field_storage_definition->getType() == 'geofield') {
           return TRUE;
@@ -45,14 +45,14 @@ class Geofield extends DataProviderBase implements DataProviderInterface {
   /**
    * {@inheritdoc}
    */
-  public function isFieldGeoOption(FieldDefinitionInterface $fieldDefinition) {
+  public function isFieldGeoOption(FieldDefinitionInterface $fieldDefinition): bool {
     return ($fieldDefinition->getType() == 'geofield');
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getPositionsFromItem(FieldItemInterface $fieldItem) {
+  public function getPositionsFromItem(FieldItemInterface $fieldItem): array {
     if ($fieldItem instanceof GeofieldItem) {
       return [
         [
@@ -62,7 +62,7 @@ class Geofield extends DataProviderBase implements DataProviderInterface {
       ];
     }
 
-    return FALSE;
+    return [];
   }
 
 }

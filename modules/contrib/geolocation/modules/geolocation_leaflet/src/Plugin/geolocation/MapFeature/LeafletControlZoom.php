@@ -2,6 +2,8 @@
 
 namespace Drupal\geolocation_leaflet\Plugin\geolocation\MapFeature;
 
+use Drupal\geolocation\Plugin\geolocation\MapFeature\ControlElementBase;
+
 /**
  * Provides Zoom control element.
  *

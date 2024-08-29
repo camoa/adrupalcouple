@@ -20,11 +20,14 @@ class CustomFieldTest extends FeedsKernelTestBase {
    */
   protected static $modules = [
     'field',
+    'file',
     'node',
     'custom_field',
     'custom_field_test',
     'feeds',
     'system',
+    'user',
+    'image',
   ];
 
   /**
@@ -40,6 +43,13 @@ class CustomFieldTest extends FeedsKernelTestBase {
    * @var \Drupal\custom_field\Plugin\CustomFieldTypeManagerInterface
    */
   protected $customFieldTypeManager;
+
+  /**
+   * The custom field feeds manager service.
+   *
+   * @var \Drupal\custom_field\Plugin\CustomFieldFeedsManagerInterface
+   */
+  protected $feedsManager;
 
   /**
    * The entity type for testing.
@@ -65,11 +75,19 @@ class CustomFieldTest extends FeedsKernelTestBase {
     $bundle = 'custom_field_entity_test';
     $this->fieldName = 'field_custom_field_test';
 
+    $this->installConfig([
+      'custom_field_test',
+      'file',
+    ]);
     $this->installEntitySchema('node');
+    $this->installEntitySchema('user');
+    $this->installEntitySchema('file');
+    $this->installSchema('file', ['file_usage']);
     $this->installConfig(['custom_field', 'custom_field_test']);
 
     // Get the services required for testing.
     $this->customFieldTypeManager = $this->container->get('plugin.manager.custom_field_type');
+    $this->feedsManager = $this->container->get('plugin.manager.custom_field_feeds');
     $fieldStorageConfig = FieldStorageConfig::loadByName($this->entityTypeId, $this->fieldName);
     $columns = $fieldStorageConfig->getSetting('columns');
 
@@ -82,6 +100,16 @@ class CustomFieldTest extends FeedsKernelTestBase {
       [
         'target' => 'title',
         'map' => ['value' => 'title'],
+        'settings' => [
+          'language' => NULL,
+        ],
+      ],
+      [
+        'target' => 'feeds_item',
+        'map' => [
+          'url' => '',
+          'guid' => 'guid',
+        ],
       ],
     ];
 
@@ -89,10 +117,9 @@ class CustomFieldTest extends FeedsKernelTestBase {
       'target' => $this->fieldName,
       'map' => [],
     ];
-
-    foreach ($columns as $column) {
-      $sources[$column['name']] = $column['name'];
-      $custom_field_map['map'][$column['name']] = $column['name'];
+    foreach ($columns as $name => $column) {
+      $sources[$name] = $name;
+      $custom_field_map['map'][$name] = $name;
     }
 
     $mappings[] = $custom_field_map;
@@ -125,14 +152,13 @@ class CustomFieldTest extends FeedsKernelTestBase {
       1 => [
         'string_test' => 'String 1',
         'string_long_test' => 'Long string 1',
-        'integer_test' => 42,
+        'integer_test' => '42',
         'decimal_test' => '3.14',
         'float_test' => '2.718',
         'email_test' => 'test@example.com',
         'telephone_test' => '+1234567890',
         'uri_test' => 'http://www.example.com',
         'boolean_test' => '1',
-        'uuid_test' => '550e8400-e29b-41d4-a716-446655440000',
         'color_test' => '#FFA500',
         'map_test' => [
           'key1' => 'value1',
@@ -150,14 +176,13 @@ class CustomFieldTest extends FeedsKernelTestBase {
         'telephone_test' => '-9876543210',
         'uri_test' => 'internal:/',
         'boolean_test' => '1',
-        'uuid_test' => '123e4567-e89b-12d3-a456-556642440000',
         'color_test' => NULL,
         'map_test' => NULL,
         'datetime_test' => '2009-09-03T00:12:00',
       ],
       3 => [
         'string_test' => 'String 3',
-        'string_long_test' => '',
+        'string_long_test' => NULL,
         'integer_test' => '1234',
         'decimal_test' => '1.62',
         'float_test' => '0.577',
@@ -165,7 +190,6 @@ class CustomFieldTest extends FeedsKernelTestBase {
         'telephone_test' => NULL,
         'uri_test' => 'route:<nolink>',
         'boolean_test' => '1',
-        'uuid_test' => '123e4567-e89b-12d3-a456-556642440001',
         'color_test' => '#FFFFFF',
         'map_test' => NULL,
         'datetime_test' => '2018-02-09T00:00:00',
@@ -173,13 +197,10 @@ class CustomFieldTest extends FeedsKernelTestBase {
     ];
     foreach ($expected_values as $nid => $data) {
       $node = Node::load($nid);
-      $field_values = $node->get($this->fieldName)->getValue();
+      $field_values = $node->get($this->fieldName)->first()->getValue();
       $this->assertNotEmpty($field_values, 'The field value is not empty');
-      foreach ($field_values as $field_value) {
-        foreach ($field_value as $column_name => $value) {
-          $data_value = $data[(string) $column_name];
-          $this->assertEquals($value, $data_value, 'The real value is equal to expected value.');
-        }
+      foreach ($data as $name => $data_value) {
+        $this->assertSame($data_value, $field_values[$name], 'The expected value is the same as the saved value.');
       }
     }
     // Check if mappings can be unique.
@@ -199,24 +220,6 @@ class CustomFieldTest extends FeedsKernelTestBase {
     $this->feedType->save();
     $updated_mappings = $this->feedType->getMappings();
     $this->assertCount($unique_count, $updated_mappings[1]['unique'], 'The count of expected unique types is accurate.');
-  }
-
-  /**
-   * Test a CSV file with non-existent values.
-   */
-  public function testNonExistent() {
-    // Import CSV file with non-existent values.
-    $feed = $this->createFeed($this->feedType->id(), [
-      'source' => $this->resourcesPath() . '/csv/content_non_existent.csv',
-    ]);
-    $feed->import();
-    $this->assertNodeCount(2);
-    $node_ids = [1, 2];
-    foreach ($node_ids as $node_id) {
-      $node = Node::load($node_id);
-      $values = $node->get($this->fieldName)->getValue();
-      $this->assertEmpty($values, 'The field value is empty');
-    }
   }
 
   /**

@@ -2,6 +2,7 @@
 
 namespace Drupal\custom_field;
 
+use Drupal\Component\Datetime\TimeInterface;
 use Drupal\Component\Utility\Random;
 use Drupal\Component\Uuid\UuidInterface;
 use Drupal\Core\Field\FieldDefinitionInterface;
@@ -20,13 +21,23 @@ class CustomFieldGenerateData implements CustomFieldGenerateDataInterface {
   protected $uuid;
 
   /**
+   * The datetime.time service.
+   *
+   * @var \Drupal\Component\Datetime\TimeInterface
+   */
+  protected $timeService;
+
+  /**
    * Constructs a new CustomFieldGenerateData object.
    *
    * @param \Drupal\Component\Uuid\UuidInterface $uuid_service
    *   The interface for generating UUIDs.
+   * @param \Drupal\Component\Datetime\TimeInterface $time_service
+   *   The datetime.time service.
    */
-  public function __construct(UuidInterface $uuid_service) {
+  public function __construct(UuidInterface $uuid_service, TimeInterface $time_service) {
     $this->uuid = $uuid_service;
+    $this->timeService = $time_service;
   }
 
   /**
@@ -147,7 +158,7 @@ class CustomFieldGenerateData implements CustomFieldGenerateDataInterface {
 
         case 'datetime':
           $datetime_type = $column['datetime_type'];
-          $timestamp = \Drupal::time()->getRequestTime() - mt_rand(0, 86400 * 365);
+          $timestamp = $this->timeService->getRequestTime() - mt_rand(0, 86400 * 365);
           if ($datetime_type == CustomFieldTypeInterface::DATETIME_TYPE_DATE) {
             $value = gmdate(CustomFieldTypeInterface::DATE_STORAGE_FORMAT, $timestamp);
           }
@@ -190,6 +201,8 @@ class CustomFieldGenerateData implements CustomFieldGenerateDataInterface {
       // @todo Hardening: floating point calculation can randomly fail.
       $random_values['decimal_test'] = '0.50';
       $random_values['float_test'] = '10.775';
+      // Cast integer to string.
+      $random_values['integer_test'] = (string) $random_values['integer_test'];
 
       // @todo Hardening: we need to treat maps specially due to ajax.
       unset($random_values['map_test']);
@@ -199,6 +212,15 @@ class CustomFieldGenerateData implements CustomFieldGenerateDataInterface {
 
       // @todo Hardening: figure out why an array fails as datetime value.
       unset($random_values['datetime_test']);
+
+      // @todo Hardening: Add support for entity reference.
+      unset($random_values['entity_reference_test']);
+
+      // @todo Hardening: Add support for file.
+      unset($random_values['file_test']);
+
+      // @todo Hardening: Add support for file.
+      unset($random_values['image_test']);
 
       $keys = array_map(static function ($key) use ($field_name, $delta) {
         return "{$field_name}[$delta][$key]";

@@ -2,11 +2,10 @@
 
 namespace Drupal\custom_field\Plugin\CustomField\FieldFormatter;
 
+use Drupal\Core\Field\FieldItemInterface;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
-use Drupal\Core\StringTranslation\StringTranslationTrait;
-use Drupal\custom_field\Plugin\CustomFieldFormatterInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\custom_field\Plugin\CustomFieldFormatterBase;
+use Drupal\custom_field\Plugin\CustomFieldTypeInterface;
 
 /**
  * Plugin implementation of the 'map_table' custom field formatter.
@@ -19,38 +18,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *   }
  * )
  */
-class MapTableFormatter implements CustomFieldFormatterInterface, ContainerFactoryPluginInterface {
-
-  use StringTranslationTrait;
-
-  /**
-   * The renderer service.
-   *
-   * @var \Drupal\Core\Render\RendererInterface
-   */
-  protected $renderer;
-
-  /**
-   * Creates an instance of the plugin.
-   *
-   * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
-   *   The container to pull out services used in the plugin.
-   * @param array $configuration
-   *   A configuration array containing information about the plugin instance.
-   * @param string $plugin_id
-   *   The plugin ID for the plugin instance.
-   * @param mixed $plugin_definition
-   *   The plugin implementation definition.
-   *
-   * @return static
-   *   Returns an instance of this plugin.
-   */
-  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
-    $plugin = new static();
-    $plugin->renderer = $container->get('renderer');
-
-    return $plugin;
-  }
+class MapTableFormatter extends CustomFieldFormatterBase {
 
   /**
    * {@inheritdoc}
@@ -66,7 +34,7 @@ class MapTableFormatter implements CustomFieldFormatterInterface, ContainerFacto
    * {@inheritdoc}
    */
   public function settingsForm(array $form, FormStateInterface $form_state, array $settings) {
-    $settings += self::defaultSettings();
+    $settings += static::defaultSettings();
     $elements['key_label'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Key label'),
@@ -88,15 +56,8 @@ class MapTableFormatter implements CustomFieldFormatterInterface, ContainerFacto
   /**
    * {@inheritdoc}
    */
-  public function settingsSummary() {
-    return [];
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function formatValue(array $settings) {
-    $formatter_settings = $settings['formatter_settings'] ?? self::defaultSettings();
+  public function formatValue(FieldItemInterface $item, CustomFieldTypeInterface $field, array $settings) {
+    $formatter_settings = $settings['formatter_settings'] + static::defaultSettings();
     $values = $settings['value'];
 
     if (!is_array($values) || empty($values)) {

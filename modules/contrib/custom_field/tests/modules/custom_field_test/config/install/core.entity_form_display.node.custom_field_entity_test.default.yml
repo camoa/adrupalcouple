@@ -42,6 +42,9 @@ content:
         color_test: '12'
         map_test: '12'
         datetime_test: '12'
+        entity_reference_test: '12'
+        file_test: '12'
+        image_test: '12'
       breakpoint: ''
     third_party_settings: {  }
   field_custom_field_test_multiple:
@@ -66,6 +69,9 @@ content:
         color_test: '12'
         map_test: '12'
         datetime_test: '12'
+        entity_reference_test: '12'
+        file_test: '12'
+        image_test: '12'
       breakpoint: ''
     third_party_settings: {  }
   field_custom_field_test_unlimite:
@@ -90,6 +96,9 @@ content:
         color_test: '12'
         map_test: '12'
         datetime_test: '12'
+        entity_reference_test: '12'
+        file_test: '12'
+        image_test: '12'
       breakpoint: ''
     third_party_settings: {  }
   path:
