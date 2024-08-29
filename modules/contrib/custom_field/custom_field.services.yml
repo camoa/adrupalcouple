@@ -1,4 +1,28 @@
 services:
-  plugin.manager.customfield_type:
+  plugin.manager.custom_field_type:
     class: Drupal\custom_field\Plugin\CustomFieldTypeManager
     parent: default_plugin_manager
+
+  plugin.manager.custom_field_widget:
+    class: Drupal\custom_field\Plugin\CustomFieldWidgetManager
+    parent: default_plugin_manager
+
+  plugin.manager.custom_field_formatter:
+    class: Drupal\custom_field\Plugin\CustomFieldFormatterManager
+    parent: default_plugin_manager
+
+  custom_field.update_manager:
+    class: Drupal\custom_field\CustomFieldUpdateManager
+    arguments:
+      - '@entity.definition_update_manager'
+      - '@entity_type.manager'
+      - '@entity_type.bundle.info'
+      - '@database'
+      - '@plugin.manager.custom_field_type'
+      - '@entity.last_installed_schema.repository'
+      - '@keyvalue'
+
+  custom_field.generate_data:
+    class: Drupal\custom_field\CustomFieldGenerateData
+    arguments:
+      - '@uuid'

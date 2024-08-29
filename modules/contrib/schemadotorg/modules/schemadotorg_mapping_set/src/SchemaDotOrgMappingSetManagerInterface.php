@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg_mapping_set;
 
@@ -28,8 +28,8 @@ interface SchemaDotOrgMappingSetManagerInterface {
    * @param string $schema_type
    *   The Schema.org type.
    * @param bool|null $is_setup
-   *   Optional filter to return mapping sets that are setup (TRUE)
-   *   or not setup (FALSE).
+   *   Optional filter to return mapping sets that are set up (TRUE)
+   *   or not set up (FALSE).
    *
    * @return array
    *   An associative array of mappings sets.

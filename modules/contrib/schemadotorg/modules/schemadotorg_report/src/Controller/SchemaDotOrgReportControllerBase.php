@@ -1,13 +1,18 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg_report\Controller;
 
 use Drupal\Core\Ajax\AjaxHelperTrait;
+use Drupal\Core\Block\BlockManagerInterface;
 use Drupal\Core\Controller\ControllerBase;
+use Drupal\Core\Database\Connection;
 use Drupal\Core\Link;
 use Drupal\Core\Url;
+use Drupal\schemadotorg\SchemaDotOrgSchemaTypeBuilderInterface;
+use Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface;
+use Drupal\schemadotorg\Utility\SchemaDotOrgStringHelper;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -18,47 +23,31 @@ abstract class SchemaDotOrgReportControllerBase extends ControllerBase {
 
   /**
    * The database connection.
-   *
-   * @var \Drupal\Core\Database\Connection
    */
-  protected $database;
+  protected Connection $database;
 
   /**
    * The block manager.
-   *
-   * @var \Drupal\Core\Block\BlockManagerInterface
    */
-  protected $blockManager;
-
-  /**
-   * The form builder service.
-   *
-   * @var \Drupal\Core\Form\FormBuilderInterface
-   */
-  protected $formBuilder;
+  protected BlockManagerInterface $blockManager;
 
   /**
    * The Schema.org schema type manager.
-   *
-   * @var \Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface
    */
-  protected $schemaTypeManager;
+  protected SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager;
 
   /**
    * The Schema.org schema type builder service.
-   *
-   * @var \Drupal\schemadotorg\SchemaDotOrgSchemaTypeBuilderInterface
    */
-  protected $schemaTypeBuilder;
+  protected SchemaDotOrgSchemaTypeBuilderInterface $schemaTypeBuilder;
 
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container) {
+  public static function create(ContainerInterface $container): static {
     $instance = parent::create($container);
     $instance->database = $container->get('database');
     $instance->blockManager = $container->get('plugin.manager.block');
-    $instance->formBuilder = $container->get('form_builder');
     $instance->schemaTypeManager = $container->get('schemadotorg.schema_type_manager');
     $instance->schemaTypeBuilder = $container->get('schemadotorg.schema_type_builder');
     return $instance;
@@ -115,7 +104,7 @@ abstract class SchemaDotOrgReportControllerBase extends ControllerBase {
    *   The form array.
    */
   protected function getFilterForm(string $table, ?string $id = NULL): array {
-    return $this->formBuilder->getForm('\Drupal\schemadotorg_report\Form\SchemaDotOrgReportFilterForm', $table, $id);
+    return $this->formBuilder()->getForm('\Drupal\schemadotorg_report\Form\SchemaDotOrgReportFilterForm', $table, $id);
   }
 
   /**
@@ -130,42 +119,17 @@ abstract class SchemaDotOrgReportControllerBase extends ControllerBase {
    *   A renderable array containing info.
    */
   protected function buildInfo(string $type, int|string $count): array {
-    switch ($type) {
-      case 'Thing':
-        $info = $this->formatPlural($count, '@count thing', '@count things');
-        break;
-
-      case 'Intangible':
-        $info = $this->formatPlural($count, '@count intangible', '@count intangibles');
-        break;
-
-      case 'Enumeration':
-        $info = $this->formatPlural($count, '@count enumeration', '@count enumerations');
-        break;
-
-      case 'StructuredValue':
-        $info = $this->formatPlural($count, '@count structured value', '@count structured values');
-        break;
-
-      case 'DataTypes':
-        $info = $this->formatPlural($count, '@count data type', '@count data types');
-        break;
-
-      case 'types':
-        $info = $this->formatPlural($count, '@count type', '@count types');
-        break;
-
-      case 'properties':
-        $info = $this->formatPlural($count, '@count property', '@count properties');
-        break;
-
-      case 'abbreviations':
-        $info = $this->formatPlural($count, '@count abbreviation', '@count abbreviations');
-        break;
-
-      default:
-        $info = $this->formatPlural($count, '@count item', '@count items');
-    }
+    $info = match ($type) {
+      'Thing' => $this->formatPlural($count, '@count thing', '@count things'),
+      'Intangible' => $this->formatPlural($count, '@count intangible', '@count intangibles'),
+      'Enumeration' => $this->formatPlural($count, '@count enumeration', '@count enumerations'),
+      'StructuredValue' => $this->formatPlural($count, '@count structured value', '@count structured values'),
+      'DataTypes' => $this->formatPlural($count, '@count data type', '@count data types'),
+      'types' => $this->formatPlural($count, '@count type', '@count types'),
+      'properties' => $this->formatPlural($count, '@count property', '@count properties'),
+      'abbreviations' => $this->formatPlural($count, '@count abbreviation', '@count abbreviations'),
+      default => $this->formatPlural($count, '@count item', '@count items'),
+    };
     return [
       '#markup' => $info,
       '#prefix' => '<p>',
@@ -187,7 +151,13 @@ abstract class SchemaDotOrgReportControllerBase extends ControllerBase {
   protected function buildTableCell(string $name, string $value): array|string {
     switch ($name) {
       case 'comment':
-        return ['data' => ['#markup' => $this->schemaTypeBuilder->formatComment($value)]];
+        return [
+          'data' => [
+            '#markup' => $this->schemaTypeBuilder->formatComment(
+              SchemaDotOrgStringHelper::getFirstSentence($value)
+            ),
+          ],
+        ];
 
       default:
         $links = $this->schemaTypeBuilder->buildItemsLinks($value);

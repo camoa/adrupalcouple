@@ -1,16 +1,19 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg_jsonld_custom;
 
 use Drupal\Component\Utility\NestedArray;
 use Drupal\Core\Config\ConfigFactoryInterface;
+use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Render\BubbleableMetadata;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Url;
 use Drupal\Core\Utility\Token;
+use Drupal\schemadotorg\SchemaDotOrgMappingInterface;
 use Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface;
 
 /**
@@ -34,16 +37,16 @@ class SchemaDotOrgJsonLdCustomManager implements SchemaDotOrgJsonLdCustomInterfa
     protected ConfigFactoryInterface $configFactory,
     protected EntityTypeManagerInterface $entityTypeManager,
     protected Token $token,
-    protected SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager
+    protected SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager,
   ) {}
 
   /**
    * {@inheritdoc}
    */
-  public function alterMappingDefaults(array &$defaults, string $entity_type_id, ?string $bundle, string $schema_type): void {
+  public function mappingDefaultsAlter(array &$defaults, string $entity_type_id, ?string $bundle, string $schema_type): void {
     /** @var \Drupal\schemadotorg\SchemaDotOrgMappingStorageInterface $mapping_storage */
     $mapping_storage = $this->entityTypeManager->getStorage('schemadotorg_mapping');
-    /** @var \Drupal\schemadotorg\SchemaDotOrgMappingInterface $mapping */
+    /** @var \Drupal\schemadotorg\SchemaDotOrgMappingInterface|null $mapping */
     $mapping = $mapping_storage->load("$entity_type_id.$bundle");
     if ($mapping) {
       return;
@@ -74,13 +77,16 @@ class SchemaDotOrgJsonLdCustomManager implements SchemaDotOrgJsonLdCustomInterfa
   /**
    * {@inheritdoc}
    */
-  public function loadSchemaTypeEntityJsonLd(array &$data, EntityInterface $entity): void {
-    /** @var \Drupal\schemadotorg\SchemaDotOrgMappingStorageInterface $mapping_storage */
-    $mapping_storage = $this->entityTypeManager->getStorage('schemadotorg_mapping');
-    $mapping = $mapping_storage->loadByEntity($entity);
-    if (!$mapping) {
+  public function jsonLdSchemaTypeEntityLoad(array &$data, EntityInterface $entity, ?SchemaDotOrgMappingInterface $mapping, BubbleableMetadata $bubbleable_metadata): void {
+    // Make sure this is a content entity with a mapping.
+    if (!$entity instanceof ContentEntityInterface
+      || !$mapping) {
       return;
     }
+
+    // Add custom JSON-LD settings as a cache dependency.
+    $config = $this->configFactory->get('schemadotorg_jsonld_custom.settings');
+    $bubbleable_metadata->addCacheableDependency($config);
 
     // Default Schema.org types JSON-LD.
     $schema_type = $mapping->getSchemaType();
@@ -95,26 +101,37 @@ class SchemaDotOrgJsonLdCustomManager implements SchemaDotOrgJsonLdCustomInterfa
   /**
    * {@inheritdoc}
    */
-  public function buildRouteMatchJsonLd(RouteMatchInterface $route_match): ?array {
+  public function buildRouteMatchJsonLd(RouteMatchInterface $route_match, BubbleableMetadata $bubbleable_metadata): ?array {
+    $config = $this->configFactory->get('schemadotorg_jsonld_custom.settings');
+
+    // Add custom JSON-LD settings as a cache dependency.
+    $bubbleable_metadata->addCacheableDependency($config);
+
     $url = Url::fromRouteMatch($route_match);
-    $path = parse_url($url->toString(), PHP_URL_PATH);
 
-    $front_path = $this->configFactory
-      ->get('system.site')
-      ->get('page.front');
-    if ($path === $front_path) {
-      $path = '/';
+    $request_path = parse_url($url->toString(), PHP_URL_PATH);
+    // Not using $url->getInternalPath() because we want the path prefixed
+    // with a slash (/).
+    $system_path = parse_url($url->setOption('path_processing', FALSE)->toString(), PHP_URL_PATH);
+
+    // Handle <front> page JSON-LD.
+    $front_path = $this->configFactory->get('system.site')->get('page.front');
+    if (in_array($front_path, [$request_path, $system_path])) {
+      $json = $config->get('path_json./')
+        ?: $config->get("path_json.<front>");
+      if ($json) {
+        return @json_decode($this->token->replace($json, [], [], $bubbleable_metadata), TRUE) ?? NULL;
+      }
     }
 
-    $json = $this->configFactory
-      ->get('schemadotorg_jsonld_custom.settings')
-      ->get("path_json.$path");
-    if (!$json) {
-      return NULL;
+    // Handle other pages JSON-LD.
+    $json = $config->get("path_json.$request_path")
+      ?: $config->get("path_json.$system_path");
+    if ($json) {
+      return @json_decode($this->token->replace($json, [], [], $bubbleable_metadata), TRUE) ?? NULL;
     }
 
-    $json = $this->token->replace($json, []);
-    return @json_decode($json, TRUE) ?? NULL;
+    return NULL;
   }
 
   /**
@@ -155,20 +172,14 @@ class SchemaDotOrgJsonLdCustomManager implements SchemaDotOrgJsonLdCustomInterfa
    *   The default custom JSON-LD for Schema.org type.
    */
   protected function getDefaultJson(string $entity_type_id, string $schema_type, string $config_name): ?string {
-    $config = $this->configFactory->get('schemadotorg_jsonld_custom.settings');
-
-    $breadcrumbs = $this->schemaTypeManager->getTypeBreadcrumbs($schema_type);
-    foreach ($breadcrumbs as $breadcrumb) {
-      $breadcrumb_types = array_reverse($breadcrumb);
-      foreach ($breadcrumb_types as $breadcrumb_type) {
-        $default_json = $config->get("$config_name.$entity_type_id--$breadcrumb_type")
-          ?? $config->get("$config_name.$breadcrumb_type");
-        if ($default_json) {
-          return $default_json;
-        }
-      }
-    }
-    return NULL;
+    $settings = $this->configFactory
+      ->get('schemadotorg_jsonld_custom.settings')
+      ->get($config_name);
+    $parts = [
+      'entity_type_id' => $entity_type_id,
+      'schema_type' => $schema_type,
+    ];
+    return $this->schemaTypeManager->getSetting($settings, $parts);
   }
 
 }

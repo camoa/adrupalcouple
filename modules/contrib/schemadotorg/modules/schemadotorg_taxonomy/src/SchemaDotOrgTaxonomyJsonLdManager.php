@@ -1,16 +1,17 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg_taxonomy;
 
 use Drupal\Component\Utility\NestedArray;
-use Drupal\Core\Config\Entity\ConfigEntityStorageInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Render\BubbleableMetadata;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\Url;
-use Drupal\schemadotorg\SchemaDotOrgMappingStorageInterface;
+use Drupal\schemadotorg\SchemaDotOrgMappingInterface;
+use Drupal\schemadotorg\Traits\SchemaDotOrgMappingStorageTrait;
 use Drupal\schemadotorg_jsonld\SchemaDotOrgJsonLdBuilderInterface;
 use Drupal\schemadotorg_jsonld\SchemaDotOrgJsonLdManagerInterface;
 use Drupal\taxonomy\TermInterface;
@@ -21,6 +22,7 @@ use Drupal\taxonomy\VocabularyInterface;
  */
 class SchemaDotOrgTaxonomyJsonLdManager implements SchemaDotOrgTaxonomyJsonLdManagerInterface {
   use StringTranslationTrait;
+  use SchemaDotOrgMappingStorageTrait;
 
   /**
    * Constructs a SchemaDotOrgTaxonomyJsonLdManager object.
@@ -35,12 +37,13 @@ class SchemaDotOrgTaxonomyJsonLdManager implements SchemaDotOrgTaxonomyJsonLdMan
   public function __construct(
     protected EntityTypeManagerInterface $entityTypeManager,
     protected ?SchemaDotOrgJsonLdManagerInterface $schemaJsonLdManager = NULL,
-    protected ?SchemaDotOrgJsonLdBuilderInterface $schemaJsonLdBuilder = NULL) {}
+    protected ?SchemaDotOrgJsonLdBuilderInterface $schemaJsonLdBuilder = NULL,
+  ) {}
 
   /**
    * {@inheritdoc}
    */
-  public function load(array &$data, EntityInterface $entity): void {
+  public function load(array &$data, EntityInterface $entity, ?SchemaDotOrgMappingInterface $mapping, BubbleableMetadata $bubbleable_metadata): void {
     if (!$entity instanceof VocabularyInterface) {
       return;
     }
@@ -67,14 +70,10 @@ class SchemaDotOrgTaxonomyJsonLdManager implements SchemaDotOrgTaxonomyJsonLdMan
   /**
    * {@inheritdoc}
    */
-  public function alter(array &$data, EntityInterface $entity): void {
-    if (!$entity instanceof TermInterface) {
-      return;
-    }
-
-    // Alter a term's Schema.org type data to include isDefinedTermSet property.
-    $mapping = $this->getMappingStorage()->loadByEntity($entity);
-    if (!$mapping) {
+  public function alter(array &$data, EntityInterface $entity, ?SchemaDotOrgMappingInterface $mapping): void {
+    // Make sure this is a term with a mapping.
+    if (!$entity instanceof TermInterface
+      || !$mapping) {
       return;
     }
 
@@ -92,12 +91,9 @@ class SchemaDotOrgTaxonomyJsonLdManager implements SchemaDotOrgTaxonomyJsonLdMan
   }
 
   /**
-   * Preprocess HTML alter JSON-LD Term endpoint.
-   *
-   * @param array $variables
-   *   An array of variables.
+   * {@inheritdoc}
    */
-  public function preprocessHtml(array &$variables): void {
+  public function preprocessBlock(array &$variables): void {
     if (empty($this->schemaJsonLdBuilder)) {
       return;
     }
@@ -109,7 +105,7 @@ class SchemaDotOrgTaxonomyJsonLdManager implements SchemaDotOrgTaxonomyJsonLdMan
     }
 
     // Get JSON-LD endpoint render array.
-    $build_endpoints = &NestedArray::getValue($variables, ['page', 'content', 'schemadotorg_jsonld_preview', 'endpoints']);
+    $build_endpoints = &NestedArray::getValue($variables, ['content', 'details', 'endpoints']);
 
     // Make sure the Schema.org JSON-LD taxonomy term preview with
     // endpoints exists.
@@ -137,16 +133,6 @@ class SchemaDotOrgTaxonomyJsonLdManager implements SchemaDotOrgTaxonomyJsonLdMan
         '#title' => $jsonld_url->toString(),
       ],
     ];
-  }
-
-  /**
-   * Gets the Schema.org mapping storage.
-   *
-   * @return \Drupal\schemadotorg\SchemaDotOrgMappingStorageInterface|\Drupal\Core\Config\Entity\ConfigEntityStorageInterface
-   *   The Schema.org mapping storage
-   */
-  protected function getMappingStorage(): SchemaDotOrgMappingStorageInterface|ConfigEntityStorageInterface {
-    return $this->entityTypeManager->getStorage('schemadotorg_mapping');
   }
 
 }

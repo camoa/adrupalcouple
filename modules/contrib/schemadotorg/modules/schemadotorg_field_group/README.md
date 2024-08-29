@@ -19,7 +19,6 @@ Features
 
 - Adds field groups to node and user Schema.org mapping.
 - Generates a generic field group based on a Schema.org mapping's type.
-- Appends a suffix to custom field group labels.
 - Deletes empty field groups created when a field is deleted.
 - Adds a field group around all displayed paragraphs.
 - Allows field groups to be disabled for selected entity type, display, 
@@ -37,7 +36,7 @@ Configuration
 -------------
 
 - Go to the Schema.org properties configuration page.  
-  (/admin/config/search/schemadotorg/settings/properties)
+  (/admin/config/schemadotorg/settings/properties#edit-schemadotorg-field-group)
 - Go to the 'Field group settings' details.
 - Enter the default field groups and field order used to group Schema.org
   properties as they are added to entity types.

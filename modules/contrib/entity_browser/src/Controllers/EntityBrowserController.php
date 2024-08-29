@@ -3,15 +3,16 @@
 namespace Drupal\entity_browser\Controllers;
 
 use Drupal\Core\Ajax\AjaxResponse;
+use Drupal\Core\Ajax\AlertCommand;
 use Drupal\Core\Ajax\CloseDialogCommand;
 use Drupal\Core\Ajax\OpenDialogCommand;
 use Drupal\Core\Controller\ControllerBase;
-use Drupal\Core\Form\FormState;
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Form\FormState;
 use Drupal\entity_browser\Ajax\ValueUpdatedCommand;
-use Symfony\Component\HttpFoundation\Request;
-use Drupal\Core\Ajax\AlertCommand;
+use Symfony\Component\HttpFoundation\InputBag;
 use Symfony\Component\HttpFoundation\ParameterBag;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Returns responses for entity browser routes.
@@ -39,7 +40,7 @@ class EntityBrowserController extends ControllerBase {
       // Remove posted values from original form to prevent
       // data leakage into this form when the form is of the same bundle.
       $original_request = $request->request;
-      $request->request = new ParameterBag();
+      $request->request = new InputBag();
     }
 
     // Use edit form class if it exists, otherwise use default form class.
@@ -74,7 +75,7 @@ class EntityBrowserController extends ControllerBase {
       // Return the form as a modal dialog.
       $form['#attached']['library'][] = 'core/drupal.dialog.ajax';
       $title = $this->t('Edit @entity', ['@entity' => $entity->label()]);
-      $response = (new AjaxResponse())->addCommand(new OpenDialogCommand('#' . $entity->getEntityTypeId() . '-' . $entity->id() . '-edit-dialog', $title, $form, ['modal' => TRUE, 'width' => 800]));
+      $response = (new AjaxResponse())->addCommand(new OpenDialogCommand('#' . $entity->getEntityTypeId() . '-' . $entity->id() . '-edit-dialog', $title, $form, ['modal' => TRUE, 'width' => '92%', 'dialogClass' => 'entity-browser-modal']));
       return $response;
     }
     else {

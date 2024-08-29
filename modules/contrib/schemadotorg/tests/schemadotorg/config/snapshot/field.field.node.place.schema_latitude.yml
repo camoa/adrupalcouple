@@ -9,7 +9,7 @@ field_name: schema_latitude
 entity_type: node
 bundle: place
 label: Latitude
-description: 'The latitude of a location. For example <code>37.42242</code> (<a href="https://en.wikipedia.org/wiki/World_Geodetic_System">WGS 84</a>).'
+description: 'The latitude of a location.'
 required: false
 translatable: true
 default_value: {  }

@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg_report\Controller;
 
@@ -59,6 +59,7 @@ class SchemaDotOrgReportReferencesController extends SchemaDotOrgReportControlle
               '#type' => 'link',
               '#title' => $type,
               '#url' => Url::fromRoute('schemadotorg_report', ['id' => $type]),
+              '#attributes' => ['id' => $type],
             ],
             '#items' => $this->buildReportLinks($links),
           ];

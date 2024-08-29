@@ -165,7 +165,7 @@ trait SmartDateRecurTrait {
     if (!empty($settings['time_wrapper'])) {
       $this->addTimeWrapper($output, $item->value, $item->end_value, $item->timezone);
     }
-    if (!empty($settings['augmenters']['instances'])) {
+    if (!empty($settings['augmenters']['instances']) && method_exists($this, 'augmentOutput')) {
       $this->augmentOutput($output, $settings['augmenters']['instances'], $item->value, $item->end_value, $item->timezone, $key, 'instances');
     }
     return $output;

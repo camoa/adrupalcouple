@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\Tests\schemadotorg_content_moderation\Functional;
 
@@ -14,9 +14,7 @@ use Drupal\Tests\schemadotorg\Functional\SchemaDotOrgBrowserTestBase;
 class SchemaDotOrgContentModerationSettingsFormTest extends SchemaDotOrgBrowserTestBase {
 
   /**
-   * Modules to enable.
-   *
-   * @var array
+   * {@inheritdoc}
    */
   protected static $modules = ['schemadotorg_content_moderation'];
 
@@ -34,7 +32,7 @@ class SchemaDotOrgContentModerationSettingsFormTest extends SchemaDotOrgBrowserT
    * Test Schema.org Content Moderation settings form.
    */
   public function testSettingsForm(): void {
-    $this->assertSaveSettingsConfigForm('schemadotorg_content_moderation.settings', '/admin/config/search/schemadotorg/settings/types');
+    $this->assertSaveSettingsConfigForm('schemadotorg_content_moderation.settings', '/admin/config/schemadotorg/settings/types');
   }
 
 }

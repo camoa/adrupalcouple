@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\Tests\schemadotorg\Functional;
 
@@ -27,9 +27,9 @@ class SchemaDotOrgSettingsFormTest extends SchemaDotOrgBrowserTestBase {
    * Test Schema.org settings form.
    */
   public function testSettingsForm(): void {
-    $this->assertSaveSettingsConfigForm('schemadotorg.settings', '/admin/config/search/schemadotorg/settings/types');
-    $this->assertSaveSettingsConfigForm('schemadotorg.settings', '/admin/config/search/schemadotorg/settings/properties');
-    $this->assertSaveSettingsConfigForm('schemadotorg.settings', '/admin/config/search/schemadotorg/settings/names');
+    $this->assertSaveSettingsConfigForm('schemadotorg.settings', '/admin/config/schemadotorg/settings/types');
+    $this->assertSaveSettingsConfigForm('schemadotorg.settings', '/admin/config/schemadotorg/settings/properties');
+    $this->assertSaveSettingsConfigForm('schemadotorg.settings', '/admin/config/schemadotorg/settings/names');
   }
 
 }

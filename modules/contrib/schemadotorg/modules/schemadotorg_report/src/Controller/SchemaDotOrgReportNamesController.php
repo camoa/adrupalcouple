@@ -1,9 +1,10 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg_report\Controller;
 
+use Drupal\schemadotorg\SchemaDotOrgNamesInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -12,16 +13,14 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class SchemaDotOrgReportNamesController extends SchemaDotOrgReportControllerBase {
 
   /**
-   * The Schema.org Names service.
-   *
-   * @var \Drupal\schemadotorg\SchemaDotOrgNamesInterface
+   * The Schema.org names service.
    */
-  protected $schemaDotOrgNames;
+  protected SchemaDotOrgNamesInterface $schemaDotOrgNames;
 
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container) {
+  public static function create(ContainerInterface $container): static {
     $instance = parent::create($container);
     $instance->schemaDotOrgNames = $container->get('schemadotorg.names');
     return $instance;
@@ -151,6 +150,7 @@ class SchemaDotOrgReportNamesController extends SchemaDotOrgReportControllerBase
             $this->t('Max length'),
           ],
           '#rows' => $truncated,
+          '#attributes' => ['class' => ['schemadotorg-report-table']],
         ],
       ];
     }
@@ -220,14 +220,17 @@ class SchemaDotOrgReportNamesController extends SchemaDotOrgReportControllerBase
     }
 
     // Remove words that are less than 5 characters.
-    $words = array_filter($words, function ($word) {
-      return strlen($word) > 5;
-    }, ARRAY_FILTER_USE_KEY);
+    $words = array_filter(
+      $words,
+      fn($word) => strlen($word) > 5,
+      ARRAY_FILTER_USE_KEY
+    );
 
     // Remove words that are only used once.
-    $words = array_filter($words, function ($usage) {
-      return $usage > 1;
-    });
+    $words = array_filter(
+      $words,
+      fn($usage) => $usage > 1
+    );
 
     // Sort by usage.
     asort($words, SORT_NUMERIC);
@@ -271,6 +274,7 @@ class SchemaDotOrgReportNamesController extends SchemaDotOrgReportControllerBase
       '#type' => 'table',
       '#header' => $header,
       '#rows' => $rows,
+      '#attributes' => ['class' => ['schemadotorg-report-table']],
     ];
 
     // Replacements.
@@ -291,6 +295,7 @@ class SchemaDotOrgReportNamesController extends SchemaDotOrgReportControllerBase
         '#type' => 'table',
         '#header' => [$label, $this->t('Replacement')],
         '#rows' => $used_replacements_rows,
+        '#attributes' => ['class' => ['schemadotorg-report-table']],
       ],
     ];
     if ($unused_replacements_rows) {
@@ -301,6 +306,7 @@ class SchemaDotOrgReportNamesController extends SchemaDotOrgReportControllerBase
           '#type' => 'table',
           '#header' => [$label, $this->t('Replacement')],
           '#rows' => $unused_replacements_rows,
+          '#attributes' => ['class' => ['schemadotorg-report-table']],
         ],
       ];
     }
@@ -413,6 +419,7 @@ class SchemaDotOrgReportNamesController extends SchemaDotOrgReportControllerBase
       '#type' => 'table',
       '#header' => $header,
       '#rows' => $rows,
+      '#attributes' => ['class' => ['schemadotorg-report-table']],
     ];
     return $build;
   }

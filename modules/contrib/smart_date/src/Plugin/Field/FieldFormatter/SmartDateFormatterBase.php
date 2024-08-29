@@ -5,11 +5,14 @@ namespace Drupal\smart_date\Plugin\Field\FieldFormatter;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\datetime\Plugin\Field\FieldFormatter\DateTimeDefaultFormatter;
 use Drupal\smart_date\Entity\SmartDateFormat;
-use Drupal\smart_date\SmartDateTrait;
+use Drupal\smart_date\SmartDatePluginTrait;
 
+/**
+ * Template to provide common formatter functionality.
+ */
 class SmartDateFormatterBase extends DateTimeDefaultFormatter {
 
-  use SmartDateTrait;
+  use SmartDatePluginTrait;
 
   /**
    * {@inheritdoc}
@@ -119,6 +122,7 @@ class SmartDateFormatterBase extends DateTimeDefaultFormatter {
   protected function getAvailableSmartDateFormatOptions() {
     $formatOptions = [];
 
+    // @phpstan-ignore-next-line
     $smartDateFormats = \Drupal::entityTypeManager()
       ->getStorage('smart_date_format')
       ->loadMultiple();

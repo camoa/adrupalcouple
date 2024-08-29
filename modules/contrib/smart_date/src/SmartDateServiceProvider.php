@@ -4,8 +4,8 @@ namespace Drupal\smart_date;
 
 use Drupal\Core\DependencyInjection\ContainerBuilder;
 use Drupal\Core\DependencyInjection\ServiceProviderBase;
-use Drupal\smart_date\Normalizer\SmartDateNormalizer;
 use Drupal\smart_date\Normalizer\SmartDateItemNormalizer;
+use Drupal\smart_date\Normalizer\SmartDateNormalizer;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
 

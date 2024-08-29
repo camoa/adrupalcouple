@@ -1,0 +1,21 @@
+uuid: b6f3c7be-080e-4a2e-aaad-5fc33982b637
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.schema_works_for
+    - node.type.person
+id: node.person.schema_works_for
+field_name: schema_works_for
+entity_type: node
+bundle: person
+label: 'Works for'
+description: 'Organizations that the person works for.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings: {  }
+field_type: entity_reference

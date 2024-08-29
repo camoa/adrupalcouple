@@ -7,7 +7,6 @@ use Drupal\jsonapi\Query\OffsetPage;
 use Drupal\jsonapi_extras\Entity\JsonapiResourceConfig;
 use Drupal\Tests\jsonapi_extras\Functional\JsonApiExtrasFunctionalTestBase;
 use GuzzleHttp\Psr7\Query;
-use function GuzzleHttp\Psr7\parse_query;
 
 /**
  * The test class for the JSON API Defaults functionality.
@@ -28,39 +27,38 @@ class JsonApiDefaultsFunctionalTest extends JsonApiExtrasFunctionalTestBase {
     'jsonapi_defaults',
   ];
 
-    /**
-     * Test regression on sorting from issue 3322635.
-     */
-    public function testSortRegression3322635() {
-        $this->setResouceConfigValue([
-            'default_filter' => [],
-            'default_sorting' => [],
-        ]);
+  /**
+   * Test regression on sorting from issue 3322635.
+   */
+  public function testSortRegression3322635() {
+    $this->setResourceConfigValue([
+      'default_filter' => [],
+      'default_sorting' => [],
+    ]);
 
-        $this->createDefaultContent(2, 5, TRUE, TRUE, static::IS_NOT_MULTILINGUAL);
+    $this->createDefaultContent(2, 5, TRUE, TRUE, static::IS_NOT_MULTILINGUAL);
 
-        $this->nodes[0]->title->setValue('b');
-        $this->nodes[0]->save();
+    $this->nodes[0]->title->setValue('b');
+    $this->nodes[0]->save();
 
-        $this->nodes[1]->title->setValue('a');
-        $this->nodes[1]->save();
+    $this->nodes[1]->title->setValue('a');
+    $this->nodes[1]->save();
 
-        $stringResponse = $this->drupalGet('/api/articles', ['query' => ['sort' => 'title']]);
-        $output = Json::decode($stringResponse);
+    $stringResponse = $this->drupalGet('/api/articles', ['query' => ['sort' => 'title']]);
+    $output = Json::decode($stringResponse);
 
-        // Check if order changed as expected.
-        $this->assertEquals('a', $output['data'][0]['attributes']['title']);
-        $this->assertEquals('b', $output['data'][1]['attributes']['title']);
+    // Check if order changed as expected.
+    $this->assertEquals('a', $output['data'][0]['attributes']['title']);
+    $this->assertEquals('b', $output['data'][1]['attributes']['title']);
 
-        $stringResponse = $this->drupalGet('/api/articles', ['query' => ['sort' => '-title']]);
-        $output = Json::decode($stringResponse);
+    $stringResponse = $this->drupalGet('/api/articles', ['query' => ['sort' => '-title']]);
+    $output = Json::decode($stringResponse);
 
-        // Check if order changed as expected.
-        $this->assertEquals('b', $output['data'][0]['attributes']['title']);
-        $this->assertEquals('a', $output['data'][1]['attributes']['title']);
+    // Check if order changed as expected.
+    $this->assertEquals('b', $output['data'][0]['attributes']['title']);
+    $this->assertEquals('a', $output['data'][1]['attributes']['title']);
 
-    }
-
+  }
 
   /**
    * Test the GET method.
@@ -70,12 +68,16 @@ class JsonApiDefaultsFunctionalTest extends JsonApiExtrasFunctionalTestBase {
     // 1. Apply default filters and includes on a resource and a related
     // resource.
     $response = $this->drupalGet('/api/articles');
+    $this->assertSession()->responseHeaderEquals('X-Drupal-Cache', 'MISS');
     $parsed_response = Json::decode($response);
     $this->assertArrayHasKey('data', $parsed_response);
     $this->assertCount(1, $parsed_response['data']);
     $this->assertEquals(3, $parsed_response['data'][0]['attributes']['internalId']);
     $this->assertArrayHasKey('included', $parsed_response);
     $this->assertGreaterThan(0, count($parsed_response['included']));
+    // Make sure that after the second request, we have a cached response.
+    $this->drupalGet('/api/articles');
+    $this->assertSession()->responseHeaderEquals('X-Drupal-Cache', 'HIT');
     // Make sure related resources don't fail.
     $response = $this->drupalGet('/api/articles/' . $this->nodes[0]->uuid() . '/owner');
     $parsed_response = Json::decode($response);
@@ -109,7 +111,7 @@ class JsonApiDefaultsFunctionalTest extends JsonApiExtrasFunctionalTestBase {
 
     // 4. Using the default sorting check the order.
     // Unset filters of resource config in this test as those limit the results.
-    $this->setResouceConfigValue(['default_filter' => []]);
+    $this->setResourceConfigValue(['default_filter' => []]);
     $this->nodes[0]->setTitle('a');
     $this->nodes[0]->save();
 
@@ -158,7 +160,7 @@ class JsonApiDefaultsFunctionalTest extends JsonApiExtrasFunctionalTestBase {
    */
   public function testPagination() {
     // Unset filters of resource config in this test as those limit the results.
-    $this->setResouceConfigValue(['default_filter' => []]);
+    $this->setResourceConfigValue(['default_filter' => []]);
     $this->createDefaultContent(300, 1, FALSE, TRUE, static::IS_NOT_MULTILINGUAL);
 
     // 1. Check pagination using default page limit of jsonapi.
@@ -166,7 +168,7 @@ class JsonApiDefaultsFunctionalTest extends JsonApiExtrasFunctionalTestBase {
     $this->assertPagination(Json::decode($response), OffsetPage::SIZE_MAX);
 
     // 2. Check with an increased page limit.
-    $this->setResouceConfigValue(['page_limit' => static::PAGE_LIMIT_OVERRIDE_VALUE]);
+    $this->setResourceConfigValue(['page_limit' => static::PAGE_LIMIT_OVERRIDE_VALUE]);
     $response = $this->drupalGet('/api/articles', [
       'query' => ['page[limit]' => static::PAGE_LIMIT_OVERRIDE_VALUE],
     ]);
@@ -250,7 +252,7 @@ class JsonApiDefaultsFunctionalTest extends JsonApiExtrasFunctionalTestBase {
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  protected function setResouceConfigValue(array $values) {
+  protected function setResourceConfigValue(array $values) {
     $resource_config = JsonapiResourceConfig::load('node--article');
     foreach ($values as $key => $value) {
       $resource_config->setThirdPartySetting('jsonapi_defaults', $key, $value);

@@ -1,21 +1,24 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg_ui\Form;
 
 use Drupal\Component\Utility\NestedArray;
-use Drupal\Core\Config\Entity\ConfigEntityStorageInterface;
 use Drupal\Core\Entity\EntityForm;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Theme\ThemeManagerInterface;
 use Drupal\Core\Url;
 use Drupal\schemadotorg\SchemaDotOrgEntityFieldManagerInterface;
 use Drupal\schemadotorg\SchemaDotOrgMappingInterface;
-use Drupal\schemadotorg\SchemaDotOrgMappingStorageInterface;
+use Drupal\schemadotorg\SchemaDotOrgMappingManagerInterface;
 use Drupal\schemadotorg\SchemaDotOrgMappingTypeInterface;
-use Drupal\schemadotorg\SchemaDotOrgMappingTypeStorageInterface;
+use Drupal\schemadotorg\SchemaDotOrgNamesInterface;
+use Drupal\schemadotorg\SchemaDotOrgSchemaTypeBuilderInterface;
+use Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface;
+use Drupal\schemadotorg\Traits\SchemaDotOrgMappingStorageTrait;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -26,6 +29,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * @property \Drupal\schemadotorg\SchemaDotOrgMappingInterface $entity
  */
 class SchemaDotOrgUiMappingForm extends EntityForm {
+  use SchemaDotOrgMappingStorageTrait;
 
   /**
    * Add new field mapping option.
@@ -34,64 +38,48 @@ class SchemaDotOrgUiMappingForm extends EntityForm {
 
   /**
    * The service container.
-   *
-   * @var \Symfony\Component\DependencyInjection\ContainerInterface
    */
-  protected $container;
+  protected ContainerInterface $container;
 
   /**
    * The theme manager.
-   *
-   * @var \Drupal\Core\Theme\ThemeManagerInterface
    */
-  protected $themeManager;
+  protected ThemeManagerInterface $themeManager;
 
   /**
    * The Schema.org schema names services.
-   *
-   * @var \Drupal\schemadotorg\SchemaDotOrgNamesInterface
    */
-  protected $schemaNames;
+  protected SchemaDotOrgNamesInterface $schemaNames;
 
   /**
    * The Schema.org schema type manager.
-   *
-   * @var \Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface
    */
-  protected $schemaTypeManager;
+  protected SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager;
 
   /**
    * The Schema.org schema type builder service.
-   *
-   * @var \Drupal\schemadotorg\SchemaDotOrgSchemaTypeBuilderInterface
    */
-  protected $schemaTypeBuilder;
+  protected SchemaDotOrgSchemaTypeBuilderInterface $schemaTypeBuilder;
 
   /**
    * The Schema.org entity field manager.
-   *
-   * @var \Drupal\schemadotorg\SchemaDotOrgEntityFieldManagerInterface
    */
-  protected $schemaEntityFieldManager;
+  protected SchemaDotOrgEntityFieldManagerInterface $schemaEntityFieldManager;
 
   /**
    * The Schema.org mapping manager.
-   *
-   * @var \Drupal\schemadotorg\SchemaDotOrgMappingManagerInterface
    */
-  protected $schemaMappingManager;
+  protected SchemaDotOrgMappingManagerInterface $schemaMappingManager;
 
   /**
    * Available fields as options.
-   *
-   * @var array
    */
-  protected $fieldOptions;
+  protected array $fieldOptions;
 
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container) {
+  public static function create(ContainerInterface $container): static {
     $instance = parent::create($container);
     $instance->container = $container;
     $instance->themeManager = $container->get('theme.manager');
@@ -136,7 +124,7 @@ class SchemaDotOrgUiMappingForm extends EntityForm {
     $target_entity_type_id = $target_entity_type_id ?? 'node';
 
     // Load mapping type since the target entity type id was just set.
-    /** @var \Drupal\schemadotorg\SchemaDotOrgMappingTypeInterface $mapping_type */
+    /** @var \Drupal\schemadotorg\SchemaDotOrgMappingTypeInterface|null $mapping_type */
     $mapping_type = $mapping_type_storage->load($target_entity_type_id);
     $supports_multiple = $mapping_type->supportsMultiple();
     $default_schema_type = $mapping_type->getDefaultSchemaType($target_bundle);
@@ -145,7 +133,7 @@ class SchemaDotOrgUiMappingForm extends EntityForm {
     if ($mapping_storage->isSchemaTypeMapped($target_entity_type_id, $schema_type)
       && !$supports_multiple
       && $this->getRequest()->isMethod('get')) {
-      /** @var \Drupal\schemadotorg\SchemaDotOrgMappingInterface $entity */
+      /** @var \Drupal\schemadotorg\SchemaDotOrgMappingInterface|null $entity */
       $entity = $mapping_storage->loadBySchemaType($target_entity_type_id, $schema_type);
       $target_entity = $entity->getTargetEntityBundleEntity();
       $t_args = [
@@ -160,7 +148,7 @@ class SchemaDotOrgUiMappingForm extends EntityForm {
     // Set default Schema.org type for the current target entity type and bundle.
     $schema_type = $schema_type ?: $default_schema_type;
 
-    /** @var \Drupal\schemadotorg\SchemaDotOrgMappingInterface $entity */
+    /** @var \Drupal\schemadotorg\SchemaDotOrgMappingInterface|null $entity */
     $entity = $mapping_storage->load($target_entity_type_id . '.' . $target_bundle)
       ?: $mapping_storage->create([
         'target_entity_type_id' => $target_entity_type_id,
@@ -210,6 +198,7 @@ class SchemaDotOrgUiMappingForm extends EntityForm {
     if (!$this->getSchemaType()) {
       return [];
     }
+
     return parent::actions($form, $form_state);
   }
 
@@ -350,8 +339,9 @@ class SchemaDotOrgUiMappingForm extends EntityForm {
   /**
    * {@inheritdoc}
    */
-  public function save(array $form, FormStateInterface $form_state): void {
+  public function save(array $form, FormStateInterface $form_state): int {
     // Do nothing and allow the entity to be saved via ::submitForm.
+    return 1;
   }
 
   /**
@@ -364,10 +354,14 @@ class SchemaDotOrgUiMappingForm extends EntityForm {
    *   Schema.org mapping values.
    */
   protected function getMappingValuesFromFormState(FormStateInterface $form_state): array {
+    $mapping_defaults = $form_state->get('mapping_defaults');
     $mapping_values = $form_state->getValue('mapping');
 
     // Entity.
-    $mapping_values['entity'] = $mapping_values['entity'] ?? [];
+    $mapping_values['entity'] = NestedArray::mergeDeep(
+      $mapping_defaults['entity'] ?? [],
+      $mapping_values['entity'] ?? []
+    );
 
     // Properties.
     foreach ($mapping_values['properties'] as $property => $property_values) {
@@ -378,9 +372,17 @@ class SchemaDotOrgUiMappingForm extends EntityForm {
         $mapping_values['properties'][$property] += $property_values['field'][static::ADD_FIELD];
       }
     }
+    $mapping_values['properties'] = NestedArray::mergeDeep(
+      $mapping_defaults['properties'] ?? [],
+      $mapping_values['properties'],
+    );
+
+    // Additional mappings.
+    $mapping_values['additional_mappings'] = $mapping_values['additional_mappings'] ?? [];
 
     // Third party settings.
-    $mapping_values['third_party_settings'] = $mapping_values['third_party_settings'] ?? [];
+    $mapping_values['third_party_settings'] = ($mapping_values['third_party_settings'] ?? []) +
+      ($mapping_defaults['third_party_settings'] ?? []);
 
     return $mapping_values;
   }
@@ -437,7 +439,7 @@ class SchemaDotOrgUiMappingForm extends EntityForm {
           '%schema_type' => $type_definition['drupal_label'],
           '@entity_type' => $target_entity_type_bundle_definition->getSingularLabel(),
         ];
-        $this->messenger()->addWarning($this->t('Please review the %schema_type @entity_type and new fields that will be created below.', $t_args));
+        $this->messenger()->addWarning($this->t('Please review the %schema_type @entity_type and the new fields that will be created below.', $t_args));
       }
       else {
         $this->messenger()->addWarning($this->t('Please review the new fields that will be created below.'));
@@ -463,7 +465,7 @@ class SchemaDotOrgUiMappingForm extends EntityForm {
       $form['entity_type'] = [
         '#type' => 'item',
         '#title' => $target_entity_type_bundle_definition->getLabel(),
-        'link' => $link + ['#suffx' => ' (' . $entity_type_bundle->id() . ')'],
+        'link' => $link + ['#suffix' => ' (' . $entity_type_bundle->id() . ')'],
         '#weight' => -20,
       ];
     }
@@ -501,7 +503,7 @@ class SchemaDotOrgUiMappingForm extends EntityForm {
       ];
     }
 
-    // Schema.type.
+    // Schema.org type.
     $form['schema_type'] = [
       '#type' => 'item',
       '#title' => $this->t('Schema.org type'),
@@ -517,7 +519,7 @@ class SchemaDotOrgUiMappingForm extends EntityForm {
       '#suffix' => '</div>',
     ];
     $form['schema_type']['comment'] = [
-      '#markup' => $this->schemaTypeBuilder->formatComment($type_definition['comment']),
+      '#markup' => $this->schemaTypeBuilder->formatComment($type_definition['drupal_description']),
       '#prefix' => '<div>',
       '#suffix' => '</div>',
     ];
@@ -593,7 +595,7 @@ class SchemaDotOrgUiMappingForm extends EntityForm {
     // Header.
     $header = [];
     $header['property'] = ['data' => $this->t('Schema.org property'), 'width' => '50%'];
-    $header['field'] = ['data' => $this->t('Field'), 'width' => '50%'];
+    $header['field'] = ['data' => $this->t('Drupal field'), 'width' => '50%'];
 
     // Rows.
     $rows = [];
@@ -643,7 +645,6 @@ class SchemaDotOrgUiMappingForm extends EntityForm {
     $form['properties'] = [
       '#type' => 'table',
       '#header' => $header,
-      '#sticky' => TRUE,
       '#attributes' => ['class' => ['schemadotorg-ui-properties']],
       '#weight' => 0,
     ] + $rows;
@@ -696,7 +697,7 @@ class SchemaDotOrgUiMappingForm extends EntityForm {
         '#suffix' => '</strong></div>',
       ],
       'comment' => [
-        '#markup' => $this->schemaTypeBuilder->formatComment($definition['comment'], $options),
+        '#markup' => $this->schemaTypeBuilder->formatComment($definition['drupal_description'], $options),
         '#prefix' => '<div class="schemadotorg-ui-property--comment">',
         '#suffix' => '</div>',
       ],
@@ -814,7 +815,7 @@ class SchemaDotOrgUiMappingForm extends EntityForm {
     $form[static::ADD_FIELD]['machine_name'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Machine-readable name'),
-      '#descripion' => $this->t('A unique machine-readable name containing letters, numbers, and underscores.'),
+      '#description' => $this->t('A unique machine-readable name containing letters, numbers, and underscores.'),
       '#maxlength' => $property_maxlength,
       '#size' => $property_maxlength,
       '#pattern' => '[_0-9a-z]+',
@@ -934,27 +935,9 @@ class SchemaDotOrgUiMappingForm extends EntityForm {
    *   The Schema.org mapping type.
    */
   protected function getMappingType(): ?SchemaDotOrgMappingTypeInterface {
-    return $this->getMappingTypeStorage()->load($this->getTargetEntityTypeId());
-  }
-
-  /**
-   * Gets the Schema.org mapping storage.
-   *
-   * @return \Drupal\schemadotorg\SchemaDotOrgMappingStorageInterface|\Drupal\Core\Config\Entity\ConfigEntityStorageInterface
-   *   The Schema.org mapping storage
-   */
-  protected function getMappingStorage(): SchemaDotOrgMappingStorageInterface|ConfigEntityStorageInterface {
-    return $this->entityTypeManager->getStorage('schemadotorg_mapping');
-  }
-
-  /**
-   * Gets the Schema.org mapping type storage.
-   *
-   * @return \Drupal\schemadotorg\SchemaDotOrgMappingTypeStorageInterface|\Drupal\Core\Config\Entity\ConfigEntityStorageInterface
-   *   The Schema.org mapping type storage
-   */
-  protected function getMappingTypeStorage(): SchemaDotOrgMappingTypeStorageInterface|ConfigEntityStorageInterface {
-    return $this->entityTypeManager->getStorage('schemadotorg_mapping_type');
+    /** @var \Drupal\schemadotorg\SchemaDotOrgMappingTypeInterface|null $mapping_type */
+    $mapping_type = $this->getMappingTypeStorage()->load($this->getTargetEntityTypeId());
+    return $mapping_type;
   }
 
   /**

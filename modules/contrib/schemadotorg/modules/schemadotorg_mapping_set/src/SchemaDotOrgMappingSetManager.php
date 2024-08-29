@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg_mapping_set;
 
@@ -9,7 +9,6 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\State\StateInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\devel_generate\DevelGeneratePluginManager;
-use Drupal\schemadotorg\SchemaDotOrgEntityRelationshipManagerInterface;
 use Drupal\schemadotorg\SchemaDotOrgMappingManagerInterface;
 use Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface;
 use Drupal\schemadotorg\Traits\SchemaDotOrgDevelGenerateTrait;
@@ -32,8 +31,6 @@ class SchemaDotOrgMappingSetManager implements SchemaDotOrgMappingSetManagerInte
    *   The entity type manager.
    * @param \Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager
    *   The Schema.org schema type manager.
-   * @param \Drupal\schemadotorg\SchemaDotOrgEntityRelationshipManagerInterface $schemaEntityRelationshipManager
-   *   The Schema.org schema entity relationship manager.
    * @param \Drupal\schemadotorg\SchemaDotOrgMappingManagerInterface $schemaMappingManager
    *   The Schema.org mapping manager.
    * @param \Drupal\devel_generate\DevelGeneratePluginManager|null $develGenerateManager
@@ -44,20 +41,17 @@ class SchemaDotOrgMappingSetManager implements SchemaDotOrgMappingSetManagerInte
     protected ConfigFactoryInterface $configFactory,
     protected EntityTypeManagerInterface $entityTypeManager,
     protected SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager,
-    protected SchemaDotOrgEntityRelationshipManagerInterface $schemaEntityRelationshipManager,
     protected SchemaDotOrgMappingManagerInterface $schemaMappingManager,
-    protected ?DevelGeneratePluginManager $develGenerateManager = NULL
+    protected ?DevelGeneratePluginManager $develGenerateManager = NULL,
   ) {}
 
   /**
    * {@inheritdoc}
    */
   public function isSetup(string $name): bool {
-    $mapping_storage = $this->entityTypeManager->getStorage('schemadotorg_mapping');
     $types = $this->getTypes($name);
     foreach ($types as $type) {
-      [$entity_type_id, $schema_type] = explode(':', $type);
-      $mapping = $mapping_storage->loadBySchemaType($entity_type_id, $schema_type);
+      $mapping = $this->getMappingStorage()->loadByType($type);
       if (!$mapping) {
         return FALSE;
       }
@@ -129,16 +123,15 @@ class SchemaDotOrgMappingSetManager implements SchemaDotOrgMappingSetManagerInte
 
     $types = $this->getTypes($name);
     foreach ($types as $type) {
-      [$entity_type, $schema_type] = explode(':', $type);
-
-      $existing_mapping = $this->loadMappingByType($entity_type, $schema_type);
+      [$entity_type_id, , $schema_type] = $this->getMappingStorage()->parseType($type);
+      $existing_mapping = $this->getMappingStorage()->loadByType($type);
       if ($existing_mapping) {
         $t_args = ['@type' => $type];
         $messages[] = $this->t("Schema.org type '@type' already exists.", $t_args);
         unset($types[$type]);
       }
       else {
-        $this->schemaMappingManager->createType($entity_type, $schema_type);
+        $this->schemaMappingManager->createType($entity_type_id, $schema_type);
       }
     }
 
@@ -146,9 +139,6 @@ class SchemaDotOrgMappingSetManager implements SchemaDotOrgMappingSetManagerInte
       // Display message.
       $t_args = ['@types' => implode(', ', $types)];
       $messages[] = $this->t('Schema.org types (@types) created.', $t_args);
-
-      // Repair.
-      $this->schemaEntityRelationshipManager->repair();
     }
 
     return $messages;
@@ -168,9 +158,6 @@ class SchemaDotOrgMappingSetManager implements SchemaDotOrgMappingSetManagerInte
 
     $messages = [];
 
-    /** @var \Drupal\schemadotorg\SchemaDotOrgMappingTypeStorageInterface  $mapping_type_storage */
-    $mapping_type_storage = $this->entityTypeManager->getStorage('schemadotorg_mapping_type');
-
     // Reverse types to prevent entity reference errors.
     $types = $this->getTypes($name);
     $types = array_reverse($types, TRUE);
@@ -178,17 +165,17 @@ class SchemaDotOrgMappingSetManager implements SchemaDotOrgMappingSetManagerInte
     // Filter the list of types to be deleted by removing used
     // or not mapped types.
     foreach ($types as $type) {
-      [$entity_type, $schema_type] = explode(':', $type);
+      [$entity_type_id, , $schema_type] = $this->getMappingStorage()->parseType($type);
 
       // Only delete the mapping and entity type is there is one remaining
       // instance setup.
-      $mapping_sets = $this->getMappingSets($entity_type, $schema_type, TRUE);
+      $mapping_sets = $this->getMappingSets($entity_type_id, $schema_type, TRUE);
       if (count($mapping_sets) > 1) {
         unset($types[$type]);
       }
 
       // Make sure the mapping exists.
-      $mapping = $this->loadMappingByType($entity_type, $schema_type);
+      $mapping = $this->getMappingStorage()->loadBySchemaType($entity_type_id, $schema_type);
       if (!$mapping) {
         $t_args = ['@type' => $type];
         $messages[] = $this->t("Schema.org type '@type' already removed.", $t_args);
@@ -197,14 +184,15 @@ class SchemaDotOrgMappingSetManager implements SchemaDotOrgMappingSetManagerInte
     }
 
     foreach ($types as $type) {
-      [$entity_type, $schema_type] = explode(':', $type);
+      [$entity_type_id, , $schema_type] = $this->getMappingStorage()->parseType($type);
+      $mapping = $this->getMappingStorage()->loadByType($type);
 
       // Determine if the entity type bundle is default entity type that should
       // not be deleted.
       // (i.e. node:article, node:page, taxonomy_term:tags, etc...)
       $target_entity_id = $mapping->getTargetEntityTypeId();
       $target_entity_bundle = $mapping->getTargetEntityBundleEntity();
-      $mapping_type = $mapping_type_storage->load($target_entity_id);
+      $mapping_type = $this->loadMappingType($target_entity_id);
       $default_bundles = $mapping_type->getDefaultSchemaTypeBundles($schema_type);
       $is_default_bundle = isset($default_bundles[$target_entity_bundle->id()]);
 
@@ -215,7 +203,7 @@ class SchemaDotOrgMappingSetManager implements SchemaDotOrgMappingSetManagerInte
         $options = ['delete-entity' => TRUE];
       }
 
-      $this->schemaMappingManager->deleteType($entity_type, $schema_type, $options);
+      $this->schemaMappingManager->deleteType($entity_type_id, $schema_type, $options);
     }
 
     if ($types) {

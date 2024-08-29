@@ -1,11 +1,10 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg_report\Form;
 
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\schemadotorg\Element\SchemaDotOrgSettings;
 use Drupal\schemadotorg\Form\SchemaDotOrgSettingsFormBase;
 
 /**
@@ -33,27 +32,37 @@ class SchemaDotOrgReportSettingsForm extends SchemaDotOrgSettingsFormBase {
   public function buildForm(array $form, FormStateInterface $form_state): array {
     $form['schemadotorg_report'] = [
       '#type' => 'details',
-      '#title' => $this->t('Reference settings'),
-      '#open' => TRUE,
-      '#tree' => TRUE,
+      '#title' => $this->t('References settings'),
     ];
     $form['schemadotorg_report']['about'] = [
       '#type' => 'schemadotorg_settings',
-      '#settings_type' => SchemaDotOrgSettings::LINKS,
       '#title' => $this->t('Schema.org about links'),
       '#description' => $this->t('Enter links to general information about Schema.org.'),
+      '#example' => "
+- title: 'Schema.org Documentation'
+  uri: 'https://schema.org/docs/documents.html'
+",
     ];
     $form['schemadotorg_report']['types'] = [
       '#type' => 'schemadotorg_settings',
-      '#settings_type' => SchemaDotOrgSettings::LINKS_GROUPED,
       '#title' => $this->t('Schema.org type specific links'),
       '#description' => $this->t('Enter links to specific information about Schema.org types.'),
+      '#example' => "
+SchemaType:
+  - title: 'Schema.org Documentation'
+    uri: 'https://schema.org/docs/documents.html'
+",
     ];
     $form['schemadotorg_report']['issues'] = [
       '#type' => 'schemadotorg_settings',
-      '#settings_type' => SchemaDotOrgSettings::LINKS_GROUPED,
       '#title' => $this->t('Schema.org type issue/discussion links'),
       '#description' => $this->t('Enter links to specific issues/discussions about Schema.org types.'),
+      '#example' => "
+SchemaType:
+  - title: 'Schema.org Documentation'
+    uri: 'https://schema.org/docs/documents.html'
+
+",
     ];
     return parent::buildForm($form, $form_state);
   }

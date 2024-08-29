@@ -1,0 +1,11 @@
+uuid: 68c52a00-9c40-484f-8f4e-571cf4e3ec6e
+langcode: en
+status: true
+dependencies: {  }
+name: Person
+type: person
+description: null
+help: null
+new_revision: true
+preview_mode: 1
+display_submitted: true

@@ -1,4 +1,4 @@
-uuid: a9412f8c-12f5-43f7-b215-e1ab7b5af6c4
+uuid: 606f10b0-8239-4020-978d-d818950a87f6
 langcode: en
 status: true
 dependencies:
@@ -10,6 +10,12 @@ name: 'Full HTML'
 format: full_html
 weight: 2
 filters:
+  editor_file_reference:
+    id: editor_file_reference
+    provider: editor
+    status: true
+    weight: 11
+    settings: {  }
   filter_align:
     id: filter_align
     provider: filter
@@ -28,9 +34,9 @@ filters:
     status: true
     weight: 10
     settings: {  }
-  editor_file_reference:
-    id: editor_file_reference
-    provider: editor
+  filter_image_lazy_load:
+    id: filter_image_lazy_load
+    provider: filter
     status: true
-    weight: 11
+    weight: 12
     settings: {  }

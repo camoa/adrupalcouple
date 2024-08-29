@@ -8,8 +8,8 @@ use Drupal\Core\Form\FormStateInterface;
 /**
  * Plugin implementation of the 'custom_inline' formatter.
  *
- * Renders the customfield items inline using a simple separator and no additional
- * wrapper markup.
+ * Renders the items inline using a simple separator and no additional wrapper
+ * markup.
  *
  * @FieldFormatter(
  *   id = "custom_inline",
@@ -20,7 +20,7 @@ use Drupal\Core\Form\FormStateInterface;
  *   }
  * )
  */
-class CustomInlineFormatter extends CustomFormatterBase {
+class CustomInlineFormatter extends BaseFormatter {
 
   /**
    * {@inheritdoc}
@@ -37,13 +37,12 @@ class CustomInlineFormatter extends CustomFormatterBase {
    * {@inheritdoc}
    */
   public function settingsForm(array $form, FormStateInterface $form_state): array {
-
     $form = parent::settingsForm($form, $form_state);
     $id = 'customfield-show-labels';
 
     $form['show_labels'] = [
       '#type' => 'checkbox',
-      '#title' => t('Show Labels?'),
+      '#title' => $this->t('Show labels?'),
       '#default_value' => $this->getSetting('show_labels'),
       '#attributes' => [
         'data-id' => $id,
@@ -52,18 +51,18 @@ class CustomInlineFormatter extends CustomFormatterBase {
 
     $form['label_separator'] = [
       '#type' => 'textfield',
-      '#title' => t('Label Separator'),
+      '#title' => $this->t('Label separator'),
       '#default_value' => $this->getSetting('label_separator'),
       '#states' => [
         'visible' => [
           ':input[data-id="' . $id . '"]' => ['checked' => TRUE],
-        ]
+        ],
       ],
     ];
 
     $form['item_separator'] = [
       '#type' => 'textfield',
-      '#title' => t('Label Separator'),
+      '#title' => $this->t('Item separator'),
       '#default_value' => $this->getSetting('item_separator'),
     ];
 
@@ -74,13 +73,13 @@ class CustomInlineFormatter extends CustomFormatterBase {
    * {@inheritdoc}
    */
   public function settingsSummary(): array {
-    $summary = [];
+    $summary = parent::settingsSummary();
 
-    $summary[] = t('Show labels: @show_labels', ['@show_labels' => $this->getSetting('label_display') ? 'Yes' : 'No']);
+    $summary[] = $this->t('Show labels: @show_labels', ['@show_labels' => $this->getSetting('label_display') ? 'Yes' : 'No']);
     if ($this->getSetting('label_display')) {
-      $summary[] = t('Label Separator: @sep', ['@sep' => $this->getSetting('label_separator')]);
+      $summary[] = $this->t('Label separator: @sep', ['@sep' => $this->getSetting('label_separator')]);
     }
-    $summary[] = t('Item Separator: @sep', ['@sep' => $this->getSetting('item_separator')]);
+    $summary[] = $this->t('Item separator: @sep', ['@sep' => $this->getSetting('item_separator')]);
 
     return $summary;
   }
@@ -96,17 +95,22 @@ class CustomInlineFormatter extends CustomFormatterBase {
    */
   protected function viewValue(FieldItemInterface $item): array {
     $output = [];
+    $values = $this->getFormattedValues($item, $item->getLangcode());
 
-    /** @var \Drupal\custom_field\Plugin\CustomFieldTypeInterface $customitem */
-    foreach ($this->getCustomFieldItems() as $name => $customitem) {
+    foreach ($values as $value) {
+      // Skip 'map' custom field types.
+      if ($value['type'] == 'map') {
+        continue;
+      }
+      $markup = $value['value']['#markup'];
       if ($this->getSetting('show_labels')) {
         $output[] = implode($this->getSetting('label_separator'), [
-          $customitem->getLabel(),
-          $customitem->value($item),
+          $value['label'],
+          $markup,
         ]);
       }
       else {
-        $output[] = $customitem->value($item);
+        $output[] = $markup;
       }
     }
 

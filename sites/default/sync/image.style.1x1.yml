@@ -1,0 +1,17 @@
+uuid: a3c2876d-2be8-4e1c-add0-c7ccd4843d47
+langcode: en
+status: true
+dependencies:
+  module:
+    - focal_point
+name: 1x1
+label: '1:1 (1080×1080)'
+effects:
+  67110d7c-7c06-4f33-86cc-56a3f95ff28b:
+    uuid: 67110d7c-7c06-4f33-86cc-56a3f95ff28b
+    id: focal_point_scale_and_crop
+    weight: null
+    data:
+      width: 1080
+      height: 1080
+      crop_type: focal_point

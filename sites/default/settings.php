@@ -290,7 +290,7 @@ $databases = [];
  *   $settings['hash_salt'] = file_get_contents('/home/example/salt.txt');
  * @endcode
  */
-$settings['hash_salt'] = '';
+$settings['hash_salt'] = '7XheK6VbmuN73wG-pqObDwIsXP_A7kswr9nHV5l5OP9dePMDxeKvJcx1O7oGXQbKjTygBdErAV';
 
 /**
  * Deployment identifier.
@@ -762,6 +762,10 @@ if (file_exists(__DIR__ . '/settings.ddev.php') && getenv('IS_DDEV_PROJECT') == 
 }
 
 $settings['config_sync_directory'] = 'sites/default/sync';
+
+if (file_exists($app_root . '/' . $site_path . '/settings.prod.php')) {
+  include $app_root . '/' . $site_path . '/settings.prod.php';
+}
 
 /**
  * Load local development override configuration, if available.

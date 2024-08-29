@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\Tests\schemadotorg_smart_date\Kernel;
 
@@ -16,11 +16,10 @@ require_once __DIR__ . '/../../../schemadotorg_smart_date.install';
 class SchemaDotOrgSmartDateInstallTest extends KernelTestBase {
 
   /**
-   * Modules to install.
-   *
-   * @var string[]
+   * {@inheritdoc}
    */
   protected static $modules = [
+    'node',
     'schemadotorg',
     'schemadotorg_smart_date',
   ];
@@ -40,7 +39,7 @@ class SchemaDotOrgSmartDateInstallTest extends KernelTestBase {
   public function testInstallAndUninstall(): void {
     $config = $this->config('schemadotorg.settings');
 
-    // Check performing setup tasks when the Schema.org Smart Date module is installed.
+    // Check performing set up tasks when the Schema.org Smart Date module is installed.
     schemadotorg_smart_date_install(FALSE);
 
     $event_properties = $config->get('schema_types.default_properties.Event');

@@ -7,27 +7,27 @@ use Drupal\Core\Field\FieldItemInterface;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
- * Plugin implementation of the 'custom_list formatter.
+ * Plugin implementation of the custom_list formatter.
  *
- * Renders the customfield items as an item list
+ * Renders the items as an item list.
  *
  * @FieldFormatter(
  *   id = "custom_list",
- *   label = @Translation("HTML List"),
+ *   label = @Translation("HTML list"),
  *   weight = 3,
  *   field_types = {
  *     "custom"
  *   }
  * )
  */
-class CustomListFormatter extends CustomFormatterBase {
+class CustomListFormatter extends BaseFormatter {
 
   /**
    * {@inheritdoc}
    */
   public static function defaultSettings(): array {
     return [
-      'list_type' => 'ul'
+      'list_type' => 'ul',
     ] + parent::defaultSettings();
   }
 
@@ -39,10 +39,10 @@ class CustomListFormatter extends CustomFormatterBase {
 
     $form['list_type'] = [
       '#type' => 'select',
-      '#title' => t('List Type'),
+      '#title' => $this->t('List type'),
       '#options' => [
-        'ul' => 'Unordered List',
-        'ol' => 'Numbered List',
+        'ul' => $this->t('Unordered list'),
+        'ol' => $this->t('Numbered list'),
       ],
       '#default_value' => $this->getSetting('list_type'),
     ];
@@ -54,11 +54,12 @@ class CustomListFormatter extends CustomFormatterBase {
    * {@inheritdoc}
    */
   public function settingsSummary(): array {
+    $summary = parent::settingsSummary();
     $options = [
-      'ul' => 'Un-ordered List',
-      'ol' => 'Numbered List',
+      'ul' => $this->t('Unordered list'),
+      'ol' => $this->t('Numbered list'),
     ];
-    $summary[] = t('List type: @type', ['@type' => $options[$this->getSetting('list_type')]]);
+    $summary[] = $this->t('List type: @type', ['@type' => $options[$this->getSetting('list_type')]]);
 
     return $summary;
   }
@@ -74,6 +75,7 @@ class CustomListFormatter extends CustomFormatterBase {
    */
   protected function viewValue(FieldItemInterface $item): array {
     $class = Html::cleanCssIdentifier($this->fieldDefinition->get('field_name'));
+    $langcode = $item->getLangcode();
     $output = [
       '#theme' => [
         'item_list',
@@ -82,17 +84,17 @@ class CustomListFormatter extends CustomFormatterBase {
       ],
       '#list_type' => $this->getSetting('list_type'),
       '#attributes' => [
-        'class' => [$class, $class . '--list']
+        'class' => [$class, $class . '--list'],
       ],
     ];
+    $values = $this->getFormattedValues($item, $langcode);
 
-    /** @var \Drupal\custom_field\Plugin\CustomFieldTypeInterface $customItem */
-    foreach ($this->getCustomFieldItems() as $name => $customItem) {
+    foreach ($values as $value) {
       $output['#items'][] = [
-        '#markup' => $customItem->getLabel() . ': ' . $customItem->value($item),
+        '#markup' => $value['label'] . ': ' . $value['value']['#markup'],
         '#wrapper_attributes' => [
-          'class' => [$class . '__' . Html::cleanCssIdentifier($name)],
-        ]
+          'class' => [$class . '__' . Html::cleanCssIdentifier($value['name'])],
+        ],
       ];
     }
 

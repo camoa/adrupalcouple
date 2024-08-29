@@ -19,6 +19,7 @@ Features
 
 - Enables content moderation workflows for Schema.org (content) types as
   they are created.
+- Hides content moderation control widget from all view modes except full.
 
 
 Requirements
@@ -32,7 +33,7 @@ Configuration
 -------------
 
 - Go to the Schema.org types configuration page.  
-  (/admin/config/search/schemadotorg/settings/types)
+  (/admin/config/schemadotorg/settings/types#edit-schemadotorg-content-moderation)
 - Go to the 'Content moderation settings' details.
 - Enter the default content moderation workflow per entity type and Schema.org type.
 

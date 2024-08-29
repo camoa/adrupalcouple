@@ -5,29 +5,32 @@
  * Provides an endpoint to get an entity's Schema.org JSON-LD.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\schemadotorg\Element\SchemaDotOrgSettings;
+
+/* ************************************************************************** */
+// Schema.org JSON-LD settings form.
+/* ************************************************************************** */
 
 /**
  * Implements hook_form_FORM_ID_alter().
+ *
+ * @see \Drupal\schemadotorg\Form\SchemaDotOrgSettingsFormBase::afterBuildDetails
+ * @see \Drupal\schemadotorg\Form\SchemaDotOrgSettingsFormBase::formAlter
  */
 function schemadotorg_jsonld_endpoint_form_schemadotorg_jsonld_settings_form_alter(array &$form, FormStateInterface $form_state): void {
   $form['schemadotorg_jsonld_endpoint'] = [
     '#type' => 'details',
     '#title' => t('JSON-LD endpoint settings'),
-    '#open' => TRUE,
-    '#tree' => TRUE,
   ];
   $form['schemadotorg_jsonld_endpoint']['entity_type_endpoints'] = [
     '#type' => 'schemadotorg_settings',
-    '#settings_type' => SchemaDotOrgSettings::ASSOCIATIVE,
-    '#settings_format' => 'entity_type_id|path',
     '#title' => t('Entity type resource paths'),
     '#description' => t('Enter the entity type and the desired endpoint path.')
     . '<br/>'
     . t('Please note, it is possible to create custom endpoints for unmapped entity types by adding the custom entity_type_id.'),
+    '#example' => 'entity_type_id: path',
   ];
 
   // Add submit callback.

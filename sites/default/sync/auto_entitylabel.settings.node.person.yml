@@ -1,0 +1,8 @@
+status: 1
+pattern: '[node:schema_given_name] [node:schema_family_name]'
+escape: false
+preserve_titles: false
+dependencies:
+  config:
+    - node.type.person
+new_content_behavior: 1

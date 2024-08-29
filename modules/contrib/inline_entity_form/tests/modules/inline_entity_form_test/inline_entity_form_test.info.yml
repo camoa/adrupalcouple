@@ -9,7 +9,7 @@ dependencies:
   - drupal:file
   - drupal:image
 
-# Information added by Drupal.org packaging script on 2023-05-25
-version: '2.0.0-rc4'
+# Information added by Drupal.org packaging script on 2023-11-02
+version: '2.0.0-rc10'
 project: 'inline_entity_form'
-datestamp: 1685028832
+datestamp: 1698919899

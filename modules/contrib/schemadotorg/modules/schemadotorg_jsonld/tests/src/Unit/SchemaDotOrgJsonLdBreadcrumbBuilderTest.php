@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\Tests\schemadotorg_jsonld\Unit;
 
@@ -97,8 +97,7 @@ class SchemaDotOrgJsonLdBreadcrumbBuilderTest extends UnitTestCase {
       Link::createFromRoute('Home', '<front>'),
       Link::createFromRoute('Administration', 'system.admin'),
       Link::createFromRoute('Configuration', 'system.admin_config'),
-      Link::createFromRoute('Search and metadata', 'system.admin_config_search'),
-      Link::createFromRoute('Schema.org', 'entity.schemadotorg_mapping.collection'),
+      Link::createFromRoute('Schema.org', 'schemadotorg'),
     ];
     $this->assertEquals($expected, $breadcrumb->getLinks());
 

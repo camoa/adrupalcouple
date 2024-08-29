@@ -1,4 +1,4 @@
-default_properties:
+default_schema_properties:
   estimatedSalary:
     type: MonetaryAmount
     properties:
@@ -8,17 +8,38 @@ default_properties:
     type: NutritionInformation
     properties:
       servingSize: string
-      calories: decimal
-      carbohydrateContent: decimal
-      cholesterolContent: decimal
-      fatContent: decimal
-      fiberContent: decimal
-      proteinContent: decimal
-      saturatedFatContent: decimal
-      sodiumContent: decimal
-      sugarContent: decimal
-      transFatContent: decimal
-      unsaturatedFatContent: decimal
+      calories: integer
+      carbohydrateContent: integer
+      cholesterolContent: integer
+      fatContent: integer
+      fiberContent: integer
+      proteinContent: integer
+      saturatedFatContent: integer
+      sodiumContent: integer
+      sugarContent: integer
+      transFatContent: integer
+      unsaturatedFatContent: integer
+  doseSchedule:
+    type: DoseSchedule
+    properties:
+      targetPopulation: string
+      doseValue: integer
+      doseUnit: string
+      frequency: string
+  recommendedIntake:
+    type: RecommendedDoseSchedule
+    properties:
+      targetPopulation: string
+      doseValue: decimal
+      doseUnit: string
+      frequency: string
+  maximumIntake:
+    type: DoseSchedule
+    properties:
+      targetPopulation: string
+      doseValue: integer
+      doseUnit: string
+      frequency: string
   FAQPage--mainEntity:
     type: Question
     properties:
@@ -29,4 +50,4 @@ default_properties:
     properties:
       name: string_long
       acceptedAnswer: string_long
-default_format: 'basic_html'
+default_format: basic_html

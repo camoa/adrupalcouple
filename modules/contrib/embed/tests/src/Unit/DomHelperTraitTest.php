@@ -2,10 +2,10 @@
 
 namespace Drupal\Tests\embed\Unit;
 
-use Drupal\Component\Utility\Html;
 use Drupal\Component\Serialization\Json;
-use Drupal\Tests\UnitTestCase;
+use Drupal\Component\Utility\Html;
 use Drupal\embed\DomHelperTrait;
+use Drupal\Tests\UnitTestCase;
 
 /**
  * Tests \Drupal\embed\DomHelperTrait.
@@ -57,10 +57,9 @@ class DomHelperTraitTest extends UnitTestCase {
   }
 
   /**
-   * @return array
-   * @see ::testSetNodeContent()
+   * Data provider for testSetNodeContent().
    */
-  public function providerTestSetNodeContent() {
+  public function providerTestSetNodeContent(): array {
     return [
       'empty' => [
         '',
@@ -96,10 +95,9 @@ class DomHelperTraitTest extends UnitTestCase {
   }
 
   /**
-   * @return array
-   * @see ::testReplaceNodeContent()
+   * Data provider for testReplaceNodeContent().
    */
-  public function providerTestReplaceNodeContent() {
+  public function providerTestReplaceNodeContent(): array {
     return [
       'empty' => [
         '',

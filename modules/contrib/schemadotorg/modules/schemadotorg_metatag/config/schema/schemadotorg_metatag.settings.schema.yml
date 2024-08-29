@@ -1,6 +1,6 @@
 schemadotorg_metatag.settings:
-  type: config_entity
-  label: Schema.org Metatag settings
+  type: config_object
+  label: 'Schema.org Metatag settings'
   mapping:
     default_groups:
       type: sequence
@@ -8,18 +8,15 @@ schemadotorg_metatag.settings:
       sequence:
         type: string
         label: 'Default group'
-    hide_groups_details:
-      type: boolean
-      label: 'Hide metatag group details wrapper'
-    allowed_metatags:
+    default_tags:
       type: sequence
-      label: 'Allowed meta tags'
+      label: 'Default tags'
       sequence:
-        type: string
-        label: 'Allowed meta tag'
-    allowed_robots:
-      type: sequence
-      label: 'Allowed robots directives'
-      sequence:
-        type: string
-        label: 'Allowed robot directive'
+        type: sequence
+        label: 'Entity type'
+        sequence:
+          type: sequence
+          label: 'Meta tags'
+          sequence:
+            type: string
+            label: 'Meta tag value'

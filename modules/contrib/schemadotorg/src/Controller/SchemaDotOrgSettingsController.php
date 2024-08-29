@@ -1,14 +1,18 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg\Controller;
 
 use Drupal\Component\Render\MarkupInterface;
 use Drupal\Component\Utility\SortArray;
 use Drupal\Core\Controller\ControllerBase;
+use Drupal\Core\Menu\LocalTaskManagerInterface;
+use Drupal\Core\Render\RendererInterface;
 use Drupal\Core\Routing\RouteMatch;
 use Drupal\Core\Url;
+use Drupal\schemadotorg\Utility\SchemaDotOrgStringHelper;
+use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Routing\Route;
 
@@ -19,22 +23,18 @@ class SchemaDotOrgSettingsController extends ControllerBase {
 
   /**
    * The local task manager.
-   *
-   * @var \Drupal\Core\Menu\LocalTaskManagerInterface
    */
-  protected $localTaskManager;
+  protected LocalTaskManagerInterface $localTaskManager;
 
   /**
    * The renderer.
-   *
-   * @var \Drupal\Core\Render\RendererInterface|\PHPUnit\Framework\MockObject\MockObject
    */
-  protected $renderer;
+  protected RendererInterface|MockObject $renderer;
 
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container) {
+  public static function create(ContainerInterface $container): static {
     $instance = parent::create($container);
     $instance->localTaskManager = $container->get('plugin.manager.menu.local_task');
     $instance->renderer = $container->get('renderer');
@@ -86,7 +86,9 @@ class SchemaDotOrgSettingsController extends ControllerBase {
     $build = [];
     $this->moduleHandler()->invokeAllWith('help', function (callable $hook, string $module) use (&$build, $route_match): void {
       if ($help = $hook($route_match->getRouteName(), $route_match)) {
-        $build[] = is_array($help) ? $help : ['#markup' => $help];
+        $build[] = is_array($help)
+          ? $help
+          : ['#plain_text' => SchemaDotOrgStringHelper::getFirstSentence(strip_tags($help))];
       }
     });
     return $this->renderer->render($build);

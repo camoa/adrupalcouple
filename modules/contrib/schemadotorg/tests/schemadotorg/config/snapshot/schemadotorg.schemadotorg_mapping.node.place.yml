@@ -9,6 +9,8 @@ dependencies:
     - field.field.node.place.schema_longitude
     - field.field.node.place.schema_telephone
     - node.type.place
+  module:
+    - node
 id: node.place
 target_entity_type_id: node
 target_bundle: place
@@ -21,3 +23,4 @@ schema_properties:
   schema_longitude: longitude
   title: name
   schema_telephone: telephone
+additional_mappings: {  }

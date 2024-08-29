@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\Tests\schemadotorg_report\Unit\Breadcrumb;
 
@@ -19,10 +19,8 @@ class SchemaDotOrgReportFilterFormTest extends UnitTestCase {
 
   /**
    * The Schema.org report filter type or property form being tested.
-   *
-   * @var \Drupal\schemadotorg_report\Form\SchemaDotOrgReportFilterForm
    */
-  protected $filterForm;
+  protected SchemaDotOrgReportFilterForm $filterForm;
 
   /**
    * {@inheritdoc}
@@ -72,7 +70,7 @@ class SchemaDotOrgReportFilterFormTest extends UnitTestCase {
     // Build the filter form without a table of id.
     $form = [];
     $form_state = new FormState();
-    $form = $this->filterForm->buildForm($form, $form_state, NULL, NULL);
+    $form = $this->filterForm->buildForm($form, $form_state);
 
     // Check that submit button is set and reset is not.
     $this->assertTrue(isset($form['filter']['submit']));
@@ -130,7 +128,6 @@ class SchemaDotOrgReportFilterFormTest extends UnitTestCase {
     $this->filterForm->resetForm($form, $form_state);
 
     // Confirm the redirect returns the mocked current route which is NULL.
-    /** @var \Drupal\Core\Url $redirect_url */
     $redirect_url = $form_state->getRedirect();
     $this->assertNull($redirect_url->getRouteName());
     $this->assertSame([], $redirect_url->getRouteParameters());

@@ -1,29 +1,14 @@
-default_schema_types:
+default_types:
   - WebPage
 default_paragraph_types:
   - layout
-  - cta
-  - ctas
-  - header
-  - statement
-  - quotation
-  - item_list_string
-  - item_list_text
-  - item_list_link
-  - image
-  - remote_video
-  - audio
-  - media_gallery
-  - image_gallery
-  - video_gallery
-  - collection_page
-  - node
-  - block
-  - view
-  - webform
-themes:
-  - bartik
-  - claro
-  - gin
-  - olivero
-  - seven
+default_paragraph_layouts:
+  layout:
+    - layout_onecol
+    - layout_twocol_section
+    - layout_twocol
+    - layout_twocol_bricks
+    - layout_threecol_section
+    - layout_threecol_25_50_25
+    - layout_threecol_33_34_33
+    - layout_fourcol_section

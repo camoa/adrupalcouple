@@ -19,7 +19,7 @@ trait SmartDateDurationConfigTrait {
       '#type' => 'textarea',
       '#title' => $this->t('Allowed duration values'),
       '#description' => $description,
-      '#default_value' => isset($default_value['default_duration_increments']) ? $default_value['default_duration_increments'] : "30\n60|1 hour\n90\n120|2 hours\ncustom",
+      '#default_value' => $default_value['default_duration_increments'] ?? "30\n60|1 hour\n90\n120|2 hours\ncustom",
       '#required' => TRUE,
     ];
 
@@ -27,7 +27,7 @@ trait SmartDateDurationConfigTrait {
       '#type' => 'textfield',
       '#title' => $this->t('Default duration'),
       '#description' => $this->t('Set which of the duration increments provided above that should be selected by default.'),
-      '#default_value' => isset($default_value['default_duration']) ? $default_value['default_duration'] : '60',
+      '#default_value' => $default_value['default_duration'] ?? '60',
       '#required' => TRUE,
     ];
 
@@ -44,7 +44,7 @@ trait SmartDateDurationConfigTrait {
       '#title' => $this->t('Maximum Date'),
       // @todo Add link to token browser.
       '#description' => $this->t('Maximum date that will be accepted. Leave blank to accept any value. Provide a date value formatted like YYYY-MM-DD or a valid token that will return a date value.'),
-      '#default_value' => isset($default_value['max']) ? $default_value['max'] : '',
+      '#default_value' => $default_value['max'] ?? '',
     ];
 
     return $element;

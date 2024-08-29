@@ -1,6 +1,6 @@
 schemadotorg_settings_element_test.settings:
   type: config_entity
-  label: Schema.org Blueprints Test
+  label: 'Schema.org Blueprints Test'
   mapping:
     indexed:
       type: sequence
@@ -13,7 +13,7 @@ schemadotorg_settings_element_test.settings:
       label: indexed_grouped
       sequence:
         type: sequence
-        label: indexed_groupe_group
+        label: indexed_grouped_group
         sequence:
           type: string
           label: indexed_grouped_items
@@ -29,10 +29,10 @@ schemadotorg_settings_element_test.settings:
             label: indexed_grouped_named_label
           items:
             type: sequence
-            label:  indexed_grouped_named_items
+            label: indexed_grouped_named_items
             sequence:
               type: string
-              label:  indexed_grouped_named_item
+              label: indexed_grouped_named_item
     associative:
       type: sequence
       label: associative_items
@@ -60,10 +60,10 @@ schemadotorg_settings_element_test.settings:
             label: associative_grouped_named_label
           items:
             type: sequence
-            label:  associative_grouped_named_items
+            label: associative_grouped_named_items
             sequence:
               type: string
-              label:  associative_grouped_named_item
+              label: associative_grouped_named_item
     links:
       type: sequence
       label: links
@@ -109,15 +109,6 @@ schemadotorg_settings_element_test.settings:
         width:
           type: integer
           label: width
-    associative_grouped_invalid:
-      type: sequence
-      label: associative_group_invalid
-      sequence:
-        type: sequence
-        label: associative_group_invalid_group
-        sequence:
-          type: string
-          label: associative_group_invalid_items
     yaml:
       type: mapping
       label: yaml
@@ -125,3 +116,9 @@ schemadotorg_settings_element_test.settings:
         title:
           type: string
           label: title
+    yaml_raw:
+      type: string
+      label: 'Yaml raw'
+    json_raw:
+      type: string
+      label: 'JSON raw'

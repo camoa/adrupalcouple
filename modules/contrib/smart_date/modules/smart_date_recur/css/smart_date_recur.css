@@ -11,8 +11,8 @@
   font-style: italic;
 }
 .smartdate--widget .repeat-end-date {
-  width: 11.5em;
   display: inline-block;
+  width: 11.5em;
   vertical-align: baseline;
 }
 
@@ -28,10 +28,10 @@
 
 .field-interval--label {
   display: inline-block;
+  width: auto;
+  margin: 0.75em 0.25em 0.75em 0;
   padding-top: 0.85em;
   text-align: right;
-  margin: 0.75em 0.25em 0.75em 0;
-  width: auto;
 }
 .field-interval--label.form-item__label {
   display: inline-block;
@@ -60,26 +60,26 @@
 }
 
 .smartdate--widget .byday-checkboxes input ~ label.option {
-  color: black;
-  background: white;
-  border: 1px solid black;
-  border-radius: 50% 50%;
-  width: 1.7rem;
-  text-align: center;
-  padding: 5px 0px 0px;
-  font-size: 0;
-  line-height: 1rem;
   position: relative;
   top: -2px;
-  vertical-align: -3px;
   display: inline-block;
+  width: 1.7rem;
+  padding: 5px 0 0;
+  text-align: center;
+  vertical-align: -3px;
+  color: black;
+  border: 1px solid black;
+  border-radius: 50% 50%;
+  background: white;
+  font-size: 0;
+  line-height: 1rem;
 }
 
 .adminimal .smartdate--widget .byday-checkboxes input ~ label.option {
   vertical-align: -2px;
 }
 
-.smartdate--widget .byday-checkboxes input ~ label.option:first-letter {
+.smartdate--widget .byday-checkboxes input ~ label.option::first-letter {
   font-size: 1rem;
 }
 
@@ -89,8 +89,8 @@
 
 .smartdate--widget .byday-checkboxes input:checked ~ label.option {
   color: white;
-  background: black;
   border: 1px solid #ddd;
+  background: black;
 }
 
 input.smart-date--hours,
@@ -106,8 +106,8 @@ input.smart-date--minutes {
 
 fieldset.smart-date--hours .form-item,
 fieldset.smart-date--minutes .form-item {
-  padding-right: 0.5rem;
   position: relative;
+  padding-right: 0.5rem;
 }
 
 fieldset.smart-date--hours .form-checkboxes .form-item label,
@@ -143,8 +143,8 @@ fieldset.smart-date--minutes .form-boolean--type-checkbox:checked ~ label {
 .smart-date--hours .fieldset__description,
 .smart-date--minutes .description,
 .smart-date--minutes .fieldset__description {
-  padding-top: 1rem;
   clear: both;
+  padding-top: 1rem;
 }
 
 .smart-date--minutes .form-checkboxes .form-item {

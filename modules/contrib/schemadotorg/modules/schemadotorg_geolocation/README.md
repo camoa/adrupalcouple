@@ -18,9 +18,7 @@ Features
 
 - During installation, alters http://schema.org/Place to use the
   [geo](https://schema.org/geo) property.
-
 - Adds Leaflet mapping support for https://schema.org/geo form and view display.
-
 - Alters Schema.org JSON-LD for https://schema.org/geo to use the
   https://schema.org/GeoCoordinates type.
 

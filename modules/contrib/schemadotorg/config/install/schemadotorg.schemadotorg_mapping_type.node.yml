@@ -1,9 +1,13 @@
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  module:
+    - node
 id: node
 target_entity_type_id: node
 multiple: false
+label_prefix: ''
+id_prefix: ''
 recommended_schema_types:
   quick_start:
     label: 'Quick Start'
@@ -77,7 +81,7 @@ recommended_schema_types:
       - MedicalBusiness
       - MedicalClinic
       - DiagnosticLab
-      - Physician
+      - IndividualPhysician
   medical_information:
     label: 'Medical information'
     types:
@@ -129,6 +133,8 @@ default_schema_type_view_displays:
       - medicalSpecialty
     JobPosting:
       - datePosted
+    CreativeWork:
+      - text
     Recipe:
       - image
       - cookTime

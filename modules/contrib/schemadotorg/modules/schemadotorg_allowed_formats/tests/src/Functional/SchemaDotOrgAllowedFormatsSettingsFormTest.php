@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\Tests\schemadotorg_allowed_formats\Functional;
 
@@ -15,9 +15,7 @@ use Drupal\Tests\schemadotorg\Functional\SchemaDotOrgBrowserTestBase;
 class SchemaDotOrgAllowedFormatsSettingsFormTest extends SchemaDotOrgBrowserTestBase {
 
   /**
-   * Modules to enable.
-   *
-   * @var array
+   * {@inheritdoc}
    */
   protected static $modules = ['schemadotorg_allowed_formats'];
 
@@ -30,8 +28,6 @@ class SchemaDotOrgAllowedFormatsSettingsFormTest extends SchemaDotOrgBrowserTest
     FilterFormat::create([
       'format' => 'full_html',
       'name' => 'Full HTML',
-      'weight' => 1,
-      'filters' => [],
     ])->save();
 
     $account = $this->drupalCreateUser(['administer schemadotorg']);
@@ -42,7 +38,7 @@ class SchemaDotOrgAllowedFormatsSettingsFormTest extends SchemaDotOrgBrowserTest
    * Test Schema.org Allowed Formats settings form.
    */
   public function testSettingsForm(): void {
-    $this->assertSaveSettingsConfigForm('schemadotorg_allowed_formats.settings', '/admin/config/search/schemadotorg/settings/properties');
+    $this->assertSaveSettingsConfigForm('schemadotorg_allowed_formats.settings', '/admin/config/schemadotorg/settings/properties');
   }
 
 }

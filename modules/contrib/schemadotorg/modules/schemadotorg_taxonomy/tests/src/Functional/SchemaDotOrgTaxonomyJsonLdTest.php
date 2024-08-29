@@ -1,11 +1,12 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\Tests\schemadotorg_taxonomy\Functional;
 
 use Drupal\Core\Url;
 use Drupal\schemadotorg\Entity\SchemaDotOrgMapping;
+use Drupal\schemadotorg_jsonld\SchemaDotOrgJsonLdBuilderInterface;
 use Drupal\taxonomy\Entity\Term;
 use Drupal\taxonomy\Entity\Vocabulary;
 use Drupal\Tests\schemadotorg\Functional\SchemaDotOrgBrowserTestBase;
@@ -18,9 +19,7 @@ use Drupal\Tests\schemadotorg\Functional\SchemaDotOrgBrowserTestBase;
 class SchemaDotOrgTaxonomyJsonLdTest extends SchemaDotOrgBrowserTestBase {
 
   /**
-   * Modules to install.
-   *
-   * @var string[]
+   * {@inheritdoc}
    */
   protected static $modules = [
     'filter',
@@ -32,10 +31,8 @@ class SchemaDotOrgTaxonomyJsonLdTest extends SchemaDotOrgBrowserTestBase {
 
   /**
    * Schema.org JSON-LD builder.
-   *
-   * @var \Drupal\schemadotorg_jsonld\SchemaDotOrgJsonLdBuilderInterface
    */
-  protected $builder;
+  protected SchemaDotOrgJsonLdBuilderInterface $builder;
 
   /**
    * {@inheritdoc}
@@ -51,7 +48,9 @@ class SchemaDotOrgTaxonomyJsonLdTest extends SchemaDotOrgBrowserTestBase {
   public function testTaxonomy(): void {
     \Drupal::currentUser()->setAccount($this->createUser(['administer taxonomy']));
 
-    $assert_session = $this->assertSession();
+    $this->drupalPlaceBlock('schemadotorg_jsonld_preview');
+
+    $assert = $this->assertSession();
 
     $vocabulary = Vocabulary::create([
       'name' => 'tags',
@@ -80,7 +79,6 @@ class SchemaDotOrgTaxonomyJsonLdTest extends SchemaDotOrgBrowserTestBase {
     // Check term JSON-LD.
     $expected_result = [
       '@type' => 'DefinedTerm',
-      '@url' => $term->toUrl()->setAbsolute()->toString(),
       'name' => 'Some term',
       'inDefinedTermSet' => [
         '@type' => 'DefinedTermSet',
@@ -104,17 +102,17 @@ class SchemaDotOrgTaxonomyJsonLdTest extends SchemaDotOrgBrowserTestBase {
     $this->drupalLogin($this->rootUser);
 
     // Check term and vocabulary preview label and links.
-    $this->drupalGet('/taxonomy/term/' . $term->id());
-    $assert_session->responseContains('JSON-LD Term endpoint');
-    $assert_session->linkExists($term_endpoint_url->toString());
-    $assert_session->responseContains('JSON-LD Vocabulary endpoint');
-    $assert_session->linkExists($vocabulary_endpoint_url->toString());
+    $this->drupalGet('taxonomy/term/' . $term->id());
+    $assert->responseContains('JSON-LD Term endpoint');
+    $assert->linkExists($term_endpoint_url->toString());
+    $assert->responseContains('JSON-LD Vocabulary endpoint');
+    $assert->linkExists($vocabulary_endpoint_url->toString());
 
     // Check term and vocabulary endpoints.
-    $this->drupalGet($term_endpoint_url->toString());
-    $assert_session->statusCodeEquals(200);
-    $this->drupalGet($vocabulary_endpoint_url->toString());
-    $assert_session->statusCodeEquals(200);
+    $this->drupalGet($term_endpoint_url);
+    $assert->statusCodeEquals(200);
+    $this->drupalGet($vocabulary_endpoint_url);
+    $assert->statusCodeEquals(200);
   }
 
 }

@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg_taxonomy;
 
@@ -25,7 +25,7 @@ interface SchemaDotOrgTaxonomyPropertyVocabularyManagerInterface {
     ?string &$widget_id,
     array &$widget_settings,
     ?string &$formatter_id,
-    array &$formatter_settings
+    array &$formatter_settings,
   ): void;
 
 }

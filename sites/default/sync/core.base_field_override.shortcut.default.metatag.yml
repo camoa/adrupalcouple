@@ -1,0 +1,18 @@
+uuid: 1136e665-7f2a-4f4a-96e0-c01f497d60a3
+langcode: en
+status: true
+dependencies:
+  config:
+    - shortcut.set.default
+id: shortcut.default.metatag
+field_name: metatag
+entity_type: shortcut
+bundle: default
+label: 'Metatags (Hidden field for JSON support)'
+description: 'The meta tags for the entity.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: map

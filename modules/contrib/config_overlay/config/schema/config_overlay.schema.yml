@@ -1,0 +1,12 @@
+# Configuration schema for the list of deleted configuration
+config_overlay.deleted:
+  type: config_object
+  label: 'Deleted shipped configuration'
+  mapping:
+    names:
+      type: sequence
+      label: 'Configuration names'
+      orderby: value
+      sequence:
+        type: string
+        label: 'Configuration name'

@@ -1,0 +1,10 @@
+name: 'Config Overlay'
+description: 'Manages exported configuration as an overlay of the exported files with module-provided configuration.'
+type: module
+core_version_requirement: ^9.5 || ^10 || ^11
+package: Config
+
+# Information added by Drupal.org packaging script on 2024-08-14
+version: '2.3.0'
+project: 'config_overlay'
+datestamp: 1723635439

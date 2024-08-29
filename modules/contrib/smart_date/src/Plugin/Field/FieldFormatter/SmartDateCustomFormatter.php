@@ -4,7 +4,7 @@ namespace Drupal\smart_date\Plugin\Field\FieldFormatter;
 
 use Drupal\Core\Field\Plugin\Field\FieldFormatter\TimestampFormatter;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\smart_date\SmartDateTrait;
+use Drupal\smart_date\SmartDatePluginTrait;
 
 /**
  * Plugin implementation of the 'Custom' formatter for 'smartdate' fields.
@@ -22,7 +22,7 @@ use Drupal\smart_date\SmartDateTrait;
  */
 class SmartDateCustomFormatter extends TimestampFormatter {
 
-  use SmartDateTrait;
+  use SmartDatePluginTrait;
 
   /**
    * {@inheritdoc}
@@ -74,7 +74,7 @@ class SmartDateCustomFormatter extends TimestampFormatter {
       '#type' => 'textfield',
       '#title' => $this->t('PHP Time Format - on the hour'),
       '#description' => $this->t('The PHP date code to use for formatting times that fall on the hour. Examples might be 2pm or 14h. Leave this blank to always use the standard format specified above.'),
-      '#default_value' => $this->getSetting('time_format'),
+      '#default_value' => $this->getSetting('time_hour_format'),
     ];
 
     $form['date_format'] = [

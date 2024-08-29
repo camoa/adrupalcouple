@@ -18,6 +18,8 @@ Features
 --------
 
 - Enables scheduling for Schema.org types as they are created.
+- Sets https://schema.org/datePublished (publish\_on) and
+  https://schema.org/expires (unpublish\_on) for Schema.org types JSON-lD.
 
 
 Requirements
@@ -31,7 +33,7 @@ Configuration
 -------------
 
 - Go to the Schema.org types configuration page.  
-  (/admin/config/search/schemadotorg/settings/types)
+  (/admin/config/schemadotorg/settings/types#edit-schemadotorg-scheduler)
 - Go to the 'Scheduler settings' details.
 - Enter the Schema.org types that support scheduling.
 

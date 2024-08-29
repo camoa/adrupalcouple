@@ -3,15 +3,8 @@
  * Schema.org JSON:API preview styles.
  */
 
-pre.schemadotorg-jsonapi-preview-code {
-  border: 1px solid #999;
-  background-color: #efefef;
-  padding: 1em;
-}
-
-pre.schemadotorg-jsonapi-preview-code span {
-  font-weight: bold;
-  color: #080;
+.block-schemadotorg-jsonapi-preview {
+  margin: 0;
 }
 
 .schemadotorg-jsonapi-preview-endpoints .form-item {
@@ -23,4 +16,8 @@ pre.schemadotorg-jsonapi-preview-code span {
   margin-top: 0;
   margin-bottom: 0;
   padding-bottom: 0;
+}
+
+.schemadotorg-jsonapi-preview-endpoints a {
+  word-wrap: break-word;
 }

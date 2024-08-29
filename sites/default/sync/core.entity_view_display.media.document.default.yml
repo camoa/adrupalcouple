@@ -1,0 +1,51 @@
+uuid: 6d9457a2-bc4f-4a5b-b772-4e926f4d8f1a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.media.document.field_media_audio_file
+    - field.field.media.document.field_media_document
+    - field.field.media.document.schema_description
+    - media.type.document
+  module:
+    - field_group
+third_party_settings:
+  field_group:
+    group_data_download:
+      children:
+        - schema_description
+      label: 'Data download'
+      parent_name: ''
+      region: content
+      weight: 0
+      format_type: fieldset
+      format_settings: {  }
+_core:
+  default_config_hash: XxUyhaTuM0OUUZpr8G6jdrFBEh5eag7auWxBKhm6cvY
+id: media.document.default
+targetEntityType: media
+bundle: document
+mode: default
+content:
+  name:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: true
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  schema_description:
+    type: basic_string
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 12
+    region: content
+hidden:
+  created: true
+  field_media_audio_file: true
+  field_media_document: true
+  langcode: true
+  thumbnail: true
+  uid: true

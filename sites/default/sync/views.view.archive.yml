@@ -1,4 +1,4 @@
-uuid: a9f1bc93-008d-4849-b4f2-7bf5448f22d9
+uuid: 6d3a7a1a-d42a-405d-9e58-315382bb7864
 langcode: en
 status: false
 dependencies:
@@ -43,6 +43,7 @@ display:
             items_per_page_options_all_label: '- All -'
             offset: false
             offset_label: Offset
+          pagination_heading_level: h4
       exposed_form:
         type: basic
         options:

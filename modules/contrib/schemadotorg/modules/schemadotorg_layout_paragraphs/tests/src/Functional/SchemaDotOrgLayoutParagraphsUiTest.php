@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\Tests\schemadotorg_paragraphs\Functional;
 
@@ -15,9 +15,7 @@ use Drupal\Tests\schemadotorg\Functional\SchemaDotOrgBrowserTestBase;
 class SchemaDotOrgLayoutParagraphsUiTest extends SchemaDotOrgBrowserTestBase {
 
   /**
-   * Modules to enable.
-   *
-   * @var array
+   * {@inheritdoc}
    */
   protected static $modules = [
     'schemadotorg_layout_paragraphs',
@@ -42,21 +40,21 @@ class SchemaDotOrgLayoutParagraphsUiTest extends SchemaDotOrgBrowserTestBase {
    * Test Schema.org layout paragraphs UI.
    */
   public function testLayoutParagraphsUi(): void {
-    $assert_session = $this->assertSession();
+    $assert = $this->assertSession();
 
     // Check that WebPage has layout enabled by default.
-    $this->drupalGet('/admin/structure/types/schemadotorg', ['query' => ['type' => 'WebPage']]);
-    $assert_session->responseContains('Schema.org layout');
-    $assert_session->checkboxChecked('mapping[properties][mainEntity][field][name]');
+    $this->drupalGet('admin/structure/types/schemadotorg', ['query' => ['type' => 'WebPage']]);
+    $assert->responseContains('Schema.org layout');
+    $assert->checkboxChecked('mapping[properties][mainEntity][field][name]');
 
     // Check that WebSite does not have layout enabled by default.
-    $this->drupalGet('/admin/structure/types/schemadotorg', ['query' => ['type' => 'WebSite']]);
-    $assert_session->responseContains('Schema.org layout');
-    $assert_session->checkboxNotChecked('mapping[properties][mainEntity][field][name]');
+    $this->drupalGet('admin/structure/types/schemadotorg', ['query' => ['type' => 'WebSite']]);
+    $assert->responseContains('Schema.org layout');
+    $assert->checkboxNotChecked('mapping[properties][mainEntity][field][name]');
 
     // Check that FAQPage does not have layout.
-    $this->drupalGet('/admin/structure/types/schemadotorg', ['query' => ['type' => 'FAQPage']]);
-    $assert_session->responseNotContains('Schema.org layout');
+    $this->drupalGet('admin/structure/types/schemadotorg', ['query' => ['type' => 'FAQPage']]);
+    $assert->responseNotContains('Schema.org layout');
   }
 
 }

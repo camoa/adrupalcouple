@@ -5,23 +5,23 @@
  * Assists with creating and mapping taxonomy vocabularies and terms.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Field\FieldItemInterface;
 use Drupal\Core\Field\Plugin\Field\FieldType\EntityReferenceItem;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\schemadotorg\Element\SchemaDotOrgSettings;
+use Drupal\Core\Render\BubbleableMetadata;
 use Drupal\schemadotorg\SchemaDotOrgMappingInterface;
 
 /* ************************************************************************** */
-// Schema.org JSON-LD alterations.
+// Schema.org JSON-LD.
 /* ************************************************************************** */
 
 /**
  * Implements hook_schemadotorg_jsonld_schema_property_alter().
  */
-function schemadotorg_taxonomy_schemadotorg_jsonld_schema_property_alter(mixed &$value, FieldItemInterface $item): void {
+function schemadotorg_taxonomy_schemadotorg_jsonld_schema_property_alter(mixed &$value, FieldItemInterface $item, BubbleableMetadata $bubbleable_metadata): void {
   // If the JSON-LD item value is null for an entity_reference:taxonomy_terms,
   // the term's name is used as the JSON-LD item value.
   if (is_null($value)
@@ -35,33 +35,32 @@ function schemadotorg_taxonomy_schemadotorg_jsonld_schema_property_alter(mixed &
 /**
  * Implements hook_schemadotorg_jsonld_schema_type_entity_load().
  */
-function schemadotorg_taxonomy_schemadotorg_jsonld_schema_type_entity_load(array &$data, EntityInterface $entity): void {
-  /** @var \Drupal\schemadotorg_taxonomy\SchemaDotOrgTaxonomyJsonLdManager $taxonomy_jsonld_manager */
+function schemadotorg_taxonomy_schemadotorg_jsonld_schema_type_entity_load(array &$data, EntityInterface $entity, ?SchemaDotOrgMappingInterface $mapping, BubbleableMetadata $bubbleable_metadata): void {
+  /** @var \Drupal\schemadotorg_taxonomy\SchemaDotOrgTaxonomyJsonLdManagerInterface $taxonomy_jsonld_manager */
   $taxonomy_jsonld_manager = \Drupal::service('schemadotorg_taxonomy.jsonld_manager');
-  $taxonomy_jsonld_manager->load($data, $entity);
+  $taxonomy_jsonld_manager->load($data, $entity, $mapping, $bubbleable_metadata);
 }
 
 /**
  * Implements hook_schemadotorg_jsonld_schema_type_entity_alter().
  */
-function schemadotorg_taxonomy_schemadotorg_jsonld_schema_type_entity_alter(array &$data, EntityInterface $entity): void {
-  /** @var \Drupal\schemadotorg_taxonomy\SchemaDotOrgTaxonomyJsonLdManager $taxonomy_jsonld_manager */
+function schemadotorg_taxonomy_schemadotorg_jsonld_schema_type_entity_alter(array &$data, EntityInterface $entity, ?SchemaDotOrgMappingInterface $mapping): void {
+  /** @var \Drupal\schemadotorg_taxonomy\SchemaDotOrgTaxonomyJsonLdManagerInterface $taxonomy_jsonld_manager */
   $taxonomy_jsonld_manager = \Drupal::service('schemadotorg_taxonomy.jsonld_manager');
-  $taxonomy_jsonld_manager->alter($data, $entity);
+  $taxonomy_jsonld_manager->alter($data, $entity, $mapping);
 }
 
 /**
- * Implements hook_preprocess_html().
+ * Implements hook_preprocess_block().
  */
-function schemadotorg_taxonomy_preprocess_html(array &$variables): void {
-  // Make sure the Schema.org JSON-LD module exists.
-  if (!\Drupal::moduleHandler()->moduleExists('schemadotorg_jsonld')) {
+function schemadotorg_taxonomy_preprocess_block(array &$variables): void {
+  if ($variables['base_plugin_id'] !== 'schemadotorg_jsonld_preview') {
     return;
   }
 
   /** @var \Drupal\schemadotorg_taxonomy\SchemaDotOrgTaxonomyJsonLdManager $taxonomy_jsonld_manager */
   $taxonomy_jsonld_manager = \Drupal::service('schemadotorg_taxonomy.jsonld_manager');
-  $taxonomy_jsonld_manager->preprocessHtml($variables);
+  $taxonomy_jsonld_manager->preprocessBlock($variables);
 }
 
 /* ************************************************************************** */
@@ -72,7 +71,7 @@ function schemadotorg_taxonomy_preprocess_html(array &$variables): void {
  * Implements hook_schemadotorg_mapping_insert().
  */
 function schemadotorg_taxonomy_schemadotorg_mapping_insert(SchemaDotOrgMappingInterface $mapping): void {
-  if (\Drupal::isConfigSyncing()) {
+  if ($mapping->isSyncing()) {
     return;
   }
 
@@ -105,7 +104,7 @@ function schemadotorg_taxonomy_schemadotorg_property_field_alter(
   ?string &$widget_id,
   array &$widget_settings,
   ?string &$formatter_id,
-  array &$formatter_settings
+  array &$formatter_settings,
 ): void {
   /** @var \Drupal\schemadotorg_taxonomy\SchemaDotOrgTaxonomyPropertyVocabularyManagerInterface $taxonomy_property_vocabulary_manager */
   $taxonomy_property_vocabulary_manager = \Drupal::service('schemadotorg_taxonomy.property_vocabulary_manager');
@@ -122,34 +121,43 @@ function schemadotorg_taxonomy_schemadotorg_property_field_alter(
 }
 
 /* ************************************************************************** */
-// Taxonomy settings form.
+// Schema.org types settings form.
 /* ************************************************************************** */
 
 /**
  * Implements hook_form_FORM_ID_alter().
+ *
+ * @see \Drupal\schemadotorg\Form\SchemaDotOrgSettingsFormBase::afterBuildDetails
+ * @see \Drupal\schemadotorg\Form\SchemaDotOrgSettingsFormBase::formAlter
  */
 function schemadotorg_taxonomy_form_schemadotorg_types_settings_form_alter(array &$form, FormStateInterface $form_state): void {
   $form['schemadotorg_taxonomy'] = [
     '#type' => 'details',
     '#title' => t('Taxonomy settings'),
-    '#open' => TRUE,
-    '#tree' => TRUE,
   ];
   $form['schemadotorg_taxonomy']['default_field_groups'] = [
     '#type' => 'schemadotorg_settings',
-    '#settings_type' => SchemaDotOrgSettings::ASSOCIATIVE,
-    '#settings_format' => 'group_name|Group label',
     '#title' => t('Default field groups'),
     '#required' => TRUE,
     '#description' => t("Enter default vocabulary field group names and labels. All field group names will be prefixed with group_*. The 'taxonomy' field group is required and will be used as the default field group for default vocabularies."),
     '#access' => \Drupal::moduleHandler()->moduleExists('field_group'),
+    '#example' => 'group_name: Group label',
   ];
   $form['schemadotorg_taxonomy']['default_vocabularies'] = [
     '#type' => 'schemadotorg_settings',
-    '#settings_type' => SchemaDotOrgSettings::ASSOCIATIVE_GROUPED,
-    '#settings_format' => 'propertyName|id:vocabulary_id,label:Vocabulary name,description: Vocabulary description goes here,group:group_name or SchemaType--propertyName|id:vocabulary_id,label:Vocabulary name,group:group_name',
     '#title' => t('Default vocabularies'),
     '#description' => t('Enter default vocabularies that will be added to every Schema.org content type.'),
+    '#example' => '
+propertyName:
+  id: vocabulary_id
+  label: Vocabulary name
+  description: Vocabulary description goes here
+  group: group_name
+SchemaType--propertyName:
+  id: vocabulary_id
+  label: Vocabulary name
+  group: group_name
+',
   ];
 
   // Add validate callback.
@@ -161,23 +169,29 @@ function schemadotorg_taxonomy_form_schemadotorg_types_settings_form_alter(array
 
 /**
  * Implements hook_form_FORM_ID_alter().
+ *
+ * @see \Drupal\schemadotorg\Form\SchemaDotOrgSettingsFormBase::afterBuildDetails
+ * @see \Drupal\schemadotorg\Form\SchemaDotOrgSettingsFormBase::formAlter
  */
 function schemadotorg_taxonomy_form_schemadotorg_properties_settings_form_alter(array &$form, FormStateInterface $form_state): void {
   $form['schemadotorg_taxonomy'] = [
     '#type' => 'details',
     '#title' => t('Taxonomy settings'),
-    '#open' => TRUE,
-    '#tree' => TRUE,
   ];
-  $form['schemadotorg_taxonomy']['property_vocabularies'] = [
+  $form['schemadotorg_taxonomy']['schema_property_vocabularies'] = [
     '#type' => 'schemadotorg_settings',
-    '#settings_type' => SchemaDotOrgSettings::ASSOCIATIVE_GROUPED,
-    '#settings_format' => 'propertyName|id:vocabulary_id,label:Vocabulary name,description:Vocabulary description goes here,auto_create:true',
     '#title' => t('Default vocabulary properties'),
     '#description' => t('Enter Schema.org properties that should be mapped to a vocabulary.')
     . '<br/>'
     . t('If the mapped vocabulary does exist it will be created when the Schema.org property mapping is created.'),
     '#description_link' => 'properties',
+    '#example' => '
+propertyName:
+  id: vocabulary_id
+  label: Vocabulary name
+  description: Vocabulary description goes here
+  auto_create: true
+',
   ];
 
   // Add submit callback.

@@ -133,7 +133,7 @@ class SmartDateRule extends ContentEntityBase {
       return FALSE;
     }
 
-    $rule = new FormattableMarkup('RRULE:FREQ=:freq', [':freq' => $repeat]);
+    $rule = new FormattableMarkup('RRULE:FREQ=@freq', ['@freq' => $repeat]);
     // Processing for extra parameters e.g. INCREMENT, BYMONTHDAY, etc.
     $params = $this->get('parameters')->getString();
     if (!empty($params)) {
@@ -188,8 +188,7 @@ class SmartDateRule extends ContentEntityBase {
         $override = $overrides[$index];
         if ($override->entity_id->getString()) {
           // Overridden, retrieve appropriate entity.
-          $override = $entity_storage
-            ->load($override['entity_id']);
+          // @toto retrieve the reference entity from the 'entity_id' property.
           // @todo drill down and retrieve, replace values.
         }
         elseif ($override->value->getString()) {
@@ -295,7 +294,7 @@ class SmartDateRule extends ContentEntityBase {
       return $id;
     }
 
-    $entity_manager = \Drupal::entityTypeManager($entity_type);
+    $entity_manager = \Drupal::entityTypeManager();
     $entity_storage = $entity_manager
       ->getStorage($entity_type);
 
@@ -334,6 +333,7 @@ class SmartDateRule extends ContentEntityBase {
   public function getTextRule() {
     $freq = $this->get('freq')->getString();
     $repeat = $freq;
+    $repeat_separator = '';
     $params = $this->getParametersArray();
     $day_labels = [
       'MO' => $this->t('Monday'),
@@ -346,6 +346,7 @@ class SmartDateRule extends ContentEntityBase {
     ];
     // Convert the stored repeat value to something human-readable.
     if ($params['interval'] && $params['interval'] > 1) {
+      $period = '';
       switch ($repeat) {
         case 'MINUTELY':
           $period = $this->t('minutes');
@@ -372,9 +373,9 @@ class SmartDateRule extends ContentEntityBase {
           break;
 
       }
-      $repeat = $this->t('every :num :period', [
-        ':num' => $params['interval'],
-        ':period' => $period,
+      $repeat = $this->t('Every @num @period', [
+        '@num' => $params['interval'],
+        '@period' => $period,
       ]);
     }
     else {
@@ -384,7 +385,16 @@ class SmartDateRule extends ContentEntityBase {
     $start_ts = $this->start;
     // Use the date timezone, or the user/site time as a fallback.
     $tz_string = $this->getTimeZone() ?? date_default_timezone_get();
-    $format = SmartDateFormat::load('time_only');
+    // Load the default format and then manipulate the options.
+    $format = SmartDateFormat::load('default');
+    $default_options = $format->getOptions();
+    // Make variations for time only and date only displays.
+    $time_options = ['date_format' => ''] + $default_options;
+    $date_options = [
+      'time_format' => '',
+      'time_hour_format' => '',
+      'allday_label' => '',
+    ] + $default_options;
 
     $time_set = FALSE;
     // Add extra time parameters, if set.
@@ -404,9 +414,12 @@ class SmartDateRule extends ContentEntityBase {
         else {
           $range_end_ts = $range_start_ts;
         }
-        $range_text[] = $this->formatSmartDate($range_start_ts, $range_end_ts, $format->getOptions(), $tz_string, 'string');
+        $range_text[] = $this->formatSmartDate($range_start_ts, $range_end_ts, $time_options, $tz_string, 'string');
       }
-      $repeat .= ' ' . $this->t('within') . ' ' . implode(', ', $range_text);
+      $repeat = $this->t('@date within @ranges', [
+        '@date' => $repeat,
+        '@ranges' => implode(', ', $range_text),
+      ], ['context' => 'Rule text']);
       $time_set = TRUE;
     }
     if ($params['byminute']) {
@@ -416,16 +429,19 @@ class SmartDateRule extends ContentEntityBase {
         $range_start = array_shift($range);
         if ($range) {
           $range_end = array_pop($range);
-          $range_text[] = $this->t(':start to :end', [
-            ':start' => $range_start,
-            ':end' => $range_end,
+          $range_text[] = $this->t('@start to @end', [
+            '@start' => $range_start,
+            '@end' => $range_end,
           ], ['context' => 'Rule text']);
         }
         else {
           $range_text[] = $range_start;
         }
       }
-      $repeat .= ' ' . $this->t('at :ranges past the hour', [':ranges' => implode(', ', $range_text)], ['context' => 'Rule text']);
+      $repeat = $this->t('@date at @ranges past the hour', [
+        '@date' => $repeat,
+        '@ranges' => implode(', ', $range_text),
+      ], ['context' => 'Rule text']);
       $time_set = TRUE;
     }
     // Convert the stored day modifier to something human-readable.
@@ -486,29 +502,38 @@ class SmartDateRule extends ContentEntityBase {
     }
 
     $day = '';
+    $day_separator = NULL;
+    $days_array = [];
 
     // Format the day output.
     if (in_array($freq, ['MINUTELY', 'HOURLY', 'DAILY', 'WEEKLY'])) {
-      if (!empty($params['byday']) && is_array($params['byday'])) {
+      $specific_days = !empty($params['byday']) && is_array($params['byday']);
+      if ($specific_days) {
         switch (count($params['byday'])) {
           case 1:
-            $day_output = $day_labels[array_pop($params['byday'])];
+            $day = $day_labels[array_pop($params['byday'])];
             break;
 
           case 2:
-            $day_output = $day_labels[$params['byday'][0]] . ' ' . $this->t('and') . ' ' . $day_labels[$params['byday'][1]];
+            $day = $this->t('@day1 and @day2', [
+              '@day1' => $day_labels[$params['byday'][0]],
+              '@day2' => $day_labels[$params['byday'][1]],
+            ]);
             break;
 
           default:
-            $day_output = '';
-            foreach ($params['byday'] as $key => $day) {
-              if ($key === array_key_last($params['byday'])) {
-                $day_output .= $this->t('and') . ' ' . $day_labels[$day];
-
-              }
-              else {
-                $day_output .= $day_labels[$day] . ', ';
-              }
+            foreach ($params['byday'] as $day_key) {
+              $days_array[] = (string) $day_labels[$day_key];
+            }
+            if ($this->isContinuousRange($params['byday'], array_keys($day_labels))) {
+              $first_day = $params['byday'][0];
+              $last_day = end($params['byday']);
+              // Output first and last values as a range.
+              $day = $this->t('@start to @end', [
+                '@start' => $day_labels[$first_day],
+                '@end' => $day_labels[$last_day],
+              ]);
+              $days_array = [];
             }
             break;
         }
@@ -516,66 +541,100 @@ class SmartDateRule extends ContentEntityBase {
       else {
         // Default to getting the day from the start date.
         $day_labels_by_day_of_week = array_values($day_labels);
-        $day_output = $day_labels_by_day_of_week[date('N', $start_ts) - 1];
+        $day = $day_labels_by_day_of_week[date('N', $start_ts) - 1];
       }
-      $day = $this->t('on :day', [':day' => $day_output], ['context' => 'Rule text']);
+      if ($specific_days || $freq !== 'DAILY') {
+        // Only show if it's for a specific day or the frequency is not daily,
+        // since the day would be somewhat redundant at that point.
+        $day_separator = ' ' . $this->t('on @day', ['@day' => ''], ['context' => 'Rule text']);
+      }
+      else {
+        $day = '';
+      }
     }
+    // Format the day for monthly or annual rules.
     else {
-      $day = date('jS', $start_ts);
       if ($params['which']) {
         $day = $params['which'] . ' ' . $params['day'];
       }
-      $day = $this->t('on the :day', [':day' => $day], ['context' => 'Rule text']);
+      else {
+        $day = date('jS', $start_ts);
+      }
+      $day_separator = ' ' . $this->t('on the @day', ['@day' => ''], ['context' => 'Rule text']);
     }
 
     // Format the month display, if needed.
-    if ($freq == 'YEARLY') {
-      $month = ' ' . $this->t('of :month', [':month' => date('F', $start_ts)], ['context' => 'Rule text']);
+    $month_separator = NULL;
+    if ($freq === 'YEARLY') {
+      $month = date('F', $start_ts);
+      $month_separator = ' ' . $this->t('of @month', ['@month' => ''], ['context' => 'Rule text']);
     }
     else {
       $month = '';
     }
 
+    if (!$day_separator && $repeat && ($day || $month)) {
+      $day_separator = ' ';
+    }
+
+    $time_separator = NULL;
     if ($time_set) {
       $time = '';
     }
     else {
       // Format the time display.
-      // Use the "Time Only" Smart Date Format to allow better formatting.
       $end_ts = $this->end->getValue()[0]['value'];
       if ($this->isAllDay($start_ts, $end_ts, $tz_string)) {
-        $time = $this->formatSmartDate($start_ts, $end_ts, $format->getOptions(), $tz_string, 'string');
+        $time = $this->formatSmartDate($start_ts, $end_ts, $time_options, $tz_string, 'string');
+        $time_separator = ' ';
       }
       else {
-        $time_string = $this->formatSmartDate($start_ts, $start_ts, $format->getOptions(), $tz_string, 'string');
-        $time = $this->t('at :time', [':time' => ''], ['context' => 'Rule text']) . $time_string;
+        $time_string = $this->formatSmartDate($start_ts, $end_ts, $time_options, $tz_string, 'string');
+        if ($start_ts === $end_ts) {
+          $time = $this->t('at @time', ['@time' => $time_string], ['context' => 'Rule text']);
+          $time_separator = ' ';
+        }
+        else {
+          $time = $time_string;
+          $time_separator = $time_options['join'];
+        }
       }
     }
 
     // Process the limit value, if present.
     $limit = '';
+    $limit_separator = NULL;
     if ($this->limit) {
-      list($limit_type, $limit_val) = explode('=', $this->limit);
+      [$limit_type, $limit_val] = explode('=', $this->limit);
       switch ($limit_type) {
         case 'UNTIL':
           $limit_ts = strtotime($limit_val);
-          $format = SmartDateFormat::load('date_only');
-          $date_string = $this->formatSmartDate($limit_ts, $limit_ts, $format->getOptions(), $tz_string, 'string');
-          $limit = ' ' . $this->t('until :date', [':date' => $date_string]);
+          // Use the default format with empty the time output strings.
+          $date_string = $this->formatSmartDate($limit_ts, $limit_ts, $date_options, $tz_string, 'string');
+          $limit = $this->t('until @date', ['@date' => $date_string]);
+          $limit_separator = ' ';
           break;
 
         case 'COUNT':
-          $limit = ' ' . $this->t('for :num times', [':num' => $limit_val]);
+          $limit = $this->t('for @num times', ['@num' => $limit_val]);
+          $limit_separator = ' ';
       }
     }
 
     return [
       '#theme' => 'smart_date_recurring_text_rule',
+      '#rule' => $this,
       '#repeat' => $repeat,
+      '#repeat_separator' => $repeat_separator,
       '#day' => $day,
+      '#day_separator' => $day_separator ?? '',
+      '#days_array' => $days_array,
       '#month' => $month,
+      '#month_separator' => $month_separator ?? '',
       '#time' => $time,
+      '#time_separator' => $time_separator ?? '',
       '#limit' => $limit,
+      '#limit_separator' => $limit_separator ?? '',
     ];
   }
 
@@ -585,7 +644,7 @@ class SmartDateRule extends ContentEntityBase {
    * @param array $array
    *   The array to convert.
    * @param int $offset
-   *   The offset to use for comoparison.
+   *   The offset to use for comparison.
    *
    * @return array
    *   An array of ranges.
@@ -654,7 +713,7 @@ class SmartDateRule extends ContentEntityBase {
     ];
     if ($params && $params = explode(';', $params)) {
       foreach ($params as $param) {
-        list($var_name, $var_value) = explode('=', $param);
+        [$var_name, $var_value] = explode('=', $param);
         switch ($var_name) {
           case 'INTERVAL':
             $return_array['interval'] = (int) $var_value;
@@ -714,7 +773,7 @@ class SmartDateRule extends ContentEntityBase {
       $array['limit_val'] = NULL;
     }
     else {
-      list($limit, $limit_val) = explode('=', $end);
+      [$limit, $limit_val] = explode('=', $end);
       if ($limit == 'UNTIL') {
         // Add midnight to specify the end of the last day.
         $limit_val .= 'T235959';
@@ -728,7 +787,7 @@ class SmartDateRule extends ContentEntityBase {
   /**
    * {@inheritdoc}
    */
-  public function preSave(EntityStorageInterface $storage) {
+  public function preSave(EntityStorageInterface $storage) { // phpcs:ignore
     parent::preSave($storage);
   }
 
@@ -859,10 +918,30 @@ class SmartDateRule extends ContentEntityBase {
    */
   public static function validateRecurring(array &$element, FormStateInterface $form_state, array &$complete_form) {
     // Check that the value is set to recur and has a value.
-    if (empty($element['repeat']['#value']) || empty($element['value'])) {
+    if (empty($element['repeat']['#value']) || (empty($element['value']) && empty($element['time_wrapper']['value']))) {
       return;
     }
-    // Only known issues are with DAILY recurring events and BYDAY values set.
+    $start_datetime = $element['time_wrapper']['value']['#value']['object'] ?? $element['value']['#value']['object'] ?? NULL;
+    // Don't allow repeat-end-date to come before start date/time.
+    if ($element['repeat-end']['#value'] === 'UNTIL' && $start_datetime instanceof DrupalDateTime) {
+      if ($element['repeat-end-date']['#value'] instanceof DrupalDateTime) {
+        $stop_date = $element['repeat-end-date']['#value'];
+      }
+      else {
+        $stop_date = new DrupalDateTime($element['repeat-end-date']['#value']);
+      }
+      if ($start_datetime->getTimestamp() !== $stop_date->getTimestamp()) {
+        $interval = $start_datetime->diff($stop_date);
+        if ($interval->invert === 1) {
+          $form_state->setError($element, t('The %stop-title date must come after the %start-title date.', [
+            '%stop-title' => $element['repeat-end-date']['#title'],
+            '%start-title' => $element['time_wrapper']['value']['#title'],
+          ]));
+        }
+      }
+    }
+    // Only remaining known issues are with DAILY recurring events and BYDAY
+    // values set.
     if ($element['repeat']['#value'] != 'DAILY' || empty($element['repeat-advanced']['byday']['#value'])) {
       return;
     }
@@ -937,6 +1016,53 @@ class SmartDateRule extends ContentEntityBase {
       }
     }
     return NULL;
+  }
+
+  /**
+   * Check if a set of values are a continuous range.
+   *
+   * @param array $values
+   *   The values to evaluate.
+   * @param array $keys
+   *   The keys to evaluate against.
+   *
+   * @return bool
+   *   Whether or not the values are a continuous range.
+   */
+  public function isContinuousRange(array $values, array $keys) {
+    $prev_index = array_search(array_shift($values), $keys);
+    foreach ($values as $value) {
+      $this_index = array_search($value, $keys);
+      if ($this_index != $prev_index + 1) {
+        return FALSE;
+      }
+      $prev_index = $this_index;
+    }
+    return TRUE;
+  }
+
+  /**
+   * Validate that the rule has a valid entity, bundle and field.
+   */
+  public function validateRule() {
+    // Get entity type,bundle and field name.
+    $entity_type = $this->entity_type->getString();
+    $bundle = $this->bundle->getString();
+    $field_name = $this->field_name->getString();
+
+    // Verify that all three of these are set.
+    // If any of these are empty, the rule is not good.
+    if (!empty($entity_type) && !empty($bundle) && !empty($field_name)) {
+      // Get the list of fields for this type and bundle.
+      $field_list = \Drupal::service('entity_field.manager')->getFieldDefinitions($entity_type, $bundle);
+
+      // If this field exists, return TRUE.
+      if (array_key_exists($field_name, $field_list)) {
+        return TRUE;
+      }
+    }
+
+    return FALSE;
   }
 
 }

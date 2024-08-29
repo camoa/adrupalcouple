@@ -3,13 +3,11 @@ entity.schemadotorg_mapping.collection:
   route_name: entity.schemadotorg_mapping.collection
   base_route: entity.schemadotorg_mapping.collection
   weight: 0
-
 entity.schemadotorg_mapping_type.collection:
-  title: Mapping types
+  title: 'Mapping types'
   route_name: entity.schemadotorg_mapping_type.collection
   base_route: entity.schemadotorg_mapping.collection
   weight: 10
-
 schemadotorg.settings:
   title: Settings
   route_name: schemadotorg.settings

@@ -20,7 +20,7 @@ use Drupal\smart_date_recur\Entity\SmartDateOverride;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Form controller for Smart Date Recur instace override edit forms.
+ * Form controller for Smart Date Recur instance override edit forms.
  *
  * @ingroup smart_date_recur
  */
@@ -84,7 +84,7 @@ class SmartDateOverrideForm extends FormBase {
   public function buildForm(array $form, FormStateInterface $form_state, $rrule = NULL, $index = NULL, $ajax = FALSE) {
 
     // @todo Show some kind of entity summary? Title at least?
-    $instances = $rrule->getRuleInstances();
+    $instances = $rrule?->getRuleInstances();
     if ($ajax) {
       $form['#prefix'] = '<div id="manage-instances">';
       $form['#suffix'] = '</div>';
@@ -95,11 +95,14 @@ class SmartDateOverrideForm extends FormBase {
       $rrule->get('bundle')->getString(),
       $rrule->get('field_name')->getString()
     );
-    $defaults = $field_config->getDefaultValueLiteral()[0];
+    $defaults = $field_config?->getDefaultValueLiteral()[0];
 
-    $values['start'] = DrupalDateTime::createFromTimestamp($instances[$index]['value']);
-    $values['end'] = DrupalDateTime::createFromTimestamp($instances[$index]['end_value']);
-    $values['duration'] = ($instances[$index]['end_value'] - $instances[$index]['value']) / 60;
+    $values = [];
+    if ($instances && $index) {
+      $values['start'] = DrupalDateTime::createFromTimestamp($instances[$index]['value']);
+      $values['end'] = DrupalDateTime::createFromTimestamp($instances[$index]['end_value']);
+      $values['duration'] = ($instances[$index]['end_value'] - $instances[$index]['value']) / 60;
+    }
 
     $element = [
       'value' => [
@@ -121,7 +124,7 @@ class SmartDateOverrideForm extends FormBase {
       '#type' => 'hidden',
       '#value' => $index,
     ];
-    if (!empty($instances[$index]['oid'])) {
+    if ($instances && $index && !empty($instances[$index]['oid'])) {
       $form['oid'] = [
         '#type' => 'hidden',
         '#value' => $instances[$index]['oid'],

@@ -4,6 +4,7 @@ Table of contents
 * Introduction
 * Features
 * Configuration
+* Notes
 
 
 Introduction
@@ -27,13 +28,13 @@ Configuration
 -------------
 
 - Go to the Schema.org types configuration page.  
-  (/admin/config/search/schemadotorg/settings/types)
+  (/admin/config/schemadotorg/settings/types#edit-schemadotorg-media)
 - Enter default sources for Schema.org MediaObject types.
 
 
 Notes
 -----
 
-- Media style default configuration is based on the media type provides
-  by Drupal's standard profile.
+- Media style default configuration is based on the media types provides
+  by Drupal's Standard installation profile.
   @see web/core/profiles/standard/config/optional

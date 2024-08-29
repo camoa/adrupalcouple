@@ -1,12 +1,13 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg_paragraphs;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
+use Drupal\Core\Field\FieldConfigInterface;
 use Drupal\schemadotorg\SchemaDotOrgMappingInterface;
 use Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface;
 
@@ -31,7 +32,7 @@ class SchemaDotOrgParagraphsManager implements SchemaDotOrgParagraphsManagerInte
     protected ConfigFactoryInterface $configFactory,
     protected ModuleHandlerInterface $moduleHandler,
     protected EntityTypeManagerInterface $entityTypeManager,
-    protected SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager
+    protected SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager,
   ) {}
 
   /**
@@ -64,7 +65,7 @@ class SchemaDotOrgParagraphsManager implements SchemaDotOrgParagraphsManagerInte
     ?string &$widget_id,
     array &$widget_settings,
     ?string &$formatter_id,
-    array &$formatter_settings
+    array &$formatter_settings,
   ): void {
     // Check that the field is an entity_reference_revisions type that is
     // targeting paragraphs.
@@ -73,14 +74,34 @@ class SchemaDotOrgParagraphsManager implements SchemaDotOrgParagraphsManagerInte
       return;
     }
 
+    // Widget.
+    $widget_id = 'paragraphs';
+
+    // Set the default paragraph type to 'none', to provide a cleaner initial UX
+    // because all Schema.org fields/properties are optional.
+    $widget_settings['default_paragraph_type'] = '_none';
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function fieldConfigPresave(FieldConfigInterface $field_config): void {
+    // Check that the field is an entity_reference_revisions type that is
+    // targeting paragraphs.
+    if ($field_config->getType() !== 'entity_reference_revisions'
+      || $field_config->getSetting('target_type') !== 'paragraph') {
+      return;
+    }
+
     /** @var \Drupal\schemadotorg\SchemaDotOrgMappingStorageInterface $mapping_storage */
-    $mapping_storage = $this->entityTypeManager
-      ->getStorage('schemadotorg_mapping');
+    $mapping_storage = $this->entityTypeManager->getStorage('schemadotorg_mapping');
 
     // If any of the target bundles use the Paragraphs library,
     // append 'from_library' to target bundles.
-    $target_type = $field_storage_values['settings']['target_type'];
-    $handler_settings = $field_values['settings']['handler_settings'] ?? [];
+    $target_type = $field_config->getSetting('target_type');
+
+    $handler_id = $field_config->getSetting('handler');
+    $handler_settings = $field_config->getSetting('handler_settings');
 
     $target_bundles = $handler_settings['target_bundles'] ?? [];
     foreach ($target_bundles as $target_bundle) {
@@ -103,25 +124,20 @@ class SchemaDotOrgParagraphsManager implements SchemaDotOrgParagraphsManagerInte
     }
 
     // Set the target bundles drag and drop order.
-    $handler_settings['target_bundles_drag_drop'] = [];
-    $weight = 0;
-    foreach ($target_bundles as $target_bundle) {
-      $handler_settings['target_bundles_drag_drop'][$target_bundle] = [
-        'weight' => $weight,
-        'enabled' => TRUE,
-      ];
-      $weight++;
+    if (!str_starts_with($handler_id, 'schemadotorg')) {
+      $handler_settings['target_bundles_drag_drop'] = [];
+      $weight = 0;
+      foreach ($target_bundles as $target_bundle) {
+        $handler_settings['target_bundles_drag_drop'][$target_bundle] = [
+          'weight' => $weight,
+          'enabled' => TRUE,
+        ];
+        $weight++;
+      }
     }
 
-    $field_values['settings']['handler_settings'] = $handler_settings;
-    $field_values['settings']['handler_settings']['target_bundles'] = $target_bundles;
-
-    // Widget.
-    $widget_id = 'paragraphs';
-
-    // Set the default paragraph type to 'none', to provide a cleaner initial UX
-    // because all Schema.org fields/properties are optional.
-    $widget_settings['default_paragraph_type'] = '_none';
+    $handler_settings['target_bundles'] = $target_bundles;
+    $field_config->setSetting('handler_settings', $handler_settings);
   }
 
   /**

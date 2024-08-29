@@ -1,15 +1,37 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg_layout_paragraphs;
 
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\paragraphs\ParagraphsTypeInterface;
 
 /**
  * Schema.org layout paragraphs manager.
  */
 interface SchemaDotOrgLayoutParagraphsManagerInterface {
+
+  /**
+   * The layout paragraphs Schema.org property name.
+   */
+  const PROPERTY_NAME = 'mainEntity';
+
+  /**
+   * Get layout paragraphs field machine name.
+   *
+   * @return string
+   *   The layout paragraphs field machine name.
+   */
+  public function getMachineName(): string;
+
+  /**
+   * Get layout paragraphs field name.
+   *
+   * @return string
+   *   The layout paragraphs field name.
+   */
+  public function getFieldName(): string;
 
   /**
    * Alter Schema.org mapping defaults to support layout paragraphs.
@@ -65,31 +87,15 @@ interface SchemaDotOrgLayoutParagraphsManagerInterface {
     ?string &$widget_id,
     array &$widget_settings,
     ?string &$formatter_id,
-    array &$formatter_settings
+    array &$formatter_settings,
   ): void;
 
   /**
-   * Get layout paragraphs Schema.org property name.
+   * Act on a paragraphs type  before it is created or updated.
    *
-   * @return string
-   *   The layout paragraphs Schema.org property name.
+   * @param \Drupal\paragraphs\ParagraphsTypeInterface $paragraphs_type
+   *   The paragraphs type.
    */
-  public function getPropertyName(): string;
-
-  /**
-   * Get layout paragraphs field machine name.
-   *
-   * @return string
-   *   The layout paragraphs field machine name.
-   */
-  public function getMachineName(): string;
-
-  /**
-   * Get layout paragraphs field name.
-   *
-   * @return string
-   *   The layout paragraphs field name.
-   */
-  public function getFieldName(): string;
+  public function paragraphsTypePresave(ParagraphsTypeInterface $paragraphs_type): void;
 
 }

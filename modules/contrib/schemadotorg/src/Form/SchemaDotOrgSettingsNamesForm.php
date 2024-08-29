@@ -1,11 +1,11 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg\Form;
 
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\schemadotorg\Element\SchemaDotOrgSettings;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -15,15 +15,13 @@ class SchemaDotOrgSettingsNamesForm extends SchemaDotOrgSettingsFormBase {
 
   /**
    * The entity type manager.
-   *
-   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
    */
-  protected $entityTypeManager;
+  protected EntityTypeManagerInterface $entityTypeManager;
 
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container) {
+  public static function create(ContainerInterface $container): static {
     $instance = parent::create($container);
     $instance->entityTypeManager = $container->get('entity_type.manager');
     return $instance;
@@ -54,61 +52,62 @@ class SchemaDotOrgSettingsNamesForm extends SchemaDotOrgSettingsFormBase {
     $form['names'] = [
       '#type' => 'details',
       '#title' => $this->t('Name settings'),
-      '#open' => TRUE,
-      '#tree' => TRUE,
     ];
     $form['names']['custom_words'] = [
       '#type' => 'schemadotorg_settings',
-      '#settings_type' => SchemaDotOrgSettings::ASSOCIATIVE,
-      '#settings_format' => 'search|replace',
       '#title' => $this->t('Custom words'),
       '#description' => $this->t('Enter titles used when Schema.org types and properties are converted to Drupal entity and field machine names.'),
+      '#example' => 'search: replace',
     ];
     $form['names']['custom_names'] = [
       '#type' => 'schemadotorg_settings',
-      '#settings_type' => SchemaDotOrgSettings::ASSOCIATIVE,
-      '#settings_format' => 'search|replace',
       '#title' => $this->t('Custom names'),
       '#description' => $this->t('Enter custom names used when Schema.org types and properties are converted to Drupal entity and field machine names.'),
+      '#example' => 'search: replace',
     ];
     $form['names']['prefixes'] = [
       '#type' => 'schemadotorg_settings',
-      '#settings_type' => SchemaDotOrgSettings::ASSOCIATIVE,
-      '#settings_format' => 'search|replace',
       '#title' => $this->t('Prefixes'),
       '#description' => $this->t('Enter replacement prefixes used when Schema.org types and properties are converted to Drupal entity and field machine names.')
-      . '<br/>' .
+      . ' ' .
       $this->t('Prefixes are always applied to Schema.org types and properties.'),
+      '#example' => 'search: replace',
     ];
     $form['names']['abbreviations'] = [
       '#type' => 'schemadotorg_settings',
-      '#settings_type' => SchemaDotOrgSettings::ASSOCIATIVE,
-      '#settings_format' => 'search|replace',
       '#title' => $this->t('Abbreviations'),
       '#description' => $this->t('Enter replacement abbreviation used when Schema.org types and properties are converted to Drupal entity and field machine names.')
-      . '<br/>' .
-      $this->t('Abbreviations are only applied to Schema.org types and properties that exceeed the maxium number of allowed characters.'),
+      . ' ' .
+      $this->t('Abbreviations are only applied to Schema.org types and properties that exceed the maximum number of allowed characters.'),
+      '#example' => 'search: replace',
     ];
     $form['names']['suffixes'] = [
       '#type' => 'schemadotorg_settings',
-      '#settings_type' => SchemaDotOrgSettings::ASSOCIATIVE,
-      '#settings_format' => 'search|replace',
       '#title' => $this->t('Suffixes'),
       '#description' => $this->t('Enter replacement suffixes used when Schema.org types and properties are converted to Drupal entity and field machine names.')
-      . '<br/>' .
-      $this->t('Suffixes are only applied to Schema.org types and properties that exceeed the maxium number of allowed characters.'),
+      . ' ' .
+      $this->t('Suffixes are only applied to Schema.org types and properties that exceed the maximum number of allowed characters.'),
+      '#example' => 'search: replace',
     ];
     $form['names']['acronyms'] = [
       '#type' => 'schemadotorg_settings',
-      '#settings_type' => SchemaDotOrgSettings::INDEXED,
       '#title' => $this->t('Acronyms'),
-      '#description' => $this->t('Enter acronyms used when creating labels.'),
+      '#description' => $this->t('Enter acronyms used when creating labels. See <a href=":href">:href</a>.', [':href' => 'https://www.allacronyms.com/']),
+      '#example' => '
+- acronym_01
+- acronym_02
+- acronym_03
+',
     ];
     $form['names']['minor_words'] = [
       '#type' => 'schemadotorg_settings',
-      '#settings_type' => SchemaDotOrgSettings::INDEXED,
       '#title' => $this->t('Minor words'),
       '#description' => $this->t('Enter minor word used when creating capitalized labels.'),
+      '#example' => '
+- minor_word_01
+- minor_word_02
+- minor_word_03
+',
     ];
     return parent::buildForm($form, $form_state);
   }

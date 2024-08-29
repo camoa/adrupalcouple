@@ -1,13 +1,14 @@
 name: 'Schema.org Blueprints Subtype'
 type: module
-description: 'Subtypes allow more specificity without having to create dedicated entity types for every appropriate Schema.type.'
-package: Schema.org Blueprints Core
-core_version_requirement: '^9.4 || ^10.0'
-configure: schemadotorg.settings
+description: 'This module hand been deprecated and replaced with the Schema.org Additional Type module.'
+package: 'Schema.org Blueprints [DEPRECATED]'
+core_version_requirement: ^10.2
+lifecycle: deprecated
+lifecycle_link: 'https://www.drupal.org/project/schemadotorg_deprecated'
 dependencies:
   - 'schemadotorg:schemadotorg'
 
-# Information added by Drupal.org packaging script on 2023-06-02
-version: '1.0.0-alpha4'
+# Information added by Drupal.org packaging script on 2024-05-20
+version: '1.0.0-alpha24'
 project: 'schemadotorg'
-datestamp: 1685723540
+datestamp: 1716237078

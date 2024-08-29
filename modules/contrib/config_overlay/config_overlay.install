@@ -1,0 +1,105 @@
+<?php
+
+/**
+ * @file
+ * Contains install, uninstall, and update functions for Config Overlay.
+ */
+
+use Drupal\Core\Config\StorageInterface;
+
+/**
+ * Implements hook_install().
+ */
+function config_overlay_install($is_syncing): void {
+  if ($is_syncing) {
+    return;
+  }
+
+  // Record any deleted configuration at the time of installation.
+  $extension_storage = \Drupal::service('config_overlay.extension_storage');
+  assert($extension_storage instanceof StorageInterface);
+  $config_factory = \Drupal::configFactory();
+  $extension_names = $extension_storage->listAll();
+  $active_names = $config_factory->listAll();
+  $deleted_names = array_values(array_diff($extension_names, $active_names));
+  if ($deleted_names) {
+    $deleted = $config_factory->getEditable('config_overlay.deleted');
+    $deleted->set('names', $deleted_names)->save();
+  }
+}
+
+/**
+ * Alters the list of installation tasks.
+ *
+ * In order for an installation profile that uses Config Overlay to be able to
+ * be installed from existing configuration, Config Overlay must be installed
+ * before the configuration is imported. This function alters the installation
+ * tasks to add an installation task for installing Config Overlay, accordingly.
+ *
+ * Because hook_install_tasks_alter() is only invoked from the *.profile file
+ * of the installation profile this function must be called from the
+ * installation profile's hook_install_tasks_alter() implementation in order to
+ * take effect.
+ *
+ * @code
+ *   function MY_PROFILE_install_tasks_alter(&$tasks, $install_state) {
+ *     module_load_install('config_overlay');
+ *     config_overlay_install_tasks_alter($tasks, $install_state);
+ *   }
+ * @endcode
+ *
+ * @see config_overlay_install_config_overlay()
+ * @see install_tasks()
+ * @see https://www.drupal.org/project/drupal/issues/3056624
+ */
+function config_overlay_install_tasks_alter(&$tasks, $install_state): void {
+  $position = array_search('install_config_import_batch', array_keys($tasks), TRUE);
+  if ($position !== FALSE) {
+    $new_tasks = [
+      'config_overlay_install_config_overlay' => [
+        'type' => 'batch',
+      ],
+    ];
+
+    $tasks =
+      array_slice($tasks, 0, $position)
+      + $new_tasks
+      + array_slice($tasks, $position);
+  }
+}
+
+/**
+ * Installs Config Overlay via a batch process during site installation.
+ *
+ * @param array $install_state
+ *   An array of information about the current installation state.
+ *
+ * @return array
+ *   The batch definition.
+ *
+ * @see config_overlay_install_tasks_alter()
+ * @see install_profile_modules()
+ */
+function config_overlay_install_config_overlay(array &$install_state): array {
+  // install_profile_modules() does exactly what we want and fetches the list
+  // of modules to install from state. So we just prepare the respective state
+  // value accordingly and call it.
+  $state = \Drupal::state();
+  $key = 'install_profile_modules';
+  // Fetch the original value so we can restore it afterwards.
+  $modules = $state->get($key) ?: [];
+
+  $state->set($key, ['config_overlay']);
+  $batch = install_profile_modules($install_state);
+
+  // Restore the previous value to avoid side effects.
+  $state->set($key, $modules);
+  return $batch;
+}
+
+/**
+ * Implements hook_update_last_removed().
+ */
+function config_overlay_update_last_removed(): int {
+  return 8001;
+}

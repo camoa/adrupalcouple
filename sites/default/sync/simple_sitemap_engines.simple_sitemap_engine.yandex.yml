@@ -1,0 +1,11 @@
+uuid: 0776139f-c9a4-4227-a24f-a8013a0b9fc1
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: H5rVsTF_mIRdWj_oH26Hcc-U8aT3HU8A_mjbkZ_D27s
+id: yandex
+label: Yandex
+url: null
+index_now_url: 'https://yandex.com/indexnow?url=[url]&key=[key]'
+sitemap_variants: {  }

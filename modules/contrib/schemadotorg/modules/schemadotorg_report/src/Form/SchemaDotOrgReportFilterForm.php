@@ -1,12 +1,13 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg_report\Form;
 
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
+use Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -16,17 +17,13 @@ class SchemaDotOrgReportFilterForm extends FormBase {
 
   /**
    * The Schema.org schema type manager.
-   *
-   * @var \Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface
    */
-  protected $schemaTypeManager;
+  protected SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager;
 
   /**
    * Schema.org table.
-   *
-   * @var string
    */
-  protected $table;
+  protected ?string $table;
 
   /**
    * {@inheritdoc}
@@ -38,7 +35,7 @@ class SchemaDotOrgReportFilterForm extends FormBase {
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container) {
+  public static function create(ContainerInterface $container): static {
     $instance = parent::create($container);
     $instance->schemaTypeManager = $container->get('schemadotorg.schema_type_manager');
     return $instance;
@@ -51,27 +48,24 @@ class SchemaDotOrgReportFilterForm extends FormBase {
     $this->table = $table;
 
     $t_args = [
-      '@label' => ($table === 'types') ? $this->t('type') : $this->t('property'),
+      '@label' => ($table === SchemaDotOrgSchemaTypeManagerInterface::SCHEMA_TYPES)
+        ? $this->t('type')
+        : $this->t('property'),
     ];
     $form['filter'] = [
       '#type' => 'container',
       '#attributes' => ['class' => ['container-inline']],
     ];
     $form['filter']['id'] = [
-      '#type' => 'textfield',
+      '#type' => 'schemadotorg_autocomplete',
       '#title' => $this->t('Find a @label', $t_args),
       '#title_display' => 'invisible',
-      '#placeholder' => $this->t('Find a Schema.org @label', $t_args),
+      '#placeholder' => $this->t('Find a Schema.org @labels', $t_args),
       '#size' => 30,
+      '#novalidate' => TRUE,
+      '#target_type' => $table,
+      '#action' => Url::fromRoute('schemadotorg_report')->toString() . '/',
       '#default_value' => $id,
-      '#tags' => TRUE,
-      '#autocomplete_route_name' => 'schemadotorg.autocomplete',
-      '#autocomplete_route_parameters' => ['table' => $table],
-      '#attributes' => [
-        'class' => ['schemadotorg-autocomplete'],
-        'data-schemadotorg-autocomplete-action' => Url::fromRoute('schemadotorg_report')->toString(),
-      ],
-      '#attached' => ['library' => ['schemadotorg/schemadotorg.autocomplete']],
     ];
     $form['filter']['submit'] = [
       '#type' => 'submit',

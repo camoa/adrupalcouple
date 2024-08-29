@@ -16,10 +16,61 @@ dependencies:
     - image.style.thumbnail
     - node.type.person
   module:
+    - field_group
     - image
     - link
     - telephone
     - text
+third_party_settings:
+  field_group:
+    group_general:
+      children:
+        - schema_additional_name
+        - body
+        - schema_family_name
+        - schema_given_name
+        - schema_image
+        - schema_knows_language
+        - title
+      label: General
+      region: content
+      parent_name: ''
+      weight: -5
+      format_type: details
+      format_settings:
+        open: true
+    group_contact:
+      children:
+        - schema_email
+        - schema_telephone
+      label: Contact
+      region: content
+      parent_name: ''
+      weight: -2
+      format_type: details
+      format_settings:
+        open: true
+    group_organization:
+      children:
+        - schema_member_of
+        - schema_works_for
+      label: Organization
+      region: content
+      parent_name: ''
+      weight: 4
+      format_type: details
+      format_settings:
+        open: true
+    group_links:
+      children:
+        - schema_same_as
+      label: Links
+      region: content
+      parent_name: ''
+      weight: 20
+      format_type: details
+      format_settings:
+        open: true
 id: node.person.default
 targetEntityType: node
 bundle: person
@@ -27,7 +78,7 @@ mode: default
 content:
   body:
     type: text_textarea_with_summary
-    weight: 12
+    weight: 17
     region: content
     settings:
       rows: 9
@@ -50,7 +101,7 @@ content:
     third_party_settings: {  }
   schema_additional_name:
     type: string_textfield
-    weight: 100
+    weight: 9
     region: content
     settings:
       size: 60
@@ -58,7 +109,7 @@ content:
     third_party_settings: {  }
   schema_email:
     type: email_default
-    weight: 19
+    weight: 6
     region: content
     settings:
       placeholder: ''
@@ -66,7 +117,7 @@ content:
     third_party_settings: {  }
   schema_family_name:
     type: string_textfield
-    weight: 100
+    weight: 10
     region: content
     settings:
       size: 60
@@ -74,7 +125,7 @@ content:
     third_party_settings: {  }
   schema_given_name:
     type: string_textfield
-    weight: 100
+    weight: 8
     region: content
     settings:
       size: 60
@@ -82,7 +133,7 @@ content:
     third_party_settings: {  }
   schema_image:
     type: image_image
-    weight: 5
+    weight: 22
     region: content
     settings:
       progress_indicator: throbber
@@ -90,7 +141,7 @@ content:
     third_party_settings: {  }
   schema_knows_language:
     type: string_textfield
-    weight: 105
+    weight: 15
     region: content
     settings:
       size: 60
@@ -98,7 +149,7 @@ content:
     third_party_settings: {  }
   schema_member_of:
     type: string_textfield
-    weight: 105
+    weight: 5
     region: content
     settings:
       size: 60
@@ -106,7 +157,7 @@ content:
     third_party_settings: {  }
   schema_same_as:
     type: link_default
-    weight: 136
+    weight: 3
     region: content
     settings:
       placeholder_url: ''
@@ -114,14 +165,14 @@ content:
     third_party_settings: {  }
   schema_telephone:
     type: telephone_default
-    weight: 18
+    weight: 4
     region: content
     settings:
       placeholder: ''
     third_party_settings: {  }
   schema_works_for:
     type: string_textfield
-    weight: 105
+    weight: 0
     region: content
     settings:
       size: 60

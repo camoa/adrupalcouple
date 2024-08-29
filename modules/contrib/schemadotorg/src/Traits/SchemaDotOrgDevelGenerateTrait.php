@@ -1,33 +1,14 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg\Traits;
 
-use Drupal\schemadotorg\SchemaDotOrgMappingInterface;
-
 /**
- * Trait for devel generate.
+ * Trait for devel generate used by Schema.org mapping sets and starter kits.
  */
 trait SchemaDotOrgDevelGenerateTrait {
-
-  /**
-   * Determine if a mapping set type is valid.
-   *
-   * @param string $type
-   *   A mapping set type (i.e. entity_type_id:SchemaType).
-   *
-   * @return bool
-   *   TRUE if a mapping set type is valid.
-   */
-  public function isValidType(string $type): bool {
-    if (!str_contains($type, ':')) {
-      return FALSE;
-    }
-    [$entity_type_id, $schema_type] = explode(':', $type);
-    return $this->entityTypeManager->hasDefinition($entity_type_id)
-      && $this->schemaTypeManager->isType($schema_type);
-  }
+  use SchemaDotOrgMappingStorageTrait;
 
   /**
    * Get entity type bundles.
@@ -44,30 +25,13 @@ trait SchemaDotOrgDevelGenerateTrait {
     foreach ($types as $type) {
       [$entity_type, $schema_type] = explode(':', $type);
       $entity_types += [$entity_type => []];
-      $existing_mapping = $this->loadMappingByType($entity_type, $schema_type);
+      $existing_mapping = $this->getMappingStorage()->loadBySchemaType($entity_type, $schema_type);
       if ($existing_mapping) {
         $target_bundle = $existing_mapping->getTargetBundle();
         $entity_types[$entity_type][$target_bundle] = $target_bundle;
       }
     }
     return array_filter($entity_types);
-  }
-
-  /**
-   * Load Schema.org mapping by entity and Schema.org type.
-   *
-   * @param string $entity_type
-   *   The entity type ID.
-   * @param string $schema_type
-   *   The Schema.org type.
-   *
-   * @return \Drupal\schemadotorg\SchemaDotOrgMappingInterface|null
-   *   A Schema.org mapping.
-   */
-  protected function loadMappingByType(string $entity_type, string $schema_type): ?SchemaDotOrgMappingInterface {
-    /** @var \Drupal\schemadotorg\SchemaDotOrgMappingStorageInterface $mapping_storage */
-    $mapping_storage = $this->entityTypeManager->getStorage('schemadotorg_mapping');
-    return $mapping_storage->loadBySchemaType($entity_type, $schema_type);
   }
 
   /**
@@ -89,7 +53,7 @@ trait SchemaDotOrgDevelGenerateTrait {
 
     // Mapping entity type to devel-generate command with default options.
     $commands = [
-      'user' => ['users', ['roles' => NULL]],
+      'user' => ['users'],
       'node' => ['content', ['add-type-label' => TRUE]],
       'media' => ['media'],
       'taxonomy_term' => ['term'],
@@ -101,8 +65,8 @@ trait SchemaDotOrgDevelGenerateTrait {
 
       $devel_generate_plugin_id = $commands[$entity_type][0];
       foreach ($bundles as $bundle) {
-        // Args.
-        $args = [(string) $num];
+        // Args which are [num] and [max_comments].
+        $args = [(string) $num, 0];
         // Options.
         $options = $commands[$entity_type][1] ?? [];
         $options += [
@@ -110,6 +74,7 @@ trait SchemaDotOrgDevelGenerateTrait {
           'bundles' => $bundle,
           'media-types' => $bundles,
           // Setting the below options to NULL prevents PHP warnings.
+          'roles' => NULL,
           'base-fields' => NULL,
           'skip-fields' => NULL,
           'authors' => NULL,

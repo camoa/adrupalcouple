@@ -42,7 +42,7 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 100
+    weight: 110
     region: content
   schema_email:
     type: email_mailto
@@ -57,7 +57,7 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 100
+    weight: 110
     region: content
   schema_given_name:
     type: string
@@ -65,11 +65,11 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 100
+    weight: 110
     region: content
   schema_image:
     type: image
-    label: above
+    label: hidden
     settings:
       image_link: ''
       image_style: ''
@@ -84,7 +84,7 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 105
+    weight: 115
     region: content
   schema_member_of:
     type: entity_reference_label
@@ -92,7 +92,7 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 155
+    weight: 165
     region: content
   schema_same_as:
     type: link
@@ -104,7 +104,7 @@ content:
       rel: ''
       target: ''
     third_party_settings: {  }
-    weight: 136
+    weight: 146
     region: content
   schema_telephone:
     type: basic_string
@@ -119,6 +119,6 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 105
+    weight: 115
     region: content
 hidden: {  }

@@ -1,12 +1,13 @@
-name: Schema.org Blueprints Starterkit (API)
+name: 'Schema.org Blueprints Starter Kit (API)'
 type: module
-description: Provides an API for starterkits to create Schema.org types.
-package: Schema.org Blueprints Starterkit
-core_version_requirement: '^9.4 || ^10.0'
+description: 'Provides an API for starter kits to create Schema.org types.'
+package: 'Schema.org Blueprints Starter Kit'
+core_version_requirement: ^10.2
+schemadotorg_production: false
 dependencies:
   - 'schemadotorg:schemadotorg'
 
-# Information added by Drupal.org packaging script on 2023-06-02
-version: '1.0.0-alpha4'
+# Information added by Drupal.org packaging script on 2024-05-20
+version: '1.0.0-alpha24'
 project: 'schemadotorg'
-datestamp: 1685723540
+datestamp: 1716237079

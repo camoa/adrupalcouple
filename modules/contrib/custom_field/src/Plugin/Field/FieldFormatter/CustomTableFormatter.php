@@ -4,11 +4,12 @@ namespace Drupal\custom_field\Plugin\Field\FieldFormatter;
 
 use Drupal\Component\Utility\Html;
 use Drupal\Core\Field\FieldItemListInterface;
+use Drupal\Core\Form\FormStateInterface;
 
 /**
  * Plugin implementation of the 'custom_table' formatter.
  *
- * Formats the custtomfield items as an html table.
+ * Formats the custom field items as html table.
  *
  * @FieldFormatter(
  *   id = "custom_table",
@@ -19,24 +20,19 @@ use Drupal\Core\Field\FieldItemListInterface;
  *   }
  * )
  */
-class CustomTableFormatter extends CustomFormatterBase {
+class CustomTableFormatter extends BaseFormatter {
 
   /**
    * {@inheritdoc}
    */
-  public static function defaultSettings(): array {
-    return [
-      'label_display' => [],
-    ] + parent::defaultSettings();
-  }
+  public function settingsForm(array $form, FormStateInterface $form_state): array {
+    $form = parent::settingsForm($form, $form_state);
 
-  /**
-   * {@inheritdoc}
-   */
-  public function settingsSummary(): array {
-    $summary[] = t('Custom field items will be rendered as a table.');
+    foreach ($this->getCustomFieldItems() as $name => $customItem) {
+      unset($form['fields'][$name]['label_display']);
+    }
 
-    return $summary;
+    return $form;
   }
 
   /**
@@ -47,13 +43,9 @@ class CustomTableFormatter extends CustomFormatterBase {
     $component = Html::cleanCssIdentifier($this->fieldDefinition->get('field_name'));
     $customItems = $this->getCustomFieldItems();
     $header = [];
-    /** @var \Drupal\custom_field\Plugin\CustomFieldTypeInterface $customitem */
-    foreach ($customItems as $customitem) {
-      $header[] = $customitem->getLabel();
+    foreach ($customItems as $customItem) {
+      $header[] = $customItem->getLabel();
     }
-
-    // @todo: Can this be deleted?
-    $wrapper_id = 'customfield-settings-wrapper';
 
     // Jam the whole table in the first row since we're rendering the main field
     // items as table rows.
@@ -61,7 +53,7 @@ class CustomTableFormatter extends CustomFormatterBase {
       '#theme' => 'table',
       '#header' => $header,
       '#attributes' => [
-        'class' => [$component]
+        'class' => [$component],
       ],
       '#rows' => [],
     ];
@@ -69,9 +61,13 @@ class CustomTableFormatter extends CustomFormatterBase {
     // Build the table rows and columns.
     foreach ($items as $delta => $item) {
       $elements[0]['#rows'][$delta]['class'][] = $component . '__item';
-      foreach ($customItems as $name => $customitem) {
+      $values = $this->getFormattedValues($item, $langcode);
+      foreach ($customItems as $name => $customItem) {
+        $markup = $values[$name]['value']['#markup'] ?? NULL;
         $elements[0]['#rows'][$delta]['data'][$name] = [
-          'data' => ['#markup' => $customitem->value($item)],
+          'data' => [
+            '#markup' => $markup,
+          ],
           'class' => [$component . '__' . Html::cleanCssIdentifier($name)],
         ];
       }

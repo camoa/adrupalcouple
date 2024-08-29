@@ -1,4 +1,4 @@
-uuid: ea69e882-6746-4a1e-be4c-563fa14616b9
+uuid: 08a04dd2-8d6c-4974-91bf-3ceaaa8c38df
 langcode: en
 status: true
 dependencies:
@@ -23,12 +23,66 @@ settings:
       - '|'
       - blockQuote
       - drupalInsertImage
+      - drupalMedia
+      - specialCharacters
+      - alignment
       - '|'
       - heading
       - code
       - '|'
       - sourceEditing
+      - codeBlock
   plugins:
+    ckeditor5_alignment:
+      enabled_alignments:
+        - center
+        - justify
+        - left
+        - right
+    ckeditor5_codeBlock:
+      languages:
+        -
+          label: 'Plain text'
+          language: plaintext
+        -
+          label: C
+          language: c
+        -
+          label: 'C#'
+          language: cs
+        -
+          label: C++
+          language: cpp
+        -
+          label: CSS
+          language: css
+        -
+          label: Diff
+          language: diff
+        -
+          label: HTML
+          language: html
+        -
+          label: Java
+          language: java
+        -
+          label: JavaScript
+          language: javascript
+        -
+          label: PHP
+          language: php
+        -
+          label: Python
+          language: python
+        -
+          label: Ruby
+          language: ruby
+        -
+          label: TypeScript
+          language: typescript
+        -
+          label: XML
+          language: xml
     ckeditor5_heading:
       enabled_headings:
         - heading2
@@ -39,8 +93,10 @@ settings:
     ckeditor5_imageResize:
       allow_resize: true
     ckeditor5_list:
-      reversed: false
-      startIndex: true
+      properties:
+        reversed: false
+        startIndex: true
+      multiBlock: true
     ckeditor5_sourceEditing:
       allowed_tags:
         - '<cite>'
@@ -50,17 +106,19 @@ settings:
         - '<a hreflang>'
         - '<blockquote cite>'
         - '<ul type>'
-        - '<ol start type>'
+        - '<ol type>'
         - '<h2 id>'
         - '<h3 id>'
         - '<h4 id>'
         - '<h5 id>'
         - '<h6 id>'
+    media_media:
+      allow_view_mode_override: false
 image_upload:
   status: true
   scheme: public
   directory: inline-images
-  max_size: ''
+  max_size: null
   max_dimensions:
-    width: 0
-    height: 0
+    width: null
+    height: null

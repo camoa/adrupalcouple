@@ -41,42 +41,54 @@ class CustomFieldType extends Plugin {
   public Translation $description;
 
   /**
-   * The default value for the check empty field setting. Defaults to FALSE
+   * The default value for the check empty field setting.
    *
-   * @see \Drupal\custom_field\Plugin\Field\FieldType\CustomItem
-   *
-   * @var boolean
+   * @var bool
    *
    * @ingroup plugin_translatable
+   * @see \Drupal\custom_field\Plugin\Field\FieldType\CustomItem
    */
   public bool $check_empty = FALSE;
 
   /**
-   * Flag to determine if this type should never be checked to determine if
-   * the customfield row is empty. This will override $check_empty.
+   * Flag to restrict this type from empty row checking.
    *
-   * @see \Drupal\custom_field\Plugin\CustomFieldType\Uuid
-   *
-   * @var boolean
+   * @var bool
    *
    * @ingroup plugin_translatable
+   * @see \Drupal\custom_field\Plugin\CustomField\FieldType\Uuid
    */
   public bool $never_check_empty = FALSE;
 
   /**
    * The category under which the field type should be listed in the UI.
    *
-   * @ingroup plugin_translatable
-   *
    * @var string
+   *
+   * @ingroup plugin_translatable
    */
   public string $category = 'general';
 
   /**
-   * An array of data types the widget supports.
+   * The plugin_id of the default widget for this field type.
    *
-   * @var array
+   * This widget must be available whenever the field type is available (i.e.
+   * provided by the field type module, or by a module the field type module
+   * depends on).
+   *
+   * @var string
    */
-  public array $data_types = [];
+  public $default_widget;
+
+  /**
+   * The plugin_id of the default formatter for this field type.
+   *
+   * This formatter must be available whenever the field type is available (i.e.
+   * provided by the field type module, or by a module the field type module
+   * depends on).
+   *
+   * @var string
+   */
+  public $default_formatter;
 
 }

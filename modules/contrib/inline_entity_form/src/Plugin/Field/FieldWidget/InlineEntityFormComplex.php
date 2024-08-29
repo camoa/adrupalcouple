@@ -126,8 +126,8 @@ class InlineEntityFormComplex extends InlineEntityFormBase implements ContainerF
   public static function defaultSettings() {
     $defaults = parent::defaultSettings();
     $defaults += [
-      'allow_new' => TRUE,
       'allow_existing' => FALSE,
+      'add_existing_widget' => 'autocomplete',
       'allow_edit' => TRUE,
       'removed_reference' => self::REMOVED_OPTIONAL,
       'match_operator' => 'CONTAINS',
@@ -154,15 +154,21 @@ class InlineEntityFormComplex extends InlineEntityFormBase implements ContainerF
         '#default_value' => $this->getSetting('auto_open'),
       ];
     }
-    $element['allow_new'] = [
-      '#type' => 'checkbox',
-      '#title' => $this->t('Allow users to add new @label.', ['@label' => $labels['plural']]),
-      '#default_value' => $this->getSetting('allow_new'),
-    ];
     $element['allow_existing'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Allow users to add existing @label.', ['@label' => $labels['plural']]),
       '#default_value' => $this->getSetting('allow_existing'),
+    ];
+    $element['add_existing_widget'] = [
+      '#type' => 'select',
+      '#title' => $this->t('Widget to add existing @label.', ['@label' => $labels['plural']]),
+      '#default_value' => $this->getSetting('add_existing_widget'),
+      '#options' => $this->getAddExistingWidgetOptions(),
+      '#states' => [
+        'visible' => [
+          ':input[name="' . $states_prefix . '[allow_existing]"]' => ['checked' => TRUE],
+        ],
+      ],
     ];
     $element['allow_edit'] = [
       '#type' => 'checkbox',
@@ -216,19 +222,21 @@ class InlineEntityFormComplex extends InlineEntityFormBase implements ContainerF
     $summary = parent::settingsSummary();
     $labels = $this->getEntityTypeLabels();
 
-    if ($this->getSetting('allow_new')) {
-      $summary[] = $this->t('New @label can be added.', ['@label' => $labels['plural']]);
-    }
-    else {
-      $summary[] = $this->t('New @label can not be created.', ['@label' => $labels['plural']]);
-    }
-
-    $match_operator_options = $this->getMatchOperatorOptions();
     if ($this->getSetting('allow_existing')) {
-      $summary[] = $this->t('Existing @label can be referenced and are matched with the %operator operator.', [
-        '@label' => $labels['plural'],
-        '%operator' => $match_operator_options[$this->getSetting('match_operator')],
-      ]);
+      if ($this->getSetting('match_operator')) {
+        $match_operator_options = $this->getMatchOperatorOptions();
+        $summary[] = $this->t('Existing @label can be referenced and are matched with the %operator operator.', [
+          '@label' => $labels['plural'],
+          '%operator' => $match_operator_options[$this->getSetting('match_operator')],
+        ]);
+      }
+      if ($this->getSetting('add_existing_widget')) {
+        $add_existing_widget_options = $this->getAddExistingWidgetOptions();
+        $summary[] = $this->t('Existing @label can be added via %widget widget.', [
+          '@label' => $labels['plural'],
+          '%widget' => $add_existing_widget_options[$this->getSetting('add_existing_widget')],
+        ]);
+      }
     }
     else {
       $summary[] = $this->t('Existing @label can not be referenced.', ['@label' => $labels['plural']]);
@@ -264,6 +272,18 @@ class InlineEntityFormComplex extends InlineEntityFormBase implements ContainerF
     }
 
     return $summary;
+  }
+  /**
+   * Returns the options for the "add existing" widget.
+   *
+   * @return array
+   *   List of options.
+   */
+  protected function getAddExistingWidgetOptions() {
+    return [
+      'autocomplete' => $this->t('Autocomplete'),
+      'select' => $this->t('Select'),
+    ];
   }
 
   /**
@@ -723,7 +743,6 @@ class InlineEntityFormComplex extends InlineEntityFormBase implements ContainerF
 
       if ($settings['allow_existing']) {
         $this->createInlineFormHandler();
-        $labels = $this->inlineFormHandler->getEntityTypeLabels();
         $element['actions']['ief_add_existing'] = [
           '#type' => 'submit',
           '#value' => $this->t('Add existing @type_singular', ['@type_singular' => $labels['singular']]),
@@ -780,8 +799,10 @@ class InlineEntityFormComplex extends InlineEntityFormBase implements ContainerF
           // values in $form_state.
           '#parents' => array_merge($parents, [$new_key]),
           '#entity_type' => $target_type,
-          '#ief_labels' => $this->inlineFormHandler->getEntityTypeLabels(),
+          '#ief_labels' => $labels,
           '#match_operator' => $this->getSetting('match_operator'),
+          '#ief_items' => $items,
+          '#ief_add_existing_widget' => $this->getSetting('add_existing_widget'),
         ];
 
         $element['form'] += inline_entity_form_reference_form($element['form'], $form_state);
@@ -860,58 +881,10 @@ class InlineEntityFormComplex extends InlineEntityFormBase implements ContainerF
         $parent = NestedArray::getValue($form, [$field_name, 'widget', 'form']);
         $element = $parent['entity_id'] ?? [];
         if (!empty($element['#value'])) {
-          $options = [
-            'target_type' => $element['#target_type'],
-            'handler' => $element['#selection_handler'],
-          ] + $element['#selection_settings'];
-          /** @var \Drupal\Core\Entity\EntityReferenceSelection\SelectionInterface $handler */
-          $handler = $this->selectionManager->getInstance($options);
-          $input_values = $element['#tags'] ? Tags::explode($element['#value']) : [$element['#value']];
-
-          foreach ($input_values as $input) {
-            $match = EntityAutocomplete::extractEntityIdFromAutocompleteInput($input);
-            if ($match === NULL) {
-              // Try to get a match from the input string when the user didn't
-              // use.
-              // the autocomplete but filled in a value manually.
-              $entities_by_bundle = $handler->getReferenceableEntities($input, '=');
-              $entities = array_reduce($entities_by_bundle, function ($flattened, $bundle_entities) {
-                return $flattened + $bundle_entities;
-              }, []);
-              $params = [
-                '%value' => $input,
-                '@value' => $input,
-              ];
-              if (empty($entities)) {
-                $form_state->setError($element, $this->t('There are no entities matching "%value".', $params));
-              }
-              elseif (count($entities) > 5) {
-                $params['@id'] = key($entities);
-                // Error if there are more than 5 matching entities.
-                $form_state->setError($element, $this->t('Many entities are called %value. Specify the one you want by appending the id in parentheses, like "@value (@id)".', $params));
-              }
-              elseif (count($entities) > 1) {
-                // More helpful error if there are only a few matching entities.
-                $multiples = [];
-                foreach ($entities as $id => $name) {
-                  $multiples[] = $name . ' (' . $id . ')';
-                }
-                $params['@id'] = $id;
-                $form_state->setError($element, $this->t('Multiple entities match this reference; "%multiple". Specify the one you want by appending the id in parentheses, like "@value (@id)".', ['%multiple' => implode('", "', $multiples)] + $params));
-              }
-              else {
-                // Take the one and only matching entity.
-                $values += [
-                  'target_id' => key($entities),
-                ];
-              }
-            }
-            else {
-              $values += [
-                'target_id' => $match,
-              ];
-            }
-          }
+          // @see inline_entity_form_extract_select
+          // @see inline_entity_form_extract_autocomplete
+          $extract_values_callback = $element['#ief_extract_values_callback'];
+          $extract_values_callback($element, $form_state, $values);
         }
       }
     }

@@ -1,14 +1,19 @@
-uuid: 26cd477d-f52b-4406-8838-e2e395fd52b8
+uuid: baa43cb4-6279-41ea-b94e-6febdce48b61
 langcode: en
 status: true
 dependencies:
+  config:
+    - taxonomy.vocabulary.tags
   module:
     - comment
     - contextual
+    - editoria11y
     - file
+    - help
     - node
     - path
     - system
+    - taxonomy
     - toolbar
     - tour
 _core:
@@ -22,12 +27,18 @@ permissions:
   - 'access content overview'
   - 'access contextual links'
   - 'access files overview'
+  - 'access help pages'
   - 'access toolbar'
   - 'access tour'
   - 'administer url aliases'
+  - 'create terms in tags'
   - 'create url aliases'
+  - 'delete own files'
   - 'edit own comments'
+  - 'edit terms in tags'
+  - 'mark as hidden in editoria11y'
   - 'revert all revisions'
   - 'view all revisions'
+  - 'view editoria11y checker'
   - 'view own unpublished content'
   - 'view the administration theme'

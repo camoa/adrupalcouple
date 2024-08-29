@@ -32,14 +32,14 @@ content:
     region: content
   schema_address:
     type: basic_string
-    label: above
+    label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 110
+    weight: 120
     region: content
   schema_image:
     type: image
-    label: above
+    label: hidden
     settings:
       image_link: ''
       image_style: ''
@@ -57,7 +57,7 @@ content:
       scale: 2
       prefix_suffix: true
     third_party_settings: {  }
-    weight: 100
+    weight: 110
     region: content
   schema_longitude:
     type: number_decimal
@@ -68,7 +68,7 @@ content:
       scale: 2
       prefix_suffix: true
     third_party_settings: {  }
-    weight: 100
+    weight: 110
     region: content
   schema_telephone:
     type: basic_string

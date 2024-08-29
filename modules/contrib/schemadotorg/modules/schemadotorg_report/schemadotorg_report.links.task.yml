@@ -35,6 +35,10 @@ schemadotorg_report.types.data_types:
   title: Data types
   route_name: schemadotorg_report.types.data_types
   parent_id: schemadotorg_report.types
+schemadotorg_report.types.descriptions:
+  title: Descriptions
+  route_name: schemadotorg_report.types.descriptions
+  parent_id: schemadotorg_report.types
 
 # Properties
 
@@ -54,21 +58,17 @@ schemadotorg_report.properties.identifier:
   title: Identifiers
   route_name: schemadotorg_report.properties.identifier
   parent_id: schemadotorg_report.properties
+schemadotorg_report.properties.descriptions:
+  title: Descriptions
+  route_name: schemadotorg_report.properties.descriptions
+  parent_id: schemadotorg_report.properties
 
-# Mappings
+# Relationships
 
-schemadotorg_report.mappings:
-  title: Mappings
-  route_name: schemadotorg_report.mappings.recommendations
-  base_route: schemadotorg_report
-schemadotorg_report.mappings.recommendations:
-  title: Recommendations
-  route_name: schemadotorg_report.mappings.recommendations
-  parent_id: schemadotorg_report.mappings
-schemadotorg_report.mappings.relationships:
+schemadotorg_report.relationships:
   title: Relationships
-  route_name: schemadotorg_report.mappings.relationships
-  parent_id: schemadotorg_report.mappings
+  route_name: schemadotorg_report.relationships
+  base_route: schemadotorg_report
 
 # Names
 
@@ -111,4 +111,3 @@ schemadotorg_report.settings:
   title: Edit
   route_name: schemadotorg_report.settings
   parent_id: schemadotorg_report.references
-

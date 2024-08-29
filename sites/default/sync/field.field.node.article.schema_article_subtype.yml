@@ -1,0 +1,23 @@
+uuid: 6da4a343-ffff-4ef8-aa77-5babdb2f3ef8
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.schema_article_subtype
+    - node.type.article
+  module:
+    - options
+id: node.article.schema_article_subtype
+field_name: schema_article_subtype
+entity_type: node
+bundle: article
+label: Subtype
+description: 'A more specific subtype for the item. This is used to allow more specificity without having to create dedicated Schema.org entity types.'
+required: false
+translatable: false
+default_value:
+  -
+    value: BlogPosting
+default_value_callback: ''
+settings: {  }
+field_type: list_string

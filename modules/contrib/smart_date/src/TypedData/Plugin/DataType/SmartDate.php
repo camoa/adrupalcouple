@@ -3,8 +3,8 @@
 namespace Drupal\smart_date\TypedData\Plugin\DataType;
 
 use Drupal\Core\Datetime\DrupalDateTime;
-use Drupal\Core\TypedData\Type\DateTimeInterface;
 use Drupal\Core\TypedData\Plugin\DataType\Timestamp;
+use Drupal\Core\TypedData\Type\DateTimeInterface;
 
 /**
  * The SmartDate data type.
@@ -22,10 +22,40 @@ class SmartDate extends Timestamp implements DateTimeInterface {
    * @var int
    */
   protected $value;
-  protected $end_value;
+
+  /**
+   * The end value of the event.
+   *
+   * @var mixed
+   */
+  protected $end_value; // phpcs:ignore
+
+  /**
+   * The duration of the event.
+   *
+   * @var mixed
+   */
   protected $duration;
+
+  /**
+   * The recurrence rule of the event.
+   *
+   * @var mixed
+   */
   protected $rrule;
-  protected $rrule_index;
+
+  /**
+   * The index of the recurrence rule.
+   *
+   * @var mixed
+   */
+  protected $rrule_index; // phpcs:ignore
+
+  /**
+   * The timezone of the event.
+   *
+   * @var mixed
+   */
   protected $timezone;
 
   /**

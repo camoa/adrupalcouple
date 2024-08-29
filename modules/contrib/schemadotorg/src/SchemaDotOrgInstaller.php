@@ -1,9 +1,10 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg;
 
+use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Database\Connection;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
@@ -13,6 +14,20 @@ use Drupal\schemadotorg\Utility\SchemaDotOrgStringHelper;
 
 /**
  * Schema.org installer service.
+ *
+ * The Schema.org installer service creates the 'schemadotorg_types' and
+ * 'schemadotorg_properties' database tables and populates these tables using
+ * the CSV data provided by Schema.org.
+ *
+ * This service also checks the requirements for installing the Schema.org
+ * Blueprints module and allows Schema.org label and comments to be translated
+ * using Drupal's string translation system.
+ *
+ * @see https://github.com/schemaorg/schemaorg/tree/main/data
+ * @see data/VERSION/schemaorg-current-https-types.csv
+ * @see data/VERSION/schemaorg-current-https-properties.csv
+ * @see data/VERSION/schemaorg-current-https-properties.csv
+ * @see data/VERSION/schemaorg-current-https-types.csv
  */
 class SchemaDotOrgInstaller implements SchemaDotOrgInstallerInterface {
   use StringTranslationTrait;
@@ -20,13 +35,15 @@ class SchemaDotOrgInstaller implements SchemaDotOrgInstallerInterface {
   /**
    * Schema.org version.
    */
-  const VERSION = '15.0';
+  const VERSION = '26.0';
 
   /**
    * Constructs a SchemaDotOrgInstaller object.
    *
    * @param \Drupal\Core\Database\Connection $database
    *   The database connection.
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
+   *   The config factory.
    * @param \Drupal\Core\Extension\ModuleHandlerInterface $moduleHandler
    *   The module handler.
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
@@ -38,24 +55,104 @@ class SchemaDotOrgInstaller implements SchemaDotOrgInstallerInterface {
    */
   public function __construct(
     protected Connection $database,
+    protected ConfigFactoryInterface $configFactory,
     protected ModuleHandlerInterface $moduleHandler,
     protected EntityTypeManagerInterface $entityTypeManager,
     protected SchemaDotOrgNamesInterface $schemaNames,
-    protected SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager
+    protected SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager,
   ) {}
 
   /**
    * {@inheritdoc}
    */
-  public function requirements(string $phase): ?array {
+  public function requirements(string $phase): array {
     if ($phase !== 'runtime') {
-      return NULL;
+      return [];
     }
 
     $requirements = [];
+    $this->checkNamesRequirements($requirements);
     $this->checkRecommendedRequirements($requirements);
     $this->checkIntegrationRequirements($requirements);
     return $requirements;
+  }
+
+  /**
+   * Check for Schema.org names requirements.
+   *
+   * @param array &$requirements
+   *   An associative array of requirements for status reporting.
+   *
+   * @see \Drupal\schemadotorg_report\Controller\SchemaDotOrgReportNamesController::overview
+   */
+  protected function checkNamesRequirements(array &$requirements): void {
+    $truncated = [];
+
+    $tables = ['types', 'properties'];
+    foreach ($tables as $table) {
+      $labels = $this->database->select('schemadotorg_' . $table, 't')
+        ->fields('t', ['label'])
+        ->orderBy('label')
+        ->execute()
+        ->fetchCol();
+
+      foreach ($labels as $label) {
+        // For types, we only care about Things and Intangibles.
+        if ($table === 'types') {
+          $is_enumeration = ($this->schemaTypeManager->isEnumerationValue($label) || $this->schemaTypeManager->isEnumerationType($label));
+          if ($is_enumeration) {
+            continue;
+          }
+        }
+
+        $max_length = $this->schemaNames->getNameMaxLength($table);
+        $name = $this->schemaNames->camelCaseToSnakeCase($label);
+        $drupal_name = $this->schemaNames->schemaIdToDrupalName($table, $label);
+        $drupal_name_length = strlen($drupal_name);
+        if ($drupal_name_length > $max_length) {
+          $truncated[$name] = [
+            'label' => $label,
+            'name' => $drupal_name,
+            'length' => $drupal_name_length,
+            'max_length' => $max_length,
+          ];
+        }
+      }
+    }
+
+    if ($truncated) {
+      $requirements['schemadotorg_names'] = [
+        'title' => $this->t('Schema.org Blueprints: Names'),
+        'value' => $this->t('Schema.org type and property names are being truncated. Please update the <a href=":href">Schema.org names settings</a>.', [':href' => Url::fromRoute('schemadotorg.settings.names')->toString()]),
+        'description' => [
+          'content' => [
+            '#markup' => $this->t('The below type and property names need to truncated.'),
+            '#prefix' => '<p>',
+            '#suffix' => '</p>',
+          ],
+          'table' => [
+            '#type' => 'table',
+            '#header' => [
+              $this->t('Label'),
+              [
+                'data' => $this->t('Name'),
+                'class' => [RESPONSIVE_PRIORITY_LOW],
+              ],
+              [
+                'data' => $this->t('Length'),
+                'class' => [RESPONSIVE_PRIORITY_LOW],
+              ],
+              [
+                'data' => $this->t('Max length'),
+                'class' => [RESPONSIVE_PRIORITY_LOW],
+              ],
+            ],
+            '#rows' => $truncated,
+          ],
+        ],
+        'severity' => REQUIREMENT_ERROR,
+      ];
+    }
   }
 
   /**
@@ -65,9 +162,21 @@ class SchemaDotOrgInstaller implements SchemaDotOrgInstallerInterface {
    *   An associative array of requirements for status reporting.
    */
   protected function checkRecommendedRequirements(array &$requirements): void {
+    $recommended_modules = $this->configFactory
+      ->get('schemadotorg.settings')
+      ->get('requirements.recommended_modules');
+    if (!$recommended_modules) {
+      return;
+    }
+
     // NOTE: Suggestions are also included the Schema.org Blueprints
     // composer.json file.
     $recommended_modules = [
+      'address' => [
+        'title' => $this->t('Address'),
+        'description' => $this->t('Provides functionality for storing, validating and displaying international postal addresses.'),
+        'uri' => 'https://www.drupal.org/project/address',
+      ],
       'datetime' => [
         'title' => $this->t('Datetime'),
         'description' => $this->t('Defines datetime form elements and a datetime field type.'),
@@ -88,15 +197,15 @@ class SchemaDotOrgInstaller implements SchemaDotOrgInstallerInterface {
         'description' => $this->t('Enhances the media list with additional features to more easily find and use existing media items.'),
         'uri' => 'https://www.drupal.org/docs/8/core/modules/media_library',
       ],
+      'redirect' => [
+        'title' => $this->t('Redirect'),
+        'description' => $this->t('Provides the ability to create manual redirects and maintain a canonical URL for all content, redirecting all other requests to that path. It is recommended to enable the "@option" option.', ['@option' => $this->t('Automatically create redirects when URL aliases are changed.')]),
+        'uri' => 'https://www.drupal.org/project/redirect',
+      ],
       'telephone' => [
         'title' => $this->t('Telephone'),
         'description' => $this->t('Defines a field type for telephone numbers.'),
         'uri' => 'https://www.drupal.org/docs/8/core/modules/telephone',
-      ],
-      'address' => [
-        'title' => $this->t('Address'),
-        'description' => $this->t('Provides functionality for storing, validating and displaying international postal addresses.'),
-        'uri' => 'https://www.drupal.org/project/address',
       ],
     ];
 
@@ -162,7 +271,7 @@ class SchemaDotOrgInstaller implements SchemaDotOrgInstallerInterface {
         'uri' => 'https://git.drupalcode.org/project/schemadotorg/-/tree/1.0.x/modules/schemadotorg_taxonomy)**',
       ],
     ];
-    foreach ($integration_modules as $module_name => $intergration_module) {
+    foreach ($integration_modules as $module_name => $integration_module) {
       if (!$this->moduleHandler->moduleExists($module_name)
         || $this->moduleHandler->moduleExists('schemadotorg_' . $module_name)) {
         unset($integration_modules[$module_name]);
@@ -216,47 +325,6 @@ class SchemaDotOrgInstaller implements SchemaDotOrgInstallerInterface {
     // Import Schema.org types and properties tables.
     $this->importTable('types');
     $this->importTable('properties');
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function installModules(?array $modules = NULL): void {
-    $modules = $modules ?? array_keys($this->moduleHandler->getModuleList());
-    // Create default mapping type for modules that provide content entities
-    // that could be mapped to Schema.org types.
-    $mapping_types = [
-      // Module name.
-      'storage' => [
-        // Target entity type id.
-        'storage' => [
-          // Mapping type default values.
-          'default_base_fields' => [
-            'uuid' => [],
-            'user_id' => [],
-            'langcode' => ['inLanguage'],
-            'name' => ['name', 'headline', 'title'],
-            'created' => ['dateCreated'],
-            'changed' => ['dateModified'],
-          ],
-        ],
-      ],
-    ];
-    /** @var \Drupal\schemadotorg\SchemaDotOrgMappingTypeStorageInterface $mapping_type_storage */
-    $mapping_type_storage = $this->entityTypeManager->getStorage('schemadotorg_mapping_type');
-    foreach ($modules as $module) {
-      if (isset($mapping_types[$module])) {
-        foreach ($mapping_types[$module] as $target_entity_type_id => $values) {
-          $values = $mapping_types[$module] + [
-            'multiple' => FALSE,
-            'target_entity_type_id' => $target_entity_type_id,
-          ];
-          if (!$mapping_type_storage->load($target_entity_type_id)) {
-            $mapping_type_storage->create($values)->save();
-          }
-        }
-      }
-    }
   }
 
   /**
@@ -335,6 +403,7 @@ class SchemaDotOrgInstaller implements SchemaDotOrgInstallerInterface {
       'primary key' => ['id'],
       'indexes' => [
         'label' => ['label'],
+        'enumerationtype' => ['enumerationtype'],
       ],
     ];
     // Schema.org: Properties.
@@ -458,7 +527,7 @@ class SchemaDotOrgInstaller implements SchemaDotOrgInstallerInterface {
         }
         $strings[] = '';
       }
-      $filename = __DIR__ . '/../data/' . static::VERSION . '/schemaorgdotorg.translations.' . $table . '.inc';
+      $filename = __DIR__ . '/../data/' . static::VERSION . '/schemaorg.translations.' . $table . '.inc';
       $translatable_strings = implode(PHP_EOL, $strings);
       $contents = <<<EOT
         <?php
@@ -477,7 +546,7 @@ class SchemaDotOrgInstaller implements SchemaDotOrgInstallerInterface {
          * @see https://localize.drupal.org/translate/languages/en-gb/translate?project=schemadotorg
          */
 
-        declare(strict_types = 1);
+        declare(strict_types=1);
 
         // phpcs:disable Drupal.Semantics.FunctionT.BackslashSingleQuote
 
@@ -517,6 +586,13 @@ class SchemaDotOrgInstaller implements SchemaDotOrgInstallerInterface {
   }
 
   /**
+   * {@inheritdoc}
+   */
+  public function validateFileName(string $file): bool {
+    return (bool) $this->getFileName('types', $file);
+  }
+
+  /**
    * Installs and populates Schema.org table.
    *
    * @param string $name
@@ -524,7 +600,10 @@ class SchemaDotOrgInstaller implements SchemaDotOrgInstallerInterface {
    */
   protected function importTable(string $name): void {
     $table = 'schemadotorg_' . $name;
-    $filename = __DIR__ . '/../data/' . static::VERSION . '/schemaorg-current-https-' . $name . '.csv';
+    $filename = $this->getFileName($name);
+    if (!$filename) {
+      return;
+    }
 
     // Truncate table.
     $this->database->truncate($table)->execute();
@@ -534,9 +613,10 @@ class SchemaDotOrgInstaller implements SchemaDotOrgInstallerInterface {
 
     // Get field names.
     $fields = fgetcsv($handle);
-    array_walk($fields, function (&$field_name): void {
-      $field_name = $this->schemaNames->camelCaseToSnakeCase($field_name);
-    });
+    array_walk(
+      $fields,
+      fn(&$field_name) => ($field_name = $this->schemaNames->camelCaseToSnakeCase($field_name))
+    );
 
     // Insert multiple records.
     $query = $this->database->insert($table)->fields($fields);
@@ -561,6 +641,48 @@ class SchemaDotOrgInstaller implements SchemaDotOrgInstallerInterface {
       }
       $this->database->schema()->createTable($name, $table);
     }
+  }
+
+  /**
+   * Get the Schema.org data file name/URL.
+   *
+   * @param string $name
+   *   The table name.
+   * @param string|null $file
+   *   The Schema.org data file name/URL.
+   *
+   * @return string|null
+   *   The Schema.org data file name/URL.
+   */
+  protected function getFileName(string $name, ?string $file = NULL): ?string {
+    $file = $file ?: $this->configFactory->get('schemadotorg.settings')
+      ->get('schema_data.file');
+
+    $file = str_replace('[VERSION]', static::VERSION, $file);
+    $file = str_replace('[TABLE]', $name, $file);
+
+    // Check file with absolute URL.
+    // @see https://www.geeksforgeeks.org/how-to-check-the-existence-of-url-in-php/
+    if (str_starts_with($file, 'http')) {
+      $headers = @get_headers($file);
+      if ($headers && !str_contains($headers[0], '404')) {
+        return $file;
+      }
+    }
+
+    $files = [
+      __DIR__ . '/..' . $file,
+      __DIR__ . '/../' . $file,
+      DRUPAL_ROOT . '/' . $file,
+      DRUPAL_ROOT . $file,
+      $file,
+    ];
+    foreach ($files as $file) {
+      if (file_exists($file)) {
+        return $file;
+      }
+    }
+    return NULL;
   }
 
 }

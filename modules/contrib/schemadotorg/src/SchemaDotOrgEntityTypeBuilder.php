@@ -1,9 +1,11 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg;
 
+use Drupal\Component\Utility\NestedArray;
+use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityDisplayRepositoryInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
@@ -11,16 +13,23 @@ use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Field\FieldTypePluginManagerInterface;
 use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
+use Drupal\schemadotorg\Traits\SchemaDotOrgMappingStorageTrait;
 
 /**
  * Schema.org entity type builder service.
+ *
+ * The Schema.org entity type builder service handle the creation of an entity
+ * bundle for Schema.org along with adding fields to the entity bundle.
  */
 class SchemaDotOrgEntityTypeBuilder implements SchemaDotOrgEntityTypeBuilderInterface {
   use StringTranslationTrait;
+  use SchemaDotOrgMappingStorageTrait;
 
   /**
-   * Constructs a SchemaDotOrgBuilder object.
+   * Constructs a SchemaDotOrgEntityTypeBuilder object.
    *
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
+   *   The configuration object factory.
    * @param \Drupal\Core\Messenger\MessengerInterface $messenger
    *   The messenger service.
    * @param \Drupal\Core\Extension\ModuleHandlerInterface $moduleHandler
@@ -37,13 +46,14 @@ class SchemaDotOrgEntityTypeBuilder implements SchemaDotOrgEntityTypeBuilderInte
    *   The Schema.org entity display builder.
    */
   public function __construct(
+    protected ConfigFactoryInterface $configFactory,
     protected MessengerInterface $messenger,
     protected ModuleHandlerInterface $moduleHandler,
     protected EntityTypeManagerInterface $entityTypeManager,
     protected EntityDisplayRepositoryInterface $entityDisplayRepository,
     protected FieldTypePluginManagerInterface $fieldTypePluginManager,
     protected SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager,
-    protected SchemaDotOrgEntityDisplayBuilderInterface $schemaEntityDisplayBuilder
+    protected SchemaDotOrgEntityDisplayBuilderInterface $schemaEntityDisplayBuilder,
   ) {}
 
   /**
@@ -70,7 +80,9 @@ class SchemaDotOrgEntityTypeBuilder implements SchemaDotOrgEntityTypeBuilderInte
     /** @var \Drupal\Core\Entity\Sql\SqlContentEntityStorage $bundle_entity_storage */
     $bundle_entity_storage = $this->entityTypeManager->getStorage($entity_type_id);
     $bundle_entity = $bundle_entity_storage->create($entity_values);
+    // @phpstan-ignore-next-line
     $bundle_entity->schemaDotOrgType = $schema_type;
+    // @phpstan-ignore-next-line
     $bundle_entity->schemaDotOrgValues =& $values;
     $bundle_entity->save();
 
@@ -116,13 +128,21 @@ class SchemaDotOrgEntityTypeBuilder implements SchemaDotOrgEntityTypeBuilderInte
       'required' => NULL,
       // Extra field settings.
       'max_length' => NULL,
+      'default_value' => NULL,
       'allowed_values' => [],
       // Schema.org type and property.
       'schema_type' => NULL,
       'schema_property' => NULL,
+      // Additional defaults.
+      'field_values' => [],
+      'field_storage_values' => [],
+      'widget_id' => NULL,
+      'widget_settings' => [],
+      'formatter_id' => NULL,
+      'formatter_settings' => [],
     ];
 
-    /** @var \Drupal\field\FieldStorageConfigInterface $field_storage_config */
+    /** @var \Drupal\field\FieldStorageConfigInterface|null $field_storage_config */
     $field_storage_config = $this->entityTypeManager
       ->getStorage('field_storage_config')
       ->load($entity_type_id . '.' . $field['machine_name']);
@@ -136,6 +156,7 @@ class SchemaDotOrgEntityTypeBuilder implements SchemaDotOrgEntityTypeBuilderInte
     $field_required = $field['required'];
     // Extra field settings.
     $field_max_length = $field['max_length'];
+    $field_default_value = $field['default_value'];
     $field_allowed_values = $field['allowed_values'];
     // Schema.org type and property.
     $schema_type = $field['schema_type'];
@@ -153,6 +174,7 @@ class SchemaDotOrgEntityTypeBuilder implements SchemaDotOrgEntityTypeBuilderInte
       'allowed_values' => $field_allowed_values,
       'max_length' => $field_max_length,
     ];
+    $field_storage_values = NestedArray::mergeDeep($field['field_storage_values'], $field_storage_values);
 
     // Set field instance values.
     $field_values = [
@@ -163,12 +185,18 @@ class SchemaDotOrgEntityTypeBuilder implements SchemaDotOrgEntityTypeBuilderInte
       'description' => $field_description,
       'required' => $field_required,
     ];
+    if (!is_null($field_default_value)) {
+      $field_values['default_value'] = (is_array($field_default_value))
+        ? $field_default_value
+        : ['value' => $field_default_value];
+    }
+    $field_values = NestedArray::mergeDeep($field['field_values'], $field_values);
 
     // Initialize widget and formatter id and settings.
-    $widget_id = NULL;
-    $widget_settings = [];
-    $formatter_id = NULL;
-    $formatter_settings = [];
+    $widget_id = $field['widget_id'];
+    $widget_settings = $field['widget_settings'];
+    $formatter_id = $field['formatter_id'];
+    $formatter_settings = $field['formatter_settings'];
 
     // If new field UI field we need to get the preconfigured field.
     // These preconfigured field are typically used for entity references.
@@ -199,10 +227,10 @@ class SchemaDotOrgEntityTypeBuilder implements SchemaDotOrgEntityTypeBuilderInte
       }
 
       // Get widget and format id and settings.
-      $widget_id = $field_options['entity_form_display']['type'] ?? NULL;
-      $widget_settings = $field_options['entity_form_display']['settings'] ?? [];
-      $formatter_id = $field_options['entity_view_display']['type'] ?? NULL;
-      $formatter_settings = $field_options['entity_view_display']['settings'] ?? [];
+      $widget_id = $field_options['entity_form_display']['type'] ?? $widget_id;
+      $widget_settings = $field_options['entity_form_display']['settings'] ?? $widget_settings;
+      $formatter_id = $field_options['entity_view_display']['type'] ?? $formatter_id;
+      $formatter_settings = $field_options['entity_view_display']['settings'] ?? $formatter_settings;
     }
 
     // Alter field values.
@@ -281,7 +309,7 @@ class SchemaDotOrgEntityTypeBuilder implements SchemaDotOrgEntityTypeBuilderInte
     ?string &$widget_id,
     array &$widget_settings,
     ?string &$formatter_id,
-    array &$formatter_settings
+    array &$formatter_settings,
   ): void {
     // Don't copy existing field values for generic Schema.org properties used
     // to manage different types of data.
@@ -341,7 +369,7 @@ class SchemaDotOrgEntityTypeBuilder implements SchemaDotOrgEntityTypeBuilderInte
     ?string &$widget_id,
     array &$widget_settings,
     ?string &$formatter_id,
-    array &$formatter_settings
+    array &$formatter_settings,
   ): void {
     // Get the entity type id and field.
     $entity_type_id = $field_values['entity_type'];
@@ -377,20 +405,29 @@ class SchemaDotOrgEntityTypeBuilder implements SchemaDotOrgEntityTypeBuilderInte
       $field_values['description'] = $existing_field_config->get('description');
     }
 
-    // Set widget id and settings from existing form display.
+    // Set widget id and settings and third_party_settings
+    // from the existing form display.
     $form_display = $this->entityDisplayRepository->getFormDisplay($entity_type_id, $existing_bundle);
     $existing_form_component = $form_display->getComponent($field_name);
     if ($existing_form_component) {
       $widget_id = $existing_form_component['type'];
       $widget_settings = $existing_form_component['settings'];
+      if (!empty($existing_form_component['third_party_settings'])) {
+        $widget_settings['third_party_settings'] = $existing_form_component['third_party_settings'];
+      }
     }
 
-    // Set formatter id and settings from existing view display.
+    // Set formatter id and settings, label, and third_party_settings
+    // from the existing view display.
     $view_display = $this->entityDisplayRepository->getViewDisplay($entity_type_id, $existing_bundle);
     $existing_view_component = $view_display->getComponent($field_name);
     if ($existing_view_component) {
       $formatter_id = $existing_view_component['type'];
       $formatter_settings = $existing_view_component['settings'];
+      $formatter_settings['label'] = $existing_view_component['label'];
+      if (!$existing_view_component['third_party_settings']) {
+        $formatter_settings['third_party_settings'] = $existing_view_component['third_party_settings'];
+      }
     }
   }
 
@@ -422,8 +459,18 @@ class SchemaDotOrgEntityTypeBuilder implements SchemaDotOrgEntityTypeBuilderInte
     ?string &$widget_id,
     array &$widget_settings,
     ?string &$formatter_id,
-    array &$formatter_settings
+    array &$formatter_settings,
   ): void {
+
+    // Set default formatter settings by schema type and property.
+    $default_field_formatter_settings = $this->configFactory
+      ->get('schemadotorg.settings')
+      ->get('schema_properties.default_field_formatter_settings');
+    $formatter_settings += $default_field_formatter_settings["$schema_type--$schema_property"]
+      ?? $default_field_formatter_settings[$schema_property]
+      ?? [];
+
+    // Set default by field storage type.
     switch ($field_storage_values['type']) {
       case 'boolean':
         $field_values['settings'] = [
@@ -434,6 +481,7 @@ class SchemaDotOrgEntityTypeBuilder implements SchemaDotOrgEntityTypeBuilderInte
 
       case 'datetime':
         switch ($schema_property) {
+          case 'expires':
           case 'dateCreated':
           case 'dateDeleted':
           case 'dateIssued':
@@ -443,6 +491,8 @@ class SchemaDotOrgEntityTypeBuilder implements SchemaDotOrgEntityTypeBuilderInte
           case 'dateVehicleFirstRegistered':
           case 'dissolutionDate':
           case 'paymentDueDate':
+          case 'validFrom':
+          case 'validThrough':
             $is_date = TRUE;
             break;
 
@@ -461,21 +511,24 @@ class SchemaDotOrgEntityTypeBuilder implements SchemaDotOrgEntityTypeBuilderInte
 
       case 'entity_reference':
       case 'entity_reference_revisions':
-        /** @var \Drupal\schemadotorg\SchemaDotOrgMappingStorageInterface $mapping_storage */
-        $mapping_storage = $this->entityTypeManager
-          ->getStorage('schemadotorg_mapping');
-
         $target_type = $field_storage_values['settings']['target_type'] ?? 'node';
-        $target_bundles = $mapping_storage->getSchemaPropertyTargetBundles($target_type, $schema_type, $schema_property);
-        if (!$target_bundles) {
-          return;
+        $range_includes = $this->getMappingStorage()->getSchemaPropertyRangeIncludes($schema_type, $schema_property)
+          ?: ['Thing'];
+
+        // Make sure that the ranges includes only includes Things
+        // and not DataTypes or Enumerations.
+        foreach ($range_includes as $range_include_type) {
+          if (!$this->schemaTypeManager->isThing($range_include_type)) {
+            unset($range_includes[$range_include_type]);
+          }
         }
 
         $handler_settings = [];
-        $handler_settings['target_bundles'] = $target_bundles;
+        $handler_settings['target_type'] = $target_type;
+        $handler_settings['schema_types'] = $range_includes;
 
         $field_values['settings'] = [
-          'handler' => 'default:' . $target_type,
+          'handler' => 'schemadotorg:' . $target_type,
           'handler_settings' => $handler_settings,
         ];
         break;

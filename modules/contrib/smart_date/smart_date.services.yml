@@ -1,6 +1,6 @@
 services:
   smart_date.manager:
-      class: Drupal\smart_date\SmartDateManager
+    class: Drupal\smart_date\SmartDateManager
   smart_date.route_subscriber:
     class: Drupal\smart_date\Routing\RouteSubscriber
     tags:

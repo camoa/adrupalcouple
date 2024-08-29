@@ -1,9 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-id: node
-label: Content
-icon_uuid: ''
-icon_default: null
-description: 'A teaser for content.'
-behavior_plugins: {  }

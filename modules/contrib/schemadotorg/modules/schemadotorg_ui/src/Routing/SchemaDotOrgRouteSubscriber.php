@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg_ui\Routing;
 
@@ -28,13 +28,13 @@ class SchemaDotOrgRouteSubscriber extends RouteSubscriberBase {
    */
   public function __construct(
     protected ModuleHandlerInterface $moduleHandler,
-    protected EntityTypeManagerInterface $entityTypeManager
+    protected EntityTypeManagerInterface $entityTypeManager,
   ) {}
 
   /**
    * {@inheritdoc}
    */
-  protected function alterRoutes(RouteCollection $collection) {
+  protected function alterRoutes(RouteCollection $collection): void {
     /** @var \Drupal\schemadotorg\SchemaDotOrgMappingTypeStorageInterface $mapping_type_storage */
     $mapping_type_storage = $this->entityTypeManager->getStorage('schemadotorg_mapping_type');
     $entity_types = $mapping_type_storage->getEntityTypes();

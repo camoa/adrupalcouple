@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg_cer;
 
@@ -32,10 +32,5 @@ interface SchemaDotOrgCorrespondingReferenceManagerInterface {
    *   The Schema.org mapping.
    */
   public function mappingInsert(SchemaDotOrgMappingInterface $mapping): void;
-
-  /**
-   * Sync entity references target bundles for all Schema.org mappings.
-   */
-  public function syncEntityReferencesTargetBundles(): void;
 
 }

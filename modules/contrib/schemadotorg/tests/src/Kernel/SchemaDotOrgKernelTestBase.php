@@ -1,10 +1,9 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\Tests\schemadotorg\Kernel;
 
-use Drupal\Component\Render\MarkupInterface;
 use Drupal\KernelTests\Core\Entity\EntityKernelTestBase;
 use Drupal\Tests\schemadotorg\Traits\SchemaDotOrgTestTrait;
 
@@ -15,27 +14,24 @@ abstract class SchemaDotOrgKernelTestBase extends EntityKernelTestBase {
   use SchemaDotOrgTestTrait;
 
   /**
-   * Modules to enable.
-   *
-   * @var array
+   * {@inheritdoc}
    */
-  protected static $modules = ['schemadotorg'];
+  protected static $modules = ['node', 'user', 'schemadotorg'];
 
   /**
-   * Convert all render(able) markup into strings.
-   *
-   * @param array $elements
-   *   An associative array of elements.
+   * Installs the Schema.org module's entities, config, and tables.
    */
-  protected function convertMarkupToStrings(array &$elements): void {
-    foreach ($elements as $key => &$value) {
-      if (is_array($value)) {
-        self::convertMarkupToStrings($value);
-      }
-      elseif ($value instanceof MarkupInterface) {
-        $elements[$key] = (string) $value;
-      }
-    }
+  protected function installSchemaDotOrg(): void {
+    $this->installEntitySchema('schemadotorg_mapping');
+    $this->installEntitySchema('schemadotorg_mapping_type');
+
+    $this->installConfig(['schemadotorg']);
+
+    $this->installSchema('schemadotorg', ['schemadotorg_types', 'schemadotorg_properties']);
+
+    /** @var \Drupal\schemadotorg\SchemaDotOrgInstallerInterface $installer */
+    $installer = $this->container->get('schemadotorg.installer');
+    $installer->install();
   }
 
 }

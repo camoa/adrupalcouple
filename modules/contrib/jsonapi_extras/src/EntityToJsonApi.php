@@ -63,7 +63,7 @@ class EntityToJsonApi {
     HttpKernelInterface $http_kernel,
     ResourceTypeRepositoryInterface $resource_type_repository,
     SessionInterface $session,
-    RequestStack $request_stack
+    RequestStack $request_stack,
   ) {
     $this->httpKernel = $http_kernel;
     $this->resourceTypeRepository = $resource_type_repository;
@@ -112,7 +112,10 @@ class EntityToJsonApi {
       $request->setSession($this->session);
     }
     $response = $this->httpKernel->handle($request, HttpKernelInterface::SUB_REQUEST);
-    return $response->getContent();
+    // Get contents and terminate response before returning results.
+    $content = $response->getContent();
+    $this->httpKernel->terminate($request, $response);
+    return $content;
   }
 
   /**

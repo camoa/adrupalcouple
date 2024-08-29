@@ -10,5 +10,10 @@
     "issues": "https://www.drupal.org/project/issues/custom_field",
     "source": "http://cgit.drupalcode.org/custom_field"
   },
-  "require": { }
+  "require": {
+    "drupal/core": "^9.4 || ^10.1"
+  },
+  "require-dev": {
+    "drupal/feeds": "3.x-dev"
+  }
 }

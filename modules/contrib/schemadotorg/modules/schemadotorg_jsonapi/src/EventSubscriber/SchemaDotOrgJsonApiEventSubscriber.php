@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg_jsonapi\EventSubscriber;
 
@@ -43,7 +43,7 @@ class SchemaDotOrgJsonApiEventSubscriber extends ServiceProviderBase implements 
     protected RouteMatchInterface $routeMatch,
     protected EntityTypeManagerInterface $entityTypeManager,
     protected ConfigurableResourceTypeRepository $resourceTypeRepository,
-    protected SchemaDotOrgJsonApiManagerInterface $schemaJsonApiManager
+    protected SchemaDotOrgJsonApiManagerInterface $schemaJsonApiManager,
   ) {}
 
   /**
@@ -62,7 +62,7 @@ class SchemaDotOrgJsonApiEventSubscriber extends ServiceProviderBase implements 
     // Header.
     // Add 'JSON:API' to header after 'Name'.
     // @see \Drupal\schemadotorg\SchemaDotOrgMappingTypeListBuilder::buildHeader
-    $details_toggle = (boolean) $event->getRequest()->query->get('details') ?? 0;
+    $details_toggle = (boolean) ($event->getRequest()->query->get('details') ?? 0);
     $header_width = $details_toggle ? '10%' : '27%';
     $header =& $result['table']['#header'];
     $header['bundle_label']['width'] = $header_width;
@@ -84,6 +84,7 @@ class SchemaDotOrgJsonApiEventSubscriber extends ServiceProviderBase implements 
       [$entity_type_id, $bundle] = explode('.', $id);
       $resource_id = "$entity_type_id--$bundle";
 
+      /** @var \Drupal\jsonapi_extras\Entity\JsonapiResourceConfig|null $resource_config */
       $resource_config = $this->entityTypeManager->getStorage('jsonapi_resource_config')->load($resource_id);
       $resource_type_name = ($resource_config && $resource_config->get('resourceType'))
         ? $resource_config->get('resourceType')

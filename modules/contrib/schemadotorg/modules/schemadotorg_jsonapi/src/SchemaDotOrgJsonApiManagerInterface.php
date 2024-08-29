@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg_jsonapi;
 
@@ -43,9 +43,9 @@ interface SchemaDotOrgJsonApiManagerInterface {
   /**
    * Insert field into JSON:API resource config.
    *
-   * @param \Drupal\field\FieldConfigInterface $field
-   *   The field.
+   * @param \Drupal\field\FieldConfigInterface $field_config
+   *   The field config.
    */
-  public function insertFieldConfigResource(FieldConfigInterface $field): void;
+  public function insertFieldConfigResource(FieldConfigInterface $field_config): void;
 
 }

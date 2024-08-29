@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg_jsonld_endpoint\EventSubscriber;
 
@@ -23,7 +23,7 @@ class SchemaDotOrgJsonLdEndpointEventSubscriber extends ServiceProviderBase impl
    *   The route provider.
    */
   public function __construct(
-    protected AccessAwareRouterInterface $routeProvider
+    protected AccessAwareRouterInterface $routeProvider,
   ) {}
 
   /**
@@ -31,8 +31,11 @@ class SchemaDotOrgJsonLdEndpointEventSubscriber extends ServiceProviderBase impl
    *
    * @param \Drupal\jsonapi\Events\CollectResourceObjectMetaEvent $event
    *   The event used for collecting resource object metadata.
+   *
+   * @phpstan-ignore-next-line
    */
   public function addResourceObjectMeta(CollectResourceObjectMetaEvent $event): void {
+
     $resource_object = $event->getResourceObject();
     $resource_type = $resource_object->getResourceType();
 

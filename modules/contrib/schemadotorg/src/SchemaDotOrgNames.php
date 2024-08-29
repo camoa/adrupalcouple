@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg;
 
@@ -10,7 +10,12 @@ use Drupal\Core\Config\ImmutableConfig;
 /**
  * Schema.org names service.
  *
- * @see https://www.allacronyms.com/
+ * The Schema.org names service converts Schema.org's naming convention and
+ * labels into Drupal friendly machine names and labels.
+ *
+ * For example, Schema.org uses camel-case for ids and labels, while
+ * Drupal uses snake case with character limits for ids and uses sentence case
+ * for most labels.
  */
 class SchemaDotOrgNames implements SchemaDotOrgNamesInterface {
 
@@ -21,23 +26,33 @@ class SchemaDotOrgNames implements SchemaDotOrgNamesInterface {
    *   The configuration object factory.
    */
   public function __construct(
-    protected ConfigFactoryInterface $configFactory
+    protected ConfigFactoryInterface $configFactory,
   ) {}
 
   /**
    * {@inheritdoc}
    */
   public function getFieldPrefix(): string {
-    return $this->getSettingsConfig()->get('field_prefix');
+    return $this->configFactory
+      ->get('schemadotorg_field_prefix.settings')
+      ->get('field_prefix') ?? 'schema_';
   }
 
   /**
    * {@inheritdoc}
    */
   public function getNameMaxLength(string $table): int {
-    return ($table === 'properties')
-      ? 32 - strlen($this->getFieldPrefix())
-      : 32;
+    if ($table === 'properties') {
+      return 32 - strlen($this->getFieldPrefix());
+    }
+    else {
+      $config_names = $this->configFactory->listAll('schemadotorg.schemadotorg_mapping_type.');
+      $prefix_lengths = [0];
+      foreach ($config_names as $config_name) {
+        $prefix_lengths[] = strlen((string) $this->configFactory->get($config_name)->get('id_prefix'));
+      }
+      return 32 - max($prefix_lengths);
+    }
   }
 
   /**
@@ -83,17 +98,21 @@ class SchemaDotOrgNames implements SchemaDotOrgNamesInterface {
     // Acronyms.
     $acronyms = $this->getNamesConfig()->get('acronyms');
     if ($acronyms) {
-      $title = preg_replace_callback('/(\b)(' . implode('|', $acronyms) . ')(\b)/i', function ($matches) {
-        return $matches[1] . strtoupper($matches[2]) . $matches[3];
-      }, $title);
+      $title = preg_replace_callback(
+        '/(\b)(' . implode('|', $acronyms) . ')(\b)/i',
+        fn($matches) => $matches[1] . strtoupper($matches[2]) . $matches[3],
+        $title
+      );
     }
 
     // Minor words.
     $minor_words = $this->getNamesConfig()->get('minor_words');
     if ($minor_words) {
-      $title = preg_replace_callback('/ (' . implode('|', $minor_words) . ')(\b)/i', function ($matches) {
-        return ' ' . strtolower($matches[1]) . $matches[2];
-      }, $title);
+      $title = preg_replace_callback(
+        '/ (' . implode('|', $minor_words) . ')(\b)/i',
+        fn($matches) => ' ' . strtolower($matches[1]) . $matches[2],
+        $title
+      );
     }
 
     return ucfirst($title);
@@ -104,9 +123,11 @@ class SchemaDotOrgNames implements SchemaDotOrgNamesInterface {
    */
   public function camelCaseToSentenceCase(string $string): string {
     $sentence = $this->camelCaseToTitleCase($string);
-    $sentence = preg_replace_callback('/ ([A-Z])([a-z])/', function ($matches) {
-      return ' ' . strtolower($matches[1]) . $matches[2];
-    }, $sentence);
+    $sentence = preg_replace_callback(
+      '/ ([A-Z])([a-z])/',
+      fn($matches) => ' ' . strtolower($matches[1]) . $matches[2],
+      $sentence
+    );
     return ucfirst($sentence);
   }
 

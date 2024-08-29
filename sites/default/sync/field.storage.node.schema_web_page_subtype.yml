@@ -1,0 +1,30 @@
+uuid: 63fa1130-cf25-4018-b4ec-17fea26178e0
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - options
+id: node.schema_web_page_subtype
+field_name: schema_web_page_subtype
+entity_type: node
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: AboutPage
+      label: 'About Page'
+    -
+      value: ContactPage
+      label: 'Contact Page'
+    -
+      value: MedicalWebPage
+      label: 'Medical Web Page'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

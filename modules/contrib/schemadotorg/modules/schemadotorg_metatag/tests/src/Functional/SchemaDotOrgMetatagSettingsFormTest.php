@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\Tests\schemadotorg_metatag\Functional;
 
@@ -14,9 +14,7 @@ use Drupal\Tests\schemadotorg\Functional\SchemaDotOrgBrowserTestBase;
 class SchemaDotOrgMetatagSettingsFormTest extends SchemaDotOrgBrowserTestBase {
 
   /**
-   * Modules to enable.
-   *
-   * @var array
+   * {@inheritdoc}
    */
   protected static $modules = ['schemadotorg_metatag'];
 
@@ -34,7 +32,8 @@ class SchemaDotOrgMetatagSettingsFormTest extends SchemaDotOrgBrowserTestBase {
    * Test Schema.org Metatag settings form.
    */
   public function testSettingsForm(): void {
-    $this->assertSaveSettingsConfigForm('schemadotorg_metatag.settings', '/admin/config/search/schemadotorg/settings/types');
+    $this->assertSaveSettingsConfigForm('schemadotorg_metatag.settings', '/admin/config/schemadotorg/settings/types');
+    $this->assertSaveSettingsConfigForm('schemadotorg_metatag.settings', '/admin/config/schemadotorg/settings/properties');
   }
 
 }

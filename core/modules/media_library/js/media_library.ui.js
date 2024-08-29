@@ -58,7 +58,7 @@
       $(once('media-library-menu-item', $menu.find('a')))
         .on('keypress', (e) => {
           // The AJAX link has the button role, so we need to make sure the link
-          // is also triggered when pressing the spacebar.
+          // is also triggered when pressing the space bar.
           if (e.which === 32) {
             e.preventDefault();
             e.stopPropagation();
@@ -76,7 +76,7 @@
             dialogType: 'ajax',
             progress: {
               type: 'fullscreen',
-              message: Drupal.t('Please wait...'),
+              message: Drupal.t('Processing...'),
             },
           });
 
@@ -193,7 +193,7 @@
           dialogType: 'ajax',
           progress: {
             type: 'fullscreen',
-            message: loadingAnnouncement || Drupal.t('Please wait...'),
+            message: loadingAnnouncement || Drupal.t('Processing...'),
           },
         });
 
@@ -309,6 +309,17 @@
         $('.js-media-library-selected-count').html(selectItemsText);
       }
 
+      function checkEnabled() {
+        updateSelectionCount(settings.media_library.selection_remaining);
+        if (
+          currentSelection.length === settings.media_library.selection_remaining
+        ) {
+          disableItems($mediaItems.not(':checked'));
+          enableItems($mediaItems.filter(':checked'));
+        } else {
+          enableItems($mediaItems);
+        }
+      }
       // Update the selection array and the hidden form field when a media item
       // is selected.
       $(once('media-item-change', $mediaItems)).on('change', (e) => {
@@ -345,7 +356,7 @@
             item.value = currentSelection.join();
           });
       });
-
+      checkEnabled();
       // The hidden selection form field changes when the selection is updated.
       $(
         once(
@@ -353,17 +364,7 @@
           $form.find('#media-library-modal-selection'),
         ),
       ).on('change', (e) => {
-        updateSelectionCount(settings.media_library.selection_remaining);
-
-        // Prevent users from selecting more items than allowed.
-        if (
-          currentSelection.length === settings.media_library.selection_remaining
-        ) {
-          disableItems($mediaItems.not(':checked'));
-          enableItems($mediaItems.filter(':checked'));
-        } else {
-          enableItems($mediaItems);
-        }
+        checkEnabled();
       });
 
       // Apply the current selection to the media library view. Changing the
@@ -381,7 +382,7 @@
       if (!once('media-library-selection-info', 'html').length) {
         return;
       }
-      $(window).on('dialog:aftercreate', () => {
+      window.addEventListener('dialog:aftercreate', () => {
         // Since the dialog HTML is not part of the context, we can't use
         // context here.
         const $buttonPane = $(
@@ -409,7 +410,7 @@
       if (!once('media-library-clear-selection', 'html').length) {
         return;
       }
-      $(window).on('dialog:afterclose', () => {
+      window.addEventListener('dialog:afterclose', () => {
         Drupal.MediaLibrary.currentSelection = [];
       });
     },

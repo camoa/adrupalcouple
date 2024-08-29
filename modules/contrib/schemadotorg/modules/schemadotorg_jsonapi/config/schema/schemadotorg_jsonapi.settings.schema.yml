@@ -1,6 +1,6 @@
 schemadotorg_jsonapi.settings:
-  type: config_entity
-  label: Schema.org JSON:API settings
+  type: config_object
+  label: 'Schema.org JSON:API settings'
   mapping:
     default_base_fields:
       type: sequence
@@ -8,6 +8,12 @@ schemadotorg_jsonapi.settings:
       sequence:
         type: string
         label: 'Default base field'
+    custom_public_names:
+      type: sequence
+      label: 'Custom public names'
+      sequence:
+        type: string
+        label: 'Custom public name'
     resource_type_schemadotorg:
       type: boolean
       label: 'Use Schema.org type as the resource type and path name'

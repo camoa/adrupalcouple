@@ -1,10 +1,11 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg_ui\Plugin\Derivative;
 
 use Drupal\Component\Plugin\Derivative\DeriverBase;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Plugin\Discovery\ContainerDeriverInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -12,15 +13,13 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 /**
  * Provides local task definitions for all entity bundles.
  */
-class SchemaDotOrgUiLocalTask extends DeriverBase implements ContainerDeriverInterface {
+final class SchemaDotOrgUiLocalTask extends DeriverBase implements ContainerDeriverInterface {
   use StringTranslationTrait;
 
   /**
    * The entity type manager.
-   *
-   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
    */
-  protected $entityTypeManager;
+  protected EntityTypeManagerInterface $entityTypeManager;
 
   /**
    * {@inheritdoc}

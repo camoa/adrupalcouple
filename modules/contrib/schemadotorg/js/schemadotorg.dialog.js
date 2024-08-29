@@ -1,11 +1,7 @@
-/* eslint-disable strict */
-
 /**
  * @file
  * Schema.org dialog behaviors.
  */
-
-"use strict";
 
 ((Drupal, once) => {
   /**
@@ -15,23 +11,26 @@
    */
   Drupal.behaviors.schemaDotOrgDialog = {
     attach: function attach(context) {
-      once('schemadotorg-dialog', 'a[href*="/admin/reports/schemadotorg"]', context)
-        .forEach((link) => {
-          // Skip links in the toolbar-bar.
-          if (link.closest('nav.toolbar-bar')) {
-            return;
-          }
+      once(
+        'schemadotorg-dialog',
+        'a[href*="/admin/reports/schemadotorg"]',
+        context,
+      ).forEach((link) => {
+        // Skip links in the toolbar-bar.
+        if (link.closest('nav.toolbar-bar')) {
+          return;
+        }
 
-          Drupal.ajax({
-            progress: {type: 'fullscreen'},
-            url: link.getAttribute('href'),
-            event: 'click',
-            dialogType: 'modal',
-            dialog: {width: '90%'},
-            element: link,
-          });
+        Drupal.ajax({
+          progress: { type: 'fullscreen' },
+          url: link.getAttribute('href'),
+          event: 'click',
+          dialogType: 'modal',
+          dialog: { width: '1000px' },
+          element: link,
         });
-    }
+      });
+    },
   };
 
   /**
@@ -43,8 +42,7 @@
   Drupal.schemaDotOrgOpenDialog = function schemaDotOrgOpenDialog(url) {
     if (url.indexOf('/admin/reports/schemadotorg/') === -1) {
       window.location.href = url;
-    }
-    else {
+    } else {
       // Create a link but don't attach it to the page.
       const link = document.createElement('a');
       link.setAttribute('href', url);

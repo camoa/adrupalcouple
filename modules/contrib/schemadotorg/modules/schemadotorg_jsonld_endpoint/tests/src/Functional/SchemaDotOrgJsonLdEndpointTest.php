@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\Tests\SchemaDotOrgJsonLdEndpoint\Functional;
 
@@ -19,9 +19,7 @@ use Drupal\Tests\schemadotorg\Functional\SchemaDotOrgBrowserTestBase;
 class SchemaDotOrgJsonLdEndpointTest extends SchemaDotOrgBrowserTestBase {
 
   /**
-   * Modules to enable.
-   *
-   * @var array
+   * {@inheritdoc}
    */
   protected static $modules = [
     'schemadotorg_jsonapi',
@@ -32,7 +30,7 @@ class SchemaDotOrgJsonLdEndpointTest extends SchemaDotOrgBrowserTestBase {
    * Test Schema.org JSON-LD endpoints.
    */
   public function testEndpoints(): void {
-    $assert_session = $this->assertSession();
+    $assert = $this->assertSession();
 
     // Create Thing content type with a Schema.org mapping.
     $this->drupalCreateContentType(['type' => 'thing']);
@@ -53,16 +51,16 @@ class SchemaDotOrgJsonLdEndpointTest extends SchemaDotOrgBrowserTestBase {
     ])->save();
 
     // Check access allowed to node's JSON-LD via /jsonld/content/{uuid}.
-    $this->drupalGet('/jsonld/content/' . $node->uuid());
-    $assert_session->statusCodeEquals(200);
+    $this->drupalGet('jsonld/content/' . $node->uuid());
+    $assert->statusCodeEquals(200);
 
     // Check 404 when using a node's ID.
-    $this->drupalGet('/jsonld/content/' . $node->id());
-    $assert_session->statusCodeEquals(404);
+    $this->drupalGet('jsonld/content/' . $node->id());
+    $assert->statusCodeEquals(404);
 
     $node->setUnpublished()->save();
-    $this->drupalGet('/jsonld/content/' . $node->uuid());
-    $assert_session->statusCodeEquals(403);
+    $this->drupalGet('jsonld/content/' . $node->uuid());
+    $assert->statusCodeEquals(403);
   }
 
 }

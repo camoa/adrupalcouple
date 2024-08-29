@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\Tests\schemadotorg_paragraphs\Functional;
 
@@ -14,9 +14,7 @@ use Drupal\Tests\schemadotorg\Functional\SchemaDotOrgBrowserTestBase;
 class SchemaDotOrgLayoutParagraphsSettingsFormTest extends SchemaDotOrgBrowserTestBase {
 
   /**
-   * Modules to enable.
-   *
-   * @var array
+   * {@inheritdoc}
    */
   protected static $modules = ['schemadotorg_layout_paragraphs'];
 
@@ -33,7 +31,7 @@ class SchemaDotOrgLayoutParagraphsSettingsFormTest extends SchemaDotOrgBrowserTe
    * Test Schema.org layout paragraphs settings form.
    */
   public function testSettingsForm(): void {
-    $this->assertSaveSettingsConfigForm('schemadotorg_layout_paragraphs.settings', '/admin/config/search/schemadotorg/settings/types');
+    $this->assertSaveSettingsConfigForm('schemadotorg_layout_paragraphs.settings', '/admin/config/schemadotorg/settings/types');
   }
 
 }

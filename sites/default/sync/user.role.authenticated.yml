@@ -1,4 +1,4 @@
-uuid: 6f0a0b9b-3a26-4b9d-9443-4a209bdd096c
+uuid: b75503b4-5b68-41af-bbfd-393e61f9d9ee
 langcode: en
 status: true
 dependencies:
@@ -7,7 +7,9 @@ dependencies:
   module:
     - comment
     - contact
+    - file
     - filter
+    - media
     - search
     - shortcut
     - system
@@ -22,7 +24,9 @@ permissions:
   - 'access content'
   - 'access shortcuts'
   - 'access site-wide contact form'
+  - 'delete own files'
   - 'post comments'
   - 'search content'
   - 'skip comment approval'
   - 'use text format basic_html'
+  - 'view media'

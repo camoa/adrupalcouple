@@ -1,9 +1,10 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg_field_group;
 
+use Drupal\Component\Utility\NestedArray;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\Display\EntityDisplayInterface;
 use Drupal\Core\Entity\Display\EntityFormDisplayInterface;
@@ -11,6 +12,7 @@ use Drupal\Core\Entity\EntityDisplayRepositoryInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\field_group\Form\FieldGroupAddForm;
 use Drupal\schemadotorg\SchemaDotOrgEntityDisplayBuilderInterface;
+use Drupal\schemadotorg\SchemaDotOrgMappingInterface;
 use Drupal\schemadotorg\SchemaDotOrgNamesInterface;
 use Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface;
 
@@ -41,19 +43,25 @@ class SchemaDotOrgFieldGroupEntityDisplayBuilder implements SchemaDotOrgFieldGro
     protected EntityDisplayRepositoryInterface $entityDisplayRepository,
     protected SchemaDotOrgNamesInterface $schemaNames,
     protected SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager,
-    protected SchemaDotOrgEntityDisplayBuilderInterface $schemaEntityDisplayBuilder
+    protected SchemaDotOrgEntityDisplayBuilderInterface $schemaEntityDisplayBuilder,
   ) {}
 
   /**
    * {@inheritdoc}
    */
-  public function setFieldGroups(string $entity_type_id, string $bundle, string $schema_type, array $properties): void {
+  public function setFieldGroups(SchemaDotOrgMappingInterface $mapping, array $properties = []): void {
+    $entity_type_id = $mapping->getTargetEntityTypeId();
+    $bundle = $mapping->getTargetBundle();
+    $schema_type = $mapping->getSchemaType();
+    $properties = $properties ?: $mapping->getNewSchemaProperties();
+    $mapping_values = $mapping->getMappingDefaults();
+
     // Form display.
     $form_modes = $this->schemaEntityDisplayBuilder->getFormModes($entity_type_id, $bundle);
     foreach ($form_modes as $form_mode) {
       $form_display = $this->entityDisplayRepository->getFormDisplay($entity_type_id, $bundle, $form_mode);
       foreach ($properties as $field_name => $property) {
-        $this->setFieldGroup($form_display, $field_name, $schema_type, $property);
+        $this->setFieldGroup($form_display, $field_name, $schema_type, $property, $mapping_values);
       }
       $form_display->save();
     }
@@ -65,7 +73,7 @@ class SchemaDotOrgFieldGroupEntityDisplayBuilder implements SchemaDotOrgFieldGro
     foreach ($view_modes as $view_mode) {
       $view_display = $this->entityDisplayRepository->getViewDisplay($entity_type_id, $bundle, $view_mode);
       foreach ($properties as $field_name => $property) {
-        $this->setFieldGroup($view_display, $field_name, $schema_type, $property);
+        $this->setFieldGroup($view_display, $field_name, $schema_type, $property, $mapping_values);
       }
       $view_display->save();
     }
@@ -82,12 +90,14 @@ class SchemaDotOrgFieldGroupEntityDisplayBuilder implements SchemaDotOrgFieldGro
    *   The field name's associated Schema.org type.
    * @param string $schema_property
    *   The field name's associated Schema.org property.
+   * @param array $mapping_values
+   *   The Schema.org mapping values.
    *
    * @see field_group_group_save()
    * @see field_group_field_overview_submit()
    * @see \Drupal\field_group\Form\FieldGroupAddForm::submitForm
    */
-  protected function setFieldGroup(EntityDisplayInterface $display, string $field_name, string $schema_type, string $schema_property): void {
+  protected function setFieldGroup(EntityDisplayInterface $display, string $field_name, string $schema_type, string $schema_property, array $mapping_values): void {
     if (!$this->hasFieldGroup($display, $field_name, $schema_type, $schema_property)) {
       return;
     }
@@ -95,7 +105,7 @@ class SchemaDotOrgFieldGroupEntityDisplayBuilder implements SchemaDotOrgFieldGro
     $entity_type_id = $display->getTargetEntityTypeId();
     $display_type = ($display instanceof EntityFormDisplayInterface) ? 'form' : 'view';
 
-    /** @var \Drupal\schemadotorg\SchemaDotOrgMappingTypeInterface $mapping_type */
+    /** @var \Drupal\schemadotorg\SchemaDotOrgMappingTypeInterface|null $mapping_type */
     $mapping_type = $this->entityTypeManager
       ->getStorage('schemadotorg_mapping_type')
       ->load($entity_type_id);
@@ -110,7 +120,7 @@ class SchemaDotOrgFieldGroupEntityDisplayBuilder implements SchemaDotOrgFieldGro
       ? (int) ceil(max($group_weights) / 10) * 10
       : 0;
 
-    /** @var \Drupal\field\FieldStorageConfigInterface $field_storage */
+    /** @var \Drupal\field\FieldStorageConfigInterface|null $field_storage */
     $field_storage = $this->entityTypeManager
       ->getStorage('field_storage_config')
       ->load("$entity_type_id.$field_name");
@@ -119,14 +129,21 @@ class SchemaDotOrgFieldGroupEntityDisplayBuilder implements SchemaDotOrgFieldGro
 
     // Get group name and field weight from entity type
     // field group configuration.
-    $group_name = NULL;
-    $field_weight = NULL;
-    foreach ($default_field_groups as $default_field_group_name => $default_field_group) {
-      $properties = array_flip($default_field_group['properties']);
-      if (isset($properties[$schema_property])) {
-        $group_name = $default_field_group_name;
-        $field_weight = $properties[$schema_property];
-        break;
+    $group_name = NestedArray::getValue($mapping_values, ['properties', $schema_property, 'group']);
+    $field_weight = NestedArray::getValue($mapping_values, ['properties', $schema_property, 'group_field_weight']);
+    if (!$group_name) {
+      foreach ($default_field_groups as $default_field_group_name => $default_field_group) {
+        $properties = array_flip($default_field_group['properties']);
+        $setting_parts = [
+          'schema_type' => $schema_type,
+          'schema_property' => $schema_property,
+        ];
+        $field_group_weight = $this->schemaTypeManager->getSetting($properties, $setting_parts);
+        if (!is_null($field_group_weight)) {
+          $group_name = $default_field_group_name;
+          $field_weight = $field_group_weight;
+          break;
+        }
       }
     }
 
@@ -176,10 +193,8 @@ class SchemaDotOrgFieldGroupEntityDisplayBuilder implements SchemaDotOrgFieldGro
       if (isset($base_field_names[$field_name])) {
         return;
       }
-      $default_label_suffix = $config->get('default_label_suffix');
       $group_name = $this->schemaNames->schemaIdToDrupalName('types', $schema_type);
-      $group_label = $this->schemaNames->camelCaseToSentenceCase($schema_type)
-        . ($default_label_suffix ? ' ' . $default_label_suffix : '');
+      $group_label = $this->schemaNames->camelCaseToSentenceCase($schema_type);
       $group_weight = $max_group_weight;
     }
     else {
@@ -268,22 +283,31 @@ class SchemaDotOrgFieldGroupEntityDisplayBuilder implements SchemaDotOrgFieldGro
     }
 
     $entity_type_id = $display->getTargetEntityTypeId();
+    $bundle = $display->getTargetBundle();
     $display_type = ($display instanceof EntityFormDisplayInterface) ? 'form' : 'view';
     $display_mode = $display->getMode();
 
     $disabled_patterns = [
       $entity_type_id,
       "$entity_type_id--$display_type",
+      "$entity_type_id--$display_type--$bundle",
+      "$entity_type_id--$display_type--$bundle--$field_name",
       "$entity_type_id--$display_type--$schema_type",
       "$entity_type_id--$display_type--$schema_type--$schema_property",
       "$entity_type_id--$display_type--$schema_property",
+      "$entity_type_id--$display_type--$field_name",
       "$entity_type_id--$display_type--$display_mode",
+      "$entity_type_id--$display_type--$display_mode--$bundle",
+      "$entity_type_id--$display_type--$display_mode--$bundle--$field_name",
       "$entity_type_id--$display_type--$display_mode--$schema_type",
       "$entity_type_id--$display_type--$display_mode--$schema_type--$schema_property",
       "$entity_type_id--$display_type--$display_mode--$schema_property",
+      "$entity_type_id--$bundle",
+      "$entity_type_id--$bundle--$field_name",
       "$entity_type_id--$schema_type",
       "$entity_type_id--$schema_type--$schema_property",
       "$entity_type_id--$schema_property",
+      "$entity_type_id--$field_name",
     ];
 
     $disabled = (bool) array_intersect($disable_field_groups, $disabled_patterns);

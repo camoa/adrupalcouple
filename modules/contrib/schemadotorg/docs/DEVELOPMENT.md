@@ -1,73 +1,35 @@
 Schema.org Blueprints Development
 ---------------------------------
 
-**TLDR;** The Schema.org Blueprints modules provides hooks and several example
-modules for integrating contributed modules into the Schema.org mapping UI
-and JSON-LD building workflow.
+# Updating between alpha releases
 
+**Some update hooks will be provided between alpha releases.**
 
-# Notes
+Below are the recommended steps for updating between alpha releases.
 
-- The Schema.org Blueprints module relies more on dedicated sub-modules with
-  configurable settings over plugins.
+- Track your changes to all schemadotorg configuration/settings
+- Export all schemadotorg configuration.
+- Uninstall the schemadotorg module and sub-modules.
+- Update the schemadotorg.module.
+- Reinstall the schemadotorg module and sub-modules.
+- Compare the exported schemadotorg configuration to the new schemadotorg configuration.
 
-  For example, determining what Schema.org types and properties are available
-  and their default settings is handled using YAML configuration files.
-  @see [schemadotorg.settings.yml](https://git.drupalcode.org/project/schemadotorg/-/blob/1.0.x/config/install/schemadotorg.settings.yml)
+If you have not altered any configuration/settings or are okay working with the 
+new default configuration. The only configuration you MUST reimport are 
+`schemadotorg.schemadotorg_mapping.*.yml` files.
 
-- Using plugins for integrating Schema.org types and properties could create a
-  scalability challenge because there 900+ Schema.org types and
-  1500+ Schema.org properties.
+Another alternative is to use the [Configuration Synchronizer](https://www.drupal.org/project/config_sync) module, 
+which provides methods for safely importing site configuration from updated
+modules, themes, or distributions.
 
-- The admin UI for configuration setting is trying to be as simple as possible
-  for managing a lot of configuration, while primarily targeting experienced
-  site builders and developers.
+**[Configuration Synchronizer](https://www.drupal.org/project/config_sync) steps**
 
-
-# Hooks
-
-- [schemadotorg/schemadotorg.api.php](https://git.drupalcode.org/project/schemadotorg/-/blob/1.0.x/schemadotorg.api.php)
-  Provides hooks to alter mappings, entity types, and fields.
-
-- [schemadotorg/modules/schemadotorg_jsonld/schemadotorg_jsonld.api.php](https://git.drupalcode.org/project/schemadotorg/-/blob/1.0.x/modules/schemadotorg_jsonld/schemadotorg_jsonld.api.php)
-  Provides hooks to define and alter Schema.org JSON-LD.
-
-
-# Example modules
-
-- **[Schema.org Blueprints Flex Field](https://git.drupalcode.org/project/schemadotorg/-/tree/1.0.x/modules/schemadotorg_flexfield)**  
-  Allows a Flex field to be used to create Schema.org relationships within an
-  entity type/bundle Schema.org mapping.
-
-- **[Schema.org Blueprints Inline Entity Form](https://git.drupalcode.org/project/schemadotorg/-/tree/1.0.x/modules/schemadotorg_inline_entity_form)**  
-  Allows an inline entity form to be automatically added to Schema.org
-  properties within an entity type/bundle Schema.org mapping.
-
-- **[Schema.org Blueprints Paragraphs](https://git.drupalcode.org/project/schemadotorg/-/tree/1.0.x/modules/schemadotorg_paragraphs)**  
-  Integrates the Paragraphs and Paragraphs Library module with the Schema.org
-  Blueprints module.
-
-- **[Schema.org Blueprints Smart Date](https://git.drupalcode.org/project/schemadotorg/-/tree/1.0.x/modules/schemadotorg_smart_date)**  
-  Allows a Smart date field to be used to create date ranges and event schedules included in a site's Schema.org JSON-LD.
-
-# Integration process
-
-- Determine how and where the contributed module should be integrated.
-  - Does the contributed module provide a new entity type, field type, field widget,
-    or field display?
-
-- Provide basic configuration integration.
-  - Can the contributed module be integrated using existing configuration settings?
-
-- Create a Schema.org Blueprints integration module.
-  - Can you use schemadotorg_{module_name} as the integration module's
-    namespace?
-
-- Define the contributed module's configuration settings
-  - Does the contributed module need to alter the default configuration settings?
-  - Does the contributed module need to provide configuration settings?
-
-- Add test coverage
-  - Can you extend the Schema.org Blueprints base test classes?
-  - Can you extend the Schema.org Blueprints test trait?
-  - Can you copy exists Schema.org Blueprints tests?
+- Download the Configuration Synchronizer module `ddev composer require --dev 'drupal/config_sync:^3.0@alpha';`
+- Enable the Configuration Synchronizer module `ddev drush en -y config_sync;`
+- Import exported configuration `ddev drush config:import -y;`
+- Update the Schema.org Blueprints related modules. `ddev composer update`
+- Execute database updated `ddev drush updb -y;`
+- Review, update, and sync imported configuration. (/admin/config/development/distro)
+- Export configuration `ddev drush config:export -y;`
+- Clean up exported configuration `git diff`
+- Commit exported configuration `git commit -am"Update export configuration";`

@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg;
 
@@ -8,6 +8,7 @@ use Drupal\Core\Config\Entity\ConfigEntityListBuilder;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Url;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Provides a listing of Schema.org config entities.
@@ -16,10 +17,8 @@ abstract class SchemaDotOrgConfigEntityListBuilderBase extends ConfigEntityListB
 
   /**
    * The current request.
-   *
-   * @var \Symfony\Component\HttpFoundation\Request
    */
-  protected $request;
+  protected Request $request;
 
   /**
    * {@inheritdoc}
@@ -89,11 +88,11 @@ abstract class SchemaDotOrgConfigEntityListBuilderBase extends ConfigEntityListB
   /**
    * Get the current request details toggle state.
    *
-   * @return bool|int
+   * @return bool
    *   The current request details toggle state.
    */
-  protected function getDetailsToggle(): bool|int {
-    return (boolean) $this->request->query->get('details') ?? 0;
+  protected function getDetailsToggle(): bool {
+    return (boolean) ($this->request->query->get('details') ?? 0);
   }
 
   /**
@@ -103,7 +102,7 @@ abstract class SchemaDotOrgConfigEntityListBuilderBase extends ConfigEntityListB
    *   An indexed array.
    *
    * @return array
-   *   A renderable array containing itemss.
+   *   A renderable array containing items.
    */
   protected function buildItems(array $items): array {
     return [
@@ -151,7 +150,7 @@ abstract class SchemaDotOrgConfigEntityListBuilderBase extends ConfigEntityListB
   }
 
   /**
-   * Build key/value paids.
+   * Build key/value pairs.
    *
    * @param array|null $items
    *   An associative array.

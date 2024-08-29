@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg\Entity;
 
@@ -33,10 +33,10 @@ use Drupal\schemadotorg\SchemaDotOrgMappingTypeInterface;
  *   config_prefix = "schemadotorg_mapping_type",
  *   admin_permission = "administer schemadotorg",
  *   links = {
- *     "collection" = "/admin/config/search/schemadotorg-mapping/type",
- *     "add-form" = "/admin/config/search/schemadotorg-mapping/type/add",
- *     "edit-form" = "/admin/config/search/schemadotorg-mapping/type/{schemadotorg_mapping_type}",
- *     "delete-form" = "/admin/config/search/schemadotorg-mapping/type/{schemadotorg_mapping_type}/delete"
+ *     "collection" = "/admin/config/schemadotorg/types",
+ *     "add-form" = "/admin/config/schemadotorg/types/add",
+ *     "edit-form" = "/admin/config/schemadotorg/types/{schemadotorg_mapping_type}",
+ *     "delete-form" = "/admin/config/schemadotorg/types/{schemadotorg_mapping_type}/delete"
  *   },
  *   entity_keys = {
  *     "id" = "id",
@@ -45,6 +45,8 @@ use Drupal\schemadotorg\SchemaDotOrgMappingTypeInterface;
  *     "id",
  *     "target_entity_type_id",
  *     "multiple",
+ *     "label_prefix",
+ *     "id_prefix",
  *     "recommended_schema_types",
  *     "default_schema_types",
  *     "default_schema_type_properties",
@@ -58,61 +60,45 @@ class SchemaDotOrgMappingType extends ConfigEntityBase implements SchemaDotOrgMa
 
   /**
    * Unique ID for the config entity.
-   *
-   * @var string
    */
-  protected $id;
+  protected string $id;
 
   /**
    * Entity type to be displayed.
-   *
-   * @var string
    */
-  protected $target_entity_type_id;
+  protected string $target_entity_type_id;
 
   /**
    * An associative array of default Schema.org types.
-   *
-   * @var array
    */
-  protected $default_schema_types = [];
+  protected array $default_schema_types = [];
 
   /**
    * An associative array of default Schema.org type properties.
-   *
-   * @var array
    */
-  protected $default_schema_type_properties = [];
+  protected array $default_schema_type_properties = [];
 
   /**
    * An associative array of base field mappings.
-   *
-   * @var array
    */
-  protected $default_base_fields = [];
+  protected array $default_base_fields = [];
 
   /**
    * An associative array of default display component weights.
-   *
-   * @var array
    */
-  protected $default_component_weights = [
+  protected array $default_component_weights = [
     'langcode' => 100,
   ];
 
   /**
    * An associative array of grouped view display for Schema.org types.
-   *
-   * @var array
    */
-  protected $default_schema_type_view_displays = [];
+  protected array $default_schema_type_view_displays = [];
 
   /**
    * An associative array of grouped recommended Schema.org types.
-   *
-   * @var array
    */
-  protected $recommended_schema_types = [];
+  protected array $recommended_schema_types = [];
 
   /**
    * {@inheritdoc}
@@ -178,7 +164,7 @@ class SchemaDotOrgMappingType extends ConfigEntityBase implements SchemaDotOrgMa
     }
 
     // For 'Intangible' Schema.org types, we can default to all the properties
-    // except  those inherited from 'Thing'.
+    // except those inherited from 'Thing'.
     if (empty($default_properties) && $schema_type_manager->isIntangible($schema_type)) {
       $thing_properties = $schema_type_manager->getTypeProperties('Thing');
       $intangible_properties = $schema_type_manager->getTypeProperties($schema_type);
@@ -296,6 +282,16 @@ class SchemaDotOrgMappingType extends ConfigEntityBase implements SchemaDotOrgMa
    */
   public function getDefaultComponentWeights(): array {
     return $this->get('default_component_weights');
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function calculateDependencies(): SchemaDotOrgMappingTypeInterface {
+    parent::calculateDependencies();
+    $target_entity_type = $this->entityTypeManager()->getDefinition($this->target_entity_type_id);
+    $this->addDependency('module', $target_entity_type->getProvider());
+    return $this;
   }
 
 }

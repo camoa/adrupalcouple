@@ -1,11 +1,10 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
-use Drupal\Core\Config\Entity\ConfigEntityStorageInterface;
 use Drupal\Core\Entity\EntityFieldManagerInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
@@ -13,12 +12,25 @@ use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Field\FieldTypePluginManagerInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\field\FieldStorageConfigInterface;
+use Drupal\schemadotorg\Traits\SchemaDotOrgMappingStorageTrait;
 
 /**
  * Schema.org entity field manager.
+ *
+ * The Schema.org entity field manager manages the creation and configuration
+ * of fields based on Schema.org properties.
+ *
+ * This service is primarily using by the SchemaDotOrgMappingManager.
+ *
+ * Features include:
+ * - Determining the default field type for a Schema.org property.
+ * - Determining the default allowed values for a Schema.org property.
+ *
+ * @see \Drupal\schemadotorg\SchemaDotOrgMappingManager
  */
 class SchemaDotOrgEntityFieldManager implements SchemaDotOrgEntityFieldManagerInterface {
   use StringTranslationTrait;
+  use SchemaDotOrgMappingStorageTrait;
 
   /**
    * Constructs a SchemaDotOrgEntityFieldManager object.
@@ -42,7 +54,7 @@ class SchemaDotOrgEntityFieldManager implements SchemaDotOrgEntityFieldManagerIn
     protected EntityTypeManagerInterface $entityTypeManager,
     protected EntityFieldManagerInterface $entityFieldManager,
     protected FieldTypePluginManagerInterface $fieldTypePluginManager,
-    protected SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager
+    protected SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager,
   ) {}
 
   /**
@@ -114,7 +126,7 @@ class SchemaDotOrgEntityFieldManager implements SchemaDotOrgEntityFieldManagerIn
     $default_field += [
       'name' => $property_definition['drupal_name'],
       'label' => $property_definition['drupal_label'],
-      'description' => $property_definition['comment'],
+      'description' => $property_definition['drupal_description'],
       'unlimited' => $this->unlimitedProperties[$property] ?? FALSE,
       'required' => FALSE,
     ];
@@ -232,7 +244,7 @@ class SchemaDotOrgEntityFieldManager implements SchemaDotOrgEntityFieldManagerIn
     $field_definitions = $this->entityFieldManager->getBaseFieldDefinitions($entity_type_id);
     $options = [];
 
-    /** @var \Drupal\schemadotorg\SchemaDotOrgMappingTypeInterface $mapping_type */
+    /** @var \Drupal\schemadotorg\SchemaDotOrgMappingTypeInterface|null $mapping_type */
     $mapping_type = $this->getMappingTypeStorage()->load($entity_type_id);
     $base_field_names = $mapping_type->getBaseFieldNames();
     if ($base_field_names) {
@@ -302,9 +314,7 @@ class SchemaDotOrgEntityFieldManager implements SchemaDotOrgEntityFieldManagerIn
    * {@inheritdoc}
    */
   public function getSchemaPropertyFieldTypes(string $schema_type, string $schema_property): array {
-    /** @var \Drupal\schemadotorg\SchemaDotOrgMappingStorageInterface $mapping_storage */
-    $mapping_storage = $this->entityTypeManager->getStorage('schemadotorg_mapping');
-    $range_includes = $mapping_storage->getSchemaPropertyRangeIncludes($schema_type, $schema_property);
+    $range_includes = $this->getMappingStorage()->getSchemaPropertyRangeIncludes($schema_type, $schema_property);
 
     // Remove generic Schema.org types from range includes.
     $specific_range_includes = $range_includes;
@@ -477,8 +487,6 @@ class SchemaDotOrgEntityFieldManager implements SchemaDotOrgEntityFieldManagerIn
     $types = array_combine($types, $types);
     unset($types['Thing']);
 
-    $schemadotorg_mapping_storage = $this->getMappingStorage();
-
     // Loop through the types to respect the ordering and prioritization.
     foreach ($types as $type) {
       $sub_types = $this->schemaTypeManager->getAllSubTypes([$type]);
@@ -486,7 +494,7 @@ class SchemaDotOrgEntityFieldManager implements SchemaDotOrgEntityFieldManagerIn
         continue;
       }
 
-      $entity_ids = $schemadotorg_mapping_storage->getQuery()
+      $entity_ids = $this->getMappingStorage()->getQuery()
         ->accessCheck(FALSE)
         ->condition('schema_type', $sub_types, 'IN')
         ->execute();
@@ -495,7 +503,7 @@ class SchemaDotOrgEntityFieldManager implements SchemaDotOrgEntityFieldManagerIn
       }
 
       /** @var \Drupal\schemadotorg\SchemaDotOrgMappingInterface[] $schemadotorg_mappings */
-      $schemadotorg_mappings = $schemadotorg_mapping_storage->loadMultiple($entity_ids);
+      $schemadotorg_mappings = $this->getMappingStorage()->loadMultiple($entity_ids);
 
       // Define the default order for found entity types.
       $entity_types = [
@@ -517,26 +525,6 @@ class SchemaDotOrgEntityFieldManager implements SchemaDotOrgEntityFieldManagerIn
     }
 
     return 'node';
-  }
-
-  /**
-   * Gets the Schema.org mapping storage.
-   *
-   * @return \Drupal\schemadotorg\SchemaDotOrgMappingStorageInterface|\Drupal\Core\Config\Entity\ConfigEntityStorageInterface
-   *   The Schema.org mapping storage
-   */
-  protected function getMappingStorage(): SchemaDotOrgMappingStorageInterface|ConfigEntityStorageInterface {
-    return $this->entityTypeManager->getStorage('schemadotorg_mapping');
-  }
-
-  /**
-   * Gets the Schema.org mapping type storage.
-   *
-   * @return \Drupal\schemadotorg\SchemaDotOrgMappingTypeStorageInterface|\Drupal\Core\Config\Entity\ConfigEntityStorageInterface
-   *   The Schema.org mapping type storage
-   */
-  protected function getMappingTypeStorage(): SchemaDotOrgMappingTypeStorageInterface|ConfigEntityStorageInterface {
-    return $this->entityTypeManager->getStorage('schemadotorg_mapping_type');
   }
 
 }

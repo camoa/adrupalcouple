@@ -19,7 +19,7 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 110
+    weight: 120
     region: content
   links:
     settings: {  }
@@ -28,7 +28,7 @@ content:
     region: content
   schema_image:
     type: image
-    label: above
+    label: hidden
     settings:
       image_link: ''
       image_style: ''

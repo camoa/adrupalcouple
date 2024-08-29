@@ -1,6 +1,6 @@
 schemadotorg_address.settings:
-  type: config_entity
-  label: Schema.org Address settings
+  type: config_object
+  label: 'Schema.org Address settings'
   mapping:
     field_overrides:
       type: sequence
@@ -10,4 +10,4 @@ schemadotorg_address.settings:
         label: 'Field override'
         sequence:
           type: string
-          label: 'Property'
+          label: 'Address property'

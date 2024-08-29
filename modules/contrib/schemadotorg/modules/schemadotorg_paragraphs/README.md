@@ -5,6 +5,8 @@ Table of contents
 * Features
 * Configuration
 * Requirements
+* Notes
+
 
 Introduction
 ------------
@@ -22,7 +24,7 @@ Features
 - Convert broken Paragraph embed entity reference widget into a working
   select menu.
 - Add paragraph type icons from provided this and other modules. 
-  {module_name}/image/schemadotorg_paragraphs/{paragrap_type}.svg
+  {module_name}/image/schemadotorg\_paragraphs/{paragraph\_type}.svg
 - Adds paragraph from paragraphs library to JSON-LD.
 - Limit a paragraph's property/field access based on the paragraph's parent
   Schema.org mapping type.
@@ -32,8 +34,8 @@ Configuration
 -------------
 
 - Go to the Schema.org types configuration page.  
-  (/admin/config/search/schemadotorg/settings/types)
-- Enter Schema.org types that default to using the Paragraphs library.
+  (/admin/config/schemadotorg/settings/types#edit-schemadotorg-paragraphs)
+- Enter Schema.org types that should automatically support being used via the Paragraphs library.
 - Enter Schema.org parent type and paragraph types that have limited 
   Schema.org properties.
 
@@ -43,3 +45,9 @@ Requirements
 
 **[Paragraphs](https://www.drupal.org/project/paragraphs)**  
 Enables the creation of paragraphs entities.
+
+
+Notes
+-----
+
+- Icons are from [Font Awesome](https://fontawesome.com/)

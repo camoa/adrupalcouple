@@ -51,31 +51,26 @@ associative_grouped_named:
       five: Five
       six: Six
 links:
-  -
-    title: Yahoo!!!
+  - title: Yahoo!!!
     uri: 'https://yahoo.com'
-  -
-    title: Google
+  - title: Google
     uri: 'https://google.com'
 links_grouped:
   A:
-    -
-      title: Yahoo!!!
+    - title: Yahoo!!!
       uri: 'https://yahoo.com'
   B:
-    -
-      title: Google
+    - title: Google
       uri: 'https://google.com'
 associative_advanced:
   title: Title
   required: true
   height: 100
   width: 100
-associative_grouped_invalid:
-  A:
-    one: 'One,comma'
-    two: Two
-    three: Three
 yaml:
   title: YAML
-
+yaml_raw: 'title: YAML raw'
+json_raw: |-
+  {
+    "name": "value"
+  }

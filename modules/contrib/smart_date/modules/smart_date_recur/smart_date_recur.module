@@ -43,14 +43,53 @@ function smart_date_recur_theme($existing, $type, $theme, $path) {
     ],
     'smart_date_recurring_text_rule' => [
       'variables' => [
+        'rule' => NULL,
         'repeat' => NULL,
+        'repeat_separator' => NULL,
         'day' => NULL,
+        'day_separator' => NULL,
+        'days_array' => [],
         'month' => NULL,
+        'month_separator' => NULL,
         'time' => NULL,
+        'time_separator' => NULL,
         'limit' => NULL,
+        'limit_separator' => NULL,
+      ],
+    ],
+    'smart_date_recurring_comma_list' => [
+      'variables' => [
+        'values' => NULL,
       ],
     ],
   ];
+}
+
+/**
+ * Prepares variables for recurring smart date templates.
+ *
+ * Default template: smart-date-recurring-text-rule.html.twig.
+ *
+ * @param array $variables
+ *   An associative array containing:
+ *   - rule: The smart date rule object.
+ *   - repeat: How often the date reoccurs.
+ *   - day: The day the date occurs.
+ *   - month: The month the date occurs.
+ *   - time: The time the date occurs.
+ *   - limit: How many times the date reoccurs.
+ */
+function template_preprocess_smart_date_recurring_text_rule(&$variables) {
+  $has_day_or_month = !empty($variables['day']) || !empty($variables['month']);
+  $has_time_or_limit = !empty($variables['time']) || !empty($variables['limit']);
+  if (!isset($variables['day_separator']) && !empty($variables['repeat']) && $has_day_or_month) {
+    // Add spacing if there's a day or month it repeats on.
+    $variables['day_separator'] = ' ';
+  }
+  if (!isset($variables['time_separator']) && $has_day_or_month && $has_time_or_limit) {
+    // Add spacing if there's a day or month it repeats on.
+    $variables['time_separator'] = ' ';
+  }
 }
 
 /**
@@ -139,13 +178,12 @@ function smart_date_recur_widget_extra_fields(&$element, $item, $context) {
   // Get a helper service.
   $recur_manager = \Drupal::service('smart_date_recur.manager');
 
-
   if ($item->rrule) {
     $rrule = SmartDateRule::load($item->rrule);
     if ($rrule) {
       $default_repeat = $rrule->get('freq')->getString();
       if ($rrule->get('limit')->getString()) {
-        list($limit_type, $limit_value) = explode('=', $rrule->get('limit')->getString());
+        [$limit_type, $limit_value] = explode('=', $rrule->get('limit')->getString());
         if ($limit_type == 'COUNT') {
           $default_end_count = $limit_value;
         }
@@ -484,7 +522,7 @@ function smart_date_recur_widget_extra_fields(&$element, $item, $context) {
     '#attributes' => ['class' => ['smart-date--minutes', 'clearfix']],
   ];
   $element['#element_validate'][] = [
-    'Drupal\smart_date_recur\Entity\SmartDateRule','validateRecurring',
+    'Drupal\smart_date_recur\Entity\SmartDateRule', 'validateRecurring',
   ];
 }
 
@@ -612,7 +650,7 @@ function smart_date_recur_generate_rows(&$values, $entity_type, $bundle, $field_
         $interval_safe = new FormattableMarkup('INTERVAL=:interval', [':interval' => $item['interval']]);
         $params['interval'] = $interval_safe->__toString();
       }
-      // Only parse appropriate adavnced options based on selected requency.
+      // Only parse appropriate advanced options based on selected frequency.
       switch ($rrule_values['freq']) {
         case 'MINUTELY':
           // Use the array of day checkboxes if one of them is checked.
@@ -726,7 +764,7 @@ function smart_date_recur_generate_rows(&$values, $entity_type, $bundle, $field_
     $instances = $rrule->getRuleInstances($before);
     $rrule->set('instances', ['data' => $instances]);
 
-    // @todo: store unaltered instances instead?
+    // @todo store unaltered instances instead?
     $rrule->save();
     $item['rrule'] = $rrule->id();
     // Make additional field deltas for the generated instances.
@@ -776,18 +814,21 @@ function smart_date_recur_cron() {
   // Get the data we need, and group it by impacted entity.
   $ids = \Drupal::entityTypeManager()->getStorage('smart_date_rule')->getRuleIdsToCheck();
   foreach (SmartDateRule::loadMultiple($ids) as $rule) {
-    if (!is_object($rule) || !property_exists($rule, 'entity_type')) {
+    $entity_type = $rule?->entity_type?->getString();
+    if (!$entity_type) {
       // Invalid rule, might be an orphaned rule.
-      // @todo: Delete invalid rule?
-      // @todo: Log a warning.
+      // @todo Delete invalid rule?
+      // @todo Log a warning.
       continue;
     }
-    $entity_type = $rule->entity_type->getString();
-    // $bundle = $rule->bundle->getString();
-    $entity_id = $rule->getParentEntity(TRUE);
+
+    // Validate rule before calling getParentEntity
+    // Any orphaned rules (invalid entity type, bundle or field name) will
+    // prevent new instances from being generated.
+    $entity_id = $rule->validateRule() ? $rule->getParentEntity(TRUE) : NULL;
     if (!$entity_id) {
       // Invalid entity, might be an orphaned rule.
-      // @todo: Log a warning.
+      // @todo Log a warning.
       continue;
     }
     $field_name = $rule->field_name->getString();
@@ -886,20 +927,4 @@ function _smart_date_recur_label_freq_defaults($freq_values) {
  */
 function _smart_date_recur_get_freq_defaults() {
   return ['DAILY', 'WEEKLY', 'MONTHLY', 'YEARLY'];
-}
-
-// Backward compatibility for PHP < 7.3.
-if (!function_exists("array_key_last")) {
-
-  /**
-   * Recreate the function provided by PHP >= 7.3.
-   */
-  function array_key_last($array) {
-    if (!is_array($array) || empty($array)) {
-      return NULL;
-    }
-
-    return array_keys($array)[count($array) - 1];
-  }
-
 }

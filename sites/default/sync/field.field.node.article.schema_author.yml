@@ -1,0 +1,24 @@
+uuid: 153f697f-0b4a-4e15-a6b1-d6cb59cea4af
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.schema_author
+    - node.type.article
+    - node.type.person
+id: node.article.schema_author
+field_name: schema_author
+entity_type: node
+bundle: article
+label: Author
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      person: person
+field_type: entity_reference

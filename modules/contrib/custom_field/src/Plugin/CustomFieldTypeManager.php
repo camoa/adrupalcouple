@@ -3,14 +3,17 @@
 namespace Drupal\custom_field\Plugin;
 
 use Drupal\Component\Plugin\Exception\PluginException;
-use Drupal\Core\Plugin\DefaultPluginManager;
 use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
+use Drupal\Core\Plugin\DefaultPluginManager;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
 
 /**
- * Provides the CustomField Type plugin manager.
+ * Provides the custom field type plugin manager.
  */
 class CustomFieldTypeManager extends DefaultPluginManager implements CustomFieldTypeManagerInterface {
+
+  use StringTranslationTrait;
 
   /**
    * Constructs a new CustomFieldTypeManager object.
@@ -25,7 +28,7 @@ class CustomFieldTypeManager extends DefaultPluginManager implements CustomField
    */
   public function __construct(\Traversable $namespaces, CacheBackendInterface $cache_backend, ModuleHandlerInterface $module_handler) {
     parent::__construct(
-      'Plugin/CustomFieldType',
+      'Plugin/CustomField/FieldType',
       $namespaces,
       $module_handler,
       'Drupal\custom_field\Plugin\CustomFieldTypeInterface',
@@ -33,7 +36,7 @@ class CustomFieldTypeManager extends DefaultPluginManager implements CustomField
     );
 
     $this->alterInfo('custom_field_info');
-    $this->setCacheBackend($cache_backend, 'customfield_type_plugins');
+    $this->setCacheBackend($cache_backend, 'custom_field_type_plugins');
   }
 
   /**
@@ -41,7 +44,6 @@ class CustomFieldTypeManager extends DefaultPluginManager implements CustomField
    */
   public function getCustomFieldItems(array $settings): array {
     $items = [];
-    $definitions = $this->getDefinitions();
     $field_settings = $settings['field_settings'] ?? [];
 
     // Table element rows weight property not working so lets
@@ -51,56 +53,20 @@ class CustomFieldTypeManager extends DefaultPluginManager implements CustomField
     foreach ($columns as $name => $column) {
       unset($column['weight']);
       $settings = $field_settings[$name] ?? [];
-      if (isset($settings['type']) && isset($definitions[$settings['type']])) {
-        $type = $settings['type'];
-      }
-      else {
-        switch ($column['type']) {
-          case 'boolean':
-            $type = 'checkbox';
-            break;
-          case 'color':
-            $type = 'color';
-            break;
-          case 'email':
-            $type = 'email';
-            break;
-          case 'decimal':
-            $type = 'decimal';
-            break;
-          case 'float':
-            $type = 'float';
-            break;
-          case 'integer':
-            $type = 'integer';
-            break;
-          case 'map':
-            $type = 'map_key_value';
-            break;
-          case 'string_long':
-            $type = 'textarea';
-            break;
-          case 'uuid':
-            $type = 'uuid';
-            break;
-          case 'uri':
-            $type = 'url';
-            break;
-          default:
-            $type = 'text';
-        }
-      }
+      $type = $column['type'];
 
       try {
         $items[$name] = $this->createInstance($type, [
           'name' => $column['name'],
-          'max_length' => $column['max_length'],
+          'max_length' => (int) $column['max_length'],
           'unsigned' => $column['unsigned'],
           'data_type' => $column['type'],
-          'precision' => $column['precision'],
-          'scale' => $column['scale'],
+          'precision' => (int) $column['precision'],
+          'scale' => (int) $column['scale'],
+          'size' => $column['size'] ?? 'normal',
+          'datetime_type' => $column['datetime_type'] ?? 'datetime',
+          'check_empty' => $settings['check_empty'] ?? FALSE,
           'widget_settings' => $settings['widget_settings'] ?? [],
-          'formatter_settings' => $settings['formatter_settings'] ?? [],
         ]);
       }
       catch (PluginException $e) {
@@ -116,7 +82,8 @@ class CustomFieldTypeManager extends DefaultPluginManager implements CustomField
    */
   public function getCustomFieldWidgetOptions($type): array {
     $options = [];
-    $definitions = $this->getDefinitions();
+    $plugin_service = \Drupal::service('plugin.manager.custom_field_widget');
+    $definitions = $plugin_service->getDefinitions();
     // Remove undefined widgets for data_type.
     foreach ($definitions as $key => $definition) {
       if (!in_array($type, $definition['data_types'])) {
@@ -143,14 +110,35 @@ class CustomFieldTypeManager extends DefaultPluginManager implements CustomField
   }
 
   /**
+   * {@inheritdoc}
+   */
+  public function getCustomFieldFormatterOptions(string $type): array {
+    $options = [];
+    $plugin_service = \Drupal::service('plugin.manager.custom_field_formatter');
+    $definitions = $plugin_service->getDefinitions();
+    // Remove undefined widgets for field_type.
+    foreach ($definitions as $id => $definition) {
+      if (!in_array($type, $definition['field_types'])) {
+        continue;
+      }
+      $options[$id] = $definition['label'];
+    }
+
+    return $options;
+  }
+
+  /**
    * Sort fields by weight.
    *
    * @param array $columns1
-   *   Columns from \Drupal\custom_field\Plugin\Field\FieldType\CustomItem settings.
+   *   Columns from \Drupal\custom_field\Plugin\Field\FieldType\CustomItem
+   *   settings.
    * @param array $field_settings
-   *   Field settings \Drupal\custom_field\Plugin\Field\FieldType\CustomItem settings.
+   *   Field settings \Drupal\custom_field\Plugin\Field\FieldType\CustomItem
+   *   settings.
    *
    * @return array
+   *   An array of fields sorted by weight.
    */
   private function sortFieldsByWeight(array $columns1, array $field_settings): array {
     $columns = [];
@@ -164,6 +152,51 @@ class CustomFieldTypeManager extends DefaultPluginManager implements CustomField
     });
 
     return $columns;
+  }
+
+  /**
+   * An array of data types and properties keyed by type name.
+   *
+   * @return array[]
+   *   Returns an array of data types.
+   */
+  public function dataTypes(): array {
+    $definitions = $this->getDefinitions();
+    $data_types = [];
+    foreach ($definitions as $id => $definition) {
+      try {
+        /** @var \Drupal\custom_field\Plugin\CustomFieldTypeInterface $plugin */
+        $plugin = $this->createInstance($id);
+        $schema = $plugin->schema([]);
+        $data_types[$id] = [
+          'label' => $plugin->getPluginDefinition()['label'],
+          'schema' => $schema,
+        ];
+      }
+      catch (\Exception $e) {
+        // Plugin not found.
+      }
+    }
+
+    return $data_types;
+  }
+
+  /**
+   * Builds options for a select list based on dataTypes.
+   *
+   * @return array
+   *   An array of options suitable for a select list.
+   */
+  public function dataTypeOptions(): array {
+    $data_types = $this->dataTypes();
+    $options = [];
+
+    foreach ($data_types as $key => $data_type) {
+      // The label is already translated in the plugin.
+      $options[$key] = $data_type['label'];
+    }
+
+    return $options;
   }
 
 }

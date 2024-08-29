@@ -1,0 +1,21 @@
+uuid: 277271e6-f515-45ba-8e71-e260a87f5801
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - options
+id: node.schema_knows_language
+field_name: schema_knows_language
+entity_type: node
+type: list_string
+settings:
+  allowed_values: {  }
+  allowed_values_function: schemadotorg_options_allowed_values_language
+module: options
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

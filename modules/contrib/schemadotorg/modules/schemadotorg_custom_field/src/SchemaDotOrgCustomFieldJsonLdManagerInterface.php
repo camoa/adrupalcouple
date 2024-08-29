@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg_custom_field;
 
@@ -13,6 +13,8 @@ interface SchemaDotOrgCustomFieldJsonLdManagerInterface {
 
   /**
    * Alter the Schema.org property JSON-LD value for an entity's field item.
+   *
+   * Appends units to custom_field JSON-LD data.
    *
    * @param mixed $value
    *   Alter the Schema.org property JSON-LD value.

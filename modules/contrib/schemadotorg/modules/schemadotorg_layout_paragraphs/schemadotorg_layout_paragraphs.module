@@ -5,35 +5,27 @@
  * Provides integration with the Layout Paragraphs module.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
-use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
-use Drupal\Core\Entity\EntityInterface;
-use Drupal\Core\Field\FieldItemInterface;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Render\Element;
-use Drupal\entity_reference_revisions\Plugin\Field\FieldType\EntityReferenceRevisionsItem;
-use Drupal\node\NodeTypeInterface;
-use Drupal\paragraphs\ParagraphInterface;
 use Drupal\paragraphs\ParagraphsTypeInterface;
-use Drupal\schemadotorg\Element\SchemaDotOrgSettings;
 
 /**
  * Implements hook_schemadotorg_mapping_defaults_alter().
  */
 function schemadotorg_layout_paragraphs_schemadotorg_mapping_defaults_alter(array &$defaults, string $entity_type_id, ?string $bundle, string $schema_type): void {
-  /** @var \Drupal\schemadotorg_layout_paragraphs\SchemaDotOrgLayoutParagraphsManagerInterface $layout_pragraphs_mananger */
-  $layout_pragraphs_mananger = \Drupal::service('schemadotorg_layout_paragraphs.manager');
-  $layout_pragraphs_mananger->alterMappingDefaults($defaults, $entity_type_id, $bundle, $schema_type);
+  /** @var \Drupal\schemadotorg_layout_paragraphs\SchemaDotOrgLayoutParagraphsManagerInterface $layout_paragraphs_manager */
+  $layout_paragraphs_manager = \Drupal::service('schemadotorg_layout_paragraphs.manager');
+  $layout_paragraphs_manager->alterMappingDefaults($defaults, $entity_type_id, $bundle, $schema_type);
 }
 
 /**
  * Implements hook_form_BASE_FORM_ID_alter().
  */
 function schemadotorg_layout_paragraphs_form_schemadotorg_mapping_form_alter(array &$form, FormStateInterface &$form_state): void {
-  /** @var \Drupal\schemadotorg_layout_paragraphs\SchemaDotOrgLayoutParagraphsManagerInterface $layout_pragraphs_mananger */
-  $layout_pragraphs_mananger = \Drupal::service('schemadotorg_layout_paragraphs.manager');
-  $layout_pragraphs_mananger->alterMappingForm($form, $form_state);
+  /** @var \Drupal\schemadotorg_layout_paragraphs\SchemaDotOrgLayoutParagraphsManagerInterface $layout_paragraphs_manager */
+  $layout_paragraphs_manager = \Drupal::service('schemadotorg_layout_paragraphs.manager');
+  $layout_paragraphs_manager->alterMappingForm($form, $form_state);
 }
 
 /**
@@ -49,11 +41,11 @@ function schemadotorg_layout_paragraphs_schemadotorg_property_field_alter(
   ?string &$widget_id,
   array &$widget_settings,
   ?string &$formatter_id,
-  array &$formatter_settings
+  array &$formatter_settings,
 ): void {
-  /** @var \Drupal\schemadotorg_layout_paragraphs\SchemaDotOrgLayoutParagraphsManagerInterface $layout_pragraphs_mananger */
-  $layout_pragraphs_mananger = \Drupal::service('schemadotorg_layout_paragraphs.manager');
-  $layout_pragraphs_mananger->alterPropertyField(
+  /** @var \Drupal\schemadotorg_layout_paragraphs\SchemaDotOrgLayoutParagraphsManagerInterface $layout_paragraphs_manager */
+  $layout_paragraphs_manager = \Drupal::service('schemadotorg_layout_paragraphs.manager');
+  $layout_paragraphs_manager->alterPropertyField(
     $schema_type,
     $schema_property,
     $field_storage_values,
@@ -65,138 +57,13 @@ function schemadotorg_layout_paragraphs_schemadotorg_property_field_alter(
   );
 }
 
-/* ************************************************************************** */
-// Schema.org JSON-LD alterations.
-/* ************************************************************************** */
-
-/**
- * Implements hook_schemadotorg_jsonld_schema_type_entity_load().
- */
-function schemadotorg_layout_paragraphs_schemadotorg_jsonld_schema_type_entity_alter(array &$data, EntityInterface $entity): void {
-  // Replace the empty data with node reference.
-  if (count($data) === 1
-    && $entity->getEntityTypeId() === 'paragraph'
-    && $entity->bundle() === 'node'
-    && $entity->hasField('field_node')
-    && $entity->field_node->entity) {
-    /** @var \Drupal\schemadotorg_jsonld\SchemaDotOrgJsonLdBuilderInterface $jsonld_builder */
-    $jsonld_builder = \Drupal::service('schemadotorg_jsonld.builder');
-    $data = $jsonld_builder->buildEntity($entity->field_node->entity);
-  }
-}
-
-/**
- * Implements hook_schemadotorg_jsonld_schema_property_alter().
- */
-function schemadotorg_layout_paragraphs_schemadotorg_jsonld_schema_property_alter(mixed &$value, FieldItemInterface $item): void {
-  if (!$item instanceof EntityReferenceRevisionsItem
-    || !is_array($value)
-    || (count($value) !== 2)
-    || !isset($value['@type'])
-    || !isset($value['mainEntityOfPage'])
-    || !isset($value['mainEntityOfPage']['@type'])
-  ) {
-    return;
-  }
-
-  // Remove the JSON-LD nesting because the media paragraph type
-  // is referencing and image.
-  if ($value['@type'] === $value['mainEntityOfPage']['@type']) {
-    $value = $value['mainEntityOfPage'];
-  }
-}
-
-/* ************************************************************************** */
-// Entity hooks.
-/* ************************************************************************** */
-
-/**
- * Implements hook_ENTITY_TYPE_insert().
- *
- * Automatically adds types to the paragraph node's target bundles.
- */
-function schemadotorg_layout_paragraphs_node_type_insert(NodeTypeInterface $node_type): void {
-  /** @var \Drupal\field\FieldConfigInterface $field_config */
-  $field_config = \Drupal::entityTypeManager()
-    ->getStorage('field_config')
-    ->load("paragraph.node.field_node");
-  if ($field_config) {
-    $settings = $field_config->get('settings');
-    $settings['handler_settings']['target_bundles'][$node_type->id()] = $node_type->id();
-    $field_config->set('settings', $settings);
-    $field_config->save();
-  }
-}
-
 /**
  * Implements hook_ENTITY_TYPE_presave().
  */
 function schemadotorg_layout_paragraphs_paragraphs_type_presave(ParagraphsTypeInterface $paragraphs_type): void {
-  if (!Drupal::moduleHandler()->moduleExists('style_options')) {
-    return;
-  }
-
-  $default_paragraph_types = \Drupal::config('schemadotorg_layout_paragraphs.settings')
-    ->get('default_paragraph_types');
-  if (empty($default_paragraph_types)) {
-    return;
-  }
-
-  if (in_array($paragraphs_type->id(), $default_paragraph_types)) {
-    $behavior_plugins = $paragraphs_type->get('behavior_plugins');
-    $behavior_plugins['style_options'] = ['enabled' => TRUE];
-    $paragraphs_type->set('behavior_plugins', $behavior_plugins);
-  }
-}
-
-/**
- * Implements hook_entity_view_alter().
- */
-function schemadotorg_layout_paragraphs_paragraph_view_alter(array &$build, ParagraphInterface $paragraph, EntityViewDisplayInterface $display): void {
-  $themes = \Drupal::config('schemadotorg_layout_paragraphs.settings')
-    ->get('themes');
-  $active_theme_name = \Drupal::service('theme.manager')
-    ->getActiveTheme()
-    ->getName();
-  if (empty($themes) || !in_array($active_theme_name, $themes)) {
-    return;
-  }
-
-  switch ($paragraph->bundle()) {
-    case 'quotation':
-      if (isset($build['schema_text'][0])) {
-        $build['schema_text'][0]['#prefix'] = '<blockquote>';
-        $build['schema_text'][0]['#suffix'] = '</blockquote>';
-      }
-      if (isset($build['schema_creator'][0])) {
-        $build['schema_creator'][0]['#prefix'] = '<address>-- ';
-        $build['schema_creator'][0]['#suffix'] = '</address>';
-      }
-      break;
-
-    case 'item_list_text':
-    case 'item_list_string':
-    case 'item_list_link':
-      $item_type = str_replace('item_list_', '', $paragraph->bundle());
-      $field_name = 'schema_item_list_element_' . $item_type;
-      $items = [];
-      foreach (Element::children($build[$field_name]) as $key) {
-        $items[] = $build[$field_name][$key];
-      }
-      $build[$field_name] = [
-        '#theme' => 'item_list',
-        '#items' => $items,
-        '#weight' => $build[$field_name]['#weight'],
-      ];
-      break;
-
-    case 'header':
-      if (isset($build['schema_header_text'][0])) {
-        $build['schema_header_text'][0]['#prefix'] = '<h2>';
-        $build['schema_header_text'][0]['#suffix'] = '</h2>';
-      }
-      break;
-  }
+  /** @var \Drupal\schemadotorg_layout_paragraphs\SchemaDotOrgLayoutParagraphsManagerInterface $layout_paragraphs_manager */
+  $layout_paragraphs_manager = \Drupal::service('schemadotorg_layout_paragraphs.manager');
+  $layout_paragraphs_manager->paragraphsTypePresave($paragraphs_type);
 }
 
 /* ************************************************************************** */
@@ -205,35 +72,35 @@ function schemadotorg_layout_paragraphs_paragraph_view_alter(array &$build, Para
 
 /**
  * Implements hook_form_FORM_ID_alter().
+ *
+ * @see \Drupal\schemadotorg\Form\SchemaDotOrgSettingsFormBase::afterBuildDetails
+ * @see \Drupal\schemadotorg\Form\SchemaDotOrgSettingsFormBase::formAlter
  */
 function schemadotorg_layout_paragraphs_form_schemadotorg_types_settings_form_alter(array &$form, FormStateInterface $form_state): void {
   $form['schemadotorg_layout_paragraphs'] = [
     '#type' => 'details',
-    '#title' => t('Layout Paragraphs settings'),
-    '#open' => TRUE,
-    '#tree' => TRUE,
+    '#title' => t('Layout paragraphs settings'),
   ];
-  $form['schemadotorg_layout_paragraphs']['default_schema_types'] = [
+  $form['schemadotorg_layout_paragraphs']['default_types'] = [
     '#type' => 'schemadotorg_settings',
-    '#settings_type' => SchemaDotOrgSettings::INDEXED,
-    '#settings_format' => 'SchemaType',
-    '#title' => t('Default Schema.org types'),
-    '#description' => t('Enter Schema.org types that default to using layout paragraphs.'),
+    '#title' => t('Default Schema.org types/content types'),
+    '#description' => t('Enter Schema.org types or content types (a.k.a bundles) that default to using layout paragraphs.'),
     '#description_link' => 'types',
+    '#example' => '
+- SchemaType01
+- SchemaType02
+- SchemaType03
+- advanced_page
+',
   ];
   $form['schemadotorg_layout_paragraphs']['default_paragraph_types'] = [
     '#type' => 'schemadotorg_settings',
-    '#settings_type' => SchemaDotOrgSettings::INDEXED,
-    '#settings_format' => 'paragraph_type',
     '#title' => t('Default paragraph types'),
     '#description' => t('Enter the default paragraph types to be using with in layout paragraphs.'),
+    '#example' => '
+- paragraph_type01
+- paragraph_type02
+- paragraph_type03
+',
   ];
-  $form['schemadotorg_layout_paragraphs']['themes'] = [
-    '#type' => 'schemadotorg_settings',
-    '#settings_type' => SchemaDotOrgSettings::INDEXED,
-    '#settings_format' => 'theme_name',
-    '#title' => t('Default themes'),
-    '#description' => t('Enter the themes that should enhance the layout paragraph component markup for Quotation, Statement, Header, and ItemList.'),
-  ];
-
 }

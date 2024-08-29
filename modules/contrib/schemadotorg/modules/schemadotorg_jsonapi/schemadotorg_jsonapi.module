@@ -5,7 +5,7 @@
  * Builds on top of the JSON:API and JSON:API extras modules.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
@@ -16,9 +16,9 @@ use Drupal\schemadotorg\SchemaDotOrgMappingInterface;
 /**
  * Implements hook_help().
  */
-function schemadotorg_jsonapi_help(string $route_name, RouteMatchInterface $route_match): string|array|NULL {
+function schemadotorg_jsonapi_help(string $route_name, RouteMatchInterface $route_match): string|NULL {
   if ($route_name === 'schemadotorg_jsonapi.settings') {
-    return '<p>' . t('The <em>Schema.org JSON:API settings</em> page allows administrators to configure the default settings for the JSON:API resource overrides managed by the JSON:API extras module.') . '<p>';
+    return '<p>' . t('The <strong>Schema.org JSON:API settings</strong> page allows administrators to configure the default settings for the JSON:API.') . '<p>';
   }
 
   return NULL;
@@ -28,7 +28,7 @@ function schemadotorg_jsonapi_help(string $route_name, RouteMatchInterface $rout
  * Implements hook_schemadotorg_mapping_insert().
  */
 function schemadotorg_jsonapi_schemadotorg_mapping_insert(SchemaDotOrgMappingInterface $mapping): void {
-  if (\Drupal::isConfigSyncing()) {
+  if ($mapping->isSyncing()) {
     return;
   }
 
@@ -41,6 +41,10 @@ function schemadotorg_jsonapi_schemadotorg_mapping_insert(SchemaDotOrgMappingInt
  * Implements hook_schemadotorg_mapping_update().
  */
 function schemadotorg_jsonapi_schemadotorg_mapping_update(SchemaDotOrgMappingInterface $mapping): void {
+  if ($mapping->isSyncing()) {
+    return;
+  }
+
   /** @var \Drupal\schemadotorg_jsonapi\SchemaDotOrgJsonApiManagerInterface $manager */
   $manager = \Drupal::service('schemadotorg_jsonapi.manager');
   $manager->updateMappingResourceConfig($mapping);

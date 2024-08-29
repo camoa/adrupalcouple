@@ -1,7 +1,7 @@
 services:
   schemadotorg_mapping_set.manager:
     class: Drupal\schemadotorg_mapping_set\SchemaDotOrgMappingSetManager
-    arguments: ['@state', '@config.factory', '@entity_type.manager', '@schemadotorg.schema_type_manager', '@schemadotorg.entity_relationship_manager', '@schemadotorg.mapping_manager', '@?plugin.manager.develgenerate']
+    arguments: ['@state', '@config.factory', '@entity_type.manager', '@schemadotorg.schema_type_manager', '@schemadotorg.mapping_manager', '@?plugin.manager.develgenerate']
 
   schemadotorg_mapping_set.breadcrumb:
     class: Drupal\schemadotorg_mapping_set\Breadcrumb\SchemaDotOrgMappingSetBreadcrumbBuilder

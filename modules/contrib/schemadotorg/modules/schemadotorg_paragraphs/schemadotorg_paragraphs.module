@@ -5,25 +5,34 @@
  * Integrates the Paragraphs with the Schema.org Blueprints module.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
+use Drupal\Component\Utility\NestedArray;
 use Drupal\Component\Utility\Unicode;
 use Drupal\Core\Access\AccessResult;
+use Drupal\Core\Field\FieldConfigInterface;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemInterface;
 use Drupal\Core\Field\FieldItemListInterface;
+use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Render\BubbleableMetadata;
 use Drupal\Core\Session\AccountInterface;
+use Drupal\entity_reference_revisions\EntityReferenceRevisionsFieldItemList;
 use Drupal\file\Entity\File;
 use Drupal\paragraphs\ParagraphInterface;
 use Drupal\paragraphs\ParagraphsTypeInterface;
-use Drupal\schemadotorg\Element\SchemaDotOrgSettings;
+use Drupal\paragraphs\Plugin\Field\FieldWidget\ParagraphsWidget;
 use Drupal\schemadotorg\SchemaDotOrgMappingInterface;
 
 /**
  * Implements hook_ENTITY_TYPE_presave().
  */
 function schemadotorg_paragraphs_schemadotorg_mapping_presave(SchemaDotOrgMappingInterface $mapping): void {
+  if ($mapping->isSyncing()) {
+    return;
+  }
+
   /** @var \Drupal\schemadotorg_paragraphs\SchemaDotOrgParagraphsManagerInterface $schema_paragraphs_manager */
   $schema_paragraphs_manager = \Drupal::service('schemadotorg_paragraphs.manager');
   $schema_paragraphs_manager->mappingPresave($mapping);
@@ -40,7 +49,7 @@ function schemadotorg_paragraphs_schemadotorg_property_field_alter(
   ?string &$widget_id,
   array &$widget_settings,
   ?string &$formatter_id,
-  array &$formatter_settings
+  array &$formatter_settings,
 ): void {
   /** @var \Drupal\schemadotorg_paragraphs\SchemaDotOrgParagraphsManagerInterface $schema_paragraphs_manager */
   $schema_paragraphs_manager = \Drupal::service('schemadotorg_paragraphs.manager');
@@ -56,15 +65,49 @@ function schemadotorg_paragraphs_schemadotorg_property_field_alter(
   );
 }
 
+/**
+ * Implements hook_ENTITY_TYPE_presave().
+ */
+function schemadotorg_paragraphs_field_config_presave(FieldConfigInterface $field_config): void {
+  /** @var \Drupal\schemadotorg_paragraphs\SchemaDotOrgParagraphsManagerInterface $schema_paragraphs_manager */
+  $schema_paragraphs_manager = \Drupal::service('schemadotorg_paragraphs.manager');
+  $schema_paragraphs_manager->fieldConfigPresave($field_config);
+}
+
+/**
+ * Implements field_widget_complete_form_alter().
+ */
+function schemadotorg_paragraphs_field_widget_complete_form_alter(array &$field_widget_complete_form, FormStateInterface $form_state, array $context): void {
+  // Make sure the paragraphs field widget that is built using the
+  // 'schemadotorg:paragraph' selection handler has the 'add from library' link
+  // last because the paragraphs field widget only support sorted bundled the
+  // 'default:paragraphs' selection handler.
+  // @see \Drupal\paragraphs\Plugin\Field\FieldWidget\ParagraphsWidget::getAllowedTypes
+  if ($context['widget'] instanceof ParagraphsWidget
+    && $context['items'] instanceof EntityReferenceRevisionsFieldItemList
+    && $context['items']->getFieldDefinition()->getSetting('handler') === 'schemadotorg:paragraph') {
+    $parents = ['widget', 'add_more', 'operations', '#links', 'add_more_button_from_library'];
+    $add_from_library_link = NestedArray::getValue($field_widget_complete_form, $parents);
+    if ($add_from_library_link) {
+      NestedArray::unsetValue($field_widget_complete_form, $parents);
+      NestedArray::setValue($field_widget_complete_form, $parents, $add_from_library_link);
+    }
+  }
+}
+
 /* ************************************************************************** */
 // Paragraph type icons.
 /* ************************************************************************** */
 
 /**
  * Implements hook_ENTITY_TYPE_presave().
+ *
+ * Save paragraph icons programmatically.
+ *
+ * @see \Drupal\paragraphs\Form\ParagraphsTypeForm::validateForm
  */
 function schemadotorg_paragraphs_paragraphs_type_presave(ParagraphsTypeInterface $paragraphs_type): void {
-  if (\Drupal::isConfigSyncing()) {
+  if ($paragraphs_type->isSyncing()) {
     return;
   }
 
@@ -85,15 +128,29 @@ function schemadotorg_paragraphs_paragraphs_type_presave(ParagraphsTypeInterface
   $module_names['schemadotorg_paragraphs'] = 'schemadotorg_paragraphs';
 
   foreach ($module_names as $module_name) {
-    $icon_path = $module_extension_list->getPath($module_name) . '/images/schemadotorg_paragraphs/' . $paragraphs_type->id() . '.svg';
-    if (file_exists($icon_path)) {
-      $icon_directory = 'public://paragraphs_type_icon';
-      $file_system->prepareDirectory($icon_directory, $file_system::CREATE_DIRECTORY || $file_system::MODIFY_PERMISSIONS);
+    $paragraphs_type_id = $paragraphs_type->id();
+    while ($paragraphs_type_id) {
+      $icon_path = $module_extension_list->getPath($module_name) . '/images/schemadotorg_paragraphs/' . $paragraphs_type_id . '.svg';
+      if (file_exists($icon_path)) {
+        $icon_directory = 'public://paragraphs_type_icon';
+        $file_system->prepareDirectory($icon_directory, FileSystemInterface::MODIFY_PERMISSIONS | FileSystemInterface::CREATE_DIRECTORY);
 
-      $file_uri = $file_system->copy($icon_path, $icon_directory . '/' . $file_system->basename($icon_path), $file_system::EXISTS_REPLACE);
-      $file_entity = File::create(['uri' => $file_uri]);
-      $file_entity->save();
-      $paragraphs_type->set('icon_uuid', $file_entity->uuid());
+        $file_uri = $file_system->copy($icon_path, $icon_directory . '/' . $file_system->basename($icon_path), $file_system::EXISTS_REPLACE);
+        $file_entity = File::create(['uri' => $file_uri]);
+        $file_entity->save();
+
+        $paragraphs_type->set('icon_uuid', $file_entity->uuid());
+        $paragraphs_type->set(
+          'icon_default',
+          'data:' . $file_entity->getMimeType() . ';base64,' . base64_encode(file_get_contents($file_entity->getFileUri())));
+        break;
+      }
+      elseif (!str_contains($paragraphs_type_id, '_')) {
+        break;
+      }
+      else {
+        $paragraphs_type_id = preg_replace('/_[a-z]*$/', '', $paragraphs_type_id);
+      }
     }
   }
 }
@@ -118,13 +175,14 @@ function schemadotorg_paragraphs_entity_field_access(string $operation, FieldDef
   $mapping_storage = \Drupal::entityTypeManager()
     ->getStorage('schemadotorg_mapping');
 
-  /** @var \Drupal\schemadotorg\SchemaDotOrgMappingInterface $mapping */
+  /** @var \Drupal\schemadotorg\SchemaDotOrgMappingInterface|null $mapping */
   $mapping = $mapping_storage->load("$entity_type_id.$bundle");
   if (!$mapping) {
     return AccessResult::neutral();
   }
 
   // Get the parent entity for the paragraph.
+  // @phpstan-ignore-next-line
   if ($items && $items->getEntity() && $items->getEntity()->getParentEntity()) {
     /** @var \Drupal\Core\Entity\ContentEntityInterface $parent_entity */
     $parent_entity = $items->getEntity()->getParentEntity();
@@ -139,6 +197,7 @@ function schemadotorg_paragraphs_entity_field_access(string $operation, FieldDef
     return AccessResult::neutral();
   }
 
+  /** @var \Drupal\schemadotorg\SchemaDotOrgMappingInterface|null $parent_mapping */
   $parent_mapping = $mapping_storage->load("$parent_entity_type_id.$parent_bundle");
   if (!$parent_mapping) {
     return AccessResult::neutral();
@@ -149,9 +208,9 @@ function schemadotorg_paragraphs_entity_field_access(string $operation, FieldDef
   $parent_schema_type = $parent_mapping->getSchemaType();
   $schema_type = $mapping->getSchemaType();
   $schema_property = $mapping->getSchemaPropertyMapping($field_name);
-  $property_access = \Drupal::config('schemadotorg_paragraphs.settings')
-    ->get("property_access.$parent_schema_type--$schema_type");
-  return AccessResult::forbiddenIf($property_access && !in_array($schema_property, $property_access));
+  $schema_property_access = \Drupal::config('schemadotorg_paragraphs.settings')
+    ->get("schema_property_access.$parent_schema_type--$schema_type");
+  return AccessResult::forbiddenIf($schema_property_access && !in_array($schema_property, $schema_property_access));
 }
 
 /* ************************************************************************** */
@@ -163,7 +222,7 @@ function schemadotorg_paragraphs_entity_field_access(string $operation, FieldDef
  *
  * Adds paragraph from paragraphs library to JSON-LD.
  */
-function schemadotorg_paragraphs_schemadotorg_jsonld_schema_property_alter(mixed &$value, FieldItemInterface $item): void {
+function schemadotorg_paragraphs_schemadotorg_jsonld_schema_property_alter(mixed &$value, FieldItemInterface $item, BubbleableMetadata $bubbleable_metadata): void {
   // Make sure the Paragraphs Library module is enabled.
   if (!\Drupal::moduleHandler()->moduleExists('paragraphs_library')) {
     return;
@@ -174,11 +233,6 @@ function schemadotorg_paragraphs_schemadotorg_jsonld_schema_property_alter(mixed
   // targeting paragraphs.
   if ($field_storage_definition->getType() !== 'entity_reference_revisions'
     || $field_storage_definition->getSetting('target_type') !== 'paragraph') {
-    return;
-  }
-
-  // Check that the value is NOT NULL.
-  if (!is_null($value)) {
     return;
   }
 
@@ -210,7 +264,10 @@ function schemadotorg_paragraphs_schemadotorg_jsonld_schema_property_alter(mixed
   $jsonld_builder = \Drupal::service('schemadotorg_jsonld.builder');
 
   // Build the paragraphs JSON-LD.
-  $value = $jsonld_builder->buildEntity($paragraph);
+  $value = $jsonld_builder->buildEntity(
+    entity: $paragraph,
+    bubbleable_metadata: $bubbleable_metadata,
+  );
 }
 
 /* ************************************************************************** */
@@ -331,32 +388,37 @@ function schemadotorg_paragraphs_form_entity_embed_dialog_alter(array &$form, Fo
 
 /**
  * Implements hook_form_FORM_ID_alter().
+ *
+ * @see \Drupal\schemadotorg\Form\SchemaDotOrgSettingsFormBase::afterBuildDetails
+ * @see \Drupal\schemadotorg\Form\SchemaDotOrgSettingsFormBase::formAlter
  */
 function schemadotorg_paragraphs_form_schemadotorg_types_settings_form_alter(array &$form, FormStateInterface $form_state): void {
-  if (!\Drupal::moduleHandler()->moduleExists('paragraphs_library')) {
-    return;
-  }
-
   $form['schemadotorg_paragraphs'] = [
     '#type' => 'details',
     '#title' => t('Paragraphs settings'),
-    '#open' => TRUE,
-    '#tree' => TRUE,
   ];
   $form['schemadotorg_paragraphs']['paragraphs_library'] = [
     '#type' => 'schemadotorg_settings',
-    '#settings_type' => SchemaDotOrgSettings::INDEXED,
-    '#settings_format' => 'SchemaType',
     '#title' => t('Schema.org types that default to using the Paragraphs library'),
-    '#description' => t('Enter Schema.org types that default to using the Paragraphs library.'),
+    '#description' => t('Enter Schema.org types that should automatically support being used via the Paragraphs library.'),
     '#description_link' => 'types',
+    '#access' => \Drupal::moduleHandler()->moduleExists('paragraphs_library'),
+    '#example' => '
+- SchemaType01
+- SchemaType02
+- SchemaType03
+',
   ];
-  $form['schemadotorg_paragraphs']['property_access'] = [
+  $form['schemadotorg_paragraphs']['schema_property_access'] = [
     '#type' => 'schemadotorg_settings',
-    '#settings_type' => SchemaDotOrgSettings::INDEXED_GROUPED,
-    '#settings_format' => 'ParentSchemaType--ParagraphSchemaType|property01,property02',
     '#title' => t('Schema.org type property access'),
-    '#description' => t("Enter Schema.org parent type and paragraph types that have limited Schema.org properties. For example, you limit a Person's ContactPoint to only display contactType and telephone."),
+    '#description' => t("Enter Schema.org parent type and paragraph types that have limited Schema.org properties. For example, you can limit a Person's ContactPoint to only display contactType and telephone."),
     '#description_link' => 'types',
+    '#example' => '
+ParentSchemaType--ParagraphSchemaType:
+  - property01
+  - property02
+  - property03
+',
   ];
 }

@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\Tests\schemadotorg\Functional;
 
@@ -13,9 +13,7 @@ namespace Drupal\Tests\schemadotorg\Functional;
 class SchemaDotOrgSettingsElementTest extends SchemaDotOrgBrowserTestBase {
 
   /**
-   * Modules to enable.
-   *
-   * @var array
+   * {@inheritdoc}
    */
   protected static $modules = ['schemadotorg_settings_element_test'];
 
@@ -23,23 +21,17 @@ class SchemaDotOrgSettingsElementTest extends SchemaDotOrgBrowserTestBase {
    * Test Schema.org settings form.
    */
   public function testSchemaDotOrgSettingsElement(): void {
-    $assert_session = $this->assertSession();
+    $assert = $this->assertSession();
 
     $this->drupalLogin($this->rootUser);
 
-    $this->drupalGet('/schemadotorg-settings-element-test');
-
-    // Check that invalid settings render as YAML and display a warning message.
-    $assert_session->responseContains('<textarea wrap="off" data-drupal-selector="edit-schemadotorg-settings-element-test-associative-grouped-invalid" class="schemadotorg-codemirror form-textarea" data-mode="yaml" id="edit-schemadotorg-settings-element-test-associative-grouped-invalid" name="schemadotorg_settings_element_test[associative_grouped_invalid]" rows="5" cols="60">');
-    $assert_session->responseContains('<strong>Unable parse <em class="placeholder">associative_grouped_invalid</em> settings.</strong>');
+    $this->drupalGet('schemadotorg-settings-element-test');
 
     // Check expected values when submitting the form via text format.
-    $assert_session->fieldValueEquals('schemadotorg_settings_element_test[indexed]', 'one
-two
-three');
-    $assert_session->fieldValueEquals('schemadotorg_settings_element_test[yaml]', 'title: YAML');
+    $assert->fieldValueEquals('schemadotorg_settings_element_test[yaml]', 'title: YAML');
     $this->submitForm([], 'Submit');
-    $expected_data = "indexed:
+    $expected_data = <<<EOT
+indexed:
   - one
   - two
   - three
@@ -91,13 +83,6 @@ associative_grouped_named:
       four: Four
       five: Five
       six: Six
-links:
-  -
-    title: Yahoo!!!
-    uri: 'https://yahoo.com'
-  -
-    title: Google
-    uri: 'https://google.com'
 links_grouped:
   A:
     -
@@ -107,49 +92,45 @@ links_grouped:
     -
       title: Google
       uri: 'https://google.com'
-yaml:
-  title: YAML
 associative_advanced:
   title: Title
   required: true
   height: 100
   width: 100
-associative_grouped_invalid:
-  A:
-    one: 'One,comma'
-    two: Two
-    three: Three";
-    $assert_session->responseContains($expected_data);
+yaml:
+  title: YAML
+yaml_raw: 'title: YAML raw'
+json_raw: |-
+  {
+    "name": "value"
+  }
+EOT;
+    $assert->responseContains($expected_data);
 
-    // Check expected values when submitting the form via text format.
-    $this->drupalGet('/schemadotorg-settings-element-test', ['query' => ['yaml' => 1]]);
-    $assert_session->fieldValueEquals('schemadotorg_settings_element_test[indexed]', '- one
-- two
-- three');
-    $assert_session->fieldValueEquals('schemadotorg_settings_element_test[yaml]', 'title: YAML');
-    $this->submitForm([], 'Submit');
-    $assert_session->responseContains($expected_data);
-
-    // Check show YAML state is stored in the user state.
-    $this->drupalGet('/schemadotorg-settings-element-test');
-    $assert_session->fieldValueEquals('schemadotorg_settings_element_test[indexed]', '- one
-- two
-- three');
-    $this->drupalGet('/schemadotorg-settings-element-test', ['query' => ['yaml' => 0]]);
-    $assert_session->fieldValueEquals('schemadotorg_settings_element_test[indexed]', 'one
-two
-three');
+    // Check browse token and Schema.org links.
+    $assert->linkExists('Browse available tokens.');
+    $assert->linkExists('Browse Schema.org types.');
 
     // Check YAML validation.
-    $this->drupalGet('/schemadotorg-settings-element-test', ['query' => ['yaml' => 1]]);
+    $this->drupalGet('schemadotorg-settings-element-test');
     $this->submitForm(['schemadotorg_settings_element_test[indexed]' => '"not: valid yaml'], 'Submit');
-    $assert_session->responseContains('Error message');
+    $assert->responseContains('Error message');
+
+    // Check YAML raw validation.
+    $this->drupalGet('schemadotorg-settings-element-test');
+    $this->submitForm(['schemadotorg_settings_element_test[yaml_raw]' => '"not: valid yaml'], 'Submit');
+    $assert->responseContains('Error message');
+
+    // Check JSON raw validation.
+    $this->drupalGet('schemadotorg-settings-element-test');
+    $this->submitForm(['schemadotorg_settings_element_test[json_raw]' => '"not: valid json'], 'Submit');
+    $assert->responseContains('Error message');
 
     // Check configuration Schema.org validation.
-    $this->drupalGet('/schemadotorg-settings-element-test', ['query' => ['yaml' => 1]]);
+    $this->drupalGet('schemadotorg-settings-element-test');
     $this->submitForm(['schemadotorg_settings_element_test[indexed]' => 'not: [valid schema]'], 'Submit');
-    $assert_session->responseContains('indexed field is invalid.');
-    $assert_session->responseContains('The configuration property indexed.not.0 doesn&#039;t exist.');
+    $assert->responseContains('indexed field is invalid.');
+    $assert->responseContains('The configuration property indexed.not.0 doesn&#039;t exist.');
   }
 
 }

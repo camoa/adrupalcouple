@@ -11,7 +11,7 @@ field_name: schema_significant_link
 entity_type: node
 bundle: page
 label: 'Significant links'
-description: 'One of the more significant URLs on the page. Typically, these are the non-navigation links that are clicked on the most.'
+description: 'One of the more significant URLs on the page.'
 required: false
 translatable: true
 default_value: {  }

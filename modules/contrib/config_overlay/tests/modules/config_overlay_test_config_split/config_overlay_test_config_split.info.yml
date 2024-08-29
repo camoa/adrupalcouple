@@ -1,0 +1,13 @@
+name: 'Config Overlay & Config Split Integration'
+description: 'Test module to test that modules shipping configuration splits can be used as part of the configuration overlay.'
+type: module
+core_version_requirement: ^9.5 || ^10
+package: Testing
+dependencies:
+  - drupal:field
+  - config_split:config_split
+
+# Information added by Drupal.org packaging script on 2024-08-14
+version: '2.3.0'
+project: 'config_overlay'
+datestamp: 1723635439

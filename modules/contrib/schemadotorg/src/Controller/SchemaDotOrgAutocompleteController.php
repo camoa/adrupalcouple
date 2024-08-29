@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg\Controller;
 
@@ -18,39 +18,22 @@ class SchemaDotOrgAutocompleteController extends ControllerBase {
 
   /**
    * The database connection.
-   *
-   * @var \Drupal\Core\Database\Connection
    */
-  protected $database;
+  protected Connection $database;
 
   /**
    * The Schema.org schema type manager.
-   *
-   * @var \Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface
    */
-  protected $schemaTypeManager;
-
-  /**
-   * The controller constructor.
-   *
-   * @param \Drupal\Core\Database\Connection $database
-   *   The database connection.
-   * @param \Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface $schema_type_manager
-   *   The Schema.org schema type manager.
-   */
-  public function __construct(Connection $database, SchemaDotOrgSchemaTypeManagerInterface $schema_type_manager) {
-    $this->database = $database;
-    $this->schemaTypeManager = $schema_type_manager;
-  }
+  protected SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager;
 
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container) {
-    return new static(
-      $container->get('database'),
-      $container->get('schemadotorg.schema_type_manager'),
-    );
+  public static function create(ContainerInterface $container): static {
+    $instance = parent::create($container);
+    $instance->database = $container->get('database');
+    $instance->schemaTypeManager = $container->get('schemadotorg.schema_type_manager');
+    return $instance;
   }
 
   /**
@@ -70,9 +53,7 @@ class SchemaDotOrgAutocompleteController extends ControllerBase {
       return new JsonResponse([]);
     }
 
-    $types = NULL;
     if ($this->schemaTypeManager->isType($table)) {
-      // @todo Possibly cache the children to reduce the number of db queries.
       $children = array_keys($this->schemaTypeManager->getAllTypeChildren($table, ['label'], ['Enumeration']));
       sort($children);
       $labels = [];
@@ -91,9 +72,6 @@ class SchemaDotOrgAutocompleteController extends ControllerBase {
       $query->addField($table, 'label', 'value');
       $query->addField($table, 'label', 'label');
       $query->condition('label', '%' . $input . '%', 'LIKE');
-      if ($types) {
-        $query->condition('label', $types, 'IN');
-      }
       $query->orderBy('label');
       $query->range(0, 10);
       $labels = $query->execute()->fetchAllAssoc('label');

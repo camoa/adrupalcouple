@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\Tests\schemadotorg_custom_field\Functional;
 
@@ -15,9 +15,7 @@ use Drupal\Tests\schemadotorg\Functional\SchemaDotOrgBrowserTestBase;
 class SchemaDotOrgCustomFieldSettingsFormTest extends SchemaDotOrgBrowserTestBase {
 
   /**
-   * Modules to enable.
-   *
-   * @var array
+   * {@inheritdoc}
    */
   protected static $modules = ['filter', 'schemadotorg_custom_field'];
 
@@ -37,10 +35,10 @@ class SchemaDotOrgCustomFieldSettingsFormTest extends SchemaDotOrgBrowserTestBas
   }
 
   /**
-   * Test Schema.org Taxonomy settings form.
+   * Test Schema.org custom field settings form.
    */
   public function testSettingsForm(): void {
-    $this->assertSaveSettingsConfigForm('schemadotorg_custom_field.settings', '/admin/config/search/schemadotorg/settings/properties');
+    $this->assertSaveSettingsConfigForm('schemadotorg_custom_field.settings', '/admin/config/schemadotorg/settings/properties');
   }
 
 }

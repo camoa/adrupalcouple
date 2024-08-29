@@ -1,72 +1,33 @@
-entity_reference_selection.schemadotorg_range_includes:
+# Schema for the entity reference 'schemadotorg' selection handler settings.
+# see: src/Plugin/EntityReferenceSelection/SchemaDotOrgEntityReferenceSelection.php
+entity_reference_selection.schemadotorg:
   type: entity_reference_selection
-  label: 'Scheme.org type handler settings'
+  label: 'Schema.org base selection handler settings'
   mapping:
     target_type:
       type: string
-      label: 'Type of item to reference'
+      label: 'Target entity type ID'
+    schema_types:
+      type: sequence
+      label: 'Schema.org types'
+      sequence:
+        type: string
+        label: 'Schema.org type'
+    excluded_schema_types:
+      type: sequence
+      label: 'Excluded Schema.org types'
+      sequence:
+        type: string
+        label: 'Excluded Schema.org type'
     target_bundles:
       type: sequence
-      label: 'types'
+      label: 'Entity bundles'
       nullable: true
       sequence:
         type: string
-        label: 'Bundle'
-    schemadotorg_mapping:
-      type: mapping
-      label: 'Schema.org field mapping'
-      mapping:
-        entity_type:
-          type: string
-          label: 'Entity type'
-        bundle:
-          type: string
-          label: 'Entity bundle'
-        field_name:
-          type: string
-          label: 'Field name'
+        label: 'Entity bundle'
 
-entity_reference_selection.schemadotorg_enumeration:
-  type: entity_reference_selection
-  label: 'Scheme.org enumeration handler settings'
-  mapping:
-    target_type:
-      type: string
-      label: 'Type of item to reference'
-    schemadotorg_mapping:
-      type: mapping
-      label: 'Schema.org field mapping'
-      mapping:
-        entity_type:
-          type: string
-          label: 'Entity type'
-        bundle:
-          type: string
-          label: 'Entity bundle'
-        field_name:
-          type: string
-          label: 'Field name'
-
-entity_reference_selection.schemadotorg_type:
-  type: entity_reference_selection
-  label: 'Scheme.org type handler settings'
-  mapping:
-    target_type:
-      type: string
-      label: 'Type of item to reference'
-    depth:
-      type: integer
-      label: 'Depth'
-    schemadotorg_mapping:
-      type: mapping
-      label: 'Schema.org field mapping'
-      mapping:
-        entity_type:
-          type: string
-          label: 'Entity type'
-        bundle:
-          type: string
-          label: 'Entity bundle'
-        field_name:
-          type: string
-          label: 'Field name'
+# Schema for all entity reference 'default:*' selection handlers that are not
+# providing a specific schema.
+entity_reference_selection.schemadotorg:*:
+  type: entity_reference_selection.schemadotorg

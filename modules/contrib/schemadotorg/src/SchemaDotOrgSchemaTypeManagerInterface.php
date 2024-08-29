@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg;
 
@@ -10,6 +10,16 @@ use Drupal\Core\StringTranslation\TranslatableMarkup;
  * Schema.org schema data type manager interface.
  */
 interface SchemaDotOrgSchemaTypeManagerInterface {
+
+  /**
+   * Schema.org type.
+   */
+  const SCHEMA_TYPES = 'types';
+
+  /**
+   * Schema.org property.
+   */
+  const SCHEMA_PROPERTIES = 'properties';
 
   /**
    * The Schema.org base URI.
@@ -259,13 +269,13 @@ interface SchemaDotOrgSchemaTypeManagerInterface {
    *
    * @param string $property
    *   The Schema.org property.
-   * @param int $value
+   * @param int|string|null $value
    *   A numeric value.
    *
    * @return string|\Drupal\Core\StringTranslation\TranslatableMarkup|null
    *   The Schema.org property's unit.
    */
-  public function getPropertyUnit(string $property, int $value = 0): string|TranslatableMarkup|NULL;
+  public function getPropertyUnit(string $property, int|string|null $value = 0): string|TranslatableMarkup|NULL;
 
   /**
    * Gets Schema.org type or property items.
@@ -348,13 +358,13 @@ interface SchemaDotOrgSchemaTypeManagerInterface {
    *
    * @param string $type
    *   The Schema.org type.
-   * @param string $indent
-   *   The indentation.
+   * @param array $ignored_types
+   *   An array of ignored Schema.org type ids.
    *
    * @return array
    *   An associative array of Schema.org types as options
    */
-  public function getAllTypeChildrenAsOptions(string $type, string $indent = ''): array;
+  public function getAllTypeChildrenAsOptions(string $type, array $ignored_types = []): array;
 
   /**
    * Gets Schema.org subtypes.
@@ -387,6 +397,17 @@ interface SchemaDotOrgSchemaTypeManagerInterface {
   public function getDataTypes(): array;
 
   /**
+   * Get parent Schema.org types for specified Schema.org type.
+   *
+   * @param string $type
+   *   A Schema.org type.
+   *
+   * @return array
+   *   An array parent Schema.org types for the specified Schema.org type.
+   */
+  public function getParentTypes(string $type): array;
+
+  /**
    * Gets all Schema.org subtypes below specified Schema.org types.
    *
    * @param array $types
@@ -394,7 +415,7 @@ interface SchemaDotOrgSchemaTypeManagerInterface {
    *
    * @return array
    *   An array of Schema.org subtypes which includes the specified
-   *   Schema.org types
+   *   Schema.org types.
    */
   public function getAllSubTypes(array $types): array;
 
@@ -416,7 +437,7 @@ interface SchemaDotOrgSchemaTypeManagerInterface {
   /**
    * Gets Schema.org type hierarchical tree.
    *
-   * @param string $type
+   * @param string|array $type
    *   The Schema.org type.
    * @param array $ignored_types
    *   An array of ignored Schema.org types.
@@ -424,7 +445,7 @@ interface SchemaDotOrgSchemaTypeManagerInterface {
    * @return array
    *   An associative nested array containing Schema.org type hierarchical tree.
    */
-  public function getTypeTree(string $type, array $ignored_types = []): array;
+  public function getTypeTree(string|array $type, array $ignored_types = []): array;
 
   /**
    * Gets Schema.org type breadcrumbs.
@@ -460,5 +481,27 @@ interface SchemaDotOrgSchemaTypeManagerInterface {
    *   TRUE if the Schema.org type has subtypes.
    */
   public function hasSubtypes(string $type): bool;
+
+  /**
+   * Get setting from an associative array of settings.
+   *
+   * @param array $settings
+   *   An associative array of settings.
+   * @param \Drupal\schemadotorg\SchemaDotOrgMappingInterface|array $parts
+   *   A Schema.org mapping or an associative array of setting name parts
+   *   which includes.
+   *   - schema_type: The Schema.org type.
+   *   - entity_type_id: The entity type id.
+   *   - bundle: The entity bundle.
+   *   - schema_property: The Schema.org property.
+   *   - field_name: The field name.
+   * @param bool $multiple
+   *   Return multiple matches.
+   *   Defaults to FALSE and returns the first match.
+   *
+   * @return mixed
+   *   A setting from an associative array of settings.
+   */
+  public function getSetting(array $settings, SchemaDotOrgMappingInterface|array $parts, bool $multiple = FALSE): mixed;
 
 }

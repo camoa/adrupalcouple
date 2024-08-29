@@ -44,7 +44,7 @@ class SqlPgsql extends SqlBase
 
     public function command(): string
     {
-        return 'psql -q';
+        return 'psql -q ON_ERROR_STOP=1 ';
     }
 
     public function getEnv(): array
@@ -87,6 +87,16 @@ class SqlPgsql extends SqlBase
         $return = parent::createdb($quoted);
         $this->setDbSpec($db_spec_original);
         $this->alwaysQuery("CREATE EXTENSION IF NOT EXISTS pg_trgm;");
+        return $return;
+    }
+
+    public function drop(array $tables): ?bool
+    {
+        $return = true;
+        if ($tables) {
+            $sql = 'DROP TABLE ' . implode(', ', $tables) . ' CASCADE';
+            $return = $this->query($sql);
+        }
         return $return;
     }
 

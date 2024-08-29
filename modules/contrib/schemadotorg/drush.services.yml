@@ -1,6 +1,0 @@
-services:
-  schemadotorg.commands:
-    class: Drupal\schemadotorg\Commands\SchemaDotOrgCommands
-    arguments: ['@entity_type.manager', '@schemadotorg.installer', '@schemadotorg.config_manager', '@schemadotorg.entity_relationship_manager', '@schemadotorg.mapping_manager']
-    tags:
-      - { name: drush.command }

@@ -12,6 +12,9 @@ use Drupal\Tests\BrowserTestBase;
  */
 class LoadTest extends BrowserTestBase {
 
+  /**
+   * {@inheritdoc}
+   */
   protected $defaultTheme = 'stark';
 
   /**

@@ -1,9 +1,10 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg_help\Plugin\HelpSection;
 
+use Drupal\Core\Extension\ExtensionLifecycle;
 use Drupal\Core\Extension\ModuleExtensionList;
 use Drupal\Core\Link;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
@@ -19,62 +20,48 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *   title = @Translation("Schema.org Blueprints"),
  *   weight = 20,
  *   description = @Translation("The Schema.org Blueprints module uses Schema.org as the blueprint for the content architecture and structured data in a Drupal website."),
- *   permission = "access administration pages"
+ *   permission = "access help pages"
  * )
  */
-class SchemaDotOrgHelpSection extends HelpSectionPluginBase implements ContainerFactoryPluginInterface {
+final class SchemaDotOrgHelpSection extends HelpSectionPluginBase implements ContainerFactoryPluginInterface {
 
   /**
-   * The entity type manager.
-   *
-   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   * The module extension list.
    */
-  protected $entityTypeManager;
-
-  /**
-   * Constructs a TourHelpSection object.
-   *
-   * @param array $configuration
-   *   A configuration array containing information about the plugin instance.
-   * @param string $plugin_id
-   *   The plugin_id for the plugin instance.
-   * @param mixed $plugin_definition
-   *   The plugin implementation definition.
-   * @param \Drupal\Core\Extension\ModuleExtensionList $module_extension_list
-   *   The module extension list service.
-   */
-  public function __construct(array $configuration, string $plugin_id, mixed $plugin_definition, ModuleExtensionList $module_extension_list) {
-    parent::__construct($configuration, $plugin_id, $plugin_definition);
-    $this->moduleExtensionList = $module_extension_list;
-  }
+  protected ModuleExtensionList $moduleExtensionList;
 
   /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
-    return new static(
-      $configuration,
-      $plugin_id,
-      $plugin_definition,
-      $container->get('extension.list.module')
-    );
+    $instance = new static($configuration, $plugin_id, $plugin_definition);
+    $instance->moduleExtensionList = $container->get('extension.list.module');
+    return $instance;
   }
 
   /**
    * {@inheritdoc}
    */
   public function listTopics() {
-    $modules = array_filter($this->moduleExtensionList->getAllInstalledInfo(), function (array $info): bool {
-      return str_starts_with($info['package'], 'Schema.org Blueprints');
-    });
+    $modules = array_filter(
+      $this->moduleExtensionList->getAllInstalledInfo(),
+      fn(array $info) => str_starts_with($info['package'], 'Schema.org Blueprints')
+    );
     ksort($modules);
 
     $topics = [];
     foreach ($modules as $module_name => $module_info) {
       $title = $module_info['name'];
+      $title = str_replace('Schema.org Blueprints ', '', $title);
       $url = Url::fromRoute('schemadotorg_help.page', ['name' => $module_name]);
-      $topics[$module_name] = Link::fromTextAndUrl($title, $url)->toString();
+      $topics[$module_name] = Link::fromTextAndUrl($title, $url)->toRenderable();
+      if ($module_info[ExtensionLifecycle::LIFECYCLE_IDENTIFIER] === ExtensionLifecycle::EXPERIMENTAL) {
+        $topics[$module_name]['#suffix'] = ' <span class="schemadotorg-help-experimental">(' . $this->t('Experimental') . ')<span>';
+      }
     }
+    // Bold the core Schema.org Blueprints module's help page.
+    $topics['schemadotorg']['#prefix'] = '<strong>';
+    $topics['schemadotorg']['#suffix'] = '</strong>';
     return $topics;
   }
 

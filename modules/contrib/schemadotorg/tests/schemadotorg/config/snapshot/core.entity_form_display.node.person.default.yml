@@ -50,7 +50,7 @@ content:
     third_party_settings: {  }
   schema_additional_name:
     type: string_textfield
-    weight: 100
+    weight: 110
     region: content
     settings:
       size: 60
@@ -66,7 +66,7 @@ content:
     third_party_settings: {  }
   schema_family_name:
     type: string_textfield
-    weight: 100
+    weight: 110
     region: content
     settings:
       size: 60
@@ -74,7 +74,7 @@ content:
     third_party_settings: {  }
   schema_given_name:
     type: string_textfield
-    weight: 100
+    weight: 110
     region: content
     settings:
       size: 60
@@ -90,7 +90,7 @@ content:
     third_party_settings: {  }
   schema_knows_language:
     type: string_textfield
-    weight: 105
+    weight: 115
     region: content
     settings:
       size: 60
@@ -98,7 +98,7 @@ content:
     third_party_settings: {  }
   schema_member_of:
     type: entity_reference_autocomplete
-    weight: 155
+    weight: 165
     region: content
     settings:
       match_operator: CONTAINS
@@ -108,7 +108,7 @@ content:
     third_party_settings: {  }
   schema_same_as:
     type: link_default
-    weight: 136
+    weight: 146
     region: content
     settings:
       placeholder_url: ''
@@ -123,7 +123,7 @@ content:
     third_party_settings: {  }
   schema_works_for:
     type: string_textfield
-    weight: 105
+    weight: 115
     region: content
     settings:
       size: 60

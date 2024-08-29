@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\Tests\schemadotorg_report\Functional;
 
@@ -15,9 +15,7 @@ use Drupal\Tests\schemadotorg\Functional\SchemaDotOrgBrowserTestBase;
 class SchemaDotOrgReportSettingsFormTest extends SchemaDotOrgBrowserTestBase {
 
   /**
-   * Modules to enable.
-   *
-   * @var array
+   * {@inheritdoc}
    */
   protected static $modules = ['schemadotorg_report'];
 
@@ -37,7 +35,7 @@ class SchemaDotOrgReportSettingsFormTest extends SchemaDotOrgBrowserTestBase {
   public function testSchemaDotOrgReportSettingsForm(): void {
     $this->assertSaveSettingsConfigForm(
       'schemadotorg_report.settings',
-      '/admin/config/search/schemadotorg/settings/references'
+      '/admin/config/schemadotorg/settings/references'
     );
   }
 

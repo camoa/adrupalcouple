@@ -1,16 +1,22 @@
-schemadotorg.schemadotorg_mapping_type.*:
+'schemadotorg.schemadotorg_mapping_type.*':
   type: config_entity
-  label: Schema.org mapping type
+  label: 'Schema.org mapping type'
   mapping:
     id:
       type: string
-      label: 'ID'
+      label: ID
     target_entity_type_id:
       type: string
       label: 'Target entity type'
     multiple:
       type: boolean
       label: 'Allow multiple mappings to point to the same Schema.org type'
+    label_prefix:
+      type: string
+      label: 'Label prefix'
+    id_prefix:
+      type: string
+      label: 'ID prefix'
     recommended_schema_types:
       type: sequence
       label: 'Recommended Schema.org types'
@@ -20,13 +26,13 @@ schemadotorg.schemadotorg_mapping_type.*:
         mapping:
           label:
             type: string
-            label: 'Label'
+            label: Label
           types:
             type: sequence
-            label: 'Types'
+            label: Types
             sequence:
               type: string
-              label: 'Type'
+              label: Type
     default_schema_types:
       type: sequence
       label: 'Default Schema.org types'

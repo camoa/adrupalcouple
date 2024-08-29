@@ -13,10 +13,37 @@ use Drupal\Core\TypedData\DataDefinition;
  * @FieldType(
  *   id = "smartdate",
  *   label = @Translation("Smart date range"),
- *   description = @Translation("Create and store timestamp ranges, with an intelligent UI."),
+ *   description = {
+ *     @Translation("Create and store events as timestamp ranges, for maximum performance."),
+ *     @Translation("Able to handle timezones and recurring dates (with an optional submodule)"),
+ *     @Translation("Provides an intuitive widget for easy entry, natural language formatting, and handles all day events too"),
+ *   },
+ *   category = "date_time",
  *   default_widget = "smartdate_inline",
  *   default_formatter = "smartdate_default",
- *   list_class = "\Drupal\smart_date\Plugin\Field\FieldType\SmartDateFieldItemList"
+ *   list_class = "\Drupal\smart_date\Plugin\Field\FieldType\SmartDateFieldItemList",
+ *   constraints = {
+ *     "ComplexData" = {
+ *       "value" = {
+ *         "Range" = {
+ *           "min" = "-9223372036854775807",
+ *           "max" = "9223372036854775807",
+ *         }
+ *       },
+ *       "end_value" = {
+ *         "Range" = {
+ *           "min" = "-9223372036854775807",
+ *           "max" = "9223372036854775807",
+ *         }
+ *       },
+ *       "duration" = {
+ *         "Range" = {
+ *           "min" = "0",
+ *           "max" = "2147483647",
+ *         }
+ *       },
+ *     }
+ *   }
  * )
  */
 class SmartDateItem extends TimestampItem {
@@ -69,14 +96,17 @@ class SmartDateItem extends TimestampItem {
       ->setSetting('unsigned', TRUE)
       ->setRequired(FALSE);
 
+    $timezones = \DateTimeZone::listIdentifiers();
+    array_unshift($timezones, '');
+
     $properties['timezone'] = DataDefinition::create('string')
       ->setLabel(t('Timezone'))
       ->setDescription(t('The timezone of this date.'))
       ->setSetting('max_length', 32)
       ->setRequired(FALSE)
-      // @todo: Define this via an options provider once
+      // @todo Define this via an options provider once
       // https://www.drupal.org/node/2329937 is completed.
-      ->addConstraint('AllowedValues', array_keys(system_time_zones(TRUE, FALSE)));
+      ->addConstraint('AllowedValues', $timezones);
 
     return $properties;
   }
@@ -90,15 +120,16 @@ class SmartDateItem extends TimestampItem {
         'value' => [
           'description' => 'The start time value.',
           'type' => 'int',
+          'size' => 'big',
         ],
         'end_value' => [
           'description' => 'The end time value.',
           'type' => 'int',
+          'size' => 'big',
         ],
         'duration' => [
           'description' => 'The difference between start and end times, in minutes.',
           'type' => 'int',
-          'size' => 'medium',
         ],
         'rrule' => [
           'description' => 'The ID an associated recurrence rule.',
@@ -139,7 +170,7 @@ class SmartDateItem extends TimestampItem {
   public static function generateSampleValue(FieldDefinitionInterface $field_definition) {
     // Pick a random timestamp in the past year.
     $timestamp = \Drupal::time()->getRequestTime() - mt_rand(0, 86400 * 365);
-    $timestamp = floor($timestamp/60)*60;
+    $timestamp = floor($timestamp / 60) * 60;
     $duration = 60;
     $values['value'] = $timestamp;
     $values['end_value'] = $timestamp + $duration * 60;
@@ -163,9 +194,11 @@ class SmartDateItem extends TimestampItem {
   public function onChange($property_name, $notify = TRUE) {
     // Enforce that the computed date is recalculated.
     if ($property_name == 'value') {
+      // @phpstan-ignore-next-line
       $this->start_time = NULL;
     }
     elseif ($property_name == 'end_value') {
+      // @phpstan-ignore-next-line
       $this->end_time = NULL;
     }
     parent::onChange($property_name, $notify);

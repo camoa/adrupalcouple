@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\Tests\schemadotorg_cer\Functional;
 
@@ -14,9 +14,7 @@ use Drupal\Tests\schemadotorg\Functional\SchemaDotOrgBrowserTestBase;
 class SchemaDotOrgCorrespondingReferenceSettingsFormTest extends SchemaDotOrgBrowserTestBase {
 
   /**
-   * Modules to enable.
-   *
-   * @var array
+   * {@inheritdoc}
    */
   protected static $modules = [
     'schemadotorg_cer',
@@ -33,10 +31,10 @@ class SchemaDotOrgCorrespondingReferenceSettingsFormTest extends SchemaDotOrgBro
   }
 
   /**
-   * Test Schema.org Corresponding Entity Reference  settings form.
+   * Test Schema.org Corresponding Entity Reference settings form.
    */
   public function testSettingsForm(): void {
-    $this->assertSaveSettingsConfigForm('schemadotorg_cer.settings', '/admin/config/search/schemadotorg/settings/types');
+    $this->assertSaveSettingsConfigForm('schemadotorg_cer.settings', '/admin/config/schemadotorg/settings/types');
   }
 
 }

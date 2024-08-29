@@ -1,32 +1,26 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\Tests\schemadotorg_jsonapi\Kernel;
 
+use Drupal\Core\Config\Entity\ConfigEntityStorageInterface;
 use Drupal\jsonapi_extras\Entity\JsonapiResourceConfig;
-use Drupal\Tests\schemadotorg\Kernel\SchemaDotOrgKernelTestBase;
-use Drupal\Tests\schemadotorg_subtype\Traits\SchemaDotOrgTestSubtypeTrait;
+use Drupal\schemadotorg\SchemaDotOrgInstallerInterface;
+use Drupal\schemadotorg_jsonapi\SchemaDotOrgJsonApiManagerInterface;
+use Drupal\Tests\schemadotorg\Kernel\SchemaDotOrgEntityKernelTestBase;
+use Drupal\Tests\schemadotorg_additional_type\Traits\SchemaDotOrgAdditionalTypeTestTrait;
 
 /**
  * Base test for the Schema.org JSON:API module.
  */
-abstract class SchemaDotOrgJsonApiKernelTestBase extends SchemaDotOrgKernelTestBase {
-  use SchemaDotOrgTestSubtypeTrait;
+abstract class SchemaDotOrgJsonApiKernelTestBase extends SchemaDotOrgEntityKernelTestBase {
+  use SchemaDotOrgAdditionalTypeTestTrait;
 
   /**
-   * Modules to install.
-   *
-   * @var string[]
+   * {@inheritdoc}
    */
   protected static $modules = [
-    'system',
-    'user',
-    'node',
-    'field',
-    'text',
-    'options',
-    'file',
     'serialization',
     'jsonapi',
     'jsonapi_extras',
@@ -34,25 +28,19 @@ abstract class SchemaDotOrgJsonApiKernelTestBase extends SchemaDotOrgKernelTestB
   ];
 
   /**
-   * The JSON:API resource storage.
-   *
-   * @var \Drupal\Core\Config\Entity\ConfigEntityStorageInterface
+   * The Schema.org installer.
    */
-  protected $resourceStorage;
+  protected SchemaDotOrgInstallerInterface $installer;
 
   /**
-   * The Schema.org mapping storage.
-   *
-   * @var \Drupal\schemadotorg\SchemaDotOrgMappingStorage
+   * The JSON:API resource storage.
    */
-  protected $mappingStorage;
+  protected ConfigEntityStorageInterface $resourceStorage;
 
   /**
    * Schema.org JSON:API manager.
-   *
-   * @var \Drupal\schemadotorg_jsonapi\SchemaDotOrgJsonApiManagerInterface
    */
-  protected $manager;
+  protected SchemaDotOrgJsonApiManagerInterface $manager;
 
   /**
    * {@inheritdoc}
@@ -60,19 +48,8 @@ abstract class SchemaDotOrgJsonApiKernelTestBase extends SchemaDotOrgKernelTestB
   protected function setUp(): void {
     parent::setUp();
 
-    $this->installEntitySchema('schemadotorg_mapping');
-    $this->installEntitySchema('schemadotorg_mapping_type');
-    $this->installEntitySchema('node');
-    $this->installEntitySchema('user');
-    $this->installEntitySchema('file');
-    $this->installSchema('schemadotorg', ['schemadotorg_types', 'schemadotorg_properties']);
-    $this->installConfig(['schemadotorg']);
     $this->installConfig(['schemadotorg_jsonapi']);
 
-    $this->installer = $this->container->get('schemadotorg.installer');
-    $this->installer->install();
-
-    $this->mappingStorage = $this->container->get('entity_type.manager')->getStorage('schemadotorg_mapping');
     $this->resourceStorage = $this->container->get('entity_type.manager')->getStorage('jsonapi_resource_config');
     $this->manager = $this->container->get('schemadotorg_jsonapi.manager');
 
@@ -92,7 +69,9 @@ abstract class SchemaDotOrgJsonApiKernelTestBase extends SchemaDotOrgKernelTestB
    */
   protected function loadResource(string $id): JsonapiResourceConfig {
     $this->resourceStorage->resetCache([$id]);
-    return $this->resourceStorage->load($id);
+    /** @var \Drupal\jsonapi_extras\Entity\JsonapiResourceConfig $resource_config */
+    $resource_config = $this->resourceStorage->load($id);
+    return $resource_config;
   }
 
 }

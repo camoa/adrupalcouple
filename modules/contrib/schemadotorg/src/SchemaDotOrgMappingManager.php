@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg;
 
@@ -9,15 +9,24 @@ use Drupal\Core\Entity\EntityFieldManagerInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
+use Drupal\schemadotorg\Traits\SchemaDotOrgMappingStorageTrait;
 
 /**
  * Schema.org mapping manager service.
+ *
+ * The Schema.org mapping manager service provides a API for get the mapping
+ * defaults for create an entity bundle with fields for a Schema.org type
+ * and properties and then use these mapping defaults to create
+ * entity bundle with fields.
+ *
+ * This service is used by the UI, mapping sets, and starter kits.
  */
 class SchemaDotOrgMappingManager implements SchemaDotOrgMappingManagerInterface {
   use StringTranslationTrait;
+  use SchemaDotOrgMappingStorageTrait;
 
   /**
-   * Constructs a SchemaDotOrgBuilder object.
+   * Constructs a SchemaDotOrgMappingManager object.
    *
    * @param \Drupal\Core\Extension\ModuleHandlerInterface $moduleHandler
    *   The module handler.
@@ -50,7 +59,7 @@ class SchemaDotOrgMappingManager implements SchemaDotOrgMappingManagerInterface 
     protected SchemaDotOrgSchemaTypeBuilderInterface $schemaTypeBuilder,
     protected SchemaDotOrgEntityFieldManagerInterface $schemaEntityFieldManager,
     protected SchemaDotOrgEntityTypeBuilderInterface $schemaEntityTypeBuilder,
-    protected SchemaDotOrgEntityDisplayBuilderInterface $schemaEntityDisplayBuilder
+    protected SchemaDotOrgEntityDisplayBuilderInterface $schemaEntityDisplayBuilder,
   ) {}
 
   /**
@@ -66,7 +75,17 @@ class SchemaDotOrgMappingManager implements SchemaDotOrgMappingManagerInterface 
   /**
    * {@inheritdoc}
    */
-  public function getMappingDefaults(string $entity_type_id, ?string $bundle, string $schema_type, array $defaults = []): array {
+  public function getMappingDefaults(string $entity_type_id = '', ?string $bundle = NULL, string $schema_type = '', array $defaults = []): array {
+    // Validate entity type id..
+    if (!$this->getMappingTypeStorage()->load($entity_type_id)) {
+      throw new \Exception(sprintf("A mapping type for '%s' does not exist and is required to create a Schema.org '%s'.", $entity_type_id, $schema_type));
+    }
+
+    // Validate schema type.
+    if (!$this->schemaTypeManager->isType($schema_type)) {
+      throw new \Exception(sprintf("A Schema.org type for '%s' does not exist.", $schema_type));
+    }
+
     $mapping_defaults = [];
 
     // Get entity, properties, third_party_settings defaults.
@@ -95,10 +114,14 @@ class SchemaDotOrgMappingManager implements SchemaDotOrgMappingManagerInterface 
         elseif (is_array($property)) {
           // Merge the custom defaults with the property's defaults.
           $mapping_defaults['properties'][$property_name] = $property
-            + $mapping_defaults['properties'][$property_name];
+            + ($mapping_defaults['properties'][$property_name] ?? []);
         }
       }
     }
+
+    // Apply additional mappings defaults.
+    // @see \Drupal\schemadotorg_additional_mappings\SchemaDotOrgAdditionalMappingsManager::mappingDefaultsAlter
+    $mapping_defaults['additional_mappings'] = $defaults['additional_mappings'] ?? [];
 
     // Allow modules to alter the mapping defaults via a hook.
     $this->moduleHandler->invokeAllWith(
@@ -109,6 +132,14 @@ class SchemaDotOrgMappingManager implements SchemaDotOrgMappingManagerInterface 
     );
 
     return $mapping_defaults;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getMappingDefaultsByType(string $type, array $defaults = []): array {
+    [$entity_type_id, $bundle , $schema_type] = $this->getMappingStorage()->parseType($type);
+    return $this->getMappingDefaults($entity_type_id, $bundle, $schema_type, $defaults);
   }
 
   /**
@@ -125,26 +156,48 @@ class SchemaDotOrgMappingManager implements SchemaDotOrgMappingManagerInterface 
    *   Schema.org mapping entity default values.
    */
   protected function getMappingEntityDefaults(string $entity_type_id, ?string $bundle, string $schema_type): array {
+    $defaults = [];
     $mapping = $this->loadMapping($entity_type_id, $bundle);
     if ($mapping) {
-      $defaults = [];
       $defaults['label'] = $mapping->label();
       $defaults['id'] = $bundle;
-      $defaults['description'] = $mapping->get('description');
+      $defaults['description'] = ($mapping->getTargetEntityBundleEntity())
+        ? $mapping->getTargetEntityBundleEntity()->get('description')
+        : $this->schemaTypeManager->getType($mapping->getSchemaType())['drupal_description'];
       return $defaults;
+    }
+
+    $default_type = $this->configFactory
+      ->get('schemadotorg.settings')
+      ->get("schema_types.default_types.$schema_type") ?? [];
+    $type_definition = $this->schemaTypeManager->getType($schema_type);
+
+    $entity_type = $this->entityTypeManager->getDefinition($entity_type_id);
+
+    if (empty($entity_type->getBundleEntityType())) {
+      // If the entity type does not support bundles (i.e. user), the
+      // bundle label and id must always be the same as the entity type.
+      $defaults['label'] = $entity_type->getLabel();
+      $defaults['id'] = $entity_type_id;
     }
     else {
-      $default_type = $this->configFactory
-        ->get('schemadotorg.settings')
-        ->get("schema_types.default_types.$schema_type") ?? [];
-      $type_definition = $this->schemaTypeManager->getType($schema_type);
+      // Get label and id prefixes.
+      $mapping_type = $this->loadMappingType($entity_type_id);
+      $label_prefix = $mapping_type->get('label_prefix') ?? '';
+      $id_prefix = $mapping_type->get('id_prefix') ?? '';
+      // Get label and id.
+      $label = $default_type['label'] ?? $type_definition['drupal_label'];
+      $id = $bundle ?: $default_type['name'] ?? $type_definition['drupal_name'];
 
-      $defaults = [];
-      $defaults['label'] = $default_type['label'] ?? $type_definition['drupal_label'];
-      $defaults['id'] = $bundle ?: $default_type['name'] ?? $type_definition['drupal_name'];
-      $defaults['description'] = $default_type['description'] ?? $this->schemaTypeBuilder->formatComment($type_definition['comment'], ['base_path' => 'https://schema.org/']);
-      return $defaults;
+      $defaults['label'] = $label_prefix . $label;
+      $defaults['id'] = $id_prefix . $id;
     }
+    $defaults['description'] = $default_type['description']
+      ?? $this->schemaTypeBuilder->formatComment(
+        $type_definition['drupal_description'],
+        ['base_path' => 'https://schema.org/']
+      );
+    return $defaults;
   }
 
   /**
@@ -280,7 +333,13 @@ class SchemaDotOrgMappingManager implements SchemaDotOrgMappingManagerInterface 
     $defaults['machine_name'] = $default_field['name'];
     $defaults['unlimited'] = $default_field['unlimited'];
     $defaults['required'] = $default_field['required'];
-    $defaults['description'] = $this->schemaTypeBuilder->formatComment($default_field['description'], ['base_path' => 'https://schema.org/']);
+    $defaults['description'] = $this->schemaTypeBuilder->formatComment(
+      $default_field['description'],
+      ['base_path' => 'https://schema.org/']
+    );
+    if (isset($default_field['default_value'])) {
+      $defaults['default_value'] = $default_field['default_value'];
+    }
     return $defaults;
   }
 
@@ -291,11 +350,9 @@ class SchemaDotOrgMappingManager implements SchemaDotOrgMappingManagerInterface 
     $bundle = $values['entity']['id'] ?? $entity_type_id;
 
     // Get mapping entity.
-    /** @var \Drupal\schemadotorg\SchemaDotOrgMappingStorageInterface $mapping_storage */
-    $mapping_storage = $this->entityTypeManager->getStorage('schemadotorg_mapping');
-    /** @var \Drupal\schemadotorg\SchemaDotOrgMappingInterface $mapping */
-    $mapping = $mapping_storage->load("$entity_type_id.$bundle")
-      ?: $mapping_storage->create([
+    /** @var \Drupal\schemadotorg\SchemaDotOrgMappingInterface|null $mapping */
+    $mapping = $this->loadMapping($entity_type_id, $bundle)
+      ?: $this->getMappingStorage()->create([
         'target_entity_type_id' => $entity_type_id,
         'target_bundle' => $bundle,
         'schema_type' => $schema_type,
@@ -310,7 +367,6 @@ class SchemaDotOrgMappingManager implements SchemaDotOrgMappingManagerInterface 
 
     // Reset Schema.org properties.
     $mapping->set('schema_properties', []);
-
     foreach ($values['properties'] as $property_name => $field) {
       $field_name = $field['name'];
 
@@ -349,22 +405,31 @@ class SchemaDotOrgMappingManager implements SchemaDotOrgMappingManagerInterface 
         $this->schemaEntityTypeBuilder->addFieldToEntity($entity_type_id, $bundle, $field);
       }
 
-      $mapping->setSchemaPropertyMapping($field_name, $property_name);
+      // Check mappings Schema.org type and not the $schema.type because the
+      // $schema_type could be an additional mapping's Schema.org type.
+      // @see \Drupal\schemadotorg_additional_mappings\SchemaDotOrgAdditionalMappingsManager::mappingPostSave
+      if ($this->schemaTypeManager->hasProperty($mapping->getSchemaType(), $property_name)) {
+        $mapping->setSchemaPropertyMapping($field_name, $property_name);
+      }
     }
 
-    // Set field weights for new mappings.
-    if ($mapping->isNew()) {
-      $this->schemaEntityDisplayBuilder->setFieldWeights(
-        $entity_type_id,
-        $bundle,
-        $mapping->getNewSchemaProperties()
-      );
+    // Set field weights for new properties.
+    $this->schemaEntityDisplayBuilder->setFieldWeights($mapping);
+
+    // Set additional mappings.
+    if (isset($values['additional_mappings'])) {
+      $mapping->set('additional_mappings', $values['additional_mappings']);
     }
 
     // Set third party settings.
     if (isset($values['third_party_settings'])) {
       $mapping->set('third_party_settings', array_filter($values['third_party_settings']));
     }
+
+    // Set mapping defaults.
+    // This allows mapping hooks to act on the mapping defaults.
+    // @see \Drupal\schemadotorg_field_group\SchemaDotOrgFieldGroupEntityDisplayBuilder::setFieldGroups
+    $mapping->setMappingDefaults($values);
 
     // Save the mapping entity.
     $mapping->save();
@@ -377,9 +442,7 @@ class SchemaDotOrgMappingManager implements SchemaDotOrgMappingManagerInterface 
    */
   public function createTypeValidate(string $entity_type_id, string $schema_type): void {
     // Validate entity type.
-    /** @var \Drupal\schemadotorg\SchemaDotOrgMappingTypeStorageInterface $mapping_type_storage */
-    $mapping_type_storage = $this->entityTypeManager->getStorage('schemadotorg_mapping_type');
-    $entity_types = $mapping_type_storage->getEntityTypes();
+    $entity_types = $this->getMappingTypeStorage()->getEntityTypes();
     if (!in_array($entity_type_id, $entity_types)) {
       $t_args = [
         '@entity_type' => $entity_type_id,
@@ -406,15 +469,21 @@ class SchemaDotOrgMappingManager implements SchemaDotOrgMappingManagerInterface 
       throw new \Exception(sprintf("Mapping type '%s' does not exist and is required to create a Schema.org '%s'.", $entity_type_id, $schema_type));
     }
 
+    $bundle = $defaults['entity']['id'] ?? NULL;
     $bundles = $mapping_type->getDefaultSchemaTypeBundles($schema_type);
-    if ($bundles) {
+    if (empty($bundle) && !empty($bundles)) {
       foreach ($bundles as $bundle) {
         $mapping_defaults = $this->getMappingDefaults($entity_type_id, $bundle, $schema_type, $defaults);
         $this->saveMapping($entity_type_id, $schema_type, $mapping_defaults);
       }
     }
     else {
-      $mapping_defaults = $this->getMappingDefaults($entity_type_id, NULL, $schema_type, $defaults);
+      $mapping_defaults = $this->getMappingDefaults(
+        entity_type_id: $entity_type_id,
+        bundle: $bundle,
+        schema_type: $schema_type,
+        defaults: $defaults
+      );
       $this->saveMapping($entity_type_id, $schema_type, $mapping_defaults);
     }
   }
@@ -422,9 +491,35 @@ class SchemaDotOrgMappingManager implements SchemaDotOrgMappingManagerInterface 
   /**
    * {@inheritdoc}
    */
+  public function createDefaultTypes(string $entity_type_id): void {
+    // Get default Schema.org types for the entity type.
+    /** @var array $default_schema_types */
+    $default_schema_types = $this->loadMappingType($entity_type_id)
+      ->get('default_schema_types');
+
+    // Compare the default Schema.org types with the existing bundles.
+    $bundle_entity_type_id = $this->entityTypeManager
+      ->getDefinition($entity_type_id)
+      ->getBundleEntityType();
+    $bundle_entity_types = $this->entityTypeManager
+      ->getStorage($bundle_entity_type_id)
+      ->loadMultiple();
+    $install_schema_types = array_unique(
+      array_values(
+        array_intersect_key($default_schema_types, $bundle_entity_types)
+      )
+    );
+
+    foreach ($install_schema_types as $install_schema_type) {
+      $this->createType($entity_type_id, $install_schema_type);
+    }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function deleteTypeValidate(string $entity_type_id, string $schema_type): void {
-    $mappings = $this->entityTypeManager
-      ->getStorage('schemadotorg_mapping')
+    $mappings = $this->getMappingStorage()
       ->loadByProperties([
         'target_entity_type_id' => $entity_type_id,
         'schema_type' => $schema_type,
@@ -445,8 +540,8 @@ class SchemaDotOrgMappingManager implements SchemaDotOrgMappingManagerInterface 
       'delete-fields' => FALSE,
     ];
 
-    $mappings = $this->entityTypeManager
-      ->getStorage('schemadotorg_mapping')
+    /** @var \Drupal\schemadotorg\SchemaDotOrgMappingInterface[] $mappings */
+    $mappings = $this->getMappingStorage()
       ->loadByProperties([
         'target_entity_type_id' => $entity_type_id,
         'schema_type' => $schema_type,
@@ -482,9 +577,7 @@ class SchemaDotOrgMappingManager implements SchemaDotOrgMappingManagerInterface 
 
     $base_field_definitions = $this->entityFieldManager->getBaseFieldDefinitions($entity_type_id);
 
-    /** @var \Drupal\schemadotorg\SchemaDotOrgMappingTypeStorageInterface $mapping_type_storage */
-    $mapping_type_storage = $this->entityTypeManager->getStorage('schemadotorg_mapping_type');
-    $mapping_type = $mapping_type_storage->load($entity_type_id);
+    $mapping_type = $this->loadMappingType($entity_type_id);
     $base_field_names = $mapping_type->getBaseFieldNames();
 
     $deleted_fields = [];
@@ -508,38 +601,6 @@ class SchemaDotOrgMappingManager implements SchemaDotOrgMappingManagerInterface 
         $deleted_fields[] = $field_name;
       }
     }
-  }
-
-  /**
-   * Load a Schema.org mapping type.
-   *
-   * @param string $entity_type_id
-   *   The entity type ID.
-   *
-   * @return \Drupal\schemadotorg\SchemaDotOrgMappingTypeInterface|null
-   *   A Schema.org mapping tyup.
-   */
-  protected function loadMappingType(string $entity_type_id): ?SchemaDotOrgMappingTypeInterface {
-    return $this->entityTypeManager
-      ->getStorage('schemadotorg_mapping_type')
-      ->load($entity_type_id);
-  }
-
-  /**
-   * Load a Schema.org mapping.
-   *
-   * @param string $entity_type_id
-   *   The entity type ID.
-   * @param string|null $bundle
-   *   The bundle.
-   *
-   * @return \Drupal\schemadotorg\SchemaDotOrgMappingInterface|null
-   *   A Schema.org mapping.
-   */
-  protected function loadMapping(string $entity_type_id, ?string $bundle): ?SchemaDotOrgMappingInterface {
-    return $this->entityTypeManager
-      ->getStorage('schemadotorg_mapping')
-      ->load("$entity_type_id.$bundle");
   }
 
 }

@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\Tests\schemadotorg_paragraphs\Functional;
 
@@ -19,9 +19,7 @@ use Drupal\Tests\schemadotorg\Functional\SchemaDotOrgBrowserTestBase;
 class SchemaDotOrgLayoutParagraphsTest extends SchemaDotOrgBrowserTestBase {
 
   /**
-   * Modules to enable.
-   *
-   * @var array
+   * {@inheritdoc}
    */
   protected static $modules = [
     'schemadotorg_layout_paragraphs',
@@ -33,6 +31,14 @@ class SchemaDotOrgLayoutParagraphsTest extends SchemaDotOrgBrowserTestBase {
   public function testLayoutParagraphs(): void {
     /** @var \Drupal\Core\Entity\EntityDisplayRepositoryInterface $entity_display_repository */
     $entity_display_repository = \Drupal::service('entity_display.repository');
+
+    // Create a Quotation paragraph.
+    $this->createSchemaEntity('paragraph', 'Quotation');
+
+    // Add the the Quotation paragraph as a default type.
+    $this->config('schemadotorg_layout_paragraphs.settings')
+      ->set('default_paragraph_types', ['quotation'])
+      ->save();
 
     // Create a WebPage with layout paragraphs.
     $mapping = $this->createSchemaEntity('node', 'WebPage');
@@ -54,18 +60,7 @@ class SchemaDotOrgLayoutParagraphsTest extends SchemaDotOrgBrowserTestBase {
     $field = FieldConfig::loadByName('node', 'page', 'schema_main_entity');
     $handler_settings = $field->getSetting('handler_settings');
     $this->assertEquals([
-      'layout' => 'layout',
-      'header' => 'header',
-      'statement' => 'statement',
       'quotation' => 'quotation',
-      'item_list_string' => 'item_list_string',
-      'item_list_link' => 'item_list_link',
-      'item_list_text' => 'item_list_text',
-      'collection_page' => 'collection_page',
-      'media_gallery' => 'media_gallery',
-      'image_gallery' => 'image_gallery',
-      'video_gallery' => 'video_gallery',
-      'node' => 'node',
     ], $handler_settings['target_bundles']);
 
     // Check that the form display is set up.
@@ -85,7 +80,10 @@ class SchemaDotOrgLayoutParagraphsTest extends SchemaDotOrgBrowserTestBase {
     $mapping_manager = $this->container->get('schemadotorg.mapping_manager');
 
     // Check the WebPage mapping defaults.
-    $defaults = $mapping_manager->getMappingDefaults('node', NULL, 'WebPage');
+    $defaults = $mapping_manager->getMappingDefaults(
+      entity_type_id: 'node',
+      schema_type: 'WebPage',
+    );
     $expected_values = [
       'name' => 'schema_main_entity',
       'type' => 'field_ui:entity_reference_revisions:paragraph',
@@ -98,7 +96,10 @@ class SchemaDotOrgLayoutParagraphsTest extends SchemaDotOrgBrowserTestBase {
     $this->assertEquals($expected_values, $defaults['properties']['mainEntity']);
 
     // Check that FAQ mapping defaults.
-    $defaults = $mapping_manager->getMappingDefaults('node', NULL, 'FAQPage');
+    $defaults = $mapping_manager->getMappingDefaults(
+      entity_type_id: 'node',
+      schema_type: 'FAQPage',
+    );
     $expected_values = [
       'name' => 'schema_main_entity',
       'type' => 'string',

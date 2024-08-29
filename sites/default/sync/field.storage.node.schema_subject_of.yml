@@ -1,0 +1,19 @@
+uuid: b280c4c5-df62-4007-8dde-e97ca156eabe
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.schema_subject_of
+field_name: schema_subject_of
+entity_type: node
+type: entity_reference
+settings:
+  target_type: node
+module: core
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

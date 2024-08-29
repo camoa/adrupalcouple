@@ -9,7 +9,7 @@ field_name: schema_longitude
 entity_type: node
 bundle: place
 label: Longitude
-description: 'The longitude of a location. For example <code>-122.08585</code> (<a href="https://en.wikipedia.org/wiki/World_Geodetic_System">WGS 84</a>).'
+description: 'The longitude of a location.'
 required: false
 translatable: true
 default_value: {  }

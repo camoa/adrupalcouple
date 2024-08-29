@@ -1,0 +1,21 @@
+uuid: e53d396e-c000-4e75-a7df-38dddec7a74c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.schema_web_page_subtype
+    - node.type.page
+  module:
+    - options
+id: node.page.schema_web_page_subtype
+field_name: schema_web_page_subtype
+entity_type: node
+bundle: page
+label: Subtype
+description: 'A more specific subtype for the item. This is used to allow more specificity without having to create dedicated Schema.org entity types.'
+required: null
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

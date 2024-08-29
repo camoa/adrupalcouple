@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\Tests\schemadotorg_mapping_set\Unit\Breadcrumb;
 
@@ -100,8 +100,7 @@ class SchemaDotOrgMappingSetBreadcrumbBuilderTest extends UnitTestCase {
       Link::createFromRoute('Home', '<front>'),
       Link::createFromRoute('Administration', 'system.admin'),
       Link::createFromRoute('Configuration', 'system.admin_config'),
-      Link::createFromRoute('Search and metadata', 'system.admin_config_search'),
-      Link::createFromRoute('Schema.org', 'entity.schemadotorg_mapping.collection'),
+      Link::createFromRoute('Schema.org', 'schemadotorg'),
     ];
     $this->assertEquals($expected, $breadcrumb->getLinks());
 
@@ -122,8 +121,7 @@ class SchemaDotOrgMappingSetBreadcrumbBuilderTest extends UnitTestCase {
       Link::createFromRoute('Home', '<front>'),
       Link::createFromRoute('Administration', 'system.admin'),
       Link::createFromRoute('Configuration', 'system.admin_config'),
-      Link::createFromRoute('Search and metadata', 'system.admin_config_search'),
-      Link::createFromRoute('Schema.org', 'entity.schemadotorg_mapping.collection'),
+      Link::createFromRoute('Schema.org', 'schemadotorg'),
       Link::createFromRoute('Mapping sets', 'schemadotorg_mapping_set.overview'),
     ];
     $this->assertEquals($expected, $breadcrumb->getLinks());

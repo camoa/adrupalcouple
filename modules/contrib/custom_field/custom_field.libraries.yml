@@ -3,14 +3,27 @@ customfield-admin:
   css:
     component:
       css/customfield.admin.css: {}
-customfield-inline:
+
+custom-field-flex:
   version: 1.x
   css:
     component:
-      css/customfield-inline.css: {}
-customfield-inline-admin:
+      css/custom-field-flex.css: {}
+
+custom-field-flex-admin:
   version: 1.x
   js:
-    js/customfield-inline.widget-settings.js: {}
+    js/custom-field-flex.widget-settings.js: {}
   dependencies:
-    - custom_field/customfield-inline
+    - custom_field/custom-field-flex
+
+custom-field-color-box:
+  version: 1.x
+  js:
+    js/custom_field_color_box.js: {}
+  css:
+    component:
+      css/custom_field_color_box.css: {}
+  dependencies:
+    - core/drupalSettings
+    - core/once

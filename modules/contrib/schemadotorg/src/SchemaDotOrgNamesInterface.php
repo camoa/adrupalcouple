@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg;
 
@@ -15,7 +15,7 @@ interface SchemaDotOrgNamesInterface {
   const DEFAULT_PREFIX = 'schema_';
 
   /**
-   * Gets the field suffix for Schema.org properties.
+   * Gets the field prefix for Schema.org properties.
    *
    * @return string
    *   The field suffix for Schema.org properties.

@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg_layout_paragraphs;
 
@@ -10,8 +10,10 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
+use Drupal\paragraphs\ParagraphsTypeInterface;
 use Drupal\schemadotorg\SchemaDotOrgEntityFieldManagerInterface;
 use Drupal\schemadotorg\SchemaDotOrgNamesInterface;
+use Drupal\schemadotorg\Traits\SchemaDotOrgMappingStorageTrait;
 use Drupal\schemadotorg\Utility\SchemaDotOrgElementHelper;
 
 /**
@@ -19,6 +21,7 @@ use Drupal\schemadotorg\Utility\SchemaDotOrgElementHelper;
  */
 class SchemaDotOrgLayoutParagraphsManager implements SchemaDotOrgLayoutParagraphsManagerInterface {
   use StringTranslationTrait;
+  use SchemaDotOrgMappingStorageTrait;
 
   /**
    * Constructs a SchemaDotOrgLayoutParagraphsManager object.
@@ -36,18 +39,33 @@ class SchemaDotOrgLayoutParagraphsManager implements SchemaDotOrgLayoutParagraph
     protected ModuleHandlerInterface $moduleHandler,
     protected ConfigFactoryInterface $configFactory,
     protected EntityTypeManagerInterface $entityTypeManager,
-    protected SchemaDotOrgNamesInterface $schemaNames
+    protected SchemaDotOrgNamesInterface $schemaNames,
   ) {}
 
   /**
    * {@inheritdoc}
    */
+  public function getMachineName(): string {
+    return $this->schemaNames->camelCaseToDrupalName(static::PROPERTY_NAME);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getFieldName(): string {
+    return $this->schemaNames->getFieldPrefix() . $this->getMachineName();
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function alterMappingDefaults(array &$defaults, string $entity_type_id, ?string $bundle, string $schema_type): void {
-    if (!$this->isLayoutParagraphsEnabled($entity_type_id, $schema_type)) {
+    if (!$this->isLayoutParagraphsDefaultType($entity_type_id, $bundle, $schema_type)
+      && !$this->isLayoutParagraphsEnabled($entity_type_id, $schema_type)) {
       return;
     }
 
-    $schema_property = $this->getPropertyName();
+    $schema_property = static::PROPERTY_NAME;
     $field_name = $this->getFieldName();
 
     // If the field is already set to be created, leave the default values.
@@ -56,14 +74,7 @@ class SchemaDotOrgLayoutParagraphsManager implements SchemaDotOrgLayoutParagraph
       return;
     }
 
-    /** @var \Drupal\schemadotorg\SchemaDotOrgMappingInterface $mapping */
-    $mapping = $this->entityTypeManager
-      ->getStorage('schemadotorg_mapping')
-      ->load("$entity_type_id.$bundle");
-
-    $default_schema_types = $this->configFactory
-      ->get('schemadotorg_layout_paragraphs.settings')
-      ->get('default_schema_types');
+    $mapping = $this->loadMapping($entity_type_id, $bundle);
 
     // Check for existing field.
     $field_config = $this->entityTypeManager
@@ -73,7 +84,7 @@ class SchemaDotOrgLayoutParagraphsManager implements SchemaDotOrgLayoutParagraph
       $name = $field_name;
     }
     // Check if layout paragraphs should be added to a new mapping.
-    elseif (!$mapping && in_array($schema_type, $default_schema_types)) {
+    elseif (!$mapping && $this->isLayoutParagraphsDefaultType($entity_type_id, $bundle, $schema_type)) {
       $field_config_storage = $this->entityTypeManager
         ->getStorage('field_storage_config')
         ->load($entity_type_id . '.' . $field_name);
@@ -108,7 +119,7 @@ class SchemaDotOrgLayoutParagraphsManager implements SchemaDotOrgLayoutParagraph
 
     /** @var \Drupal\schemadotorg\Form\SchemaDotOrgMappingForm $form_object */
     $form_object = $form_state->getFormObject();
-    /** @var \Drupal\schemadotorg\SchemaDotOrgMappingInterface $mapping */
+    /** @var \Drupal\schemadotorg\SchemaDotOrgMappingInterface|null $mapping */
     $mapping = $form_object->getEntity();
 
     // Exit if no Schema.org type has been selected.
@@ -119,7 +130,7 @@ class SchemaDotOrgLayoutParagraphsManager implements SchemaDotOrgLayoutParagraph
     $mapping_defaults = $form_state->get('mapping_defaults');
 
     $schema_type = $mapping->getSchemaType();
-    $schema_property = $this->getPropertyName();
+    $schema_property = static::PROPERTY_NAME;
     $defaults = $mapping_defaults['properties'][$schema_property] ?? NULL;
     if (empty($defaults)) {
       return;
@@ -230,23 +241,24 @@ class SchemaDotOrgLayoutParagraphsManager implements SchemaDotOrgLayoutParagraph
     ?string &$widget_id,
     array &$widget_settings,
     ?string &$formatter_id,
-    array &$formatter_settings
+    array &$formatter_settings,
   ): void {
     // Check that the field is an entity_reference_revisions type that is
     // targeting layout paragraphs.
     if ($field_storage_values['type'] !== 'entity_reference_revisions'
       || $field_storage_values['settings']['target_type'] !== 'paragraph'
-      || $schema_property !== $this->getPropertyName()) {
+      || $schema_property !== static::PROPERTY_NAME) {
       return;
     }
 
-    // Make sure the entity type and Schema.org type supports layout paragraphs.
     $entity_type_id = $field_storage_values['entity_type'];
+
+    // Make sure the entity type and Schema.org type supports layout paragraphs.
     if (!$this->isLayoutParagraphsEnabled($entity_type_id, $schema_type)) {
       return;
     }
 
-    $handler_settings = $field_values['settings']['handler_settings'] ?? [];
+    $handler_settings = [];
 
     // Add default paragraphs types to the target bundles.
     $default_paragraph_types = $this->configFactory
@@ -260,6 +272,7 @@ class SchemaDotOrgLayoutParagraphsManager implements SchemaDotOrgLayoutParagraph
     $existing_paragraph_types = $this->entityTypeManager
       ->getStorage('paragraphs_type')
       ->getQuery()
+      ->accessCheck(FALSE)
       ->condition('id', $default_paragraph_types, 'IN')
       ->execute();
     $default_paragraph_types = array_intersect_key(
@@ -279,7 +292,8 @@ class SchemaDotOrgLayoutParagraphsManager implements SchemaDotOrgLayoutParagraph
       ];
       $weight++;
     }
-
+    // Use core's selection plugin.
+    $field_values['settings']['handler'] = 'default:paragraphs';
     $field_values['settings']['handler_settings'] = $handler_settings;
 
     // Set widget to use layout paragraphs.
@@ -295,22 +309,61 @@ class SchemaDotOrgLayoutParagraphsManager implements SchemaDotOrgLayoutParagraph
   /**
    * {@inheritdoc}
    */
-  public function getPropertyName(): string {
-    return 'mainEntity';
+  public function paragraphsTypePresave(ParagraphsTypeInterface $paragraphs_type): void {
+    $default_paragraph_types = $this->configFactory
+      ->get('schemadotorg_layout_paragraphs.settings')
+      ->get('default_paragraph_types');
+    if (empty($default_paragraph_types)
+      || !in_array($paragraphs_type->id(), $default_paragraph_types)) {
+      return;
+    }
+
+    $behavior_plugins = $paragraphs_type->get('behavior_plugins');
+
+    // Set layouts.
+    $default_paragraph_layouts = $this->configFactory
+      ->get('schemadotorg_layout_paragraphs.settings')
+      ->get('default_paragraph_layouts');
+    $available_layouts = $default_paragraph_layouts[$paragraphs_type->id()] ?? NULL;
+    if ($available_layouts) {
+      $behavior_plugins['layout_paragraphs'] = [
+        'enabled' => TRUE,
+        'available_layouts' => array_combine($available_layouts, $available_layouts),
+      ];
+    }
+
+    // Set style options.
+    if ($this->moduleHandler->moduleExists('style_options')) {
+      $behavior_plugins['style_options'] = ['enabled' => TRUE];
+    }
+
+    $paragraphs_type->set('behavior_plugins', $behavior_plugins);
   }
 
   /**
-   * {@inheritdoc}
+   * Determine if a type should default to using layout paragraphs.
+   *
+   * Currently, layout paragraphs are only applicable.
+   *
+   * @param string $entity_type_id
+   *   The entity type id.
+   * @param string|null $bundle
+   *   A bundle.
+   * @param string $schema_type
+   *   A Schema.org type.
+   *
+   * @return bool
+   *   TRUE if a type should default to using layout paragraphs
    */
-  public function getMachineName(): string {
-    return $this->schemaNames->camelCaseToDrupalName($this->getPropertyName());
-  }
+  protected function isLayoutParagraphsDefaultType(string $entity_type_id, ?string $bundle, string $schema_type): bool {
+    if ($entity_type_id !== 'node') {
+      return FALSE;
+    }
 
-  /**
-   * {@inheritdoc}
-   */
-  public function getFieldName(): string {
-    return $this->schemaNames->getFieldPrefix() . $this->getMachineName();
+    $default_types = $this->configFactory
+      ->get('schemadotorg_layout_paragraphs.settings')
+      ->get('default_types');
+    return (in_array($schema_type, $default_types) || in_array($bundle, $default_types));
   }
 
   /**
@@ -333,13 +386,9 @@ class SchemaDotOrgLayoutParagraphsManager implements SchemaDotOrgLayoutParagraph
       return FALSE;
     }
 
-    /** @var \Drupal\schemadotorg\SchemaDotOrgMappingTypeInterface $mapping_type */
-    $mapping_type = $this->entityTypeManager
-      ->getStorage('schemadotorg_mapping_type')
-      ->load($entity_type_id);
-    $schema_property = $this->getPropertyName();
-    $property_defaults = $mapping_type->getDefaultSchemaTypeProperties($schema_type);
-    return !in_array($schema_property, $property_defaults);
+    $property_defaults = $this->loadMappingType($entity_type_id)
+      ->getDefaultSchemaTypeProperties($schema_type);
+    return !in_array(static::PROPERTY_NAME, $property_defaults);
   }
 
 }

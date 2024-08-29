@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\KernelTests\Core\Database;
 
 use Drupal\Core\Database\Connection;
@@ -176,10 +178,9 @@ abstract class DriverSpecificConnectionUnitTestBase extends DriverSpecificKernel
   /**
    * Tests pdo options override.
    */
-  public function testConnectionOpen() {
+  public function testConnectionOpen(): void {
     $reflection = new \ReflectionObject($this->connection);
     $connection_property = $reflection->getProperty('connection');
-    $connection_property->setAccessible(TRUE);
     $error_mode = $connection_property->getValue($this->connection)
       ->getAttribute(\PDO::ATTR_ERRMODE);
     // Ensure the default error mode is set to exception.
@@ -192,7 +193,6 @@ abstract class DriverSpecificConnectionUnitTestBase extends DriverSpecificKernel
 
     $reflection = new \ReflectionObject($test_connection);
     $connection_property = $reflection->getProperty('connection');
-    $connection_property->setAccessible(TRUE);
     $error_mode = $connection_property->getValue($test_connection)
       ->getAttribute(\PDO::ATTR_ERRMODE);
     // Ensure PDO connection options can be overridden.

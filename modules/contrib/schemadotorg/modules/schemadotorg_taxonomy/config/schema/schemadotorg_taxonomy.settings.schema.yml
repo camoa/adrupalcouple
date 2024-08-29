@@ -1,6 +1,6 @@
 schemadotorg_taxonomy.settings:
-  type: config_entity
-  label: Schema.org Taxonomy settings
+  type: config_object
+  label: 'Schema.org Taxonomy settings'
   mapping:
     default_field_groups:
       type: sequence
@@ -30,7 +30,7 @@ schemadotorg_taxonomy.settings:
           group:
             type: string
             label: 'Group name'
-    property_vocabularies:
+    schema_property_vocabularies:
       type: sequence
       label: 'Default properties'
       sequence:
@@ -46,4 +46,3 @@ schemadotorg_taxonomy.settings:
           description:
             type: text
             label: 'Vocabulary description'
-

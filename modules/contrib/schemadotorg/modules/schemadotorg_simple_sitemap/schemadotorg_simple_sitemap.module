@@ -5,7 +5,7 @@
  * Automatically adds a simple_sitemap field to Schema.org types.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\schemadotorg\SchemaDotOrgMappingInterface;
@@ -14,7 +14,7 @@ use Drupal\schemadotorg\SchemaDotOrgMappingInterface;
  * Implements hook_schemadotorg_mapping_insert().
  */
 function schemadotorg_simple_sitemap_schemadotorg_mapping_insert(SchemaDotOrgMappingInterface $mapping): void {
-  if (\Drupal::isConfigSyncing()) {
+  if ($mapping->isSyncing()) {
     return;
   }
 
@@ -34,7 +34,7 @@ function schemadotorg_simple_sitemap_schemadotorg_mapping_insert(SchemaDotOrgMap
   $generator
     ->entityManager()
     ->enableEntityType('node')
-    ->setVariants(['default'])
+    ->setSitemaps(['default'])
     ->setBundleSettings('node', $bundle, ['index' => TRUE]);
 
   $generator->rebuildQueue();

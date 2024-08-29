@@ -1,11 +1,12 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg;
 
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -15,10 +16,8 @@ class SchemaDotOrgMappingListBuilder extends SchemaDotOrgConfigEntityListBuilder
 
   /**
    * The entity type manager service.
-   *
-   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
    */
-  protected $entityTypeManager;
+  protected EntityTypeManagerInterface $entityTypeManager;
 
   /**
    * {@inheritdoc}
@@ -72,7 +71,7 @@ class SchemaDotOrgMappingListBuilder extends SchemaDotOrgConfigEntityListBuilder
    * {@inheritdoc}
    */
   public function buildRow(EntityInterface $entity): array {
-    /** @var \Drupal\schemadotorg\SchemaDotOrgMappingInterface $entity */
+    /** @var \Drupal\schemadotorg\SchemaDotOrgMappingInterface|null $entity */
 
     $target_entity_type_definition = $entity->getTargetEntityTypeDefinition();
     $target_entity_type_bundle_definition = $entity->getTargetEntityTypeBundleDefinition();
@@ -118,13 +117,13 @@ class SchemaDotOrgMappingListBuilder extends SchemaDotOrgConfigEntityListBuilder
     $relationships = [];
     foreach ($schema_properties as $field_name => $schema_property) {
       $field_config_id = $target_entity_type_id . '.' . $target_bundle . '.' . $field_name;
-      /** @var \Drupal\field\FieldConfigInterface $field_config */
+      /** @var \Drupal\field\FieldConfigInterface|null $field_config */
       $field_config = $field_config_storage->load($field_config_id);
       if (!$field_config) {
         continue;
       }
 
-      $is_entity_reference = in_array($field_config->getType(), ['entity_reference', 'entity_reference_revisions']);
+      $is_entity_reference = str_starts_with($field_config->getType(), 'entity_reference');
       if (!$is_entity_reference) {
         continue;
       }

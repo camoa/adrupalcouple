@@ -1,12 +1,13 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg_jsonld_embed;
 
 use Drupal\Component\Utility\Html;
-use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Render\BubbleableMetadata;
 use Drupal\schemadotorg_jsonld\SchemaDotOrgJsonLdBuilderInterface;
 
 /**
@@ -16,10 +17,8 @@ class SchemaDotOrgJsonLdEmbedManager implements SchemaDotOrgJsonLdEmbedInterface
 
   /**
    * Xpath selector for finding embedded media.
-   *
-   * @var string
    */
-  protected $xpath = 'descendant-or-self::*[(@data-entity-type) and (@data-entity-uuid)]';
+  protected string $xpath = 'descendant-or-self::*[(@data-entity-type) and (@data-entity-uuid)]';
 
   /**
    * Constructs a SchemaDotOrgJsonLdEmbedManager object.
@@ -31,16 +30,17 @@ class SchemaDotOrgJsonLdEmbedManager implements SchemaDotOrgJsonLdEmbedInterface
    */
   public function __construct(
     protected EntityTypeManagerInterface $entityTypeManager,
-    protected ?SchemaDotOrgJsonLdBuilderInterface $schemaJsonLdBuilder = NULL
+    protected ?SchemaDotOrgJsonLdBuilderInterface $schemaJsonLdBuilder = NULL,
   ) {}
 
   /**
    * {@inheritdoc}
    */
-  public function build(EntityInterface $entity): array {
+  public function build(ContentEntityInterface $entity, BubbleableMetadata $bubbleable_metadata): array {
     /** @var \Drupal\schemadotorg\SchemaDotOrgMappingStorageInterface $mapping_storage */
     $mapping_storage = $this->entityTypeManager->getStorage('schemadotorg_mapping');
 
+    /** @var \Drupal\schemadotorg\SchemaDotOrgMappingInterface|null $mapping */
     $mapping = $mapping_storage->loadByEntity($entity);
     if (!$mapping) {
       return [];
@@ -66,7 +66,7 @@ class SchemaDotOrgJsonLdEmbedManager implements SchemaDotOrgJsonLdEmbedInterface
       $field_type = $items->getFieldDefinition()->getType();
       if (in_array($field_type, ['text_long', 'text_with_summary'])) {
         foreach ($items as $item) {
-          $data += $this->getEntitiesData($item->value);
+          $data += $this->getEntitiesData($item->value, $bubbleable_metadata);
         }
       }
     }
@@ -78,11 +78,13 @@ class SchemaDotOrgJsonLdEmbedManager implements SchemaDotOrgJsonLdEmbedInterface
    *
    * @param string $value
    *   The text/HTML value.
+   * @param \Drupal\Core\Render\BubbleableMetadata $bubbleable_metadata
+   *   Object to collect JSON-LD's bubbleable metadata.
    *
    * @return array
    *   Embedded media and content JSON-LD data from a text value.
    */
-  protected function getEntitiesData(string $value): array {
+  protected function getEntitiesData(string $value, BubbleableMetadata $bubbleable_metadata): array {
     $dom = Html::load($value);
     $xpath = new \DOMXPath($dom);
     $types = [];
@@ -90,7 +92,7 @@ class SchemaDotOrgJsonLdEmbedManager implements SchemaDotOrgJsonLdEmbedInterface
       /** @var \DOMElement $dom_node */
       $embed_entity_type_id = $dom_node->getAttribute('data-entity-type');
       $embed_uuid = $dom_node->getAttribute('data-entity-uuid');
-      $embed_data = $this->getEntityData($embed_entity_type_id, $embed_uuid);
+      $embed_data = $this->getEntityData($embed_entity_type_id, $embed_uuid, $bubbleable_metadata);
       if ($embed_data) {
         $types["schemadotorg_jsonld_embed-$embed_entity_type_id-$embed_uuid"] = $embed_data;
       }
@@ -105,11 +107,13 @@ class SchemaDotOrgJsonLdEmbedManager implements SchemaDotOrgJsonLdEmbedInterface
    *   The entity type ID.
    * @param string $uuid
    *   The entity uuid.
+   * @param \Drupal\Core\Render\BubbleableMetadata $bubbleable_metadata
+   *   Object to collect JSON-LD's bubbleable metadata.
    *
    * @return array|null
    *   Embedded media and content JSON-LD data.
    */
-  protected function getEntityData(string $entity_type_id, string $uuid): ?array {
+  protected function getEntityData(string $entity_type_id, string $uuid, BubbleableMetadata $bubbleable_metadata): ?array {
     $embed_storage = $this->entityTypeManager->getStorage($entity_type_id);
     $embed_entities = $embed_storage->loadByProperties(['uuid' => $uuid]);
     if (!$embed_entities) {
@@ -122,7 +126,10 @@ class SchemaDotOrgJsonLdEmbedManager implements SchemaDotOrgJsonLdEmbedInterface
       return NULL;
     }
 
-    return $this->schemaJsonLdBuilder->buildEntity($embed_entity);
+    return $this->schemaJsonLdBuilder->buildEntity(
+      entity: $embed_entity,
+      bubbleable_metadata: $bubbleable_metadata,
+    );
   }
 
 }

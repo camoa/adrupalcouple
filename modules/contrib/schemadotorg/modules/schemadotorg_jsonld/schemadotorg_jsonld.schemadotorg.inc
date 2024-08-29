@@ -5,10 +5,11 @@
  * Schema.org JSON-LD hook implementations for contributed modules.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 use Drupal\Core\Field\FieldItemInterface;
 use Drupal\Core\Field\FieldItemListInterface;
+use Drupal\Core\Render\BubbleableMetadata;
 use Drupal\schemadotorg\Entity\SchemaDotOrgMapping;
 
 /* ************************************************************************** */
@@ -60,18 +61,13 @@ function datetime_range_schemadotorg_jsonld_schema_type_field_alter(array &$data
 }
 
 /* ************************************************************************** */
-// Address.
-/* ************************************************************************** */
-
-
-/* ************************************************************************** */
 // Range.
 /* ************************************************************************** */
 
 /**
  * Implements hook_schemadotorg_jsonld_schema_property_alter() for the range.module.
  */
-function range_schemadotorg_jsonld_schema_property_alter(mixed &$value, FieldItemInterface $item): void {
+function range_schemadotorg_jsonld_schema_property_alter(mixed &$value, FieldItemInterface $item, BubbleableMetadata $bubbleable_metadata): void {
   $field_definition = $item->getFieldDefinition();
 
   // Only alter the Schema.org type data that have a daterange field.

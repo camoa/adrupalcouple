@@ -1,34 +1,44 @@
+// eslint-disable-next-line func-names
 (function ($, Drupal, once) {
-  'use strict';
-
   Drupal.behaviors.moderationDashboardActivity = {
-    attach: function (context, settings) {
-      var $activity = $('.moderation-dashboard-activity');
+    attach(context, settings) {
+      const $activity = $('.moderation-dashboard-activity');
 
-      once('moderation-dashboard-activity',".moderation-dashboard-activity",context).forEach(function (value,i) {
-        /* global Chart:object */
-        if ($activity.length && settings.moderation_dashboard_activity && Chart) {
-          var default_activity_chart_height = 500;
-          var activity_chart_height = 16 *
-            settings.moderation_dashboard_activity.labels.length;
+      // eslint-disable-next-line func-names
+      once(
+        'moderation-dashboard-activity',
+        '.moderation-dashboard-activity',
+        context,
+        // eslint-disable-next-line func-names
+      ).forEach(function () {
+        /* global Chart */
+        if (
+          $activity.length &&
+          settings.moderation_dashboard_activity &&
+          Chart
+        ) {
+          const defaultActivityChartHeight = 500;
+          let activityChartHeight =
+            16 * settings.moderation_dashboard_activity.labels.length;
 
-          if (activity_chart_height < default_activity_chart_height) {
-            activity_chart_height = default_activity_chart_height;
+          if (activityChartHeight < defaultActivityChartHeight) {
+            activityChartHeight = defaultActivityChartHeight;
           }
-          var $canvas =
-            $(`<canvas width="500" height="${activity_chart_height}"></canvas>`);
+          const $canvas = $(
+            $(`<canvas width="500" height="${activityChartHeight}"></canvas>`),
+          );
           $activity.append($canvas);
 
+          // eslint-disable-next-line no-new
           new Chart($canvas, {
             type: 'bar',
             data: settings.moderation_dashboard_activity,
             options: {
-              indexAxis: 'y'
-            }
+              indexAxis: 'y',
+            },
           });
         }
       });
-    }
+    },
   };
-
-}(jQuery, Drupal, once));
+})(jQuery, Drupal, once);

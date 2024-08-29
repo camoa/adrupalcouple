@@ -1,10 +1,11 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\Tests\schemadotorg\Traits;
 
 use Drupal\Component\Render\MarkupInterface;
+use Drupal\Core\Url;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
 
@@ -14,18 +15,21 @@ use Drupal\field\Entity\FieldStorageConfig;
 trait SchemaDotOrgTestTrait {
 
   /**
-   * Convert all render(able) markup into strings.
+   * Convert all array values (i.e., markup and urls) into strings.
    *
    * @param array $elements
-   *   An associative array of elements.
+   *   An associative array of values converted to strings.
    */
-  protected function convertMarkupToStrings(array &$elements): void {
+  protected function convertArrayValuesToStrings(array &$elements): void {
     foreach ($elements as $key => &$value) {
       if (is_array($value)) {
-        $this->convertMarkupToStrings($value);
+        $this->convertArrayValuesToStrings($value);
       }
       elseif ($value instanceof MarkupInterface) {
         $elements[$key] = (string) $value;
+      }
+      elseif ($value instanceof Url) {
+        $elements[$key] = $value->toString();
       }
     }
   }
@@ -46,7 +50,7 @@ trait SchemaDotOrgTestTrait {
     string $entity_type_id,
     string $schema_type,
     string $schema_property = 'alternateName',
-    string $field_type = 'string'
+    string $field_type = 'string',
   ): void {
     /** @var \Drupal\schemadotorg\SchemaDotOrgNamesInterface $schema_names */
     $schema_names = $this->container->get('schemadotorg.names');
@@ -86,6 +90,7 @@ trait SchemaDotOrgTestTrait {
   protected function appendSchemaTypeDefaultProperties(string $type, array|string $property): void {
     $config = \Drupal::configFactory()->getEditable('schemadotorg.settings');
     $default_properties = $config->get('schema_types.default_properties');
+    $default_properties[$type] = $default_properties[$type] ?? [];
     $default_properties[$type] = array_merge($default_properties[$type], (array) $property);
     $default_properties[$type] = array_unique($default_properties[$type]);
     asort($default_properties[$type]);

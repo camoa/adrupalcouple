@@ -1,9 +1,9 @@
 schemadotorg_ui:
   js:
-    js/schemadotorg_ui.js: {}
+    js/schemadotorg_ui.js: {  }
   css:
     component:
-      css/schemadotorg_ui.css: {}
+      css/schemadotorg_ui.css: {  }
   dependencies:
     - core/drupal
     - core/drupal.announce
@@ -11,10 +11,3 @@ schemadotorg_ui:
     - core/drupal.form
     - core/once
     - schemadotorg/schemadotorg.dialog
-
-schemadotorg_ui.field_prefix:
-  js:
-    js/schemadotorg_ui.field_prefix.js: {}
-  dependencies:
-    - core/drupal
-    - core/once

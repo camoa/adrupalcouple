@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg;
 
@@ -11,6 +11,12 @@ use Drupal\Core\Url;
 
 /**
  * Schema.org schema type builder service.
+ *
+ * The Schema.org schema type builder service helps render Schema.org's types
+ * and properties via Drupal.
+ *
+ * The service is primarily used by the Schema.org Blueprints UI
+ * and report modules.
  */
 class SchemaDotOrgSchemaTypeBuilder implements SchemaDotOrgSchemaTypeBuilderInterface {
 
@@ -27,7 +33,7 @@ class SchemaDotOrgSchemaTypeBuilder implements SchemaDotOrgSchemaTypeBuilderInte
   public function __construct(
     protected ModuleHandlerInterface $moduleHandler,
     protected AccountInterface $currentUser,
-    protected SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager
+    protected SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager,
   ) {}
 
   /**
@@ -44,12 +50,15 @@ class SchemaDotOrgSchemaTypeBuilder implements SchemaDotOrgSchemaTypeBuilderInte
    * {@inheritdoc}
    */
   public function buildItemsLinks(string|array $text, array $options = []): array {
-    $options += ['attributes' => []];
+    $options += [
+      'prefix' => ', ',
+      'attributes' => [],
+    ];
 
     $ids = (is_string($text)) ? $this->schemaTypeManager->parseIds($text) : $text;
     $links = [];
     foreach ($ids as $id) {
-      $prefix = ($links) ? ', ' : '';
+      $prefix = ($links && $options['prefix']) ? $options['prefix'] : '';
 
       $is_item = $this->schemaTypeManager->isItem($id);
       $is_uri = (str_starts_with($id, 'http'));

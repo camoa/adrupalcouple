@@ -28,6 +28,13 @@ class JsonapiExtrasSettingsForm extends ConfigFormBase {
   protected $jsonApiResourceRepository;
 
   /**
+   * The dependency injection container.
+   *
+   * @var \Drupal\Component\DependencyInjection\ContainerInterface
+   */
+  protected $container;
+
+  /**
    * Constructs a \Drupal\system\ConfigFormBase object.
    *
    * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
@@ -36,11 +43,18 @@ class JsonapiExtrasSettingsForm extends ConfigFormBase {
    *   The router builder to rebuild menus after saving config entity.
    * @param \Drupal\jsonapi\ResourceType\ResourceTypeRepositoryInterface $jsonApiResourceRepository
    *   Resource type repository.
+   * @param \Drupal\Component\DependencyInjection\ContainerInterface|null $container
+   *   The dependency injection container.
    */
-  public function __construct(ConfigFactoryInterface $config_factory, RouteBuilder $router_builder, ResourceTypeRepositoryInterface $jsonApiResourceRepository) {
+  public function __construct(ConfigFactoryInterface $config_factory, RouteBuilder $router_builder, ResourceTypeRepositoryInterface $jsonApiResourceRepository, ContainerInterface $container = NULL) {
     parent::__construct($config_factory);
     $this->routerBuilder = $router_builder;
     $this->jsonApiResourceRepository = $jsonApiResourceRepository;
+    if ($container === NULL) {
+      $container = \Drupal::getContainer();
+      @trigger_error('Calling ' . __METHOD__ . ' without the $container argument is deprecated in jsonapi_extras:8.x-3.24 and will be required in jsonapi_extras:8.x-4.0. See https://www.drupal.org/node/3384627', E_USER_DEPRECATED);
+    }
+    $this->container = $container;
   }
 
   /**
@@ -50,7 +64,8 @@ class JsonapiExtrasSettingsForm extends ConfigFormBase {
     return new static(
       $container->get('config.factory'),
       $container->get('router.builder'),
-      $container->get('jsonapi.resource_type.repository')
+      $container->get('jsonapi.resource_type.repository'),
+      $container
     );
   }
 
@@ -73,6 +88,10 @@ class JsonapiExtrasSettingsForm extends ConfigFormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     $config = $this->config('jsonapi_extras.settings');
+    $path_prefix_default_value = $config->get('path_prefix');
+    if ($this->isJsonApiBasePathParameterOverrideActive()) {
+      $path_prefix_default_value = ltrim($this->container->getParameter('jsonapi.base_path'), '/');
+    }
 
     $form['path_prefix'] = [
       '#title' => $this->t('Path prefix'),
@@ -80,8 +99,13 @@ class JsonapiExtrasSettingsForm extends ConfigFormBase {
       '#required' => TRUE,
       '#field_prefix' => '/',
       '#description' => $this->t('The path prefix for JSON:API.'),
-      '#default_value' => $config->get('path_prefix'),
+      '#disabled' => $this->isJsonApiBasePathParameterOverrideActive(),
+      '#default_value' => $path_prefix_default_value,
     ];
+
+    if ($this->isJsonApiBasePathParameterOverrideActive()) {
+      $form['path_prefix']['#description'] = $this->t('@original <strong>This configuration option is disabled because the JSON:API base path is overridden via the <em>jsonapi.base_path</em> container parameter.</strong>', ['@original' => $form['path_prefix']['#description']]);
+    }
 
     $form['include_count'] = [
       '#title' => $this->t('Include count in collection queries'),
@@ -97,6 +121,13 @@ class JsonapiExtrasSettingsForm extends ConfigFormBase {
       '#default_value' => $config->get('default_disabled'),
     ];
 
+    $form['validate_configuration_integrity'] = [
+      '#title' => $this->t('Validate config integrity'),
+      '#type' => 'checkbox',
+      '#description' => $this->t("Enable a configuration validation step for the fields in your resources. This will ensure that new (and updated) fields also contain configuration for the corresponding resources.<br /><strong>IMPORTANT:</strong> disable this <em>temporarily</em> to allow importing incomplete configuration, so you can fix it locally and export complete configuration. Remember to re-enable this after the configuration has been fixed."),
+      '#default_value' => $config->get('validate_configuration_integrity'),
+    ];
+
     return parent::buildForm($form, $form_state);
   }
 
@@ -104,7 +135,7 @@ class JsonapiExtrasSettingsForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    if ($path_prefix = $form_state->getValue('path_prefix')) {
+    if (!$this->isJsonApiBasePathParameterOverrideActive() && ($path_prefix = $form_state->getValue('path_prefix'))) {
       $this->config('jsonapi_extras.settings')
         ->set('path_prefix', trim($path_prefix, '/'))
         ->save();
@@ -113,6 +144,7 @@ class JsonapiExtrasSettingsForm extends ConfigFormBase {
     $this->config('jsonapi_extras.settings')
       ->set('include_count', $form_state->getValue('include_count'))
       ->set('default_disabled', $form_state->getValue('default_disabled'))
+      ->set('validate_configuration_integrity', $form_state->getValue('validate_configuration_integrity'))
       ->save();
 
     // Rebuild the router.
@@ -122,6 +154,16 @@ class JsonapiExtrasSettingsForm extends ConfigFormBase {
     Cache::invalidateTags(['jsonapi_resource_types']);
 
     parent::submitForm($form, $form_state);
+  }
+
+  /**
+   * Checks if jsonapi.base_path container parameter override is active.
+   *
+   * @return bool
+   *   TRUE if it is active, FALSE otherwise.
+   */
+  private function isJsonApiBasePathParameterOverrideActive(): bool {
+    return $this->container->hasParameter('jsonapi_extras.base_path_override_disabled') && $this->container->getParameter('jsonapi_extras.base_path_override_disabled');
   }
 
 }

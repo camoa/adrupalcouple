@@ -65,10 +65,10 @@ _The [eventSchedule](https://schema.org/eventSchedule) property is proposed for 
 
 To configure either approach, you need to adjust the
 'Default Schema.org type properties'
-(/admin/config/search/schemadotorg/settings/type)
+(/admin/config/schemadotorg/settings/type)
 and
 'Default Schema.org property fields'
-(/admin/config/search/schemadotorg/settings/properties).
+(/admin/config/schemadotorg/settings/properties).
 
 
 TODO

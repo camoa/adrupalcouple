@@ -1,10 +1,9 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\schemadotorg\Utility;
 
-use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Element;
 
 /**
@@ -24,19 +23,6 @@ class SchemaDotOrgElementHelper {
     foreach (Element::children($elements) as $key) {
       $elements[$key]['#parents'] = array_merge($parents, [$key]);
     }
-  }
-
-  /**
-   * Form API callback. Remove unchecked options from value array.
-   */
-  public static function validateMultipleOptions(array &$element, FormStateInterface $form_state, array &$completed_form): void {
-    $values = $element['#value'] ?: [];
-    // Filter unchecked/unselected options whose value is 0.
-    $values = array_filter($values, function ($value) {
-      return $value !== 0;
-    });
-    $values = array_values($values);
-    $form_state->setValueForElement($element, $values);
   }
 
 }

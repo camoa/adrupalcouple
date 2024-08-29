@@ -1,9 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-id: editorial
-label: 'Editorial Information'
-icon_uuid: null
-icon_default: null
-description: 'The editorial information, decisions, and status of a document.'
-behavior_plugins: {  }
