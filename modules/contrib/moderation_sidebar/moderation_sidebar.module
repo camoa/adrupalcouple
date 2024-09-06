@@ -47,6 +47,7 @@ function moderation_sidebar_toolbar() {
   }
 
   if ($entity->isNew()) {
+    $cacheability->applyTo($items['moderation_sidebar']);
     return $items;
   }
 

@@ -5,9 +5,6 @@ namespace Drupal\Tests\moderation_sidebar\Functional;
 use Drupal\Tests\BrowserTestBase;
 use Drupal\Tests\content_moderation\Traits\ContentModerationTestTrait;
 use Drupal\Tests\taxonomy\Traits\TaxonomyTestTrait;
-if (!trait_exists('\Drupal\Tests\taxonomy\Traits\TaxonomyTestTrait')) {
-  class_alias('\Drupal\Tests\taxonomy\Functional\TaxonomyTestTrait', '\Drupal\Tests\taxonomy\Traits\TaxonomyTestTrait');
-}
 
 /**
  * Contains test for the toolbar state label for taxonomy_term.
@@ -22,7 +19,7 @@ class AdminToolbarStateTaxonomyTermTest extends BrowserTestBase {
   /**
    * {@inheritdoc}
    */
-  protected static $modules = ['toolbar', 'moderation_sidebar', 'taxonomy'];
+  protected static $modules = ['toolbar', 'moderation_sidebar', 'moderation_sidebar_test', 'taxonomy'];
 
   /**
    * Vocabulary to be used for tests.
@@ -62,7 +59,7 @@ class AdminToolbarStateTaxonomyTermTest extends BrowserTestBase {
    */
   public function testNotModeratedEntity() {
     $term = $this->createTerm($this->vocabulary);
-    $url = $term->toUrl()->toString();
+    $url = $term->toUrl('canonical', ['absolute' => TRUE])->toString();
     $assert_session = $this->assertSession();
 
     // Draft.

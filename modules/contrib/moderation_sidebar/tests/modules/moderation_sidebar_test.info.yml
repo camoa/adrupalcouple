@@ -3,9 +3,9 @@ type: module
 description: 'Provides default config for Moderation Sidebar tests.'
 package: Testing
 dependencies:
-  - drupal:moderation_sidebar
+  - moderation_sidebar:moderation_sidebar
 
-# Information added by Drupal.org packaging script on 2022-12-14
-version: '8.x-1.7'
+# Information added by Drupal.org packaging script on 2024-08-29
+version: '8.x-1.8'
 project: 'moderation_sidebar'
-datestamp: 1670991667
+datestamp: 1724947841

@@ -4,9 +4,6 @@ namespace Drupal\Tests\moderation_sidebar\FunctionalJavascript;
 
 use Drupal\FunctionalJavascriptTests\WebDriverTestBase;
 use Drupal\Tests\taxonomy\Traits\TaxonomyTestTrait;
-if (!trait_exists('\Drupal\Tests\taxonomy\Traits\TaxonomyTestTrait')) {
-  class_alias('\Drupal\Tests\taxonomy\Functional\TaxonomyTestTrait', '\Drupal\Tests\taxonomy\Traits\TaxonomyTestTrait');
-}
 
 /**
  * Contains Moderation Sidebar integration tests.
@@ -21,11 +18,11 @@ class ModerationSidebarTaxonomyTermTest extends WebDriverTestBase {
    */
   protected static $modules = [
     'toolbar',
+    'taxonomy',
     'moderation_sidebar',
     'taxonomy_test',
     'moderation_sidebar_test',
-    // 'content_translation',
-    // 'path',
+    'content_translation',
   ];
 
   /**
@@ -38,7 +35,7 @@ class ModerationSidebarTaxonomyTermTest extends WebDriverTestBase {
   /**
    * {@inheritdoc}
    */
-  protected $defaultTheme = 'stark';
+  protected $defaultTheme = 'starterkit_theme';
 
   /**
    * {@inheritdoc}
@@ -71,21 +68,24 @@ class ModerationSidebarTaxonomyTermTest extends WebDriverTestBase {
    * Tests that the Moderation Sidebar is working as expected.
    */
   public function testModerationSidebar() {
+    /** @var \Drupal\FunctionalJavascriptTests\JSWebAssert $assertSession */
+    $assertSession = $this->assertSession();
     // Create a new term.
     $term = $this->createTerm($this->vocabulary);
-    $this->drupalGet($term->toUrl()->toString());
+    $taxonomy_term_uri = $term->toUrl('canonical', ['absolute' => TRUE])->toString();
+    $this->drupalGet($taxonomy_term_uri);
 
     // Open the moderation sidebar.
     $this->clickLink('Tasks');
-    $this->assertSession()->assertWaitOnAjaxRequest();
+    $assertSession->assertWaitOnAjaxRequest();
 
-    $this->assertSession()->elementExists('css', '.moderation-sidebar-info');
-    $this->assertSession()->elementTextContains('css', '.moderation-sidebar-info', 'Published');
+    $assertSession->waitForElement('css', '.moderation-sidebar-info');
+    $assertSession->elementTextContains('css', '.moderation-sidebar-info', 'Published');
 
-    $this->assertSession()->elementTextContains('css', 'a.moderation-sidebar-link', 'View');
-    $this->assertSession()->elementAttributeContains('css', 'a.moderation-sidebar-link', 'href', $term->toUrl()->toString());
+    $assertSession->elementTextContains('css', 'a.moderation-sidebar-link', 'View');
+    $assertSession->elementAttributeContains('css', 'a.moderation-sidebar-link', 'href', $term->toUrl()->toString());
     // We don't have permission to edit.
-    $this->assertSession()->elementNotExists('css', 'a.moderation-sidebar-link + a.moderation-sidebar-link');
+    $assertSession->elementNotExists('css', 'a.moderation-sidebar-link + a.moderation-sidebar-link');
 
     // Login as user able to edit the term.
     $user = $this->drupalCreateUser([
@@ -95,7 +95,7 @@ class ModerationSidebarTaxonomyTermTest extends WebDriverTestBase {
       'edit terms in ' . $this->vocabulary->id(),
     ]);
     $this->drupalLogin($user);
-    $this->drupalGet($term->toUrl()->toString());
+    $this->drupalGet($taxonomy_term_uri);
     $this->clickLink('Tasks');
     $this->assertSession()->assertWaitOnAjaxRequest();
     $this->assertSession()->elementTextContains('css', 'a.moderation-sidebar-link', 'View');

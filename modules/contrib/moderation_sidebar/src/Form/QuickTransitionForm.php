@@ -2,10 +2,12 @@
 
 namespace Drupal\moderation_sidebar\Form;
 
+use Drupal\Component\Datetime\TimeInterface;
 use Drupal\content_moderation\ModerationInformationInterface;
 use Drupal\content_moderation\StateTransitionValidationInterface;
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\ContentEntityStorageInterface;
+use Drupal\Core\Entity\EntityChangedInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityRepositoryInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
@@ -49,6 +51,13 @@ class QuickTransitionForm extends FormBase {
   protected $entityRepository;
 
   /**
+   * Drupal Time Service.
+   *
+   * @var \Drupal\Component\Datetime\TimeInterface
+   */
+  protected $datetime;
+
+  /**
    * QuickDraftForm constructor.
    *
    * @param \Drupal\content_moderation\ModerationInformationInterface $moderation_info
@@ -57,12 +66,22 @@ class QuickTransitionForm extends FormBase {
    *   The moderation state transition validation service.
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   The entity type manager.
+   * @param \Drupal\Core\Entity\EntityRepositoryInterface $entity_repository
+   *   The entity repository.
+   * @param \Drupal\Component\Datetime\TimeInterface|null $datetime
+   *   Drupal Time Manager.
    */
-  public function __construct(ModerationInformationInterface $moderation_info, StateTransitionValidationInterface $validation, EntityTypeManagerInterface $entity_type_manager, EntityRepositoryInterface $entity_repository) {
+  public function __construct(ModerationInformationInterface $moderation_info, StateTransitionValidationInterface $validation, EntityTypeManagerInterface $entity_type_manager, EntityRepositoryInterface $entity_repository, TimeInterface $datetime = NULL) {
     $this->moderationInformation = $moderation_info;
     $this->validation = $validation;
     $this->entityTypeManager = $entity_type_manager;
     $this->entityRepository = $entity_repository;
+    if (!$datetime) {
+      @trigger_error(sprintf('Invoking %s without $datetime is deprecated in moderation_sidebar:8.x-1.8 and unsupported in moderation_sidebar:2.0.0. See https://www.drupal.org/project/moderation_sidebar/issues/3451934', __FUNCTION__), E_USER_DEPRECATED);
+      // @phpstan-ignore-next-line
+      $datetime = \Drupal::service('datetime.time');
+    }
+    $this->datetime = $datetime;
   }
 
   /**
@@ -73,7 +92,8 @@ class QuickTransitionForm extends FormBase {
       $container->get('content_moderation.moderation_information'),
       $container->get('content_moderation.state_transition_validation'),
       $container->get('entity_type.manager'),
-      $container->get('entity.repository')
+      $container->get('entity.repository'),
+      $container->get('datetime.time')
     );
   }
 
@@ -186,6 +206,7 @@ class QuickTransitionForm extends FormBase {
     /** @var \Drupal\Core\Entity\ContentEntityInterface $entity */
     $entity = $form_state->get('entity');
     $langcode = $entity->language()->getId();
+    /** @var \Drupal\Core\Entity\RevisionableStorageInterface $storage */
     $storage = $this->entityTypeManager->getStorage($entity->getEntityTypeId());
     $default_revision_id = $this->moderationInformation->getDefaultRevisionId($entity->getEntityTypeId(), $entity->id());
     $default_revision = $storage->loadRevision($default_revision_id);
@@ -300,8 +321,11 @@ class QuickTransitionForm extends FormBase {
       $revision = $storage->createRevision($entity);
       if ($revision instanceof RevisionLogInterface) {
         $revision->setRevisionLogMessage($message);
-        $revision->setRevisionCreationTime(\Drupal::time()->getRequestTime());
+        $revision->setRevisionCreationTime($this->datetime->getRequestTime());
         $revision->setRevisionUserId($this->currentUser()->id());
+      }
+      if ($entity instanceof EntityChangedInterface) {
+        $revision->setChangedTime($this->datetime->getRequestTime());
       }
       return $revision;
     }

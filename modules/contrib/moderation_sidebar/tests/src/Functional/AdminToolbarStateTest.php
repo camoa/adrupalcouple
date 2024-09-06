@@ -48,26 +48,26 @@ class AdminToolbarStateTest extends BrowserTestBase {
     $workflow->save();
 
     $node = $this->createNode(['type' => 'article']);
-    $url = $node->toUrl()->toString();
+    $url = $node->toUrl('canonical', ['absolute' => TRUE])->toString();
     $assert_session = $this->assertSession();
 
     // Draft.
     $node->set('moderation_state', 'draft');
     $node->save();
     $this->drupalGet($url);
-    $assert_session->elementExists('css', '.moderation-label-draft[data-label="Draft"]');
+    $assert_session->elementExists('css', '.moderation-label-draft');
 
     // Published.
     $node->set('moderation_state', 'published');
     $node->save();
     $this->drupalGet($url);
-    $assert_session->elementExists('css', '.moderation-label-published[data-label="Published"]');
+    $assert_session->elementExists('css', '.moderation-label-published');
 
     // Archived.
     $node->set('moderation_state', 'archived');
     $node->save();
     $this->drupalGet($url);
-    $assert_session->elementExists('css', '.moderation-label-draft[data-label="Archived"]');
+    $assert_session->elementExists('css', '.moderation-label-draft');
   }
 
   /**
@@ -75,20 +75,20 @@ class AdminToolbarStateTest extends BrowserTestBase {
    */
   public function testNotModeratedEntity() {
     $node = $this->createNode(['type' => 'article']);
-    $url = $node->toUrl()->toString();
+    $url = $node->toUrl('canonical', ['absolute' => TRUE])->toString();
     $assert_session = $this->assertSession();
 
     // Draft.
     $node->set('status', NodeInterface::NOT_PUBLISHED);
     $node->save();
     $this->drupalGet($url);
-    $assert_session->elementExists('css', '.moderation-label-draft[data-label="Draft"]');
+    $assert_session->elementExists('css', '.moderation-label-draft');
 
     // Published.
     $node->set('status', NodeInterface::PUBLISHED);
     $node->save();
     $this->drupalGet($url);
-    $assert_session->elementExists('css', '.moderation-label-published[data-label="Published"]');
+    $assert_session->elementExists('css', '.moderation-label-published');
   }
 
 }

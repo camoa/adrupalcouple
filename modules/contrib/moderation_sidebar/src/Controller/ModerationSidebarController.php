@@ -2,9 +2,9 @@
 
 namespace Drupal\moderation_sidebar\Controller;
 
-use Drupal\Core\Access\AccessResult;
 use Drupal\Component\Utility\Xss;
 use Drupal\content_moderation\ModerationInformation;
+use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Datetime\DateFormatterInterface;
 use Drupal\Core\Entity\ContentEntityInterface;
@@ -51,13 +51,6 @@ class ModerationSidebarController extends ControllerBase {
   protected $dateFormatter;
 
   /**
-   * The module handler service.
-   *
-   * @var \Drupal\Core\Extension\ModuleHandlerInterface
-   */
-  protected $moduleHandler;
-
-  /**
    * The local task manager.
    *
    * @var \Drupal\Core\Menu\LocalTaskManagerInterface
@@ -82,8 +75,8 @@ class ModerationSidebarController extends ControllerBase {
     $this->moderationInformation = $moderation_information;
     $this->request = $request_stack->getCurrentRequest();
     $this->dateFormatter = $date_formatter;
-    $this->moduleHandler = $module_handler;
     $this->localTaskManager = $local_task_manager;
+    // Module Handler is provided by the base controller.
   }
 
   /**
@@ -148,8 +141,8 @@ class ModerationSidebarController extends ControllerBase {
     $entity_type_id = $entity->getEntityTypeId();
 
     /** @var \Drupal\Core\Entity\TranslatableRevisionableStorageInterface $storage */
-    // Figure ouf this is the latest revision of this entity for this language.
-    $storage = \Drupal::entityTypeManager()->getStorage($entity_type_id);
+    // Figure out this is the latest revision of this entity for this language.
+    $storage = $this->entityTypeManager()->getStorage($entity_type_id);
     $is_latest = TRUE;
     if ($storage instanceof TranslatableRevisionableStorageInterface) {
       $latest_revision_id = $storage->getLatestTranslationAffectedRevisionId($entity->id(), $langcode);
@@ -262,7 +255,7 @@ class ModerationSidebarController extends ControllerBase {
       }
 
       // We maintain our own inline revisions tab.
-      if ($entity_type_id === 'node' && $entity->access('view all revisions')){
+      if ($entity_type_id === 'node' && $entity->access('view all revisions')) {
         $build['actions']['secondary']['version_history'] = [
           '#title' => $this->t('Show revisions'),
           '#type' => 'link',
@@ -278,7 +271,10 @@ class ModerationSidebarController extends ControllerBase {
       }
 
       // We maintain our own inline translate tab.
-      if ($this->moduleHandler()->moduleExists('content_translation') && \Drupal::service('content_translation.manager')->isSupported($entity_type_id)) {
+      if ($this->moduleHandler()->moduleExists('content_translation')
+        // @phpstan-ignore-next-line
+        && \Drupal::service('content_translation.manager')->isSupported($entity_type_id)
+        && content_translation_translate_access($entity)->isAllowed()) {
         $build['actions']['secondary']['translate'] = [
           '#title' => $this->t('Translate'),
           '#type' => 'link',
@@ -304,7 +300,7 @@ class ModerationSidebarController extends ControllerBase {
     $build['actions']['secondary'] += $this->getLocalTasks($entity);
 
     // Allow other module to alter our build.
-    $this->moduleHandler->alter('moderation_sidebar', $build, $entity);
+    $this->moduleHandler()->alter('moderation_sidebar', $build, $entity);
 
     return $build;
   }
@@ -360,7 +356,10 @@ class ModerationSidebarController extends ControllerBase {
         $time = $revision->revision_timestamp->value;
         $pretty_time = $this->getPrettyTime($revision->revision_timestamp->value);
         if ($vid != $node->getRevisionId()) {
-          $link = new Link($pretty_time, new Url('entity.node.revision', ['node' => $node->id(), 'node_revision' => $vid]));
+          $link = new Link($pretty_time, new Url('entity.node.revision', [
+            'node' => $node->id(),
+            'node_revision' => $vid,
+          ]));
         }
         else {
           $link = $node->toLink($pretty_time);
@@ -408,7 +407,8 @@ class ModerationSidebarController extends ControllerBase {
     $bundle = $entity->bundle();
     $account = $this->currentUser();
 
-    if (!\Drupal::moduleHandler()->moduleExists('content_translation') || !\Drupal::service('content_translation.manager')->isSupported($entity_type_id)) {
+    // @phpstan-ignore-next-line
+    if (!$this->moduleHandler()->moduleExists('content_translation') || !\Drupal::service('content_translation.manager')->isSupported($entity_type_id)) {
       throw new AccessDeniedHttpException();
     }
 
@@ -416,7 +416,7 @@ class ModerationSidebarController extends ControllerBase {
     $entity_type_id = $entity->getEntityTypeId();
 
     /** @var \Drupal\Core\Entity\TranslatableRevisionableStorageInterface $storage */
-    $storage = \Drupal::entityTypeManager()->getStorage($entity_type_id);
+    $storage = $this->entityTypeManager()->getStorage($entity_type_id);
     if ($storage instanceof TranslatableRevisionableStorageInterface) {
       $latest_revision_id = $storage->getLatestTranslationAffectedRevisionId($entity->id(), $langcode);
       if ($latest_revision_id < $entity->getRevisionId()) {
@@ -605,7 +605,7 @@ class ModerationSidebarController extends ControllerBase {
             '#type' => 'link',
             '#url' => $tab['#link']['url'],
             '#attributes' => $attributes,
-            '#access' => isset($tab['#access']) ? $tab['#access'] : AccessResult::neutral(),
+            '#access' => $tab['#access'] ?? AccessResult::neutral(),
           ];
         }
       }
@@ -630,7 +630,7 @@ class ModerationSidebarController extends ControllerBase {
       $time_pretty = $this->t('@diff ago', ['@diff' => $diff]);
     }
     else {
-      $time_pretty = $this->t('on @date', ['@date' => \Drupal::service('date.formatter')->format($time, 'short')]);
+      $time_pretty = $this->t('on @date', ['@date' => $this->dateFormatter->format($time, 'short')]);
     }
     return $time_pretty;
   }
@@ -650,7 +650,7 @@ class ModerationSidebarController extends ControllerBase {
       'entity_type' => $entity->getEntityTypeId(),
     ];
 
-    if (\Drupal::request()->get('latest')) {
+    if ($this->request->get('latest')) {
       $back_url = Url::fromRoute('moderation_sidebar.sidebar_latest', $params);
     }
     else {

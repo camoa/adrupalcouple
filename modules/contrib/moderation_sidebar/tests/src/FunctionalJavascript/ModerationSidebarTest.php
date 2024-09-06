@@ -34,10 +34,9 @@ class ModerationSidebarTest extends WebDriverTestBase {
    */
   protected function setUp(): void {
     parent::setUp();
-
     // Create a Content Type with moderation enabled.
     $node_type = $this->drupalCreateContentType(['type' => 'article', 'name' => 'Article']);
-    /* @var \Drupal\workflows\WorkflowInterface $workflow */
+    /** @var \Drupal\workflows\WorkflowInterface $workflow */
     $workflow = $this->container->get('entity_type.manager')->getStorage('workflow')->load('editorial');
     $workflow->getTypePlugin()->addEntityTypeAndBundle('node', 'article');
     $workflow->save();
@@ -75,11 +74,14 @@ class ModerationSidebarTest extends WebDriverTestBase {
     // Add German language.
     $edit = ['predefined_langcode' => 'de'];
     $this->drupalGet('admin/config/regional/language/add');
-    $this->submitForm($edit, t('Add language'));
+    $this->submitForm($edit, 'Add language');
     // Enable translations for nodes.
-    $edit = ['entity_types[node]' => 'node', 'settings[node][article][translatable]' => TRUE];
     $this->drupalGet('admin/config/regional/content-language');
-    $this->submitForm($edit, 'Save configuration');
+    $page = $this->getSession()->getPage();
+    $page->checkField('entity_types[node]');
+    $page->find('css', '#edit-settings-node')->click();
+    $page->checkField('settings[node][article][translatable]');
+    $page->pressButton('Save configuration');
 
     drupal_flush_all_caches();
   }
@@ -87,7 +89,7 @@ class ModerationSidebarTest extends WebDriverTestBase {
   /**
    * Tests that the Moderation Sidebar is working as expected.
    */
-  public function testModerationSidebar() {
+  public function testModerationSidebar(): void {
     $assert_session = $this->assertSession();
     // Create a new article.
     $node = $this->createNode([
@@ -98,23 +100,34 @@ class ModerationSidebarTest extends WebDriverTestBase {
 
     // Open the moderation sidebar.
     $this->clickLink('Tasks');
-    $this->waitForDialog();
+    $assert_session->waitForElementVisible('css', '.ui-dialog-title');
     // Archived transitions should not be visible based on our permissions.
     $assert_session->elementNotExists('css', '.moderation-sidebar-link#published_archived');
     // Create a draft of the article.
     $this->submitForm([], 'Create New Draft');
     $assert_session->addressEquals('node/' . $node->id() . '/latest');
 
+    $storage = \Drupal::entityTypeManager()->getStorage('node');
+    $draft_revision = $storage->loadRevision($storage->getLatestRevisionId($node->id()));
+    $draft_changed_time = $draft_revision->getChangedTime();
+
+    // Sleep for a second to reduce any flakiness of drafts being updated in
+    // the same second.
+    sleep(1);
+
     // Publish the draft.
     $this->clickLink('Tasks');
-    $this->waitForDialog();
+    $assert_session->waitForElementVisible('css', '.ui-dialog-title');
     $assert_session->pageTextNotContains('View existing draft');
     $this->submitForm([], 'Publish');
     $assert_session->addressEquals('node/' . $node->id());
 
+    $node = $storage->loadUnchanged($node->id());
+    $this->assertGreaterThan($draft_changed_time, $node->getChangedTime());
+
     // Create another draft, then discard it.
     $this->clickLink('Tasks');
-    $this->waitForDialog();
+    $assert_session->waitForElementVisible('css', '.ui-dialog-title');
     $this->submitForm([], 'Create New Draft');
     $assert_session->addressEquals('node/' . $node->id() . '/latest');
     $this->clickLink('Tasks');
@@ -122,16 +135,19 @@ class ModerationSidebarTest extends WebDriverTestBase {
     $assert_session->pageTextContains('The draft has been discarded successfully');
 
     $this->drupalGet('admin/config/user-interface/moderation-sidebar');
-    $assert_session->checkboxNotChecked('workflows[editorial_workflow][disabled_transitions][create_new_draft]');
-    $this->submitForm(['workflows[editorial_workflow][disabled_transitions][create_new_draft]' => TRUE], 'Save configuration');
+    $page = $this->getSession()->getPage();
+
+    $page->checkField('workflows[editorial_workflow][disabled_transitions][create_new_draft]');
+    $page->pressButton('Save configuration');
 
     $this->drupalGet('node/' . $node->id());
     $this->clickLink('Tasks');
-    $this->waitForDialog();
+    $assert_session->waitForElementVisible('css', '.ui-dialog-title');
     $assert_session->buttonNotExists('create_new_draft');
 
     $this->drupalGet('admin/config/user-interface/moderation-sidebar');
-    $this->submitForm(['workflows[editorial_workflow][disabled_transitions][create_new_draft]' => FALSE], 'Save configuration');
+    $page->uncheckField('workflows[editorial_workflow][disabled_transitions][create_new_draft]');
+    $page->pressButton('Save configuration');
 
     // SCENARIO 1: Published EN, Draft EN, Published EN.
     // Create a new article.
@@ -169,7 +185,7 @@ class ModerationSidebarTest extends WebDriverTestBase {
     $this->drupalGet('node/' . $node->id());
     $assert_session->elementExists('css', '.moderation-label-draft-available[data-label="Draft available"]');
     $this->clickLink('Tasks');
-    $this->waitForDialog();
+    $assert_session->waitForElementVisible('css', '.ui-dialog-title');
     // Actions when there is a draft available node.
     $assert_session->pageTextContainsOnce('View existing draft');
     // Actions for draft that should not be present.
@@ -183,7 +199,7 @@ class ModerationSidebarTest extends WebDriverTestBase {
     // Node published, Published tray.
     $this->drupalGet('node/' . $node->id() . '/latest');
     $this->clickLink('Tasks');
-    $this->waitForDialog();
+    $assert_session->waitForElementVisible('css', '.ui-dialog-title');
     $this->submitForm([], 'Publish');
     $this->drupalGet('node/' . $node->id());
     $assert_session->elementExists('css', '.moderation-label-published[data-label="Published"]');
@@ -212,7 +228,7 @@ class ModerationSidebarTest extends WebDriverTestBase {
     ], 'Save');
     $assert_session->elementExists('css', '.moderation-label-published[data-label="Published"]');
     $this->clickLink('Tasks');
-    $this->waitForDialog();
+    $assert_session->waitForElementVisible('css', '.ui-dialog-title');
     $assert_session->elementTextEquals('css', '.ui-dialog-title', 'Llama EN');
     $this->clickLink('Translate');
     $this->waitForLink('Create translation')->click();
@@ -222,12 +238,12 @@ class ModerationSidebarTest extends WebDriverTestBase {
     ], 'Save');
     $assert_session->elementExists('css', '.moderation-label-published[data-label="Published"]');
     $this->clickLink('Tasks');
-    $this->waitForDialog();
+    $assert_session->waitForElementVisible('css', '.ui-dialog-title');
     $assert_session->elementTextEquals('css', '.ui-dialog-title', 'Llama DE');
     $node = $this->getNodeByTitle('Llama EN');
     $this->drupalGet('node/' . $node->id());
     $this->clickLink('Tasks');
-    $this->waitForDialog();
+    $assert_session->waitForElementVisible('css', '.ui-dialog-title');
     $this->submitForm([], 'Create New Draft');
 
     // Draft EN, Draft tray.
@@ -235,7 +251,7 @@ class ModerationSidebarTest extends WebDriverTestBase {
     $element = $assert_session->waitForElementVisible('css', '.moderation-label-draft[data-label="Draft"]');
     $this->assertNotEmpty($element);
     $this->clickLink('Tasks');
-    $this->waitForDialog();
+    $assert_session->waitForElementVisible('css', '.ui-dialog-title');
     $assert_session->elementTextEquals('css', '.ui-dialog-title', 'Llama EN');
     $assert_session->elementExists('css', '.moderation-sidebar-link#publish');
     $assert_session->elementExists('css', '.moderation-sidebar-link#moderation-sidebar-discard-draft');
@@ -246,7 +262,7 @@ class ModerationSidebarTest extends WebDriverTestBase {
     $this->drupalGet('node/' . $node->id());
     $assert_session->elementExists('css', '.moderation-label-draft-available[data-label="Draft available"]');
     $this->clickLink('Tasks');
-    $this->waitForDialog();
+    $assert_session->waitForElementVisible('css', '.ui-dialog-title');
     $assert_session->elementTextEquals('css', '.ui-dialog-title', 'Llama EN');
     $assert_session->pageTextContainsOnce('View existing draft');
 
@@ -254,7 +270,7 @@ class ModerationSidebarTest extends WebDriverTestBase {
     $this->drupalGet('de/node/' . $node->id());
     $assert_session->elementExists('css', '.moderation-label-published[data-label="Published"]');
     $this->clickLink('Tasks');
-    $this->waitForDialog();
+    $assert_session->waitForElementVisible('css', '.ui-dialog-title');
     $assert_session->elementTextEquals('css', '.ui-dialog-title', 'Llama DE');
     $assert_session->elementExists('css', '.moderation-sidebar-link#create_new_draft');
 
@@ -267,7 +283,7 @@ class ModerationSidebarTest extends WebDriverTestBase {
     ], 'Save');
     $assert_session->elementExists('css', '.moderation-label-published[data-label="Published"]');
     $this->clickLink('Tasks');
-    $this->waitForDialog();
+    $assert_session->waitForElementVisible('css', '.ui-dialog-title');
     $assert_session->elementTextEquals('css', '.ui-dialog-title', 'Alpaca EN');
     $this->clickLink('Translate');
     $this->waitForLink('Create translation')->click();
@@ -279,7 +295,7 @@ class ModerationSidebarTest extends WebDriverTestBase {
     // DE Draft, Draft tray.
     $assert_session->elementExists('css', '.moderation-label-draft[data-label="Draft"]');
     $this->clickLink('Tasks');
-    $this->waitForDialog();
+    $assert_session->waitForElementVisible('css', '.ui-dialog-title');
     $assert_session->elementTextEquals('css', '.ui-dialog-title', 'Alpaca DE');
     $assert_session->elementExists('css', '.moderation-sidebar-link#publish');
     $assert_session->elementExists('css', '.moderation-sidebar-link#moderation-sidebar-discard-draft');
@@ -291,7 +307,7 @@ class ModerationSidebarTest extends WebDriverTestBase {
     $this->drupalGet('node/' . $node->id());
     $assert_session->elementExists('css', '.moderation-label-published[data-label="Published"]');
     $this->clickLink('Tasks');
-    $this->waitForDialog();
+    $assert_session->waitForElementVisible('css', '.ui-dialog-title');
     $assert_session->elementTextEquals('css', '.ui-dialog-title', 'Alpaca EN');
     $assert_session->elementExists('css', '.moderation-sidebar-link#create_new_draft');
     $assert_session->pageTextContainsOnce('Delete content');
@@ -304,10 +320,10 @@ class ModerationSidebarTest extends WebDriverTestBase {
       'moderation_state[0][state]' => 'published',
     ], 'Save');
     $this->clickLink('Tasks');
-    $this->waitForDialog();
+    $assert_session->waitForElementVisible('css', '.ui-dialog-title');
     $this->submitForm([], 'Create New Draft');
     $this->clickLink('Tasks');
-    $this->waitForDialog();
+    $assert_session->waitForElementVisible('css', '.ui-dialog-title');
     $assert_session->elementTextEquals('css', '.ui-dialog-title', 'Vicuna EN');
     $this->clickLink('Translate');
     $this->waitForLink('Create translation')->click();
@@ -321,7 +337,7 @@ class ModerationSidebarTest extends WebDriverTestBase {
     $this->drupalGet('node/' . $node->id());
     $assert_session->elementExists('css', '.moderation-label-draft-available[data-label="Draft available"]');
     $this->clickLink('Tasks');
-    $this->waitForDialog();
+    $assert_session->waitForElementVisible('css', '.ui-dialog-title');
     $assert_session->elementTextEquals('css', '.ui-dialog-title', 'Vicuna EN');
     $assert_session->pageTextContainsOnce('View existing draft');
 
@@ -329,7 +345,7 @@ class ModerationSidebarTest extends WebDriverTestBase {
     $this->drupalGet('node/' . $node->id() . '/latest');
     $assert_session->elementExists('css', '.moderation-label-draft[data-label="Draft"]');
     $this->clickLink('Tasks');
-    $this->waitForDialog();
+    $assert_session->waitForElementVisible('css', '.ui-dialog-title');
     $assert_session->elementTextEquals('css', '.ui-dialog-title', 'Vicuna EN');
     $assert_session->elementExists('css', '.moderation-sidebar-link#publish');
     $assert_session->elementExists('css', '.moderation-sidebar-link#moderation-sidebar-discard-draft');
@@ -340,7 +356,7 @@ class ModerationSidebarTest extends WebDriverTestBase {
     $this->drupalGet('de/node/' . $node->id());
     $assert_session->elementExists('css', '.moderation-label-published[data-label="Published"]');
     $this->clickLink('Tasks');
-    $this->waitForDialog();
+    $assert_session->waitForElementVisible('css', '.ui-dialog-title');
     $assert_session->elementTextEquals('css', '.ui-dialog-title', 'Vicuna DE');
     $assert_session->elementExists('css', '.moderation-sidebar-link#create_new_draft');
     $assert_session->pageTextContainsOnce('Delete content');
@@ -353,11 +369,11 @@ class ModerationSidebarTest extends WebDriverTestBase {
       'moderation_state[0][state]' => 'published',
     ], 'Save');
     $this->clickLink('Tasks');
-    $this->waitForDialog();
+    $assert_session->waitForElementVisible('css', '.ui-dialog-title');
     $this->submitForm([], 'Create New Draft');
     $assert_session->elementExists('css', '.moderation-label-draft[data-label="Draft"]');
     $this->clickLink('Tasks');
-    $this->waitForDialog();
+    $assert_session->waitForElementVisible('css', '.ui-dialog-title');
     $assert_session->elementTextEquals('css', '.ui-dialog-title', 'Camel EN');
     $node = $this->getNodeByTitle('Camel EN');
     $this->drupalGet('node/' . $node->id());
@@ -375,7 +391,7 @@ class ModerationSidebarTest extends WebDriverTestBase {
     $this->drupalGet('node/' . $node->id());
     $assert_session->elementExists('css', '.moderation-label-draft-available[data-label="Draft available"]');
     $this->clickLink('Tasks');
-    $this->waitForDialog();
+    $assert_session->waitForElementVisible('css', '.ui-dialog-title');
     $assert_session->elementTextEquals('css', '.ui-dialog-title', 'Camel EN');
     $assert_session->pageTextContainsOnce('View existing draft');
 
@@ -383,7 +399,7 @@ class ModerationSidebarTest extends WebDriverTestBase {
     $this->drupalGet('node/' . $node->id() . '/latest');
     $assert_session->elementExists('css', '.moderation-label-draft[data-label="Draft"]');
     $this->clickLink('Tasks');
-    $this->waitForDialog();
+    $assert_session->waitForElementVisible('css', '.ui-dialog-title');
     $assert_session->elementTextEquals('css', '.ui-dialog-title', 'Camel EN');
     $assert_session->elementExists('css', '.moderation-sidebar-link#publish');
     $assert_session->elementExists('css', '.moderation-sidebar-link#moderation-sidebar-discard-draft');
@@ -394,7 +410,7 @@ class ModerationSidebarTest extends WebDriverTestBase {
     $this->drupalGet('de/node/' . $node->id());
     $assert_session->elementExists('css', '.moderation-label-published[data-label="Published"]');
     $this->clickLink('Tasks');
-    $this->waitForDialog();
+    $assert_session->waitForElementVisible('css', '.ui-dialog-title');
     $assert_session->elementTextEquals('css', '.ui-dialog-title', 'Camel DE');
     $assert_session->elementExists('css', '.moderation-sidebar-link#create_new_draft');
 
@@ -407,7 +423,7 @@ class ModerationSidebarTest extends WebDriverTestBase {
     ], 'Save');
     $assert_session->elementExists('css', '.moderation-label-published[data-label="Published"]');
     $this->clickLink('Tasks');
-    $this->waitForDialog();
+    $assert_session->waitForElementVisible('css', '.ui-dialog-title');
     $assert_session->elementTextEquals('css', '.ui-dialog-title', 'Guanaco EN');
     $this->clickLink('Translate');
     $this->waitForLink('Create translation')->click();
@@ -417,7 +433,7 @@ class ModerationSidebarTest extends WebDriverTestBase {
     ], 'Save');
     $assert_session->elementExists('css', '.moderation-label-published[data-label="Published"]');
     $this->clickLink('Tasks');
-    $this->waitForDialog();
+    $assert_session->waitForElementVisible('css', '.ui-dialog-title');
     $assert_session->elementTextEquals('css', '.ui-dialog-title', 'Guanaco DE');
     $node = $this->getNodeByTitle('Guanaco EN');
     $node->removeTranslation('de');
@@ -439,7 +455,7 @@ class ModerationSidebarTest extends WebDriverTestBase {
     ], 'Save');
     $assert_session->elementExists('css', '.moderation-label-published[data-label="Published"]');
     $this->clickLink('Tasks');
-    $this->waitForDialog();
+    $assert_session->waitForElementVisible('css', '.ui-dialog-title');
     $assert_session->elementTextEquals('css', '.ui-dialog-title', 'Dromedary EN');
     $this->clickLink('Translate');
     $this->waitForLink('Create translation')->click();
@@ -466,7 +482,7 @@ class ModerationSidebarTest extends WebDriverTestBase {
     $assert_session->elementExists('css', '.moderation-label-draft-available[data-label="Draft available"]');
     $this->drupalGet('de/node/' . $node->id() . '/latest');
     $this->clickLink('Tasks');
-    $this->waitForDialog();
+    $assert_session->waitForElementVisible('css', '.ui-dialog-title');
     $this->submitForm([], 'Discard draft');
     $assert_session->pageTextContains('The draft has been discarded successfully');
     // Assert that DE translation is Published.
@@ -491,13 +507,6 @@ class ModerationSidebarTest extends WebDriverTestBase {
   }
 
   /**
-   * Waits for the off-canvas dialog to be visible.
-   */
-  private function waitForDialog(): void {
-    $this->waitForElement('css', '.ui-dialog-title');
-  }
-
-  /**
    * Waits for an element to become visible.
    *
    * @param string $selector
@@ -509,9 +518,11 @@ class ModerationSidebarTest extends WebDriverTestBase {
    *   The element.
    */
   private function waitForElement(string $selector, $locator): ElementInterface {
-    $element = $this->assertSession()
-      ->waitForElementVisible($selector, $locator);
+    /** @var \Drupal\FunctionalJavascriptTests\JSWebAssert $assert_session */
+    $assert_session = $this->assertSession();
+    $element = $assert_session->waitForElementVisible($selector, $locator);
     $this->assertNotEmpty($element);
+
     return $element;
   }
 
