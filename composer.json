@@ -20,7 +20,6 @@
         "drupal/admin_toolbar": "^3.4",
         "drupal/allowed_formats": "^3.0",
         "drupal/auto_entitylabel": "^3.0",
-        "drupal/composer_deploy": "^1.7",
         "drupal/config_overlay": "^2.3",
         "drupal/core-composer-scaffold": "^10.0",
         "drupal/core-project-message": "^10.0",
