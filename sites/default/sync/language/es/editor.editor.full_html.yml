@@ -4,5 +4,7 @@ settings:
       languages:
         0:
           label: 'Texto sin formato'
+        5:
+          label: Diferencias
         9:
           label: PHP
