@@ -189,14 +189,15 @@
           throw "Bailing out for lack of settings.";
         }
 
+        if (mapWrapper.length === 0) {
+          console.info("Stopping map processing as no map wrapper present.")
+          return;
+        }
+
         if (mapWrapper.classList.contains("geolocation-map-processed")) {
           return;
         }
         mapWrapper.classList.add("geolocation-map-processed");
-
-        if (mapWrapper.length === 0) {
-          return;
-        }
 
         let mapSettings = {};
         mapSettings.id = mapWrapper.getAttribute("id");

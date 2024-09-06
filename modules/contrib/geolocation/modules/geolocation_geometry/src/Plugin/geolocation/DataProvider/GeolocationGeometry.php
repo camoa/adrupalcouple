@@ -24,7 +24,7 @@ class GeolocationGeometry extends DataProviderBase implements DataProviderInterf
   /**
    * {@inheritdoc}
    */
-  protected function defaultSettings(): array {
+  protected static function defaultSettings(): array {
     $settings = parent::defaultSettings();
 
     $settings['color_randomize'] = TRUE;
@@ -181,97 +181,7 @@ class GeolocationGeometry extends DataProviderBase implements DataProviderInterf
     $geometries = [];
 
     foreach ($this->getShapesFromGeoJson($fieldItem->get('geojson')->getString()) as $shapeElement) {
-      $random_color = sprintf('#%06X', mt_rand(0, 0xFFFFFF));
-      switch ($shapeElement->type) {
-        case 'Polygon':
-          $geometry = [
-            'type' => 'polygon',
-            'points' => [],
-          ];
-          foreach ($shapeElement->coordinates[0] as $coordinate) {
-            $geometry['points'][] = ['lat' => $coordinate[1], 'lng' => $coordinate[0]];
-          }
-
-          $geometries[] = [
-            '#type' => 'geolocation_map_geometry',
-            '#geometry' => $geometry,
-            '#stroke_color' => $settings['color_randomize'] ? $random_color : $settings['stroke_color'],
-            '#stroke_width' => (int) $settings['stroke_width'],
-            '#stroke_opacity' => (float) $settings['stroke_opacity'],
-            '#fill_color' => $settings['color_randomize'] ? $random_color : $settings['fill_color'],
-            '#fill_opacity' => (float) $settings['fill_opacity'],
-          ];
-          break;
-
-        case 'MultiPolygon':
-          $geometry = [
-            'type' => 'multipolygon',
-            'polygons' => [],
-          ];
-          foreach ($shapeElement->coordinates as $current_polygon) {
-            $polygon = [
-              'type' => 'polygon',
-              'points' => [],
-            ];
-            foreach ($current_polygon[0] as $coordinate) {
-              $polygon['points'][] = ['lat' => $coordinate[1], 'lng' => $coordinate[0]];
-            }
-            $geometry['polygons'][] = $polygon;
-          }
-          $geometries[] = [
-            '#type' => 'geolocation_map_geometry',
-            '#geometry' => $geometry,
-            '#geometry_type' => 'multipolygon',
-            '#stroke_color' => $settings['color_randomize'] ? $random_color : $settings['stroke_color'],
-            '#stroke_width' => (int) $settings['stroke_width'],
-            '#stroke_opacity' => (float) $settings['stroke_opacity'],
-            '#fill_color' => $settings['color_randomize'] ? $random_color : $settings['fill_color'],
-            '#fill_opacity' => (float) $settings['fill_opacity'],
-          ];
-          break;
-
-        case 'LineString':
-          $geometry = [
-            'type' => 'line',
-            'points' => [],
-          ];
-          foreach ($shapeElement->coordinates as $coordinate) {
-            $geometry['points'][] = ['lat' => $coordinate[1], 'lng' => $coordinate[0]];
-          }
-
-          $geometries[] = [
-            '#type' => 'geolocation_map_geometry',
-            '#$geometry' => $geometry,
-            '#stroke_color' => $settings['color_randomize'] ? $random_color : $settings['stroke_color'],
-            '#stroke_width' => (int) $settings['stroke_width'],
-            '#stroke_opacity' => (float) $settings['stroke_opacity'],
-          ];
-          break;
-
-        case 'MultiLineString':
-          $geometry = [
-            'type' => 'multiline',
-            'lines' => [],
-          ];
-          foreach ($shapeElement->coordinates as $current_line) {
-            $line = [
-              'type' => 'line',
-              'points' => [],
-            ];
-            foreach ($current_line as $coordinate) {
-              $line['points'][] = ['lat' => $coordinate[1], 'lng' => $coordinate[0]];
-            }
-            $geometry['lines'][] = $line;
-          }
-          $geometries[] = [
-            '#type' => 'geolocation_map_geometry',
-            '#geometry' => $geometry,
-            '#stroke_color' => $settings['color_randomize'] ? $random_color : $settings['stroke_color'],
-            '#stroke_width' => (int) $settings['stroke_width'],
-            '#stroke_opacity' => (float) $settings['stroke_opacity'],
-          ];
-          break;
-      }
+      $geometries[] = self::getRenderedElementByGeoJSON($shapeElement, $settings);
     }
 
     return $geometries;
@@ -281,47 +191,151 @@ class GeolocationGeometry extends DataProviderBase implements DataProviderInterf
    * {@inheritdoc}
    */
   public function getLocationsFromItem(FieldItemInterface $fieldItem): array {
+    $settings = $this->getSettings();
+
     $positions = [];
 
     foreach ($this->getLocationsFromGeoJson($fieldItem->get('geojson')->getString()) as $location) {
-
-      switch ($location->type) {
-        case 'Point':
-          $position = [
-            '#type' => 'geolocation_map_location',
-            '#coordinates' => [
-              'lat' => $location->coordinates[1],
-              'lng' => $location->coordinates[0],
-            ],
-          ];
-          $positions[] = $position;
-          break;
-
-        case 'MultiPoint':
-          $container = [
-            '#type' => 'container',
-            '#attributes' => [
-              'class' => [
-                'geolocation-multipoint',
-              ],
-            ],
-          ];
-          foreach ($location->coordinates as $key => $point) {
-            $position = [
-              '#type' => 'geolocation_map_location',
-              '#coordinates' => [
-                'lat' => $point->coordinates[1],
-                'lng' => $point->coordinates[0],
-              ],
-            ];
-            $container[$key] = $position;
-          }
-          $positions[] = $container;
-          break;
-      }
+      $positions[] = self::getRenderedElementByGeoJSON($location, $settings);
     }
 
     return $positions;
+  }
+
+  /**
+   * Get render element.
+   *
+   * @param object $geojson
+   *   GeoJSON.
+   * @param array|null $settings
+   *   Optional settings.
+   *
+   * @return array
+   *   Render Element.
+   */
+  public static function getRenderedElementByGeoJSON(object $geojson, ?array $settings = NULL): array {
+    $settings = $settings ?? self::defaultSettings();
+
+    $random_color = sprintf('#%06X', mt_rand(0, 0xFFFFFF));
+    switch ($geojson->type) {
+      case 'Point':
+        return [
+          '#type' => 'geolocation_map_location',
+          '#coordinates' => [
+            'lat' => $geojson->coordinates[1],
+            'lng' => $geojson->coordinates[0],
+          ],
+        ];
+
+      case 'MultiPoint':
+        $container = [
+          '#type' => 'container',
+          '#attributes' => [
+            'class' => [
+              'geolocation-multipoint',
+            ],
+          ],
+        ];
+        foreach ($geojson->coordinates as $key => $point) {
+          $position = [
+            '#type' => 'geolocation_map_location',
+            '#coordinates' => [
+              'lat' => $point->coordinates[1],
+              'lng' => $point->coordinates[0],
+            ],
+          ];
+          $container[$key] = $position;
+        }
+        return $container;
+
+      case 'Polygon':
+        $geometry = [
+          'type' => 'polygon',
+          'points' => [],
+        ];
+        foreach ($geojson->coordinates[0] as $coordinate) {
+          $geometry['points'][] = ['lat' => $coordinate[1], 'lng' => $coordinate[0]];
+        }
+
+        return [
+          '#type' => 'geolocation_map_geometry',
+          '#geometry' => $geometry,
+          '#stroke_color' => $settings['color_randomize'] ? $random_color : $settings['stroke_color'],
+          '#stroke_width' => (int) $settings['stroke_width'],
+          '#stroke_opacity' => (float) $settings['stroke_opacity'],
+          '#fill_color' => $settings['color_randomize'] ? $random_color : $settings['fill_color'],
+          '#fill_opacity' => (float) $settings['fill_opacity'],
+        ];
+
+      case 'MultiPolygon':
+        $geometry = [
+          'type' => 'multipolygon',
+          'polygons' => [],
+        ];
+        foreach ($geojson->coordinates as $current_polygon) {
+          $polygon = [
+            'type' => 'polygon',
+            'points' => [],
+          ];
+          foreach ($current_polygon[0] as $coordinate) {
+            $polygon['points'][] = ['lat' => $coordinate[1], 'lng' => $coordinate[0]];
+          }
+          $geometry['polygons'][] = $polygon;
+        }
+        return [
+          '#type' => 'geolocation_map_geometry',
+          '#geometry' => $geometry,
+          '#geometry_type' => 'multipolygon',
+          '#stroke_color' => $settings['color_randomize'] ? $random_color : $settings['stroke_color'],
+          '#stroke_width' => (int) $settings['stroke_width'],
+          '#stroke_opacity' => (float) $settings['stroke_opacity'],
+          '#fill_color' => $settings['color_randomize'] ? $random_color : $settings['fill_color'],
+          '#fill_opacity' => (float) $settings['fill_opacity'],
+        ];
+
+      case 'LineString':
+        $geometry = [
+          'type' => 'line',
+          'points' => [],
+        ];
+        foreach ($geojson->coordinates as $coordinate) {
+          $geometry['points'][] = ['lat' => $coordinate[1], 'lng' => $coordinate[0]];
+        }
+
+        return [
+          '#type' => 'geolocation_map_geometry',
+          '#$geometry' => $geometry,
+          '#stroke_color' => $settings['color_randomize'] ? $random_color : $settings['stroke_color'],
+          '#stroke_width' => (int) $settings['stroke_width'],
+          '#stroke_opacity' => (float) $settings['stroke_opacity'],
+        ];
+
+      case 'MultiLineString':
+        $geometry = [
+          'type' => 'multiline',
+          'lines' => [],
+        ];
+        foreach ($geojson->coordinates as $current_line) {
+          $line = [
+            'type' => 'line',
+            'points' => [],
+          ];
+          foreach ($current_line as $coordinate) {
+            $line['points'][] = ['lat' => $coordinate[1], 'lng' => $coordinate[0]];
+          }
+          $geometry['lines'][] = $line;
+        }
+        return [
+          '#type' => 'geolocation_map_geometry',
+          '#geometry' => $geometry,
+          '#stroke_color' => $settings['color_randomize'] ? $random_color : $settings['stroke_color'],
+          '#stroke_width' => (int) $settings['stroke_width'],
+          '#stroke_opacity' => (float) $settings['stroke_opacity'],
+        ];
+
+      default:
+        return [];
+    }
   }
 
   /**

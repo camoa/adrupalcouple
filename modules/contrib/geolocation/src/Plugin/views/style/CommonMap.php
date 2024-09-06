@@ -3,7 +3,7 @@
 namespace Drupal\geolocation\Plugin\views\style;
 
 use Drupal\Component\Utility\NestedArray;
-use Drupal\Core\Extension\ModuleHandler;
+use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\File\FileUrlGeneratorInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\BubbleableMetadata;
@@ -46,7 +46,7 @@ class CommonMap extends GeolocationStyleBase {
     FileUrlGeneratorInterface $file_url_generator,
     protected MapProviderManager $mapProviderManager,
     protected MapCenterManager $mapCenterManager,
-    protected ModuleHandler $moduleHandler,
+    protected ModuleHandlerInterface $moduleHandler,
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition, $data_provider_manager, $file_url_generator);
   }
@@ -277,31 +277,34 @@ class CommonMap extends GeolocationStyleBase {
       '#value' => $this->t("No settings available."),
     ];
 
+    $map_provider_reset = FALSE;
     $user_input = $form_state->getUserInput();
-    $map_provider_id = NestedArray::getValue(
+    if ($map_provider_id = NestedArray::getValue(
       $user_input,
       ['style_options', 'map_provider_id']
-    );
-    if (empty($map_provider_id)) {
+    )) {
+      if ($map_provider_id != ($this->options['map_provider_id'] ?? FALSE)) {
+        $map_provider_reset = TRUE;
+      }
+    }
+    elseif ($this->options['map_provider_id']) {
       $map_provider_id = $this->options['map_provider_id'];
     }
-    if (empty($map_provider_id)) {
+    else {
       $map_provider_id = key($map_provider_options);
     }
 
-    $map_provider_settings = $this->options['map_provider_settings'] ?? [];
-    if (
-      !empty($this->options['map_provider_id'])
-      && $map_provider_id != $this->options['map_provider_id']
-    ) {
-      $map_provider_settings = [];
-      if (!empty($form_state->getValue([
-        'style_options',
-        'map_provider_settings',
-      ]))) {
-        $form_state->setValue(['style_options', 'map_provider_settings'], []);
-        $form_state->setUserInput($form_state->getValues());
-      }
+    $map_provider_definition = $this->mapProviderManager->getDefinition($map_provider_id);
+    if ($map_provider_reset) {
+      $map_provider_settings = $map_provider_definition['class']::getDefaultSettings() ?? [];
+      $user_input['style_options']['map_provider_settings'] = $map_provider_settings;
+      $form_state->setUserInput($user_input);
+    }
+    elseif ($this->options['map_provider_settings']) {
+      $map_provider_settings = $this->options['map_provider_settings'];
+    }
+    else {
+      $map_provider_settings = $map_provider_definition['class']::getDefaultSettings() ?? [];
     }
 
     $map_provider = NULL;
@@ -356,7 +359,7 @@ class CommonMap extends GeolocationStyleBase {
       return [];
     }
 
-    if (!empty($this->options['dynamic_map']['enabled'])) {
+    if ($this->view->ajaxEnabled()) {
       // @todo Not unique enough, but uniqueid() changes on every AJAX request.
       // For the geolocationCommonMapBehavior to work, this has to stay
       // identical.

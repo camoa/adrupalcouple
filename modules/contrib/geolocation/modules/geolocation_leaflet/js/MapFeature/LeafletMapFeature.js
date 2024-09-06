@@ -32,4 +32,16 @@ export class LeafletMapFeature extends GeolocationMapFeature {
   onMarkerUpdated(marker) {
     super.onMarkerUpdated(marker);
   }
+
+  /**
+   *
+   * @param {String?} position
+   */
+  getLeafletPosition(position = null) {
+    if (!["topleft", "topright", "bottomleft", "bottomright"].includes(position)) {
+      return "bottomright";
+    }
+
+    return position;
+  }
 }

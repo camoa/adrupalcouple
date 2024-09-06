@@ -7,7 +7,7 @@ use CommerceGuys\Addressing\Country\CountryRepositoryInterface;
 use Drupal\address\Plugin\Field\FieldType\AddressItem;
 use Drupal\Component\Render\FormattableMarkup;
 use Drupal\Core\Entity\EntityFieldManagerInterface;
-use Drupal\Core\Extension\ModuleHandler;
+use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemInterface;
 use Drupal\Core\Utility\Token;
@@ -45,7 +45,7 @@ class AddressFieldProvider extends DataProviderBase implements DataProviderInter
     $plugin_id,
     $plugin_definition,
     EntityFieldManagerInterface $entity_field_manager,
-    ModuleHandler $moduleHandler,
+    ModuleHandlerInterface $moduleHandler,
     Token $token,
     protected GeocoderManager $geocoderManager,
     protected AddressFormatRepositoryInterface $addressFormatRepository,

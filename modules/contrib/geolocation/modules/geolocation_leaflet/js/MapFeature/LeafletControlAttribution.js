@@ -23,7 +23,7 @@ export default class LeafletControlAttribution extends LeafletMapFeature {
     L.control
       .attribution({
         prefix: `${this.settings.prefix} | &copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors`,
-        position: this.settings.position,
+        position: this.getLeafletPosition(this.settings.position),
       })
       .addTo(map.leafletMap);
   }

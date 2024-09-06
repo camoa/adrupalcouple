@@ -5,7 +5,7 @@ namespace Drupal\geolocation;
 use Drupal\Component\Utility\Html;
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\EntityFieldManagerInterface;
-use Drupal\Core\Extension\ModuleHandler;
+use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemInterface;
 use Drupal\Core\Field\FieldItemList;
@@ -48,7 +48,7 @@ abstract class DataProviderBase extends PluginBase implements DataProviderInterf
     $plugin_id,
     $plugin_definition,
     protected EntityFieldManagerInterface $entityFieldManager,
-    protected ModuleHandler $moduleHandler,
+    protected ModuleHandlerInterface $moduleHandler,
     protected Token $token,
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
@@ -74,7 +74,7 @@ abstract class DataProviderBase extends PluginBase implements DataProviderInterf
    * @return array
    *   Default settings.
    */
-  protected function defaultSettings(): array {
+  protected static function defaultSettings(): array {
     return [];
   }
 
@@ -89,7 +89,7 @@ abstract class DataProviderBase extends PluginBase implements DataProviderInterf
       $settings = $this->configuration;
     }
 
-    return $settings + $this->defaultSettings();
+    return $settings + self::defaultSettings();
   }
 
   /**

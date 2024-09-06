@@ -23,7 +23,7 @@ export class LeafletMapMarker extends GeolocationMapMarker {
     this.leafletMarker = L.marker([coordinates.lat, coordinates.lng], markerOptions).addTo(this.map.markerLayer);
 
     if (this.settings.label) {
-      this.leafletMarker.bindTooltip(this.settings.label, {
+      this.leafletMarker.bindTooltip(String(this.settings.label), {
         permanent: true,
         direction: "top",
       });
@@ -53,7 +53,7 @@ export class LeafletMapMarker extends GeolocationMapMarker {
     }
 
     if (this.settings.label) {
-      this.leafletMarker.unbindTooltip().bindTooltip(this.settings.label, {
+      this.leafletMarker.unbindTooltip().bindTooltip(String(this.settings.label), {
         permanent: true,
         direction: "top",
       });

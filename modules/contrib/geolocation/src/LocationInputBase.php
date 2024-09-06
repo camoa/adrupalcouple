@@ -2,7 +2,7 @@
 
 namespace Drupal\geolocation;
 
-use Drupal\Core\Extension\ModuleHandler;
+use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
@@ -24,7 +24,7 @@ abstract class LocationInputBase extends PluginBase implements LocationInputInte
     array $configuration,
     $plugin_id,
     $plugin_definition,
-    protected ModuleHandler $moduleHandler,
+    protected ModuleHandlerInterface $moduleHandler,
     protected FileSystemInterface $fileSystem,
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);

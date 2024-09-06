@@ -2,7 +2,7 @@
 
 namespace Drupal\geolocation\Plugin\geolocation\LocationInput;
 
-use Drupal\Core\Extension\ModuleHandler;
+use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\geolocation\GeocoderManager;
@@ -28,7 +28,7 @@ class Geocoder extends LocationInputBase implements LocationInputInterface, Cont
     array $configuration,
     $plugin_id,
     $plugin_definition,
-    ModuleHandler $moduleHandler,
+    ModuleHandlerInterface $moduleHandler,
     FileSystemInterface $fileSystem,
     protected GeocoderManager $geocoderManager,
   ) {

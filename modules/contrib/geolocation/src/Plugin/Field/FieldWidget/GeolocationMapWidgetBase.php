@@ -4,7 +4,7 @@ namespace Drupal\geolocation\Plugin\Field\FieldWidget;
 
 use Drupal\Component\Utility\Html;
 use Drupal\Component\Utility\NestedArray;
-use Drupal\Core\Extension\ModuleHandler;
+use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\WidgetBase;
@@ -24,9 +24,9 @@ abstract class GeolocationMapWidgetBase extends WidgetBase implements ContainerF
   /**
    * Map provider.
    *
-   * @var \Drupal\geolocation\MapProviderInterface
+   * @var \Drupal\geolocation\MapProviderInterface|null
    */
-  protected MapProviderInterface $mapProvider;
+  protected ?MapProviderInterface $mapProvider = NULL;
 
   /**
    * {@inheritdoc}
@@ -39,7 +39,7 @@ abstract class GeolocationMapWidgetBase extends WidgetBase implements ContainerF
     array $third_party_settings,
     protected MapCenterManager $mapCenterManager,
     protected MapProviderManager $mapProviderManager,
-    protected ModuleHandler $moduleHandler,
+    protected ModuleHandlerInterface $moduleHandler,
   ) {
     parent::__construct($plugin_id, $plugin_definition, $field_definition, $settings, $third_party_settings);
 
@@ -189,6 +189,11 @@ abstract class GeolocationMapWidgetBase extends WidgetBase implements ContainerF
    */
   public function settingsSummary(): array {
     $summary = [];
+
+    if (!$this->mapProvider) {
+      return $summary;
+    }
+
     $settings = $this->getSettings();
 
     return array_replace_recursive($summary, $this->mapProvider->getSettingsSummary($settings['map_provider_settings']));

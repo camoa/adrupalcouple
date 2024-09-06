@@ -5,7 +5,7 @@ import { LeafletMapFeature } from "./LeafletMapFeature.js";
  *
  * @extends {GeolocationMapFeatureSettings}
  *
- * @prop {String} position
+ * @prop {("topleft" | "topright" | "bottomleft" | "bottomright")} position
  */
 
 /**
@@ -16,7 +16,7 @@ export default class LeafletControlZoom extends LeafletMapFeature {
     super(settings, map);
     L.control
       .zoom({
-        position: this.settings.position,
+        position: this.getLeafletPosition(this.settings.position),
       })
       .addTo(map.leafletMap);
   }

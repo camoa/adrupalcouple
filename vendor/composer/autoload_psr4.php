@@ -46,7 +46,6 @@ return array(
     'Symfony\\Bridge\\PsrHttpMessage\\' => array($vendorDir . '/symfony/psr-http-message-bridge'),
     'Shaper\\Tests\\' => array($vendorDir . '/e0ipso/shaper/tests/src'),
     'Shaper\\' => array($vendorDir . '/e0ipso/shaper/src'),
-    'SelfUpdate\\' => array($vendorDir . '/consolidation/self-update/src'),
     'Robo\\' => array($vendorDir . '/consolidation/robo/src'),
     'Recurr\\' => array($vendorDir . '/simshaun/recurr/src/Recurr'),
     'Psy\\' => array($vendorDir . '/psy/psysh/src'),

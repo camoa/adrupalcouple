@@ -3,7 +3,8 @@
 namespace Drupal\geolocation_google_maps\Form;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
-use Drupal\Core\Extension\ModuleHandler;
+use Drupal\Core\Config\TypedConfigManager;
+use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Messenger\MessengerTrait;
@@ -19,19 +20,10 @@ class GeolocationGoogleMapsSettings extends ConfigFormBase {
   use MessengerTrait;
 
   /**
-   * Module handler.
-   *
-   * @var \Drupal\Core\Extension\ModuleHandler
-   */
-  protected ModuleHandler $moduleHandler;
-
-  /**
    * {@inheritdoc}
    */
-  public function __construct(ConfigFactoryInterface $config_factory, ModuleHandler $module_handler) {
-    parent::__construct($config_factory);
-
-    $this->moduleHandler = $module_handler;
+  public function __construct(ConfigFactoryInterface $config_factory, TypedConfigManager $typedConfigManager, protected ModuleHandlerInterface $moduleHandler) {
+    parent::__construct($config_factory, $typedConfigManager);
   }
 
   /**
@@ -40,6 +32,7 @@ class GeolocationGoogleMapsSettings extends ConfigFormBase {
   public static function create(ContainerInterface $container): GeolocationGoogleMapsSettings {
     return new static(
       $container->get('config.factory'),
+      $container->get('config.typed'),
       $container->get('module_handler')
     );
   }

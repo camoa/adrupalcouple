@@ -4,7 +4,7 @@ namespace Drupal\geolocation\Element;
 
 use Drupal\Component\Utility\SortArray;
 use Drupal\Core\Render\Element;
-use Drupal\Core\Render\Element\RenderElement;
+use Drupal\Core\Render\Element\RenderElementBase;
 use Drupal\Core\Template\Attribute;
 
 /**
@@ -20,9 +20,9 @@ use Drupal\Core\Template\Attribute;
  * ];
  * @endcode
  *
- * @FormElement("geolocation_layer")
+ * @RenderElement("geolocation_layer")
  */
-class GeolocationLayer extends RenderElement {
+class GeolocationLayer extends RenderElementBase {
 
   /**
    * {@inheritdoc}

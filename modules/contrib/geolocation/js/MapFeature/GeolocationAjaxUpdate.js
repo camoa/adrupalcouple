@@ -77,11 +77,16 @@ export default class GeolocationAjaxUpdate extends GeolocationMapFeature {
 
     const exposedForm = document.querySelector(`form#views-exposed-form-${this.settings.update_view_id.replace(/_/g, "-")}-${this.settings.update_view_display_id.replace(/_/g, "-")}`);
     if (exposedForm) {
-      new FormData(exposedForm).forEach((value) => {
+      const formData = new FormData(exposedForm);
+      formData.forEach((value, key) => {
+        if (ajaxSettings.submit[key]) {
+          value = formData.getAll(key);
+        }
+
         ajaxSettings.submit = {
           ...ajaxSettings.submit,
           ...{
-            key: value,
+            [key]: value,
           },
         };
       });

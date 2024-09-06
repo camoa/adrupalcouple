@@ -13,7 +13,7 @@ use Drupal\Core\TypedData\DataDefinition;
  *   id = "geolocation_gpx",
  *   label = @Translation("Geolocation GPX"),
  *   description = @Translation("This field stores the ID of an geolocation gpx file as an integer value."),
- *   category = @Translation("Geolocation"),
+ *   category = "spatial_fields",
  *   default_widget = "geolocation_gpx_file",
  *   default_formatter = "geolocation_gpx_table",
  * )

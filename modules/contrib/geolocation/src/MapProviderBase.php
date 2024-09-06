@@ -3,7 +3,7 @@
 namespace Drupal\geolocation;
 
 use Drupal\Component\Utility\SortArray;
-use Drupal\Core\Extension\ModuleHandler;
+use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Plugin\PluginBase;
@@ -39,7 +39,7 @@ abstract class MapProviderBase extends PluginBase implements MapProviderInterfac
     $plugin_id,
     $plugin_definition,
     protected MapFeatureManager $mapFeatureManager,
-    protected ModuleHandler $moduleHandler,
+    protected ModuleHandlerInterface $moduleHandler,
     protected FileSystemInterface $fileSystem,
     protected DataLayerProviderManager $dataLayerProviderManager,
     protected TileLayerProviderManager $tileLayerProviderManager,
@@ -81,7 +81,11 @@ abstract class MapProviderBase extends PluginBase implements MapProviderInterfac
       'conditional_label' => t('Show map'),
       'conditional_viewport_threshold' => 0.8,
       'map_features' => [],
-      'data_layers' => [],
+      'data_layers' => [
+        'geolocation_default_layer:default' => [
+          'enabled' => TRUE,
+        ],
+      ],
       'tile_layers' => [],
     ];
   }

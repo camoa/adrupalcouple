@@ -11,7 +11,7 @@
  * @prop {String} import_path
  */
 
-(function ($, Drupal) {
+(function (Drupal) {
   "use strict";
 
   /**
@@ -42,8 +42,6 @@
           return;
         }
 
-        let geocoder;
-
         import(filterSettings.settings.import_path)
           /** @param {GeolocationGeocoder} geocoder */
           .then((geocoder) => {
@@ -72,4 +70,4 @@
       }
     },
   };
-})(jQuery, Drupal);
+})(Drupal);

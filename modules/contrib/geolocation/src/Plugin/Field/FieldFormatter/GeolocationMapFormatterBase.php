@@ -88,7 +88,6 @@ abstract class GeolocationMapFormatterBase extends FormatterBase {
       $container->get('plugin.manager.geolocation.mapprovider'),
       $container->get('plugin.manager.geolocation.mapcenter'),
       $container->get('plugin.manager.geolocation.dataprovider'),
-      $container->get('plugin.manager.geolocation.datalayerprovider'),
     );
   }
 
@@ -325,13 +324,26 @@ abstract class GeolocationMapFormatterBase extends FormatterBase {
       }
     }
 
-    return array_replace_recursive($summary, $this->mapProvider->getSettingsSummary($settings['map_provider_settings']));
+    if ($this->mapProvider ?? NULL) {
+      return array_replace_recursive($summary, $this->mapProvider->getSettingsSummary($settings['map_provider_settings']));
+    }
+
+    $summary[] = $this->t('Attention: No map provider set.');
+
+    \Drupal::messenger()->addWarning('Geolocation Formatter - Map: No map provider set. Map cannot be displayed.');
+
+    return $summary;
   }
 
   /**
    * {@inheritdoc}
    */
   public function viewElements(FieldItemListInterface $items, $langcode): array {
+    if (!($this->mapProvider ?? NULL)) {
+      \Drupal::logger('geolocation')->warning('No map provider set. No map can be displayed.');
+      return [];
+    }
+
     if ($items->count() == 0) {
       return [];
     }

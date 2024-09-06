@@ -113,11 +113,11 @@ class GoogleMaps extends GoogleMapsProviderBase {
       '#description' => $this->t('The maximum zoom level of the map. If omitted, or set to null, the default maximum zoom from the current map type is used instead.'),
       '#default_value' => $settings['maxZoom'],
       '#process' => [
-        ['\Drupal\Core\Render\Element\RenderElement', 'processGroup'],
+        ['\Drupal\Core\Render\Element\RenderElementBase', 'processGroup'],
       ],
       '#pre_render' => [
         ['\Drupal\Core\Render\Element\Number', 'preRenderNumber'],
-        ['\Drupal\Core\Render\Element\RenderElement', 'preRenderGroup'],
+        ['\Drupal\Core\Render\Element\RenderElementBase', 'preRenderGroup'],
       ],
     ];
     $form['minZoom'] = [
@@ -129,11 +129,11 @@ class GoogleMaps extends GoogleMapsProviderBase {
       '#description' => $this->t('The minimum zoom level of the map. If omitted, or set to null, the default minimum zoom from the current map type is used instead.'),
       '#default_value' => $settings['minZoom'],
       '#process' => [
-        ['\Drupal\Core\Render\Element\RenderElement', 'processGroup'],
+        ['\Drupal\Core\Render\Element\RenderElementBase', 'processGroup'],
       ],
       '#pre_render' => [
         ['\Drupal\Core\Render\Element\Number', 'preRenderNumber'],
-        ['\Drupal\Core\Render\Element\RenderElement', 'preRenderGroup'],
+        ['\Drupal\Core\Render\Element\RenderElementBase', 'preRenderGroup'],
       ],
     ];
 
@@ -157,11 +157,11 @@ class GoogleMaps extends GoogleMapsProviderBase {
         'none' => $this->t('none'),
       ],
       '#process' => [
-        ['\Drupal\Core\Render\Element\RenderElement', 'processGroup'],
+        ['\Drupal\Core\Render\Element\RenderElementBase', 'processGroup'],
         ['\Drupal\Core\Render\Element\Select', 'processSelect'],
       ],
       '#pre_render' => [
-        ['\Drupal\Core\Render\Element\RenderElement', 'preRenderGroup'],
+        ['\Drupal\Core\Render\Element\RenderElementBase', 'preRenderGroup'],
       ],
     ];
 
@@ -192,19 +192,8 @@ class GoogleMaps extends GoogleMapsProviderBase {
             ],
           ],
         ],
-
-        // Required jsonp callback.
-        'html_head' => [
-          [
-            [
-              '#tag' => 'script',
-              '#attributes' => [
-                'type' => 'text/javascript',
-              ],
-              '#value' => "function DrupalGeolocationGoogleLoader() { Drupal.geolocation.maps.mapProviderCallback('Google');  }",
-            ],
-            'bing_loader',
-          ],
+        'library' => [
+          'geolocation_google_maps/geolocation_google_maps.loader',
         ],
       ]
     );

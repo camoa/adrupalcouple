@@ -5,7 +5,6 @@ import { GoogleLayerFeature } from "./GoogleLayerFeature.js";
  *
  * @extends {GeolocationMapFeatureSettings}
  *
- * @prop {String} markerIconPath
  * @prop {String} marker_icon_path
  * @prop {Array} anchor
  * @prop {Number} anchor.x
@@ -32,9 +31,9 @@ export default class GoogleMarkerIcon extends GoogleLayerFeature {
     const newIcon = {};
 
     const currentIcon = marker.googleMarker.getIcon();
-    if (typeof currentIcon === "undefined") {
-      if (typeof this.settings.markerIconPath === "string") {
-        newIcon.url = this.settings.markerIconPath;
+    if (typeof currentIcon === "undefined" || currentIcon === null) {
+      if (typeof this.settings.marker_icon_path === "string" && this.settings.marker_icon_path !== "") {
+        newIcon.url = this.settings.marker_icon_path;
       } else {
         return;
       }
@@ -55,26 +54,40 @@ export default class GoogleMarkerIcon extends GoogleLayerFeature {
     const scaledSizeWidth = marker.wrapper.getAttribute("data-marker-icon-scaled-size-width") || this.settings.scaled_size.width;
     const scaledSizeHeight = marker.wrapper.getAttribute("data-marker-icon-scaled-size-height") || this.settings.scaled_size.height;
 
-    if (anchorX !== null && anchorY !== null) {
+    if (this.checkValueValid(anchorX) && this.checkValueValid(anchorY)) {
       newIcon.anchor = new google.maps.Point(anchorX, anchorY);
     }
 
-    if (labelOriginX !== null && labelOriginY !== null) {
+    if (this.checkValueValid(labelOriginX) && this.checkValueValid(labelOriginY)) {
       newIcon.labelOrigin = new google.maps.Point(labelOriginX, labelOriginY);
     }
 
-    if (originX !== null && originY !== null) {
+    if (this.checkValueValid(originX) && this.checkValueValid(originY)) {
       newIcon.origin = new google.maps.Point(originX, originY);
     }
 
-    if (sizeWidth !== null && sizeHeight !== null) {
+    if (this.checkValueValid(sizeWidth) && this.checkValueValid(sizeHeight)) {
       newIcon.size = new google.maps.Size(sizeWidth, sizeHeight);
     }
 
-    if (scaledSizeWidth !== null && scaledSizeHeight !== null) {
+    if (this.checkValueValid(scaledSizeWidth) && this.checkValueValid(scaledSizeHeight)) {
       newIcon.scaledSize = new google.maps.Size(scaledSizeWidth, scaledSizeHeight);
     }
 
     marker.googleMarker.setIcon(newIcon);
+  }
+
+  /**
+   * Check set and not null and not empty.
+   *
+   * @param value
+   *
+   * @return boolean
+   *   Valid or not.
+   */
+  checkValueValid(value) {
+    if (typeof value === "undefined") return false;
+
+    return !(value === null || value === "");
   }
 }

@@ -3,7 +3,7 @@
 namespace Drupal\geolocation_google_maps\Plugin\geolocation\LayerFeature;
 
 use Drupal\Core\Asset\LibraryDiscovery;
-use Drupal\Core\Extension\ModuleHandler;
+use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\File\FileUrlGeneratorInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
@@ -33,7 +33,7 @@ class GoogleMarkerIcon extends LayerFeatureBase implements ContainerFactoryPlugi
     array $configuration,
     $plugin_id,
     $plugin_definition,
-    ModuleHandler $module_handler,
+    ModuleHandlerInterface $module_handler,
     FileSystemInterface $file_system,
     Token $token,
     LibraryDiscovery $libraryDiscovery,

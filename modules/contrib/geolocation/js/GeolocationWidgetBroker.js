@@ -66,7 +66,7 @@ export default class GeolocationWidgetBroker {
       try {
         subscriber.addCoordinates(coordinates, index, caller);
       } catch (e) {
-        console.error(`Subscriber ${subscriber.id} failed addCoordinates: ${e.toString()}`);
+        console.error(e, `Subscriber ${subscriber.id} failed addCoordinates: ${e.toString()}`);
       }
     });
   }
@@ -85,7 +85,7 @@ export default class GeolocationWidgetBroker {
       try {
         subscriber.removeCoordinates(index, caller);
       } catch (e) {
-        console.error(`Subscriber ${subscriber.id} failed removeCoordinates: ${e.toString()}`);
+        console.error(e, `Subscriber ${subscriber.id} failed removeCoordinates: ${e.toString()}`);
       }
     });
   }
@@ -106,7 +106,7 @@ export default class GeolocationWidgetBroker {
       try {
         subscriber.alterCoordinates(coordinates, index, caller);
       } catch (e) {
-        console.error(`Subscriber ${subscriber.id} failed alterCoordinates: ${e.toString()}`);
+        console.error(e, `Subscriber ${subscriber.id} failed alterCoordinates: ${e.toString()}`);
       }
     });
   }

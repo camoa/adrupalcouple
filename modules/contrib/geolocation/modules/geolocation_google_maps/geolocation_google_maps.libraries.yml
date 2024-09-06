@@ -1,0 +1,4 @@
+geolocation_google_maps.loader:
+  version: 4.x
+  js:
+    js/geolocation-google-maps-loader.js: {}

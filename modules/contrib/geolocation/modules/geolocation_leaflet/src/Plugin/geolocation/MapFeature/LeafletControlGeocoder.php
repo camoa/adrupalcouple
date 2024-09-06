@@ -4,7 +4,7 @@ namespace Drupal\geolocation_leaflet\Plugin\geolocation\MapFeature;
 
 use Drupal\Component\Utility\NestedArray;
 use Drupal\Core\Asset\LibraryDiscovery;
-use Drupal\Core\Extension\ModuleHandler;
+use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\Utility\Token;
 use Drupal\geolocation\GeocoderManager;
@@ -32,7 +32,7 @@ class LeafletControlGeocoder extends ControlCustomElementBase {
     array $configuration,
     $plugin_id,
     $plugin_definition,
-    ModuleHandler $moduleHandler,
+    ModuleHandlerInterface $moduleHandler,
     FileSystemInterface $fileSystem,
     Token $token,
     LibraryDiscovery $libraryDiscovery,

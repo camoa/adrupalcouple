@@ -2,7 +2,7 @@
 
 namespace Drupal\geolocation\Plugin\geolocation\LocationInput;
 
-use Drupal\Core\Extension\ModuleHandler;
+use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\File\FileSystemInterface;
 use Drupal\geolocation\LocationInputBase;
 use Drupal\geolocation\LocationInputInterface;
@@ -27,7 +27,7 @@ class Location extends LocationInputBase implements LocationInputInterface {
     array $configuration,
     $plugin_id,
     $plugin_definition,
-    ModuleHandler $moduleHandler,
+    ModuleHandlerInterface $moduleHandler,
     FileSystemInterface $fileSystem,
     protected LocationManager $locationManager,
   ) {

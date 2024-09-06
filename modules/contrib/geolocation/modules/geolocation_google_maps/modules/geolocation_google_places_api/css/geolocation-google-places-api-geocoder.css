@@ -1,5 +1,5 @@
 @font-face {
-  font-family: 'Geolocoation Google Places API icon font';
+  font-family: 'Geolocation Google Places API icon font';
   src: url('../font/geolocation-google-places-icon-font.woff') format('woff');
   font-weight: normal;
   font-style: normal;
@@ -10,7 +10,7 @@
   padding-right: 5px;
   content: '\0051';
   vertical-align: bottom;
-  font-family: 'Geolocoation Google Places API icon font', Helvetica, sans-serif;
+  font-family: 'Geolocation Google Places API icon font', Helvetica, sans-serif;
   font-weight: normal;
   font-style: normal;
   line-height: inherit;

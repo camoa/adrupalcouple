@@ -23,7 +23,7 @@ class GeolocationGpxFieldDataProvider extends DataProviderBase implements DataPr
   /**
    * {@inheritdoc}
    */
-  protected function defaultSettings(): array {
+  protected static function defaultSettings(): array {
     $settings = parent::defaultSettings();
     $settings['return_tracks'] = TRUE;
     $settings['return_waypoints'] = TRUE;

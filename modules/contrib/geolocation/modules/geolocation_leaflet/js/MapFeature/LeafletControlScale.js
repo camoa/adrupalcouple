@@ -18,7 +18,7 @@ export default class LeafletControlScale extends LeafletMapFeature {
     super(settings, map);
     L.control
       .scale({
-        position: this.settings.position,
+        position: this.getLeafletPosition(this.settings.position),
         metric: this.settings.metric,
         imperial: this.settings.imperial,
       })

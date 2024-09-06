@@ -1,15 +1,9 @@
 name: Geolocation - Search API Integration
 type: module
-description: 'Use Search API Location fields in geolocation map views style.'
+description: 'Use Search API fields in geolocation map views style.'
 core_version_requirement: ^10 || ^11
 package: Geolocation
 dependencies:
   - geolocation:geolocation
+  - geolocation:geolocation_geometry
   - search_api:search_api
-  #- search_api_location:search_api_location
-  #- search_api_location:search_api_location_views
-
-# Information added by Drupal.org packaging script on 2024-04-27
-version: '4.0.0-alpha6'
-project: 'geolocation'
-datestamp: 1714246765
