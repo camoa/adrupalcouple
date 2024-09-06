@@ -173,7 +173,7 @@ class EntityArgument extends ProximityArgument implements ContainerFactoryPlugin
       }
 
       $values = [
-        'id' => (isset($values[1]) && is_numeric($values[1])) ? intval($values[1]) : FALSE,
+        'id' => intval($values[1]),
         'operator' => (isset($values[2]) && in_array($values[2], [
           '<>',
           '=',

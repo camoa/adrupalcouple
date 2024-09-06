@@ -19,11 +19,11 @@
 
         if (!locationInputForm) {
           // Nothing left to do. Probably a different context. Not an error.
-          return;
+          continue;
         }
 
         if (locationInputForm.classList.contains("geolocation-location-input-processed")) {
-          return;
+          continue;
         }
         locationInputForm.classList.add("geolocation-location-input-processed");
 

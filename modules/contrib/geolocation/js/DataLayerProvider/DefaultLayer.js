@@ -18,7 +18,7 @@ export default class DefaultLayer extends GeolocationDataLayer {
       try {
         feature.onMarkerAdded(marker);
       } catch (e) {
-        console.error(`Feature  ${feature.constructor.name} failed onMarkerAdded: ${e.toString()}`);
+        console.error(e, `Feature  ${feature.constructor.name} failed onMarkerAdded: ${e.toString()}`);
       }
     });
 
@@ -32,7 +32,7 @@ export default class DefaultLayer extends GeolocationDataLayer {
       try {
         feature.onMarkerUpdated(marker);
       } catch (e) {
-        console.error(`Feature  ${feature.constructor.name} failed onMarkerUpdated: ${e.toString()}`);
+        console.error(e, `Feature  ${feature.constructor.name} failed onMarkerUpdated: ${e.toString()}`);
       }
     });
   }
@@ -44,7 +44,7 @@ export default class DefaultLayer extends GeolocationDataLayer {
       try {
         feature.onMarkerRemove(marker);
       } catch (e) {
-        console.error(`Feature  ${feature.constructor.name} failed onMarkerRemove: ${e.toString()}`);
+        console.error(e, `Feature  ${feature.constructor.name} failed onMarkerRemove: ${e.toString()}`);
       }
     });
   }
@@ -56,7 +56,7 @@ export default class DefaultLayer extends GeolocationDataLayer {
       try {
         feature.onMarkerClicked(marker);
       } catch (e) {
-        console.error(`Feature  ${feature.constructor.name} failed onMarkerClicked: ${e.toString()}`);
+        console.error(e, `Feature  ${feature.constructor.name} failed onMarkerClicked: ${e.toString()}`);
       }
     });
   }

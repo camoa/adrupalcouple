@@ -4,7 +4,7 @@ namespace Drupal\geolocation\Plugin\Block;
 
 use Drupal\Component\Utility\NestedArray;
 use Drupal\Core\Block\BlockBase;
-use Drupal\Core\Extension\ModuleHandler;
+use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\filter\Entity\FilterFormat;
@@ -31,7 +31,7 @@ class GeolocationBlock extends BlockBase implements ContainerFactoryPluginInterf
     $plugin_definition,
     protected MapProviderManager $mapProviderManager,
     protected MapCenterManager $mapCenterManager,
-    protected ModuleHandler $moduleHandler,
+    protected ModuleHandlerInterface $moduleHandler,
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
   }

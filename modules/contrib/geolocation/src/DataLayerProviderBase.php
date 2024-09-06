@@ -3,7 +3,7 @@
 namespace Drupal\geolocation;
 
 use Drupal\Component\Utility\SortArray;
-use Drupal\Core\Extension\ModuleHandler;
+use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Plugin\PluginBase;
@@ -23,7 +23,7 @@ abstract class DataLayerProviderBase extends PluginBase implements DataLayerProv
     $plugin_id,
     $plugin_definition,
     protected LayerFeatureManager $layerFeatureManager,
-    protected ModuleHandler $moduleHandler,
+    protected ModuleHandlerInterface $moduleHandler,
     protected FileSystemInterface $fileSystem,
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);

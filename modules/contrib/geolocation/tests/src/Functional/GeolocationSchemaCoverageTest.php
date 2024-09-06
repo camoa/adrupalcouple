@@ -6,7 +6,7 @@ use Drupal\Tests\BrowserTestBase;
 use Drupal\views\Entity\View;
 
 /**
- * Tests the grid style plugin.
+ * Tests schema for providers and features.
  *
  * @group geolocation
  */
@@ -87,6 +87,12 @@ class GeolocationSchemaCoverageTest extends BrowserTestBase {
           'enabled' => TRUE,
           'settings' => $mapFeature->getSettings([]),
         ];
+
+        $view->save();
+
+        $this->drupalGet('geolocation-demo/common-map');
+        $status_code = $this->getSession()->getStatusCode();
+        $this->assertEquals(200, $status_code, "Testing Map provider $mapProviderId: Map feature $mapFeatureId returning Status 200.");
       }
 
       $display['display_options']['style']['options']['map_provider_settings']['data_layers'] = [];
@@ -100,12 +106,13 @@ class GeolocationSchemaCoverageTest extends BrowserTestBase {
           'enabled' => TRUE,
           'settings' => $layerFeature->getSettings([]),
         ];
+
+        $view->save();
+
+        $this->drupalGet('geolocation-demo/common-map');
+        $status_code = $this->getSession()->getStatusCode();
+        $this->assertEquals(200, $status_code, "Testing Map provider $mapProviderId: Layer feature $layerFeatureId returning Status 200.");
       }
-
-      $view->save();
-
-      $this->drupalGet('geolocation-demo/common-map');
-      $this->assertSession()->statusCodeEquals(200);
     }
   }
 

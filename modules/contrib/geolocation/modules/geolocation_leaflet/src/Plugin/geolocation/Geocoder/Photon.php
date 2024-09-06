@@ -160,7 +160,7 @@ class Photon extends GeocoderBase implements GeocoderInterface {
       return NULL;
     }
 
-    $countries = \Drupal::service('address.country_repository')->getList();
+    $countries = \Drupal::hasService('address.country_repository') ? \Drupal::service('address.country_repository')->getList() : NULL;
     $address_atomics = [];
     foreach ($result['features'] as $entry) {
       if (empty($entry['properties']['osm_type'])) {
@@ -176,8 +176,13 @@ class Photon extends GeocoderBase implements GeocoderInterface {
             'postcode' => $entry['properties']['postcode'] ?? '',
             'state' => $entry['properties']['state'] ?? '',
             'country' => $entry['properties']['country'] ?? '',
-            'countryCode' => $entry['properties']['countrycode'] ?? array_search($entry['properties']['country'], $countries),
           ];
+          if ($entry['properties']['countrycode'] ?? FALSE) {
+            $address_atomics['countryCode'] = $entry['properties']['countrycode'];
+          }
+          elseif ($countries && array_search($entry['properties']['country'], $countries)) {
+            $address_atomics['countryCode'] = array_search($entry['properties']['country'], $countries);
+          }
           break 2;
       }
     }

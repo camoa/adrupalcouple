@@ -2,7 +2,7 @@
 
 namespace Drupal\geolocation_google_maps;
 
-use Drupal\Core\Extension\ModuleHandler;
+use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\File\FileSystemInterface;
 use Drupal\geolocation\DataLayerProviderManager;
 use Drupal\geolocation\MapFeatureManager;
@@ -54,7 +54,7 @@ abstract class GoogleMapsProviderBase extends MapProviderBase {
     $plugin_id,
     $plugin_definition,
     protected MapFeatureManager $map_feature_manager,
-    protected ModuleHandler $module_handler,
+    protected ModuleHandlerInterface $module_handler,
     protected FileSystemInterface $file_system,
     protected DataLayerProviderManager $dataLayerProviderManager,
     protected TileLayerProviderManager $tileLayerProviderManager,
@@ -189,11 +189,11 @@ abstract class GoogleMapsProviderBase extends MapProviderBase {
       '#options' => $this->getMapTypes(),
       '#default_value' => $settings['type'],
       '#process' => [
-        ['\Drupal\Core\Render\Element\RenderElement', 'processGroup'],
+        ['\Drupal\Core\Render\Element\RenderElementBase', 'processGroup'],
         ['\Drupal\Core\Render\Element\Select', 'processSelect'],
       ],
       '#pre_render' => [
-        ['\Drupal\Core\Render\Element\RenderElement', 'preRenderGroup'],
+        ['\Drupal\Core\Render\Element\RenderElementBase', 'preRenderGroup'],
       ],
     ];
     $form['zoom'] = [
@@ -203,11 +203,11 @@ abstract class GoogleMapsProviderBase extends MapProviderBase {
       '#description' => $this->t('The initial resolution at which to display the map, where zoom 0 corresponds to a map of the Earth fully zoomed out, and higher zoom levels zoom in at a higher resolution up to 20 for streetlevel.'),
       '#default_value' => $settings['zoom'],
       '#process' => [
-        ['\Drupal\Core\Render\Element\RenderElement', 'processGroup'],
+        ['\Drupal\Core\Render\Element\RenderElementBase', 'processGroup'],
       ],
       '#pre_render' => [
         ['\Drupal\Core\Render\Element\Number', 'preRenderNumber'],
-        ['\Drupal\Core\Render\Element\RenderElement', 'preRenderGroup'],
+        ['\Drupal\Core\Render\Element\RenderElementBase', 'preRenderGroup'],
       ],
     ];
     if ($parents_string) {

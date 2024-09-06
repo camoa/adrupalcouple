@@ -2,7 +2,7 @@
 
 namespace Drupal\geolocation_google_maps;
 
-use Drupal\Core\Extension\ModuleHandler;
+use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\File\FileSystemInterface;
 use Drupal\geolocation\GeocoderBase;
 use Drupal\geolocation\GeocoderCountryFormattingManager;
@@ -26,7 +26,7 @@ abstract class GoogleGeocoderBase extends GeocoderBase implements GeocoderInterf
   /**
    * {@inheritdoc}
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, GeocoderCountryFormattingManager $geocoder_country_formatter_manager, ModuleHandler $module_handler, FileSystemInterface $file_system, GoogleMapsService $google_maps_service) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, GeocoderCountryFormattingManager $geocoder_country_formatter_manager, ModuleHandlerInterface $module_handler, FileSystemInterface $file_system, GoogleMapsService $google_maps_service) {
     parent::__construct($configuration, $plugin_id, $plugin_definition, $geocoder_country_formatter_manager, $module_handler, $file_system);
 
     $this->googleMapsService = $google_maps_service;

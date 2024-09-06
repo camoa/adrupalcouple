@@ -28,7 +28,7 @@ export default class LeafletControlLayer extends LeafletMapFeature {
     const overlayMaps = {};
     L.control
       .layers(baseMaps, overlayMaps, {
-        position: this.settings.position,
+        position: this.getLeafletPosition(this.settings.position),
       })
       .addTo(map.leafletMap);
   }

@@ -19,7 +19,7 @@
  * @prop {Number} lat
  * @prop {Number} lng
  * @prop {Object.<string, object>} mapCenter
- * @prop {jQuery} wrapper
+ * @prop {Object} wrapper
  * @prop {String} import_path
  * @prop {String[]} scripts
  * @prop {String[]} async_scripts
@@ -27,6 +27,7 @@
  * @prop {String} conditional_initialization
  * @prop {String} conditional_description
  * @prop {String} conditional_label
+ * @prop {Number} conditional_viewport_threshold
  * @prop {Object.<string, GeolocationDataLayerSettings>} data_layers
  * @prop {Object.<string, GeolocationTileLayerSettings>} tile_layers
  * @prop {Object.<string, GeolocationMapFeatureSettings>} features
@@ -153,11 +154,11 @@ export class GeolocationMapBase {
 
           return feature;
         } catch (e) {
-          console.error(`Loading ${featureSettings.import_path} failed: ${e.toString()}`);
+          console.error(e, `Loading ${featureSettings.import_path} failed: ${e.toString()}`);
         }
       })
       .catch((error) => {
-        console.error(error.toString(), `Loading ' ${featureSettings.import_path}' failed`);
+        console.error(error, `Loading ' ${featureSettings.import_path}' failed`);
       });
   }
 
@@ -191,7 +192,7 @@ export class GeolocationMapBase {
             this.mapCenter.push(plugin);
           })
           .catch((error) => {
-            console.error(error.toString(), `Loading '${mapCenterSettings.import_path}' failed`);
+            console.error(error, `Loading '${mapCenterSettings.import_path}' failed`);
           });
         mapCenterImports.push(promise);
       }
@@ -235,7 +236,7 @@ export class GeolocationMapBase {
     // Stub.
   }
 
-  getZoom() {
+  async getZoom() {
     // Stub.
   }
 
@@ -526,7 +527,7 @@ export class GeolocationMapBase {
    * @param {GeolocationTileLayerSettings} layerSettings
    */
   loadTileLayer(layerId, layerSettings) {
-    // this.tileLayers.set(layerId, layer);
+    // Example: this.tileLayers.set(layerId, layer);
   }
 
   async loadTileLayers() {

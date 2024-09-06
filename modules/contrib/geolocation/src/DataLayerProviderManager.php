@@ -215,7 +215,7 @@ class DataLayerProviderManager extends DefaultPluginManager {
 
       $data_layer_provider = $this->createInstance($data_layer_provider_id);
 
-      $render_array = $data_layer_provider->alterMap($render_array, $data_layer_option_id, $layer_settings['layer'] ?? [], $context);
+      $render_array = $data_layer_provider->alterMap($render_array, $data_layer_option_id, $layer_settings['settings'] ?? [], $context);
     }
 
     return $render_array;

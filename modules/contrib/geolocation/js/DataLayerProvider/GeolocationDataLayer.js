@@ -80,12 +80,12 @@ export default class GeolocationDataLayer {
 
           return feature;
         } catch (e) {
-          console.error(e.toString(), "Loading feature failed");
+          console.error(e, "Loading feature failed");
           return null;
         }
       })
       .catch((error) => {
-        console.error(error.toString(), `Loading '${layerFeatureSettings.import_path}' failed.`);
+        console.error(error, `Loading '${layerFeatureSettings.import_path}' failed.`);
       });
   }
 
@@ -141,7 +141,7 @@ export default class GeolocationDataLayer {
       try {
         feature.onMarkerAdded(marker);
       } catch (e) {
-        console.error(`Feature  ${feature.constructor.name} failed onMarkerAdded: ${e.toString()}`);
+        console.error(e, `Feature  ${feature.constructor.name} failed onMarkerAdded: ${e.toString()}`);
       }
     });
 
@@ -153,7 +153,7 @@ export default class GeolocationDataLayer {
       try {
         feature.onMarkerUpdated(marker);
       } catch (e) {
-        console.error(`Feature  ${feature.constructor.name} failed onMarkerUpdated: ${e.toString()}`);
+        console.error(e, `Feature  ${feature.constructor.name} failed onMarkerUpdated: ${e.toString()}`);
       }
     });
   }
@@ -163,7 +163,7 @@ export default class GeolocationDataLayer {
       try {
         feature.onMarkerRemove(marker);
       } catch (e) {
-        console.error(`Feature  ${feature.constructor.name} failed onMarkerRemove: ${e.toString()}`);
+        console.error(e, `Feature  ${feature.constructor.name} failed onMarkerRemove: ${e.toString()}`);
       }
     });
 
@@ -187,7 +187,7 @@ export default class GeolocationDataLayer {
       try {
         feature.onMarkerClicked(marker);
       } catch (e) {
-        console.error(`Feature  ${feature.constructor.name} failed onMarkerClicked: ${e.toString()}`);
+        console.error(e, `Feature  ${feature.constructor.name} failed onMarkerClicked: ${e.toString()}`);
       }
     });
   }
@@ -323,7 +323,7 @@ export default class GeolocationDataLayer {
       try {
         feature.onShapeAdded(shape);
       } catch (e) {
-        console.error(`Feature  ${feature.constructor.name} failed onShapeAdded: ${e.toString()}`);
+        console.error(e, `Feature  ${feature.constructor.name} failed onShapeAdded: ${e.toString()}`);
       }
     });
 
@@ -339,7 +339,7 @@ export default class GeolocationDataLayer {
       try {
         feature.onShapeUpdated(shape);
       } catch (e) {
-        console.error(`Feature  ${feature.constructor.name} failed onShapeUpdated: ${e.toString()}`);
+        console.error(e, `Feature  ${feature.constructor.name} failed onShapeUpdated: ${e.toString()}`);
       }
     });
   }
@@ -353,7 +353,7 @@ export default class GeolocationDataLayer {
       try {
         feature.onShapeRemove(shape);
       } catch (e) {
-        console.error(`Feature  ${feature.constructor.name} failed onShapeRemove: ${e.toString()}`);
+        console.error(e, `Feature  ${feature.constructor.name} failed onShapeRemove: ${e.toString()}`);
       }
     });
 

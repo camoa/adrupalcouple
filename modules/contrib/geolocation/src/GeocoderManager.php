@@ -43,6 +43,7 @@ class GeocoderManager extends DefaultPluginManager {
       return $this->createInstance($id, $configuration);
     }
     catch (\Exception $e) {
+      \Drupal::logger('geolocation')->error($e->getMessage());
       return NULL;
     }
   }

@@ -2,7 +2,6 @@
  * @name GeolocationWidgetSettings
  *
  * @prop {String} autoClientLocationMarker
- * @prop {jQuery} wrapper
  * @prop {String} id
  * @prop {String} type
  * @prop {String} field_name
@@ -21,14 +20,13 @@ export class FieldWidgetBase extends WidgetSubscriberBase {
     super(broker, settings);
 
     /**
-     *
      * @type {Map<string, Object[]>}
      */
     this.ajaxElementResolvesByIndex = new Map();
 
     jQuery(document).ajaxComplete(() => {
       const allElements = this.getAllInputElements(true);
-      allElements.forEach((element, index) => {
+      allElements.forEach((element) => {
         if (element.hasAttribute("data-geolocation-widget-index")) {
           return;
         }

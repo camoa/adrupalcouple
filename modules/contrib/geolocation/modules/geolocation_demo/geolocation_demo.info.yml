@@ -10,8 +10,3 @@ dependencies:
   - drupal:field
   - drupal:image
   - drupal:taxonomy
-
-# Information added by Drupal.org packaging script on 2024-04-27
-version: '4.0.0-alpha6'
-project: 'geolocation'
-datestamp: 1714246765

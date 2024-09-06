@@ -55,7 +55,7 @@ class GoogleMapsService {
   public function getGoogleMapsApiParameters(array $additional_parameters = []): array {
     $config = $this->configFactory->get('geolocation_google_maps.settings');
     $geolocation_parameters = [
-      'key' => KeyProvider::getKeyValue($config->get('google_map_api_key')),
+      'key' => KeyProvider::getKeyValue($config->get('google_map_api_key') ?? ''),
     ];
 
     $module_parameters = $this->moduleHandler->invokeAll('geolocation_google_maps_parameters') ?: [];

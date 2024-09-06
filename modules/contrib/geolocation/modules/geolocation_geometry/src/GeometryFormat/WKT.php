@@ -29,10 +29,6 @@ class WKT implements GeometryFormatInterface {
       throw new \Exception("Could not parse Geometry");
     }
 
-    if (empty($matches)) {
-      return NULL;
-    }
-
     $type = match($matches[1]) {
       'point' => 'Point',
       'multipoint' => 'MultiPoint',

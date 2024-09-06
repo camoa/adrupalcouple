@@ -16,9 +16,7 @@ use Drupal\Tests\field\Kernel\FieldKernelTestBase;
 class GeolocationItemTest extends FieldKernelTestBase {
 
   /**
-   * Modules to enable.
-   *
-   * @var array
+   * {@inheritdoc}
    */
   protected static $modules = ['geolocation'];
 

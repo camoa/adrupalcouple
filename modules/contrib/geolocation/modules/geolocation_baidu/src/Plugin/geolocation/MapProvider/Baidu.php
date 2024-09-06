@@ -102,11 +102,11 @@ class Baidu extends MapProviderBase {
       '#description' => $this->t('The initial resolution at which to display the map, where zoom 0 corresponds to a map of the Earth fully zoomed out, and higher zoom levels zoom in at a higher resolution.'),
       '#default_value' => $settings['zoom'],
       '#process' => [
-        ['\Drupal\Core\Render\Element\RenderElement', 'processGroup'],
+        ['\Drupal\Core\Render\Element\RenderElementBase', 'processGroup'],
         ['\Drupal\Core\Render\Element\Select', 'processSelect'],
       ],
       '#pre_render' => [
-        ['\Drupal\Core\Render\Element\RenderElement', 'preRenderGroup'],
+        ['\Drupal\Core\Render\Element\RenderElementBase', 'preRenderGroup'],
       ],
     ];
 
@@ -132,7 +132,7 @@ class Baidu extends MapProviderBase {
    *   Base Url.
    */
   public function getApiUrl(): string {
-    $config = \Drupal::config('baidu_maps.settings');
+    $config = \Drupal::config('geolocation_baidu.settings');
 
     $api_key = $config->get('key');
 

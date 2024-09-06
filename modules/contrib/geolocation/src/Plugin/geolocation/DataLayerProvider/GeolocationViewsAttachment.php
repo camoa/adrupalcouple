@@ -75,19 +75,12 @@ class GeolocationViewsAttachment extends DataLayerProviderBase implements DataLa
    * {@inheritdoc}
    */
   public function getLayerRenderData(string $data_layer_option_id = 'default', array $settings = [], array $context = NULL): array {
-    if (empty($context['views_style'])) {
+    if (empty($context['view'])) {
       return [];
     }
 
-    /** @var \Drupal\geolocation\Plugin\views\style\CommonMap $views_style */
-    $views_style = $context['views_style'];
-
-    /** @var ?\Drupal\views\ViewExecutable $view */
-    $view = $views_style->view;
-
-    if (!$view) {
-      return [];
-    }
+    /** @var \Drupal\views\ViewExecutable $view */
+    $view = $context['view'];
 
     /** @var ?\Drupal\geolocation\Plugin\views\display\GeolocationAttachmentLayer $display */
     $display = $view->displayHandlers->get($data_layer_option_id);

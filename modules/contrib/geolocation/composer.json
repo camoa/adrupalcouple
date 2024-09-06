@@ -15,9 +15,5 @@
     "support": {
         "issues": "https://www.drupal.org/project/issues/geolocation",
         "source": "https://git.drupal.org/project/geolocation.git"
-    },
-    "require": {
-        "php": "^8.1",
-        "drupal/core": "^10.0"
     }
 }

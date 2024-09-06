@@ -2,6 +2,7 @@
 
 namespace Drupal\geolocation\Plugin\geolocation\LocationInput;
 
+use Drupal\Core\Url;
 use Drupal\geolocation\LocationInputBase;
 use Drupal\geolocation\LocationInputInterface;
 
@@ -50,6 +51,30 @@ class ClientLocation extends LocationInputBase implements LocationInputInterface
     ];
 
     $form['#description'] = $this->t('Location will be set if it is empty and client location is available. This requires a https connection.');
+
+    return $form;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function alterForm(array $form, array $settings, array $context = [], array $default_value = NULL): array {
+    $form = parent::alterForm($form, $settings, $context, $default_value);
+
+    $form['coordinates']['client_location'] = [
+      '#type' => 'link',
+      '#title' => $this->t('Locate me'),
+      '#url' => Url::fromUserInput('#'),
+      '#attributes' => [
+        'class' => [
+          'js-hide',
+          'btn',
+          'button',
+          'geolocation-location-input-client-location',
+        ],
+      ],
+      '#weight' => 10,
+    ];
 
     return $form;
   }

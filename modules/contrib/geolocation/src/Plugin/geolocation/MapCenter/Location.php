@@ -2,7 +2,7 @@
 
 namespace Drupal\geolocation\Plugin\geolocation\MapCenter;
 
-use Drupal\Core\Extension\ModuleHandler;
+use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\Render\BubbleableMetadata;
 use Drupal\geolocation\LocationManager;
@@ -35,7 +35,7 @@ class Location extends MapCenterBase implements MapCenterInterface {
     array $configuration,
     $plugin_id,
     $plugin_definition,
-    ModuleHandler $moduleHandler,
+    ModuleHandlerInterface $moduleHandler,
     FileSystemInterface $fileSystem,
     protected LocationManager $locationManager,
   ) {

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3fa3b6ed81d949cf5244eeba9f64b710",
+    "content-hash": "d2f8d200c1d87602fd6b98142d335091",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -3054,21 +3054,14 @@
         },
         {
             "name": "drupal/geolocation",
-            "version": "4.0.0-alpha6",
+            "version": "dev-4.x",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/geolocation.git",
-                "reference": "4.0.0-alpha6"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/geolocation-4.0.0-alpha6.zip",
-                "reference": "4.0.0-alpha6",
-                "shasum": "b70e9b3125aa895f1061797fc99de617292ac9fe"
+                "reference": "5e3d748d89a84261e5e269ef32cf928001c757ca"
             },
             "require": {
-                "drupal/core": "^10.0",
-                "php": "^8.1"
+                "drupal/core": "^10 || ^11"
             },
             "require-dev": {
                 "drupal/address": "*",
@@ -3084,12 +3077,15 @@
             },
             "type": "drupal-module",
             "extra": {
+                "branch-alias": {
+                    "dev-4.x": "4.x-dev"
+                },
                 "drupal": {
-                    "version": "4.0.0-alpha6",
-                    "datestamp": "1714246761",
+                    "version": "4.0.0-alpha6+34-dev",
+                    "datestamp": "1725276148",
                     "security-coverage": {
                         "status": "not-covered",
-                        "message": "Alpha releases are not covered by Drupal security advisories."
+                        "message": "Dev releases are not covered by Drupal security advisories."
                     }
                 }
             },
@@ -10110,7 +10106,7 @@
     "stability-flags": {
         "drupal/custom_field": 5,
         "drupal/entity_usage": 10,
-        "drupal/geolocation": 15,
+        "drupal/geolocation": 20,
         "drupal/gin": 5,
         "drupal/gin_toolbar": 5,
         "drupal/inline_entity_form": 5,

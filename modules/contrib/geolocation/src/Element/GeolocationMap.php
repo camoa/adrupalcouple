@@ -5,7 +5,7 @@ namespace Drupal\geolocation\Element;
 use Drupal\Component\Utility\SortArray;
 use Drupal\Core\Render\BubbleableMetadata;
 use Drupal\Core\Render\Element;
-use Drupal\Core\Render\Element\RenderElement;
+use Drupal\Core\Render\Element\RenderElementBase;
 use Drupal\Core\Template\Attribute;
 use Drupal\geolocation\MapProviderManager;
 
@@ -24,9 +24,9 @@ use Drupal\geolocation\MapProviderManager;
  * ];
  * @endcode
  *
- * @FormElement("geolocation_map")
+ * @RenderElement("geolocation_map")
  */
-class GeolocationMap extends RenderElement {
+class GeolocationMap extends RenderElementBase {
 
   /**
    * Map Provider.
@@ -137,16 +137,6 @@ class GeolocationMap extends RenderElement {
       $render_array
     );
 
-    foreach (Element::children($render_array) as $child) {
-      $render_array['#children'][$child] = $render_array[$child];
-      unset($render_array[$child]);
-    }
-
-    foreach (Element::children($render_array['#layers']) as $layer_id) {
-      $render_array['#children'][$layer_id] = $render_array['#layers'][$layer_id];
-      unset($render_array['#layers'][$layer_id]);
-    }
-
     $render_array['#attributes'] = new Attribute($render_array['#attributes'] ?? []);
     $render_array['#attributes']->addClass('geolocation-map-wrapper');
     $render_array['#attributes']->setAttribute('id', $render_array['#id']);
@@ -177,7 +167,21 @@ class GeolocationMap extends RenderElement {
       $context = $render_array['#context'];
     }
 
-    return $map_provider->alterRenderArray($render_array, $map_settings, $context);
+    $render_array = $map_provider->alterRenderArray($render_array, $map_settings, $context);
+
+    if (is_array($render_array['#layers'] ?? FALSE)) {
+      foreach (Element::children($render_array['#layers']) as $layer_id) {
+        $render_array['#children'][$layer_id] = $render_array['#layers'][$layer_id];
+        unset($render_array['#layers'][$layer_id]);
+      }
+    }
+
+    foreach (Element::children($render_array) as $child) {
+      $render_array['#children'][$child] = $render_array[$child];
+      unset($render_array[$child]);
+    }
+
+    return $render_array;
   }
 
   /**

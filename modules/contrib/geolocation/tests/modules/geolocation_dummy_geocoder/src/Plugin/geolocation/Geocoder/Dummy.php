@@ -6,7 +6,7 @@ use Drupal\Core\Render\BubbleableMetadata;
 use Drupal\geolocation\GeocoderBase;
 
 /**
- * Provides the Google Geocoding API.
+ * Provides the Dummy Geocoder.
  *
  * @Geocoder(
  *   id = "dummy",

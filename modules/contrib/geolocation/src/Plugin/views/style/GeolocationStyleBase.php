@@ -359,11 +359,11 @@ abstract class GeolocationStyleBase extends StylePluginBase {
         '#options' => $icon_options,
         '#empty_value' => 'none',
         '#process' => [
-          ['\Drupal\Core\Render\Element\RenderElement', 'processGroup'],
+          ['\Drupal\Core\Render\Element\RenderElementBase', 'processGroup'],
           ['\Drupal\Core\Render\Element\Select', 'processSelect'],
         ],
         '#pre_render' => [
-          ['\Drupal\Core\Render\Element\RenderElement', 'preRenderGroup'],
+          ['\Drupal\Core\Render\Element\RenderElementBase', 'preRenderGroup'],
         ],
       ];
     }
@@ -382,6 +382,24 @@ abstract class GeolocationStyleBase extends StylePluginBase {
       '#type' => 'checkbox',
       '#default_value' => $this->options['marker_row_number'],
     ];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function validateOptionsForm(mixed &$form, FormStateInterface $form_state): void {
+    parent::validateOptionsForm($form, $form_state);
+
+    $triggering_element = $form_state->getTriggeringElement();
+
+    // https://www.drupal.org/project/drupal/issues/3137947
+    if (
+      $triggering_element['#name'] == 'style_options[map_provider_id]'
+      && $triggering_element['#value'] != $triggering_element['#default_value']
+    ) {
+      $form_state->clearErrors();
+    }
+
   }
 
   /**

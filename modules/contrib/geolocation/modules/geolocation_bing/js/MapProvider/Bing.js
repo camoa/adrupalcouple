@@ -63,53 +63,61 @@ export default class Bing extends GeolocationMapBase {
             showScalebar: !!this.settings.show_scalebar ?? false,
           });
           resolve();
-        }).then(() => {
-          return new Promise((resolve) => {
-            let singleClick;
+        })
+          .then(() => {
+            return new Promise((resolve) => {
+              Microsoft.Maps.loadModule("Microsoft.Maps.SpatialMath", () => {
+                resolve();
+              });
+            });
+          })
+          .then(() => {
+            return new Promise((resolve) => {
+              let singleClick;
 
-            Microsoft.Maps.Events.addHandler(this.bingMap, "click", (event) => {
-              singleClick = setTimeout(() => {
+              Microsoft.Maps.Events.addHandler(this.bingMap, "click", (event) => {
+                singleClick = setTimeout(() => {
+                  this.features.forEach((feature) => {
+                    feature.onClick(new GeolocationCoordinates(event.location.latitude, event.location.longitude));
+                  });
+                }, 500);
+              });
+
+              Microsoft.Maps.Events.addHandler(this.bingMap, "dblclick", (event) => {
+                clearTimeout(singleClick);
                 this.features.forEach((feature) => {
-                  feature.onClick(new GeolocationCoordinates(event.location.latitude, event.location.longitude));
+                  feature.onDoubleClick(new GeolocationCoordinates(event.location.latitude, event.location.longitude));
                 });
-              }, 500);
-            });
-
-            Microsoft.Maps.Events.addHandler(this.bingMap, "dblclick", (event) => {
-              clearTimeout(singleClick);
-              this.features.forEach((feature) => {
-                feature.onDoubleClick(new GeolocationCoordinates(event.location.latitude, event.location.longitude));
               });
-            });
 
-            Microsoft.Maps.Events.addHandler(this.bingMap, "rightclick", (event) => {
-              this.features.forEach((feature) => {
-                feature.onContextClick(new GeolocationCoordinates(event.location.latitude, event.location.longitude));
+              Microsoft.Maps.Events.addHandler(this.bingMap, "rightclick", (event) => {
+                this.features.forEach((feature) => {
+                  feature.onContextClick(new GeolocationCoordinates(event.location.latitude, event.location.longitude));
+                });
               });
-            });
 
-            Microsoft.Maps.Events.addHandler(this.bingMap, "viewchangeend", () => {
-              this.updatingBounds = false;
+              Microsoft.Maps.Events.addHandler(this.bingMap, "viewchangeend", () => {
+                this.updatingBounds = false;
 
-              this.features.forEach((feature) => {
-                feature.onMapIdle();
+                this.features.forEach((feature) => {
+                  feature.onMapIdle();
+                });
               });
-            });
 
-            Microsoft.Maps.Events.addHandler(this.bingMap, "viewchangeend", () => {
-              const bounds = this.getBoundaries();
-              if (!bounds) {
-                return;
-              }
+              Microsoft.Maps.Events.addHandler(this.bingMap, "viewchangeend", () => {
+                const bounds = this.getBoundaries();
+                if (!bounds) {
+                  return;
+                }
 
-              this.features.forEach((feature) => {
-                feature.onBoundsChanged(bounds);
+                this.features.forEach((feature) => {
+                  feature.onBoundsChanged(bounds);
+                });
               });
-            });
 
-            resolve(this);
+              resolve(this);
+            });
           });
-        });
       });
   }
 
@@ -134,14 +142,13 @@ export default class Bing extends GeolocationMapBase {
       return null;
     }
 
-    /** @type {Microsoft.Maps.Pushpin[]} */
-    const bingMarkers = [];
+    const locations = [];
 
     markers.forEach((marker) => {
-      bingMarkers.push(marker.bingMarker);
+      locations.push(marker.bingMarker.getLocation());
     });
 
-    return this.normalizeBoundaries(Microsoft.Maps.SpatialMath.Geometry.bounds(bingMarkers));
+    return this.normalizeBoundaries(Microsoft.Maps.SpatialMath.Geometry.bounds(locations));
   }
 
   setBoundaries(boundaries) {
@@ -156,7 +163,7 @@ export default class Bing extends GeolocationMapBase {
     return this;
   }
 
-  getZoom() {
+  async getZoom() {
     this.bingMap.getZoom();
   }
 
@@ -213,9 +220,6 @@ export default class Bing extends GeolocationMapBase {
     }
 
     if (boundaries instanceof Microsoft.Maps.LocationRect) {
-      if (boundaries.getNorthwest().latitude === boundaries.getSoutheast().latitude && boundaries.getNorthwest().longitude === boundaries.getSoutheast().longitude) {
-        return null;
-      }
       return new GeolocationBoundaries({
         north: boundaries.getNorthwest().latitude,
         east: boundaries.getNorthwest().longitude,

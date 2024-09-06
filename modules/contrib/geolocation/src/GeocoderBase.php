@@ -3,7 +3,7 @@
 namespace Drupal\geolocation;
 
 use Drupal\Component\Utility\NestedArray;
-use Drupal\Core\Extension\ModuleHandler;
+use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Plugin\PluginBase;
@@ -24,7 +24,7 @@ abstract class GeocoderBase extends PluginBase implements GeocoderInterface, Con
     $plugin_id,
     $plugin_definition,
     protected GeocoderCountryFormattingManager $countryFormatterManager,
-    protected ModuleHandler $moduleHandler,
+    protected ModuleHandlerInterface $moduleHandler,
     protected FileSystemInterface $fileSystem,
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);

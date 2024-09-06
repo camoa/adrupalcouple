@@ -3,7 +3,7 @@
         'name' => 'drupal/recommended-project',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => 'ecc2ea8557eacfa5133a7f5693acc5e975103a15',
+        'reference' => '379d2cc40460cf474e2170d589be1d272a6bd285',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -542,12 +542,14 @@
             'dev_requirement' => false,
         ),
         'drupal/geolocation' => array(
-            'pretty_version' => '4.0.0-alpha6',
-            'version' => '4.0.0.0-alpha6',
-            'reference' => '4.0.0-alpha6',
+            'pretty_version' => 'dev-4.x',
+            'version' => 'dev-4.x',
+            'reference' => '5e3d748d89a84261e5e269ef32cf928001c757ca',
             'type' => 'drupal-module',
             'install_path' => __DIR__ . '/../../modules/contrib/geolocation',
-            'aliases' => array(),
+            'aliases' => array(
+                0 => '4.x-dev',
+            ),
             'dev_requirement' => false,
         ),
         'drupal/gin' => array(
@@ -715,7 +717,7 @@
         'drupal/recommended-project' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => 'ecc2ea8557eacfa5133a7f5693acc5e975103a15',
+            'reference' => '379d2cc40460cf474e2170d589be1d272a6bd285',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

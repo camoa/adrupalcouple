@@ -20,7 +20,7 @@ function geolocation_baidu_requirements(string $phase): array {
       'severity' => REQUIREMENT_OK,
     ];
 
-    if (empty(\Drupal::config('baidu_maps.settings')->get('key'))) {
+    if (empty(\Drupal::config('geolocation_baidu.settings')->get('key'))) {
       $requirements['geolocation_baidu_api_key']['value'] = t('Baidu maps key missing');
       $requirements['geolocation_baidu_api_key']['description'] = t('A Baidu maps key is missing in the <a href=":geolocation_baidu_settings_url">Geolocation settings</a>.', [':geolocation_baidu_settings_url' => Url::fromRoute('geolocation_baidu.settings')->toString()]);
       $requirements['geolocation_baidu_api_key']['severity'] = REQUIREMENT_WARNING;
@@ -34,5 +34,14 @@ function geolocation_baidu_requirements(string $phase): array {
  * Implements hook_requirements().
  */
 function geolocation_baidu_uninstall(): void {
-  Drupal::configFactory()->getEditable('baidu_maps.settings')->delete();
+  Drupal::configFactory()->getEditable('geolocation_baidu.settings')->delete();
+}
+
+/**
+ * Update settings key.
+ */
+function geolocation_baidu_update_8206(): void {
+  $value = Drupal::configFactory()->getEditable('baidu_maps.settings')->get('key');
+  \Drupal::configFactory()->getEditable('geolocation_baidu.settings')->set('key', $value)->save();
+  \Drupal::configFactory()->getEditable('baidu_maps.settings')->delete();
 }

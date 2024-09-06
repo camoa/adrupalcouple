@@ -3176,22 +3176,15 @@
         },
         {
             "name": "drupal/geolocation",
-            "version": "4.0.0-alpha6",
-            "version_normalized": "4.0.0.0-alpha6",
+            "version": "dev-4.x",
+            "version_normalized": "dev-4.x",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/geolocation.git",
-                "reference": "4.0.0-alpha6"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/geolocation-4.0.0-alpha6.zip",
-                "reference": "4.0.0-alpha6",
-                "shasum": "b70e9b3125aa895f1061797fc99de617292ac9fe"
+                "reference": "5e3d748d89a84261e5e269ef32cf928001c757ca"
             },
             "require": {
-                "drupal/core": "^10.0",
-                "php": "^8.1"
+                "drupal/core": "^10 || ^11"
             },
             "require-dev": {
                 "drupal/address": "*",
@@ -3207,16 +3200,19 @@
             },
             "type": "drupal-module",
             "extra": {
+                "branch-alias": {
+                    "dev-4.x": "4.x-dev"
+                },
                 "drupal": {
-                    "version": "4.0.0-alpha6",
-                    "datestamp": "1714246761",
+                    "version": "4.0.0-alpha6+34-dev",
+                    "datestamp": "1725276148",
                     "security-coverage": {
                         "status": "not-covered",
-                        "message": "Alpha releases are not covered by Drupal security advisories."
+                        "message": "Dev releases are not covered by Drupal security advisories."
                     }
                 }
             },
-            "installation-source": "dist",
+            "installation-source": "source",
             "notification-url": "https://packages.drupal.org/8/downloads",
             "license": [
                 "GPL-2.0-or-later"
