@@ -562,6 +562,9 @@ JS;
     Editor::create([
       'format' => 'test_format',
       'editor' => 'ckeditor5',
+      'image_upload' => [
+        'status' => FALSE,
+      ],
       'settings' => [
         'toolbar' => [
           'items' => ['sourceEditing', 'numberedList'],
@@ -654,6 +657,9 @@ JS;
     Editor::create([
       'format' => 'ckeditor5',
       'editor' => 'ckeditor5',
+      'image_upload' => [
+        'status' => FALSE,
+      ],
       'settings' => [
         'toolbar' => [
           'items' => [
@@ -684,6 +690,9 @@ JS;
     Editor::create([
       'format' => 'ckeditor5_2',
       'editor' => 'ckeditor5',
+      'image_upload' => [
+        'status' => FALSE,
+      ],
     ])->save();
     $this->assertSame([], array_map(
       function (ConstraintViolation $v) {

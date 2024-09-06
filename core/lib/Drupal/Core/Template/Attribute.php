@@ -90,18 +90,24 @@ class Attribute implements \ArrayAccess, \IteratorAggregate, MarkupInterface {
   /**
    * {@inheritdoc}
    */
-  #[\ReturnTypeWillChange]
-  public function offsetGet($name) {
+  public function offsetGet($name): mixed {
     if (isset($this->storage[$name])) {
       return $this->storage[$name];
     }
+    // The 'class' array key is expected to be itself an array, and therefore
+    // can be accessed using array append syntax before it has been initialized.
+    if ($name === 'class') {
+      // Initialize the class attribute as an empty array if not set.
+      $this->offsetSet('class', []);
+      return $this->storage['class'];
+    }
+    return NULL;
   }
 
   /**
    * {@inheritdoc}
    */
-  #[\ReturnTypeWillChange]
-  public function offsetSet($name, $value) {
+  public function offsetSet($name, $value): void {
     $this->storage[$name] = $this->createAttributeValue($name, $value);
   }
 
@@ -154,16 +160,14 @@ class Attribute implements \ArrayAccess, \IteratorAggregate, MarkupInterface {
   /**
    * {@inheritdoc}
    */
-  #[\ReturnTypeWillChange]
-  public function offsetUnset($name) {
+  public function offsetUnset($name): void {
     unset($this->storage[$name]);
   }
 
   /**
    * {@inheritdoc}
    */
-  #[\ReturnTypeWillChange]
-  public function offsetExists($name) {
+  public function offsetExists($name): bool {
     return isset($this->storage[$name]);
   }
 
@@ -358,8 +362,7 @@ class Attribute implements \ArrayAccess, \IteratorAggregate, MarkupInterface {
   /**
    * {@inheritdoc}
    */
-  #[\ReturnTypeWillChange]
-  public function getIterator() {
+  public function getIterator(): \ArrayIterator {
     return new \ArrayIterator($this->storage);
   }
 
@@ -376,8 +379,7 @@ class Attribute implements \ArrayAccess, \IteratorAggregate, MarkupInterface {
    * @return string
    *   The safe string content.
    */
-  #[\ReturnTypeWillChange]
-  public function jsonSerialize() {
+  public function jsonSerialize(): string {
     return (string) $this;
   }
 

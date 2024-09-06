@@ -22,7 +22,7 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
  * @Block(
  *   id = "dropdown_language",
  *   admin_label = @Translation("Dropdown Language Selector"),
- *   category = @Translation("Custom Blocks"),
+ *   category = @Translation("Dropdown Language"),
  *   deriver = "Drupal\dropdown_language\Plugin\Derivative\DropdownLanguage"
  * )
  */
@@ -120,10 +120,11 @@ class DropdownLanguage extends BlockBase implements ContainerFactoryPluginInterf
    */
   public function build() {
     $block = [];
+    $links = [];
 
     // Do not output anything if is 404 or 403. #3119474
     $exception = $this->request->getCurrentRequest()->attributes->get('exception');
-    if ($exception && $exception instanceof HttpException && ($exception->getStatusCode() === 404 || $exception->getStatusCode() === 403)) {
+    if ($exception && $exception instanceof HttpException && in_array($exception->getStatusCode(), [403, 404])) {
       return $block;
     }
 
@@ -224,7 +225,7 @@ class DropdownLanguage extends BlockBase implements ContainerFactoryPluginInterf
       }
     }
 
-    if (count($links) > 1 || $always_show_block) {
+    if ( (\is_array($links) && \count($links) > 1) || $always_show_block) {
       $build['dropdown-language'] = $block;
     }
     return $build;

@@ -21,10 +21,7 @@ use Symfony\Component\Validator\Exception\UnexpectedValueException;
  */
 class UniqueValidator extends ConstraintValidator
 {
-    /**
-     * @return void
-     */
-    public function validate(mixed $value, Constraint $constraint)
+    public function validate(mixed $value, Constraint $constraint): void
     {
         if (!$constraint instanceof Unique) {
             throw new UnexpectedTypeException($constraint, Unique::class);
@@ -63,11 +60,7 @@ class UniqueValidator extends ConstraintValidator
 
     private function getNormalizer(Unique $unique): callable
     {
-        if (null === $unique->normalizer) {
-            return static fn ($value) => $value;
-        }
-
-        return $unique->normalizer;
+        return $unique->normalizer ?? static fn ($value) => $value;
     }
 
     private function reduceElementKeys(array $fields, array $element): array
