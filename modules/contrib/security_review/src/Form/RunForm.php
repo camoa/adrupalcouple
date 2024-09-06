@@ -2,9 +2,13 @@
 
 namespace Drupal\security_review\Form;
 
+use Drupal\Component\Plugin\Exception\PluginException;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\security_review\Checklist;
+use Drupal\Core\Logger\LoggerChannelTrait;
+use Drupal\Core\Logger\RfcLogLevel;
+use Drupal\security_review\SecurityCheckPluginManager;
+use Drupal\security_review\SecurityReview;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -12,43 +16,57 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 class RunForm extends FormBase {
 
+  use LoggerChannelTrait;
+
   /**
-   * The security_review.checklist service.
+   * The security checks plugin manager.
    *
-   * @var \Drupal\security_review\Checklist
+   * @var \Drupal\security_review\SecurityCheckPluginManager
    */
-  protected $checklist;
+  protected SecurityCheckPluginManager $checkPluginManager;
+
+  /**
+   * Security review service.
+   *
+   * @var \Drupal\security_review\SecurityReview
+   */
+  protected SecurityReview $securityReview;
 
   /**
    * Constructs a RunForm.
    *
-   * @param \Drupal\security_review\Checklist $checklist
-   *   The security_review.checklist service.
+   * @param \Drupal\security_review\SecurityCheckPluginManager $checkPluginManager
+   *   Plugin manager for Security Checks.
+   * @param \Drupal\security_review\SecurityReview $security_review
+   *   The security review service.
    */
-  public function __construct(Checklist $checklist) {
-    $this->checklist = $checklist;
+  public function __construct(SecurityCheckPluginManager $checkPluginManager, SecurityReview $security_review) {
+    $this->checkPluginManager = $checkPluginManager;
+    $this->securityReview = $security_review;
   }
 
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container) {
+  public static function create(ContainerInterface $container): RunForm|static {
+    // @phpstan-ignore-next-line
     return new static(
-      $container->get('security_review.checklist')
+      $container->get('plugin.manager.security_review.security_check'),
+      $container->get('security_review'),
     );
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getFormId() {
+  public function getFormId(): string {
     return 'security-review-run';
   }
 
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, FormStateInterface $form_state) {
+  public function buildForm(array $form, FormStateInterface $form_state): array {
     if (!$this->currentUser()->hasPermission('run security checks')) {
       return [];
     }
@@ -72,7 +90,7 @@ class RunForm extends FormBase {
   /**
    * {@inheritdoc}
    */
-  public function submitForm(array &$form, FormStateInterface $form_state) {
+  public function submitForm(array &$form, FormStateInterface $form_state): void {
     $batch = [
       'operations' => [],
       'finished' => '_security_review_batch_run_finished',
@@ -82,11 +100,19 @@ class RunForm extends FormBase {
       'error_message' => $this->t('An error occurred. Rerun the process or consult the logs.'),
     ];
 
-    foreach ($this->checklist->getEnabledChecks() as $check) {
-      $batch['operations'][] = [
-        '_security_review_batch_run_op',
-        [$check],
-      ];
+    foreach ($this->checkPluginManager->getDefinitions() as $check) {
+      try {
+        if (!$this->securityReview->isCheckSkipped($check['id'])) {
+          $plugin = $this->checkPluginManager->createInstance($check['id']);
+          $batch['operations'][] = [
+            '_security_review_batch_run_op',
+            [$plugin],
+          ];
+        }
+      }
+      catch (PluginException) {
+        $this->getLogger('security_review')->log(RfcLogLevel::ERROR, $this->t('Error creating instance for plugin with ID: @id', ['@id' => $check['id']]));
+      }
     }
 
     batch_set($batch);

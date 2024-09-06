@@ -12,12 +12,12 @@ class ModerationDashboardTest extends ModerationDashboardTestBase {
   /**
    * {@inheritdoc}
    */
-  public $setEditorialWorkflow = FALSE;
+  public bool $setEditorialWorkflow = FALSE;
 
   /**
    * {@inheritdoc}
    */
-  public $testNodeTypes = [];
+  public array $testNodeTypes = [];
 
   /**
    * Tests that the Moderation Dashboard loads as expected.
@@ -25,7 +25,7 @@ class ModerationDashboardTest extends ModerationDashboardTestBase {
    * @throws \Behat\Mink\Exception\ExpectationException
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  public function testModerationDashboardLoads() {
+  public function testModerationDashboardLoads(): void {
     // Deny access for Anonymous users.
     $this->drupalGet('/user/' . $this->user->id() . '/moderation-dashboard');
     $this->assertSession()->statusCodeEquals(403);
@@ -43,7 +43,6 @@ class ModerationDashboardTest extends ModerationDashboardTestBase {
     $this->assertSession()->statusCodeEquals(200);
 
     // Allow access if everything looks good.
-    // @phpstan-ignore-next-line
     $this->editorialWorkflow->getTypePlugin()->addEntityTypeAndBundle('node', 'page');
     $this->editorialWorkflow->save();
 

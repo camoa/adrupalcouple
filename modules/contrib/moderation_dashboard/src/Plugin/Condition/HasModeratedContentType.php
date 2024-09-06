@@ -3,43 +3,23 @@
 namespace Drupal\moderation_dashboard\Plugin\Condition;
 
 use Drupal\content_moderation\ModerationInformationInterface;
+use Drupal\Core\Condition\Attribute\Condition;
 use Drupal\Core\Condition\ConditionPluginBase;
 use Drupal\Core\Entity\EntityTypeBundleInfoInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Provides a 'Has Moderated Content Type' condition.
- *
- * @Condition(
- *   id = "has_moderated_content_type",
- *   label = @Translation("Has Moderated Content Type")
- * )
  */
+#[Condition(
+  id: "has_moderated_content_type",
+  label: new TranslatableMarkup("Has Moderated Content Type"),
+)]
 class HasModeratedContentType extends ConditionPluginBase implements ContainerFactoryPluginInterface {
-
-  /**
-   * The moderation information service.
-   *
-   * @var \Drupal\content_moderation\ModerationInformationInterface
-   */
-  protected $moderationInformation;
-
-  /**
-   * The bundle information service.
-   *
-   * @var \Drupal\Core\Entity\EntityTypeBundleInfoInterface
-   */
-  protected $bundleInfo;
-
-  /**
-   * The entity type manager.
-   *
-   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
-   */
-  protected $entityTypeManager;
 
   /**
    * HasModeratedContentType constructor.
@@ -50,24 +30,28 @@ class HasModeratedContentType extends ConditionPluginBase implements ContainerFa
    *   The plugin_id for the plugin instance.
    * @param mixed $plugin_definition
    *   The plugin implementation definition.
-   * @param \Drupal\content_moderation\ModerationInformationInterface $moderation_information
+   * @param \Drupal\content_moderation\ModerationInformationInterface $moderationInformation
    *   The moderation information service.
-   * @param \Drupal\Core\Entity\EntityTypeBundleInfoInterface $bundle_info
+   * @param \Drupal\Core\Entity\EntityTypeBundleInfoInterface $bundleInfo
    *   The bundle information service.
-   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
    *   The entity type manager.
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, ModerationInformationInterface $moderation_information, EntityTypeBundleInfoInterface $bundle_info, EntityTypeManagerInterface $entity_type_manager) {
+  public function __construct(
+    array $configuration,
+    $plugin_id,
+    $plugin_definition,
+    protected ModerationInformationInterface $moderationInformation,
+    protected EntityTypeBundleInfoInterface $bundleInfo,
+    protected EntityTypeManagerInterface $entityTypeManager,
+  ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
-    $this->moderationInformation = $moderation_information;
-    $this->bundleInfo = $bundle_info;
-    $this->entityTypeManager = $entity_type_manager;
   }
 
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): static {
     return new static(
       $configuration,
       $plugin_id,
@@ -81,7 +65,7 @@ class HasModeratedContentType extends ConditionPluginBase implements ContainerFa
   /**
    * {@inheritdoc}
    */
-  public function defaultConfiguration() {
+  public function defaultConfiguration(): array {
     return [
       'enable' => FALSE,
     ] + parent::defaultConfiguration();
@@ -90,7 +74,7 @@ class HasModeratedContentType extends ConditionPluginBase implements ContainerFa
   /**
    * {@inheritdoc}
    */
-  public function buildConfigurationForm(array $form, FormStateInterface $form_state) {
+  public function buildConfigurationForm(array $form, FormStateInterface $form_state): array {
     $form = parent::buildConfigurationForm($form, $form_state);
 
     $form['enable'] = [
@@ -107,7 +91,7 @@ class HasModeratedContentType extends ConditionPluginBase implements ContainerFa
   /**
    * {@inheritdoc}
    */
-  public function submitConfigurationForm(array &$form, FormStateInterface $form_state) {
+  public function submitConfigurationForm(array &$form, FormStateInterface $form_state): void {
     parent::submitConfigurationForm($form, $form_state);
     $this->configuration['enable'] = $form_state->getValue('enable', FALSE);
   }
@@ -115,7 +99,7 @@ class HasModeratedContentType extends ConditionPluginBase implements ContainerFa
   /**
    * {@inheritdoc}
    */
-  public function evaluate() {
+  public function evaluate(): bool {
     if (!$this->configuration['enable']) {
       return TRUE;
     }

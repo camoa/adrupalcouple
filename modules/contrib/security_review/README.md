@@ -16,11 +16,8 @@ site.
 
 ## INSTALLATION
 
-Place the security_review directory and its contents under /modules or a
-subdirectory of /modules in the Drupal root directory.
-
-Enable the module at Administer >> Modules and refer to the
-following sections for configuration and usage.
+Install the UI Patterns Setting module as you would normally install a
+contributed Drupal module. Visit https://www.drupal.org/node/1897420.
 
 ## CONFIGURATION
 

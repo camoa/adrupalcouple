@@ -3805,31 +3805,32 @@
         },
         {
             "name": "drupal/jsonapi_extras",
-            "version": "3.25.0",
-            "version_normalized": "3.25.0.0",
+            "version": "3.26.0-beta1",
+            "version_normalized": "3.26.0.0-beta1",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/jsonapi_extras.git",
-                "reference": "8.x-3.25"
+                "reference": "8.x-3.26-beta1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/jsonapi_extras-8.x-3.25.zip",
-                "reference": "8.x-3.25",
-                "shasum": "ba557127ca560dbf3fae68f76c7720137857f167"
+                "url": "https://ftp.drupal.org/files/projects/jsonapi_extras-8.x-3.26-beta1.zip",
+                "reference": "8.x-3.26-beta1",
+                "shasum": "c598f6d240fcd0c7492427395052f587c1bb21b9"
             },
             "require": {
-                "drupal/core": "^9.2 || ^10",
-                "e0ipso/shaper": "^1"
+                "drupal/core": "^9.5 || ^10 || ^11",
+                "e0ipso/shaper": "^1",
+                "php": ">=8.1"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-3.25",
-                    "datestamp": "1717340217",
+                    "version": "8.x-3.26-beta1",
+                    "datestamp": "1719473945",
                     "security-coverage": {
-                        "status": "covered",
-                        "message": "Covered by Drupal's security advisory policy"
+                        "status": "not-covered",
+                        "message": "Beta releases are not covered by Drupal security advisories."
                     }
                 }
             },
@@ -4121,27 +4122,27 @@
         },
         {
             "name": "drupal/moderation_dashboard",
-            "version": "2.1.5",
-            "version_normalized": "2.1.5.0",
+            "version": "3.1.0",
+            "version_normalized": "3.1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/moderation_dashboard.git",
-                "reference": "2.1.5"
+                "reference": "3.1.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/moderation_dashboard-2.1.5.zip",
-                "reference": "2.1.5",
-                "shasum": "5864fae086ef710cad0615341e6e6214cd2a55a6"
+                "url": "https://ftp.drupal.org/files/projects/moderation_dashboard-3.1.0.zip",
+                "reference": "3.1.0",
+                "shasum": "efe8ce67a4c78291726ef3883f3fb815dfb6f17b"
             },
             "require": {
-                "drupal/core": "^9 || ^10"
+                "drupal/core": "^10.3 || ^11"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "2.1.5",
-                    "datestamp": "1694008389",
+                    "version": "3.1.0",
+                    "datestamp": "1725558905",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -4672,28 +4673,29 @@
         },
         {
             "name": "drupal/security_review",
-            "version": "2.0.2",
-            "version_normalized": "2.0.2.0",
+            "version": "3.0.3",
+            "version_normalized": "3.0.3.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/security_review.git",
-                "reference": "2.0.2"
+                "reference": "3.0.3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/security_review-2.0.2.zip",
-                "reference": "2.0.2",
-                "shasum": "6b4c2db45dcc75cd7aa2deb29f9c1eab8913f0bc"
+                "url": "https://ftp.drupal.org/files/projects/security_review-3.0.3.zip",
+                "reference": "3.0.3",
+                "shasum": "06ccb512ca80b2aa5158ec67f30d84cc3f33ec30"
             },
             "require": {
-                "drupal/core": "^9 || ^10",
+                "drupal/core": "^10 || ^11",
+                "php": ">=8.1.0",
                 "symfony/filesystem": "*"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "2.0.2",
-                    "datestamp": "1699727257",
+                    "version": "3.0.3",
+                    "datestamp": "1722973230",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"

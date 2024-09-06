@@ -2,6 +2,8 @@
 
 namespace Drupal\Tests\moderation_dashboard\Functional;
 
+use Drupal\Core\Session\AccountInterface;
+
 /**
  * Tests personalized moderation dashboard components.
  *
@@ -14,14 +16,14 @@ class ModerationDashboardPersonalizedComponentsTest extends ModerationDashboardT
    *
    * @var \Drupal\Core\Session\AccountInterface
    */
-  protected $moderatorUser;
+  protected AccountInterface $moderatorUser;
 
   /**
    * Regular user without moderation dashboard permissions.
    *
    * @var \Drupal\Core\Session\AccountInterface
    */
-  protected $regularUser;
+  protected AccountInterface $regularUser;
 
   /**
    * Personalized elements to test.
@@ -35,7 +37,7 @@ class ModerationDashboardPersonalizedComponentsTest extends ModerationDashboardT
    *     be replaced by the display name of the user in context.
    *   - empty: the expected empty message of the component (string).
    */
-  protected $personalizedModerationElements = [
+  protected array $personalizedModerationElements = [
     // Your drafts.
     '.view-id-content_moderation_dashboard_in_review.view-display-id-block_3' => [
       'contains' => ['Draft node of %s'],
@@ -85,10 +87,8 @@ class ModerationDashboardPersonalizedComponentsTest extends ModerationDashboardT
 
   /**
    * Tests that blocks and other elements exist on the user dashboard.
-   *
-   * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  public function testModerationElement() {
+  public function testModerationElement(): void {
     $users = [$this->user, $this->moderatorUser, $this->regularUser];
 
     foreach ($users as $delta => $user) {
@@ -100,7 +100,7 @@ class ModerationDashboardPersonalizedComponentsTest extends ModerationDashboardT
         $moderation_element_text = $moderation_element->getText();
 
         if (!empty($asserts['empty'])) {
-          $this->assertSame(FALSE, strpos($moderation_element_text, $asserts['empty']));
+          $this->assertFalse(strpos($moderation_element_text, $asserts['empty']));
         }
 
         if (!empty($asserts['contains'])) {
@@ -111,7 +111,7 @@ class ModerationDashboardPersonalizedComponentsTest extends ModerationDashboardT
 
         if (!empty($asserts['not_contains'])) {
           foreach ($asserts['not_contains'] as $pattern_should_not_find) {
-            $this->assertSame(FALSE, strpos($moderation_element_text, sprintf($pattern_should_not_find, $user->getDisplayName())));
+            $this->assertFalse(strpos($moderation_element_text, sprintf($pattern_should_not_find, $user->getDisplayName())));
           }
         }
 
@@ -119,7 +119,7 @@ class ModerationDashboardPersonalizedComponentsTest extends ModerationDashboardT
         unset($other_users[$delta]);
 
         foreach ($other_users as $other_user) {
-          $this->assertSame(FALSE, strpos($moderation_element->getText(), sprintf('%s', $other_user->getDisplayName())));
+          $this->assertFalse(strpos($moderation_element->getText(), sprintf('%s', $other_user->getDisplayName())));
         }
       }
     }

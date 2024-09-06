@@ -14,9 +14,9 @@ class RedirectOnLoginTest extends ModerationDashboardTestBase {
    *
    * @throws \Behat\Mink\Exception\ExpectationException
    */
-  public function testEnabled() {
+  public function testEnabled(): void {
     // Redirect is enabled by default.
-    $this->assertSame(TRUE, $this->config('moderation_dashboard.settings')->get('redirect_on_login'));
+    $this->assertTrue($this->config('moderation_dashboard.settings')->get('redirect_on_login'));
 
     // User is redirected.
     $this->drupalLogin($this->user);
@@ -28,8 +28,8 @@ class RedirectOnLoginTest extends ModerationDashboardTestBase {
    *
    * @throws \Behat\Mink\Exception\ExpectationException
    */
-  public function testDisabled() {
-    // Set redirect to disabled.
+  public function testDisabled(): void {
+    // Set redirect to disable.
     $this->config('moderation_dashboard.settings')
       ->set('redirect_on_login', FALSE)
       ->save();
@@ -41,10 +41,8 @@ class RedirectOnLoginTest extends ModerationDashboardTestBase {
 
   /**
    * Tests if settings form is working as expected.
-   *
-   * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  public function testSettingsForm() {
+  public function testSettingsForm(): void {
     $admin = $this->createUser([], NULL, TRUE);
     $assert_session = $this->assertSession();
 
@@ -58,7 +56,7 @@ class RedirectOnLoginTest extends ModerationDashboardTestBase {
 
     $status_message = $assert_session->elementExists('css', 'div[role="contentinfo"]')->getText();
     $this->assertSame('Status message The configuration options have been saved.', $status_message);
-    $this->assertSame(FALSE, $this->config('moderation_dashboard.settings')->get('redirect_on_login'));
+    $this->assertFalse($this->config('moderation_dashboard.settings')->get('redirect_on_login'));
 
     // Enabling redirect on login.
     $this->submitForm([
@@ -67,7 +65,7 @@ class RedirectOnLoginTest extends ModerationDashboardTestBase {
 
     $status_message = $assert_session->elementExists('css', 'div[role="contentinfo"]')->getText();
     $this->assertSame('Status message The configuration options have been saved.', $status_message);
-    $this->assertSame(TRUE, $this->config('moderation_dashboard.settings')->get('redirect_on_login'));
+    $this->assertTrue($this->config('moderation_dashboard.settings')->get('redirect_on_login'));
   }
 
 }

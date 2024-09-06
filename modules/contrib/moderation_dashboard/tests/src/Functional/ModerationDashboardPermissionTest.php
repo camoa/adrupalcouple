@@ -37,7 +37,6 @@ class ModerationDashboardPermissionTest extends BrowserTestBase {
       'type' => 'page',
     ]);
     $workflow = $this->createEditorialWorkflow();
-    // @phpstan-ignore-next-line
     $workflow->getTypePlugin()->addEntityTypeAndBundle('node', 'page');
     $workflow->save();
   }
@@ -47,7 +46,7 @@ class ModerationDashboardPermissionTest extends BrowserTestBase {
    *
    * @var array
    */
-  protected $canViewOwnDashboardCases = [
+  protected array $canViewOwnDashboardCases = [
     [
       'permissions' => ['use moderation dashboard'],
     ],
@@ -65,7 +64,7 @@ class ModerationDashboardPermissionTest extends BrowserTestBase {
    * @throws \Behat\Mink\Exception\ExpectationException
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  public function testCanViewOwnDashboard() {
+  public function testCanViewOwnDashboard(): void {
     foreach ($this->canViewOwnDashboardCases as $i => $testCase) {
       $user = $this->createUser($testCase['permissions']);
       $this->drupalLogin($user);
@@ -82,7 +81,7 @@ class ModerationDashboardPermissionTest extends BrowserTestBase {
    *
    * @var array
    */
-  protected $canNotViewOwnDashboardCases = [
+  protected array $canNotViewOwnDashboardCases = [
     [
       'permissions' => [],
     ],
@@ -96,7 +95,7 @@ class ModerationDashboardPermissionTest extends BrowserTestBase {
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  public function testCanNotViewOwnDashboard() {
+  public function testCanNotViewOwnDashboard(): void {
     foreach ($this->canNotViewOwnDashboardCases as $i => $testCase) {
       $user = $this->createUser($testCase['permissions']);
       $this->drupalLogin($user);
@@ -120,7 +119,7 @@ class ModerationDashboardPermissionTest extends BrowserTestBase {
    *
    * @var array
    */
-  protected $canViewOtherDashboardCases = [
+  protected array $canViewOtherDashboardCases = [
     [
       'permissions_a' => ['view any moderation dashboard'],
       'permissions_b' => ['use moderation dashboard'],
@@ -156,7 +155,7 @@ class ModerationDashboardPermissionTest extends BrowserTestBase {
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  public function testCanViewOtherDashboard() {
+  public function testCanViewOtherDashboard(): void {
     foreach ($this->canViewOtherDashboardCases as $i => $testCase) {
       $user_a = $this->createUser($testCase['permissions_a']);
       $user_b = $this->createUser($testCase['permissions_b']);
@@ -173,7 +172,7 @@ class ModerationDashboardPermissionTest extends BrowserTestBase {
    *
    * @var array
    */
-  protected $canNotViewOtherDashboardCases = [
+  protected array $canNotViewOtherDashboardCases = [
     // User B doesn't have a dashboard, therefore nobody can view it.
     [
       'permissions_a' => [],
@@ -243,7 +242,7 @@ class ModerationDashboardPermissionTest extends BrowserTestBase {
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  public function testCanNotViewOtherDashboard() {
+  public function testCanNotViewOtherDashboard(): void {
     foreach ($this->canNotViewOtherDashboardCases as $i => $testCase) {
       $user_a = $this->createUser($testCase['permissions_a']);
       $user_b = $this->createUser($testCase['permissions_b']);

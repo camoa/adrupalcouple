@@ -27,7 +27,7 @@ abstract class ModerationDashboardTestBase extends BrowserTestBase {
    *
    * @var string[]
    */
-  public $userPermissions = [
+  public array $userPermissions = [
     'access content',
     'use moderation dashboard',
     'view all revisions',
@@ -39,7 +39,7 @@ abstract class ModerationDashboardTestBase extends BrowserTestBase {
    *
    * @var bool
    */
-  public $setEditorialWorkflow = TRUE;
+  public bool $setEditorialWorkflow = TRUE;
 
   /**
    * The test node types.
@@ -47,7 +47,7 @@ abstract class ModerationDashboardTestBase extends BrowserTestBase {
    * @var array
    *   An array of node type properties.
    */
-  public $testNodeTypes = [['type' => 'page']];
+  public array $testNodeTypes = [['type' => 'page']];
 
   /**
    * Test user.
@@ -81,7 +81,6 @@ abstract class ModerationDashboardTestBase extends BrowserTestBase {
 
     if ($this->setEditorialWorkflow) {
       foreach ($this->testNodeTypes as $node_type_properties) {
-        // @phpstan-ignore-next-line
         $this->editorialWorkflow->getTypePlugin()->addEntityTypeAndBundle('node', $node_type_properties['type']);
       }
       $this->editorialWorkflow->save();

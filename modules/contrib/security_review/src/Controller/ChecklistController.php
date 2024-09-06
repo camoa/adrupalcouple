@@ -5,10 +5,11 @@ namespace Drupal\security_review\Controller;
 use Drupal\Core\Access\CsrfTokenGenerator;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Link;
-use Drupal\Core\Messenger\MessengerInterface;
+use Drupal\Core\Messenger\MessengerTrait;
 use Drupal\Core\Url;
-use Drupal\security_review\Checklist;
+use Drupal\security_review\SecurityCheckPluginManager;
 use Drupal\security_review\SecurityReview;
+use Drupal\security_review\SecurityReviewHelperTrait;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -16,33 +17,29 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 class ChecklistController extends ControllerBase {
 
+  use MessengerTrait;
+  use SecurityReviewHelperTrait;
+
   /**
    * The CSRF Token generator.
    *
    * @var \Drupal\Core\Access\CsrfTokenGenerator
    */
-  protected $csrfToken;
+  protected CsrfTokenGenerator $csrfToken;
 
   /**
-   * The security_review.checklist service.
+   * Security Review plugin Manager.
    *
-   * @var \Drupal\security_review\Checklist
+   * @var \Drupal\security_review\SecurityCheckPluginManager
    */
-  protected $checklist;
+  protected SecurityCheckPluginManager $checkPluginManager;
 
   /**
    * The security_review service.
    *
    * @var \Drupal\security_review\SecurityReview
    */
-  protected $securityReview;
-
-  /**
-   * The messenger service.
-   *
-   * @var \Drupal\Core\Messenger\MessengerInterface
-   */
-  protected $messenger;
+  protected SecurityReview $securityReview;
 
   /**
    * Constructs a ChecklistController.
@@ -51,27 +48,24 @@ class ChecklistController extends ControllerBase {
    *   The CSRF Token generator.
    * @param \Drupal\security_review\SecurityReview $security_review
    *   The security_review service.
-   * @param \Drupal\security_review\Checklist $checklist
-   *   The security_review.checklist service.
-   * @param \Drupal\Core\Messenger\MessengerInterface $messenger
-   *   The messenger service.
+   * @param \Drupal\security_review\SecurityCheckPluginManager $checkPluginManager
+   *   Plugin manager for Security Checks.
    */
-  public function __construct(CsrfTokenGenerator $csrf_token_generator, SecurityReview $security_review, Checklist $checklist, MessengerInterface $messenger) {
+  public function __construct(CsrfTokenGenerator $csrf_token_generator, SecurityReview $security_review, SecurityCheckPluginManager $checkPluginManager) {
     $this->csrfToken = $csrf_token_generator;
-    $this->checklist = $checklist;
     $this->securityReview = $security_review;
-    $this->messenger = $messenger;
+    $this->checkPluginManager = $checkPluginManager;
   }
 
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container) {
+  public static function create(ContainerInterface $container): ChecklistController|static {
+    // @phpstan-ignore-next-line
     return new static(
       $container->get('csrf_token'),
       $container->get('security_review'),
-      $container->get('security_review.checklist'),
-      $container->get('messenger')
+      $container->get('plugin.manager.security_review.security_check')
     );
   }
 
@@ -80,8 +74,10 @@ class ChecklistController extends ControllerBase {
    *
    * @return array
    *   The 'Run & Review' page's render array.
+   *
+   * @throws \Drupal\Component\Plugin\Exception\PluginException
    */
-  public function index() {
+  public function index(): array {
     $run_form = [];
 
     // If the user has the required permissions, show the RunForm.
@@ -98,12 +94,10 @@ class ChecklistController extends ControllerBase {
 
     // Print the results if any.
     if ($this->securityReview->getLastRun() <= 0) {
-      // If they haven't configured the site, prompt them to do so.
-      if (!$this->securityReview->isConfigured()) {
-        $this->messenger->addWarning($this->t('It appears this is your first time using the Security Review checklist. Before running the checklist please review the settings page at <a href=":url">admin/reports/security-review/settings</a> to set which roles are untrusted.',
+      $this->messenger()
+        ->addWarning($this->t('If this is your first time using the Security Review checklist. Before running the checklist please review the settings page at <a href=":url">admin/reports/security-review/settings</a> to set which roles are untrusted.',
           [':url' => Url::fromRoute('security_review.settings')->toString()]
         ), 'warning');
-      }
     }
 
     return [$run_form, $this->results()];
@@ -114,32 +108,32 @@ class ChecklistController extends ControllerBase {
    *
    * @return array
    *   The render array for the result table.
+   *
+   * @throws \Drupal\Component\Plugin\Exception\PluginException
    */
-  public function results() {
+  public function results(): array {
     // If there are no results return.
     if ($this->securityReview->getLastRun() <= 0) {
       return [];
     }
 
     $checks = [];
-    foreach ($this->checklist->getChecks() as $check) {
+    foreach ($this->checkPluginManager->getChecks() as $check) {
       // Initialize with defaults.
       $check_info = [
         'message' => $this->t(
           'The check "@name" hasn\'t been run yet.',
           ['@name' => $check->getTitle()]
         ),
-        'skipped' => $check->isSkipped(),
+        'skipped' => $this->securityReview->isCheckSkipped($check->getPluginId()),
       ];
 
       // Get last result.
       $last_result = $check->lastResult();
       if ($last_result != NULL) {
-        if (!$last_result->isVisible()) {
-          continue;
-        }
-        $check_info['result'] = $last_result->result();
-        $check_info['message'] = $last_result->resultMessage();
+        $result_number = $last_result['result'];
+        $check_info['result'] = $result_number;
+        $check_info['message'] = $check->getStatusMessage($result_number);
       }
 
       // Determine help link.
@@ -147,17 +141,17 @@ class ChecklistController extends ControllerBase {
         'Details',
         'security_review.help',
         [
-          'namespace' => $check->getMachineNamespace(),
-          'title' => $check->getMachineTitle(),
+          'namespace' => $this->getMachineName($check->getNamespace()),
+          'title' => $this->getMachineName($check->getTitle()),
         ]
       );
 
       // Add toggle button.
-      $toggle_text = $check->isSkipped() ? 'Enable' : 'Skip';
+      $toggle_text = $this->securityReview->isCheckSkipped($check->getPluginId()) ? 'Enable' : 'Skip';
       $check_info['toggle_link'] = Link::createFromRoute($toggle_text,
         'security_review.toggle',
-        ['check_id' => $check->id()],
-        ['query' => ['token' => $this->csrfToken->get($check->id())]]
+        ['check_id' => $check->getPluginId()],
+        ['query' => ['token' => $this->csrfToken->get($check->getPluginId())]]
       );
 
       // Add to array of completed checks.

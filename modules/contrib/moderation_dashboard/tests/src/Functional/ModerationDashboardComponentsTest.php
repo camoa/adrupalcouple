@@ -18,7 +18,7 @@ class ModerationDashboardComponentsTest extends ModerationDashboardTestBase {
    *   - contains: array of strings which have to be found.
    *   - not_contains: array of strings shouldn't be found.
    */
-  protected $moderationElements = [
+  protected array $moderationElements = [
     // Content in review.
     '.view-id-content_moderation_dashboard_in_review.view-display-id-block_1' => [],
     // Content drafts.
@@ -63,7 +63,7 @@ class ModerationDashboardComponentsTest extends ModerationDashboardTestBase {
   /**
    * Tests that blocks and other elements exist on the user dashboard.
    */
-  public function testModerationElement() {
+  public function testModerationElement(): void {
     $this->drupalCreateNode([
       'title' => 'Draft node',
       'moderation_state' => 'draft',
@@ -81,14 +81,14 @@ class ModerationDashboardComponentsTest extends ModerationDashboardTestBase {
       $not_contains = !empty($asserts['not_contains']) ? $asserts['not_contains'] : [];
       $moderation_element = $this->assertSession()->elementExists('css', $selector);
 
-      $this->assertSame(FALSE, strpos($moderation_element->getText(), 'This block is broken or missing.'));
+      $this->assertFalse(strpos($moderation_element->getText(), 'This block is broken or missing.'));
 
       foreach ($contains as $text) {
         $this->assertNotSame(FALSE, strpos($moderation_element->getText(), $text));
       }
 
       foreach ($not_contains as $text) {
-        $this->assertSame(FALSE, strpos($moderation_element->getText(), $text));
+        $this->assertFalse(strpos($moderation_element->getText(), $text));
       }
     }
   }
@@ -103,7 +103,7 @@ class ModerationDashboardComponentsTest extends ModerationDashboardTestBase {
     $this->assertTrue(!isset($drupal_js_settings['moderation_dashboard_activity']));
 
     $moderation_activity_element = $this->assertSession()->elementExists('css', '.block-moderation-dashboard-activity');
-    $this->assertNotSame(FALSE, strpos($moderation_activity_element->getText(), 'There has been no editor activity within the last month.'));
+    $this->assertSame(37, strpos($moderation_activity_element->getText(), 'There has been no editor activity within the last month.'));
   }
 
   /**

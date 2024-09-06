@@ -40,11 +40,12 @@ For the chart.js feature, follow either of the options:
     "type": "package",
     "package": {
         "name": "nnnick/chartjs",
-        "version": "v3.9.1",
+        "version": "v4.4.1",
         "type": "drupal-library",
         "dist": {
-            "url": "https://github.com/chartjs/Chart.js/releases/download/v3.9.1/chart.js-3.9.1.tgz",
-            "type": "tar"
+           "dist": {
+              "url": "https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js",
+              "type": "file"
         }
     }
 }

@@ -3,43 +3,23 @@
 namespace Drupal\moderation_dashboard\Plugin\Block;
 
 use Drupal\Component\Datetime\TimeInterface;
+use Drupal\Core\Block\Attribute\Block;
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Database\Connection;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Provides the "Moderation Dashboard Activity" block.
- *
- * @Block(
- *   id = "moderation_dashboard_activity",
- *   admin_label = @Translation("Moderation Dashboard Activity"),
- *   category = @Translation("Moderation Dashboard")
- * )
  */
+#[Block(
+  id: "moderation_dashboard_activity",
+  admin_label: new TranslatableMarkup("Moderation Dashboard Activity"),
+  category: new TranslatableMarkup("Moderation Dashboard")
+)]
 class ModerationDashboardActivity extends BlockBase implements ContainerFactoryPluginInterface {
-
-  /**
-   * The database connection.
-   *
-   * @var \Drupal\Core\Database\Connection
-   */
-  protected $database;
-
-  /**
-   * The time service.
-   *
-   * @var \Drupal\Component\Datetime\TimeInterface
-   */
-  protected $time;
-
-  /**
-   * The user storage.
-   *
-   * @var \Drupal\Core\Entity\EntityStorageInterface
-   */
-  protected $userStorage;
 
   /**
    * ModerationDashboardActivity constructor.
@@ -54,20 +34,24 @@ class ModerationDashboardActivity extends BlockBase implements ContainerFactoryP
    *   The database connection.
    * @param \Drupal\Component\Datetime\TimeInterface $time
    *   The time service.
-   * @param \Drupal\Core\Entity\EntityStorageInterface $user_storage
+   * @param \Drupal\Core\Entity\EntityStorageInterface $userStorage
    *   The user storage.
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, Connection $database, TimeInterface $time, EntityStorageInterface $user_storage) {
+  public function __construct(
+    array $configuration,
+    $plugin_id,
+    $plugin_definition,
+    protected Connection $database,
+    protected TimeInterface $time,
+    protected EntityStorageInterface $userStorage,
+  ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
-    $this->database = $database;
-    $this->time = $time;
-    $this->userStorage = $user_storage;
   }
 
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): static {
     return new static(
       $configuration,
       $plugin_id,
@@ -81,7 +65,7 @@ class ModerationDashboardActivity extends BlockBase implements ContainerFactoryP
   /**
    * {@inheritdoc}
    */
-  public function build() {
+  public function build(): array {
     $request_time = $this->time->getCurrentTime();
     $request_time_sub_month = strtotime('-1 month', $request_time);
     $results1 = $this->database->query('select revision_uid as uid,count(*) as count from {node_revision} where revision_timestamp >= :request_time_sub_month group by revision_uid', [':request_time_sub_month' => $request_time_sub_month])
