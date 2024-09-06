@@ -20,6 +20,6 @@
         "source": "https://git.drupalcode.org/project/moderation_dashboard"
     },
     "require": {
-        "drupal/core": "^9 || ^10"
+        "drupal/core": "^10.3 || ^11"
     }
 }

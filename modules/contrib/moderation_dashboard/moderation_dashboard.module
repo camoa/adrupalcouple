@@ -12,7 +12,7 @@ use Drupal\Core\Url;
 /**
  * Implements hook_views_data().
  */
-function moderation_dashboard_views_data() {
+function moderation_dashboard_views_data(): array {
   $data = [];
 
   $manager = \Drupal::entityTypeManager();
@@ -46,8 +46,8 @@ function moderation_dashboard_views_data() {
  *
  * Don't show the pager if there's no reason to page. Might be fit for core.
  */
-function moderation_dashboard_preprocess_views_view(&$variables) {
-  if (isset($variables['id']) && strpos($variables['id'], 'moderation_dashboard') === 0) {
+function moderation_dashboard_preprocess_views_view(&$variables): void {
+  if (isset($variables['id']) && str_starts_with($variables['id'], 'moderation_dashboard')) {
     /** @var \Drupal\views\ViewExecutable $view */
     $view = $variables['view'];
     if ($view->getCurrentPage() === 0 && $view->total_rows < $view->getItemsPerPage()) {
@@ -57,48 +57,46 @@ function moderation_dashboard_preprocess_views_view(&$variables) {
 }
 
 /**
- * Implements hook_toolbar_alter().
+ * Implements hook_preprocess_HOOK().
  */
-function moderation_dashboard_toolbar_alter(&$items) {
-  $user = \Drupal::currentUser();
+function moderation_dashboard_preprocess_links__toolbar_user(&$variables): void {
+  if (isset($variables['links'])) {
+    $user = \Drupal::currentUser();
 
-  if (isset($items['user']) && $user->hasPermission('use moderation dashboard')) {
-    $view = \Drupal::service('entity_type.manager')
-      ->getStorage('view')
-      ->load('moderation_dashboard');
-    if ($view) {
-      $view = $view->getExecutable();
-      $view->setDisplay('page_1');
-      $items['user']['tray']['moderation_dashboard'] = [
-        '#theme' => 'links__toolbar_user',
-        '#links' => [
-          'moderation_dashboard_link' => [
-            'title' => $view->getTitle(),
-            'url' => Url::fromRoute('view.moderation_dashboard.page_1', ['user' => $user->id()]),
-            'attributes' => [
-              'title' => t('View the @title page', ['@title' => $view->getTitle()]),
-            ],
+    if ($user->hasPermission('use moderation dashboard')) {
+      $view = \Drupal::service('entity_type.manager')
+        ->getStorage('view')
+        ->load('moderation_dashboard');
+      if ($view && $view->status()) {
+        $view = $view->getExecutable();
+        $view->setDisplay('page_1');
+
+        $link_element = [
+          '#type' => 'link',
+          '#title' => $view->getTitle(),
+          '#url' => Url::fromRoute('view.moderation_dashboard.page_1', ['user' => $user->id()]),
+          '#attributes' => [
+            'title' => t('View the @title page', ['@title' => $view->getTitle()]),
           ],
-        ],
-        '#attributes' => [
-          'class' => ['toolbar-menu'],
-        ],
-        '#cache' => [
-          'contexts' => ['user'],
-        ],
-      ];
+        ];
+
+        $variables['links']['moderation_dashboard'] = [
+          'link' => $link_element,
+          'text' => $view->getTitle(),
+        ];
+      }
     }
+
   }
-  return $items;
 }
 
 /**
  * Implements hook_preprocess_block().
  */
-function moderation_dashboard_preprocess_block(&$variables) {
+function moderation_dashboard_preprocess_block(&$variables): void {
   $route_name = \Drupal::routeMatch()->getRouteName();
 
-  if (!empty($route_name) && strpos($route_name, 'view.moderation_dashboard.page_1') === 0) {
+  if (!empty($route_name) && str_starts_with($route_name, 'view.moderation_dashboard.page_1')) {
     $variables['attributes']['class'][] = 'moderation-dashboard-block';
   }
 }
@@ -106,7 +104,7 @@ function moderation_dashboard_preprocess_block(&$variables) {
 /**
  * Implements hook_plugin_filter_TYPE__CONSUMER_alter().
  */
-function moderation_dashboard_plugin_filter_condition__block_ui_alter(array &$definitions) {
+function moderation_dashboard_plugin_filter_condition__block_ui_alter(array &$definitions): void {
   unset($definitions['has_moderated_content_type']);
   unset($definitions['moderation_dashboard_access']);
 }
@@ -114,16 +112,18 @@ function moderation_dashboard_plugin_filter_condition__block_ui_alter(array &$de
 /**
  * Implements hook_library_info_alter().
  */
-function moderation_dashboard_library_info_alter(&$libraries, $extension) {
+function moderation_dashboard_library_info_alter(&$libraries, $extension): void {
   if ($extension === 'moderation_dashboard' && isset($libraries['activity'])) {
     if (!\Drupal::config('moderation_dashboard.settings')->get('chart_js_cdn')) {
       $libraries_directory_file_finder = \Drupal::service('library.libraries_directory_file_finder');
-      $lib_chartjs = $libraries_directory_file_finder->find('chartjs');
+      $lib_chartjs = $libraries_directory_file_finder->find('chartjs/dist');
+      $lib_chartjs_only = $libraries_directory_file_finder->find('chartjs');
 
       $chart_js_internal = 'moderation_dashboard/chart.js.internal';
+      $chart_js_internal_js_only = 'moderation_dashboard/chart.js.internal_js_only';
       $chart_js_internal_npm = 'moderation_dashboard/chart.js.internal_npm';
 
-      $libraries['activity']['dependencies'][] = $lib_chartjs ? $chart_js_internal : $chart_js_internal_npm;
+      $libraries['activity']['dependencies'][] = $lib_chartjs ? $chart_js_internal : ($lib_chartjs_only ? $chart_js_internal_js_only : $chart_js_internal_npm);
       return;
     }
     $libraries['activity']['dependencies'][] = 'moderation_dashboard/chart.js.external';

@@ -4,10 +4,14 @@ namespace Drupal\security_review\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Datetime\DateFormatterInterface;
+use Drupal\Core\Entity\EntityMalformedException;
 use Drupal\Core\Link;
-use Drupal\security_review\Checklist;
-use Drupal\security_review\CheckResult;
+use Drupal\Core\Logger\LoggerChannelTrait;
+use Drupal\Core\Logger\RfcLogLevel;
+use Drupal\security_review\SecurityCheckPluginManager;
 use Drupal\security_review\SecurityReview;
+use Drupal\security_review\SecurityReviewHelperTrait;
+use Drupal\user\Entity\User;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -16,52 +20,56 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  */
 class HelpController extends ControllerBase {
 
-  /**
-   * The security_review.checklist service.
-   *
-   * @var \Drupal\security_review\Checklist
-   */
-  protected $checklist;
+  use SecurityReviewHelperTrait;
+  use LoggerChannelTrait;
 
   /**
    * The security_review service.
    *
    * @var \Drupal\security_review\SecurityReview
    */
-  protected $securityReview;
+  protected SecurityReview $securityReview;
 
   /**
-   * The date.formatter service.
+   * The date formatter service.
    *
    * @var \Drupal\Core\Datetime\DateFormatterInterface
    */
-  private $dateFormatter;
+  private DateFormatterInterface $dateFormatter;
+
+  /**
+   * The security checks plugin manager.
+   *
+   * @var \Drupal\security_review\SecurityCheckPluginManager
+   */
+  protected SecurityCheckPluginManager $checkPluginManager;
 
   /**
    * Constructs a HelpController.
    *
    * @param \Drupal\security_review\SecurityReview $security_review
    *   The security_review service.
-   * @param \Drupal\security_review\Checklist $checklist
-   *   The security_review.checklist service.
    * @param \Drupal\Core\Datetime\DateFormatterInterface $dateFormatter
-   *   The date.formatter service.
+   *   The date formatter service.
+   * @param \Drupal\security_review\SecurityCheckPluginManager $checkPluginManager
+   *   Plugin manager for Security Checks.
    */
-  public function __construct(SecurityReview $security_review, Checklist $checklist, DateFormatterInterface $dateFormatter) {
+  public function __construct(SecurityReview $security_review, DateFormatterInterface $dateFormatter, SecurityCheckPluginManager $checkPluginManager) {
     // Store the dependencies.
-    $this->checklist = $checklist;
     $this->securityReview = $security_review;
     $this->dateFormatter = $dateFormatter;
+    $this->checkPluginManager = $checkPluginManager;
   }
 
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container) {
+  public static function create(ContainerInterface $container): HelpController|static {
+    // @phpstan-ignore-next-line
     return new static(
       $container->get('security_review'),
-      $container->get('security_review.checklist'),
-      $container->get('date.formatter')
+      $container->get('date.formatter'),
+      $container->get('plugin.manager.security_review.security_check')
     );
   }
 
@@ -70,15 +78,15 @@ class HelpController extends ControllerBase {
    *
    * @param string|null $namespace
    *   The namespace of the check (null if general page).
-   * @param string $title
+   * @param string|null $title
    *   The name of the check.
    *
    * @return array
    *   The requested help page.
    */
-  public function index($namespace, $title) {
+  public function index(?string $namespace, ?string $title): array {
     // If no namespace is set, print the general help page.
-    if ($namespace === NULL) {
+    if ($namespace === NULL || $title === NULL) {
       return $this->generalHelp();
     }
 
@@ -92,19 +100,19 @@ class HelpController extends ControllerBase {
    * @return array
    *   The general help page.
    */
-  private function generalHelp() {
+  private function generalHelp(): array {
     $paragraphs = [];
 
     // Print the general help.
     $paragraphs[] = $this->t('You should take the security of your site very seriously. Fortunately, Drupal is fairly secure by default. The Security Review module automates many of the easy-to-make mistakes that render your site insecure, however it does not automatically make your site impenetrable. You should give care to what modules you install and how you configure your site and server. Be mindful of who visits your site and what features you expose for their use.');
-    $paragraphs[] = $this->t('You can read more about securing your site in the <a href="http://drupal.org/security/secure-configuration">drupal.org handbooks</a> and on <a href="http://crackingdrupal.com">CrackingDrupal.com</a>. There are also additional modules you can install to secure or protect your site. Be aware though that the more modules you have running on your site the greater (usually) attack area you expose.');
-    $paragraphs[] = $this->t('<a href="http://drupal.org/node/382752">Drupal.org Handbook: Introduction to security-related contrib modules</a>');
+    $paragraphs[] = $this->t('You can read more about securing your site in the <a href="https://drupal.org/security/secure-configuration">drupal.org handbooks</a> and on <a href="https://crackingdrupal.com">CrackingDrupal.com</a>. There are also additional modules you can install to secure or protect your site. Be aware though that the more modules you have running on your site the greater (usually) attack area you expose.');
+    $paragraphs[] = $this->t('<a href="https://drupal.org/node/382752">Drupal.org Handbook: Introduction to security-related contrib modules</a>');
 
     // Print the list of security checks with links to their help pages.
     $checks = [];
-    foreach ($this->checklist->getChecks() as $check) {
+    foreach ($this->checkPluginManager->getChecks() as $check) {
       // Get the namespace array's reference.
-      $check_namespace = &$checks[$check->getMachineNamespace()];
+      $check_namespace = &$checks[$check->getNamespace()];
 
       // Set up the namespace array if not set.
       if (!isset($check_namespace)) {
@@ -117,8 +125,8 @@ class HelpController extends ControllerBase {
         $this->t('@title', ['@title' => $check->getTitle()]),
         'security_review.help',
         [
-          'namespace' => $check->getMachineNamespace(),
-          'title' => $check->getMachineTitle(),
+          'namespace' => $this->getMachineName($check->getNamespace()),
+          'title' => $this->getMachineName($check->getTitle()),
         ]
       );
     }
@@ -140,13 +148,10 @@ class HelpController extends ControllerBase {
    *
    * @return array
    *   The check's help page.
-   *
-   * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
-   *   If the check is not found.
    */
-  private function checkHelp($namespace, $title) {
+  private function checkHelp(string $namespace, string $title): array {
     // Get the requested check.
-    $check = $this->checklist->getCheck($namespace, $title);
+    $check = $this->checkPluginManager->getCheck($namespace, $title);
 
     // If the check doesn't exist, throw 404.
     if ($check == NULL) {
@@ -155,15 +160,22 @@ class HelpController extends ControllerBase {
 
     // Print the help page.
     $output = [];
-    $output[] = $check->help();
+    $output[] = $check->getHelp();
 
     // If the check is skipped print the skip message, else print the
     // evaluation.
-    if ($check->isSkipped()) {
+    $skipped_info = $this->securityReview->isCheckSkipped($check->getPluginId());
+    if ($this->securityReview->isCheckSkipped($check->getPluginId())) {
 
-      if ($check->skippedBy() != NULL) {
-        $user_object = $check->skippedBy();
-        $user = $user_object->toLink()->toString();
+      if ($skipped_info['skipped_by'] !== NULL) {
+        $user_object = User::load($skipped_info['skipped_by']);
+        try {
+          $user = $user_object->toLink()->toString();
+        }
+        catch (EntityMalformedException) {
+          $this->getLogger('security_review')->log(RfcLogLevel::ERROR, $this->t('Error getting link to user: @user', ['@user' => $user_object->getAccountName()]));
+          $user = 'Error';
+        }
       }
       else {
         $user = 'Anonymous';
@@ -172,7 +184,7 @@ class HelpController extends ControllerBase {
       $skip_message = $this->t(
         'Check marked for skipping on @date by @user',
         [
-          '@date' => $this->dateFormatter->format($check->skippedOn()),
+          '@date' => $this->dateFormatter->format($skipped_info['skipped_on']),
           '@user' => $user,
         ]
       );
@@ -184,17 +196,15 @@ class HelpController extends ControllerBase {
     }
     else {
       // Evaluate last result, if any.
-      $last_result = $check->lastResult(TRUE);
-      if ($last_result instanceof CheckResult) {
-        // Separator.
-        $output[] = [
-          '#type' => 'markup',
-          '#markup' => '<div />',
-        ];
+      $last_result = $check->lastResult();
+      // Separator.
+      $output[] = [
+        '#type' => 'markup',
+        '#markup' => '<div />',
+      ];
 
-        // Evaluation page.
-        $output[] = $check->evaluate($last_result);
-      }
+      // Evaluation page.
+      $output[] = $check->getDetails($last_result['findings'] ?: [], $last_result['hushed']);
     }
 
     // Return the completed page.

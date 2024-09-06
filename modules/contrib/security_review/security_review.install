@@ -11,7 +11,7 @@ use Drupal\security_review\CheckResult;
 /**
  * Implements hook_install().
  */
-function security_review_install() {
+function security_review_install(): void {
   // Don't do anything during config sync.
   if (\Drupal::isConfigSyncing()) {
     return;
@@ -26,25 +26,61 @@ function security_review_install() {
 }
 
 /**
+ * Implements hook_uninstall().
+ */
+function security_review_uninstall($is_syncing): void {
+  $state = \Drupal::state();
+
+  $keysToDelete = [
+    // See https://www.drupal.org/project/security_review/issues/3421614
+    'security_review.last_run',
+    'security_review.server.groups',
+    'security_review.server.uid',
+  ];
+
+  $perCheckStates = [
+    'result',
+    'findings',
+    'hushed_findings',
+    'time',
+    'visible',
+  ];
+
+  $checkList = \Drupal::service('plugin.manager.security_review.security_check');
+  foreach ($checkList->getChecks() as $check) {
+    $prefix = 'security_review.check.' . $check->getPluginId() . '.last_result.';
+    $keysToDelete = array_merge($keysToDelete, array_map(function ($state) use ($prefix) {
+      return $prefix . $state;
+    }, $perCheckStates));
+  }
+
+  $state->deleteMultiple($keysToDelete);
+}
+
+/**
  * Implements hook_requirements().
  */
-function security_review_requirements($phase) {
+function security_review_requirements($phase): array {
   $requirements = [];
 
   // Provides a Status Report entry.
   if ($phase == 'runtime') {
-    /** @var \Drupal\security_review\Checklist $checklist */
-    $checklist = Drupal::service('security_review.checklist');
+    $pluginManager = \Drupal::service('plugin.manager.security_review.security_check');
 
     $failed_checks = FALSE;
-    $no_results = TRUE;
+    $no_results = FALSE;
 
-    // Looks for failed checks.
-    foreach ($checklist->getEnabledChecks() as $check) {
-      $result = $check->lastResult();
-      if ($result instanceof CheckResult) {
-        $no_results = FALSE;
-        if ($result->result() === CheckResult::FAIL) {
+    $checks = $pluginManager->getDefinitions();
+
+    if (empty($checks)) {
+      $no_results = TRUE;
+    }
+    else {
+      foreach ($checks as $check) {
+        $instance_check = $pluginManager->createInstance($check['id']);
+
+        $result = $instance_check->lastResult();
+        if (!empty($result) && $result['result'] === CheckResult::FAIL) {
           $failed_checks = TRUE;
           break;
         }
@@ -84,10 +120,25 @@ function security_review_requirements($phase) {
 }
 
 /**
- * Remove trust host config.
+ * Implements hook_update_last_removed().
  */
-function security_review_update_10101() {
-  $config = \Drupal::configFactory()->getEditable('security_review.check.security_review-trusted_hosts');
-  $config->clear('settings');
-  $config->save(TRUE);
+function security_review_update_last_removed(): int {
+  return 10101;
+}
+
+/**
+ * Move the last run value to its new name.
+ */
+function security_review_update_10102(): void {
+  $state = \Drupal::state();
+  $lastRun = $state->get('last_run');
+
+  if (!is_null($lastRun)) {
+    $state->set('security_review.last_run', $lastRun);
+    // Let's clean up after ourselves. Although there is a very small chance
+    // this name is in use by something else (which we are now breaking), that
+    // would basically also be a mistake. The alternative is to leave thousands
+    // of sites with a stray variable in their state storage.
+    $state->delete('last_run');
+  }
 }

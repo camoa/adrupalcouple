@@ -1,11 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\security_review\Commands;
 
 use Consolidation\AnnotatedCommand\CommandResult;
 use Consolidation\OutputFormatters\StructuredData\RowsOfFields;
-use Drupal\security_review\Checklist;
 use Drupal\security_review\CheckResult;
+use Drupal\security_review\SecurityCheckInterface;
+use Drupal\security_review\SecurityCheckPluginManager;
 use Drupal\security_review\SecurityReview;
 use Drush\Commands\DrushCommands;
 
@@ -19,26 +22,27 @@ class SecurityReviewCommands extends DrushCommands {
    *
    * @var \Drupal\security_review\SecurityReview
    */
-  protected $securityReviewService;
+  protected SecurityReview $securityReviewService;
 
   /**
-   * Checklist service.
+   * The security checks plugin manager.
    *
-   * @var \Drupal\security_review\Checklist
+   * @var \Drupal\security_review\SecurityCheckPluginManager
    */
-  protected $checklistService;
+  protected SecurityCheckPluginManager $checkPluginManager;
 
   /**
    * Constructs a SecurityReviewCommands object.
    *
    * @param \Drupal\security_review\SecurityReview $security_review
    *   Security review service.
-   * @param \Drupal\security_review\Checklist $checklist
-   *   Checklist service.
+   * @param \Drupal\security_review\SecurityCheckPluginManager $checkPluginManager
+   *   Plugin manager for Security Checks.
    */
-  public function __construct(SecurityReview $security_review, Checklist $checklist) {
+  public function __construct(SecurityReview $security_review, SecurityCheckPluginManager $checkPluginManager) {
+    parent::__construct();
     $this->securityReviewService = $security_review;
-    $this->checklistService = $checklist;
+    $this->checkPluginManager = $checkPluginManager;
   }
 
   /**
@@ -77,6 +81,9 @@ class SecurityReviewCommands extends DrushCommands {
    *
    * @return \Consolidation\AnnotatedCommand\CommandResult
    *   Row of results.
+   *
+   * @throws \Drupal\Component\Plugin\Exception\PluginException
+   * @throws \Exception
    */
   public function securityReview(
     $options = [
@@ -87,8 +94,8 @@ class SecurityReviewCommands extends DrushCommands {
       'skip' => NULL,
       'short' => FALSE,
       'results' => FALSE,
-    ]
-  ) {
+    ],
+  ): CommandResult {
     $store = $options['store'];
     $log = $options['log'];
     $last_run = $options['lastrun'];
@@ -111,9 +118,7 @@ class SecurityReviewCommands extends DrushCommands {
     $results = [];
     if (!$last_run) {
       // Do a normal security review run.
-      /** @var \Drupal\security_review\Check[] $checks */
       $checks = [];
-      /** @var \Drupal\security_review\Check[] $to_skip */
       $to_skip = [];
 
       // Fill the $checks array.
@@ -125,7 +130,7 @@ class SecurityReviewCommands extends DrushCommands {
       }
       else {
         // Get the whole checklist.
-        $checks = $this->checklistService->getChecks();
+        $checks = $this->checkPluginManager->getChecks();
       }
 
       // Mark checks listed after --skip for removal.
@@ -138,7 +143,7 @@ class SecurityReviewCommands extends DrushCommands {
       // If storing, mark skipped checks for removal.
       if ($store) {
         foreach ($checks as $check) {
-          if ($check->isSkipped()) {
+          if (in_array($check->getPluginId(), array_keys($this->securityReviewService->getSkipped()))) {
             $to_skip[] = $check;
           }
         }
@@ -147,7 +152,7 @@ class SecurityReviewCommands extends DrushCommands {
       // Remove the skipped checks from $checks.
       foreach ($to_skip as $skip_check) {
         foreach ($checks as $key => $check) {
-          if ($check->id() == $skip_check->id()) {
+          if ($check->getPluginId() == $skip_check->getPluginId()) {
             unset($checks[$key]);
           }
         }
@@ -155,21 +160,16 @@ class SecurityReviewCommands extends DrushCommands {
 
       // If $checks is empty at this point, return with an error.
       if (empty($checks)) {
-        throw new \Exception(dt("No checks to run. Run 'drush help secrev' for option use or consult the drush section of API.txt for further help."));
+        throw new \Exception(t("No checks to run. Run 'drush help secrev' for option use or consult the drush section of API.txt for further help."));
       }
 
       // Run the checks.
-      $results = $this->checklistService->runChecks($checks, TRUE);
-
-      // Store the results.
-      if ($store) {
-        $this->checklistService->storeResults($results);
-      }
+      $this->securityReviewService->runChecks($checks, TRUE);
     }
     else {
       // Show the latest stored results.
-      foreach ($this->checklistService->getChecks() as $check) {
-        $last_result = $check->lastResult($show_findings);
+      foreach ($this->checkPluginManager->getChecks() as $check) {
+        $last_result = $check->lastResult();
         if ($last_result instanceof CheckResult) {
           $results[] = $last_result;
         }
@@ -202,16 +202,11 @@ class SecurityReviewCommands extends DrushCommands {
    * @return array
    *   The results of the security review checks.
    */
-  private function formatResults(array $results, $short_titles = FALSE, $show_findings = FALSE) {
+  private function formatResults(array $results, bool $short_titles = FALSE, bool $show_findings = FALSE): array {
     $output = [];
 
     foreach ($results as $result) {
       if ($result instanceof CheckResult) {
-        if (!$result->isVisible()) {
-          // Continue with the next check.
-          continue;
-        }
-
         $check = $result->check();
         $message = $short_titles ? $check->getTitle() : $result->resultMessage();
         $status = 'notice';
@@ -237,14 +232,14 @@ class SecurityReviewCommands extends DrushCommands {
 
         // Attach findings.
         if ($show_findings) {
-          $findings = trim($result->check()->evaluatePlain($result));
+          $findings = trim($result->check()->getDetails($result, [], TRUE));
           if ($findings != '') {
             $message .= "\n" . $findings;
           }
         }
 
-        $output[$check->id()] = [
-          'message' => (string) $message,
+        $output[$check->getPluginId()] = [
+          'message' => $message,
           'status' => $status,
           'findings' => $result->findings(),
         ];
@@ -260,21 +255,21 @@ class SecurityReviewCommands extends DrushCommands {
    * @param string $check_name
    *   The check to get.
    *
-   * @return \Drupal\security_review\Check|null
+   * @return \Drupal\security_review\SecurityCheckInterface|null
    *   The found Check.
    */
-  private function getCheck($check_name) {
+  private function getCheck(string $check_name): ?SecurityCheckInterface {
     // Default namespace is Security Review.
     $namespace = 'security_review';
     $title = $check_name;
 
     // Set namespace and title if explicitly defined.
-    if (strpos($check_name, ':') !== FALSE) {
+    if (str_contains($check_name, ':')) {
       [$namespace, $title] = explode(':', $check_name);
     }
 
     // Return the found check if any.
-    return $this->checklistService->getCheck($namespace, $title);
+    return $this->checkPluginManager->getCheck($namespace, $title);
   }
 
 }

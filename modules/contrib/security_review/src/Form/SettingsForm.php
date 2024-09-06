@@ -3,13 +3,16 @@
 namespace Drupal\security_review\Form;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
+use Drupal\Core\Config\TypedConfigManagerInterface;
 use Drupal\Core\Datetime\DateFormatterInterface;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Session\AccountInterface;
-use Drupal\security_review\Checklist;
-use Drupal\security_review\Security;
+use Drupal\security_review\SecurityCheckPluginManager;
 use Drupal\security_review\SecurityReview;
+use Drupal\security_review\SecurityReviewData;
+use Drupal\security_review\SecurityReviewHelperTrait;
+use Drupal\user\Entity\Role;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -17,85 +20,91 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 class SettingsForm extends ConfigFormBase {
 
-  /**
-   * The security_review.checklist service.
-   *
-   * @var \Drupal\security_review\Checklist
-   */
-  protected $checklist;
+  use SecurityReviewHelperTrait;
 
   /**
-   * The security_review.security service.
+   * The date formatter service.
    *
-   * @var \Drupal\security_review\Security
+   * @var \Drupal\Core\Datetime\DateFormatterInterface
    */
-  protected $security;
+  private DateFormatterInterface $dateFormatter;
+
+  /**
+   * The security_review.data service.
+   *
+   * @var \Drupal\security_review\SecurityReviewData
+   */
+  protected SecurityReviewData $securityData;
 
   /**
    * The security_review service.
    *
    * @var \Drupal\security_review\SecurityReview
    */
-  protected $securityReview;
+  protected SecurityReview $securityReview;
 
   /**
-   * The date.formatter service.
+   * The security checks plugin manager.
    *
-   * @var \Drupal\Core\Datetime\DateFormatterInterface
+   * @var \Drupal\security_review\SecurityCheckPluginManager
    */
-  private $dateFormatter;
+  protected SecurityCheckPluginManager $checkPluginManager;
 
   /**
    * Constructs a SettingsForm.
    *
    * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
    *   The config factory.
-   * @param \Drupal\security_review\Checklist $checklist
-   *   The security_review.checklist service.
-   * @param \Drupal\security_review\Security $security
-   *   The security_review.security service.
+   * @param \Drupal\Core\Config\TypedConfigManagerInterface $typedConfigManager
+   *   The typed config manager.
+   * @param \Drupal\Core\Datetime\DateFormatterInterface $dateFormatter
+   *   The date formatter service.
+   * @param \Drupal\security_review\SecurityReviewData $security_data
+   *   The security_review.data service.
    * @param \Drupal\security_review\SecurityReview $security_review
    *   The security_review service.
-   * @param \Drupal\Core\Datetime\DateFormatterInterface $dateFormatter
-   *   The date.formatter service.
+   * @param \Drupal\security_review\SecurityCheckPluginManager $checkPluginManager
+   *   Plugin manager for Security Checks.
    */
-  public function __construct(ConfigFactoryInterface $config_factory, Checklist $checklist, Security $security, SecurityReview $security_review, DateFormatterInterface $dateFormatter) {
-    parent::__construct($config_factory);
-    $this->checklist = $checklist;
-    $this->security = $security;
-    $this->securityReview = $security_review;
+  public function __construct(ConfigFactoryInterface $config_factory, TypedConfigManagerInterface $typedConfigManager, DateFormatterInterface $dateFormatter, SecurityReviewData $security_data, SecurityReview $security_review, SecurityCheckPluginManager $checkPluginManager) {
+    parent::__construct($config_factory, $typedConfigManager);
     $this->dateFormatter = $dateFormatter;
+    $this->securityData = $security_data;
+    $this->securityReview = $security_review;
+    $this->checkPluginManager = $checkPluginManager;
   }
 
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container) {
+  public static function create(ContainerInterface $container): static {
+    // @phpstan-ignore-next-line
     return new static(
       $container->get('config.factory'),
-      $container->get('security_review.checklist'),
-      $container->get('security_review.security'),
+      $container->get('config.typed'),
+      $container->get('date.formatter'),
+      $container->get('security_review.data'),
       $container->get('security_review'),
-      $container->get('date.formatter')
+      $container->get('plugin.manager.security_review.security_check')
     );
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getFormId() {
+  public function getFormId(): string {
     return 'security-review-settings';
   }
 
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, FormStateInterface $form_state) {
+  public function buildForm(array $form, FormStateInterface $form_state): array {
     // Get the list of checks.
-    $checks = $this->checklist->getChecks();
+    $checks = $this->checkPluginManager->getChecks();
 
     // Get the user roles.
-    $roles = user_roles();
+    $roles = Role::loadMultiple();
     $options = [];
     foreach ($roles as $rid => $role) {
       $options[$rid] = $role->label();
@@ -103,7 +112,7 @@ class SettingsForm extends ConfigFormBase {
 
     // Notify the user if anonymous users can create accounts.
     $message = '';
-    if (in_array(AccountInterface::AUTHENTICATED_ROLE, $this->security->defaultUntrustedRoles())) {
+    if (in_array(AccountInterface::AUTHENTICATED_ROLE, $this->securityData->untrustedRoles())) {
       $message = $this->t('You have allowed anonymous users to create accounts without approval so the authenticated role defaults to untrusted.');
     }
 
@@ -116,7 +125,7 @@ class SettingsForm extends ConfigFormBase {
         ['@message' => $message]
       ),
       '#options' => $options,
-      '#default_value' => $this->security->untrustedRoles(),
+      '#default_value' => $this->securityData->untrustedRoles(),
     ];
 
     $form['advanced'] = [
@@ -136,23 +145,25 @@ class SettingsForm extends ConfigFormBase {
     // Skipped checks.
     $values = [];
     $options = [];
+    $skipped_values = $this->securityReview->getSkipped();
     foreach ($checks as $check) {
+      $id = $check->getPluginId();
       // Determine if check is being skipped.
-      if ($check->isSkipped()) {
-        $values[] = $check->id();
+      if (array_key_exists($id, $skipped_values)) {
+        $values[] = $id;
         $label = $this->t(
           '@name <em>skipped by UID @uid on @date</em>',
           [
             '@name' => $check->getTitle(),
-            '@uid' => $check->skippedBy()->id(),
-            '@date' => $this->dateFormatter->format($check->skippedOn()),
+            '@uid' => $skipped_values[$id]['skipped_by'],
+            '@date' => $this->dateFormatter->format($skipped_values[$id]['skipped_on']),
           ]
         );
       }
       else {
         $label = $check->getTitle();
       }
-      $options[$check->id()] = $label;
+      $options[$check->getPluginId()] = $label;
     }
     $form['advanced']['skip'] = [
       '#type' => 'checkboxes',
@@ -165,8 +176,7 @@ class SettingsForm extends ConfigFormBase {
     // Iterate through checklist and get check-specific setting pages.
     foreach ($checks as $check) {
       // Get the check's setting form.
-      $check_form = $check->settings()->buildForm();
-
+      $check_form = $check->buildConfigurationForm($form, $form_state);
       // If not empty, add it to the form.
       if (!empty($check_form)) {
         // If this is the first non-empty setting page initialize the 'details'.
@@ -180,11 +190,11 @@ class SettingsForm extends ConfigFormBase {
         }
 
         // Add the form.
-        $sub_form = &$form['advanced']['check_specific'][$check->id()];
+        $sub_form = &$form['advanced']['check_specific'][$check->getPluginId()];
 
         $title = $check->getTitle();
         // If it's an external check, show its namespace.
-        if ($check->getMachineNamespace() != 'security_review') {
+        if ($this->getMachineName($check->getNamespace()) !== 'security_review') {
           $title .= $this->t('%namespace', [
             '%namespace' => $check->getNamespace(),
           ]);
@@ -206,15 +216,13 @@ class SettingsForm extends ConfigFormBase {
   /**
    * {@inheritdoc}
    */
-  public function validateForm(array &$form, FormStateInterface $form_state) {
+  public function validateForm(array &$form, FormStateInterface $form_state): void {
     // Run validation for check-specific settings.
     if (isset($form['advanced']['check_specific'])) {
-      $check_specific_values = $form_state->getValue('check_specific');
-      foreach ($this->checklist->getChecks() as $check) {
-        $check_form = &$form['advanced']['check_specific'][$check->id()];
+      foreach ($this->checkPluginManager->getChecks() as $check) {
+        $check_form = &$form['advanced']['check_specific'][$check->getPluginId()];
         if (isset($check_form)) {
-          $check->settings()
-            ->validateForm($check_form, $check_specific_values[$check->id()]);
+          $check->validateConfigurationForm($form, $form_state);
         }
       }
     }
@@ -223,13 +231,7 @@ class SettingsForm extends ConfigFormBase {
   /**
    * {@inheritdoc}
    */
-  public function submitForm(array &$form, FormStateInterface $form_state) {
-    // Frequently used configuration items.
-    $check_settings = $this->config('security_review.checks');
-
-    // Save that the module has been configured.
-    $this->securityReview->setConfigured(TRUE);
-
+  public function submitForm(array &$form, FormStateInterface $form_state): void {
     // Save the new untrusted roles.
     $untrusted_roles = array_keys(array_filter($form_state->getValue('untrusted_roles')));
     $this->securityReview->setUntrustedRoles($untrusted_roles);
@@ -239,34 +241,26 @@ class SettingsForm extends ConfigFormBase {
     $this->securityReview->setLogging($logging);
 
     // Skip selected checks.
+    $new_skipped = [];
     $skipped = array_keys(array_filter($form_state->getValue('skip')));
-    foreach ($this->checklist->getChecks() as $check) {
-      if (in_array($check->id(), $skipped)) {
-        $check->skip();
+    $check_specific_values = $form_state->getValue('check_specific');
+    foreach ($this->checkPluginManager->getChecks() as $check) {
+      if (in_array($check->getPluginId(), $skipped)) {
+        $new_skipped[$check->getPluginId()] = [
+          'skipped' => TRUE,
+          'skipped_by' => $this->currentUser()->id(),
+          'skipped_on' => time(),
+        ];
       }
-      else {
-        $check->enable();
-      }
-    }
 
-    // Save the check-specific settings.
-    if (isset($form['advanced']['check_specific'])) {
-      $check_specific_values = $form_state->getValue('check_specific');
-      foreach ($check_specific_values as $id => $values) {
-        // Get corresponding Check.
-        $check = $this->checklist->getCheckById($id);
-
-        // Submit parameters.
-        $check_form = &$form['advanced']['check_specific'][$id]['form'];
-        $check_form_values = $check_specific_values[$id]['form'];
-
+      if (isset($form['advanced']['check_specific']) && isset($check_specific_values[$check->getPluginId()])) {
+        $check_form_values = $check_specific_values[$check->getPluginId()]['form'];
         // Submit.
-        $check->settings()->submitForm($check_form, $check_form_values);
+        $check->submitConfigurationForm($check_form_values);
       }
-    }
 
-    // Commit the settings.
-    $check_settings->save();
+    }
+    $this->securityReview->setSkipped($new_skipped);
 
     // Finish submitting the form.
     parent::submitForm($form, $form_state);
@@ -275,7 +269,7 @@ class SettingsForm extends ConfigFormBase {
   /**
    * {@inheritdoc}
    */
-  protected function getEditableConfigNames() {
+  protected function getEditableConfigNames(): array {
     return ['security_review.checks'];
   }
 

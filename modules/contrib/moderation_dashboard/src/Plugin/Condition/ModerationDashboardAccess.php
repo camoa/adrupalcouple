@@ -2,32 +2,34 @@
 
 namespace Drupal\moderation_dashboard\Plugin\Condition;
 
+use Drupal\Core\Condition\Attribute\Condition;
 use Drupal\Core\Condition\ConditionPluginBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\Core\Plugin\Context\EntityContextDefinition;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\user\UserStorageInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Provides a 'Moderation Dashboard Access' condition.
- *
- * @Condition(
- *   id = "moderation_dashboard_access",
- *   label = @Translation("Moderation Dashboard Access"),
- *   context_definitions = {
- *     "dashboard_user" = @ContextDefinition("entity:user", label = @Translation("Dashboard owner")),
- *     "current_user" = @ContextDefinition("entity:user", label = @Translation("Current user")),
- *   }
- * )
  */
+#[Condition(
+  id: "moderation_dashboard_access",
+  label: new TranslatableMarkup("Moderation Dashboard Access"),
+  context_definitions: [
+    "dashboard_user" => new EntityContextDefinition(
+      data_type: "entity:user",
+      label: new TranslatableMarkup("Dashboard owner"),
+      required: FALSE,
+    ),
+    "current_user" => new EntityContextDefinition(
+      data_type: "entity:user",
+      label: new TranslatableMarkup("Current user"),
+    ),
+  ],
+)]
 class ModerationDashboardAccess extends ConditionPluginBase implements ContainerFactoryPluginInterface {
-
-  /**
-   * User Storage variable.
-   *
-   * @var \Drupal\user\UserStorageInterface
-   */
-  protected $userStorage;
 
   /**
    * Constructor for DI.
@@ -35,32 +37,20 @@ class ModerationDashboardAccess extends ConditionPluginBase implements Container
    * @param array $configuration
    *   A config array.
    * @param string $plugin_id
-   *   Contains plugin Id.
+   *   Contains plugin ID.
    * @param mixed $plugin_definition
    *   Contains plugin definition.
-   * @param \Drupal\user\UserStorageInterface $user_storage
+   * @param \Drupal\user\UserStorageInterface $userStorage
    *   Contains User entity storage interface.
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, UserStorageInterface $user_storage) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, protected UserStorageInterface $userStorage) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
-    $this->userStorage = $user_storage;
   }
 
   /**
-   * Create method for DI.
-   *
-   * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
-   *   Contains container interface object.
-   * @param array $configuration
-   *   A config array.
-   * @param string $plugin_id
-   *   Contains plugin Id.
-   * @param mixed $plugin_definition
-   *   Contains plugin definition.
-   *
-   * @return static
+   * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): static {
     return new static(
       $configuration,
       $plugin_id,
@@ -72,7 +62,7 @@ class ModerationDashboardAccess extends ConditionPluginBase implements Container
   /**
    * {@inheritdoc}
    */
-  public function defaultConfiguration() {
+  public function defaultConfiguration(): array {
     return [
       'enable' => FALSE,
     ] + parent::defaultConfiguration();
@@ -81,7 +71,7 @@ class ModerationDashboardAccess extends ConditionPluginBase implements Container
   /**
    * {@inheritdoc}
    */
-  public function buildConfigurationForm(array $form, FormStateInterface $form_state) {
+  public function buildConfigurationForm(array $form, FormStateInterface $form_state): array {
     $form = parent::buildConfigurationForm($form, $form_state);
 
     $form['enable'] = [
@@ -98,13 +88,15 @@ class ModerationDashboardAccess extends ConditionPluginBase implements Container
   /**
    * {@inheritdoc}
    */
-  public function submitConfigurationForm(array &$form, FormStateInterface $form_state) {
+  public function submitConfigurationForm(array &$form, FormStateInterface $form_state): void {
     parent::submitConfigurationForm($form, $form_state);
     $this->configuration['enable'] = $form_state->getValue('enable', FALSE);
   }
 
   /**
    * {@inheritdoc}
+   *
+   * @throws \Drupal\Component\Plugin\Exception\ContextException
    */
   public function evaluate() {
     if (!$this->configuration['enable']) {

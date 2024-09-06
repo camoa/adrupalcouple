@@ -27,7 +27,7 @@ class ModerationDashboardRedirectTest extends ModerationDashboardTestBase {
    *
    * @throws \Behat\Mink\Exception\ExpectationException
    */
-  public function testRedirect() {
+  public function testRedirect(): void {
     $this->drupalGet('user/login');
     $this->drupalLogin($this->user);
     $this->assertSession()->addressEquals("user/{$this->user->id()}/moderation-dashboard");
@@ -38,8 +38,8 @@ class ModerationDashboardRedirectTest extends ModerationDashboardTestBase {
    *
    * @throws \Behat\Mink\Exception\ExpectationException
    */
-  public function testNoRedirect() {
-    // Anonymous user is redirected to login screen.
+  public function testNoRedirect(): void {
+    // Anonymous user is redirected to log in screen.
     // After successful login the requested page is shown.
     $this->drupalGet('admin/content');
     $status_code = $this->getSession()->getStatusCode();

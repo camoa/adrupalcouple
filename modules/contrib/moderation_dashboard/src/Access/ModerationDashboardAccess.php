@@ -4,6 +4,7 @@ namespace Drupal\moderation_dashboard\Access;
 
 use Drupal\Core\Access\AccessCheckInterface;
 use Drupal\Core\Access\AccessResult;
+use Drupal\Core\Access\AccessResultInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Session\AccountInterface;
 use Symfony\Component\Routing\Route;
@@ -14,26 +15,18 @@ use Symfony\Component\Routing\Route;
 class ModerationDashboardAccess implements AccessCheckInterface {
 
   /**
-   * The current route match.
-   *
-   * @var \Drupal\Core\Routing\RouteMatchInterface
-   */
-  protected $routeMatch;
-
-  /**
    * Constructs a ScheduledListAccess object.
    *
-   * @param \Drupal\Core\Routing\RouteMatchInterface $route_match
+   * @param \Drupal\Core\Routing\RouteMatchInterface $routeMatch
    *   The current route match.
    */
-  public function __construct(RouteMatchInterface $route_match) {
-    $this->routeMatch = $route_match;
+  public function __construct(protected RouteMatchInterface $routeMatch) {
   }
 
   /**
    * {@inheritdoc}
    */
-  public function applies(Route $route) {
+  public function applies(Route $route): bool {
     return $route->hasRequirement('_access_moderation_dashboard');
   }
 
@@ -47,7 +40,7 @@ class ModerationDashboardAccess implements AccessCheckInterface {
    * @param \Drupal\Core\Session\AccountInterface $account
    *   Current account.
    */
-  public function access(AccountInterface $account) {
+  public function access(AccountInterface $account): AccessResultInterface {
     $dashboard_owner = $account;
     $current_user_id = $this->routeMatch->getRawParameter('user');
 

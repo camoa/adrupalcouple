@@ -1,13 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\security_review;
 
+use Drupal\Core\Config\Config;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\DependencyInjection\DependencySerializationTrait;
 use Drupal\Core\Extension\ModuleHandlerInterface;
+use Drupal\Core\Logger\LoggerChannelTrait;
 use Drupal\Core\Logger\RfcLogLevel;
+use Drupal\Core\Messenger\MessengerTrait;
 use Drupal\Core\Session\AccountProxyInterface;
 use Drupal\Core\State\StateInterface;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
 
 /**
  * A class containing static methods regarding the module's configuration.
@@ -15,48 +21,63 @@ use Drupal\Core\State\StateInterface;
 class SecurityReview {
 
   use DependencySerializationTrait;
+  use LoggerChannelTrait;
+  use MessengerTrait;
+  use StringTranslationTrait;
+
+  /**
+   * Name to use for state variable where we record our last run.
+   */
+  const STATE_NAME_LAST_RUN = 'security_review.last_run';
 
   /**
    * Temporary logging setting.
    *
-   * @var null|bool
+   * @var bool
    */
-  protected static $temporaryLogging = NULL;
+  protected static ?bool $temporaryLogging = NULL;
 
   /**
    * The config factory.
    *
    * @var \Drupal\Core\Config\ConfigFactoryInterface
    */
-  protected $configFactory;
+  protected ConfigFactoryInterface $configFactory;
 
   /**
    * The config storage.
    *
    * @var \Drupal\Core\Config\Config
    */
-  protected $config;
+  protected Config $config;
 
   /**
    * The state storage.
    *
    * @var \Drupal\Core\State\StateInterface
    */
-  protected $state;
+  protected StateInterface $state;
 
   /**
    * The module handler.
    *
    * @var \Drupal\Core\Extension\ModuleHandlerInterface
    */
-  protected $moduleHandler;
+  protected ModuleHandlerInterface $moduleHandler;
 
   /**
    * The current user.
    *
    * @var \Drupal\Core\Session\AccountProxyInterface
    */
-  protected $currentUser;
+  protected AccountProxyInterface $currentUser;
+
+  /**
+   * The security checks plugin manager.
+   *
+   * @var \Drupal\security_review\SecurityCheckPluginManager
+   */
+  protected SecurityCheckPluginManager $checkPluginManager;
 
   /**
    * Constructs a SecurityReview instance.
@@ -69,27 +90,48 @@ class SecurityReview {
    *   The module handler.
    * @param \Drupal\Core\Session\AccountProxyInterface $current_user
    *   The current user.
+   * @param \Drupal\security_review\SecurityCheckPluginManager $checkPluginManager
+   *   Plugin manager for Security Checks.
    */
-  public function __construct(ConfigFactoryInterface $config_factory, StateInterface $state, ModuleHandlerInterface $module_handler, AccountProxyInterface $current_user) {
+  public function __construct(ConfigFactoryInterface $config_factory, StateInterface $state, ModuleHandlerInterface $module_handler, AccountProxyInterface $current_user, SecurityCheckPluginManager $checkPluginManager) {
     // Store the dependencies.
     $this->configFactory = $config_factory;
     $this->config = $config_factory->getEditable('security_review.settings');
     $this->state = $state;
     $this->moduleHandler = $module_handler;
     $this->currentUser = $current_user;
+    $this->checkPluginManager = $checkPluginManager;
   }
 
   /**
-   * Returns whether the module has been configured.
+   * Runs an array of checks.
    *
-   * If the module has been configured on the settings page this function
-   * returns true. Otherwise it returns false.
-   *
-   * @return bool
-   *   A boolean indicating whether the module has been configured.
+   * @param \Drupal\security_review\SecurityCheckInterface[] $checks
+   *   The array of Checks to run.
+   * @param bool $cli
+   *   Whether to call runCli() instead of run().
    */
-  public function isConfigured() {
-    return $this->config->get('configured') === TRUE;
+  public function runChecks(array $checks, bool $cli = FALSE): void {
+    foreach ($checks as $check) {
+      if (!$this->isCheckSkipped($check->getPluginId())) {
+        $sandbox = [];
+        do {
+          $finished = $check->run(TRUE, $sandbox);
+        } while ($finished < 1);
+      }
+    }
+  }
+
+  /**
+   * Stores an array of CheckResults.
+   *
+   * @param \Drupal\security_review\CheckResult[] $results
+   *   The CheckResults to store.
+   */
+  public function storeResults(array $results): void {
+    foreach ($results as $result) {
+      $result->check()->storeResult($result);
+    }
   }
 
   /**
@@ -98,7 +140,7 @@ class SecurityReview {
    * @return bool
    *   A boolean indicating whether logging is enabled.
    */
-  public function isLogging() {
+  public function isLogging(): bool {
     // Check for temporary logging.
     if (static::$temporaryLogging !== NULL) {
       return static::$temporaryLogging;
@@ -113,8 +155,8 @@ class SecurityReview {
    * @return int
    *   The last time Security Review has been run.
    */
-  public function getLastRun() {
-    return $this->state->get('last_run', 0);
+  public function getLastRun(): int {
+    return $this->state->get(self::STATE_NAME_LAST_RUN, 0);
   }
 
   /**
@@ -123,19 +165,81 @@ class SecurityReview {
    * @return string[]
    *   Stored untrusted roles' IDs.
    */
-  public function getUntrustedRoles() {
-    return $this->config->get('untrusted_roles');
+  public function getUntrustedRoles(): array {
+    return $this->config->get('untrusted_roles') ?? [];
   }
 
   /**
-   * Sets the 'configured' flag.
+   * Returns the array of skipped checks.
    *
-   * @param bool $configured
-   *   The new value of the 'configured' setting.
+   * @return string[]
+   *   Stored untrusted roles' IDs.
    */
-  public function setConfigured($configured) {
-    $this->config->set('configured', $configured);
-    $this->config->save();
+  public function getSkipped(): array {
+    return $this->config->get('skipped') ?? [];
+  }
+
+  /**
+   * Returns the array for a specific check settings.
+   *
+   * @param string $check_name
+   *   Name of the check to store.
+   */
+  public function getCheckSettings(string $check_name): array {
+    return $this->config->get($check_name) ?? [];
+  }
+
+  /**
+   * Is specific check skipped.
+   *
+   * @param string $check_name
+   *   Name of check.
+   *
+   * @return array[]
+   *   Skipped info.
+   */
+  public function isCheckSkipped(string $check_name): array {
+    $skipped_array = $this->config->get('skipped');
+    if (array_key_exists($check_name, $skipped_array)) {
+      return $skipped_array[$check_name];
+    }
+    return [];
+  }
+
+  /**
+   * Enables the check. Has no effect if the check was not skipped.
+   *
+   * @param string $check_name
+   *   Name of check.
+   */
+  public function enable(string $check_name): void {
+    if ($this->isCheckSkipped($check_name)) {
+      $skipped = $this->config->get('skipped');
+      unset($skipped[$check_name]);
+      $this->setSkipped($skipped);
+    }
+  }
+
+  /**
+   * Marks the check as skipped.
+   *
+   * @param string $check_name
+   *   Name of check.
+   */
+  public function skip(string $check_name): void {
+    if (!$this->isCheckSkipped($check_name)) {
+      $current_skipped = $this->config->get('skipped');
+      $skip_check = [
+        $check_name =>
+          [
+            'skipped' => TRUE,
+            'skipped_by' => $this->currentUser->id() ?? 1,
+            'skipped_on' => time(),
+          ],
+      ];
+
+      $this->setSkipped(array_merge($current_skipped, $skip_check));
+    }
   }
 
   /**
@@ -146,7 +250,7 @@ class SecurityReview {
    * @param bool $temporary
    *   Whether to set only temporarily.
    */
-  public function setLogging($logging, $temporary = FALSE) {
+  public function setLogging(bool $logging, bool $temporary = FALSE): void {
     if (!$temporary) {
       $this->config->set('log', $logging);
       $this->config->save();
@@ -162,8 +266,8 @@ class SecurityReview {
    * @param int $last_run
    *   The new value for 'last_run'.
    */
-  public function setLastRun($last_run) {
-    $this->state->set('last_run', $last_run);
+  public function setLastRun(int $last_run): void {
+    $this->state->set(self::STATE_NAME_LAST_RUN, $last_run);
   }
 
   /**
@@ -172,63 +276,59 @@ class SecurityReview {
    * @param string[] $untrusted_roles
    *   The new untrusted roles' IDs.
    */
-  public function setUntrustedRoles(array $untrusted_roles) {
+  public function setUntrustedRoles(array $untrusted_roles): void {
     $this->config->set('untrusted_roles', $untrusted_roles);
     $this->config->save();
   }
 
   /**
-   * Logs an event.
+   * Stores the given 'skipped' setting.
    *
-   * @param \Drupal\security_review\Check $check
-   *   The Check the message is about.
-   * @param string $message
-   *   The message.
-   * @param array $context
-   *   The context of the message.
-   * @param int $level
-   *   Severity (RfcLogLevel).
+   * @param string[] $skipped_checked
+   *   The new skipped checks.
    */
-  public function log(Check $check, $message, array $context, $level) {
-    if (static::isLogging()) {
-      $this->moduleHandler->invokeAll(
-        'security_review_log',
-        [
-          'check' => $check,
-          'message' => $message,
-          'context' => $context,
-          'level' => $level,
-        ]
-      );
-    }
+  public function setSkipped(array $skipped_checked): void {
+    $this->config->set('skipped', $skipped_checked);
+    $this->config->save();
+  }
+
+  /**
+   * Stores the potential custom config for a specific check.
+   *
+   * @param string $check_name
+   *   Name of the check to store.
+   * @param string[] $values
+   *   Values of the check to store.
+   */
+  public function setCheckSettings(string $check_name, array $values): void {
+    $this->config->set($check_name, $values);
+    $this->config->save();
   }
 
   /**
    * Logs a check result.
    *
-   * @param \Drupal\security_review\CheckResult $result
+   * @param \Drupal\security_review\CheckResult|null $check
    *   The result to log.
    */
-  public function logCheckResult(CheckResult $result = NULL) {
+  public function logCheckResult(CheckResult $check = NULL): void {
+
     if ($this->isLogging()) {
-      if ($result == NULL) {
-        $check = $result->check();
+      if ($check === NULL) {
         $context = [
-          '@check' => $check->getTitle(),
-          '@namespace' => $check->getNamespace(),
+          '@check' => $check->check()->getTitle(),
+          '@namespace' => $check->check()->getNamespace(),
         ];
-        $this->log($check, '@check of @namespace produced a null result', $context, RfcLogLevel::CRITICAL);
+        $this->getLogger('security_review')->log(RfcLogLevel::CRITICAL, '@check of @namespace produced a null result', $context);
         return;
       }
-
-      $check = $result->check();
 
       // Fallback log message.
       $level = RfcLogLevel::NOTICE;
       $message = '@name check invalid result';
 
       // Set log message and level according to result.
-      switch ($result->result()) {
+      switch ($check->result()) {
         case CheckResult::SUCCESS:
           $level = RfcLogLevel::INFO;
           $message = '@name check succeeded';
@@ -250,24 +350,21 @@ class SecurityReview {
           break;
       }
 
-      $context = ['@name' => $check->getTitle()];
-      $this->log($check, $message, $context, $level);
+      $context = ['@name' => $check->check()->getTitle()];
+      $this->getLogger('security_review')->log($level, $message, $context);
     }
   }
 
   /**
    * Deletes orphaned check data.
    */
-  public function cleanStorage() {
-    /** @var \Drupal\security_review\Checklist $checklist */
-    $checklist = \Drupal::service('security_review.checklist');
-
+  public function cleanStorage(): void {
     // Get list of check configuration names.
     $orphaned = $this->configFactory->listAll('security_review.check.');
 
     // Remove items that are used by the checks.
-    foreach ($checklist->getChecks() as $check) {
-      $key = array_search('security_review.check.' . $check->id(), $orphaned);
+    foreach ($this->checkPluginManager->getChecks() as $check) {
+      $key = array_search('security_review.check.' . $check->getPluginId(), $orphaned);
       if ($key !== FALSE) {
         unset($orphaned[$key]);
       }
@@ -283,7 +380,7 @@ class SecurityReview {
   /**
    * Stores information about the server into the State system.
    */
-  public function setServerData() {
+  public function setServerData(): void {
     if (!static::isServerPosix() || PHP_SAPI === 'cli') {
       return;
     }
@@ -302,7 +399,7 @@ class SecurityReview {
    * @return bool
    *   Whether the web server is POSIX based.
    */
-  public function isServerPosix() {
+  public function isServerPosix(): bool {
     return function_exists('posix_getuid');
   }
 
@@ -312,8 +409,8 @@ class SecurityReview {
    * @return int
    *   UID of the web server's user.
    */
-  public function getServerUid() {
-    return $this->state->get('security_review.server.uid');
+  public function getServerUid(): int {
+    return $this->state->get('security_review.server.uid') ?? -1;
   }
 
   /**
@@ -322,8 +419,9 @@ class SecurityReview {
    * @return int[]
    *   GIDs of the web server's user.
    */
-  public function getServerGids() {
-    return $this->state->get('security_review.server.groups');
+  public function getServerGids(): array {
+    $groups = $this->state->get('security_review.server.groups');
+    return $groups ?: [];
   }
 
 }

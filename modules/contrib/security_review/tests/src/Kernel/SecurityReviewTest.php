@@ -3,6 +3,7 @@
 namespace Drupal\Tests\security_review\Kernel;
 
 use Drupal\KernelTests\KernelTestBase;
+use Drupal\security_review\SecurityReview;
 
 /**
  * Contains tests related to the SecurityReview class.
@@ -12,51 +13,42 @@ use Drupal\KernelTests\KernelTestBase;
 class SecurityReviewTest extends KernelTestBase {
 
   /**
-   * Modules to enable.
-   *
-   * @var array
+   * {@inheritdoc}
    */
-  protected static $modules = ['security_review'];
+  protected static $modules = ['system', 'user', 'security_review'];
 
   /**
    * The security_review service.
    *
    * @var \Drupal\security_review\SecurityReview
    */
-  protected $securityReview;
+  protected SecurityReview $securityReview;
 
   /**
-   * Sets up the testing environment.
+   * {@inheritdoc}
    */
   protected function setUp(): void {
     parent::setUp();
     $this->installConfig(static::$modules);
-    $this->securityReview = \Drupal::getContainer()->get('security_review');
+    $this->installEntitySchema('user');
+    $this->installConfig('security_review');
+    $this->securityReview = \Drupal::service('security_review');
   }
 
   /**
    * Tests the 'logging' setting.
    */
-  public function testConfigLogging() {
-    $this->assertTrue($this->securityReview->isLogging(), 'Logging enabled by default.');
-    $this->securityReview->setLogging(FALSE);
+  public function testConfigLogging(): void {
     $this->assertFalse($this->securityReview->isLogging(), 'Logging disabled.');
-  }
-
-  /**
-   * Tests the 'configured' setting.
-   */
-  public function testConfigConfigured() {
-    $this->assertFalse($this->securityReview->isConfigured(), 'Not configured by default.');
-    $this->securityReview->setConfigured(TRUE);
-    $this->assertTrue($this->securityReview->isConfigured(), 'Set to configured.');
+    $this->securityReview->setLogging(TRUE);
+    $this->assertTrue($this->securityReview->isLogging(), 'Logging enabled by default.');
   }
 
   /**
    * Tests the 'untrusted_roles' setting.
    */
-  public function testConfigUntrustedRoles() {
-    $this->assertEquals([], $this->securityReview->getUntrustedRoles(), 'untrusted_roles empty by default.');
+  public function testConfigUntrustedRoles(): void {
+    $this->assertEquals(['anonymous', 'authenticated'], $this->securityReview->getUntrustedRoles(), 'untrusted_roles empty by default.');
 
     $roles = [0, 1, 2, 3, 4];
     $this->securityReview->setUntrustedRoles($roles);
@@ -66,7 +58,7 @@ class SecurityReviewTest extends KernelTestBase {
   /**
    * Tests the 'last_run' setting.
    */
-  public function testConfigLastRun() {
+  public function testConfigLastRun(): void {
     $this->assertEquals(0, $this->securityReview->getLastRun(), 'last_run is 0 by default.');
     $time = time();
     $this->securityReview->setLastRun($time);

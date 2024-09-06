@@ -18,40 +18,20 @@ use Symfony\Component\HttpKernel\KernelEvents;
 class ResponseSubscriber implements EventSubscriberInterface {
 
   /**
-   * The current user.
-   *
-   * @var \Drupal\Core\Session\AccountProxyInterface
-   */
-  protected $currentUser;
-
-  /**
-   * The condition plugin manager.
-   *
-   * @var \Drupal\Core\Condition\ConditionManager
-   */
-  protected $conditionManager;
-
-  /**
-   * The config factory.
-   *
-   * @var \Drupal\Core\Config\ConfigFactoryInterface
-   */
-  protected $configFactory;
-
-  /**
    * ResponseSubscriber constructor.
    *
-   * @param \Drupal\Core\Session\AccountProxyInterface $current_user
+   * @param \Drupal\Core\Session\AccountProxyInterface $currentUser
    *   The current user.
-   * @param \Drupal\Core\Condition\ConditionManager $condition_manager
+   * @param \Drupal\Core\Condition\ConditionManager $conditionManager
    *   The condition plugin manager.
-   * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
    *   The config factory.
    */
-  public function __construct(AccountProxyInterface $current_user, ConditionManager $condition_manager, ConfigFactoryInterface $config_factory) {
-    $this->currentUser = $current_user;
-    $this->conditionManager = $condition_manager;
-    $this->configFactory = $config_factory;
+  public function __construct(
+    protected AccountProxyInterface $currentUser,
+    protected ConditionManager $conditionManager,
+    protected ConfigFactoryInterface $configFactory,
+  ) {
   }
 
   /**
@@ -62,7 +42,7 @@ class ResponseSubscriber implements EventSubscriberInterface {
    *
    * @throws \Drupal\Component\Plugin\Exception\PluginException
    */
-  public function onResponse(ResponseEvent $event) {
+  public function onResponse(ResponseEvent $event): void {
     $response = $event->getResponse();
     $request = $event->getRequest();
 
@@ -88,7 +68,7 @@ class ResponseSubscriber implements EventSubscriberInterface {
   /**
    * {@inheritdoc}
    */
-  public static function getSubscribedEvents() {
+  public static function getSubscribedEvents(): array {
     $events[KernelEvents::RESPONSE][] = ['onResponse', 100];
     return $events;
   }
