@@ -6,10 +6,10 @@ moderation_sidebar.settings:
       type: sequence
       label: 'List of workflows on the site'
       sequence:
-        - type: mapping
-          mapping:
-            disabled_transitions:
-              type: sequence
-              label: 'List of disabled transitions in a workflow'
-              sequence:
-                - type: string
+        type: mapping
+        mapping:
+          disabled_transitions:
+            type: sequence
+            label: 'List of disabled transitions in a workflow'
+            sequence:
+              type: string

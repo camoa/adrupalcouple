@@ -1,3 +1,6 @@
+error_log
+template
+
 settings.*.php
 
 sites/*/files/*

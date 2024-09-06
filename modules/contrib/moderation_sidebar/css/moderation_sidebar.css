@@ -13,10 +13,14 @@
   float: left;
 }
 
-.ui-dialog-off-canvas #drupal-off-canvas .moderation-sidebar-link,
-.ui-dialog-off-canvas #drupal-off-canvas .moderation-sidebar-link:visited,
-.ui-dialog-off-canvas #drupal-off-canvas .moderation-sidebar-link.button,
-.ui-dialog-off-canvas #drupal-off-canvas .moderation-sidebar-translation-item .moderation-sidebar-link.button:only-of-type {
+.ui-dialog-off-canvas #drupal-off-canvas:not(.drupal-off-canvas-reset) .moderation-sidebar-link,
+.ui-dialog-off-canvas #drupal-off-canvas:not(.drupal-off-canvas-reset) .moderation-sidebar-link:visited,
+.ui-dialog-off-canvas #drupal-off-canvas:not(.drupal-off-canvas-reset) .moderation-sidebar-link.button,
+.ui-dialog-off-canvas #drupal-off-canvas:not(.drupal-off-canvas-reset) .moderation-sidebar-translation-item .moderation-sidebar-link.button:only-of-type,
+#drupal-off-canvas-wrapper .moderation-sidebar-link,
+#drupal-off-canvas-wrapper .moderation-sidebar-link:visited,
+#drupal-off-canvas-wrapper .moderation-sidebar-link.button,
+#drupal-off-canvas-wrapper .moderation-sidebar-translation-item .moderation-sidebar-link.button:only-of-type {
   display: block;
   font-weight: normal;
   font-size: 14px;
@@ -28,14 +32,20 @@
   text-align: left;
   transition: .2s;
 }
-[dir='rtl'] .ui-dialog-off-canvas #drupal-off-canvas .moderation-sidebar-link,
-[dir='rtl'] .ui-dialog-off-canvas #drupal-off-canvas .moderation-sidebar-link:visited,
-[dir='rtl'] .ui-dialog-off-canvas #drupal-off-canvas .moderation-sidebar-link.button,
-[dir='rtl'] .ui-dialog-off-canvas #drupal-off-canvas .moderation-sidebar-translation-item .moderation-sidebar-link.button:only-of-type {
+
+[dir='rtl'] .ui-dialog-off-canvas #drupal-off-canvas:not(.drupal-off-canvas-reset) .moderation-sidebar-link,
+[dir='rtl'] .ui-dialog-off-canvas #drupal-off-canvas:not(.drupal-off-canvas-reset) .moderation-sidebar-link:visited,
+[dir='rtl'] .ui-dialog-off-canvas #drupal-off-canvas:not(.drupal-off-canvas-reset) .moderation-sidebar-link.button,
+[dir='rtl'] .ui-dialog-off-canvas #drupal-off-canvas:not(.drupal-off-canvas-reset) .moderation-sidebar-translation-item .moderation-sidebar-link.button:only-of-type,
+[dir='rtl'] #drupal-off-canvas-wrapper .moderation-sidebar-link,
+[dir='rtl'] #drupal-off-canvas-wrapper .moderation-sidebar-link:visited,
+[dir='rtl'] #drupal-off-canvas-wrapper .moderation-sidebar-link.button,
+[dir='rtl'] #drupal-off-canvas-wrapper .moderation-sidebar-translation-item .moderation-sidebar-link.button:only-of-type {
   text-align: right;
 }
 
-.ui-dialog-off-canvas #drupal-off-canvas .moderation-sidebar-translation-item .translation-links-container {
+.ui-dialog-off-canvas #drupal-off-canvas:not(.drupal-off-canvas-reset)  .moderation-sidebar-translation-item .translation-links-container,
+#drupal-off-canvas-wrapper .moderation-sidebar-translation-item .translation-links-container {
   display: grid;
   display: -ms-grid;
   -ms-grid-columns: 1fr 10px 1fr;
@@ -44,23 +54,27 @@
   grid-row-gap: 10px;
 }
 
-.ui-dialog-off-canvas #drupal-off-canvas .moderation-sidebar-translation-item .moderation-sidebar-link.button {
+.ui-dialog-off-canvas #drupal-off-canvas:not(.drupal-off-canvas-reset) .moderation-sidebar-translation-item .moderation-sidebar-link.button,
+#drupal-off-canvas-wrapper .moderation-sidebar-translation-item .moderation-sidebar-link.button {
   margin: 0;
 }
 
-.ui-dialog-off-canvas #drupal-off-canvas .moderation-sidebar-translation-item .moderation-sidebar-link.button:nth-of-type(odd):last-of-type {
+.ui-dialog-off-canvas #drupal-off-canvas:not(.drupal-off-canvas-reset) .moderation-sidebar-translation-item .moderation-sidebar-link.button:nth-of-type(odd):last-of-type,
+#drupal-off-canvas-wrapper .moderation-sidebar-translation-item .moderation-sidebar-link.button:nth-of-type(odd):last-of-type {
   grid-column: 1/3;
   -ms-grid-column: 1;
   -ms-grid-column-span: 2;
 }
 
-.ui-dialog-off-canvas #drupal-off-canvas .moderation-sidebar-translation-view-all-container {
+.ui-dialog-off-canvas #drupal-off-canvas:not(.drupal-off-canvas-reset) .moderation-sidebar-translation-view-all-container,
+#drupal-off-canvas-wrapper .moderation-sidebar-translation-view-all-container {
   border-top: 1px solid #676767;
   margin-top: 20px;
   padding-top: 10px;
 }
 
-.ui-dialog-off-canvas #drupal-off-canvas .moderation-sidebar-button-wrapper i.material-icons {
+.ui-dialog-off-canvas #drupal-off-canvas:not(.drupal-off-canvas-reset) .moderation-sidebar-button-wrapper i.material-icons,
+#drupal-off-canvas-wrapper .moderation-sidebar-button-wrapper i.material-icons {
   position: absolute;
   top: 5px;
   left: 5px;
@@ -81,7 +95,9 @@
   -webkit-font-feature-settings: 'liga';
   -webkit-font-smoothing: antialiased;
 }
-[dir='rtl'] .ui-dialog-off-canvas #drupal-off-canvas .moderation-sidebar-button-wrapper i.material-icons {
+
+[dir='rtl'] .ui-dialog-off-canvas #drupal-off-canvas:not(.drupal-off-canvas-reset) .moderation-sidebar-button-wrapper i.material-icons ,
+[dir='rtl'] #drupal-off-canvas-wrapper .moderation-sidebar-button-wrapper i.material-icons {
   right: 5px;
   direction: rtl;
 }
@@ -90,21 +106,26 @@
   border: none !important;
 }
 
-.ui-dialog-off-canvas #drupal-off-canvas .moderation-sidebar-link:hover,
-.ui-dialog-off-canvas #drupal-off-canvas .moderation-sidebar-link:focus {
+.ui-dialog-off-canvas #drupal-off-canvas:not(.drupal-off-canvas-reset) .moderation-sidebar-link:hover,
+.ui-dialog-off-canvas #drupal-off-canvas:not(.drupal-off-canvas-reset) .moderation-sidebar-link:focus,
+#drupal-off-canvas-wrapper .moderation-sidebar-link:hover,
+#drupal-off-canvas-wrapper .moderation-sidebar-link:focus {
   color: black;
   text-decoration: none;
   background: #ddd;
 }
 
-.ui-dialog-off-canvas #drupal-off-canvas .moderation-sidebar-link.button.button--danger {
+.ui-dialog-off-canvas #drupal-off-canvas:not(.drupal-off-canvas-reset) .moderation-sidebar-link.button.button--danger,
+#drupal-off-canvas-wrapper .moderation-sidebar-link.button.button--danger {
   color: white;
   background: #bd2727;
   border: 1px solid #bd2727;
 }
 
-.ui-dialog-off-canvas #drupal-off-canvas .moderation-sidebar-link.button.button--danger:hover,
-.ui-dialog-off-canvas #drupal-off-canvas .moderation-sidebar-link.button.button--danger:focus {
+.ui-dialog-off-canvas #drupal-off-canvas:not(.drupal-off-canvas-reset) .moderation-sidebar-link.button.button--danger:hover,
+.ui-dialog-off-canvas #drupal-off-canvas:not(.drupal-off-canvas-reset) .moderation-sidebar-link.button.button--danger:focus,
+#drupal-off-canvas-wrapper .moderation-sidebar-link.button.button--danger:hover,
+#drupal-off-canvas-wrapper .moderation-sidebar-link.button.button--danger:focus {
   color: white;
   background: #a51f1f;
   border: 1px solid #a51f1f;
@@ -123,18 +144,22 @@
   margin: 10px 0 20px 0;
 }
 
-.ui-dialog-off-canvas #drupal-off-canvas .moderation-sidebar-container p,
-.ui-dialog-off-canvas #drupal-off-canvas .moderation-sidebar-container a {
+.ui-dialog-off-canvas #drupal-off-canvas:not(.drupal-off-canvas-reset) .moderation-sidebar-container p,
+.ui-dialog-off-canvas #drupal-off-canvas:not(.drupal-off-canvas-reset) .moderation-sidebar-container a,
+#drupal-off-canvas-wrapper .moderation-sidebar-container p,
+#drupal-off-canvas-wrapper .moderation-sidebar-container a {
   font-size: 14px;
 }
 
-.ui-dialog-off-canvas #drupal-off-canvas .moderation-sidebar-container .moderation-sidebar-back-button {
+.ui-dialog-off-canvas #drupal-off-canvas:not(.drupal-off-canvas-reset) .moderation-sidebar-container .moderation-sidebar-back-button,
+#drupal-off-canvas-wrapper .moderation-sidebar-container .moderation-sidebar-back-button {
   display: block;
   font-size: 16px;
   margin-top: 1rem;
 }
 
-.ui-dialog-off-canvas #drupal-off-canvas .moderation-sidebar-info h2 {
+.ui-dialog-off-canvas #drupal-off-canvas:not(.drupal-off-canvas-reset) .moderation-sidebar-info h2,
+#drupal-off-canvas-wrapper .moderation-sidebar-info h2 {
   font-size: 16px;
 }
 
@@ -143,12 +168,14 @@
   margin-top: 10px;
 }
 
-.ui-dialog-off-canvas #drupal-off-canvas .moderation-sidebar-container .translation-language {
+.ui-dialog-off-canvas #drupal-off-canvas:not(.drupal-off-canvas-reset) .moderation-sidebar-container .translation-language,
+#drupal-off-canvas-wrapper .moderation-sidebar-container .translation-language {
   font-size: 20px;
   margin: 5px 0 0;
 }
 
-.ui-dialog-off-canvas #drupal-off-canvas .moderation-sidebar-translation-item .translation-info {
+.ui-dialog-off-canvas #drupal-off-canvas:not(.drupal-off-canvas-reset) .moderation-sidebar-translation-item .translation-info,
+#drupal-off-canvas-wrapper .moderation-sidebar-translation-item .translation-info {
   margin: 0 0 5px 0;
 }
 
@@ -195,12 +222,15 @@
   margin-right: .5em;
 }
 
-.ui-dialog-off-canvas #drupal-off-canvas .moderation-sidebar-link.button--primary {
+.ui-dialog-off-canvas #drupal-off-canvas:not(.drupal-off-canvas-reset) .moderation-sidebar-link.button--primary,
+#drupal-off-canvas-wrapper .moderation-sidebar-link.button--primary {
   border: 1px solid #277abd;
 }
 
-.ui-dialog-off-canvas #drupal-off-canvas .moderation-sidebar-link.button--primary:hover,
-.ui-dialog-off-canvas #drupal-off-canvas .moderation-sidebar-link.button--primary:focus {
+.ui-dialog-off-canvas #drupal-off-canvas:not(.drupal-off-canvas-reset) .moderation-sidebar-link.button--primary:hover,
+.ui-dialog-off-canvas #drupal-off-canvas:not(.drupal-off-canvas-reset) .moderation-sidebar-link.button--primary:focus,
+#drupal-off-canvas-wrapper .moderation-sidebar-link.button--primary:hover,
+#drupal-off-canvas-wrapper .moderation-sidebar-link.button--primary:focus {
   border: 1px solid #236aaf;
 }
 

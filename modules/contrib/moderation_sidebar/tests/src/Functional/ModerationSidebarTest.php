@@ -3,7 +3,7 @@
 namespace Drupal\Tests\moderation_sidebar\Functional;
 
 use Drupal\Core\Url;
-use Drupal\entity_test\Entity\EntityTestMulRevPub;
+use Drupal\node\Entity\Node;
 use Drupal\Tests\BrowserTestBase;
 use Drupal\Tests\content_moderation\Traits\ContentModerationTestTrait;
 
@@ -30,7 +30,6 @@ class ModerationSidebarTest extends BrowserTestBase {
     'content_moderation',
     'node',
     'workflows',
-    'entity_test',
   ];
 
   /**
@@ -39,12 +38,10 @@ class ModerationSidebarTest extends BrowserTestBase {
   protected function setUp(): void {
     parent::setUp();
     $workflow = $this->createEditorialWorkflow();
-    $this->addEntityTypeAndBundleToWorkflow($workflow, 'entity_test_mulrevpub', 'entity_test_mulrevpub');
 
     $this->drupalCreateContentType(['type' => 'article']);
 
     $this->drupalLogin($this->createUser([
-      'view test entity',
       'access toolbar',
       'create article content',
       'use ' . $workflow->id() . ' transition create_new_draft',
@@ -57,19 +54,21 @@ class ModerationSidebarTest extends BrowserTestBase {
   /**
    * Test toolbar item appears.
    */
-  public function testToolbarItem() {
-    $entity = EntityTestMulRevPub::create([
-      'name' => $this->randomMachineName(),
+  public function testToolbarItem(): void {
+    $node = Node::create([
+      'type' => 'article',
+      'title' => 'Test title',
+      'moderation_state' => 'test2',
     ]);
-    $entity->save();
-    $this->drupalGet($entity->toUrl());
+    $node->save();
+    $this->drupalGet($node->toUrl('canonical', ['absolute' => TRUE])->toString());
 
     // Make sure the button is where we expect it.
     $toolbarItem = $this->assertSession()->elementExists('css', '.moderation-sidebar-toolbar-tab a');
     // Make sure the button has the right attributes.
     $url = Url::fromRoute('moderation_sidebar.sidebar_latest', [
-      'entity_type' => $entity->getEntityTypeId(),
-      'entity' => $entity->id(),
+      'entity_type' => $node->getEntityTypeId(),
+      'entity' => $node->id(),
     ]);
     $this->assertEquals($url->toString(), $toolbarItem->getAttribute('href'));
     $this->assertEquals('Tasks', $toolbarItem->getText());
@@ -78,7 +77,7 @@ class ModerationSidebarTest extends BrowserTestBase {
   /**
    * Test preview with moderation sidebar.
    */
-  public function testPreview() {
+  public function testPreview(): void {
     $title_key = 'title[0][value]';
 
     // Create an english node with an english menu.
@@ -93,6 +92,12 @@ class ModerationSidebarTest extends BrowserTestBase {
     $expected_title = $edit[$title_key] . ' | Drupal';
     $this->assertSession()->titleEquals($expected_title);
     $this->assertSession()->linkExists('Back to content editing');
+    // Check that the moderation sidebar is not visible on node preview.
+    $this->assertSession()->elementNotExists('css', '.moderation-sidebar-toolbar-tab');
+    // Check that the moderation sidebar is visible after the node is saved.
+    $this->clickLink('Back to content editing');
+    $this->submitForm($edit, 'Save');
+    $this->assertSession()->elementExists('css', '.moderation-sidebar-toolbar-tab a');
   }
 
 }
