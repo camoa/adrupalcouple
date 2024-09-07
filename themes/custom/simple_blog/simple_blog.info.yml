@@ -1,0 +1,22 @@
+name: simple_blog
+type: theme
+'base theme': stable9
+version: 1.0.0
+libraries:
+  - simple_blog/base
+  - simple_blog/messages
+  - core/normalize
+libraries-extend:
+  user/drupal.user:
+    - simple_blog/user
+  core/drupal.dropbutton:
+    - simple_blog/dropbutton
+  core/drupal.dialog:
+    - simple_blog/dialog
+  file/drupal.file:
+    - simple_blog/file
+  core/drupal.progress:
+    - simple_blog/progress
+description: ''
+core_version_requirement: ^11
+generator: 'starterkit_theme:11.0.2'

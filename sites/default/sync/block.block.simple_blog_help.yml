@@ -1,0 +1,22 @@
+uuid: 95c510bb-6d29-446b-8d3d-c537e8f498e4
+langcode: en
+status: true
+dependencies:
+  module:
+    - help
+  theme:
+    - simple_blog
+_core:
+  default_config_hash: VfPFqqxfkomud5CO8DUijw85QIl9GIxh_nIxLOYESxg
+id: simple_blog_help
+theme: simple_blog
+region: sidebar_first
+weight: 0
+provider: null
+plugin: help_block
+settings:
+  id: help_block
+  label: Help
+  label_display: '0'
+  provider: help
+visibility: {  }
