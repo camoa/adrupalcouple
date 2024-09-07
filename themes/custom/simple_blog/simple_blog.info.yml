@@ -2,21 +2,30 @@ name: simple_blog
 type: theme
 'base theme': stable9
 version: 1.0.0
+regions:
+  header: Header
+  navbar: Navbar
+  top_content: 'Content Top'
+  left_sidebar: 'Sidebar Left'
+  content: Content
+  right_sidebar: ' Sidebar Right'
+  bottom_content: 'Content bottom'
+  footer: Footer
 libraries:
-  - simple_blog/base
-  - simple_blog/messages
+  - simple_blog/style
+  - simple_blog/js
   - core/normalize
 libraries-extend:
-  user/drupal.user:
-    - simple_blog/user
-  core/drupal.dropbutton:
-    - simple_blog/dropbutton
-  core/drupal.dialog:
-    - simple_blog/dialog
-  file/drupal.file:
-    - simple_blog/file
-  core/drupal.progress:
-    - simple_blog/progress
+#  user/drupal.user:
+#    - simple_blog/user
+#  core/drupal.dropbutton:
+#    - simple_blog/dropbutton
+#  core/drupal.dialog:
+#    - simple_blog/dialog
+#  file/drupal.file:
+#    - simple_blog/file
+#  core/drupal.progress:
+#    - simple_blog/progress
 description: ''
 core_version_requirement: ^11
 generator: 'starterkit_theme:11.0.2'
