@@ -1,6 +1,6 @@
 uuid: 7ecbaabf-38cc-4056-a9a6-615898f22db0
 langcode: en
-status: true
+status: false
 dependencies:
   theme:
     - simple_blog
@@ -8,7 +8,7 @@ _core:
   default_config_hash: ydSxdq7R66I8UMC460rOzlfzvlUL4VRbdwc6z9DWaUI
 id: simple_blog_secondary_local_tasks
 theme: simple_blog
-region: highlighted
+region: header
 weight: -2
 provider: null
 plugin: local_tasks_block

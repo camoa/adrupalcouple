@@ -44,36 +44,42 @@
 #}
 <div class="layout-container">
 
-  <header role="banner">
+  <header class="layout-header" role="banner">
     {{ page.header }}
+
+    {{ page.navbar }}
   </header>
-
-  {{ page.primary_menu }}
-  {{ page.secondary_menu }}
-
-  {{ page.breadcrumb }}
-
-  {{ page.highlighted }}
-
-  {{ page.help }}
 
   <main role="main">
     <a id="main-content" tabindex="-1"></a>{# link is in html.html.twig #}
-
-    <div class="layout-content">
-      {{ page.content }}
-    </div>{# /.layout-content #}
-
-    {% if page.sidebar_first %}
-      <aside class="layout-sidebar-first" role="complementary">
-        {{ page.sidebar_first }}
-      </aside>
+  
+    {% if page.top_content %}
+      <section class="layout-content-top">
+        {{ page.top_content }}
+      </section>
     {% endif %}
+    <div class="content-container">
+      {% if page.left_sidebar %}
+        <aside class="layout-sidebar-left" role="complementary">
+          {{ page.left_sidebar }}
+        </aside>
+      {% endif %}
 
-    {% if page.sidebar_second %}
-      <aside class="layout-sidebar-second" role="complementary">
-        {{ page.sidebar_second }}
-      </aside>
+      <div class="layout-content">
+        {{ page.content }}
+      </div>{# /.layout-content #}
+
+      {% if page.right_sidebar %}
+        <aside class="layout-sidebar-right" role="complementary">
+          {{ page.right_sidebar }}
+        </aside>
+      {% endif %}
+    </div>
+
+    {% if page.bottom_content %}
+      <section class="layout-content-bottom">
+        {{ page.bottom_content }}
+      </section>
     {% endif %}
 
   </main>

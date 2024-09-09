@@ -1,6 +1,6 @@
 uuid: d8a2e196-f8c3-4ea4-871f-930d0c35e091
 langcode: en
-status: true
+status: false
 dependencies:
   theme:
     - simple_blog
@@ -8,7 +8,7 @@ _core:
   default_config_hash: 6aOgWsNTXjqrDm98TXSAjP6qd2nCijD1xw45MrnbK-Y
 id: simple_blog_page_title
 theme: simple_blog
-region: sidebar_first
+region: header
 weight: -5
 provider: null
 plugin: page_title_block

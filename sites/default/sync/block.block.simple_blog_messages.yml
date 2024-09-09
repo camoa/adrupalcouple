@@ -1,6 +1,6 @@
 uuid: b52f7adb-d251-478b-b02d-a5d228782c1a
 langcode: en
-status: true
+status: false
 dependencies:
   module:
     - system
@@ -10,7 +10,7 @@ _core:
   default_config_hash: BZ5tpW7H8X4PVGRm3MImTIHd2tN0eF7zOtp4SpRYUA0
 id: simple_blog_messages
 theme: simple_blog
-region: highlighted
+region: header
 weight: -5
 provider: null
 plugin: system_messages_block

@@ -1,0 +1,73 @@
+// All layout CSS for the main page
+
+.layout-header {
+    @include make-row();
+    margin: 0;
+    padding-top: 0.5rem;
+    flex-direction: row;
+    @include media-breakpoint-up(sm) {
+        flex-direction: row;
+    }
+    .region-header {
+        @include make-col-ready();
+        @include make-col(12);
+        @include media-breakpoint-up(sm) {
+        }
+    }
+    .region-navbar {
+        @include make-col-ready();
+        @include make-col(12);
+//        @include media-breakpoint-up(sm) {
+//          nav {
+//                float: right;
+//            }
+//        }
+    }
+}
+
+@include media-breakpoint-only(xs) {
+    .region-navbar {
+        .container-fluid {
+            overflow: visible;
+            display: flow;
+            .navbar-collapse {
+                width: 100vw;
+                margin-left: calc(-50% - 50vw);
+                padding-top: 2rem;
+            }
+        }
+    }
+}
+
+.nav-item {
+  margin-bottom: 5px;
+}
+
+.layout-container {
+    @include make-container();
+}
+
+.layout-content-top, .layout-content-bottom, .layout-footer {
+    @include make-row();
+    .region {
+        flex: 1;
+    }
+}
+
+.layout-content-top {
+    
+}
+
+.content-container {
+    @include make-row();
+    .layout-sidebar-left, .layout-sidebar-right {
+        @include make-col-ready();
+
+        @include media-breakpoint-up(sm) {
+            @include make-col(2);
+        }
+    }
+    .layout-content {
+        flex: 1;
+    }
+}

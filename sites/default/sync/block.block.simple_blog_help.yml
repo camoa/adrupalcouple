@@ -1,6 +1,6 @@
 uuid: 95c510bb-6d29-446b-8d3d-c537e8f498e4
 langcode: en
-status: true
+status: false
 dependencies:
   module:
     - help
@@ -10,7 +10,7 @@ _core:
   default_config_hash: VfPFqqxfkomud5CO8DUijw85QIl9GIxh_nIxLOYESxg
 id: simple_blog_help
 theme: simple_blog
-region: sidebar_first
+region: header
 weight: 0
 provider: null
 plugin: help_block

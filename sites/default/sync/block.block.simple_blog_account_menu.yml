@@ -1,6 +1,6 @@
 uuid: 25a3a6de-9326-4489-b832-3705f689981e
 langcode: en
-status: true
+status: false
 dependencies:
   config:
     - system.menu.account
@@ -12,7 +12,7 @@ _core:
   default_config_hash: gmxYWWHmgbe0Pnv8y48ZLSLH5mEHejOjAP6RLxUfdzU
 id: simple_blog_account_menu
 theme: simple_blog
-region: secondary_menu
+region: header
 weight: -4
 provider: null
 plugin: 'system_menu_block:account'

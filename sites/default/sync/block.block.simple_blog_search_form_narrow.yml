@@ -1,6 +1,6 @@
 uuid: 0b07ec5e-2de3-477e-89ef-5e74588cbcc3
 langcode: en
-status: true
+status: false
 dependencies:
   module:
     - search
@@ -10,7 +10,7 @@ _core:
   default_config_hash: yEBET0cqDbk8dkWzaJw-8CKft0961VBflsISoSR6Lj8
 id: simple_blog_search_form_narrow
 theme: simple_blog
-region: primary_menu
+region: header
 weight: -4
 provider: null
 plugin: search_form_block

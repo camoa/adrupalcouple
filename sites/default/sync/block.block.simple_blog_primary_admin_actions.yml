@@ -1,6 +1,6 @@
 uuid: 27cf10e9-6be0-41b6-92c3-25ceaa984524
 langcode: en
-status: true
+status: false
 dependencies:
   theme:
     - simple_blog
@@ -8,7 +8,7 @@ _core:
   default_config_hash: Q9_2whdOj1YIomfvsIfopROW4FT_X5pY0DjdOiOaQ5U
 id: simple_blog_primary_admin_actions
 theme: simple_blog
-region: highlighted
+region: header
 weight: -5
 provider: null
 plugin: local_actions_block

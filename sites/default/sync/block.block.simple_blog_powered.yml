@@ -1,6 +1,6 @@
 uuid: d6a710a6-388b-4dbf-99b7-8dd69b8131aa
 langcode: en
-status: true
+status: false
 dependencies:
   module:
     - system
@@ -10,7 +10,7 @@ _core:
   default_config_hash: eYL19CLDyinGTWYQfBD1DswWzglEotE_kHnHx3AxTXM
 id: simple_blog_powered
 theme: simple_blog
-region: sidebar_first
+region: header
 weight: 0
 provider: null
 plugin: system_powered_by_block

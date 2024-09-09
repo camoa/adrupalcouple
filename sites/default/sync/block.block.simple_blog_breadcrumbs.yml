@@ -1,6 +1,6 @@
 uuid: 1bb4088e-6318-449b-aad4-94f33466601e
 langcode: en
-status: true
+status: false
 dependencies:
   module:
     - system
@@ -10,7 +10,7 @@ _core:
   default_config_hash: VhBzWb7lMRtIOg9G7VSw_0uopi-7zXeHq4vXqqV1HFE
 id: simple_blog_breadcrumbs
 theme: simple_blog
-region: breadcrumb
+region: header
 weight: 0
 provider: null
 plugin: system_breadcrumb_block

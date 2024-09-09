@@ -85,6 +85,11 @@ $success: #7952b3;
 @import "bootstrap/scss/utilities/api";
 
 
+
+/// Importing partials
+
+@import "layout/page.scss";
+
 //
 // Custom styles
 //
