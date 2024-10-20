@@ -1,7 +1,7 @@
 import { GeolocationMapFeature } from "../../../../js/MapFeature/GeolocationMapFeature.js";
 
 /**
- * @prop {Leaflet} map
+ * @prop {Yandex} map
  */
 export class YandexMapFeature extends GeolocationMapFeature {
   /**

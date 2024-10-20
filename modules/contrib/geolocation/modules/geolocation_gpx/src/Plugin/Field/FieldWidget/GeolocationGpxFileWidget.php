@@ -7,6 +7,7 @@ use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\WidgetBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\file\Entity\File;
 use Drupal\geolocation_gpx\Entity\GeolocationGpx;
 use Drupal\geolocation_gpx\Entity\GeolocationGpxLink;
 use Drupal\geolocation_gpx\Entity\GeolocationGpxRoute;
@@ -54,26 +55,38 @@ class GeolocationGpxFileWidget extends WidgetBase {
    * {@inheritdoc}
    */
   public function formElement(FieldItemListInterface $items, $delta, Array $element, Array &$form, FormStateInterface $form_state): array {
-    $value = $items[$delta]->gpx_id ?? NULL;
+    $gpx_id = $items[$delta]->gpx_id ?? NULL;
+    $gpx_file_id = $items[$delta]->gpx_file_id ?? NULL;
 
-    if ($value) {
+    if ($gpx_id) {
       /** @var \Drupal\geolocation_gpx\Entity\GeolocationGpx|null $gpx */
-      $gpx = $this->entityTypeManager->getStorage('geolocation_gpx')->load($value) ?? NULL;
+      $gpx = $this->entityTypeManager->getStorage('geolocation_gpx')->load($gpx_id) ?? NULL;
       if ($gpx) {
         $element['summary'] = $gpx->renderedSummaryTable();
       }
     }
 
-    $element['gpx_id'] = [
-      '#type' => 'file',
+    $element['gpx_file_id'] = [
+      '#type' => 'managed_file',
       '#title' => $this->t('GPX File'),
+      '#default_value' => $gpx_file_id ? [$gpx_file_id] : NULL,
+      '#upload_location' => 'public://uploads/',
       '#upload_validators' => [
         'file_validate_extensions' => ['gpx xml'],
       ],
-      '#description' => $this->t('Allowed file types: <i>gpx, xml</i>. The uploaded file will be parsed and the structure imported, <b>replacing</b> any existing. The file will not be permanently stored.'),
+      '#description' => $this->t('Allowed file types: <i>gpx, xml</i>. The uploaded file will be parsed and the structure imported, <b>replacing</b> any existing.'),
     ];
 
     return $element;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function extractFormValues(FieldItemListInterface $items, array $form, FormStateInterface $form_state): void {
+    $form_state->set('old_items', $items);
+
+    parent::extractFormValues($items, $form, $form_state);
   }
 
   /**
@@ -86,29 +99,52 @@ class GeolocationGpxFileWidget extends WidgetBase {
       return [];
     }
 
-    /** @var \Symfony\Component\HttpFoundation\File\UploadedFile[] $files */
-    $files = \Drupal::request()?->files?->get('files', []);
+    /** @var \Drupal\Core\Field\FieldItemListInterface<\Drupal\geolocation_gpx\Plugin\Field\FieldType\GeolocationGpx> $old_items */
+    $old_items = $form_state->get('old_items');
 
-    if (empty($files[$this->fieldDefinition->getName()])) {
-      return [];
+    foreach ($values as $delta => &$value) {
+      $old_item = $old_items->get($delta);
+      $old_file_id = $old_item->getValue()['gpx_file_id'] ?? NULL;
+      $old_gpx_id = $old_item->getValue()['gpx_id'] ?? NULL;
+
+      if (empty($value['gpx_file_id'])) {
+        if ($old_file_id) {
+          File::load($old_file_id)?->delete();
+        }
+        if ($old_gpx_id) {
+          GeolocationGpx::load($old_gpx_id)?->delete();
+        }
+        continue;
+      }
+
+      if ($value['summary']) {
+        unset($value['summary']);
+      }
+      $value['gpx_file_id'] = $value['gpx_file_id'][0];
+
+      $new_gpx_file = File::load($value['gpx_file_id']);
+
+      try {
+        $gpxFile = (new phpGPX())->load($new_gpx_file->getFileUri());
+      }
+      catch (\Exception $e) {
+        $value['gpx_file_id'] = $old_file_id;
+        $value['gpx_id'] = $old_gpx_id;
+        \Drupal::messenger()->addWarning('Could not instantiate GPX file: ' . $e->getMessage() . '. Reset to previous value.');
+        continue;
+      }
+
+      if ($old_file_id) {
+        File::load($old_file_id)?->delete();
+      }
+      if ($old_gpx_id) {
+        GeolocationGpx::load($old_gpx_id)?->delete();
+      }
+
+      $gpx = $this->gpxByData($gpxFile);
+
+      $value['gpx_id'] = $gpx->id();
     }
-
-    $file_path = $files[$this->fieldDefinition->getName()]->getRealPath();
-
-    try {
-      $gpxFile = (new phpGPX())?->load($file_path);
-    }
-    catch (\Exception $e) {
-      \Drupal::messenger()->addWarning('Could not instantiate GPX file: ' . $e->getMessage());
-    }
-
-    if (empty($gpxFile)) {
-      return [];
-    }
-
-    $gpx = $this->gpxByData($gpxFile);
-
-    $values[0]['gpx_id'] = $gpx->id();
 
     return $values;
   }
@@ -181,11 +217,11 @@ class GeolocationGpxFileWidget extends WidgetBase {
       'source' => $data->source ?? '',
       'symbol' => $data->symbol ?? '',
       'type' => $data->type ?? NULL,
-      'satellites' => $data->satellitesNumber ?? NULL,
-      'horizontal_dilution' => $data->hdop ?? NULL,
-      'vertical_dilution' => $data->vdop ?? NULL,
-      'position_dilution' => $data->pdop ?? NULL,
-      'age_of_dgps_data' => $data->ageOfGpsData ?? NULL,
+      'satellites' => $data->satellitesNumber,
+      'horizontal_dilution' => $data->hdop,
+      'vertical_dilution' => $data->vdop,
+      'position_dilution' => $data->pdop,
+      'age_of_dgps_data' => $data->ageOfGpsData,
     ]);
 
     foreach ($data->links as $linkData) {

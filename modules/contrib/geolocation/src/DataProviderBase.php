@@ -84,18 +84,18 @@ abstract class DataProviderBase extends PluginBase implements DataProviderInterf
    * @return array
    *   Settings.
    */
-  protected function getSettings(array $settings = NULL): array {
+  protected function getSettings(?array $settings = NULL): array {
     if (is_null($settings)) {
       $settings = $this->configuration;
     }
 
-    return $settings + self::defaultSettings();
+    return array_merge($this->defaultSettings(), array_filter($settings));
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getTokenHelp(FieldDefinitionInterface $fieldDefinition = NULL): array {
+  public function getTokenHelp(?FieldDefinitionInterface $fieldDefinition = NULL): array {
     if (empty($fieldDefinition)) {
       $fieldDefinition = $this->fieldDefinition;
     }
@@ -200,7 +200,7 @@ abstract class DataProviderBase extends PluginBase implements DataProviderInterf
   /**
    * {@inheritdoc}
    */
-  public function getPositionsFromViewsRow(ResultRow $row, FieldPluginBase $viewsField = NULL): array {
+  public function getPositionsFromViewsRow(ResultRow $row, ?FieldPluginBase $viewsField = NULL): array {
     $positions = [];
 
     if (!$viewsField) {
@@ -227,7 +227,7 @@ abstract class DataProviderBase extends PluginBase implements DataProviderInterf
   /**
    * {@inheritdoc}
    */
-  public function getLocationsFromViewsRow(ResultRow $row, FieldPluginBase $viewsField = NULL): array {
+  public function getLocationsFromViewsRow(ResultRow $row, ?FieldPluginBase $viewsField = NULL): array {
     $positions = [];
 
     foreach ($this->getFieldItemsFromViewsRow($row, $viewsField) ?? [] as $item) {
@@ -240,7 +240,7 @@ abstract class DataProviderBase extends PluginBase implements DataProviderInterf
   /**
    * {@inheritdoc}
    */
-  public function getShapesFromViewsRow(ResultRow $row, FieldPluginBase $viewsField = NULL): array {
+  public function getShapesFromViewsRow(ResultRow $row, ?FieldPluginBase $viewsField = NULL): array {
     $positions = [];
 
     foreach ($this->getFieldItemsFromViewsRow($row, $viewsField) ?? [] as $item) {
@@ -263,7 +263,7 @@ abstract class DataProviderBase extends PluginBase implements DataProviderInterf
    *
    * @phpstan-ignore-next-line
    */
-  protected function getFieldItemsFromViewsRow(ResultRow $row, FieldPluginBase $viewsField = NULL): ?FieldItemList {
+  protected function getFieldItemsFromViewsRow(ResultRow $row, ?FieldPluginBase $viewsField = NULL): ?FieldItemList {
     if (!$viewsField) {
       $viewsField = $this->viewsField;
     }

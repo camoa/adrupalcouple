@@ -40,7 +40,7 @@ class GoogleControlDirections extends GoogleControlElementBase {
   /**
    * {@inheritdoc}
    */
-  public function getSettingsForm(array $settings, array $parents = [], MapProviderInterface $mapProvider = NULL): array {
+  public function getSettingsForm(array $settings, array $parents = [], ?MapProviderInterface $mapProvider = NULL): array {
     $form = parent::getSettingsForm($settings, $parents, $mapProvider);
 
     $states_prefix = array_shift($parents) . '[' . implode('][', $parents) . ']';
@@ -233,7 +233,7 @@ class GoogleControlDirections extends GoogleControlElementBase {
   /**
    * {@inheritdoc}
    */
-  public function alterMap(array $render_array, array $feature_settings = [], array $context = [], MapProviderInterface $mapProvider = NULL): array {
+  public function alterMap(array $render_array, array $feature_settings = [], array $context = [], ?MapProviderInterface $mapProvider = NULL): array {
     $render_array = parent::alterMap($render_array, $feature_settings, $context, $mapProvider);
 
     $render_array['#controls']['directions'] = $this->getDirectionsControlForm($feature_settings, $context);

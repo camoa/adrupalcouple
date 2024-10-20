@@ -1,0 +1,5 @@
+geolocation.yandex:
+  version: 4.x
+  css:
+    theme:
+      css/geolocation-yandex.css: {}

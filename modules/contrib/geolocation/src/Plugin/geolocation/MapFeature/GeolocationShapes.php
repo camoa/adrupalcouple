@@ -38,7 +38,7 @@ class GeolocationShapes extends MapFeatureBase {
   /**
    * {@inheritdoc}
    */
-  public function getSettingsSummary(array $settings, MapProviderInterface $mapProvider = NULL): array {
+  public function getSettingsSummary(array $settings, ?MapProviderInterface $mapProvider = NULL): array {
     $summary = parent::getSettingsSummary($settings, $mapProvider);
     $summary[] = $this->t('Draw polyline: @polyline', ['@polyline' => $settings['polyline'] ? $this->t('Yes') : $this->t('No')]);
     $summary[] = $this->t('Draw polygon: @polygon', ['@polygon' => $settings['polygon'] ? $this->t('Yes') : $this->t('No')]);
@@ -49,7 +49,7 @@ class GeolocationShapes extends MapFeatureBase {
   /**
    * {@inheritdoc}
    */
-  public function getSettingsForm(array $settings, array $parents = [], MapProviderInterface $mapProvider = NULL): array {
+  public function getSettingsForm(array $settings, array $parents = [], ?MapProviderInterface $mapProvider = NULL): array {
     $form = parent::getSettingsForm($settings, $parents, $mapProvider);
 
     $states_prefix = array_shift($parents) . '[' . implode('][', $parents) . ']';
@@ -164,7 +164,7 @@ class GeolocationShapes extends MapFeatureBase {
   /**
    * {@inheritdoc}
    */
-  public function alterMap(array $render_array, array $feature_settings = [], array $context = [], MapProviderInterface $mapProvider = NULL): array {
+  public function alterMap(array $render_array, array $feature_settings = [], array $context = [], ?MapProviderInterface $mapProvider = NULL): array {
     $render_array = parent::alterMap($render_array, $feature_settings, $context, $mapProvider);
 
     if (empty($render_array['#children']['locations'])) {

@@ -124,13 +124,13 @@ export default class GeolocationDataLayer {
         wrapper: location,
       });
 
-      this.addMarker(marker);
+      this.markerAdded(marker);
     });
 
     return this;
   }
 
-  addMarker(marker) {
+  markerAdded(marker) {
     if (!marker.id ?? false) {
       marker.id = this.markers.length.toString();
     }
@@ -144,11 +144,13 @@ export default class GeolocationDataLayer {
         console.error(e, `Feature  ${feature.constructor.name} failed onMarkerAdded: ${e.toString()}`);
       }
     });
-
-    return marker;
   }
 
-  updateMarker(marker) {
+  markerUpdated(marker) {
+    if (!this.getMarkerById(marker.id)) {
+      return;
+    }
+
     this.features.forEach((feature) => {
       try {
         feature.onMarkerUpdated(marker);
@@ -158,7 +160,11 @@ export default class GeolocationDataLayer {
     });
   }
 
-  removeMarker(marker) {
+  markerRemoved(marker) {
+    if (!this.getMarkerById(marker.id)) {
+      return;
+    }
+
     this.features.forEach((feature) => {
       try {
         feature.onMarkerRemove(marker);
@@ -172,32 +178,38 @@ export default class GeolocationDataLayer {
         this.markers.splice(Number(index), 1);
       }
     });
-
-    marker.remove();
   }
 
   removeMarkers() {
     while (this.markers.length) {
-      this.removeMarker(this.markers.pop());
+      const removedMarker = this.markers.pop();
+      this.markerRemoved(removedMarker);
+      removedMarker.remove();
     }
   }
 
-  clickMarker(marker) {
+  markerClicked(marker) {
+    if (!this.getMarkerById(marker.id)) {
+      return;
+    }
+
     this.features.forEach((feature) => {
       try {
         feature.onMarkerClicked(marker);
       } catch (e) {
-        console.error(e, `Feature  ${feature.constructor.name} failed onMarkerClicked: ${e.toString()}`);
+        console.error(e, `Feature ${feature.constructor.name} failed onMarkerClicked: ${e.toString()}`);
       }
     });
   }
 
   getMarkerById(id) {
-    this.markers.forEach((marker) => {
-      if (id === marker.id ?? null) {
+    for (let i = 0; i < this.markers.length; i++) {
+      const marker = this.markers[i];
+      if (!marker.id) continue;
+      if (id === marker.id) {
         return marker;
       }
-    });
+    }
     return null;
   }
 
@@ -216,10 +228,10 @@ export default class GeolocationDataLayer {
         title: shapeElement.querySelector("h2.title")?.textContent ?? "",
         content: shapeElement.querySelector("div.content")?.innerHTML ?? "",
         strokeColor: shapeElement.getAttribute("data-stroke-color") ?? "#0000FF",
-        strokeWidth: shapeElement.getAttribute("data-stroke-width") ?? "2",
-        strokeOpacity: shapeElement.getAttribute("data-stroke-opacity") ?? "1",
+        strokeWidth: shapeElement.getAttribute("data-stroke-width") ?? 2,
+        strokeOpacity: shapeElement.getAttribute("data-stroke-opacity") ?? 1,
         fillColor: shapeElement.getAttribute("data-fill-color") ?? "#0000FF",
-        fillOpacity: shapeElement.getAttribute("data-fill-opacity") ?? "0.2",
+        fillOpacity: shapeElement.getAttribute("data-fill-opacity") ?? 0.2,
       };
 
       let geometry = {};
@@ -299,7 +311,7 @@ export default class GeolocationDataLayer {
           console.error("Unknown shape type cannot be added.");
       }
 
-      this.addShape(shape);
+      this.shapeAdded(shape);
     });
 
     return this;
@@ -312,7 +324,7 @@ export default class GeolocationDataLayer {
    * @return {GeolocationShape}
    *   Added shape.
    */
-  addShape(shape) {
+  shapeAdded(shape) {
     if (!shape.id ?? false) {
       shape.id = this.shapes.length.toString();
     }
@@ -326,15 +338,13 @@ export default class GeolocationDataLayer {
         console.error(e, `Feature  ${feature.constructor.name} failed onShapeAdded: ${e.toString()}`);
       }
     });
-
-    return shape;
   }
 
   /**
    * @param {GeolocationShape} shape
    *   Shape.
    */
-  updateShape(shape) {
+  shapeUpdated(shape) {
     this.features.forEach((feature) => {
       try {
         feature.onShapeUpdated(shape);
@@ -348,7 +358,7 @@ export default class GeolocationDataLayer {
    * @param {GeolocationShape} shape
    *   Shape.
    */
-  removeShape(shape) {
+  shapeRemoved(shape) {
     this.features.forEach((feature) => {
       try {
         feature.onShapeRemove(shape);
@@ -366,7 +376,34 @@ export default class GeolocationDataLayer {
 
   removeShapes() {
     while (this.shapes.length) {
-      this.removeShape(this.shapes.pop());
+      const removedShape = this.shapes.pop();
+      this.shapeRemoved(removedShape);
+      removedShape.remove();
     }
+  }
+
+  getShapeById(id) {
+    for (let i = 0; i < this.shapes.length; i++) {
+      const shape = this.shapes[i];
+      if (!shape.id) continue;
+      if (id === shape.id) {
+        return shape;
+      }
+    }
+    return null;
+  }
+
+  shapeClicked(shape) {
+    if (!this.getShapeById(shape.id)) {
+      return;
+    }
+
+    this.shapes.forEach((feature) => {
+      try {
+        feature.onShapeClicked(shape);
+      } catch (e) {
+        console.error(e, `Feature  ${feature.constructor.name} failed onShapeClicked: ${e.toString()}`);
+      }
+    });
   }
 }

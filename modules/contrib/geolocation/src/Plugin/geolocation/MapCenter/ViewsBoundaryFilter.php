@@ -35,7 +35,7 @@ class ViewsBoundaryFilter extends MapCenterBase implements MapCenterInterface {
   /**
    * {@inheritdoc}
    */
-  public function getSettingsForm(string $center_option_id = NULL, array $settings = [], array $context = []): array {
+  public function getSettingsForm(?string $center_option_id = NULL, array $settings = [], array $context = []): array {
     $form = parent::getSettingsForm($center_option_id, $settings, $context);
 
     $form['clear_address_input'] = [

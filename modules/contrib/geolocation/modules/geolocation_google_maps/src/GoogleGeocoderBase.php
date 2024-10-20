@@ -74,8 +74,8 @@ abstract class GoogleGeocoderBase extends GeocoderBase implements GeocoderInterf
   /**
    * {@inheritdoc}
    */
-  public function getSettings(): array {
-    $settings = parent::getSettings();
+  public function getSettings(array $settings = []): array {
+    $settings = parent::getSettings($settings);
 
     if (!empty($settings['component_restrictions'])) {
       $settings['component_restrictions'] = array_filter($settings['component_restrictions']);
@@ -144,7 +144,6 @@ abstract class GoogleGeocoderBase extends GeocoderBase implements GeocoderInterf
           '#type' => 'textfield',
           '#default_value' => $settings['component_restrictions']['country'] ?? '',
           '#title' => $this->t('Country'),
-          '#description' => $this->t('Enter a comma-separated list to support multiple countries'),
           '#size' => 15,
         ],
       ],

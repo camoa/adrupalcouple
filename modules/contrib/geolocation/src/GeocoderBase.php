@@ -64,7 +64,7 @@ abstract class GeocoderBase extends PluginBase implements GeocoderInterface, Con
    * @return array
    *   Settings.
    */
-  public function getSettings(): array {
+  public function getSettings(array $settings = []): array {
     $settings = NestedArray::mergeDeep($this->getDefaultSettings(), $this->configuration);
 
     $settings['import_path'] = $this->getJavascriptModulePath();

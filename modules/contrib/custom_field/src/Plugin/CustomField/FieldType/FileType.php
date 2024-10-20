@@ -4,8 +4,10 @@ namespace Drupal\custom_field\Plugin\CustomField\FieldType;
 
 use Drupal\Component\Render\PlainTextOutput;
 use Drupal\Component\Utility\Random;
+use Drupal\Core\Entity\TypedData\EntityDataDefinition;
 use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\Core\TypedData\DataReferenceDefinition;
 use Drupal\custom_field\Plugin\CustomFieldTypeBase;
 use Drupal\custom_field\Plugin\CustomFieldTypeInterface;
 use Drupal\custom_field\TypedData\CustomFieldDataDefinition;
@@ -52,12 +54,23 @@ class FileType extends CustomFieldTypeBase {
    */
   public static function propertyDefinitions(array $settings): array {
     ['name' => $name, 'target_type' => $target_type] = $settings;
+    $target_type_info = \Drupal::entityTypeManager()->getDefinition($target_type);
 
     $properties[$name] = CustomFieldDataDefinition::create('custom_field_entity_reference')
       ->setLabel(new TranslatableMarkup('@label ID', ['@label' => $name]))
       ->setSetting('unsigned', TRUE)
       ->setSetting('target_type', $target_type)
       ->setRequired(FALSE);
+
+    $properties[$name . self::SEPARATOR . 'entity'] = DataReferenceDefinition::create('entity')
+      ->setLabel($target_type_info->getLabel())
+      ->setDescription(new TranslatableMarkup('The referenced entity'))
+      ->setComputed(TRUE)
+      ->setSettings(['target_id' => $name, 'target_type' => $target_type])
+      ->setClass('\Drupal\custom_field\Plugin\CustomField\EntityReferenceComputed')
+      ->setReadOnly(FALSE)
+      ->setTargetDefinition(EntityDataDefinition::create($target_type))
+      ->addConstraint('EntityType', $target_type);
 
     return $properties;
   }

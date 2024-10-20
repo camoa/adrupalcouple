@@ -4,8 +4,8 @@ namespace Drupal\geolocation_geometry\GeometryFormat;
 
 use Drupal\geolocation_geometry\GeometryType\GeometryCollection;
 use Drupal\geolocation_geometry\GeometryType\GeometryTypeInterface;
-use Drupal\geolocation_geometry\GeometryType\LinearRing;
 use Drupal\geolocation_geometry\GeometryType\LineString;
+use Drupal\geolocation_geometry\GeometryType\LinearRing;
 use Drupal\geolocation_geometry\GeometryType\MultiLineString;
 use Drupal\geolocation_geometry\GeometryType\MultiPoint;
 use Drupal\geolocation_geometry\GeometryType\MultiPolygon;

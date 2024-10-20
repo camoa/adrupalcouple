@@ -10,8 +10,8 @@ use Drupal\geolocation\MapProviderBase;
  *
  * @MapProvider(
  *   id = "bing",
- *   name = @Translation("Bing Maps"),
- *   description = @Translation("Bing support."),
+ *   name = @Translation("Bing Maps (Deprecated)"),
+ *   description = @Translation("Bing support. Replaced by Azure Maps."),
  * )
  */
 class Bing extends MapProviderBase {

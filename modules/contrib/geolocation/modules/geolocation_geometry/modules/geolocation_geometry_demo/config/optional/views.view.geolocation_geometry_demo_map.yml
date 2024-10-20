@@ -514,17 +514,17 @@ display:
                     GeoportailFrance:
                       apikey: ''
                 enabled: false
-              leaflet_control_recenter:
+              control_recenter:
                 weight: 0
                 settings:
                   position: topright
                 enabled: false
-              leaflet_control_locate:
+              control_locate:
                 weight: 0
                 settings:
                   position: topright
                 enabled: false
-              leaflet_control_geocoder:
+              control_geocoder:
                 weight: 0
                 settings:
                   position: topright
@@ -559,9 +559,6 @@ display:
                   polygon: false
                 enabled: false
               leaflet_disable_user_interaction:
-                weight: 0
-                enabled: false
-              leaflet_client_location_indicator:
                 weight: 0
                 enabled: false
               leaflet_wms:

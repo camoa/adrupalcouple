@@ -291,7 +291,7 @@ class CustomFieldItem extends GraphQLComposeFieldTypeBase implements FieldProduc
       return $plugin_instance->getTypeSdl();
     }
 
-    return u($target_type_id)
+    return u($plugin_instance->getTypeSdl())
       ->camel()
       ->title()
       ->append('Union')

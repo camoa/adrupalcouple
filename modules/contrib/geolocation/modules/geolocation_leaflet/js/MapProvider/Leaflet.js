@@ -4,6 +4,11 @@ import { GeolocationCoordinates } from "../../../../js/Base/GeolocationCoordinat
 import { GeolocationMapBase } from "../../../../js/MapProvider/GeolocationMapBase.js";
 import { GeolocationBoundaries } from "../../../../js/Base/GeolocationBoundaries.js";
 import { LeafletMapMarker } from "../LeafletMapMarker.js";
+import { LeafletShapeLine } from "../LeafletShapeLine.js";
+import { LeafletShapeMultiPolygon } from "../LeafletShapeMultiPolygon.js";
+import { LeafletShapePolygon } from "../LeafletShapePolygon.js";
+import { LeafletShapeMultiLine } from "../LeafletShapeMultiLine.js";
+import { LeafletCircle } from "../LeafletCircle.js";
 
 /**
  * @typedef LeafletSettings
@@ -17,6 +22,7 @@ import { LeafletMapMarker } from "../LeafletMapMarker.js";
  * @prop {L.Map} leafletMap
  * @prop {L.LayerGroup} markerLayer
  * @prop {L.Control[]} controls
+ * @prop {L.Layer[]} tileLayers
  */
 export default class Leaflet extends GeolocationMapBase {
   constructor(mapSettings) {
@@ -127,111 +133,28 @@ export default class Leaflet extends GeolocationMapBase {
     return new LeafletMapMarker(coordinates, settings, this);
   }
 
+  createCircle(center, radius, settings = {}) {
+    return new LeafletCircle(center, radius, this, settings);
+  }
+
   createShapeLine(geometry, settings) {
-    const shape = super.createShapeLine(geometry, settings);
-
-    shape.leafletShapes = [];
-
-    const line = L.polyline(geometry.points, {
-      color: settings.strokeColor,
-      opacity: parseFloat(settings.strokeOpacity),
-      weight: parseInt(settings.strokeWidth),
-    });
-    if (settings.title) {
-      line.bindTooltip(settings.title);
-    }
-
-    line.addTo(this.leafletMap);
-
-    shape.leafletShapes.push(line);
-
-    return shape;
+    return new LeafletShapeLine(geometry, settings, this);
   }
 
   createShapePolygon(geometry, settings) {
-    const shape = super.createShapePolygon(geometry, settings);
-
-    shape.leafletShapes = [];
-    const polygon = L.polyline(geometry.points, {
-      color: settings.strokeColor,
-      opacity: parseFloat(settings.strokeOpacity),
-      weight: parseInt(settings.strokeWidth),
-      fillColor: settings.fillColor,
-      fillOpacity: parseFloat(settings.fillOpacity),
-      fill: parseFloat(settings.fillOpacity) > 0,
-    });
-    if (settings.title) {
-      polygon.bindTooltip(settings.title);
-    }
-
-    polygon.addTo(this.leafletMap);
-
-    shape.leafletShapes.push(polygon);
-
-    return shape;
+    return new LeafletShapePolygon(geometry, settings, this);
   }
 
   createShapeMultiLine(geometry, settings) {
-    const shape = super.createShapeMultiLine(geometry, settings);
-
-    shape.leafletShapes = [];
-    shape.geometry.lines.forEach((lineGeometry) => {
-      const line = L.polyline(lineGeometry.points, {
-        color: settings.strokeColor,
-        opacity: parseFloat(settings.strokeOpacity),
-        weight: parseInt(settings.strokeWidth),
-      });
-      if (settings.title) {
-        line.bindTooltip(settings.title);
-      }
-      line.addTo(this.leafletMap);
-
-      shape.leafletShapes.push(line);
-    });
-
-    return shape;
+    return new LeafletShapeMultiLine(geometry, settings, this);
   }
 
   createShapeMultiPolygon(geometry, settings) {
-    const shape = super.createShapeMultiPolygon(geometry, settings);
-
-    shape.leafletShapes = [];
-    shape.geometry.polygons.forEach((polygonGeometry) => {
-      const polygon = L.polygon(polygonGeometry.points, {
-        color: settings.strokeColor,
-        opacity: parseFloat(settings.strokeOpacity),
-        weight: parseInt(settings.strokeWidth),
-        fillColor: settings.fillColor,
-        fillOpacity: parseFloat(settings.fillOpacity),
-        fill: parseFloat(settings.fillOpacity) > 0,
-      });
-      if (settings.title) {
-        polygon.bindTooltip(settings.title);
-      }
-      polygon.addTo(this.leafletMap);
-
-      shape.leafletShapes.push(polygon);
-    });
-
-    return shape;
-  }
-
-  removeShape(shape) {
-    if (!shape) {
-      return;
-    }
-
-    if (shape.leafletShapes) {
-      shape.leafletShapes.forEach((leafletShape) => {
-        leafletShape.remove();
-      });
-    }
-
-    shape.remove();
+    return new LeafletShapeMultiPolygon(geometry, settings, this);
   }
 
   getMarkerBoundaries(markers) {
-    super.getMarkerBoundaries();
+    super.getMarkerBoundaries(markers);
 
     markers = markers || this.dataLayers.get("default").markers;
     if (!markers.length) {
@@ -249,7 +172,7 @@ export default class Leaflet extends GeolocationMapBase {
   }
 
   getShapeBoundaries(shapes) {
-    super.getShapeBoundaries();
+    super.getShapeBoundaries(shapes);
 
     shapes = shapes || this.dataLayers.get("default").shapes;
     if (!shapes.length) {
@@ -298,35 +221,11 @@ export default class Leaflet extends GeolocationMapBase {
   }
 
   setCenterByCoordinates(coordinates, accuracy) {
-    super.setCenterByCoordinates(coordinates, accuracy);
-
-    if (typeof accuracy === "undefined") {
-      this.leafletMap.panTo(coordinates);
-      return;
+    if (super.setCenterByCoordinates(coordinates, accuracy) === false) {
+      return false;
     }
 
-    // TODO: Is this copied from Google? Does it work?
-
-    const circle = this.addAccuracyIndicatorCircle(coordinates, accuracy);
-
-    this.leafletMap.fitBounds(circle.getBounds());
-
-    setInterval(() => {
-      let { fillOpacity } = circle.options;
-      fillOpacity -= 0.03;
-
-      let { opacity } = circle.options;
-      opacity -= 0.06;
-
-      if (opacity > 0 && fillOpacity > 0) {
-        circle.setStyle({
-          fillOpacity,
-          stroke: !!opacity,
-        });
-      } else {
-        circle.remove();
-      }
-    }, 300);
+    this.leafletMap.panTo(coordinates);
   }
 
   normalizeBoundaries(boundaries) {
@@ -350,7 +249,7 @@ export default class Leaflet extends GeolocationMapBase {
    * @param {GeolocationBoundaries} boundaries
    *   Boundaries.
    *
-   * @return {LatLngBounds|null}
+   * @return {L.LatLngBounds|null}
    *   Boundaries.
    */
   denormalizeBoundaries(boundaries) {
@@ -411,19 +310,10 @@ export default class Leaflet extends GeolocationMapBase {
     if (!this.tileLayers.has(layerId)) {
       return;
     }
+
     const layer = this.tileLayers.get(layerId);
     this.leafletMap.removeLayer(layer);
 
     this.tileLayers.delete(layerId);
-  }
-
-  addAccuracyIndicatorCircle(location, accuracy) {
-    return L.circle(location, accuracy, {
-      interactive: false,
-      color: "#4285F4",
-      opacity: 0.3,
-      fillColor: "#4285F4",
-      fillOpacity: 0.15,
-    }).addTo(this.leafletMap);
   }
 }

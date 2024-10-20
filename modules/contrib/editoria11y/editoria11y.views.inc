@@ -17,7 +17,7 @@ function editoria11y_views_data(): array {
         'base' => [
           'field' => 'id',
           'title' => t('Editoria11y - Test results'),
-          'help' => t('Stores Editoria11y issue list'),
+          'help' => t('Stores Editoria11y issue list', [], ['context' => 'problems']),
           'weight' => -10,
         ],
       ],
@@ -168,7 +168,7 @@ function editoria11y_views_data(): array {
       'page_result_count' => [
         'real field' => 'page_result_count',
         'title' => t('Page result count'),
-        'help' => t('The total number of issues on this page.'),
+        'help' => t('The total number of issues on this page.', [], ['context' => 'problems']),
         'field' => [
           'id' => 'editoria11y_issues_by_page_link',
         ],

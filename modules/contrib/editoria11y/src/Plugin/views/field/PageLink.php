@@ -3,7 +3,6 @@
 namespace Drupal\editoria11y\Plugin\views\field;
 
 use Drupal\Core\Link;
-use Drupal\Core\Url;
 use Drupal\views\Plugin\views\field\Standard;
 use Drupal\views\ResultRow;
 
@@ -36,12 +35,13 @@ class PageLink extends Standard {
         }
       }
 
-      $url = Url::fromUserInput($path, [
-        'query' => [
-          'ed1ref' => $path,
-        ],
-      ]);
+      // @phpstan-ignore-next-line (Why have services if you don't use them)
+      $url = \Drupal::service('path.validator')->getUrlIfValidWithoutAccessCheck($path);
+      if (!$url) {
+        return $value . ' ' . t('(invalid URL)');
+      }
 
+      $url->mergeOptions(['query' => ['ed1ref' => $path]]);
       $value = Link::fromTextAndUrl($value, $url)->toString();
 
     }

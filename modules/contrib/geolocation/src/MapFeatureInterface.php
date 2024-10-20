@@ -29,7 +29,7 @@ interface MapFeatureInterface extends PluginInspectionInterface {
    * @return array
    *   An array only containing keys defined in this plugin.
    */
-  public function getSettings(array $settings, MapProviderInterface $mapProvider = NULL): array;
+  public function getSettings(array $settings, ?MapProviderInterface $mapProvider = NULL): array;
 
   /**
    * Provide a summary array to use in field formatters.
@@ -42,7 +42,7 @@ interface MapFeatureInterface extends PluginInspectionInterface {
    * @return array
    *   An array to use as field formatter summary.
    */
-  public function getSettingsSummary(array $settings, MapProviderInterface $mapProvider = NULL): array;
+  public function getSettingsSummary(array $settings, ?MapProviderInterface $mapProvider = NULL): array;
 
   /**
    * Provide a generic map settings form array.
@@ -57,7 +57,7 @@ interface MapFeatureInterface extends PluginInspectionInterface {
    * @return array
    *   A form array to be integrated in whatever.
    */
-  public function getSettingsForm(array $settings, array $parents = [], MapProviderInterface $mapProvider = NULL): array;
+  public function getSettingsForm(array $settings, array $parents = [], ?MapProviderInterface $mapProvider = NULL): array;
 
   /**
    * Validate Feature Form.
@@ -86,6 +86,6 @@ interface MapFeatureInterface extends PluginInspectionInterface {
    * @return array
    *   Render array.
    */
-  public function alterMap(array $render_array, array $feature_settings = [], array $context = [], MapProviderInterface $mapProvider = NULL): array;
+  public function alterMap(array $render_array, array $feature_settings = [], array $context = [], ?MapProviderInterface $mapProvider = NULL): array;
 
 }

@@ -4,8 +4,8 @@ namespace Drupal\geolocation_geometry\Plugin\views\relationship;
 
 use Drupal\Component\Plugin\PluginManagerInterface;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\views\Plugin\views\relationship\RelationshipPluginBase;
 use Drupal\views\Plugin\ViewsHandlerManager;
+use Drupal\views\Plugin\views\relationship\RelationshipPluginBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**

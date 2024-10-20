@@ -80,17 +80,7 @@ class Linkit extends Plugin {
             selected = false;
           },
           closeHandler: (event) => {
-            var autocompleteWidget = jQuery(linkitInput).autocomplete('instance');
-            var autocompleteMenuLinks = autocompleteWidget.menu.element.find('li.linkit-result-line');
-            // Automatically select item if it's the only one.
-            if (autocompleteMenuLinks.length === 1) {
-              var referencedItem = autocompleteMenuLinks.first().data('ui-autocomplete-item');
-              event.target.value = referencedItem.path;
-              this.set('entityType', referencedItem.entity_type_id);
-              this.set('entityUuid', referencedItem.entity_uuid);
-              this.set('entitySubstitution', referencedItem.substitution_id);
-              selected = true;
-            }
+            // Upon close, ensure there is no selection (#3447669).
             selected = false;
           },
         },

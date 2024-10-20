@@ -682,46 +682,6 @@ display:
                     marker_clusterer:
                       enabled: false
                       weight: 0
-                    marker_icon:
-                      enabled: false
-                      weight: 0
-                      settings:
-                        marker_icon_path: ''
-                        anchor:
-                          x: 0
-                          'y': 0
-                        origin:
-                          x: 0
-                          'y': 0
-                        label_origin:
-                          x: 0
-                          'y': 0
-                        size:
-                          width: null
-                          height: null
-                        scaled_size:
-                          width: null
-                          height: null
-                    marker_infobubble:
-                      enabled: false
-                      weight: 0
-                      settings:
-                        close_other: 1
-                        close_button: 0
-                        close_button_src: ''
-                        shadow_style: 0
-                        padding: 10
-                        border_radius: 8
-                        border_width: 2
-                        border_color: '#039be5'
-                        background_color: '#fff'
-                        min_width: null
-                        max_width: 550
-                        min_height: null
-                        max_height: null
-                        arrow_style: 2
-                        arrow_position: 30
-                        arrow_size: 10
                     marker_infowindow:
                       enabled: false
                       weight: 0
@@ -738,34 +698,11 @@ display:
                         font_family: ''
                         font_size: ''
                         font_weight: ''
-                    marker_opacity:
-                      enabled: false
-                      weight: 0
-                      settings:
-                        opacity: 1.0
                     marker_zoom_by_anchor:
                       enabled: false
                       weight: 0
                       settings:
                         marker_zoom_anchor_id: ''
-                    spiderfying:
-                      enabled: false
-                      weight: 0
-                      settings:
-                        spiderfiable_marker_path: /modules/contrib/geolocation/modules/geolocation_google_maps/images/marker-plus.svg
-                        markersWontMove: true
-                        markersWontHide: false
-                        keepSpiderfied: true
-                        ignoreMapClick: false
-                        nearbyDistance: 20
-                        circleSpiralSwitchover: 9
-                        circleFootSeparation: 23
-                        spiralFootSeparation: 26
-                        spiralLengthStart: 11
-                        spiralLengthFactor: 4
-                        legWeight: 1.5
-                        spiralIconWidth: 23
-                        spiralIconHeight: 32
               'geolocation_test:default':
                 enabled: false
                 weight: 0
@@ -774,46 +711,6 @@ display:
                     marker_clusterer:
                       enabled: false
                       weight: 0
-                    marker_icon:
-                      enabled: false
-                      weight: 0
-                      settings:
-                        marker_icon_path: ''
-                        anchor:
-                          x: 0
-                          'y': 0
-                        origin:
-                          x: 0
-                          'y': 0
-                        label_origin:
-                          x: 0
-                          'y': 0
-                        size:
-                          width: null
-                          height: null
-                        scaled_size:
-                          width: null
-                          height: null
-                    marker_infobubble:
-                      enabled: false
-                      weight: 0
-                      settings:
-                        close_other: 1
-                        close_button: 0
-                        close_button_src: ''
-                        shadow_style: 0
-                        padding: 10
-                        border_radius: 8
-                        border_width: 2
-                        border_color: '#039be5'
-                        background_color: '#fff'
-                        min_width: null
-                        max_width: 550
-                        min_height: null
-                        max_height: null
-                        arrow_style: 2
-                        arrow_position: 30
-                        arrow_size: 10
                     marker_infowindow:
                       enabled: false
                       weight: 0
@@ -830,34 +727,11 @@ display:
                         font_family: ''
                         font_size: ''
                         font_weight: ''
-                    marker_opacity:
-                      enabled: false
-                      weight: 0
-                      settings:
-                        opacity: 1.0
                     marker_zoom_by_anchor:
                       enabled: false
                       weight: 0
                       settings:
                         marker_zoom_anchor_id: ''
-                    spiderfying:
-                      enabled: false
-                      weight: 0
-                      settings:
-                        spiderfiable_marker_path: /modules/contrib/geolocation/modules/geolocation_google_maps/images/marker-plus.svg
-                        markersWontMove: true
-                        markersWontHide: false
-                        keepSpiderfied: true
-                        ignoreMapClick: false
-                        nearbyDistance: 20
-                        circleSpiralSwitchover: 9
-                        circleFootSeparation: 23
-                        spiralFootSeparation: 26
-                        spiralLengthStart: 11
-                        spiralLengthFactor: 4
-                        legWeight: 1.5
-                        spiralIconWidth: 23
-                        spiralIconHeight: 32
               'geolocation_default_layer:default':
                 enabled: true
                 weight: 1
@@ -866,46 +740,6 @@ display:
                     marker_clusterer:
                       enabled: false
                       weight: 0
-                    marker_icon:
-                      enabled: false
-                      weight: 0
-                      settings:
-                        marker_icon_path: ''
-                        anchor:
-                          x: 0
-                          'y': 0
-                        origin:
-                          x: 0
-                          'y': 0
-                        label_origin:
-                          x: 0
-                          'y': 0
-                        size:
-                          width: null
-                          height: null
-                        scaled_size:
-                          width: null
-                          height: null
-                    marker_infobubble:
-                      enabled: false
-                      weight: 0
-                      settings:
-                        close_other: 1
-                        close_button: 0
-                        close_button_src: ''
-                        shadow_style: 0
-                        padding: 10
-                        border_radius: 8
-                        border_width: 2
-                        border_color: '#039be5'
-                        background_color: '#fff'
-                        min_width: null
-                        max_width: 550
-                        min_height: null
-                        max_height: null
-                        arrow_style: 2
-                        arrow_position: 30
-                        arrow_size: 10
                     marker_infowindow:
                       enabled: false
                       weight: 0
@@ -922,34 +756,11 @@ display:
                         font_family: ''
                         font_size: ''
                         font_weight: ''
-                    marker_opacity:
-                      enabled: false
-                      weight: 0
-                      settings:
-                        opacity: 1.0
                     marker_zoom_by_anchor:
                       enabled: false
                       weight: 0
                       settings:
                         marker_zoom_anchor_id: ''
-                    spiderfying:
-                      enabled: false
-                      weight: 0
-                      settings:
-                        spiderfiable_marker_path: /modules/contrib/geolocation/modules/geolocation_google_maps/images/marker-plus.svg
-                        markersWontMove: true
-                        markersWontHide: false
-                        keepSpiderfied: true
-                        ignoreMapClick: false
-                        nearbyDistance: 20
-                        circleSpiralSwitchover: 9
-                        circleFootSeparation: 23
-                        spiralFootSeparation: 26
-                        spiralLengthStart: 11
-                        spiralLengthFactor: 4
-                        legWeight: 1.5
-                        spiralIconWidth: 23
-                        spiralIconHeight: 32
       row:
         type: 'entity:node'
         options:

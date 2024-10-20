@@ -186,7 +186,7 @@ class Yandex extends MapProviderBase {
    * @return string
    *   Yandex API allowed language code.
    */
-  public static function getApiUrlLangcode(string $langId = NULL): string {
+  public static function getApiUrlLangcode(?string $langId = NULL): string {
     if (empty($langId)) {
       $langId = \Drupal::languageManager()->getCurrentLanguage()->getId();
     }
@@ -218,11 +218,16 @@ class Yandex extends MapProviderBase {
           'geolocation' => [
             'maps' => [
               $render_array['#id'] => [
-                'scripts' => [$this->getApiUrl()],
+                'scripts' => [
+                  $this->getApiUrl(),
+                ],
                 'yandex_settings' => $map_settings,
               ],
             ],
           ],
+        ],
+        'library' => [
+          'geolocation_yandex/geolocation.yandex',
         ],
       ]
     );

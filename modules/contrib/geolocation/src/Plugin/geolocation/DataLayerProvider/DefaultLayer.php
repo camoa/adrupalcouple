@@ -19,21 +19,21 @@ class DefaultLayer extends DataLayerProviderBase implements DataLayerProviderInt
   /**
    * {@inheritdoc}
    */
-  public function getLayerRenderData(string $data_layer_option_id = 'default', array $settings = [], array $context = NULL): array {
+  public function getLayerRenderData(string $data_layer_option_id = 'default', array $settings = [], ?array $context = NULL): array {
     return [];
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getLabel(string $data_layer_option_id, array $settings = [], array $context = NULL): string {
+  public function getLabel(string $data_layer_option_id, array $settings = [], ?array $context = NULL): string {
     return $this->t('Default');
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getLayerOptions(array $context = NULL): array {
+  public function getLayerOptions(?array $context = NULL): array {
     return [
       'default' => [
         'name' => $this->getPluginDefinition()['name'],

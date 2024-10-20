@@ -133,7 +133,7 @@ abstract class GeolocationGeometryBase extends FieldItemBase {
    * @return float[]
    *   Coordinates.
    */
-  protected static function getRandomCoordinates(array $reference_point = NULL, float $range = 5): array {
+  protected static function getRandomCoordinates(?array $reference_point = NULL, float $range = 5): array {
     if ($reference_point) {
       return [
         'latitude' => rand(

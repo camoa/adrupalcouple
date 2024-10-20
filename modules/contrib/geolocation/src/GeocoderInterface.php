@@ -20,10 +20,13 @@ interface GeocoderInterface extends PluginInspectionInterface {
   /**
    * Return settings.
    *
+   * @param array $settings
+   *   Raw settings.
+   *
    * @return array
    *   Settings.
    */
-  public function getSettings(): array;
+  public function getSettings(array $settings = []): array;
 
   /**
    * Process the form built above.

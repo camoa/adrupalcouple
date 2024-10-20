@@ -2,8 +2,8 @@
 
 namespace Drupal\Tests\geolocation_leaflet\Kernel;
 
-use Drupal\geolocation\GeocoderManager;
 use Drupal\KernelTests\KernelTestBase;
+use Drupal\geolocation\GeocoderManager;
 
 /**
  * Tests the new entity API for the geolocation field type.

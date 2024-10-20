@@ -32,7 +32,7 @@ class GoogleContextPopup extends MapFeatureBase {
   /**
    * {@inheritdoc}
    */
-  public function getSettingsForm(array $settings, array $parents = [], MapProviderInterface $mapProvider = NULL): array {
+  public function getSettingsForm(array $settings, array $parents = [], ?MapProviderInterface $mapProvider = NULL): array {
     $form = parent::getSettingsForm($settings, $parents, $mapProvider);
     $form['content'] = [
       '#type' => 'text_format',
@@ -53,7 +53,7 @@ class GoogleContextPopup extends MapFeatureBase {
   /**
    * {@inheritdoc}
    */
-  public function alterMap(array $render_array, array $feature_settings = [], array $context = [], MapProviderInterface $mapProvider = NULL): array {
+  public function alterMap(array $render_array, array $feature_settings = [], array $context = [], ?MapProviderInterface $mapProvider = NULL): array {
     if (
       !empty($feature_settings['content']['value'])
       && !empty($feature_settings['content']['format'])

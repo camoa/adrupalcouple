@@ -85,13 +85,44 @@ class GeolocationGoogleJavascriptTest extends WebDriverTestBase {
 
     $result = $this->assertSession()->elementExists('css', '.field-content span[typeof="GeoCoordinates"]');
     $this->assertNotEmpty($result, "Location field content present.");
-    $result = $this->assertSession()->waitForElementVisible('css', '.geolocation-map-container img[src="https://maps.gstatic.com/mapfiles/transparent.png"]', 5000);
-    // Fails randomly, so just try again.
-    if (empty($result)) {
-      $this->drupalGet('geolocation-demo/common-map');
-      $result = $this->assertSession()->waitForElementVisible('css', '.geolocation-map-container img[src="https://maps.gstatic.com/mapfiles/transparent.png"]', 5000);
-    }
+
+    $result = $this->assertSession()->waitForElementVisible('css', '.geolocation-map-container div[class$=pin-view]', 5000);
     $this->assertNotEmpty($result, "Marker element present.");
+  }
+
+  /**
+   * Tests the Google Marker.
+   */
+  public function testMarkerInfoWindow(): void {
+    /** @var \Drupal\geolocation\LayerFeatureManager $layerFeatureManager */
+    $layerFeatureManager = \Drupal::service('plugin.manager.geolocation.layerfeature');
+
+    $layerFeature = $layerFeatureManager->getLayerFeature('marker_infowindow');
+
+    $view = View::load('geolocation_demo_common_map');
+    $display = &$view->getDisplay('default');
+
+    $display['display_options']['style']['options']['map_provider_settings']['data_layers']['geolocation_default_layer:default']['settings']['features'][$layerFeature->getPluginId()] = [
+      'enabled' => TRUE,
+      'settings' => $layerFeature->getSettings([]),
+    ];
+    $view->save();
+
+    $this->drupalGet('geolocation-demo/common-map');
+
+    $this->assertSession()->elementNotExists('css', 'div.gm-style-iw');
+
+    $result = $this->assertSession()->waitForElementVisible('css', '.geolocation-map-container div[class$=marker-view]:last-child div[class$=pin-view]', 5000);
+
+    try {
+      $result->click();
+    }
+    catch (\Exception $e) {
+      $result = $this->assertSession()->waitForElementVisible('css', '.geolocation-map-container div[class$=marker-view]:nth-child(5) div[class$=pin-view]', 5000);
+      $result->click();
+    }
+
+    $this->assertSession()->elementExists('css', 'div.gm-style-iw');
   }
 
   /**
@@ -106,7 +137,7 @@ class GeolocationGoogleJavascriptTest extends WebDriverTestBase {
     $view = View::load('geolocation_demo_common_map');
     $display = &$view->getDisplay('default');
 
-    $display['display_options']['style']['options']['map_provider_settings']['data_layers']['geolocation_default_layer:default']['settings']['features']['marker_clusterer'] = [
+    $display['display_options']['style']['options']['map_provider_settings']['data_layers']['geolocation_default_layer:default']['settings']['features'][$layerFeature->getPluginId()] = [
       'enabled' => TRUE,
       'settings' => $layerFeature->getSettings([]),
     ];
@@ -131,58 +162,6 @@ class GeolocationGoogleJavascriptTest extends WebDriverTestBase {
       $result = $this->assertSession()->waitForElementVisible('css', 'div[title^="Cluster"]', 5000);
     }
     $this->assertNotEmpty($result, "Cluster element present.");
-  }
-
-  /**
-   * Tests the Marker clusterer.
-   */
-  public function testMarkerIconAdjustment(): void {
-    /** @var \Drupal\geolocation\LayerFeatureManager $layerFeatureManager */
-    $layerFeatureManager = \Drupal::service('plugin.manager.geolocation.layerfeature');
-
-    /** @var \Drupal\geolocation_google_maps\Plugin\geolocation\LayerFeature\GoogleMarkerIcon $layerFeature */
-    $layerFeature = $layerFeatureManager->getLayerFeature('marker_icon');
-
-    $view = View::load('geolocation_demo_commonmap_with_marker_icons');
-    $display = &$view->getDisplay('default');
-
-    $display['display_options']['style']['options']['map_provider_settings']['data_layers']['geolocation_default_layer:default']['settings']['features']['marker_icon'] = [
-      'enabled' => TRUE,
-      'settings' => $layerFeature->getSettings([]),
-    ];
-
-    $view->save();
-
-    $this->drupalGet('geolocation-demo/common-map-marker-icons');
-
-    $result = $this->assertSession()->waitForElementVisible('css', '.geolocation-map-container');
-    $this->assertNotEmpty($result, "Container present.");
-
-    $googleErrorMessage = $this->assertSession()->waitForElement('css', '.gm-err-message');
-    if ($googleErrorMessage) {
-      $errors = $this->getSession()->evaluateScript("sessionStorage.getItem('geolocation_google_js_errors')");
-      var_dump("\n" . $errors . "\n");
-    }
-    $this->assertEmpty($googleErrorMessage, "No Google error messages");
-
-    $result = $this->assertSession()->waitForElementVisible('css', 'img[src*="druplicon-nick-fury.png"]', 5000);
-
-    $this->assertNotEmpty($result, "'Nick Fury' icon present.");
-
-    $display['display_options']['style']['options']['map_provider_settings']['data_layers']['geolocation_default_layer:default']['settings']['features']['marker_icon'] = [
-      'settings' => $layerFeature->getSettings([
-        'size' => [
-          'width' => 0,
-          'height' => 0,
-        ],
-      ]),
-    ];
-
-    $view->save();
-
-    $this->drupalGet('geolocation-demo/common-map-marker-icons');
-
-    $this->assertSession()->elementNotExists('css', 'img[src*="druplicon-nick-fury.png"]');
   }
 
 }

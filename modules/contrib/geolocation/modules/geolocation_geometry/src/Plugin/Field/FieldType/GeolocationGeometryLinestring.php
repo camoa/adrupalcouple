@@ -10,8 +10,8 @@ use Drupal\Core\Field\FieldStorageDefinitionInterface;
  * @FieldType(
  *   id = "geolocation_geometry_linestring",
  *   label = @Translation("Geolocation Geometry - Line"),
- *   category = "spatial_fields",
- *   description = @Translation("This field stores spatial geometry data."),
+ *   category = "geo_spatial",
+ *   description = @Translation("This field stores spatial geometry of type 'LineString'."),
  *   default_widget = "geolocation_geometry_geojson",
  *   default_formatter = "geolocation_geometry_data"
  * )

@@ -92,4 +92,15 @@ interface CustomFieldWidgetInterface {
    */
   public function getWidgetSettings(): array;
 
+  /**
+   * Returns if the widget can be used for the provided field.
+   *
+   * @param \Drupal\custom_field\Plugin\CustomFieldTypeInterface $custom_item
+   *   The custom field type.
+   *
+   * @return bool
+   *   TRUE if the widget can be used, FALSE otherwise.
+   */
+  public static function isApplicable(CustomFieldTypeInterface $custom_item): bool;
+
 }

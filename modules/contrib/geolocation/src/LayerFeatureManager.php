@@ -118,7 +118,7 @@ class LayerFeatureManager extends DefaultPluginManager {
    * @return array
    *   Render array.
    */
-  public function getOptionsForm(array $settings, array $parents = [], MapProviderInterface $map_provider = NULL): array {
+  public function getOptionsForm(array $settings, array $parents = [], ?MapProviderInterface $map_provider = NULL): array {
     $layer_features = $this->getLayerFeaturesByMapType($map_provider->getPluginId());
 
     if (empty($layer_features)) {

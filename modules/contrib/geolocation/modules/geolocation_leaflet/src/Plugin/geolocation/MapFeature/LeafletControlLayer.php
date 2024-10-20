@@ -45,7 +45,7 @@ class LeafletControlLayer extends ControlCustomElementBase {
   /**
    * {@inheritdoc}
    */
-  public function getSettingsForm(array $settings, array $parents = [], MapProviderInterface $mapProvider = NULL): array {
+  public function getSettingsForm(array $settings, array $parents = [], ?MapProviderInterface $mapProvider = NULL): array {
     $form = parent::getSettingsForm($settings, $parents, $mapProvider);
 
     if ($parents) {
@@ -107,7 +107,7 @@ class LeafletControlLayer extends ControlCustomElementBase {
   /**
    * {@inheritdoc}
    */
-  public function alterMap(array $render_array, array $feature_settings = [], array $context = [], MapProviderInterface $mapProvider = NULL): array {
+  public function alterMap(array $render_array, array $feature_settings = [], array $context = [], ?MapProviderInterface $mapProvider = NULL): array {
     $render_array = parent::alterMap($render_array, $feature_settings, $context, $mapProvider);
 
     $providers = [];

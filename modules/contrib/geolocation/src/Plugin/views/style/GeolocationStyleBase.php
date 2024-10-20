@@ -266,7 +266,7 @@ abstract class GeolocationStyleBase extends StylePluginBase {
     }
 
     $form['geolocation_field'] = [
-      '#title' => $this->t('Geolocation source field'),
+      '#title' => $this->t('Geolocation field'),
       '#type' => 'select',
       '#default_value' => $this->options['geolocation_field'],
       '#description' => $this->t("The source of geodata for each entity."),
@@ -324,19 +324,19 @@ abstract class GeolocationStyleBase extends StylePluginBase {
     ]);
 
     $form['title_field'] = [
-      '#title' => $this->t('Title source field'),
+      '#title' => $this->t('Title field'),
       '#type' => 'select',
       '#default_value' => $this->options['title_field'],
-      '#description' => $this->t("The source of the title for each entity. Field type must be 'string'."),
+      '#description' => $this->t("The title is displayed on hover of the marker/shape. Field type must be 'string'."),
       '#options' => $title_options,
       '#empty_value' => 'none',
     ];
 
     $form['label_field'] = [
-      '#title' => $this->t('Label source field'),
+      '#title' => $this->t('Label field'),
       '#type' => 'select',
       '#default_value' => $this->options['label_field'],
-      '#description' => $this->t("The source of the label for each entity. Field type must be 'string'."),
+      '#description' => $this->t("The label is permanently displayed above the marker/shape . Field type must be 'string'."),
       '#options' => $label_options,
       '#empty_value' => 'none',
     ];

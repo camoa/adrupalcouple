@@ -38,7 +38,7 @@ class LeafletMarkerPopup extends LayerFeatureBase {
   /**
    * {@inheritdoc}
    */
-  public function getSettingsForm(array $settings, array $parents = [], MapProviderInterface $mapProvider = NULL): array {
+  public function getSettingsForm(array $settings, array $parents = [], ?MapProviderInterface $mapProvider = NULL): array {
     $form = parent::getSettingsForm($settings, $parents, $mapProvider);
 
     $form['info_auto_display'] = [

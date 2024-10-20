@@ -230,12 +230,12 @@ class GeolocationGpx extends ContentEntityBase {
           }
 
           if (!is_null($last_latitude) && !is_null($last_longitude)) {
-            $continuous_distance = $continuous_distance + (GeometryTypeBase::distanceByCoordinates(
+            $continuous_distance = $continuous_distance + GeometryTypeBase::distanceByCoordinates(
               $last_latitude,
               $last_longitude,
               $waypoint->getLatitude(),
               $waypoint->getLongitude(),
-            ) ?? 0);
+            );
           }
 
           $last_latitude = $waypoint->getLatitude();

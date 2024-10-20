@@ -28,7 +28,7 @@ class GeometryFormatFileDownloadController extends ControllerBase {
    * @return \Symfony\Component\HttpFoundation\Response
    *   Response.
    */
-  public function download(string $format, string $entity_type, int $entity_id, string $field_name, int $delta = NULL): Response {
+  public function download(string $format, string $entity_type, int $entity_id, string $field_name, ?int $delta = NULL): Response {
 
     /** @var \Drupal\Core\Entity\ContentEntityInterface|null $entity */
     $entity = $this->entityTypeManager()->getStorage($entity_type)->load($entity_id);

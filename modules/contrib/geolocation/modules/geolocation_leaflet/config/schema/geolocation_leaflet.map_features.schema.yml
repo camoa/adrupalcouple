@@ -18,28 +18,6 @@ plugin.plugin_configuration.geolocation.map_feature.leaflet_control_fullscreen:
   type: geolocation.map_feature_settings.leaflet.control
   label: 'Control Fullscreen'
 
-plugin.plugin_configuration.geolocation.map_feature.leaflet_control_geocoder:
-  type: geolocation.map_feature_settings.leaflet.control
-  label: 'Control Geocoder'
-  mapping:
-    settings:
-      type: mapping
-      label: 'Settings'
-      mapping:
-        geocoder:
-          type: string
-          label: 'Geocoder'
-        geocoder_settings:
-          type: geolocation.geocoder.[%parent.geocoder]
-
-plugin.plugin_configuration.geolocation.map_feature.leaflet_control_locate:
-  type: geolocation.map_feature_settings.leaflet.control
-  label: 'Control Locate'
-
-plugin.plugin_configuration.geolocation.map_feature.leaflet_control_recenter:
-  type: geolocation.map_feature_settings.leaflet.control
-  label: 'Control Recenter'
-
 plugin.plugin_configuration.geolocation.map_feature.leaflet_control_attribution:
   type: geolocation.map_feature_settings.leaflet.control
   label: 'Control Attribution'

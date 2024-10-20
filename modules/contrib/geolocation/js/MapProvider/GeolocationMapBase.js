@@ -40,6 +40,7 @@ import { GeolocationShapePolygon } from "../Base/GeolocationShapePolygon.js";
 import { GeolocationShapeLine } from "../Base/GeolocationShapeLine.js";
 import { GeolocationShapeMultiLine } from "../Base/GeolocationShapeMultiLine.js";
 import { GeolocationShapeMultiPolygon } from "../Base/GeolocationShapeMultiPolygon.js";
+import { GeolocationCircle } from "../Base/GeolocationCircle.js";
 
 /**
  * @prop {String} id
@@ -105,6 +106,9 @@ export class GeolocationMapBase {
       })
       .then(() => {
         return Promise.all(stylesheetLoads);
+      })
+      .then(() => {
+        return this;
       });
   }
 
@@ -290,7 +294,39 @@ export class GeolocationMapBase {
    *   Boundaries.
    */
   getShapeBoundaries(shapes) {
-    return null;
+    shapes = shapes || this.dataLayers.get("default").shapes;
+    if (!shapes.length) {
+      return null;
+    }
+
+    const bounds = {
+      north: null,
+      south: null,
+      east: null,
+      west: null,
+    };
+
+    shapes.forEach((shape) => {
+      const currentBounds = shape.getBounds();
+      if (currentBounds === null) {
+        return;
+      }
+      bounds.north = bounds.north > currentBounds.north ? bounds.north : currentBounds.north;
+      bounds.south = bounds.south < currentBounds.south ? bounds.south : currentBounds.south;
+      bounds.east = bounds.east > currentBounds.east ? bounds.east : currentBounds.east;
+      bounds.west = bounds.west < currentBounds.west ? bounds.west : currentBounds.west;
+    });
+
+    if (bounds.east === null || bounds.west === null || bounds.north === null || bounds.south === null) {
+      return null;
+    }
+
+    bounds.north = bounds.north < 90 ? bounds.north : 90;
+    bounds.south = bounds.south > -90 ? bounds.south : -90;
+    bounds.east = bounds.east < 180 ? bounds.east : 180;
+    bounds.west = bounds.west > -180 ? bounds.west : -180;
+
+    return new GeolocationBoundaries(bounds);
   }
 
   /**
@@ -319,6 +355,52 @@ export class GeolocationMapBase {
    */
   setCenterByCoordinates(coordinates, accuracy = undefined) {
     this.updatingBounds = true;
+
+    if (typeof accuracy === "undefined") {
+      return;
+    }
+
+    const earth = 6378.137;
+
+    const m = 1 / (((2 * Math.PI) / 360) * earth) / 1000;
+
+    this.setBoundaries(
+      new GeolocationBoundaries(
+        coordinates.lat + accuracy * m,
+        coordinates.lng + (accuracy * m) / Math.cos(coordinates.lat * (Math.PI / 180)),
+        coordinates.lat + -1 * accuracy * m,
+        coordinates.lng + (-1 * accuracy * m) / Math.cos(coordinates.lat * (Math.PI / 180))
+      )
+    );
+
+    const circle = this.createCircle(coordinates, accuracy, {
+      fillColor: "#4285F4",
+      fillOpacity: 0.15,
+      strokeColor: "#4285F4",
+      strokeOpacity: 0.3,
+      strokeWidth: 1,
+    });
+
+    // Fade circle away.
+    const intervalId = setInterval(() => {
+      let fillOpacity = circle.fillOpacity;
+      fillOpacity -= 0.03;
+
+      let strokeOpacity = circle.strokeOpacity;
+      strokeOpacity -= 0.06;
+
+      if (strokeOpacity > 0 && fillOpacity > 0) {
+        circle.update(null, 0, {
+          fillOpacity,
+          strokeOpacity,
+        });
+      } else {
+        circle.remove();
+        clearInterval(intervalId);
+      }
+    }, 500);
+
+    return false;
   }
 
   /**
@@ -374,6 +456,21 @@ export class GeolocationMapBase {
   }
 
   /**
+   * @param {GeolocationCoordinates} center
+   *   Center.
+   * @param {int} radius
+   *   Radius.
+   * @param {GeolocationCircleSettings} [settings]
+   *   Settings.
+   *
+   * @return {GeolocationCircle}
+   *   Shape.
+   */
+  createCircle(center, radius, settings = {}) {
+    return new GeolocationCircle(center, radius, this, settings);
+  }
+
+  /**
    * @param {GeolocationGeometry} geometry
    *   Geometry.
    * @param {GeolocationShapeSettings} settings
@@ -383,7 +480,7 @@ export class GeolocationMapBase {
    *   Shape.
    */
   createShapeLine(geometry, settings) {
-    return new GeolocationShapeLine(geometry, settings);
+    return new GeolocationShapeLine(geometry, settings, this);
   }
 
   /**
@@ -396,7 +493,7 @@ export class GeolocationMapBase {
    *   Shape.
    */
   createShapePolygon(geometry, settings) {
-    return new GeolocationShapePolygon(geometry, settings);
+    return new GeolocationShapePolygon(geometry, settings, this);
   }
 
   /**
@@ -409,7 +506,7 @@ export class GeolocationMapBase {
    *   Shape.
    */
   createShapeMultiLine(geometry, settings) {
-    return new GeolocationShapeMultiLine(geometry, settings);
+    return new GeolocationShapeMultiLine(geometry, settings, this);
   }
 
   /**
@@ -422,7 +519,7 @@ export class GeolocationMapBase {
    *   Shape.
    */
   createShapeMultiPolygon(geometry, settings) {
-    return new GeolocationShapeMultiPolygon(geometry, settings);
+    return new GeolocationShapeMultiPolygon(geometry, settings, this);
   }
 
   removeMapShapes() {
@@ -497,7 +594,7 @@ export class GeolocationMapBase {
         return layer.loadShapes();
       })
       .catch((error) => {
-        console.error(error.toString(), `Loading '${layerSettings.import_path}' failed`);
+        console.error(error.toString(), error, `Loading '${layerSettings.import_path}' failed`);
       });
   }
 

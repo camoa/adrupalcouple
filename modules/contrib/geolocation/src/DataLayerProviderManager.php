@@ -77,7 +77,7 @@ class DataLayerProviderManager extends DefaultPluginManager {
    * @return array
    *   Options form render array.
    */
-  public function getOptionsForm(array $settings, array $parents = [], MapProviderInterface $map_provider = NULL, array $context = []): array {
+  public function getOptionsForm(array $settings, array $parents = [], ?MapProviderInterface $map_provider = NULL, array $context = []): array {
     $data_layer_providers = $this->getDataLayerProviderDefinitions();
     if (!$data_layer_providers) {
       return [];
@@ -151,6 +151,7 @@ class DataLayerProviderManager extends DefaultPluginManager {
             'settings' => [],
             'features' => $layer_features_form,
           ],
+          '#weight' => $settings[$data_layer_id]['weight'] ?? $data_layer_info['default_weight'] ?? 0,
           'weight' => [
             '#type' => 'weight',
             '#title' => $this->t('Weight for @option', ['@option' => $data_layer_info['name']]),

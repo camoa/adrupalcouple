@@ -2,8 +2,15 @@ import { GeolocationMapBase } from "../../../../js/MapProvider/GeolocationMapBas
 import { GeolocationBoundaries } from "../../../../js/Base/GeolocationBoundaries.js";
 import { GeolocationCoordinates } from "../../../../js/Base/GeolocationCoordinates.js";
 import { YandexMapMarker } from "../YandexMapMarker.js";
+import { YandexShapeLine } from "../YandexShapeLine.js";
+import { YandexShapePolygon } from "../YandexShapePolygon.js";
+import { YandexShapeMultiLine } from "../YandexShapeMultiLine.js";
+import { YandexShapeMultiPolygon } from "../YandexShapeMultiPolygon.js";
+import { YandexCircle } from "../YandexCircle.js";
+import { YandexHint } from "../YandexHint.js";
 
 /* global ymaps3 */
+/* global turf */
 
 /**
  * @typedef YandexMapSettings
@@ -58,6 +65,7 @@ export default class Yandex extends GeolocationMapBase {
 
           this.yandexMap.addChild(new YMapDefaultSchemeLayer({}));
           this.yandexMap.addChild(new YMapDefaultFeaturesLayer({ zIndex: 2000 }));
+          this.addHintWindow();
 
           resolve();
         }).then(() => {
@@ -119,164 +127,29 @@ export default class Yandex extends GeolocationMapBase {
   }
 
   createShapeLine(geometry, settings) {
-    const shape = super.createShapeLine(geometry, settings);
-
-    const { YMapFeature } = ymaps3;
-
-    shape.yandexShapes = [];
-
-    const points = [];
-    geometry.points.forEach((value) => {
-      points.push([value.lng, value.lat]);
-    });
-
-    const line = new YMapFeature({
-      geometry: {
-        type: "LineString",
-        coordinates: points,
-      },
-      style: { stroke: [{ color: settings.strokeColor, width: parseInt(settings.strokeWidth) }] },
-    });
-
-    this.yandexMap.addChild(line);
-
-    shape.yandexShapes.push(line);
-
-    return shape;
+    return new YandexShapeLine(geometry, settings, this);
   }
 
   createShapePolygon(geometry, settings) {
-    const shape = super.createShapePolygon(geometry, settings);
-
-    const { YMapFeature } = ymaps3;
-
-    shape.yandexShapes = [];
-
-    const coordinates = [];
-    geometry.points.forEach((value) => {
-      coordinates.push([value.lng, value.lat]);
-    });
-
-    const polygon = new YMapFeature({
-      geometry: {
-        type: "Polygon",
-        coordinates: [coordinates],
-      },
-      style: { stroke: [{ color: settings.strokeColor, width: parseInt(settings.strokeWidth) }], fill: settings.fillColor, fillOpacity: settings.fillOpacity },
-    });
-
-    this.yandexMap.addChild(polygon);
-
-    shape.yandexShapes.push(polygon);
-
-    return shape;
+    return new YandexShapePolygon(geometry, settings, this);
   }
 
   createShapeMultiLine(geometry, settings) {
-    const shape = super.createShapeMultiLine(geometry, settings);
-
-    const { YMapFeature } = ymaps3;
-
-    shape.yandexShapes = [];
-
-    const lines = [];
-
-    shape.geometry.lines.forEach((lineGeometry) => {
-      const points = [];
-      lineGeometry.points.forEach((value) => {
-        points.push([value.lng, value.lat]);
-      });
-
-      lines.push(points);
-    });
-
-    const multiline = new YMapFeature({
-      geometry: {
-        type: "MultiLineString",
-        coordinates: [lines],
-      },
-      style: { stroke: [{ color: settings.strokeColor, width: parseInt(settings.strokeWidth) }] },
-    });
-
-    this.yandexMap.addChild(multiline);
-
-    shape.yandexShapes.push(multiline);
-
-    return shape;
+    return new YandexShapeMultiLine(geometry, settings, this);
   }
 
   createShapeMultiPolygon(geometry, settings) {
-    const shape = super.createShapeMultiPolygon(geometry, settings);
-
-    const { YMapFeature } = ymaps3;
-
-    shape.yandexShapes = [];
-
-    const polygons = [];
-    shape.geometry.polygons.forEach((polygonGeometry) => {
-      const points = [];
-      polygonGeometry.points.forEach((value) => {
-        points.push([value.lng, value.lat]);
-      });
-
-      polygons.push(points);
-    });
-
-    const multipolygon = new YMapFeature({
-      geometry: {
-        type: "MultiPolygon",
-        coordinates: [polygons],
-      },
-      style: { stroke: [{ color: settings.strokeColor, width: parseInt(settings.strokeWidth) }], fill: settings.fillColor, fillOpacity: settings.fillOpacity },
-    });
-
-    this.yandexMap.addChild(multipolygon);
-
-    shape.yandexShapes.push(multipolygon);
-
-    return shape;
+    return new YandexShapeMultiPolygon(geometry, settings, this);
   }
 
-  /** @inheritdoc */
-  removeShape(shape) {
-    // @todo
-    if (!shape) {
-      return;
-    }
-
-    if (shape.yandexShapes) {
-      shape.yandexShapes.forEach((yandexShape) => {
-        yandexShape.remove();
-      });
-    }
-
-    shape.remove();
+  createCircle(center, radius, settings = {}) {
+    return new YandexCircle(center, radius, this, settings);
   }
 
   getBoundaries() {
     super.getBoundaries();
 
     return this.normalizeBoundaries(this.yandexMap.bounds);
-  }
-
-  getShapeBoundaries(shapes) {
-    // @todo
-    super.getShapeBoundaries(shapes);
-
-    shapes = shapes || this.dataLayers.get("default").shapes;
-    if (!shapes.length) {
-      return null;
-    }
-
-    const shapeBounds = [];
-
-    shapes.forEach((shape) => {
-      shape.yandexShapes.forEach((yandexShape) => {
-        shapeBounds.push(yandexShape.geometry.getBounds());
-      });
-    });
-
-    return this.normalizeBoundaries(ymaps3.util.bounds.fromBounds(shapeBounds));
   }
 
   getMarkerBoundaries(markers) {
@@ -337,7 +210,9 @@ export default class Yandex extends GeolocationMapBase {
   }
 
   getZoom() {
-    this.yandexMap.getZoom();
+    return new Promise((resolve) => {
+      resolve(this.yandexMap.zoom);
+    });
   }
 
   setZoom(zoom, defer) {
@@ -354,7 +229,9 @@ export default class Yandex extends GeolocationMapBase {
   }
 
   setCenterByCoordinates(coordinates, accuracy) {
-    super.setCenterByCoordinates(coordinates, accuracy);
+    if (super.setCenterByCoordinates(coordinates, accuracy) === false) {
+      return false;
+    }
 
     this.yandexMap.panTo(this.denormalizeCoordinates(coordinates));
   }
@@ -490,5 +367,16 @@ export default class Yandex extends GeolocationMapBase {
     this.yandexMap.removeChild(this.tileLayers.get(layerId));
 
     this.tileLayers.delete(layerId);
+  }
+
+  addHintWindow() {
+    if (this.yandexMap.hintAdded) {
+      return;
+    }
+
+    new YandexHint().addHintToMap().then((hint) => {
+      this.yandexMap.hintAdded = true;
+      this.yandexMap.addChild(hint);
+    });
   }
 }

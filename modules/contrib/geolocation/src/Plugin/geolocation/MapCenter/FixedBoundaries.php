@@ -31,7 +31,7 @@ class FixedBoundaries extends MapCenterBase implements MapCenterInterface {
   /**
    * {@inheritdoc}
    */
-  public function getSettingsForm(string $option_id = NULL, array $settings = [], array $context = []): array {
+  public function getSettingsForm(?string $option_id = NULL, array $settings = [], array $context = []): array {
     $form = parent::getSettingsForm($option_id, $settings, $context);
     $form['north'] = [
       '#type' => 'number',

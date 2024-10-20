@@ -4,13 +4,13 @@ namespace Drupal\geolocation_address\Plugin\geolocation\DataProvider;
 
 use CommerceGuys\Addressing\AddressFormat\AddressFormatRepositoryInterface;
 use CommerceGuys\Addressing\Country\CountryRepositoryInterface;
-use Drupal\address\Plugin\Field\FieldType\AddressItem;
 use Drupal\Component\Render\FormattableMarkup;
 use Drupal\Core\Entity\EntityFieldManagerInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemInterface;
 use Drupal\Core\Utility\Token;
+use Drupal\address\Plugin\Field\FieldType\AddressItem;
 use Drupal\geolocation\DataProviderBase;
 use Drupal\geolocation\DataProviderInterface;
 use Drupal\geolocation\GeocoderInterface;

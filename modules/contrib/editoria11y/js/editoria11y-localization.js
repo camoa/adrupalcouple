@@ -3,13 +3,13 @@ const ed11yLangDrupal = {
   // Main Panel
   toggleAccessibilityTools: Drupal.t("Toggle accessibility tools"),
   toggleDisabled: Drupal.t('Editorially is disabled.'),
-  panelCount0 : Drupal.t("No issues detected."),
-  panelCountAllDismissed : Drupal.t("All issues hidden."),
-  panelCount1 : Drupal.t("One issue detected."),
-  panelCountMultiple: Drupal.t(" issues detected."),
-  panelCountBase: Drupal.t("<span class='count'>No</span> <span class='content-type'>issues detected</span>."),
+  panelCount0 : Drupal.t("No issues detected.",{},{context: 'problems'}),
+  panelCountAllDismissed : Drupal.t("All issues hidden.",{},{context: 'problems'}),
+  panelCount1 : Drupal.t("One issue detected.",{},{context: 'problems'}),
+  panelCountMultiple: Drupal.t(" issues detected.",{},{context: 'problems'}),
+  panelCountBase: Drupal.t("<span class='count'>No</span> <span class='content-type'>issues detected</span>.",{},{context: 'problems'}),
   panelControls: Drupal.t('Editorially panel controls'),
-  buttonIssuesContent: Drupal.t('Issues'),
+  buttonIssuesContent: Drupal.t('Issues',{},{context: 'problems'}),
   buttonOutlineContent: Drupal.t('Outline'),
   buttonAltsContent: Drupal.t('Alt Text'),
   buttonAboutTitle: Drupal.t('About this tool'),
@@ -34,7 +34,7 @@ const ed11yLangDrupal = {
   // Errors and alerts
   consoleNotSupported: Drupal.t('This browser can not run Editoria11y.'),
   jumpedToInvisibleTip: Drupal.t("The marked item may not be visible. Look for it inside the outlined container."),
-  jumpedToAriaHiddenTip: Drupal.t("The item with this issue may be invisible or off screen."),
+  jumpedToAriaHiddenTip: Drupal.t("The item with this issue may be invisible or off screen.",{},{context: 'problems'}),
 
   // Strings used in tests
   suspiciousWords: [
@@ -63,8 +63,8 @@ const ed11yLangDrupal = {
   ],
   linksUrls: ['http:/', 'https:/', '.asp', '.htm', '.php', '.edu/', '.com/'],
   linkStringsNewWindows: new RegExp(`(${[
-    Drupal.t('window'),
-    Drupal.t('tab'),
+    Drupal.t('window',{},{context: 'Browser window'}),
+    Drupal.t('tab',{},{context: 'Browser tab'}),
     Drupal.t('download'),
     Drupal.t('file'),
     'window','tab','download','file',

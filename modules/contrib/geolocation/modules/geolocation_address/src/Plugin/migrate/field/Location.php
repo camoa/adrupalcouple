@@ -2,8 +2,8 @@
 
 namespace Drupal\geolocation_address\Plugin\migrate\field;
 
-use Drupal\address\Plugin\migrate\field\AddressField as LocationAddress;
 use Drupal\Core\Plugin\PluginBase;
+use Drupal\address\Plugin\migrate\field\AddressField as LocationAddress;
 use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\migrate\Plugin\MigrationInterface;
 

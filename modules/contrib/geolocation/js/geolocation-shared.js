@@ -32,11 +32,14 @@
       return Drupal.geolocation.addedScripts[hash];
     }
 
-    let promise = new Promise((resolve) => {
+    let promise = new Promise((resolve, reject) => {
       let script = document.createElement("script");
       script.src = url;
       script.onload = (event) => {
         resolve(event);
+      };
+      script.onerror = function (event) {
+        reject(event ? event : '')
       };
       if (async) {
         script.async = true;

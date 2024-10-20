@@ -58,7 +58,7 @@ class ControlTileLayers extends ControlCustomElementBase {
   /**
    * {@inheritdoc}
    */
-  public function alterMap(array $render_array, array $feature_settings = [], array $context = [], MapProviderInterface $mapProvider = NULL): array {
+  public function alterMap(array $render_array, array $feature_settings = [], array $context = [], ?MapProviderInterface $mapProvider = NULL): array {
     $render_array = parent::alterMap($render_array, $feature_settings, $context, $mapProvider);
 
     $enabled_tile_layers = [];

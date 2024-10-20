@@ -54,7 +54,7 @@ class IpStack extends LocationBase implements LocationInterface {
   /**
    * {@inheritdoc}
    */
-  public function getSettingsForm(string $location_option_id = NULL, array $settings = [], $context = NULL): array {
+  public function getSettingsForm(?string $location_option_id = NULL, array $settings = [], $context = NULL): array {
     $settings = $this->getSettings($settings);
 
     $form['access_key'] = [

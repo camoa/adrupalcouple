@@ -14,7 +14,7 @@ class GPX extends XML implements GeometryFormatInterface {
   /**
    * {@inheritdoc}
    */
-  public static function geometryByXML(\SimpleXMLElement $xml = NULL): ?GeometryTypeInterface {
+  public static function geometryByXML(?\SimpleXMLElement $xml = NULL): ?GeometryTypeInterface {
 
     switch (strtolower($xml->getName())) {
       case 'gpx':

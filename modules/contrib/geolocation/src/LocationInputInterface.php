@@ -82,6 +82,6 @@ interface LocationInputInterface extends PluginInspectionInterface {
    * @return array
    *   Altered form.
    */
-  public function alterForm(array $form, array $settings, array $context = [], array $default_value = NULL): array;
+  public function alterForm(array $form, array $settings, array $context = [], ?array $default_value = NULL): array;
 
 }

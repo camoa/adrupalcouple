@@ -40,36 +40,39 @@ class CustomTableFormatter extends BaseFormatter {
    */
   public function viewElements(FieldItemListInterface $items, $langcode): array {
     $elements = [];
-    $component = Html::cleanCssIdentifier($this->fieldDefinition->get('field_name'));
-    $custom_items = $this->getCustomFieldItems();
-    $header = [];
-    foreach ($custom_items as $custom_item) {
-      $header[] = $custom_item->getLabel();
-    }
 
-    // Jam the whole table in the first row since we're rendering the main field
-    // items as table rows.
-    $elements[0] = [
-      '#theme' => 'table',
-      '#header' => $header,
-      '#attributes' => [
-        'class' => [$component],
-      ],
-      '#rows' => [],
-    ];
+    if (!$items->isEmpty()) {
+      $component = Html::cleanCssIdentifier($this->fieldDefinition->get('field_name'));
+      $custom_items = $this->getCustomFieldItems();
+      $header = [];
+      foreach ($custom_items as $custom_item) {
+        $header[] = $custom_item->getLabel();
+      }
 
-    // Build the table rows and columns.
-    foreach ($items as $delta => $item) {
-      $elements[0]['#rows'][$delta]['class'][] = $component . '__item';
-      $values = $this->getFormattedValues($item, $langcode);
-      foreach ($custom_items as $name => $custom_item) {
-        $markup = $values[$name]['value']['#markup'] ?? NULL;
-        $elements[0]['#rows'][$delta]['data'][$name] = [
-          'data' => [
-            '#markup' => $markup,
-          ],
-          'class' => [$component . '__' . Html::cleanCssIdentifier($name)],
-        ];
+      // Jam the whole table in the first row since we're rendering the main
+      // field items as table rows.
+      $elements[0] = [
+        '#theme' => 'table',
+        '#header' => $header,
+        '#attributes' => [
+          'class' => [$component],
+        ],
+        '#rows' => [],
+      ];
+
+      // Build the table rows and columns.
+      foreach ($items as $delta => $item) {
+        $elements[0]['#rows'][$delta]['class'][] = $component . '__item';
+        $values = $this->getFormattedValues($item, $langcode);
+        foreach ($custom_items as $name => $custom_item) {
+          $markup = $values[$name]['value']['#markup'] ?? NULL;
+          $elements[0]['#rows'][$delta]['data'][$name] = [
+            'data' => [
+              '#markup' => $markup,
+            ],
+            'class' => [$component . '__' . Html::cleanCssIdentifier($name)],
+          ];
+        }
       }
     }
 

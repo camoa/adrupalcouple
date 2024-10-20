@@ -11,9 +11,9 @@ use Drupal\Core\TypedData\DataDefinition;
  *
  * @FieldType(
  *   id = "geolocation_gpx",
- *   label = @Translation("Geolocation GPX"),
- *   description = @Translation("This field stores the ID of an geolocation gpx file as an integer value."),
- *   category = "spatial_fields",
+ *   label = @Translation("Geolocation GPX - File & Data"),
+ *   description = @Translation("This field stores a GPX file and references the GPX Entity imported from it."),
+ *   category = "geo_spatial",
  *   default_widget = "geolocation_gpx_file",
  *   default_formatter = "geolocation_gpx_table",
  * )
@@ -65,21 +65,21 @@ class GeolocationGpx extends FieldItemBase {
   /**
    * {@inheritdoc}
    */
-  public function delete() {
+  public function delete(): void {
 
     $gpx_id = $this->values['gpx_id'] ?? FALSE;
 
     if ($gpx_id) {
       try {
-        /** @var \Drupal\geolocation_gpx\Entity\GeolocationGpx $gpx */
+        /** @var \Drupal\geolocation_gpx\Entity\GeolocationGpx|NULL $gpx */
         $gpx = \Drupal::entityTypeManager()->getStorage('geolocation_gpx')->load(
           $gpx_id,
         );
 
-        $gpx->delete();
+        $gpx?->delete();
       }
       catch (\Exception $e) {
-        \Drupal::logger('geolocation_gpx')->error('Could not delete GPX element.');
+        \Drupal::logger('geolocation_gpx')->error('Could not delete GPX element. ' . $e->getMessage());
       }
     }
 

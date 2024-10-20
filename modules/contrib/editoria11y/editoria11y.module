@@ -5,6 +5,7 @@
  * Editoria11y module file.
  */
 
+use Drupal\Component\Utility\DeprecationHelper;
 use Drupal\Core\Cache\Cache;
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\EntityInterface;
@@ -144,7 +145,7 @@ function editoria11y_page_attachments(array &$attachments): void {
   }
   $page_path = substr($page_path, 0, 1000);
 
-  $attachments['#cache']['tags'][] = 'editoria11y:dismissals_' . preg_replace('/[^a-zA-Z0-9]/', '', $page_path);
+  $attachments['#cache']['tags'][] = 'editoria11y:dismissals_' . preg_replace('/[^a-zA-Z0-9]/', '', substr($page_path, -80));
 
   $allow_ok = FALSE;
   if ($sync) {
@@ -196,7 +197,15 @@ function editoria11y_page_attachments(array &$attachments): void {
       $page_title = Drupal::service('title_resolver')->getTitle($request, $route);
       // @todo this fails on user route?
       if (is_array($page_title)) {
-        $page_title = Drupal::service('renderer')->renderPlain($page_title);
+        /** @var \Drupal\Core\Render\RendererInterface $renderer */
+        $renderer = \Drupal::service('renderer');
+        $page_title = DeprecationHelper::backwardsCompatibleCall(
+          currentVersion: \Drupal::VERSION,
+          deprecatedVersion: '10.3',
+          currentCallable: fn() => $renderer->renderInIsolation($page_title),
+          // @phpstan-ignore-next-line (Handled deprecation)
+          deprecatedCallable: fn() => $renderer->renderPlain($page_title),
+        );
       }
     }
     if (empty($page_title)) {

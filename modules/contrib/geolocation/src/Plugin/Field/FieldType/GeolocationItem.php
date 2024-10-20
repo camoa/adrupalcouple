@@ -14,8 +14,9 @@ use Drupal\geolocation\TypedData\GeolocationComputed;
  *
  * @FieldType(
  *   id = "geolocation",
- *   label = @Translation("Geolocation"),
- *   description = @Translation("This field stores location data (lat, lng)."),
+ *   label = @Translation("Geolocation - Coordinates"),
+ *   description = @Translation("This field stores latitude & longitude coordinates."),
+ *   category = "geo_spatial",
  *   default_widget = "geolocation_latlng",
  *   default_formatter = "geolocation_latlng"
  * )

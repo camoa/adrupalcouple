@@ -28,9 +28,44 @@ export default class GooglePlacesAPI extends GeolocationGeocoder {
       input: request.term,
       sessionToken: this.AutocompleteSessionToken,
     };
-    if (this.settings.componentRestrictions) {
-      parameters.componentRestrictions = this.settings.componentRestrictions;
+
+    console.log(this.settings, "Settings");
+
+    if (this.settings.component_restrictions) {
+      parameters.componentRestrictions = {};
+      if (this.settings.component_restrictions.administrative_area) {
+        parameters.componentRestrictions.administrativeArea = this.settings.component_restrictions.administrative_area;
+      }
+      if (this.settings.component_restrictions.country) {
+        if (Array.isArray(this.settings.component_restrictions.country)) {
+          parameters.componentRestrictions.country = this.settings.component_restrictions.country;
+        } else {
+          parameters.componentRestrictions.country = this.settings.component_restrictions.country.split(",");
+        }
+      }
+      if (this.settings.component_restrictions.locality) {
+        parameters.componentRestrictions.locality = this.settings.component_restrictions.locality;
+      }
+      if (this.settings.component_restrictions.postal_code) {
+        parameters.componentRestrictions.postalCode = this.settings.component_restrictions.postal_code;
+      }
+      if (this.settings.component_restrictions.route) {
+        parameters.componentRestrictions.route = this.settings.component_restrictions.route;
+      }
     }
+
+    if (this.settings.boundary_restriction) {
+      parameters.locationRestriction = new google.maps.LatLngBounds(
+        { lat: parseFloat(this.settings.boundary_restriction.south), lng: parseFloat(this.settings.boundary_restriction.west) },
+        { lat: parseFloat(this.settings.boundary_restriction.north), lng: parseFloat(this.settings.boundary_restriction.east) }
+      );
+    }
+
+    if (this.settings.region) {
+      parameters.region = this.settings.region;
+    }
+
+    console.log(parameters, "Parameters");
 
     this.AutocompleteService.getPlacePredictions(
       parameters,

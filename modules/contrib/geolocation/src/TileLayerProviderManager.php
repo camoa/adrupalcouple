@@ -68,7 +68,7 @@ class TileLayerProviderManager extends DefaultPluginManager {
    * @return array
    *   Options form render array.
    */
-  public function getOptionsForm(array $settings, array $parents = [], MapProviderInterface $map_provider = NULL, array $context = []): array {
+  public function getOptionsForm(array $settings, array $parents = [], ?MapProviderInterface $map_provider = NULL, array $context = []): array {
     $tile_layer_providers = $this->getTileLayerProviderDefinitions();
     if (!$tile_layer_providers) {
       return [];

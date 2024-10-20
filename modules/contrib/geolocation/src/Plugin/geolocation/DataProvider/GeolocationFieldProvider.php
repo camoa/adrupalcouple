@@ -24,7 +24,7 @@ class GeolocationFieldProvider extends DataProviderBase implements DataProviderI
   /**
    * {@inheritdoc}
    */
-  public function getTokenHelp(FieldDefinitionInterface $fieldDefinition = NULL): array {
+  public function getTokenHelp(?FieldDefinitionInterface $fieldDefinition = NULL): array {
 
     $element = parent::getTokenHelp($fieldDefinition);
 

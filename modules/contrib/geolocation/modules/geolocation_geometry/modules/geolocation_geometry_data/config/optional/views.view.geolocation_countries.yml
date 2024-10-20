@@ -243,13 +243,8 @@ display:
             conditional_description: 'Clicking this button will embed a map.'
             conditional_label: 'Show map'
             map_features:
-              leaflet_client_location_indicator:
-                weight: 0
-                settings: ''
-                enabled: false
               leaflet_disable_user_interaction:
                 weight: 0
-                settings: ''
                 enabled: false
               geolocation_shapes:
                 weight: 0
@@ -267,7 +262,6 @@ display:
                 enabled: false
               leaflet_gesture_handling:
                 weight: 0
-                settings: ''
                 enabled: false
               leaflet_rotate:
                 weight: 0
@@ -287,7 +281,7 @@ display:
                 settings:
                   position: topleft
                 enabled: false
-              leaflet_control_geocoder:
+              control_geocoder:
                 weight: 0
                 settings:
                   position: topleft
@@ -315,12 +309,12 @@ display:
                   position: topleft
                   loading_label: Loading
                 enabled: false
-              leaflet_control_locate:
+              control_locate:
                 weight: 0
                 settings:
                   position: topleft
                 enabled: false
-              leaflet_control_recenter:
+              control_recenter:
                 weight: 0
                 settings:
                   position: topleft

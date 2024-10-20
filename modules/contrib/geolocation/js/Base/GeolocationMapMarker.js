@@ -29,10 +29,8 @@ export class GeolocationMapMarker {
    *   Settings.
    * @param {GeolocationMapBase} map
    *   Map.
-   * @param {String} layerId
-   *   Layer ID.
    */
-  constructor(coordinates, settings = {}, map = null, layerId = "default") {
+  constructor(coordinates, settings = {}, map = null) {
     this.coordinates = coordinates;
     this.settings = settings;
     this.id = settings.id?.toString() ?? "0";
@@ -41,7 +39,6 @@ export class GeolocationMapMarker {
     this.icon = settings.icon ?? undefined;
     this.wrapper = settings.wrapper ?? document.createElement("div");
     this.map = map;
-    this.layerId = layerId;
     this.content = settings.content ?? this.getContent();
   }
 
@@ -89,11 +86,23 @@ export class GeolocationMapMarker {
         this.content = settings.content;
       }
     }
+
+    this.map.dataLayers.forEach((layer) => {
+      layer.markerUpdated(this);
+    });
   }
 
-  remove() {}
+  remove() {
+    this.map.dataLayers.forEach((layer) => {
+      layer.markerRemoved(this);
+    });
+  }
 
-  click() {}
+  click() {
+    this.map.dataLayers.forEach((layer) => {
+      layer.markerClicked(this);
+    });
+  }
 
   animate() {
     // TODO: Hu?

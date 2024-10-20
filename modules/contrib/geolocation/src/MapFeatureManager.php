@@ -118,7 +118,7 @@ class MapFeatureManager extends DefaultPluginManager {
    * @return array
    *   Render array.
    */
-  public function getOptionsForm(array $settings, array $parents = [], MapProviderInterface $map_provider = NULL): array {
+  public function getOptionsForm(array $settings, array $parents = [], ?MapProviderInterface $map_provider = NULL): array {
     $map_features = $this->getMapFeaturesByMapType($map_provider->getPluginId());
 
     if (empty($map_features)) {

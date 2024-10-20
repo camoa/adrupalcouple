@@ -6,6 +6,7 @@ parameters:
     -  */src/Plugin/Geocoder/*
     # Migrate dependency not resolved during test.
     -  */src/Plugin/migrate/*
+    -  */src/Plugin/migrate_plus/*
     # Feeds dependency not resolved during test.
     -  */src/Plugin/Tamper/*
     -  */src/Feeds/*

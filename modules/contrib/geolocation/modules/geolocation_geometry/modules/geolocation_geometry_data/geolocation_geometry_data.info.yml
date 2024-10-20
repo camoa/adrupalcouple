@@ -1,8 +1,9 @@
 name: Geolocation - Geometry - Data
 type: module
-description: Multiple data sets prepared for import via feeds
+description: Multiple data sets prepared for import
 core_version_requirement: ^10 || ^11
 package: Geolocation
 dependencies:
   - geolocation:geolocation_geometry
-  - feeds:feeds
+  - migrate_tools:migrate_tools
+  - migrate_plus:migrate_plus

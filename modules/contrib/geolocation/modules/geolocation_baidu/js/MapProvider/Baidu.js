@@ -2,6 +2,11 @@ import { GeolocationCoordinates } from "../../../../js/Base/GeolocationCoordinat
 import { GeolocationMapBase } from "../../../../js/MapProvider/GeolocationMapBase.js";
 import { GeolocationBoundaries } from "../../../../js/Base/GeolocationBoundaries.js";
 import { BaiduMapMarker } from "../BaiduMapMarker.js";
+import { BaiduShapeLine } from "../BaiduShapeLine.js";
+import { BaiduShapePolygon } from "../BaiduShapePolygon.js";
+import { BaiduShapeMultiLine } from "../BaiduShapeMultiLine.js";
+import { BaiduShapeMultiPolygon } from "../BaiduShapeMultiPolygon.js";
+import { BaiduCircle } from "../BaiduCircle.js";
 
 /* global BMAP_ANCHOR_TOP_LEFT */
 
@@ -18,6 +23,7 @@ import { BaiduMapMarker } from "../BaiduMapMarker.js";
  * @prop {BMapGL.Map} baiduMap
  * @prop {BMapGL.Control[]} customControls
  * @prop {BaiduMapSettings} settings
+ * @prop {BMapGL.TileLayer[]} tileLayers
  */
 export default class Baidu extends GeolocationMapBase {
   /**
@@ -99,6 +105,10 @@ export default class Baidu extends GeolocationMapBase {
       });
   }
 
+  createCircle(center, radius, settings = {}) {
+    return new BaiduCircle(center, radius, this, settings);
+  }
+
   createMarker(coordinates, settings) {
     const marker = new BaiduMapMarker(coordinates, settings, this);
     this.baiduMap.addOverlay(marker.baiduMarker);
@@ -106,142 +116,20 @@ export default class Baidu extends GeolocationMapBase {
     return marker;
   }
 
-  addTitleToShape(shape, title) {
-    /** @type BMapGL.InfoWindow */
-    const infoWindow = new BMapGL.InfoWindow(title);
-    shape.addEventListener("mouseover", (e) => {
-      this.baiduMap.openInfoWindow(infoWindow, e.point);
-    });
-    shape.addEventListener("mouseout", () => {
-      this.baiduMap.closeInfoWindow();
-    });
-  }
-
   createShapeLine(geometry, settings) {
-    const shape = super.createShapeLine(geometry, settings);
-
-    shape.baiduShapes = [];
-
-    const points = [];
-    geometry.points.forEach((value) => {
-      points.push(new BMapGL.Point(value.lng, value.lat));
-    });
-
-    const line = new BMapGL.Polyline(points, {
-      strokeColor: settings.strokeColor,
-      strokeOpacity: parseFloat(settings.strokeOpacity),
-      strokeWeight: parseInt(settings.strokeWidth),
-    });
-
-    if (settings.title) {
-      this.addTitleToShape(line, settings.title);
-    }
-
-    this.baiduMap.addOverlay(line);
-
-    shape.baiduShapes.push(line);
-
-    return shape;
+    return new BaiduShapeLine(geometry, settings, this);
   }
 
   createShapePolygon(geometry, settings) {
-    const shape = super.createShapePolygon(geometry, settings);
-
-    shape.baiduShapes = [];
-
-    const points = [];
-    geometry.points.forEach((value) => {
-      points.push(new BMapGL.Point(value.lng, value.lat));
-    });
-
-    const polygon = new BMapGL.Polygon(points, {
-      strokeColor: settings.strokeColor,
-      strokeOpacity: parseFloat(settings.strokeOpacity),
-      strokeWeight: parseInt(settings.strokeWidth),
-      fillColor: settings.fillColor,
-      fillOpacity: parseFloat(settings.fillOpacity),
-    });
-
-    if (settings.title) {
-      this.addTitleToShape(polygon, settings.title);
-    }
-
-    this.baiduMap.addOverlay(polygon);
-
-    shape.baiduShapes.push(polygon);
-
-    return shape;
+    return new BaiduShapePolygon(geometry, settings, this);
   }
 
   createShapeMultiLine(geometry, settings) {
-    const shape = super.createShapeMultiLine(geometry, settings);
-
-    shape.baiduShapes = [];
-    shape.geometry.lines.forEach((lineGeometry) => {
-      const points = [];
-      lineGeometry.points.forEach((value) => {
-        points.push(new BMapGL.Point(value.lng, value.lat));
-      });
-
-      const line = new BMapGL.Polyline(points, {
-        strokeColor: settings.strokeColor,
-        strokeOpacity: parseFloat(settings.strokeOpacity),
-        strokeWeight: parseInt(settings.strokeWidth),
-      });
-
-      if (settings.title) {
-        this.addTitleToShape(line, settings.title);
-      }
-
-      this.baiduMap.addOverlay(line);
-
-      shape.baiduShapes.push(line);
-    });
-
-    return shape;
+    return new BaiduShapeMultiLine(geometry, settings, this);
   }
 
   createShapeMultiPolygon(geometry, settings) {
-    const shape = super.createShapeMultiPolygon(geometry, settings);
-
-    shape.baiduShapes = [];
-    shape.geometry.polygons.forEach((polygonGeometry) => {
-      const points = [];
-      polygonGeometry.points.forEach((value) => {
-        points.push(new BMapGL.Point(value.lng, value.lat));
-      });
-
-      const polygon = new BMapGL.Polygon(points, {
-        strokeColor: settings.strokeColor,
-        strokeOpacity: parseFloat(settings.strokeOpacity),
-        strokeWeight: parseInt(settings.strokeWidth),
-        fillColor: settings.fillColor,
-        fillOpacity: parseFloat(settings.fillOpacity),
-      });
-      if (settings.title) {
-        this.addTitleToShape(polygon, settings.title);
-      }
-
-      this.baiduMap.addOverlay(polygon);
-
-      shape.baiduShapes.push(polygon);
-    });
-
-    return shape;
-  }
-
-  removeShape(shape) {
-    if (!shape) {
-      return;
-    }
-
-    if (shape.baiduShapes) {
-      shape.baiduShapes.forEach((baiduShape) => {
-        baiduShape.remove();
-      });
-    }
-
-    shape.remove();
+    return new BaiduShapeMultiPolygon(geometry, settings, this);
   }
 
   getBoundaries() {
@@ -329,33 +217,11 @@ export default class Baidu extends GeolocationMapBase {
   }
 
   setCenterByCoordinates(coordinates, accuracy) {
-    super.setCenterByCoordinates(coordinates, accuracy);
-
-    if (typeof accuracy === "undefined") {
-      this.baiduMap.panTo(new BMapGL.Point(coordinates.lng, coordinates.lat));
-      return;
+    if (super.setCenterByCoordinates(coordinates, accuracy) === false) {
+      return false;
     }
 
-    const circle = this.addAccuracyIndicatorCircle(coordinates, accuracy);
-
-    // Set the zoom level to the accuracy circle's size.
-    this.setBoundaries(this.normalizeBoundaries(circle.getBounds()));
-
-    // Fade circle away.
-    setInterval(() => {
-      let fillOpacity = circle.getFillOpacity();
-      fillOpacity -= 0.01;
-
-      let strokeOpacity = circle.getStrokeOpacity();
-      strokeOpacity -= 0.02;
-
-      if (strokeOpacity > 0 && fillOpacity > 0) {
-        circle.setFillOpacity(fillOpacity);
-        circle.setStrokeOpacity(strokeOpacity);
-      } else {
-        this.baiduMap.removeOverlay(circle);
-      }
-    }, 200);
+    this.baiduMap.panTo(new BMapGL.Point(coordinates.lng, coordinates.lat));
   }
 
   normalizeBoundaries(boundaries) {
@@ -410,28 +276,6 @@ export default class Baidu extends GeolocationMapBase {
     this.customControls.forEach((control) => {
       this.baiduMap.removeControl(control);
     });
-  }
-
-  addAccuracyIndicatorCircle(coordinates, accuracy) {
-    const circle = new BMapGL.Circle(new BMapGL.Point(coordinates.lng, coordinates.lat), accuracy, {
-      fillColor: "#4285F4",
-      fillOpacity: 0.15,
-      strokeColor: "#4285F4",
-      strokeOpacity: 0.3,
-      strokeWeight: 1,
-      enableClicking: false,
-    });
-
-    this.baiduMap.addOverlay(circle);
-
-    return circle;
-  }
-
-  wgs84ToWebMercator(lon, lat) {
-    const x = (lon * 20037508.34) / 180;
-    let y = Math.log(Math.tan(((90 + lat) * Math.PI) / 360)) / (Math.PI / 180);
-    y = (y * 20037508.34) / 180;
-    return { x, y };
   }
 
   loadTileLayer(layerId, layerSettings) {

@@ -6,10 +6,10 @@
  * @prop {Element} [wrapper]
  * @prop {String} [content]
  * @prop {String} [strokeColor]
- * @prop {String} [strokeOpacity]
- * @prop {String} [strokeWidth]
+ * @prop {Number} [strokeOpacity]
+ * @prop {Number} [strokeWidth]
  * @prop {String} [fillColor]
- * @prop {String} [fillOpacity]
+ * @prop {Number} [fillOpacity]
  */
 
 /**
@@ -21,6 +21,7 @@
  */
 
 import { GeolocationCoordinates } from "./GeolocationCoordinates.js";
+import { GeolocationBoundaries } from "./GeolocationBoundaries.js";
 
 /**
  * @prop {String} [id]
@@ -29,6 +30,11 @@ import { GeolocationCoordinates } from "./GeolocationCoordinates.js";
  * @prop {GeolocationMapBase} map
  * @prop {String} content
  * @prop {GeolocationShapeSettings} settings
+ * @prop {String} strokeColor
+ * @prop {float} strokeOpacity
+ * @prop {int} strokeWidth
+ * @prop {String} [fillColor]
+ * @prop {float} [fillOpacity]
  */
 export class GeolocationShape {
   /**
@@ -38,18 +44,32 @@ export class GeolocationShape {
    *   Settings.
    * @param {GeolocationMapBase} map
    *   Map.
-   * @param {String} layerId
-   *   Layer ID.
    */
-  constructor(geometry, settings = {}, map = null, layerId = "default") {
+  constructor(geometry, settings = {}, map) {
     this.geometry = geometry;
     this.settings = settings;
+    this.type = "";
     this.id = settings.id?.toString() ?? null;
     this.title = settings.title ?? undefined;
     this.wrapper = settings.wrapper ?? document.createElement("div");
     this.map = map;
-    this.layerId = layerId;
     this.content = settings.content ?? this.getContent();
+
+    if (typeof settings.strokeColor !== "undefined") {
+      this.strokeColor = settings.strokeColor;
+    }
+    if (typeof settings.strokeOpacity !== "undefined") {
+      this.strokeOpacity = settings.strokeOpacity;
+    }
+    if (typeof settings.strokeWidth !== "undefined") {
+      this.strokeWidth = settings.strokeWidth;
+    }
+    if (typeof settings.fillColor !== "undefined") {
+      this.fillColor = settings.fillColor;
+    }
+    if (typeof settings.fillOpacity !== "undefined") {
+      this.fillOpacity = settings.fillOpacity;
+    }
   }
 
   /**
@@ -120,12 +140,81 @@ export class GeolocationShape {
       if (settings.content) {
         this.content = settings.content;
       }
-    }
 
-    this.map.dataLayers.get(this.layerId).updateShape(this);
+      if (typeof settings.strokeColor !== "undefined") {
+        this.strokeColor = settings.strokeColor;
+      }
+      if (typeof settings.strokeOpacity !== "undefined") {
+        this.strokeOpacity = settings.strokeOpacity;
+      }
+      if (typeof settings.strokeWidth !== "undefined") {
+        this.strokeWidth = settings.strokeWidth;
+      }
+      if (typeof settings.fillColor !== "undefined") {
+        this.fillColor = settings.fillColor;
+      }
+      if (typeof settings.fillOpacity !== "undefined") {
+        this.fillOpacity = settings.fillOpacity;
+      }
+    }
   }
 
-  remove() {
-    this.map.dataLayers.get(this.layerId).removeShape(this);
+  getBounds() {
+    const bounds = {
+      north: null,
+      south: null,
+      east: null,
+      west: null,
+    };
+    switch (this.type) {
+      case "line":
+      case "polygon":
+        this.geometry.points.forEach((value) => {
+          bounds.north = bounds.north === null || value.lat > bounds.north ? value.lat : bounds.north;
+          bounds.south = bounds.south === null || value.lat < bounds.south ? value.lat : bounds.south;
+          bounds.east = bounds.east === null || value.lat > bounds.east ? value.lat : bounds.east;
+          bounds.west = bounds.west === null || value.lat < bounds.west ? value.lat : bounds.west;
+        });
+        break;
+      case "multiline":
+        this.geometry.lines.forEach((line) => {
+          line.points.forEach((value) => {
+            bounds.north = bounds.north === null || value.lat > bounds.north ? value.lat : bounds.north;
+            bounds.south = bounds.south === null || value.lat < bounds.south ? value.lat : bounds.south;
+            bounds.east = bounds.east === null || value.lat > bounds.east ? value.lat : bounds.east;
+            bounds.west = bounds.west === null || value.lat < bounds.west ? value.lat : bounds.west;
+          });
+        });
+        break;
+      case "multipolygon":
+        this.geometry.polygons.forEach((polygon) => {
+          polygon.points.forEach((value) => {
+            bounds.north = bounds.north === null || value.lat > bounds.north ? value.lat : bounds.north;
+            bounds.south = bounds.south === null || value.lat < bounds.south ? value.lat : bounds.south;
+            bounds.east = bounds.east === null || value.lat > bounds.east ? value.lat : bounds.east;
+            bounds.west = bounds.west === null || value.lat < bounds.west ? value.lat : bounds.west;
+          });
+        });
+        break;
+    }
+
+    if (bounds.east === null || bounds.west === null || bounds.north === null || bounds.south === null) {
+      return null;
+    }
+
+    bounds.north = bounds.north < 90 ? bounds.north : 90;
+    bounds.south = bounds.south > -90 ? bounds.south : -90;
+    bounds.east = bounds.east < 180 ? bounds.east : 180;
+    bounds.west = bounds.west > -180 ? bounds.west : -180;
+
+    return new GeolocationBoundaries(bounds);
+  }
+
+  remove() {}
+
+  click() {
+    this.map.dataLayers.forEach((layer) => {
+      layer.shapeClicked(this);
+    });
   }
 }

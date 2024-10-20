@@ -40,7 +40,7 @@ interface GeometryTypeInterface {
    * @return string
    *   GPX
    */
-  public function toGPX(string $mode = NULL): string;
+  public function toGPX(?string $mode = NULL): string;
 
   /**
    * Geometry to compare.

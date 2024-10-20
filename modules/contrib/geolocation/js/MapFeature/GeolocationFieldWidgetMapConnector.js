@@ -75,7 +75,7 @@ export default class GeolocationFieldWidgetMapConnector extends GeolocationMapFe
     this.setIndexByMarker(marker, index);
 
     marker.geolocationWidgetIgnore = true;
-    this.map.dataLayers.get("default").addMarker(marker);
+    this.map.dataLayers.get("default").markerAdded(marker);
     delete marker.geolocationWidgetIgnore;
 
     this.map.fitMapToMarkers();
@@ -149,7 +149,7 @@ export default class GeolocationFieldWidgetMapConnector extends GeolocationMapFe
       this.setIndexByMarker(marker, newIndex);
 
       // Will trigger onMarkerAdded and notify broker.
-      this.map.dataLayers.get("default").addMarker(marker);
+      this.map.dataLayers.get("default").markerAdded(marker);
       return;
     }
 

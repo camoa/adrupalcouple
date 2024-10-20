@@ -4,5 +4,6 @@ description: 'Test the geocoding functionality'
 package: Testing
 dependencies:
   - geolocation:geolocation
+  - geolocation:geolocation_demo
 hidden: true
 core_version_requirement: ^10 || ^11

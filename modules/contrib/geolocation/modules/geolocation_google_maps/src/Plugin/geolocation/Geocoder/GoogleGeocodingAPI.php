@@ -40,8 +40,8 @@ class GoogleGeocodingAPI extends GoogleGeocoderBase {
   /**
    * {@inheritdoc}
    */
-  public function getSettings(): array {
-    $settings = parent::getSettings();
+  public function getSettings(array $settings = []): array {
+    $settings = parent::getSettings($settings);
 
     $parameters = [];
 

@@ -1,3 +1,22 @@
+/**
+ * @typedef {Object} GoogleGeocoderComponentRestrictions
+ *
+ * @prop {String} administrative_area
+ * @prop {String} country
+ * @prop {String} locality
+ * @prop {String} postal_code
+ * @prop {String} route
+ */
+
+/**
+ * @typedef {Object} GoogleGeocoderBoundaryRestrictions
+ *
+ * @prop {String} east
+ * @prop {String} south
+ * @prop {String} west
+ * @prop {String} north
+ */
+
 import { GeolocationGeocoder } from "../../../../js/Geocoder/GeolocationGeocoder.js";
 import { GeolocationGeocodedResult } from "../../../../js/Base/GeolocationGeocodedResult.js";
 import { GeolocationCoordinates } from "../../../../js/Base/GeolocationCoordinates.js";
@@ -5,14 +24,22 @@ import { GeolocationBoundaries } from "../../../../js/Base/GeolocationBoundaries
 
 /**
  * @prop {String} settings.google_api_url
+ * @prop {GoogleGeocoderComponentRestrictions} settings.component_restrictions
+ * @prop {GoogleGeocoderBoundaryRestrictions} settings.boundary_restriction
+ * @prop {String} settings.region
+ * @prop {String} settings.label
  */
 export default class GoogleGeocodingAPI extends GeolocationGeocoder {
   constructor(settings) {
     super(settings);
 
-    Drupal.geolocation.addScript(this.settings.google_api_url).then(() => {
+    if (typeof google !== "undefined" && typeof google.maps !== "undefined" && typeof google.maps.Geocoder !== "undefined") {
       this.geocoder = new google.maps.Geocoder();
-    });
+    } else {
+      Drupal.geolocation.addScript(this.settings.google_api_url).then(() => {
+        this.geocoder = new google.maps.Geocoder();
+      });
+    }
   }
 
   geocode(address) {
@@ -23,15 +50,34 @@ export default class GoogleGeocodingAPI extends GeolocationGeocoder {
         address,
       };
 
-      if (typeof this.settings.componentRestrictions !== "undefined") {
-        if (this.settings.componentRestrictions) {
-          parameters.componentRestrictions = this.settings.componentRestrictions;
+      if (this.settings.component_restrictions) {
+        parameters.componentRestrictions = {};
+        if (this.settings.component_restrictions.administrative_area) {
+          parameters.componentRestrictions.administrativeArea = this.settings.component_restrictions.administrative_area;
+        }
+        if (this.settings.component_restrictions.country) {
+          parameters.componentRestrictions.country = this.settings.component_restrictions.country;
+        }
+        if (this.settings.component_restrictions.locality) {
+          parameters.componentRestrictions.locality = this.settings.component_restrictions.locality;
+        }
+        if (this.settings.component_restrictions.postal_code) {
+          parameters.componentRestrictions.postalCode = this.settings.component_restrictions.postal_code;
+        }
+        if (this.settings.component_restrictions.route) {
+          parameters.componentRestrictions.route = this.settings.component_restrictions.route;
         }
       }
-      if (typeof this.settings.bounds !== "undefined") {
-        if (this.settings.bounds) {
-          parameters.bounds = this.settings.bounds;
-        }
+
+      if (this.settings.boundary_restriction) {
+        parameters.bounds = new google.maps.LatLngBounds(
+          { lat: parseFloat(this.settings.boundary_restriction.south), lng: parseFloat(this.settings.boundary_restriction.west) },
+          { lat: parseFloat(this.settings.boundary_restriction.north), lng: parseFloat(this.settings.boundary_restriction.east) }
+        );
+      }
+
+      if (this.settings.region) {
+        parameters.region = this.settings.region;
       }
 
       this.geocoder

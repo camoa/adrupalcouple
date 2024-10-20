@@ -4,6 +4,8 @@ namespace Drupal\geolocation_gpx\Plugin\Field\FieldFormatter;
 
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
+use Drupal\Core\Url;
+use Drupal\file\Entity\File;
 
 /**
  * Plugin implementation of the 'geofield' formatter.
@@ -31,17 +33,25 @@ class GeolocationGpxTableFormatter extends FormatterBase {
     $element = [];
 
     foreach ($items as $delta => $item) {
-      /** @var \Drupal\geolocation_gpx\Entity\GeolocationGpx $gpx */
+      /** @var \Drupal\geolocation_gpx\Entity\GeolocationGpx|NULL $gpx */
       $gpx = \Drupal::entityTypeManager()->getStorage('geolocation_gpx')->load($item->getValue()['gpx_id']);
 
       if (!$gpx) {
-        return [];
+        continue;
       }
 
       $element[$delta] = [
         'elevation' => $gpx->renderedTracksElevationChart(),
         'summary' => $gpx->renderedSummaryTable(),
       ];
+
+      if ($file = File::load($item->getValue()['gpx_file_id']) ?? NULL) {
+        $element[$delta]['file'] = [
+          '#type' => 'link',
+          '#title' => $this->t('Source file: %file', ['%file' => $file->getFilename()]),
+          '#url' => Url::fromUri($file->createFileUrl(FALSE)),
+        ];
+      }
     }
 
     return $element;

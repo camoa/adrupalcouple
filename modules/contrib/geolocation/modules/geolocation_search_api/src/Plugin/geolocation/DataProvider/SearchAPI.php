@@ -76,7 +76,7 @@ class SearchAPI extends DataProviderBase implements DataProviderInterface {
   /**
    * {@inheritdoc}
    */
-  public function getShapesFromViewsRow(ResultRow $row, FieldPluginBase $viewsField = NULL): array {
+  public function getShapesFromViewsRow(ResultRow $row, ?FieldPluginBase $viewsField = NULL): array {
     $shapes = [];
 
     if (!($viewsField instanceof SearchApiEntityField)) {
@@ -112,7 +112,7 @@ class SearchAPI extends DataProviderBase implements DataProviderInterface {
   /**
    * {@inheritdoc}
    */
-  public function getPositionsFromViewsRow(ResultRow $row, FieldPluginBase $viewsField = NULL): array {
+  public function getPositionsFromViewsRow(ResultRow $row, ?FieldPluginBase $viewsField = NULL): array {
     $positions = [];
 
     if (!($viewsField instanceof SearchApiEntityField)) {

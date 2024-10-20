@@ -560,7 +560,7 @@ class CustomItem extends FieldItemBase {
       $columns = FieldStorageConfig::loadByName($entity_type, $field_name)->getSetting('columns');
       // Grab the field settings too as a starting point.
       $source_field_config = FieldConfig::loadByName($entity_type, $bundle_name, $field_name);
-      $field_config->setSettings($source_field_config->getSettings())->save();
+      $field_config->setSettings($source_field_config->getSettings());
     }
     else {
       $items = $form_state->getValue($item_parents) ?? [];
@@ -812,7 +812,7 @@ class CustomItem extends FieldItemBase {
         '#markup' => '<span></span>',
       ];
 
-      $options = static::getCustomFieldWidgetOptions($plugin_id);
+      $options = static::getCustomFieldWidgetOptions($custom_item);
       $widget_type = $current_settings['field_settings'][$name]['type'] ?? NULL;
       if (!empty($widget_type) && in_array($widget_type, $widget_manager->getWidgetsForField($plugin_id))) {
         $type = $widget_type;
@@ -986,19 +986,27 @@ class CustomItem extends FieldItemBase {
   /**
    * Return the available widget plugins as an array keyed by plugin_id.
    *
-   * @param string $type
-   *   The column type to base options on.
+   * @param \Drupal\custom_field\Plugin\CustomFieldTypeInterface $custom_item
+   *   The Custom field type interface.
    *
    * @return array
    *   The array of widget options.
+   *
+   * @throws \Drupal\Component\Plugin\Exception\PluginException
    */
-  private static function getCustomFieldWidgetOptions($type): array {
+  private static function getCustomFieldWidgetOptions(CustomFieldTypeInterface $custom_item): array {
     $options = [];
     /** @var \Drupal\custom_field\Plugin\CustomFieldWidgetManager $plugin_service */
     $plugin_service = \Drupal::service('plugin.manager.custom_field_widget');
     $definitions = $plugin_service->getDefinitions();
+    $type = $custom_item->getPluginId();
     // Remove undefined widgets for data_type.
     foreach ($definitions as $key => $definition) {
+      /** @var \Drupal\custom_field\Plugin\CustomFieldWidgetInterface $instance */
+      $instance = $plugin_service->createInstance($definition['id']);
+      if (!$instance::isApplicable($custom_item)) {
+        unset($definitions[$key]);
+      }
       if (!in_array($type, $definition['data_types'])) {
         unset($definitions[$key]);
       }

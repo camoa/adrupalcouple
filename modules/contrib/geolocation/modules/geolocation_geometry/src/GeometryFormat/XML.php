@@ -13,7 +13,7 @@ abstract class XML implements GeometryFormatInterface {
   /**
    * {@inheritdoc}
    */
-  public static function geometryByText(string $text = NULL): ?GeometryTypeInterface {
+  public static function geometryByText(?string $text = NULL): ?GeometryTypeInterface {
     $xml = simplexml_load_string($text);
 
     return static::geometryByXML($xml);
@@ -28,7 +28,7 @@ abstract class XML implements GeometryFormatInterface {
    * @return \Drupal\geolocation_geometry\GeometryType\GeometryTypeInterface|null
    *   GeometryType.
    */
-  public static function geometryByXML(\SimpleXMLElement $xml = NULL): ?GeometryTypeInterface {
+  public static function geometryByXML(?\SimpleXMLElement $xml = NULL): ?GeometryTypeInterface {
     return NULL;
   }
 

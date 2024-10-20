@@ -226,7 +226,7 @@ class LocationInputManager extends DefaultPluginManager {
    * @return array
    *   Centre value.
    */
-  public function getForm(array $settings, array $context = [], array $default_value = NULL, string $title = ''): array {
+  public function getForm(array $settings, array $context = [], ?array $default_value = NULL, string $title = ''): array {
 
     $identifier = Html::getUniqueId('location-input-form');
 

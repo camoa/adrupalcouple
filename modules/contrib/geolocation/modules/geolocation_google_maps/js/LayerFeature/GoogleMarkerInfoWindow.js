@@ -35,16 +35,24 @@ export default class GoogleMarkerInfoWindow extends GoogleLayerFeature {
     }
 
     if (marker.infoWindow) {
-      marker.infoWindow.open({
-        anchor: marker.googleMarker,
-        map: this.layer.map.googleMap,
-        shouldFocus: true,
-      });
+      if (marker.infoWindowOpened) {
+        marker.infoWindow.close();
+        marker.infoWindowOpened = false;
+      } else {
+        marker.infoWindow.open({
+          anchor: marker.googleMarker,
+          map: this.layer.map.googleMap,
+          shouldFocus: true,
+        });
+        marker.infoWindowOpened = true;
+      }
     }
   }
 
   onMarkerAdded(marker) {
     super.onMarkerAdded(marker);
+
+    marker.infoWindowOpened = false;
 
     // Set the info popup text.
     marker.infoWindow = new google.maps.InfoWindow({
@@ -53,16 +61,17 @@ export default class GoogleMarkerInfoWindow extends GoogleLayerFeature {
       maxWidth: this.settings.max_width ?? undefined,
     });
 
+    if (marker.title) {
+      marker.infoWindow.setHeaderContent(marker.title);
+    }
+
     if (this.settings.info_auto_display) {
-      this.layer.map.dataLayers.get("default").markers.forEach((currentMarker) => {
-        if (currentMarker.infoWindow) {
-          currentMarker.infoWindow.open({
-            anchor: currentMarker.googleMarker,
-            map: this.layer.map.googleMap,
-            shouldFocus: false,
-          });
-        }
+      marker.infoWindow.open({
+        anchor: marker.googleMarker,
+        map: this.layer.map.googleMap,
+        shouldFocus: false,
       });
+      marker.infoWindowOpened = true;
     }
   }
 }

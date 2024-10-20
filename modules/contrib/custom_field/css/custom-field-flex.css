@@ -2,6 +2,9 @@
  * @file
  * Stylesheet for the custom_field custom form display settings.
  */
+.custom-field-row-wrapper {
+  padding: 0 0.75rem;
+}
 
 .custom-field-row {
   --custom-field-gutter-x: 1.5rem;
@@ -28,7 +31,10 @@
 .custom-field-col.form-type--url input,
 .custom-field-col.form-type--tel input,
 .custom-field-col.form-type--entity-autocomplete input,
-.custom-field-col.form-type--select select {
+.custom-field-col.form-type--select select,
+.custom-field-col.media-library-widget
+  .media-library-selection
+  .media-library-item--grid {
   width: 100%;
 }
 
@@ -109,11 +115,43 @@
   width: 100%;
 }
 
+.custom-field-col.media-library-widget
+  .media-library-selection
+  .media-library-item--grid,
+.custom-field-col-6.media-library-widget
+  .media-library-selection
+  .media-library-item--grid,
+.custom-field-col-7.media-library-widget
+  .media-library-selection
+  .media-library-item--grid,
+.custom-field-col-8.media-library-widget
+  .media-library-selection
+  .media-library-item--grid,
+.custom-field-col-9.media-library-widget
+  .media-library-selection
+  .media-library-item--grid,
+.custom-field-col-10.media-library-widget
+  .media-library-selection
+  .media-library-item--grid,
+.custom-field-col-11.media-library-widget
+  .media-library-selection
+  .media-library-item--grid,
+.custom-field-col-12.media-library-widget
+  .media-library-selection
+  .media-library-item--grid {
+  max-width: 50%;
+}
+
 /* 768px on Seven theme */
 @media all and (max-width: 48em) {
   .custom-field-flex--stack-medium .custom-field-col {
     flex: 0 0 auto;
     width: 100%;
+  }
+  .custom-field-col.media-library-widget
+    .media-library-selection
+    .media-library-item--grid {
+    max-width: initial;
   }
 }
 

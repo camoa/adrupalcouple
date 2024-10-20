@@ -127,7 +127,9 @@ abstract class MapProviderBase extends PluginBase implements MapProviderInterfac
    * {@inheritdoc}
    */
   public function getSettingsSummary(array $settings): array {
-    $summary = [$this->getPluginDefinition()['name']];
+    $summary = [
+      $this->t('Map provider: %map_provider', ['%map_provider' => $this->getPluginDefinition()['name']]),
+    ];
     foreach ($this->mapFeatureManager->getMapFeaturesByMapType($this->getPluginId()) as $feature_id => $feature_definition) {
       if (!empty($settings['map_features'][$feature_id]['enabled'])) {
         $feature = $this->mapFeatureManager->getMapFeature($feature_id);
@@ -159,7 +161,7 @@ abstract class MapProviderBase extends PluginBase implements MapProviderInterfac
     $form = [
       '#type' => 'details',
       '#open' => TRUE,
-      '#title' => $this->t('%map_provider settings', ['%map_provider' => $this->pluginDefinition['name']]),
+      '#title' => $this->t('%map_provider Settings', ['%map_provider' => $this->pluginDefinition['name']]),
       '#description' => $this->t('Additional map settings provided by %map_provider', ['%map_provider' => $this->pluginDefinition['name']]),
     ];
 

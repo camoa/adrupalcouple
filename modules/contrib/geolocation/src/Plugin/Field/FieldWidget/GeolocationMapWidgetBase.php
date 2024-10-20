@@ -38,7 +38,7 @@ abstract class GeolocationMapWidgetBase extends WidgetBase implements ContainerF
     array $settings,
     array $third_party_settings,
     protected MapCenterManager $mapCenterManager,
-    protected MapProviderManager $mapProviderManager,
+    protected MapProviderManager|NULL $mapProviderManager,
     protected ModuleHandlerInterface $moduleHandler,
   ) {
     parent::__construct($plugin_id, $plugin_definition, $field_definition, $settings, $third_party_settings);
@@ -46,7 +46,7 @@ abstract class GeolocationMapWidgetBase extends WidgetBase implements ContainerF
     $settings = $this->getSettings();
 
     if (!empty($settings['map_provider_id'])) {
-      $this->mapProvider = $this->mapProviderManager->getMapProvider($settings['map_provider_id'], $settings['map_provider_settings']);
+      $this->mapProvider = $this->mapProviderManager->getMapProvider($settings['map_provider_id'], $settings['map_provider_settings'] ?? []);
     }
   }
 
@@ -70,20 +70,11 @@ abstract class GeolocationMapWidgetBase extends WidgetBase implements ContainerF
    * {@inheritdoc}
    */
   public static function defaultSettings(): array {
-    $settings = [
-      'hide_inputs' => FALSE,
-    ];
-    $settings['map_provider_id'] = '';
-    if (\Drupal::moduleHandler()->moduleExists('geolocation_google_maps')) {
-      $settings['map_provider_id'] = 'google_maps';
-    }
-    elseif (\Drupal::moduleHandler()->moduleExists('geolocation_leaflet')) {
-      $settings['map_provider_id'] = 'leaflet';
-    }
+    $settings = parent::defaultSettings();
+
+    $settings['hide_inputs'] = FALSE;
+    $settings['map_provider_id'] = NULL;
     $settings['map_provider_settings'] = [];
-
-    $settings += parent::defaultSettings();
-
     $settings['centre'] = [
       'fit_bounds' => [
         'enable' => TRUE,
@@ -96,15 +87,6 @@ abstract class GeolocationMapWidgetBase extends WidgetBase implements ContainerF
     ];
 
     return $settings;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getSettings(): array {
-    $this->settings += static::defaultSettings();
-
-    return $this->settings;
   }
 
   /**
@@ -136,7 +118,7 @@ abstract class GeolocationMapWidgetBase extends WidgetBase implements ContainerF
       '#type' => 'select',
       '#options' => $map_provider_options,
       '#title' => $this->t('Map Provider'),
-      '#default_value' => $settings['map_provider_id'],
+      '#default_value' => $settings['map_provider_id'] ?? '',
       '#ajax' => [
         'callback' => [
           get_class($this->mapProviderManager), 'addSettingsFormAjax',
@@ -160,9 +142,13 @@ abstract class GeolocationMapWidgetBase extends WidgetBase implements ContainerF
     ];
 
     $user_input = $form_state->getUserInput();
-    $map_provider_id = NestedArray::getValue($user_input, array_merge($parents, ['map_provider_id'])) ?? $settings['map_provider_id'] ?? key($map_provider_options);
+    $map_provider_id = NestedArray::getValue($user_input, array_merge($parents, ['map_provider_id'])) ?? $settings['map_provider_id'];
+    if (!$map_provider_id) {
+      $map_provider_id = key($map_provider_options);
+    }
 
-    $map_provider_settings = NestedArray::getValue($user_input, array_merge($parents, ['map_provider_settings'])) ?? $settings['map_provider_settings'];
+    $map_provider_settings = NestedArray::getValue($user_input, array_merge($parents, ['map_provider_settings'])) ?? $settings['map_provider_settings'] ?? [];
+    $map_provider_settings = NestedArray::mergeDeep($this->mapProviderManager?->getMapProviderDefaultSettings($map_provider_id) ?? [], $map_provider_settings);
 
     if (!empty($map_provider_id)) {
       $element['map_provider_settings'] = $this->mapProviderManager
@@ -191,12 +177,13 @@ abstract class GeolocationMapWidgetBase extends WidgetBase implements ContainerF
     $summary = [];
 
     if (!$this->mapProvider) {
+      $summary[] = $this->t("ATTENTION: No map provider set!");
       return $summary;
     }
 
     $settings = $this->getSettings();
 
-    return array_replace_recursive($summary, $this->mapProvider->getSettingsSummary($settings['map_provider_settings']));
+    return array_replace_recursive($summary, $this->mapProvider->getSettingsSummary($settings['map_provider_settings'] ?? []));
   }
 
   /**
@@ -236,6 +223,13 @@ abstract class GeolocationMapWidgetBase extends WidgetBase implements ContainerF
         ],
       ]
     );
+
+    $element['map_description'] = [
+      '#type' => 'item',
+      '#weight' => -11,
+      '#title' => $this->t('Map Widget - %field', ['%field' => $this->fieldDefinition->getLabel()]),
+      '#description' => $this->t('Click on the map to set new coordinates and add a marker at that location. Click on an existing marker to clear those coordinates and remove the marker. Drag markers to alter the respective coordinates. Altering coordinate values directly will move the marker accordingly.'),
+    ];
 
     $element['map'] = [
       '#type' => 'geolocation_map',

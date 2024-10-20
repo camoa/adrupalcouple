@@ -73,7 +73,7 @@ abstract class LayerFeatureBase extends PluginBase implements LayerFeatureInterf
   /**
    * {@inheritdoc}
    */
-  public function getSettings(array $settings, MapProviderInterface $mapProvider = NULL): array {
+  public function getSettings(array $settings, ?MapProviderInterface $mapProvider = NULL): array {
     $default_settings = $this->getDefaultSettings();
     return array_replace_recursive($default_settings, $settings);
   }
@@ -81,7 +81,7 @@ abstract class LayerFeatureBase extends PluginBase implements LayerFeatureInterf
   /**
    * {@inheritdoc}
    */
-  public function getSettingsSummary(array $settings, MapProviderInterface $mapProvider = NULL): array {
+  public function getSettingsSummary(array $settings, ?MapProviderInterface $mapProvider = NULL): array {
     $summary = [];
     $summary[] = $this->t('%feature enabled', ['%feature' => $this->getPluginDefinition()['name']]);
     return $summary;
@@ -90,7 +90,7 @@ abstract class LayerFeatureBase extends PluginBase implements LayerFeatureInterf
   /**
    * {@inheritdoc}
    */
-  public function getSettingsForm(array $settings, array $parents = [], MapProviderInterface $mapProvider = NULL): array {
+  public function getSettingsForm(array $settings, array $parents = [], ?MapProviderInterface $mapProvider = NULL): array {
     $form = [];
 
     $form['#parents'] = $parents;

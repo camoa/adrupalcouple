@@ -23,15 +23,6 @@ export class YandexMapMarker extends GeolocationMapMarker {
         },
       };
 
-      if (this.settings.draggable) {
-        props.draggable = this.settings.draggable ?? false;
-        this.yandexMarker.update({
-          onDragEnd: (e) => {
-            this.update(this.map.normalizeCoordinates(e.coordinates));
-          },
-        });
-      }
-
       if (this.settings.icon) {
         const markerElement = document.createElement("img");
         markerElement.className = "icon-marker";
@@ -40,6 +31,15 @@ export class YandexMapMarker extends GeolocationMapMarker {
         this.yandexMarker = new YMapMarker(props, markerElement);
       } else {
         this.yandexMarker = new YMapDefaultMarker(props);
+      }
+
+      if (this.settings.draggable) {
+        props.draggable = this.settings.draggable ?? false;
+        this.yandexMarker.update({
+          onDragEnd: (e) => {
+            this.update(this.map.normalizeCoordinates(e.coordinates));
+          },
+        });
       }
 
       this.map.yandexMap.addChild(this.yandexMarker);

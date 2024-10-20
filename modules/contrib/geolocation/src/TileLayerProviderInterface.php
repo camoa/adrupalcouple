@@ -22,7 +22,7 @@ interface TileLayerProviderInterface extends PluginInspectionInterface {
    * @return array
    *   Default Settings.
    */
-  public static function getDefaultSettings(string $tile_layer_option_id, array $settings = [], array $context = NULL): array;
+  public static function getDefaultSettings(string $tile_layer_option_id, array $settings = [], ?array $context = NULL): array;
 
   /**
    * Provide a summary array.
@@ -30,7 +30,7 @@ interface TileLayerProviderInterface extends PluginInspectionInterface {
    * @return array
    *   An array to use as field formatter summary.
    */
-  public function getSettingsSummary(string $tile_layer_option_id, array $settings = [], array $context = NULL): array;
+  public function getSettingsSummary(string $tile_layer_option_id, array $settings = [], ?array $context = NULL): array;
 
   /**
    * Get settings form.
@@ -43,7 +43,7 @@ interface TileLayerProviderInterface extends PluginInspectionInterface {
    * @return array
    *   Settings form.
    */
-  public function getSettingsForm(array $settings = [], array $context = NULL): array;
+  public function getSettingsForm(array $settings = [], ?array $context = NULL): array;
 
   /**
    * Get layer settings form.
@@ -58,7 +58,7 @@ interface TileLayerProviderInterface extends PluginInspectionInterface {
    * @return array
    *   Settings form.
    */
-  public function getLayerSettingsForm(string $tile_layer_option_id, array $settings = [], array $context = NULL): array;
+  public function getLayerSettingsForm(string $tile_layer_option_id, array $settings = [], ?array $context = NULL): array;
 
   /**
    * Get layer label.
@@ -73,7 +73,7 @@ interface TileLayerProviderInterface extends PluginInspectionInterface {
    * @return string
    *   Label.
    */
-  public function getLabel(string $tile_layer_option_id, array $settings = [], array $context = NULL): string;
+  public function getLabel(string $tile_layer_option_id, array $settings = [], ?array $context = NULL): string;
 
   /**
    * Get layer attribution.
@@ -88,7 +88,7 @@ interface TileLayerProviderInterface extends PluginInspectionInterface {
    * @return string
    *   Attribution.
    */
-  public function getAttribution(string $tile_layer_option_id, array $settings = [], array $context = NULL): string;
+  public function getAttribution(string $tile_layer_option_id, array $settings = [], ?array $context = NULL): string;
 
   /**
    * Get available tile layer options.
@@ -110,7 +110,7 @@ interface TileLayerProviderInterface extends PluginInspectionInterface {
    * @return array
    *   Available layer Options.
    */
-  public function getLayerOptions(array $context = NULL): array;
+  public function getLayerOptions(?array $context = NULL): array;
 
   /**
    * Get layer render array.
@@ -125,7 +125,7 @@ interface TileLayerProviderInterface extends PluginInspectionInterface {
    * @return string
    *   Tile layer URL.
    */
-  public function getTileLayerUrl(string $tile_layer_option_id, array $settings = [], array $context = NULL): string;
+  public function getTileLayerUrl(string $tile_layer_option_id, array $settings = [], ?array $context = NULL): string;
 
   /**
    * Alter map render array.

@@ -7,6 +7,7 @@ use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\File\FileUrlGeneratorInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\BubbleableMetadata;
+use Drupal\Core\Render\Element;
 use Drupal\geolocation\MapCenterManager;
 use Drupal\geolocation\MapProviderManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -121,7 +122,13 @@ class CommonMap extends GeolocationStyleBase {
         'views_refresh_delay' => ['default' => '1200'],
       ],
     ];
-    $options['centre'] = ['default' => []];
+    $options['centre'] = [
+      'default' => [
+        'fit_bounds' => [
+          'enable' => TRUE,
+        ],
+      ],
+    ];
 
     $options['map_provider_id'] = ['default' => ''];
     $options['map_provider_settings'] = ['default' => []];
@@ -153,19 +160,35 @@ class CommonMap extends GeolocationStyleBase {
 
     $map_update_target_options = $this->getMapUpdateOptions();
 
+    $form['dynamic_map'] = [
+      '#title' => $this->t('Dynamic Map'),
+      '#type' => 'details',
+    ];
+
     /*
      * Dynamic map handling.
      */
     if (!empty($map_update_target_options)) {
-      $form['dynamic_map'] = [
-        '#title' => $this->t('Dynamic Map'),
-        '#type' => 'fieldset',
+      $form['dynamic_map']['explanation'] = [
+        '#type' => 'inline_template',
+        '#template' => '{{ description }} {{ recommendations }}',
+        '#context' => [
+          'description' => $this->t("If enabled, moving the map will filter results based on current map boundary. If additional views are to be updated with the map change as well, it is highly recommended to use the view containing the map as 'parent' and the additional views as attachments."),
+          'recommendations' => [
+            '#theme' => 'item_list',
+            '#items' => [
+              'boundary_filter_hint' => $this->t('(Required) Use exposed boundary filter'),
+              'ajax_hint' => $this->t('(Recommended) Enable AJAX for best user experience'),
+              'center_hint' => $this->t('(Recommended) Set the boundary filter as center'),
+            ],
+          ],
+        ],
       ];
+
       $form['dynamic_map']['enabled'] = [
-        '#title' => $this->t('Update view on map boundary changes. Also known as "AirBnB" style.'),
+        '#title' => $this->t('Enable dynamic map and update view on map boundary changes.'),
         '#type' => 'checkbox',
         '#default_value' => $this->options['dynamic_map']['enabled'],
-        '#description' => $this->t("If enabled, moving the map will filter results based on current map boundary. This functionality requires an exposed boundary filter. Enabling AJAX is highly recommend for best user experience. If additional views are to be updated with the map change as well, it is highly recommended to use the view containing the map as 'parent' and the additional views as attachments."),
       ];
 
       $form['dynamic_map']['update_handler'] = [
@@ -229,6 +252,13 @@ class CommonMap extends GeolocationStyleBase {
         ];
       }
     }
+    else {
+      $form['dynamic_map']['unavailable'] = [
+        '#type' => 'html_tag',
+        '#tag' => 'span',
+        '#value' => $this->t('Using the dynamic map requires an exposed Boundary filter.'),
+      ];
+    }
 
     /*
      * Centre handling.
@@ -237,7 +267,7 @@ class CommonMap extends GeolocationStyleBase {
     $center_form['#parents'] = ['style_options', 'centre'];
     $form['centre'] = [
       '#type' => 'details',
-      '#title' => $this->t('Center options'),
+      '#title' => $this->t('Map Center Settings'),
       'form' => $center_form,
     ];
 
@@ -246,12 +276,12 @@ class CommonMap extends GeolocationStyleBase {
      */
     $form['advanced_settings'] = [
       '#type' => 'details',
-      '#title' => $this->t('Advanced settings'),
+      '#title' => $this->t('Map Advanced settings'),
     ];
 
     $form['even_empty'] = [
       '#group' => 'style_options][advanced_settings',
-      '#title' => $this->t('Display map when no locations are found'),
+      '#title' => $this->t('Display map also when no locations or shapes are found.'),
       '#type' => 'checkbox',
       '#default_value' => $this->options['even_empty'],
     ];
@@ -414,6 +444,26 @@ class CommonMap extends GeolocationStyleBase {
           'boundary_filter' => TRUE,
           'parameter_identifier' => $filter_options['expose']['identifier'],
         ];
+
+        if ($this->options['dynamic_map']['hide_form']) {
+          $filters = array_filter(Element::children($this->view->exposed_widgets), function ($index) use ($filter_id) {
+            if ($index == 'actions') {
+              return FALSE;
+            }
+            if (str_starts_with($index, 'form_')) {
+              return FALSE;
+            }
+            if (str_starts_with($index, $filter_id)) {
+              return FALSE;
+            }
+
+            return TRUE;
+          });
+
+          if (empty($filters)) {
+            $this->view->exposed_widgets['#attributes']['class'][] = 'hidden';
+          }
+        }
       }
 
       $build['#attached'] = BubbleableMetadata::mergeAttachments($build['#attached'], [

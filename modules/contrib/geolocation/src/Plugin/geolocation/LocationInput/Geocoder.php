@@ -187,7 +187,7 @@ class Geocoder extends LocationInputBase implements LocationInputInterface, Cont
   /**
    * {@inheritdoc}
    */
-  public function alterForm(array $form, array $settings, array $context = [], array $default_value = NULL): array {
+  public function alterForm(array $form, array $settings, array $context = [], ?array $default_value = NULL): array {
     $form = parent::alterForm($form, $settings, $context, $default_value);
 
     $this->geocoderManager->getGeocoder(

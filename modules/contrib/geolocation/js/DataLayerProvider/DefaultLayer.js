@@ -11,8 +11,8 @@ export default class DefaultLayer extends GeolocationDataLayer {
     return super.loadShapes(selector);
   }
 
-  addMarker(marker) {
-    super.addMarker(marker);
+  markerAdded(marker) {
+    super.markerAdded(marker);
 
     this.map.features.forEach((feature) => {
       try {
@@ -21,12 +21,10 @@ export default class DefaultLayer extends GeolocationDataLayer {
         console.error(e, `Feature  ${feature.constructor.name} failed onMarkerAdded: ${e.toString()}`);
       }
     });
-
-    return marker;
   }
 
-  updateMarker(marker) {
-    super.updateMarker(marker);
+  markerUpdated(marker) {
+    super.markerUpdated(marker);
 
     this.map.features.forEach((feature) => {
       try {
@@ -37,8 +35,8 @@ export default class DefaultLayer extends GeolocationDataLayer {
     });
   }
 
-  removeMarker(marker) {
-    super.removeMarker(marker);
+  markerRemoved(marker) {
+    super.markerRemoved(marker);
 
     this.map.features.forEach((feature) => {
       try {
@@ -49,14 +47,64 @@ export default class DefaultLayer extends GeolocationDataLayer {
     });
   }
 
-  clickMarker(marker) {
-    super.clickMarker(marker);
+  markerClicked(marker) {
+    super.markerClicked(marker);
 
     this.map.features.forEach((feature) => {
       try {
         feature.onMarkerClicked(marker);
       } catch (e) {
         console.error(e, `Feature  ${feature.constructor.name} failed onMarkerClicked: ${e.toString()}`);
+      }
+    });
+  }
+
+  shapeAdded(shape) {
+    super.shapeAdded(shape);
+
+    this.map.features.forEach((feature) => {
+      try {
+        feature.onShapeAdded(shape);
+      } catch (e) {
+        console.error(e, `Feature  ${feature.constructor.name} failed onShapeAdded: ${e.toString()}`);
+      }
+    });
+
+    return shape;
+  }
+
+  shapeUpdated(shape) {
+    super.shapeUpdated(shape);
+
+    this.map.features.forEach((feature) => {
+      try {
+        feature.onShapeUpdated(shape);
+      } catch (e) {
+        console.error(e, `Feature  ${feature.constructor.name} failed onShapeUpdated: ${e.toString()}`);
+      }
+    });
+  }
+
+  shapeRemoved(shape) {
+    super.shapeRemoved(shape);
+
+    this.map.features.forEach((feature) => {
+      try {
+        feature.onShapeRemove(shape);
+      } catch (e) {
+        console.error(e, `Feature  ${feature.constructor.name} failed onShapeRemove: ${e.toString()}`);
+      }
+    });
+  }
+
+  shapeClicked(shape) {
+    super.shapeClicked(shape);
+
+    this.map.features.forEach((feature) => {
+      try {
+        feature.onShapeClicked(shape);
+      } catch (e) {
+        console.error(e, `Feature  ${feature.constructor.name} failed onShapeClicked: ${e.toString()}`);
       }
     });
   }

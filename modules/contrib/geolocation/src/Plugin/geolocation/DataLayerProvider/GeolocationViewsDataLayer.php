@@ -28,7 +28,7 @@ class GeolocationViewsDataLayer extends DataLayerProviderBase implements DataLay
   /**
    * {@inheritdoc}
    */
-  public function getLabel(string $data_layer_option_id, array $settings = [], array $context = NULL): string {
+  public function getLabel(string $data_layer_option_id, array $settings = [], ?array $context = NULL): string {
     if (isset($this->view)) {
       return $this->view->getTitle();
     }
@@ -39,7 +39,7 @@ class GeolocationViewsDataLayer extends DataLayerProviderBase implements DataLay
   /**
    * {@inheritdoc}
    */
-  public function getLayerOptions(array $context = NULL): array {
+  public function getLayerOptions(?array $context = NULL): array {
     $options = [];
 
     /** @var \Drupal\views\Entity\View[] $views */
@@ -94,7 +94,7 @@ class GeolocationViewsDataLayer extends DataLayerProviderBase implements DataLay
   /**
    * {@inheritdoc}
    */
-  public function getLayerRenderData(string $data_layer_option_id = 'default', array $settings = [], array $context = NULL): array {
+  public function getLayerRenderData(string $data_layer_option_id = 'default', array $settings = [], ?array $context = NULL): array {
     [, $display_id] = explode('|', $data_layer_option_id);
 
     if (!$this->view->setDisplay($display_id)) {

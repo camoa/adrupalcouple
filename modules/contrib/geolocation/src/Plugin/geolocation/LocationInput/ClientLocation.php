@@ -58,7 +58,7 @@ class ClientLocation extends LocationInputBase implements LocationInputInterface
   /**
    * {@inheritdoc}
    */
-  public function alterForm(array $form, array $settings, array $context = [], array $default_value = NULL): array {
+  public function alterForm(array $form, array $settings, array $context = [], ?array $default_value = NULL): array {
     $form = parent::alterForm($form, $settings, $context, $default_value);
 
     $form['coordinates']['client_location'] = [

@@ -107,7 +107,7 @@ class Location extends LocationInputBase implements LocationInputInterface {
   /**
    * {@inheritdoc}
    */
-  public function getCoordinates(array $form_value, array $settings, array $context = NULL): array {
+  public function getCoordinates(array $form_value, array $settings, ?array $context = NULL): array {
     $values = explode(':', $settings['location_input_option_id'] ?? '');
     if (count($values) !== 2) {
       return [];

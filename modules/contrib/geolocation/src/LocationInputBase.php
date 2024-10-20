@@ -103,7 +103,7 @@ abstract class LocationInputBase extends PluginBase implements LocationInputInte
   /**
    * {@inheritdoc}
    */
-  public function alterForm(array $form, array $settings, array $context = [], array $default_value = NULL): array {
+  public function alterForm(array $form, array $settings, array $context = [], ?array $default_value = NULL): array {
     $settings = $this->getSettings($settings);
 
     $path = $this->getJavascriptModulePath();

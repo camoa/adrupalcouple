@@ -6,8 +6,10 @@ use Drupal\Component\Plugin\Exception\PluginNotFoundException;
 use Drupal\Core\Entity\ContentEntityStorageInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Entity\FieldableEntityInterface;
+use Drupal\Core\Entity\TypedData\EntityDataDefinition;
 use Drupal\Core\Field\FieldException;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\Core\TypedData\DataReferenceDefinition;
 use Drupal\custom_field\Plugin\CustomFieldTypeBase;
 use Drupal\custom_field\Plugin\CustomFieldTypeInterface;
 use Drupal\custom_field\TypedData\CustomFieldDataDefinition;
@@ -96,6 +98,15 @@ class EntityReference extends CustomFieldTypeBase {
     }
 
     $properties[$name] = $target_id_definition;
+    $properties[$name . self::SEPARATOR . 'entity'] = DataReferenceDefinition::create('entity')
+      ->setLabel($target_type_info->getLabel())
+      ->setDescription(new TranslatableMarkup('The referenced entity'))
+      ->setComputed(TRUE)
+      ->setSettings(['target_id' => $name, 'target_type' => $target_type])
+      ->setClass('\Drupal\custom_field\Plugin\CustomField\EntityReferenceComputed')
+      ->setReadOnly(FALSE)
+      ->setTargetDefinition(EntityDataDefinition::create($target_type))
+      ->addConstraint('EntityType', $target_type);
 
     return $properties;
   }

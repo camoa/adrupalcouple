@@ -11,8 +11,8 @@ use Drupal\Core\Field\FieldStorageDefinitionInterface;
  * @FieldType(
  *   id = "geolocation_geometry_polygon",
  *   label = @Translation("Geolocation Geometry - Polygon"),
- *   category = "spatial_fields",
- *   description = @Translation("This field stores spatial geometry data."),
+ *   category = "geo_spatial",
+ *   description = @Translation("This field stores spatial geometry of type 'Polygon'."),
  *   default_widget = "geolocation_geometry_geojson",
  *   default_formatter = "geolocation_geometry_data"
  * )

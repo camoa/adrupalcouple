@@ -81,7 +81,7 @@ abstract class MapFeatureBase extends PluginBase implements MapFeatureInterface,
   /**
    * {@inheritdoc}
    */
-  public function getSettings(array $settings, MapProviderInterface $mapProvider = NULL): array {
+  public function getSettings(array $settings, ?MapProviderInterface $mapProvider = NULL): array {
     $default_settings = $this->getDefaultSettings();
     return array_replace_recursive($default_settings, $settings);
   }
@@ -89,7 +89,7 @@ abstract class MapFeatureBase extends PluginBase implements MapFeatureInterface,
   /**
    * {@inheritdoc}
    */
-  public function getSettingsSummary(array $settings, MapProviderInterface $mapProvider = NULL): array {
+  public function getSettingsSummary(array $settings, ?MapProviderInterface $mapProvider = NULL): array {
     $summary = [];
     $summary[] = $this->t('%feature enabled', ['%feature' => $this->getPluginDefinition()['name']]);
     return $summary;
@@ -98,7 +98,7 @@ abstract class MapFeatureBase extends PluginBase implements MapFeatureInterface,
   /**
    * {@inheritdoc}
    */
-  public function getSettingsForm(array $settings, array $parents = [], MapProviderInterface $mapProvider = NULL): array {
+  public function getSettingsForm(array $settings, array $parents = [], ?MapProviderInterface $mapProvider = NULL): array {
     $form = [];
 
     $form['#parents'] = $parents;
@@ -132,7 +132,7 @@ abstract class MapFeatureBase extends PluginBase implements MapFeatureInterface,
   /**
    * {@inheritdoc}
    */
-  public function alterMap(array $render_array, array $feature_settings = [], array $context = [], MapProviderInterface $mapProvider = NULL): array {
+  public function alterMap(array $render_array, array $feature_settings = [], array $context = [], ?MapProviderInterface $mapProvider = NULL): array {
     $render_array['#attached'] = BubbleableMetadata::mergeAttachments($render_array['#attached'] ?? [], [
       'drupalSettings' => [
         'geolocation' => [

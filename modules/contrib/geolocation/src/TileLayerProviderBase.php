@@ -42,14 +42,14 @@ abstract class TileLayerProviderBase extends PluginBase implements TileLayerProv
   /**
    * {@inheritdoc}
    */
-  public static function getDefaultSettings(string $tile_layer_option_id, array $settings = [], array $context = NULL): array {
+  public static function getDefaultSettings(string $tile_layer_option_id, array $settings = [], ?array $context = NULL): array {
     return [];
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getSettingsSummary(string $tile_layer_option_id = 'default', array $settings = [], array $context = NULL): array {
+  public function getSettingsSummary(string $tile_layer_option_id = 'default', array $settings = [], ?array $context = NULL): array {
     /* @noinspection PhpUnnecessaryLocalVariableInspection */
     $summary = [$this->getPluginDefinition()['name']];
 
@@ -59,14 +59,14 @@ abstract class TileLayerProviderBase extends PluginBase implements TileLayerProv
   /**
    * {@inheritdoc}
    */
-  public function getSettingsForm(array $settings = [], array $context = NULL): array {
+  public function getSettingsForm(array $settings = [], ?array $context = NULL): array {
     return [];
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getLayerSettingsForm(string $tile_layer_option_id = 'default', array $settings = [], array $context = NULL): array {
+  public function getLayerSettingsForm(string $tile_layer_option_id = 'default', array $settings = [], ?array $context = NULL): array {
     return [];
   }
 
@@ -91,7 +91,7 @@ abstract class TileLayerProviderBase extends PluginBase implements TileLayerProv
   /**
    * {@inheritdoc}
    */
-  public function getLayerOptions(array $context = NULL): array {
+  public function getLayerOptions(?array $context = NULL): array {
     return [
       'default' => [
         'name' => $this->getPluginDefinition()['name'],
@@ -105,14 +105,14 @@ abstract class TileLayerProviderBase extends PluginBase implements TileLayerProv
   /**
    * {@inheritdoc}
    */
-  public function getTileLayerUrl(string $tile_layer_option_id = 'default', array $settings = [], array $context = NULL): string {
+  public function getTileLayerUrl(string $tile_layer_option_id = 'default', array $settings = [], ?array $context = NULL): string {
     return "";
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getLabel(string $tile_layer_option_id, array $settings = [], array $context = NULL): string {
+  public function getLabel(string $tile_layer_option_id, array $settings = [], ?array $context = NULL): string {
     $options = $this->getLayerOptions();
     if ($options[$this->getOptionTitleById($tile_layer_option_id)]['name'] ?? FALSE) {
       return $this->getPluginDefinition()['name'] . ' - ' . $options[$this->getOptionTitleById($tile_layer_option_id)]['name'];
@@ -124,7 +124,7 @@ abstract class TileLayerProviderBase extends PluginBase implements TileLayerProv
   /**
    * {@inheritdoc}
    */
-  public function getAttribution(string $tile_layer_option_id, array $settings = [], array $context = NULL): string {
+  public function getAttribution(string $tile_layer_option_id, array $settings = [], ?array $context = NULL): string {
     return $this->getPluginDefinition()['label'] ?? $this->t('Layer');
   }
 

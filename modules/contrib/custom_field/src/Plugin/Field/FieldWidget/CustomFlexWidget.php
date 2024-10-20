@@ -127,7 +127,7 @@ class CustomFlexWidget extends CustomWidgetBase {
     }
     // Using markup since we can't nest values because the field api expects
     // subfields to be at the top-level.
-    $element['wrapper_prefix']['#markup'] = '<div class="' . implode(' ', $classes) . '">';
+    $element['wrapper_prefix']['#markup'] = '<div class="custom-field-row-wrapper"><div class="' . implode(' ', $classes) . '">';
     $columns = $this->getSettings()['columns'];
 
     // Account for unsaved fields in field config default values form.
@@ -150,7 +150,7 @@ class CustomFlexWidget extends CustomWidgetBase {
       $widget_plugin = $this->customFieldWidgetManager->createInstance($type, ['settings' => $field_settings[$name]['widget_settings'] ?? []]);
       $widget_settings = $custom_item->getWidgetSetting('settings');
       $element[$name] = $widget_plugin->widget($items, $delta, $element, $form, $form_state, $custom_item);
-      $attributes = $this->getAttributesKey($custom_item, $widget_settings);
+      $attributes = $this->getAttributesKey($custom_item, $widget_settings, $type);
 
       if (isset($element[$name]['#type']) && $element[$name]['#type'] === 'managed_file' && isset($columns[$name])) {
         $element[$name]['#column_class'] = 'custom-field-col custom-field-col-' . $columns[$name];
@@ -170,7 +170,7 @@ class CustomFlexWidget extends CustomWidgetBase {
       }
     }
 
-    $element['wrapper_suffix']['#markup'] = '</div>';
+    $element['wrapper_suffix']['#markup'] = '</div></div>';
 
     return $element;
   }
@@ -227,11 +227,16 @@ class CustomFlexWidget extends CustomWidgetBase {
    *   The custom field item.
    * @param array $widget_settings
    *   The widget settings for the custom field item.
+   * @param string $type
+   *   The widget type.
    *
    * @return string
    *   The attribute key string.
    */
-  protected function getAttributesKey(CustomFieldTypeInterface $custom_item, array $widget_settings) {
+  protected function getAttributesKey(CustomFieldTypeInterface $custom_item, array $widget_settings, string $type) {
+    if ($type === 'media_library_widget') {
+      return '#attributes';
+    }
     switch ($custom_item->getPluginId()) {
       case 'datetime':
         return '#attributes';

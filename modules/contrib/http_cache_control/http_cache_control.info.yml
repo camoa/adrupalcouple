@@ -4,7 +4,7 @@ description: Module for controlling HTTP Cache Control response headers.
 core_version_requirement: ^9 || ^10 || ^11
 package: performance
 
-# Information added by Drupal.org packaging script on 2024-08-12
-version: '8.x-2.2'
+# Information added by Drupal.org packaging script on 2024-09-19
+version: '8.x-2.3'
 project: 'http_cache_control'
-datestamp: 1723471036
+datestamp: 1726747039

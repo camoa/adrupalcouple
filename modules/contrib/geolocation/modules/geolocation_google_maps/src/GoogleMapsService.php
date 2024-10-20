@@ -2,6 +2,7 @@
 
 namespace Drupal\geolocation_google_maps;
 
+use Drupal\Component\Utility\NestedArray;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Language\LanguageManagerInterface;
@@ -56,6 +57,7 @@ class GoogleMapsService {
     $config = $this->configFactory->get('geolocation_google_maps.settings');
     $geolocation_parameters = [
       'key' => KeyProvider::getKeyValue($config->get('google_map_api_key') ?? ''),
+      'libraries' => ['marker'],
     ];
 
     $module_parameters = $this->moduleHandler->invokeAll('geolocation_google_maps_parameters') ?: [];
@@ -66,7 +68,7 @@ class GoogleMapsService {
       $custom_parameters['language'] = $this->languageManager->getCurrentLanguage()->getId();
     }
 
-    $parameters = array_replace_recursive($additional_parameters, $custom_parameters, $module_parameters, $geolocation_parameters);
+    $parameters = NestedArray::mergeDeep($additional_parameters, $custom_parameters, $module_parameters, $geolocation_parameters);
 
     foreach ($parameters as $key => $value) {
       if ($value === '') {

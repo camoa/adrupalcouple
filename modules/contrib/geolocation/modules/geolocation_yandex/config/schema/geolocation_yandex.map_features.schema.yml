@@ -14,18 +14,6 @@ plugin.plugin_configuration.geolocation.map_feature.yandex_control_geolocation:
   type: geolocation.map_feature_settings.yandex.control
   label: 'Geolocation'
 
-plugin.plugin_configuration.geolocation.map_feature.yandex_control_search:
-  type: geolocation.map_feature_settings.yandex.control
-  label: 'Search'
-
-plugin.plugin_configuration.geolocation.map_feature.yandex_control_traffic:
-  type: geolocation.map_feature_settings.yandex.control
-  label: 'Traffic'
-
-plugin.plugin_configuration.geolocation.map_feature.yandex_control_type:
-  type: geolocation.map_feature_settings.yandex.control
-  label: 'Type'
-
 plugin.plugin_configuration.geolocation.map_feature.yandex_control_zoom:
   type: geolocation.map_feature_settings.yandex.control
   label: 'Zoom'

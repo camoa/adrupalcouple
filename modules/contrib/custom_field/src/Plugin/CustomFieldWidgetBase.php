@@ -177,4 +177,12 @@ abstract class CustomFieldWidgetBase extends PluginSettingsBase implements Custo
     return $this->settings['settings'][$key] ?? NULL;
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public static function isApplicable(CustomFieldTypeInterface $custom_item): bool {
+    // By default, widgets are available for all fields.
+    return TRUE;
+  }
+
 }

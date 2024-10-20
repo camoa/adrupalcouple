@@ -55,7 +55,9 @@ class GooglePlacesAPI extends GoogleGeocoderBase {
     $request_url = $this->googleMapsService->getGoogleMapsApiUrl() . '/maps/api/place/autocomplete/json?input=' . $address;
 
     if (!empty($this->configuration['component_restrictions']['country'])) {
-      $request_url .= '&components=country:' . $this->configuration['component_restrictions']['country'];
+      foreach (explode(',', $this->configuration['component_restrictions']['country']) as $country) {
+        $request_url .= '&components[]=country:' . $country;
+      }
     }
     if (!empty($config->get('google_map_custom_url_parameters')['language'])) {
       $request_url .= '&language=' . $config->get('google_map_custom_url_parameters')['language'];
@@ -80,7 +82,6 @@ class GooglePlacesAPI extends GoogleGeocoderBase {
     try {
       $details_url = $this->googleMapsService->getGoogleMapsApiUrl() . '/maps/api/place/details/json?placeid=' . $result['predictions'][0]['place_id'];
       $details = Json::decode(\Drupal::httpClient()->request('GET', $details_url)->getBody());
-
     }
     catch (RequestException $e) {
       $logger = \Drupal::logger('geolocation');

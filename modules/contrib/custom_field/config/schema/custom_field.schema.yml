@@ -427,7 +427,8 @@ custom_field.widget.*:
                   type: sequence
                   label: 'Target bundles'
                   sequence:
-                    type: custom_field.target_bundles.[%key]
+                    type: string
+                    label: 'Bundle'
                 auto_create_bundle:
                   type: string
                   label: 'Store new items in'
@@ -446,9 +447,12 @@ custom_field.widget.*:
                       label: 'View arguments'
                       sequence:
                         type: custom_field.view_arguments.[%key]
-
-custom_field.target_bundles.*:
-  type: string
+            media_types:
+              type: sequence
+              label: 'Allowed media types, in display order'
+              sequence:
+                type: string
+                label: 'Media type ID'
 
 custom_field.view_arguments.*:
   type: string

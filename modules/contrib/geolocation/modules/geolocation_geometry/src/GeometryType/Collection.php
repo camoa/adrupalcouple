@@ -71,7 +71,7 @@ abstract class Collection extends GeometryTypeBase {
   /**
    * {@inheritdoc}
    */
-  public function toGPX(string $mode = NULL): string {
+  public function toGPX(?string $mode = NULL): string {
     throw new \Exception("GPX does not support Collections");
   }
 

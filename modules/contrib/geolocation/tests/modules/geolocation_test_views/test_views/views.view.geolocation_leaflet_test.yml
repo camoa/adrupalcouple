@@ -225,9 +225,6 @@ display:
             conditional_description: 'Clicking this button will embed a map.'
             conditional_label: 'Show map'
             map_features:
-              leaflet_client_location_indicator:
-                enabled: false
-                weight: 0
               leaflet_disable_user_interaction:
                 enabled: false
                 weight: 0
@@ -265,7 +262,7 @@ display:
                 weight: 0
                 settings:
                   position: topleft
-              leaflet_control_geocoder:
+              control_geocoder:
                 enabled: false
                 weight: 0
                 settings:
@@ -293,12 +290,12 @@ display:
                 settings:
                   position: topleft
                   loading_label: Loading
-              leaflet_control_locate:
+              control_locate:
                 enabled: false
                 weight: 0
                 settings:
                   position: topleft
-              leaflet_control_recenter:
+              control_recenter:
                 enabled: false
                 weight: 0
                 settings:

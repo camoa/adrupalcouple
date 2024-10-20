@@ -19,7 +19,7 @@ class Thunderforest extends TileLayerProviderBase implements TileLayerProviderIn
   /**
    * {@inheritdoc}
    */
-  public function getSettingsForm(array $settings = [], array $context = NULL): array {
+  public function getSettingsForm(array $settings = [], ?array $context = NULL): array {
     return [
       'apikey' => [
         '#type' => 'textfield',
@@ -37,7 +37,7 @@ class Thunderforest extends TileLayerProviderBase implements TileLayerProviderIn
   /**
    * {@inheritdoc}
    */
-  public static function getDefaultSettings(string $tile_layer_option_id, array $settings = [], array $context = NULL): array {
+  public static function getDefaultSettings(string $tile_layer_option_id, array $settings = [], ?array $context = NULL): array {
     return [
       'max_zoom' => 22,
     ];
@@ -46,21 +46,21 @@ class Thunderforest extends TileLayerProviderBase implements TileLayerProviderIn
   /**
    * {@inheritdoc}
    */
-  public function getTileLayerUrl(string $tile_layer_option_id = 'default', array $settings = [], array $context = NULL): string {
+  public function getTileLayerUrl(string $tile_layer_option_id = 'default', array $settings = [], ?array $context = NULL): string {
     return 'https://{s}.tile.thunderforest.com/' . $this->getOptionTitleById($tile_layer_option_id) . '/{z}/{x}/{y}.png?apikey=' . $this->configuration['apikey'];
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getAttribution(string $tile_layer_option_id, array $settings = [], array $context = NULL): string {
+  public function getAttribution(string $tile_layer_option_id, array $settings = [], ?array $context = NULL): string {
     return '&copy; <a href="https://www.thunderforest.com/">Thunderforest</a>';
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getLayerOptions(array $context = NULL): array {
+  public function getLayerOptions(?array $context = NULL): array {
     return [
       'cycle' => [
         'name' => $this->t('OpenCycleMap'),

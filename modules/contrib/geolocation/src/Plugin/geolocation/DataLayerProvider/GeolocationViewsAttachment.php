@@ -22,7 +22,7 @@ class GeolocationViewsAttachment extends DataLayerProviderBase implements DataLa
   /**
    * {@inheritdoc}
    */
-  public function getLabel(string $data_layer_option_id, array $settings = [], array $context = NULL): string {
+  public function getLabel(string $data_layer_option_id, array $settings = [], ?array $context = NULL): string {
     if (empty($context['views_style'])) {
       return parent::getLabel($data_layer_option_id, $settings, $context);
     }
@@ -36,7 +36,7 @@ class GeolocationViewsAttachment extends DataLayerProviderBase implements DataLa
   /**
    * {@inheritdoc}
    */
-  public function getLayerOptions(array $context = NULL): array {
+  public function getLayerOptions(?array $context = NULL): array {
     if (empty($context['views_style'])) {
       return [];
     }
@@ -74,7 +74,7 @@ class GeolocationViewsAttachment extends DataLayerProviderBase implements DataLa
   /**
    * {@inheritdoc}
    */
-  public function getLayerRenderData(string $data_layer_option_id = 'default', array $settings = [], array $context = NULL): array {
+  public function getLayerRenderData(string $data_layer_option_id = 'default', array $settings = [], ?array $context = NULL): array {
     if (empty($context['view'])) {
       return [];
     }

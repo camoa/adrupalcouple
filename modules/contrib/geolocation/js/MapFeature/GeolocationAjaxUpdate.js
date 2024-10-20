@@ -7,6 +7,7 @@ import { GeolocationBoundaries } from "../Base/GeolocationBoundaries.js";
  * @extends {GeolocationMapFeatureSettings}
  *
  * @prop {Boolean} boundary_filter
+ * @prop {Boolean} hide_form
  * @prop {Number} views_refresh_delay
  * @prop {String} parameter_identifier
  * @prop {String} update_view_id
@@ -71,6 +72,10 @@ export default class GeolocationAjaxUpdate extends GeolocationMapFeature {
 
     // Extract the view DOM ID from the view classes.
     const currentViewId = /(js-view-dom-id-\w+)/.exec(view.classList.toString())[1].replace("js-view-dom-id-", "views_dom_id:");
+
+    if (typeof Drupal.views.instances[currentViewId] === "undefined") {
+      return;
+    }
 
     const ajaxSettings = { ...Drupal.views.instances[currentViewId].element_settings };
     ajaxSettings.progress.type = "none";

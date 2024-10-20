@@ -85,10 +85,36 @@ checker that addresses three critical needs for content authors:
 
 ## Extending and modifying Editorially
 
+### Adding custom Tests
+
+First, in the module config, add 1 to the "Custom tests" options so it knows to watch for the tests.
+
+Then [create a Drupal JS library](https://www.drupal.org/docs/develop/creating-modules/adding-assets-css-js-to-a-drupal-module-via-librariesyml) with your tests in your theme or module, using the [guide to writing custom tests](https://editoria11y.princeton.edu/configuration/#customtests).
+
+Then call your JS library for users with sufficient permissions to see Editoria11y:
+
+```php
+/**
+ * Attaches a custom library to all pages when user has permission.
+ *
+ * {@inheritdoc}
+ */
+function MYMODULE_page_attachments(array &$page) {
+  if (!\Drupal::currentUser()->hasPermission('view editoria11y checker')) {
+    return;
+  }
+
+  $page['#attached']['library'][] = 'MY-MODULE/MY-LIBRARY-NAME';
+} 
+
+```
+
 ### Programmatically modifying the options array
 
-Before initiating the object, the module checks to see if a module or theme has
-requested to modify the array.
+Before initiating the Editoria11y library, the module checks at the JavaScript level to see if a module or theme has
+requested to modify the options generated from the module config.
+
+This is done by setting editoria11yOptionsOverride to true, and then providing an editoria11yOptions function that will process the options object.
 
 Example use (in JS in your theme or module) to provide a default ignored item,
 or add it to the list provided in the GUI:
@@ -106,10 +132,11 @@ var editoria11yOptions = function(options) {
   return options;
 }
 ```
+You can set or override any of the [library's parameters](https://editoria11y.princeton.edu/configuration/#parameters) at this time.
 
 ### Attaching custom CSS
 
-First set up the options override, as above.
+First set up the options override, as above, then override theme parameters as needed.
 
 For simple overrides of color and font, try using the exposed parameters:
 ```js
@@ -153,6 +180,8 @@ var editoria11yOptions = function(options) {
 ```
 
 ### Using JS events provided by the library
+
+Reference the [library events documentation](https://editoria11y.princeton.edu/configuration/#js-events) for current tips.
 
 #### The main panel has opened
 

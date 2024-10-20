@@ -2,6 +2,11 @@ import { GeolocationCoordinates } from "../../../../js/Base/GeolocationCoordinat
 import { GeolocationMapBase } from "../../../../js/MapProvider/GeolocationMapBase.js";
 import { GeolocationBoundaries } from "../../../../js/Base/GeolocationBoundaries.js";
 import { GoogleMapMarker } from "../GoogleMapMarker.js";
+import { GoogleShapeLine } from "../GoogleShapeLine.js";
+import { GoogleShapeMultiLine } from "../GoogleShapeMultiLine.js";
+import { GoogleShapePolygon } from "../GoogleShapePolygon.js";
+import { GoogleShapeMultiPolygon } from "../GoogleShapeMultiPolygon.js";
+import { GoogleCircle } from "../GoogleCircle.js";
 
 /**
  * @typedef GoogleMapSettings
@@ -38,6 +43,7 @@ export default class GoogleMaps extends GeolocationMapBase {
           this.googleMap = new google.maps.Map(
             this.container,
             Object.assign(this.settings.google_map_settings, {
+              mapId: this.id,
               zoom: this.settings.google_map_settings.zoom ?? 2,
               maxZoom: this.settings.google_map_settings.maxZoom ?? 20,
               minZoom: this.settings.google_map_settings.minZoom ?? 0,
@@ -135,7 +141,7 @@ export default class GoogleMaps extends GeolocationMapBase {
     const bounds = new google.maps.LatLngBounds();
 
     markers.forEach((marker) => {
-      bounds.extend(marker.googleMarker.getPosition());
+      bounds.extend(marker.googleMarker.position);
     });
 
     return this.normalizeBoundaries(bounds);
@@ -179,35 +185,11 @@ export default class GoogleMaps extends GeolocationMapBase {
   }
 
   setCenterByCoordinates(coordinates, accuracy) {
-    super.setCenterByCoordinates(coordinates, accuracy);
-
-    if (typeof accuracy === "undefined") {
-      this.googleMap.setCenter(coordinates);
-      return;
+    if (super.setCenterByCoordinates(coordinates, accuracy) === false) {
+      return false;
     }
 
-    const circle = this.addAccuracyIndicatorCircle(coordinates, accuracy);
-
-    // Set the zoom level to the accuracy circle's size.
-    this.googleMap.fitBounds(circle.getBounds());
-
-    // Fade circle away.
-    setInterval(() => {
-      let fillOpacity = circle.get("fillOpacity");
-      fillOpacity -= 0.01;
-
-      let strokeOpacity = circle.get("strokeOpacity");
-      strokeOpacity -= 0.02;
-
-      if (strokeOpacity > 0 && fillOpacity > 0) {
-        circle.setOptions({
-          fillOpacity,
-          strokeOpacity,
-        });
-      } else {
-        circle.setMap(null);
-      }
-    }, 200);
+    this.googleMap.setCenter(coordinates);
   }
 
   normalizeBoundaries(boundaries) {
@@ -279,147 +261,24 @@ export default class GoogleMaps extends GeolocationMapBase {
     });
   }
 
-  addAccuracyIndicatorCircle(location, accuracy) {
-    return new google.maps.Circle({
-      center: location,
-      radius: accuracy,
-      map: this.googleMap,
-      fillColor: "#4285F4",
-      fillOpacity: 0.15,
-      strokeColor: "#4285F4",
-      strokeOpacity: 0.3,
-      strokeWeight: 1,
-      clickable: false,
-    });
-  }
-
-  addTitleToShape(shape, title) {
-    const infoWindow = new google.maps.InfoWindow();
-    google.maps.event.addListener(shape, "mouseover", (e) => {
-      infoWindow.setPosition(e.latLng);
-      infoWindow.setContent(title);
-      infoWindow.open(this.googleMap);
-    });
-    google.maps.event.addListener(shape, "mouseout", () => {
-      infoWindow.close();
-    });
+  createCircle(center, radius, settings = {}) {
+    return new GoogleCircle(center, radius, this, settings);
   }
 
   createShapeLine(geometry, settings) {
-    const shape = super.createShapeLine(geometry, settings);
-
-    shape.googleShapes = [];
-
-    const line = new google.maps.Polyline({
-      path: geometry.points,
-      strokeColor: settings.strokeColor,
-      strokeOpacity: parseFloat(settings.strokeOpacity),
-      strokeWeight: parseInt(settings.strokeWidth),
-    });
-
-    if (settings.title) {
-      this.addTitleToShape(line, settings.title);
-    }
-
-    line.setMap(this.googleMap);
-
-    shape.googleShapes.push(line);
-
-    return shape;
+    return new GoogleShapeLine(geometry, settings, this);
   }
 
   createShapePolygon(geometry, settings) {
-    const shape = super.createShapePolygon(geometry, settings);
-
-    shape.googleShapes = [];
-    const polygon = new google.maps.Polygon({
-      paths: geometry.points,
-      strokeColor: settings.strokeColor,
-      strokeOpacity: parseFloat(settings.strokeOpacity),
-      strokeWeight: parseInt(settings.strokeWidth),
-      fillColor: settings.fillColor,
-      fillOpacity: parseFloat(settings.fillOpacity),
-    });
-
-    if (settings.title) {
-      this.addTitleToShape(polygon, settings.title);
-    }
-
-    polygon.setMap(this.googleMap);
-
-    shape.googleShapes.push(polygon);
-
-    return shape;
+    return new GoogleShapePolygon(geometry, settings, this);
   }
 
   createShapeMultiLine(geometry, settings) {
-    const shape = super.createShapeMultiLine(geometry, settings);
-
-    shape.googleShapes = [];
-    shape.geometry.lines.forEach((lineGeometry) => {
-      const line = new google.maps.Polyline({
-        path: lineGeometry.points,
-        strokeColor: settings.strokeColor,
-        strokeOpacity: parseFloat(settings.strokeOpacity),
-        strokeWeight: parseInt(settings.strokeWidth),
-      });
-
-      if (settings.title) {
-        this.addTitleToShape(line, settings.title);
-      }
-
-      line.setMap(this.googleMap);
-
-      shape.googleShapes.push(line);
-    });
-
-    return shape;
+    return new GoogleShapeMultiLine(geometry, settings, this);
   }
 
   createShapeMultiPolygon(geometry, settings) {
-    const shape = super.createShapeMultiPolygon(geometry, settings);
-
-    shape.googleShapes = [];
-    shape.geometry.polygons.forEach((polygonGeometry) => {
-      const polygon = new google.maps.Polygon({
-        paths: polygonGeometry.points,
-        strokeColor: settings.strokeColor,
-        strokeOpacity: parseFloat(settings.strokeOpacity),
-        strokeWeight: parseInt(settings.strokeWidth),
-        fillColor: settings.fillColor,
-        fillOpacity: parseFloat(settings.fillOpacity),
-      });
-      if (settings.title) {
-        this.addTitleToShape(polygon, settings.title);
-      }
-
-      polygon.setMap(this.googleMap);
-
-      shape.googleShapes.push(polygon);
-    });
-
-    return shape;
-  }
-
-  /**
-   *
-   * @param {GeolocationShape} shape
-   *   Shape.
-   * @param {google.maps.MVCObject[]} shape.googleShapes
-   *   Google Shapes.
-   */
-  removeShape(shape) {
-    if (!shape) {
-      return;
-    }
-
-    if (shape.googleShapes) {
-      shape.googleShapes.forEach((googleShape) => {
-        googleShape.remove();
-      });
-    }
-
-    shape.remove();
+    return new GoogleShapeMultiPolygon(geometry, settings, this);
   }
 
   getShapeBoundaries(shapes) {
@@ -450,7 +309,7 @@ export default class GoogleMaps extends GeolocationMapBase {
     const layer = new google.maps.ImageMapType({
       name: layerId,
       getTileUrl(coord, zoom) {
-        return layerSettings.url.replace("{x}", coord.x).replace("{y}", coord.y).replace("{z}", zoom).replace("{s}", "a");
+        return layerSettings.url.replace("{x}", coord.x.toString()).replace("{y}", coord.y.toString()).replace("{z}", zoom.toString()).replace("{s}", "a");
       },
       tileSize: new google.maps.Size(256, 256),
       minZoom: 1,

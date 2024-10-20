@@ -15,7 +15,7 @@ interface DataLayerProviderInterface extends PluginInspectionInterface {
    * @return array
    *   An array to use as field formatter summary.
    */
-  public function getSettingsSummary(string $data_layer_option_id, array $settings = [], array $context = NULL): array;
+  public function getSettingsSummary(string $data_layer_option_id, array $settings = [], ?array $context = NULL): array;
 
   /**
    * Get settings form.
@@ -30,7 +30,7 @@ interface DataLayerProviderInterface extends PluginInspectionInterface {
    * @return array
    *   Settings form.
    */
-  public function getSettingsForm(string $data_layer_option_id, array $settings = [], array $context = NULL): array;
+  public function getSettingsForm(string $data_layer_option_id, array $settings = [], ?array $context = NULL): array;
 
   /**
    * Get layer label.
@@ -45,7 +45,7 @@ interface DataLayerProviderInterface extends PluginInspectionInterface {
    * @return string
    *   Label.
    */
-  public function getLabel(string $data_layer_option_id, array $settings = [], array $context = NULL): string;
+  public function getLabel(string $data_layer_option_id, array $settings = [], ?array $context = NULL): string;
 
   /**
    * Get available data layer options.
@@ -67,7 +67,7 @@ interface DataLayerProviderInterface extends PluginInspectionInterface {
    * @return array
    *   Available layer Options.
    */
-  public function getLayerOptions(array $context = NULL): array;
+  public function getLayerOptions(?array $context = NULL): array;
 
   /**
    * Get layer render array.
@@ -82,7 +82,7 @@ interface DataLayerProviderInterface extends PluginInspectionInterface {
    * @return array
    *   Render array for layer.
    */
-  public function getLayerRenderData(string $data_layer_option_id, array $settings = [], array $context = NULL): array;
+  public function getLayerRenderData(string $data_layer_option_id, array $settings = [], ?array $context = NULL): array;
 
   /**
    * Alter map render array.

@@ -12,7 +12,7 @@ abstract class ControlCustomElementBase extends ControlElementBase {
   /**
    * {@inheritdoc}
    */
-  public function alterMap(array $render_array, array $feature_settings = [], array $context = [], MapProviderInterface $mapProvider = NULL): array {
+  public function alterMap(array $render_array, array $feature_settings = [], array $context = [], ?MapProviderInterface $mapProvider = NULL): array {
     $render_array = parent::alterMap($render_array, $feature_settings, $context, $mapProvider);
 
     $render_array['#controls'][$this->pluginId] = [

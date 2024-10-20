@@ -26,3 +26,6 @@
 
 # PHPUnit 10.
 %The "PHPUnit\\Framework\\TestCase::__construct\(\)" method is considered internal.*You should not extend it from "Drupal\\[^"]+"%
+
+# Twig 3.
+%Since twig/twig 3.12: Twig Filter "spaceless" is deprecated%

@@ -3,10 +3,12 @@
 namespace Drupal\custom_field\Plugin\CustomField\FieldType;
 
 use Drupal\Component\Utility\Random;
+use Drupal\Core\Entity\TypedData\EntityDataDefinition;
 use Drupal\Core\File\Exception\FileException;
 use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\TypedData\DataDefinition;
+use Drupal\Core\TypedData\DataReferenceDefinition;
 use Drupal\custom_field\Plugin\CustomFieldTypeInterface;
 use Drupal\custom_field\TypedData\CustomFieldDataDefinition;
 use Drupal\file\Entity\File;
@@ -79,6 +81,7 @@ class ImageType extends FileType {
    */
   public static function propertyDefinitions(array $settings): array {
     ['name' => $name, 'target_type' => $target_type] = $settings;
+    $target_type_info = \Drupal::entityTypeManager()->getDefinition($target_type);
 
     $height = $name . self::SEPARATOR . 'height';
     $width = $name . self::SEPARATOR . 'width';
@@ -110,6 +113,16 @@ class ImageType extends FileType {
       ->setLabel(new TranslatableMarkup('@label title', ['@label' => $name]))
       ->setDescription(new TranslatableMarkup("Image title text, for the image's 'title' attribute."))
       ->setInternal(TRUE);
+
+    $properties[$name . self::SEPARATOR . 'entity'] = DataReferenceDefinition::create('entity')
+      ->setLabel($target_type_info->getLabel())
+      ->setDescription(new TranslatableMarkup('The referenced entity'))
+      ->setComputed(TRUE)
+      ->setSettings(['target_id' => $name, 'target_type' => $target_type])
+      ->setClass('\Drupal\custom_field\Plugin\CustomField\EntityReferenceComputed')
+      ->setReadOnly(FALSE)
+      ->setTargetDefinition(EntityDataDefinition::create($target_type))
+      ->addConstraint('EntityType', $target_type);
 
     return $properties;
   }

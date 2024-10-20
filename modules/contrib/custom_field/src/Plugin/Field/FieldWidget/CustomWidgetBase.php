@@ -185,6 +185,10 @@ abstract class CustomWidgetBase extends WidgetBase {
     $field_name = $this->fieldDefinition->getName();
     $cardinality = $this->fieldDefinition->getFieldStorageDefinition()->getCardinality();
     $processed_flag = "custom_field_{$field_name}_processed";
+    if (!empty($parents)) {
+      $id_suffix = implode('_', $parents);
+      $processed_flag .= "_{$id_suffix}";
+    }
 
     // If we're using unlimited cardinality we don't display one empty item.
     // Form validation will kick in if left empty which essentially means
@@ -192,12 +196,14 @@ abstract class CustomWidgetBase extends WidgetBase {
     // another value.
     if ($cardinality === FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED && count($items) > 0 && !$form_state->get($processed_flag)) {
       $field_state = static::getWidgetState($parents, $field_name, $form_state);
-      --$field_state['items_count'];
-      static::setWidgetState($parents, $field_name, $form_state, $field_state);
+      if (empty($field_state['array_parents'])) {
+        --$field_state['items_count'];
+        static::setWidgetState($parents, $field_name, $form_state, $field_state);
 
-      // Set a flag on the form denoting that we've already removed the empty
-      // item that is usually appended to the end on fresh form loads.
-      $form_state->set($processed_flag, TRUE);
+        // Set a flag on the form denoting that we've already removed the empty
+        // item that is usually appended to the end on fresh form loads.
+        $form_state->set($processed_flag, TRUE);
+      }
     }
 
     return parent::formMultipleElements($items, $form, $form_state);

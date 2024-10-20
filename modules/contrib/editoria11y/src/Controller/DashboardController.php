@@ -58,7 +58,7 @@ final class DashboardController extends ControllerBase {
     $links[] = Link::fromTextAndUrl($this->t('Download summary report'), $summaryUrl)->toString();
 
     $issuesUrl = Url::fromRoute('editoria11y.exports_issues', [], $options);
-    $links[] = Link::fromTextAndUrl($this->t('Download issues report'), $issuesUrl)->toString();
+    $links[] = Link::fromTextAndUrl($this->t('Download issues report', [], ['context' => 'problems']), $issuesUrl)->toString();
 
     $dismissalsUrl = Url::fromRoute('editoria11y.exports_dismissals', [], $options);
     $links[] = Link::fromTextAndUrl($this->t('Download dismissals report'), $dismissalsUrl)->toString();
@@ -92,7 +92,7 @@ final class DashboardController extends ControllerBase {
           [
             '#type' => 'html_tag',
             '#tag' => 'h2',
-            '#value' => $this->t('Top issues'),
+            '#value' => $this->t('Top issues', [], ['context' => 'problems']),
           ],
           [
             views_embed_view('editoria11y_results', 'block_top_issues'),
@@ -106,7 +106,7 @@ final class DashboardController extends ControllerBase {
           [
             '#type' => 'html_tag',
             '#tag' => 'h2',
-            '#value' => $this->t('Pages with the most issues'),
+            '#value' => $this->t('Pages with the most issues', [], ['context' => 'problems']),
           ],
           [
             views_embed_view('editoria11y_results', 'block_top_results'),
@@ -122,7 +122,7 @@ final class DashboardController extends ControllerBase {
           [
             '#type' => 'html_tag',
             '#tag' => 'h2',
-            '#value' => $this->t('Recent issues'),
+            '#value' => $this->t('Recent issues', [], ['context' => 'problems']),
           ],
           [
             views_embed_view('editoria11y_results', 'block_recent_issues'),

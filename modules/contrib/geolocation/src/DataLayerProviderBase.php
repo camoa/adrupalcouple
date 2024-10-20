@@ -46,7 +46,7 @@ abstract class DataLayerProviderBase extends PluginBase implements DataLayerProv
   /**
    * {@inheritdoc}
    */
-  public function getSettingsSummary(string $data_layer_option_id = 'default', array $settings = [], array $context = NULL): array {
+  public function getSettingsSummary(string $data_layer_option_id = 'default', array $settings = [], ?array $context = NULL): array {
     /* @noinspection PhpUnnecessaryLocalVariableInspection */
     $summary = [$this->getPluginDefinition()['name']];
 
@@ -56,14 +56,14 @@ abstract class DataLayerProviderBase extends PluginBase implements DataLayerProv
   /**
    * {@inheritdoc}
    */
-  public function getSettingsForm(string $data_layer_option_id = 'default', array $settings = [], array $context = NULL): array {
+  public function getSettingsForm(string $data_layer_option_id = 'default', array $settings = [], ?array $context = NULL): array {
     return [];
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getLayerOptions(array $context = NULL): array {
+  public function getLayerOptions(?array $context = NULL): array {
     return [
       'default' => [
         'name' => $this->getPluginDefinition()['name'],
@@ -77,7 +77,7 @@ abstract class DataLayerProviderBase extends PluginBase implements DataLayerProv
   /**
    * {@inheritdoc}
    */
-  public function getLayerRenderData(string $data_layer_option_id = 'default', array $settings = [], array $context = NULL): array {
+  public function getLayerRenderData(string $data_layer_option_id = 'default', array $settings = [], ?array $context = NULL): array {
     return [
       '#type' => 'geolocation_layer',
       '#id' => $this->getLayerId($data_layer_option_id),
@@ -92,7 +92,7 @@ abstract class DataLayerProviderBase extends PluginBase implements DataLayerProv
   /**
    * {@inheritdoc}
    */
-  public function getLabel(string $data_layer_option_id, array $settings = [], array $context = NULL): string {
+  public function getLabel(string $data_layer_option_id, array $settings = [], ?array $context = NULL): string {
     return $this->getPluginDefinition()['label'] ?? $this->t('Layer');
   }
 

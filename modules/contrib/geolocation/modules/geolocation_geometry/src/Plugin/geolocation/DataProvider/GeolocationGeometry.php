@@ -126,7 +126,7 @@ class GeolocationGeometry extends DataProviderBase implements DataProviderInterf
   /**
    * {@inheritdoc}
    */
-  public function getLocationsFromViewsRow(ResultRow $row, FieldPluginBase $viewsField = NULL): array {
+  public function getLocationsFromViewsRow(ResultRow $row, ?FieldPluginBase $viewsField = NULL): array {
     $locations = parent::getLocationsFromViewsRow($row, $viewsField);
 
     $current_style = $viewsField->displayHandler->getPlugin('style');
@@ -149,7 +149,7 @@ class GeolocationGeometry extends DataProviderBase implements DataProviderInterf
   /**
    * {@inheritdoc}
    */
-  public function getShapesFromViewsRow(ResultRow $row, FieldPluginBase $viewsField = NULL): array {
+  public function getShapesFromViewsRow(ResultRow $row, ?FieldPluginBase $viewsField = NULL): array {
     $shapes = parent::getShapesFromViewsRow($row, $viewsField);
 
     if (empty($shapes)) {
@@ -215,6 +215,16 @@ class GeolocationGeometry extends DataProviderBase implements DataProviderInterf
    */
   public static function getRenderedElementByGeoJSON(object $geojson, ?array $settings = NULL): array {
     $settings = $settings ?? self::defaultSettings();
+
+    if (!isset($settings['stroke_width'])) {
+      $settings['stroke_width'] = self::defaultSettings()['stroke_width'];
+    }
+    if (!isset($settings['stroke_opacity'])) {
+      $settings['stroke_opacity'] = self::defaultSettings()['stroke_opacity'];
+    }
+    if (!isset($settings['fill_opacity'])) {
+      $settings['fill_opacity'] = self::defaultSettings()['fill_opacity'];
+    }
 
     $random_color = sprintf('#%06X', mt_rand(0, 0xFFFFFF));
     switch ($geojson->type) {
