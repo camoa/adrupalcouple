@@ -12,7 +12,7 @@ entity_type: node
 bundle: article
 label: Image
 description: 'An image of the item.'
-required: false
+required: true
 translatable: false
 default_value: {  }
 default_value_callback: ''
@@ -21,4 +21,9 @@ settings:
   handler_settings:
     target_bundles:
       image: image
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
 field_type: entity_reference

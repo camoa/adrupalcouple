@@ -1,6 +1,6 @@
 uuid: 09fed9e0-acbb-49bf-b63b-b904cfd371f5
 langcode: en
-status: false
+status: true
 dependencies:
   config:
     - system.menu.main
@@ -12,8 +12,8 @@ _core:
   default_config_hash: KWAiziL39uEzmOJEql_wbUP2RtqGceL3WM2CfxhMelE
 id: simple_blog_main_menu
 theme: simple_blog
-region: header
-weight: 0
+region: navbar
+weight: -6
 provider: null
 plugin: 'system_menu_block:main'
 settings:

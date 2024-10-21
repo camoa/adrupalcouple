@@ -2,6 +2,9 @@ display:
   default:
     display_title: Máster
     display_options:
+      fields:
+        name:
+          separator: ', '
       exposed_form:
         options:
           submit_button: Aplicar
@@ -9,9 +12,6 @@ display:
           exposed_sorts_label: 'Ordenar por'
           sort_asc_label: Asc
           sort_desc_label: Desc
-      fields:
-        name:
-          separator: ', '
       arguments:
         uid:
           exception:

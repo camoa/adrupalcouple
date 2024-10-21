@@ -11,7 +11,7 @@ entity_type: node
 bundle: article
 label: Abstract
 description: 'An abstract is a short description that summarizes a <a href="https://schema.org/CreativeWork">CreativeWork</a>.'
-required: false
+required: true
 translatable: true
 default_value: {  }
 default_value_callback: ''

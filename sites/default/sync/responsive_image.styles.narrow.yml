@@ -3,23 +3,70 @@ langcode: en
 status: true
 dependencies:
   config:
-    - image.style.max_1300x1300
-    - image.style.max_325x325
-    - image.style.max_650x650
+    - image.style.simple_blog_1200
+    - image.style.simple_blog_1200_2x
+    - image.style.simple_blog_575
+    - image.style.simple_blog_575_2x
+    - image.style.simple_blog_768
+    - image.style.simple_blog_768_2x
+    - image.style.simple_blog_992
+    - image.style.simple_blog_992_2x
+  theme:
+    - simple_blog
 _core:
   default_config_hash: E9Pvy75e7AcNQi7TBRvoG0DU2FI8mjFcLARqfB-rlIU
 id: narrow
 label: Narrow
 image_style_mappings:
   -
-    image_mapping_type: sizes
-    image_mapping:
-      sizes: '(min-width: 1290px) 325px, (min-width: 851px) 25vw, (min-width: 560px) 50vw, 100vw'
-      sizes_image_styles:
-        - max_1300x1300
-        - max_325x325
-        - max_650x650
-    breakpoint_id: responsive_image.viewport_sizing
+    image_mapping_type: image_style
+    image_mapping: simple_blog_1200
+    breakpoint_id: default.xl
     multiplier: 1x
-breakpoint_group: responsive_image
-fallback_image_style: max_325x325
+  -
+    image_mapping_type: image_style
+    image_mapping: simple_blog_1200_2x
+    breakpoint_id: default.xl
+    multiplier: 2x
+  -
+    image_mapping_type: image_style
+    image_mapping: simple_blog_1200
+    breakpoint_id: default.lg
+    multiplier: 1x
+  -
+    image_mapping_type: image_style
+    image_mapping: simple_blog_1200_2x
+    breakpoint_id: default.lg
+    multiplier: 2x
+  -
+    image_mapping_type: image_style
+    image_mapping: simple_blog_992
+    breakpoint_id: default.md
+    multiplier: 1x
+  -
+    image_mapping_type: image_style
+    image_mapping: simple_blog_992_2x
+    breakpoint_id: default.md
+    multiplier: 2x
+  -
+    image_mapping_type: image_style
+    image_mapping: simple_blog_768
+    breakpoint_id: default.sm
+    multiplier: 1x
+  -
+    image_mapping_type: image_style
+    image_mapping: simple_blog_768_2x
+    breakpoint_id: default.sm
+    multiplier: 2x
+  -
+    image_mapping_type: image_style
+    image_mapping: simple_blog_575
+    breakpoint_id: default.xs
+    multiplier: 1x
+  -
+    image_mapping_type: image_style
+    image_mapping: simple_blog_575_2x
+    breakpoint_id: default.xs
+    multiplier: 2x
+breakpoint_group: simple_blog
+fallback_image_style: simple_blog_1200

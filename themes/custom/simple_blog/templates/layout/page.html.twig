@@ -44,10 +44,22 @@
 #}
 <div class="layout-container">
 
-  <header class="layout-header" role="banner">
-    {{ page.header }}
+  <div class="header-area2">
+    <div class="container d-flex align-items-center justify-content-between">
+      {{ page.header }}
+    </div>
+  </div>
 
-    {{ page.navbar }}
+  <header class="layout-header life-style d-lg-flex d-none" role="banner">
+    <div class="container-md">
+      <div class="col-lg-12">
+        <div class="header-wrapper justify-content-center">
+          <div class="main-menu">
+            {{ page.navbar }}
+          </div>
+        </div>
+      </div>
+    </div>
   </header>
 
   <main role="main">

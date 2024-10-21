@@ -16,7 +16,11 @@ label: 'Article body'
 description: 'A description of the item.'
 required: false
 translatable: true
-default_value: {  }
+default_value:
+  -
+    value: ''
+    summary: SUmmary
+    format: full_html
 default_value_callback: ''
 settings:
   display_summary: false
