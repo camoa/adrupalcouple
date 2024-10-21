@@ -1,0 +1,10 @@
+type: module
+name: Node Read Time
+description: 'Displays reading time field on a node.'
+core_version_requirement: ^8 || ^9 || ^10 || ^11
+configure: system.admin_config_reading_time
+
+# Information added by Drupal.org packaging script on 2024-09-17
+version: '8.x-1.15'
+project: 'node_read_time'
+datestamp: 1726564979
