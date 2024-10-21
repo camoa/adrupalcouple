@@ -46,6 +46,7 @@
         "drupal/metatag": "^2.0",
         "drupal/moderation_dashboard": "^3",
         "drupal/moderation_sidebar": "^1.7",
+        "drupal/node_read_time": "^1.15",
         "drupal/paragraphs": "^1.15",
         "drupal/pathauto": "^1.11",
         "drupal/purge": "^3.5",
