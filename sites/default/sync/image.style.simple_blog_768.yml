@@ -1,0 +1,23 @@
+uuid: f5172b2e-e746-4d08-94fa-7ac6de2cef39
+langcode: en
+status: true
+dependencies:
+  module:
+    - focal_point
+name: simple_blog_768
+label: 'simple blog 768'
+effects:
+  8902f33b-e30f-407b-80e4-93abd25db17f:
+    uuid: 8902f33b-e30f-407b-80e4-93abd25db17f
+    id: focal_point_scale_and_crop
+    weight: 1
+    data:
+      width: 558
+      height: 282
+      crop_type: focal_point
+  26922607-4903-4467-9559-70a2eaed7bf6:
+    uuid: 26922607-4903-4467-9559-70a2eaed7bf6
+    id: image_convert
+    weight: 2
+    data:
+      extension: webp

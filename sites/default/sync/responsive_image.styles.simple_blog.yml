@@ -1,0 +1,70 @@
+uuid: 4486bdcc-4ae0-44ea-b4b3-7a66bb0102d9
+langcode: en
+status: true
+dependencies:
+  config:
+    - image.style.simple_blog_1200
+    - image.style.simple_blog_1200_2x
+    - image.style.simple_blog_575
+    - image.style.simple_blog_575_2x
+    - image.style.simple_blog_768
+    - image.style.simple_blog_768_2x
+    - image.style.simple_blog_992
+    - image.style.simple_blog_992_2x
+  theme:
+    - simple_blog
+id: simple_blog
+label: 'Simple blog'
+image_style_mappings:
+  -
+    image_mapping_type: image_style
+    image_mapping: simple_blog_1200
+    breakpoint_id: default.xl
+    multiplier: 1x
+  -
+    image_mapping_type: image_style
+    image_mapping: simple_blog_1200_2x
+    breakpoint_id: default.xl
+    multiplier: 2x
+  -
+    image_mapping_type: image_style
+    image_mapping: simple_blog_1200
+    breakpoint_id: default.lg
+    multiplier: 1x
+  -
+    image_mapping_type: image_style
+    image_mapping: simple_blog_1200_2x
+    breakpoint_id: default.lg
+    multiplier: 2x
+  -
+    image_mapping_type: image_style
+    image_mapping: simple_blog_992
+    breakpoint_id: default.md
+    multiplier: 1x
+  -
+    image_mapping_type: image_style
+    image_mapping: simple_blog_992_2x
+    breakpoint_id: default.md
+    multiplier: 2x
+  -
+    image_mapping_type: image_style
+    image_mapping: simple_blog_768
+    breakpoint_id: default.sm
+    multiplier: 1x
+  -
+    image_mapping_type: image_style
+    image_mapping: simple_blog_768_2x
+    breakpoint_id: default.sm
+    multiplier: 2x
+  -
+    image_mapping_type: image_style
+    image_mapping: simple_blog_575
+    breakpoint_id: default.xs
+    multiplier: 1x
+  -
+    image_mapping_type: image_style
+    image_mapping: simple_blog_575_2x
+    breakpoint_id: default.xs
+    multiplier: 2x
+breakpoint_group: simple_blog
+fallback_image_style: simple_blog_1200

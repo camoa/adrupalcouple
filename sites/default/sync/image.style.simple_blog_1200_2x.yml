@@ -1,0 +1,23 @@
+uuid: a085c8c2-cb6d-417e-93a2-dcc15abb4348
+langcode: en
+status: true
+dependencies:
+  module:
+    - focal_point
+name: simple_blog_1200_2x
+label: 'Simple blog 1200 2x'
+effects:
+  6be0d36a-d0bd-4e53-85fb-4c3b6caef1ed:
+    uuid: 6be0d36a-d0bd-4e53-85fb-4c3b6caef1ed
+    id: focal_point_scale_and_crop
+    weight: 1
+    data:
+      width: 1744
+      height: 880
+      crop_type: focal_point
+  444f4e9b-b18e-4a18-8397-79215e472cbb:
+    uuid: 444f4e9b-b18e-4a18-8397-79215e472cbb
+    id: image_convert
+    weight: 2
+    data:
+      extension: webp
