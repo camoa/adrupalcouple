@@ -1,0 +1,12 @@
+uuid: 2f7f14cc-8c8f-4199-bedb-9a6625d372a9
+langcode: en
+status: true
+dependencies: {  }
+id: blog_full_image_area
+label: 'Blog full Image Area'
+classes: image-area
+type: component
+group: default
+block_restrictions: {  }
+layout_restrictions: {  }
+weight: 0

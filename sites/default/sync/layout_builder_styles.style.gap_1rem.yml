@@ -1,0 +1,12 @@
+uuid: 4f092bae-81f1-4867-bb80-f7a39a359f82
+langcode: en
+status: true
+dependencies: {  }
+id: gap_1rem
+label: 'Gap 1rem'
+classes: p-1rem
+type: component
+group: default
+block_restrictions: {  }
+layout_restrictions: {  }
+weight: 0

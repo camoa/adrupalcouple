@@ -1,0 +1,12 @@
+uuid: e895cbbb-6401-418a-8e13-eaf7ec6f49fb
+langcode: en
+status: true
+dependencies: {  }
+id: blog_textarea
+label: blog-textarea
+classes: text-area
+type: section
+group: default
+block_restrictions: {  }
+layout_restrictions: {  }
+weight: 0

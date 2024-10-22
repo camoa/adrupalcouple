@@ -1,0 +1,130 @@
+uuid: bdfcdd77-56ac-48d4-ba41-3f7fb587dda7
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.token
+    - field.field.node.person.body
+    - field.field.node.person.field_metatag
+    - field.field.node.person.field_tags
+    - field.field.node.person.schema_additional_name
+    - field.field.node.person.schema_birth_date
+    - field.field.node.person.schema_email
+    - field.field.node.person.schema_family_name
+    - field.field.node.person.schema_given_name
+    - field.field.node.person.schema_image
+    - field.field.node.person.schema_knows_language
+    - field.field.node.person.schema_member_of
+    - field.field.node.person.schema_same_as
+    - field.field.node.person.schema_subject_of
+    - field.field.node.person.schema_telephone
+    - field.field.node.person.schema_works_for
+    - node.type.person
+  module:
+    - field_group
+    - layout_builder
+    - manage_display
+third_party_settings:
+  field_group:
+    group_general:
+      children:
+        - body
+        - schema_additional_name
+        - schema_birth_date
+        - schema_family_name
+        - schema_given_name
+        - schema_image
+        - schema_knows_language
+        - group_links
+      label: General
+      parent_name: ''
+      region: hidden
+      weight: 8
+      format_type: fieldset
+      format_settings: {  }
+    group_contact:
+      children:
+        - schema_email
+        - schema_telephone
+      label: Contact
+      parent_name: ''
+      region: hidden
+      weight: 9
+      format_type: fieldset
+      format_settings: {  }
+    group_relationships:
+      children:
+        - schema_member_of
+        - schema_subject_of
+        - schema_works_for
+      label: Relationships
+      parent_name: ''
+      region: hidden
+      weight: 5
+      format_type: fieldset
+      format_settings: {  }
+    group_links:
+      children:
+        - schema_same_as
+      label: Links
+      parent_name: group_general
+      region: hidden
+      weight: 11
+      format_type: fieldset
+      format_settings: {  }
+    group_taxonomy:
+      children:
+        - field_tags
+      label: 'Categories and Services'
+      parent_name: ''
+      region: hidden
+      weight: 10
+      format_type: fieldset
+      format_settings: {  }
+  layout_builder:
+    enabled: false
+    allow_custom: false
+id: node.person.token
+targetEntityType: node
+bundle: person
+mode: token
+content:
+  content_moderation_control:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  title:
+    type: title
+    label: hidden
+    settings:
+      link_to_entity: true
+      tag: div
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  body: true
+  created: true
+  field_metatag: true
+  field_tags: true
+  langcode: true
+  node_read_time: true
+  schema_additional_name: true
+  schema_birth_date: true
+  schema_email: true
+  schema_family_name: true
+  schema_given_name: true
+  schema_image: true
+  schema_knows_language: true
+  schema_member_of: true
+  schema_same_as: true
+  schema_subject_of: true
+  schema_telephone: true
+  schema_works_for: true
+  uid: true

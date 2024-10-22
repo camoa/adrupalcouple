@@ -1,0 +1,12 @@
+uuid: afad7405-dd28-48e2-b869-a3082e19e4be
+langcode: en
+status: true
+dependencies: {  }
+id: blog_right_section_top
+label: 'blog right section top'
+classes: 'd-flex align-items-center'
+type: component
+group: default
+block_restrictions: {  }
+layout_restrictions: {  }
+weight: 0

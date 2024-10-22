@@ -1,0 +1,12 @@
+uuid: 1806423e-cc1d-42d3-857c-e881b7766513
+langcode: en
+status: true
+dependencies: {  }
+id: blog_tags
+label: 'blog tags'
+classes: 'blog-tag tag-items'
+type: component
+group: default
+block_restrictions: {  }
+layout_restrictions: {  }
+weight: 0

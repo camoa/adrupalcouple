@@ -1,0 +1,12 @@
+uuid: 8bee01f2-bb65-45d1-bafd-a38e54f824c5
+langcode: en
+status: true
+dependencies: {  }
+id: blog_banner_area
+label: ' blog-banner-area'
+classes: ' blog-banner-area'
+type: section
+group: default
+block_restrictions: {  }
+layout_restrictions: {  }
+weight: 0
