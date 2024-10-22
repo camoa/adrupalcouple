@@ -1,0 +1,10 @@
+name: 'Schema.org Blueprints Options'
+type: module
+description: 'Set allowed values for list (options) fields.'
+package: 'Schema.org Blueprints Fields'
+core_version_requirement: ^10.3 || ^11
+configure: schemadotorg.settings.properties
+schemadotorg_production: false
+dependencies:
+  - 'drupal:options'
+  - 'schemadotorg:schemadotorg'

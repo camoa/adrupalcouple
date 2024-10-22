@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9bfb44056228ebd0bbf1f748a15359d5",
+    "content-hash": "0c54b4c0f8bdf9c05e4614102a6199ac",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -3786,6 +3786,57 @@
             }
         },
         {
+            "name": "drupal/manage_display",
+            "version": "dev-3.x",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/manage_display.git",
+                "reference": "8665b105b04e41e510a1636a1ba66229b72918e1"
+            },
+            "require": {
+                "drupal/core": "^9.4 || ^10 || ^11"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-3.x": "3.x-dev"
+                },
+                "drupal": {
+                    "version": "3.0.1+3-dev",
+                    "datestamp": "1728049892",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Dev releases are not covered by Drupal security advisories."
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Adam Shepherd (AdamPS)",
+                    "homepage": "https://www.drupal.org/u/adamps",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "Viktor Holovachek (AstonVictor)",
+                    "homepage": "https://www.drupal.org/u/astonvictor",
+                    "role": "Maintainer"
+                }
+            ],
+            "description": "This project makes base fields such as 'title' available in 'Manage Display'.",
+            "homepage": "https://www.drupal.org/project/manage_display",
+            "keywords": [
+                "Drupal"
+            ],
+            "support": {
+                "source": "https://git.drupalcode.org/project/manage_display",
+                "issues": "https://www.drupal.org/project/issues/manage_display"
+            }
+        },
+        {
             "name": "drupal/metatag",
             "version": "2.0.2",
             "source": {
@@ -4369,6 +4420,108 @@
             "homepage": "https://www.drupal.org/project/redirect",
             "support": {
                 "source": "https://git.drupalcode.org/project/redirect"
+            }
+        },
+        {
+            "name": "drupal/schemadotorg",
+            "version": "dev-1.0.x",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/schemadotorg.git",
+                "reference": "1d0b946ce77eb546d37002de897c45190adc5efa"
+            },
+            "require": {
+                "drupal/core": "^10.3 || ^11",
+                "drush/drush": "^12.0 || ^13.0"
+            },
+            "require-dev": {
+                "drupal/address": "*",
+                "drupal/allowed_formats": "*",
+                "drupal/auto_entitylabel": "*",
+                "drupal/cer": "*",
+                "drupal/ckeditor5_embedded_content": "^1.0",
+                "drupal/config_rewrite": "^1.0",
+                "drupal/content_browser": "^1.0",
+                "drupal/content_model_documentation": "*",
+                "drupal/custom_field": "*",
+                "drupal/devel": "^5.0",
+                "drupal/embed": "^1.0",
+                "drupal/entity_browser": "^2.0",
+                "drupal/entity_reference_override": "*",
+                "drupal/entity_usage": "^2.0",
+                "drupal/epp": "*",
+                "drupal/existing_values_autocomplete_widget": "*",
+                "drupal/field_group": "*",
+                "drupal/field_validation": "*",
+                "drupal/focal_point": "^2.0",
+                "drupal/geolocation": "*",
+                "drupal/inline_entity_form": "*",
+                "drupal/jsonapi_extras": "*",
+                "drupal/layout_paragraphs": "*",
+                "drupal/markup": "^2.0",
+                "drupal/media_library_media_modify": "^1.0",
+                "drupal/mercury_editor": "*",
+                "drupal/metatag": "*",
+                "drupal/office_hours": "*",
+                "drupal/paragraphs": "*",
+                "drupal/pathauto": "*",
+                "drupal/range": "^1.0",
+                "drupal/rdf": "^2.0",
+                "drupal/scheduler": "^2.0",
+                "drupal/schemadotorg_jsonapi": "*",
+                "drupal/schemadotorg_jsonld": "*",
+                "drupal/schemadotorg_layout_paragraphs": "*",
+                "drupal/schemadotorg_media": "*",
+                "drupal/schemadotorg_node": "*",
+                "drupal/schemadotorg_paragraphs": "*",
+                "drupal/simple_sitemap": "*",
+                "drupal/smart_date": "*",
+                "drupal/token": "^1.0",
+                "drupal/type_tray": "*",
+                "league/commonmark": "^2.0"
+            },
+            "suggest": {
+                "drupal/address": "Provides functionality for storing, validating and displaying international postal addresses.",
+                "drupal/field_group": "Provides the ability to group your fields on both form and display.",
+                "drupal/inline_entity_form": "Provides a widget for inline management (creation, modification, removal) of referenced entities.",
+                "drupal/jsonapi_extras": "Builds on top of JSON:API to deliver extra functionality.",
+                "drupal/paragraphs": "Enables the creation of paragraphs (i.e. component) entities.",
+                "league/commonmark": "Improve display of Markdown-format text in the help system."
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.0.x": "1.0.x-dev"
+                },
+                "drupal": {
+                    "version": "1.0.0-alpha26+41-dev",
+                    "datestamp": "1729381127",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Dev releases are not covered by Drupal security advisories."
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Jacob Rockowitz (jrockowitz)",
+                    "homepage": "https://www.drupal.org/u/jrockowitz",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "jrockowitz",
+                    "homepage": "https://www.drupal.org/user/371407"
+                }
+            ],
+            "description": "Uses Schema.org types and properties as the content architecture foundation for Drupal website.",
+            "homepage": "https://drupal.org/project/schemadotorg",
+            "support": {
+                "source": "https://git.drupalcode.org/project/schemadotorg",
+                "issues": "https://drupal.org/project/issues/schemadotorg"
             }
         },
         {
@@ -10029,7 +10182,9 @@
         "drupal/gin_toolbar": 5,
         "drupal/inline_entity_form": 5,
         "drupal/jsonapi_extras": 10,
-        "drupal/linkit": 15
+        "drupal/linkit": 15,
+        "drupal/manage_display": 20,
+        "drupal/schemadotorg": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,

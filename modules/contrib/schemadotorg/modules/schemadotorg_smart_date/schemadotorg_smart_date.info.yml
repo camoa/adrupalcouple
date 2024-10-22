@@ -1,0 +1,9 @@
+name: 'Schema.org Blueprints Smart Date'
+type: module
+description: 'Allows a Smart date field to be used to create date ranges and event schedules.'
+package: 'Schema.org Blueprints Fields'
+core_version_requirement: ^10.3 || ^11
+schemadotorg_production: true
+dependencies:
+  - 'schemadotorg:schemadotorg'
+  - 'smart_date:smart_date'

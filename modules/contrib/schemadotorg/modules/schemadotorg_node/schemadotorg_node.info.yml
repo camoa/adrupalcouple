@@ -1,0 +1,10 @@
+name: 'Schema.org Blueprints Node'
+type: module
+description: 'Enhances content type integration with the Schema.org Blueprints module.'
+package: 'Schema.org Blueprints Entities'
+core_version_requirement: ^10.3 || ^11
+configure: schemadotorg.settings.types
+schemadotorg_production: false
+dependencies:
+  - 'drupal:node'
+  - 'schemadotorg:schemadotorg'

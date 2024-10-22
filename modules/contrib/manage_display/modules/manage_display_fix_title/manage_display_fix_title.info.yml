@@ -1,0 +1,7 @@
+name: Manage Display Fix Title
+type: module
+description: Workaround for core bugs in display of entity title
+core_version_requirement: ^8.8 || ^9
+package: Fields
+lifecycle: obsolete
+lifecycle_link: 'https://www.drupal.org/project/manage_display/issues/3291074'

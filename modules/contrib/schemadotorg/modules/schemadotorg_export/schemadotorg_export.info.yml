@@ -1,0 +1,8 @@
+name: 'Schema.org Blueprints Export'
+type: module
+description: 'Provides a CSV export of Schema.org type mappings and mapping sets.'
+package: 'Schema.org Blueprints Documentation'
+core_version_requirement: ^10.3 || ^11
+schemadotorg_production: false
+dependencies:
+  - 'schemadotorg:schemadotorg'

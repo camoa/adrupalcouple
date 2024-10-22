@@ -1,0 +1,9 @@
+name: 'Schema.org Blueprints Help'
+type: module
+description: 'Provides a dedicated help section for the Schema.org Blueprints module and submodules.'
+package: 'Schema.org Blueprints Documentation'
+core_version_requirement: ^10.3 || ^11
+schemadotorg_production: false
+dependencies:
+  - 'drupal:help'
+  - 'schemadotorg:schemadotorg'

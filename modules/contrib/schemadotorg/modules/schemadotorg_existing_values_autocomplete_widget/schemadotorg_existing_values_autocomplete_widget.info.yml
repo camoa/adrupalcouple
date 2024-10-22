@@ -1,0 +1,10 @@
+name: 'Schema.org Blueprints Existing Values Autocomplete Widget'
+type: module
+description: 'Allows an autocomplete widget to be automatically added to Schema.org properties within an entity type/bundle Schema.org mapping.'
+package: 'Schema.org Blueprints Fields'
+core_version_requirement: ^10.3 || ^11
+configure: schemadotorg.settings.properties
+schemadotorg_production: false
+dependencies:
+  - 'existing_values_autocomplete_widget:existing_values_autocomplete_widget'
+  - 'schemadotorg:schemadotorg'

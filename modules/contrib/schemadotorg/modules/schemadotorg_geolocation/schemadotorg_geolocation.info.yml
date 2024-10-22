@@ -1,0 +1,9 @@
+name: 'Schema.org Blueprints Geolocation Field'
+type: module
+description: 'Allows a geolocation field to be used to create https://schema.org/GeoCoordinates.'
+package: 'Schema.org Blueprints Fields'
+core_version_requirement: ^10.3 || ^11
+schemadotorg_production: true
+dependencies:
+  - 'schemadotorg:schemadotorg'
+  - 'geolocation:geolocation'

@@ -3,7 +3,7 @@
         'name' => 'drupal/recommended-project',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => 'b9c97580e02f922ebbbe54e764b4b48058efeca0',
+        'reference' => 'e3d971be73034dc05679b3dcf6d7cc205ee7ad5e',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -642,6 +642,17 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
+        'drupal/manage_display' => array(
+            'pretty_version' => 'dev-3.x',
+            'version' => 'dev-3.x',
+            'reference' => '8665b105b04e41e510a1636a1ba66229b72918e1',
+            'type' => 'drupal-module',
+            'install_path' => __DIR__ . '/../../modules/contrib/manage_display',
+            'aliases' => array(
+                0 => '3.x-dev',
+            ),
+            'dev_requirement' => false,
+        ),
         'drupal/metatag' => array(
             'pretty_version' => '2.0.2',
             'version' => '2.0.2.0',
@@ -717,7 +728,7 @@
         'drupal/recommended-project' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => 'b9c97580e02f922ebbbe54e764b4b48058efeca0',
+            'reference' => 'e3d971be73034dc05679b3dcf6d7cc205ee7ad5e',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -739,6 +750,17 @@
             'type' => 'metapackage',
             'install_path' => null,
             'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'drupal/schemadotorg' => array(
+            'pretty_version' => 'dev-1.0.x',
+            'version' => 'dev-1.0.x',
+            'reference' => '1d0b946ce77eb546d37002de897c45190adc5efa',
+            'type' => 'drupal-module',
+            'install_path' => __DIR__ . '/../../modules/contrib/schemadotorg',
+            'aliases' => array(
+                0 => '1.0.x-dev',
+            ),
             'dev_requirement' => false,
         ),
         'drupal/seckit' => array(

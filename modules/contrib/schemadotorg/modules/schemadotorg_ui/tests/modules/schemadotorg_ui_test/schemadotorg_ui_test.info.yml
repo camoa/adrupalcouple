@@ -1,0 +1,6 @@
+name: 'Schema.org Blueprints UI Test'
+type: module
+description: 'Support module for Schema.org Blueprints UI testing'
+package: Testing
+dependencies:
+  - 'schemadotorg:schemadotorg_ui'

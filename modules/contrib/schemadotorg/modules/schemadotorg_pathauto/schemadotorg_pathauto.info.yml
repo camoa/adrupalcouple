@@ -1,0 +1,10 @@
+name: 'Schema.org Blueprints Pathauto'
+type: module
+description: 'Automatically enables URL aliases (via pathauto) for Schema.org types.'
+package: 'Schema.org Blueprints Other'
+core_version_requirement: ^10.3 || ^11
+configure: schemadotorg.settings.types
+schemadotorg_production: true
+dependencies:
+  - 'pathauto:pathauto'
+  - 'schemadotorg:schemadotorg'

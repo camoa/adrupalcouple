@@ -1,0 +1,10 @@
+name: 'Schema.org Blueprints Recipe'
+type: module
+description: 'Provides a UI and additional Drush commands for Schema.org Blueprint specific recipes.'
+package: 'Schema.org Blueprints Recipe'
+core_version_requirement: ^10.3 || ^11
+configure: schemadotorg_recipe.overview
+lifecycle: experimental
+schemadotorg_production: false
+dependencies:
+  - 'schemadotorg:schemadotorg'

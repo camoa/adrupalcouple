@@ -1,0 +1,10 @@
+name: 'Schema.org Blueprints Field Group'
+type: module
+description: 'Creates field groups in entity view and form displays when Schema.org properties are mapping to a field.'
+package: 'Schema.org Blueprints Fields'
+core_version_requirement: ^10.3 || ^11
+configure: schemadotorg.settings.properties
+schemadotorg_production: false
+dependencies:
+  - 'field_group:field_group'
+  - 'schemadotorg:schemadotorg'
