@@ -1,0 +1,59 @@
+schema_types:
+  default_types:
+    WebPage:
+      label: Página
+  categories:
+    people:
+      label: Usuarios
+    page:
+      label: Página
+    content:
+      label: Contenido
+    organization:
+      label: Organización
+    media:
+      label: Multimedia
+schema_properties:
+  default_fields:
+    ImageGallery--hasPart:
+      label: Imágenes
+    MediaGallery--hasPart:
+      label: Multimedia
+    Event--name:
+      label: Título
+    CreativeWork--name:
+      label: Título
+    Project--name:
+      label: Título
+    WebPage--name:
+      label: Título
+    HealthTopicContent--name:
+      label: Título
+    Thesis--name:
+      label: Título
+    Person--familyName:
+      label: Apellidos
+    Person--givenName:
+      label: Nombre
+    Question--acceptedAnswer:
+      label: Respuesta
+    Question--name:
+      label: Pregunta
+    SpecialAnnouncement--category:
+      label: Categoría
+    audience:
+      label: Audiencia
+    comment:
+      label: Comentarios
+    hasMenu:
+      label: Menús
+    itemListElement:
+      label: Elementos
+    primaryImageOfPage:
+      label: Imagen
+    recipeIngredient:
+      label: Ingredientes
+    step:
+      label: Pasos
+    tool:
+      label: Herramientas

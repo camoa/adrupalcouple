@@ -55,6 +55,7 @@ module:
   link_attributes: 0
   link_attributes_menu_link_content: 0
   locale: 0
+  manage_display: 0
   media: 0
   media_library: 0
   menu_link_content: 0
@@ -69,6 +70,7 @@ module:
   moderation_dashboard: 0
   mysql: 0
   node: 0
+  node_read_time: 0
   options: 0
   page_cache: 0
   path: 0
@@ -80,6 +82,8 @@ module:
   redirect: 0
   redirect_404: 0
   responsive_image: 0
+  schemadotorg: 0
+  schemadotorg_options: 0
   search: 0
   seckit: 0
   security_review: 0

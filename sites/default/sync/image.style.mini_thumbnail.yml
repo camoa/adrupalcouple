@@ -1,0 +1,23 @@
+uuid: 1cf4c0c7-01eb-4186-9a8b-2e0cae037d7a
+langcode: en
+status: true
+dependencies:
+  module:
+    - focal_point
+name: mini_thumbnail
+label: 'mini thumbnail'
+effects:
+  e55a8618-38e1-4b18-bfca-fd7042d0bd83:
+    uuid: e55a8618-38e1-4b18-bfca-fd7042d0bd83
+    id: focal_point_scale_and_crop
+    weight: 1
+    data:
+      width: 40
+      height: 40
+      crop_type: focal_point
+  f911dacb-8adc-4b59-a5b6-8d966c3fa424:
+    uuid: f911dacb-8adc-4b59-a5b6-8d966c3fa424
+    id: image_convert
+    weight: 2
+    data:
+      extension: webp

@@ -1,0 +1,40 @@
+schema_property_allowed_values:
+  contactType:
+    home: Inicio
+  courseMode:
+    online: Conectado
+  difficulty:
+    easy: Fácil
+    medium: Medio
+    hard: Díficil
+  dosageForm:
+    system: Sistema
+  educationalLevel:
+    advanced: Avanzado
+  employmentType:
+    temporary: Temporal
+    other: Otro(s)
+  frequency:
+    daily: Diariamente
+  gender:
+    male: Masculino
+    female: Femenino
+  learningResourceType:
+    books: Libros
+  nationality:
+    djibouti: Yibuti
+    french: Francés
+    german: Alemán
+    spanish: Español
+  typeOfBed:
+    full: Completo
+  SpecialAnnouncement--category:
+    information: Información
+    condition: Condición
+    warning: Advertencia
+    emergency: Emergencia
+    error: Error
+schema_property_allowed_values_remove:
+  driveWheelConfiguration: Configuración
+  eventStatus: Evento
+  itemCondition: Condición

@@ -112,7 +112,7 @@ third_party_settings:
                   rel: ''
                   target: ''
                 third_party_settings: {  }
-            weight: 8
+            weight: 9
             additional: {  }
           2364d549-2766-46a3-83c1-06edb68cd6b6:
             uuid: 2364d549-2766-46a3-83c1-06edb68cd6b6
@@ -129,7 +129,7 @@ third_party_settings:
                   timezone_override: ''
                   date_format: m-d
                 third_party_settings: {  }
-            weight: 9
+            weight: 10
             additional: {  }
           a2f69523-ac84-4a6a-aafd-5919160582f3:
             uuid: a2f69523-ac84-4a6a-aafd-5919160582f3
@@ -144,7 +144,7 @@ third_party_settings:
                 label: above
                 settings: {  }
                 third_party_settings: {  }
-            weight: 10
+            weight: 11
             additional: {  }
           4611c397-aed1-4a9a-a7bc-8df554e478ae:
             uuid: 4611c397-aed1-4a9a-a7bc-8df554e478ae
@@ -160,7 +160,7 @@ third_party_settings:
                 settings:
                   link: true
                 third_party_settings: {  }
-            weight: 11
+            weight: 12
             additional: {  }
           c5c84382-9beb-445e-a12e-5f4c6c88bce1:
             uuid: c5c84382-9beb-445e-a12e-5f4c6c88bce1
@@ -185,26 +185,7 @@ third_party_settings:
                 label: above
                 settings: {  }
                 third_party_settings: {  }
-            weight: 7
-            additional: {  }
-          9ffa88eb-bcad-4550-8033-ec92402b2114:
-            uuid: 9ffa88eb-bcad-4550-8033-ec92402b2114
-            region: content
-            configuration:
-              id: 'field_block:node:person:schema_image'
-              label: Image
-              label_display: '0'
-              provider: layout_builder
-              context_mapping:
-                entity: layout_builder.entity
-                view_mode: view_mode
-              formatter:
-                type: entity_reference_entity_view
-                label: hidden
-                settings:
-                  view_mode: default
-                third_party_settings: {  }
-            weight: 2
+            weight: 8
             additional: {  }
           4ef560d4-450d-4d50-a41a-2d02ca232f0f:
             uuid: 4ef560d4-450d-4d50-a41a-2d02ca232f0f
@@ -223,6 +204,25 @@ third_party_settings:
                 settings: {  }
                 third_party_settings: {  }
             weight: 6
+            additional: {  }
+          9ffa88eb-bcad-4550-8033-ec92402b2114:
+            uuid: 9ffa88eb-bcad-4550-8033-ec92402b2114
+            region: content
+            configuration:
+              id: 'field_block:node:person:schema_image'
+              label: Image
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: entity_reference_entity_view
+                label: hidden
+                settings:
+                  view_mode: default
+                third_party_settings: {  }
+            weight: 7
             additional: {  }
         third_party_settings: {  }
 id: node.person.default
