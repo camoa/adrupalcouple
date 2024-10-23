@@ -65,7 +65,6 @@ module:
   menu_link_content: 0
   menu_ui: 0
   metatag: 0
-  metatag_ai: 0
   moderation_dashboard: 0
   mysql: 0
   node: 0
