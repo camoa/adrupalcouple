@@ -57,10 +57,11 @@
         "drupal/schemadotorg": "1.0.x-dev@dev",
         "drupal/seckit": "^2.0",
         "drupal/security_review": "^3",
+        "drupal/seo_checklist": "^5.2",
         "drupal/simple_sitemap": "^4.1",
         "drupal/smart_date": "^4.0",
         "drupal/upgrade_status": "^4.3",
-        "drupal/yoast_seo": "^1.8",
+        "drupal/yoast_seo": "^2",
         "drush/drush": "^13"
     },
     "conflict": {

@@ -114,20 +114,6 @@ third_party_settings:
                 blog_full_image_area: 0
         third_party_settings: {  }
       -
-        layout_id: layout_twocol_section
-        layout_settings:
-          label: ''
-          context_mapping: {  }
-          column_widths: 50-50
-          layout_builder_styles_style:
-            blog_banner_area: 0
-            blog_body: 0
-            blog_post_general: 0
-            blog_right_section_top: 0
-            blog_textarea: 0
-        components: {  }
-        third_party_settings: {  }
-      -
         layout_id: layout_onecol
         layout_settings:
           label: ''
@@ -172,6 +158,26 @@ third_party_settings:
                 blog_full_image_area: 0
                 blog_right_section_top: 0
                 blog_tags: 0
+          8468db77-2a9f-4393-97ed-ab678286bf67:
+            uuid: 8468db77-2a9f-4393-97ed-ab678286bf67
+            region: content
+            configuration:
+              id: 'extra_field_block:node:article:content_moderation_control'
+              label: 'Moderation control'
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                settings: {  }
+                third_party_settings: {  }
+            weight: 3
+            additional:
+              layout_builder_styles_style:
+                blog_full_image_area: 0
+                blog_right_section_top: 0
+                blog_tags: 0
+                gap_1rem: 0
         third_party_settings: {  }
 id: node.article.full
 targetEntityType: node
