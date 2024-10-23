@@ -15,7 +15,7 @@ dependencies:
     - field.field.node.article.schema_subject_of
     - node.type.article
   module:
-    - user
+    - manage_display
 id: node.article.teaser
 targetEntityType: node
 bundle: article
@@ -31,14 +31,27 @@ content:
     third_party_settings: {  }
     weight: 200
     region: content
+  title:
+    type: title
+    label: hidden
+    settings:
+      link_to_entity: true
+      tag: h2
+    third_party_settings: {  }
+    weight: -49
+    region: content
 hidden:
   body: true
+  created: true
   field_metatag: true
   field_tags: true
   langcode: true
+  node_read_time: true
+  reading_time: true
   schema_about: true
   schema_abstract: true
   schema_article_subtype: true
   schema_author: true
   schema_image: true
   schema_subject_of: true
+  uid: true

@@ -15,8 +15,9 @@ dependencies:
     - node.type.article
   module:
     - field_group
+    - manage_display
+    - metatag
     - text
-    - user
 third_party_settings:
   field_group:
     group_general:
@@ -73,6 +74,13 @@ content:
     third_party_settings: {  }
     weight: 0
     region: content
+  field_metatag:
+    type: metatag_empty_formatter
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 103
+    region: content
   field_tags:
     type: entity_reference_label
     label: above
@@ -127,8 +135,20 @@ content:
     third_party_settings: {  }
     weight: 13
     region: content
+  title:
+    type: title
+    label: hidden
+    settings:
+      link_to_entity: true
+      tag: h2
+    third_party_settings: {  }
+    weight: -49
+    region: content
 hidden:
+  created: true
   field_editorial: true
-  field_metatag: true
   langcode: true
+  node_read_time: true
+  reading_time: true
   schema_article_subtype: true
+  uid: true

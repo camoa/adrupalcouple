@@ -1,4 +1,4 @@
-uuid: 9f7df239-98bc-4730-ae97-4cf8560aa792
+uuid: 9f293eeb-1b93-41b8-94bf-3d72f21e5686
 langcode: en
 status: true
 dependencies:
@@ -11,7 +11,7 @@ id: node.person.field_metatag
 field_name: field_metatag
 entity_type: node
 bundle: person
-label: 'Meta tags'
+label: Metatag
 description: ''
 required: false
 translatable: false

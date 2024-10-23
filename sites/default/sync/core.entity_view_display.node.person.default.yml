@@ -27,6 +27,7 @@ dependencies:
     - layout_discovery
     - link
     - manage_display
+    - metatag
     - options
     - telephone
     - text
@@ -242,6 +243,21 @@ third_party_settings:
                 third_party_settings: {  }
             weight: 13
             additional: {  }
+          372ff30e-8ea9-436c-bc8a-751b933ce2cb:
+            uuid: 372ff30e-8ea9-436c-bc8a-751b933ce2cb
+            region: content
+            configuration:
+              id: 'field_block:node:person:field_metatag'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                type: metatag_empty_formatter
+                label: above
+                settings: {  }
+                third_party_settings: {  }
+            weight: 14
+            additional: {  }
         third_party_settings: {  }
 id: node.person.default
 targetEntityType: node
@@ -259,6 +275,13 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: -20
+    region: content
+  field_metatag:
+    type: metatag_empty_formatter
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 201
     region: content
   field_tags:
     type: entity_reference_label
@@ -384,7 +407,6 @@ content:
     region: content
 hidden:
   created: true
-  field_metatag: true
   langcode: true
   node_read_time: true
   uid: true

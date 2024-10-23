@@ -53,6 +53,8 @@ schema_properties:
       label: Imagen
     recipeIngredient:
       label: Ingredientes
+    recipeInstructions:
+      label: Instrucciones
     step:
       label: Pasos
     tool:

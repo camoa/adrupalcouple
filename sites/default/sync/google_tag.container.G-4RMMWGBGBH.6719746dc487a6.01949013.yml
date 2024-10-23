@@ -1,0 +1,23 @@
+uuid: 15df4e02-fc33-48ac-9a41-99ab759e8f73
+langcode: en
+status: true
+dependencies: {  }
+id: G-4RMMWGBGBH.6719746dc487a6.01949013
+label: G-4RMMWGBGBH
+weight: 0
+tag_container_ids:
+  - G-4RMMWGBGBH
+advanced_settings:
+  consent_mode: false
+dimensions_metrics: {  }
+conditions: {  }
+events:
+  generate_lead:
+    value: ''
+    currency: ''
+  sign_up:
+    method: CMS
+  search: {  }
+  custom: {  }
+  login:
+    method: CMS

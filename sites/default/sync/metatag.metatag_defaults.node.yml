@@ -1,0 +1,32 @@
+uuid: 28f1bac3-6394-4861-bfd1-40034f4c75c6
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: rpwvgyEURXLz_JjgMCrkS1rUv-0k3L79BpO-ReN7fDI
+id: node
+label: Content
+tags:
+  abstract: '[node:url][node:schema_abstract]'
+  canonical_url: '[node:url]'
+  description: '[node:summary]'
+  schema_article_about: '[node:field_tags]'
+  schema_article_author: 'a:2:{s:5:"@type";s:6:"Person";s:4:"name";s:29:"[node:schema_author:0:entity]";}'
+  schema_article_date_modified: '[node:created:html_datetime]'
+  schema_article_date_published: '[node:created:html_date]'
+  schema_article_description: '[node:schema_abstract]'
+  schema_article_headline: '[node:title]'
+  schema_article_id: '[node:url]'
+  schema_article_image: 'a:2:{s:5:"@type";s:11:"ImageObject";s:3:"url";s:30:"[node:schema_image:entity:url]";}'
+  schema_article_is_accessible_for_free: 'True'
+  schema_article_name: '[node:title]'
+  schema_article_type: BlogPosting
+  schema_person_family_name: '[node:schema_family_name]'
+  schema_person_given_name: '[node:schema_given_name]'
+  schema_person_id: '[node:url]'
+  schema_person_image: 'a:2:{s:5:"@type";s:11:"ImageObject";s:3:"url";s:30:"[node:schema_image:entity:url]";}'
+  schema_person_name: '[node:schema_given_name] [node:schema_family_name]'
+  schema_person_same_as: '[node:schema_same_as:0:uri]'
+  schema_person_type: Person
+  schema_person_url: '[node:url]'
+  title: '[node:title] | [site:name]'

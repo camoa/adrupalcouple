@@ -4,7 +4,6 @@ status: true
 dependencies:
   config:
     - field.field.node.page.body
-    - field.field.node.page.field_metatag
     - field.field.node.page.field_tags
     - field.field.node.page.schema_about
     - field.field.node.page.schema_primary_image
@@ -16,8 +15,8 @@ dependencies:
   module:
     - field_group
     - link
+    - manage_display
     - text
-    - user
 third_party_settings:
   field_group:
     group_general:
@@ -137,8 +136,19 @@ content:
     third_party_settings: {  }
     weight: 13
     region: content
+  title:
+    type: title
+    label: hidden
+    settings:
+      link_to_entity: true
+      tag: h2
+    third_party_settings: {  }
+    weight: -49
+    region: content
 hidden:
+  created: true
   field_editorial: true
-  field_metatag: true
   langcode: true
+  node_read_time: true
   schema_web_page_subtype: true
+  uid: true

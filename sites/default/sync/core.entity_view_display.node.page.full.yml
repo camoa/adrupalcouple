@@ -6,7 +6,6 @@ dependencies:
     - core.base_field_override.node.page.title
     - core.entity_view_mode.node.full
     - field.field.node.page.body
-    - field.field.node.page.field_metatag
     - field.field.node.page.field_tags
     - field.field.node.page.schema_about
     - field.field.node.page.schema_primary_image
@@ -258,7 +257,6 @@ content:
 hidden:
   created: true
   field_editorial: true
-  field_metatag: true
   langcode: true
   node_read_time: true
   schema_web_page_subtype: true

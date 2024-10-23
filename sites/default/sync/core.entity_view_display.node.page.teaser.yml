@@ -5,7 +5,6 @@ dependencies:
   config:
     - core.entity_view_mode.node.teaser
     - field.field.node.page.body
-    - field.field.node.page.field_metatag
     - field.field.node.page.field_tags
     - field.field.node.page.schema_about
     - field.field.node.page.schema_primary_image
@@ -16,9 +15,9 @@ dependencies:
     - image.style.media_library
     - node.type.page
   module:
+    - manage_display
     - media
     - text
-    - user
 id: node.page.teaser
 targetEntityType: node
 bundle: page
@@ -53,12 +52,23 @@ content:
     third_party_settings: {  }
     weight: 0
     region: content
+  title:
+    type: title
+    label: hidden
+    settings:
+      link_to_entity: true
+      tag: h2
+    third_party_settings: {  }
+    weight: -49
+    region: content
 hidden:
-  field_metatag: true
+  created: true
   field_tags: true
   langcode: true
+  node_read_time: true
   schema_about: true
   schema_related_link: true
   schema_significant_link: true
   schema_subject_of: true
   schema_web_page_subtype: true
+  uid: true

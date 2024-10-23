@@ -1,4 +1,4 @@
-uuid: 44cb8721-ed13-4301-85f4-a6e0c975d460
+uuid: 9060dc1c-053a-4a30-8448-74283647c10c
 langcode: en
 status: true
 dependencies:
@@ -11,7 +11,7 @@ id: node.article.field_metatag
 field_name: field_metatag
 entity_type: node
 bundle: article
-label: 'Meta tags'
+label: Metatag
 description: ''
 required: false
 translatable: false

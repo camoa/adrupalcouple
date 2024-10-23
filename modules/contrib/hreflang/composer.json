@@ -1,0 +1,27 @@
+{
+    "name": "drupal/hreflang",
+    "description": "Automatically adds an hreflang tag to the page for each enabled language.",
+    "type": "drupal-module",
+    "license": "GPL-2.0-or-later",
+    "homepage": "https://www.drupal.org/project/hreflang",
+    "support": {
+        "issues": "https://www.drupal.org/project/issues/hreflang",
+        "source": "https://git.drupalcode.org/project/hreflang"
+    },
+    "authors": [
+        {
+            "name": "mark burdett",
+            "homepage": "https://www.drupal.org/u/mfb"
+        }
+    ],
+    "funding": [
+        {
+            "type": "github",
+            "url": "https://github.com/sponsors/mfb"
+        },
+        {
+            "type": "patreon",
+            "url": "https://www.patreon.com/mfb"
+        }
+    ]
+}
