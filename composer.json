@@ -70,6 +70,7 @@
         "drupal/simple_sitemap": "^4.1",
         "drupal/sitemap": "^2.0",
         "drupal/smart_date": "^4.0",
+        "drupal/social_share": "^2.0@beta",
         "drupal/upgrade_status": "^4.3",
         "drupal/yoast_seo": "^2",
         "drush/drush": "^13"

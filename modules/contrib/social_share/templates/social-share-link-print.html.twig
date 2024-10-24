@@ -1,0 +1,37 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display a social share link.
+ *
+ * Available variables:
+ * - attributes: array of HTML attributes populated by modules, intended to
+ *   be added to the main container tag of this template.
+ * - print_link_text: The sharing link text.
+ * - url: The URL for print.
+ * - print_url_query_parameter: Some query parameters to append to the print URL.
+ *   Multiple values can be separated by ampersands (&).
+ *
+ * See \Drupal\social_share\Plugin\SocialShareLink\PrintShareLink() for a
+ * a complete list of supported variables. Every context defind by the plugin
+ * is made available as variable.
+ *
+ * @ingroup themeable
+ */
+#}
+
+{% if print_url_query_parameter %}
+  {% if '?' in url %}
+    {% set url = url ~ '%26' ~ print_url_query_parameter|url_encode %}
+  {% else %}
+    {% set url = url ~ '?' ~ print_url_query_parameter|url_encode %}
+  {% endif %}
+{% endif %}
+
+{% set attributes = attributes.
+  setAttribute('target', '_blank').
+  addClass('social-share-print')
+%}
+
+<a href="{{ url }}" {{ attributes }}>
+  {{ print_link_text }}
+</a>

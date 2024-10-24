@@ -1,0 +1,31 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display a social share link.
+ *
+ * Available variables:
+ * - attributes: array of HTML attributes populated by modules, intended to
+ *   be added to the main container tag of this template.
+ * - whatsapp_link_text: The sharing link text.
+ * - url: WhatsApp share URL.
+ *
+ * See \Drupal\social_share\Plugin\SocialShareLink\WhatsAppShareLink() for a
+ * a complete list of supported variables. Every context defind by the plugin
+ * is made available as variable.
+ *
+ * @ingroup themeable
+ */
+#}
+
+{% set url_params = {
+  'text': whatsapp_link_message ~ ' ' ~ url,
+} %}
+
+{% set attributes = attributes.
+  setAttribute('target', '_blank').
+  addClass('social-share-whatsapp')
+%}
+
+<a href="whatsapp://send?{{ url_params|url_encode }}" {{ attributes }}>
+  {{ whatsapp_link_text }}
+</a>

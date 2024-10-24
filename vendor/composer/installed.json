@@ -6064,6 +6064,62 @@
             "install-path": "../../modules/contrib/smart_date"
         },
         {
+            "name": "drupal/social_share",
+            "version": "2.0.0-beta9",
+            "version_normalized": "2.0.0.0-beta9",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/social-share.git",
+                "reference": "8.x-2.0-beta9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/social_share-8.x-2.0-beta9.zip",
+                "reference": "8.x-2.0-beta9",
+                "shasum": "b777deb321bb3dbcbbbec099caa9c924b2912831"
+            },
+            "require": {
+                "drupal/core": "^8 || ^9 || ^10 || ^11",
+                "drupal/typed_data": "*"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "8.x-2.0-beta9",
+                    "datestamp": "1728104425",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Beta releases are not covered by Drupal security advisories."
+                    }
+                }
+            },
+            "installation-source": "dist",
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "blacksnipe",
+                    "homepage": "https://www.drupal.org/user/526204"
+                },
+                {
+                    "name": "fago",
+                    "homepage": "https://www.drupal.org/user/16747"
+                },
+                {
+                    "name": "willvincent",
+                    "homepage": "https://www.drupal.org/user/261788"
+                }
+            ],
+            "description": "Contextually configurable social share buttons.",
+            "homepage": "https://www.drupal.org/project/social_share",
+            "support": {
+                "source": "https://git.drupalcode.org/project/social-share"
+            },
+            "install-path": "../../modules/contrib/social_share"
+        },
+        {
             "name": "drupal/token",
             "version": "1.15.0",
             "version_normalized": "1.15.0.0",
@@ -6137,6 +6193,58 @@
                 "source": "https://git.drupalcode.org/project/token"
             },
             "install-path": "../../modules/contrib/token"
+        },
+        {
+            "name": "drupal/typed_data",
+            "version": "2.1.1",
+            "version_normalized": "2.1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/typed_data.git",
+                "reference": "2.1.1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/typed_data-2.1.1.zip",
+                "reference": "2.1.1",
+                "shasum": "600cb9527dd93b200355f57ad4da71172ee5f6dc"
+            },
+            "require": {
+                "drupal/core": "^10.3 | ^11"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "2.1.1",
+                    "datestamp": "1728332112",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "installation-source": "dist",
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "fago",
+                    "homepage": "https://www.drupal.org/user/16747"
+                },
+                {
+                    "name": "tr",
+                    "homepage": "https://www.drupal.org/user/202830"
+                }
+            ],
+            "description": "Extends the core Typed Data API with new APIs and features.",
+            "homepage": "https://www.drupal.org/project/typed_data",
+            "support": {
+                "source": "https://git.drupalcode.org/project/typed_data",
+                "issues": "https://www.drupal.org/project/issues/typed_data"
+            },
+            "install-path": "../../modules/contrib/typed_data"
         },
         {
             "name": "drupal/upgrade_status",

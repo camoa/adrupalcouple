@@ -1,0 +1,12 @@
+type: module
+name: Social Share
+description: 'Contextually configurable social share buttons.'
+package: Social media
+core_version_requirement: ^8 || ^9 || ^10 || ^11
+dependencies:
+ - typed_data:typed_data
+
+# Information added by Drupal.org packaging script on 2024-10-05
+version: '8.x-2.0-beta9'
+project: 'social_share'
+datestamp: 1728104428

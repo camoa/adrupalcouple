@@ -1,0 +1,50 @@
+<?php
+
+use Drupal\social_share\SocialShareLinkManagerInterface;
+
+/**
+ * @file
+ * Main module file.
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function social_share_theme($existing, $type, $theme, $path) {
+  $link_manager = \Drupal::service('social_share.link_manager');
+  assert($link_manager instanceof SocialShareLinkManagerInterface);
+  $info = [];
+  foreach ($link_manager->getDefinitions() as $plugin_id => $definition) {
+    $info = array_merge($info, $link_manager->createInstance($plugin_id)
+      ->getTemplateInfo());
+  }
+  return $info;
+}
+
+/**
+ * Implements hook_field_widget_info_alter().
+ */
+function social_share_field_widget_info_alter(array &$info) {
+  $info['options_buttons']['field_types'][] = 'social_share_link';
+}
+
+/**
+ * Implements hook_preprocess_template_urls().
+ */
+function social_share_preprocess_template_urls(&$variables) {
+  // Current absolute path including all GET-parameters.
+  $current_path = \Drupal::request()->getUri();
+
+  // Step through social share settings and replace <current> URLs in the following fields:
+  // - url (Facebook, PDF, Pinterest, Print, WhatsApp)
+  // - twitter_url (Twitter)
+  $fields = ['url', 'twitter_url'];
+
+  foreach ($variables as $key => $value) {
+    if (in_array($key, $fields) AND $value == '<current>') {
+      $variables[$key] = $current_path;
+    }
+  }
+
+  $variables['#cache']['contexts'][] = 'url.path';
+}
