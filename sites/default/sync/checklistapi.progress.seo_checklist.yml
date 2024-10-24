@@ -1,7 +1,7 @@
 progress:
-  '#changed': 1729721854
+  '#changed': 1729781168
   '#changed_by': '1'
-  '#completed_items': 17
+  '#completed_items': 31
   '#items':
     enable_clean_urls:
       '#completed': 1729717283
@@ -45,11 +45,53 @@ progress:
     add_xml_sitemap_to_your_robotstxt_file:
       '#completed': 1729721159
       '#uid': '1'
+    google_accounts_sign_ups:
+      '#completed': 1729778668
+      '#uid': '1'
     install_and_enable_google_tag_manager_module:
       '#completed': 1729721854
       '#uid': '1'
     configure_google_tag_manager_module:
       '#completed': 1729721854
+      '#uid': '1'
+    submit_xml_sitemap_to_google:
+      '#completed': 1729779073
+      '#uid': '1'
+    get_a_microsoft_account:
+      '#completed': 1729779064
+      '#uid': '1'
+    authenticate_with_bing:
+      '#completed': 1729779064
+      '#uid': '1'
+    submit_xml_sitemap_to_bing:
+      '#completed': 1729779064
+      '#uid': '1'
+    install_and_enable_easy_breadcrumbs_module:
+      '#completed': 1729778668
+      '#uid': '1'
+    configure_easy_breadcrumbs_module:
+      '#completed': 1729779532
+      '#uid': '1'
+    install_and_enable_d8_editor_advanced_link_module:
+      '#completed': 1729779532
+      '#uid': '1'
+    configure_text_formats_to_use_d8_editor_advanced_link_module:
+      '#completed': 1729779642
+      '#uid': '1'
+    install_and_enable_sitemap_module:
+      '#completed': 1729779532
+      '#uid': '1'
+    configure_sitemap_module:
+      '#completed': 1729779532
+      '#uid': '1'
+    install_and_enable_search_404_module:
+      '#completed': 1729779532
+      '#uid': '1'
+    install_and_enable_yoast_seo_module:
+      '#completed': 1729781168
+      '#uid': '1'
+    turn_on_create_new_revisions_for_all_content:
+      '#completed': 1729781168
       '#uid': '1'
     install_and_enable_security_review_module:
       '#completed': 1729717283

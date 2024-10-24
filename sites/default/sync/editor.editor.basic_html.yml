@@ -15,6 +15,7 @@ settings:
     items:
       - bold
       - italic
+      - removeFormat
       - '|'
       - link
       - '|'
@@ -112,6 +113,9 @@ settings:
         - '<h4 id>'
         - '<h5 id>'
         - '<h6 id>'
+    editor_advanced_link_link:
+      enabled_attributes:
+        - class
     media_media:
       allow_view_mode_override: false
 image_upload:

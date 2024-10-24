@@ -3,12 +3,14 @@ langcode: en
 status: true
 dependencies:
   config:
+    - filter.format.basic_html
     - taxonomy.vocabulary.tags
   module:
     - comment
     - contextual
     - editoria11y
     - file
+    - filter
     - help
     - node
     - path
@@ -36,6 +38,7 @@ permissions:
   - 'edit terms in tags'
   - 'mark as hidden in editoria11y'
   - 'revert all revisions'
+  - 'use text format basic_html'
   - 'view all revisions'
   - 'view editoria11y checker'
   - 'view own unpublished content'
