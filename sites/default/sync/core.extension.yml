@@ -101,12 +101,14 @@ module:
   simple_sitemap_engines: 0
   sitemap: 0
   smart_date: 0
+  social_share: 0
   system: 0
   taxonomy: 0
   telephone: 0
   text: 0
   token: 0
   toolbar: 0
+  typed_data: 0
   update: 0
   upgrade_status: 0
   user: 0
