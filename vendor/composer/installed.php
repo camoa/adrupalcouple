@@ -3,7 +3,7 @@
         'name' => 'drupal/recommended-project',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '028dbb6cc85cdce841c8d1459e7fa9acea42da63',
+        'reference' => '29d26ddc39f69298cf6b62cb13ec67db167f3bcc',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -233,6 +233,17 @@
             'type' => 'drupal-module',
             'install_path' => __DIR__ . '/../../modules/contrib/address',
             'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'drupal/addtoany' => array(
+            'pretty_version' => 'dev-2.0.x',
+            'version' => 'dev-2.0.x',
+            'reference' => '151f0f9bca57ee17e3de0659650f0f8f1f0d61d1',
+            'type' => 'drupal-module',
+            'install_path' => __DIR__ . '/../../modules/contrib/addtoany',
+            'aliases' => array(
+                0 => '2.0.x-dev',
+            ),
             'dev_requirement' => false,
         ),
         'drupal/admin_toolbar' => array(
@@ -809,7 +820,7 @@
         'drupal/recommended-project' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '028dbb6cc85cdce841c8d1459e7fa9acea42da63',
+            'reference' => '29d26ddc39f69298cf6b62cb13ec67db167f3bcc',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

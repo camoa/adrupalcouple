@@ -17,6 +17,7 @@
     "require": {
         "composer/installers": "^2.0",
         "drupal/address": "^2.0",
+        "drupal/addtoany": "2.0.x-dev@dev",
         "drupal/admin_toolbar": "^3.4",
         "drupal/allowed_formats": "^3.0",
         "drupal/auto_entitylabel": "^3.0",
