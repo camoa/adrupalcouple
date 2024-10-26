@@ -1,23 +1,29 @@
 uuid: 15df4e02-fc33-48ac-9a41-99ab759e8f73
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  module:
+    - system
 id: G-4RMMWGBGBH.6719746dc487a6.01949013
 label: G-4RMMWGBGBH
 weight: 0
 tag_container_ids:
   - G-4RMMWGBGBH
 advanced_settings:
-  consent_mode: false
+  consent_mode: true
 dimensions_metrics: {  }
-conditions: {  }
+conditions:
+  request_path:
+    id: request_path
+    negate: true
+    pages: "/admin*\r\n/user/*\r\n/node/*/add\r\n/node/*/edit\r\n/node/*/delete\r\n"
 events:
   generate_lead:
     value: ''
     currency: ''
   sign_up:
     method: CMS
-  search: {  }
-  custom: {  }
   login:
     method: CMS
+  custom: {  }
+  search: {  }

@@ -1,5 +1,5 @@
 hotlink: false
-origin: 'https://www.adrupalcouple.us'
+origin: 'https://adrupalcouple.us'
 origin_dir: sites/default/files
 proxy_headers: ''
 use_imagecache_root: true

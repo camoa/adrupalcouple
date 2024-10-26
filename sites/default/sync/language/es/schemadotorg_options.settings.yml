@@ -21,7 +21,6 @@ schema_property_allowed_values:
     female: Femenino
   learningResourceType:
     books: Libros
-    social_media: 'Social media'
   nationality:
     djibouti: Yibuti
     french: Francés
