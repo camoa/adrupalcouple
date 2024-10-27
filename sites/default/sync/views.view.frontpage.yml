@@ -5,6 +5,7 @@ dependencies:
   config:
     - core.entity_view_mode.node.rss
     - core.entity_view_mode.node.teaser
+    - field.storage.node.field_rating
     - field.storage.node.field_tags
     - field.storage.node.schema_abstract
     - field.storage.node.schema_author
@@ -12,6 +13,7 @@ dependencies:
     - node.type.article
     - node.type.page
   module:
+    - fivestar
     - node
     - node_read_time
     - user
@@ -728,6 +730,68 @@ display:
           multi_type: ul
           separator: ''
           field_api_classes: false
+        field_rating:
+          id: field_rating
+          table: node__field_rating
+          field: field_rating
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: ''
+          exclude: true
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: div
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: rating
+          type: fivestar_rating
+          settings: {  }
+          group_column: ''
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
         node_read_time:
           id: node_read_time
           table: node_field_data
@@ -741,7 +805,7 @@ display:
           exclude: true
           alter:
             alter_text: true
-            text: "<div class=\"author-area\">\r\n<div class=\"author-content\">\r\n  <div class=\"author-img author-name\">\r\n    {{ schema_author }}\r\n  </div>\r\n  <div class=\"publish-date\">\r\n    {{ created }}\r\n    <span>Estimated read time: {{ node_read_time }}</span> \r\n  </div>\r\n</div>\r\n</div>"
+            text: "<div class=\"author-area\">\r\n<div class=\"author-content\">\r\n  <div class=\"author-img author-name\">\r\n    {{ schema_author }}\r\n  </div>\r\n  <div class=\"publish-date\">\r\n    {{ created }}\r\n    <span>Estimated read time: {{ node_read_time }}</span> \r\n    <span> Rating: {{field_rating}}</span>\r\n  </div>\r\n</div>\r\n</div>"
             make_link: false
             path: ''
             absolute: false
@@ -1019,6 +1083,7 @@ display:
         - 'user.node_grants:view'
         - user.permissions
       tags:
+        - 'config:field.storage.node.field_rating'
         - 'config:field.storage.node.field_tags'
         - 'config:field.storage.node.schema_abstract'
         - 'config:field.storage.node.schema_author'
