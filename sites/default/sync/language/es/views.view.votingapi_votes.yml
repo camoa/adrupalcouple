@@ -1,0 +1,69 @@
+display:
+  default:
+    display_title: Máster
+    display_options:
+      exposed_form:
+        options:
+          submit_button: Aplicar
+          reset_button_label: Restablecer
+          exposed_sorts_label: 'Ordenar por'
+          sort_asc_label: Asc
+          sort_desc_label: Desc
+      pager:
+        options:
+          tags:
+            previous: ‹‹
+            next: ››
+            first: '« Primero'
+            last: 'Último »'
+          expose:
+            items_per_page_label: 'Elementos por página'
+            items_per_page_options_all_label: '- Todo -'
+            offset_label: Desplazamiento
+      fields:
+        id:
+          label: ID
+          separator: ', '
+        type:
+          separator: ', '
+        value:
+          label: Valor
+          separator: ', '
+        vote_source:
+          separator: ', '
+        user_id:
+          separator: ', '
+        timestamp:
+          separator: ', '
+      filters:
+        entity_type:
+          expose:
+            label: 'Tipo de entidad'
+  admin_page:
+    display_options:
+      fields:
+        id:
+          label: ID
+          separator: ', '
+        type:
+          separator: ', '
+        entity_id:
+          separator: ', '
+        entity_type:
+          label: 'Tipo de entidad'
+          separator: ', '
+        value:
+          label: Valor
+          separator: ', '
+        vote_source:
+          separator: ', '
+        user_id:
+          separator: ', '
+        timestamp:
+          separator: ', '
+  node_page:
+    display_options:
+      arguments:
+        entity_id:
+          exception:
+            title: Todo(s)

@@ -1,0 +1,6 @@
+services:
+  plugin.manager.votingapi.resultfunction:
+    class: \Drupal\votingapi\VoteResultFunctionManager
+    parent: default_plugin_manager
+    autowire: true
+  Drupal\votingapi\VoteResultFunctionManagerInterface: '@plugin.manager.votingapi.resultfunction'

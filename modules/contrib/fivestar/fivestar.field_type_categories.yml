@@ -1,0 +1,6 @@
+fivestar:
+   label: Fivestar rating
+   description: Field for rating content
+   weight: 0
+   libraries:
+     - fivestar/icons

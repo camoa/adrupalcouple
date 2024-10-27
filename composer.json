@@ -17,7 +17,6 @@
     "require": {
         "composer/installers": "^2.0",
         "drupal/address": "^2.0",
-        "drupal/addtoany": "2.0.x-dev@dev",
         "drupal/admin_toolbar": "^3.4",
         "drupal/allowed_formats": "^3.0",
         "drupal/auto_entitylabel": "^3.0",
@@ -35,6 +34,7 @@
         "drupal/entity_browser": "^2.9",
         "drupal/entity_usage": "^2.0@beta",
         "drupal/field_group": "^3.4",
+        "drupal/fivestar": "3.0.x-dev@dev",
         "drupal/focal_point": "^2.0",
         "drupal/geolocation": "4.x-dev@dev",
         "drupal/gin": "^3.0@rc",
@@ -71,7 +71,6 @@
         "drupal/simple_sitemap": "^4.1",
         "drupal/sitemap": "^2.0",
         "drupal/smart_date": "^4.0",
-        "drupal/social_share": "^2.0@beta",
         "drupal/stage_file_proxy": "^3.1",
         "drupal/upgrade_status": "^4.3",
         "drupal/yoast_seo": "^2",

@@ -1,0 +1,15 @@
+services:
+  fivestar.widget_manager:
+    class: \Drupal\fivestar\WidgetManager
+    autowire: true
+  Drupal\fivestar\WidgetManagerInterface: '@fivestar.widget_manager'
+
+  fivestar.vote_manager:
+    class: \Drupal\fivestar\VoteManager
+    autowire: true
+  Drupal\fivestar\VoteManagerInterface: '@fivestar.vote_manager'
+
+  fivestar.vote_result_manager:
+    class: \Drupal\fivestar\VoteResultManager
+    autowire: true
+  Drupal\fivestar\VoteResultManagerInterface: '@fivestar.vote_result_manager'

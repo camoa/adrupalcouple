@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.node.article.body
     - field.field.node.article.field_metatag
+    - field.field.node.article.field_rating
     - field.field.node.article.field_tags
     - field.field.node.article.schema_about
     - field.field.node.article.schema_abstract
@@ -18,6 +19,7 @@ dependencies:
     - allowed_formats
     - content_moderation
     - field_group
+    - fivestar
     - media_library
     - metatag
     - path
@@ -100,6 +102,15 @@ content:
     settings:
       sidebar: true
       use_details: true
+    third_party_settings: {  }
+  field_rating:
+    type: fivestar_stars
+    weight: 222
+    region: content
+    settings:
+      text_format: none
+      display_format: average
+      fivestar_widget: basic
     third_party_settings: {  }
   field_tags:
     type: entity_reference_autocomplete_tags

@@ -1,0 +1,29 @@
+[dir="rtl"] div.fivestar-widgets div.form-item {
+  float: right;
+}
+
+[dir="rtl"] #placeholder {
+  right: auto;
+  left: 0;
+}
+
+[dir="rtl"] .color-form label {
+  float: right;
+}
+[dir="rtl"] .color-form .form-select {
+  float: right;
+}
+[dir="rtl"] .color-form #edit-fivestar-colors-matte {
+  float: right;
+}
+[dir="rtl"] .color-form .form-text {
+  margin-left: 5px;
+}
+
+[dir="rtl"] #fivestar-palette .lock {
+  right: -3px;
+  float: right;
+}
+[dir="rtl"] #fivestar-palette .form-item .form-item {
+  float: right;
+}

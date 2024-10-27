@@ -1,0 +1,61 @@
+/* Fivestar Settings Preview */
+div.fivestar-star-preview {
+  width: 200px;
+  height: 70px;
+  border: none;
+}
+div.fivestar-widgets div.form-item {
+  float: left; /* LTR */
+}
+
+/* Farbtastic placement */
+.color-form {
+  position: relative;
+  max-width: 50em;
+}
+#placeholder {
+  position: absolute;
+  top: -0.5em;
+  right: 0; /* LTR */
+}
+
+/* Palette */
+.color-form .form-item {
+  height: 2em;
+  margin: 0.5em 0;
+  line-height: 2em;
+}
+.color-form label {
+  float: left; /* LTR */
+  width: 12em;
+}
+.color-form .form-text,
+.color-form .form-select {
+  float: left; /* LTR */
+}
+.color-form .form-text {
+  margin-right: 5px; /* LTR */
+  cursor: pointer;
+  text-align: center;
+}
+
+#fivestar-palette .lock {
+  position: relative;
+  left: -3px; /* LTR */
+  float: left; /* LTR */
+  width: 20px;
+  height: 25px;
+  cursor: pointer;
+  background: url(../images/lock.png) no-repeat 50% 2px;
+}
+#fivestar-palette .unlocked {
+  background-position: 50% -22px;
+}
+#fivestar-palette .form-item .form-item {
+  float: left; /* LTR */
+  width: inherit;
+  margin: 0;
+}
+#fivestar-palette .item-selected input {
+  border: 2px solid black;
+}

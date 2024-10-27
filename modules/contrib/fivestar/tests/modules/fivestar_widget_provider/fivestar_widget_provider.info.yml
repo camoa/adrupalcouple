@@ -1,0 +1,6 @@
+name: Fivestar widget provider
+type: module
+description: 'Support module for testing hook_fivestar_widgets().'
+package: Testing
+dependencies:
+  - fivestar:fivestar
