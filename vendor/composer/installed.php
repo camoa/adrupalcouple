@@ -3,7 +3,7 @@
         'name' => 'drupal/recommended-project',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '32a41d810a2e97011250d31d71320b01ff516cc3',
+        'reference' => '0e24bf51e2d5678339584cef1d899a47545d7c3c',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -689,6 +689,15 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
+        'drupal/klaro' => array(
+            'pretty_version' => '3.0.0-rc7',
+            'version' => '3.0.0.0-RC7',
+            'reference' => '3.0.0-rc7',
+            'type' => 'drupal-module',
+            'install_path' => __DIR__ . '/../../modules/contrib/klaro',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'drupal/layout_builder_styles' => array(
             'pretty_version' => '2.1.0',
             'version' => '2.1.0.0',
@@ -820,7 +829,7 @@
         'drupal/recommended-project' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '32a41d810a2e97011250d31d71320b01ff516cc3',
+            'reference' => '0e24bf51e2d5678339584cef1d899a47545d7c3c',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

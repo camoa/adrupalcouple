@@ -1,0 +1,22 @@
+id: klaro
+label: 'Klaro!'
+description: 'Saves the status of the users consent.'
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - klaro
+default: true
+purposes:
+  - cms
+cookies:
+  - { regex: 'klaro', path: '', domain: ''}
+required: true
+opt_out: false
+only_once: false
+weight: 0
+info_url: 'https://klaro.kiprotect.com'
+privacy_policy_url: 'https://klaro.kiprotect.com/#privacy'
+javascripts: { }
+attachments: { }

@@ -1,0 +1,20 @@
+langcode: en
+id: cms
+label: 'CMS'
+status: false
+description: 'Provides a joyful user experience.'
+default: true
+purposes:
+  - cms
+cookies:
+  - { regex: 'has_js', path: '', domain: ''}
+  - { regex: '^[SESS|SSESS]', path: '', domain: ''}
+  - { regex: '^proxyVisitor', path: '', domain: ''}
+required: true
+opt_out: false
+only_once: false
+weight: 4
+info_url: 'https://www.drupal.org'
+privacy_policy_url: 'https://www.drupal.org/privacy'
+javascripts: { }
+attachments: { }

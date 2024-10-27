@@ -1,0 +1,9 @@
+uuid: c21274d1-f6b0-4f54-a22b-042c1a22fb12
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: ujyZIdp3hXfqJg6D8MCtUVhKTfHLVffzK14CsEmqg1c
+id: advertising
+label: Advertising
+weight: 0

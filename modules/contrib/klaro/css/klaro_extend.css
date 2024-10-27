@@ -1,0 +1,38 @@
+.klaro_toggle_dialog {
+  cursor: pointer;
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  background: white;
+  border-radius: 20px;
+  height: 35px;
+  width: 35px;
+  background-size: contain;
+  z-index: 99;
+  border: 1px solid #eaeaea;
+  -webkit-box-shadow: 0 0 5px 0 rgba(0,0,0,.25);
+  -moz-box-shadow: 0 0 5px 0 rgba(0,0,0,.25);
+  box-shadow: 0 5px 5px rgba(0,0,0,0.2);
+  background-image: url(/modules/contrib/klaro/icons/privacy.svg);
+}
+.klaro_toggle_dialog:focus {
+   transform: scale(1.2);
+}
+.klaro.learn-more-as-button .cookie-notice:not(.cookie-modal-notice) a.cm-link.cn-learn-more {
+  color: #fff;
+  color: var(--button-text-color, #fff);
+  background-color: #5c5c5c;
+  background-color: var(--dark2, #5c5c5c);
+  border-radius: 4px;
+  border-radius: var(--border-radius, 4px);
+  padding: 6px 10px;
+  border-style: none;
+  padding: 0.4em;
+  font-size: 1em;
+  cursor: pointer;
+
+  line-height: 1.125rem;
+  margin-right: auto;
+  text-align: center;
+  flex-grow: unset;
+}

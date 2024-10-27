@@ -1,0 +1,11 @@
+consentNotice:
+  learnMore: Personalizar
+ok: Aceptar
+save: Guardar
+decline: Rechazar
+close: Cerrar
+app:
+  purpose: Propósito
+contextualConsent:
+  acceptAlways: Siempre
+  acceptOnce: Sí
