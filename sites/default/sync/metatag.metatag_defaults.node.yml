@@ -10,6 +10,10 @@ tags:
   abstract: '[node:url][node:schema_abstract]'
   canonical_url: '[node:url]'
   description: '[node:summary]'
+  image_src: '[node:schema_image]'
+  og_image: '[node:schema_image]'
+  og_site_name: 'A Drupal Couple'
+  og_type: Blog
   schema_article_about: '[node:field_tags]'
   schema_article_author: 'a:2:{s:5:"@type";s:6:"Person";s:4:"name";s:29:"[node:schema_author:0:entity]";}'
   schema_article_date_modified: '[node:created:html_datetime]'

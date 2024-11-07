@@ -1,9 +1,0 @@
-uuid: ff63c322-ea59-4b49-85ea-4a2f70f301ce
-langcode: en
-status: true
-dependencies: {  }
-_core:
-  default_config_hash: viRP54gfVbiAJggsHB02B_iBsSqhc8KLC7lngFFBP5Q
-id: security
-label: Security
-weight: 4
