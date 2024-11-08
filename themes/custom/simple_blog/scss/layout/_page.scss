@@ -60,6 +60,8 @@
 
 .content-container {
     @include make-row();
+    max-width: 100%;
+    justify-content: center;
     .layout-sidebar-left, .layout-sidebar-right {
         @include make-col-ready();
 
@@ -68,6 +70,6 @@
         }
     }
     .layout-content {
-        flex: 1;
+        max-width: 100%;
     }
 }

@@ -99,11 +99,11 @@ $success: #7952b3;
 // General styles
 
 body {
-  padding: 1.5rem;
   font-family: var(--font-figtree);
 }
 
 .blog-section-content {
+  max-width: 100%;
   .blog-img {
     .field__item {
       display: flex;
@@ -115,8 +115,19 @@ body {
 .blog-post-section {
   .view-content {
     @include make-container();
+    }
+  }
+  p, ul {
+    @include sm-down-device {
+      font-size: 1.1rem;;
+    }
   }
 
+.blog-post-10 .blog-tag .tag-items ul {
+  @include sm-down-device {
+    flex-direction: column;
+    row-gap: 5px;
+  }
 }
 
 .blog-post-section .blog-section-content .image-content .blog-text ul  {
@@ -124,6 +135,10 @@ body {
   gap: 20px;
   align-items: center;
   text-align: center;
+  @include sm-down-device {
+    flex-direction: column;
+    row-gap: 5px;
+  }
   li {
     a {
       font-family: var(--font-red-rose);
