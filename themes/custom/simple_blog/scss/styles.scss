@@ -116,6 +116,18 @@ body {
 
  ul {
   list-style: disc;
+  margin: auto;
+  padding: revert-layer;
+  ul {
+    list-style: circle;
+    ul {
+      list-style: square;
+    }
+  }
+  ol {
+    margin: auto;
+    padding: revert-layer;
+  }
  }
 
 }
