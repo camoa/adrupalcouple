@@ -1,0 +1,7 @@
+schema_property_vocabularies:
+  audience:
+    label: Audiencia
+  keywords:
+    label: 'Palabras clave'
+  recipeCategory:
+    label: 'Categoría de la receta'

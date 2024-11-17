@@ -90,10 +90,12 @@ module:
   schemadotorg: 0
   schemadotorg_jsonld: 0
   schemadotorg_jsonld_preview: 0
+  schemadotorg_media: 0
   schemadotorg_metatag: 0
   schemadotorg_options: 0
   schemadotorg_pathauto: 0
   schemadotorg_simple_sitemap: 0
+  schemadotorg_taxonomy: 0
   search: 0
   search404: 0
   seckit: 0

@@ -31,7 +31,7 @@ mode: media_library
 content:
   langcode:
     type: language_select
-    weight: 2
+    weight: 200
     region: content
     settings:
       include_locked: true
