@@ -112,6 +112,14 @@ body {
   }
 }
 
+#block-simple-blog-content .node__content {
+
+ ul {
+  list-style: disc;
+ }
+
+}
+
 .blog-post-section {
   .view-content {
     @include make-container();

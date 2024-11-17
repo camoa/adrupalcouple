@@ -7,13 +7,20 @@ _core:
 id: node
 label: Content
 tags:
-  abstract: '[node:url][node:schema_abstract]'
+  abstract: '[node:schema_abstract]'
+  article_author: '[node:schema_author]'
+  article_modified_time: '[node:created:html_datetime]'
+  article_published_time: '[node:created:html_datetime]'
+  article_tag: '[node:field_tags]'
   canonical_url: '[node:url]'
   description: '[node:summary]'
-  image_src: '[node:schema_image]'
-  og_image: '[node:schema_image]'
+  image_src: '[node:schema_image:entity:field_media_image]'
+  og_description: '[node:schema_abstract:value]'
+  og_image: '[node:schema_image:entity:field_media_image]'
+  og_image_alt: '[node:schema_image:entity:field_media_image:alt]'
+  og_image_url: '[node:schema_image:entity:field_media_image]'
   og_site_name: 'A Drupal Couple'
-  og_type: Blog
+  og_title: '[node:title]'
   schema_article_about: '[node:field_tags]'
   schema_article_author: 'a:2:{s:5:"@type";s:6:"Person";s:4:"name";s:29:"[node:schema_author:0:entity]";}'
   schema_article_date_modified: '[node:created:html_datetime]'

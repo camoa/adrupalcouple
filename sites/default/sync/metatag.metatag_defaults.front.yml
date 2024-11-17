@@ -9,6 +9,9 @@ label: 'Front page'
 tags:
   canonical_url: '[site:url]'
   image_src: /sites/default/files/logo_adrupalcouple.svg
+  og_image: /sites/default/files/logo_adrupalcouple.svg
   og_site_name: 'A Drupal Couple'
+  og_title: 'A drupal Couple'
   og_type: Blog
+  og_url: '[site:url]'
   shortlink: '[site:url]'
