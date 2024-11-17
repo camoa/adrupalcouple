@@ -7,7 +7,7 @@ namespace Drupal\custom_field\Plugin\CustomField\FeedsType;
  *
  * @CustomFieldFeedsType(
  *   id = "map",
- *   label = @Translation("Map"),
+ *   label = @Translation("Serialized - Key/Value"),
  *   mark_unique = FALSE,
  * )
  */

@@ -7,7 +7,6 @@ namespace Drupal\security_review\Plugin\SecurityCheck;
 use Drupal\Core\Database\Connection;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Logger\RfcLogLevel;
-use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\security_review\CheckResult;
 use Drupal\security_review\SecurityCheckBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -47,7 +46,7 @@ class FailedLogin extends SecurityCheckBase {
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): SecurityCheckBase|ContainerFactoryPluginInterface|static {
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): static {
     $instance = parent::create($container, $configuration, $plugin_id, $plugin_definition);
     $instance->database = $container->get('database');
     $instance->moduleHandler = $container->get('module_handler');
@@ -123,11 +122,12 @@ class FailedLogin extends SecurityCheckBase {
    * {@inheritdoc}
    */
   public function getDetails(array $findings, array $hushed = [], bool $returnString = FALSE): array|string {
+    $output = $returnString ? '' : [];
+
     if (empty($findings)) {
-      return [];
+      return $output;
     }
 
-    $output = $returnString ? '' : [];
     $paragraphs = [];
     $paragraphs[] = $this->t('The following IPs were observed with an abundance of failed login attempts.');
 

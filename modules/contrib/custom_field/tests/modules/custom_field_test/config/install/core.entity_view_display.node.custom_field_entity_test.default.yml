@@ -89,6 +89,11 @@ content:
           formatter_settings:
             label_display: above
             prefix_suffix: false
+        map_string_test:
+          format_type: string
+          formatter_settings:
+            label_display: above
+            prefix_suffix: false
         datetime_test:
           format_type: datetime_default
           formatter_settings:
@@ -190,6 +195,11 @@ content:
           formatter_settings:
             label_display: above
             prefix_suffix: false
+        map_string_test:
+          format_type: string
+          formatter_settings:
+            label_display: above
+            prefix_suffix: false
         datetime_test:
           format_type: datetime_default
           formatter_settings:
@@ -287,6 +297,11 @@ content:
             label_display: above
             prefix_suffix: false
         map_test:
+          format_type: string
+          formatter_settings:
+            label_display: above
+            prefix_suffix: false
+        map_string_test:
           format_type: string
           formatter_settings:
             label_display: above

@@ -4,9 +4,9 @@ namespace Drupal\Tests\custom_field\FunctionalJavascript;
 
 use Drupal\Component\Render\FormattableMarkup;
 use Drupal\Core\Entity\Entity\EntityFormDisplay;
+use Drupal\FunctionalJavascriptTests\WebDriverTestBase;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
-use Drupal\FunctionalJavascriptTests\WebDriverTestBase;
 use Drupal\node\Entity\NodeType;
 
 /**
@@ -232,7 +232,6 @@ class FieldStorageSettingsTest extends WebDriverTestBase {
     $this->drupalGet($this->fieldStorageConfigUrl);
     $field = $this->fields[$this->fieldName];
     $columns = $field->getSetting('columns');
-    $column_count = count($columns);
     $page = $this->getSession()->getPage();
     // Remove elements in descending order until getting to the last one.
     foreach ($columns as $i => $column) {
@@ -249,28 +248,6 @@ class FieldStorageSettingsTest extends WebDriverTestBase {
     // Click the Add another button and verify the new element exists.
     $page->findButton('Add another')->click();
     $this->assertSession()->waitForElementVisible('css', '#field-combined');
-    /*
-    $fields = $this->getSession()->getPage()->findAll('css', '.js-form-type-machine-name input');
-    // Get the last field from the list.
-    if ($fields) {
-      $new_field = end($fields)->getAttribute('value');
-    }
-    $new_name = $page->findField($this->parentPath . '[' . $new_field . '][name]');
-    $new_name->setValue('new_field');
-    $this->assertSession()->waitForElementVisible('css', '#custom-field-storage-wrapper');
-    $new_type = $page->findField($this->parentPath . '[new_field][type]');
-    $new_type->setValue('string');
-    //$this->getSession()->getPage()->fillField($this->parentPath . '[' . $new_field . '][name]', 'new_field');
-    //$this->getSession()->getPage()->fillField($this->parentPath . '[' . $new_field . '][type]', 'string');
-    //$assert_session->assertWaitOnAjaxRequest();
-    $this->assertSession()->waitForElementVisible('css', '#custom-field-storage-wrapper');
-    // Save the form.
-    $page->findButton('Save settings')->click();
-    $this->drupalGet($this->fieldStorageConfigUrl);
-    $new_field_name = $page->findField($this->parentPath . '[new_field][name]');
-    // Verify the new field name value matches config.
-    $this->assertTrue($new_field_name->getValue() === 'new_field');
-    */
   }
 
   /**

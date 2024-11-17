@@ -15,7 +15,7 @@ class KlaroAppDeleteForm extends EntityConfirmFormBase {
    * {@inheritdoc}
    */
   public function getQuestion() {
-    return $this->t('Are you sure you want to delete the Klaro! app "%name?"', [
+    return $this->t('Are you sure you want to delete the Klaro! service "%name?"', [
       '%name' => $this->entity->label(),
     ], ['context' => 'klaro']);
   }
@@ -39,7 +39,7 @@ class KlaroAppDeleteForm extends EntityConfirmFormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $this->entity->delete();
-    $this->messenger()->addMessage($this->t('Klaro! app %label has been deleted.', [
+    $this->messenger()->addMessage($this->t('Klaro! service %label has been deleted.', [
       '%label' => $this->entity->label(),
     ], ['context' => 'klaro']));
 

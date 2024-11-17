@@ -3,10 +3,7 @@
  * Javascript for the geolocation geometry Leaflet widget.
  */
 
-(function ($, Drupal) {
-
-  'use strict';
-
+(function (Drupal) {
   /**
    * Leaflet GeoJSON widget.
    *
@@ -18,127 +15,133 @@
    *   Widget.
    */
   Drupal.behaviors.geolocationGeometryWidgetLeaflet = {
-    getDrawSettingsByTyp: function /** @param {String} geometryType */ (geometryType) {
+    /**
+     * @param {String} geometryType
+     */
+    getDrawSettingsByTyp: (geometryType) => {
       switch (geometryType) {
-        case 'polygon':
-        case 'multipolygon':
+        case "polygon":
+        case "multipolygon":
           return {
             polyline: false,
             marker: false,
-            circlemarker: false
+            circlemarker: false,
           };
 
-        case 'polyline':
-        case 'multipolyline':
+        case "polyline":
+        case "multipolyline":
           return {
             polygon: false,
             rectangle: false,
             circle: false,
             marker: false,
-            circlemarker: false
+            circlemarker: false,
           };
 
-        case 'point':
-        case 'multipoint':
+        case "point":
+        case "multipoint":
           return {
             polyline: false,
             polygon: false,
             rectangle: false,
             circle: false,
-            circlemarker: false
+            circlemarker: false,
           };
 
         default:
           return {
-            circlemarker: false
+            circlemarker: false,
           };
       }
     },
-    layerToGeoJson:
-      /**
-       * @param {GeoJSON} layer
-       * @param {String} geometryType
-       */
-      function (layer, geometryType) {
-        var featureCollection = layer.toGeoJSON();
+    /**
+     * @param {GeoJSON} layer
+     * @param {String} geometryType
+     */
+    layerToGeoJson: (layer, geometryType) => {
+      const featureCollection = layer.toGeoJSON();
 
-        switch (featureCollection.features.length) {
-          case 0:
-            return JSON.stringify('');
+      switch (featureCollection.features.length) {
+        case 0:
+          return JSON.stringify("");
 
-          case 1:
-            return JSON.stringify(featureCollection.features[0].geometry);
+        case 1:
+          return JSON.stringify(featureCollection.features[0].geometry);
 
-          default:
-            var types = {
-              multipolygon: 'MultiPolygon',
-              multipolyline: 'MultiPolyline',
-              multipoint: 'MultiPoint',
-              default: 'GeometryCollection'
-            }
+        default: {
+          const types = {
+            multipolygon: "MultiPolygon",
+            multipolyline: "MultiPolyline",
+            multipoint: "MultiPoint",
+            default: "GeometryCollection",
+          };
 
-            var geometryCollection = {
-              type: types[geometryType] || types['default'],
-              geometries: []
-            };
+          const geometryCollection = {
+            type: types[geometryType] || types.default,
+            geometries: [],
+          };
 
-            featureCollection.features.forEach(function (feature) {
-              geometryCollection.geometries.push(feature.geometry);
-            });
+          featureCollection.features.forEach((feature) => {
+            geometryCollection.geometries.push(feature.geometry);
+          });
 
-            return JSON.stringify(geometryCollection);
+          return JSON.stringify(geometryCollection);
         }
-      },
-    attach: function (context) {
-      var thisBehavior = this;
-      $(once('geolocation-geometry-processed', '.geolocation-geometry-widget-leaflet-geojson', context)).each(function (index, item) {
-        var mapWrapper = $('.geolocation-geometry-widget-leaflet-geojson-map', item);
-        var inputWrapper = $('.geolocation-geometry-widget-leaflet-geojson-input', item);
-        var geometryType = $(item).data('geometryType');
+      }
+    },
+    attach: (context) => {
+      context.querySelectorAll(".geolocation-geometry-widget-leaflet-geojson").forEach((item) => {
+        if (item.classList.contains("processed")) {
+          return;
+        }
+        item.classList.add("processed");
 
-        console.log(thisBehavior.getDrawSettingsByTyp(geometryType), geometryType + ' settings');
+        const mapWrapper = item.querySelector(".geolocation-geometry-widget-leaflet-geojson-map");
+        const inputWrapper = item.querySelector(".geolocation-geometry-widget-leaflet-geojson-input");
+        const geometryType = item.getAttribute("data-geometry-type");
 
-        var mapObject = Drupal.geolocation.getMapById(mapWrapper.attr('id').toString());
+        Drupal.geolocation.maps.getMap(mapWrapper.getAttribute("id")).then(
+          /** @param {Leaflet} map */ (map) => {
+            Drupal.geolocation.addStylesheet("https://unpkg.com/leaflet-draw@1.0.4/dist/leaflet.draw.css");
+            Drupal.geolocation.addScript("https://unpkg.com/leaflet-draw@1.0.4/dist/leaflet.draw.js").then(() => {
+              const geoJsonLayer = L.geoJSON().addTo(map.leafletMap);
+              const drawControl = new L.Control.Draw({
+                draw: this.getDrawSettingsByTyp(geometryType),
+                edit: {
+                  featureGroup: geoJsonLayer,
+                },
+              });
+              map.leafletMap.addControl(drawControl);
 
-        mapObject.addPopulatedCallback(function /** @param {GeolocationLeafletMap} mapContainer */ (mapContainer) {
+              map.leafletMap.on(
+                L.Draw.Event.CREATED,
+                /** @param {Created} event */ (event) => {
+                  geoJsonLayer.addLayer(event.layer);
+                  inputWrapper.value = this.layerToGeoJson(geoJsonLayer, geometryType);
+                }
+              );
+              map.leafletMap.on(L.Draw.Event.EDITED, () => {
+                inputWrapper.value = this.layerToGeoJson(geoJsonLayer, geometryType);
+              });
+              map.leafletMap.on(L.Draw.Event.DELETED, () => {
+                inputWrapper.value = this.layerToGeoJson(geoJsonLayer, geometryType);
+              });
 
-          var geoJsonLayer = L.geoJSON().addTo(mapContainer.leafletMap);
-          var drawControl = new L.Control.Draw({
-            draw: thisBehavior.getDrawSettingsByTyp(geometryType),
-            edit: {
-              featureGroup: geoJsonLayer
-            }
-          });
-          mapContainer.leafletMap.addControl(drawControl);
+              if (inputWrapper.value) {
+                try {
+                  geoJsonLayer.addData(JSON.parse(inputWrapper.value));
+                } catch (error) {
+                  console.error(error.message);
+                  return;
+                }
 
-          mapContainer.leafletMap.on(L.Draw.Event.CREATED, /** @param {Created} event */ function (event) {
-            var layer = event.layer;
-            geoJsonLayer.addLayer(layer);
-            inputWrapper.val(thisBehavior.layerToGeoJson(geoJsonLayer, geometryType));
-          });
-          mapContainer.leafletMap.on(L.Draw.Event.EDITED, /** @param {Edited} event */ function (event) {
-            inputWrapper.val(thisBehavior.layerToGeoJson(geoJsonLayer, geometryType));
-          });
-          mapContainer.leafletMap.on(L.Draw.Event.DELETED, /** @param {Deleted} event */ function (event) {
-            inputWrapper.val(thisBehavior.layerToGeoJson(geoJsonLayer, geometryType));
-          });
-
-          if (inputWrapper.val()) {
-            try {
-              var geometry = JSON.parse(inputWrapper.val().toString());
-              geoJsonLayer.addData(geometry);
-            }
-            catch (error) {
-              console.error(error.message);
-              return;
-            }
-
-            mapContainer.fitBoundaries(geoJsonLayer.getBounds(), 'geolocation_geometry_widget_leaflet');
+                map.setBoundaries(map.normalizeBoundaries(geoJsonLayer.getBounds()));
+              }
+            });
           }
-        });
+        );
       });
     },
-    detach: function () {}
+    detach: () => {},
   };
-
-})(jQuery, Drupal);
+})(Drupal);

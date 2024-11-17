@@ -62,7 +62,7 @@ interface KlaroPurposeInterface extends ConfigEntityInterface {
    *   The weight.
    *
    * @return \Drupal\klaro\KlaroPurposeInterface
-   *   The isntance.
+   *   The instance.
    */
   public function setWeight(int $weight = 0): KlaroPurposeInterface;
 

@@ -10,12 +10,15 @@ use Drupal\security_review\CheckResult;
 use Drupal\security_review\SecurityCheckInterface;
 use Drupal\security_review\SecurityCheckPluginManager;
 use Drupal\security_review\SecurityReview;
+use Drupal\security_review\SecurityReviewHelperTrait;
 use Drush\Commands\DrushCommands;
 
 /**
  * Provides drush command for running security review module.
  */
 class SecurityReviewCommands extends DrushCommands {
+
+  use SecurityReviewHelperTrait;
 
   /**
    * Security review service.
@@ -165,20 +168,21 @@ class SecurityReviewCommands extends DrushCommands {
 
       // Run the checks.
       $this->securityReviewService->runChecks($checks, TRUE);
+
+      foreach ($checks as $check) {
+        $results[$this->getMachineName($check->getTitle())] = $check->lastResult();
+      }
     }
     else {
       // Show the latest stored results.
       foreach ($this->checkPluginManager->getChecks() as $check) {
-        $last_result = $check->lastResult();
-        if ($last_result instanceof CheckResult) {
-          $results[] = $last_result;
-        }
+        $results[$this->getMachineName($check->getTitle())] = $check->lastResult();
       }
     }
 
     $exitCode = self::EXIT_SUCCESS;
     foreach ($results as $result) {
-      if ($result->result() == CheckResult::FAIL) {
+      if ($result['result'] == CheckResult::FAIL) {
         // At least one check failed.
         $exitCode = self::EXIT_FAILURE;
         break;
@@ -205,45 +209,43 @@ class SecurityReviewCommands extends DrushCommands {
   private function formatResults(array $results, bool $short_titles = FALSE, bool $show_findings = FALSE): array {
     $output = [];
 
-    foreach ($results as $result) {
-      if ($result instanceof CheckResult) {
-        $check = $result->check();
-        $message = $short_titles ? $check->getTitle() : $result->resultMessage();
-        $status = 'notice';
+    foreach ($results as $check_name => $result) {
+      $check = $this->getCheck($check_name);
+      $message = $short_titles ? $check->getTitle() : $check->getStatusMessage($result['result']);
+      $status = 'notice';
 
-        // Set log level according to check result.
-        switch ($result->result()) {
-          case CheckResult::SUCCESS:
-            $status = 'success';
-            break;
+      // Set log level according to check result.
+      switch ($result['result']) {
+        case CheckResult::SUCCESS:
+          $status = 'success';
+          break;
 
-          case CheckResult::FAIL:
-            $status = 'failed';
-            break;
+        case CheckResult::FAIL:
+          $status = 'failed';
+          break;
 
-          case CheckResult::WARN:
-            $status = 'warning';
-            break;
+        case CheckResult::WARN:
+          $status = 'warning';
+          break;
 
-          case CheckResult::INFO:
-            $status = 'info';
-            break;
-        }
-
-        // Attach findings.
-        if ($show_findings) {
-          $findings = trim($result->check()->getDetails($result, [], TRUE));
-          if ($findings != '') {
-            $message .= "\n" . $findings;
-          }
-        }
-
-        $output[$check->getPluginId()] = [
-          'message' => $message,
-          'status' => $status,
-          'findings' => $result->findings(),
-        ];
+        case CheckResult::INFO:
+          $status = 'info';
+          break;
       }
+
+      // Attach findings.
+      if ($show_findings) {
+        $findings = trim($check->getDetails($result['findings'], [], TRUE));
+        if ($result['findings'] != '') {
+          $message .= "\n" . $findings;
+        }
+      }
+
+      $output[$check->getPluginId()] = [
+        'message' => $message,
+        'status' => $status,
+        'findings' => $result['findings'],
+      ];
     }
 
     return $output;

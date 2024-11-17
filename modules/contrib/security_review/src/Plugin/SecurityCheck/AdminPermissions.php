@@ -59,11 +59,12 @@ class AdminPermissions extends SecurityCheckBase {
    * {@inheritdoc}
    */
   public function getDetails(array $findings, array $hushed = [], bool $returnString = FALSE): array|string {
+    $output = $returnString ? '' : [];
+
     if (empty($findings)) {
-      return [];
+      return $output;
     }
 
-    $output = $returnString ? '' : [];
     $paragraphs = [];
     foreach ($findings as $rid => $permissions) {
       $role = Role::load($rid);

@@ -40,6 +40,8 @@ class SecurityCheckPluginWebTest extends BrowserTestBase {
 
   /**
    * {@inheritdoc}
+   *
+   * @throws \Drupal\Core\Entity\EntityStorageException
    */
   protected function setUp(): void {
     parent::setUp();
@@ -56,7 +58,7 @@ class SecurityCheckPluginWebTest extends BrowserTestBase {
     $this->drupalLogin($this->user);
 
     // Get checks.
-    $this->checks = \Drupal::service('plugin.manager.security_review.security_check')->getChecks();
+    $this->checks = $this->container->get('plugin.manager.security_review.security_check')->getChecks();
   }
 
   /**
@@ -66,7 +68,7 @@ class SecurityCheckPluginWebTest extends BrowserTestBase {
    * skippedBy() value.
    */
   public function testSkipCheck(): void {
-    $security_review_service = \Drupal::service('security_review');
+    $security_review_service = $this->container->get('security_review');
     foreach ($this->checks as $check) {
       $name = $check->getPluginId();
       $security_review_service->skip($name);

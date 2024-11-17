@@ -35,7 +35,7 @@ class SchemaDotOrgLayoutParagraphsTest extends SchemaDotOrgBrowserTestBase {
     // Create a Quotation paragraph.
     $this->createSchemaEntity('paragraph', 'Quotation');
 
-    // Add the the Quotation paragraph as a default type.
+    // Add the Quotation paragraph as a default type.
     $this->config('schemadotorg_layout_paragraphs.settings')
       ->set('default_paragraph_types', ['quotation'])
       ->save();

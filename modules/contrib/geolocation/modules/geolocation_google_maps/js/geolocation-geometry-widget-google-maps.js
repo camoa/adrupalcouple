@@ -3,9 +3,13 @@
  * Javascript for the geolocation geometry google maps widget.
  */
 
-(function ($, Drupal) {
-  "use strict";
+/**
+ * @typedef {Object} GoogleGeojsonData
+ *
+ * @property {Object[]} features
+ */
 
+(function (Drupal) {
   /**
    * Google maps GeoJSON widget.
    *
@@ -15,42 +19,33 @@
    *   Widget.
    */
   Drupal.behaviors.geolocationGeometryWidgetGoogleMaps = {
-    attach: function (context) {
-      $(".geolocation-geometry-widget-google-maps-geojson", context)
-        .once("geolocation-geometry-processed")
-        .each(function (index, item) {
-          var mapWrapper = $(
-            ".geolocation-geometry-widget-google-maps-geojson-map",
-            item
-          );
-          var inputWrapper = $(
-            ".geolocation-geometry-widget-google-maps-geojson-input",
-            item
-          );
-          var geometryType = $(item).data("geometryType");
+    attach: (context) => {
+      context.querySelectorAll(".geolocation-geometry-widget-google-maps-geojson").forEach((item) => {
+        if (item.classList.contains("processed")) {
+          return;
+        }
+        item.classList.add("processed");
 
-          var mapObject = Drupal.geolocation.getMapById(
-            mapWrapper.attr("id").toString()
-          );
+        const mapWrapper = item.querySelector(".geolocation-geometry-widget-google-maps-geojson-map");
+        const inputWrapper = item.querySelector(".geolocation-geometry-widget-google-maps-geojson-input");
+        const geometryType = item.getAttribute("data-geometry-type");
 
-          mapObject.addPopulatedCallback(function (mapContainer) {
-            /**  @type {google.maps.Map} */
-            var map = mapContainer.googleMap;
-
-            var availableControls = [];
+        Drupal.geolocation.maps.getMap(mapWrapper.getAttribute("id")).then(
+          /** @param {GoogleMaps} map */ (map) => {
+            let availableControls = [];
             switch (geometryType) {
               case "polygon":
-              case "multi_polygon":
+              case "multipolygon":
                 availableControls = ["Polygon"];
                 break;
 
               case "polyline":
-              case "multi_polyline":
+              case "multipolyline":
                 availableControls = ["LineString"];
                 break;
 
               case "point":
-              case "multi_point":
+              case "multipoint":
                 availableControls = ["Point"];
                 break;
 
@@ -59,23 +54,23 @@
                 break;
             }
 
-            map.data.setControls(availableControls);
-            map.data.setControlPosition(google.maps.ControlPosition.TOP_CENTER);
-            map.data.setStyle({
+            map.googleMap.data.setControls(availableControls);
+            map.googleMap.data.setControlPosition(google.maps.ControlPosition.TOP_CENTER);
+            map.googleMap.data.setStyle({
               editable: true,
               draggable: true,
             });
 
-            if (inputWrapper.val()) {
+            if (inputWrapper.value) {
               try {
-                var geometry = JSON.parse(inputWrapper.val().toString());
-                map.data.addGeoJson({
+                const geometry = JSON.parse(inputWrapper.value);
+                map.googleMap.data.addGeoJson({
                   type: "FeatureCollection",
                   features: [
                     {
                       type: "Feature",
                       id: "value",
-                      geometry: geometry,
+                      geometry,
                     },
                   ],
                 });
@@ -84,74 +79,53 @@
                 return;
               }
 
-              var bounds = new google.maps.LatLngBounds();
-              map.data.forEach(function (feature) {
+              const bounds = new google.maps.LatLngBounds();
+              map.googleMap.data.forEach(function (feature) {
                 feature.getGeometry().forEachLatLng(function (latlng) {
                   bounds.extend(latlng);
                 });
               });
-              mapContainer.fitBoundaries(
-                bounds,
-                "geolocation_geometry_widget_google_maps"
-              );
+              map.setBoundaries(map.normalizeBoundaries(bounds));
             }
 
             function refreshGeoJsonFromData() {
-              map.data.toGeoJson(function (geoJson) {
-                if (typeof geoJson.features === "undefined") {
-                  inputWrapper.val("");
+              map.googleMap.data.toGeoJson(
+                /** @param {GoogleGeojsonData} geoJson */ (geoJson) => {
+                  if (typeof geoJson.features === "undefined") {
+                    inputWrapper.value = "";
+                  }
+
+                  switch (geoJson.features.length) {
+                    case 0:
+                      inputWrapper.value = "";
+                      break;
+
+                    case 1:
+                      inputWrapper.value = JSON.stringify(geoJson.features[0].geometry);
+                      break;
+
+                    default: {
+                      const types = {
+                        multi_polygon: "MultiPolygon",
+                        multi_polyline: "MultiPolyline",
+                        multi_point: "MultiPoint",
+                        default: "GeometryCollection",
+                      };
+
+                      const geometry = {
+                        type: types[geometryType] || types.default,
+                        geometries: [],
+                      };
+
+                      geoJson.features.forEach(function (feature) {
+                        geometry.geometries.push(feature.geometry);
+                      });
+                      inputWrapper.value = JSON.stringify(geometry);
+                      break;
+                    }
+                  }
                 }
-
-                switch (geoJson.features.length) {
-                  case 0:
-                    inputWrapper.val("");
-                    break;
-
-                  case 1:
-                    inputWrapper.val(
-                      JSON.stringify(geoJson.features[0].geometry)
-                    );
-                    break;
-
-                  default:
-                    var types = {
-                      multi_polygon: "MultiPolygon",
-                      multi_polyline: "MultiPolyline",
-                      multi_point: "MultiPoint",
-                      default: "GeometryCollection",
-                    };
-
-                    var geometry = {
-                      type: types[geometryType] || types["default"],
-                      geometries: [],
-                    };
-
-                    geoJson.features.forEach(function (feature) {
-                      geometry.geometries.push(feature.geometry);
-                    });
-                    inputWrapper.val(JSON.stringify(geometry));
-                    break;
-                }
-              });
-            }
-
-            function refreshDataFromGeoJson() {
-              var newData = new google.maps.Data({
-                map: map,
-                style: map.data.getStyle(),
-                controls: availableControls,
-              });
-              try {
-                var userObject = JSON.parse(inputWrapper.val().toString());
-                newData.addGeoJson(userObject);
-              } catch (error) {
-                newData.setMap(null);
-                return;
-              }
-              // No error means GeoJSON was valid!
-              map.data.setMap(null);
-              map.data = newData;
-              bindDataLayerListeners(newData);
+              );
             }
 
             function bindDataLayerListeners(dataLayer) {
@@ -159,16 +133,11 @@
               dataLayer.addListener("removefeature", refreshGeoJsonFromData);
               dataLayer.addListener("setgeometry", refreshGeoJsonFromData);
 
-              map.data.addListener("click", function (event) {
-                var newPolyPoints = [];
+              map.googleMap.data.addListener("click", function (event) {
+                const newPolyPoints = [];
 
                 event.feature.getGeometry().forEachLatLng(function (latlng) {
-                  if (
-                    !(
-                      latlng.lat() === event.latLng.lat() &&
-                      latlng.lng() === event.latLng.lng()
-                    )
-                  ) {
+                  if (!(latlng.lat() === event.latLng.lat() && latlng.lng() === event.latLng.lng())) {
                     newPolyPoints.push(latlng);
                   }
                 });
@@ -176,25 +145,34 @@
                 if (newPolyPoints.length < 2) {
                   dataLayer.remove(event.feature);
                 } else {
-                  var newLinearRing = new google.maps.Data.LinearRing(
-                    newPolyPoints
-                  );
-                  var newPoly = new google.maps.Data.Polygon([newLinearRing]);
-                  event.feature.setGeometry(newPoly);
+                  event.feature.setGeometry(new google.maps.Data.Polygon([new google.maps.Data.LinearRing(newPolyPoints)]));
                 }
               });
             }
 
-            bindDataLayerListeners(map.data);
+            bindDataLayerListeners(map.googleMap.data);
 
-            google.maps.event.addDomListener(
-              inputWrapper,
-              "input",
-              refreshDataFromGeoJson
-            );
-          });
-        });
+            inputWrapper.addEventListener("change", () => {
+              const newData = new google.maps.Data({
+                map: map.googleMap,
+                style: map.googleMap.data.getStyle(),
+                controls: availableControls,
+              });
+              try {
+                newData.addGeoJson(JSON.parse(inputWrapper.value));
+              } catch (error) {
+                newData.setMap(null);
+                return;
+              }
+              // No error means GeoJSON was valid!
+              map.googleMap.data.setMap(null);
+              map.googleMap.data = newData;
+              bindDataLayerListeners(newData);
+            });
+          }
+        );
+      });
     },
-    detach: function () {},
+    detach: () => {},
   };
-})(jQuery, Drupal);
+})(Drupal);

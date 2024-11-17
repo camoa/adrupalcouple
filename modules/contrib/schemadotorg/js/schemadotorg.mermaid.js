@@ -37,7 +37,7 @@
         querySelector: '.mermaid, .language-mermaid',
         postRenderCallback: () => {
           // Use set timeout to delay closing details until all diagrams are rendered.
-          window.setTimeout(function () {
+          window.setTimeout(function closeDetails() {
             if (closedDetails) {
               closedDetails.forEach((element) =>
                 element.removeAttribute('open'),

@@ -57,8 +57,7 @@ abstract class SecurityCheckBase extends PluginBase implements SecurityCheckInte
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): SecurityCheckBase|ContainerFactoryPluginInterface|static {
-    // @phpstan-ignore-next-line
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): static {
     return new static(
       $configuration,
       $plugin_id,
@@ -191,7 +190,7 @@ abstract class SecurityCheckBase extends PluginBase implements SecurityCheckInte
    * @return \Drupal\security_review\CheckResult
    *   The created CheckResult.
    */
-  public function createResult(int $result, array $findings = [], int $time = NULL, array $hushed_findings = []): CheckResult {
+  public function createResult(int $result, array $findings = [], ?int $time = NULL, array $hushed_findings = []): CheckResult {
     $checkResult = new CheckResult($this, $result, $findings, $time, $hushed_findings);
     $this->storeResult($checkResult);
     return $checkResult;

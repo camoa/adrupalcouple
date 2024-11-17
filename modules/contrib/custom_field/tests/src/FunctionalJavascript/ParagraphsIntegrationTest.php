@@ -83,7 +83,7 @@ class ParagraphsIntegrationTest extends WebDriverTestBase {
     $assert->assertWaitOnAjaxRequest();
 
     $modal = $assert->waitForElement('css', '.media-library-widget-modal');
-    $modal->checkField('media_library_select_form[' . $delta . ']');
+    $modal->checkField('media_library_select_form[' . $image_id . ']');
 
     $assert->waitForElement('css', '.ui-dialog-buttonset')
       ->pressButton('Insert selected');

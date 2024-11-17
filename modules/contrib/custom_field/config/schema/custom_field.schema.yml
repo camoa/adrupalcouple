@@ -283,6 +283,9 @@ custom_field.widget.*:
             placeholder:
               type: label
               label: 'Placeholder'
+            table_empty:
+              type: string
+              label: 'Empty text'
             key_label:
               type: label
               label: 'Key label'

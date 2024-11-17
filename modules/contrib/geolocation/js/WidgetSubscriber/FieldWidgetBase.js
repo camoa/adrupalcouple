@@ -56,7 +56,12 @@ export class FieldWidgetBase extends WidgetSubscriberBase {
       });
     });
 
-    this.form = window.document.querySelector(`.field--name-${this.settings.field_name.replaceAll("_", "-")}`);
+    let wrapper = this.broker.form;
+    this.form = wrapper.querySelector(`.field--name-${this.settings.field_name.replaceAll("_", "-")}`);
+    while (wrapper.parentNode && !this.form) {
+      wrapper = wrapper.parentNode;
+      this.form = wrapper.querySelector(`.field--name-${this.settings.field_name.replaceAll("_", "-")}`);
+    }
     if (!this.form) {
       console.error(this.broker, "Geolocation Field Widget - Form not found by ID");
       return;
@@ -124,6 +129,12 @@ export class FieldWidgetBase extends WidgetSubscriberBase {
       });
   }
 
+  /**
+   * Get input elements directly or as map.
+   *
+   * @param {boolean} returnElements
+   * @return {Map<int, Element>|NodeListOf<Element>}
+   */
   getAllInputElements(returnElements = false) {
     const map = new Map();
     const elements = this.form.querySelectorAll(".geolocation-widget-input");
@@ -139,6 +150,15 @@ export class FieldWidgetBase extends WidgetSubscriberBase {
     return map;
   }
 
+  /**
+   * Get index.
+   *
+   * @param {Element} element
+   *   Element.
+   *
+   * @return {int}
+   *   Index.
+   */
   getIndexByElement(element) {
     return parseInt(element.getAttribute("data-geolocation-widget-index"));
   }
@@ -176,9 +196,9 @@ export class FieldWidgetBase extends WidgetSubscriberBase {
         return;
       }
 
-      const resolvesByIndex = this.ajaxElementResolvesByIndex.get(index) ?? [];
+      const resolvesByIndex = this.ajaxElementResolvesByIndex.get(index.toString()) ?? [];
       resolvesByIndex.push({ resolve, reject });
-      this.ajaxElementResolvesByIndex.set(index, resolvesByIndex);
+      this.ajaxElementResolvesByIndex.set(index.toString(), resolvesByIndex);
 
       this.triggerAddMoreElement();
     });

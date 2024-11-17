@@ -33,11 +33,13 @@ class SecurityCheckTest extends KernelTestBase {
 
   /**
    * {@inheritdoc}
+   *
+   * @throws \Exception
    */
   protected function setUp(): void {
     parent::setUp();
 
-    $this->pluginManager = \Drupal::service('plugin.manager.security_review.security_check');
+    $this->pluginManager = $this->container->get('plugin.manager.security_review.security_check');
     $this->checks = $this->pluginManager->getChecks();
 
     $this->container->get('module_handler')->loadInclude('user', 'install');

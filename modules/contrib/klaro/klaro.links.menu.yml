@@ -19,8 +19,8 @@ klaro.admin.manage:
   weight: 1
 
 klaro.admin.manage.apps:
-  title: 'Apps'
-  description: 'Manage Klaro! apps.'
+  title: 'Services'
+  description: 'Manage Klaro! services.'
   parent: klaro.admin.manage
   route_name: entity.klaro_app.collection
   weight: 0

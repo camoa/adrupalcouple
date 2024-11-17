@@ -4,8 +4,6 @@
  */
 
 (function (Drupal) {
-  "use strict";
-
   Drupal.behaviors.geolocationLocationInput = {
     /**
      * @param {Element} context
@@ -13,9 +11,9 @@
      * @param {Object} drupalSettings.geolocation
      * @param {Object} drupalSettings.geolocation.locationInput
      */
-    attach: function (context, drupalSettings) {
-      for (const identifier in drupalSettings.geolocation.locationInput) {
-        let locationInputForm = context.querySelector(".geolocation-location-input[data-identifier=" + identifier + "]");
+    attach: (context, drupalSettings) => {
+      for (const identifier of Object.keys(drupalSettings.geolocation.locationInput)) {
+        const locationInputForm = context.querySelector(`.geolocation-location-input[data-identifier=${identifier}]`);
 
         if (!locationInputForm) {
           // Nothing left to do. Probably a different context. Not an error.
@@ -27,11 +25,11 @@
         }
         locationInputForm.classList.add("geolocation-location-input-processed");
 
-        for (const pluginName in drupalSettings.geolocation.locationInput[identifier]) {
-          let pluginSettings = drupalSettings.geolocation.locationInput[identifier][pluginName] ?? {};
+        for (const pluginName of Object.keys(drupalSettings.geolocation.locationInput[identifier])) {
+          const pluginSettings = drupalSettings.geolocation.locationInput[identifier][pluginName] ?? {};
           import(pluginSettings.import_path).then((plugin) => {
             /** @param {GeolocationLocationInputBase} locationInputPlugin */
-            let locationInputPlugin = new plugin.default(locationInputForm, pluginSettings.settings);
+            const locationInputPlugin = new plugin.default(locationInputForm, pluginSettings.settings);
 
             if (!locationInputPlugin) {
               console.error(pluginSettings, "Could not instantiate LocationInput Plugin.");

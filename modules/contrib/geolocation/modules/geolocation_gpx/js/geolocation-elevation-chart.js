@@ -3,9 +3,9 @@
  * Javascript for the Geolocation GPX elevation chart.
  */
 
-(function (Drupal) {
-  "use strict";
+/* global Chart */
 
+(function (Drupal) {
   /**
    * @type {Drupal~behavior}
    * @type {Object} drupalSettings.geolocation
@@ -18,25 +18,25 @@
      * @param {Document} context
      * @param {Object} drupalSettings
      */
-    attach: function (context, drupalSettings) {
+    attach: (context, drupalSettings) => {
       context.querySelectorAll(".geolocation-gpx-elevation-chart").forEach((wrapper) => {
         if (wrapper.classList.contains("processed")) {
           return;
         }
         wrapper.classList.add("processed");
 
-        let table = wrapper.previousElementSibling;
+        const table = wrapper.previousElementSibling;
         if (!table) {
           return;
         }
-        if (!table.classList.contains('geolocation-gpx-elevation-table')) {
+        if (!table.classList.contains("geolocation-gpx-elevation-table")) {
           return;
         }
-        table.classList.add('visually-hidden');
+        table.classList.add("visually-hidden");
 
-        let elevationPoints = [];
-        table.querySelectorAll('tbody > tr').forEach((row) => {
-          let cells = row.querySelectorAll('td');
+        const elevationPoints = [];
+        table.querySelectorAll("tbody > tr").forEach((row) => {
+          const cells = row.querySelectorAll("td");
           elevationPoints.push({
             index: cells.item(0).textContent,
             elevation: parseFloat(cells.item(1).textContent),
@@ -46,18 +46,20 @@
         });
 
         new Chart(wrapper, {
-          type: 'line',
+          type: "line",
           data: {
-            labels: elevationPoints.map(row => Math.round(row.distance)),
-            datasets: [{
-              label: 'Elevation',
-              data: elevationPoints,
-            }]
+            labels: elevationPoints.map((row) => Math.round(row.distance)),
+            datasets: [
+              {
+                label: "Elevation",
+                data: elevationPoints,
+              },
+            ],
           },
           options: {
             parsing: {
-              xAxisKey: 'distance',
-              yAxisKey: 'elevation'
+              xAxisKey: "distance",
+              yAxisKey: "elevation",
             },
             elements: {
               point: {
@@ -67,27 +69,28 @@
             scales: {
               y: {
                 title: {
-                  text: Drupal.t('Elevation'),
+                  text: Drupal.t("Elevation"),
                   display: true,
                 },
                 ticks: {
                   // Include a dollar sign in the ticks
-                  callback: function(value, index, ticks) {
-                    return value + 'm';
-                  }
-                }
+                  callback: (value) => {
+                    return `${value}m`;
+                  },
+                },
               },
               x: {
                 title: {
-                  text: Drupal.t('Distance'),
+                  text: Drupal.t("Distance"),
                   display: true,
                 },
                 ticks: {
-                  callback: function(value, index, ticks) {
-                    return new Intl.NumberFormat(Drupal.langcode).format((Math.round(this.getLabelForValue(value) / 100)) / 10) + 'km';
-                  }
-                }
-              }
+                  callback: (value) => {
+                    const distance = new Intl.NumberFormat(Drupal.langcode).format(Math.round(value / 100) / 10);
+                    return `${distance}km`;
+                  },
+                },
+              },
             },
             plugins: {
               legend: {
@@ -96,23 +99,27 @@
               tooltip: {
                 displayColors: false,
                 callbacks: {
-                  title: () => { return ''; },
-                  label: function(context) {
-                    let label = [];
+                  title: () => {
+                    return "";
+                  },
+                  label: (context) => {
+                    const label = [];
 
                     if (context.parsed.y !== null) {
-                      label.push('Elevation: ' + new Intl.NumberFormat(Drupal.langcode).format(context.parsed.y) + 'm');
+                      const elevation = new Intl.NumberFormat(Drupal.langcode).format(context.parsed.y);
+                      label.push(`Elevation: ${elevation}m`);
                     }
 
                     if (context.parsed.x !== null) {
-                      label.push('Distance: ' + new Intl.NumberFormat(Drupal.langcode).format(context.parsed.x / 1000) + 'km');
+                      const distance = new Intl.NumberFormat(Drupal.langcode).format(context.parsed.x / 1000);
+                      label.push(`Distance: ${distance}km`);
                     }
                     return label;
-                  }
-                }
-              }
-            }
-          }
+                  },
+                },
+              },
+            },
+          },
         });
       });
     },

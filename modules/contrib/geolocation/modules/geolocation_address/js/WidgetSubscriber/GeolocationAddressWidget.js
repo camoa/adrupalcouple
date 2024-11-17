@@ -50,9 +50,7 @@ export default class GeolocationAddressWidget extends FieldWidgetBase {
     const pattern = new RegExp(`^edit-${hyphenatedFieldName}-\\d+$`);
 
     const map = new Map();
-    const elements = Array.from(this.form.querySelectorAll(`details[data-drupal-selector^="edit-${this.settings.field_name.replaceAll("_", "-")}-"]`)).filter((element) => {
-      return pattern.test(element.getAttribute("data-drupal-selector"));
-    });
+    const elements = this.form.querySelectorAll(`details[data-drupal-selector*="${this.settings.field_name.replaceAll("_", "-")}-"]`);
 
     if (returnElements) {
       return elements;

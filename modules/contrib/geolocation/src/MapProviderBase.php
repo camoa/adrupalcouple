@@ -163,6 +163,8 @@ abstract class MapProviderBase extends PluginBase implements MapProviderInterfac
       '#open' => TRUE,
       '#title' => $this->t('%map_provider Settings', ['%map_provider' => $this->pluginDefinition['name']]),
       '#description' => $this->t('Additional map settings provided by %map_provider', ['%map_provider' => $this->pluginDefinition['name']]),
+      '#tree' => TRUE,
+      '#parents' => $parents,
     ];
 
     $form['conditional_initialization'] = [

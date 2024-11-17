@@ -7,10 +7,11 @@ show_toggle_button: true
 process_descriptions: false
 auto_decorate_js_alter: true
 auto_decorate_page_attachments: true
+auto_decorate_preprocess_field: true
 auto_decorate_final_html: false
 block_unknown: false
-block_unknown_logger: false
-block_unknown_label: 'Unknown Apps'
+log_unknown_resources: false
+block_unknown_label: 'Unknown services'
 block_unknown_description: 'Block unknown external resources'
 library:
   element_id: 'klaro'

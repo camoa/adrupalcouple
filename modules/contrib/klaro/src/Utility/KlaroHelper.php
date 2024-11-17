@@ -83,7 +83,7 @@ class KlaroHelper {
   protected $logger;
 
   /**
-   * The libraries directoy finder.
+   * The libraries directory finder.
    *
    * @var \Drupal\Core\Logger\LibrariesDirectoryFileFinder
    */
@@ -192,22 +192,21 @@ class KlaroHelper {
   /**
    * Gets klaro.texts config.
    *
-   * @return \Drupal\Core\Config\ImmutableConfig
-   *   The klaro settings.
+   * @return bool
+   *   Return TRUE if library is found else FALSE.
    */
   public function hasLibraryFiles(): bool {
-    $js_lib_deprecated = $this->librariesFinder->find('klaro');
-    return $this->librariesFinder->find('klaro-js');
+    return $this->librariesFinder->find('klaro-js') ? TRUE : FALSE;
   }
 
   /**
-   * Gets klaro.texts config.
+   * Gets Path for deprecated library.
    *
-   * @return \Drupal\Core\Config\ImmutableConfig
-   *   The klaro settings.
+   * @return bool
+   *   Return TRUE if deprecated library is found else FALSE.
    */
   public function hasDeprecatedLibraryFiles(): bool {
-    return $this->librariesFinder->find('klaro');
+    return $this->librariesFinder->find('klaro') ? TRUE : FALSE;
   }
 
   /**
@@ -237,6 +236,9 @@ class KlaroHelper {
 
     $cookie_domains = $config->get('deletable_cookie_domains');
     $langcode = $this->languageManager->getCurrentLanguage()->getId();
+    // Get only the langcode part.
+    $langcode = explode('-', $langcode);
+    $langcode = reset($langcode);
 
     foreach ($this->getApps() as $app) {
       // Add app cookies to the config.
@@ -504,7 +506,33 @@ class KlaroHelper {
   }
 
   /**
-   * Matches klaro apps agains a string(src-attribute).
+   * Modify attributes for klaro.
+   *
+   * @param \Drupal\Core\Template\Attribute|array $attributes
+   *   The attributes to change.
+   * @param string $name
+   *   The name/label of the Klaro App.
+   * @param string $src
+   *   (optional) Use this value as default if no src-attribute is given.
+   *
+   * @return \Drupal\Core\Template\Attribute|array
+   *   The changes attributes.
+   */
+  public function rewriteAttributes($attributes, $name, $src = FALSE) {
+    $src = $attributes['src'] ?? $src;
+    $attributes['data-src'] = $src;
+    $attributes['data-name'] = $name;
+    unset($attributes['src']);
+    if (isset($attributes['type'])) {
+      $attributes['data-type'] = $attributes['type'];
+      $attributes['type'] = 'text/plain';
+    }
+
+    return $attributes;
+  }
+
+  /**
+   * Matches klaro apps against a string(src-attribute).
    *
    * @param string $str
    *   The string to check.
@@ -512,7 +540,7 @@ class KlaroHelper {
    * @return \Drupal\klaro\KlaroAppInterface|bool[]
    *   The klaro app or false.
    */
-  private function matchKlaroApp(string $str) {
+  public function matchKlaroApp(string $str) {
     $klaro_apps = $this->getApps();
     $settings = $this->getSettings();
     $found_klaro_app = FALSE;
@@ -529,24 +557,25 @@ class KlaroHelper {
       }
     }
 
-    // Check if there are uknown external resources.
-    if (!$found_klaro_app && isset($klaro_apps['unknown_app'])) {
+    // Check if there are unknown external resources.
+    if (!$found_klaro_app && ($settings->get('block_unknown') || $settings->get('log_unknown_resources'))) {
       if (UrlHelper::isExternal($str)) {
         $external_is_local = UrlHelper::externalIsLocal($str, $this->request->getSchemeAndHttpHost());
         if (!$external_is_local) {
-          $found_klaro_app = $klaro_apps['unknown_app'];
-          if ($settings->get('block_unknown_logger')) {
+          if ($settings->get('block_unknown')) {
+            $found_klaro_app = $klaro_apps['unknown_app'];
+          }
+          if ($settings->get('log_unknown_resources')) {
             $this->logger->get('klaro')->notice('Unknown external resource %resource requested, we recommend to create an app for this resource',
               [
                 '%resource' => $str,
               ]
             );
           }
-
         }
       }
-
     }
+
     return $found_klaro_app;
   }
 
@@ -555,11 +584,13 @@ class KlaroHelper {
    *
    * @param array $cmd
    *   An AJAX command render array.
+   * @param bool $inspect_only
+   *   Only inspect (and log) and do not change markup.
    *
    * @return array
    *   The modified command.
    */
-  public function handleAjaxCommand(array $cmd):array {
+  public function handleAjaxCommand(array $cmd, bool $inspect_only = FALSE):array {
 
     // @todo more cases?
     switch ($cmd['command']) {
@@ -567,7 +598,7 @@ class KlaroHelper {
       // AfterCommand, AppendCommand, BeforeCommand, HtmlCommand
       // PrependCommand, InsertCommand and ReplaceCommand.
       case 'insert':
-        $modified_data = $this->processHtml((string) $cmd['data']);
+        $modified_data = $this->processHtml((string) $cmd['data'], $inspect_only);
         $cmd['data'] = Markup::create($modified_data);
         break;
 
@@ -583,15 +614,17 @@ class KlaroHelper {
    * Searches html for tags and decorates them.
    *
    * Matches the src attribute against the klaro apps and adds the attributes
-   * required for klaro to consentually block/load them.
+   * required for klaro to consensually block/load them.
    *
    * @param string $html
    *   The html to process.
+   * @param bool $inspect_only
+   *   Only inspect (and log) and do not change markup.
    *
    * @return string
    *   The processed html.
    */
-  public function processHtml(string $html): string {
+  public function processHtml(string $html, bool $inspect_only = FALSE): string {
 
     if (!$this->hasAccess()) {
       return $html;
@@ -613,13 +646,13 @@ class KlaroHelper {
       return $html;
     }
 
-    foreach ($dom->getElementsByTagName("video") as $video) {
+    foreach ($dom->getElementsByTagName('video') as $video) {
       if ($video->hasAttribute('data-src') && $video->hasAttribute('data-name')) {
         continue;
       }
 
       $sources = [];
-      if (!$video->hasAttribute("src")) {
+      if (!$video->hasAttribute('src')) {
         $sources = [];
         foreach ($video->childNodes as $n) {
           if ($n->nodeName === 'source') {
@@ -636,7 +669,7 @@ class KlaroHelper {
       }
       $found_klaro_app = $this->matchKlaroApp($initial_src);
 
-      if ($found_klaro_app) {
+      if (!$inspect_only && $found_klaro_app) {
         if (!$video->hasAttribute('src')) {
           foreach ($sources as $source) {
             $source->setAttribute('data-src', $initial_src);
@@ -658,13 +691,13 @@ class KlaroHelper {
       }
     }
 
-    foreach ($dom->getElementsByTagName("audio") as $audio) {
+    foreach ($dom->getElementsByTagName('audio') as $audio) {
       if ($audio->hasAttribute('data-src') && $audio->hasAttribute('data-name')) {
         continue;
       }
 
       $sources = [];
-      if (!$audio->hasAttribute("src")) {
+      if (!$audio->hasAttribute('src')) {
         $sources = [];
         foreach ($audio->childNodes as $n) {
           if ($n->nodeName === 'source') {
@@ -681,7 +714,7 @@ class KlaroHelper {
       }
       $found_klaro_app = $this->matchKlaroApp($initial_src);
 
-      if ($found_klaro_app) {
+      if (!$inspect_only && $found_klaro_app) {
         if (!$audio->hasAttribute('src')) {
           foreach ($sources as $source) {
             $source->setAttribute('data-src', $initial_src);
@@ -703,13 +736,13 @@ class KlaroHelper {
       }
     }
 
-    foreach ($dom->getElementsByTagName("img") as $img) {
+    foreach ($dom->getElementsByTagName('img') as $img) {
       if ($img->hasAttribute('data-src') && $img->hasAttribute('data-name')) {
         continue;
       }
       $initial_src = $img->getAttribute('src');
       $found_klaro_app = $this->matchKlaroApp($initial_src);
-      if ($found_klaro_app) {
+      if (!$inspect_only && $found_klaro_app) {
         // Add a wrapping element for contextual blocking.
         $wrapper = $dom->createElement('div');
         $wrapper->setAttribute('data-name', $found_klaro_app->id());
@@ -721,7 +754,7 @@ class KlaroHelper {
       }
     }
 
-    foreach ($dom->getElementsByTagName("iframe") as $iframe) {
+    foreach ($dom->getElementsByTagName('iframe') as $iframe) {
       if ($iframe->hasAttribute('data-src') && $iframe->hasAttribute('data-name')) {
         continue;
       }
@@ -736,35 +769,34 @@ class KlaroHelper {
         $found_klaro_app = $this->matchKlaroApp($initial_src);
       }
 
-      $found_klaro_app = $this->matchKlaroApp($initial_src);
-      if ($found_klaro_app) {
+      if (!$inspect_only && $found_klaro_app) {
         $iframe->setAttribute('data-src', $initial_src);
         $iframe->removeAttribute('src');
         $iframe->setAttribute('data-name', $found_klaro_app->id());
       }
     }
 
-    foreach ($dom->getElementsByTagName("input") as $input) {
+    foreach ($dom->getElementsByTagName('input') as $input) {
       if ($input->getAttribute('type') !== 'image' || ($input->hasAttribute('data-name') && $input->hasAttribute('data-src'))) {
         continue;
       }
 
       $initial_src = $input->getAttribute('src');
       $found_klaro_app = $this->matchKlaroApp($initial_src);
-      if ($found_klaro_app) {
+      if (!$inspect_only && $found_klaro_app) {
         $input->setAttribute('data-src', $initial_src);
         $input->removeAttribute('src');
         $input->setAttribute('data-name', $found_klaro_app->id());
       }
     }
 
-    foreach ($dom->getElementsByTagName("script") as $script) {
+    foreach ($dom->getElementsByTagName('script') as $script) {
       if ($script->hasAttribute('data-src') && $script->hasAttribute('data-name')) {
         continue;
       }
       $initial_src = $script->getAttribute('src');
       $found_klaro_app = $this->matchKlaroApp($initial_src);
-      if ($found_klaro_app) {
+      if (!$inspect_only && $found_klaro_app) {
         $script->setAttribute('data-src', $initial_src);
         $script->removeAttribute('src');
         $script->setAttribute('type', "text/plain");
@@ -773,19 +805,23 @@ class KlaroHelper {
       }
     }
 
-    foreach ($dom->getElementsByTagName("link") as $link) {
+    foreach ($dom->getElementsByTagName('link') as $link) {
       if ($link->hasAttribute('data-href') && $link->hasAttribute('data-name')) {
         continue;
       }
       $initial_src = $link->getAttribute('href');
       $found_klaro_app = $this->matchKlaroApp($initial_src);
-      if ($found_klaro_app) {
+      if (!$inspect_only && $found_klaro_app) {
         $link->setAttribute('data-href', $initial_src);
         $link->removeAttribute('href');
         $link->setAttribute('type', "text/plain");
         $link->setAttribute('data-type', "text/css");
         $link->setAttribute('data-name', $found_klaro_app->id());
       }
+    }
+
+    if ($inspect_only) {
+      return $html;
     }
 
     foreach ($klaro_apps as $app) {

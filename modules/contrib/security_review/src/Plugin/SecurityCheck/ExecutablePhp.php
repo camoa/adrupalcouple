@@ -6,7 +6,6 @@ namespace Drupal\security_review\Plugin\SecurityCheck;
 
 use Drupal\Component\FileSecurity\FileSecurity;
 use Drupal\Core\Logger\LoggerChannelTrait;
-use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\StreamWrapper\PublicStream;
 use Drupal\security_review\CheckResult;
 use Drupal\security_review\SecurityCheckBase;
@@ -45,7 +44,7 @@ class ExecutablePhp extends SecurityCheckBase {
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): SecurityCheckBase|ContainerFactoryPluginInterface|static {
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): static {
     $instance = parent::create($container, $configuration, $plugin_id, $plugin_definition);
     $instance->httpClient = $container->get('http_client');
     return $instance;
@@ -142,11 +141,12 @@ class ExecutablePhp extends SecurityCheckBase {
    * {@inheritdoc}
    */
   public function getDetails(array $findings, array $hushed = [], bool $returnString = FALSE): array|string {
+    $output = $returnString ? '' : [];
+
     if (empty($findings)) {
-      return [];
+      return $output;
     }
 
-    $output = $returnString ? '' : [];
     $paragraphs = [];
     foreach ($findings as $label) {
       switch ($label) {

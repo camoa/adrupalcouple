@@ -3,8 +3,6 @@
  * Javascript for the Geolocation map formatter.
  */
 (function (Drupal) {
-  "use strict";
-
   Drupal.geolocation.maps = {
     /**
      * @type {Map<string, GeolocationMapBase>}
@@ -31,7 +29,7 @@
         if (this.initializedMaps.has(mapId)) {
           resolve(this.initializedMaps.get(mapId));
         } else {
-          let promises = this.mapPromises.get(mapId) ?? [];
+          const promises = this.mapPromises.get(mapId) ?? [];
           promises.push(resolve);
           this.mapPromises.set(mapId, promises);
         }
@@ -60,7 +58,7 @@
         console.error(mapProviderId, "Geolocation: Could not initialize callback for map provider.");
         return false;
       }
-      let mapProviderSettings = this.mapProviderSettings.get(mapProviderId);
+      const mapProviderSettings = this.mapProviderSettings.get(mapProviderId);
       mapProviderSettings.ready = true;
 
       while (mapProviderSettings.callbacks.length) {
@@ -69,7 +67,7 @@
       this.mapProviderSettings.set(mapProviderId, mapProviderSettings);
     },
     delayInitialization(mapId, callback) {
-      let callbacks = this.delayedInitialization.get(mapId) ?? [];
+      const callbacks = this.delayedInitialization.get(mapId) ?? [];
       callbacks.push(callback);
       this.delayedInitialization.set(mapId, callbacks);
     },
@@ -82,9 +80,8 @@
           this.delayedInitialization.delete(mapId);
 
           return true;
-        } else {
-          return false;
         }
+        return false;
       }
 
       this.delayedInitialization.forEach((callbacks, mapId) => {
@@ -103,23 +100,23 @@
       return;
     }
 
-    let oldContent = document.querySelector(response.selector);
+    const oldContent = document.querySelector(response.selector);
 
     if (!oldContent) {
       return;
     }
 
-    let template = document.createElement("template");
+    const template = document.createElement("template");
     template.innerHTML = response.data.trim();
-    let newContent = template.content.firstElementChild;
+    const newContent = template.content.firstElementChild;
 
     Drupal.detachBehaviors(oldContent, response.settings);
     oldContent.insertAdjacentElement("afterend", newContent);
 
     new Promise((resolve) => {
-      let mapPromises = [];
+      const mapPromises = [];
       oldContent.querySelectorAll(".geolocation-map-wrapper").forEach((oldMapWrapper) => {
-        let mapId = oldMapWrapper.getAttribute("id");
+        const mapId = oldMapWrapper.getAttribute("id");
         if (!mapId) {
           console.error("Ajax.replaceCommonMapView: Existing Map ID not found.");
           return;
@@ -130,20 +127,20 @@
           return;
         }
 
-        let oldMapContainer = oldMapWrapper.querySelector(".geolocation-map-container");
+        const oldMapContainer = oldMapWrapper.querySelector(".geolocation-map-container");
         if (!oldMapContainer) {
           console.error("Ajax.replaceCommonMapView: Existing Map container not found.");
           return;
         }
 
-        let newMapWrapper = newContent.querySelector(".geolocation-map-wrapper");
+        const newMapWrapper = newContent.querySelector(".geolocation-map-wrapper");
         if (!newMapWrapper) {
           Drupal.geolocation.maps.initializedMaps.delete(mapId);
-          console.error("Ajax.replaceCommonMapView: New Map wrapper '" + mapId + "' not found.");
+          console.error(`Ajax.replaceCommonMapView: New Map wrapper '${mapId}' not found.`);
           return;
         }
 
-        let newMapContainer = newMapWrapper.querySelector(".geolocation-map-container");
+        const newMapContainer = newMapWrapper.querySelector(".geolocation-map-container");
         if (!newMapContainer) {
           console.error("Ajax.replaceCommonMapView: New Map container not found.");
           return;
@@ -151,9 +148,9 @@
 
         mapPromises.push(
           new Promise((resolve) => {
-            let map = Drupal.geolocation.maps.initializedMaps.get(mapId);
+            const map = Drupal.geolocation.maps.initializedMaps.get(mapId);
             map.wrapper = newMapWrapper;
-            let newContainerParent = newMapContainer.parentNode;
+            const newContainerParent = newMapContainer.parentNode;
             newMapContainer.remove();
             newContainerParent.appendChild(oldMapContainer);
             resolve();
@@ -183,14 +180,14 @@
      * @param {Object} drupalSettings.geolocation
      * @param {GeolocationMapSettings[]} drupalSettings.geolocation.maps
      */
-    attach: function (context, drupalSettings) {
+    attach: (context, drupalSettings) => {
       context.querySelectorAll(".geolocation-map-wrapper").forEach(function (mapWrapper) {
         if (typeof drupalSettings.geolocation === "undefined") {
-          throw "Bailing out for lack of settings.";
+          throw new Error("Bailing out for lack of settings.");
         }
 
         if (mapWrapper.length === 0) {
-          console.info("Stopping map processing as no map wrapper present.")
+          console.info("Stopping map processing as no map wrapper present.");
           return;
         }
 
@@ -199,14 +196,14 @@
         }
         mapWrapper.classList.add("geolocation-map-processed");
 
-        let mapSettings = {};
+        const mapSettings = {};
         mapSettings.id = mapWrapper.getAttribute("id");
         mapSettings.wrapper = mapWrapper;
 
         mapSettings.lat = 0;
         mapSettings.lng = 0;
 
-        for (const mapId in drupalSettings.geolocation.maps) {
+        for (const mapId of Object.keys(drupalSettings.geolocation.maps)) {
           if (mapId === mapSettings.id) {
             Object.assign(mapSettings, drupalSettings.geolocation.maps[mapId]);
           }
@@ -222,11 +219,11 @@
         }
 
         new Promise((resolve, reject) => {
-          let map = Drupal.geolocation.maps.initializedMaps.get(mapSettings.id);
+          const map = Drupal.geolocation.maps.initializedMaps.get(mapSettings.id);
           if (map) {
             resolve(map);
           } else {
-            reject("geolocation-map: Could not create GeolocationMap object.");
+            reject(new Error("geolocation-map: Could not create GeolocationMap object."));
           }
         })
           .catch(() => {
@@ -243,18 +240,18 @@
                     resolve();
                   });
 
-                  let mapContainer = mapWrapper.querySelector(".geolocation-map-container");
+                  const mapContainer = mapWrapper.querySelector(".geolocation-map-container");
                   if (!mapContainer) {
                     return;
                   }
-                  let conditionalInitContainer = document.createElement("div");
+                  const conditionalInitContainer = document.createElement("div");
                   conditionalInitContainer.classList.add("geolocation-map-conditional");
 
-                  let conditionalInitDescription = document.createElement("div");
+                  const conditionalInitDescription = document.createElement("div");
                   conditionalInitDescription.textContent = mapSettings.conditional_description ?? Drupal.t("Clicking this button will embed a map.");
                   conditionalInitContainer.appendChild(conditionalInitDescription);
 
-                  let button = document.createElement("button");
+                  const button = document.createElement("button");
                   button.innerHTML = mapSettings.conditional_label ?? Drupal.t("Show map");
                   button.classList.add("button");
                   button.onclick = (event) => {
@@ -273,12 +270,12 @@
                     resolve();
                   });
 
-                  let mapContainer = mapWrapper.querySelector(".geolocation-map-container");
+                  const mapContainer = mapWrapper.querySelector(".geolocation-map-container");
                   if (!mapContainer) {
                     return;
                   }
 
-                  let observer = new IntersectionObserver(
+                  const observer = new IntersectionObserver(
                     (entries, observer) => {
                       entries.forEach((entry) => {
                         if (entry.isIntersecting) {
@@ -307,7 +304,7 @@
               })
               .then((mapProviderImport) => {
                 /** @type {GeolocationMapBase} */
-                let map = new mapProviderImport.default(mapSettings);
+                const map = new mapProviderImport.default(mapSettings);
                 return map.initialize();
               })
               .then((map) => {
@@ -335,7 +332,7 @@
           })
           .then((map) => {
             if (!map.dataLayers.has("default")) {
-              throw "No default layer defined. Breaking";
+              throw new Error("No default layer defined. Breaking");
             }
             return map;
           })
@@ -363,6 +360,6 @@
           });
       });
     },
-    detach: function (context, drupalSettings) {},
+    detach: (context, drupalSettings) => {},
   };
 })(Drupal);

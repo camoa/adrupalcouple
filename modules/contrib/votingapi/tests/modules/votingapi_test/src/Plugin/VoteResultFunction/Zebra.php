@@ -10,12 +10,6 @@ use Drupal\votingapi\VoteResultFunctionBase;
 
 /**
  * A test plugin for the Voting API module.
- *
- * @VoteResultFunction(
- *   id = "zebra",
- *   label = @Translation("Zebra"),
- *   description = @Translation("A vote test plugin.")
- * )
  */
 #[VoteResultFunction(
   id: "zebra",

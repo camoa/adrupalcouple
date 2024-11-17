@@ -60,14 +60,14 @@ class KlaroAppForm extends EntityForm {
       '#title' => $this->t('Label', [], ['context' => 'klaro']),
       '#maxlength' => 255,
       '#default_value' => $app->label(),
-      '#description' => $this->t("The label for the App. The label will appear on the <em>Klaro! consent manager</em> modal.", [], ['context' => 'klaro']),
+      '#description' => $this->t("The label for the service. The label will appear on the <em>Klaro! consent manager</em> modal.", [], ['context' => 'klaro']),
       '#required' => TRUE,
     ];
 
     $form['id'] = [
       '#type' => 'machine_name',
       '#default_value' => $app->id(),
-      '#description' => $this->t('A unique machine-readable name for this Klaro! app.', [], ['context' => 'klaro']),
+      '#description' => $this->t('A unique machine-readable name for this Klaro! service.', [], ['context' => 'klaro']),
       '#maxlength' => 32,
       '#machine_name' => [
         'exists' => [$this, 'exist'],
@@ -81,7 +81,7 @@ class KlaroAppForm extends EntityForm {
       '#type' => 'textarea',
       '#title' => $this->t('Description', [], ['context' => 'klaro']),
       '#default_value' => $app->description(),
-      '#description' => $this->t('Describe this app. The text will appear on the <em>Klaro! consent manager</em> modal.', [], ['context' => 'klaro']),
+      '#description' => $this->t('Describe this service. The text will appear on the <em>Klaro! consent manager</em> modal.', [], ['context' => 'klaro']),
       '#required' => TRUE,
     ];
 
@@ -106,7 +106,7 @@ class KlaroAppForm extends EntityForm {
     $form['general']['purposes'] = [
       '#type' => 'checkboxes',
       '#title' => $this->t('Purposes', [], ['context' => 'klaro']),
-      '#description' => $this->t('Which purposes does this app match best? This information will appear on the Klaro! consent manager modal.', [], ['context' => 'klaro']),
+      '#description' => $this->t('Which purposes does this service match best? This information will appear on the Klaro! consent manager modal.', [], ['context' => 'klaro']),
       '#required' => TRUE,
       '#options' => $this->klaroHelper->optionPurposes(),
       '#default_value' => $app->purposes(),
@@ -115,7 +115,7 @@ class KlaroAppForm extends EntityForm {
     $form['general']['default'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Toggled by default', [], ['context' => 'klaro']),
-      '#description' => $this->t('The default state of the this Klaro! app. If checked, the app is pre-enabled on the <em>Klaro! consent manager</em> modal.', [], ['context' => 'klaro']),
+      '#description' => $this->t('The default state of the this Klaro! service. If checked, the service is pre-enabled on the <em>Klaro! consent manager</em> modal.', [], ['context' => 'klaro']),
       '#default_value' => $app->isDefault(),
     ];
 
@@ -129,14 +129,14 @@ class KlaroAppForm extends EntityForm {
     $form['general']['opt_out'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Opt out', [], ['context' => 'klaro']),
-      '#description' => $this->t('Already load this Klaro! app, even before the user gives explicit consent.', [], ['context' => 'klaro']),
+      '#description' => $this->t('Already load this Klaro! service, even before the user gives explicit consent.', [], ['context' => 'klaro']),
       '#default_value' => $app->isOptOut(),
     ];
 
     $form['general']['only_once'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Only once', [], ['context' => 'klaro']),
-      '#description' => $this->t('The Klaro! app will only be executed once. Regardless how often the user toggles it on and off.', [], ['context' => 'klaro']),
+      '#description' => $this->t('The Klaro! service will only be executed once. Regardless how often the user toggles it on and off.', [], ['context' => 'klaro']),
       '#default_value' => $app->isOnlyOnce(),
     ];
 
@@ -152,7 +152,7 @@ class KlaroAppForm extends EntityForm {
       '#description' => [
         '#theme' => 'item_list',
         '#items' => [
-          $this->t('The url where people can get general information about this app.', [], ['context' => 'klaro']),
+          $this->t('The url where people can get general information about this service.', [], ['context' => 'klaro']),
           $this->t('You can enter an internal path such as %path or an external URL such as %url', [
             '%path' => 'internal:/node/add',
             '%url' => 'https://example.org',
@@ -172,7 +172,7 @@ class KlaroAppForm extends EntityForm {
       '#description' => [
         '#theme' => 'item_list',
         '#items' => [
-          $this->t('The url where people can read the privacy policies of using this app.', [], ['context' => 'klaro']),
+          $this->t('The url where people can read the privacy policies of using this service.', [], ['context' => 'klaro']),
           $this->t('You can enter an internal path such as %path or an external URL such as %url', [
             '%path' => 'internal:/node/add',
             '%url' => 'https://example.org',
@@ -201,7 +201,7 @@ class KlaroAppForm extends EntityForm {
         'options' => [
           '#theme' => 'item_list',
           '#items' => [
-            $this->t('Use any regular expression to identifiy the cookie value.', [], ['context' => 'klaro']),
+            $this->t('Use any regular expression to identify the cookie value.', [], ['context' => 'klaro']),
             $this->t('Leave the path empty to use "/".', [], ['context' => 'klaro']),
             $this->t('Leave domain empty to use the browser <code>location.host</code>.', [], ['context' => 'klaro']),
           ],
@@ -306,7 +306,7 @@ class KlaroAppForm extends EntityForm {
     $form['advanced']['files_wrapper'] = [
       '#type' => 'item',
       '#title' => $this->t('Sources', [], ['context' => 'klaro']),
-      '#description' => $this->t('Klaro! needs to know which sources should be managed for this app, so it can automatically add the attributes required by klaro. These sources are re-enabled and loaded once the user gives consent for this app.', [], ['context' => 'klaro']),
+      '#description' => $this->t('Klaro! needs to know which sources should be managed for this service, so it can automatically add the attributes required by klaro. These sources are re-enabled and loaded once the user gives consent for this service.', [], ['context' => 'klaro']),
       '#description_display' => 'before',
     ];
     $form['advanced']['files_wrapper']['js'] = [
@@ -363,21 +363,23 @@ class KlaroAppForm extends EntityForm {
     $status = $app->save();
 
     if ($status === SAVED_NEW) {
-      $this->messenger()->addMessage($this->t('The Klaro! app %label has been created.', [
+      $this->messenger()->addMessage($this->t('The Klaro! service %label has been created.', [
         '%label' => $app->label(),
       ], ['context' => 'klaro']));
     }
     else {
-      $this->messenger()->addMessage($this->t('The Klaro! app %label has been updated.', [
+      $this->messenger()->addMessage($this->t('The Klaro! service %label has been updated.', [
         '%label' => $app->label(),
       ], ['context' => 'klaro']));
     }
 
     $form_state->setRedirect('entity.klaro_app.collection');
+
+    return $status;
   }
 
   /**
-   * Helper function to check whether an Klaro! app configuration entity exists.
+   * Helper function to check whether an Klaro! service entity exists.
    */
   public function exist($id) {
     $entity = $this->entityTypeManager->getStorage('klaro_app')->getQuery()
@@ -435,7 +437,7 @@ class KlaroAppForm extends EntityForm {
         $url->toString();
       }
       // @todo Provide translated messages for the various error states.
-      catch (InvalidArgumentException $e) {
+      catch (\InvalidArgumentException $e) {
         $form_state->setError($element, t('The URL %url is not valid: @error', [
           '%url' => $value,
           '@error' => $e->getMessage(),

@@ -1,4 +1,4 @@
 langcode: en
 id: external_content
-label: 'External embeds'
+label: 'Embedded external content'
 weight: 6

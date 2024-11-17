@@ -210,7 +210,7 @@ class EntityReferenceWidgetBase extends CustomFieldWidgetBase {
    * @return mixed
    *   The selection handler.
    */
-  public function getSelectionHandler(array $settings, string $target_type, EntityInterface $entity = NULL) {
+  public function getSelectionHandler(array $settings, string $target_type, ?EntityInterface $entity = NULL) {
     $options = $settings['handler_settings'] ?: [];
     $options += [
       'target_type' => $target_type,

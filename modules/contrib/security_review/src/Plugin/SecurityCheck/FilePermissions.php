@@ -7,7 +7,6 @@ namespace Drupal\security_review\Plugin\SecurityCheck;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\StreamWrapper\PrivateStream;
 use Drupal\Core\StreamWrapper\PublicStream;
 use Drupal\Core\StreamWrapper\StreamWrapperInterface;
@@ -63,7 +62,7 @@ class FilePermissions extends SecurityCheckBase {
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): SecurityCheckBase|ContainerFactoryPluginInterface|static {
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): static {
     $instance = parent::create($container, $configuration, $plugin_id, $plugin_definition);
 
     // Condition may be removed when we drop support for Drupal <10.2.
@@ -153,11 +152,12 @@ class FilePermissions extends SecurityCheckBase {
    * {@inheritdoc}
    */
   public function getDetails(array $findings, array $hushed = [], bool $returnString = FALSE): array|string {
+    $output = $returnString ? '' : [];
+
     if (empty($findings) && empty($hushed)) {
-      return [];
+      return $output;
     }
 
-    $output = $returnString ? '' : [];
     $paragraphs = [];
     $paragraphs[] = $this->t('The following files and directories appear to be writeable by your web server.');
     $paragraphs[] = $this->t('In most cases you can fix this by simply altering the file permissions or ownership. If you have command-line access to your host try running "chmod 644 [file path]" where [file path] is one of the following paths (relative to your webroot). For more information consult the <a href="https://drupal.org/node/244924">Drupal.org handbooks on file permissions</a>.');
@@ -194,7 +194,7 @@ class FilePermissions extends SecurityCheckBase {
    * @return string[]
    *   The items found.
    */
-  protected function getFileList(string $directory, array &$parsed = NULL, array &$ignore = NULL): array {
+  protected function getFileList(string $directory, ?array &$parsed = NULL, ?array &$ignore = NULL): array {
     // Initialize $parsed and $ignore arrays.
     if ($parsed === NULL) {
       $parsed = [realpath($directory)];

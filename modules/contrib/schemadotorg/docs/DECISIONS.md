@@ -272,6 +272,7 @@ for managing optional dependencies and patches.
 - [Geolocation Field](https://www.drupal.org/project/geolocation) ⭐ for https://schema.org/GeoCoordinates.
   - [Geofield](https://www.drupal.org/project/geofield) an alternative for https://schema.org/GeoCoordinates. No integration is being provided.
 - [Office Hours](https://www.drupal.org/project/office_hours) ⭐ for https://schema.org/OpeningHoursSpecification
+- [Physical Fields](https://www.drupal.org/project/physical) ⭐ for https://schema.org/QuantitativeValue
 - [Range](https://www.drupal.org/project/range) ⭐ for https://schema.org/MonetaryAmount
 - [SmartDate](https://www.drupal.org/project/smart_date) ⭐ for https://schema.org/Date and https://schema.org/Schedule
 - [Time Field](https://www.drupal.org/project/time_field) for https://schema.org/Time
@@ -309,6 +310,7 @@ for managing optional dependencies and patches.
 - [Convert Bundles](https://www.drupal.org/project/convert_bundles) for convert Schema.org types to more specific types
 - [Focal Point](https://www.drupal.org/project/focal_point) ⭐ for automated cropping of images
 - [Field Group](https://www.drupal.org/project/field_group) ⭐ for grouping related fields
+- [Entity Browser](https://www.drupal.org/project/entity_browser) ⭐ with [Entity Browser Enhance(d|r)](https://www.drupal.org/project/entity_browser_enhanced) for providing an entity browser/picker/selector.
 - [Entity Prepopulate](https://www.drupal.org/project/epp) ⭐ for prepopulating entity reference via query string parameters
 - [Entity Print](https://www.drupal.org/project/entity_print) for printing entities as PDF documents
 - [Linkit](https://www.drupal.org/project/linkit) for managing internal links
@@ -340,13 +342,12 @@ for managing optional dependencies and patches.
     _(Bugs are creating an unexpected UX)_
 
 ##### For Demo & Starter Kits: Use CKEditor 5 feature and enhancement modules as needed
-- [CKEditor 5 Plugin Pack](https://www.drupal.org/project/ckeditor5_plugin_pack) adds find-and-replace, indent block, and more...
+- [CKEditor 5 Plugin Pack](https://www.drupal.org/project/ckeditor5_plugin_pack) adds fullscreen, find-and-replace, indent block, highlight, word count, templates, and more...
 - [CKEditor Anchor Link](https://www.drupal.org/project/anchor_link) adds the anchor link support
 - [CKEditor CodeMirror](https://www.drupal.org/project/ckeditor_codemirror) to improve source editing
 - [CKEditor Details Accordion](https://www.drupal.org/project/ckeditor_details) for simple accordions
 - [CKEditor Link Styles](https://www.drupal.org/project/ckeditor_link_styles) for styling links as buttons
 - [CKEditor5 Embedded Content](https://www.drupal.org/project/ckeditor5_embedded_content) ⭐ allows rich content to be inserted into HTML
-- [CKEditor5 Fullscreen](https://www.drupal.org/project/ckeditor5_fullscreen) for fullscreen mode
 - [CKEditor5 Paste Filter](https://www.drupal.org/project/ckeditor5_paste_filter) to clean-up MS-Word HTML markup
 
 ##### For Demo: Use administration improvement modules as needed.

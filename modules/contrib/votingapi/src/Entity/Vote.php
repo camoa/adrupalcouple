@@ -2,10 +2,11 @@
 
 namespace Drupal\votingapi\Entity;
 
-use Drupal\Core\Entity\EntityStorageInterface;
-use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Entity\ContentEntityBase;
+use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\Core\Field\BaseFieldDefinition;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\user\UserInterface;
 use Drupal\votingapi\VoteInterface;
 
@@ -168,25 +169,25 @@ class Vote extends ContentEntityBase implements VoteInterface {
   public static function baseFieldDefinitions(EntityTypeInterface $entity_type) {
 
     $fields['id'] = BaseFieldDefinition::create('integer')
-      ->setLabel(t('ID'))
-      ->setDescription(t('The vote ID.'))
+      ->setLabel(new TranslatableMarkup('ID'))
+      ->setDescription(new TranslatableMarkup('The vote ID.'))
       ->setReadOnly(TRUE)
       ->setSetting('unsigned', TRUE);
 
     $fields['uuid'] = BaseFieldDefinition::create('uuid')
-      ->setLabel(t('UUID'))
-      ->setDescription(t('The vote UUID.'))
+      ->setLabel(new TranslatableMarkup('UUID'))
+      ->setDescription(new TranslatableMarkup('The vote UUID.'))
       ->setReadOnly(TRUE);
 
     $fields['type'] = BaseFieldDefinition::create('entity_reference')
-      ->setLabel(t('Type'))
-      ->setDescription(t('The vote type.'))
+      ->setLabel(new TranslatableMarkup('Type'))
+      ->setDescription(new TranslatableMarkup('The vote type.'))
       ->setSetting('target_type', 'vote_type')
       ->setReadOnly(TRUE);
 
     $fields['entity_type'] = BaseFieldDefinition::create('string')
-      ->setLabel(t('Entity Type'))
-      ->setDescription(t('The type from the voted entity.'))
+      ->setLabel(new TranslatableMarkup('Entity Type'))
+      ->setDescription(new TranslatableMarkup('The type from the voted entity.'))
       ->setDefaultValue('node')
       ->setSettings([
         'max_length' => 64,
@@ -194,37 +195,37 @@ class Vote extends ContentEntityBase implements VoteInterface {
       ->setRequired(TRUE);
 
     $fields['entity_id'] = BaseFieldDefinition::create('entity_reference')
-      ->setLabel(t('Voted entity'))
-      ->setDescription(t('The ID from the voted entity'))
+      ->setLabel(new TranslatableMarkup('Voted entity'))
+      ->setDescription(new TranslatableMarkup('The ID from the voted entity'))
       ->setDefaultValue(0)
       ->setRequired(TRUE);
 
     $fields['value'] = BaseFieldDefinition::create('float')
-      ->setLabel(t('Value'))
-      ->setDescription(t('The numeric value of the vote.'))
+      ->setLabel(new TranslatableMarkup('Value'))
+      ->setDescription(new TranslatableMarkup('The numeric value of the vote.'))
       ->setDefaultValue(0)
       ->setRequired(TRUE);
 
     $fields['value_type'] = BaseFieldDefinition::create('string')
-      ->setLabel(t('Value Type'))
+      ->setLabel(new TranslatableMarkup('Value Type'))
       ->setSettings([
         'max_length' => 64,
       ])
       ->setDefaultValue('percent');
 
     $fields['user_id'] = BaseFieldDefinition::create('entity_reference')
-      ->setLabel(t('Authored by'))
-      ->setDescription(t('The user who submitted the vote.'))
+      ->setLabel(new TranslatableMarkup('Authored by'))
+      ->setDescription(new TranslatableMarkup('The user who submitted the vote.'))
       ->setSetting('target_type', 'user')
       ->setDefaultValueCallback('Drupal\votingapi\Entity\Vote::getCurrentUserId');
 
     $fields['timestamp'] = BaseFieldDefinition::create('created')
-      ->setLabel(t('Created'))
-      ->setDescription(t('The time that the entity was created.'));
+      ->setLabel(new TranslatableMarkup('Created'))
+      ->setDescription(new TranslatableMarkup('The time that the vote was created.'));
 
     $fields['vote_source'] = BaseFieldDefinition::create('string')
-      ->setLabel(t('Vote Source'))
-      ->setDescription(t('The IP address hash from the user who submitted the vote.'))
+      ->setLabel(new TranslatableMarkup('Vote Source'))
+      ->setDescription(new TranslatableMarkup('The IP address hash from the user who submitted the vote.'))
       ->setDefaultValueCallback('Drupal\votingapi\Entity\Vote::getCurrentIp')
       ->setSettings([
         'max_length' => 255,

@@ -18,7 +18,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
   admin_label: new TranslatableMarkup('Create a Schema.org type'),
   entity_types: ['schemadotorg_mapping'],
 )]
-final class SchemaDotOrgCreateSchemaType implements ConfigActionPluginInterface, ContainerFactoryPluginInterface {
+class SchemaDotOrgCreateSchemaType implements ConfigActionPluginInterface, ContainerFactoryPluginInterface {
 
   /**
    * The Schema.org schema names services.

@@ -5,11 +5,11 @@ namespace Drupal\Tests\custom_field\Kernel;
 use Drupal\Component\Utility\Random;
 use Drupal\Core\Field\FieldItemInterface;
 use Drupal\Core\Field\FieldItemListInterface;
+use Drupal\Tests\field\Kernel\FieldKernelTestBase;
 use Drupal\custom_field\Plugin\CustomFieldTypeInterface;
 use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\node\Entity\Node;
 use Drupal\node\Entity\NodeType;
-use Drupal\Tests\field\Kernel\FieldKernelTestBase;
 
 /**
  * Tests the custom field type.
@@ -178,6 +178,16 @@ class CustomFieldItemTest extends FieldKernelTestBase {
         'widget' => [
           'id' => 'map_key_value',
           'class' => 'Drupal\custom_field\Plugin\CustomField\FieldWidget\MapKeyValueWidget',
+        ],
+        'formatter' => [
+          'id' => 'string',
+          'class' => 'Drupal\custom_field\Plugin\CustomField\FieldFormatter\StringFormatter',
+        ],
+      ],
+      'map_string' => [
+        'widget' => [
+          'id' => 'map_text',
+          'class' => 'Drupal\custom_field\Plugin\CustomField\FieldWidget\MapTextWidget',
         ],
         'formatter' => [
           'id' => 'string',
@@ -367,6 +377,7 @@ class CustomFieldItemTest extends FieldKernelTestBase {
         'value' => 'Value2',
       ],
     ];
+    $map_string = ['text1', 'text2', 'text3', 'text4'];
     // Test string constraints.
     $entity->{$this->fieldName}->string_test = $this->randomString(256);
     $violations = $entity->validate();
@@ -399,6 +410,7 @@ class CustomFieldItemTest extends FieldKernelTestBase {
     $entity->{$this->fieldName}->color_test = $color;
     $entity->{$this->fieldName}->string_long_test = $string_long;
     $entity->{$this->fieldName}->map_test = $map;
+    $entity->{$this->fieldName}->map_string_test = $map_string;
     $entity->{$this->fieldName}->datetime_test = $datetime;
     $entity->save();
 
@@ -429,6 +441,8 @@ class CustomFieldItemTest extends FieldKernelTestBase {
     $this->assertEquals($color, $entity->{$this->fieldName}[0]->color_test);
     $this->assertEquals($map, $entity->{$this->fieldName}->map_test);
     $this->assertEquals($map, $entity->{$this->fieldName}[0]->map_test);
+    $this->assertEquals($map_string, $entity->{$this->fieldName}->map_string_test);
+    $this->assertEquals($map_string, $entity->{$this->fieldName}[0]->map_string_test);
     $this->assertEquals($datetime, $entity->{$this->fieldName}->datetime_test);
     $this->assertEquals($datetime, $entity->{$this->fieldName}[0]->datetime_test);
     $this->assertEquals(CustomFieldTypeInterface::STORAGE_TIMEZONE, $entity->{$this->fieldName}[0]->getProperties()['datetime_test']->getDateTime()->getTimeZone()->getName());
@@ -459,6 +473,7 @@ class CustomFieldItemTest extends FieldKernelTestBase {
         'value' => 'New Value3',
       ],
     ];
+    $new_map_string = ['new text1', 'new text2', 'new text3'];
     $entity->{$this->fieldName}->string_test = $new_string;
     $this->assertEquals($new_string, $entity->{$this->fieldName}->string_test);
     $entity->{$this->fieldName}->integer_test = $new_integer;
@@ -481,6 +496,8 @@ class CustomFieldItemTest extends FieldKernelTestBase {
     $this->assertEquals(strlen($new_string_long), strlen($entity->{$this->fieldName}[0]->string_long_test));
     $entity->{$this->fieldName}->map_test = $new_map;
     $this->assertEquals($new_map, $entity->{$this->fieldName}[0]->map_test);
+    $entity->{$this->fieldName}->map_string_test = $new_map_string;
+    $this->assertEquals($new_map_string, $entity->{$this->fieldName}[0]->map_string_test);
     $entity->{$this->fieldName}->datetime_test = $new_datetime;
     $this->assertEquals($new_datetime, $entity->{$this->fieldName}[0]->datetime_test);
     $this->assertEquals(CustomFieldTypeInterface::STORAGE_TIMEZONE, $entity->{$this->fieldName}[0]->getProperties()['datetime_test']->getDateTime()->getTimeZone()->getName());
@@ -499,6 +516,7 @@ class CustomFieldItemTest extends FieldKernelTestBase {
     $this->assertEquals($new_color, $entity->{$this->fieldName}->color_test);
     $this->assertEquals(strlen($new_string_long), strlen($entity->{$this->fieldName}[0]->string_long_test));
     $this->assertEquals($new_map, $entity->{$this->fieldName}[0]->map_test);
+    $this->assertEquals($new_map_string, $entity->{$this->fieldName}[0]->map_string_test);
     $this->assertEquals($new_datetime, $entity->{$this->fieldName}[0]->datetime_test);
     $this->assertEquals(CustomFieldTypeInterface::STORAGE_TIMEZONE, $entity->{$this->fieldName}[0]->getProperties()['datetime_test']->getDateTime()->getTimeZone()->getName());
 

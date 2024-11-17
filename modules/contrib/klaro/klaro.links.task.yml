@@ -12,7 +12,7 @@ klaro.admin.manage:
   expanded: TRUE
 
 klaro.admin.manage.apps:
-  title: 'Apps'
+  title: 'Services'
   route_name: entity.klaro_app.collection
   parent_id: klaro.admin.manage
   weight: 0

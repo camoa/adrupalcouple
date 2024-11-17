@@ -12,9 +12,9 @@ use Drupal\klaro\KlaroAppInterface;
  *
  * @ConfigEntityType(
  *   id = "klaro_app",
- *   label = @Translation("Klaro! App"),
- *   label_singular = @Translation("Klaro! app"),
- *   label_plural = @Translation("Klaro! apps"),
+ *   label = @Translation("Klaro! Service"),
+ *   label_singular = @Translation("Klaro! service"),
+ *   label_plural = @Translation("Klaro! services"),
  *   handlers = {
  *     "list_builder" = "Drupal\klaro\Controller\KlaroAppListBuilder",
  *     "route_provider" = {
@@ -27,10 +27,10 @@ use Drupal\klaro\KlaroAppInterface;
  *     },
  *   },
  *   links = {
- *     "collection" = "/admin/config/user-interface/klaro/apps",
- *     "add-form" = "/admin/config/user-interface/klaro/apps/add",
- *     "edit-form" = "/admin/config/user-interface/klaro/apps/{klaro_app}",
- *     "delete-form" = "/admin/config/user-interface/klaro/apps/{klaro_app}/delete"
+ *     "collection" = "/admin/config/user-interface/klaro/services",
+ *     "add-form" = "/admin/config/user-interface/klaro/services/add",
+ *     "edit-form" = "/admin/config/user-interface/klaro/services/{klaro_app}",
+ *     "delete-form" = "/admin/config/user-interface/klaro/services/{klaro_app}/delete"
  *   },
  *   admin_permission = "administer klaro",
  *   entity_keys = {
@@ -170,7 +170,7 @@ class KlaroApp extends ConfigEntityBase implements KlaroAppInterface {
   /**
    * The javascripts that will added to the DOM as text/html instead.
    *
-   * The values will match against a string comparsion of the "src"-attributes
+   * The values will match against a string comparison of the "src"-attributes
    * of script, iframe, img, audio and video tags.
    *
    * @var array
@@ -187,7 +187,7 @@ class KlaroApp extends ConfigEntityBase implements KlaroAppInterface {
   protected $wrapper_identifier = [];
 
   /**
-   * The attachemnt identifiers that will get manipulated.
+   * The attachment identifiers that will get manipulated.
    *
    * The values will exactly match the hook_attachment keys.
    *

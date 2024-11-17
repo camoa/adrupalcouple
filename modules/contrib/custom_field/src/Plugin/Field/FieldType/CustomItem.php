@@ -176,13 +176,12 @@ class CustomItem extends FieldItemBase {
           break;
 
         case 'map':
+        case 'map_string':
           if (!is_array($this->{$name}) || empty($this->{$name})) {
             $this->{$name} = NULL;
           }
-          $map_values = $this->get($name)->getValue();
-          // The table widget has a default value of data until values exist.
-          if (isset($map_values['data'])) {
-            $this->{$name} = NULL;
+          else {
+            $this->{$name} = array_values($this->{$name});
           }
           break;
 

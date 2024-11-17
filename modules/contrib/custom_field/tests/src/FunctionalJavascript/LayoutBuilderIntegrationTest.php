@@ -2,9 +2,9 @@
 
 namespace Drupal\Tests\custom_field\FunctionalJavascript;
 
+use Drupal\Tests\layout_builder\FunctionalJavascript\InlineBlockTestBase;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
-use Drupal\Tests\layout_builder\FunctionalJavascript\InlineBlockTestBase;
 
 /**
  * Layout builder integration tests for custom field.

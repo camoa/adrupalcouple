@@ -58,12 +58,13 @@ class TrustedHosts extends SecurityCheckBase {
    * {@inheritdoc}
    */
   public function getDetails(array $findings, array $hushed = [], bool $returnString = FALSE): array|string {
-    if (empty($findings)) {
-      return [];
-    }
-
     global $base_url;
     $output = $returnString ? '' : [];
+
+    if (empty($findings)) {
+      return $output;
+    }
+
     $paragraphs = [];
 
     $settings_php = $this->securitySettings->sitePath() . '/settings.php';

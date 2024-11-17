@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Drupal\security_review\Plugin\SecurityCheck;
 
 use Drupal\Core\Extension\ModuleHandlerInterface;
-use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\security_review\CheckResult;
 use Drupal\security_review\SecurityCheckBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -37,7 +36,7 @@ class TemporaryFiles extends SecurityCheckBase {
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): SecurityCheckBase|ContainerFactoryPluginInterface|static {
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): static {
     $instance = parent::create($container, $configuration, $plugin_id, $plugin_definition);
     $instance->moduleHandler = $container->get('module_handler');
     return $instance;
@@ -82,11 +81,12 @@ class TemporaryFiles extends SecurityCheckBase {
    * {@inheritdoc}
    */
   public function getDetails(array $findings, array $hushed = [], bool $returnString = FALSE): array|string {
+    $output = $returnString ? '' : [];
+
     if (empty($findings)) {
-      return [];
+      return $output;
     }
 
-    $output = $returnString ? '' : [];
     $paragraphs = [];
     $paragraphs[] = $this->t("The following are extraneous files in your Drupal installation that can probably be removed. You should confirm you have saved any of your work in the original files prior to removing these.");
 

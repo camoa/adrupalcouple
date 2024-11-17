@@ -1,6 +1,9 @@
 # The module's main settings.
 security_review.settings:
-  type: config_entity
+  type: config_object
+  label: 'Security review settings'
+  constraints:
+    FullyValidatable: ~
   mapping:
     untrusted_roles:
       type: sequence
@@ -8,6 +11,9 @@ security_review.settings:
       sequence:
         type: string
         label: 'Role ID'
+        constraints:
+          ConfigExists:
+            prefix: user.role.
     log:
       type: boolean
       label: 'Logging enabled'
@@ -24,8 +30,10 @@ security_review.settings:
           skipped_by:
             type: string
             label: 'Skipped by'
+            constraints:
+              NotNull: []
           skipped_on:
-            type: integer
+            type: timestamp
             label: 'Skipped on'
     views_access:
       type: mapping
@@ -44,6 +52,9 @@ security_review.settings:
           sequence:
             type: string
             label: 'Upload extensions to ignore'
+            constraints:
+              NotBlank:
+                allowNull: true
     fields:
       type: mapping
       label: 'Fields check'
@@ -54,6 +65,9 @@ security_review.settings:
           sequence:
             type: string
             label: 'Field hash to ignore'
+            constraints:
+              NotBlank:
+                allowNull: true
     file_permissions:
       type: mapping
       label: 'File permissions check'
@@ -64,6 +78,9 @@ security_review.settings:
           sequence:
             type: string
             label: 'Directory to ignore'
+            constraints:
+              NotBlank:
+                allowNull: true
     headers:
       type: mapping
       label: 'Headers check'
@@ -74,3 +91,6 @@ security_review.settings:
           sequence:
             type: string
             label: 'Header name'
+            constraints:
+              NotBlank:
+                allowNull: true

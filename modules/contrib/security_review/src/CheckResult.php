@@ -63,7 +63,7 @@ class CheckResult {
    * @param array $hushedFindings
    *   The hushed findings.
    */
-  public function __construct(SecurityCheckInterface $plugin_check, int $result, array $findings, int $time = NULL, array $hushedFindings = []) {
+  public function __construct(SecurityCheckInterface $plugin_check, int $result, array $findings, ?int $time = NULL, array $hushedFindings = []) {
     // Set the parent check.
     $this->pluginCheck = $plugin_check;
 

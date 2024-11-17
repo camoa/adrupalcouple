@@ -35,7 +35,10 @@
       // Observe klaro-element to add aria-features.
       Drupal.behaviors.klaro.klaroElementObserver();
 
-      // Store referrence to manager once.
+      // Fix broken aria reference, see #3483896
+      document.querySelector('#klaro-cookie-notice')?.removeAttribute('aria-labelledby');
+
+      // Store reference to manager once.
       if (!Drupal.behaviors.klaro.manager) {
         Drupal.behaviors.klaro.manager = klaro.getManager(Drupal.behaviors.klaro.config);
       }
@@ -46,7 +49,7 @@
           // Add toggle dialog button.
           if (settings.klaro.show_toggle_button && !document.getElementById('klaro_toggle_dialog')) {
             var button_label = Drupal.t("Manage consents", {},{context: 'klaro'})
-            var button_html = '<button id="klaro_toggle_dialog" aria-label="' + button_label + '" title="'+ button_label + '" type="button" class="klaro_toggle_dialog klaro_toggle_dialog_override" rel="open-consent-manager"></button>';
+            var button_html = '<button id="klaro_toggle_dialog" aria-label="' + button_label + '" aria-haspopup="dialog" title="'+ button_label + '" type="button" class="klaro_toggle_dialog klaro_toggle_dialog_override" rel="open-consent-manager"></button>';
             document.body.insertAdjacentHTML('afterbegin', button_html);
           }
         });
@@ -66,7 +69,7 @@
     },
 
     /**
-     * A callback for each service that will run initialy and on consentchange.
+     * A callback for each service that will run at the beginning and on consent change.
      */
     serviceCallback: function (consent, service) {
 
@@ -103,7 +106,7 @@
         }
       }
 
-      function processBehaviours() {
+      function processBehaviors() {
         for (let name in Drupal.behaviors) {
           if (knownBehaviors.indexOf(name) === -1) {
             // Execute newly added behaviors. This is somewhat guesswork, as
@@ -116,10 +119,10 @@
 
       Array.prototype.forEach.call(elements, function(element) {
         if (element.complete) {
-          processBehaviours();
+          processBehaviors();
         }
         else {
-          element.addEventListener('load', processBehaviours);
+          element.addEventListener('load', processBehaviors);
         }
       });
     },
@@ -149,7 +152,7 @@
     },
 
     /**
-     * Add minimal accessibility features to the customizeconsentdialog.
+     * Add minimal accessibility features to the customize consent dialog.
      */
     klaroElementMutator: function() {
       var labels = document.querySelectorAll('#klaro label')

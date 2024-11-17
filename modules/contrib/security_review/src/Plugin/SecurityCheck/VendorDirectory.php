@@ -45,11 +45,12 @@ class VendorDirectory extends SecurityCheckBase {
    * {@inheritdoc}
    */
   public function getDetails(array $findings, array $hushed = [], bool $returnString = FALSE): array|string {
+    $output = $returnString ? '' : [];
+
     if (empty($findings)) {
-      return [];
+      return $output;
     }
 
-    $output = $returnString ? '' : [];
     $paragraphs = [];
     if (isset($findings['vendor_directory_location']) && !$findings['vendor_directory_location']) {
       $paragraphs[] = $this->t("Vendor directory is not outside webroot.");

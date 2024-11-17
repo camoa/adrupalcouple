@@ -51,7 +51,7 @@ interface SchemaDotOrgContentModelDocumentationBuilderInterface {
    *   The current state of the form.
    * @param array $context
    *   An associative array. See hook_field_widget_single_element_form_alter()
-   *    for the structure and content of the array.
+   *   for the structure and content of the array.
    */
   public function fieldWidgetSingleElementMarkupFormAlter(array &$element, FormStateInterface $form_state, array $context): void;
 

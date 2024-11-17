@@ -12,7 +12,6 @@ use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Link;
 use Drupal\Core\Messenger\MessengerTrait;
-use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\security_review\CheckResult;
 use Drupal\security_review\SecurityCheckBase;
 use Drupal\views\Entity\View;
@@ -64,7 +63,7 @@ class ViewsAccess extends SecurityCheckBase {
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): SecurityCheckBase|ContainerFactoryPluginInterface|static {
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): static {
     $instance = parent::create($container, $configuration, $plugin_id, $plugin_definition);
     $instance->entityTypeManager = $container->get('entity_type.manager');
     $instance->extensionPathResolver = $container->get('extension.path.resolver');
@@ -171,11 +170,12 @@ class ViewsAccess extends SecurityCheckBase {
    * {@inheritdoc}
    */
   public function getDetails(array $findings, array $hushed = [], bool $returnString = FALSE): array|string {
+    $output = $returnString ? '' : [];
+
     if (empty($findings)) {
-      return [];
+      return $output;
     }
 
-    $output = $returnString ? '' : [];
     $views_ui_enabled = $this->moduleHandler->moduleExists('views_ui');
     $paragraphs = [];
     $paragraphs[] = $this->t('The following View displays do not check access.');
@@ -194,7 +194,7 @@ class ViewsAccess extends SecurityCheckBase {
               'view' => $view_id,
               'display_id' => $display,
             ]
-          ) :
+          )->toString() :
           $label;
       }
     }

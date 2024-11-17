@@ -10,12 +10,6 @@ use Drupal\votingapi\VoteResultFunctionBase;
 
 /**
  * A number of votes in a set of votes.
- *
- * @VoteResultFunction(
- *   id = "vote_count",
- *   label = @Translation("Count"),
- *   description = @Translation("The number of votes cast.")
- * )
  */
 #[VoteResultFunction(
   id: "vote_count",

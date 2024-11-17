@@ -21,7 +21,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *   category = @Translation("Schema.org Blueprints"),
  * )
  */
-final class SchemaDotOrgEppNodeLinksBlock extends BlockBase implements ContainerFactoryPluginInterface {
+class SchemaDotOrgEppNodeLinksBlock extends BlockBase implements ContainerFactoryPluginInterface {
 
   /**
    * The current route match.

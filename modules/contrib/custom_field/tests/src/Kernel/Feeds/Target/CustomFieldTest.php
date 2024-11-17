@@ -2,9 +2,9 @@
 
 namespace Drupal\Tests\custom_field\Kernel\Feeds\Target;
 
+use Drupal\Tests\feeds\Kernel\FeedsKernelTestBase;
 use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\node\Entity\Node;
-use Drupal\Tests\feeds\Kernel\FeedsKernelTestBase;
 
 /**
  * Tests for mapping to custom_field fields.
@@ -161,8 +161,19 @@ class CustomFieldTest extends FeedsKernelTestBase {
         'boolean_test' => '1',
         'color_test' => '#FFA500',
         'map_test' => [
-          'key1' => 'value1',
-          'key2' => 'value2',
+          [
+            'key' => 'key1',
+            'value' => 'value1',
+          ],
+          [
+            'key' => 'key2',
+            'value' => 'value2',
+          ],
+        ],
+        'map_string_test' => [
+          'value1',
+          'value2',
+          'value3',
         ],
         'datetime_test' => '2023-01-01T00:00:00',
       ],
@@ -178,6 +189,7 @@ class CustomFieldTest extends FeedsKernelTestBase {
         'boolean_test' => '1',
         'color_test' => NULL,
         'map_test' => NULL,
+        'map_string_test' => NULL,
         'datetime_test' => '2009-09-03T00:12:00',
       ],
       3 => [
@@ -192,6 +204,7 @@ class CustomFieldTest extends FeedsKernelTestBase {
         'boolean_test' => '1',
         'color_test' => '#FFFFFF',
         'map_test' => NULL,
+        'map_string_test' => NULL,
         'datetime_test' => '2018-02-09T00:00:00',
       ],
     ];

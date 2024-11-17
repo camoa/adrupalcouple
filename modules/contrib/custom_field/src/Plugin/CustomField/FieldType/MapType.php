@@ -9,13 +9,13 @@ use Drupal\custom_field\Plugin\CustomFieldTypeBase;
 use Drupal\custom_field\Plugin\CustomFieldTypeInterface;
 
 /**
- * Plugin implementation of the 'Map' custom field type.
+ * Plugin implementation of the 'map' custom field type.
  *
  * @CustomFieldType(
  *   id = "map",
- *   label = @Translation("Map"),
+ *   label = @Translation("Serialized - Key/Value"),
  *   description = @Translation("A field for storing a serialized array of values."),
- *   category = @Translation("General"),
+ *   category = @Translation("Map"),
  *   default_widget = "map_key_value",
  *   default_formatter = "string",
  * )

@@ -12,7 +12,6 @@ use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Link;
 use Drupal\Core\Messenger\MessengerTrait;
-use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\security_review\CheckResult;
 use Drupal\security_review\SecurityCheckBase;
@@ -63,7 +62,7 @@ class UploadExtensions extends SecurityCheckBase {
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): SecurityCheckBase|ContainerFactoryPluginInterface|static {
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): static {
     $instance = parent::create($container, $configuration, $plugin_id, $plugin_definition);
     $instance->entityTypeManager = $container->get('entity_type.manager');
     $instance->extensionPathResolver = $container->get('extension.path.resolver');
@@ -185,11 +184,12 @@ class UploadExtensions extends SecurityCheckBase {
    * {@inheritdoc}
    */
   public function getDetails(array $findings, array $hushed = [], bool $returnString = FALSE): array|string {
+    $output = $returnString ? '' : [];
+
     if (empty($findings) && empty($hushed)) {
-      return [];
+      return $output;
     }
 
-    $output = $returnString ? '' : [];
     $paragraphs = [];
 
     $items = [];

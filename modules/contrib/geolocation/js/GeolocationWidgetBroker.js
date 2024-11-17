@@ -7,11 +7,13 @@
 
 /**
  * @prop {Map<string,WidgetSubscriberBase>} subscribers
+ * @prop {Element} form
  * @prop {Object} settings
  * @prop {Object.<string, WidgetSubscriberSettings>} settings.widgetSubscribers
  */
 export default class GeolocationWidgetBroker {
-  constructor(settings) {
+  constructor(form, settings) {
+    this.form = form;
     this.settings = settings;
 
     this.subscribers = new Map();

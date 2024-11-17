@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Drupal\security_review\Plugin\SecurityCheck;
 
-use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\security_review\CheckResult;
 use Drupal\security_review\SecurityCheckBase;
 use Drupal\user\Entity\User;
@@ -38,7 +37,7 @@ class AdminUser extends SecurityCheckBase {
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): SecurityCheckBase|ContainerFactoryPluginInterface|static {
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): static {
     $instance = parent::create($container, $configuration, $plugin_id, $plugin_definition);
     $instance->container = $container;
     return $instance;
@@ -69,11 +68,12 @@ class AdminUser extends SecurityCheckBase {
    * {@inheritdoc}
    */
   public function getDetails(array $findings, array $hushed = [], bool $returnString = FALSE): array|string {
+    $output = $returnString ? '' : [];
+
     if (empty($findings)) {
-      return [];
+      return $output;
     }
 
-    $output = $returnString ? '' : [];
     $paragraphs = [];
     if (isset($findings['admin']) && !$findings['admin']) {
       $admin_user = User::load(1);

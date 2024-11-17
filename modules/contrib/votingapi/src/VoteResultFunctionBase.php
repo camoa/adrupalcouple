@@ -15,6 +15,7 @@ abstract class VoteResultFunctionBase extends PluginBase implements VoteResultFu
    * {@inheritdoc}
    */
   public function getLabel(): string {
+    // phpcs:ignore Drupal.Semantics.FunctionT.NotLiteralString
     return $this->t($this->pluginDefinition['label']);
   }
 
@@ -22,6 +23,7 @@ abstract class VoteResultFunctionBase extends PluginBase implements VoteResultFu
    * {@inheritdoc}
    */
   public function getDescription(): string {
+    // phpcs:ignore Drupal.Semantics.FunctionT.NotLiteralString
     return $this->t($this->pluginDefinition['description']);
   }
 

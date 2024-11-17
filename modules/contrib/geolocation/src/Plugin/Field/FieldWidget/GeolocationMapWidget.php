@@ -5,7 +5,6 @@ namespace Drupal\geolocation\Plugin\Field\FieldWidget;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\BubbleableMetadata;
-use Symfony\Component\Validator\ConstraintViolationListInterface;
 
 /**
  * Plugin implementation of the 'geolocation_map' widget.
@@ -19,60 +18,6 @@ use Symfony\Component\Validator\ConstraintViolationListInterface;
  * )
  */
 class GeolocationMapWidget extends GeolocationMapWidgetBase {
-
-  /**
-   * {@inheritdoc}
-   */
-  public function flagErrors(FieldItemListInterface $items, ConstraintViolationListInterface $violations, array $form, FormStateInterface $form_state): void {
-    foreach ($violations as $violation) {
-      if ($violation->getMessageTemplate() == 'This value should not be null.') {
-        $form_state->setErrorByName($items->getName(), $this->t('No location has been selected yet for required field %field.', ['%field' => $items->getFieldDefinition()->getLabel()]));
-      }
-    }
-    parent::flagErrors($items, $violations, $form, $form_state);
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function defaultSettings(): array {
-    $settings = parent::defaultSettings();
-
-    $settings['allow_override_map_settings'] = FALSE;
-
-    return $settings;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function settingsForm(array $form, FormStateInterface $form_state): array {
-    $element = parent::settingsForm($form, $form_state);
-    $settings = $this->getSettings();
-
-    $element['allow_override_map_settings'] = [
-      '#type' => 'checkbox',
-      '#title' => $this->t('Allow override the map settings when create/edit an content.'),
-      '#default_value' => $settings['allow_override_map_settings'],
-    ];
-
-    return $element;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function settingsSummary(): array {
-    $summary = parent::settingsSummary();
-
-    $settings = $this->getSettings();
-
-    if (!empty($settings['allow_override_map_settings'])) {
-      $summary[] = $this->t('Users will be allowed to override the map settings for each content.');
-    }
-
-    return $summary;
-  }
 
   /**
    * {@inheritdoc}
@@ -115,28 +60,6 @@ class GeolocationMapWidget extends GeolocationMapWidgetBase {
         'lat' => $default_field_values['lat'],
         'lng' => $default_field_values['lng'],
       ];
-    }
-
-    if (
-      $delta == 0
-      && $this->getSetting('allow_override_map_settings')
-      // Hide on default value config settings form.
-      && !(!empty($form_state->getBuildInfo()['base_form_id']) && $form_state->getBuildInfo()['base_form_id'] == 'field_config_form')
-    ) {
-      $overridden_map_settings = empty($this->getSetting('map_provider_settings')) ? [] : $this->getSetting('map_provider_settings');
-
-      if (!empty($items->get(0)->getValue()['data']['map_provider_settings'])) {
-        $overridden_map_settings = $items->get(0)->getValue()['data']['map_provider_settings'];
-      }
-
-      $element['map_provider_settings'] = $this->mapProvider->getSettingsForm(
-        $overridden_map_settings,
-        [
-          $this->fieldDefinition->getName(),
-          0,
-          'map_provider_settings',
-        ]
-      );
     }
 
     return $element;
@@ -205,13 +128,6 @@ class GeolocationMapWidget extends GeolocationMapWidgetBase {
       ];
     }
 
-    if (
-      $this->getSetting('allow_override_map_settings')
-      && !empty($items->get(0)->getValue()['data']['map_provider_settings'])
-    ) {
-      $element['map']['#settings'] = $items->get(0)->getValue()['data']['map_provider_settings'];
-    }
-
     $context = [
       'widget' => $this,
       'form_state' => $form_state,
@@ -223,22 +139,6 @@ class GeolocationMapWidget extends GeolocationMapWidgetBase {
     }
 
     return $element;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function massageFormValues(array $values, array $form, FormStateInterface $form_state): array {
-    $values = parent::massageFormValues($values, $form, $form_state);
-
-    if (!empty($this->settings['allow_override_map_settings'])) {
-      if (!empty($values[0]['map_provider_settings'])) {
-        $values[0]['data']['map_provider_settings'] = $values[0]['map_provider_settings'];
-        unset($values[0]['map_provider_settings']);
-      }
-    }
-
-    return $values;
   }
 
 }

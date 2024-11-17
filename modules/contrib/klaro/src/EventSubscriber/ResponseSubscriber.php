@@ -46,8 +46,16 @@ class ResponseSubscriber implements EventSubscriberInterface {
    */
   public function onKernelResponse(ResponseEvent $event) {
     // Do nothing if not activated.
-    if (!$this->klaroHelper->getSettings()->get('auto_decorate_final_html')) {
-      return;
+    $config = $this->klaroHelper->getSettings();
+    $inspect_only = FALSE;
+
+    if (!$config->get('auto_decorate_final_html')) {
+      if ($config->get('log_unknown_resources')) {
+        $inspect_only = TRUE;
+      }
+      else {
+        return;
+      }
     }
 
     // Do nothing if not main request.
@@ -66,7 +74,7 @@ class ResponseSubscriber implements EventSubscriberInterface {
     // Modify AjaxCommand responses.
     if (get_class($response) === 'Drupal\Core\Ajax\AjaxResponse') {
       foreach ($response->getCommands() as &$cmd) {
-        $cmd = $this->klaroHelper->handleAjaxCommand($cmd);
+        $cmd = $this->klaroHelper->handleAjaxCommand($cmd, $inspect_only);
       }
       return;
     }
@@ -79,7 +87,7 @@ class ResponseSubscriber implements EventSubscriberInterface {
 
     $content = $response->getContent();
     if (!empty($content)) {
-      $response->setContent($this->klaroHelper->processHtml($content));
+      $response->setContent($this->klaroHelper->processHtml($content, $inspect_only));
     }
   }
 

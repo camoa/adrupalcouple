@@ -1,21 +1,6 @@
-leaflet.draw:
-  header: true
-  remote: https://github.com/Leaflet/Leaflet.draw
-  version: '1.0.4'
-  license:
-    name: MIT-LICENSE
-    gpl-compatible: true
-    url: https://github.com/Leaflet/Leaflet.draw/blob/develop/MIT-LICENSE.md
-  css:
-    component:
-      'https://unpkg.com/leaflet-draw@1.0.4/dist/leaflet.draw.css': { type: external, minified: true }
-  js:
-    'https://unpkg.com/leaflet-draw@1.0.4/dist/leaflet.draw.js': { type: external, minified: true }
-
 widget.leaflet.geojson:
   version: 4.x
   js:
     js/geolocation-geometry-widget-leaflet.js: {}
   dependencies:
     - geolocation/geolocation.map
-    - geolocation_leaflet/leaflet.draw

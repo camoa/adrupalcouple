@@ -108,7 +108,7 @@ class CustomFieldItem extends GraphQLComposeFieldTypeBase implements FieldProduc
    * @return mixed
    *   The value of the subfield.
    */
-  protected function getSubField(string $delta, FieldItemInterface $item, FieldContext $context, EntityInterface $reference = NULL) {
+  protected function getSubField(string $delta, FieldItemInterface $item, FieldContext $context, ?EntityInterface $reference = NULL) {
     $settings = $item->getFieldDefinition()->getSettings();
     $custom_items = $this->customFieldManager->getCustomFieldItems($settings);
     $custom_item = $custom_items[$delta];
@@ -240,6 +240,7 @@ class CustomFieldItem extends GraphQLComposeFieldTypeBase implements FieldProduc
         break;
 
       case 'map':
+      case 'map_string':
         $type = 'custom_field_map';
         break;
 

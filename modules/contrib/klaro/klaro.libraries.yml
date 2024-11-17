@@ -5,10 +5,10 @@ admin:
       css/klaro.admin.css: {}
 
 library:
-  remote: https://klaro.kiprotect.com
+  remote: https://github.com/klaro-org/klaro-js/
   license:
     name: BSD 3-Clause
-    url: https://github.com/KIProtect/klaro/blob/master/LICENSE
+    url: https://github.com/klaro-org/klaro-js/blob/master/LICENSE
     gpl-compatible: true
   # Render early for screenreaders.
   header: true

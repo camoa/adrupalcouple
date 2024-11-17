@@ -29,12 +29,7 @@ class GeolocationGeometryWidgetGoogleMaps extends GeolocationGeometryWidgetBase 
   /**
    * {@inheritdoc}
    */
-  static protected string $mapProviderId = 'google_maps';
-
-  /**
-   * {@inheritdoc}
-   */
-  static protected string $mapProviderSettingsFormId = 'google_map_settings';
+  protected string $mapProviderId = 'google_maps';
 
   /**
    * {@inheritdoc}

@@ -12,8 +12,6 @@
  */
 
 (function (Drupal) {
-  "use strict";
-
   /**
    * Attach common map style functionality.
    *
@@ -28,7 +26,7 @@
      * @param {Object} drupalSettings
      * @param {Object.<String, GeolocationViewsFilterGeocoderSettings>} drupalSettings.geolocation.geocoder.viewsFilterGeocoder
      */
-    attach: function (context, drupalSettings) {
+    attach: (context, drupalSettings) => {
       for (const [elementId, filterSettings] of Object.entries(drupalSettings.geolocation.geocoder.viewsFilterGeocoder)) {
         const form = document.querySelector(`.views-exposed-form .geolocation-geocoder-address[data-source-identifier="${elementId}"]`);
 

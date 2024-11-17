@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Drupal\security_review\Plugin\SecurityCheck;
 
 use Drupal\Core\Link;
-use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\StreamWrapper\PrivateStream;
 use Drupal\Core\StreamWrapper\StreamWrapperManagerInterface;
 use Drupal\security_review\CheckResult;
@@ -41,7 +40,7 @@ class PrivateFiles extends SecurityCheckBase {
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): SecurityCheckBase|ContainerFactoryPluginInterface|static {
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): static {
     $instance = parent::create($container, $configuration, $plugin_id, $plugin_definition);
     $instance->streamWrapperManager = $container->get('stream_wrapper_manager');
     return $instance;
@@ -92,11 +91,12 @@ class PrivateFiles extends SecurityCheckBase {
    * {@inheritdoc}
    */
   public function getDetails(array $findings, array $hushed = [], bool $returnString = FALSE): array|string {
+    $output = $returnString ? '' : [];
+
     if (empty($findings)) {
-      return [];
+      return $output;
     }
 
-    $output = $returnString ? '' : [];
     $paragraphs = [];
     $paragraphs[] = $this->t('Your files directory is not outside of the server root.');
     $paragraphs[] = Link::createFromRoute(

@@ -7,7 +7,6 @@ namespace Drupal\security_review\Plugin\SecurityCheck;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Logger\LoggerChannelTrait;
 use Drupal\Core\Logger\RfcLogLevel;
-use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\security_review\CheckResult;
 use Drupal\security_review\SecurityCheckBase;
 use GuzzleHttp\Client;
@@ -51,7 +50,7 @@ class Headers extends SecurityCheckBase {
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): SecurityCheckBase|ContainerFactoryPluginInterface|static {
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): static {
     $instance = parent::create($container, $configuration, $plugin_id, $plugin_definition);
     $instance->httpClient = $container->get('http_client');
     $instance->requestStack = $container->get('request_stack');
@@ -123,11 +122,12 @@ class Headers extends SecurityCheckBase {
    * {@inheritdoc}
    */
   public function getDetails(array $findings, array $hushed = [], bool $returnString = FALSE): array|string {
+    $output = $returnString ? '' : [];
+
     if (empty($findings) && empty($hushed)) {
-      return [];
+      return $output;
     }
 
-    $output = $returnString ? '' : [];
     $paragraphs = [];
     $paragraphs[] = $this->t('The following headers were missing.');
 

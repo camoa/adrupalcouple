@@ -405,7 +405,7 @@ class SchemaDotOrgMappingManager implements SchemaDotOrgMappingManagerInterface 
           continue;
         }
 
-        // Set new mappings to add the the field.
+        // Set new mappings to add the field.
         $property_defaults['name'] = SchemaDotOrgEntityFieldManagerInterface::ADD_FIELD;
 
         // Check for existing base field name and Schema.org property field storage.

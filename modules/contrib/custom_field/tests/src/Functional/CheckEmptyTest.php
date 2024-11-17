@@ -2,10 +2,10 @@
 
 namespace Drupal\Tests\custom_field\Functional;
 
+use Drupal\Tests\BrowserTestBase;
 use Drupal\entity_test\Entity\EntityTest;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
-use Drupal\Tests\BrowserTestBase;
 
 /**
  * Test cases related to the 'check empty' feature.

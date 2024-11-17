@@ -1,1 +1,3 @@
-function DrupalGeolocationGoogleLoader() { Drupal.geolocation.maps.mapProviderCallback('Google');  }
+function DrupalGeolocationGoogleLoader() {
+  Drupal.geolocation.maps.mapProviderCallback("Google");
+}

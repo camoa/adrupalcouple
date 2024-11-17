@@ -189,7 +189,7 @@ interface KlaroAppInterface extends ConfigEntityInterface {
   public function infoUrl(): ?string;
 
   /**
-   * Setter for the infor url.
+   * Setter for the info url.
    *
    * @param string $url
    *   The info url.
@@ -290,7 +290,7 @@ interface KlaroAppInterface extends ConfigEntityInterface {
    *   The weight.
    *
    * @return \Drupal\klaro\KlaroAppInterface
-   *   The isntance.
+   *   The instance.
    */
   public function setWeight(int $weight = 0): KlaroAppInterface;
 

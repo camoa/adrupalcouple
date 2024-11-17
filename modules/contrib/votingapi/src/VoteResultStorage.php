@@ -2,8 +2,8 @@
 
 namespace Drupal\votingapi;
 
-use Drupal\votingapi\Entity\VoteResult;
 use Drupal\Core\Entity\Sql\SqlContentEntityStorage;
+use Drupal\votingapi\Entity\VoteResult;
 
 /**
  * Storage class for vote entities.

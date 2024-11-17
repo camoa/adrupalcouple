@@ -19,7 +19,7 @@ class KlaroPurposeListBuilder extends DraggableListBuilder {
    * {@inheritdoc}
    */
   public function getFormId() {
-    return 'klaro_prupose_list';
+    return 'klaro_purpose_list';
   }
 
   /**

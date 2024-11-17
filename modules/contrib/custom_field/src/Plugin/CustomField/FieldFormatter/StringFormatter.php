@@ -21,6 +21,7 @@ use Drupal\custom_field\Plugin\CustomFieldTypeInterface;
  *     "uri",
  *     "email",
  *     "map",
+ *     "map_string",
  *     "telephone",
  *     "uuid",
  *     "color",
@@ -76,7 +77,15 @@ class StringFormatter extends CustomFieldFormatterBase {
       if (empty($output)) {
         return NULL;
       }
-      return '<pre>' . json_encode($output, JSON_PRETTY_PRINT) . '</pre>';
+
+      // Format the JSON output with JSON_PRETTY_PRINT.
+      $formatted_json = json_encode($output, JSON_PRETTY_PRINT);
+
+      // Return as HTML content with preformatted styling.
+      return [
+        '#markup' => '<pre>' . htmlspecialchars($formatted_json) . '</pre>',
+        '#allowed_tags' => ['pre'],
+      ];
     }
 
     if (!empty($allowed_values) && $formatter_settings['key_label'] == 'label') {

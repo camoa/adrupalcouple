@@ -29,13 +29,14 @@ export default class GeolocationFieldWidgetMapConnector extends GeolocationMapFe
    *   Marker.
    */
   getMarkerByIndex(index) {
+    let returnValue = null;
     this.map.dataLayers.get("default").markers.forEach((marker) => {
       if (index === this.getIndexByMarker(marker)) {
-        return marker;
+        returnValue = marker;
       }
     });
 
-    return null;
+    return returnValue;
   }
 
   /**
@@ -161,8 +162,10 @@ export default class GeolocationFieldWidgetMapConnector extends GeolocationMapFe
       }).showModal();
     } else {
       const marker = this.getMarkerByIndex(0);
-
-      marker.update(coordinates);
+      if (!marker) {
+        console.error(this, "Marker not found");
+      }
+      marker?.update(coordinates);
     }
   }
 

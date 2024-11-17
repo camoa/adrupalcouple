@@ -26,13 +26,15 @@ class SecurityReviewTest extends KernelTestBase {
 
   /**
    * {@inheritdoc}
+   *
+   * @throws \Exception
    */
   protected function setUp(): void {
     parent::setUp();
     $this->installConfig(static::$modules);
     $this->installEntitySchema('user');
     $this->installConfig('security_review');
-    $this->securityReview = \Drupal::service('security_review');
+    $this->securityReview = $this->container->get('security_review');
   }
 
   /**

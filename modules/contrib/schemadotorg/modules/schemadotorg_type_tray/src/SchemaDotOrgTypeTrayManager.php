@@ -24,7 +24,7 @@ class SchemaDotOrgTypeTrayManager implements SchemaDotOrgTypeTrayManagerInterfac
    *
    * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
    *   The config factory service.
-   * @param \Drupal\Core\Extension\ModuleExtensionList $extensionListModule
+   * @param \Drupal\Core\Extension\ModuleExtensionList $moduleExtensionList
    *   The module extension list.
    * @param \Drupal\Core\Extension\ModuleHandlerInterface $moduleHandler
    *   The module handler service.
@@ -35,7 +35,7 @@ class SchemaDotOrgTypeTrayManager implements SchemaDotOrgTypeTrayManagerInterfac
    */
   public function __construct(
     protected ConfigFactoryInterface $configFactory,
-    protected ModuleExtensionList $extensionListModule,
+    protected ModuleExtensionList $moduleExtensionList,
     protected ModuleHandlerInterface $moduleHandler,
     protected SchemaDotOrgNamesInterface $schemaNames,
     protected SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager,
@@ -132,7 +132,7 @@ class SchemaDotOrgTypeTrayManager implements SchemaDotOrgTypeTrayManagerInterfac
     // Look for the file path by bundle.
     $bundle = $mapping->getTargetBundle();
     foreach ($module_names as $module_name) {
-      $file_path = $this->extensionListModule->getPath($module_name) . "/images/schemadotorg_type_tray/$type/$bundle.png";
+      $file_path = $this->moduleExtensionList->getPath($module_name) . "/images/schemadotorg_type_tray/$type/$bundle.png";
       if (file_exists($file_path)) {
         return $this->getBasePath() . $file_path;
       }
@@ -145,7 +145,7 @@ class SchemaDotOrgTypeTrayManager implements SchemaDotOrgTypeTrayManagerInterfac
       foreach ($breadcrumb_types as $breadcrumb_type) {
         $file_name = $this->schemaNames->camelCaseToSnakeCase($breadcrumb_type);
         foreach ($module_names as $module_name) {
-          $file_path = $this->extensionListModule->getPath($module_name) . "/images/schemadotorg_type_tray/$type/$file_name.png";
+          $file_path = $this->moduleExtensionList->getPath($module_name) . "/images/schemadotorg_type_tray/$type/$file_name.png";
           if (file_exists($file_path)) {
             return $this->getBasePath() . $file_path;
           }

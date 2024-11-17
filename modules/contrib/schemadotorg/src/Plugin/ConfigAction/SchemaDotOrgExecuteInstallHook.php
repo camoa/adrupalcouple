@@ -39,7 +39,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
   id: 'executeInstallHook',
   admin_label: new TranslatableMarkup("Execute a module's install hook with \$is_syncing set to FALSE."),
 )]
-final class SchemaDotOrgExecuteInstallHook implements ConfigActionPluginInterface, ContainerFactoryPluginInterface {
+class SchemaDotOrgExecuteInstallHook implements ConfigActionPluginInterface, ContainerFactoryPluginInterface {
 
   /**
    * The module handler.

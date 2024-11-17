@@ -10,11 +10,10 @@ use Drupal\Component\Utility\Html;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Extension\ExtensionPathResolver;
 use Drupal\Core\Messenger\MessengerTrait;
-use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\security_review\CheckResult;
 use Drupal\security_review\SecurityCheckBase;
 use Drupal\user\Entity\User;
-use Drupal\user\UserAuthInterface;
+use Drupal\user\UserAuthenticationInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -53,14 +52,14 @@ class NamePasswords extends SecurityCheckBase {
   /**
    * Drupal's user authentication service.
    *
-   * @var \Drupal\user\UserAuthInterface
+   * @var \Drupal\user\UserAuthenticationInterface
    */
-  protected UserAuthInterface $userAuth;
+  protected UserAuthenticationInterface $userAuth;
 
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): SecurityCheckBase|ContainerFactoryPluginInterface|static {
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): static {
     $instance = parent::create($container, $configuration, $plugin_id, $plugin_definition);
     $instance->entityTypeManager = $container->get('entity_type.manager');
     $instance->extensionPathResolver = $container->get('extension.path.resolver');
@@ -97,7 +96,7 @@ class NamePasswords extends SecurityCheckBase {
     $users = User::loadMultiple($ids);
     $findings = [];
     foreach ($users as $user) {
-      if ($this->userAuth->authenticate($user->getDisplayName(), $user->getDisplayName())) {
+      if ($this->userAuth->authenticateAccount($this->userAuth->lookupAccount($user->getDisplayName()), $user->getDisplayName())) {
         $findings[] = $user->getDisplayName();
       }
 
@@ -129,11 +128,12 @@ class NamePasswords extends SecurityCheckBase {
    * {@inheritdoc}
    */
   public function getDetails(array $findings = [], array $hushed = [], bool $returnString = FALSE): array|string {
+    $output = $returnString ? '' : [];
+
     if (empty($findings)) {
-      return [];
+      return $output;
     }
 
-    $output = $returnString ? '' : [];
     $paragraphs = [];
     $paragraphs[] = $this->t('The following user(s) has their password set to be the same as their username');
     $user_list = [];

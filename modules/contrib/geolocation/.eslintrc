@@ -17,7 +17,10 @@
     "no-console": ["off"],
     "class-methods-use-this": "off",
     "new-cap": "off",
-    "radix": "off"
+    "radix": "off",
+    "no-jquery/no-ajax-events": "off",
+    "no-restricted-syntax": "off",
+    "no-bitwise": "off"
   },
   "parserOptions": {
     "ecmaVersion": 2020,
@@ -32,10 +35,5 @@
       "files": ["js/g*.js"],
       "parserOptions": { "sourceType": "script"}
     }
-  ],
-  "ignorePatterns": [
-    "js/*.js",
-    "modules/*/js/geo*.js",
-    "tests/modules/*/js/*.js"
   ]
 }

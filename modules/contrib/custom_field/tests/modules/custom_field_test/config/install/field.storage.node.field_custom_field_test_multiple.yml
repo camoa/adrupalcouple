@@ -118,6 +118,15 @@ settings:
       scale: '2'
       size: normal
       datetime_type: datetime
+    map_string_test:
+      name: map_string_test
+      type: map_string
+      max_length: '255'
+      unsigned: 0
+      precision: '10'
+      scale: '2'
+      size: normal
+      datetime_type: datetime
     datetime_test:
       name: datetime_test
       type: datetime

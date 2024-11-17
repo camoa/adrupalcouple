@@ -11,8 +11,8 @@
   // @see https://github.com/Modernizr/Modernizr/blob/c56fb8b09515f629806ca44742932902ac145302/modernizr.js#L696-731
   let hasLocalStorage;
   try {
-    localStorage.setItem('schemadotorg_details', 'schemadotorg_details');
-    localStorage.removeItem('schemadotorg_details');
+    localStorage.setItem('has_local_storage', '');
+    localStorage.removeItem('has_local_storage');
     hasLocalStorage = true;
   } catch (e) {
     hasLocalStorage = false;

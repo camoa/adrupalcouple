@@ -64,7 +64,7 @@ class KlaroAppListBuilder extends DraggableListBuilder {
    */
   public function buildHeader() {
     $header['status'] = $this->t('Status', [], ['context' => 'klaro']);
-    $header['label'] = $this->t('Label', [], ['context' => 'klaro']);
+    $header['label'] = $this->t('Service', [], ['context' => 'klaro']);
     $header['purposes'] = $this->t('Purposes', [], ['context' => 'klaro']);
     $header['default'] = $this->t('Toggled by default', [], ['context' => 'klaro']);
     $header['required'] = $this->t('Required', [], ['context' => 'klaro']);

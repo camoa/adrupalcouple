@@ -1,13 +1,13 @@
 name: Klaro Consent Manager
-description: Implements the <a href="https://klaro.kiprotect.com/" target="_blank">Klaro! consent manager utility</a> into Drupal.
+description: Implements the <a href="https://github.com/klaro-org/klaro-js" target="_blank">Klaro Consent Manager</a> into Drupal.
 
 type: module
 package: User interface
-core_version_requirement: ^10.1 || ^11
+core_version_requirement: ^10.2 || ^11
 
 configure: klaro.admin
 
-# Information added by Drupal.org packaging script on 2024-07-12
-version: '3.0.0-rc7'
+# Information added by Drupal.org packaging script on 2024-11-01
+version: '3.0.0-rc9'
 project: 'klaro'
-datestamp: 1720781603
+datestamp: 1730468220

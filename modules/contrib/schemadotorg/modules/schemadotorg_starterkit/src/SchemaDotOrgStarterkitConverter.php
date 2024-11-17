@@ -37,7 +37,7 @@ class SchemaDotOrgStarterkitConverter implements SchemaDotOrgStarterkitConverter
    *   The service container.
    * @param \Drupal\Core\File\FileSystemInterface $fileSystem
    *   The file system service.
-   * @param \Drupal\Core\Extension\ModuleExtensionList $extensionListModule
+   * @param \Drupal\Core\Extension\ModuleExtensionList $moduleExtensionList
    *   The module extension list.
    * @param \Drupal\Core\Extension\ModuleInstallerInterface $moduleInstaller
    *   The module installer service.
@@ -55,7 +55,7 @@ class SchemaDotOrgStarterkitConverter implements SchemaDotOrgStarterkitConverter
   public function __construct(
     protected ContainerInterface $container,
     protected FileSystemInterface $fileSystem,
-    protected ModuleExtensionList $extensionListModule,
+    protected ModuleExtensionList $moduleExtensionList,
     protected ModuleInstallerInterface $moduleInstaller,
     protected ModuleHandlerInterface $moduleHandler,
     protected ConfigFactoryInterface $configFactory,
@@ -86,7 +86,7 @@ class SchemaDotOrgStarterkitConverter implements SchemaDotOrgStarterkitConverter
    *   The starter kit's module name.
    */
   protected function copyLogo(string $module_name): void {
-    $module_path = $this->extensionListModule->getPath($module_name);
+    $module_path = $this->moduleExtensionList->getPath($module_name);
     $logo_path = $module_path . '/logo.png';
     if (file_exists($logo_path)) {
       $recipe_path = $this->getRecipePath($module_name);
@@ -101,7 +101,7 @@ class SchemaDotOrgStarterkitConverter implements SchemaDotOrgStarterkitConverter
    *   The starter kit's module name.
    */
   protected function copyReadMe(string $module_name): void {
-    $module_path = $this->extensionListModule->getPath($module_name);
+    $module_path = $this->moduleExtensionList->getPath($module_name);
     $readme_path = $module_path . '/README.md';
     if (file_exists($readme_path)) {
       $contents = file_get_contents($readme_path);
@@ -118,7 +118,7 @@ class SchemaDotOrgStarterkitConverter implements SchemaDotOrgStarterkitConverter
    *   The starter kit's module name.
    */
   protected function copyComposer(string $module_name): void {
-    $module_path = $this->extensionListModule->getPath($module_name);
+    $module_path = $this->moduleExtensionList->getPath($module_name);
     $composer_path = $module_path . '/composer.json';
     if (!file_exists($composer_path)) {
       return;
@@ -160,7 +160,7 @@ class SchemaDotOrgStarterkitConverter implements SchemaDotOrgStarterkitConverter
    *   The starter kit's module name.
    */
   protected function copyDefaultContent(string $module_name): void {
-    $module_path = $this->extensionListModule->getPath($module_name);
+    $module_path = $this->moduleExtensionList->getPath($module_name);
     $recipe_path = $this->getRecipePath($module_name);
 
     if (file_exists($recipe_path . '/content')) {
@@ -179,7 +179,7 @@ class SchemaDotOrgStarterkitConverter implements SchemaDotOrgStarterkitConverter
    *   The starter kit's module name.
    */
   protected function copyTest(string $module_name): void {
-    $module_path = $this->extensionListModule->getPath($module_name);
+    $module_path = $this->moduleExtensionList->getPath($module_name);
     $module_test_path = $module_path . '/tests';
     if (!file_exists($module_test_path)) {
       return;
@@ -252,7 +252,7 @@ END;
    */
   protected function writeRecipe(string $module_name): void {
     // Convert module's info to recipe info.
-    $module_data = $this->extensionListModule->get($module_name);
+    $module_data = $this->moduleExtensionList->get($module_name);
     $data = [
       'name' => $this->replaceText($module_data->info['name']),
       'description' => $this->replaceText($module_data->info['description'] ?? ''),
@@ -322,7 +322,7 @@ END;
 
     // Include calculated dependencies that install config entities.
     if (!$has_recipes) {
-      // @phpstan-ignore-next-line
+      // @phpstan-ignore-next-line property.notFound
       foreach (array_keys($module_data->requires) as $name) {
         if ($this->installsConfigEntities($name)) {
           $dependencies[$name] = $name;
@@ -380,7 +380,7 @@ END;
       $name = end($parts);
 
       /** @var \Drupal\Core\Extension\Dependency $data */
-      // @phpstan-ignore-next-line
+      // @phpstan-ignore-next-line property.notFound
       $data = $module_data->requires[$name];
       if ($data->getProject() === 'drupal') {
         $core[] = $name;
@@ -430,7 +430,7 @@ END;
     $this->moduleHandler->loadAllIncludes('install');
     $hooks = [];
     foreach ($dependencies as $dependency_name) {
-      $dependency_path = $this->extensionListModule->getPath($dependency_name);
+      $dependency_path = $this->moduleExtensionList->getPath($dependency_name);
       $install_path = $dependency_path . '/' . $dependency_name . '.install';
       if (file_exists($install_path)) {
         require_once $install_path;
@@ -594,7 +594,7 @@ END;
    *   A module's config files.
    */
   protected function getConfigFiles(string $module_name, array $directories = ['install', 'optional']): array {
-    $module_path = $this->extensionListModule->getPath($module_name);
+    $module_path = $this->moduleExtensionList->getPath($module_name);
 
     $files = [];
     foreach ($directories as $directory) {

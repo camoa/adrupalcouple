@@ -10,12 +10,6 @@ use Drupal\votingapi\VoteResultFunctionBase;
 
 /**
  * The average of a set of votes.
- *
- * @VoteResultFunction(
- *   id = "vote_average",
- *   label = @Translation("Average"),
- *   description = @Translation("The average vote value.")
- * )
  */
 #[VoteResultFunction(
   id: "vote_average",

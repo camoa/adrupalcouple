@@ -12,23 +12,7 @@
         "source": "https://git.drupalcode.org/project/klaro"
     },
     "require": {
-        "drupal/core": "^10.1 || ^11"
-    },
-    "repositories": [
-        {
-            "type": "package",
-            "package": {
-                "name": "klarohq/klaro-js",
-                "type": "drupal-library",
-                "version": "0.7.22",
-                "dist": {
-                    "url": "https://github.com/KlaroHQ/klaro-js/archive/refs/tags/v0.7.22.zip",
-                    "type": "zip"
-                }
-            }
-        }
-    ],
-    "suggest": {
-        "klarohq/klaro-js": "Required to make the 'Klaro' module functional. Expected version: ^0.7.18"
+        "drupal/core": "^10.2 || ^11",
+        "drupal/klaro_js": "^3.0"
     }
 }

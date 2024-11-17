@@ -25,14 +25,7 @@ abstract class GeolocationGeometryWidgetBase extends WidgetBase implements Conta
    *
    * @var string
    */
-  static protected string $mapProviderId;
-
-  /**
-   * Map provider settings ID.
-   *
-   * @var string
-   */
-  static protected string $mapProviderSettingsFormId;
+  protected string $mapProviderId;
 
   /**
    * Map provider.
@@ -54,8 +47,8 @@ abstract class GeolocationGeometryWidgetBase extends WidgetBase implements Conta
   ) {
     parent::__construct($plugin_id, $plugin_definition, $field_definition, $settings, $third_party_settings);
 
-    if (!empty(static::$mapProviderId)) {
-      $this->mapProvider = $this->mapProviderManager->getMapProvider(static::$mapProviderId);
+    if ($this->mapProviderId) {
+      $this->mapProvider = $this->mapProviderManager->getMapProvider($this->mapProviderId);
     }
   }
 
@@ -77,27 +70,21 @@ abstract class GeolocationGeometryWidgetBase extends WidgetBase implements Conta
    * {@inheritdoc}
    */
   public static function defaultSettings(): array {
-    return [
-      static::$mapProviderSettingsFormId => [],
-    ] + parent::defaultSettings();
-  }
+    $settings = parent::defaultSettings();
 
-  /**
-   * {@inheritdoc}
-   */
-  public function getSettings(): array {
-    $settings = parent::getSettings();
-    $map_settings = [];
-    if (!empty($settings[static::$mapProviderSettingsFormId])) {
-      $map_settings = $settings[static::$mapProviderSettingsFormId];
-    }
+    $settings['map_provider_settings'] = [];
+    $settings['centre'] = [
+      'fit_shapes' => [
+        'enable' => TRUE,
+        'weight' => -101,
+        'map_center_id' => 'fit_shapes',
+        'settings' => [
+          'reset_zoom' => TRUE,
+        ],
+      ],
+    ];
 
-    return NestedArray::mergeDeep(
-      $settings,
-      [
-        static::$mapProviderSettingsFormId => $this->mapProvider->getSettings($map_settings),
-      ]
-    );
+    return $settings;
   }
 
   /**
@@ -107,15 +94,20 @@ abstract class GeolocationGeometryWidgetBase extends WidgetBase implements Conta
     $settings = $this->getSettings();
     $element = parent::settingsForm($form, $form_state);
 
-    $element[static::$mapProviderSettingsFormId] = $this->mapProvider->getSettingsForm(
-      $settings[static::$mapProviderSettingsFormId],
-      [
-        'fields',
-        $this->fieldDefinition->getName(),
-        'settings_edit_form',
-        'settings',
-        static::$mapProviderSettingsFormId,
-      ]
+    $parents = [
+      'fields',
+      $this->fieldDefinition->getName(),
+      'settings_edit_form',
+      'settings',
+    ];
+
+    $user_input = $form_state->getUserInput();
+    $map_provider_settings = NestedArray::getValue($user_input, array_merge($parents, ['map_provider_settings'])) ?? $settings['map_provider_settings'] ?? [];
+    $map_provider_settings = NestedArray::mergeDeep($this->mapProviderManager->getMapProviderDefaultSettings($this->mapProviderId) ?? [], $map_provider_settings);
+
+    $element['map_provider_settings'] = $this->mapProvider->getSettingsForm(
+      $map_provider_settings,
+      array_merge($parents, ['map_provider_settings'])
     );
 
     return $element;
@@ -128,15 +120,15 @@ abstract class GeolocationGeometryWidgetBase extends WidgetBase implements Conta
     $summary = [];
     $settings = $this->getSettings();
 
-    $map_provider_settings = empty($settings[static::$mapProviderSettingsFormId]) ? [] : $settings[static::$mapProviderSettingsFormId];
-
-    return array_replace_recursive($summary, $this->mapProvider->getSettingsSummary($map_provider_settings));
+    return array_replace_recursive($summary, $this->mapProvider->getSettingsSummary($settings['map_provider_settings'] ?? []));
   }
 
   /**
    * {@inheritdoc}
    */
   public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state): array {
+
+    $settings = $this->getSettings();
 
     $element['#type'] = 'container';
     $element['#attributes'] = [
@@ -162,9 +154,9 @@ abstract class GeolocationGeometryWidgetBase extends WidgetBase implements Conta
 
     $element['map'] = [
       '#type' => 'geolocation_map',
-      '#maptype' => static::$mapProviderId,
+      '#maptype' => $this->mapProviderId,
       '#weight' => -10,
-      '#settings' => $this->getSettings()[static::$mapProviderSettingsFormId],
+      '#settings' => $settings['map_provider_settings'],
       '#context' => ['widget' => $this],
       '#attributes' => [
         'class' => [

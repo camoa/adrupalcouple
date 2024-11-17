@@ -5,7 +5,6 @@
  * Editoria11y module file.
  */
 
-use Drupal\Component\Utility\DeprecationHelper;
 use Drupal\Core\Cache\Cache;
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\EntityInterface;
@@ -198,14 +197,8 @@ function editoria11y_page_attachments(array &$attachments): void {
       // @todo this fails on user route?
       if (is_array($page_title)) {
         /** @var \Drupal\Core\Render\RendererInterface $renderer */
-        $renderer = \Drupal::service('renderer');
-        $page_title = DeprecationHelper::backwardsCompatibleCall(
-          currentVersion: \Drupal::VERSION,
-          deprecatedVersion: '10.3',
-          currentCallable: fn() => $renderer->renderInIsolation($page_title),
-          // @phpstan-ignore-next-line (Handled deprecation)
-          deprecatedCallable: fn() => $renderer->renderPlain($page_title),
-        );
+        // @phpstan-ignore-next-line mandatory for Drupal <10.1 compatibility
+        $page_title = Drupal::service('renderer')->renderPlain($page_title);
       }
     }
     if (empty($page_title)) {

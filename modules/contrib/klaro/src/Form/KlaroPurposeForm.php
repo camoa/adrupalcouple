@@ -113,6 +113,8 @@ class KlaroPurposeForm extends EntityForm {
     }
 
     $form_state->setRedirect('entity.klaro_purpose.collection');
+
+    return $status;
   }
 
   /**

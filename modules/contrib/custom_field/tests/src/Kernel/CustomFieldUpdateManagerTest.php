@@ -4,11 +4,11 @@ namespace Drupal\Tests\custom_field\Kernel;
 
 use Drupal\Core\Field\FieldItemInterface;
 use Drupal\Core\Field\FieldItemListInterface;
-use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\KernelTests\KernelTestBase;
-use Drupal\node\Entity\Node;
 use Drupal\Tests\node\Traits\NodeCreationTrait;
 use Drupal\Tests\user\Traits\UserCreationTrait;
+use Drupal\field\Entity\FieldStorageConfig;
+use Drupal\node\Entity\Node;
 
 /**
  * Test the CustomFieldUpdateManager service.

@@ -1,8 +1,8 @@
 langcode: en
 consentModal:
-  title: Information that we collect
+  title: Use of personal data and cookies
   description: >
-    Here you can see and customize the information that we collect about you.
+    Please choose the services and 3rd party applications we would like to use.
   privacyPolicy:
     name: privacy policy
     text: >
@@ -11,7 +11,7 @@ consentModal:
 consentNotice:
   changeDescription: There were changes since your last visit, please update your consent.
   description: >
-    We collect and process your personal information with cookies for the following purposes: {purposes}.
+    We use cookies and process personal data for the following purposes: {purposes}.
   learnMore: Customize
 ok: Accept
 save: Save
@@ -21,18 +21,18 @@ acceptAll: Accept all
 acceptSelected: Accept selected
 app:
   disableAll:
-    title: Toggle all apps
-    description: Use this switch to enable/disable all apps.
+    title: Toggle all services
+    description: Use this switch to enable/disable all services.
   optOut:
     title: (opt-out)
-    description: This app is loaded by default (but you can opt out)
+    description: This service is loaded by default (opt-out possible).
   required:
     title: (always required)
-    description: This application is always required
+    description: This service is always required.
   purposes: Purposes
   purpose: Purpose
 contextualConsent:
   acceptAlways: Always
   acceptOnce: 'Yes'
-  description: Do you want to load external content supplied by {title}?
+  description: Load external content supplied by {title}?
 poweredBy: Powered by Klaro!

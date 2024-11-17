@@ -31,7 +31,7 @@ class SchemadotorgRecipeController extends ControllerBase {
   /**
    * The module list service.
    */
-  protected ModuleExtensionList $moduleList;
+  protected ModuleExtensionList $moduleExtensionList;
 
   /**
    * The Schema.org names manager.
@@ -64,7 +64,7 @@ class SchemadotorgRecipeController extends ControllerBase {
   public static function create(ContainerInterface $container): static {
     $instance = parent::create($container);
     $instance->root = $container->getParameter('app.root');
-    $instance->moduleList = $container->get('extension.list.module');
+    $instance->moduleExtensionList = $container->get('extension.list.module');
     $instance->schemaNames = $container->get('schemadotorg.names');
     $instance->schemaTypeManager = $container->get('schemadotorg.schema_type_manager');
     $instance->schemaTypeBuilder = $container->get('schemadotorg.schema_type_builder');
@@ -87,7 +87,7 @@ class SchemadotorgRecipeController extends ControllerBase {
       'operations' => ['data' => $this->t('Operations'), 'width' => '10%'],
     ];
 
-    $module_data = $this->moduleList->getList();
+    $module_data = $this->moduleExtensionList->getList();
 
     // Rows.
     $rows = [];
@@ -230,7 +230,7 @@ class SchemadotorgRecipeController extends ControllerBase {
    */
   public function buildDependencies(string $name): array {
     $recipe = $this->schemaRecipeManager->getRecipe($name);
-    $module_list_info = $this->moduleList->getAllAvailableInfo();
+    $module_list_info = $this->moduleExtensionList->getAllAvailableInfo();
 
     $rows = [];
     foreach ($recipe['install'] as $dependency) {

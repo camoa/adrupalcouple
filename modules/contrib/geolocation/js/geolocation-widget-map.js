@@ -10,8 +10,6 @@
  */
 
 (function (Drupal) {
-  "use strict";
-
   /**
    * Generic widget behavior.
    *
@@ -28,25 +26,25 @@
      * @param {Object} drupalSettings.geolocation
      * @param {WidgetSettings[]} drupalSettings.geolocation.widgetSettings
      */
-    attach: function (context, drupalSettings) {
+    attach: (context, drupalSettings) => {
       context.querySelectorAll(".geolocation-map-widget").forEach((form) => {
         if (form.classList.contains("processed")) {
           return;
         }
         form.classList.add("processed");
 
-        let id = form.getAttribute("id") ?? null;
+        const id = form.getAttribute("id") ?? null;
         if (!id) {
           return;
         }
 
-        let widgetSettings = drupalSettings.geolocation.widgetSettings[id] ?? null;
+        const widgetSettings = drupalSettings.geolocation.widgetSettings[id] ?? null;
         if (!widgetSettings) {
           return;
         }
 
         import(widgetSettings.brokerImportPath).then((brokerImport) => {
-          new brokerImport.default(widgetSettings);
+          new brokerImport.default(form, widgetSettings);
         });
       });
     },

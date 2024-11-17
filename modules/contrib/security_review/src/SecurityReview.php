@@ -200,7 +200,9 @@ class SecurityReview {
    */
   public function isCheckSkipped(string $check_name): array {
     $skipped_array = $this->config->get('skipped');
-    if (array_key_exists($check_name, $skipped_array)) {
+    if (isset($skipped_array)
+      && is_array($skipped_array)
+      && array_key_exists($check_name, $skipped_array)) {
       return $skipped_array[$check_name];
     }
     return [];
@@ -311,7 +313,7 @@ class SecurityReview {
    * @param \Drupal\security_review\CheckResult|null $check
    *   The result to log.
    */
-  public function logCheckResult(CheckResult $check = NULL): void {
+  public function logCheckResult(?CheckResult $check = NULL): void {
 
     if ($this->isLogging()) {
       if ($check === NULL) {

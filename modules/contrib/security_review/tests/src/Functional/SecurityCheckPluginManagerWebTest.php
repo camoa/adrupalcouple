@@ -42,6 +42,8 @@ class SecurityCheckPluginManagerWebTest extends BrowserTestBase {
 
   /**
    * {@inheritdoc}
+   *
+   * @throws \Drupal\Core\Entity\EntityStorageException
    */
   protected function setUp(): void {
     parent::setUp();
@@ -57,7 +59,7 @@ class SecurityCheckPluginManagerWebTest extends BrowserTestBase {
     $this->drupalLogin($this->user);
 
     // Populate $checks.
-    $this->checks = \Drupal::service('plugin.manager.security_review.security_check')->getChecks();
+    $this->checks = $this->container->get('plugin.manager.security_review.security_check')->getChecks();
   }
 
   /**
@@ -65,6 +67,8 @@ class SecurityCheckPluginManagerWebTest extends BrowserTestBase {
    *
    * Tests whether the checks haven't been run yet, then runs them and checks
    * that their lastRun value is not 0.
+   *
+   * @throws \Behat\Mink\Exception\ElementNotFoundException
    */
   public function testRun(): void {
     foreach ($this->checks as $check) {
@@ -86,10 +90,10 @@ class SecurityCheckPluginManagerWebTest extends BrowserTestBase {
   }
 
   /**
-   * Skips all checks then runs the checklist. No checks should be ran.
+   * Skips all checks then runs the checklist. No checks should be run.
    */
   public function testSkippedRun(): void {
-    $security_review_service = \Drupal::service('security_review');
+    $security_review_service = $this->container->get('security_review');
 
     foreach ($this->checks as $check) {
       $name = $check->getPluginId();

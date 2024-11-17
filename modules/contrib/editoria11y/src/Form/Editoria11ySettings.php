@@ -204,7 +204,7 @@ class Editoria11ySettings extends ConfigFormBase {
       '#title' => $this->t("Remove redundant base url from URLs"),
       '#type' => 'textfield',
       '#default_value' => $config->get('redundant prefix'),
-      '#description' => $this->t('Provide base URL if your site is installed in a subdirectory ("/mysite") that is being duplicated in dashboard view links (/mysite/mysite/mypage).'),
+      '#description' => $this->t('Provide base URL ("/mysite") if your site is installed in a subdirectory. Subdirectories tend to get duplicated (/mysite/mysite/mypage) and throw errors from the API.'),
     ];
 
     $form['adv']['sync']['disable_sync'] = [

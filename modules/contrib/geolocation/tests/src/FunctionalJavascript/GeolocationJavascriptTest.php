@@ -63,6 +63,7 @@ class GeolocationJavascriptTest extends GeolocationJavascriptTestBase {
       ->setComponent('field_geolocation', [
         'type' => 'geolocation_map',
         'settings' => [
+          'map_provider_id' => 'google_maps',
           'allow_override_map_settings' => TRUE,
         ],
       ])
@@ -237,11 +238,14 @@ class GeolocationJavascriptTest extends GeolocationJavascriptTestBase {
     // Display creation form.
     $this->drupalGet('node/4/edit');
 
-    $this->assertSession()->fieldExists("field_geolocation[0][map_provider_settings][height]");
+    $this->assertSession()->fieldExists("field_geolocation[map_provider_settings][height]");
+
+    $result = $this->assertSession()->waitForElementVisible('css', '.geolocation-map-widget > details', 1000);
+    $result->click();
 
     $edit = [
       'title[0][value]' => $this->randomMachineName(),
-      'field_geolocation[0][map_provider_settings][height]' => '273px',
+      'field_geolocation[map_provider_settings][height]' => '273px',
     ];
 
     $this->submitForm($edit, 'Save');
@@ -271,10 +275,13 @@ class GeolocationJavascriptTest extends GeolocationJavascriptTestBase {
     // Display creation form.
     $this->drupalGet('node/4/edit');
 
-    $this->assertSession()->fieldExists("field_geolocation[0][map_provider_settings][conditional_initialization]");
+    $this->assertSession()->fieldExists("field_geolocation[map_provider_settings][conditional_initialization]");
+
+    $result = $this->assertSession()->waitForElementVisible('css', '.geolocation-map-widget > details', 1000);
+    $result->click();
 
     $edit = [
-      'field_geolocation[0][map_provider_settings][conditional_initialization]' => 'button',
+      'field_geolocation[map_provider_settings][conditional_initialization]' => 'button',
     ];
 
     $this->submitForm($edit, 'Save');
@@ -305,10 +312,13 @@ class GeolocationJavascriptTest extends GeolocationJavascriptTestBase {
     // Display creation form.
     $this->drupalGet('node/4/edit');
 
-    $this->assertSession()->fieldExists("field_geolocation[0][map_provider_settings][conditional_initialization]");
+    $this->assertSession()->fieldExists("field_geolocation[map_provider_settings][conditional_initialization]");
+
+    $result = $this->assertSession()->waitForElementVisible('css', '.geolocation-map-widget > details', 1000);
+    $result->click();
 
     $edit = [
-      'field_geolocation[0][map_provider_settings][conditional_initialization]' => 'programmatically',
+      'field_geolocation[map_provider_settings][conditional_initialization]' => 'programmatically',
     ];
 
     $this->submitForm($edit, 'Save');

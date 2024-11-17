@@ -1,7 +1,7 @@
 # Schema for the configuration files of the Klaro! module.
 klaro.klaro_app.*:
   type: config_entity
-  label: 'Klaro! app'
+  label: 'Klaro! Service'
   mapping:
     id:
       type: string
@@ -58,10 +58,8 @@ klaro.klaro_app.*:
       sequence:
         type: string
     callback_code:
-      type: sequence
+      type: string
       label: 'Callback (inline Javascript)'
-      sequence:
-        type: string
     wrapper_identifier:
       type: sequence
       label: 'Embed wrap classes'
@@ -69,7 +67,7 @@ klaro.klaro_app.*:
         type: string
     attachments:
       type: sequence
-      label: 'Page Attachemend identifiers'
+      label: 'Page Attachment identifiers'
       sequence:
         type: string
     weight:
@@ -95,19 +93,22 @@ klaro.settings:
   label: 'Klaro! settings'
   mapping:
     auto_decorate_final_html:
-      type: integer
+      type: boolean
       label: 'Process final HTML'
     auto_decorate_js_alter:
-      type: integer
+      type: boolean
       label: 'Process js_alter'
     auto_decorate_page_attachments:
-      type: integer
+      type: boolean
       label: 'Process page_attachments'
+    auto_decorate_preprocess_field:
+      type: boolean
+      label: 'Process preprocess_field'
     block_unknown:
-      type: integer
+      type: boolean
       label: 'Block unknown external resources'
-    block_unknown_logger:
-      type: integer
+    log_unknown_resources:
+      type: boolean
       label: 'Log unknown resources'
     block_unknown_label:
       type: label
@@ -251,7 +252,7 @@ klaro.texts:
       label: 'Accept selected button text'
     app:
       type: mapping
-      label: 'App'
+      label: 'Service'
       mapping:
         disableAll:
           type: mapping

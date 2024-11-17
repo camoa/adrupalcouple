@@ -30,7 +30,7 @@ class SchemaDotOrgRecipeConfirmForm extends ConfirmFormBase {
   /**
    * The module list service.
    */
-  protected ModuleExtensionList $moduleList;
+  protected ModuleExtensionList $moduleExtensionList;
 
   /**
    * The module handler to invoke the alter hook.
@@ -72,7 +72,7 @@ class SchemaDotOrgRecipeConfirmForm extends ConfirmFormBase {
    */
   public static function create(ContainerInterface $container): static {
     $instance = parent::create($container);
-    $instance->moduleList = $container->get('extension.list.module');
+    $instance->moduleExtensionList = $container->get('extension.list.module');
     $instance->moduleHandler = $container->get('module_handler');
     $instance->entityTypeManager = $container->get('entity_type.manager');
     $instance->schemaNames = $container->get('schemadotorg.names');
@@ -143,7 +143,7 @@ class SchemaDotOrgRecipeConfirmForm extends ConfirmFormBase {
     $settings = $this->schemaRecipeManager->getRecipeSettings($this->name);
 
     // Check dependencies.
-    $module_data = $this->moduleList->getList();
+    $module_data = $this->moduleExtensionList->getList();
     $missing_dependencies = [];
     foreach ($settings['install'] as $dependency) {
       if (!isset($module_data[$dependency])) {

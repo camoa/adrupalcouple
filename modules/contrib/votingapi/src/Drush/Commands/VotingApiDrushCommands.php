@@ -49,9 +49,9 @@ final class VotingApiDrushCommands extends DrushCommands {
    * @param string $entity_type
    *   The type of entity to generate votes for.
    * @param string $vote_type
-   *   The type of votes to generate, defaults to 'percent'.
+   *   (optional) The type of votes to generate, defaults to 'vote'.
    * @param array $options
-   *   An associative array of options.
+   *   (optional) An associative array of options.
    *
    * @command voting:generate
    * @aliases genv,generate-votes
@@ -71,9 +71,9 @@ final class VotingApiDrushCommands extends DrushCommands {
   #[CLI\Command(name: 'voting:generate', aliases: ['genv', 'generate-votes'])]
   #[CLI\Help(description: 'Creates dummy voting data.')]
   #[CLI\Argument(name: 'entity_type', description: 'The type of entity to generate votes for.')]
-  #[CLI\Argument(name: 'vote_type', description: "The type of votes to generate, defaults to 'percent'.")]
+  #[CLI\Argument(name: 'vote_type', description: "The type of votes to generate, defaults to 'vote'.")]
   #[CLI\Usage(name: 'drush voting:generate [entity_type]', description: 'Creates dummy voting data for the specified entity type.')]
-  public function votes(string $entity_type, string $vote_type, array $options = []): void {
+  public function votes(string $entity_type, string $vote_type = 'vote', array $options = []): void {
     $options += [
       'kill_votes' => NULL,
       'age' => NULL,
@@ -92,25 +92,27 @@ final class VotingApiDrushCommands extends DrushCommands {
    * Regenerates voting results from raw vote data.
    *
    * @param string $entity_type
-   *   The type of entity to recalculate vote results for.
-   * @param string $entity_id
-   *   The ID of the entity.
+   *   (optional) The type of entity to recalculate vote results for.
    * @param string $vote_type
-   *   The type of votes to recalculate, defaults to 'percent'.
+   *   (optional) The type of votes to recalculate, defaults to 'percent'.
+   * @param string $entity_id
+   *   (optional) The ID of the entity.
    *
    * @command voting:recalculate
    * @aliases vcalc,votingapi-recalculate
    *
-   * @usage drush voting:recalculate [entity_type]
-   *  Regenerates voting results from raw vote data. Defaults to 'node'.
+   * @usage drush voting:recalculate
+   *  Regenerates voting results from raw vote data for node entities (default).
+   * @usage drush voting:recalculate comment
+   *  Regenerates voting results from raw vote data for comment entities.
    */
   #[CLI\Command(name: 'voting:recalculate', aliases: ['vcalc', 'votingapi-recalculate'])]
   #[CLI\Help(description: 'Regenerates voting results from raw vote data.')]
   #[CLI\Argument(name: 'entity_type', description: 'The type of entity to recalculate vote results for.')]
-  #[CLI\Argument(name: 'entity_id', description: 'The ID of the entity.')]
   #[CLI\Argument(name: 'vote_type', description: "The type of votes to recalculate, defaults to 'percent'.")]
+  #[CLI\Argument(name: 'entity_id', description: 'The ID of the entity.')]
   #[CLI\Usage(name: 'drush voting:recalculate [entity_type]', description: "Regenerates voting results from raw vote data. Defaults to 'node'.")]
-  public function recalculate(string $entity_type = 'node', string $entity_id = NULL, string $vote_type = 'vote'): void {
+  public function recalculate(string $entity_type = 'node', string $vote_type = 'vote', ?string $entity_id = NULL): void {
     // Prep some starter query objects.
     if (empty($entity_id)) {
       $votes = $this->database->select('votingapi_vote', 'vv')
@@ -139,9 +141,9 @@ final class VotingApiDrushCommands extends DrushCommands {
    * Deletes all existing voting data.
    *
    * @param string $entity_type
-   *   The type of entity whose voting data should be flushed.
+   *   (optional) The type of entity whose voting data should be flushed.
    * @param string $entity_id
-   *   The ID of the entity.
+   *   (optional) The ID of the entity.
    *
    * @command voting:flush
    * @aliases vflush,votingapi-flush
@@ -154,7 +156,7 @@ final class VotingApiDrushCommands extends DrushCommands {
   #[CLI\Argument(name: 'entity_type', description: 'The type of entity whose voting data should be flushed.')]
   #[CLI\Argument(name: 'entity_id', description: 'The ID of the entity.')]
   #[CLI\Usage(name: "drush voting:flush [entity_type | 'all']", description: 'Deletes all existing voting data for the specified entity type.')]
-  public function flush(string $entity_type = 'all', string $entity_id = NULL): void {
+  public function flush(string $entity_type = 'all', ?string $entity_id = NULL): void {
     if ($this->io()->confirm(dt("Delete @type voting data?", ['@type' => $entity_type]))) {
       $cache = $this->database->delete('votingapi_result');
       $votes = $this->database->delete('votingapi_vote');
@@ -179,11 +181,11 @@ final class VotingApiDrushCommands extends DrushCommands {
    * Utility method to generate votes.
    *
    * @param string $entity_type
-   *   The type of entity to generate votes for.
+   *   (optional) The type of entity to generate votes for.
    * @param string $vote_type
-   *   The type of votes to generate, defaults to 'percent'.
+   *   (optional) The type of votes to generate, defaults to 'percent'.
    * @param array $options
-   *   An associative array of options.
+   *   (optional) An associative array of options.
    */
   protected function generateVotes(string $entity_type = 'node', string $vote_type = 'percent', array $options = []): void {
     $options += [
@@ -219,6 +221,17 @@ final class VotingApiDrushCommands extends DrushCommands {
 
   /**
    * Utility method to generate votes on a node by a set of users.
+   *
+   * @param string $entity_type
+   *   (optional) The type of entity to recalculate vote results for.
+   * @param string $entity_id
+   *   (optional) The ID of the entity.
+   * @param int $timestamp
+   *   (optional) The timestamp to use for the generated vote.
+   * @param array $uids
+   *   (optional) An array of user IDs to use for the generated votes.
+   * @param string $style
+   *   (optional) Vote style. Defaults to 'percent'.
    */
   protected function castVotes(string $entity_type, string $entity_id, int $timestamp = 0, array $uids = [], string $style = 'percent'): void {
     foreach ($uids as $uid) {

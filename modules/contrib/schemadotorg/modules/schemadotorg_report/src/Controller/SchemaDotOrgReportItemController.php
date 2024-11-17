@@ -45,6 +45,7 @@ class SchemaDotOrgReportItemController extends SchemaDotOrgReportControllerBase 
     $instance = parent::create($container);
     $instance->schemaMappingManager = $container->get('schemadotorg.mapping_manager');
     $instance->schemaEntityFieldManager = $container->get('schemadotorg.entity_field_manager');
+    // @phpstan-ignore-next-line ternary.alwaysTrue
     $instance->additionalMappingsManager = $container->has('schemadotorg_additional_mappings.manager')
       ? $container->get('schemadotorg_additional_mappings.manager')
       : NULL;

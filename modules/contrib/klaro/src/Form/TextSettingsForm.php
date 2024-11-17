@@ -6,6 +6,7 @@ use Drupal\Component\Utility\UrlHelper;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
+use Symfony\Component\Routing\Exception\RouteNotFoundException;
 
 /**
  * Creates the Klaro! text config form.
@@ -67,7 +68,7 @@ class TextSettingsForm extends ConfigFormBase {
       '#type' => 'textfield',
       '#size' => 150,
       '#title' => $this->t('Changes notification', [], ['context' => 'klaro']),
-      '#description' => $this->t('If apps change but the user previously gave consent, a change notification is shown so the user can confirm these changes.', [], ['context' => 'klaro']),
+      '#description' => $this->t('If services change but the user previously gave consent, a change notification is shown so the user can confirm these changes.', [], ['context' => 'klaro']),
       '#default_value' => $config->get('consentNotice.changeDescription'),
     ];
 
@@ -117,13 +118,13 @@ class TextSettingsForm extends ConfigFormBase {
     $form['initial']['operations']['learn_more'] = [
       '#type' => 'textfield',
       '#title' => $this->t('%label text', ['%label' => $this->t('Learn more', [], ['context' => 'klaro'])], ['context' => 'klaro']),
-      '#description' => $this->t('By clicking this link, the user can view and customize which apps are used on the website.', [], ['context' => 'klaro']),
+      '#description' => $this->t('By clicking this link, the user can view and customize which services are used on the website.', [], ['context' => 'klaro']),
       '#default_value' => $config->get('consentNotice.learnMore'),
     ];
 
     $form['manage_apps'] = [
       '#type' => 'details',
-      '#title' => $this->t('Manage apps', [], ['context' => 'klaro']),
+      '#title' => $this->t('Manage Services', [], ['context' => 'klaro']),
       '#group' => 'klaro',
       '#weight' => 1,
       '#tree' => TRUE,
@@ -211,7 +212,7 @@ class TextSettingsForm extends ConfigFormBase {
 
     $form['app'] = [
       '#type' => 'details',
-      '#title' => $this->t('App item', [], ['context' => 'klaro']),
+      '#title' => $this->t('Service item', [], ['context' => 'klaro']),
       '#group' => 'klaro',
       '#weight' => 3,
       '#tree' => TRUE,
@@ -286,7 +287,7 @@ class TextSettingsForm extends ConfigFormBase {
     ];
     $form['contextualConsent']['description'] = [
       '#type' => 'textfield',
-      '#description' => $this->t('Use {title} as a placeholder for the appname', [], ['context' => 'klaro']),
+      '#description' => $this->t('Use {title} as a placeholder for the service name', [], ['context' => 'klaro']),
       '#title' => $this->t('Description', [], ['context' => 'klaro']),
       '#default_value' => $config->get('contextualConsent.description'),
     ];
@@ -411,7 +412,7 @@ class TextSettingsForm extends ConfigFormBase {
         $url->toString();
       }
       // @todo Provide translated messages for the various error states.
-      catch (InvalidArgumentException $e) {
+      catch (\InvalidArgumentException $e) {
         $form_state->setError($element, t('The URL %url is not valid: @error', [
           '%url' => $value,
           '@error' => $e->getMessage(),

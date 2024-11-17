@@ -326,7 +326,6 @@ function schemadotorg_node_presave(NodeInterface $node): void {
   // Warning: Undefined array key "add_statistics" in
   // Drupal\devel_generate\Plugin\DevelGenerate\ContentDevelGenerate->insertNodeData()
   // (line 790 of modules/contrib/devel/devel_generate/src/Plugin/DevelGenerate/ContentDevelGenerate.php).
-  // @phpstan-ignore-next-line
   if (isset($node->devel_generate) && is_array($node->devel_generate)) {
     $node->devel_generate += ['add_statistics' => FALSE];
   }

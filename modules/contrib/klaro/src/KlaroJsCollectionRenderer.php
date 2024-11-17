@@ -27,10 +27,12 @@ class KlaroJsCollectionRenderer extends JsCollectionRenderer implements AssetCol
         $element['#attributes']['data-name'] = $js_asset['klaro'];
         if (!empty($element['#attributes']['src'])) {
           $element['#attributes']['data-src'] = $element['#attributes']['src'];
-          // To support attached libraries via add_js ajaxcommand,
-          // we need to fake the load event, so that behaviours get reattached,
+          // @phpstan-ignore-next-line
+          $modulePath = '/' . \Drupal::service('extension.list.module')->getPath('klaro');
+          // To support attached libraries via add_js ajax command,
+          // we need to fake the load event, so that behaviors get reattached,
           // therefore load an empty js - noop.js.
-          $element['#attributes']['src'] = '/modules/contrib/klaro/js/klaro_placeholder.js';
+          $element['#attributes']['src'] = $modulePath . '/js/klaro_placeholder.js';
         }
       }
       return $element;

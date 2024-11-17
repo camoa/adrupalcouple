@@ -69,7 +69,7 @@ class CustomFieldImage extends TypedData implements PrimitiveInterface {
   /**
    * {@inheritdoc}
    */
-  public function __construct(DataDefinitionInterface $definition, $name = NULL, TypedDataInterface $parent = NULL) {
+  public function __construct(DataDefinitionInterface $definition, $name = NULL, ?TypedDataInterface $parent = NULL) {
     parent::__construct($definition, $name, $parent);
     $this->value = $parent->{$this->getName()};
     $this->alt = $parent->get($this->getName() . '__alt')->getValue();

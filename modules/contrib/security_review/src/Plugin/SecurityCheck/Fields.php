@@ -15,7 +15,6 @@ use Drupal\Core\Entity\Exception\UndefinedLinkTemplateException;
 use Drupal\Core\Entity\Sql\SqlContentEntityStorage;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Messenger\MessengerTrait;
-use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\security_review\CheckResult;
 use Drupal\security_review\SecurityCheckBase;
@@ -89,7 +88,7 @@ class Fields extends SecurityCheckBase {
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): SecurityCheckBase|ContainerFactoryPluginInterface|static {
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): static {
     $instance = parent::create($container, $configuration, $plugin_id, $plugin_definition);
     $instance->database = $container->get('database');
     $instance->entityTypeManager = $container->get('entity_type.manager');
@@ -186,7 +185,6 @@ class Fields extends SecurityCheckBase {
 
       $finished = ($doneCount + $fieldFinished) / $totalFields;
       if ($fieldFinished === 1.0) {
-        $doneCount++;
         $this->sandbox['done_fields'][] = $fieldName;
       }
 
@@ -213,6 +211,8 @@ class Fields extends SecurityCheckBase {
   public function processField(string $entityTypeId, string $fieldName): float {
     // We process 1000 rows per iteration.
     $batchSize = 1000;
+    $config = $this->securityReview->getCheckSettings($this->pluginId);
+
     $knownRiskyFields = $this->getHushedFields($config['known_risky_fields'] ?? []);
     $fieldStorageDefinitions = $this->entityFieldManager->getFieldStorageDefinitions($entityTypeId);
     $fieldStorageDefinition = $fieldStorageDefinitions[$fieldName];
@@ -311,11 +311,12 @@ class Fields extends SecurityCheckBase {
    * {@inheritdoc}
    */
   public function getDetails(array $findings, array $hushed = [], bool $returnString = FALSE): array|string {
+    $output = $returnString ? '' : [];
+
     if (empty($findings) && empty($hushed)) {
-      return [];
+      return $output;
     }
 
-    $output = $returnString ? '' : [];
     if ($returnString) {
       $output = $this->t('There were some dangerous tags found, see UI for more details.');
     }

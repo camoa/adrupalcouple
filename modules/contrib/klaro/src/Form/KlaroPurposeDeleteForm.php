@@ -5,11 +5,41 @@ namespace Drupal\klaro\Form;
 use Drupal\Core\Entity\EntityConfirmFormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
+use Drupal\klaro\Utility\KlaroHelper;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Builds the form to delete a Klaro! purpose.
  */
 class KlaroPurposeDeleteForm extends EntityConfirmFormBase {
+
+  /**
+   * Drupal\klaro\Utility\KlaroHelper.
+   *
+   * @var \Drupal\klaro\Utility\KlaroHelper
+   */
+  protected $klaro;
+
+  /**
+   * The constructor.
+   *
+   * @param Drupal\klaro\Utility\KlaroHelper $klaro
+   *   The Klaro Helper.
+   */
+  public function __construct(KlaroHelper $klaro) {
+    $this->klaro = $klaro;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    // Instantiates this form class.
+    return new static(
+      // Load the service required to construct this class.
+      $container->get('klaro.helper')
+    );
+  }
 
   /**
    * {@inheritdoc}
@@ -38,18 +68,16 @@ class KlaroPurposeDeleteForm extends EntityConfirmFormBase {
    * {@inheritdoc}
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
-    /** @var \Drupal\klaro\Utility\KlaroHelper $helper */
-    $helper = \Drupal::service('klaro.helper');
     $id = $this->entity->id();
     $usage = [];
-    foreach ($helper->getApps(FALSE) as $app) {
+    foreach ($this->klaro->getApps(FALSE) as $app) {
       if (in_array($id, $app->purposes())) {
         $usage[$app->id()] = $app->label();
       }
     }
 
     if (!empty($usage)) {
-      $form_state->setError($form, $this->t('This purpose is still in use by following Klaro! apps: %apps. Please update the apps first before deleting this purpose.', [
+      $form_state->setError($form, $this->t('This purpose is still in use by following Klaro! services: %apps. Please update the services first before deleting this purpose.', [
         '%apps' => implode(', ', array_values($usage)),
       ], ['context' => 'klaro']));
     }
@@ -60,7 +88,7 @@ class KlaroPurposeDeleteForm extends EntityConfirmFormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $this->entity->delete();
-    $this->messenger()->addMessage($this->t('Klaro! app %label has been deleted.', [
+    $this->messenger()->addMessage($this->t('Klaro! purpose %label has been deleted.', [
       '%label' => $this->entity->label(),
     ], ['context' => 'klaro']));
 

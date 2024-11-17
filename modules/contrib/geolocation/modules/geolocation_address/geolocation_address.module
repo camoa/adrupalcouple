@@ -219,7 +219,9 @@ function geolocation_address_field_widget_third_party_settings_form(WidgetInterf
     ],
   ];
 
-  $control_positions = $widget->getMapProvider()::getControlPositions();
+  $map_provider = $widget->getMapProvider();
+
+  $control_positions = $map_provider ? $map_provider::getControlPositions() : [];
   if ($control_positions) {
     $element['button_position'] = [
       '#type' => 'select',

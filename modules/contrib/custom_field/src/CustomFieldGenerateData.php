@@ -156,6 +156,14 @@ class CustomFieldGenerateData implements CustomFieldGenerateDataInterface {
           $value = $map_values;
           break;
 
+        case 'map_string':
+          $map_values = [];
+          for ($i = 0; $i < 5; $i++) {
+            $map_values[] = $random->word(mt_rand(10, 20));
+          }
+          $value = $map_values;
+          break;
+
         case 'datetime':
           $datetime_type = $column['datetime_type'];
           $timestamp = $this->timeService->getRequestTime() - mt_rand(0, 86400 * 365);
@@ -206,6 +214,7 @@ class CustomFieldGenerateData implements CustomFieldGenerateDataInterface {
 
       // @todo Hardening: we need to treat maps specially due to ajax.
       unset($random_values['map_test']);
+      unset($random_values['map_string_test']);
 
       // @todo Hardening: why do color fields not set using ::submitForm?
       unset($random_values['color_test']);

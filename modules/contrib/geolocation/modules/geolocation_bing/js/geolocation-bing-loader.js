@@ -1,1 +1,3 @@
-function DrupalGeolocationBingLoader() { Drupal.geolocation.maps.mapProviderCallback('Bing');  }
+function DrupalGeolocationBingLoader() {
+  Drupal.geolocation.maps.mapProviderCallback("Bing");
+}

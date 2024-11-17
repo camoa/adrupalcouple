@@ -2,9 +2,10 @@
 
 namespace Drupal\votingapi\Entity;
 
-use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Entity\ContentEntityBase;
 use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\Core\Field\BaseFieldDefinition;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\votingapi\VoteResultInterface;
 
 /**
@@ -125,53 +126,53 @@ class VoteResult extends ContentEntityBase implements VoteResultInterface {
   public static function baseFieldDefinitions(EntityTypeInterface $entity_type) {
 
     $fields['id'] = BaseFieldDefinition::create('integer')
-      ->setLabel(t('ID'))
-      ->setDescription(t('The vote result ID.'))
+      ->setLabel(new TranslatableMarkup('ID'))
+      ->setDescription(new TranslatableMarkup('The vote result ID.'))
       ->setReadOnly(TRUE)
       ->setSetting('unsigned', TRUE);
 
     $fields['type'] = BaseFieldDefinition::create('entity_reference')
-      ->setLabel(t('Type'))
-      ->setDescription(t('The vote type.'))
+      ->setLabel(new TranslatableMarkup('Type'))
+      ->setDescription(new TranslatableMarkup('The vote type.'))
       ->setSetting('target_type', 'vote_type')
       ->setReadOnly(TRUE);
 
     $fields['entity_type'] = BaseFieldDefinition::create('string')
-      ->setLabel(t('Entity Type'))
-      ->setDescription(t('The type from the voted entity.'))
+      ->setLabel(new TranslatableMarkup('Entity Type'))
+      ->setDescription(new TranslatableMarkup('The type from the voted entity.'))
       ->setSettings([
         'max_length' => 64,
       ])
       ->setRequired(TRUE);
 
     $fields['entity_id'] = BaseFieldDefinition::create('entity_reference')
-      ->setLabel(t('Voted entity'))
-      ->setDescription(t('The ID from the voted entity'))
+      ->setLabel(new TranslatableMarkup('Voted entity'))
+      ->setDescription(new TranslatableMarkup('The ID from the voted entity'))
       ->setRequired(TRUE);
 
     $fields['value'] = BaseFieldDefinition::create('float')
-      ->setLabel(t('Value'))
-      ->setDescription(t('The numeric value of the vote.'))
+      ->setLabel(new TranslatableMarkup('Value'))
+      ->setDescription(new TranslatableMarkup('The numeric value of the vote.'))
       ->setRequired(TRUE);
 
     $fields['value_type'] = BaseFieldDefinition::create('string')
-      ->setLabel(t('Value Type'))
+      ->setLabel(new TranslatableMarkup('Value Type'))
       ->setSettings([
         'max_length' => 64,
       ])
       ->setRequired(TRUE);
 
     $fields['function'] = BaseFieldDefinition::create('string')
-      ->setLabel(t('Function'))
-      ->setDescription(t('Function to apply to the numbers.'))
+      ->setLabel(new TranslatableMarkup('Function'))
+      ->setDescription(new TranslatableMarkup('Function to apply to the numbers.'))
       ->setSettings([
         'max_length' => 100,
       ])
       ->setRequired(TRUE);
 
     $fields['timestamp'] = BaseFieldDefinition::create('created')
-      ->setLabel(t('Created'))
-      ->setDescription(t('The time that the entity was created.'))
+      ->setLabel(new TranslatableMarkup('Created'))
+      ->setDescription(new TranslatableMarkup('The time that the entity was created.'))
       ->setRequired(TRUE);
 
     return $fields;

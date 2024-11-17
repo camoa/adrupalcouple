@@ -2,25 +2,34 @@
 
 namespace Drupal\custom_field\Plugin\CustomField\FieldWidget;
 
-use Drupal\Component\Utility\NestedArray;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\custom_field\Plugin\CustomField\MapWidgetBase;
 use Drupal\custom_field\Plugin\CustomFieldTypeInterface;
 
 /**
- * Plugin implementation of the 'Map (Key Value)' custom field widget.
+ * Plugin implementation of the 'map_key_value' custom field widget.
  *
  * @FieldWidget(
  *   id = "map_key_value",
- *   label = @Translation("Map (Key Value)"),
- *   category = @Translation("General"),
+ *   label = @Translation("Map: Key/Value"),
+ *   category = @Translation("Map"),
  *   data_types = {
  *     "map",
  *   },
  * )
  */
 class MapKeyValueWidget extends MapWidgetBase {
+
+  /**
+   * {@inheritdoc}
+   */
+  protected static function newItem(): string|array {
+    return [
+      'key' => '',
+      'value' => '',
+    ];
+  }
 
   /**
    * {@inheritdoc}
@@ -57,6 +66,7 @@ class MapKeyValueWidget extends MapWidgetBase {
       '#required' => TRUE,
       '#maxlength' => 128,
     ];
+
     return $element;
   }
 
@@ -66,50 +76,31 @@ class MapKeyValueWidget extends MapWidgetBase {
   public function widget(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state, CustomFieldTypeInterface $field): array {
     $element = parent::widget($items, $delta, $element, $form, $form_state, $field);
     $element['#element_validate'] = [[static::class, 'validateArrayValues']];
-    $settings = $field->getWidgetSetting('settings');
+    $settings = $field->getWidgetSetting('settings') + self::defaultSettings()['settings'];
     $field_name = $items->getFieldDefinition()->getName();
     $custom_field_name = $field->getName();
     $is_config_form = $form_state->getBuildInfo()['base_form_id'] == 'field_config_form';
-    $map_list = $element['#default_value'];
-
+    $field_parents = [
+      $field_name,
+      $delta,
+      $custom_field_name,
+    ];
     if ($is_config_form) {
-      $map_values = $form_state->getValue(
-        ['default_value_input', $field_name, $delta, $custom_field_name]
-      );
-    }
-    else {
-      $map_values = $form_state->getValue([
-        $field_name,
-        $delta,
-        $custom_field_name,
-      ]);
+      array_unshift($field_parents, 'default_value_input');
     }
 
-    if (!empty($map_values) && !isset($map_values['data'])) {
-      $map_list = $map_values;
-    }
-
-    $options_wrapper_id = $field_name . $delta . $custom_field_name;
+    $wrapper_id = 'map_' . $field_name . $delta . $custom_field_name;
     $element['#attached'] = [
       'library' => ['custom_field/customfield-admin'],
     ];
-    $element['#prefix'] = '<div class="form-type--map" id="' . $options_wrapper_id . '">';
-    $element['#suffix'] = '</div>';
 
-    if ($form_state->isRebuilding()) {
-      $trigger = $form_state->getTriggeringElement();
-      if ($trigger['#name'] == 'add_item:' . $custom_field_name . $delta) {
-        $map_list[] = ['key' => '', 'value' => ''];
-        $form_state->set('add', NULL);
-      }
-      if ($form_state->get('remove')) {
-        $remove = $form_state->get('remove');
-        if ($remove['name'] == 'remove:' . $options_wrapper_id . $trigger['#delta']) {
-          unset($map_list[$remove['key']]);
-          $form_state->set('remove', NULL);
-        }
-      }
+    if (!$form_state->has($wrapper_id)) {
+      $default_value = $element['#default_value'] ?? [];
+      $form_state->set($wrapper_id, $default_value);
     }
+
+    $items = $form_state->get($wrapper_id);
+
     $element['data'] = [
       '#type' => 'table',
       '#header' => [
@@ -117,53 +108,55 @@ class MapKeyValueWidget extends MapWidgetBase {
         $settings['value_label'] ?? $this->t('Label'),
         '',
       ],
+      '#empty' => $settings['table_empty'] ?? NULL,
       '#attributes' => [
         'class' => ['customfield-map-table'],
       ],
+      '#prefix' => '<div id="' . $wrapper_id . '">',
+      '#suffix' => '</div>',
+      '#wrapper_id' => $wrapper_id,
     ];
-    if (!empty($map_list)) {
-      foreach ($map_list as $key => $value) {
-        $element['data'][$key]['key'] = [
-          '#type' => 'textfield',
-          '#title' => $this->t('Key'),
-          '#title_display' => 'invisible',
-          '#default_value' => $value['key'] ?? '',
-          '#required' => TRUE,
-        ];
-        $element['data'][$key]['value'] = [
-          '#type' => 'textfield',
-          '#title' => $this->t('Value'),
-          '#title_display' => 'invisible',
-          '#default_value' => $value['value'] ?? '',
-          '#required' => TRUE,
-        ];
-        $element['data'][$key]['remove'] = [
-          '#type' => 'submit',
-          '#value' => $this->t('Remove'),
-          '#submit' => [get_class($this) . '::removeItem'],
-          '#name' => 'remove:' . $options_wrapper_id . $key,
-          '#delta' => $key,
-          '#ajax' => [
-            'callback' => [$this, 'actionCallback'],
-            'wrapper' => $options_wrapper_id,
-          ],
-          '#limit_validation_errors' => [[$is_config_form ? 'default_value_input' : $field_name]],
-        ];
-      }
+    foreach ($items as $key => $value) {
+      $element['data'][$key]['key'] = [
+        '#type' => 'textfield',
+        '#title' => $this->t('Key'),
+        '#title_display' => 'invisible',
+        '#default_value' => $value['key'] ?? '',
+        '#required' => TRUE,
+      ];
+      $element['data'][$key]['value'] = [
+        '#type' => 'textfield',
+        '#title' => $this->t('Value'),
+        '#title_display' => 'invisible',
+        '#default_value' => $value['value'] ?? '',
+        '#required' => TRUE,
+      ];
+      $element['data'][$key]['remove'] = [
+        '#type' => 'submit',
+        '#value' => $this->t('Remove'),
+        '#submit' => [[static::class, 'removeItem']],
+        '#name' => 'remove_' . $wrapper_id . $key,
+        '#attributes' => ['data-key' => $key],
+        '#ajax' => [
+          'callback' => [$this, 'actionCallback'],
+          'wrapper' => $wrapper_id,
+        ],
+        '#limit_validation_errors' => [$field_parents],
+      ];
     }
     $element['add_item'] = [
       '#type' => 'submit',
       '#value' => $this->t('Add item'),
-      '#submit' => [get_class($this) . '::addItem'],
-      '#name' => 'add_item:' . $custom_field_name . $delta,
+      '#submit' => [[static::class, 'addItem']],
+      '#name' => 'add_' . $wrapper_id,
       '#ajax' => [
         'callback' => [$this, 'actionCallback'],
-        'wrapper' => $options_wrapper_id,
+        'wrapper' => $wrapper_id,
       ],
-      '#limit_validation_errors' => [[$is_config_form ? 'default_value_input' : $field_name]],
+      '#limit_validation_errors' => [$field_parents],
     ];
-    return $element;
 
+    return $element;
   }
 
   /**
@@ -178,59 +171,38 @@ class MapKeyValueWidget extends MapWidgetBase {
    * @see \Drupal\Core\Render\Element\FormElement::processPattern()
    */
   public static function validateArrayValues(array $element, FormStateInterface $form_state): void {
+    $wrapper_id = $element['data']['#wrapper_id'];
     $values = $element['data']['#value'] ?? NULL;
-    $is_config_form = $form_state->getBuildInfo()['base_form_id'] == 'field_config_form';
+    $filtered_values = [];
+    $has_errors = FALSE;
     if (is_array($values)) {
       $unique_keys = [];
-      foreach ($values as $value) {
+      foreach ($values as $key => $value) {
         if (!is_array($value)) {
           continue;
         }
+        $filtered_value = [
+          'key' => $value['key'] ? trim($value['key']) : '',
+          'value' => $value['value'] ? trim($value['value']) : '',
+        ];
         // Make sure each key is unique.
-        if (isset($value['key']) && in_array($value['key'], $unique_keys)) {
-          $form_state->setError($element, t('All keys must be unique.'));
+        if (in_array($filtered_value['key'], $unique_keys)) {
+          $has_errors = TRUE;
           break;
         }
         else {
-          $unique_keys[] = $value['key'];
+          $unique_keys[] = $filtered_value['key'];
+          $filtered_values[$key] = $filtered_value;
         }
       }
-      $form_state->setValueForElement($element, $values);
     }
-    elseif ($is_config_form) {
-      $form_state->setValueForElement($element, NULL);
+    if ($has_errors) {
+      $form_state->setError($element, t('All keys must be unique.'));
     }
-  }
-
-  /**
-   * Submit handler for the "add item" button.
-   */
-  public static function addItem(array &$form, FormStateInterface $form_state): void {
-    $form_state->set('add', $form_state->getTriggeringElement()['#name']);
-    $form_state->setRebuild();
-  }
-
-  /**
-   * Submit handler for the "remove item" button.
-   */
-  public static function removeItem(array &$form, FormStateInterface $form_state): void {
-    $trigger = $form_state->getTriggeringElement();
-    $form_state->set(
-      'remove', ['name' => $trigger['#name'], 'key' => $trigger['#delta']]
-    );
-    $form_state->setRebuild();
-  }
-
-  /**
-   * Callback for both ajax-enabled buttons.
-   *
-   * Selects and returns the fieldset with the names in it.
-   */
-  public function actionCallback(array &$form, FormStateInterface $form_state) {
-    $parents = $form_state->getTriggeringElement()['#array_parents'];
-    $sliced_parents = array_slice($parents, 0, 4, TRUE);
-
-    return NestedArray::getValue($form, $sliced_parents);
+    else {
+      $form_state->set($wrapper_id, $filtered_values);
+      $form_state->setValueForElement($element, $filtered_values);
+    }
   }
 
 }

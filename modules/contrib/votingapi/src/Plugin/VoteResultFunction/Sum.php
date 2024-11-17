@@ -10,12 +10,6 @@ use Drupal\votingapi\VoteResultFunctionBase;
 
 /**
  * A sum total of a set of votes.
- *
- * @VoteResultFunction(
- *   id = "vote_sum",
- *   label = @Translation("Sum"),
- *   description = @Translation("The total of all vote values.")
- * )
  */
 #[VoteResultFunction(
   id: "vote_sum",

@@ -6,7 +6,6 @@ namespace Drupal\security_review\Plugin\SecurityCheck;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Link;
-use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\security_review\CheckResult;
 use Drupal\security_review\SecurityCheckBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -39,7 +38,7 @@ class ErrorReporting extends SecurityCheckBase {
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): SecurityCheckBase|ContainerFactoryPluginInterface|static {
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): static {
     $instance = parent::create($container, $configuration, $plugin_id, $plugin_definition);
     $instance->configFactory = $container->get('config.factory');
     return $instance;
@@ -74,11 +73,12 @@ class ErrorReporting extends SecurityCheckBase {
    * {@inheritdoc}
    */
   public function getDetails(array $findings, array $hushed = [], bool $returnString = FALSE): array|string {
+    $output = $returnString ? '' : [];
+
     if (empty($findings)) {
-      return [];
+      return $output;
     }
 
-    $output = $returnString ? '' : [];
     $paragraphs = [];
     if (isset($findings['level'])) {
       if ($findings['level'] === 'verbose') {
@@ -89,7 +89,7 @@ class ErrorReporting extends SecurityCheckBase {
         $paragraphs[] = Link::createFromRoute(
           $this->t('Alter error reporting settings.'),
           'system.logging_settings'
-        );
+        )->toString();
       }
     }
 

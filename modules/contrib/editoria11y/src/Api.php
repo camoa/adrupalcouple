@@ -352,9 +352,30 @@ class Api {
    *   Invalid data.
    */
   private function validatePath($user_input) {
-    // @phpstan-ignore-next-line (Why have services if you don't use them)
-    if (!\Drupal::service('path.validator')->getUrlIfValid($user_input)) {
-      throw new Editoria11yApiException("Invalid page path: $user_input");
+    // @phpstan-ignore-next-line service call
+    $config = \Drupal::config('editoria11y.settings');
+    $prefix = $config->get('redundant_prefix');
+    if (!empty($prefix) && strlen($prefix) < strlen($user_input) && strpos($user_input, $prefix) === 0) {
+      // Replace ignorable subfolders.
+      $altPath = substr_replace($user_input, "", 0, strlen($prefix));
+      if (
+        !(
+          // @phpstan-ignore-next-line service call
+          \Drupal::service('path.validator')->getUrlIfValid($altPath) ||
+          // @phpstan-ignore-next-line service call
+          \Drupal::service('path.validator')->getUrlIfValid($user_input)
+        )
+      ) {
+        throw new Editoria11yApiException('Invalid page path on API report: "' . $user_input . '". If site is installed in subfolder, check Editoria11y config item "Syncing results to reports
+--> Remove redundant base url from URLs"');
+      }
+    }
+    else {
+      // @phpstan-ignore-next-line (Why have services if you don't use them)
+      if (!\Drupal::service('path.validator')->getUrlIfValid($user_input)) {
+        throw new Editoria11yApiException('Invalid page path on API report: "' . $user_input . '". If site is installed in subfolder, check Editoria11y config item "Syncing results to reports
+--> Remove redundant base url from URLs"');
+      }
     }
   }
 

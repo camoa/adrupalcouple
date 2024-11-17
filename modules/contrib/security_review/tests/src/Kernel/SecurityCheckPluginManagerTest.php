@@ -37,12 +37,14 @@ class SecurityCheckPluginManagerTest extends KernelTestBase {
 
   /**
    * {@inheritdoc}
+   *
+   * @throws \Exception
    */
   protected function setUp(): void {
     parent::setUp();
 
-    $this->securityReview = \Drupal::service('security_review');
-    $this->pluginManager = \Drupal::service('plugin.manager.security_review.security_check');
+    $this->securityReview = $this->container->get('security_review');
+    $this->pluginManager = $this->container->get('plugin.manager.security_review.security_check');
   }
 
   /**

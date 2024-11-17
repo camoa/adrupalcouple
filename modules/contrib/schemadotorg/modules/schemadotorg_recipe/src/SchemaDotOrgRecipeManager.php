@@ -40,7 +40,7 @@ class SchemaDotOrgRecipeManager implements SchemaDotOrgRecipeManagerInterface {
    *   The service container.
    * @param \Drupal\Core\File\FileSystemInterface $fileSystem
    *   The file system service.
-   * @param \Drupal\Core\Extension\ModuleExtensionList $extensionListModule
+   * @param \Drupal\Core\Extension\ModuleExtensionList $moduleExtensionList
    *   The module extension list.
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
    *   The entity type manager.
@@ -52,7 +52,7 @@ class SchemaDotOrgRecipeManager implements SchemaDotOrgRecipeManagerInterface {
   public function __construct(
     protected ContainerInterface $container,
     protected FileSystemInterface $fileSystem,
-    protected ModuleExtensionList $extensionListModule,
+    protected ModuleExtensionList $moduleExtensionList,
     protected EntityTypeManagerInterface $entityTypeManager,
     protected SchemaDotOrgMappingManagerInterface $schemaMappingManager,
     protected ?DevelGeneratePluginManager $develGenerateManager,

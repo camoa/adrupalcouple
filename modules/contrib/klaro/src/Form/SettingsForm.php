@@ -2,10 +2,10 @@
 
 namespace Drupal\klaro\Form;
 
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\klaro\Utility\KlaroHelper;
-use Drupal\user\Entity\Role;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -21,13 +21,23 @@ class SettingsForm extends ConfigFormBase {
   protected $klaro;
 
   /**
+   * The entity type manager service.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
+  protected $entityTypeManager;
+
+  /**
    * The constructor.
    *
    * @param Drupal\klaro\Utility\KlaroHelper $klaro
    *   The Klaro Helper.
+   * @param Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   *   The EntityTypeManagerInterface.
    */
-  public function __construct(KlaroHelper $klaro) {
+  public function __construct(KlaroHelper $klaro, EntityTypeManagerInterface $entity_type_manager) {
     $this->klaro = $klaro;
+    $this->entityTypeManager = $entity_type_manager;
   }
 
   /**
@@ -37,7 +47,8 @@ class SettingsForm extends ConfigFormBase {
     // Instantiates this form class.
     return new static(
       // Load the service required to construct this class.
-      $container->get('klaro.helper')
+      $container->get('klaro.helper'),
+      $container->get('entity_type.manager')
     );
   }
 
@@ -80,14 +91,14 @@ class SettingsForm extends ConfigFormBase {
       ];
     }
 
-    $anon_role = Role::load('anonymous');
-
     $role_with_permission = FALSE;
-    foreach (Role::loadMultiple() as $rolename => $role) {
-      if ($rolename != 'administrator' && $role->hasPermission('use klaro')) {
+    $roles = $this->entityTypeManager->getStorage('user_role')->loadMultiple();
+    foreach ($roles as $roleName => $role) {
+      if ($roleName != 'administrator' && $role->hasPermission('use klaro')) {
         $role_with_permission = TRUE;
       }
     }
+
     if (!$role_with_permission) {
       $form['role_hint'] = [
         'message' => [
@@ -106,7 +117,7 @@ class SettingsForm extends ConfigFormBase {
     }
 
     $form['about'] = [
-      '#markup' => $this->t('The Klaro! consent <em>notice</em> briefly informs the user about third-party uses. The consent <em>modal</em> can be used to toggle individual apps or purposes.', [], ['context' => 'klaro']),
+      '#markup' => $this->t('The Klaro! consent <em>notice</em> briefly informs the user about third-party uses. The consent <em>modal</em> can be used to toggle individual services or purposes.', [], ['context' => 'klaro']),
     ];
 
     $form['vertical_tabs'] = [
@@ -125,7 +136,7 @@ class SettingsForm extends ConfigFormBase {
     $form['general_settings']['must_consent'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Require user action', [], ['context' => 'klaro']),
-      '#description' => $this->t('Check to immediately display the consent manager modal and prevent site interaction until the user accepts/declines the apps.', [], ['context' => 'klaro']),
+      '#description' => $this->t('Check to immediately display the consent manager modal and prevent site interaction until the user accepts/declines the services.', [], ['context' => 'klaro']),
       '#default_value' => $config->get('library.must_consent'),
     ];
     $form['general_settings']['notice_as_modal'] = [
@@ -142,20 +153,20 @@ class SettingsForm extends ConfigFormBase {
 
     $form['general_settings']['apps'] = [
       '#type' => 'fieldgroup',
-      '#title' => $this->t('Apps', [], ['context' => 'klaro']),
+      '#title' => $this->t('Services', [], ['context' => 'klaro']),
       '#tree' => TRUE,
     ];
 
     $form['general_settings']['apps']['group_by_purpose'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Group by purpose', [], ['context' => 'klaro']),
-      '#description' => $this->t('Allow the user to enable or disable entire groups of apps at once. This also reduces the space taken up by the modal, which is important especially for websites that use many third-party applications.', [], ['context' => 'klaro']),
+      '#description' => $this->t('Allow the user to enable or disable entire groups of services at once. This also reduces the space taken up by the modal, which is important especially for websites that use many third-party applications.', [], ['context' => 'klaro']),
       '#default_value' => $config->get('library.group_by_purpose'),
     ];
     $form['general_settings']['apps']['process_descriptions'] = [
       '#type' => 'checkbox',
-      '#title' => $this->t('Verbose app descriptions'),
-      '#description' => $this->t('If enabled, all Klaro! app descriptions will be processed. As for now they will get extended by the privacy policy url and the info url. If you enable "Allow HTML in texts" at settings->styling the links will be formatted as anchors, otherwise they can only be displayed as text and are not clickable', [], ['context' => 'klaro']),
+      '#title' => $this->t('Verbose service descriptions'),
+      '#description' => $this->t('If enabled, all Klaro! service descriptions will be processed. As for now they will get extended by the privacy policy url and the info url. If you enable "Allow HTML in texts" at settings->styling the links will be formatted as anchors, otherwise they can only be displayed as text and are not clickable', [], ['context' => 'klaro']),
       '#default_value' => $config->get('process_descriptions'),
     ];
 
@@ -167,7 +178,7 @@ class SettingsForm extends ConfigFormBase {
     $form['general_settings']['buttons']['accept_all'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Accept all', [], ['context' => 'klaro']),
-      '#description' => $this->t('If checked, <em>all</em> apps are accepted, instead of only required apps and those enabled by default.', [], ['context' => 'klaro']),
+      '#description' => $this->t('If checked, <em>all</em> services are accepted, instead of only required services and those enabled by default.', [], ['context' => 'klaro']),
       '#default_value' => $config->get('library.accept_all'),
     ];
     $form['general_settings']['buttons']['decline_all'] = [
@@ -271,49 +282,45 @@ class SettingsForm extends ConfigFormBase {
     $form['advanced']['exclude_urls'] = [
       '#type' => 'textarea',
       '#rows' => 5,
-      '#title' => $this->t('Disable Klaro and block attributed ressources on following url patterns', [], ['context' => 'klaro']),
-      '#description' => $this->t('Enter one regular expression per line without delimiters, i.e  \/admin\/ will match all paths that contain /admin/ while i.e ^\/en will match all routes that start with /en. On these paths all ressources remain blocked and Klaro will be disabled.', [], ['context' => 'klaro']),
+      '#title' => $this->t('Disable Klaro and block attributed resources on following url patterns', [], ['context' => 'klaro']),
+      '#description' => $this->t('Enter one regular expression per line without delimiters, i.e  \/admin\/ will match all paths that contain /admin/ while i.e ^\/en will match all routes that start with /en. On these paths all resources remain blocked and Klaro will be disabled.', [], ['context' => 'klaro']),
       '#default_value' => $config->get('exclude_urls') ? implode("\n", $config->get('exclude_urls')) : '',
     ];
 
     $form['advanced']['disable_urls'] = [
       '#type' => 'textarea',
       '#rows' => 5,
-      '#title' => $this->t('Disable Klaro element and dont block attributed ressources on following url patterns', [], ['context' => 'klaro']),
-      '#description' => $this->t('Enter one regular expression per line without delimiters, i.e  \/admin\/ will match all paths that contain /admin/ while i.e ^\/en will match all routes that start with /en. On these paths no ressources are blocked and Klaro will be disabled.', [], ['context' => 'klaro']),
+      '#title' => $this->t('Disable Klaro element and dont block attributed resources on following url patterns', [], ['context' => 'klaro']),
+      '#description' => $this->t('Enter one regular expression per line without delimiters, i.e  \/admin\/ will match all paths that contain /admin/ while i.e ^\/en will match all routes that start with /en. On these paths no resources are blocked and Klaro will be disabled.', [], ['context' => 'klaro']),
       '#default_value' => $config->get('disable_urls') ? implode("\n", $config->get('disable_urls')) : '',
     ];
 
-    // Auto decorate settings.
-    $form['auto_decorate'] = [
+    // Blocking and logging unknown resources.
+    $form['unknown_resources'] = [
       '#type' => 'details',
-      '#title' => $this->t('Automatic attribution'),
-      '#description' => $this->t('To make Klaro! block ressources, they need <a target="_blank" href="@website">special html attributes</a> which the klaro library expects you to add manually, however this module can try to set them automatically.', ['@website' => "https://heyklaro.com/docs/getting-started"], ['context' => 'klaro']),
+      '#title' => $this->t('Unknown resources'),
+      '#description' => $this->t('During processing to decorate attributes (see “Automatic attribution”), this module can detect external resources and embedded external content without a matching service.', [], ['context' => 'klaro']),
       '#group' => 'vertical_tabs',
     ];
-    $form['auto_decorate']['block_unknown'] = [
-      '#type' => 'checkbox',
-      '#title' => $this->t('Block unknown external resources'),
-      '#description' => $this->t('Matches and decorates resources that are external and did not match a configured app (Only works if "Process final HTML" is activated).', [], ['context' => 'klaro']),
-      '#default_value' => $config->get('block_unknown'),
-    ];
 
-    $form['auto_decorate']['block_unknown_logger'] = [
+    $form['unknown_resources']['log_unknown_resources'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Log unknown resources', [], ['context' => 'klaro']),
       '#description' => $this->t('Creates a notice in recent log messages whenever an unknown external resource is requested.', [], ['context' => 'klaro']),
-      '#default_value' => $config->get('block_unknown_logger'),
-      '#states' => [
-        'visible' => [
-          ':input[name="block_unknown"]' => ['checked' => TRUE],
-        ],
-      ],
+      '#default_value' => $config->get('log_unknown_resources'),
     ];
 
-    $form['auto_decorate']['block_unknown_label'] = [
+    $form['unknown_resources']['block_unknown'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Block unknown external resources'),
+      '#description' => $this->t('Matches and decorates resources that are external and did not match a configured service (works best if "Process final HTML" is activated).', [], ['context' => 'klaro']),
+      '#default_value' => $config->get('block_unknown'),
+    ];
+
+    $form['unknown_resources']['block_unknown_label'] = [
       '#type' => 'textfield',
-      '#title' => $this->t('Label for the unknown app.', [], ['context' => 'klaro']),
-      '#description' => $this->t('Matches and decorates resources that are external and did not match a configured app.', [], ['context' => 'klaro']),
+      '#title' => $this->t('Label for the unknown service', [], ['context' => 'klaro']),
+      '#description' => $this->t('Label of the service for external unknown resources.', [], ['context' => 'klaro']),
       '#default_value' => $config->get('block_unknown_label'),
       '#states' => [
         'visible' => [
@@ -321,11 +328,11 @@ class SettingsForm extends ConfigFormBase {
         ],
       ],
     ];
-    $form['auto_decorate']['block_unknown_description'] = [
+    $form['unknown_resources']['block_unknown_description'] = [
       '#type' => 'textarea',
       '#rows' => 5,
-      '#title' => $this->t('Description text for the unknown app.', [], ['context' => 'klaro']),
-      '#description' => $this->t('Matches and decorates resources that are external and did not match a configured app.', [], ['context' => 'klaro']),
+      '#title' => $this->t('Description text for the unknown service', [], ['context' => 'klaro']),
+      '#description' => $this->t('Short description of the service for external unknown resources.', [], ['context' => 'klaro']),
       '#default_value' => $config->get('block_unknown_description'),
       '#states' => [
         'visible' => [
@@ -334,22 +341,36 @@ class SettingsForm extends ConfigFormBase {
       ],
     ];
 
+    // Auto decorate settings.
+    $form['auto_decorate'] = [
+      '#type' => 'details',
+      '#title' => $this->t('Automatic attribution'),
+      '#description' => $this->t('To make Klaro! block resources, they need <a target="_blank" href="@website">special html attributes</a> which the klaro library expects you to add manually - this module can try to set them automatically. Please choose the processors to be activated.', ['@website' => "https://klaro.org/docs/getting-started"], ['context' => 'klaro']),
+      '#group' => 'vertical_tabs',
+    ];
+
     $form['auto_decorate']['js_alter'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Process js_alter', [], ['context' => 'klaro']),
-      '#description' => $this->t('Matches and decorates script files added from libraries against the configurated apps.', [], ['context' => 'klaro']),
+      '#description' => $this->t('Matches and decorates script files added from libraries against the configured services.', [], ['context' => 'klaro']),
       '#default_value' => $config->get('auto_decorate_js_alter'),
     ];
     $form['auto_decorate']['page_attachments'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Process page_attachments', [], ['context' => 'klaro']),
-      '#description' => $this->t('Matches and decorates manually attached JS files against the configurated apps.', [], ['context' => 'klaro']),
+      '#description' => $this->t('Matches and decorates manually attached JS files against the configured services.', [], ['context' => 'klaro']),
       '#default_value' => $config->get('auto_decorate_page_attachments'),
+    ];
+    $form['auto_decorate']['preprocess_field'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Process preprocess_field', [], ['context' => 'klaro']),
+      '#description' => $this->t('Matches and decorates iframes or oembeds from special field types (see README.md).', [], ['context' => 'klaro']),
+      '#default_value' => $config->get('auto_decorate_preprocess_field'),
     ];
     $form['auto_decorate']['final_html'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Process final HTML', [], ['context' => 'klaro']),
-      '#description' => $this->t('Adds contextual blocking to iframe, img, audio and video tags and adds attributes to all matching script tags that are not attributed yet. This feature is rather experimental, invalid or malformed html might lead to unknown behaviour.', [], ['context' => 'klaro']),
+      '#description' => $this->t('Adds contextual blocking to iframe, img, audio and video tags and adds attributes to all matching script tags that are not attributed yet. This feature is rather experimental, invalid or malformed html might lead to unknown behavior.', [], ['context' => 'klaro']),
       '#default_value' => $config->get('auto_decorate_final_html'),
     ];
 
@@ -374,14 +395,14 @@ class SettingsForm extends ConfigFormBase {
     $form['styling']['additional_class'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Additional CSS classes', [], ['context' => 'klaro']),
-      '#description' => $this->t('Add custom classes seperated by spaces to the Klaro! container, i.e. "custom-class-one custom-class-two"', [], ['context' => 'klaro']),
+      '#description' => $this->t('Add custom classes separated by spaces to the Klaro! container, i.e. "custom-class-one custom-class-two"', [], ['context' => 'klaro']),
       '#default_value' => $config->get('library.additional_class'),
     ];
 
     $form['styling']['styles'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Override Klaro css variables', [], ['context' => 'klaro']),
-      '#description' => $this->t('Override inbuilt klaro css variables seperated by a comma, i.e. "light, top" to use the light theme and position the notice at the top, <a href="@website" target="_blank"> More infos </a>', ['@website' => 'https://github.com/kiprotect/klaro/blob/fb4e393d2cd8aeedc3e751d103dfbfd35ffae0f2/src/themes.js'], ['context' => 'klaro']),
+      '#description' => $this->t('Override inbuilt klaro css variables separated by a comma, i.e. "light, top" to use the light theme and position the notice at the top, <a href="@website" target="_blank"> More infos </a>', ['@website' => 'https://github.com/klaro-org/klaro-js/blob/master/src/themes.js'], ['context' => 'klaro']),
       '#default_value' => $config->get('styles') ? implode(',', $config->get('styles')) : '',
     ];
 
@@ -441,11 +462,12 @@ class SettingsForm extends ConfigFormBase {
         'show_toggle_button',
       ]))
       ->set('block_unknown', $form_state->getValue('block_unknown'))
-      ->set('block_unknown_logger', $form_state->getValue('block_unknown_logger'))
+      ->set('log_unknown_resources', $form_state->getValue('log_unknown_resources'))
       ->set('block_unknown_label', $form_state->getValue('block_unknown_label'))
       ->set('block_unknown_description', $form_state->getValue('block_unknown_description'))
       ->set('auto_decorate_js_alter', $form_state->getValue('js_alter'))
       ->set('auto_decorate_page_attachments', $form_state->getValue('page_attachments'))
+      ->set('auto_decorate_preprocess_field', $form_state->getValue('preprocess_field'))
       ->set('auto_decorate_final_html', $form_state->getValue('final_html'))
       ->set('deletable_cookie_domains', array_filter($cookie_domains))
       ->set('exclude_urls', array_filter($exclude_urls))
