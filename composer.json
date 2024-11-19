@@ -51,6 +51,7 @@
         "drupal/link_attributes": "^2.1",
         "drupal/linkit": "^7.0@alpha",
         "drupal/manage_display": "3.x-dev@dev",
+        "drupal/markdown_easy": "^1.0",
         "drupal/metatag": "^2.0",
         "drupal/metatag_ai": "^1.0",
         "drupal/moderation_dashboard": "^3",
