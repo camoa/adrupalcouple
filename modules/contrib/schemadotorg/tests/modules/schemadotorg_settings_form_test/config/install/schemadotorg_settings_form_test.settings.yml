@@ -1,3 +1,9 @@
+textfield: some_value
+checkbox: true
+checkboxes:
+  - one
+  - two
+  - three
 indexed:
   - one
   - two

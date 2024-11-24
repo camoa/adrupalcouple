@@ -1,4 +1,8 @@
 appname
+Bluesky
+bluesky
+bsky
+Bytedance
 ckidow
 Dont
 dont
@@ -18,9 +22,11 @@ Meißner
 mymodule
 NOERROR
 oembeds
+PBLLC
 piwik
 Sascha
 sascha
 screenreaders
+tiktok
 youtu
 ytimg

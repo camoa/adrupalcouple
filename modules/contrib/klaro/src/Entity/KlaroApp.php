@@ -318,7 +318,7 @@ class KlaroApp extends ConfigEntityBase implements KlaroAppInterface {
    * {@inheritdoc}
    */
   public function wrapperIdentifier(): array {
-    return $this->get('wrapper_identifier') == '' ? [] : $this->get('wrapper_identifier');
+    return $this->get('wrapper_identifier') == '' ? [] : (array) $this->get('wrapper_identifier');
   }
 
   /**

@@ -19,7 +19,7 @@ decline: Decline
 close: Close
 acceptAll: Accept all
 acceptSelected: Accept selected
-app:
+service:
   disableAll:
     title: Toggle all services
     description: Use this switch to enable/disable all services.

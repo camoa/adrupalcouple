@@ -80,12 +80,12 @@ class SettingsForm extends ConfigFormBase {
           '#theme' => 'status_messages',
           '#message_list' => [
             'error' => [
-              $this->t('The klaro-js library is not found at libraries folder, please read the install instructions in the README of the klaro drupal module.'),
+              $this->t('The klaro-js library is not found at libraries folder, please read the install instructions in the README of the Klaro! drupal module.'),
             ],
           ],
           '#status_headings' => [
             'error' => $this
-              ->t('Error message'),
+              ->t('Library not found'),
           ],
         ],
       ];
@@ -105,7 +105,7 @@ class SettingsForm extends ConfigFormBase {
           '#theme' => 'status_messages',
           '#message_list' => [
             'warning' => [
-              $this->t('Currently only the administrator role has the "use klaro" permission. To let the visitors of your site manager their consents with klaro, add the "use klaro" permission to role "anonymous"'),
+              $this->t('Currently only the administrator role has the "use klaro" permission. To let the visitors of your site manage their consents with Klaro!, add the "use klaro" permission to role "anonymous".'),
             ],
           ],
           '#status_headings' => [
@@ -116,8 +116,19 @@ class SettingsForm extends ConfigFormBase {
       ];
     }
 
-    $form['about'] = [
-      '#markup' => $this->t('The Klaro! consent <em>notice</em> briefly informs the user about third-party uses. The consent <em>modal</em> can be used to toggle individual services or purposes.', [], ['context' => 'klaro']),
+    $form['dialog_info'] = [
+      'message' => [
+        '#theme' => 'status_messages',
+        '#message_list' => [
+          'info' => [
+            $this->t('The Klaro! <strong>notice dialog</strong> briefly informs about the use of external services or cookies. The <strong>consent dialog modal</strong> is be used to manage consents for services or purposes.', [], ['context' => 'klaro']),
+          ],
+        ],
+        '#status_headings' => [
+          'info' => $this
+            ->t('The two Klaro! dialog forms:'),
+        ],
+      ],
     ];
 
     $form['vertical_tabs'] = [
@@ -133,22 +144,31 @@ class SettingsForm extends ConfigFormBase {
       '#group' => 'vertical_tabs',
     ];
 
-    $form['general_settings']['must_consent'] = [
-      '#type' => 'checkbox',
-      '#title' => $this->t('Require user action', [], ['context' => 'klaro']),
-      '#description' => $this->t('Check to immediately display the consent manager modal and prevent site interaction until the user accepts/declines the services.', [], ['context' => 'klaro']),
-      '#default_value' => $config->get('library.must_consent'),
+    $form['general_settings']['dialog'] = [
+      '#type' => 'fieldgroup',
+      '#title' => $this->t('Consent', [], ['context' => 'klaro']),
+      '#description' => $this->t('Some national regulations require a close button for the consent. It can be enabled by the <em>Add close button to the Klaro! dialog</em> option.', [], ['context' => 'klaro']),
+      '#tree' => FALSE,
     ];
-    $form['general_settings']['notice_as_modal'] = [
-      '#type' => 'checkbox',
-      '#title' => $this->t('Show notice as modal', [], ['context' => 'klaro']),
-      '#description' => $this->t('Same as "Require user action" but shows notice element as a modal.', [], ['context' => 'klaro']),
-      '#default_value' => $config->get('library.notice_as_modal'),
-      '#states' => [
-        'visible' => [
-          ':input[name="must_consent"]' => ['checked' => FALSE],
-        ],
+
+    $form['general_settings']['dialog']['dialog_mode'] = [
+      '#type' => 'radios',
+      '#title' => $this->t('Klaro! Dialog Mode', [], ['context' => 'klaro']),
+      '#options' => [
+        'silent' => $this->t('Silent (no dialog, only modify attribute and block sources)', [], ['context' => 'klaro']),
+        'notice' => $this->t('Notice dialog', [], ['context' => 'klaro']),
+        'notice_modal' => $this->t('Notice dialog as modal', [], ['context' => 'klaro']),
+        'manager' => $this->t('Consent dialog modal', [], ['context' => 'klaro']),
       ],
+      '#description' => $this->t('If no cookies or external services are used, the dialog can be hidden (default). For the different modes, see <a href="@website">online documentation</a>.', ['@website' => 'https://www.drupal.org/node/3487236'], ['context' => 'klaro']),
+      '#default_value' => $config->get('dialog_mode'),
+    ];
+
+    $form['general_settings']['dialog']['show_toggle_button'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Show Toggle Button', [], ['context' => 'klaro']),
+      '#description' => $this->t('Adds a flying button to open the consent dialog. Otherwise a <a href="@website">menu link</a> can be used.', ['@website' => 'https://www.drupal.org/node/3485316'], ['context' => 'klaro']),
+      '#default_value' => $config->get('show_toggle_button'),
     ];
 
     $form['general_settings']['apps'] = [
@@ -156,17 +176,16 @@ class SettingsForm extends ConfigFormBase {
       '#title' => $this->t('Services', [], ['context' => 'klaro']),
       '#tree' => TRUE,
     ];
-
     $form['general_settings']['apps']['group_by_purpose'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Group by purpose', [], ['context' => 'klaro']),
-      '#description' => $this->t('Allow the user to enable or disable entire groups of services at once. This also reduces the space taken up by the modal, which is important especially for websites that use many third-party applications.', [], ['context' => 'klaro']),
+      '#description' => $this->t('Allow the user to enable or disable entire groups of services at once. This also reduces the space taken up by the consent dialog modal, which is important especially for websites that use many third-party applications.', [], ['context' => 'klaro']),
       '#default_value' => $config->get('library.group_by_purpose'),
     ];
     $form['general_settings']['apps']['process_descriptions'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Verbose service descriptions'),
-      '#description' => $this->t('If enabled, all Klaro! service descriptions will be processed. As for now they will get extended by the privacy policy url and the info url. If you enable "Allow HTML in texts" at settings->styling the links will be formatted as anchors, otherwise they can only be displayed as text and are not clickable', [], ['context' => 'klaro']),
+      '#description' => $this->t('If enabled, all Klaro! service descriptions will be processed. As for now they will get extended by the privacy policy url and the info url. If you enable "Allow HTML in texts" at settings->styling the links will be formatted as anchors, otherwise they can only be displayed as text and are not clickable.', [], ['context' => 'klaro']),
       '#default_value' => $config->get('process_descriptions'),
     ];
 
@@ -178,37 +197,37 @@ class SettingsForm extends ConfigFormBase {
     $form['general_settings']['buttons']['accept_all'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Accept all', [], ['context' => 'klaro']),
-      '#description' => $this->t('If checked, <em>all</em> services are accepted, instead of only required services and those enabled by default.', [], ['context' => 'klaro']),
+      '#description' => $this->t('Adds a button <em>Accept all</em> to the consent dialog modal and changes the behavior of the button <em>Accept</em> of the notice dialog. If clicked, <em>all</em> services are accepted, instead of only required services and those enabled by default.', [], ['context' => 'klaro']),
       '#default_value' => $config->get('library.accept_all'),
     ];
     $form['general_settings']['buttons']['decline_all'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Decline all', [], ['context' => 'klaro']),
-      '#description' => $this->t('Show decline button in notice and decline all button in consent modal.', [], ['context' => 'klaro']),
+      '#description' => $this->t('Adds a button <em>decline</em> to notice dialog and consent dialog modal.', [], ['context' => 'klaro']),
       '#default_value' => !$config->get('library.hide_decline_all'),
     ];
     $form['general_settings']['buttons']['learn_more'] = [
       '#type' => 'checkbox',
-      '#title' => $this->t('Learn more', [], ['context' => 'klaro']),
-      '#description' => $this->t('Show a link in the notice element that opens the consent modal.', [], ['context' => 'klaro']),
+      '#title' => $this->t('Link to open consent dialog', [], ['context' => 'klaro']),
+      '#description' => $this->t('Show a link in the notice dialog that opens the consent dialog modal.', [], ['context' => 'klaro']),
       '#default_value' => !$config->get('library.hide_learn_more'),
     ];
     $form['general_settings']['buttons']['learn_more_as_button'] = [
       '#type' => 'checkbox',
-      '#title' => $this->t('Display Learn more as a button', [], ['context' => 'klaro']),
-      '#description' => $this->t('Displays the learn more link with a button style.', [], ['context' => 'klaro']),
+      '#title' => $this->t('Display link as a button', [], ['context' => 'klaro']),
+      '#description' => $this->t('Displays the link (see above) in the notice dialog in button style.', [], ['context' => 'klaro']),
       '#default_value' => $config->get('library.learn_more_as_button'),
       '#states' => [
         'visible' => [':input[name="buttons[learn_more]"]' => ['checked' => TRUE]],
       ],
     ];
-    $form['general_settings']['buttons']['show_toggle_button'] = [
+    $form['general_settings']['buttons']['show_close_button'] = [
       '#type' => 'checkbox',
-      '#title' => $this->t('Show button to toggle the consent modal', [], ['context' => 'klaro']),
-      '#description' => $this->t('Adds a toggle button that is shipped with this module to open the consent modal after user action.', [], ['context' => 'klaro']),
-      '#default_value' => $config->get('show_toggle_button'),
+      '#title' => $this->t('Add close button to the Klaro! dialog', [], ['context' => 'klaro']),
+      '#description' => $this->t('Closes the dialog and declines all consents. Mandatory in some countries for consent dialogs.', [], ['context' => 'klaro']),
+      '#default_value' => $config->get('show_close_button'),
       '#attributes' => [
-        'name' => 'buttons[show_toggle_button]',
+        'name' => 'buttons[show_close_button]',
       ],
     ];
 
@@ -234,7 +253,7 @@ class SettingsForm extends ConfigFormBase {
     $form['storage_settings']['cookie_name'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Cookie name', [], ['context' => 'klaro']),
-      '#description' => $this->t('You can customize the name of the cookie that Klaro! uses for storing user consent decisions.', [], ['context' => 'klaro']),
+      '#description' => $this->t('Customize the name of the cookie that Klaro! uses for storing user consent decisions.', [], ['context' => 'klaro']),
       '#default_value' => $config->get('library.cookie_name'),
       '#states' => [
         'visible' => [':input[name="storage_method"]' => ['value' => 'cookie']],
@@ -243,7 +262,7 @@ class SettingsForm extends ConfigFormBase {
     $form['storage_settings']['cookie_expires_after_days'] = [
       '#type' => 'number',
       '#title' => $this->t('Cookie expires after', [], ['context' => 'klaro']),
-      '#description' => $this->t('You can also set a custom expiration time for the Klaro! cookie.', [], ['context' => 'klaro']),
+      '#description' => $this->t('Set a custom expiration time for the Klaro! cookie.', [], ['context' => 'klaro']),
       '#min' => 0,
       '#max' => 365,
       '#step' => 1,
@@ -256,7 +275,7 @@ class SettingsForm extends ConfigFormBase {
     $form['storage_settings']['cookie_domain'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Cookie domain', [], ['context' => 'klaro']),
-      '#description' => $this->t('You can change to cookie domain for the consent manager itself. Use this if you want to get consent once for multiple matching domains. If undefined, Klaro! will use the current domain.', [], ['context' => 'klaro']),
+      '#description' => $this->t('Set cookie domain for the consent manager itself. Use this to get consent once for multiple matching domains. If undefined, Klaro! will use the current domain.', [], ['context' => 'klaro']),
       '#default_value' => $config->get('library.cookie_domain'),
       '#states' => [
         'visible' => [':input[name="storage_method"]' => ['value' => 'cookie']],
@@ -275,23 +294,23 @@ class SettingsForm extends ConfigFormBase {
       '#type' => 'textarea',
       '#rows' => 5,
       '#title' => $this->t('Matching cookie domains', [], ['context' => 'klaro']),
-      '#description' => $this->t('Enter one domain per line for cookie deletion. Leave empty to delete the current domain of the visitor only.', [], ['context' => 'klaro']),
+      '#description' => $this->t('Enter one domain per line for cookie deletion. Leave empty to delete for the current domain of the visitor only.', [], ['context' => 'klaro']),
       '#default_value' => implode("\n", $config->get('deletable_cookie_domains')),
     ];
 
     $form['advanced']['exclude_urls'] = [
       '#type' => 'textarea',
       '#rows' => 5,
-      '#title' => $this->t('Disable Klaro and block attributed resources on following url patterns', [], ['context' => 'klaro']),
-      '#description' => $this->t('Enter one regular expression per line without delimiters, i.e  \/admin\/ will match all paths that contain /admin/ while i.e ^\/en will match all routes that start with /en. On these paths all resources remain blocked and Klaro will be disabled.', [], ['context' => 'klaro']),
+      '#title' => $this->t('Disable Klaro! and block attributed resources on following url patterns', [], ['context' => 'klaro']),
+      '#description' => $this->t('Enter one regular expression per line without delimiters, i.e  \/admin\/ will match all paths that contain /admin/ while i.e ^\/en will match all routes that start with /en. On these paths all resources remain blocked and Klaro! will be disabled.', [], ['context' => 'klaro']),
       '#default_value' => $config->get('exclude_urls') ? implode("\n", $config->get('exclude_urls')) : '',
     ];
 
     $form['advanced']['disable_urls'] = [
       '#type' => 'textarea',
       '#rows' => 5,
-      '#title' => $this->t('Disable Klaro element and dont block attributed resources on following url patterns', [], ['context' => 'klaro']),
-      '#description' => $this->t('Enter one regular expression per line without delimiters, i.e  \/admin\/ will match all paths that contain /admin/ while i.e ^\/en will match all routes that start with /en. On these paths no resources are blocked and Klaro will be disabled.', [], ['context' => 'klaro']),
+      '#title' => $this->t('Disable Klaro! element and dont block attributed resources on following url patterns', [], ['context' => 'klaro']),
+      '#description' => $this->t('Enter one regular expression per line without delimiters, i.e  \/admin\/ will match all paths that contain /admin/ while i.e ^\/en will match all routes that start with /en. On these paths no resources are blocked and Klaro! will be disabled.', [], ['context' => 'klaro']),
       '#default_value' => $config->get('disable_urls') ? implode("\n", $config->get('disable_urls')) : '',
     ];
 
@@ -299,7 +318,7 @@ class SettingsForm extends ConfigFormBase {
     $form['unknown_resources'] = [
       '#type' => 'details',
       '#title' => $this->t('Unknown resources'),
-      '#description' => $this->t('During processing to decorate attributes (see “Automatic attribution”), this module can detect external resources and embedded external content without a matching service.', [], ['context' => 'klaro']),
+      '#description' => $this->t('During processing to decorate attributes (see <em>Automatic attribution</em>), this module can detect external resources and embedded external content without a matching service.', [], ['context' => 'klaro']),
       '#group' => 'vertical_tabs',
     ];
 
@@ -313,13 +332,13 @@ class SettingsForm extends ConfigFormBase {
     $form['unknown_resources']['block_unknown'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Block unknown external resources'),
-      '#description' => $this->t('Matches and decorates resources that are external and did not match a configured service (works best if "Process final HTML" is activated).', [], ['context' => 'klaro']),
+      '#description' => $this->t('Matches and decorates resources that are external and did not match a configured service (works best if <em>Process final HTML</em> is activated; find it in tab <em>Automatic attribution</em>).', [], ['context' => 'klaro']),
       '#default_value' => $config->get('block_unknown'),
     ];
 
     $form['unknown_resources']['block_unknown_label'] = [
       '#type' => 'textfield',
-      '#title' => $this->t('Label for the unknown service', [], ['context' => 'klaro']),
+      '#title' => $this->t('Label', [], ['context' => 'klaro']),
       '#description' => $this->t('Label of the service for external unknown resources.', [], ['context' => 'klaro']),
       '#default_value' => $config->get('block_unknown_label'),
       '#states' => [
@@ -331,7 +350,7 @@ class SettingsForm extends ConfigFormBase {
     $form['unknown_resources']['block_unknown_description'] = [
       '#type' => 'textarea',
       '#rows' => 5,
-      '#title' => $this->t('Description text for the unknown service', [], ['context' => 'klaro']),
+      '#title' => $this->t('Description', [], ['context' => 'klaro']),
       '#description' => $this->t('Short description of the service for external unknown resources.', [], ['context' => 'klaro']),
       '#default_value' => $config->get('block_unknown_description'),
       '#states' => [
@@ -367,10 +386,16 @@ class SettingsForm extends ConfigFormBase {
       '#description' => $this->t('Matches and decorates iframes or oembeds from special field types (see README.md).', [], ['context' => 'klaro']),
       '#default_value' => $config->get('auto_decorate_preprocess_field'),
     ];
+    $form['auto_decorate']['get_entity_thumbnail'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Determine thumbnail for preview', [], ['context' => 'klaro']),
+      '#description' => $this->t('While preprocessing fields try to determine thumbnail for preview.', [], ['context' => 'klaro']),
+      '#default_value' => $config->get('get_entity_thumbnail'),
+    ];
     $form['auto_decorate']['final_html'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Process final HTML', [], ['context' => 'klaro']),
-      '#description' => $this->t('Adds contextual blocking to iframe, img, audio and video tags and adds attributes to all matching script tags that are not attributed yet. This feature is rather experimental, invalid or malformed html might lead to unknown behavior.', [], ['context' => 'klaro']),
+      '#description' => $this->t('Adds contextual blocking to iframe, img, audio and video tags and adds attributes to all matching script tags that are not attributed yet. This feature is rather experimental - invalid or malformed html might lead to unknown behavior.', [], ['context' => 'klaro']),
       '#default_value' => $config->get('auto_decorate_final_html'),
     ];
 
@@ -395,7 +420,7 @@ class SettingsForm extends ConfigFormBase {
     $form['styling']['additional_class'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Additional CSS classes', [], ['context' => 'klaro']),
-      '#description' => $this->t('Add custom classes separated by spaces to the Klaro! container, i.e. "custom-class-one custom-class-two"', [], ['context' => 'klaro']),
+      '#description' => $this->t('Add custom classes separated by spaces to the Klaro! container, i.e. <code>custom-class-one custom-class-two</code>', [], ['context' => 'klaro']),
       '#default_value' => $config->get('library.additional_class'),
     ];
 
@@ -408,8 +433,8 @@ class SettingsForm extends ConfigFormBase {
 
     $form['styling']['html_texts'] = [
       '#type' => 'checkbox',
-      '#title' => $this->t('Allow HTML in texts.', [], ['context' => 'klaro']),
-      '#description' => $this->t('Setting this to true will render the descriptions of the consent. Use with care! (Does not work for button texts)', [], ['context' => 'klaro']),
+      '#title' => $this->t('Allow HTML in texts', [], ['context' => 'klaro']),
+      '#description' => $this->t('Activating this will allow HTML in the descriptions of the services (e.g. for links). Use with care!', [], ['context' => 'klaro']),
       '#default_value' => $config->get('library.html_texts'),
     ];
 
@@ -433,8 +458,7 @@ class SettingsForm extends ConfigFormBase {
       ->set('library.cookie_name', $form_state->getValue('cookie_name'))
       ->set('library.cookie_expires_after_days', $form_state->getValue('cookie_expires_after_days'))
       ->set('library.cookie_domain', $form_state->getValue('cookie_domain'))
-      ->set('library.must_consent', $form_state->getValue('must_consent'))
-      ->set('library.notice_as_modal', $form_state->getValue('notice_as_modal'))
+      ->set('dialog_mode', $form_state->getValue('dialog_mode'))
       ->set('library.additional_class', $form_state->getValue('additional_class'))
       ->set('library.html_texts', $form_state->getValue('html_texts'))
       ->set('library.group_by_purpose', $form_state->getValue([
@@ -457,9 +481,10 @@ class SettingsForm extends ConfigFormBase {
         'buttons',
         'learn_more_as_button',
       ]))
-      ->set('show_toggle_button', $form_state->getValue([
+      ->set('show_toggle_button', $form_state->getValue('show_toggle_button'))
+      ->set('show_close_button', $form_state->getValue([
         'buttons',
-        'show_toggle_button',
+        'show_close_button',
       ]))
       ->set('block_unknown', $form_state->getValue('block_unknown'))
       ->set('log_unknown_resources', $form_state->getValue('log_unknown_resources'))
@@ -468,6 +493,7 @@ class SettingsForm extends ConfigFormBase {
       ->set('auto_decorate_js_alter', $form_state->getValue('js_alter'))
       ->set('auto_decorate_page_attachments', $form_state->getValue('page_attachments'))
       ->set('auto_decorate_preprocess_field', $form_state->getValue('preprocess_field'))
+      ->set('get_entity_thumbnail', $form_state->getValue('get_entity_thumbnail'))
       ->set('auto_decorate_final_html', $form_state->getValue('final_html'))
       ->set('deletable_cookie_domains', array_filter($cookie_domains))
       ->set('exclude_urls', array_filter($exclude_urls))

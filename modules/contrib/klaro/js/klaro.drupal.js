@@ -29,6 +29,16 @@
         Drupal.behaviors.klaro.config = settings.klaro.config;
       }
 
+      // Store reference to manager once.
+      if (!Drupal.behaviors.klaro.manager) {
+        Drupal.behaviors.klaro.manager = klaro.getManager(Drupal.behaviors.klaro.config);
+      }
+
+      // Loading klaro less intrusive.
+      if (settings.klaro.dialog_mode === 'silent') {
+        Drupal.behaviors.klaro.manager.confirmed = true;
+      }
+
       // Setup klaro on each attach (support ajax insert commands).
       klaro.setup(Drupal.behaviors.klaro.config);
 
@@ -37,6 +47,10 @@
 
       // Fix broken aria reference, see #3483896
       document.querySelector('#klaro-cookie-notice')?.removeAttribute('aria-labelledby');
+
+      // Add title to learn more link.
+      let label_open_consent_dialog = Drupal.t("Open consent dialog", {},{context: 'klaro'});
+      document.querySelector('a.cm-link.cn-learn-more')?.setAttribute('title', label_open_consent_dialog);
 
       // Store reference to manager once.
       if (!Drupal.behaviors.klaro.manager) {
@@ -48,7 +62,7 @@
         Array.prototype.forEach.call(elements, function () {
           // Add toggle dialog button.
           if (settings.klaro.show_toggle_button && !document.getElementById('klaro_toggle_dialog')) {
-            var button_label = Drupal.t("Manage consents", {},{context: 'klaro'})
+            var button_label = Drupal.t("Manage consents", {},{context: 'klaro'});
             var button_html = '<button id="klaro_toggle_dialog" aria-label="' + button_label + '" aria-haspopup="dialog" title="'+ button_label + '" type="button" class="klaro_toggle_dialog klaro_toggle_dialog_override" rel="open-consent-manager"></button>';
             document.body.insertAdjacentHTML('afterbegin', button_html);
           }
@@ -64,8 +78,28 @@
             }
           }
         }
-
       }
+
+      // Set preview image for contextual consent.
+      var elements = once('klaro-thumbnail', '.klaro.cm-as-context-notice', context);
+      Array.prototype.forEach.call(elements, function (el) {
+        let klaro_elem = (el.closest('.field'))?.querySelector('[data-modified-by-klaro]');
+        let thumbnail = klaro_elem?.getAttribute('data-thumbnail');
+        let title = klaro_elem?.getAttribute('title');
+
+        if (thumbnail) {
+          el.parentElement.style.backgroundImage = 'url(' + thumbnail + ')';
+          el.parentElement.style.backgroundSize = 'cover';
+          el.parentElement.style.backgroundPosition = 'center';
+          el.firstChild.style.backgroundColor = 'rgba(250, 250, 250, 0.75)';
+        }
+
+        if (title) {
+          let title_elem = document.createElement('p');
+          title_elem.innerHTML = title;
+          el.firstChild.prepend(title_elem);
+        }
+      });
     },
 
     /**
@@ -152,24 +186,50 @@
     },
 
     /**
-     * Add minimal accessibility features to the customize consent dialog.
+     * Observer klaro element to adapt customizations.
      */
     klaroElementMutator: function() {
+
+      // Add minimal accessibility features to the customize consent dialog.
       var labels = document.querySelectorAll('#klaro label')
-      if (labels.length < 1){
-        return;
+      if (labels.length > 0){
+        for (var i = 0; i < labels.length; i++) {
+          labels[i].setAttribute('tabindex', '0');
+          labels[i].setAttribute('onkeydown', 'Drupal.behaviors.klaro.KlaroToggleService(event)');
+          labels[i].setAttribute('aria-role', 'checkbox');
+          labels[i].setAttribute('aria-labelledby', labels[i].getAttribute('for') + '-title');
+          labels[i].setAttribute('aria-describedby', labels[i].getAttribute('for') + '-description');
+          if (labels[i].previousElementSibling && labels[i].previousElementSibling.tagName == 'INPUT') {
+            labels[i].setAttribute('aria-checked', labels[i].previousElementSibling.checked);
+          }
+        }
+        labels[0].focus();
       }
-      for (var i = 0; i < labels.length; i++) {
-        labels[i].setAttribute('tabindex', '0');
-        labels[i].setAttribute('onkeydown', 'Drupal.behaviors.klaro.KlaroToggleService(event)');
-        labels[i].setAttribute('aria-role', 'checkbox');
-        labels[i].setAttribute('aria-labelledby', labels[i].getAttribute('for') + '-title');
-        labels[i].setAttribute('aria-describedby', labels[i].getAttribute('for') + '-description');
-        if (labels[i].previousElementSibling && labels[i].previousElementSibling.tagName == 'INPUT') {
-          labels[i].setAttribute('aria-checked', labels[i].previousElementSibling.checked);
+      // Handle close button X.
+      if (drupalSettings.klaro.show_close_button) {
+        if (document.querySelector('#klaro-cookie-notice')) {
+          var elem = document.querySelector('#klaro-cookie-notice');
+        }
+        else if (document.querySelector('.cm-modal.cm-klaro')) {
+          var elem = document.querySelector('.cm-modal.cm-klaro .cm-footer');
+          if ((Drupal.behaviors.klaro.manager.confirmed) && (!Drupal.behaviors.klaro.config.mustConsent)) {
+            elem = false;
+          }
+        }
+
+        if (elem && !document.querySelector('.klaro-close')) {
+          var close_label = Drupal.t("Close dialog and decline all", {},{context: 'klaro'});
+          var close_html = '<button title="' + close_label + '" type="button" class="cn-decline klaro-close" tabindex="0" aria-label="' + close_label + '"></button>';
+          elem.insertAdjacentHTML('beforeend', close_html);;
+          document.querySelector('.klaro-close')?.addEventListener('click', (e) => {
+            Drupal.behaviors.klaro.manager.changeAll(false);
+            Drupal.behaviors.klaro.manager.saveAndApplyConsents();
+          }, false);
+          document.querySelector('.klaro').classList.add('klaro-close-enabled');
+          document.querySelector('.klaro .cookie-modal .cm-modal .hide')?.remove();
         }
       }
-      labels[0].focus();
+
     },
     KlaroToggleService: function(event) {
       if (event.key === "Enter") {

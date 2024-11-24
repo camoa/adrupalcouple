@@ -1,3 +1,4 @@
+langcode: en
 default_field_groups:
   user:
     biographical:

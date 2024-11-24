@@ -176,3 +176,30 @@ function schemadotorg_update_10010(): void {
   $installer = \Drupal::service('schemadotorg.installer');
   $installer->install();
 }
+
+/**
+ * Issue #3488638: Improve configuration validation and management.
+ */
+function schemadotorg_update_10011(): void {
+  $module_names = [
+    'schemadotorg',
+    'schemadotorg_content_model_documentation',
+    'schemadotorg_diagram',
+    'schemadotorg_custom_field.settings',
+    'schemadotorg_descriptions',
+    'schemadotorg_entity_reference_override',
+    'schemadotorg_field_group',
+    'schemadotorg_field_prefix',
+    'schemadotorg_jsonld',
+    'schemadotorg_options',
+    'schemadotorg_taxonomy',
+    'schemadotorg_devel',
+  ];
+  foreach ($module_names as $module_name) {
+    if (\Drupal::moduleHandler()->moduleExists($module_name)) {
+      \Drupal::configFactory()->getEditable($module_name . '.settings')
+        ->set('langcode', 'en')
+        ->save();
+    }
+  }
+}

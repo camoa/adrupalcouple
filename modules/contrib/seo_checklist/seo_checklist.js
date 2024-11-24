@@ -8,11 +8,11 @@
       $('#checklistapi-checklist-form details a', context)
         .filter(function () {
           // Ignore non-HTTP (e.g. mailto:) link.
-          return this.href.indexOf("http") === 0;
+          return this.href.indexOf('http') === 0;
         })
         .filter(function () {
           // Filter out links to the same domain.
-          return this.hostname && this.hostname !== location.hostname;
+          return this.hostname && this.hostname !== window.location.hostname;
         })
         .each(function () {
           // Send all links to drupal.org to the same window. Open others in their
@@ -35,7 +35,9 @@
         context,
       );
       const commands = $('.cli-commands', context);
-      checkbox.is(':checked') || commands.hide();
+      if (!checkbox.is(':checked')) {
+        commands.hide();
+      }
       checkbox.click(function () {
         commands.toggle(this.checked);
       });

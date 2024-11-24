@@ -96,7 +96,7 @@ class NamePasswords extends SecurityCheckBase {
     $users = User::loadMultiple($ids);
     $findings = [];
     foreach ($users as $user) {
-      if ($this->userAuth->authenticateAccount($this->userAuth->lookupAccount($user->getDisplayName()), $user->getDisplayName())) {
+      if (($account = $this->userAuth->lookupAccount($user->getAccountName())) && $this->userAuth->authenticateAccount($account, $user->getAccountName())) {
         $findings[] = $user->getDisplayName();
       }
 

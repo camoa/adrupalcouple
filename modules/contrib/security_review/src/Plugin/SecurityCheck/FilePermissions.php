@@ -99,18 +99,24 @@ class FilePermissions extends SecurityCheckBase {
 
       // Write a file with the timestamp.
       $file = './' . $directory . '/file_write_test.' . date('Ymdhis');
+      $directory_perms = octdec(substr(sprintf('%o', fileperms($directory)), -4));
+      chmod($directory, 0755);
       if ($file_create = @fopen($file, 'w')) {
         $create_status = fwrite($file_create, date('Ymdhis') . ' - ' . $append_message . "\n");
         fclose($file_create);
         unlink($file);
       }
+      chmod($directory, $directory_perms);
 
       // Try to append to our IGNOREME file.
       $file = './' . $directory . '/IGNOREME.txt';
+      $fileperms = octdec(substr(sprintf('%o', fileperms($file)), -4));
+      chmod($file, 0755);
       if ($file_append = @fopen($file, 'a')) {
         $append_status = fwrite($file_append, date('Ymdhis') . ' - ' . $append_message . "\n");
         fclose($file_append);
       }
+      chmod($file, $fileperms);
     }
 
     if (!empty($findings) || $create_status || $append_status) {

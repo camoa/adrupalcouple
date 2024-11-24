@@ -1,3 +1,4 @@
+langcode: en
 default_vocabularies: {  }
 schema_property_vocabularies:
   alumniOf:

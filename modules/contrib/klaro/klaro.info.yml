@@ -7,7 +7,7 @@ core_version_requirement: ^10.2 || ^11
 
 configure: klaro.admin
 
-# Information added by Drupal.org packaging script on 2024-11-01
-version: '3.0.0-rc9'
+# Information added by Drupal.org packaging script on 2024-11-22
+version: '3.0.0-rc12'
 project: 'klaro'
-datestamp: 1730468220
+datestamp: 1732239418

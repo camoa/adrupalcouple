@@ -8,6 +8,7 @@ use Drupal\Core\Asset\LibrariesDirectoryFileFinder;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Config\ImmutableConfig;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\File\FileUrlGeneratorInterface;
 use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Render\Markup;
@@ -90,6 +91,13 @@ class KlaroHelper {
   protected $librariesFinder;
 
   /**
+   * The file_url_generator service.
+   *
+   * @var \Drupal\Core\File\FileUrlGeneratorInterface
+   */
+  protected $fileUrlGenerator;
+
+  /**
    * Constructs a KlaroHelper object.
    *
    * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
@@ -108,6 +116,8 @@ class KlaroHelper {
    *   The logger service.
    * @param \Drupal\Core\Logger\LibrariesDirectoryFileFinder $libraries_finder
    *   The libraries_finder service.
+   * @param \Drupal\Core\File\FileUrlGeneratorInterface $file_url_generator
+   *   The file_url_generator service.
    */
   public function __construct(
     ConfigFactoryInterface $config_factory,
@@ -118,6 +128,7 @@ class KlaroHelper {
     RendererInterface $renderer,
     LoggerChannelFactoryInterface $logger,
     LibrariesDirectoryFileFinder $libraries_finder,
+    FileUrlGeneratorInterface $file_url_generator,
   ) {
     $this->configFactory = $config_factory;
     $this->languageManager = $languages;
@@ -127,6 +138,7 @@ class KlaroHelper {
     $this->renderer = $renderer;
     $this->logger = $logger;
     $this->librariesFinder = $libraries_finder;
+    $this->fileUrlGenerator = $file_url_generator;
   }
 
   /**
@@ -231,6 +243,16 @@ class KlaroHelper {
     $settings = [];
     $settings['config'] = static::snakeToCamel($config->get('library'));
 
+    // Set dialog mode.
+    $dialog_mode = $config->get('dialog_mode');
+    if ($dialog_mode == 'manager') {
+      $settings['config']['mustConsent'] = TRUE;
+    }
+    elseif ($dialog_mode == 'notice_modal') {
+      $settings['config']['noticeAsModal'] = TRUE;
+    }
+    $settings['dialog_mode'] = $dialog_mode;
+
     $uri = $config_texts->get('consentModal.privacyPolicy.url');
     $settings['config']['privacyPolicy'] = $uri ? Url::fromUri($uri)->toString() : NULL;
 
@@ -293,6 +315,7 @@ class KlaroHelper {
 
     $settings['show_toggle_button'] = $config->get('show_toggle_button');
     $settings['toggle_button_icon'] = $config->get('toggle_button_icon');
+    $settings['show_close_button'] = $config->get('show_close_button');
     $settings['exclude_urls'] = $config->get('exclude_urls');
     $settings['disable_urls'] = $config->get('disable_urls');
     $styles = $config->get('styles');
@@ -358,6 +381,7 @@ class KlaroHelper {
       $unknown_app->setId("unknown_app");
       $unknown_app->setLabel($settings->get('block_unknown_label'));
       $unknown_app->setDescription($settings->get('block_unknown_description'));
+      $unknown_app->setPurposes(['external_content']);
       $result["unknown_app"] = $unknown_app;
     }
 
@@ -375,7 +399,9 @@ class KlaroHelper {
     $disable_urls = $config->get('disable_urls');
 
     // Disable media/oembed as the outer iframe of remote-video will be handled.
-    $disable_urls[] = '^\/media\/oembed';
+    if ($this->request->attributes->get('_route') == 'media.oembed_iframe') {
+      return TRUE;
+    }
 
     $uri = $this->request->getRequestUri();
     $found = FALSE;
@@ -532,6 +558,36 @@ class KlaroHelper {
   }
 
   /**
+   * Try to determine thumbnail from entity.
+   *
+   * @param object $entity
+   *   The entity to check.
+   *
+   * @return string|bool[]
+   *   The url or false.
+   */
+  public function getThumbnail($entity) {
+    if (!$this->getSettings()->get('get_entity_thumbnail')) {
+      return FALSE;
+    }
+    $url = $entity?->thumbnail?->entity?->getFileUri();
+    if ($url) {
+      $url = $this->fileUrlGenerator->generateAbsoluteString($url);
+      // Check if URL is not external.
+      if (UrlHelper::isExternal($url)) {
+        $external_is_local = UrlHelper::externalIsLocal($url, $this->request->getSchemeAndHttpHost());
+        if ($external_is_local) {
+          return $url;
+        }
+      }
+      else {
+        return $url;
+      }
+    }
+    return FALSE;
+  }
+
+  /**
    * Matches klaro apps against a string(src-attribute).
    *
    * @param string $str
@@ -566,7 +622,7 @@ class KlaroHelper {
             $found_klaro_app = $klaro_apps['unknown_app'];
           }
           if ($settings->get('log_unknown_resources')) {
-            $this->logger->get('klaro')->notice('Unknown external resource %resource requested, we recommend to create an app for this resource',
+            $this->logger->get('klaro')->notice('Unknown external resource %resource requested, we recommend to create a service for this resource.',
               [
                 '%resource' => $str,
               ]
@@ -631,11 +687,12 @@ class KlaroHelper {
     }
 
     $klaro_apps = $this->getApps();
-    $dom = new \DOMDocument();
+
     $complete_html = strpos($html, '<!DOCTYPE') !== FALSE;
     // If "complete html" is supplied use DomDocument to create.
     if ($complete_html) {
       $dom = new \DOMDocument();
+      $html = mb_encode_numericentity($html, [0x80, 0x10FFFF, 0, 0x1FFFFF], 'UTF-8');
       $dom->loadHTML($html, LIBXML_NOERROR | LIBXML_SCHEMA_CREATE);
     }
     else {
@@ -759,10 +816,11 @@ class KlaroHelper {
         continue;
       }
       $initial_src = $iframe->getAttribute('src');
+      $initial_path = parse_url($initial_src, PHP_URL_PATH);
 
       // If remote-video matchKlaroApp against url parameter.
-      if (strpos($initial_src, '/media/oembed') === 0) {
-        parse_str(parse_url($initial_src)['query'], $params);
+      if (str_ends_with($initial_path, '/media/oembed')) {
+        parse_str(parse_url($initial_src, PHP_URL_QUERY), $params);
         $found_klaro_app = $this->matchKlaroApp($params['url']);
       }
       else {
@@ -841,6 +899,7 @@ class KlaroHelper {
 
     if ($complete_html) {
       $html = $dom->saveHTML();
+      $html = mb_decode_numericentity($html, [0x80, 0x10FFFF, 0, 0x1FFFFF], 'UTF-8');
     }
     else {
       $html = Html::serialize($dom);

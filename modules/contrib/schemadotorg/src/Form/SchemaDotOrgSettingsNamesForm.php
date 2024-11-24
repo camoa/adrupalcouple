@@ -112,18 +112,4 @@ class SchemaDotOrgSettingsNamesForm extends SchemaDotOrgSettingsFormBase {
     return parent::buildForm($form, $form_state);
   }
 
-  /**
-   * {@inheritdoc}
-   */
-  public function submitForm(array &$form, FormStateInterface $form_state): void {
-    $config = $this->config('schemadotorg.names');
-    $values = $form_state->getValue('names');
-    foreach ($values as $key => $value) {
-      $config->set($key, $value);
-    }
-    $config->save();
-
-    parent::submitForm($form, $form_state);
-  }
-
 }

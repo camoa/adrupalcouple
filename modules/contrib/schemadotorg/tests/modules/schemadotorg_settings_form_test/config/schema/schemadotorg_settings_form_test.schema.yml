@@ -1,7 +1,19 @@
-schemadotorg_settings_element_test.settings:
+schemadotorg_settings_form_test.settings:
   type: config_entity
   label: 'Schema.org Blueprints Test'
   mapping:
+    textfield:
+      type: string
+      label: textfield
+    checkbox:
+      type: boolean
+      label: checkbox
+    checkboxes:
+      type: sequence
+      label: checkboxes
+      sequence:
+        type: string
+        label: checkbox
     indexed:
       type: sequence
       label: indexed_items

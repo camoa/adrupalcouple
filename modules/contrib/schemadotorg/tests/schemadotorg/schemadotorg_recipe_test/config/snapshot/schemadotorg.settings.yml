@@ -1,3 +1,4 @@
+langcode: en
 requirements:
   recommended_modules: true
 schema_data:

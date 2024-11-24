@@ -9,6 +9,8 @@
  * Configuration / Customization
  * Automatic attribution of resources
  * Cookies
+ * Use Klaro with custom preprocess_field
+ * Show thumbnail and title in contextual consent dialog
  * Troubleshooting
  * Maintainers
 
@@ -55,11 +57,7 @@ The installation of this module is like other Drupal modules.
 4. Set up user permissions: `/admin/people/permissions#module-klaro` (see below)
 5. Customize settings: `/admin//config/user-interface/klaro`
 
-### Using composer
-
-We recommend to use composer for step 1 and 2.
-
-For installing the Drupal module use:
+For installing the Drupal module via composer use:
 
 `composer require drupal/klaro`
 
@@ -71,58 +69,7 @@ The original library is [klaro-org/klaro-js](https://github.com/klaro-org/klaro-
 The maintainers of drupal/klaro_js keep the package synchronized with the
 original package.
 
-#### Install via composer.libraries.json (Legacy)
-
-For installing the klaro js library via composer.libraries.json you need the
-composer-merge-plugin and add the file to the extra merge-plugin section of your
-root composer.json:
-
-```
-"extra": {
-  "merge-plugin": {
-      "include": [
-          "web/modules/contrib/klaro/composer.libraries.json"
-      ]
-  }
-}
-```
-
-and then require the package:
-
-```php
-composer require "klaro-org/klaro-js":"0.7.22"
-```
-
-[More infos how to do that](https://www.drupal.org/docs/8/modules/webform/webform-frequently-asked-questions/how-to-use-composer-to-install-libraries-for-the-webform-module)
-
-#### Include in root composer.json (Legacy)
-
-If you want to keep on track for your Software Bill od Materials, you can add
-this composer entry to your composer.json:
-
-```json
-    "repositories": {
-        [...],
-        "klaro-org.klaro-js": {
-            "type": "package",
-            "package": {
-                "name": "klaro-org/klaro-js",
-                "type": "drupal-library",
-                "version": "0.7.22",
-                "dist": {
-                    "url": "https://github.com/klaro-org/klaro-js/archive/refs/tags/v0.7.22.zip",
-                    "type": "zip"
-                }
-            }
-        }
-    }
-```
-
-and then require the package:
-
-```php
-composer require "klaro-org/klaro-js":"0.7.22"
-```
+For further install methods see [Install Javascript Library](https://www.drupal.org/node/3487559).
 
 ## REQUIREMENTS
 
@@ -160,6 +107,13 @@ You have to review and enable the services you need for your site.
 Klaro offers two services for embedded external content: YouTube and Vimeo.
 Both services are activated by default and take effect for the `oembed` field
 of Drupal Core Media Remote Video.
+
+#### Services for social media platforms
+
+Klaro offers several services for embeds of social media platforms. You have
+to check and adapt these services for your needs. These services are
+deactivated by default and take effect e.g. in combination with the module
+[html_field_formatter](https://www.drupal.org/project/html_field_formatter).
 
 #### Services for Matomo
 
@@ -330,18 +284,13 @@ about them.
    you don't need to add 30 cookie information inside your service just because
    a script adds several cookies just with 10 different cookie domains.
 
-## TROUBLESHOOTING
-
-- If the script- / resource **element attributes** won't appear, then there may
-  be some other module or the theme that is preprocessing the tags and
-  stripping out these attributes.
-- Issue tracker: https://www.drupal.org/project/issues/klaro
-
-## Use Klaro with custom preprocess_field.
+## USE KLARO WITH CUSTOM PREPROCESS_FIELD
 
 If you want to implement Klaro for your own field types, you can
 use the functions of the KlaroHelper class.
 See `klaro_preprocess_field()` in `klaro.module`:
+
+### Example 1: Finding and replace src attribute.
 
 ```php
   /** @var \Drupal\klaro\Utility\KlaroHelper $helper */
@@ -360,6 +309,52 @@ See `klaro_preprocess_field()` in `klaro.module`:
     }
   }
 ```
+
+### Example 2: Parse and replace in whole HTML snippet.
+
+```php
+  /** @var \Drupal\klaro\Utility\KlaroHelper $helper */
+  $helper = \Drupal::service('klaro.helper');
+
+  // Rewrite markup from field formatter html.
+  if ($variables["element"]['#formatter'] == "html") {
+    foreach ($variables['items'] as $i => $item) {
+      $html = $item['content']['#children'];
+      $variables['items'][$i]['content']['#children'] = $helper->processHtml($html);
+    }
+  }
+```
+
+## SHOW THUMBNAIL AND TITLE IN CONTEXTUAL CONSENT DIALOG
+
+The Klaro! module looks for data-attribute `data-thumbnail` and attribute
+`title` on iframe or other entities with src-attribute and inserts thumbnail
+and title into contextual consent dialog.
+
+While preprocessing fields for automatic attribution, Klaro! tries to determine existing thumbnails and adds them to the markup.
+You can disable this option in Klaro! Settings -> Automatic Attribution 
+-> Determine thumbnail for preview.
+
+Example for custom field_preprocess function:
+
+```php
+function hook_preprocess_field(&$variables) {
+  $obj = $variables['element']['#object'];
+  if [...] {
+    $url = $helper->getThumbnail($obj);
+    if ($url) {
+      $variables['items'][0]['content']['#attributes']['data-thumbnail'] = $url;
+    }
+  }
+}
+```
+
+## TROUBLESHOOTING
+
+- If the script- / resource **element attributes** won't appear, then there may
+  be some other module or the theme that is preprocessing the tags and
+  stripping out these attributes.
+- Issue tracker: https://www.drupal.org/project/issues/klaro
 
 ## MAINTAINERS
 

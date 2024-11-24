@@ -7,6 +7,7 @@
 
 declare(strict_types=1);
 
+use Drupal\Component\Serialization\Yaml;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\BubbleableMetadata;
@@ -168,7 +169,7 @@ node--CreativeWork: |
  * Form API callback. Validate associative settings array's JSON.
  */
 function _schemadotorg_jsonld_custom_json_settings_validate(array &$element, FormStateInterface $form_state, array &$completed_form): void {
-  $value = $form_state->getValue($element['#parents']);
+  $value = Yaml::decode($form_state->getValue($element['#parents']));
   foreach ($value as $key => $json) {
     try {
       SchemaDotOrgSettings::validate('json', $json);

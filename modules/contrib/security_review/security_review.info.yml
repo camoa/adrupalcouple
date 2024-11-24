@@ -5,7 +5,7 @@ package: Security
 core_version_requirement: ^10.3 || ^11
 configure: security_review.settings
 
-# Information added by Drupal.org packaging script on 2024-11-15
-version: '3.1.0'
+# Information added by Drupal.org packaging script on 2024-11-18
+version: '3.1.1'
 project: 'security_review'
-datestamp: 1731704481
+datestamp: 1731950076

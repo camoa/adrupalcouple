@@ -402,47 +402,49 @@ class SchemaDotOrgReportItemController extends SchemaDotOrgReportControllerBase 
     }
 
     // Get mapping defaults.
-    if ($table === 'types') {
-      $default_entity_type_id = $this->getDefaultEntityTypeId($id);
-      $mapping_defaults = $this->schemaMappingManager->getMappingDefaults(
-        entity_type_id: $default_entity_type_id,
-        schema_type: $id,
-      );
-      $build['mapping_defaults'] = [
-        '#type' => 'details',
-        '#title' => $this->t('Mapping defaults'),
-        '#description' => $this->t('The below mapping defaults are used when the Schema.org type is created.'),
-        'code' => [
-          '#type' => 'html_tag',
-          '#tag' => 'pre',
-          '#plain_text' => Yaml::encode($mapping_defaults),
-          '#attributes' => ['data-schemadotorg-codemirror-mode' => 'text/x-yaml'],
-          '#attached' => ['library' => ['schemadotorg/codemirror.yaml']],
-        ],
-      ];
-    }
-    else {
-      // @see
-      $default_field = $this->schemaEntityFieldManager->getPropertyDefaultField('node', 'Thing', $id);
-      $field_type_options = $this->schemaEntityFieldManager->getPropertyFieldTypeOptions('node', 'Thing', $id);
-      $recommended_category = (string) $this->t('Recommended');
-      $field_type = (isset($field_type_options[$recommended_category]))
-        ? array_key_first($field_type_options[$recommended_category])
-        : NULL;
-      SchemaDotOrgArrayHelper::insertAfter($default_field, 'name', 'type', $field_type);
+    if (!$this->schemaTypeManager->isSubTypeOf($id, ['Enumeration'])) {
+      if ($table === 'types') {
+        $default_entity_type_id = $this->getDefaultEntityTypeId($id);
+        $mapping_defaults = $this->schemaMappingManager->getMappingDefaults(
+          entity_type_id: $default_entity_type_id,
+          schema_type: $id,
+        );
+        $build['mapping_defaults'] = [
+          '#type' => 'details',
+          '#title' => $this->t('Mapping defaults'),
+          '#description' => $this->t('The below mapping defaults are used when the Schema.org type is created.'),
+          'code' => [
+            '#type' => 'html_tag',
+            '#tag' => 'pre',
+            '#plain_text' => Yaml::encode($mapping_defaults),
+            '#attributes' => ['data-schemadotorg-codemirror-mode' => 'text/x-yaml'],
+            '#attached' => ['library' => ['schemadotorg/codemirror.yaml']],
+          ],
+        ];
+      }
+      else {
+        // @see
+        $default_field = $this->schemaEntityFieldManager->getPropertyDefaultField('node', 'Thing', $id);
+        $field_type_options = $this->schemaEntityFieldManager->getPropertyFieldTypeOptions('node', 'Thing', $id);
+        $recommended_category = (string) $this->t('Recommended');
+        $field_type = (isset($field_type_options[$recommended_category]))
+          ? array_key_first($field_type_options[$recommended_category])
+          : NULL;
+        SchemaDotOrgArrayHelper::insertAfter($default_field, 'name', 'type', $field_type);
 
-      $build['field_defaults'] = [
-        '#type' => 'details',
-        '#title' => $this->t('Field defaults'),
-        '#description' => $this->t('The below field defaults are used when the Schema.org property is created via a Schema.org type.'),
-        'code' => [
-          '#type' => 'html_tag',
-          '#tag' => 'pre',
-          '#plain_text' => Yaml::encode($default_field),
-          '#attributes' => ['data-schemadotorg-codemirror-mode' => 'text/x-yaml'],
-          '#attached' => ['library' => ['schemadotorg/codemirror.yaml']],
-        ],
-      ];
+        $build['field_defaults'] = [
+          '#type' => 'details',
+          '#title' => $this->t('Field defaults'),
+          '#description' => $this->t('The below field defaults are used when the Schema.org property is created via a Schema.org type.'),
+          'code' => [
+            '#type' => 'html_tag',
+            '#tag' => 'pre',
+            '#plain_text' => Yaml::encode($default_field),
+            '#attributes' => ['data-schemadotorg-codemirror-mode' => 'text/x-yaml'],
+            '#attached' => ['library' => ['schemadotorg/codemirror.yaml']],
+          ],
+        ];
+      }
     }
 
     // Custom fields.

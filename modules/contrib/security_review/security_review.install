@@ -76,11 +76,16 @@ function security_review_requirements($phase): array {
       $no_results = TRUE;
     }
     else {
+      /** @var \Drupal\security_review\SecurityReview $security_review_service */
+      $security_review_service = \Drupal::service('security_review');
+
       foreach ($checks as $check) {
         $instance_check = $pluginManager->createInstance($check['id']);
 
         $result = $instance_check->lastResult();
-        if (!empty($result) && $result['result'] === CheckResult::FAIL) {
+        if (!empty($result) && $result['result'] === CheckResult::FAIL
+          && !$security_review_service->isCheckSkipped($check['id'])
+        ) {
           $failed_checks = TRUE;
           break;
         }

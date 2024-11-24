@@ -153,6 +153,12 @@ class SchemaDotOrgHelpController extends ControllerBase {
     // Videos.
     $videos = [
       [
+        'title' => $this->t('Love thy CMS: Going from 0 to 60 with the Schema.org Blueprints module'),
+        'content' => $this->t('A journey with a live demo showing how to go from 0 to 60 with the Schema.org Blueprints module. The session aims to help, inspire, and assist people to "Love thy CMS!"'),
+        // cspell:disable-next-line
+        'youtube_id' => 'iHZgzQOWT-M',
+      ],
+      [
         'title' => $this->t('Going From 0 to 60 With the Schema.org Blueprints Module'),
         'content' => $this->t('This presentation aims to introduce people to the concept of using Schema.org as the blueprint for an API-first, standardized, and SEO-friendly website and walk through how to implement Schema.org for your organization.'),
         // cspell:disable-next-line

@@ -1,3 +1,4 @@
+langcode: en
 schema_property_allowed_values:
   contactType:
     home: Home

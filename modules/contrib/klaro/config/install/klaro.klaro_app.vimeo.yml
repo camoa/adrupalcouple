@@ -3,7 +3,7 @@ status: true
 dependencies: {  }
 id: vimeo
 label: Vimeo
-description: 'Vimeo is a video sharing platform (USA).'
+description: 'Vimeo is a video sharing platform by Vimeo, LLC (USA).'
 default: false
 purposes:
   - external_content

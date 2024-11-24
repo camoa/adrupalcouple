@@ -6,9 +6,11 @@ namespace Drupal\schemadotorg_epp\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Cache\Cache;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\node\NodeInterface;
 use Drupal\schemadotorg_epp\SchemaDotOrgEppManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -29,6 +31,11 @@ class SchemaDotOrgEppNodeLinksBlock extends BlockBase implements ContainerFactor
   protected RouteMatchInterface $routeMatch;
 
   /**
+   * The entity type manager.
+   */
+  protected EntityTypeManagerInterface $entityTypeManager;
+
+  /**
    * The Schema.org Entity Prepopulate manager.
    */
   protected SchemaDotOrgEppManagerInterface $schemaEppManager;
@@ -39,6 +46,7 @@ class SchemaDotOrgEppNodeLinksBlock extends BlockBase implements ContainerFactor
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): self {
     $instance = new static($configuration, $plugin_id, $plugin_definition);
     $instance->routeMatch = $container->get('current_route_match');
+    $instance->entityTypeManager = $container->get('entity_type.manager');
     $instance->schemaEppManager = $container->get('schemadotorg_epp.manager');
     return $instance;
   }
@@ -81,7 +89,7 @@ class SchemaDotOrgEppNodeLinksBlock extends BlockBase implements ContainerFactor
    * {@inheritdoc}
    */
   public function build(): ?array {
-    $node = $this->routeMatch->getParameter('node');
+    $node = $this->getCurrentNode();
     if (!$node) {
       return NULL;
     }
@@ -106,12 +114,35 @@ class SchemaDotOrgEppNodeLinksBlock extends BlockBase implements ContainerFactor
     $cache_tags = Cache::mergeTags($cache_tags, ['schemadotorg_mapping']);
 
     // Make sure the block is updated per node.
-    $node = $this->routeMatch->getParameter('node');
+    $node = $this->getCurrentNode();
     if ($node) {
       $cache_tags = Cache::mergeTags($cache_tags, ['node:' . $node->id()]);
     }
 
     return $cache_tags;
+  }
+
+  /**
+   * Get the current route's node.
+   *
+   * @return \Drupal\node\NodeInterface|null
+   *   the current route's node.
+   */
+  protected function getCurrentNode(): ?NodeInterface {
+    $node = $this->routeMatch->getParameter('node');
+    if (!$node) {
+      return NULL;
+    }
+    elseif ($node instanceof NodeInterface) {
+      return $node;
+    }
+    else {
+      /** @var \Drupal\node\NodeInterface|null $node */
+      $node = $this->entityTypeManager
+        ->getStorage('node')
+        ->load($node);
+      return $node;
+    }
   }
 
 }

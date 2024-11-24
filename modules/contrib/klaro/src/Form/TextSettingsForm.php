@@ -42,7 +42,7 @@ class TextSettingsForm extends ConfigFormBase {
 
     $form['initial'] = [
       '#type' => 'details',
-      '#title' => $this->t('Initial view', [], ['context' => 'klaro']),
+      '#title' => $this->t('Notice dialog', [], ['context' => 'klaro']),
       '#group' => 'klaro',
       '#weight' => 1,
       '#tree' => TRUE,
@@ -52,17 +52,12 @@ class TextSettingsForm extends ConfigFormBase {
       '#type' => 'textarea',
       '#title' => $this->t('Description', [], ['context' => 'klaro']),
       '#default_value' => $config->get('consentNotice.description'),
-      '#description' => [
-        '#theme' => 'item_list',
-        '#items' => [
-          $this->t('You can use following placeholders: %placeholders', [
-            '%placeholders' => '{' . implode('}, {', [
-              'privacyPolicy',
-              'purposes',
-            ]) . '}',
-          ], ['context' => 'klaro']),
-        ],
-      ],
+      '#description' => $this->t('The following placeholders can be used: %placeholders', [
+        '%placeholders' => '{' . implode('}, {', [
+          'privacyPolicy',
+          'purposes',
+        ]) . '}',
+      ], ['context' => 'klaro']),
     ];
     $form['initial']['changes_description'] = [
       '#type' => 'textfield',
@@ -124,7 +119,7 @@ class TextSettingsForm extends ConfigFormBase {
 
     $form['manage_apps'] = [
       '#type' => 'details',
-      '#title' => $this->t('Manage Services', [], ['context' => 'klaro']),
+      '#title' => $this->t('Consent dialog modal', [], ['context' => 'klaro']),
       '#group' => 'klaro',
       '#weight' => 1,
       '#tree' => TRUE,
@@ -133,42 +128,32 @@ class TextSettingsForm extends ConfigFormBase {
     $form['manage_apps']['title'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Title', [], ['context' => 'klaro']),
-      '#description' => $this->t('The title of the consent modal.', [], ['context' => 'klaro']),
+      '#description' => $this->t('The title of the consent dialog modal.', [], ['context' => 'klaro']),
       '#default_value' => $config->get('consentModal.title'),
     ];
     $form['manage_apps']['description'] = [
       '#type' => 'textarea',
       '#title' => $this->t('Description', [], ['context' => 'klaro']),
-      '#description' => [
-        '#theme' => 'item_list',
-        '#items' => [
-          $this->t('The description within the consent modal, you can use following placeholders: %placeholders', [
-            '%placeholders' => '{' . implode('}, {', [
-              'purposes',
-            ]) . '}',
-          ], ['context' => 'klaro']),
-        ],
-      ],
+      '#description' => $this->t('Description in the consent dialog modal, the following placeholders can be used: %placeholders', [
+        '%placeholders' => '{' . implode('}, {', [
+          'purposes',
+        ]) . '}',
+      ], ['context' => 'klaro']),
       '#default_value' => $config->get('consentModal.description'),
     ];
     $form['manage_apps']['privacy_policy'] = [
       '#type' => 'textarea',
       '#title' => $this->t('Privacy policy text', [], ['context' => 'klaro']),
       '#default_value' => $config->get('consentModal.privacyPolicy.text'),
-      '#description' => [
-        '#theme' => 'item_list',
-        '#items' => [
-          $this->t('You can use following placeholders: %placeholders.', [
-            '%placeholders' => '{privacyPolicy}',
-          ], ['context' => 'klaro']),
-        ],
-      ],
+      '#description' => $this->t('The following placeholders can be used: %placeholders', [
+        '%placeholders' => '{privacyPolicy}',
+      ], ['context' => 'klaro']),
     ];
     $form['manage_apps']['powered_by'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Powered by', [], ['context' => 'klaro']),
       '#default_value' => $config->get('poweredBy'),
-      '#description' => $this->t('Clear to remove this information from the Klaro! consent manager modal.', [], ['context' => 'klaro']),
+      '#description' => $this->t('Uncheck to remove from the consent dialog modal.', [], ['context' => 'klaro']),
     ];
 
     // "Toggle all" slider.
@@ -180,12 +165,12 @@ class TextSettingsForm extends ConfigFormBase {
     $form['manage_apps']['toggle_all']['title'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Title', [], ['context' => 'klaro']),
-      '#default_value' => $config->get('app.disableAll.title'),
+      '#default_value' => $config->get('service.disableAll.title'),
     ];
     $form['manage_apps']['toggle_all']['description'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Description', [], ['context' => 'klaro']),
-      '#default_value' => $config->get('app.disableAll.description'),
+      '#default_value' => $config->get('service.disableAll.description'),
     ];
 
     $form['manage_apps']['operations'] = [
@@ -206,11 +191,11 @@ class TextSettingsForm extends ConfigFormBase {
     $form['manage_apps']['operations']['close'] = [
       '#type' => 'textfield',
       '#title' => $this->t('%label text', ['%label' => $this->t('Close', [], ['context' => 'klaro'])], ['context' => 'klaro']),
-      '#description' => $this->t('The description that will appear if user hovers over the close link of the modal.', [], ['context' => 'klaro']),
+      '#description' => $this->t('The description while hovering the close link.', [], ['context' => 'klaro']),
       '#default_value' => $config->get('close'),
     ];
 
-    $form['app'] = [
+    $form['service'] = [
       '#type' => 'details',
       '#title' => $this->t('Service item', [], ['context' => 'klaro']),
       '#group' => 'klaro',
@@ -219,53 +204,53 @@ class TextSettingsForm extends ConfigFormBase {
     ];
 
     // Required marker.
-    $form['app']['required'] = [
+    $form['service']['required'] = [
       '#type' => 'details',
       '#title' => $this->t('Required', [], ['context' => 'klaro']),
       '#open' => TRUE,
     ];
-    $form['app']['required']['title'] = [
+    $form['service']['required']['title'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Title', [], ['context' => 'klaro']),
-      '#default_value' => $config->get('app.required.title'),
+      '#default_value' => $config->get('service.required.title'),
     ];
-    $form['app']['required']['description'] = [
+    $form['service']['required']['description'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Description', [], ['context' => 'klaro']),
-      '#default_value' => $config->get('app.required.description'),
+      '#default_value' => $config->get('service.required.description'),
     ];
 
     // Opt out marker.
-    $form['app']['opt_out'] = [
+    $form['service']['opt_out'] = [
       '#type' => 'details',
       '#title' => $this->t('Opt out', [], ['context' => 'klaro']),
       '#open' => TRUE,
     ];
-    $form['app']['opt_out']['title'] = [
+    $form['service']['opt_out']['title'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Title', [], ['context' => 'klaro']),
-      '#default_value' => $config->get('app.optOut.title'),
+      '#default_value' => $config->get('service.optOut.title'),
     ];
-    $form['app']['opt_out']['description'] = [
+    $form['service']['opt_out']['description'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Description', [], ['context' => 'klaro']),
-      '#default_value' => $config->get('app.optOut.description'),
+      '#default_value' => $config->get('service.optOut.description'),
     ];
 
     // "Purposes" list.
-    $form['app']['purpose'] = [
+    $form['service']['purpose'] = [
       '#type' => 'fieldgroup',
       '#title' => $this->t('Purpose', [], ['context' => 'klaro']),
     ];
-    $form['app']['purpose']['singular'] = [
+    $form['service']['purpose']['singular'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Singular form', [], ['context' => 'klaro']),
-      '#default_value' => $config->get('app.purpose'),
+      '#default_value' => $config->get('service.purpose'),
     ];
-    $form['app']['purpose']['plural'] = [
+    $form['service']['purpose']['plural'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Plural form', [], ['context' => 'klaro']),
-      '#default_value' => $config->get('app.purposes'),
+      '#default_value' => $config->get('service.purposes'),
     ];
 
     $form['contextualConsent'] = [
@@ -367,11 +352,11 @@ class TextSettingsForm extends ConfigFormBase {
         'close',
       ]))
 
-      ->set('app.required', $form_state->getValue(['app', 'required']))
-      ->set('app.optOut', $form_state->getValue(['app', 'opt_out']))
-      ->set('app.purpose', $form_state->getValue(['app', 'purpose', 'singular']))
-      ->set('app.purposes', $form_state->getValue(['app', 'purpose', 'plural']))
-      ->set('app.disableAll', $form_state->getValue([
+      ->set('service.required', $form_state->getValue(['service', 'required']))
+      ->set('service.optOut', $form_state->getValue(['service', 'opt_out']))
+      ->set('service.purpose', $form_state->getValue(['service', 'purpose', 'singular']))
+      ->set('service.purposes', $form_state->getValue(['service', 'purpose', 'plural']))
+      ->set('service.disableAll', $form_state->getValue([
         'manage_apps',
         'toggle_all',
       ]));

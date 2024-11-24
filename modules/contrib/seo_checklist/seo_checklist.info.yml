@@ -7,7 +7,7 @@ dependencies:
   - checklistapi:checklistapi
 configure: checklistapi.checklists.seo_checklist
 
-# Information added by Drupal.org packaging script on 2024-09-11
-version: '5.2.1'
+# Information added by Drupal.org packaging script on 2024-11-20
+version: '5.2.2'
 project: 'seo_checklist'
-datestamp: 1726074425
+datestamp: 1732123460

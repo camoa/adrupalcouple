@@ -1,3 +1,4 @@
+langcode: en
 schema_type_default_values:
   MonetaryAmount:
     currency: USD

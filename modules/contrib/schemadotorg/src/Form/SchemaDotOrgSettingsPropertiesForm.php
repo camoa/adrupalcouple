@@ -162,15 +162,4 @@ propertyName:
     return parent::buildForm($form, $form_state);
   }
 
-  /**
-   * {@inheritdoc}
-   */
-  public function submitForm(array &$form, FormStateInterface $form_state): void {
-    $this->config('schemadotorg.settings')
-      ->set('schema_properties', $form_state->getValue('schema_properties'))
-      ->save();
-
-    parent::submitForm($form, $form_state);
-  }
-
 }

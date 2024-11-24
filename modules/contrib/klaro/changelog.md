@@ -1,3 +1,28 @@
+**V.3.0.0-rc12**
+
+  - Revised texts.
+
+**V.3.0.0-rc11**
+
+Includes:
+  - Issue #3488995: Fixed Padding on <button> Tags affects Klaro icon.
+
+**V.3.0.0-rc10**
+
+Includes:
+  - Issue #3488390: Fixed bug: oEmbed broken for multi-language sites.
+  - Issue #3403658: Fixed bug for changing klaro texts.
+  - Issue #3483397: Encode and decode special UTF8-chars before working with HTML. See also #3488214
+  - Issue #3487514: Added base php unit tests.
+  - Issue #3484938: Add a "silent mode" (no consent, only blocking) by default.
+  - Issue #3484938: Don't show toggle button by default.
+  - Issue #3485880: Make close button X visible and as DeclineAll button for mustConsent: true (needed e.g. for Italy)
+  - Issue #3486631: Read thumbnail and title from data-attribute for contextual consent.
+  - Issue #3486340: Button style for learn more broken.
+  - Issue #3485286: Add preprocess_field processor for field formatter HTML (module html_field_formatter).
+  - Issue #3485286: Added several service-templates for social media platforms.
+  - Issue #3484996: Changed color from green to Olivero blue.
+  - Issue #3484996: use light Klaro! mode as default.
 
 **V.3.0.0-rc9**
 

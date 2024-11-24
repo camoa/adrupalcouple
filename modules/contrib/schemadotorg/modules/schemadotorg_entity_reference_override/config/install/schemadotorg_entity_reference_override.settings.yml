@@ -1,3 +1,4 @@
+langcode: en
 schema_properties:
   actor:
     override_label: 'Enter role'

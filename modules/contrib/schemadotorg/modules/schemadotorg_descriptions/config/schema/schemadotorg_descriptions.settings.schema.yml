@@ -6,7 +6,7 @@ schemadotorg_descriptions.settings:
       type: sequence
       label: 'Custom Schema.org type and property descriptions'
       sequence:
-        type: string
+        type: text
         label: 'Schema.org type and property description'
     help_descriptions:
       type: boolean

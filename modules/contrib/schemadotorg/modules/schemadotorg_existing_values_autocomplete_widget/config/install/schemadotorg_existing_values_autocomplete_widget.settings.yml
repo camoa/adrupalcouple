@@ -50,6 +50,7 @@ default_schema_properties:
   - possibleComplication
   - possibleTreatment
   - primaryPrevention
+  - productionCompany
   - programPrerequisites
   - programType
   - qualifications

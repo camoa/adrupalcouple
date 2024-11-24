@@ -30,8 +30,9 @@ dependencies:
   - xmlsitemap:xmlsitemap
   - yoast_seo:yoast_seo
 configure: checklistapi.checklists.seo_checklist
-
-# Information added by Drupal.org packaging script on 2024-09-11
-version: '5.2.1'
+lifecycle: deprecated 
+lifecycle_link: 'https://www.drupal.org/node/3475953'
+# Information added by Drupal.org packaging script on 2024-11-20
+version: '5.2.2'
 project: 'seo_checklist'
-datestamp: 1726074425
+datestamp: 1732123460

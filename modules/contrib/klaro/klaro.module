@@ -191,6 +191,18 @@ function klaro_preprocess_field(&$variables) {
         $variables['items'][$i]['content']['#attributes'] = $attributes;
       }
     }
+    $url = $helper->getThumbnail($variables['element']['#object']);
+    if ($url) {
+      $variables['items'][0]['content']['#attributes']['data-thumbnail'] = $url;
+    }
+  }
+
+  // Rewrite markup from field formatter html.
+  if ($variables["element"]['#formatter'] == "html") {
+    foreach ($variables['items'] as $i => $item) {
+      $html = $item['content']['#children'];
+      $variables['items'][$i]['content']['#children'] = $helper->processHtml($html);
+    }
   }
 
 }

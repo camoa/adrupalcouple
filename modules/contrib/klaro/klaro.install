@@ -103,5 +103,98 @@ function klaro_update_10006(&$sandbox) {
   $config_settings->set('log_unknown_resources', $data);
   $config_settings->save(TRUE);
   $config_settings->clear('block_unknown_logger')->save(TRUE);
+}
 
+/**
+ * Issue #3486631: Read thumbnail and title for contextual consent.
+ */
+function klaro_update_10007(&$sandbox) {
+  $config_factory = \Drupal::configFactory();
+  $config_settings = $config_factory->getEditable('klaro.settings');
+
+  // Set new config setting.
+  $config_settings->set('get_entity_thumbnail', TRUE);
+
+  $config_settings->save(TRUE);
+
+}
+
+/**
+ * Issue #3485880: Add close button X to notice dialog.
+ */
+function klaro_update_10008(&$sandbox) {
+  $config_factory = \Drupal::configFactory();
+  $config_settings = $config_factory->getEditable('klaro.settings');
+
+  // Set new config setting.
+  $config_settings->set('show_close_button', FALSE);
+
+  $config_settings->save(TRUE);
+
+}
+
+/**
+ * Issue #3484938: Add support for a less intrusive user experience mode.
+ */
+function klaro_update_10009(&$sandbox) {
+  $config_factory = \Drupal::configFactory();
+  $config_settings = $config_factory->getEditable('klaro.settings');
+
+  if ($config_settings->get('library.must_consent')) {
+    $dialog_mode = 'manager';
+  }
+  elseif ($config_settings->get('library.notice_as_modal')) {
+    $dialog_mode = 'notice_modal';
+  }
+  else {
+    $dialog_mode = 'notice';
+  }
+  // Set new config setting.
+  $config_settings->set('dialog_mode', $dialog_mode);
+  $config_settings->save(TRUE);
+  $config_settings->clear('library.must_consent')->save(TRUE);
+  $config_settings->clear('library.notice_as_modal')->save(TRUE);
+
+}
+
+/**
+ * Rename app to service in klaro.texts.
+ */
+function klaro_update_10010() {
+  $original_config = \Drupal::configFactory()->getEditable('klaro.texts');
+  $original_langcode = $original_config->get('langcode');
+
+  $language_manager = \Drupal::languageManager();
+  $languages = $language_manager->getLanguages();
+  foreach ($languages as $langcode => $language) {
+    if ($langcode === $original_langcode) {
+      continue;
+    }
+    if ($language->isLocked()) {
+      // Only real languages (English, French, but not "Not specified").
+      continue;
+    }
+    /** @var \Drupal\language\ConfigurableLanguageManager $language_manager **/
+    $config = $language_manager->getLanguageConfigOverride($langcode, 'klaro.texts');
+    _klaro_update__app_to_service($config);
+  }
+
+  // Do the original last since otherwise it could wipe all translations.
+  _klaro_update__app_to_service($original_config);
+}
+
+/**
+ * Helper for update hook 10010 that performs the move/rename of the config key.
+ */
+function _klaro_update__app_to_service($config) : void {
+  if ($data = $config->get('app')) {
+    $config
+      ->set('service', $data)
+      ->save();
+    // Needs to be done in two steps since otherwise deletes everything.
+    // (might have been only when the original config is first).
+    $config
+      ->clear('app')
+      ->save();
+  }
 }

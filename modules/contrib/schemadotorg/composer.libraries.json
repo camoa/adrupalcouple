@@ -82,12 +82,6 @@
       "drupal/config_views": {
         "Issue #3378687: Dynamic property issue in ConfigEntityQuery with PHP 8.2": "https://www.drupal.org/files/issues/2023-08-02/config_views-fix-dynamic-property-3378687-2.patch"
       },
-      "drupal/mercury_editor": {
-        "Issue #3468130: Allow query string parameters to be passed to node form to mercury editor": "https://www.drupal.org/files/issues/2024-08-27/mercury_editor-issue-3468130-comment-6.patch",
-        "Issue #3468531: Allow fields that do not start with 'field_' to be included the edit component 'Content' tab": "https://www.drupal.org/files/issues/2024-08-16/mercury_editor-issues-3468531-comment-3.patch",
-        "Issue #3468995: Hide 'Layout' tab when there is only one available layout for a component": "https://www.drupal.org/files/issues/2024-08-19/mercury_editor-issue-3468995-comment-3.patch",
-        "Issue #3401444: Entity Browsers within paragraphs don't reliably select entities": "https://www.drupal.org/files/issues/2024-10-23/mercury_editor-issue-3401444-mr-24.patch"
-      },
       "drupal/type_tray": {
         "Issue #3417679: Add type tray icon to node edit and related tasks": "https://www.drupal.org/files/issues/2024-01-28/issue-3417679-mr-22.patch"
       }

@@ -68,6 +68,12 @@ class SchemaDotOrgAdditionalTypeManager implements SchemaDotOrgAdditionalTypeMan
       return;
     }
 
+    // Make sure the mapping defaults have a additionalType because
+    // enumerations don't have an additional type.
+    if (!isset($defaults['properties']['additionalType'])) {
+      return;
+    }
+
     $additional_type_property =& $defaults['properties']['additionalType'];
 
     // Get machine name.

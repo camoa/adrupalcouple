@@ -1,3 +1,4 @@
+langcode: en
 field_prefix: schema_
 field_prefix_options:
   field_: field_

@@ -102,15 +102,4 @@ group_name:
     return parent::buildForm($form, $form_state);
   }
 
-  /**
-   * {@inheritdoc}
-   */
-  public function submitForm(array &$form, FormStateInterface $form_state): void {
-    $this->config('schemadotorg.settings')
-      ->set('schema_types', $form_state->getValue('schema_types'))
-      ->save();
-
-    parent::submitForm($form, $form_state);
-  }
-
 }

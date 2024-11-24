@@ -10,6 +10,7 @@ use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Element;
+use Drupal\schemadotorg\Element\SchemaDotOrgSettings;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -64,12 +65,10 @@ abstract class SchemaDotOrgSettingsFormBase extends ConfigFormBase {
 
     // Only open the first details element.
     $is_first = ($form_id !== 'schemadotorg_general_settings_form');
-    $has_details = FALSE;
     foreach (Element::children($form) as $child_key) {
       if (NestedArray::getValue($form, [$child_key, '#type']) === 'details') {
         $form[$child_key]['#open'] = $is_first;
         $is_first = FALSE;
-        $has_details = TRUE;
         $form[$child_key]['#attributes']['data-schemadotorg-details-key'] = "details-$form_id-$child_key";
       }
     }
@@ -86,36 +85,12 @@ abstract class SchemaDotOrgSettingsFormBase extends ConfigFormBase {
       }
     }
 
-    // Hide the submit button if the form has no details elements.
-    if (!$has_details) {
+    // Hide the actions if they are the only visible element on the form.
+    if (Element::getVisibleChildren($form) === ['actions']) {
       $form['actions']['#access'] = FALSE;
     }
 
     return $form;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function submitForm(array &$form, FormStateInterface $form_state): void {
-    // Update configuration for schemadotorg_* sub-modules.
-    foreach (Element::children($form) as $element_key) {
-      if (str_starts_with($element_key, 'schemadotorg_')
-        && $this->moduleHandler->moduleExists($element_key)
-        && !$this->configFactory()->get($element_key . '.settings')->isNew()) {
-        $config = $this->configFactory()->getEditable($element_key . '.settings');
-        $data = $config->getRawData();
-        $values = $form_state->getValue($element_key);
-        foreach ($values as $key => $value) {
-          if (array_key_exists($key, $data)) {
-            $config->set($key, $value);
-          }
-        }
-        $config->save();
-      }
-    }
-
-    parent::submitForm($form, $form_state);
   }
 
   /**
@@ -162,22 +137,33 @@ abstract class SchemaDotOrgSettingsFormBase extends ConfigFormBase {
       }
     }
     elseif (isset($element['#type'])) {
-      // Set checkbox #return_value to TRUE.
-      if ($element['#type'] === 'checkbox') {
-        $element['#return_value'] = $element['#return_value'] ?? TRUE;
+      $type = $element['#type'];
+      switch ($type) {
+        case 'checkbox':
+          // Set checkbox #return_value to TRUE.
+          $element['#return_value'] = $element['#return_value'] ?? TRUE;
+          break;
+
+        case 'checkboxes':
+          // Set checkboxes #element_validate callback to filter submitted values.
+          // @see \Drupal\schemadotorg\Utility\SchemaDotOrgElementHelper::validateCheckboxes
+          $element['#element_validate'][] = '::validateCheckboxes';
+          break;
       }
 
-      // Set checkboxes #element_validate callback to filter submitted values.
-      // @see \Drupal\schemadotorg\Utility\SchemaDotOrgElementHelper::validateCheckboxes
-      if ($element['#type'] === 'checkboxes') {
-        $element['#element_validate'][] = '::validateCheckboxes';
-      }
-
-      // Set the default value for the config settings.
+      // Set #config_target.
+      // @see https://www.drupal.org/node/3373502
+      $config_name = $config->getName();
       $config_key = implode('.', $element['#parents'] ?? $parents);
-      $config_value = $config->get($config_key);
-      if (!isset($element['#default_value']) && !is_null($config_value)) {
-        $element['#default_value'] = $config_value;
+      if ($type === 'schemadotorg_settings') {
+        // Set the #config_target for the dedicated Schema.org settings element.
+        SchemaDotOrgSettings::setConfigTarget($element, $config_name, $config_key);
+      }
+      else {
+        // Set the #config_target for the simple config element.
+        if (!is_null($config->get($config_key))) {
+          $element['#config_target'] = "$config_name:$config_key";
+        }
       }
     }
   }

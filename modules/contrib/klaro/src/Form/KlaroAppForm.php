@@ -201,7 +201,7 @@ class KlaroAppForm extends EntityForm {
         'options' => [
           '#theme' => 'item_list',
           '#items' => [
-            $this->t('Use any regular expression to identify the cookie value.', [], ['context' => 'klaro']),
+            $this->t('Regular expression to identify the cookie value.', [], ['context' => 'klaro']),
             $this->t('Leave the path empty to use "/".', [], ['context' => 'klaro']),
             $this->t('Leave domain empty to use the browser <code>location.host</code>.', [], ['context' => 'klaro']),
           ],
@@ -312,18 +312,17 @@ class KlaroAppForm extends EntityForm {
     $form['advanced']['files_wrapper']['js'] = [
       '#type' => 'textarea',
       '#title' => $this->t('Sources', [], ['context' => 'klaro']),
-      '#description' => $this->t('As they appear in the src attribute of script, iframe, img, video and audio tags, Enter one source per line, partial matches are supported.', [], ['context' => 'klaro']),
+      '#description' => $this->t('As they appear in the src attribute of script, iframe, img, video and audio tags. Enter one source per line, partial matches are supported.', [], ['context' => 'klaro']),
       '#default_value' => implode("\n", $app->javascripts()),
-      '#placeholder' => "modules/custom/mymodule/js/script.js\nhttps://example.org/script.js\ntracking.js",
+      '#placeholder' => "modules/custom/mymodule/js/script.js\nhttps://example.org/script.js\ntracking.js\nservice.example.org",
     ];
     $form['advanced']['files_wrapper']['wrapper_identifier'] = [
       '#type' => 'textarea',
-      '#title' => $this->t('Embed wrapper classes', [], ['context' => 'klaro']),
-      '#description' => $this->t('Some embeds are not only an iframe tag but contain additional html, to add a contextual blocking wrap to those, you can enter one class per line. In example: A twitter embed contains a script tag that will be blocked by adding the source in the sources field, it also contains a blockquote element with the class twitter-tweet, by adding twitter-tweet here, it will be wrapped by a contextual blocking element if the user did not consent yet.', [], ['context' => 'klaro']),
+      '#title' => $this->t('Classes of additional wrapper', [], ['context' => 'klaro']),
+      '#description' => $this->t('Some embeds have additional markup that must be blocked. Enter the corresponding classes, one per line.<br><strong>Example:</strong> a Bluesky post has additional <code>&lt;blockquote class="bluesky-embed"&gt;</code>, so enter <code>bluesky-embed</code>.', [], ['context' => 'klaro']),
       '#default_value' => implode("\n", $app->wrapperIdentifier()),
-      '#placeholder' => "geolocation-map-wrapper\ntwitter-tweet",
+      '#placeholder' => "geolocation-map-wrapper\ntwitter-tweet\bluesky-embed",
     ];
-
     $form['advanced']['files_wrapper']['att'] = [
       '#type' => 'textarea',
       '#title' => $this->t('Attachments', [], ['context' => 'klaro']),
