@@ -1,0 +1,10 @@
+uuid: 42848228-0bcf-4b4f-aeed-6da78d864c60
+langcode: en
+status: true
+dependencies: {  }
+id: comments
+label: Comments
+multiselect: multiple
+form_type: checkboxes
+required: false
+weight: 0

@@ -5,6 +5,7 @@ dependencies:
   config:
     - core.entity_view_mode.node.full
     - field.field.node.article.body
+    - field.field.node.article.field_comments
     - field.field.node.article.field_metatag
     - field.field.node.article.field_rating
     - field.field.node.article.field_tags
@@ -180,6 +181,44 @@ third_party_settings:
                 blog_tags: 0
                 gap_1rem: 0
         third_party_settings: {  }
+      -
+        layout_id: layout_onecol
+        layout_settings:
+          label: Bottom
+          context_mapping: {  }
+          layout_builder_styles_style:
+            comment_area: comment_area
+            blog_banner_area: 0
+            blog_body: 0
+            blog_post_general: 0
+            blog_textarea: 0
+        components:
+          bb6586ea-1ce9-4012-830c-43f0e31a5748:
+            uuid: bb6586ea-1ce9-4012-830c-43f0e31a5748
+            region: content
+            configuration:
+              id: 'field_block:node:article:field_comments'
+              label: Comments
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: comment_default
+                label: above
+                settings:
+                  view_mode: default
+                  pager_id: 0
+                third_party_settings: {  }
+            weight: 0
+            additional:
+              layout_builder_styles_style:
+                blog_full_image_area: 0
+                blog_right_section_top: 0
+                blog_tags: 0
+                gap_1rem: 0
+        third_party_settings: {  }
 id: node.article.full
 targetEntityType: node
 bundle: article
@@ -246,6 +285,7 @@ content:
     region: content
 hidden:
   created: true
+  field_comments: true
   field_editorial: true
   field_metatag: true
   field_rating: true

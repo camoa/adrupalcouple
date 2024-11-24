@@ -1,0 +1,12 @@
+uuid: 887d105d-c7a3-406a-941b-5990fe83d963
+langcode: en
+status: true
+dependencies: {  }
+id: comment_section
+label: 'Comment section'
+classes: single-comment-area
+type: section
+group: comments
+block_restrictions: {  }
+layout_restrictions: {  }
+weight: 0

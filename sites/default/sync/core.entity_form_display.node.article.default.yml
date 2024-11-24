@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.node.article.body
+    - field.field.node.article.field_comments
     - field.field.node.article.field_metatag
     - field.field.node.article.field_rating
     - field.field.node.article.field_tags
@@ -17,6 +18,7 @@ dependencies:
     - workflows.workflow.editorial
   module:
     - allowed_formats
+    - comment
     - content_moderation
     - field_group
     - fivestar
@@ -92,6 +94,12 @@ content:
   created:
     type: datetime_timestamp
     weight: 200
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_comments:
+    type: comment_default
+    weight: 223
     region: content
     settings: {  }
     third_party_settings: {  }

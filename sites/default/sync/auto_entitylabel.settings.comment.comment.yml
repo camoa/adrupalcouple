@@ -1,0 +1,10 @@
+status: 1
+pattern: ''
+escape: true
+preserve_titles: false
+save: false
+chunk: 50
+dependencies:
+  config:
+    - comment.type.comment
+new_content_behavior: 0
