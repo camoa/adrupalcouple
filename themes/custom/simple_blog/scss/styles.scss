@@ -320,3 +320,326 @@ body {
 .blog-post-section .blog-section-content .image-content .author-area .author-content .publish-date span.fivestar-rating::after {
   height: 0;
 }
+
+
+/* Working with comments */
+
+.comment-area {
+  .title {
+    @extend .comment-title;
+  }
+  .comment {
+    .indented {
+      @extend .comment-replay ;
+    }
+    .single-comment-area {
+      .layout__region--content {
+        @extend .comment-content;
+      }
+    }
+  }
+}
+
+
+
+.comment-area {
+  .title {
+    color: var(--dark-text-color);
+    font-family: var(--font-red-rose);
+    font-size: 30px;
+    font-weight: 700;
+    text-align: left;
+    line-height: 1;
+    white-space: nowrap;
+  }
+  .comment {
+    .layout__region--content {
+        .username {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+
+                line-height: 1;
+                margin-bottom: 0;
+                font-family: var(--font-red-rose);
+                font-size: 16px;
+                font-weight: 700;
+                text-align: left;
+                color: var(--dark-text-color);
+
+
+                @include sm-down-device() {
+                    font-size: 15px;
+                }
+
+            span {
+                font-family: var(--font-figtree);
+                font-size: 14px;
+                font-weight: 500;
+                text-align: left;
+                line-height: 1;
+                color: var(--dark-text-color2);
+            }
+        }
+
+
+        p, .field--name-pid {
+            font-family: var(--font-figtree);
+            color: var(--dark-text-color2);
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 28px;
+            text-align: left;
+            margin-bottom: 12px;
+
+            @include md-down-device() {
+                font-size: 14px;
+            }
+        }
+        .field--name-pid, .field--type-created {
+          font-size: 12px;
+          @include md-down-device() {
+            font-size: 10px;
+        }
+          .username {
+            font-size: 12px;
+            @include md-down-device() {
+              font-size: 10px;
+          }
+  
+          }
+
+        }
+
+        .links {
+          list-style-position: inside;
+            li {
+              display: inline;
+              padding: 0 5px 0 5px;
+              color: var(--dark-text-color);
+              font-family: var(--font-figtree);
+              font-size: 14px;
+              font-weight: 600;
+              display: inline-flex;
+              align-items: center;
+              gap: 5px;
+              line-height: 1;
+              cursor: pointer;
+              transition: 0.35s;
+  
+              svg {
+                  transition: 0.35s;
+                  fill: var(--dark-text-color);
+              }
+  
+              &:hover {
+                  color: var(--primary-green);
+  
+                  svg {
+                      fill: var(--primary-green);
+                  }
+              }
+  
+            }
+        }
+    }
+  }
+    .indented {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      margin-left: 70px;
+      border-top: 1px solid #EEEEEE;
+      border-bottom: 1px solid #EEEEEE;
+      padding: 29px 0 15px 0;
+
+      &.two {
+          border-bottom: none;
+          padding: 29px 0 0;
+      }
+
+      @include sm-down-device() {
+          margin-left: 25px;
+      }
+
+      >li {
+          margin-bottom: 30px;
+
+          &:last-child {
+              margin-bottom: 0;
+          }
+      }
+
+    }
+}
+
+
+#comment-form {
+  background: url(../image/standard/Background-8.png);
+  border-radius: 20px;
+  padding: 40px 50px 50px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  @include md-down-device() {
+      padding: 45px 20px 50px;
+  }
+  .title {
+      margin-bottom: 45px;
+      h4 {
+          font-family: var(--font-red-rose);
+          color: var(--dark-text-color);
+          font-size: 30px;
+          font-weight: 700;
+          text-align: left;
+          margin-bottom: 0;
+      }
+      h1 {
+          font-family: var(--font-red-rose);
+          color: var(--dark-text-color);
+          font-size: 45px;
+          font-weight: 700;
+          text-align: left;
+          margin-bottom: 0;
+      }
+
+  }
+  .form-check {
+      min-height: unset;
+      margin-bottom: 0;
+
+      .form-check-input {
+          cursor: pointer;
+          height: 14px;
+          width: 14px;
+
+          &:focus {
+              box-shadow: none;
+          }
+
+          &:checked {
+              background-color: var(--dark-text-color2);
+              border-color: #EEEEEE;
+          }
+      }
+
+      .form-check-input[type=checkbox] {
+          border-radius: unset;
+      }
+
+      .form-check-label {
+          cursor: pointer;
+          font-family: var(--font-figtree);
+          font-size: 16px;
+          font-weight: 400;
+          text-align: left;
+          color: var(--dark-text-color2);
+
+
+          @include sm-down-device() {
+              font-size: 12px;
+          }
+      }
+  }
+  #edit-comment-body-wrapper, .form-item {
+      line-height: 1;
+
+      label {
+          font-family: var(--font-red-rose);
+          color: var(--dark-text-color);
+          font-size: 16px;
+          font-weight: 700;
+          line-height: 19.98px;
+          text-align: left;
+          display: inline-block;
+          line-height: 1;
+          margin-bottom: 12px;
+      }
+
+      input {
+          width: 100%;
+          font-family: var(--font-figtree);
+          color: var(--dark-text-color2);
+          font-size: 16px;
+          font-weight: 400;
+          text-align: left;
+          padding: 15px 25px;
+          height: 50px;
+          border: 1px solid var(--border-color);
+          border-radius: 5px;
+
+          &::placeholder {
+              color: rgba(var(--text-color-opc), 0.4);
+          }
+
+          &:focus {
+              border-color: var(--primary-color1);
+          }
+      }
+
+      textarea {
+          width: 100%;
+          border-radius: 5px;
+          background: #fff;
+          color: var(--dark-text-color2);
+          border: 1px solid #eee;
+          outline: none;
+          font-family: var(--font-figtree);
+          font-size: 16px;
+          font-weight: 400;
+          text-align: left;
+          padding: 18px 25px;
+          min-height: 150px;
+
+          &:focus {
+              border-color: var(--primary-color1);
+          }
+
+          &::placeholder {
+              color: rgba(var(--text-color-opc), 0.4);
+          }
+      }
+  }
+  #edit-actions {
+    Color: red;
+    input {
+      background: var(--dark-text-color);
+      padding: 17px 30px;
+      border-radius: 28px;
+      margin-top: 40px;
+      transition: .7s;
+          font-family: var(--font-red-rose);
+          font-size: 15px;
+          font-weight: 700;
+          line-height: 18.74px;
+          text-align: center;
+          color: var(--white-color);
+          svg {
+              path {
+                  stroke: var(--white-color);
+
+              }
+          }
+          .arrow {
+              transform: rotate(0);
+              transition: .7s;
+          }
+          &:hover {
+              color: var(--white-color);
+
+              svg {
+                  path {
+                      stroke: var(--white-color);
+                  }
+              }
+
+              .arrow {
+                  transform: rotate(45deg);
+              }
+          }
+    }
+  }
+
+}
