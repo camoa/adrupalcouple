@@ -1,0 +1,54 @@
+uuid: 98b9a18f-65e9-4805-9e0b-c0eb5065f903
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.full
+    - field.field.node.couple.body
+    - field.field.node.couple.field_couple
+    - field.field.node.couple.schema_image
+    - node.type.couple
+  module:
+    - manage_display
+    - text
+id: node.couple.full
+targetEntityType: node
+bundle: couple
+mode: full
+content:
+  body:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 102
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+  schema_image:
+    type: entity_reference_entity_view
+    label: hidden
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  title:
+    type: title
+    label: hidden
+    settings:
+      link_to_entity: true
+      tag: h2
+    third_party_settings: {  }
+    weight: -49
+    region: content
+hidden:
+  created: true
+  field_couple: true
+  langcode: true
+  node_read_time: true
+  uid: true

@@ -1,0 +1,62 @@
+uuid: 9cd7093e-feae-488f-9e59-17a75ff055fd
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.couple.body
+    - field.field.node.couple.field_couple
+    - field.field.node.couple.schema_image
+    - node.type.couple
+  module:
+    - manage_display
+    - text
+id: node.couple.default
+targetEntityType: node
+bundle: couple
+mode: default
+content:
+  body:
+    type: text_summary_or_trimmed
+    label: hidden
+    settings:
+      trim_length: 600
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_couple:
+    type: entity_reference_entity_view
+    label: hidden
+    settings:
+      view_mode: teaser
+      link: false
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+  schema_image:
+    type: entity_reference_entity_view
+    label: hidden
+    settings:
+      view_mode: small_thumbnail
+      link: false
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  title:
+    type: title
+    label: hidden
+    settings:
+      link_to_entity: true
+      tag: h2
+    third_party_settings: {  }
+    weight: -49
+    region: content
+hidden:
+  created: true
+  langcode: true
+  node_read_time: true
+  uid: true
