@@ -33,7 +33,7 @@ class SchemaDotOrgJsonLdPreviewBlock extends BlockBase implements ContainerFacto
   protected AdminContext $routerAdminContext;
 
   /**
-   * The Schema.org JSON-LD preview builder service.
+   * The Schema.org JSON-LD preview builder.
    */
   protected SchemaDotOrgJsonLdPreviewBuilderInterface $schemaJsonLdPreviewBuilder;
 

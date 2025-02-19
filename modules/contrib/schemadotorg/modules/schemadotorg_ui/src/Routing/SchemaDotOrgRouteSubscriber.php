@@ -22,7 +22,7 @@ class SchemaDotOrgRouteSubscriber extends RouteSubscriberBase {
    * Constructs a SchemaDotOrgRouteSubscriber object.
    *
    * @param \Drupal\Core\Extension\ModuleHandlerInterface $moduleHandler
-   *   The module handler service.
+   *   The module handler.
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
    *   The entity type manager.
    */

@@ -47,7 +47,7 @@ class StatusOverride {
    * @param bool|null $active
    *   The state, null to reset.
    */
-  public function setSplitOverride(string $name, bool $active = NULL) {
+  public function setSplitOverride(string $name, ?bool $active = NULL) {
     $name = self::fixName($name);
     $overrides = $this->state->get('config_split_override_state', []);
     if ($active === NULL) {

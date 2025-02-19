@@ -22,7 +22,7 @@ class IntegerFormatter extends NumericFormatterBase {
   /**
    * {@inheritdoc}
    */
-  public static function defaultSettings() {
+  public static function defaultSettings(): array {
     return [
       'thousand_separator' => ',',
       'prefix_suffix' => FALSE,
@@ -32,9 +32,8 @@ class IntegerFormatter extends NumericFormatterBase {
   /**
    * {@inheritdoc}
    */
-  protected function numberFormat($number, array $settings) {
-    $settings += static::defaultSettings();
-    return number_format($number, 0, '', $settings['thousand_separator']);
+  protected function numberFormat(mixed $number): string {
+    return number_format($number, 0, '', $this->getSetting('thousand_separator'));
   }
 
 }

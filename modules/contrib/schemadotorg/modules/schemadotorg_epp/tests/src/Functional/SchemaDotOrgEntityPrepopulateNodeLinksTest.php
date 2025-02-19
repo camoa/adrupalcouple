@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\schemadotorg_epp\Functional;
 
-use Drupal\Tests\schemadotorg\Functional\SchemaDotOrgBrowserTestBase;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\schemadotorg_epp\SchemaDotOrgEppManagerInterface;
+use Drupal\Tests\schemadotorg\Functional\SchemaDotOrgBrowserTestBase;
 
 /**
  * Tests the functionality of the Schema.org Entity Prepopulate node links.

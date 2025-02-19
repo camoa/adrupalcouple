@@ -13,3 +13,16 @@ services:
     class: \Drupal\fivestar\VoteResultManager
     autowire: true
   Drupal\fivestar\VoteResultManagerInterface: '@fivestar.vote_result_manager'
+
+  Drupal\fivestar\Hook\FivestarFormHooks:
+    class: \Drupal\fivestar\Hook\FivestarFormHooks
+    autowire: true
+  Drupal\fivestar\Hook\FivestarFivestarHooks:
+    class: \Drupal\fivestar\Hook\FivestarFivestarHooks
+    autowire: true
+  Drupal\fivestar\Hook\FivestarHelpHooks:
+    class: \Drupal\fivestar\Hook\FivestarHelpHooks
+    autowire: true
+  Drupal\fivestar\Hook\FivestarRenderHooks:
+    class: \Drupal\fivestar\Hook\FivestarRenderHooks
+    autowire: true

@@ -7,26 +7,8 @@
 
 declare(strict_types=1);
 
-use Drupal\Core\Field\FieldItemInterface;
-use Drupal\Core\Render\BubbleableMetadata;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\schemadotorg\SchemaDotOrgMappingInterface;
-
-/* ************************************************************************** */
-// Duration field.
-/* ************************************************************************** */
-
-/**
- * Implements hook_schemadotorg_jsonld_schema_property_alter() for the duration_field.module.
- */
-function duration_field_schemadotorg_jsonld_schema_property_alter(mixed &$value, FieldItemInterface $item, BubbleableMetadata $bubbleable_metadata): void {
-  $field_type = $item->getFieldDefinition()->getType();
-  if ($field_type !== 'duration') {
-    return;
-  }
-
-  $value = $item->duration;
-}
 
 /* ************************************************************************** */
 // Entity browser.
@@ -83,7 +65,7 @@ function entity_browser_schemadotorg_property_field_alter(
 /* ************************************************************************** */
 
 /**
- * Implements hook_schemadotorg_mapping_insert() for the focal_point.module.
+ * Implements hook_ENTITY_TYPE_insert() for the focal_point.module.
  *
  * Ensure that existing entity image fields use focal point.
  * (i.e. media:image and node:article)

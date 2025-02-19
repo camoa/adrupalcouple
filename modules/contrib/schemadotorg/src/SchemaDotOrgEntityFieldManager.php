@@ -9,8 +9,10 @@ use Drupal\Core\Entity\EntityFieldManagerInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
+use Drupal\Core\Field\FieldTypeCategoryManagerInterface;
 use Drupal\Core\Field\FieldTypePluginManagerInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\field\FieldStorageConfigInterface;
 use Drupal\schemadotorg\Traits\SchemaDotOrgMappingStorageTrait;
 
@@ -38,10 +40,15 @@ class SchemaDotOrgEntityFieldManager implements SchemaDotOrgEntityFieldManagerIn
   protected array $propertyDefaultFieldsCache = [];
 
   /**
+   * Cache for field types as options.
+   */
+  protected array $fieldTypesAsOptionsCache;
+
+  /**
    * Constructs a SchemaDotOrgEntityFieldManager object.
    *
    * @param \Drupal\Core\Extension\ModuleHandlerInterface $moduleHandler
-   *   The module handler service.
+   *   The module handler.
    * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
    *   The config factory.
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
@@ -50,6 +57,8 @@ class SchemaDotOrgEntityFieldManager implements SchemaDotOrgEntityFieldManagerIn
    *   The entity field manager.
    * @param \Drupal\Core\Field\FieldTypePluginManagerInterface $fieldTypePluginManager
    *   The field type plugin manager.
+   * @param \Drupal\Core\Field\FieldTypeCategoryManagerInterface $fieldTypeCategoryManager
+   *   The field type category plugin manager.
    * @param \Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager
    *   The Schema.org schema type manager.
    */
@@ -59,6 +68,7 @@ class SchemaDotOrgEntityFieldManager implements SchemaDotOrgEntityFieldManagerIn
     protected EntityTypeManagerInterface $entityTypeManager,
     protected EntityFieldManagerInterface $entityFieldManager,
     protected FieldTypePluginManagerInterface $fieldTypePluginManager,
+    protected FieldTypeCategoryManagerInterface $fieldTypeCategoryManager,
     protected SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager,
   ) {}
 
@@ -143,6 +153,7 @@ class SchemaDotOrgEntityFieldManager implements SchemaDotOrgEntityFieldManagerIn
       'description' => $property_definition['drupal_description'],
       'unlimited' => $this->unlimitedProperties[$schema_property] ?? FALSE,
       'required' => FALSE,
+      'copy' => FALSE,
     ];
 
     // Allow modules to alter the default field via a hook.
@@ -162,32 +173,98 @@ class SchemaDotOrgEntityFieldManager implements SchemaDotOrgEntityFieldManagerIn
    */
   public function getPropertyFieldTypeOptions(string $entity_type_id, string $schema_type, string $schema_property): array {
     $recommended_field_types = $this->getSchemaPropertyFieldTypes($entity_type_id, $schema_type, $schema_property);
-    $recommended_category = (string) $this->t('Recommended');
 
-    $options = [$recommended_category => []];
-
-    // Collecting found field type to ensure the field type is installed.
-    $grouped_definitions = $this->fieldTypePluginManager->getGroupedDefinitions($this->fieldTypePluginManager->getUiDefinitions());
-    foreach ($grouped_definitions as $category => $field_types) {
-      foreach ($field_types as $name => $field_type) {
-        if (isset($recommended_field_types[$name])) {
-          $options[$recommended_category][$name] = $field_type['label'];
-        }
-        else {
-          $options[$category][$name] = $field_type['label'];
+    // Populate recommended options from field types.
+    $field_type_options = $this->getFieldTypesAsOptions();
+    $recommended_options = [];
+    foreach ($field_type_options as $category => &$category_options) {
+      foreach ($category_options as $field_name => $field_label) {
+        if (isset($recommended_field_types[$field_name])) {
+          $recommended_field_types[$field_name] = $field_label;
+          $recommended_options[$field_name] = $field_label;
+          unset($category_options[$field_name]);
         }
       }
-    }
-    if (empty($options[$recommended_category])) {
-      unset($options[$recommended_category]);
-    }
-    else {
-      // @see https://stackoverflow.com/questions/348410/sort-an-array-by-keys-based-on-another-array#answer-9098675
-      $recommended_field_types = array_intersect_key($recommended_field_types, $options[$recommended_category]);
-      $options[$recommended_category] = array_replace($recommended_field_types, $options[$recommended_category]);
+
+      // Remove empty field type category.
+      if (empty($category_options)) {
+        unset($field_type_options[$category]);
+      }
     }
 
-    return $options;
+    // Prepend sorted recommended field types to field type options.
+    if ($recommended_options) {
+      $recommended_category = (string) $this->t('Recommended');
+
+      // @see https://stackoverflow.com/questions/348410/sort-an-array-by-keys-based-on-another-array#answer-9098675
+      $recommended_options = array_intersect_key($recommended_field_types, $recommended_options);
+
+      $field_type_options = [$recommended_category => $recommended_options]
+        + $field_type_options;
+    }
+
+    return $field_type_options;
+  }
+
+  /**
+   * Gets field types as options.
+   *
+   * @return array
+   *   Field types as options.
+   */
+  protected function getFieldTypesAsOptions(): array {
+    if (isset($this->fieldTypesAsOptionsCache)) {
+      return $this->fieldTypesAsOptionsCache;
+    }
+
+    // Manually create grouped definitions as options to ensure categorization
+    // works as expected.
+    // @see \Drupal\Core\Field\FieldTypePluginManager::getGroupedDefinitions
+    $field_definitions = $this->fieldTypePluginManager->getUiDefinitions();
+    $category_info = $this->fieldTypeCategoryManager->getDefinitions();
+    $options = [];
+    foreach ($field_definitions as $name => $field_definition) {
+      // We are adjusting the field type categories because in the
+      // field UI module it is a two-step process with icons
+      // for selecting a field type and in the Schema.org Blueprints UI
+      // we are using a select menu with grouping.
+      $category = match($name) {
+        // Reference.
+        'field_ui:entity_reference:media',
+        'entity_reference_override',
+        'field_ui:entity_reference_revisions:paragraph'
+        => 'reference',
+        // Date and time.
+        'duration',
+        'time',
+        'time_range'
+        => 'date_time',
+        // Default.
+        default => $field_definition['category'],
+      };
+
+      // Support categories as translatable string and the newer category info.
+      $optgroup = ($category instanceof TranslatableMarkup)
+        ? (string) $category
+        : (string) $category_info[$category]['label'];
+
+      $options[$optgroup][$name] = $field_definition['label'];
+    }
+
+    // Sort options.
+    asort($options);
+    foreach ($options as &$items) {
+      asort($items);
+    }
+
+    // Move the 'General' category to the top.
+    $general_category = (string) $this->t('General');
+    if (!empty($options[$general_category])) {
+      $options = [$general_category => $options[$general_category]] + $options;
+    }
+
+    $this->fieldTypesAsOptionsCache = $options;
+    return $this->fieldTypesAsOptionsCache;
   }
 
   /**
@@ -201,7 +278,7 @@ class SchemaDotOrgEntityFieldManager implements SchemaDotOrgEntityFieldManagerIn
    * @return array
    *   The current entity's fields as options.
    */
-  protected function getFieldDefinitionsOptions(string $entity_type_id, string $bundle): array {
+  protected function getFieldDefinitionsAsOptions(string $entity_type_id, string $bundle): array {
     $field_types = $this->fieldTypePluginManager->getDefinitions();
 
     $field_definitions = array_diff_key(
@@ -226,7 +303,7 @@ class SchemaDotOrgEntityFieldManager implements SchemaDotOrgEntityFieldManagerIn
     $options = [];
     $options[static::ADD_FIELD] = $this->t('Add a new field…');
 
-    $field_definition_options = $this->getFieldDefinitionsOptions($entity_type_id, $bundle);
+    $field_definition_options = $this->getFieldDefinitionsAsOptions($entity_type_id, $bundle);
     if ($field_definition_options) {
       $options[(string) $this->t('Fields')] = $field_definition_options;
     }

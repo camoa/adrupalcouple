@@ -61,7 +61,7 @@ function schemadotorg_mercury_editor_form_schemadotorg_mapping_form_alter(array 
 }
 
 /**
- * Implements hook_schemadotorg_mapping_presave().
+ * Implements hook_ENTITY_TYPE_presave().
  */
 function schemadotorg_mercury_editor_schemadotorg_mapping_presave(SchemaDotOrgMappingInterface $mapping): void {
   /** @var \Drupal\schemadotorg_mercury_editor\SchemaDotOrgMercuryEditorManagerInterface $schemadotorg_mercury_editor_manager */

@@ -9,7 +9,6 @@ use Drupal\schemadotorg\SchemaDotOrgMappingInterface;
 use Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface;
 use Drupal\schemadotorg\Traits\SchemaDotOrgMappingStorageTrait;
 use Drupal\schemadotorg_pathauto\SchemaDotOrgPathautoManagerInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Returns responses for Schema.org Blueprints Pathauto routes.
@@ -17,15 +16,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class SchemaDotOrgPathautoReportController extends ControllerBase {
   use SchemaDotOrgMappingStorageTrait;
 
-  /**
-   * The Schema.org schema type manager.
-   */
-  protected SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager;
-
-  /**
-   * The Schema.org pathauto manager.
-   */
-  protected SchemaDotOrgPathautoManagerInterface $schemaPathAutoManager;
 
   /**
    * An associative array containing Schema.org mapping categories.
@@ -33,14 +23,17 @@ class SchemaDotOrgPathautoReportController extends ControllerBase {
   protected array $mappingCategories;
 
   /**
-   * {@inheritdoc}
+   * Constructs a SchemaDotOrgPathautoReportController object.
+   *
+   * @param \Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager
+   *   The Schema.org schema type manager.
+   * @param \Drupal\schemadotorg_pathauto\SchemaDotOrgPathautoManagerInterface $schemaPathAutoManager
+   *   The Schema.org pathauto manager.
    */
-  public static function create(ContainerInterface $container): static {
-    $instance = parent::create($container);
-    $instance->schemaTypeManager = $container->get('schemadotorg.schema_type_manager');
-    $instance->schemaPathAutoManager = $container->get('schemadotorg_pathauto.manager');
-    return $instance;
-  }
+  public function __construct(
+    protected SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager,
+    protected SchemaDotOrgPathautoManagerInterface $schemaPathAutoManager,
+  ) {}
 
   /**
    * Builds the response.

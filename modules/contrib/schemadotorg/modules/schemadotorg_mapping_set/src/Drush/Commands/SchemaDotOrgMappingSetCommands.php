@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Drupal\schemadotorg_mapping_set\Drush\Commands;
 
 use Consolidation\AnnotatedCommand\CommandData;
-use Drupal\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\schemadotorg_mapping_set\SchemaDotOrgMappingSetManagerInterface;
+use Drush\Commands\AutowireTrait;
 use Drush\Commands\DrushCommands;
 use Drush\Exceptions\UserAbortException;
 use Symfony\Component\Console\Input\InputInterface;
@@ -16,12 +16,13 @@ use Symfony\Component\Console\Input\InputInterface;
  * Schema.org mapping set Drush commands.
  */
 class SchemaDotOrgMappingSetCommands extends DrushCommands {
+  use AutowireTrait;
 
   /**
    * Constructs a SchemaDotOrgMappingSetCommands object.
    *
    * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
-   *   The configuration object factory.
+   *   The config factory.
    * @param \Drupal\schemadotorg_mapping_set\SchemaDotOrgMappingSetManagerInterface $schemaMappingSetManager
    *   The Schema.org mapping set manager.
    */
@@ -29,16 +30,6 @@ class SchemaDotOrgMappingSetCommands extends DrushCommands {
     protected ConfigFactoryInterface $configFactory,
     protected SchemaDotOrgMappingSetManagerInterface $schemaMappingSetManager,
   ) {}
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function create(ContainerInterface $container): self {
-    return new static(
-      $container->get('config.factory'),
-      $container->get('schemadotorg_mapping_set.manager')
-    );
-  }
 
   /* ************************************************************************ */
   // Setup.

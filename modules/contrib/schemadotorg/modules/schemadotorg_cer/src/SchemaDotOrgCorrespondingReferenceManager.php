@@ -22,7 +22,7 @@ class SchemaDotOrgCorrespondingReferenceManager implements SchemaDotOrgCorrespon
    * Constructs a SchemaDotOrgCorrespondingReferenceManager object.
    *
    * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
-   *   The configuration object factory.
+   *   The config factory.
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
    *   The entity type manager.
    * @param \Drupal\Core\Messenger\MessengerInterface $messenger
@@ -62,6 +62,10 @@ class SchemaDotOrgCorrespondingReferenceManager implements SchemaDotOrgCorrespon
    * {@inheritdoc}
    */
   public function mappingInsert(SchemaDotOrgMappingInterface $mapping): void {
+    if ($mapping->isSyncing()) {
+      return;
+    }
+
     $entity_type_id = $mapping->getTargetEntityTypeId();
     if ($entity_type_id !== 'node') {
       return;

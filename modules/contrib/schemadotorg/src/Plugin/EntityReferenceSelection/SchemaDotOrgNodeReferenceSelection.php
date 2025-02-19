@@ -26,7 +26,7 @@ class SchemaDotOrgNodeReferenceSelection extends SchemaDotOrgEntityReferenceSele
 
 
   /**
-   * The module handler service.
+   * The module handler.
    */
   protected ModuleHandlerInterface $moduleHandler;
 

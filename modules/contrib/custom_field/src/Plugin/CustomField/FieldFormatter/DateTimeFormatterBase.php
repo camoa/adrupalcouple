@@ -51,7 +51,7 @@ abstract class DateTimeFormatterBase extends CustomFieldFormatterBase {
   /**
    * {@inheritdoc}
    */
-  public static function defaultSettings() {
+  public static function defaultSettings(): array {
     return [
       'timezone_override' => '',
     ];
@@ -60,14 +60,13 @@ abstract class DateTimeFormatterBase extends CustomFieldFormatterBase {
   /**
    * {@inheritdoc}
    */
-  public function settingsForm(array $form, FormStateInterface $form_state, array $settings) {
-    $settings += static::defaultSettings();
+  public function settingsForm(array $form, FormStateInterface $form_state): array {
     $elements['timezone_override'] = [
       '#type' => 'select',
       '#title' => $this->t('Time zone override'),
       '#description' => $this->t('The time zone selected here will always be used'),
       '#options' => TimeZoneFormHelper::getOptionsListByRegion(TRUE),
-      '#default_value' => $settings['timezone_override'],
+      '#default_value' => $this->getSetting('timezone_override'),
     ];
 
     return $elements;
@@ -76,18 +75,17 @@ abstract class DateTimeFormatterBase extends CustomFieldFormatterBase {
   /**
    * {@inheritdoc}
    */
-  public function formatValue(FieldItemInterface $item, CustomFieldTypeInterface $field, array $settings) {
-    $formatter_settings = $settings['formatter_settings'] + static::defaultSettings();
-    $datetime_type = $field->getDatetimeType();
+  public function formatValue(FieldItemInterface $item, $value) {
+    $datetime_type = $this->customFieldDefinition->getDatetimeType();
 
     /** @var \Drupal\Core\Datetime\DrupalDateTime $date */
-    $date = $this->getDate($settings['value'], $datetime_type);
+    $date = $this->getDate($value, $datetime_type);
 
     if ($date === NULL) {
       return NULL;
     }
 
-    $build = $this->buildDateWithIsoAttribute($date, $datetime_type, $formatter_settings);
+    $build = $this->buildDateWithIsoAttribute($date, $datetime_type);
 
     return $this->renderer->render($build);
   }
@@ -133,13 +131,11 @@ abstract class DateTimeFormatterBase extends CustomFieldFormatterBase {
    *
    * @param object $date
    *   A date object.
-   * @param array $settings
-   *   The formatter settings.
    *
    * @return string
    *   A formatted date string using the chosen format.
    */
-  abstract protected function formatDate(object $date, array $settings): string;
+  abstract protected function formatDate(object $date): string;
 
   /**
    * Sets the proper time zone on a DrupalDateTime object for the current user.
@@ -171,17 +167,15 @@ abstract class DateTimeFormatterBase extends CustomFieldFormatterBase {
    *   A date object.
    * @param string $datetime_type
    *   The date type.
-   * @param array $settings
-   *   The formatter settings.
    *
    * @return array
    *   A render array.
    */
-  protected function buildDate(DrupalDateTime $date, string $datetime_type, array $settings) {
+  protected function buildDate(DrupalDateTime $date, string $datetime_type): array {
     $this->setTimeZone($date, $datetime_type);
 
     $build = [
-      '#markup' => $this->formatDate($date, $settings),
+      '#markup' => $this->formatDate($date),
       '#cache' => [
         'contexts' => [
           'timezone',
@@ -199,13 +193,11 @@ abstract class DateTimeFormatterBase extends CustomFieldFormatterBase {
    *   A date object.
    * @param string $datetime_type
    *   The date type.
-   * @param array $settings
-   *   The formatter settings.
    *
    * @return array
    *   A render array.
    */
-  protected function buildDateWithIsoAttribute(DrupalDateTime $date, string $datetime_type, array $settings): array {
+  protected function buildDateWithIsoAttribute(DrupalDateTime $date, string $datetime_type): array {
     // Create the ISO date in Universal Time.
     $iso_date = $date->format("Y-m-d\TH:i:s") . 'Z';
 
@@ -213,7 +205,7 @@ abstract class DateTimeFormatterBase extends CustomFieldFormatterBase {
 
     $build = [
       '#theme' => 'time',
-      '#text' => $this->formatDate($date, $settings),
+      '#text' => $this->formatDate($date),
       '#attributes' => [
         'datetime' => $iso_date,
       ],

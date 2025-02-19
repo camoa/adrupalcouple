@@ -5,7 +5,6 @@ namespace Drupal\schemadotorg_jsonapi_preview\Controller;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\node\NodeInterface;
 use Drupal\schemadotorg_jsonapi_preview\SchemaDotOrgJsonApiPreviewBuilderInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Returns responses for Schema.org JSON:API preview.
@@ -13,18 +12,14 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class SchemaDotOrgJsonApiPreviewController extends ControllerBase {
 
   /**
-   * The Schema.org JSON-LD preview builder.
+   * Constructs a SchemaDotOrgJsonApiPreviewController object.
+   *
+   * @param \Drupal\schemadotorg_jsonapi_preview\SchemaDotOrgJsonApiPreviewBuilderInterface $builder
+   *   The Schema.org JSON-LD preview builder.
    */
-  protected SchemaDotOrgJsonApiPreviewBuilderInterface $builder;
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function create(ContainerInterface $container): static {
-    $instance = parent::create($container);
-    $instance->builder = $container->get('schemadotorg_jsonapi_preview.builder');
-    return $instance;
-  }
+  public function __construct(
+    protected SchemaDotOrgJsonApiPreviewBuilderInterface $builder,
+  ) {}
 
   /**
    * Builds the response containing the Schema.org JSON:API preview.

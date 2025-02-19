@@ -21,6 +21,17 @@ class SmartDateNormalizer extends TimestampNormalizer {
    * {@inheritdoc}
    */
   public function denormalize($data, $class, $format = NULL, array $context = []): mixed {
+
+    // Check if $data is a string and convert it to an array if necessary.
+    if (is_string($data)) {
+      $data = ['value' => $data];
+    }
+
+    // Ensure $data is an array before proceeding.
+    if (!is_array($data)) {
+      throw new \InvalidArgumentException('Expected data to be a string or array.');
+    }
+
     if (!empty($data['format'])) {
       // REST request sender may provide own data format, try to deploy it.
       // Parent classes override $format anyway.
@@ -35,14 +46,14 @@ class SmartDateNormalizer extends TimestampNormalizer {
     TypedDataInternalPropertiesHelper::getNonInternalProperties()
     but most inheritance done from Timestamps.
      */
+    // Safely handle optional fields by checking their existence.
     $res = [
-      'value' => parent::denormalize($data['value'], $class, $format, $context),
-      'end_value' => parent::denormalize($data['end_value'], $class, $format, $context),
-      // StringData and IntegerData do not have normalizers.
-      'duration' => @$data['duration'],
-      'rrule' => @$data['rrule'],
-      'rrule_index' => @$data['rrule_index'],
-      'timezone' => @$data['timezone'],
+      'value' => isset($data['value']) ? parent::denormalize($data['value'], $class, $format, $context) : NULL,
+      'end_value' => isset($data['end_value']) ? parent::denormalize($data['end_value'], $class, $format, $context) : NULL,
+      'duration' => $data['duration'] ?? NULL,
+      'rrule' => $data['rrule'] ?? NULL,
+      'rrule_index' => $data['rrule_index'] ?? NULL,
+      'timezone' => $data['timezone'] ?? NULL,
     ];
 
     return $res;

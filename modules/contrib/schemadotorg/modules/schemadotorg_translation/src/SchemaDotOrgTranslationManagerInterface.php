@@ -13,19 +13,19 @@ use Drupal\schemadotorg\SchemaDotOrgMappingInterface;
 interface SchemaDotOrgTranslationManagerInterface {
 
   /**
-   * Enable translation for a Schema.org mapping.
+   * Enable translation for a Schema.org mapping when a mapping is inserted.
    *
    * @param \Drupal\schemadotorg\SchemaDotOrgMappingInterface $mapping
    *   The Schema.org mapping.
    */
-  public function enableMapping(SchemaDotOrgMappingInterface $mapping): void;
+  public function mappingInsert(SchemaDotOrgMappingInterface $mapping): void;
 
   /**
-   * Enable translation for a Schema.org mapping field.
+   * Enable translation for a Schema.org mapping field when a field config is inserted.
    *
    * @param \Drupal\Core\Field\FieldConfigInterface $field_config
    *   The field.
    */
-  public function enableMappingField(FieldConfigInterface $field_config): void;
+  public function fieldConfigInsert(FieldConfigInterface $field_config): void;
 
 }

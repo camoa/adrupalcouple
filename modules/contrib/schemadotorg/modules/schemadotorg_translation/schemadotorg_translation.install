@@ -18,6 +18,6 @@ function schemadotorg_translation_install(): void {
   /** @var \Drupal\schemadotorg\SchemaDotOrgMappingInterface[] $mappings */
   $mappings = SchemaDotOrgMapping::loadMultiple();
   foreach ($mappings as $mapping) {
-    $translate_manager->enableMapping($mapping);
+    $translate_manager->mappingInsert($mapping);
   }
 }

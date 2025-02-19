@@ -25,6 +25,7 @@ class CustomFieldItemTest extends FieldKernelTestBase {
    */
   protected static $modules = [
     'custom_field',
+    'custom_field_viewfield',
     'custom_field_test',
     'field',
     'node',
@@ -34,6 +35,7 @@ class CustomFieldItemTest extends FieldKernelTestBase {
     'user',
     'file',
     'image',
+    'views',
   ];
 
   /**
@@ -121,6 +123,7 @@ class CustomFieldItemTest extends FieldKernelTestBase {
       'user',
       'file',
       'image',
+      'views',
     ]);
     $this->installEntitySchema('node');
     $this->installEntitySchema('user');
@@ -141,7 +144,7 @@ class CustomFieldItemTest extends FieldKernelTestBase {
     $this->entityFieldManager = $this->container->get('entity_field.manager');
     $this->entityType = 'node';
     $this->bundle = 'custom_field_entity_test';
-    $this->fieldName = 'field_custom_field_test';
+    $this->fieldName = 'field_test';
     $this->fields = $this->entityFieldManager
       ->getFieldDefinitions('node', 'custom_field_entity_test');
     $this->field = $this->fields[$this->fieldName];
@@ -322,6 +325,16 @@ class CustomFieldItemTest extends FieldKernelTestBase {
         'formatter' => [
           'id' => 'image',
           'class' => 'Drupal\custom_field\Plugin\CustomField\FieldFormatter\ImageFormatter',
+        ],
+      ],
+      'viewfield' => [
+        'widget' => [
+          'id' => 'viewfield_select',
+          'class' => 'Drupal\custom_field_viewfield\Plugin\CustomField\FieldWidget\ViewfieldSelectWidget',
+        ],
+        'formatter' => [
+          'id' => 'viewfield_default',
+          'class' => 'Drupal\custom_field_viewfield\Plugin\CustomField\FieldFormatter\ViewfieldDefaultFormatter',
         ],
       ],
     ];

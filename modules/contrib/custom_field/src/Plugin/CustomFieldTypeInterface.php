@@ -163,10 +163,10 @@ interface CustomFieldTypeInterface extends PluginInspectionInterface {
    * @param string $name
    *   The name of the widget setting to get.
    *
-   * @return array
-   *   An array of properties.
+   * @return mixed
+   *   The widget setting to return.
    */
-  public function getWidgetSetting(string $name): array;
+  public function getWidgetSetting(string $name): mixed;
 
   /**
    * Gets a fields configuration.
@@ -286,5 +286,13 @@ interface CustomFieldTypeInterface extends PluginInspectionInterface {
    *   TRUE if the link is external, FALSE otherwise.
    */
   public function isExternal(FieldItemInterface $item);
+
+  /**
+   * Returns if the field type can be added.
+   *
+   * @return bool
+   *   TRUE if the formatter can be used, FALSE otherwise.
+   */
+  public static function isApplicable(): bool;
 
 }

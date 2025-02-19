@@ -4,7 +4,6 @@ namespace Drupal\custom_field\Plugin\CustomField\FieldFormatter;
 
 use Drupal\Core\Field\FieldItemInterface;
 use Drupal\custom_field\Plugin\CustomFieldFormatterBase;
-use Drupal\custom_field\Plugin\CustomFieldTypeInterface;
 
 /**
  * Plugin implementation of the 'text_default' formatter.
@@ -22,23 +21,21 @@ class TextDefaultFormatter extends CustomFieldFormatterBase {
   /**
    * {@inheritdoc}
    */
-  public function formatValue(FieldItemInterface $item, CustomFieldTypeInterface $field, array $settings) {
-    $output = $settings['value'];
-    $widget_settings = $settings['widget_settings'];
-    $formatted = $widget_settings['formatted'] ?? FALSE;
+  public function formatValue(FieldItemInterface $item, $value) {
+    $formatted = $this->getFieldWidgetSetting('formatted') ?? FALSE;
     if ($formatted) {
       // The ProcessedText element already handles cache context & tag bubbling.
       // @see \Drupal\filter\Element\ProcessedText::preRenderText()
       $build = [
         '#type' => 'processed_text',
-        '#text' => $settings['value'],
-        '#format' => $widget_settings['default_format'],
+        '#text' => $value,
+        '#format' => $this->getFieldWidgetSetting('default_format'),
         '#langcode' => $item->getLangcode(),
       ];
-      $output = $this->renderer->render($build);
+      $value = $this->renderer->render($build);
     }
 
-    return $output;
+    return $value;
   }
 
 }

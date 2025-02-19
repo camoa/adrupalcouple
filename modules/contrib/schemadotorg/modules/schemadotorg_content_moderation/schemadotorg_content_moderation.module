@@ -8,54 +8,15 @@
 declare(strict_types=1);
 
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\content_moderation\Plugin\WorkflowType\ContentModerationInterface;
 use Drupal\schemadotorg\SchemaDotOrgMappingInterface;
-use Drupal\workflows\Entity\Workflow;
 
 /**
- * Implements hook_schemadotorg_mapping_insert().
+ * Implements hook_ENTITY_TYPE_insert().
  */
 function schemadotorg_content_moderation_schemadotorg_mapping_insert(SchemaDotOrgMappingInterface $mapping): void {
-  if ($mapping->isSyncing()) {
-    return;
-  }
-
-  $entity_type_id = $mapping->getTargetEntityTypeId();
-  $bundle = $mapping->getTargetBundle();
-  $schema_type = $mapping->getSchemaType();
-
-  $default_workflows = \Drupal::config('schemadotorg_content_moderation.settings')
-    ->get('default_workflows');
-  $default_workflow = $default_workflows["$entity_type_id--$schema_type"]
-    ?? $default_workflows[$entity_type_id]
-    ?? NULL;
-  if (!$default_workflow) {
-    return;
-  }
-
-  $workflow = Workflow::load($default_workflow);
-  if (!$workflow) {
-    return;
-  }
-
-  $content_moderation = $workflow->getTypePlugin();
-  if (!$content_moderation instanceof ContentModerationInterface) {
-    return;
-  }
-
-  $content_moderation->addEntityTypeAndBundle($entity_type_id, $bundle);
-  $workflow->save();
-
-  // Hide content moderation control widget from all view modes except full.
-  /** @var \Drupal\Core\Entity\EntityDisplayRepositoryInterface $entity_display_repository */
-  $entity_display_repository = \Drupal::service('entity_display.repository');
-  $view_modes = $entity_display_repository->getViewModeOptionsByBundle($entity_type_id, $bundle);
-  unset($view_modes['full']);
-  foreach (array_keys($view_modes) as $view_mode) {
-    $view_display = $entity_display_repository->getViewDisplay($entity_type_id, $bundle, $view_mode);
-    $view_display->removeComponent('content_moderation_control');
-    $view_display->save();
-  }
+  /** @var \Drupal\schemadotorg_content_moderation\SchemaDotOrgContentModerationManagerInterface $schemadotorg_content_moderation_manager */
+  $schemadotorg_content_moderation_manager = \Drupal::service('schemadotorg_content_moderation.manager');
+  $schemadotorg_content_moderation_manager->mappingInsert($mapping);
 }
 
 /* ************************************************************************** */
@@ -82,4 +43,6 @@ entity_type: workflow_id
 entity_type--SchemaType01: workflow_id
 entity_type--SchemaType02: null',
   ];
+
+  $form['schemadotorg_content_moderation']['apply'] = [];
 }

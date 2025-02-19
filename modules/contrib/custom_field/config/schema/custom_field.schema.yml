@@ -72,10 +72,35 @@ custom_field.formatter.*:
     format_type:
       type: string
       label: 'Format type'
+    wrappers:
+      type: mapping
+      label: 'Style settings'
+      mapping:
+        field_wrapper_tag:
+          type: string
+          label: 'Field wrapper tag'
+        field_wrapper_classes:
+          type: string
+          label: 'Field wrapper classes'
+        field_tag:
+          type: string
+          label: 'Field tag'
+        field_classes:
+          type: string
+          label: 'Field classes'
+        label_tag:
+          type: string
+          label: 'Label tag'
+        label_classes:
+          type: string
+          label: 'Label classes'
     formatter_settings:
       type: mapping
       label: 'Settings'
       mapping:
+        always_build_output:
+          type: boolean
+          label: 'Always build output'
         decimal_separator:
           type: string
           label: 'Decimal marker'
@@ -158,6 +183,21 @@ custom_field.formatter.*:
         link:
           type: boolean
           label: 'Link label to the referenced entity'
+        hierarchy_display:
+          type: string
+          label: 'Terms to display'
+        hierarchy_link:
+          type: boolean
+          label: 'Link each term'
+        hierarchy_wrap:
+          type: string
+          label: 'Wrap each term'
+        hierarchy_separator:
+          type: string
+          label: 'Separator'
+        hierarchy_reverse:
+          type: boolean
+          label: 'Reverse order'
 
 field.formatter.settings.custom_formatter:
   type: custom_field_formatter_base
@@ -196,6 +236,19 @@ field.formatter.settings.custom_template:
     template:
       type: string
       label: 'Template'
+    tokens:
+      type: string
+      label: 'Tokens'
+    advanced_tokens:
+      type: mapping
+      label: 'Advanced tokens'
+      mapping:
+        recursion_limit:
+          type: integer
+          label: 'Recursion limit'
+        global_types:
+          type: boolean
+          label: 'Global types'
 
 custom_field.column:
   type: mapping
@@ -252,10 +305,18 @@ custom_field.widget.*:
         label:
           type: label
           label: 'Label'
+        translatable:
+          type: boolean
+          label: 'Users may translate this field'
         settings:
           type: mapping
           label: 'Settings'
           mapping:
+            allowed_views:
+              type: sequence
+              label: 'Views'
+              sequence:
+                type: custom_field.allowed_views.[%key]
             alt_field:
               type: boolean
               label: 'Enable Alt field'
@@ -384,6 +445,9 @@ custom_field.widget.*:
             file_extensions:
               type: string
               label: 'Allowed file extensions'
+            force_default:
+              type: boolean
+              label: 'Always use default value'
             max_filesize:
               type: string
               label: 'Maximum upload size'
@@ -456,6 +520,28 @@ custom_field.widget.*:
               sequence:
                 type: string
                 label: 'Media type ID'
+            token_browser:
+              type: mapping
+              label: 'Token browser'
+              mapping:
+                recursion_limit:
+                  type: integer
+                  label: 'Recursion limit'
+                global_types:
+                  type: boolean
+                  label: 'Global types'
+            force_deepest_level:
+              type: boolean
+              label: 'Force deepest level'
+            level_labels:
+              type: boolean
+              label: 'Show level labels'
 
 custom_field.view_arguments.*:
   type: string
+
+custom_field.allowed_views.*:
+  type: sequence
+  sequence:
+    type: string
+    label: 'Views display'

@@ -38,10 +38,6 @@ function seo_checklist_checklistapi_checklist_items(): array {
     'basic_seo_part_1' => [
       '#title' => t('Clean URLs'),
       '#description' => t('Clean, well-formed URLs are the foundation of search engine optimization.'),
-      'enable_clean_urls' => [
-        '#title' => t('Enable clean URLs.'),
-        '#description' => t('Clean URLs remove query strings from Drupal paths which improves SEO.'),
-      ],
       'install_and_enable_redirect_module' => [
         '#title' => t('Install and Enable Redirect module'),
         '#description' => t('Redirects visitors from old URLs to new URLs.'),
@@ -49,8 +45,13 @@ function seo_checklist_checklistapi_checklist_items(): array {
       ],
       'configure_the_redirect_module' => [
         '#title' => t('Configure the Redirect module'),
-        '#description' => t('Tweak redirect settings for maximum benefit.'),
+        '#description' => t('Review the module settings. (The defaults are fine for most sites.)'),
         '#configure' => 'redirect.settings',
+      ],
+      'configure_the_redirect_404_module' => [
+        '#title' => t('Configure the Redirect 404 module'),
+        '#description' => t('Review the module settings. (The defaults are fine for most sites.)'),
+        '#configure' => 'redirect_404.ignore_404',
       ],
       'install_and_enable_pathauto_module' => [
         '#title' => t('Install and Enable Pathauto module'),
@@ -58,23 +59,23 @@ function seo_checklist_checklistapi_checklist_items(): array {
         '#module' => 'pathauto',
       ],
       'configure_pathauto_module' => [
-        '#title' => t('Configure Pathauto module'),
-        '#description' => t('Defaults are usually OK for most sites.'),
+        '#title' => t('Configure the Pathauto module'),
+        '#description' => t('Review the module settings. (The defaults are fine for most sites.)'),
         '#configure' => 'pathauto.settings.form',
       ],
       'create_pathauto_patterns' => [
         '#title' => t('Create Pathauto patterns'),
-        '#description' => t('Specify a pattern that Drupal will use to create the path name for a new piece of content.'),
+        '#description' => t('Specify a pattern that Drupal will use to create the path name for new pieces of content.'),
         '#configure' => 'entity.pathauto_pattern.collection',
       ],
       'install_and_enable_file_field_paths_module' => [
         '#title' => t('Install and Enable File (Field) Paths module'),
-        '#description' => t('The File (Field) Paths module extends the default functionality of the Drupal core File module.'),
+        '#description' => t('The File (Field) Paths module allows you to set paths for uploaded files.'),
         '#module' => 'filefield_paths',
       ],
       'configure_file_field_paths_module' => [
         '#title' => t('Configure File (Field) Paths module'),
-        '#description' => t('The File (Field) Paths module extends the default functionality of the Drupal core File module.'),
+        '#description' => t('Configure the File (Field) Paths module.'),
         '#configure' => 'entity.node_type.collection',
       ],
     ],
@@ -111,17 +112,18 @@ function seo_checklist_checklistapi_checklist_items(): array {
       '#title' => t('Search engines'),
       '#description' => t('Set your site up with the search engines and submit your XML sitemap.'),
       'install_and_enable_xml_sitemap_module' => [
-        '#title' => t('Install and Enable XML Sitemap module'),
+        '#title' => t('Install and Enable an XML Sitemap module'),
         '#description' => t(
-          'Creates an XML Sitemap of your content that you can submit to the search engines. (For an alternative to the XML Sitemap module, consider <a href=":url">Simple XML sitemap</a>.)',
-          [':url' => 'https://www.drupal.org/project/simple_sitemap']
+          'The Simple XML Sitemap module creates an XML Sitemap of your content that you can submit to search engines. (For an alternative to the Simple XML Sitemap module, an additional option is the <a href=":url">XML sitemap</a> module.)',
+          [':url' => 'https://www.drupal.org/project/xmlsitemap']
+
         ),
-        '#module' => 'xmlsitemap',
+        '#module' => 'simple_sitemap',
       ],
       'configure_xml_sitemap_module' => [
         '#title' => t('Configure XML Sitemap module'),
         '#description' => t('Set up the entities that will appear in the XML Sitemap.'),
-        '#configure' => 'xmlsitemap.admin_settings',
+        '#configure' => 'simple_sitemap.settings',
       ],
       'install_and_enable_robotstxt_module' => [
         '#title' => t('Install and Enable RobotsTxt module'),
@@ -129,12 +131,14 @@ function seo_checklist_checklistapi_checklist_items(): array {
         '#module' => 'robotstxt',
       ],
       'add_xml_sitemap_to_your_robotstxt_file' => [
-        '#title' => t('Add XML Sitemap to your robots.txt file'),
+        '#title' => t('Verify your XML Sitemap is in your robots.txt file'),
         '#description' => t('Makes your XML sitemap findable by other search engines.'),
       ],
       'set_up_cron' => [
         '#title' => t('Set up Cron'),
-        '#description' => t('Set up cron to run periodically so that your XML sitemap will be updated.'),
+        '#description' => t('Set up cron to run periodically so that your XML sitemap will be updated. Learn more about cron at the <a href=":url">Cron automated tasks</a> documentation page.',
+          [':url' => 'https://www.drupal.org/docs/administering-a-drupal-site/cron-automated-tasks']
+        ),
       ],
       'google_accounts_sign_ups' => [
         '#title' => t('Google Accounts Sign Ups'),
@@ -199,7 +203,7 @@ function seo_checklist_checklistapi_checklist_items(): array {
       ],
       'configure_easy_breadcrumbs_module' => [
         '#title' => t('Configure Easy Breadcrumbs module'),
-        '#description' => t('Set front page breadcrumb and other options.'),
+        '#description' => t('Verify the breadcrumb settings.'),
         '#configure' => 'easy_breadcrumb.general_settings_form',
       ],
       'install_and_enable_d8_editor_advanced_link_module' => [
@@ -213,7 +217,7 @@ function seo_checklist_checklistapi_checklist_items(): array {
         '#configure' => 'filter.admin_overview',
       ],
       'install_and_enable_sitemap_module' => [
-        '#title' => t('Install and Enable Sitemap module'),
+        '#title' => t('Install and Enable the HTML Sitemap module'),
         '#description' => t('This module provides a site map that gives visitors an overview of your site. It can also display the RSS feeds for all blogs and categories.'),
         '#module' => 'sitemap',
       ],
@@ -250,7 +254,7 @@ function seo_checklist_checklistapi_checklist_items(): array {
         '#configure' => 'yoast_seo.settings',
       ],
       'turn_on_create_new_revisions_for_all_content' => [
-        '#title' => t('Turn on Create New Revisions for all content types'),
+        '#title' => t('Verify Create New Revisions is turned on for all content types'),
         '#description' => t('Helps you figure out what changes increased or decreased rankings.'),
         '#configure' => 'entity.node_type.collection',
       ],
@@ -264,16 +268,6 @@ function seo_checklist_checklistapi_checklist_items(): array {
         '#description' => t('Configure how the diff module displays differences in your content.'),
         '#module' => 'diff',
         '#configure' => 'diff.general_settings',
-      ],
-      'install_and_enable_scheduler_module' => [
-        '#title' => t('Install and Enable Scheduler module'),
-        '#description' => t('Scheduler gives content editors the ability to schedule nodes to be published and unpublished at specified dates and times in the future.'),
-        '#module' => 'scheduler',
-      ],
-      'configure_the_scheduler_module' => [
-        '#title' => t('Configure the Scheduler module.'),
-        '#description' => t('Set up how the Scheduler module displays dates and publishes content.'),
-        '#configure' => 'scheduler.admin_form',
       ],
     ],
 
@@ -291,52 +285,26 @@ function seo_checklist_checklistapi_checklist_items(): array {
         '#description' => t('Select the checks that the Security Review module makes on your site.'),
         '#configure' => 'security_review',
       ],
-      'install_and_enable_honeypot_module' => [
-        '#title' => t('Install and Enable Honeypot module'),
-        '#description' => t('The Honeypot module provides an effective way to help eliminate spambot form submissions.'),
-        '#module' => 'honeypot',
-        '#seo_training_camp' => Url::fromUri('https://www.drupal.org/docs/contributed-modules/honeypot'),
-      ],
-      'configure_honeypot_module' => [
-        '#title' => t('Configure Honeypot module'),
-        '#description' => t('Select the configuration options for the forms on your website.'),
-        '#configure' => 'honeypot.config',
-      ],
       'run_a_speed_test_for_your_site' => [
         '#title' => t('Run a Speed Test for Your Site'),
         '#description' => t("Before moving on, make sure to test your website's speed. These tools can provide benchmarks before moving forward to help you determine if more aggressive caching will improve your site's speed."),
         'googles_page_speed_insights_tool' => [
           '#text' => t("Google PageSpeed Insights"),
-          '#url' => Url::fromUri('https://developers.google.com/speed/pagespeed/insights/'),
+          '#url' => Url::fromUri('https://pagespeed.web.dev/'),
         ],
         'web_page_testorg' => [
           '#text' => t('WebPageTest.org'),
           '#url' => Url::fromUri('http://www.webpagetest.org/'),
         ],
       ],
-      'install_and_enable_advanced_css_js_aggregation_module' => [
-        '#title' => t('Install and Enable Advanced CSS/JS Aggregation module'),
-        '#description' => t('Makes your site run faster by aggregating and compressing CSS and Javascript files.'),
-        '#module' => 'advagg',
-      ],
-      'configure_advanced_cssjs_aggregation_module' => [
-        '#title' => t('Configure Advanced CSS/JS Aggregation module'),
-        '#description' => t('Set up how the Advanced CSS/JS Aggregation module works.'),
-        '#configure' => 'advagg.settings',
-      ],
       'secure_your_website_with_https' => [
         '#title' => t('Secure Your Website with HTTPS'),
-        '#description' => t('Google rewards secure websites with higher rankings.'),
+        '#description' => t('Verify your website is secured by HTTPS.'),
       ],
       'adjust_performance_admin_settings' => [
         '#title' => t('Adjust Performance Admin Settings'),
-        '#description' => t('Increase performance of your website with proper caching.'),
+        '#description' => t('Verify your site aggregates CSS and JavaScript, and is cached for at least 15 minutes.'),
         '#configure' => 'system.performance_settings',
-      ],
-      'configure_image_styles' => [
-        '#title' => t('Configure Image Styles'),
-        '#description' => t('Use smaller, perfectly-sized images to decrease bandwidth usage and increase site speed.'),
-        '#configure' => 'entity.image_style.collection',
       ],
       'set_up_a_cdn_cloudflare_etc' => [
         '#title' => t('Set up a CDN (Cloudflare, etc.)'),
@@ -351,33 +319,11 @@ function seo_checklist_checklistapi_checklist_items(): array {
 
     // Mobile and social.
     'mobile_and_social' => [
-      '#title' => t('Mobile and social'),
-      '#description' => t('A mobile-friendly website ranks better in many search engines including Google. Social will help you build links.'),
+      '#title' => t('Mobile'),
+      '#description' => t('A mobile-friendly website ranks better in many search engines including Google.'),
       'make_sure_website_is_responsive' => [
-        '#title' => t('Make sure website is responsive.'),
-        '#description' => t('Google recommends responsive websites for non-desktop devices.'),
-      ],
-      'install_and_enable_amp_module_theme_and_php_library_using_composer' => [
-        '#title' => t('Install and Enable AMP Module, Theme, and PHP Library using Composer'),
-        '#description' => t('The AMP module is designed to convert Drupal pages into pages that comply with the AMP standard.'),
-        '#module' => 'amp',
-        '#seo_training_camp' => Url::fromUri('https://www.ampproject.org/'),
-      ],
-      'configure_amp' => [
-        '#title' => t('Configure AMP'),
-        '#description' => t('Configure the AMP module to show AMP pages when requested.'),
-        '#configure' => 'amp.settings',
-      ],
-      'install_and_enable_share_buttons_by_addtoany' => [
-        '#title' => t('Install and Enable Share Buttons by AddToAny'),
-        '#description' => t('Adds SVG sharing icons for Drupal including a universal share button, Facebook, Twitter, Google+, Pinterest, WhatsApp, and many more.'),
-        '#module' => 'addtoany',
-        '#seo_training_camp' => Url::fromUri('https://www.addtoany.com/'),
-      ],
-      'configure_share_buttons_by_addtoany' => [
-        '#title' => t('Configure Share Buttons by AddToAny'),
-        '#description' => t('Set up how sharing buttons show up on your site.'),
-        '#configure' => 'addtoany.admin_settings',
+        '#title' => t('Verify your website is responsive.'),
+        '#description' => t('Google recommends responsive websites for non-desktop devices. Verify by running a test at https://pagespeed.web.dev/'),
       ],
     ],
 

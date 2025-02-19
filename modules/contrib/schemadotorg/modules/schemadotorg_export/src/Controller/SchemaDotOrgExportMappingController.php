@@ -16,7 +16,6 @@ use Drupal\Core\Url;
 use Drupal\field\FieldConfigInterface;
 use Drupal\schemadotorg\SchemaDotOrgMappingInterface;
 use Drupal\schemadotorg\SchemaDotOrgNamesInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
@@ -43,7 +42,16 @@ class SchemaDotOrgExportMappingController extends ControllerBase {
   protected array $components;
 
   /**
-   * The controller constructor.
+   * Constructs a SchemaDotOrgExportMappingController object.
+   *
+   * @param \Drupal\Core\Entity\EntityDisplayRepositoryInterface $entityDisplayRepository
+   *   The entity display repository.
+   * @param \Drupal\Core\Entity\EntityFieldManagerInterface $entityFieldManager
+   *   The entity field manager.
+   * @param \Drupal\Core\Render\RendererInterface $renderer
+   *   The renderer.
+   * @param \Drupal\schemadotorg\SchemaDotOrgNamesInterface $schemaNames
+   *   The Schema.org names manager.
    */
   public function __construct(
     protected EntityDisplayRepositoryInterface $entityDisplayRepository,
@@ -51,18 +59,6 @@ class SchemaDotOrgExportMappingController extends ControllerBase {
     protected RendererInterface $renderer,
     protected SchemaDotOrgNamesInterface $schemaNames,
   ) {}
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function create(ContainerInterface $container): self {
-    return new static(
-      $container->get('entity_display.repository'),
-      $container->get('entity_field.manager'),
-      $container->get('renderer'),
-      $container->get('schemadotorg.names'),
-    );
-  }
 
   /**
    * Returns response for Schema.org mapping export request.
@@ -349,7 +345,7 @@ class SchemaDotOrgExportMappingController extends ControllerBase {
       $rows[$field_name] = $row;
 
       switch ($field_definition->getType()) {
-        case 'custom';
+        case 'custom':
           $rows += $this->buildCustomField($field_definition);
           break;
       }

@@ -5,46 +5,67 @@ declare(strict_types=1);
 namespace Drupal\schemadotorg_report\Controller;
 
 use Drupal\Component\Serialization\Yaml;
+use Drupal\Core\Block\BlockManagerInterface;
+use Drupal\Core\Controller\ControllerBase;
+use Drupal\Core\Database\Connection;
 use Drupal\Core\Link;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\Url;
 use Drupal\schemadotorg\SchemaDotOrgEntityFieldManagerInterface;
 use Drupal\schemadotorg\SchemaDotOrgMappingManagerInterface;
-use Drupal\schemadotorg\Traits\SchemaDotOrgMappingStorageTrait;
+use Drupal\schemadotorg\SchemaDotOrgSchemaTypeBuilderInterface;
+use Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface;
 use Drupal\schemadotorg\Utility\SchemaDotOrgArrayHelper;
 use Drupal\schemadotorg_additional_mappings\SchemaDotOrgAdditionalMappingsManagerInterface;
+use Drupal\schemadotorg_report\Traits\SchemaDotOrgReportBuildTrait;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Returns responses for Schema.org report about and item routes.
  */
-class SchemaDotOrgReportItemController extends SchemaDotOrgReportControllerBase {
-  use SchemaDotOrgMappingStorageTrait;
-  use SchemaDotOrgMappingStorageTrait;
+class SchemaDotOrgReportItemController extends ControllerBase {
+  use SchemaDotOrgReportBuildTrait;
 
   /**
-   * The Schema.org mapping manager service.
-   */
-  protected SchemaDotOrgMappingManagerInterface $schemaMappingManager;
-
-  /**
-   * The Schema.org entity field manager.
-   */
-  protected SchemaDotOrgEntityFieldManagerInterface $schemaEntityFieldManager;
-
-  /**
-   * The Schema.org additional mappings manager service.
+   * The Schema.org additional mappings manager.
    */
   protected ?SchemaDotOrgAdditionalMappingsManagerInterface $additionalMappingsManager;
+
+  /**
+   * Constructs a SchemaDotOrgReportItemController object.
+   *
+   * @param \Drupal\Core\Database\Connection $database
+   *   The database connection.
+   * @param \Drupal\Core\Block\BlockManagerInterface $blockManager
+   *   The block manager.
+   * @param \Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager
+   *   The Schema.org schema type manager.
+   * @param \Drupal\schemadotorg\SchemaDotOrgSchemaTypeBuilderInterface $schemaTypeBuilder
+   *   The Schema.org schema type builder.
+   * @param \Drupal\schemadotorg\SchemaDotOrgMappingManagerInterface $schemaMappingManager
+   *   The Schema.org mapping manager.
+   * @param \Drupal\schemadotorg\SchemaDotOrgEntityFieldManagerInterface $schemaEntityFieldManager
+   *   The Schema.org entity field manager.
+   */
+  public function __construct(
+    protected Connection $database,
+    protected BlockManagerInterface $blockManager,
+    protected SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager,
+    protected SchemaDotOrgSchemaTypeBuilderInterface $schemaTypeBuilder,
+    protected SchemaDotOrgMappingManagerInterface $schemaMappingManager,
+    protected SchemaDotOrgEntityFieldManagerInterface $schemaEntityFieldManager,
+  ) {}
 
   /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container): static {
     $instance = parent::create($container);
-    $instance->schemaMappingManager = $container->get('schemadotorg.mapping_manager');
-    $instance->schemaEntityFieldManager = $container->get('schemadotorg.entity_field_manager');
+
+    // Issue #3464426: AutowireTrait and autowire for services
+    // behave differently for nullable types.
+    // @see https://www.drupal.org/project/drupal/issues/3464426
     // @phpstan-ignore-next-line ternary.alwaysTrue
     $instance->additionalMappingsManager = $container->has('schemadotorg_additional_mappings.manager')
       ? $container->get('schemadotorg_additional_mappings.manager')
@@ -118,7 +139,7 @@ class SchemaDotOrgReportItemController extends SchemaDotOrgReportControllerBase 
    *   A renderable array containing Schema.org about page.
    */
   protected function about(): array {
-    $build = parent::buildHeader();
+    $build = $this->buildHeader();
 
     // Introduction.
     $introduction = '<p>' . $this->t('<a href="https://Schema.org/">Schema.org</a> is a collaborative, community activity with a mission to create, maintain, and promote schemas for structured data on the Internet, on web pages, in email messages, and beyond.') . '</p>'
@@ -200,7 +221,7 @@ class SchemaDotOrgReportItemController extends SchemaDotOrgReportControllerBase 
     $item = $this->schemaTypeManager->getItem($table, $id);
 
     // Item.
-    $build = parent::buildHeader($table);
+    $build = $this->buildHeader($table);
 
     // Hide label and display the Schema.org type or property id.
     if ($this->isAjax()) {
@@ -541,7 +562,7 @@ class SchemaDotOrgReportItemController extends SchemaDotOrgReportControllerBase 
    *   The Schema.org type.
    *
    * @return array
-   *   A renderable array containing schema.org type enumerations.
+   *   A renderable array containing Schema.org type enumerations.
    */
   protected function buildTypeEnumerations(string $type): array {
     $enumerations = $this->schemaTypeManager->getEnumerations($type);

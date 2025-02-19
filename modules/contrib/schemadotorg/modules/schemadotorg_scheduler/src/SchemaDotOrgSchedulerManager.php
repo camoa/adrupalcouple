@@ -22,13 +22,13 @@ class SchemaDotOrgSchedulerManager implements SchemaDotOrgSchedulerManagerInterf
    * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
    *   The config factory.
    * @param \Drupal\Core\Extension\ModuleHandlerInterface $moduleHandler
-   *   The module handler service.
+   *   The module handler.
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
    *   The entity type manager.
    * @param \Drupal\Core\Entity\EntityDisplayRepositoryInterface $entityDisplayRepository
    *   The entity display repository.
    * @param \Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager
-   *   The Schema.org type manager.
+   *   The Schema.org schema type manager.
    */
   public function __construct(
     protected ConfigFactoryInterface $configFactory,

@@ -6,17 +6,25 @@ namespace Drupal\schemadotorg\Form;
 
 use Drupal\Component\Utility\NestedArray;
 use Drupal\Core\Config\Config;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Element;
 use Drupal\schemadotorg\Element\SchemaDotOrgSettings;
+use Drupal\schemadotorg\Traits\SchemaDotOrgMappingStorageTrait;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Base form for configuring Schema.org Blueprints settings.
  */
 abstract class SchemaDotOrgSettingsFormBase extends ConfigFormBase {
+  use SchemaDotOrgMappingStorageTrait;
+
+  /**
+   * The entity type manager.
+   */
+  protected EntityTypeManagerInterface $entityTypeManager;
 
   /**
    * The module handler.
@@ -29,6 +37,7 @@ abstract class SchemaDotOrgSettingsFormBase extends ConfigFormBase {
   public static function create(ContainerInterface $container): static {
     $instance = parent::create($container);
     $instance->moduleHandler = $container->get('module_handler');
+    $instance->entityTypeManager = $container->get('entity_type.manager');
     return $instance;
   }
 
@@ -55,6 +64,33 @@ abstract class SchemaDotOrgSettingsFormBase extends ConfigFormBase {
     $form['#tree'] = TRUE;
     $form['#after_build'][] = [get_class($this), 'afterBuildDetails'];
     return parent::buildForm($form, $form_state);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function submitForm(array &$form, FormStateInterface $form_state): void {
+    parent::submitForm($form, $form_state);
+
+    // Re-apply a sub-module settings to all existing Schema.org mappings.
+    $values = $form_state->getValues();
+    foreach ($values as $module_name => $settings) {
+      $hook = $module_name . '_schemadotorg_mapping_insert';
+      if (function_exists($hook) && !empty($settings['apply'])) {
+        /** @var \Drupal\schemadotorg\SchemaDotOrgMappingInterface[] $mappings */
+        $mappings = $this->getMappingStorage()->loadMultiple();
+        foreach ($mappings as $mapping) {
+          $hook($mapping);
+        }
+
+        $message = $form[$module_name]['apply']['#message']
+          ?? $this->t(
+            '@title have been re-applied to all existing Schema.org mappings.',
+            ['@title' => $form[$module_name]['#title'] ?? $module_name]
+          );
+        $this->messenger()->addStatus($message);
+      }
+    }
   }
 
   /**
@@ -113,8 +149,24 @@ abstract class SchemaDotOrgSettingsFormBase extends ConfigFormBase {
 
     foreach (Element::children($form) as $module_name) {
       $config = \Drupal::configFactory()->getEditable("$module_name.settings");
-      if (!$config->isNew()) {
-        static::setElementRecursive($form[$module_name], $config);
+      if ($config->isNew()) {
+        continue;
+      }
+
+      // Set elements recursively.
+      static::setElementRecursive($form[$module_name], $config);
+
+      // Append re-apply settings checkbox.
+      if (isset($form[$module_name]['apply'])) {
+        $title = $form[$module_name]['#title'] ?? $module_name;
+        $t_args = ['@title' => $title, '%title' => $title];
+        $form[$module_name]['apply'] += [
+          '#type' => 'checkbox',
+          '#title' => t('Re-apply %title to all existing Schema.org mappings.', $t_args),
+          '#description' => t('If checked, @title will be re-applied to all the existing Schema.org mappings.', $t_args),
+          '#return_value' => TRUE,
+          '#prefix' => '<hr/>',
+        ];
       }
     }
   }

@@ -72,6 +72,6 @@ interface SchemaDotOrgEntityReferenceOverrideManagerInterface {
    *
    * @see hook_schemadotorg_jsonld_schema_property_alter()
    */
-  public function jsonLdSchemaPropertyAlter(mixed &$value, FieldItemInterface $item, BubbleableMetadata $bubbleable_metadata): void;
+  public function schemaPropertyAlter(mixed &$value, FieldItemInterface $item, BubbleableMetadata $bubbleable_metadata): void;
 
 }

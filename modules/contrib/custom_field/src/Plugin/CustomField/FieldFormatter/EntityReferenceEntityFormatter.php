@@ -5,7 +5,6 @@ namespace Drupal\custom_field\Plugin\CustomField\FieldFormatter;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Field\FieldItemInterface;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\custom_field\Plugin\CustomFieldTypeInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -61,7 +60,7 @@ class EntityReferenceEntityFormatter extends EntityReferenceFormatterBase {
   /**
    * {@inheritdoc}
    */
-  public static function defaultSettings() {
+  public static function defaultSettings(): array {
     return [
       'view_mode' => 'default',
       'link' => FALSE,
@@ -71,14 +70,13 @@ class EntityReferenceEntityFormatter extends EntityReferenceFormatterBase {
   /**
    * {@inheritdoc}
    */
-  public function settingsForm(array $form, FormStateInterface $form_state, array $settings) {
-    $settings += static::defaultSettings();
-    $storage = $form['#storage_settings'];
+  public function settingsForm(array $form, FormStateInterface $form_state): array {
+    $target_type = $this->customFieldDefinition->getTargetType();
     $elements['view_mode'] = [
       '#type' => 'select',
-      '#options' => $this->entityDisplayRepository->getViewModeOptions($storage['target_type']),
+      '#options' => $this->entityDisplayRepository->getViewModeOptions($target_type),
       '#title' => $this->t('View mode'),
-      '#default_value' => $settings['view_mode'],
+      '#default_value' => $this->getSetting('view_mode'),
       '#required' => TRUE,
     ];
 
@@ -88,23 +86,21 @@ class EntityReferenceEntityFormatter extends EntityReferenceFormatterBase {
   /**
    * {@inheritdoc}
    */
-  public function formatValue(FieldItemInterface $item, CustomFieldTypeInterface $field, array $settings) {
-    $entity = $settings['value'];
+  public function formatValue(FieldItemInterface $item, $value) {
 
-    if (!$entity instanceof EntityInterface) {
+    if (!$value instanceof EntityInterface) {
       return NULL;
     }
 
-    $access = $this->checkAccess($entity);
+    $access = $this->checkAccess($value);
 
     if (!$access->isAllowed()) {
       return NULL;
     }
 
-    $formatter_settings = $settings['formatter_settings'] + static::defaultSettings();
-    $view_mode = $formatter_settings['view_mode'];
-    $view_builder = $this->entityTypeManager->getViewBuilder($entity->getEntityTypeId());
-    $build = $view_builder->view($entity, $view_mode, $entity->language()->getId());
+    $view_mode = $this->getSetting('view_mode');
+    $view_builder = $this->entityTypeManager->getViewBuilder($value->getEntityTypeId());
+    $build = $view_builder->view($value, $view_mode, $value->language()->getId());
 
     return $this->renderer->render($build);
   }

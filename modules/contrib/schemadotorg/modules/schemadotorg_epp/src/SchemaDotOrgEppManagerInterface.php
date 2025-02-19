@@ -45,6 +45,8 @@ interface SchemaDotOrgEppManagerInterface {
    *   The plugin ID of the formatter.
    * @param array $formatter_settings
    *   An array of formatter settings.
+   *
+   * @see hook_schemadotorg_property_field_alter()
    */
   public function propertyFieldAlter(
     string $schema_type,

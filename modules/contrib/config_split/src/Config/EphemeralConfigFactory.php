@@ -52,7 +52,7 @@ class EphemeralConfigFactory extends ConfigFactory {
       /**
        * {@inheritdoc}
        */
-      public function dispatch(object $event, string $eventName = NULL): object {
+      public function dispatch(object $event, ?string $eventName = NULL): object {
         // Do nothing, just return the event.
         return $event;
       }

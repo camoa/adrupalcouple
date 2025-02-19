@@ -62,5 +62,5 @@ filters:
     status: true
     weight: -50
     settings:
-      flavor: standard
+      flavor: github
       tips: ''

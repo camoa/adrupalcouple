@@ -8,7 +8,7 @@
 /**
  * Implements hook_schema().
  */
-function user_schema() {
+function user_schema(): array {
   $schema['users_data'] = [
     'description' => 'Stores module data as key/value pairs per user.',
     'fields' => [
@@ -68,7 +68,7 @@ function user_schema() {
 /**
  * Implements hook_install().
  */
-function user_install() {
+function user_install(): void {
   $storage = \Drupal::entityTypeManager()->getStorage('user');
   // Insert a row for the anonymous user.
   $storage
@@ -118,6 +118,7 @@ function user_requirements($phase): array {
 
   $query = \Drupal::database()->select('users_field_data');
   $query->addExpression('LOWER(mail)', 'lower_mail');
+  $query->isNotNull('mail');
   $query->groupBy('lower_mail');
   $query->having('COUNT(uid) > :matches', [':matches' => 1]);
   $conflicts = $query->countQuery()->execute()->fetchField();
@@ -138,6 +139,6 @@ function user_requirements($phase): array {
 /**
  * Implements hook_update_last_removed().
  */
-function user_update_last_removed() {
+function user_update_last_removed(): int {
   return 10000;
 }

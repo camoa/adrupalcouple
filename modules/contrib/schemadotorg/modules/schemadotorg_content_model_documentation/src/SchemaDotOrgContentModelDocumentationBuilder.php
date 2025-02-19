@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Drupal\schemadotorg_content_model_documentation;
 
 use Drupal\Component\Serialization\Json;
+use Drupal\content_model_documentation\Entity\CMDocumentInterface;
 use Drupal\Core\Config\Entity\ConfigEntityBundleBase;
 use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
 use Drupal\Core\Entity\EntityInterface;
@@ -16,14 +17,13 @@ use Drupal\Core\Session\AccountProxyInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\Template\Attribute;
 use Drupal\Core\Url;
-use Drupal\content_model_documentation\Entity\CMDocumentInterface;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\node\NodeTypeInterface;
 use Drupal\schemadotorg\SchemaDotOrgMappingInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
- * Schema.org Content Model Documentation builder service.
+ * Schema.org Content Model Documentation builder.
  */
 class SchemaDotOrgContentModelDocumentationBuilder implements SchemaDotOrgContentModelDocumentationBuilderInterface {
   use StringTranslationTrait;
@@ -213,7 +213,7 @@ class SchemaDotOrgContentModelDocumentationBuilder implements SchemaDotOrgConten
     $field_name = $this->documentationManager->getFieldName();
     if (FieldConfig::loadByName('node', $node_type->id(), $field_name)) {
       $variables['content'] = [];
-    };
+    }
   }
 
   /**

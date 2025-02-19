@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\schemadotorg_auto_entitylabel\Kernel;
 
-use Drupal\Tests\schemadotorg\Kernel\SchemaDotOrgEntityKernelTestBase;
 use Drupal\node\Entity\Node;
+use Drupal\Tests\schemadotorg\Kernel\SchemaDotOrgEntityKernelTestBase;
 
 /**
  * Tests the functionality of the Schema.org auto entity label.
@@ -51,7 +51,7 @@ class SchemaDotOrgAutoEntityLabelKernelTest extends SchemaDotOrgEntityKernelTest
     // with related fields.
     $settings = $this->config('auto_entitylabel.settings.node.person')
       ->getRawData();
-    $this->assertEquals('[node:schema_given_name] [node:schema_family_name]', $settings['pattern']);
+    $this->assertEquals('[node:schema_given_name:value] [node:schema_family_name:value]', $settings['pattern']);
 
     $node = Node::create([
       'type' => 'person',

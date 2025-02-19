@@ -5,9 +5,11 @@ declare(strict_types=1);
 namespace Drupal\schemadotorg_custom_field;
 
 use Drupal\Core\Field\FieldItemInterface;
+use Drupal\Core\Render\BubbleableMetadata;
 use Drupal\schemadotorg\SchemaDotOrgNamesInterface;
 use Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface;
 use Drupal\schemadotorg_jsonld\SchemaDotOrgJsonLdManagerInterface;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
 /**
  * Schema.org Custom Field JSON-LD manager.
@@ -24,19 +26,20 @@ class SchemaDotOrgCustomFieldJsonLdManager implements SchemaDotOrgCustomFieldJso
    * @param \Drupal\schemadotorg_custom_field\SchemaDotOrgCustomFieldManagerInterface $schemaCustomFieldManager
    *   The Schema.org Custom Field manager.
    * @param \Drupal\schemadotorg_jsonld\SchemaDotOrgJsonLdManagerInterface|null $schemaJsonLdManager
-   *   The Schema.org JSON-LD manager service.
+   *   The Schema.org JSON-LD manager.
    */
   public function __construct(
     protected SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager,
     protected SchemaDotOrgNamesInterface $schemaNames,
     protected SchemaDotOrgCustomFieldManagerInterface $schemaCustomFieldManager,
+    #[Autowire(service: 'schemadotorg_jsonld.manager')]
     protected ?SchemaDotOrgJsonLdManagerInterface $schemaJsonLdManager = NULL,
   ) {}
 
   /**
    * {@inheritdoc}
    */
-  public function jsonLdSchemaPropertyAlter(mixed &$value, FieldItemInterface $item): void {
+  public function schemaPropertyAlter(mixed &$value, FieldItemInterface $item, BubbleableMetadata $bubbleable_metadata): void {
     $mapping = $this->schemaCustomFieldManager->getFieldItemSchemaMapping($item);
     if (!$mapping) {
       return;

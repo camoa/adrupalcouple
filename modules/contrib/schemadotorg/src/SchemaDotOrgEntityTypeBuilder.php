@@ -15,7 +15,7 @@ use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\schemadotorg\Traits\SchemaDotOrgMappingStorageTrait;
 
 /**
- * Schema.org entity type builder service.
+ * Schema.org entity type builder.
  *
  * The Schema.org entity type builder service handle the creation of an entity
  * bundle for Schema.org along with adding fields to the entity bundle.
@@ -28,11 +28,11 @@ class SchemaDotOrgEntityTypeBuilder implements SchemaDotOrgEntityTypeBuilderInte
    * Constructs a SchemaDotOrgEntityTypeBuilder object.
    *
    * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
-   *   The configuration object factory.
+   *   The config factory.
    * @param \Drupal\Core\Messenger\MessengerInterface $messenger
    *   The messenger service.
    * @param \Drupal\Core\Extension\ModuleHandlerInterface $moduleHandler
-   *   The module handler service.
+   *   The module handler.
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
    *   The entity type manager.
    * @param \Drupal\Core\Entity\EntityDisplayRepositoryInterface $entityDisplayRepository
@@ -140,6 +140,7 @@ class SchemaDotOrgEntityTypeBuilder implements SchemaDotOrgEntityTypeBuilderInte
       'widget_settings' => [],
       'formatter_id' => NULL,
       'formatter_settings' => [],
+      'copy' => FALSE,
     ];
 
     /** @var \Drupal\field\FieldStorageConfigInterface|null $field_storage_config */
@@ -167,6 +168,7 @@ class SchemaDotOrgEntityTypeBuilder implements SchemaDotOrgEntityTypeBuilderInte
       'label' => $field['label'],
       'description' => $field['description'],
       'required' => $field['required'],
+      'copy' => $field['copy'],
     ];
     // Massage the default value to ensure that the value property is set.
     if (!is_null($field['default_value'])) {
@@ -218,17 +220,13 @@ class SchemaDotOrgEntityTypeBuilder implements SchemaDotOrgEntityTypeBuilderInte
       $formatter_settings = $formatter_settings ?: $field_options['entity_view_display']['settings'] ?? [];
     }
 
-    // Don't copy existing field values for generic Schema.org properties used
-    // to manage different types of data.
-    if (!$this->schemaTypeManager->isPropertyMainEntity($schema_property)) {
-      $this->copyExistingFieldValues(
-        $field_values,
-        $widget_id,
-        $widget_settings,
-        $formatter_id,
-        $formatter_settings
-      );
-    }
+    $this->copyExistingFieldValues(
+      $field_values,
+      $widget_id,
+      $widget_settings,
+      $formatter_id,
+      $formatter_settings
+    );
 
     $this->setDefaultFieldValues(
       $schema_type,
@@ -318,6 +316,11 @@ class SchemaDotOrgEntityTypeBuilder implements SchemaDotOrgEntityTypeBuilderInte
     ?string &$formatter_id,
     array &$formatter_settings,
   ): void {
+    // Copying existing field values must be explicitly defined for the field.
+    if (empty($field_values['copy'])) {
+      return;
+    }
+
     // Get the entity type id and field.
     $entity_type_id = $field_values['entity_type'];
     $field_name = $field_values['field_name'];
@@ -359,23 +362,33 @@ class SchemaDotOrgEntityTypeBuilder implements SchemaDotOrgEntityTypeBuilderInte
     $existing_form_component = $form_display->getComponent($field_name);
     if ($existing_form_component) {
       $widget_id = $widget_id ?? $existing_form_component['type'];
-      $widget_settings += $existing_form_component['settings'];
+      if ($widget_id === $existing_form_component['type']) {
+        $widget_settings += $existing_form_component['settings'];
+      }
       if (!empty($existing_form_component['third_party_settings'])) {
         $widget_settings['third_party_settings'] = $existing_form_component['third_party_settings'];
       }
     }
+    else {
+      $widget_id = SchemaDotOrgEntityDisplayBuilderInterface::COMPONENT_HIDDEN;
+    }
 
-    // Set formatter id and settings, label, and third_party_settings
+    // Set formatter id and settings and third_party_settings
     // from the existing view display.
     $view_display = $this->entityDisplayRepository->getViewDisplay($entity_type_id, $existing_bundle);
     $existing_view_component = $view_display->getComponent($field_name);
     if ($existing_view_component) {
       $formatter_id = $formatter_id ?? $existing_view_component['type'];
-      $formatter_settings += $existing_view_component['settings'];
       $formatter_settings['label'] = $existing_view_component['label'];
-      if (!$existing_view_component['third_party_settings']) {
+      if ($formatter_id === $existing_view_component['type']) {
+        $formatter_settings += $existing_view_component['settings'];
+      }
+      if (!empty($existing_view_component['third_party_settings'])) {
         $formatter_settings['third_party_settings'] = $existing_view_component['third_party_settings'];
       }
+    }
+    else {
+      $formatter_id = SchemaDotOrgEntityDisplayBuilderInterface::COMPONENT_HIDDEN;
     }
   }
 

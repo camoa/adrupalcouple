@@ -19,6 +19,8 @@ class SchemaDotOrgConfigActionTest extends KernelTestBase {
    * {@inheritdoc}
    */
   protected static $modules = [
+    'address',
+    'block',
     'node',
     'user',
     'block_content',

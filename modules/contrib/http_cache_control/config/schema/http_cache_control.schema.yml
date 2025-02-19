@@ -12,7 +12,7 @@ http_cache_control.settings:
           mapping:
             s_maxage:
               type: integer
-              label: 'Shared max age'
+              label: 'Shared cache max age'
             404_max_age:
               type: integer
               label: '404 max age'
@@ -43,10 +43,6 @@ http_cache_control.settings:
             nostore:
               type: boolean
               label: 'Cache-Control: no-store'
-            cookieextra:
-              type: string
-              label: 'cookieextra'
-              nullable: true
         surrogate:
           type: mapping
           label: 'Surrogate-Control'

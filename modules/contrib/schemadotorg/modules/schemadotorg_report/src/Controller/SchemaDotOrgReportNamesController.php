@@ -4,27 +4,37 @@ declare(strict_types=1);
 
 namespace Drupal\schemadotorg_report\Controller;
 
+use Drupal\Core\Controller\ControllerBase;
+use Drupal\Core\Database\Connection;
 use Drupal\schemadotorg\SchemaDotOrgNamesInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\schemadotorg\SchemaDotOrgSchemaTypeBuilderInterface;
+use Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface;
+use Drupal\schemadotorg_report\Traits\SchemaDotOrgReportBuildTrait;
 
 /**
  * Returns responses for Schema.org report names routes.
  */
-class SchemaDotOrgReportNamesController extends SchemaDotOrgReportControllerBase {
+class SchemaDotOrgReportNamesController extends ControllerBase {
+  use SchemaDotOrgReportBuildTrait;
 
   /**
-   * The Schema.org names service.
+   * Constructs a SchemaDotOrgReportNamesController object.
+   *
+   * @param \Drupal\Core\Database\Connection $database
+   *   The database connection.
+   * @param \Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager
+   *   The Schema.org schema type manager.
+   * @param \Drupal\schemadotorg\SchemaDotOrgSchemaTypeBuilderInterface $schemaTypeBuilder
+   *   The Schema.org schema type builder.
+   * @param \Drupal\schemadotorg\SchemaDotOrgNamesInterface $schemaDotOrgNames
+   *   The Schema.org names service.
    */
-  protected SchemaDotOrgNamesInterface $schemaDotOrgNames;
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function create(ContainerInterface $container): static {
-    $instance = parent::create($container);
-    $instance->schemaDotOrgNames = $container->get('schemadotorg.names');
-    return $instance;
-  }
+  public function __construct(
+    protected Connection $database,
+    protected SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager,
+    protected SchemaDotOrgSchemaTypeBuilderInterface $schemaTypeBuilder,
+    protected SchemaDotOrgNamesInterface $schemaDotOrgNames,
+  ) {}
 
   /**
    * Builds the Schema.org names overview or table.

@@ -2,6 +2,7 @@
 
 namespace Drupal\custom_field;
 
+use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Database\Connection;
 use Drupal\Core\DependencyInjection\DependencySerializationTrait;
 use Drupal\Core\Entity\EntityDefinitionUpdateManagerInterface;
@@ -9,6 +10,7 @@ use Drupal\Core\Entity\EntityLastInstalledSchemaRepositoryInterface;
 use Drupal\Core\Entity\EntityTypeBundleInfoInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Entity\Sql\SqlContentEntityStorage;
+use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\KeyValueStore\KeyValueFactoryInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\custom_field\Plugin\CustomFieldTypeManagerInterface;
@@ -72,6 +74,20 @@ class CustomFieldUpdateManager implements CustomFieldUpdateManagerInterface {
   protected $keyValue;
 
   /**
+   * The config factory.
+   *
+   * @var \Drupal\Core\Config\ConfigFactoryInterface
+   */
+  protected $configFactory;
+
+  /**
+   * The module handler service.
+   *
+   * @var \Drupal\Core\Extension\ModuleHandlerInterface
+   */
+  protected $moduleHandler;
+
+  /**
    * Constructs a new CustomFieldUpdateManager object.
    *
    * @param \Drupal\Core\Entity\EntityDefinitionUpdateManagerInterface $entity_definition_update_manager
@@ -88,6 +104,10 @@ class CustomFieldUpdateManager implements CustomFieldUpdateManagerInterface {
    *   The installed entity definition repository.
    * @param \Drupal\Core\KeyValueStore\KeyValueFactoryInterface $key_value
    *   The Key-Value Factory service.
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
+   *   The config factory service.
+   * @param \Drupal\Core\Extension\ModuleHandlerInterface $module_handler
+   *   The module handler service.
    */
   public function __construct(
     EntityDefinitionUpdateManagerInterface $entity_definition_update_manager,
@@ -97,6 +117,8 @@ class CustomFieldUpdateManager implements CustomFieldUpdateManagerInterface {
     CustomFieldTypeManagerInterface $custom_field_type_manager,
     EntityLastInstalledSchemaRepositoryInterface $last_installed_schema_repository,
     KeyValueFactoryInterface $key_value,
+    ConfigFactoryInterface $config_factory,
+    ModuleHandlerInterface $module_handler,
   ) {
     $this->entityDefinitionUpdateManager = $entity_definition_update_manager;
     $this->entityTypeManager = $entity_type_manager;
@@ -105,6 +127,8 @@ class CustomFieldUpdateManager implements CustomFieldUpdateManagerInterface {
     $this->customFieldTypeManager = $custom_field_type_manager;
     $this->lastInstalledSchemaRepository = $last_installed_schema_repository;
     $this->keyValue = $key_value->get('entity.storage_schema.sql');
+    $this->configFactory = $config_factory;
+    $this->moduleHandler = $module_handler;
   }
 
   /**
@@ -138,49 +162,130 @@ class CustomFieldUpdateManager implements CustomFieldUpdateManagerInterface {
 
     $entity_type = $this->entityTypeManager->getDefinition($entity_type_id);
     $storage = $this->entityTypeManager->getStorage($entity_type_id);
-    $data_types = $this->customFieldTypeManager->dataTypes();
-    $column = $data_types[$data_type] ?? NULL;
+    $definitions = $this->customFieldTypeManager->getDefinitions();
+    $column = $definitions[$data_type] ?? NULL;
 
     // If we don't have a matching data type, return early.
     if (!$column) {
-      $allowed_data_types = implode(', ', array_keys($this->customFieldTypeManager->dataTypes()));
-      $message = $data_type . ' is an invalid data type. Allowed data types are: ' . $allowed_data_types . '.';
-      throw new \Exception($message);
+      $allowed_data_types = array_keys($definitions);
+      sort($allowed_data_types);
+      $valid_types_string = "\n" . implode("\n", $allowed_data_types);
+      throw new \InvalidArgumentException(sprintf("Field '%s' requires a valid data type. Valid data types are: %s",
+        $new_property,
+        $valid_types_string
+      ));
     }
-    $spec = current($column['schema']);
+
+    // Validate options.
+    $target_type = NULL;
+    $date_time_type = NULL;
+    $uri_scheme = NULL;
+    switch ($data_type) {
+      case 'string':
+      case 'telephone':
+        $max = $data_type === 'telephone' ? 256 : 255;
+        if (isset($options['max_length']) && (!is_numeric($options['max_length']) || $options['max_length'] > $max)) {
+          throw new \InvalidArgumentException(sprintf("Field '%s' requires a numeric 'max_length' <= %s characters.",
+            $new_property,
+            $max,
+          ));
+        }
+        break;
+
+      case 'integer':
+      case 'float':
+      case 'decimal':
+        if (isset($options['unsigned']) && !is_bool($options['unsigned'])) {
+          throw new \InvalidArgumentException(sprintf("Field '%s' requires a boolean 'unsigned' value.",
+            $new_property,
+          ));
+        }
+        if (in_array($data_type, ['integer', 'float']) && isset($options['size'])) {
+          $valid_sizes = [
+            'tiny',
+            'small',
+            'medium',
+            'big',
+            'normal',
+          ];
+          if (!in_array($options['size'], $valid_sizes)) {
+            $valid_size_string = "\n" . implode("\n", $valid_sizes);
+            throw new \InvalidArgumentException(sprintf("Field '%s' requires a valid 'size' value. Valid sizes are:%s",
+              $new_property,
+              $valid_size_string,
+            ));
+          }
+        }
+        if ($data_type === 'decimal') {
+          if (isset($options['precision'])) {
+            if (!is_numeric($options['precision']) || $options['precision'] > 65) {
+              throw new \InvalidArgumentException(sprintf("Field '%s' requires a numeric 'precision' value <= 65.",
+                $new_property,
+              ));
+            }
+            // Cast to integer.
+            $options['precision'] = (int) $options['precision'];
+          }
+          if (isset($options['scale'])) {
+            if (!is_numeric($options['scale']) || $options['scale'] > 30) {
+              throw new \InvalidArgumentException(sprintf("Field '%s' requires a numeric 'scale' value <= 30.",
+                $new_property,
+              ));
+            }
+            // Cast to integer.
+            $options['scale'] = (int) $options['scale'];
+          }
+        }
+        break;
+
+      case 'entity_reference':
+        if (!isset($options['target_type'])) {
+          $entity_types = $this->entityTypeManager->getDefinitions();
+          $valid_entity_types = array_keys($entity_types);
+          sort($valid_entity_types);
+          $valid_types_string = "\n" . implode("\n", $valid_entity_types);
+          throw new \InvalidArgumentException(sprintf("Field '%s' requires a 'target_type'. Valid target types are:%s",
+            $new_property,
+            $valid_types_string,
+          ));
+        }
+        $target_type = $options['target_type'];
+        break;
+
+      case 'datetime':
+        $date_time_types = ['date', 'datetime'];
+        if (!isset($options['datetime_type']) || !in_array($options['datetime_type'], $date_time_types)) {
+          $valid_types_string = "\n" . implode("\n", $date_time_types);
+          throw new \InvalidArgumentException(sprintf("Field '%s' requires a 'datetime_type'. Valid datetime types are:%s",
+            $new_property,
+            $valid_types_string,
+          ));
+        }
+        $date_time_type = $options['datetime_type'];
+        break;
+
+      case 'image':
+      case 'file':
+        $target_type = 'file';
+        $uri_scheme = $this->configFactory->get('system.file')->get('default_scheme');
+        break;
+
+      case 'viewfield':
+        $target_type = 'view';
+        if (!$this->moduleHandler->moduleExists('views')) {
+          throw new \InvalidArgumentException(sprintf("Field '%s' requires the views module to be enabled.",
+            $new_property,
+          ));
+        }
+        break;
+    }
+    /** @var \Drupal\custom_field\Plugin\CustomFieldTypeInterface $instance */
+    $plugin = $this->customFieldTypeManager->createInstance($data_type);
+    $options['name'] = $new_property;
+    $custom_field_schema = $plugin->schema($options);
+    $spec = current($custom_field_schema);
     $spec['not null'] = FALSE;
     $spec['default'] = NULL;
-
-    // Match keys from options to schema.
-    $option_matches = array_intersect_key($options, $spec);
-
-    foreach ($option_matches as $type => $option) {
-      switch ($type) {
-        case 'precision':
-          if (is_numeric($option) && $option <= 65) {
-            $spec[$type] = (int) $option;
-          }
-          break;
-
-        case 'scale':
-          if (is_numeric($option) && $option <= 30) {
-            $spec[$type] = (int) $option;
-          }
-          break;
-
-        case 'length':
-          if ($data_type === 'string' && is_numeric($option) && ($option < 255)) {
-            $spec[$type] = (int) $option;
-          }
-          break;
-
-        case 'unsigned':
-          if (is_bool($option)) {
-            $spec[$type] = $option;
-          }
-          break;
-      }
-    }
 
     // If the storage is SqlContentEntityStorage, update the database schema.
     if (!$storage instanceof SqlContentEntityStorage) {
@@ -259,6 +364,10 @@ class CustomFieldUpdateManager implements CustomFieldUpdateManagerInterface {
       'unsigned' => $spec['unsigned'] ?? FALSE,
       'precision' => $spec['precision'] ?? NULL,
       'scale' => $spec['scale'] ?? NULL,
+      'size' => $spec['size'] ?? NULL,
+      'datetime_type' => $date_time_type,
+      'target_type' => $target_type,
+      'uri_scheme' => $uri_scheme,
     ];
 
     $field_storage_config->setSetting('columns', $columns);

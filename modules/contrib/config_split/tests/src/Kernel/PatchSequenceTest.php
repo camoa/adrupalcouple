@@ -52,7 +52,7 @@ class PatchSequenceTest extends KernelTestBase {
    *
    * @dataProvider sequenceProvider
    */
-  public function testSequencePatch(string $name, array $configA, array $configB, ConfigPatch $expectedAB = NULL) {
+  public function testSequencePatch(string $name, array $configA, array $configB, ?ConfigPatch $expectedAB = NULL) {
     // Create patches in both directions.
     $patchAB = $this->patchMerge->createPatch($configA, $configB, $name);
     $patchBA = $this->patchMerge->createPatch($configB, $configA, $name);
@@ -75,7 +75,7 @@ class PatchSequenceTest extends KernelTestBase {
   /**
    * Data provider for complex examples with a real schema.
    */
-  public function sequenceProvider() {
+  public static function sequenceProvider() {
     $a = [
       'nested' => [
         [
@@ -144,7 +144,6 @@ class PatchSequenceTest extends KernelTestBase {
       ],
     ]);
     // cSpell:enable
-
     yield 'first test' => [
       'name' => 'config_split_sequence_test.nested_sequences',
       'configA' => $a,

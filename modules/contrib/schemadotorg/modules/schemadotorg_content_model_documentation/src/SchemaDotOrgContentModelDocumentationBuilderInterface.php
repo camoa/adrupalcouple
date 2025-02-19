@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Drupal\schemadotorg_content_model_documentation;
 
+use Drupal\content_model_documentation\Entity\CMDocumentInterface;
 use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
-use Drupal\content_model_documentation\Entity\CMDocumentInterface;
 
 /**
  * Schema.org Content Model Documentation builder interface.

@@ -12,7 +12,7 @@ use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\schemadotorg\Traits\SchemaDotOrgMappingStorageTrait;
 
 /**
- * Schema.org mapping manager service.
+ * Schema.org mapping manager.
  *
  * The Schema.org mapping manager service provides a API for get the mapping
  * defaults for create an entity bundle with fields for a Schema.org type
@@ -31,7 +31,7 @@ class SchemaDotOrgMappingManager implements SchemaDotOrgMappingManagerInterface 
    * @param \Drupal\Core\Extension\ModuleHandlerInterface $moduleHandler
    *   The module handler.
    * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
-   *   The configuration object factory.
+   *   The config factory.
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
    *   The entity type manager.
    * @param \Drupal\Core\Entity\EntityFieldManagerInterface $entityFieldManager
@@ -478,6 +478,7 @@ class SchemaDotOrgMappingManager implements SchemaDotOrgMappingManagerInterface 
     $defaults['machine_name'] = $default_field['name'];
     $defaults['unlimited'] = $default_field['unlimited'];
     $defaults['required'] = $default_field['required'];
+    $defaults['copy'] = $default_field['copy'];
     $defaults['description'] = $this->schemaTypeBuilder->formatComment(
       $default_field['description'],
       ['base_path' => 'https://schema.org/']

@@ -4,12 +4,34 @@ declare(strict_types=1);
 
 namespace Drupal\schemadotorg_report\Controller;
 
+use Drupal\Core\Controller\ControllerBase;
+use Drupal\Core\Database\Connection;
 use Drupal\Core\Url;
+use Drupal\schemadotorg\SchemaDotOrgSchemaTypeBuilderInterface;
+use Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface;
+use Drupal\schemadotorg_report\Traits\SchemaDotOrgReportBuildTrait;
 
 /**
  * Returns responses for Schema.org report references routes.
  */
-class SchemaDotOrgReportReferencesController extends SchemaDotOrgReportControllerBase {
+class SchemaDotOrgReportReferencesController extends ControllerBase {
+  use SchemaDotOrgReportBuildTrait;
+
+  /**
+   * Constructs a SchemaDotOrgReportReferencesController object.
+   *
+   * @param \Drupal\Core\Database\Connection $database
+   *   The database connection.
+   * @param \Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager
+   *   The Schema.org schema type manager.
+   * @param \Drupal\schemadotorg\SchemaDotOrgSchemaTypeBuilderInterface $schemaTypeBuilder
+   *   The Schema.org schema type builder.
+   */
+  public function __construct(
+    protected Connection $database,
+    protected SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager,
+    protected SchemaDotOrgSchemaTypeBuilderInterface $schemaTypeBuilder,
+  ) {}
 
   /**
    * Builds the Schema.org references.

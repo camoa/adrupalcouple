@@ -7,7 +7,6 @@ use Drupal\Core\Field\FieldItemInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Link;
 use Drupal\Core\Url;
-use Drupal\custom_field\Plugin\CustomFieldTypeInterface;
 use Drupal\file\FileInterface;
 use Drupal\image\Entity\ImageStyle;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -69,7 +68,7 @@ class ImageFormatter extends EntityReferenceFormatterBase {
   /**
    * {@inheritdoc}
    */
-  public static function defaultSettings() {
+  public static function defaultSettings(): array {
     return [
       'image_style' => '',
       'image_link' => '',
@@ -82,9 +81,8 @@ class ImageFormatter extends EntityReferenceFormatterBase {
   /**
    * {@inheritdoc}
    */
-  public function settingsForm(array $form, FormStateInterface $form_state, array $settings) {
-    $element = parent::settingsForm($form, $form_state, $settings);
-    $settings += static::defaultSettings();
+  public function settingsForm(array $form, FormStateInterface $form_state): array {
+    $element = parent::settingsForm($form, $form_state);
     $image_styles = image_style_options(FALSE);
     $description_link = Link::fromTextAndUrl(
       $this->t('Configure Image Styles'),
@@ -93,7 +91,7 @@ class ImageFormatter extends EntityReferenceFormatterBase {
     $element['image_style'] = [
       '#title' => $this->t('Image style'),
       '#type' => 'select',
-      '#default_value' => $settings['image_style'],
+      '#default_value' => $this->getSetting('image_style'),
       '#empty_option' => $this->t('None (original image)'),
       '#options' => $image_styles,
       '#description' => $description_link->toRenderable() + [
@@ -107,12 +105,12 @@ class ImageFormatter extends EntityReferenceFormatterBase {
     $element['image_link'] = [
       '#title' => $this->t('Link image to'),
       '#type' => 'select',
-      '#default_value' => $settings['image_link'],
+      '#default_value' => $this->getSetting('image_link'),
       '#empty_option' => $this->t('Nothing'),
       '#options' => $link_types,
     ];
 
-    $image_loading = $settings['image_loading'];
+    $image_loading = $this->getSetting('image_loading');
     $element['image_loading'] = [
       '#type' => 'details',
       '#title' => $this->t('Image loading'),
@@ -141,21 +139,19 @@ class ImageFormatter extends EntityReferenceFormatterBase {
   /**
    * {@inheritdoc}
    */
-  public function formatValue(FieldItemInterface $item, CustomFieldTypeInterface $field, array $settings) {
-    $image = $settings['value'];
+  public function formatValue(FieldItemInterface $item, $value) {
 
-    if (!$image instanceof FileInterface) {
+    if (!$value instanceof FileInterface) {
       return NULL;
     }
 
-    $access = $this->checkAccess($image);
+    $access = $this->checkAccess($value);
     if (!$access->isAllowed()) {
       return NULL;
     }
 
     $url = NULL;
-    $formatter_settings = $settings['formatter_settings'] + static::defaultSettings();
-    $image_link_setting = $formatter_settings['image_link'];
+    $image_link_setting = $this->getSetting('image_link');
     // Check if the formatter involves a link.
     if ($image_link_setting == 'content') {
       $entity = $item->getEntity();
@@ -164,11 +160,11 @@ class ImageFormatter extends EntityReferenceFormatterBase {
       }
     }
     elseif ($image_link_setting == 'file') {
-      $image_uri = $image->getFileUri();
+      $image_uri = $value->getFileUri();
       $url = $this->fileUrlGenerator->generate($image_uri);
     }
 
-    $image_style_setting = $formatter_settings['image_style'];
+    $image_style_setting = $this->getSetting('image_style');
 
     // Collect cache tags to be added for each item in the field.
     $base_cache_tags = [];
@@ -178,18 +174,18 @@ class ImageFormatter extends EntityReferenceFormatterBase {
       $base_cache_tags = $image_style->getCacheTags();
     }
 
-    $cache_tags = Cache::mergeTags($base_cache_tags, $image->getCacheTags());
-    $image_loading_settings = $formatter_settings['image_loading'];
+    $cache_tags = Cache::mergeTags($base_cache_tags, $value->getCacheTags());
+    $image_loading_settings = $this->getSetting('image_loading');
     $item_attributes['loading'] = $image_loading_settings['attribute'];
 
     /** @var \Drupal\custom_field\Plugin\DataType\CustomFieldImage $instance */
-    $instance = $this->typedDataManager->getPropertyInstance($item, $field->getName());
+    $instance = $this->typedDataManager->getPropertyInstance($item, $this->customFieldDefinition->getName());
 
     $build_item = (object) [
       'title' => $instance->getTitle(),
       'alt' => $instance->getAlt(),
-      'entity' => $image,
-      'uri' => $image->getFileUri(),
+      'entity' => $value,
+      'uri' => $value->getFileUri(),
       'width' => $instance->getWidth(),
       'height' => $instance->getHeight(),
     ];

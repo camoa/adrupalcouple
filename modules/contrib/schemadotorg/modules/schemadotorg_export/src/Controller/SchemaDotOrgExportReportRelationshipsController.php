@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Drupal\schemadotorg_export\Controller;
 
 use Drupal\Component\Utility\NestedArray;
+use Drupal\Core\Controller\ControllerBase;
 use Drupal\schemadotorg_report\Controller\SchemaDotOrgReportRelationshipsController;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,7 +14,7 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 /**
  * Returns responses for Schema.org relationships export.
  */
-class SchemaDotOrgExportReportRelationshipsController extends SchemaDotOrgExportMappingDefaultBaseController {
+class SchemaDotOrgExportReportRelationshipsController extends ControllerBase {
 
   /**
    * The Schema.org report relationships controller.

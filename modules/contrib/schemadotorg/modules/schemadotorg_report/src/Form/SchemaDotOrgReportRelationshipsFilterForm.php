@@ -29,7 +29,7 @@ class SchemaDotOrgReportRelationshipsFilterForm extends FormBase {
   protected EntityFieldManagerInterface $entityFieldManager;
 
   /**
-   * The Schema.org type manager.
+   * The Schema.org schema type manager.
    */
   protected SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager;
 

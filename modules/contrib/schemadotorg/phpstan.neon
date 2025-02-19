@@ -95,7 +95,7 @@ parameters:
 
       - message: "#^Access to an undefined property Drupal\\\\physical\\\\Plugin\\\\Field\\\\FieldType\\\\(Measurement|Dimensions)Item\\:\\:\\$(number|unit|height|width|length)\\.$#"
         count: 6
-        path: modules/schemadotorg_physical/schemadotorg_physical.module
+        path: modules/schemadotorg_physical/src/SchemaDotOrgPhysicalJsonLdManager.php
 
       ##########################################################################
       # Fields.

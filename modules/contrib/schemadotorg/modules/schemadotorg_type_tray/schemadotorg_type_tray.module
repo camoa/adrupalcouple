@@ -11,7 +11,7 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\schemadotorg\SchemaDotOrgMappingInterface;
 
 /**
- * Implements hook_schemadotorg_mapping_insert().
+ * Implements hook_ENTITY_TYPE_insert().
  */
 function schemadotorg_type_tray_schemadotorg_mapping_insert(SchemaDotOrgMappingInterface $mapping): void {
   /** @var \Drupal\schemadotorg_type_tray\SchemaDotOrgTypeTrayManagerInterface $type_tray_manager */
@@ -40,6 +40,8 @@ function schemadotorg_type_tray_form_schemadotorg_types_settings_form_alter(arra
     '#title' => t('Existing content link text'),
     '#description' => t('Indicate the text to use when building a link to allow quick access to all nodes of a given type, such as "View existing %type_label content". Leave this empty to not display a link to existing content.'),
   ];
+
+  $form['schemadotorg_type_tray']['apply'] = [];
 
   // Add submit callback.
   $form['#submit'][] = 'schemadotorg_type_tray_settings_form_submit';

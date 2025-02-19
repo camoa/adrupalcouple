@@ -4,29 +4,37 @@ declare(strict_types=1);
 
 namespace Drupal\schemadotorg_export\Controller;
 
+use Drupal\Core\Controller\ControllerBase;
+use Drupal\schemadotorg\SchemaDotOrgMappingManagerInterface;
+use Drupal\schemadotorg\SchemaDotOrgNamesInterface;
+use Drupal\schemadotorg\Traits\SchemaDotOrgMappingStorageTrait;
+use Drupal\schemadotorg_export\Traits\SchemaDotOrgExportTrait;
 use Drupal\schemadotorg_mapping_set\SchemaDotOrgMappingSetManagerInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Returns responses for Schema.org mapping set export.
  */
-class SchemaDotOrgExportMappingSetController extends SchemaDotOrgExportMappingDefaultBaseController {
+class SchemaDotOrgExportMappingSetController extends ControllerBase {
+  use SchemaDotOrgMappingStorageTrait;
+  use SchemaDotOrgExportTrait;
 
   /**
-   * The Schema.org mapping set manager service.
+   * Constructs a SchemaDotOrgExportMappingSetController object.
+   *
+   * @param \Drupal\schemadotorg\SchemaDotOrgNamesInterface $schemaNames
+   *   The Schema.org names service.
+   * @param \Drupal\schemadotorg\SchemaDotOrgMappingManagerInterface $schemaMappingManager
+   *   The Schema.org mapping manager.
+   * @param \Drupal\schemadotorg_mapping_set\SchemaDotOrgMappingSetManagerInterface $schemaMappingSetManager
+   *   The Schema.org mapping set manager.
    */
-  protected SchemaDotOrgMappingSetManagerInterface $schemaMappingSetManager;
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function create(ContainerInterface $container): static {
-    $instance = parent::create($container);
-    $instance->schemaMappingSetManager = $container->get('schemadotorg_mapping_set.manager');
-    return $instance;
-  }
+  public function __construct(
+    protected SchemaDotOrgNamesInterface $schemaNames,
+    protected SchemaDotOrgMappingManagerInterface $schemaMappingManager,
+    protected SchemaDotOrgMappingSetManagerInterface $schemaMappingSetManager,
+  ) {}
 
   /**
    * Returns response for Schema.org mapping set CSV export request.

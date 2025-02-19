@@ -48,54 +48,12 @@ function schemadotorg_node_local_tasks_alter(array &$local_tasks): void {
 }
 
 /**
- * Implements hook_schemadotorg_mapping_insert().
+ * Implements hook_ENTITY_TYPE_insert().
  */
 function schemadotorg_node_schemadotorg_mapping_insert(SchemaDotOrgMappingInterface $mapping): void {
-  if ($mapping->isSyncing()) {
-    return;
-  }
-
-  $entity_type_id = $mapping->getTargetEntityTypeId();
-  if ($entity_type_id !== 'node') {
-    return;
-  }
-
-  /** @var \Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface $schema_type_manager */
-  $schema_type_manager = \Drupal::service('schemadotorg.schema_type_manager');
-
-  /** @var \Drupal\node\NodeTypeInterface $node_type */
-  $node_type = $mapping->getTargetEntityBundleEntity();
-
-  $config = \Drupal::config('schemadotorg_node.settings');
-  $parts = [
-    'schema_type' => $mapping->getSchemaType(),
-    'bundle' => $mapping->getTargetBundle(),
-  ];
-  $node_type_updated = FALSE;
-
-  // Set display author and date information.
-  $display_submitted = $schema_type_manager->getSetting($config->get('display_submitted'), $parts);
-  if (!is_null($display_submitted)) {
-    $node_type->setDisplaySubmitted($display_submitted);
-    $node_type_updated = TRUE;
-  }
-
-  // Set menu settings.
-  $menu_ui = $schema_type_manager->getSetting($config->get('menu_ui'), $parts);
-  if ($menu_ui && \Drupal::moduleHandler()->moduleExists('menu_ui')) {
-    if (isset($menu_ui['available_menus'])) {
-      $node_type->setThirdPartySetting('menu_ui', 'available_menus', $menu_ui['available_menus']);
-    }
-    if (isset($menu_ui['parent'])) {
-      $node_type->setThirdPartySetting('menu_ui', 'parent', $menu_ui['parent']);
-    }
-    $node_type_updated = TRUE;
-  }
-
-  // If the node type has been update, resave it.
-  if ($node_type_updated) {
-    $node_type->save();
-  }
+  /** @var \Drupal\schemadotorg_node\SchemaDotOrgNodeManagerInterface $schemadotorg_node_manager */
+  $schemadotorg_node_manager = \Drupal::service('schemadotorg_node.manager');
+  $schemadotorg_node_manager->mappingInsert($mapping);
 }
 
 /* ************************************************************************** */
@@ -138,4 +96,7 @@ bundle:
   parent: ''
 ",
   ];
+
+  $form['schemadotorg_node']['apply'] = [];
+
 }

@@ -38,7 +38,7 @@ body.gin--core-navigation {
   }
 }
 
-.admin-toolbar {
+[data-drupal-admin-styles] {
   --admin-toolbar-font-family: var(--gin-font);
   --admin-toolbar-color-white: var(--gin-bg-layer);
   --admin-toolbar-color-gray-050: var(--gin-bg-layer2);
@@ -54,6 +54,10 @@ body.gin--core-navigation {
   inset-block-start: 0;
 }
 
+.gin--core-navigation .admin-toolbar-control-bar {
+  background-color: var(--admin-toolbar-color-white);
+}
+
 .gin--core-navigation .gin-secondary-toolbar:not(.gin-secondary-toolbar--frontend) {
   margin-block-end: var(--gin-spacing-xxs);
 }
@@ -65,6 +69,11 @@ body.gin--core-navigation {
 
 .toolbar-menu__link:hover::before {
   inline-size: var(--gin-spacing-xxs);
+}
+
+.admin-toolbar {
+  top: 0;
+  height: 100%;
 }
 
 .admin-toolbar__header {
@@ -409,6 +418,10 @@ body.gin--core-navigation {
   --icon: url("../../media/sprite.svg#close-view");
 }
 
+.toolbar-button--icon--navigation-trash {
+  --icon: url("../../media/sprite.svg#trash-module-view");
+}
+
 #navigation-link-navigationcreate:first-child {
   margin-block-end: var(--admin-toolbar-space-8);
 }
@@ -451,9 +464,8 @@ body.gin--core-navigation {
   display: none;
 }
 
-#navigation-block-shortcuts,
-#toolbar-item-announcement,
-.toolbar-block:has(.admin-toolbar__item:first-of-type:last-of-type > #menu--shortcuts) {
+#toolbar-item-shortcuts,
+#toolbar-item-announcement {
   display: none;
 }
 

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Drupal\schemadotorg_custom_field;
 
 use Drupal\Core\Field\FieldItemInterface;
+use Drupal\Core\Render\BubbleableMetadata;
 
 /**
  * Schema.org Custom Field JSON-LD interface.
@@ -20,7 +21,11 @@ interface SchemaDotOrgCustomFieldJsonLdManagerInterface {
    *   Alter the Schema.org property JSON-LD value.
    * @param \Drupal\Core\Field\FieldItemInterface $item
    *   The entity's field item.
+   * @param \Drupal\Core\Render\BubbleableMetadata $bubbleable_metadata
+   *   Object to collect JSON-LD's bubbleable metadata.
+   *
+   * @see hook_schemadotorg_jsonld_schema_property_alter()
    */
-  public function jsonLdSchemaPropertyAlter(mixed &$value, FieldItemInterface $item): void;
+  public function schemaPropertyAlter(mixed &$value, FieldItemInterface $item, BubbleableMetadata $bubbleable_metadata): void;
 
 }

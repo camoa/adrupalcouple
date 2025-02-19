@@ -13,11 +13,9 @@ default_schema_properties:
       contactType:
         data_type: string
         allowed_values:
-          office: Office
-          laboratory: Laboratory
-          appointments: Appointments
           mobile: Mobile
-          fax: Fax
+          home: Home
+          work: Work
       telephone:
         data_type: string
       email:

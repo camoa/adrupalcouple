@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\schemadotorg_entity_reference_override\Kernel;
 
-use Drupal\Tests\schemadotorg\Kernel\SchemaDotOrgEntityKernelTestBase;
 use Drupal\field\Entity\FieldConfig;
+use Drupal\Tests\schemadotorg\Kernel\SchemaDotOrgEntityKernelTestBase;
 
 /**
  * Tests the functionality of the Schema.org entity reference override.
+ *
+ * @group schemadotorg
  */
 class SchemaDotOrgEntityReferenceOverrideKernelTest extends SchemaDotOrgEntityKernelTestBase {
 

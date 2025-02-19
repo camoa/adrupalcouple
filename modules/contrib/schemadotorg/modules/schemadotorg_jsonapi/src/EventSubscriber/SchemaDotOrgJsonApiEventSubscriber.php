@@ -10,7 +10,7 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\Url;
-use Drupal\jsonapi_extras\ResourceType\ConfigurableResourceTypeRepository;
+use Drupal\jsonapi\ResourceType\ResourceTypeRepositoryInterface;
 use Drupal\schemadotorg_jsonapi\SchemaDotOrgJsonApiManagerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\ViewEvent;
@@ -28,12 +28,12 @@ class SchemaDotOrgJsonApiEventSubscriber extends ServiceProviderBase implements 
    * Constructs a SchemaDotOrgJsonApiEventSubscriber object.
    *
    * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
-   *   The configuration object factory.
+   *   The config factory.
    * @param \Drupal\Core\Routing\RouteMatchInterface $routeMatch
    *   The current route match.
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
    *   The entity type manager.
-   * @param \Drupal\jsonapi_extras\ResourceType\ConfigurableResourceTypeRepository $resourceTypeRepository
+   * @param \Drupal\jsonapi\ResourceType\ResourceTypeRepositoryInterface $resourceTypeRepository
    *   The JSON:API configurable resource type repository.
    * @param \Drupal\schemadotorg_jsonapi\SchemaDotOrgJsonApiManagerInterface $schemaJsonApiManager
    *   The Schema.org JSON:API manager.
@@ -42,7 +42,7 @@ class SchemaDotOrgJsonApiEventSubscriber extends ServiceProviderBase implements 
     protected ConfigFactoryInterface $configFactory,
     protected RouteMatchInterface $routeMatch,
     protected EntityTypeManagerInterface $entityTypeManager,
-    protected ConfigurableResourceTypeRepository $resourceTypeRepository,
+    protected ResourceTypeRepositoryInterface $resourceTypeRepository,
     protected SchemaDotOrgJsonApiManagerInterface $schemaJsonApiManager,
   ) {}
 

@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Drupal\schemadotorg_content_model_documentation;
 
+use Drupal\content_model_documentation\Entity\CMDocumentInterface;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityDisplayRepositoryInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Session\AccountProxyInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
-use Drupal\content_model_documentation\Entity\CMDocumentInterface;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\schemadotorg\SchemaDotOrgMappingInterface;
@@ -21,7 +21,7 @@ use Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
- * Schema.org Content Model Documentation manager service.
+ * Schema.org Content Model Documentation manager.
  */
 class SchemaDotOrgContentModelDocumentationManager implements SchemaDotOrgContentModelDocumentationManagerInterface {
   use StringTranslationTrait;
@@ -32,7 +32,7 @@ class SchemaDotOrgContentModelDocumentationManager implements SchemaDotOrgConten
    * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
    *   The request stack.
    * @param \Drupal\Core\Extension\ModuleHandlerInterface $moduleHandler
-   *   The module handler service.
+   *   The module handler.
    * @param \Drupal\Core\Session\AccountProxyInterface $currentUser
    *   The current user.
    * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
@@ -44,7 +44,7 @@ class SchemaDotOrgContentModelDocumentationManager implements SchemaDotOrgConten
    * @param \Drupal\schemadotorg\SchemaDotOrgNamesInterface $schemaNames
    *   The Schema.org names.
    * @param \Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager
-   *   The Schema.org type manager.
+   *   The Schema.org schema type manager.
    * @param \Drupal\schemadotorg\SchemaDotOrgSchemaTypeBuilderInterface $schemaTypeBuilder
    *   The Schema.org type builder.
    */

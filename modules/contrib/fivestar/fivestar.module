@@ -5,98 +5,28 @@
  * A simple n-star voting widget, usable in other forms.
  */
 
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Hook\Attribute\LegacyHook;
 use Drupal\Core\Routing\RouteMatchInterface;
-use Drupal\Core\Template\Attribute;
+use Drupal\fivestar\Hook\FivestarFivestarHooks;
+use Drupal\fivestar\Hook\FivestarFormHooks;
+use Drupal\fivestar\Hook\FivestarHelpHooks;
+use Drupal\fivestar\Hook\FivestarRenderHooks;
 
 /**
  * Implements hook_help().
  */
+#[LegacyHook]
 function fivestar_help($route_name, RouteMatchInterface $route_match) {
-  switch ($route_name) {
-    case 'help.page.fivestar':
-      $output = '<h3>' . t('About') . '</h3>';
-      $output .= '<p>' . t('The Fivestar voting module is a very simple rating module that provides the possibility to rate items with stars or similar items. This gives you the possibilities to rate various items or even to create online forms for evaluations and assessments with different questions to be answered. For more information, see the <a href=":online">online documentation for the Fivestar module</a>.', [':online' => 'https://www.drupal.org/documentation/modules/fivestar']) . '</p>';
-      $output .= '<h3>' . t('Uses') . '</h3>';
-      $output .= '<dl>';
-      $output .= '<dt>' . t('General') . '</dt>';
-      $output .= '<dd>' . t("The Fivestar module can be used to easily rate various types of content on your website. These ratings can be used on the content itself or even from the comments of that piece of content.") . '</dd>';
-      $output .= '<dt>' . t('Basic Concepts and Features') . '</dt>';
-      $output .= '<dd>' . t('Fivestar is an excellent voting widget first made available for use on Drupal 5 websites. The D5 module included the ability to create a voting widget for nodes. With Drupal 6 came the ability to add comments. And with Drupal 7, the web developer was given the ability to create the voting widget with any entity.') . '</dd>';
-      $output .= '</dl>';
-      return $output;
-  }
-}
-
-/**
- * Implements hook_microdata_suggestions().
- */
-function fivestar_microdata_suggestions() {
-  $mappings = [];
-
-  // Add the review mapping for Schema.org.
-  $mappings['fields']['fivestar']['schema.org'] = [
-    '#itemprop' => ['aggregateRating'],
-    '#is_item' => TRUE,
-    '#itemtype' => ['http://schema.org/AggregateRating'],
-    'average_rating' => [
-      '#itemprop' => ['ratingValue'],
-    ],
-    'rating_count' => [
-      '#itemprop' => ['ratingCount'],
-    ],
-  ];
-
-  return $mappings;
+  return \Drupal::service(FivestarHelpHooks::class)->help($route_name, $route_match);
 }
 
 /**
  * Implements hook_theme().
  */
+#[LegacyHook]
 function fivestar_theme() {
-  return [
-    'fivestar_static' => [
-      'variables' => [
-        'rating' => NULL,
-        'stars' => 5,
-        'vote_type' => 'vote',
-        'widget' => ['name' => 'default', 'css' => ''],
-      ],
-    ],
-    'fivestar_static_element' => [
-      'variables' => [
-        'star_display' => NULL,
-        'title' => NULL,
-        'description' => NULL,
-      ],
-    ],
-    'fivestar_summary' => [
-      'variables' => [
-        'user_rating' => NULL,
-        'average_rating' => NULL,
-        'votes' => 0,
-        'stars' => 5,
-        'microdata' => [],
-      ],
-    ],
-    // This is dead code in Drupal 10.
-    'fivestar_preview' => [
-      'function' => 'theme_fivestar_preview',
-      'variables' => [
-        'style' => NULL,
-        'text' => NULL,
-        'stars' => NULL,
-        'unvote' => NULL,
-        'title' => NULL,
-      ],
-      'file' => 'includes/fivestar.theme.inc',
-    ],
-    'fivestar_formatter_rating' => [
-      'render element' => 'element',
-    ],
-    'fivestar_formatter_percentage' => [
-      'render element' => 'element',
-    ],
-  ];
+  return \Drupal::service(FivestarRenderHooks::class)->theme();
 }
 
 /**
@@ -127,88 +57,25 @@ function fivestar_fivestar_access($entity_type, $id, $vote_type, $uid) {
  * "Save" button after the preview page has been displayed, the fivestar widget
  * gets the input rather than the comment; the user's input is lost.
  */
-function fivestar_form_comment_form_alter(&$form, &$form_state, $form_id) {
-  $fivestar_field_keys = [];
-  if (isset($form['comment_output_below'])) {
-    foreach ($form['comment_output_below'] as $key => $value) {
-      if (is_array($value) && !empty($value['#field_type']) && $value['#field_type'] == 'fivestar') {
-        $fivestar_field_keys[] = $key;
-      }
-    }
-  }
-  if ($fivestar_field_keys) {
-    foreach ($fivestar_field_keys as $key) {
-      unset($form['comment_output_below'][$key]);
-    }
-  }
+#[LegacyHook]
+function fivestar_form_comment_form_alter(array &$form, FormStateInterface $form_state, $form_id) {
+  \Drupal::service(FivestarFormHooks::class)->commentFormAlter($form, $form_state, $form_id);
 }
 
 /**
  * Implements hook_form_FORM_ID_alter().
  */
-function fivestar_form_field_ui_field_edit_form_alter(&$form, $form_state) {
-  /** @var Drupal\field\FieldStorageConfigInterface $field */
-  $field = $form['#field'];
-  if ($field->getType() == 'fivestar') {
-    // Multiple values is not supported with Fivestar.
-    $form['field']['cardinality']['#access'] = FALSE;
-    $form['field']['cardinality']['#value'] = 1;
-    // Setting "default value" here is confusing and for all practical purposes
-    // meaningless with existing widgets provided by fivestar (and anything else
-    // available in contrib).
-    $form['instance']['default_value_widget']['#access'] = FALSE;
-  }
+#[LegacyHook]
+function fivestar_form_field_ui_field_edit_form_alter(array &$form, FormStateInterface $form_state) {
+  \Drupal::service(FivestarFormHooks::class)->fieldUiFieldEditFormAlter($form, $form_state);
 }
 
 /**
  * Implements hook_fivestar_widgets().
  */
+#[LegacyHook]
 function fivestar_fivestar_widgets() {
-  // Widgets defined by the core Fivestar module.
-  $widgets = [
-    'basic' => [
-      'library' => 'fivestar/basic',
-      'label' => t('Basic'),
-    ],
-    'craft' => [
-      'library' => 'fivestar/craft',
-      'label' => t('Craft'),
-    ],
-    'drupal' => [
-      'library' => 'fivestar/drupal',
-      'label' => t('Drupal'),
-    ],
-    'flames' => [
-      'library' => 'fivestar/flames',
-      'label' => t('Flames'),
-    ],
-    'hearts' => [
-      'library' => 'fivestar/hearts',
-      'label' => t('Hearts'),
-    ],
-    'lullabot' => [
-      'library' => 'fivestar/lullabot',
-      'label' => t('Lullabot'),
-    ],
-    'minimal' => [
-      'library' => 'fivestar/minimal',
-      'label' => t('Minimal'),
-    ],
-    'outline' => [
-      'library' => 'fivestar/outline',
-      'label' => t('Outline'),
-    ],
-    'oxygen' => [
-      'library' => 'fivestar/oxygen',
-      'label' => t('Oxygen'),
-    ],
-    'small' => [
-      'library' => 'fivestar/small',
-      'label' => t('Small'),
-    ],
-  ];
-
-  return $widgets;
+  return \Drupal::service(FivestarFivestarHooks::class)->fivestarWidgets();
 }
 
 /**
@@ -313,9 +180,6 @@ function template_preprocess_fivestar_summary(array &$variables) {
   $show_user_rating = $user_rating !== NULL;
   $show_average_rating = $average_rating !== NULL;
 
-  $variables['average_rating_microdata'] = '';
-  $variables['rating_count_microdata'] = '';
-
   if ($show_user_rating) {
     $output_type = $show_votes ? 'user-count' : 'user';
     if ($user_rating > 0) {
@@ -335,19 +199,11 @@ function template_preprocess_fivestar_summary(array &$variables) {
     }
 
     $variables['average_stars'] = round(($average_rating * $stars_number) / 100, 1);
-    if (!empty($variables['microdata']['average_rating']['#attributes'])) {
-      $variables['average_rating_microdata'] = new Attribute($variables['microdata']['average_rating']['#attributes']);
-    }
   }
 
   if ($show_votes) {
     if (!$show_user_rating && !$show_average_rating) {
       $output_type = 'count';
-    }
-    if ($votes > 0) {
-      if (!empty($variables['microdata']['rating_count']['#attributes'])) {
-        $variables['rating_count_microdata'] = new Attribute($variables['microdata']['rating_count']['#attributes']);
-      }
     }
   }
   $variables['output_type'] = $output_type ?? '';

@@ -18,10 +18,6 @@ use Drupal\schemadotorg\SchemaDotOrgMappingInterface;
  * Implements hook_ENTITY_TYPE_presave().
  */
 function schemadotorg_paragraphs_schemadotorg_mapping_presave(SchemaDotOrgMappingInterface $mapping): void {
-  if ($mapping->isSyncing()) {
-    return;
-  }
-
   /** @var \Drupal\schemadotorg_paragraphs\SchemaDotOrgParagraphsManagerInterface $schema_paragraphs_manager */
   $schema_paragraphs_manager = \Drupal::service('schemadotorg_paragraphs.manager');
   $schema_paragraphs_manager->mappingPresave($mapping);
@@ -97,7 +93,7 @@ function schemadotorg_paragraphs_paragraphs_type_presave(ParagraphsTypeInterface
 function schemadotorg_paragraphs_schemadotorg_jsonld_schema_property_alter(mixed &$value, FieldItemInterface $item, BubbleableMetadata $bubbleable_metadata): void {
   /** @var \Drupal\schemadotorg_paragraphs\SchemaDotOrgParagraphsJsonLdManager $schema_paragraphs_jsonld_manager */
   $schema_paragraphs_jsonld_manager = \Drupal::service('schemadotorg_paragraphs.jsonld_manager');
-  $schema_paragraphs_jsonld_manager->jsonldSchemaPropertyAlter($value, $item, $bubbleable_metadata);
+  $schema_paragraphs_jsonld_manager->schemaPropertyAlter($value, $item, $bubbleable_metadata);
 }
 
 /* ************************************************************************** */

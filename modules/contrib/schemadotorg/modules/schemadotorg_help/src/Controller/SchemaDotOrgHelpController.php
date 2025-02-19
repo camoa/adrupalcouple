@@ -13,7 +13,6 @@ use Drupal\Core\Extension\ExtensionPathResolver;
 use Drupal\Core\Extension\ModuleExtensionList;
 use Drupal\Core\Url;
 use Drupal\schemadotorg\Utility\SchemaDotOrgHtmlHelper;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Controller routines for Schema.org Blueprints help routes.
@@ -21,24 +20,17 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class SchemaDotOrgHelpController extends ControllerBase {
 
   /**
-   * Module extension list.
+   * Constructs a SchemaDotOrgHelpController object.
+   *
+   * @param \Drupal\Core\Extension\ModuleExtensionList $moduleExtensionList
+   *   Module extension list.
+   * @param \Drupal\Core\Extension\ExtensionPathResolver $extensionPathResolver
+   *   The extension path resolver.
    */
-  protected ModuleExtensionList $moduleExtensionList;
-
-  /**
-   * The extension path resolver.
-   */
-  protected ExtensionPathResolver $extensionPathResolver;
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function create(ContainerInterface $container): static {
-    $instance = parent::create($container);
-    $instance->moduleExtensionList = $container->get('extension.list.module');
-    $instance->extensionPathResolver = $container->get('extension.path.resolver');
-    return $instance;
-  }
+  public function __construct(
+    protected ModuleExtensionList $moduleExtensionList,
+    protected ExtensionPathResolver $extensionPathResolver,
+  ) {}
 
   /**
    * Prints a page listing general help for a module.

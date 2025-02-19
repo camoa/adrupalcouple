@@ -48,7 +48,6 @@ class CustomInlineFormatter extends BaseFormatter {
         'data-id' => $id,
       ],
     ];
-
     $form['label_separator'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Label separator'),
@@ -59,12 +58,16 @@ class CustomInlineFormatter extends BaseFormatter {
         ],
       ],
     ];
-
     $form['item_separator'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Item separator'),
       '#default_value' => $this->getSetting('item_separator'),
     ];
+    foreach ($this->getCustomFieldItems() as $name => $item) {
+      // Remove non-applicable settings.
+      unset($form['fields'][$name]['formatter_settings']['label_display']);
+      unset($form['fields'][$name]['wrappers']);
+    }
 
     return $form;
   }
@@ -85,17 +88,11 @@ class CustomInlineFormatter extends BaseFormatter {
   }
 
   /**
-   * Generate the output appropriate for one field item.
-   *
-   * @param \Drupal\Core\Field\FieldItemInterface $item
-   *   One field item.
-   *
-   * @return array
-   *   The textual output generated.
+   * {@inheritdoc}
    */
-  protected function viewValue(FieldItemInterface $item): array {
+  public function viewValue(FieldItemInterface $item, string $langcode): array {
     $output = [];
-    $values = $this->getFormattedValues($item, $item->getLangcode());
+    $values = $this->getFormattedValues($item, $langcode);
 
     foreach ($values as $value) {
       // Skip 'map' custom field types.

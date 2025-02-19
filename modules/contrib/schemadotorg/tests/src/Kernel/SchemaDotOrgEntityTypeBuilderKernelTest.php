@@ -13,7 +13,7 @@ use Drupal\schemadotorg\SchemaDotOrgEntityFieldManagerInterface;
 use Drupal\schemadotorg\SchemaDotOrgEntityTypeBuilderInterface;
 
 /**
- * Tests the Schema.org entity type builder service.
+ * Tests the Schema.org entity type builder.
  *
  * @coversClass \Drupal\schemadotorg\SchemaDotOrgEntityTypeBuilder
  * @group schemadotorg
@@ -59,6 +59,10 @@ class SchemaDotOrgEntityTypeBuilderKernelTest extends SchemaDotOrgEntityKernelTe
       'label' => 'Custom',
       'targetEntityType' => 'node',
     ])->save();
+
+    // Allow image field value, formatter, and widget to be copied.
+    // @see \Drupal\schemadotorg\SchemaDotOrgEntityTypeBuilder::copyExistingFieldValues
+    $this->config('schemadotorg.settings')->set('schema_properties.default_fields.image.copy', TRUE)->save();
   }
 
   /**
@@ -193,6 +197,28 @@ class SchemaDotOrgEntityTypeBuilderKernelTest extends SchemaDotOrgEntityKernelTe
     $view_component = $this->entityDisplayRepository->getViewDisplay('node', 'thing', 'default')
       ->getComponent('schema_image');
     $this->assertEquals('hidden', $view_component['label']);
+
+    // Hide the image field from the view display.
+    $view_display = $this->entityDisplayRepository->getViewDisplay('node', 'thing', 'default');
+    $view_display->removeComponent('schema_image');
+    $view_display->save();
+    $expected_hidden_components = [
+      'schema_image' => TRUE,
+      'langcode' => TRUE,
+    ];
+    $this->assertEquals($expected_hidden_components, $view_display->get('hidden'));
+
+    // Create another_thing with an image.
+    $defaults = [
+      'entity' => ['id' => 'another_thing'],
+      'properties' => ['image' => TRUE],
+    ];
+    $this->createSchemaEntity('node', 'Thing', $defaults);
+
+    // Check that the another_thing has copied the thing's image
+    // default settings and the image field is hidden from the view display.
+    $view_display = $this->entityDisplayRepository->getViewDisplay('node', 'another_thing', 'default');
+    $this->assertEquals($expected_hidden_components, $view_display->get('hidden'));
 
     // Check adding a additionalType field to an entity.
     $field = [

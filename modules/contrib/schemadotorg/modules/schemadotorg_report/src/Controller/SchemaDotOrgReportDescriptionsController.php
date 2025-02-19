@@ -4,29 +4,39 @@ declare(strict_types=1);
 
 namespace Drupal\schemadotorg_report\Controller;
 
+use Drupal\Core\Controller\ControllerBase;
+use Drupal\Core\Database\Connection;
 use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\schemadotorg\SchemaDotOrgSchemaTypeBuilderInterface;
+use Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface;
 use Drupal\schemadotorg\Utility\SchemaDotOrgStringHelper;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\schemadotorg_report\Traits\SchemaDotOrgReportBuildTrait;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Returns responses for Schema.org report descriptions routes.
  */
-class SchemaDotOrgReportDescriptionsController extends SchemaDotOrgReportControllerBase {
+class SchemaDotOrgReportDescriptionsController extends ControllerBase {
+  use SchemaDotOrgReportBuildTrait;
 
   /**
-   * The route match.
+   * Constructs a SchemaDotOrgReportDescriptionsController object.
+   *
+   * @param \Drupal\Core\Database\Connection $database
+   *   The database connection.
+   * @param \Drupal\Core\Routing\RouteMatchInterface $routeMatch
+   *   The route match.
+   * @param \Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager
+   *   The Schema.org schema type manager.
+   * @param \Drupal\schemadotorg\SchemaDotOrgSchemaTypeBuilderInterface $schemaTypeBuilder
+   *   The Schema.org schema type builder.
    */
-  protected RouteMatchInterface $routeMatch;
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function create(ContainerInterface $container): static {
-    $instance = parent::create($container);
-    $instance->routeMatch = $container->get('current_route_match');
-    return $instance;
-  }
+  public function __construct(
+    protected Connection $database,
+    protected RouteMatchInterface $routeMatch,
+    protected SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager,
+    protected SchemaDotOrgSchemaTypeBuilderInterface $schemaTypeBuilder,
+  ) {}
 
   /**
    * Builds the Schema.org types or properties descriptions.
@@ -124,7 +134,7 @@ class SchemaDotOrgReportDescriptionsController extends SchemaDotOrgReportControl
       '@type' => ($table === 'types') ? $this->t('types') : $this->t('properties'),
     ];
 
-    $build = parent::buildHeader($table);
+    $build = $this->buildHeader($table);
 
     $build['info'] = $this->buildInfo($table, $count);
     $build['table'] = [

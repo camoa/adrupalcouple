@@ -25,16 +25,15 @@ class DecimalFormatter extends NumericFormatterBase {
   /**
    * {@inheritdoc}
    */
-  public function settingsForm(array $form, FormStateInterface $form_state, array $settings) {
-    $elements = parent::settingsForm($form, $form_state, $settings);
-    $settings += static::defaultSettings();
+  public function settingsForm(array $form, FormStateInterface $form_state): array {
+    $elements = parent::settingsForm($form, $form_state);
 
     $visible = $form['#visibility_path'];
     $elements['decimal_separator'] = [
       '#type' => 'select',
       '#title' => $this->t('Decimal marker'),
       '#options' => ['.' => $this->t('Decimal point'), ',' => $this->t('Comma')],
-      '#default_value' => $settings['decimal_separator'],
+      '#default_value' => $this->getSetting('decimal_separator'),
       '#weight' => 5,
       '#states' => [
         'visible' => [
@@ -47,7 +46,7 @@ class DecimalFormatter extends NumericFormatterBase {
       '#title' => $this->t('Scale', [], ['context' => 'decimal places']),
       '#min' => 0,
       '#max' => 10,
-      '#default_value' => $settings['scale'],
+      '#default_value' => $this->getSetting('scale'),
       '#description' => $this->t('The number of digits to the right of the decimal.'),
       '#weight' => 6,
       '#states' => [
@@ -63,9 +62,8 @@ class DecimalFormatter extends NumericFormatterBase {
   /**
    * {@inheritdoc}
    */
-  protected function numberFormat($number, array $settings) {
-    $settings += static::defaultSettings();
-    return number_format($number, $settings['scale'], $settings['decimal_separator'], $settings['thousand_separator']);
+  protected function numberFormat(mixed $number): string {
+    return number_format($number, $this->getSetting('scale'), $this->getSetting('decimal_separator'), $this->getSetting('thousand_separator'));
   }
 
 }

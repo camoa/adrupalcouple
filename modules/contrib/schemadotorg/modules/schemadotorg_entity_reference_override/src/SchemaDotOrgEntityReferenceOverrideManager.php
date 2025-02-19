@@ -26,7 +26,7 @@ class SchemaDotOrgEntityReferenceOverrideManager implements SchemaDotOrgEntityRe
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
    *   The entity type manager.
    * @param \Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager
-   *   The Schema.org type manager.
+   *   The Schema.org schema type manager.
    */
   public function __construct(
     protected ConfigFactoryInterface $configFactory,
@@ -132,7 +132,7 @@ class SchemaDotOrgEntityReferenceOverrideManager implements SchemaDotOrgEntityRe
   /**
    * {@inheritdoc}
    */
-  public function jsonLdSchemaPropertyAlter(mixed &$value, FieldItemInterface $item, BubbleableMetadata $bubbleable_metadata): void {
+  public function schemaPropertyAlter(mixed &$value, FieldItemInterface $item, BubbleableMetadata $bubbleable_metadata): void {
     // Make sure the field storage type is an entity reference.
     $field_type = $item->getFieldDefinition()->getType();
     if ($field_type !== 'entity_reference_override') {

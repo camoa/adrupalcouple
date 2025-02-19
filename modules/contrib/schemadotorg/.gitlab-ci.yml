@@ -49,9 +49,13 @@ include:
 
 composer:
   variables:
-    DRUPAL_CORE: 10.3.7
+    DRUPAL_CORE: 10.4.x-dev
+    # _LENIENT_ALLOW_LIST: "cer, config_views, content_model_documentation, duration_field, embed, entity_embed, entity_reference_override, media_library_media_modify, mermaid_diagram_field"
 
 variables:
+  # _PHPUNIT_CONCURRENT: 1
+  # OPT_IN_TEST_PREVIOUS_MAJOR: 1
+  # OPT_IN_TEST_NEXT_MAJOR: 1
   _CSPELL_IGNORE_PATHS: '"**/schemadotorg.names.yml", "**/schemaorg-current-https-properties.csv", "**/schemaorg-current-https-types.csv", "schemaorg.translations.properties.inc", "schemaorg.translations.types.inc"'
 
 ###################################################################################

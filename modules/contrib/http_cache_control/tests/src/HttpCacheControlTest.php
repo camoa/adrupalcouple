@@ -75,8 +75,15 @@ class HttpCacheControlTest extends BrowserTestBase {
     $config->save();
 
     $this->drupalGet('system-test/not-found');
-    $this->assertStringContainsString('max-age=404', $this->getSession()->getResponseHeader('Cache-Control'), 'Cache-Control header contain maxage for 404');
+    $this->assertStringContainsString('max-age=300', $this->getSession()->getResponseHeader('Cache-Control'), 'Cache-Control header contain maxage for 404');
     $this->assertStringContainsString('s-maxage=404', $this->getSession()->getResponseHeader('Cache-Control'), 'Cache-Control header does not contain s-maxage');
+
+    $config->set('cache.http.404_max_age', 300);
+    $config->save();
+
+    $this->drupalGet('system-test/not-found-either');
+    $this->assertStringContainsString('max-age=300', $this->getSession()->getResponseHeader('Cache-Control'), 'Cache-Control header contain maxage for 404');
+    $this->assertStringNotContainsString('s-maxage', $this->getSession()->getResponseHeader('Cache-Control'), 'Cache-Control header does not contain s-maxage');
 
     $config->set('cache.http.vary', 'Drupal-Test-Header');
     $config->save();

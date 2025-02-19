@@ -7,6 +7,7 @@ use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Config\TypedConfigManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -40,12 +41,14 @@ class Search404Settings extends ConfigFormBase {
    *
    * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
    *   The factory for configuration objects.
-   * @param \Drupal\Core\Extension\ModuleHandlerInterface $module_handler
+   * @param \Drupal\Core\Extension\ModuleHandlerInterface $moduleHandler
    *   The module handler service.
+   * @param \Drupal\Core\Config\TypedConfigManagerInterface $typedConfigManager
+   *   The typed configuration manager.
    */
-  public function __construct(ConfigFactoryInterface $configFactory, ModuleHandlerInterface $module_handler) {
-    parent::__construct($configFactory);
-    $this->moduleHandler = $module_handler;
+  public function __construct(ConfigFactoryInterface $configFactory, ModuleHandlerInterface $moduleHandler, TypedConfigManagerInterface $typedConfigManager) {
+    parent::__construct($configFactory, $typedConfigManager);
+    $this->moduleHandler = $moduleHandler;
   }
 
   /**
@@ -55,6 +58,7 @@ class Search404Settings extends ConfigFormBase {
     return new static(
       $container->get('config.factory'),
       $container->get('module_handler'),
+      $container->get('config.typed')
     );
   }
 

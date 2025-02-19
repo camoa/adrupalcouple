@@ -28,13 +28,11 @@ interface CustomFieldFormatterInterface {
    *   The form where the settings form is being included in.
    * @param \Drupal\Core\Form\FormStateInterface $form_state
    *   The current state of the form.
-   * @param array $settings
-   *   An array of settings passed from parent form.
    *
    * @return array
    *   The form definition for the widget settings.
    */
-  public function settingsForm(array $form, FormStateInterface $form_state, array $settings);
+  public function settingsForm(array $form, FormStateInterface $form_state): array;
 
   /**
    * Returns a short summary for the current widget settings.
@@ -45,22 +43,20 @@ interface CustomFieldFormatterInterface {
    * @return array
    *   A short summary of the widget settings.
    */
-  public function settingsSummary();
+  public function settingsSummary(): array;
 
   /**
    * Returns the field value as formatted.
    *
    * @param \Drupal\Core\Field\FieldItemInterface $item
    *   The field item.
-   * @param \Drupal\custom_field\Plugin\CustomFieldTypeInterface $field
-   *   The custom field type object.
-   * @param array $settings
-   *   An array of settings.
+   * @param mixed $value
+   *   The value to format.
    *
    * @return mixed
    *   The formatted value.
    */
-  public function formatValue(FieldItemInterface $item, CustomFieldTypeInterface $field, array $settings);
+  public function formatValue(FieldItemInterface $item, $value);
 
   /**
    * Returns calculated dependencies for formatter plugin.
@@ -85,5 +81,16 @@ interface CustomFieldFormatterInterface {
    *   The changed formatter settings.
    */
   public function onFormatterDependencyRemoval(array $dependencies, array $settings): array;
+
+  /**
+   * Returns if the formatter can be used for the provided field.
+   *
+   * @param \Drupal\custom_field\Plugin\CustomFieldTypeInterface $custom_item
+   *   The custom field type.
+   *
+   * @return bool
+   *   TRUE if the formatter can be used, FALSE otherwise.
+   */
+  public static function isApplicable(CustomFieldTypeInterface $custom_item): bool;
 
 }

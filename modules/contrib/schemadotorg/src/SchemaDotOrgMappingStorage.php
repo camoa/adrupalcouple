@@ -23,7 +23,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class SchemaDotOrgMappingStorage extends ConfigEntityStorage implements SchemaDotOrgMappingStorageInterface {
 
   /**
-   * The entity type manager service.
+   * The entity type manager.
    */
   protected EntityTypeManagerInterface $entityTypeManager;
 

@@ -22,18 +22,17 @@ class DateTimeTimeAgoFormatter extends TimestampAgoFormatter {
   /**
    * {@inheritdoc}
    */
-  public function formatValue(FieldItemInterface $item, CustomFieldTypeInterface $field, array $settings) {
-    $formatter_settings = $settings['formatter_settings'] + static::defaultSettings();
-    $datetime_type = $settings['configuration']['datetime_type'];
+  public function formatValue(FieldItemInterface $item, $value) {
+    $datetime_type = $this->customFieldDefinition->getDatetimeType();
 
     /** @var \Drupal\Core\Datetime\DrupalDateTime $date */
-    $date = $this->getDate($settings['value'], $datetime_type);
+    $date = $this->getDate($value, $datetime_type);
 
     if ($date === NULL) {
       return NULL;
     }
 
-    $build = $this->formatDate($date, $formatter_settings);
+    $build = $this->formatDate($date);
 
     return $this->renderer->render($build);
   }
@@ -43,14 +42,12 @@ class DateTimeTimeAgoFormatter extends TimestampAgoFormatter {
    *
    * @param \Drupal\Core\Datetime\DrupalDateTime $date
    *   A date/time object.
-   * @param array $settings
-   *   The formatter settings.
    *
    * @return array
    *   The formatted date/time string using the past or future format setting.
    */
-  protected function formatDate(DrupalDateTime $date, array $settings) {
-    return parent::formatTimestamp($date->getTimestamp(), $settings);
+  protected function formatDate(DrupalDateTime $date): array {
+    return parent::formatTimestamp($date->getTimestamp());
   }
 
   /**
@@ -64,7 +61,7 @@ class DateTimeTimeAgoFormatter extends TimestampAgoFormatter {
    * @return \Drupal\Core\Datetime\DrupalDateTime|null
    *   Return a date object or null.
    */
-  protected function getDate(string $value, string $datetime_type) {
+  protected function getDate(string $value, string $datetime_type): ?DrupalDateTime {
     $storage_format = $datetime_type === CustomFieldTypeInterface::DATETIME_TYPE_DATE ? CustomFieldTypeInterface::DATE_STORAGE_FORMAT : CustomFieldTypeInterface::DATETIME_STORAGE_FORMAT;
     $date_object = NULL;
     try {

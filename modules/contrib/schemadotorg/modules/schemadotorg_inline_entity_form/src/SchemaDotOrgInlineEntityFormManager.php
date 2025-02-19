@@ -22,7 +22,7 @@ class SchemaDotOrgInlineEntityFormManager implements SchemaDotOrgInlineEntityFor
    * Constructs a SchemaDotOrgInlineEntityFormManager object.
    *
    * @param \Drupal\Core\Extension\ModuleHandlerInterface $moduleHandler
-   *   The module handler service.
+   *   The module handler.
    * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
    *   The configuration factory.
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager

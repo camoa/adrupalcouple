@@ -22,6 +22,8 @@ interface SchemaDotOrgCorrespondingReferenceManagerInterface {
    *   The bundle.
    * @param string $schema_type
    *   The Schema.org type.
+   *
+   * @see hook_schemadotorg_mapping_defaults_alter()
    */
   public function mappingDefaultsAlter(array &$defaults, string $entity_type_id, ?string $bundle, string $schema_type): void;
 

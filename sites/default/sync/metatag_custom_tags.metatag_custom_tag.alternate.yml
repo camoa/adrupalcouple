@@ -1,0 +1,10 @@
+uuid: c874e0c2-3a93-4955-8871-ea82d444960b
+langcode: en
+status: true
+dependencies: {  }
+id: alternate
+label: alternate
+description: 'RSS Link'
+htmlElement: link
+htmlNameAttribute: rel
+htmlValueAttribute: href

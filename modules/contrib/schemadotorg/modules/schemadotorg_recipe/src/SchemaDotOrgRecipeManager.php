@@ -18,7 +18,7 @@ use Symfony\Component\Process\PhpExecutableFinder;
 use Symfony\Component\Process\Process;
 
 /**
- * Schema.org Recipe manager service.
+ * Schema.org Recipe manager.
  */
 class SchemaDotOrgRecipeManager implements SchemaDotOrgRecipeManagerInterface {
   use SchemaDotOrgDevelGenerateTrait;

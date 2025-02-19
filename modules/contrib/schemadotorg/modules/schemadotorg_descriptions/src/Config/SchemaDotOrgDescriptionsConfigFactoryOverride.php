@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Drupal\schemadotorg_descriptions\Config;
 
-use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Cache\CacheableMetadata;
+use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Config\ConfigCollectionInfo;
 use Drupal\Core\Config\ConfigCrudEvent;
 use Drupal\Core\Config\ConfigFactoryInterface;
@@ -40,7 +40,7 @@ class SchemaDotOrgDescriptionsConfigFactoryOverride extends ConfigFactoryOverrid
    * Constructs a SchemaDotOrgDescriptionsConfigFactoryOverride object.
    *
    * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
-   *   The configuration object factory.
+   *   The config factory.
    * @param \Drupal\Core\Cache\CacheBackendInterface $defaultCacheBackend
    *   The default cache backend.
    * @param \Drupal\Core\Cache\CacheBackendInterface $discoveryCacheBackend
@@ -209,7 +209,7 @@ class SchemaDotOrgDescriptionsConfigFactoryOverride extends ConfigFactoryOverrid
       $entity_type_id = $config->get('target_entity_type_id');
       $bundle = $config->get('target_bundle');
 
-      // Get main schema.org type.
+      // Get main Schema.org type.
       $schema_type = $config->get('schema_type');
 
       // Set entity type override.

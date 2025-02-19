@@ -54,7 +54,7 @@ class SchemaDotOrgCustomFieldBuilderTest extends SchemaDotOrgBrowserTestBase {
     $this->submitForm($edit, 'Save');
 
     $assert->responseContains('<title>Some recipe | Drupal</title>');
-    $assert->responseContains('<div class="field__label ">Calories</div>');
+    $assert->responseContains('<div class="field__label">Calories</div>');
     $assert->responseContains('<div class="field__item">10 calories</div>');
   }
 

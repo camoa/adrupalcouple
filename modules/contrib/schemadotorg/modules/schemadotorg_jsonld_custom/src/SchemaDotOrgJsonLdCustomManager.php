@@ -25,7 +25,7 @@ class SchemaDotOrgJsonLdCustomManager implements SchemaDotOrgJsonLdCustomInterfa
    * Constructs a SchemaDotOrgJsonLdCustomManager object.
    *
    * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
-   *   The configuration object factory.
+   *   The config factory.
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
    *   The entity type manager.
    * @param \Drupal\Core\Utility\Token $token

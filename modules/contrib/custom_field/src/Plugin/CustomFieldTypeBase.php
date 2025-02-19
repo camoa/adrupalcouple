@@ -83,6 +83,7 @@ abstract class CustomFieldTypeBase extends PluginBase implements CustomFieldType
   public static function defaultWidgetSettings(): array {
     return [
       'label' => '',
+      'translatable' => FALSE,
       'settings' => [
         'description' => '',
         'description_display' => 'after',
@@ -204,7 +205,7 @@ abstract class CustomFieldTypeBase extends PluginBase implements CustomFieldType
   /**
    * {@inheritdoc}
    */
-  public function getWidgetSetting(string $name): array {
+  public function getWidgetSetting(string $name): mixed {
     return $this->widgetSettings[$name] ?? static::defaultWidgetSettings()[$name];
   }
 
@@ -338,6 +339,13 @@ abstract class CustomFieldTypeBase extends PluginBase implements CustomFieldType
     }
 
     return $digits;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function isApplicable(): bool {
+    return TRUE;
   }
 
 }

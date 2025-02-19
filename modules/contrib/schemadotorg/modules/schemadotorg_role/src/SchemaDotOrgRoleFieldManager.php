@@ -6,6 +6,7 @@ namespace Drupal\schemadotorg_role;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityFieldManagerInterface;
+use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Routing\RedirectDestinationInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
@@ -26,7 +27,9 @@ class SchemaDotOrgRoleFieldManager implements SchemaDotOrgRoleFieldManagerInterf
    * Constructs a SchemaDotOrgRoleManager object.
    *
    * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
-   *   The configuration object factory.
+   *   The config factory.
+   * @param \Drupal\Core\Extension\ModuleHandlerInterface $moduleHandler
+   *   The module handler.
    * @param \Drupal\Core\Routing\RedirectDestinationInterface $redirectDestination
    *   The redirect destination service.
    * @param \Drupal\Core\Entity\EntityFieldManagerInterface $entityFieldManager
@@ -40,6 +43,7 @@ class SchemaDotOrgRoleFieldManager implements SchemaDotOrgRoleFieldManagerInterf
    */
   public function __construct(
     protected ConfigFactoryInterface $configFactory,
+    protected ModuleHandlerInterface $moduleHandler,
     protected RedirectDestinationInterface $redirectDestination,
     protected EntityFieldManagerInterface $entityFieldManager,
     protected SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager,
@@ -66,6 +70,10 @@ class SchemaDotOrgRoleFieldManager implements SchemaDotOrgRoleFieldManagerInterf
    * {@inheritdoc}
    */
   public function mappingFormAlter(array &$form, FormStateInterface $form_state): void {
+    if (!$this->moduleHandler->moduleExists('schemadotorg_ui')) {
+      return;
+    }
+
     /** @var \Drupal\schemadotorg\Form\SchemaDotOrgMappingForm $form_object */
     $form_object = $form_state->getFormObject();
     /** @var \Drupal\schemadotorg\SchemaDotOrgMappingInterface|null $mapping */
@@ -133,6 +141,10 @@ class SchemaDotOrgRoleFieldManager implements SchemaDotOrgRoleFieldManagerInterf
    * {@inheritdoc}
    */
   public function mappingInsert(SchemaDotOrgMappingInterface $mapping): void {
+    if ($mapping->isSyncing()) {
+      return;
+    }
+
     $schema_type = $mapping->getSchemaType();
     $entity_type_id = $mapping->getTargetEntityTypeId();
     $bundle = $mapping->getTargetBundle();

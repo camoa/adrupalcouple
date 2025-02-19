@@ -8,7 +8,7 @@ use Drupal\Core\Config\Entity\ConfigEntityType;
 use Drupal\Core\Entity\ContentEntityType;
 
 /**
- * Tests the Schema.org type manager service.
+ * Tests the Schema.org type manager.
  *
  * @coversClass \Drupal\schemadotorg\SchemaDotOrgMappingTypeStorage
  * @group schemadotorg

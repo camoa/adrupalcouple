@@ -21,7 +21,7 @@ class SchemaDotOrgParagraphsJsonLdManager implements SchemaDotOrgParagraphsJsonL
    * @param \Drupal\Core\Extension\ModuleHandlerInterface $moduleHandler
    *   The module handler.
    * @param \Drupal\schemadotorg_jsonld\SchemaDotOrgJsonLdBuilderInterface|null $schemaJsonLdBuilder
-   *   The schema.org JSON-LD builder.
+   *   The Schema.org JSON-LD builder.
    */
   public function __construct(
     protected ModuleHandlerInterface $moduleHandler,
@@ -31,7 +31,7 @@ class SchemaDotOrgParagraphsJsonLdManager implements SchemaDotOrgParagraphsJsonL
   /**
    * {@inheritdoc}
    */
-  public function jsonldSchemaPropertyAlter(mixed &$value, FieldItemInterface $item, BubbleableMetadata $bubbleable_metadata): void {
+  public function schemaPropertyAlter(mixed &$value, FieldItemInterface $item, BubbleableMetadata $bubbleable_metadata): void {
     // Make sure the Paragraphs Library module is enabled.
     if (!$this->moduleHandler->moduleExists('paragraphs_library')) {
       return;

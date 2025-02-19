@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Drupal\Tests\schemadotorg_layout_paragraphs\Kernel;
 
 use Drupal\Core\Entity\EntityDisplayRepositoryInterface;
-use Drupal\Tests\schemadotorg\Kernel\SchemaDotOrgEntityKernelTestBase;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\schemadotorg\SchemaDotOrgEntityFieldManagerInterface;
 use Drupal\schemadotorg_layout_paragraphs\SchemaDotOrgLayoutParagraphsManagerInterface;
+use Drupal\Tests\schemadotorg\Kernel\SchemaDotOrgEntityKernelTestBase;
 
 /**
  * Tests the functionality of the Schema.org Layout Paragraphs manager.
@@ -71,6 +71,7 @@ class SchemaDotOrgLayoutParagraphsManagerKernelTest extends SchemaDotOrgEntityKe
       'machine_name' => 'main_entity',
       'unlimited' => TRUE,
       'required' => FALSE,
+      'copy' => FALSE,
       'description' => 'A layout built using paragraphs. Layout paragraphs allows site builders to construct a multi-column landing page using Schema.org related paragraphs types.',
     ];
     $this->assertEquals($expected_defaults, $defaults['properties']['mainEntity']);

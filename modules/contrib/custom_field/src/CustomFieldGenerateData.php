@@ -228,8 +228,11 @@ class CustomFieldGenerateData implements CustomFieldGenerateDataInterface {
       // @todo Hardening: Add support for file.
       unset($random_values['file_test']);
 
-      // @todo Hardening: Add support for file.
+      // @todo Hardening: Add support for image.
       unset($random_values['image_test']);
+
+      // @todo Hardening: Add support for viewfield.
+      unset($random_values['viewfield_test']);
 
       $keys = array_map(static function ($key) use ($field_name, $delta) {
         return "{$field_name}[$delta][$key]";

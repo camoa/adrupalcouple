@@ -1,4 +1,7 @@
 services:
+  _defaults:
+    autowire: true
+
   schemadotorg_epp.manager:
     class: Drupal\schemadotorg_epp\SchemaDotOrgEppManager
-    arguments: ['@config.factory', '@current_user', '@entity_type.manager', '@schemadotorg.names', '@schemadotorg.schema_type_manager']
+  Drupal\schemadotorg_epp\SchemaDotOrgEppManagerInterface: '@schemadotorg_epp.manager'

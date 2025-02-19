@@ -6,7 +6,6 @@ use Drupal\Core\Controller\ControllerBase;
 use Drupal\node\NodeInterface;
 use Drupal\schemadotorg_jsonld\SchemaDotOrgJsonLdManagerInterface;
 use Drupal\schemadotorg_jsonld_preview\SchemaDotOrgJsonLdPreviewBuilderInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Returns responses for Schema.org JSON-LD preview.
@@ -14,24 +13,17 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class SchemaDotOrgJsonLdPreviewController extends ControllerBase {
 
   /**
-   * The Schema.org JSON-LD manager service.
+   * Constructs a SchemaDotOrgJsonLdPreviewController object.
+   *
+   * @param \Drupal\schemadotorg_jsonld\SchemaDotOrgJsonLdManagerInterface $manager
+   *   The Schema.org JSON-LD manager.
+   * @param \Drupal\schemadotorg_jsonld_preview\SchemaDotOrgJsonLdPreviewBuilderInterface $builder
+   *   The Schema.org JSON-LD preview builder.
    */
-  protected SchemaDotOrgJsonLdManagerInterface $manager;
-
-  /**
-   * The Schema.org JSON-LD preview builder.
-   */
-  protected SchemaDotOrgJsonLdPreviewBuilderInterface $builder;
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function create(ContainerInterface $container): static {
-    $instance = parent::create($container);
-    $instance->manager = $container->get('schemadotorg_jsonld.manager');
-    $instance->builder = $container->get('schemadotorg_jsonld_preview.builder');
-    return $instance;
-  }
+  public function __construct(
+    protected SchemaDotOrgJsonLdManagerInterface $manager,
+    protected SchemaDotOrgJsonLdPreviewBuilderInterface $builder,
+  ) {}
 
   /**
    * Builds the response containing the Schema.org JSON-LD preview.

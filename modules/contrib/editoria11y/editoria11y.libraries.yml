@@ -8,9 +8,15 @@ editoria11y-library:
     - core/drupal
     - core/drupalSettings
 
-editoria11y-library-localized:
+editoria11y-localization:
   js:
     js/editoria11y-localization.js: {}
+  dependencies:
+    - core/drupal
+    - core/drupalSettings
+
+editoria11y-library-localized:
+  js:
     library/dist/editoria11y.min.js: { preprocess: false }
   css:
     theme:
@@ -18,6 +24,7 @@ editoria11y-library-localized:
   dependencies:
     - core/drupal
     - core/drupalSettings
+    - editoria11y/editoria11y-localization
 
 editoria11y:
   js:

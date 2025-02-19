@@ -16,7 +16,11 @@ class VoteTest extends BrowserTestBase {
   /**
    * {@inheritdoc}
    */
-  protected static $modules = ['node', 'votingapi', 'votingapi_test'];
+  protected static $modules = [
+    'node',
+    'votingapi',
+    'votingapi_test',
+  ];
 
   /**
    * {@inheritdoc}

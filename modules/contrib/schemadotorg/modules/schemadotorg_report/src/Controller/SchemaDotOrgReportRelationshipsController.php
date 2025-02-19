@@ -5,33 +5,41 @@ declare(strict_types=1);
 namespace Drupal\schemadotorg_report\Controller;
 
 use Drupal\Component\Utility\NestedArray;
+use Drupal\Core\Controller\ControllerBase;
+use Drupal\Core\Database\Connection;
 use Drupal\Core\Entity\EntityFieldManagerInterface;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\Url;
+use Drupal\schemadotorg\SchemaDotOrgSchemaTypeBuilderInterface;
+use Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface;
 use Drupal\schemadotorg_report\Traits\SchemaDotOrgReportRelationshipsTrait;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Returns responses for Schema.org report relationships routes.
  */
-class SchemaDotOrgReportRelationshipsController extends SchemaDotOrgReportControllerBase {
+class SchemaDotOrgReportRelationshipsController extends ControllerBase {
   use SchemaDotOrgReportRelationshipsTrait;
 
   /**
-   * The entity field manager.
+   * Constructs a SchemaDotOrgReportRelationshipsController object.
+   *
+   * @param \Drupal\Core\Database\Connection $database
+   *   The database connection.
+   * @param \Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager
+   *   The Schema.org schema type manager.
+   * @param \Drupal\schemadotorg\SchemaDotOrgSchemaTypeBuilderInterface $schemaTypeBuilder
+   *   The Schema.org schema type builder.
+   * @param \Drupal\Core\Entity\EntityFieldManagerInterface $entityFieldManager
+   *   The entity field manager.
    */
-  protected EntityFieldManagerInterface $entityFieldManager;
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function create(ContainerInterface $container): static {
-    $instance = parent::create($container);
-    $instance->entityFieldManager = $container->get('entity_field.manager');
-    return $instance;
-  }
+  public function __construct(
+    protected Connection $database,
+    protected SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager,
+    protected SchemaDotOrgSchemaTypeBuilderInterface $schemaTypeBuilder,
+    protected EntityFieldManagerInterface $entityFieldManager,
+  ) {}
 
   /**
    * Returns the title of the Schema.org relationship diagram.
@@ -493,7 +501,7 @@ class SchemaDotOrgReportRelationshipsController extends SchemaDotOrgReportContro
     if ($diagram_types) {
       $build['mermaid']['diagram'] = [
         '#type' => 'container',
-        '#attributes' => ['class' => ['mermaid', 'schemadotorg-mermaid', 'schemadotorg-report-relationships-diagram']],
+        '#attributes' => ['class' => ['mermaid', 'mermaid-download', 'schemadotorg-mermaid', 'schemadotorg-report-relationships-diagram']],
         '#markup' => $mermaid_diagram,
       ];
       $build['mermaid']['categories'] = [

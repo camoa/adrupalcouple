@@ -85,7 +85,7 @@ class ConfigSplitDeactivateForm extends FormBase {
    * @param \Drupal\Core\Session\AccountInterface $account
    *   Run access checks for this account.
    * @param string $config_split
-   *  The split name form the route.
+   *   The split name form the route.
    *
    * @return \Drupal\Core\Access\AccessResultInterface
    *   The access result.

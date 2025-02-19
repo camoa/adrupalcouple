@@ -122,7 +122,7 @@ function schemadotorg_update_10006(): void {
     if ($schema_property === 'subtype') {
       $default_field_weights[$index] = 'additionalType';
     }
-  };
+  }
   $config->set('schema_properties.default_field_weights', $default_field_weights);
   $config->save();
 }

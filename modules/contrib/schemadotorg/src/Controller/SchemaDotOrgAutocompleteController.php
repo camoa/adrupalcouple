@@ -7,7 +7,6 @@ namespace Drupal\schemadotorg\Controller;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Database\Connection;
 use Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -17,24 +16,17 @@ use Symfony\Component\HttpFoundation\Request;
 class SchemaDotOrgAutocompleteController extends ControllerBase {
 
   /**
-   * The database connection.
+   * Constructs a SchemaDotOrgAutocompleteController object.
+   *
+   * @param \Drupal\Core\Database\Connection $database
+   *   The database connection.
+   * @param \Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager
+   *   The Schema.org schema type manager.
    */
-  protected Connection $database;
-
-  /**
-   * The Schema.org schema type manager.
-   */
-  protected SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager;
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function create(ContainerInterface $container): static {
-    $instance = parent::create($container);
-    $instance->database = $container->get('database');
-    $instance->schemaTypeManager = $container->get('schemadotorg.schema_type_manager');
-    return $instance;
-  }
+  public function __construct(
+    protected Connection $database,
+    protected SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager,
+  ) {}
 
   /**
    * Returns response for Schema.org (types or properties) autocomplete request.

@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Drupal\schemadotorg_recipe\Drush\Commands;
 
 use Consolidation\AnnotatedCommand\CommandData;
-use Drupal\Component\DependencyInjection\ContainerInterface;
 use Drupal\schemadotorg_recipe\SchemaDotOrgRecipeManagerInterface;
+use Drush\Commands\AutowireTrait;
 use Drush\Commands\DrushCommands;
 use Drush\Exceptions\UserAbortException;
 use Symfony\Component\Console\Input\InputInterface;
@@ -15,25 +15,17 @@ use Symfony\Component\Console\Input\InputInterface;
  * Schema.org recipe Drush commands.
  */
 class SchemaDotOrgRecipeCommands extends DrushCommands {
+  use AutowireTrait;
 
   /**
    * Constructs a SchemaDotOrgRecipeCommands object.
    *
-   * @param \Drupal\schemadotorg_recipe\SchemaDotOrgRecipeManagerInterface $starterKitManager
+   * @param \Drupal\schemadotorg_recipe\SchemaDotOrgRecipeManagerInterface $recipeManager
    *   The Schema.org recipe manager.
    */
   public function __construct(
-    protected SchemaDotOrgRecipeManagerInterface $starterKitManager,
+    protected SchemaDotOrgRecipeManagerInterface $recipeManager,
   ) {}
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function create(ContainerInterface $container): self {
-    return new static(
-      $container->get('schemadotorg_recipe.manager')
-    );
-  }
 
   /* ************************************************************************ */
   // Info.
@@ -68,7 +60,7 @@ class SchemaDotOrgRecipeCommands extends DrushCommands {
    * @usage drush schemadotorg:recipe-info schemadotorg_recipe_events
    */
   public function info(string $name): void {
-    $settings = $this->starterKitManager->getRecipeSettings($name);
+    $settings = $this->recipeManager->getRecipeSettings($name);
     $this->output()->writeln('Types');
     $this->output()->writeln('');
     foreach ($settings['schemadotorg']['types'] as $type => $mapping_defaults) {
@@ -118,7 +110,7 @@ class SchemaDotOrgRecipeCommands extends DrushCommands {
    */
   public function apply(string $name): void {
     $this->confirmRecipe($name, 'apply', TRUE);
-    $this->starterKitManager->apply($name);
+    $this->recipeManager->apply($name);
   }
 
   /* ************************************************************************ */
@@ -155,7 +147,7 @@ class SchemaDotOrgRecipeCommands extends DrushCommands {
    */
   public function generate(string $name): void {
     $this->confirmRecipe($name, 'generate');
-    $this->starterKitManager->generate($name);
+    $this->recipeManager->generate($name);
   }
 
   /* ************************************************************************ */
@@ -192,7 +184,7 @@ class SchemaDotOrgRecipeCommands extends DrushCommands {
    */
   public function kill(string $name): void {
     $this->confirmRecipe($name, 'kill');
-    $this->starterKitManager->kill($name);
+    $this->recipeManager->kill($name);
   }
 
   /* ************************************************************************ */
@@ -215,11 +207,11 @@ class SchemaDotOrgRecipeCommands extends DrushCommands {
 
     switch ($action) {
       case 'apply':
-        $recipes = $this->starterKitManager->getRecipes();
+        $recipes = $this->recipeManager->getRecipes();
         break;
 
       default:
-        $recipes = $this->starterKitManager->getRecipes(TRUE);
+        $recipes = $this->recipeManager->getRecipes(TRUE);
         break;
     }
 
@@ -241,7 +233,7 @@ class SchemaDotOrgRecipeCommands extends DrushCommands {
   protected function validateRecipe(CommandData $commandData): void {
     $arguments = $commandData->getArgsWithoutAppName();
     $name = $arguments['name'] ?? '';
-    $recipe = $this->starterKitManager->getRecipe($name);
+    $recipe = $this->recipeManager->getRecipe($name);
     if (!$recipe) {
       throw new \Exception(dt("Schema.org recipe '@name' not found.", ['@name' => $name]));
     }

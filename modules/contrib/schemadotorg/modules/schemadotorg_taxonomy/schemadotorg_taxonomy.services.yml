@@ -1,10 +1,15 @@
 services:
+  _defaults:
+    autowire: true
+
   schemadotorg_taxonomy.jsonld_manager:
     class: Drupal\schemadotorg_taxonomy\SchemaDotOrgTaxonomyJsonLdManager
-    arguments: ['@entity_type.manager', '@?schemadotorg_jsonld.manager', '@?schemadotorg_jsonld.builder']
+  Drupal\schemadotorg_taxonomy\SchemaDotOrgTaxonomyJsonLdManagerInterface: '@schemadotorg_taxonomy.jsonld_manager'
+
   schemadotorg_taxonomy.default_vocabulary_manager:
     class: Drupal\schemadotorg_taxonomy\SchemaDotOrgTaxonomyDefaultVocabularyManager
-    arguments: ['@messenger', '@logger.factory', '@config.factory', '@entity_type.manager', '@schemadotorg.schema_type_manager', '@schemadotorg.entity_type_builder', '@?content_translation.manager']
+  Drupal\schemadotorg_taxonomy\SchemaDotOrgTaxonomyDefaultVocabularyManagerInterface: '@schemadotorg_taxonomy.default_vocabulary_manager'
+
   schemadotorg_taxonomy.property_vocabulary_manager:
     class: Drupal\schemadotorg_taxonomy\SchemaDotOrgTaxonomyPropertyVocabularyManager
-    arguments: ['@module_handler', '@messenger', '@logger.factory', '@config.factory', '@entity_type.manager', '@schemadotorg.schema_type_manager', '@?content_translation.manager']
+  Drupal\schemadotorg_taxonomy\SchemaDotOrgTaxonomyPropertyVocabularyManagerInterface: '@schemadotorg_taxonomy.property_vocabulary_manager'

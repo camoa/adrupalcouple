@@ -1,0 +1,6 @@
+name: 'Schema.org Blueprints JSON-LD Cache Test'
+type: module
+description: 'Provides cache test for Schema.org JSON-LD module.'
+package: Testing
+dependencies:
+  - 'schemadotorg:schemadotorg_jsonld'

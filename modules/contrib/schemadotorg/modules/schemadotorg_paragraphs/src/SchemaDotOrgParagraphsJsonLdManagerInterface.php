@@ -26,6 +26,6 @@ interface SchemaDotOrgParagraphsJsonLdManagerInterface {
    *
    * @see hook_schemadotorg_jsonld_schema_property_alter()
    */
-  public function jsonldSchemaPropertyAlter(mixed &$value, FieldItemInterface $item, BubbleableMetadata $bubbleable_metadata): void;
+  public function schemaPropertyAlter(mixed &$value, FieldItemInterface $item, BubbleableMetadata $bubbleable_metadata): void;
 
 }

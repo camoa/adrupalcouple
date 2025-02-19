@@ -46,10 +46,10 @@ class CustomFieldEntityReference extends GraphQLComposeFieldTypeBase implements 
       return NULL;
     }
 
-    $entity = $item->entity;
-    $context->addCacheableDependency($entity);
+    $translated_entity = $this->entityRepository->getTranslationFromContext($item->entity);
+    $context->addCacheableDependency($translated_entity);
 
-    return $entity;
+    return $translated_entity;
   }
 
 }

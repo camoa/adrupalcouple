@@ -215,13 +215,11 @@ class MediaLibraryWidget extends EntityReferenceWidgetBase implements TrustedCal
       '#pre_render' => [
         [$this, 'preRenderWidget'],
       ],
-      '#attached' => [
-        'library' => ['media_library/widget'],
-      ],
       '#theme_wrappers' => [
         'fieldset__media_library_widget',
       ],
     ];
+    $element['#attached']['library'][] = 'media_library/widget';
 
     if ($settings['required']) {
       $element['#element_validate'][] = [static::class, 'validateRequired'];

@@ -22,39 +22,18 @@ function schemadotorg_allowed_formats_schemadotorg_property_field_alter(
   ?string &$formatter_id,
   array &$formatter_settings,
 ): void {
-  if (!in_array($field_storage_values['type'], _allowed_formats_field_types())) {
-    return;
-  }
-
-  /** @var \Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface $schema_type_manager */
-  $schema_type_manager = \Drupal::service('schemadotorg.schema_type_manager');
-
-  $config = \Drupal::config('schemadotorg_allowed_formats.settings');
-
-  // Set default allowed formats.
-  $default_allowed_formats = $config->get('default_allowed_formats');
-  $parts = [
-    'entity_type_id' => $field_values['entity_type'],
-    'bundle' => $field_values['bundle'],
-    'schema_type' => $schema_type,
-    'schema_property' => $schema_property,
-  ];
-  $allowed_formats = $schema_type_manager->getSetting($default_allowed_formats, $parts);
-  if ($allowed_formats) {
-    $field_values['settings']['allowed_formats'] = $allowed_formats;
-  }
-
-  // Set default hide help.
-  $default_hide_help = $config->get('default_hide_help');
-  if ($default_hide_help) {
-    $widget_settings['third_party_settings']['allowed_formats']['hide_help'] = '1';
-  }
-
-  // Set default hide guidelines.
-  $default_hide_guidelines = $config->get('default_hide_guidelines');
-  if ($default_hide_guidelines) {
-    $widget_settings['third_party_settings']['allowed_formats']['hide_guidelines'] = '1';
-  }
+  /** @var \Drupal\schemadotorg_allowed_formats\SchemaDotOrgAllowedFormatsManagerInterface $schema_allowed_formats_manager */
+  $schema_allowed_formats_manager = \Drupal::service('schemadotorg_allowed_formats.manager');
+  $schema_allowed_formats_manager->propertyFieldAlter(
+    $schema_type,
+    $schema_property,
+    $field_storage_values,
+    $field_values,
+    $widget_id,
+    $widget_settings,
+    $formatter_id,
+    $formatter_settings
+  );
 }
 
 /* ************************************************************************** */

@@ -57,7 +57,7 @@ class SchemaDotOrgUiMappingForm extends EntityForm {
   protected SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager;
 
   /**
-   * The Schema.org schema type builder service.
+   * The Schema.org schema type builder.
    */
   protected SchemaDotOrgSchemaTypeBuilderInterface $schemaTypeBuilder;
 

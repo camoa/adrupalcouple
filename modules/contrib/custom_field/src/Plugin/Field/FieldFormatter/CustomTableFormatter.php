@@ -29,7 +29,9 @@ class CustomTableFormatter extends BaseFormatter {
     $form = parent::settingsForm($form, $form_state);
 
     foreach ($this->getCustomFieldItems() as $name => $custom_item) {
-      unset($form['fields'][$name]['label_display']);
+      // Remove non-applicable settings.
+      unset($form['fields'][$name]['formatter_settings']['label_display']);
+      unset($form['fields'][$name]['wrappers']);
     }
 
     return $form;

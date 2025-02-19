@@ -77,7 +77,7 @@ abstract class CustomFieldWidgetTestBase extends WebDriverTestBase {
     $generator = $this->customFieldDataGenerator;
 
     // Fill out the single cardinality field.
-    $form_values = $generator->generateSampleFormData($this->fields['field_custom_field_test']);
+    $form_values = $generator->generateSampleFormData($this->fields['field_test']);
 
     $this->submitForm($form_values, 'Save');
 
@@ -91,7 +91,7 @@ abstract class CustomFieldWidgetTestBase extends WebDriverTestBase {
 
     // Fill out the multiple cardinality field.
     $form_values = $generator->generateSampleFormData(
-      $this->fields['field_custom_field_test_multiple'],
+      $this->fields['field_test_multiple'],
       [0, 1, 2]
     );
     $this->submitForm($form_values, 'Save');
@@ -110,7 +110,7 @@ abstract class CustomFieldWidgetTestBase extends WebDriverTestBase {
       $assert->assertWaitOnAjaxRequest();
     }
     $form_values = $generator->generateSampleFormData(
-      $this->fields['field_custom_field_test_unlimite'],
+      $this->fields['field_test_unlimited'],
       [0, 1, 2, 3, 4]
     );
     $this->submitForm($form_values, 'Save');

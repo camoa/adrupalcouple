@@ -3,7 +3,6 @@
 namespace Drupal\custom_field\Plugin\CustomField\FieldFormatter;
 
 use Drupal\Core\Field\FieldItemInterface;
-use Drupal\custom_field\Plugin\CustomFieldTypeInterface;
 use Drupal\file\FileInterface;
 
 /**
@@ -23,22 +22,21 @@ class UrlPlainFormatter extends EntityReferenceFormatterBase {
   /**
    * {@inheritdoc}
    */
-  public function formatValue(FieldItemInterface $item, CustomFieldTypeInterface $field, array $settings) {
-    $file = $settings['value'];
+  public function formatValue(FieldItemInterface $item, $value) {
 
-    if (!$file instanceof FileInterface) {
+    if (!$value instanceof FileInterface) {
       return NULL;
     }
 
-    $access = $this->checkAccess($file);
+    $access = $this->checkAccess($value);
     if (!$access->isAllowed()) {
       return NULL;
     }
 
     $build = [
-      '#markup' => $file->createFileUrl(),
+      '#markup' => $value->createFileUrl(),
       '#cache' => [
-        'tags' => $file->getCacheTags(),
+        'tags' => $value->getCacheTags(),
       ],
     ];
 

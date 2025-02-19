@@ -272,6 +272,10 @@ class SchemaDotOrgAdditionalMappingsManager implements SchemaDotOrgAdditionalMap
    * {@inheritdoc}
    */
   public function mappingPreSave(SchemaDotOrgMappingInterface $mapping): void {
+    if ($mapping->isSyncing()) {
+      return;
+    }
+
     $default_additional_mappings = $this->getDefaultAdditionalMappings(
       $mapping->getTargetEntityTypeId(),
       $mapping->getTargetBundle(),

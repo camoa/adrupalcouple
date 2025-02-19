@@ -82,7 +82,7 @@ class EntityReferenceWidgetBase extends CustomFieldWidgetBase {
       }
       elseif (array_key_exists($selection_group_id . ':' . $target_type, $selection_plugins[$selection_group_id])) {
         $selection_group_plugin = $selection_group_id . ':' . $target_type;
-        $handlers_options[$selection_group_plugin] = Html::escape($selection_plugins[$selection_group_id][$selection_group_plugin]['base_plugin_label']);
+        $handlers_options[$selection_group_plugin] = Html::escape($selection_plugins[$selection_group_id][$selection_group_plugin]['base_plugin_label'] ?? '');
       }
     }
     $wrapper_id = 'reference-wrapper-' . $field_name;

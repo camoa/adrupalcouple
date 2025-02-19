@@ -11,33 +11,12 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\schemadotorg\SchemaDotOrgMappingInterface;
 
 /**
- * Implements hook_schemadotorg_mapping_insert().
+ * Implements hook_ENTITY_TYPE_insert().
  */
 function schemadotorg_simple_sitemap_schemadotorg_mapping_insert(SchemaDotOrgMappingInterface $mapping): void {
-  if ($mapping->isSyncing()) {
-    return;
-  }
-
-  $entity_type_id = $mapping->getTargetEntityTypeId();
-  $bundle = $mapping->getTargetBundle();
-
-  // Only add nodes to the sitemap.xml.
-  if ($entity_type_id !== 'node') {
-    return;
-  }
-
-  // @see simple_sitemap/README.md
-  /** @var \Drupal\simple_sitemap\Manager\Generator $generator */
-  $generator = \Drupal::service('simple_sitemap.generator');
-
-  // Set an entity type to be indexed.
-  $generator
-    ->entityManager()
-    ->enableEntityType('node')
-    ->setSitemaps(['default'])
-    ->setBundleSettings('node', $bundle, ['index' => TRUE]);
-
-  $generator->rebuildQueue();
+  /** @var \Drupal\schemadotorg_simple_sitemap\SchemaDotOrgSimpleSitemapManagerInterface $schemadotorg_simple_sitemap_manager */
+  $schemadotorg_simple_sitemap_manager = \Drupal::service('schemadotorg_simple_sitemap.manager');
+  $schemadotorg_simple_sitemap_manager->mappingInsert($mapping);
 }
 
 /**

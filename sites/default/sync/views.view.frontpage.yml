@@ -3,7 +3,6 @@ langcode: en
 status: true
 dependencies:
   config:
-    - core.entity_view_mode.node.rss
     - core.entity_view_mode.node.teaser
     - field.storage.node.field_rating
     - field.storage.node.field_tags
@@ -281,50 +280,6 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-        schema_author_target_id:
-          id: schema_author_target_id
-          table: node__schema_author
-          field: schema_author_target_id
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: numeric
-          operator: '='
-          value:
-            min: ''
-            max: ''
-            value: ''
-          group: 1
-          exposed: false
-          expose:
-            operator_id: ''
-            label: ''
-            description: ''
-            use_operator: false
-            operator: ''
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: ''
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-            min_placeholder: ''
-            max_placeholder: ''
-            placeholder: ''
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
       style:
         type: default
         options:
@@ -370,16 +325,15 @@ display:
       style:
         type: rss
         options:
-          grouping: {  }
           uses_fields: false
           description: ''
       row:
         type: node_rss
         options:
           relationship: none
-          view_mode: rss
+          view_mode: teaser
       display_extenders: {  }
-      path: rss.xml
+      path: rss
       sitename_title: true
       displays:
         page_1: page_1

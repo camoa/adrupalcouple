@@ -31,11 +31,11 @@ class SchemaDotOrgAdditionalTypeHtmlEntityFormController extends FormController 
    * @param \Drupal\Core\Controller\FormController $entityFormController
    *   The entity form controller being decorated.
    * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
-   *   The config factory service.
+   *   The config factory.
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
    *   The entity type manager.
    * @param \Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager
-   *   The Schema.org type manager.
+   *   The Schema.org schema type manager.
    */
   public function __construct(
     protected FormController $entityFormController,
@@ -58,7 +58,7 @@ class SchemaDotOrgAdditionalTypeHtmlEntityFormController extends FormController 
   public function getContentResult(Request $request, RouteMatchInterface $route_match): array|Response {
     switch ($route_match->getRouteName()) {
       case 'node.add':
-      case 'entity.node.edit_form';
+      case 'entity.node.edit_form':
         return $this->buildTypeSelect($request, $route_match)
           ?? $this->buildNodeForm($request, $route_match);
 

@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\schemadotorg_paragraphs\Functional;
 
-use Drupal\Tests\schemadotorg\Functional\SchemaDotOrgBrowserTestBase;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\node\Entity\NodeType;
+use Drupal\Tests\schemadotorg\Functional\SchemaDotOrgBrowserTestBase;
 
 /**
  * Tests the functionality of the Schema.org layout paragraphs.
@@ -91,6 +91,7 @@ class SchemaDotOrgLayoutParagraphsTest extends SchemaDotOrgBrowserTestBase {
       'machine_name' => 'main_entity',
       'unlimited' => TRUE,
       'required' => FALSE,
+      'copy' => FALSE,
       'description' => 'A layout built using paragraphs. Layout paragraphs allows site builders to construct a multi-column landing page using Schema.org related paragraphs types.',
     ];
     $this->assertEquals($expected_values, $defaults['properties']['mainEntity']);
@@ -107,6 +108,7 @@ class SchemaDotOrgLayoutParagraphsTest extends SchemaDotOrgBrowserTestBase {
       'machine_name' => 'main_entity',
       'unlimited' => TRUE,
       'required' => FALSE,
+      'copy' => FALSE,
       'description' => 'Indicates the primary entity described in some page or other CreativeWork.',
     ];
     $this->assertEquals($expected_values, $defaults['properties']['mainEntity']);

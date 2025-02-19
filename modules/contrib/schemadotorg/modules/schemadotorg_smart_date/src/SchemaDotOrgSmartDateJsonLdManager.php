@@ -14,7 +14,7 @@ use Drupal\smart_date_recur\Entity\SmartDateOverride;
 use Drupal\smart_date_recur\Entity\SmartDateRule;
 
 /**
- * Schema.org Smart Date JSON-LD manager service.
+ * Schema.org smart date JSON-LD manager.
  */
 class SchemaDotOrgSmartDateJsonLdManager implements SchemaDotOrgSmartDateJsonLdManagerInterface {
 
@@ -50,7 +50,7 @@ class SchemaDotOrgSmartDateJsonLdManager implements SchemaDotOrgSmartDateJsonLdM
         $this->alterStartDateProperties($data, $items);
         return;
 
-      case 'eventSchedule';
+      case 'eventSchedule':
         $this->alterEventScheduleProperties($data, $items);
         return;
     }
@@ -274,7 +274,7 @@ class SchemaDotOrgSmartDateJsonLdManager implements SchemaDotOrgSmartDateJsonLdM
     // Left the code in case Smart Date can be used to populate parent duration values.
     $value['repeatFrequency'] = $this->formatInterval($rule);
 
-    // byDay using schema.org links if needed.
+    // byDay using Schema.org links if needed.
     $by_day = $this->formatByDay($rule);
     if ($by_day) {
       $value['byDay'] = $by_day;

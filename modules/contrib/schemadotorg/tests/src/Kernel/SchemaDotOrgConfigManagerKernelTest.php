@@ -7,7 +7,7 @@ namespace Drupal\Tests\schemadotorg\Kernel;
 use Drupal\schemadotorg\SchemaDotOrgConfigManagerInterface;
 
 /**
- * Tests the Schema.org config manager service.
+ * Tests the Schema.org config manager.
  *
  * @coversDefaultClass \Drupal\schemadotorg\SchemaDotOrgConfigManager
  * @group schemadotorg
@@ -15,7 +15,7 @@ use Drupal\schemadotorg\SchemaDotOrgConfigManagerInterface;
 class SchemaDotOrgConfigManagerKernelTest extends SchemaDotOrgKernelTestBase {
 
   /**
-   * The Schema.org config manager service.
+   * The Schema.org config manager.
    */
   protected SchemaDotOrgConfigManagerInterface $configManager;
 

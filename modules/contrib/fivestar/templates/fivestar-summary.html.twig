@@ -17,14 +17,8 @@
  *    Defaults to NULL.
  * - votes: The total number of votes.
  * - stars: The number of stars being displayed.
- * - microdata: An additional data to show rating in the search engines
- *   results.
  * - user_rating: The rating set by the user on the enclosing entity as an
  *   integer 1..100, or NULL for not to show user rating. Defaults to NULL.
- * - average_rating_microdata: An additional data to show average rating
- *   in the search engines results.
- * - rating_count_microdata: An additional data to show the number of votes in
- *   the search engines results.
  * - average_stars: rounded rating to display (example: 4.0)
  * - output_type: a word indicating the desired output style. One of:
  *     - "user" when display user rating.
@@ -49,7 +43,7 @@
 
   {% if average_rating %}
     <span class="average-rating">
-      {{ 'Average:'|t }} <span{{ average_rating_microdata }}>{{ average_stars }}</span>
+      {{ 'Average:'|t }} <span>{{ average_stars }}</span>
     </span>
   {% endif %}
 
@@ -60,9 +54,9 @@
       <span class="total-votes">
         {% set votes_suffix = votes > 1 ? 'votes'|t : 'vote'|t %}
         {% if user_rating or average_rating %}
-          (<span{{ rating_count_microdata }}>{{ votes }}</span> {{ votes_suffix }})
+          (<span>{{ votes }}</span> {{ votes_suffix }})
         {% else %}
-          <span{{ rating_count_microdata }}>{{ votes }}</span> {{ votes_suffix }}
+          <span>{{ votes }}</span> {{ votes_suffix }}
         {% endif %}
       </span>
     {% endif %}

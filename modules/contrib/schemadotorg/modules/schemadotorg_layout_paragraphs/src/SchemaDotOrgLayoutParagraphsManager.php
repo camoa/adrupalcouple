@@ -38,7 +38,7 @@ class SchemaDotOrgLayoutParagraphsManager implements SchemaDotOrgLayoutParagraph
    * @param \Drupal\schemadotorg\SchemaDotOrgNamesInterface $schemaNames
    *   The Schema.org names service.
    * @param \Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager
-   *   The Schema.org type manager.
+   *   The Schema.org schema type manager.
    */
   public function __construct(
     protected ModuleHandlerInterface $moduleHandler,

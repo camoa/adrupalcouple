@@ -96,7 +96,7 @@ class SchemaDotOrgReferenceSelectionKernelTest extends SchemaDotOrgEntityKernelT
    * @return array
    *   The data.
    */
-  public function providerTestSelectionReferenceableEntities(): array {
+  public static function providerTestSelectionReferenceableEntities(): array {
     return [
       [
         ['Place'],

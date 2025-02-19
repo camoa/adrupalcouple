@@ -12,8 +12,7 @@ use Drupal\Core\Url;
 /**
  * Implements hook_page_attachments().
  *
- * @phpstan-ignore-next-line Hook implementations should not duplicate @param
- * documentation.
+ * @phpstan-ignore missingType.iterableValue
  */
 function hreflang_page_attachments(array &$page): void {
   // No need to add hreflang tags for 404/403 pages.
@@ -110,7 +109,7 @@ function hreflang_content_translation_get_entity() {
         continue;
       }
       $entity = $route_match->getParameter($name);
-      if ($entity instanceof ContentEntityInterface && $entity->hasLinkTemplate('canonical')) {
+      if ($entity instanceof ContentEntityInterface && $entity->hasLinkTemplate('canonical') && $entity->id()) {
         return $entity;
       }
     }
@@ -122,8 +121,7 @@ function hreflang_content_translation_get_entity() {
 /**
  * Implements hook_help().
  *
- * @phpstan-ignore-next-line Hook implementations should not duplicate @return
- * documentation.
+ * @phpstan-ignore missingType.iterableValue
  */
 function hreflang_help(?string $route_name): array {
   if ($route_name === 'hreflang.admin_settings' || $route_name === 'help.page.hreflang') {

@@ -74,7 +74,7 @@ class ConfigSplitDiffController implements ContainerInjectionInterface {
     EntityTypeManagerInterface $entityTypeManager,
     ConfigManagerInterface $configManager,
     DiffFormatter $diffFormatter,
-    ConfigSplitManager $configSplitManager
+    ConfigSplitManager $configSplitManager,
   ) {
     $this->activeStorage = $activeStorage;
     $this->entityTypeManager = $entityTypeManager;

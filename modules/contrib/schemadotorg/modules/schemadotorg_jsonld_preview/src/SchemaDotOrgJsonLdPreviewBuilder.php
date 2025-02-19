@@ -36,9 +36,9 @@ class SchemaDotOrgJsonLdPreviewBuilder implements SchemaDotOrgJsonLdPreviewBuild
    * @param \Drupal\schemadotorg\SchemaDotOrgNamesInterface $schemaNames
    *   The Schema.org names service.
    * @param \Drupal\schemadotorg_jsonld\SchemaDotOrgJsonLdManagerInterface $schemaJsonLdManager
-   *   The Schema.org JSON-LD manager service.
+   *   The Schema.org JSON-LD manager.
    * @param \Drupal\schemadotorg_jsonld\SchemaDotOrgJsonLdBuilderInterface $schemaJsonLdBuilder
-   *   The Schema.org JSON-LD builder service.
+   *   The Schema.org JSON-LD builder.
    */
   public function __construct(
     protected AccessAwareRouterInterface $routeProvider,

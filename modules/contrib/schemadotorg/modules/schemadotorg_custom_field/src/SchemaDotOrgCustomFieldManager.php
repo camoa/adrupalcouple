@@ -15,6 +15,7 @@ use Drupal\schemadotorg\SchemaDotOrgEntityFieldManagerInterface;
 use Drupal\schemadotorg\SchemaDotOrgMappingInterface;
 use Drupal\schemadotorg\SchemaDotOrgNamesInterface;
 use Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
 /**
  * Schema.org Custom Field manager.
@@ -32,7 +33,7 @@ class SchemaDotOrgCustomFieldManager implements SchemaDotOrgCustomFieldManagerIn
    * Constructs a SchemaDotOrgCustomFieldManager object.
    *
    * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
-   *   The configuration object factory.
+   *   The config factory.
    * @param \Drupal\schemadotorg\SchemaDotOrgNamesInterface $schemaNames
    *   The Schema.org names service.
    * @param \Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager
@@ -52,7 +53,9 @@ class SchemaDotOrgCustomFieldManager implements SchemaDotOrgCustomFieldManagerIn
     protected SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager,
     protected SchemaDotOrgEntityFieldManagerInterface $schemaEntityFieldManager,
     protected SelectionPluginManagerInterface $selectionPluginManager,
+    #[Autowire(service: 'plugin.manager.custom_field_type')]
     protected CustomFieldTypeManager $customFieldTypeManager,
+    #[Autowire(service: 'plugin.manager.custom_field_widget')]
     protected CustomFieldWidgetManager $customFieldWidgetManager,
   ) {}
 
@@ -247,6 +250,14 @@ class SchemaDotOrgCustomFieldManager implements SchemaDotOrgCustomFieldManagerIn
       if (!empty($field_settings[$name]['widget_settings']['settings']['prefix'])
         || !empty($field_settings[$name]['widget_settings']['settings']['suffix'])) {
         $formatter_settings['fields'][$name]['format_type'] = $field_type->getDefaultFormatter();
+        $formatter_settings['fields'][$name]['wrappers'] = [
+          'field_wrapper_tag' => '',
+          'field_wrapper_classes' => '',
+          'field_tag' => '',
+          'field_classes' => '',
+          'label_tag' => '',
+          'label_classes' => '',
+        ];
         $formatter_settings['fields'][$name]['formatter_settings']['prefix_suffix'] = TRUE;
       }
 

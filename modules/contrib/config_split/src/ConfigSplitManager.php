@@ -108,7 +108,7 @@ final class ConfigSplitManager {
     StorageInterface $sync,
     StorageInterface $export,
     Connection $connection,
-    ConfigPatchMerge $patchMerge
+    ConfigPatchMerge $patchMerge,
   ) {
     $this->factory = $factory;
     $this->sync = $sync;
@@ -130,7 +130,7 @@ final class ConfigSplitManager {
    * @return \Drupal\Core\Config\ImmutableConfig|null
    *   The split config.
    */
-  public function getSplitConfig(string $name, StorageInterface $storage = NULL): ?ImmutableConfig {
+  public function getSplitConfig(string $name, ?StorageInterface $storage = NULL): ?ImmutableConfig {
     if (strpos($name, 'config_split.config_split.') !== 0) {
       $name = 'config_split.config_split.' . $name;
     }
@@ -181,7 +181,7 @@ final class ConfigSplitManager {
    * @return string[]
    *   The split names from the active storage and the given storage.
    */
-  public function listAll(StorageInterface $storage = NULL): array {
+  public function listAll(?StorageInterface $storage = NULL): array {
     $names = [];
     if ($storage instanceof StorageInterface && $this->factory instanceof ConfigFactory) {
       $factory = EphemeralConfigFactory::fromService($this->factory, $storage);
@@ -202,7 +202,7 @@ final class ConfigSplitManager {
    * @return \Drupal\Core\Config\ImmutableConfig[]
    *   Loaded splits (with config overrides).
    */
-  public function loadMultiple(array $names, StorageInterface $storage = NULL): array {
+  public function loadMultiple(array $names, ?StorageInterface $storage = NULL): array {
     $configs = [];
     if ($storage instanceof StorageInterface && $this->factory instanceof ConfigFactory) {
       $factory = EphemeralConfigFactory::fromService($this->factory, $storage);
@@ -509,7 +509,7 @@ final class ConfigSplitManager {
    * @return \Drupal\Core\Config\StorageInterface|null
    *   The split storage.
    */
-  protected function getSplitStorage(ImmutableConfig $config, StorageInterface $transforming = NULL): ?StorageInterface {
+  protected function getSplitStorage(ImmutableConfig $config, ?StorageInterface $transforming = NULL): ?StorageInterface {
     $storage = $config->get('storage');
     if ('collection' === $storage) {
       if ($transforming instanceof StorageInterface) {
@@ -564,7 +564,7 @@ final class ConfigSplitManager {
    * @return \Drupal\Core\Config\StorageInterface|null
    *   The preview storage.
    */
-  public function getPreviewStorage(ImmutableConfig $config, StorageInterface $transforming = NULL): ?StorageInterface {
+  public function getPreviewStorage(ImmutableConfig $config, ?StorageInterface $transforming = NULL): ?StorageInterface {
     if ('collection' === $config->get('storage')) {
       if ($transforming instanceof StorageInterface) {
         return new SplitCollectionStorage($transforming, $config->get('id'));
@@ -975,6 +975,8 @@ final class ConfigSplitManager {
    *
    * @param \Drupal\Core\Config\ImmutableConfig $config
    *   The split config.
+   * @param \Drupal\Core\Config\StorageInterface $source
+   *   The source storage.
    *
    * @return string[]
    *   The list of config names.
@@ -1002,15 +1004,15 @@ final class ConfigSplitManager {
     $completeList = array_filter($source->listAll(), function ($name) use ($extensions, $completeList) {
         // Filter the list of config objects since they are not included in
         // findConfigEntityDependents.
-        foreach ($extensions as $extension) {
-          if (strpos($name, $extension . '.') === 0) {
-            return TRUE;
-          }
+      foreach ($extensions as $extension) {
+        if (strpos($name, $extension . '.') === 0) {
+          return TRUE;
         }
+      }
 
         // Add the config name to the blacklist if it is in the wildcard list.
         return self::inFilterList($name, $completeList);
-      }
+    }
     );
     sort($completeList);
     // Finally merge all dependencies of the blacklisted config.
@@ -1024,6 +1026,8 @@ final class ConfigSplitManager {
    *
    * @param \Drupal\Core\Config\ImmutableConfig $config
    *   The split config.
+   * @param \Drupal\Core\Config\StorageInterface $source
+   *   The source storage.
    *
    * @return string[]
    *   The list of config names.
@@ -1039,7 +1043,7 @@ final class ConfigSplitManager {
     $partialList = array_filter($source->listAll(), function ($name) use ($partialList) {
         // Add to the partial list if it is in the wildcard list.
         return self::inFilterList($name, $partialList);
-      }
+    }
     );
     sort($partialList);
 

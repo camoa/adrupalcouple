@@ -14,7 +14,7 @@ use Drupal\schemadotorg\SchemaDotOrgNamesInterface;
 use Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface;
 
 /**
- * Schema.org type tray manager service.
+ * Schema.org type tray manager.
  */
 class SchemaDotOrgTypeTrayManager implements SchemaDotOrgTypeTrayManagerInterface {
   use StringTranslationTrait;
@@ -23,15 +23,15 @@ class SchemaDotOrgTypeTrayManager implements SchemaDotOrgTypeTrayManagerInterfac
    * Constructs a SchemaDotOrgTypeTrayManager object.
    *
    * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
-   *   The config factory service.
+   *   The config factory.
    * @param \Drupal\Core\Extension\ModuleExtensionList $moduleExtensionList
    *   The module extension list.
    * @param \Drupal\Core\Extension\ModuleHandlerInterface $moduleHandler
-   *   The module handler service.
+   *   The module handler.
    * @param \Drupal\schemadotorg\SchemaDotOrgNamesInterface $schemaNames
    *   The Schema.org names service.
    * @param \Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager
-   *   The Schema.org type manager.
+   *   The Schema.org schema type manager.
    */
   public function __construct(
     protected ConfigFactoryInterface $configFactory,

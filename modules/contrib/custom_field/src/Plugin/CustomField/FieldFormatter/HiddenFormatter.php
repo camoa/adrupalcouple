@@ -4,7 +4,6 @@ namespace Drupal\custom_field\Plugin\CustomField\FieldFormatter;
 
 use Drupal\Core\Field\FieldItemInterface;
 use Drupal\custom_field\Plugin\CustomFieldFormatterBase;
-use Drupal\custom_field\Plugin\CustomFieldTypeInterface;
 
 /**
  * Plugin implementation of the 'hidden' formatter.
@@ -19,6 +18,7 @@ use Drupal\custom_field\Plugin\CustomFieldTypeInterface;
  *     "uri",
  *     "email",
  *     "map",
+ *     "map_string",
  *     "telephone",
  *     "uuid",
  *     "color",
@@ -28,6 +28,7 @@ use Drupal\custom_field\Plugin\CustomFieldTypeInterface;
  *     "file",
  *     "entity_reference",
  *     "image",
+ *     "viewfield",
  *   }
  * )
  */
@@ -36,7 +37,7 @@ class HiddenFormatter extends CustomFieldFormatterBase {
   /**
    * {@inheritdoc}
    */
-  public function formatValue(FieldItemInterface $item, CustomFieldTypeInterface $field, array $settings) {
+  public function formatValue(FieldItemInterface $item, $value) {
     return NULL;
   }
 

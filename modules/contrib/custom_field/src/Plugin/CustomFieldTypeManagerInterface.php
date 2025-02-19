@@ -20,14 +20,6 @@ interface CustomFieldTypeManagerInterface {
   public function getCustomFieldItems(array $settings): array;
 
   /**
-   * An array of data types and properties keyed by type name.
-   *
-   * @return array[]
-   *   Returns an array of data types.
-   */
-  public function dataTypes(): array;
-
-  /**
    * Builds options for a select list based on field types.
    *
    * @return array

@@ -1,4 +1,7 @@
 services:
+  _defaults:
+    autowire: true
+
   schemadotorg_role.field_manager:
     class: Drupal\schemadotorg_role\SchemaDotOrgRoleFieldManager
-    arguments: ['@config.factory', '@redirect.destination', '@entity_field.manager', '@schemadotorg.schema_type_manager', '@schemadotorg.entity_type_builder', '@schemadotorg.mapping_manager']
+  Drupal\schemadotorg_role\SchemaDotOrgRoleFieldManagerInterface: '@schemadotorg_role.field_manager'

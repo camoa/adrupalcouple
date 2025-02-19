@@ -6,7 +6,6 @@ use Drupal\Core\Field\FieldItemInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Link;
 use Drupal\Core\Url;
-use Drupal\custom_field\Plugin\CustomFieldTypeInterface;
 use Drupal\file\FileInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -59,7 +58,7 @@ class ImageUrlFormatter extends EntityReferenceFormatterBase {
   /**
    * {@inheritdoc}
    */
-  public static function defaultSettings() {
+  public static function defaultSettings(): array {
     return [
       'image_style' => '',
     ];
@@ -68,9 +67,8 @@ class ImageUrlFormatter extends EntityReferenceFormatterBase {
   /**
    * {@inheritdoc}
    */
-  public function settingsForm(array $form, FormStateInterface $form_state, array $settings) {
-    $element = parent::settingsForm($form, $form_state, $settings);
-    $settings += self::defaultSettings();
+  public function settingsForm(array $form, FormStateInterface $form_state): array {
+    $element = parent::settingsForm($form, $form_state);
     $image_styles = image_style_options(FALSE);
     $description_link = Link::fromTextAndUrl(
       $this->t('Configure Image Styles'),
@@ -79,7 +77,7 @@ class ImageUrlFormatter extends EntityReferenceFormatterBase {
     $element['image_style'] = [
       '#title' => $this->t('Image style'),
       '#type' => 'select',
-      '#default_value' => $settings['image_style'],
+      '#default_value' => $this->getSetting('image_style'),
       '#empty_option' => $this->t('None (original image)'),
       '#options' => $image_styles,
       '#description' => $description_link->toRenderable() + [
@@ -93,28 +91,26 @@ class ImageUrlFormatter extends EntityReferenceFormatterBase {
   /**
    * {@inheritdoc}
    */
-  public function formatValue(FieldItemInterface $item, CustomFieldTypeInterface $field, array $settings) {
-    $image = $settings['value'];
+  public function formatValue(FieldItemInterface $item, $value) {
 
-    if (!$image instanceof FileInterface) {
+    if (!$value instanceof FileInterface) {
       return NULL;
     }
 
-    $access = $this->checkAccess($image);
+    $access = $this->checkAccess($value);
     if (!$access->isAllowed()) {
       return NULL;
     }
 
-    $formatter_settings = $settings['formatter_settings'] + static::defaultSettings();
     /** @var \Drupal\image\ImageStyleInterface $image_style */
-    $image_style = $this->imageStyleStorage->load($formatter_settings['image_style']);
-    $image_uri = $image->getFileUri();
+    $image_style = $this->imageStyleStorage->load($this->getSetting('image_style'));
+    $image_uri = $value->getFileUri();
     $url = $image_style ? $this->fileUrlGenerator->transformRelative($image_style->buildUrl($image_uri)) : $this->fileUrlGenerator->generateString($image_uri);
 
     $build = [
       '#markup' => $url,
       '#cache' => [
-        'tags' => $image->getCacheTags(),
+        'tags' => $value->getCacheTags(),
       ],
     ];
 

@@ -6,6 +6,7 @@ namespace Drupal\schemadotorg_mapping_set\Breadcrumb;
 
 use Drupal\Core\Breadcrumb\Breadcrumb;
 use Drupal\Core\Breadcrumb\BreadcrumbBuilderInterface;
+use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Link;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
@@ -19,7 +20,11 @@ class SchemaDotOrgMappingSetBreadcrumbBuilder implements BreadcrumbBuilderInterf
   /**
    * {@inheritdoc}
    */
-  public function applies(RouteMatchInterface $route_match): bool {
+  public function applies(RouteMatchInterface $route_match, ?CacheableMetadata $cacheable_metadata = NULL): bool {
+    // @todo Remove null safe operator in Drupal 12.0.0, see
+    //   https://www.drupal.org/project/drupal/issues/3459277.
+    $cacheable_metadata?->addCacheContexts(['route']);
+
     $route_name = $route_match->getRouteName() ?? '';
     return ((bool) preg_match('/^schemadotorg_mapping_set\./', $route_name));
   }

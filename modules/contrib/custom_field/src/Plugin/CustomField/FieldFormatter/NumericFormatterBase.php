@@ -5,7 +5,6 @@ namespace Drupal\custom_field\Plugin\CustomField\FieldFormatter;
 use Drupal\Core\Field\FieldItemInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\custom_field\Plugin\CustomFieldFormatterBase;
-use Drupal\custom_field\Plugin\CustomFieldTypeInterface;
 
 /**
  * Parent plugin for decimal and integer formatters.
@@ -15,7 +14,7 @@ abstract class NumericFormatterBase extends CustomFieldFormatterBase {
   /**
    * {@inheritdoc}
    */
-  public static function defaultSettings() {
+  public static function defaultSettings(): array {
     return [
       'thousand_separator' => '',
       'decimal_separator' => '.',
@@ -28,8 +27,7 @@ abstract class NumericFormatterBase extends CustomFieldFormatterBase {
   /**
    * {@inheritdoc}
    */
-  public function settingsForm(array $form, FormStateInterface $form_state, array $settings) {
-    $settings += static::defaultSettings();
+  public function settingsForm(array $form, FormStateInterface $form_state): array {
     $visible = $form['#visibility_path'];
     $options = [
       ''  => $this->t('- None -'),
@@ -43,7 +41,7 @@ abstract class NumericFormatterBase extends CustomFieldFormatterBase {
       '#type' => 'select',
       '#title' => $this->t('Thousand marker'),
       '#options' => $options,
-      '#default_value' => $settings['thousand_separator'] ?? ',',
+      '#default_value' => $this->getSetting('thousand_separator') ?? ',',
       '#weight' => 0,
       '#states' => [
         'visible' => [
@@ -60,12 +58,12 @@ abstract class NumericFormatterBase extends CustomFieldFormatterBase {
         'key' => $this->t('Key'),
         'label' => $this->t('Label'),
       ],
-      '#default_value' => $settings['key_label'] ?? self::defaultSettings()['key_label'],
+      '#default_value' => $this->getSetting('key_label'),
     ];
     $elements['prefix_suffix'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Display prefix and suffix'),
-      '#default_value' => $settings['prefix_suffix'] ?? FALSE,
+      '#default_value' => $this->getSetting('prefix_suffix'),
       '#weight' => 10,
     ];
 
@@ -77,36 +75,34 @@ abstract class NumericFormatterBase extends CustomFieldFormatterBase {
    *
    * @param mixed $number
    *   The numeric value.
-   * @param array $settings
-   *   An array of settings.
    *
    * @return string
    *   The formatted number.
    */
-  abstract protected function numberFormat($number, array $settings);
+  abstract protected function numberFormat(mixed $number): string;
 
   /**
    * {@inheritdoc}
    */
-  public function formatValue(FieldItemInterface $item, CustomFieldTypeInterface $field, array $settings) {
-    $formatter_settings = $settings['formatter_settings'] + static::defaultSettings();
-    $allowed_values = $settings['widget_settings']['allowed_values'] ?? [];
-    $output = $this->numberFormat($settings['value'], $formatter_settings);
-    if (!empty($allowed_values) && $formatter_settings['key_label'] == 'label') {
+  public function formatValue(FieldItemInterface $item, $value) {
+    $widget_settings = $this->customFieldDefinition->getWidgetSetting('settings');
+    $allowed_values = $this->getFieldWidgetSetting('allowed_values') ?? [];
+    $output = $this->numberFormat($value);
+    if (!empty($allowed_values) && $this->getSetting('key_label') == 'label') {
       $index = array_search($output, array_column($allowed_values, 'key'));
       $output = $index !== FALSE ? $allowed_values[$index]['value'] : $output;
     }
-    elseif ($formatter_settings['prefix_suffix']) {
-      $prefixes = isset($settings['widget_settings']['prefix']) ? array_map([
+    elseif ($this->getSetting('prefix_suffix')) {
+      $prefixes = isset($widget_settings['prefix']) ? array_map([
         'Drupal\Core\Field\FieldFilteredMarkup',
         'create',
-      ], explode('|', $settings['widget_settings']['prefix'])) : [''];
-      $suffixes = isset($settings['widget_settings']['suffix']) ? array_map([
+      ], explode('|', $widget_settings['prefix'])) : [''];
+      $suffixes = isset($widget_settings['suffix']) ? array_map([
         'Drupal\Core\Field\FieldFilteredMarkup',
         'create',
-      ], explode('|', $settings['widget_settings']['suffix'])) : [''];
-      $prefix = (count($prefixes) > 1) ? $this->formatPlural($settings['value'], $prefixes[0], $prefixes[1]) : $prefixes[0];
-      $suffix = (count($suffixes) > 1) ? $this->formatPlural($settings['value'], $suffixes[0], $suffixes[1]) : $suffixes[0];
+      ], explode('|', $widget_settings['suffix'])) : [''];
+      $prefix = (count($prefixes) > 1) ? $this->formatPlural($value, $prefixes[0], $prefixes[1]) : $prefixes[0];
+      $suffix = (count($suffixes) > 1) ? $this->formatPlural($value, $suffixes[0], $suffixes[1]) : $suffixes[0];
       $output = $prefix . $output . $suffix;
     }
 

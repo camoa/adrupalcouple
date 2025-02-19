@@ -24,6 +24,8 @@ interface SchemaDotOrgCustomFieldManagerInterface {
    *   The bundle.
    * @param string $schema_type
    *   The Schema.org type.
+   *
+   * @see hook_schemadotorg_mapping_defaults_alter()
    */
   public function mappingDefaultsAlter(array &$defaults, string $entity_type_id, ?string $bundle, string $schema_type): void;
 
@@ -58,6 +60,8 @@ interface SchemaDotOrgCustomFieldManagerInterface {
    *   The plugin ID of the formatter.
    * @param array $formatter_settings
    *   An array of formatter settings.
+   *
+   * @see hook_schemadotorg_property_field_alter()
    */
   public function propertyFieldAlter(
     string $schema_type,

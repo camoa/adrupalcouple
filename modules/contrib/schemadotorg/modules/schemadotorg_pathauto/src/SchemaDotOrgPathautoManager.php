@@ -14,7 +14,8 @@ use Drupal\pathauto\Entity\PathautoPattern;
 use Drupal\schemadotorg\SchemaDotOrgMappingInterface;
 use Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface;
 use Drupal\schemadotorg\Traits\SchemaDotOrgMappingStorageTrait;
-use Drupal\token\Token;
+use Drupal\token\TokenInterface;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
 /**
  * Schema.org pathauto manager.
@@ -25,11 +26,24 @@ class SchemaDotOrgPathautoManager implements SchemaDotOrgPathautoManagerInterfac
 
   /**
    * Constructs a SchemaDotOrgPathautoManager object.
+   *
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
+   *   The config factory.
+   * @param \Drupal\token\Token $token
+   *   The token service.
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
+   *   The entity type manager.
+   * @param \Drupal\pathauto\AliasCleanerInterface $aliasCleaner
+   *   The alias cleaner service.
+   * @param \Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager
+   *   The Schema.org schema type manager.
    */
   public function __construct(
     protected ConfigFactoryInterface $configFactory,
-    protected Token $token,
+    #[Autowire(service: 'token')]
+    protected TokenInterface $token,
     protected EntityTypeManagerInterface $entityTypeManager,
+    #[Autowire(service: 'pathauto.alias_cleaner')]
     protected AliasCleanerInterface $aliasCleaner,
     protected SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager,
   ) {}

@@ -5,7 +5,6 @@ namespace Drupal\custom_field\Plugin\CustomField\FieldFormatter;
 use Drupal\Core\Field\FieldItemInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\custom_field\Plugin\CustomFieldFormatterBase;
-use Drupal\custom_field\Plugin\CustomFieldTypeInterface;
 
 /**
  * Plugin implementation of the 'boolean' formatter.
@@ -23,7 +22,7 @@ class BooleanFormatter extends CustomFieldFormatterBase {
   /**
    * {@inheritdoc}
    */
-  public static function defaultSettings() {
+  public static function defaultSettings(): array {
     $settings = [];
 
     // Fall back to field settings by default.
@@ -58,8 +57,7 @@ class BooleanFormatter extends CustomFieldFormatterBase {
   /**
    * {@inheritdoc}
    */
-  public function settingsForm(array $form, FormStateInterface $form_state, array $settings) {
-    $settings += static::defaultSettings();
+  public function settingsForm(array $form, FormStateInterface $form_state): array {
     $formats = [];
     foreach ($this->getOutputFormats() as $format_name => $format) {
       if (is_array($format)) {
@@ -85,13 +83,13 @@ class BooleanFormatter extends CustomFieldFormatterBase {
     $elements['format'] = [
       '#type' => 'select',
       '#title' => $this->t('Output format'),
-      '#default_value' => $settings['format'],
+      '#default_value' => $this->getSetting('format'),
       '#options' => $formats,
     ];
     $elements['format_custom_true'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Custom output for TRUE'),
-      '#default_value' => $settings['format_custom_true'],
+      '#default_value' => $this->getSetting('format_custom_true'),
       '#states' => [
         'visible' => [
           'select[name="' . $visible . '[format]"]' => ['value' => 'custom'],
@@ -101,7 +99,7 @@ class BooleanFormatter extends CustomFieldFormatterBase {
     $elements['format_custom_false'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Custom output for FALSE'),
-      '#default_value' => $settings['format_custom_false'],
+      '#default_value' => $this->getSetting('format_custom_false'),
       '#states' => [
         'visible' => [
           'select[name="' . $visible . '[format]"]' => ['value' => 'custom'],
@@ -115,16 +113,15 @@ class BooleanFormatter extends CustomFieldFormatterBase {
   /**
    * {@inheritdoc}
    */
-  public function formatValue(FieldItemInterface $item, CustomFieldTypeInterface $field, array $settings) {
-    $formatter_settings = $settings['formatter_settings'] + static::defaultSettings();
+  public function formatValue(FieldItemInterface $item, $value) {
     $formats = $this->getOutputFormats();
-    $format = $formatter_settings['format'];
+    $format = $this->getSetting('format');
 
     if ($format == 'custom') {
-      $output = $settings['value'] ? $formatter_settings['format_custom_true'] : $formatter_settings['format_custom_false'];
+      $output = $value ? $this->getSetting('format_custom_true') : $this->getSetting('format_custom_false');
     }
     else {
-      $output = $settings['value'] ? $formats[$format][0] : $formats[$format][1];
+      $output = $value ? $formats[$format][0] : $formats[$format][1];
     }
 
     return $output;

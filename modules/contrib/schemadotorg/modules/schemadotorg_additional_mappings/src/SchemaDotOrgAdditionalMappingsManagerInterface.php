@@ -23,6 +23,8 @@ interface SchemaDotOrgAdditionalMappingsManagerInterface {
    *   The bundle.
    * @param string $schema_type
    *   The Schema.org type.
+   *
+   * @see hook_schemadotorg_mapping_defaults_alter()
    */
   public function mappingDefaultsAlter(array &$defaults, string $entity_type_id, ?string $bundle, string $schema_type): void;
 
@@ -59,7 +61,7 @@ interface SchemaDotOrgAdditionalMappingsManagerInterface {
    *
    * @param string $entity_type_id
    *   The entity type.
-   * @param string $bundle
+   * @param string|null $bundle
    *   The bundle.
    * @param string $schema_type
    *   The Schema.org type.

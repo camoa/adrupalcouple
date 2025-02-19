@@ -15,7 +15,6 @@ use Drupal\Core\Render\RendererInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\schemadotorg_jsonld\SchemaDotOrgJsonLdBuilderInterface;
 use Drupal\schemadotorg_jsonld\SchemaDotOrgJsonLdManagerInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
@@ -24,30 +23,20 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class SchemaDotOrgJsonLdEndpointController extends ControllerBase {
 
   /**
-   * The renderer service.
+   * Constructs a SchemaDotOrgJsonLdEndpointController object.
+   *
+   * @param \Drupal\Core\Render\RendererInterface $renderer
+   *   The renderer service.
+   * @param \Drupal\schemadotorg_jsonld\SchemaDotOrgJsonLdManagerInterface $manager
+   *   The Schema.org JSON-LD manager.
+   * @param \Drupal\schemadotorg_jsonld\SchemaDotOrgJsonLdBuilderInterface $builder
+   *   The Schema.org JSON-LD builder.
    */
-  protected RendererInterface $renderer;
-
-  /**
-   * The Schema.org JSON-LD manager.
-   */
-  protected SchemaDotOrgJsonLdManagerInterface $manager;
-
-  /**
-   * The Schema.org JSON-LD builder.
-   */
-  protected SchemaDotOrgJsonLdBuilderInterface $builder;
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function create(ContainerInterface $container): static {
-    $instance = parent::create($container);
-    $instance->renderer = $container->get('renderer');
-    $instance->manager = $container->get('schemadotorg_jsonld.manager');
-    $instance->builder = $container->get('schemadotorg_jsonld.builder');
-    return $instance;
-  }
+  public function __construct(
+    protected RendererInterface $renderer,
+    protected SchemaDotOrgJsonLdManagerInterface $manager,
+    protected SchemaDotOrgJsonLdBuilderInterface $builder,
+  ) {}
 
   /**
    * Build the Schema.org JSON-LD response for an entity.

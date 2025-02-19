@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\recipe\Kernel;
 
-use Drupal\Tests\schemadotorg\Kernel\SchemaDotOrgEntityKernelTestBase;
 use Drupal\schemadotorg_recipe\SchemaDotOrgRecipeManagerInterface;
+use Drupal\Tests\schemadotorg\Kernel\SchemaDotOrgEntityKernelTestBase;
 
 /**
  * Tests the functionality of the Schema.org recipe manager.
@@ -23,7 +23,7 @@ class SchemaDotOrgRecipeManagerKernelTest extends SchemaDotOrgEntityKernelTestBa
   ];
 
   /**
-   * The Schema.org recipe manager service.
+   * The Schema.org recipe manager.
    */
   protected SchemaDotOrgRecipeManagerInterface $schemaRecipeManager;
 

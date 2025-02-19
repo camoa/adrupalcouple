@@ -39,7 +39,7 @@ class UniqueValidator extends ConstraintValidator
 
         $collectionElements = [];
         $normalizer = $this->getNormalizer($constraint);
-        foreach ($value as $element) {
+        foreach ($value as $index => $element) {
             $element = $normalizer($element);
 
             if ($fields && !$element = $this->reduceElementKeys($fields, $element)) {
@@ -47,10 +47,15 @@ class UniqueValidator extends ConstraintValidator
             }
 
             if (\in_array($element, $collectionElements, true)) {
-                $this->context->buildViolation($constraint->message)
+                $violationBuilder = $this->context->buildViolation($constraint->message)
                     ->setParameter('{{ value }}', $this->formatValue($element))
-                    ->setCode(Unique::IS_NOT_UNIQUE)
-                    ->addViolation();
+                    ->setCode(Unique::IS_NOT_UNIQUE);
+
+                if (null !== $constraint->errorPath) {
+                    $violationBuilder->atPath("[$index].{$constraint->errorPath}");
+                }
+
+                $violationBuilder->addViolation();
 
                 return;
             }

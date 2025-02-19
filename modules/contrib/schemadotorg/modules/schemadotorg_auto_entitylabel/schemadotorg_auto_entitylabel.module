@@ -7,8 +7,8 @@
 
 declare(strict_types=1);
 
-use Drupal\Core\Form\FormStateInterface;
 use Drupal\auto_entitylabel\AutoEntityLabelManager;
+use Drupal\Core\Form\FormStateInterface;
 use Drupal\schemadotorg\SchemaDotOrgMappingInterface;
 
 /**
@@ -19,67 +19,9 @@ use Drupal\schemadotorg\SchemaDotOrgMappingInterface;
  * @see \Drupal\auto_entitylabel\Form\AutoEntityLabelForm::submitForm
  */
 function schemadotorg_auto_entitylabel_schemadotorg_mapping_insert(SchemaDotOrgMappingInterface $mapping): void {
-  /** @var \Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface $schema_type_manager */
-  $schema_type_manager = \Drupal::service('schemadotorg.schema_type_manager');
-
-  // Make sure the target entity type support bundling.
-  // Comparing the entity type id and bundle is the easiest way to make this
-  // determination. For example, for users the entity type and bundle are
-  // the same.
-  if ($mapping->getTargetEntityTypeId() === $mapping->getTargetBundle()) {
-    return;
-  }
-
-  // Get the Schema.org mapping's auto entity label settings.
-  $default_types = \Drupal::config('schemadotorg_auto_entitylabel.settings')
-    ->get('default_types');
-  $settings = $schema_type_manager->getSetting($default_types, $mapping);
-  ;
-  if (empty($settings)) {
-    return;
-  }
-
-  // Get settings with default values.
-  $values = $settings + [
-    'status' => AutoEntityLabelManager::ENABLED,
-    'pattern' => '',
-    'escape' => FALSE,
-    'preserve_titles' => FALSE,
-  ];
-
-  // Get entity type and bundle.
-  $entity_type_id = $mapping->getTargetEntityTypeId();
-  $bundle = $mapping->getTargetBundle();
-
-  // Replace pattern Schema.org properties with tokens.
-  $pattern = $values['pattern'];
-  $schema_properties = $mapping->getAllSchemaProperties();
-  foreach ($schema_properties as $field_name => $schema_property) {
-    $pattern = str_replace("[$schema_property]", "[$entity_type_id:$field_name]", $pattern);
-  }
-  $values['pattern'] = $pattern;
-
-  // Set values in configuration.
-  $config_name = 'auto_entitylabel.settings.' . $entity_type_id . '.' . $bundle;
-  $config = \Drupal::configFactory()->getEditable($config_name);
-  foreach ($values as $name => $value) {
-    $config->set($name, $value);
-  }
-
-  // Set dependencies.
-  // Look up the content entity's bundle entity's config prefix.
-  $bundle_entity_type_id = \Drupal::entityTypeManager()->getStorage($entity_type_id)
-    ->getEntityType()
-    ->getBundleEntityType();
-  /** @var \Drupal\Core\Config\Entity\ConfigEntityTypeInterface $bundle_entity_type */
-  $bundle_entity_type = \Drupal::entityTypeManager()
-    ->getStorage($bundle_entity_type_id)
-    ->getEntityType();
-  $config_prefix = $bundle_entity_type->getConfigPrefix();
-  $config->set('dependencies', ['config' => [$config_prefix . '.' . $bundle]]);
-
-  // Save configuration.
-  $config->save();
+  /** @var \Drupal\schemadotorg_auto_entitylabel\SchemaDotOrgAutoEntityLabelManagerInterface $schemadotorg_auto_entitylabel_manager */
+  $schemadotorg_auto_entitylabel_manager = \Drupal::service('schemadotorg_auto_entitylabel.manager');
+  $schemadotorg_auto_entitylabel_manager->mappingInsert($mapping);
 }
 
 /* ************************************************************************** */
@@ -151,4 +93,6 @@ entity_type_id--SchemaType--bundle:
   pattern: '[propertyName01] [propertyName02]'
 ",
   ];
+
+  $form['schemadotorg_auto_entitylabel']['apply'] = [];
 }

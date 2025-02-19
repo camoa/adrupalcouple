@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Drupal\schemadotorg_taxonomy;
 
+use Drupal\content_translation\ContentTranslationManagerInterface;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
-use Drupal\content_translation\ContentTranslationManagerInterface;
 use Drupal\schemadotorg\SchemaDotOrgEntityTypeBuilderInterface;
 use Drupal\schemadotorg\SchemaDotOrgMappingInterface;
 use Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface;
@@ -29,11 +29,11 @@ class SchemaDotOrgTaxonomyDefaultVocabularyManager implements SchemaDotOrgTaxono
    * @param \Drupal\Core\Logger\LoggerChannelFactoryInterface $logger
    *   The logger channel factory.
    * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
-   *   The configuration object factory.
+   *   The config factory.
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
    *   The entity type manager.
    * @param \Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager
-   *   The Schema.org type manager.
+   *   The Schema.org schema type manager.
    * @param \Drupal\schemadotorg\SchemaDotOrgEntityTypeBuilderInterface $schemaEntityTypeBuilder
    *   The Schema.org entity type builder.
    * @param \Drupal\content_translation\ContentTranslationManagerInterface|null $contentTranslationManager
@@ -56,11 +56,15 @@ class SchemaDotOrgTaxonomyDefaultVocabularyManager implements SchemaDotOrgTaxono
    *   The Schema.org mapping.
    */
   public function mappingInsert(SchemaDotOrgMappingInterface $mapping): void {
-    $entity_type = $mapping->getTargetEntityTypeId();
+    if ($mapping->isSyncing()) {
+      return;
+    }
+
+    $entity_type_id = $mapping->getTargetEntityTypeId();
     $bundle = $mapping->getTargetBundle();
 
     // Make sure we are adding default vocabularies to nodes.
-    if ($entity_type !== 'node') {
+    if ($entity_type_id !== 'node') {
       return;
     }
 
@@ -86,7 +90,7 @@ class SchemaDotOrgTaxonomyDefaultVocabularyManager implements SchemaDotOrgTaxono
         'label' => $vocabulary->label(),
         'unlimited' => TRUE,
         // Entity type and bundle.
-        'entity_type' => $entity_type,
+        'entity_type' => $entity_type_id,
         'bundle' => $bundle,
         'field_name' => 'field_' . $vocabulary_id,
         // Schema.org type and property.
@@ -102,7 +106,7 @@ class SchemaDotOrgTaxonomyDefaultVocabularyManager implements SchemaDotOrgTaxono
       ];
 
       $this->schemaEntityTypeBuilder->addFieldToEntity(
-        $entity_type,
+        $entity_type_id,
         $bundle,
         $field
       );

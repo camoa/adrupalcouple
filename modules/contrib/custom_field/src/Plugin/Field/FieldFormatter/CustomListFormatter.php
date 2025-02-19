@@ -46,6 +46,11 @@ class CustomListFormatter extends BaseFormatter {
       ],
       '#default_value' => $this->getSetting('list_type'),
     ];
+    foreach ($this->getCustomFieldItems() as $name => $item) {
+      // Remove non-applicable settings.
+      unset($form['fields'][$name]['formatter_settings']['label_display']);
+      unset($form['fields'][$name]['wrappers']);
+    }
 
     return $form;
   }
@@ -65,18 +70,11 @@ class CustomListFormatter extends BaseFormatter {
   }
 
   /**
-   * Generate the output appropriate for one field item.
-   *
-   * @param \Drupal\Core\Field\FieldItemInterface $item
-   *   One field item.
-   *
-   * @return array
-   *   The textual output generated.
+   * {@inheritdoc}
    */
-  protected function viewValue(FieldItemInterface $item): array {
+  public function viewValue(FieldItemInterface $item, string $langcode): array {
     $field_name = $this->fieldDefinition->get('field_name');
     $class = Html::cleanCssIdentifier($field_name);
-    $langcode = $item->getLangcode();
     $output = [
       '#theme' => [
         'item_list',

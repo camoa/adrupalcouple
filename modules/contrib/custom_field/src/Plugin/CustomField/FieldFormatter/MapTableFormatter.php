@@ -5,7 +5,6 @@ namespace Drupal\custom_field\Plugin\CustomField\FieldFormatter;
 use Drupal\Core\Field\FieldItemInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\custom_field\Plugin\CustomFieldFormatterBase;
-use Drupal\custom_field\Plugin\CustomFieldTypeInterface;
 
 /**
  * Plugin implementation of the 'map_table' custom field formatter.
@@ -23,7 +22,7 @@ class MapTableFormatter extends CustomFieldFormatterBase {
   /**
    * {@inheritdoc}
    */
-  public static function defaultSettings() {
+  public static function defaultSettings(): array {
     return [
       'key_label' => 'Key',
       'value_label' => 'Value',
@@ -33,20 +32,19 @@ class MapTableFormatter extends CustomFieldFormatterBase {
   /**
    * {@inheritdoc}
    */
-  public function settingsForm(array $form, FormStateInterface $form_state, array $settings) {
-    $settings += static::defaultSettings();
+  public function settingsForm(array $form, FormStateInterface $form_state): array {
     $elements['key_label'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Key label'),
       '#description' => $this->t('The table header label for key column'),
-      '#default_value' => $settings['key_label'],
+      '#default_value' => $this->getSetting('key_label'),
       '#maxlength' => 128,
     ];
     $elements['value_label'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Value label'),
       '#description' => $this->t('The table header label for value column'),
-      '#default_value' => $settings['value_label'],
+      '#default_value' => $this->getSetting('value_label'),
       '#maxlength' => 128,
     ];
 
@@ -56,16 +54,14 @@ class MapTableFormatter extends CustomFieldFormatterBase {
   /**
    * {@inheritdoc}
    */
-  public function formatValue(FieldItemInterface $item, CustomFieldTypeInterface $field, array $settings) {
-    $formatter_settings = $settings['formatter_settings'] + static::defaultSettings();
-    $values = $settings['value'];
+  public function formatValue(FieldItemInterface $item, $value) {
 
-    if (!is_array($values) || empty($values)) {
+    if (!is_array($value) || empty($value)) {
       return NULL;
     }
 
     $rows = [];
-    foreach ($values as $mapping) {
+    foreach ($value as $mapping) {
       $rows[] = [
         $mapping['key'],
         $mapping['value'],
@@ -74,8 +70,8 @@ class MapTableFormatter extends CustomFieldFormatterBase {
     $build = [
       '#type' => 'table',
       '#header' => [
-        'key' => $formatter_settings['key_label'],
-        'value' => $formatter_settings['value_label'],
+        'key' => $this->getSetting('key_label'),
+        'value' => $this->getSetting('value_label'),
       ],
       '#rows' => $rows,
     ];

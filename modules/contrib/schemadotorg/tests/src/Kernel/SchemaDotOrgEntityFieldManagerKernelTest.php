@@ -12,7 +12,7 @@ use Drupal\schemadotorg\Entity\SchemaDotOrgMapping;
 use Drupal\schemadotorg\SchemaDotOrgEntityFieldManagerInterface;
 
 /**
- * Tests the Schema.org entity field manager service.
+ * Tests the Schema.org entity field manager.
  *
  * @coversClass \Drupal\schemadotorg\SchemaDotOrgEntityFieldManager
  * @group schemadotorg
@@ -128,6 +128,7 @@ class SchemaDotOrgEntityFieldManagerKernelTest extends SchemaDotOrgEntityKernelT
       'label' => 'Affiliations',
       'unlimited' => TRUE,
       'required' => FALSE,
+      'copy' => FALSE,
       'name' => 'affiliation',
       'description' => 'An organization that this person is affiliated with.',
     ];
@@ -143,6 +144,19 @@ class SchemaDotOrgEntityFieldManagerKernelTest extends SchemaDotOrgEntityKernelT
         'text_long' => 'Text (formatted, long)',
         'text_with_summary' => 'Text (formatted, long, with summary)',
       ],
+      'General' => [
+        'boolean' => 'Boolean',
+        'email' => 'Email',
+        'internal_property_test' => 'Internal Property (test)',
+        'link' => 'Link',
+        'shape' => 'Shape',
+        'shape_required' => 'Shape (required)',
+        'single_internal_property_test' => 'Single Internal Property (test)',
+        'telephone' => 'Telephone number',
+        'field_test' => 'Test field item',
+        'serialized_item_test' => 'Test serialized field item',
+        'serialized_property_item_test' => 'Test serialized property field item',
+      ],
       'Address' => [
         'address' => 'Address',
         'address_country' => 'Country',
@@ -156,21 +170,6 @@ class SchemaDotOrgEntityFieldManagerKernelTest extends SchemaDotOrgEntityKernelT
         'file' => 'File',
         'image' => 'Image',
       ],
-      'General' => [
-        'boolean' => 'Boolean',
-        'email' => 'Email',
-        'internal_property_test' => 'Internal Property (test)',
-        'link' => 'Link',
-        'field_ui:entity_reference:media' => 'Media',
-        'field_ui:entity_reference_revisions:paragraph' => 'Paragraphs',
-        'shape' => 'Shape',
-        'shape_required' => 'Shape (required)',
-        'single_internal_property_test' => 'Single Internal Property (test)',
-        'telephone' => 'Telephone number',
-        'field_test' => 'Test field item',
-        'serialized_item_test' => 'Test serialized field item',
-        'serialized_property_item_test' => 'Test serialized property field item',
-      ],
       'Number' => [
         'decimal' => 'Number (decimal)',
         'float' => 'Number (float)',
@@ -181,6 +180,8 @@ class SchemaDotOrgEntityFieldManagerKernelTest extends SchemaDotOrgEntityKernelT
         'field_ui:entity_reference:block_content' => 'Custom block',
         'entity_reference' => 'Entity reference',
         'entity_reference_revisions' => 'Entity reference revisions',
+        'field_ui:entity_reference:media' => 'Media',
+        'field_ui:entity_reference_revisions:paragraph' => 'Paragraphs',
         'field_ui:entity_reference:user' => 'User',
       ],
       'Selection list' => [

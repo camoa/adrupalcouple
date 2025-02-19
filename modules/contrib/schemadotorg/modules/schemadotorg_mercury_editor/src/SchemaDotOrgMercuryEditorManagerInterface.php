@@ -8,7 +8,7 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\schemadotorg\SchemaDotOrgMappingInterface;
 
 /**
- * The Schema.org Mercury Editor manager interface.
+ * The Schema.org mercury editor manager interface.
  */
 interface SchemaDotOrgMercuryEditorManagerInterface {
 

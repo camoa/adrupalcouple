@@ -12,7 +12,7 @@ use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\node\NodeInterface;
-use Drupal\schemadotorg_diagram\SchemaDotOrgDiagramInterface;
+use Drupal\schemadotorg_diagram\SchemaDotOrgDiagramBuilderInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -35,7 +35,7 @@ class SchemaDotOrgDiagramBlock extends BlockBase implements ContainerFactoryPlug
   /**
    * The Schema.org Diagram service.
    */
-  protected SchemaDotOrgDiagramInterface $schemaDiagram;
+  protected SchemaDotOrgDiagramBuilderInterface $schemaDiagram;
 
   /**
    * {@inheritdoc}
@@ -43,7 +43,7 @@ class SchemaDotOrgDiagramBlock extends BlockBase implements ContainerFactoryPlug
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
     $instance = new static($configuration, $plugin_id, $plugin_definition);
     $instance->routeMatch = $container->get('current_route_match');
-    $instance->schemaDiagram = $container->get('schemadotorg_diagram');
+    $instance->schemaDiagram = $container->get('schemadotorg_diagram.builder');
     return $instance;
   }
 
@@ -118,8 +118,7 @@ class SchemaDotOrgDiagramBlock extends BlockBase implements ContainerFactoryPlug
    */
   protected function getCurrentNode(): ?NodeInterface {
     $current_node = $this->routeMatch->getParameter('node');
-    if ($current_node
-      && ($current_node instanceof NodeInterface)
+    if ($current_node instanceof NodeInterface
       && node_is_page($current_node)) {
       return $current_node;
     }

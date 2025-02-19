@@ -13,6 +13,7 @@ use Drupal\metatag\MetatagTagPluginManager;
 use Drupal\schemadotorg\SchemaDotOrgMappingInterface;
 use Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface;
 use Drupal\token\TokenInterface;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
 /**
  * Schema.org meta tag manager.
@@ -34,19 +35,21 @@ class SchemaDotOrgMetatagManager implements SchemaDotOrgMetatagManagerInterface 
    * @param \Drupal\metatag\MetatagTagPluginManager $tagManager
    *   The metatag tag plugin manager.
    * @param \Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager
-   *   The Schema.org type manager.
+   *   The Schema.org schema type manager.
    */
   public function __construct(
     protected ConfigFactoryInterface $configFactory,
     protected EntityTypeManagerInterface $entityTypeManager,
     protected EntityDisplayRepositoryInterface $entityDisplayRepository,
+    #[Autowire(service: 'token')]
     protected TokenInterface $token,
+    #[Autowire(service: 'plugin.manager.metatag.tag')]
     protected MetatagTagPluginManager $tagManager,
     protected SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager,
   ) {}
 
   /**
-   * Implements hook_schemadotorg_mapping_insert().
+   * Implements hook_ENTITY_TYPE_insert().
    */
   public function mappingInsert(SchemaDotOrgMappingInterface $mapping): void {
     if ($mapping->isSyncing()) {

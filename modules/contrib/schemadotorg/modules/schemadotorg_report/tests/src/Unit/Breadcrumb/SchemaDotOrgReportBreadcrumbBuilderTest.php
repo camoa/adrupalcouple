@@ -54,7 +54,7 @@ class SchemaDotOrgReportBreadcrumbBuilderTest extends UnitTestCase {
     $route_match = $this->createMock('Drupal\Core\Routing\RouteMatchInterface');
     $route_match->expects($this->once())
       ->method('getRouteName')
-      ->will($this->returnValue($route_name));
+      ->willReturn($route_name);
 
     $this->assertEquals($expected, $breadcrumb_builder->applies($route_match));
   }
@@ -67,7 +67,7 @@ class SchemaDotOrgReportBreadcrumbBuilderTest extends UnitTestCase {
    *   - SchemaDotOrgReportBreadcrumbBuilder::applies() expected result.
    *   - SchemaDotOrgReportBreadcrumbBuilder::applies() route name.
    */
-  public function providerTestApplies(): array {
+  public static function providerTestApplies(): array {
     return [
       [FALSE],
       [FALSE, 'schemadotorg_report'],

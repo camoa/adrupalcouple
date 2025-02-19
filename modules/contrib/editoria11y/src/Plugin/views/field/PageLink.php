@@ -3,6 +3,7 @@
 namespace Drupal\editoria11y\Plugin\views\field;
 
 use Drupal\Core\Link;
+use Drupal\Core\Url;
 use Drupal\views\Plugin\views\field\Standard;
 use Drupal\views\ResultRow;
 
@@ -35,8 +36,10 @@ class PageLink extends Standard {
         }
       }
 
-      // @phpstan-ignore-next-line (Why have services if you don't use them)
-      $url = \Drupal::service('path.validator')->getUrlIfValidWithoutAccessCheck($path);
+      // Multilingual validation is a pain and a performance concern:
+      // https://www.drupal.org/project/drupal/issues/2994575#comment-14863919
+      // $url = \Drupal::service('path.validator')->getUrlIfValidWithoutAccessCheck($path);
+      $url = Url::fromUserInput($path);
       if (!$url) {
         return $value . ' ' . t('(invalid URL)');
       }

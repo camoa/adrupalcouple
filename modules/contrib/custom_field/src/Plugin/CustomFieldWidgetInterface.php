@@ -103,4 +103,15 @@ interface CustomFieldWidgetInterface {
    */
   public static function isApplicable(CustomFieldTypeInterface $custom_item): bool;
 
+  /**
+   * Returns an array of dependencies for the widget.
+   *
+   * @param array $settings
+   *   An array of widget settings.
+   *
+   * @return array
+   *   An array of dependencies.
+   */
+  public function calculateWidgetDependencies(array $settings): array;
+
 }

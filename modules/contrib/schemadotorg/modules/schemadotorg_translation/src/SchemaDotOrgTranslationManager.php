@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Drupal\schemadotorg_translation;
 
+use Drupal\content_translation\ContentTranslationManagerInterface;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\ContentEntityTypeInterface;
 use Drupal\Core\Entity\EntityFieldManagerInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Field\FieldConfigInterface;
-use Drupal\content_translation\ContentTranslationManagerInterface;
 use Drupal\schemadotorg\SchemaDotOrgMappingInterface;
 use Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface;
 use Drupal\schemadotorg\Traits\SchemaDotOrgMappingStorageTrait;
@@ -25,7 +25,7 @@ class SchemaDotOrgTranslationManager implements SchemaDotOrgTranslationManagerIn
    * Constructs a SchemaDotOrgTranslationManager object.
    *
    * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
-   *   The configuration object factory.
+   *   The config factory.
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
    *   The entity type manager.
    * @param \Drupal\Core\Entity\EntityFieldManagerInterface $fieldManager
@@ -46,7 +46,11 @@ class SchemaDotOrgTranslationManager implements SchemaDotOrgTranslationManagerIn
   /**
    * {@inheritdoc}
    */
-  public function enableMapping(SchemaDotOrgMappingInterface $mapping): void {
+  public function mappingInsert(SchemaDotOrgMappingInterface $mapping): void {
+    if ($mapping->isSyncing()) {
+      return;
+    }
+
     if (!$this->isMappingTranslated($mapping)) {
       return;
     }
@@ -61,7 +65,7 @@ class SchemaDotOrgTranslationManager implements SchemaDotOrgTranslationManagerIn
   /**
    * {@inheritdoc}
    */
-  public function enableMappingField(FieldConfigInterface $field_config): void {
+  public function fieldConfigInsert(FieldConfigInterface $field_config): void {
     // Check that field is associated with Schema.org type mapping.
     $entity_type_id = $field_config->getTargetEntityTypeId();
     $bundle = $field_config->getTargetBundle();
@@ -125,7 +129,7 @@ class SchemaDotOrgTranslationManager implements SchemaDotOrgTranslationManagerIn
     $field_definitions = $this->fieldManager->getFieldDefinitions($entity_type_id, $bundle);
     foreach ($field_definitions as $field_definition) {
       $field_config = $field_definition->getConfig($bundle);
-      $this->enableMappingField($field_config);
+      $this->fieldConfigInsert($field_config);
     }
   }
 

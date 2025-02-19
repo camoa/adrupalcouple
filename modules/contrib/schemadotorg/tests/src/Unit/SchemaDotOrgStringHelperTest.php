@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\schemadotorg\Unit;
 
-use Drupal\Tests\UnitTestCase;
 use Drupal\schemadotorg\Utility\SchemaDotOrgStringHelper;
+use Drupal\Tests\UnitTestCase;
 
 /**
  * @coversDefaultClass \Drupal\schemadotorg\Utility\SchemaDotOrgStringHelper
@@ -35,7 +35,7 @@ class SchemaDotOrgStringHelperTest extends UnitTestCase {
    *
    * @see testGetFirstSentence()
    */
-  public function providerGetFirstSentence(): array {
+  public static function providerGetFirstSentence(): array {
     $tests = [];
     $tests[] = [
       'This is a test. This is a test.',

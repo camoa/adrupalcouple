@@ -53,7 +53,7 @@ function schemadotorg_entity_reference_override_field_widget_single_element_enti
 function schemadotorg_entity_reference_override_schemadotorg_jsonld_schema_property_alter(mixed &$value, FieldItemInterface $item, BubbleableMetadata $bubbleable_metadata): void {
   /** @var \Drupal\schemadotorg_entity_reference_override\SchemaDotOrgEntityReferenceOverrideManagerInterface $entity_reference_override_manager */
   $entity_reference_override_manager = \Drupal::service('schemadotorg_entity_reference_override.manager');
-  $entity_reference_override_manager->jsonLdSchemaPropertyAlter($value, $item, $bubbleable_metadata);
+  $entity_reference_override_manager->schemaPropertyAlter($value, $item, $bubbleable_metadata);
 }
 
 /* ************************************************************************** */

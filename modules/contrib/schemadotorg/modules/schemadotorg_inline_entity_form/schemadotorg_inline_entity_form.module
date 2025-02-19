@@ -7,21 +7,13 @@
 
 declare(strict_types=1);
 
-use Drupal\Core\Config\Entity\ConfigEntityInterface;
 use Drupal\Core\Entity\EntityInterface;
-use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
  * Implements hook_ENTITY_TYPE_insert().
  */
 function schemadotorg_inline_entity_form_entity_insert(EntityInterface $entity): void {
-  if (!$entity instanceof ConfigEntityInterface
-    || !$entity->getEntityType() instanceof EntityTypeInterface
-    || empty($entity->getEntityType()->getBundleOf())) {
-    return;
-  }
-
   /** @var \Drupal\schemadotorg_inline_entity_form\SchemaDotOrgInlineEntityFormManagerInterface $schema_inline_entity_form_manager */
   $schema_inline_entity_form_manager = \Drupal::service('schemadotorg_inline_entity_form.manager');
   $schema_inline_entity_form_manager->entityInsert($entity);

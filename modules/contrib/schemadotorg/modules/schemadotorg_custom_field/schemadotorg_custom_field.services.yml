@@ -1,7 +1,11 @@
 services:
+  _defaults:
+    autowire: true
+
   schemadotorg_custom_field.manager:
     class: Drupal\schemadotorg_custom_field\SchemaDotOrgCustomFieldManager
-    arguments: ['@config.factory', '@schemadotorg.names', '@schemadotorg.schema_type_manager', '@schemadotorg.entity_field_manager', '@plugin.manager.entity_reference_selection', '@plugin.manager.custom_field_type', '@plugin.manager.custom_field_widget']
+  Drupal\schemadotorg_custom_field\SchemaDotOrgCustomFieldManagerInterface: '@schemadotorg_custom_field.manager'
+
   schemadotorg_custom_field.jsonld_manager:
     class: Drupal\schemadotorg_custom_field\SchemaDotOrgCustomFieldJsonLdManager
-    arguments: ['@schemadotorg.schema_type_manager', '@schemadotorg.names', '@schemadotorg_custom_field.manager', '@?schemadotorg_jsonld.manager']
+  Drupal\schemadotorg_custom_field\SchemaDotOrgCustomFieldJsonLdManagerInterface: '@schemadotorg_custom_field.jsonld_manager'

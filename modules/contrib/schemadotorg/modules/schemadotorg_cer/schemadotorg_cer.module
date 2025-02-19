@@ -7,8 +7,8 @@
 
 declare(strict_types=1);
 
-use Drupal\Core\Form\FormStateInterface;
 use Drupal\cer\Form\CorrespondingReferenceForm;
+use Drupal\Core\Form\FormStateInterface;
 use Drupal\schemadotorg\SchemaDotOrgMappingInterface;
 
 /**
@@ -21,13 +21,9 @@ function schemadotorg_cer_schemadotorg_mapping_defaults_alter(array &$defaults, 
 }
 
 /**
- * Implements hook_schemadotorg_mapping_insert().
+ * Implements hook_ENTITY_TYPE_insert().
  */
 function schemadotorg_cer_schemadotorg_mapping_insert(SchemaDotOrgMappingInterface $mapping): void {
-  if ($mapping->isSyncing()) {
-    return;
-  }
-
   /** @var \Drupal\schemadotorg_cer\SchemaDotOrgCorrespondingReferenceManagerInterface $schema_corresponding_reference_manager */
   $schema_corresponding_reference_manager = \Drupal::service('schemadotorg_corresponding_reference.manager');
   $schema_corresponding_reference_manager->mappingInsert($mapping);

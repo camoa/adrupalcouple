@@ -3,6 +3,7 @@
 namespace Drupal\custom_field\Plugin;
 
 use Drupal\Component\Plugin\Exception\PluginException;
+use Drupal\Component\Plugin\Factory\DefaultFactory;
 use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Plugin\DefaultPluginManager;
@@ -120,31 +121,6 @@ class CustomFieldTypeManager extends DefaultPluginManager implements CustomField
   /**
    * {@inheritdoc}
    */
-  public function dataTypes(): array {
-    $definitions = $this->getDefinitions();
-    $data_types = [];
-    foreach ($definitions as $id => $definition) {
-      try {
-        /** @var \Drupal\custom_field\Plugin\CustomFieldTypeInterface $plugin */
-        $plugin = $this->createInstance($id);
-        // @todo Refactor this schema logic only needed for update manager.
-        $schema = $plugin->schema(['name' => $id, 'target_type' => 'node']);
-        $data_types[$id] = [
-          'label' => $plugin->getPluginDefinition()['label'],
-          'schema' => $schema,
-        ];
-      }
-      catch (\Exception $e) {
-        // Plugin not found.
-      }
-    }
-
-    return $data_types;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function fieldTypeOptions(): array {
     $options = [];
     $definitions = $this->getDefinitions();
@@ -156,6 +132,11 @@ class CustomFieldTypeManager extends DefaultPluginManager implements CustomField
       return strnatcasecmp($a['label'], $b['label']);
     });
     foreach ($definitions as $id => $definition) {
+      /** @var \Drupal\custom_field\Plugin\CustomFieldTypeInterface $plugin_class */
+      $plugin_class = DefaultFactory::getPluginClass($id, $definition);
+      if (!$plugin_class::isApplicable()) {
+        continue;
+      }
       $category = $definition['category'];
       // Add category grouping for multiple options.
       $options[(string) $category][$id] = $definition['label'];

@@ -11,6 +11,7 @@ use Drupal\Core\Field\FieldItemBase;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Link;
+use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\TypedData\DataDefinition;
 use Drupal\user\EntityOwnerInterface;
@@ -40,7 +41,7 @@ class FivestarItem extends FieldItemBase {
   /**
    * {@inheritdoc}
    */
-  public static function schema(FieldStorageDefinitionInterface $field_definition) {
+  public static function schema(FieldStorageDefinitionInterface $field_definition): array {
     return [
       'columns' => [
         'rating' => [
@@ -61,25 +62,27 @@ class FivestarItem extends FieldItemBase {
   /**
    * {@inheritdoc}
    */
-  public static function propertyDefinitions(FieldStorageDefinitionInterface $field_definition) {
-    $property_definitions['rating'] = DataDefinition::create('integer')
-      ->setLabel(t('Rating'));
-    $property_definitions['target'] = DataDefinition::create('integer')
-      ->setLabel(t('Target'));
-    return $property_definitions;
+  public static function propertyDefinitions(FieldStorageDefinitionInterface $field_definition): array {
+    $properties['rating'] = DataDefinition::create('integer')
+      ->setLabel(new TranslatableMarkup('Rating'));
+
+    $properties['target'] = DataDefinition::create('integer')
+      ->setLabel(new TranslatableMarkup('Target'));
+
+    return $properties;
   }
 
   /**
    * {@inheritdoc}
    */
-  public static function mainPropertyName() {
+  public static function mainPropertyName(): string {
     return 'rating';
   }
 
   /**
    * {@inheritdoc}
    */
-  public static function defaultFieldSettings() {
+  public static function defaultFieldSettings(): array {
     return [
       'stars' => 5,
       'allow_clear' => FALSE,
@@ -95,7 +98,7 @@ class FivestarItem extends FieldItemBase {
   /**
    * {@inheritdoc}
    */
-  public static function defaultStorageSettings() {
+  public static function defaultStorageSettings(): array {
     return [
       'vote_type' => 'vote',
     ] + parent::defaultStorageSettings();
@@ -104,7 +107,7 @@ class FivestarItem extends FieldItemBase {
   /**
    * {@inheritdoc}
    */
-  public function storageSettingsForm(array &$form, FormStateInterface $form_state, $has_data) {
+  public function storageSettingsForm(array &$form, FormStateInterface $form_state, $has_data): array {
     $element = [];
     $vote_manager = \Drupal::service('fivestar.vote_manager');
     $vote_types_link = Link::createFromRoute($this->t('here'), 'entity.vote_type.collection')->toString();
@@ -127,7 +130,7 @@ class FivestarItem extends FieldItemBase {
   /**
    * {@inheritdoc}
    */
-  public function fieldSettingsForm(array $form, FormStateInterface $form_state) {
+  public function fieldSettingsForm(array $form, FormStateInterface $form_state): array {
     $element = [];
     $element['stars'] = [
       '#type' => 'select',
@@ -158,8 +161,8 @@ class FivestarItem extends FieldItemBase {
       '#default_value' => $this->getSetting('rated_while'),
       '#title' => $this->t('Select when user can rate the field'),
       '#options' => [
-        'viewing' => 'Rated while viewing',
-        'editing' => 'Rated while editing',
+        'viewing' => $this->t('Rated while viewing'),
+        'editing' => $this->t('Rated while editing'),
       ],
     ];
     $element['enable_voting_target'] = [
@@ -178,10 +181,7 @@ class FivestarItem extends FieldItemBase {
     $element['target_bridge_field'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Target bridge field'),
-      '#description' => $this->t(
-        'Machine name of field that binds current entity with entity that contain target fivestar field.
-        The field should have "entity_reference" type.'
-      ),
+      '#description' => $this->t("Machine name of field that binds current entity with entity that contain target fivestar field. The field should be of type 'entity_reference'."),
       '#states' => $states,
       '#default_value' => $this->getSetting('target_bridge_field'),
     ];
@@ -192,9 +192,7 @@ class FivestarItem extends FieldItemBase {
       '#states' => $states,
       '#default_value' => $this->getSetting('target_fivestar_field'),
     ];
-    $element['#element_validate'] = [
-      [get_class($this), 'fieldSettingsFormValidate'],
-    ];
+    $element['#element_validate'] = [[static::class, 'fieldSettingsFormValidate']];
 
     // @todo try to find the way to omit it.
     $form_state->set('host_entity', $this->getEntity());
@@ -205,7 +203,7 @@ class FivestarItem extends FieldItemBase {
   /**
    * Validate callback: check field settings.
    */
-  public static function fieldSettingsFormValidate(array $form, FormStateInterface $form_state) {
+  public static function fieldSettingsFormValidate(array $form, FormStateInterface $form_state): void {
     $host_entity = $form_state->get('host_entity');
     $field_settings = $form_state->getValue('settings');
 
@@ -215,7 +213,7 @@ class FivestarItem extends FieldItemBase {
       if (!$host_entity->hasField($field_settings['target_bridge_field'])) {
         $form_state->setErrorByName(
           'target_bridge_field',
-          t('The host entity doesn\'t contain field: "@field_name"', [
+          new TranslatableMarkup("The host entity doesn't contain field: '@field_name'", [
             '@field_name' => $field_settings['target_bridge_field'],
           ])
         );
@@ -227,7 +225,7 @@ class FivestarItem extends FieldItemBase {
       if ($field_type != 'entity_reference') {
         $form_state->setErrorByName(
           'target_bridge_field',
-          t('The bridge field must have "entity_reference" type. The entered field has type: "@field_type"', [
+          new TranslatableMarkup('The bridge field must have "entity_reference" type. The entered field has type: "@field_type"', [
             '@field_type' => $field_type,
           ])
         );
@@ -239,7 +237,7 @@ class FivestarItem extends FieldItemBase {
   /**
    * {@inheritdoc}
    */
-  public function isEmpty() {
+  public function isEmpty(): bool {
     $rating = $this->get('rating')->getValue();
     return empty($rating) || $rating == '-';
   }
@@ -309,14 +307,17 @@ class FivestarItem extends FieldItemBase {
   }
 
   /**
-   * Get target entity.
+   * Gets the target entity.
    *
    * @param \Drupal\Core\Entity\FieldableEntityInterface $entity
+   *   The entity with the fivestar field.
    * @param array $field_settings
+   *   An array of settings for the Fivestar field.
    *
    * @return \Drupal\Core\Entity\FieldableEntityInterface|null
+   *   The target entity, or NULL if the target isn't set or enabled.
    */
-  public function getTargetEntity(FieldableEntityInterface $entity, array $field_settings) {
+  public function getTargetEntity(FieldableEntityInterface $entity, array $field_settings): ?FieldableEntityInterface {
     if ($field_settings['enable_voting_target'] !== TRUE) {
       return NULL;
     }
@@ -368,12 +369,13 @@ class FivestarItem extends FieldItemBase {
   }
 
   /**
-   * Get owner for vote.
+   * Gets owner of the vote.
    *
-   * In order to get correct vote owner need to do it based on fivestar field
-   * settings, when selected "Rating mode viewing" mode, then have to use
-   * current user. For "Rating mode editing" mode - if entity have method
-   * "getOwner" use entity owner, otherwise the current user has to be used.
+   * In order to get the correct vote owner we need to do it based on fivestar
+   * field settings. When "Rated while viewing" is selected, we have to use the
+   * current user. For "Rated while editing" mode - if the entity implements
+   * EntityOwnerInterface then we use the entity owner. Otherwise, we fall back
+   * to using the current user.
    *
    * @param \Drupal\Core\Entity\FieldableEntityInterface $entity
    *   The entity from which try to get owner.
@@ -383,7 +385,7 @@ class FivestarItem extends FieldItemBase {
    * @return \Drupal\Core\Session\AccountInterface
    *   The account of the vote owner.
    */
-  protected function getVoteOwner(FieldableEntityInterface $entity, $rating_mode) {
+  protected function getVoteOwner(FieldableEntityInterface $entity, string $rating_mode): AccountInterface {
     switch ($rating_mode) {
       case 'editing':
         if ($entity instanceof EntityOwnerInterface) {

@@ -3,4 +3,4 @@ schemadotorg_pathauto.report:
   parent: schemadotorg_report
   description: 'Overview of Schema.org paths.'
   route_name: schemadotorg_pathauto.report
-  weight: 21
+  weight: 31

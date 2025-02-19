@@ -3,7 +3,29 @@ third_party_settings:
     sections:
       -
         components:
+          35f951e2-980c-4ead-9a6f-e8cc09de35e7:
+            configuration:
+              label_display: visible
+          295a5bf0-3eb3-47b5-8333-2c52ba8f3862:
+            configuration:
+              label_display: visible
+          c309007e-0344-4a10-ba15-93b7dae6434e:
+            configuration:
+              label_display: visible
+          93a5dffd-8824-423d-8b9b-cd478f089227:
+            configuration:
+              label_display: visible
           de4b18d0-c1cb-4074-b239-3895f7747260:
             configuration:
               label: 'Recientemente creado'
+              label_display: visible
               views_label: 'Recientemente creado'
+          fc6cadb0-275f-440a-8eb5-d5a1993c1016:
+            configuration:
+              label_display: visible
+          7f0e40cc-073f-44a6-aa98-b9b7ac68618c:
+            configuration:
+              label_display: visible
+          6eabf516-83a0-4fc4-95ba-8afe5e678dbc:
+            configuration:
+              label_display: visible

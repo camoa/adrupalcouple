@@ -7,12 +7,12 @@
 
 declare(strict_types=1);
 
+use Drupal\content_model_documentation\Entity\CMDocumentInterface;
 use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Url;
-use Drupal\content_model_documentation\Entity\CMDocumentInterface;
 use Drupal\schemadotorg\SchemaDotOrgMappingInterface;
 use Drupal\schemadotorg\SchemaDotOrgMappingTypeInterface;
 
@@ -26,7 +26,7 @@ function schemadotorg_content_model_documentation_entity_type_build(array &$enti
 }
 
 /**
- * Implements hook_schemadotorg_mapping_type_insert().
+ * Implements hook_ENTITY_TYPE_insert().
  */
 function schemadotorg_content_model_documentation_schemadotorg_mapping_type_insert(SchemaDotOrgMappingTypeInterface $mapping_type): void {
   /** @var \Drupal\schemadotorg_content_model_documentation\SchemaDotOrgContentModelDocumentationManagerInterface $documentation_manager */
@@ -35,7 +35,7 @@ function schemadotorg_content_model_documentation_schemadotorg_mapping_type_inse
 }
 
 /**
- * Implements hook_schemadotorg_mapping_insert().
+ * Implements hook_ENTITY_TYPE_insert().
  */
 function schemadotorg_content_model_documentation_schemadotorg_mapping_insert(SchemaDotOrgMappingInterface $mapping): void {
   /** @var \Drupal\schemadotorg_content_model_documentation\SchemaDotOrgContentModelDocumentationManagerInterface $documentation_manager */

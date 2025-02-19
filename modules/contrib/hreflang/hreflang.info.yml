@@ -7,7 +7,7 @@ type: module
 configure: hreflang.admin_settings
 php: 7.1
 
-# Information added by Drupal.org packaging script on 2024-05-22
-version: '8.x-1.14'
+# Information added by Drupal.org packaging script on 2024-12-08
+version: '8.x-1.15'
 project: 'hreflang'
-datestamp: 1716353795
+datestamp: 1733657474

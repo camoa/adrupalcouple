@@ -81,6 +81,7 @@ class SchemaDotOrgAdditionalTypeTest extends SchemaDotOrgBrowserTestBase {
       'machine_name' => 'event_type',
       'unlimited' => FALSE,
       'required' => TRUE,
+      'copy' => FALSE,
       'description' => 'An additional type for the item, typically used for adding more specific types from external vocabularies in microdata syntax.',
       'allowed_values' => [
         'BusinessEvent' => 'Business Event',

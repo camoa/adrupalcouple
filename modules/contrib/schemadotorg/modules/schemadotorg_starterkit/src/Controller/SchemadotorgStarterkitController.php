@@ -14,7 +14,6 @@ use Drupal\schemadotorg\SchemaDotOrgSchemaTypeBuilderInterface;
 use Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface;
 use Drupal\schemadotorg\Traits\SchemaDotOrgBuildTrait;
 use Drupal\schemadotorg_starterkit\SchemaDotOrgStarterkitManagerInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
@@ -24,48 +23,29 @@ class SchemadotorgStarterkitController extends ControllerBase {
   use SchemaDotOrgBuildTrait;
 
   /**
-   * The module list service.
+   * Constructs a SchemadotorgStarterkitController object.
+   *
+   * @param \Drupal\Core\Extension\ModuleExtensionList $moduleExtensionList
+   *   The module list service.
+   * @param \Drupal\schemadotorg\SchemaDotOrgNamesInterface $schemaNames
+   *   The Schema.org names manager.
+   * @param \Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager
+   *   The Schema.org schema type manager.
+   * @param \Drupal\schemadotorg\SchemaDotOrgSchemaTypeBuilderInterface $schemaTypeBuilder
+   *   The Schema.org schema type builder.
+   * @param \Drupal\schemadotorg\SchemaDotOrgMappingManagerInterface $schemaMappingManager
+   *   The Schema.org mapping manager.
+   * @param \Drupal\schemadotorg_starterkit\SchemaDotOrgStarterkitManagerInterface $schemaStarterkitManager
+   *   The Schema.org starter kit manager.
    */
-  protected ModuleExtensionList $moduleExtensionList;
-
-  /**
-   * The Schema.org names manager.
-   */
-  protected SchemaDotOrgNamesInterface $schemaNames;
-
-  /**
-   * The Schema.org schema type manager.
-   */
-  protected SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager;
-
-  /**
-   * The Schema.org schema type builder.
-   */
-  protected SchemaDotOrgSchemaTypeBuilderInterface $schemaTypeBuilder;
-
-  /**
-   * The Schema.org mapping manager service.
-   */
-  protected SchemaDotOrgMappingManagerInterface $schemaMappingManager;
-
-  /**
-   * The Schema.org starter kit manager service.
-   */
-  protected SchemaDotOrgStarterkitManagerInterface $schemaStarterkitManager;
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function create(ContainerInterface $container): static {
-    $instance = parent::create($container);
-    $instance->moduleExtensionList = $container->get('extension.list.module');
-    $instance->schemaNames = $container->get('schemadotorg.names');
-    $instance->schemaTypeManager = $container->get('schemadotorg.schema_type_manager');
-    $instance->schemaTypeBuilder = $container->get('schemadotorg.schema_type_builder');
-    $instance->schemaMappingManager = $container->get('schemadotorg.mapping_manager');
-    $instance->schemaStarterkitManager = $container->get('schemadotorg_starterkit.manager');
-    return $instance;
-  }
+  public function __construct(
+    protected ModuleExtensionList $moduleExtensionList,
+    protected SchemaDotOrgNamesInterface $schemaNames,
+    protected SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager,
+    protected SchemaDotOrgSchemaTypeBuilderInterface $schemaTypeBuilder,
+    protected SchemaDotOrgMappingManagerInterface $schemaMappingManager,
+    protected SchemaDotOrgStarterkitManagerInterface $schemaStarterkitManager,
+  ) {}
 
   /**
    * Builds the response for the starter kits overview page.
@@ -132,7 +112,7 @@ class SchemadotorgStarterkitController extends ControllerBase {
           $is_installable = FALSE;
           $dependencies[] = ['#markup' => $dependency . ' <em>(' . $this->t('Missing') . ')</em>'];
         }
-      };
+      }
 
       $title = $starterkit['name'];
       $title = str_replace('Schema.org Blueprints Starter Kit: ', '', $title);

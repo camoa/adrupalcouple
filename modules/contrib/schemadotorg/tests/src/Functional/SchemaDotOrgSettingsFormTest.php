@@ -137,6 +137,11 @@ EOT;
     $assert->linkExists('Browse available tokens.');
     $assert->linkExists('Browse Schema.org types.');
 
+    // Check re-apply settings.
+    $this->drupalGet('schemadotorg-settings-simple-form-test');
+    $this->submitForm(['schemadotorg_settings_form_test[apply]' => TRUE], 'Save configuration');
+    $assert->responseContains('schemadotorg_settings_form_test have been re-applied to all existing Schema.org mappings.');
+
     // Check YAML validation.
     $this->drupalGet('schemadotorg-settings-simple-form-test');
     $this->submitForm(['schemadotorg_settings_form_test[indexed]' => '"not: valid yaml'], 'Save configuration');

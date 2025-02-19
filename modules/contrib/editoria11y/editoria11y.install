@@ -7,7 +7,8 @@
 
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\user\Entity\Role;
-use Symfony\Component\Yaml\Yaml;
+use Drupal\Core\Link;
+use Drupal\Core\Url;
 
 /**
  * Implements hook_install().
@@ -25,6 +26,19 @@ function editoria11y_install() {
       $role->save();
     }
   }
+  $messenger = \Drupal::messenger();
+
+  $config_url = Url::fromRoute('editoria11y.settings');
+  $config_link = Link::fromTextAndUrl(t('Editoria11y config'), $config_url)->toString();
+
+  $permissions_url = Url::fromRoute('user.admin_permissions');
+  $permissions_link = Link::fromTextAndUrl(t('confirm editor roles have permission'), $permissions_url)->toString();
+
+  $messenger->addStatus(
+    t('Please remember to set up @config for live editing, and @permissions to "View Editoria11y Checker"', [
+      '@config' => $config_link,
+      '@permissions' => $permissions_link,
+    ]));
 }
 
 /**
@@ -395,19 +409,6 @@ function editoria11y_update_9004() {
     $schema->addField('editoria11y_dismissals', 'entity_id', $specs['fields']['entity_id']);
     $schema->addIndex('editoria11y_dismissals', 'entity_id', $fields, $specs);
   }
-
-  // Install views.
-  if (Drupal::moduleHandler()->moduleExists('views')) {
-    $config_id = 'views.view.editoria11y_dismissals';
-    $config_path = Drupal::service('extension.list.module')->getPath('editoria11y') . '/config/optional/' . $config_id . '.yml';
-    $data = Yaml::parseFile($config_path);
-    Drupal::configFactory()->getEditable($config_id)->setData($data)->save(TRUE);
-
-    $config_id = 'views.view.editoria11y_results';
-    $config_path = Drupal::service('extension.list.module')->getPath('editoria11y') . '/config/optional/' . $config_id . '.yml';
-    $data = Yaml::parseFile($config_path);
-    Drupal::configFactory()->getEditable($config_id)->setData($data)->save(TRUE);
-  }
 }
 
 /**
@@ -428,4 +429,25 @@ function editoria11y_update_9006() {
   $config_factory = Drupal::configFactory();
   $config = $config_factory->getEditable('editoria11y.configuration');
   $config->delete();
+}
+
+/**
+ * Enable live checking and set default heading level for body fields.
+ */
+function editoria11y_update_9007() {
+  $config_factory = Drupal::configFactory();
+  $config = $config_factory->getEditable('editoria11y.settings');
+  $config->set('live_h2', 'form[id^="node-"] #edit-body-wrapper');
+  $config->set('disable_live', FALSE);
+  $config->save();
+}
+
+/**
+ * Reset value for selector for first heading level.
+ */
+function editoria11y_update_9008() {
+  $config_factory = Drupal::configFactory();
+  $config = $config_factory->getEditable('editoria11y.settings');
+  $config->set('live_h2', 'form[id^="node-"] #edit-body-wrapper .ck-content');
+  $config->save();
 }

@@ -12,8 +12,6 @@ use Drupal\Core\Render\RendererInterface;
 use Drupal\Core\Routing\RouteMatch;
 use Drupal\Core\Url;
 use Drupal\schemadotorg\Utility\SchemaDotOrgStringHelper;
-use PHPUnit\Framework\MockObject\MockObject;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Routing\Route;
 
 /**
@@ -22,24 +20,17 @@ use Symfony\Component\Routing\Route;
 class SchemaDotOrgSettingsController extends ControllerBase {
 
   /**
-   * The local task manager.
+   * Constructs a SchemaDotOrgSettingsController object.
+   *
+   * @param \Drupal\Core\Menu\LocalTaskManagerInterface $localTaskManager
+   *   The local task manager.
+   * @param \Drupal\Core\Render\RendererInterface $renderer
+   *   The renderer.
    */
-  protected LocalTaskManagerInterface $localTaskManager;
-
-  /**
-   * The renderer.
-   */
-  protected RendererInterface|MockObject $renderer;
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function create(ContainerInterface $container): static {
-    $instance = parent::create($container);
-    $instance->localTaskManager = $container->get('plugin.manager.menu.local_task');
-    $instance->renderer = $container->get('renderer');
-    return $instance;
-  }
+  public function __construct(
+    protected LocalTaskManagerInterface $localTaskManager,
+    protected RendererInterface $renderer,
+  ) {}
 
   /**
    * Returns Schema.org settings index page.

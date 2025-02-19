@@ -53,7 +53,7 @@ class DeleteForm extends ConfirmFormBase {
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, FormStateInterface $form_state, ProfileInterface $linkit_profile = NULL, $plugin_instance_id = NULL) {
+  public function buildForm(array $form, FormStateInterface $form_state, ?ProfileInterface $linkit_profile = NULL, ?string $plugin_instance_id = NULL) {
     $this->linkitProfile = $linkit_profile;
 
     if (!$this->linkitProfile->getMatchers()->has($plugin_instance_id)) {

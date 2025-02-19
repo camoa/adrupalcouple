@@ -23,8 +23,8 @@ base_paths:
   MedicalTest: medical/tests
   MedicalEntity: medical
   WebPage: pages
-  Articles: articles
-  BlogPosting: blogs
+  Article: articles
+  BlogPosting: blog
   Blog: blogs
   Organization: organizations
   MediaObject: media

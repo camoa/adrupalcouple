@@ -1,8 +1,9 @@
 content_root: ''
 no_load: ''
 ignore_elements: ''
+panel_no_cover: ''
 embedded_content_warning: ''
-assertiveness: 'smart'
+assertiveness: 'assertive'
 download_links: ''
 ignore_link_strings: ''
 link_strings_new_windows: ''
@@ -15,3 +16,9 @@ disable_sync: false
 preserve_params: 'search,keys,page,language,language_content_entity'
 custom_tests: 0
 redundant_prefix: ''
+disable_live: false
+live_h_inherit: ''
+live_h2: 'form[id^="node-"] #edit-body-wrapper .ck-content'
+live_h3: ''
+live_h4: ''
+hide_edit_links: ''

@@ -11,7 +11,7 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\schemadotorg\Traits\SchemaDotOrgMappingStorageTrait;
 
 /**
- * Schema.org config manager service.
+ * Schema.org config manager.
  *
  * The Schema.org config manager service allows modules and starter kits to
  * easily set and unset a Schema.org types default properties.
@@ -29,7 +29,7 @@ class SchemaDotOrgConfigManager implements SchemaDotOrgConfigManagerInterface {
    * Constructs a SchemaDotOrgConfigManager object.
    *
    * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
-   *   The configuration object factory.
+   *   The config factory.
    * @param \Drupal\Core\Config\TypedConfigManagerInterface $typedConfigManager
    *   The typed configuration manager.
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager

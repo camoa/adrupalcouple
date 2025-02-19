@@ -20,6 +20,7 @@ class FieldStorageSettingsTest extends WebDriverTestBase {
    * {@inheritdoc}
    */
   protected static $modules = [
+    'custom_field_viewfield',
     'custom_field_test',
     'user',
     'system',
@@ -28,6 +29,7 @@ class FieldStorageSettingsTest extends WebDriverTestBase {
     'text',
     'node',
     'path',
+    'views',
   ];
 
   /**
@@ -97,14 +99,14 @@ class FieldStorageSettingsTest extends WebDriverTestBase {
   protected function setUp(): void {
     parent::setUp();
 
-    $this->fieldName = 'field_custom_field_test';
+    $this->fieldName = 'field_test';
     $this->bundle = 'custom_field_entity_test';
     $this->fieldStorageConfigUrl = '/admin/structure/types/manage/' . $this->bundle . '/fields/node.' . $this->bundle . '.' . $this->fieldName;
     $this->entityFieldManager = $this->container->get('entity_field.manager');
     $this->customFieldDataGenerator = $this->container->get('custom_field.generate_data');
 
     $this->fields = $this->entityFieldManager
-      ->getFieldDefinitions('node', 'custom_field_entity_test');
+      ->getFieldDefinitions('node', $this->bundle);
 
     $this->drupalLogin($this->drupalCreateUser([], NULL, TRUE));
     $this->parentPath = 'field_storage[subform][settings][items]';

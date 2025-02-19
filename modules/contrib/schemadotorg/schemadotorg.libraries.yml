@@ -67,6 +67,10 @@ schemadotorg.mermaid:
     - schemadotorg/schemadotorg.details
     - schemadotorg/mermaid
 
+################################################################################
+# External libraries.
+################################################################################
+
 jstree:
   remote: https://www.jstree.com
   version: '3.3.17'
@@ -83,13 +87,13 @@ jstree:
     - core/jquery
 
 mermaid:
-  version: '11.3.0'
+  version: '11.4.1'
   remote: https://github.com/mermaid-js/mermaid
   license:
     name: MIT
     gpl-compatible: false
   js:
-    https://cdn.jsdelivr.net/npm/mermaid@11.3.0/dist/mermaid.min.js: { type: external, minified: true }
+    https://cdn.jsdelivr.net/npm/mermaid@11.4.1/dist/mermaid.min.js: { type: external, minified: true }
 
 svg-pan-zoom:
   remote: https://github.com/ariutta/svg-pan-zoom

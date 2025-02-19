@@ -4,7 +4,6 @@ namespace Drupal\custom_field\Plugin\CustomField\FieldFormatter;
 
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Field\FieldItemInterface;
-use Drupal\custom_field\Plugin\CustomFieldTypeInterface;
 
 /**
  * Plugin implementation of the 'entity reference ID' formatter.
@@ -23,23 +22,22 @@ class EntityReferenceIdFormatter extends EntityReferenceFormatterBase {
   /**
    * {@inheritdoc}
    */
-  public function formatValue(FieldItemInterface $item, CustomFieldTypeInterface $field, array $settings) {
-    $entity = $settings['value'];
+  public function formatValue(FieldItemInterface $item, $value) {
 
-    if (!$entity instanceof EntityInterface) {
+    if (!$value instanceof EntityInterface) {
       return NULL;
     }
 
-    $access = $this->checkAccess($entity);
+    $access = $this->checkAccess($value);
 
     if (!$access->isAllowed()) {
       return NULL;
     }
 
     $build = [
-      '#plain_text' => $entity->id(),
+      '#plain_text' => $value->id(),
       '#cache' => [
-        'tags' => $entity->getCacheTags(),
+        'tags' => $value->getCacheTags(),
       ],
     ];
 

@@ -21,7 +21,7 @@ class DateTimeDefaultFormatter extends DateTimeFormatterBase {
   /**
    * {@inheritdoc}
    */
-  public static function defaultSettings() {
+  public static function defaultSettings(): array {
     return [
       'format_type' => 'medium',
     ] + parent::defaultSettings();
@@ -30,19 +30,17 @@ class DateTimeDefaultFormatter extends DateTimeFormatterBase {
   /**
    * {@inheritdoc}
    */
-  protected function formatDate(object $date, array $settings): string {
-    $settings += static::defaultSettings();
-    $format_type = $settings['format_type'];
-    $timezone = $settings['timezone_override'] ?: $date->getTimezone()->getName();
+  protected function formatDate(object $date): string {
+    $format_type = $this->getSetting('format_type');
+    $timezone = $this->getSetting('timezone_override') ?: $date->getTimezone()->getName();
     return $this->dateFormatter->format($date->getTimestamp(), $format_type, '', $timezone != '' ? $timezone : NULL);
   }
 
   /**
    * {@inheritdoc}
    */
-  public function settingsForm(array $form, FormStateInterface $form_state, array $settings) {
-    $settings += static::defaultSettings();
-    $elements = parent::settingsForm($form, $form_state, $settings);
+  public function settingsForm(array $form, FormStateInterface $form_state): array {
+    $elements = parent::settingsForm($form, $form_state);
 
     $time = new DrupalDateTime();
     $format_types = $this->dateFormatStorage->loadMultiple();
@@ -60,7 +58,7 @@ class DateTimeDefaultFormatter extends DateTimeFormatterBase {
       '#title' => $this->t('Date format'),
       '#description' => $this->t('Choose a format for displaying the date. Be sure to set a format appropriate for the field, i.e. omitting time for a field that only has a date.'),
       '#options' => $options,
-      '#default_value' => $settings['format_type'],
+      '#default_value' => $this->getSetting('format_type'),
     ];
 
     return $elements;

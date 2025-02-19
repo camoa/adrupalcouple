@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\schemadotorg\Unit;
 
-use Drupal\Tests\UnitTestCase;
 use Drupal\schemadotorg\Utility\SchemaDotOrgHtmlHelper;
+use Drupal\Tests\UnitTestCase;
 
 /**
  * @coversDefaultClass \Drupal\schemadotorg\Utility\SchemaDotOrgHtmlHelper
@@ -35,7 +35,7 @@ class SchemaDotOrgHtmlHelperTest extends UnitTestCase {
    *
    * @see testFromMarkdown()
    */
-  public function providerFromMarkdown(): array {
+  public static function providerFromMarkdown(): array {
     $tests = [];
     // Check converting some text.
     $tests[] = [

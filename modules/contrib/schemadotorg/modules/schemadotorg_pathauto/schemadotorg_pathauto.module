@@ -23,7 +23,7 @@ function schemadotorg_pathauto_help(string $route_name, RouteMatchInterface $rou
 }
 
 /**
- * Implements hook_schemadotorg_mapping_insert().
+ * Implements hook_ENTITY_TYPE_insert().
  */
 function schemadotorg_pathauto_schemadotorg_mapping_insert(SchemaDotOrgMappingInterface $mapping): void {
   /** @var \Drupal\schemadotorg_pathauto\SchemaDotOrgPathautoManagerInterface $schema_pathauto_manager */
@@ -73,34 +73,11 @@ entity_type_id--SchemaType--bundle: base-path
 bundle--additional_type: base-path
 ",
   ];
-  $form['schemadotorg_pathauto']['apply_pathauto'] = [
-    '#type' => 'checkbox',
-    '#title' => t('Apply Schema.org pathauto patterns to all existing Schema.org mappings.'),
-    '#description' => t('If checked, the above pathauto patterns will be applied to all existing Schema.org mappings.'),
-    '#prefix' => '<hr/>',
+
+  $t_args = [
+    ':href' => Url::fromRoute('pathauto.bulk.update.form')->toString(),
   ];
-  $form['#submit'][] = 'schemadotorg_pathauto_form_schemadotorg_types_settings_form_submit';
-}
-
-/**
- * Form submission handler for schemadotorg_types_settings_form().
- *
- * @see schemadotorg_pathauto_form_schemadotorg_types_settings_form_alter()
- */
-function schemadotorg_pathauto_form_schemadotorg_types_settings_form_submit(array &$form, FormStateInterface $form_state): void {
-  // Apply pathauto patterns to all existing Schema.org mappings.
-  if ($form_state->getValue(['schemadotorg_pathauto', 'apply_pathauto'])) {
-    /** @var \Drupal\schemadotorg\SchemaDotOrgMappingInterface[] $mappings */
-    $mappings = \Drupal::entityTypeManager()
-      ->getStorage('schemadotorg_mapping')
-      ->loadMultiple();
-    foreach ($mappings as $mapping) {
-      schemadotorg_pathauto_schemadotorg_mapping_insert($mapping);
-    }
-
-    $t_args = [
-      ':href' => Url::fromRoute('pathauto.bulk.update.form')->toString(),
-    ];
-    \Drupal::messenger()->addStatus(t('Pathauto patterns applied to all existing Schema.org mappings. You may wish to <a href=":href">bulk regenerate</a> URL aliases.', $t_args));
-  }
+  $form['schemadotorg_pathauto']['apply'] = [
+    '#message' => t('Pathauto patterns applied to all existing Schema.org mappings. You may wish to <a href=":href">bulk regenerate</a> URL aliases.', $t_args),
+  ];
 }

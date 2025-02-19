@@ -17,7 +17,12 @@ class SchemaDotOrgJsonLdCacheTest extends SchemaDotOrgBrowserTestBase {
   /**
    * {@inheritdoc}
    */
-  protected static $modules = ['schemadotorg_jsonld_preview', 'node'];
+  protected static $modules = [
+    'node',
+    'dynamic_page_cache',
+    'schemadotorg_jsonld_preview',
+    'schemadotorg_jsonld_cache_test',
+  ];
 
   /**
    * Tests that Schema.org JSON-lD is cached.
@@ -68,20 +73,27 @@ class SchemaDotOrgJsonLdCacheTest extends SchemaDotOrgBrowserTestBase {
     $assert->responseHeaderContains('X-Drupal-Cache-Contexts', 'languages:language_interface theme timezone url.query_args:_wrapper_format url.site user.permissions user.roles:authenticated');
 
     // Check that organization 2's JSON-LD.
-    $assert->responseContains('<script type="application/ld+json">{
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "@url": "' . $organization_node_2_uri . '",
-    "name": "Organization 2",
-    "description": "\u003Cp\u003EThis is Organization 2.\u003C/p\u003E\n",
-    "subOrganization": [
-        {
-            "@type": "Organization",
-            "name": "Organization 1",
-            "@url": "' . $organization_node_1_uri . '"
-        }
-    ]
-}</script>');
+    $assert->responseContains('<script type="application/ld+json">[
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Drupal"
+    },
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "@url": "' . $organization_node_2_uri . '",
+        "name": "Organization 2",
+        "description": "\u003Cp\u003EThis is Organization 2.\u003C/p\u003E\n",
+        "subOrganization": [
+            {
+                "@type": "Organization",
+                "name": "Organization 1",
+                "@url": "' . $organization_node_1_uri . '"
+            }
+        ]
+    }
+]</script>');
 
     // Update organization 1's title.
     $organization_node_1->setTitle('Organization I')->save();
@@ -93,19 +105,70 @@ class SchemaDotOrgJsonLdCacheTest extends SchemaDotOrgBrowserTestBase {
     $assert->responseHeaderEquals('X-Drupal-Cache', 'HIT');
 
     // Check that organization 2's JSON-LD.
+    $assert->responseContains('<script type="application/ld+json">[
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Drupal"
+    },
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "@url": "' . $organization_node_2_uri . '",
+        "name": "Organization 2",
+        "description": "\u003Cp\u003EThis is Organization 2.\u003C/p\u003E\n",
+        "subOrganization": [
+            {
+                "@type": "Organization",
+                "name": "Organization I",
+                "@url": "' . $organization_node_1_uri . '"
+            }
+        ]
+    }
+]</script>');
+
+    /* ********************************************************************** */
+
+    // Check that front page's JSON-LD.
+    $this->drupalGet('<front>');
     $assert->responseContains('<script type="application/ld+json">{
     "@context": "https://schema.org",
-    "@type": "Organization",
-    "@url": "' . $organization_node_2_uri . '",
-    "name": "Organization 2",
-    "description": "\u003Cp\u003EThis is Organization 2.\u003C/p\u003E\n",
-    "subOrganization": [
-        {
-            "@type": "Organization",
-            "name": "Organization I",
-            "@url": "' . $organization_node_1_uri . '"
-        }
-    ]
+    "@type": "WebSite",
+    "name": "Drupal"
+}</script>');
+
+    // Change the site name.
+    \Drupal::configFactory()->getEditable('system.site')->set('name', 'Drupal Test')->save();
+
+    // Check that front page's JSON-LD is NOT updated.
+    $this->drupalGet('<front>');
+    $assert->responseContains('<script type="application/ld+json">{
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Drupal"
+}</script>');
+
+    // Flush all caches.
+    // @see schemadotorg_jsonld_cache_test_schemadotorg_jsonld()
+    drupal_flush_all_caches();
+
+    // Check that front page's JSON-LD is updated.
+    $this->drupalGet('<front>');
+    $assert->responseContains('<script type="application/ld+json">{
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Drupal Test"
+}</script>');
+
+    // Login as the root user to test the dynamic page cache.
+    $this->drupalLogin($this->rootUser);
+
+    // Check that front page's JSON-LD is updated.
+    $this->drupalGet('<front>');
+    $assert->responseContains('<script type="application/ld+json">{
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Drupal Test"
 }</script>');
   }
 

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\schemadotorg_starterkit\Functional;
 
-use Drupal\Tests\schemadotorg\Functional\SchemaDotOrgBrowserTestBase;
 use Drupal\schemadotorg_starterkit\SchemaDotOrgStarterkitManagerInterface;
+use Drupal\Tests\schemadotorg\Functional\SchemaDotOrgBrowserTestBase;
 
 /**
  * Tests the functionality of the Schema.org Starter Kit module.
@@ -29,7 +29,7 @@ class SchemaDotOrgStarterkitTest extends SchemaDotOrgBrowserTestBase {
   protected static $modules = ['schemadotorg_starterkit_dependency_test'];
 
   /**
-   * The Schema.org starter kit manager service.
+   * The Schema.org starter kit manager.
    */
   protected SchemaDotOrgStarterkitManagerInterface $schemaStarterkitManager;
 

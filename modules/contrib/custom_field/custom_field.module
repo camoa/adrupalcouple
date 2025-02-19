@@ -5,10 +5,12 @@
  * Contains custom_field.module.
  */
 
+use Drupal\Component\Utility\Html;
 use Drupal\Core\Field\FieldTypeCategoryManagerInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Template\Attribute;
+use Drupal\custom_field\TagManagerInterface;
 
 /**
  * Implements hook_help().
@@ -34,6 +36,15 @@ function custom_field_theme(): array {
   return [
     'custom_field' => $item,
     'custom_field_item' => $item,
+    'custom_field_hierarchical_formatter' => [
+      'variables' => [
+        'terms' => [],
+        'wrapper' => '',
+        'separator' => ' » ',
+        'link' => FALSE,
+      ],
+      'file' => 'custom_field_hierarchical_formatter.theme.inc',
+    ],
   ];
 }
 
@@ -60,7 +71,7 @@ function custom_field_theme_suggestions_custom_field_item(array $variables): arr
 }
 
 /**
- * Prepares variables for custom-field-item template.
+ * Prepares variables for custom-field template.
  */
 function template_preprocess_custom_field(array &$variables): void {
   $variables['items'] = $variables['elements']['#items'];
@@ -82,8 +93,38 @@ function template_preprocess_custom_field(array &$variables): void {
  * Prepares variables for custom-field-item template.
  */
 function template_preprocess_custom_field_item(array &$variables): void {
+  $wrappers = $variables['elements']['#wrappers'];
+  // Set wrapper classes.
+  if (!empty($wrappers['field_wrapper_classes'])) {
+    $wrapper_classes = explode(' ', $wrappers['field_wrapper_classes']);
+    foreach ($wrapper_classes as $class) {
+      $variables['attributes']['class'][] = Html::cleanCssIdentifier($class, []);
+    }
+  }
+  // Set field classes.
+  if (!empty($wrappers['field_classes'])) {
+    $field_classes = explode(' ', $wrappers['field_classes']);
+    foreach ($field_classes as $class) {
+      $variables['content_attributes']['class'][] = Html::cleanCssIdentifier($class, []);
+    }
+  }
+  // Set label classes.
+  if (!empty($wrappers['label_classes'])) {
+    $label_classes = explode(' ', $wrappers['label_classes']);
+    foreach ($label_classes as $class) {
+      $variables['title_attributes']['class'][] = Html::cleanCssIdentifier($class, []);
+    }
+  }
+
+  $variables['display_label_tag'] = $wrappers['label_tag'] !== TagManagerInterface::NO_MARKUP_VALUE;
+  $variables['display_field_tag'] = $wrappers['field_tag'] !== TagManagerInterface::NO_MARKUP_VALUE;
+  $variables['display_field_wrapper_tag'] = $wrappers['field_wrapper_tag'] !== TagManagerInterface::NO_MARKUP_VALUE;
+  $variables['field_wrapper_tag'] = $wrappers['field_wrapper_tag'];
+  $variables['field_tag'] = $wrappers['field_tag'];
+  $variables['label_tag'] = $wrappers['label_tag'];
   $variables['label'] = $variables['elements']['#label'];
   $variables['label_display'] = $variables['elements']['#label_display'];
+  $variables['label_hidden'] = ($variables['elements']['#label_display'] == 'hidden');
   $variables['value'] = $variables['elements']['#value'];
   $variables['name'] = $variables['elements']['#name'];
   $variables['type'] = $variables['elements']['#type'];

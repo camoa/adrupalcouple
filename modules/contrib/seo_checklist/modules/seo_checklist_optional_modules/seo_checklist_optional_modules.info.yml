@@ -32,7 +32,7 @@ dependencies:
 configure: checklistapi.checklists.seo_checklist
 lifecycle: deprecated 
 lifecycle_link: 'https://www.drupal.org/node/3475953'
-# Information added by Drupal.org packaging script on 2024-11-20
-version: '5.2.2'
+# Information added by Drupal.org packaging script on 2025-01-10
+version: '5.2.4'
 project: 'seo_checklist'
-datestamp: 1732123460
+datestamp: 1736549433

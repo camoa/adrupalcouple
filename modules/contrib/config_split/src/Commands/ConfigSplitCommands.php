@@ -90,6 +90,8 @@ class ConfigSplitCommands extends DrushCommands {
    *
    * @param string $split
    *   The split configuration to deactivate.
+   * @param array $options
+   *   The options.
    *
    * @command config-split:deactivate
    *
@@ -102,7 +104,7 @@ class ConfigSplitCommands extends DrushCommands {
    * Propose an alias at:
    *   https://www.drupal.org/project/config_split/issues/3181368
    */
-  public function splitDeactivate($split, $options = ['override' => FALSE]) {
+  public function splitDeactivate($split, array $options = ['override' => FALSE]) {
     return $this->cliService->ioDeactivate($split, $this->io(), 'dt', FALSE, $options['override']) ? DrushCommands::EXIT_SUCCESS : DrushCommands::EXIT_FAILURE;
   }
 

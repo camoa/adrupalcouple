@@ -5,21 +5,22 @@ declare(strict_types=1);
 namespace Drupal\schemadotorg_starterkit;
 
 use Drupal\Component\Serialization\Yaml;
+use Drupal\config_rewrite\ConfigRewriter;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Extension\ModuleExtensionList;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Extension\ModuleInstallerInterface;
 use Drupal\Core\File\FileSystemInterface;
-use Drupal\config_rewrite\ConfigRewriter;
 use Drupal\devel_generate\DevelGeneratePluginManager;
 use Drupal\schemadotorg\SchemaDotOrgConfigManagerInterface;
 use Drupal\schemadotorg\SchemaDotOrgMappingManagerInterface;
 use Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface;
 use Drupal\schemadotorg\Traits\SchemaDotOrgDevelGenerateTrait;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
 /**
- * Schema.org Starter kit manager service.
+ * Schema.org Starter kit manager.
  */
 class SchemaDotOrgStarterkitManager implements SchemaDotOrgStarterkitManagerInterface {
   use SchemaDotOrgDevelGenerateTrait;
@@ -41,7 +42,7 @@ class SchemaDotOrgStarterkitManager implements SchemaDotOrgStarterkitManagerInte
    * @param \Drupal\Core\Extension\ModuleHandlerInterface $moduleHandler
    *   The module handler.
    * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
-   *   The configuration object factory.
+   *   The config factory.
    * @param \Drupal\config_rewrite\ConfigRewriter|null $configRewriter
    *   The configuration rewrite.
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
@@ -61,6 +62,7 @@ class SchemaDotOrgStarterkitManager implements SchemaDotOrgStarterkitManagerInte
     protected ModuleInstallerInterface $moduleInstaller,
     protected ModuleHandlerInterface $moduleHandler,
     protected ConfigFactoryInterface $configFactory,
+    #[Autowire(service: 'config_rewrite.config_rewriter')]
     protected ?ConfigRewriter $configRewriter,
     protected EntityTypeManagerInterface $entityTypeManager,
     protected SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager,

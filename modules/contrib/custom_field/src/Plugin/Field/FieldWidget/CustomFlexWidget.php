@@ -151,22 +151,32 @@ class CustomFlexWidget extends CustomWidgetBase {
       $widget_settings = $custom_item->getWidgetSetting('settings');
       $element[$name] = $widget_plugin->widget($items, $delta, $element, $form, $form_state, $custom_item);
       $attributes = $this->getAttributesKey($custom_item, $widget_settings, $type);
+      $column_class = isset($columns[$name]) ? 'custom-field-col custom-field-col-' . $columns[$name] : 'custom-field-col';
 
-      if (isset($element[$name]['#type']) && $element[$name]['#type'] === 'managed_file' && isset($columns[$name])) {
-        $element[$name]['#column_class'] = 'custom-field-col custom-field-col-' . $columns[$name];
+      if (isset($element[$name]['#type']) && $element[$name]['#type'] === 'managed_file') {
+        $element[$name]['#column_class'] = $column_class;
         $element[$name]['#after_build'][] = [$this, 'callManagedFileAfterBuild'];
       }
-      if (isset($element[$name]['target_id'])) {
-        $element[$name]['target_id']['#wrapper_attributes']['class'][] = 'custom-field-col';
-        if (isset($columns[$name])) {
-          $element[$name]['target_id']['#wrapper_attributes']['class'][] = 'custom-field-col-' . $columns[$name];
-        }
+
+      // Entity reference widgets need class on target_id element.
+      $entity_reference_widgets = [
+        'entity_reference_autocomplete',
+        'entity_reference_radios',
+        'entity_reference_select',
+      ];
+
+      if (in_array($type, $entity_reference_widgets)) {
+        $element[$name]['target_id'][$attributes]['class'][] = $column_class;
+      }
+      $date_widgets = [
+        'datetime_default',
+      ];
+      if ($custom_item->getDatetimeType() === 'date' && in_array($type, $date_widgets)) {
+        $element[$name]['#column_class'] = $column_class;
+        $element[$name]['#after_build'][] = [$this, 'callDateAfterBuild'];
       }
       else {
-        $element[$name][$attributes]['class'][] = 'custom-field-col';
-        if (isset($columns[$name])) {
-          $element[$name][$attributes]['class'][] = 'custom-field-col-' . $columns[$name];
-        }
+        $element[$name][$attributes]['class'][] = $column_class;
       }
     }
 
@@ -189,6 +199,22 @@ class CustomFlexWidget extends CustomWidgetBase {
   public function callManagedFileAfterBuild(array $element, FormStateInterface $form_state): array {
     $column = $element['#column_class'];
     return static::managedFileAfterBuild($element, $form_state, $column);
+  }
+
+  /**
+   * Closure function to pass arguments to dateAfterBuild().
+   *
+   * @param array $element
+   *   The form element.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The form state.
+   *
+   * @return array
+   *   The element array.
+   */
+  public function callDateAfterBuild(array $element, FormStateInterface $form_state): array {
+    $column = $element['#column_class'];
+    return static::dateAfterBuild($element, $form_state, $column);
   }
 
   /**
@@ -221,6 +247,27 @@ class CustomFlexWidget extends CustomWidgetBase {
   }
 
   /**
+   * After build function to add class to date outer wrapper div.
+   *
+   * @param array $element
+   *   The form element.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The form state.
+   * @param string $column
+   *   The column class.
+   *
+   * @return array
+   *   The modified form element.
+   */
+  public static function dateAfterBuild(array $element, FormStateInterface $form_state, string $column): array {
+    // Add an outer div with our class.
+    $element['#prefix'] = '<div class="' . $column . '">';
+    $element['#suffix'] = '</div>';
+
+    return $element;
+  }
+
+  /**
    * Determine which attributes to use based on the plugin type.
    *
    * @param \Drupal\custom_field\Plugin\CustomFieldTypeInterface $custom_item
@@ -234,13 +281,20 @@ class CustomFlexWidget extends CustomWidgetBase {
    *   The attribute key string.
    */
   protected function getAttributesKey(CustomFieldTypeInterface $custom_item, array $widget_settings, string $type) {
-    if ($type === 'media_library_widget') {
+    $attribute_types = [
+      'media_library_widget',
+      'viewfield_select',
+      'entity_reference_radios',
+      'radios',
+      'datetime_datelist',
+      'datetime_default',
+    ];
+
+    if (in_array($type, $attribute_types)) {
       return '#attributes';
     }
-    switch ($custom_item->getPluginId()) {
-      case 'datetime':
-        return '#attributes';
 
+    switch ($custom_item->getPluginId()) {
       case 'string_long':
         $formatted = $widget_settings['formatted'] ?? FALSE;
         return $formatted ? '#attributes' : '#wrapper_attributes';

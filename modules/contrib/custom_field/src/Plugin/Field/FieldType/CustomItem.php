@@ -78,7 +78,7 @@ class CustomItem extends FieldItemBase {
     /** @var \Drupal\custom_field\Plugin\CustomFieldTypeManager $plugin_service */
     $plugin_service = \Drupal::service('plugin.manager.custom_field_type');
     $columns = [];
-    foreach ($field_definition->getSetting('columns') as $name => $item) {
+    foreach ($field_definition->getSetting('columns') as $item) {
       $plugin = $plugin_service->createInstance($item['type']);
       $field_schema = $plugin->schema($item);
       $columns += $field_schema;
@@ -159,51 +159,96 @@ class CustomItem extends FieldItemBase {
    */
   public function preSave() {
     parent::preSave();
+    $field_definition = $this->getFieldDefinition();
+    $field_name = $field_definition->getName();
+    $custom_items = $this->getCustomFieldManager()->getCustomFieldItems($field_definition->getSettings());
+    /** @var \Drupal\Core\Entity\ContentEntityInterface $entity */
+    $entity = $this->getEntity();
+    $is_default_translation = FALSE;
+    $has_translations = FALSE;
+    $original_entity = $entity;
 
-    $settings = $this->getSetting('columns');
+    if (!$entity->isNew() && $entity->isTranslatable() && $field_definition->isTranslatable()) {
+      $is_default_translation = $entity->isDefaultTranslation();
+      $has_translations = count($entity->getTranslationLanguages()) > 1;
+      $original_entity = $has_translations ? $entity->getUntranslated() : $entity;
+    }
 
-    foreach ($settings as $name => $setting) {
-      switch ($setting['type']) {
-        case 'color':
-          $color = is_string($this->{$name}) ? trim($this->{$name}) : '';
+    // Get the fields from the original or current entity based on whether it
+    // has translations.
+    /** @var \Drupal\custom_field\Plugin\Field\FieldType\CustomFieldItemListInterface[] $originalFields */
+    $original_fields = $original_entity->get($field_name);
+    foreach ($original_fields as $delta => $original_field) {
+      $current_field = $entity->get($field_name)->get($delta);
+      foreach ($custom_items as $name => $custom_item) {
+        $field_type = $custom_item->getDataType();
+        $subfield_value = $current_field->{$name};
+        $is_subfield_translatable = $custom_item->getWidgetSetting('translatable') ?? FALSE;
 
-          if (str_starts_with($color, '#')) {
-            $color = substr($color, 1);
+        // The synchronization logic only applies if the entity supports
+        // translations and we're not in the default language.
+        if ($has_translations && !$is_default_translation && !$is_subfield_translatable) {
+          // Fetch the value from the default language for this delta.
+          $default_value = $original_field->{$name};
+          if (!empty($default_value)) {
+            $current_field->{$name} = $default_value;
+            // Set extra default language properties for image.
+            if ($field_type === 'image') {
+              $current_field->{$name} = $default_value;
+              $alt = $original_field->{$name . self::SEPARATOR . 'alt'};
+              $title = $original_field->{$name . self::SEPARATOR . 'title'};
+              $width = $original_field->{$name . self::SEPARATOR . 'width'};
+              $height = $original_field->{$name . self::SEPARATOR . 'height'};
+              $current_field->{$name . self::SEPARATOR . 'alt'} = $alt;
+              $current_field->{$name . self::SEPARATOR . 'title'} = $title;
+              $current_field->{$name . self::SEPARATOR . 'width'} = $width;
+              $current_field->{$name . self::SEPARATOR . 'height'} = $height;
+            }
           }
+        }
 
-          // Make sure we have a valid hexadecimal color.
-          $this->{$name} = strlen($color) === 6 ? '#' . strtoupper($color) : NULL;
-          break;
+        // Existing field type handling logic, which should work for all cases:
+        switch ($field_type) {
+          case 'color':
+            $color = is_string($subfield_value) ? trim($subfield_value) : '';
 
-        case 'map':
-        case 'map_string':
-          if (!is_array($this->{$name}) || empty($this->{$name})) {
-            $this->{$name} = NULL;
-          }
-          else {
-            $this->{$name} = array_values($this->{$name});
-          }
-          break;
+            if (str_starts_with($color, '#')) {
+              $color = substr($color, 1);
+            }
 
-        case 'image':
-          if (!empty($this->{$name})) {
-            $width = $this->get($name . self::SEPARATOR . 'width')->getValue();
-            $height = $this->get($name . self::SEPARATOR . 'height')->getValue();
-            if (empty($width) || empty($height)) {
-              $file = \Drupal::entityTypeManager()
-                ->getStorage('file')
-                ->load($this->{$name});
-              if ($file) {
-                $image = \Drupal::service('image.factory')->get($file->getFileUri());
-                if ($image->isValid()) {
-                  $this->{$name . self::SEPARATOR . 'width'} = $image->getWidth();
-                  $this->{$name . self::SEPARATOR . 'height'} = $image->getHeight();
+            // Make sure we have a valid hexadecimal color.
+            $current_field->{$name} = strlen($color) === 6 ? '#' . strtoupper($color) : NULL;
+            break;
+
+          case 'map':
+          case 'map_string':
+            if (!is_array($subfield_value) || empty($subfield_value)) {
+              $current_field->{$name} = NULL;
+            }
+            else {
+              $current_field->{$name} = array_values($subfield_value);
+            }
+            break;
+
+          case 'image':
+            if (!empty($subfield_value)) {
+              $width = $current_field->get($name . self::SEPARATOR . 'width')->getValue();
+              $height = $current_field->get($name . self::SEPARATOR . 'height')->getValue();
+              if (empty($width) || empty($height)) {
+                $file = \Drupal::entityTypeManager()
+                  ->getStorage('file')
+                  ->load($subfield_value);
+                if ($file) {
+                  $image = \Drupal::service('image.factory')->get($file->getFileUri());
+                  if ($image->isValid()) {
+                    $current_field->{$name . self::SEPARATOR . 'width'} = $image->getWidth();
+                    $current_field->{$name . self::SEPARATOR . 'height'} = $image->getHeight();
+                  }
                 }
               }
             }
-          }
-          break;
-
+            break;
+        }
       }
     }
   }
@@ -220,6 +265,9 @@ class CustomItem extends FieldItemBase {
     $storage = $form_state->getStorage();
     $settings = $this->getSettings();
     $current_settings = $form_state->get('current_settings');
+    $field_name = $this->getFieldDefinition()->getName();
+    // Calculate a safe max column length to coincide with SQL column limit.
+    $max_name_length = 64 - strlen($field_name) - 12;
     if (empty($current_settings)) {
       $form_state->set('current_settings', $this->getSettings());
     }
@@ -259,6 +307,9 @@ class CustomItem extends FieldItemBase {
             }
             elseif (in_array($item['type'], ['file', 'image'])) {
               $settings['items'][$name]['target_type'] = 'file';
+            }
+            elseif ($item['type'] === 'viewfield') {
+              $settings['items'][$name]['target_type'] = 'view';
             }
           }
         }
@@ -347,6 +398,7 @@ class CustomItem extends FieldItemBase {
           'label' => $this->t('Machine-readable name'),
           'standalone' => TRUE,
         ],
+        '#maxlength' => $max_name_length,
       ];
       $element['items'][$i]['type'] = [
         '#type' => 'select',
@@ -365,6 +417,7 @@ class CustomItem extends FieldItemBase {
         '#required' => TRUE,
         '#description' => $this->t('The maximum length of the field in characters.'),
         '#min' => 1,
+        '#max' => $type === 'telephone' ? 256 : 255,
         '#disabled' => $has_data,
         '#states' => [
           'visible' => [
@@ -494,6 +547,12 @@ class CustomItem extends FieldItemBase {
         $element['items'][$i]['target_type'] = [
           '#type' => 'value',
           '#value' => 'file',
+        ];
+      }
+      elseif ($type === 'viewfield') {
+        $element['items'][$i]['target_type'] = [
+          '#type' => 'value',
+          '#value' => 'view',
         ];
       }
       $element['items'][$i]['remove'] = [
@@ -897,10 +956,8 @@ class CustomItem extends FieldItemBase {
 
     foreach ($custom_items as $custom_item) {
       $plugin = $plugin_service->createInstance($custom_item->getPluginId());
-      if (method_exists($plugin, 'calculateDependencies')) {
-        $plugin_dependencies = $plugin->calculateDependencies($custom_item, $default_value);
-        $dependencies = array_merge_recursive($dependencies, $plugin_dependencies);
-      }
+      $plugin_dependencies = $plugin->calculateDependencies($custom_item, $default_value);
+      $dependencies = array_merge_recursive($dependencies, $plugin_dependencies);
     }
 
     return $dependencies;
@@ -915,11 +972,10 @@ class CustomItem extends FieldItemBase {
     $plugin_service = \Drupal::service('plugin.manager.custom_field_type');
     $columns = $field_definition->getSetting('columns');
     foreach ($columns as $column) {
+      /** @var \Drupal\custom_field\Plugin\CustomFieldTypeInterface $plugin */
       $plugin = $plugin_service->createInstance($column['type']);
-      if (method_exists($plugin, 'calculateStorageDependencies')) {
-        $plugin_dependencies = $plugin->calculateStorageDependencies($column);
-        $dependencies = array_merge_recursive($dependencies, $plugin_dependencies);
-      }
+      $plugin_dependencies = $plugin->calculateStorageDependencies($column);
+      $dependencies = array_merge_recursive($dependencies, $plugin_dependencies);
     }
 
     return $dependencies;
@@ -963,13 +1019,12 @@ class CustomItem extends FieldItemBase {
     }
 
     foreach ($custom_items as $name => $custom_item) {
+      /** @var \Drupal\custom_field\Plugin\CustomFieldTypeInterface $plugin */
       $plugin = $plugin_service->createInstance($custom_item->getPluginId());
-      if (method_exists($plugin, 'onDependencyRemoval')) {
-        $widget_settings = $plugin->onDependencyRemoval($custom_item, $dependencies);
-        if (!empty($widget_settings)) {
-          $field_settings[$name]['widget_settings']['settings'] = $widget_settings;
-          $settings_changed = TRUE;
-        }
+      $widget_settings = $plugin->onDependencyRemoval($custom_item, $dependencies);
+      if (!empty($widget_settings)) {
+        $field_settings[$name]['widget_settings']['settings'] = $widget_settings;
+        $settings_changed = TRUE;
       }
     }
 

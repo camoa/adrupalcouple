@@ -1,7 +1,10 @@
 services:
+  _defaults:
+    autowire: true
+
   schemadotorg_mapping_set.manager:
     class: Drupal\schemadotorg_mapping_set\SchemaDotOrgMappingSetManager
-    arguments: ['@state', '@config.factory', '@entity_type.manager', '@schemadotorg.schema_type_manager', '@schemadotorg.mapping_manager', '@?plugin.manager.develgenerate']
+  Drupal\schemadotorg_mapping_set\SchemaDotOrgMappingSetManagerInterface: '@schemadotorg_mapping_set.manager'
 
   schemadotorg_mapping_set.breadcrumb:
     class: Drupal\schemadotorg_mapping_set\Breadcrumb\SchemaDotOrgMappingSetBreadcrumbBuilder

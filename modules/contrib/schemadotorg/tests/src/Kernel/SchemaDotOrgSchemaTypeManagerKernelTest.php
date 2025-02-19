@@ -8,7 +8,7 @@ use Drupal\Component\Utility\NestedArray;
 use Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface;
 
 /**
- * Tests the Schema.org schema type manager service.
+ * Tests the Schema.org schema type manager.
  *
  * @coversClass \Drupal\schemadotorg\SchemaDotOrgSchemaTypeManager
  * @group schemadotorg

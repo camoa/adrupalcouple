@@ -22,17 +22,10 @@ use Drupal\Core\Field\FieldItemInterface;
 class CustomFormatter extends BaseFormatter {
 
   /**
-   * Generate the output appropriate for one field item.
-   *
-   * @param \Drupal\Core\Field\FieldItemInterface $item
-   *   One field item.
-   *
-   * @return array
-   *   The textual output generated.
+   * {@inheritdoc}
    */
-  protected function viewValue(FieldItemInterface $item): array {
+  public function viewValue(FieldItemInterface $item, string $langcode): array {
     $field_name = $this->fieldDefinition->get('field_name');
-    $langcode = $item->getLangcode();
     $output = [
       '#theme' => 'custom_field',
       '#field_name' => $field_name,
@@ -50,6 +43,9 @@ class CustomFormatter extends BaseFormatter {
         '#label' => $value['label'],
         '#label_display' => $value['label_display'],
         '#type' => $value['type'],
+        '#wrappers' => $value['wrappers'],
+        '#entity_type' => $value['entity_type'],
+        '#lang_code' => $langcode,
       ];
     }
 

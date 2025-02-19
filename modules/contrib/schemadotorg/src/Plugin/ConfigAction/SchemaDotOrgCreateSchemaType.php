@@ -26,7 +26,7 @@ class SchemaDotOrgCreateSchemaType implements ConfigActionPluginInterface, Conta
   protected SchemaDotOrgNamesInterface $schemaNames;
 
   /**
-   * The Schema.org mapping manager service.
+   * The Schema.org mapping manager.
    */
   protected SchemaDotOrgMappingManagerInterface $schemaMappingManager;
 

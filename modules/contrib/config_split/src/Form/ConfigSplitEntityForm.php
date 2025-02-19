@@ -4,7 +4,8 @@ namespace Drupal\config_split\Form;
 
 use Drupal\config_split\Config\StatusOverride;
 use Drupal\Core\Entity\EntityForm;
-use Drupal\Core\Extension\ThemeHandlerInterface;
+use Drupal\Core\Extension\ModuleExtensionList;
+use Drupal\Core\Extension\ThemeExtensionList;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Site\Settings;
 use Drupal\Core\State\StateInterface;
@@ -30,11 +31,18 @@ class ConfigSplitEntityForm extends EntityForm {
   protected $state;
 
   /**
-   * Drupal\Core\Extension\ThemeHandler definition.
+   * The module list.
    *
-   * @var \Drupal\Core\Extension\ThemeHandlerInterface
+   * @var \Drupal\Core\Extension\ModuleExtensionList
    */
-  protected $themeHandler;
+  protected $moduleExtensionList;
+
+  /**
+   * The theme list.
+   *
+   * @var \Drupal\Core\Extension\ThemeExtensionList
+   */
+  protected $themeExtensionList;
 
   /**
    * The entity being used by this form.
@@ -50,17 +58,21 @@ class ConfigSplitEntityForm extends EntityForm {
    *   The split status override service.
    * @param \Drupal\Core\State\StateInterface $state
    *   The drupal state.
-   * @param \Drupal\Core\Extension\ThemeHandlerInterface $themeHandler
-   *   The theme handler.
+   * @param \Drupal\Core\Extension\ModuleExtensionList $moduleExtensionList
+   *   The module list.
+   * @param \Drupal\Core\Extension\ThemeExtensionList $themeExtensionList
+   *   The theme list.
    */
   public function __construct(
     StatusOverride $statusOverride,
     StateInterface $state,
-    ThemeHandlerInterface $themeHandler
+    ModuleExtensionList $moduleExtensionList,
+    ThemeExtensionList $themeExtensionList,
   ) {
     $this->statusOverride = $statusOverride;
     $this->state = $state;
-    $this->themeHandler = $themeHandler;
+    $this->moduleExtensionList = $moduleExtensionList;
+    $this->themeExtensionList = $themeExtensionList;
   }
 
   /**
@@ -70,7 +82,8 @@ class ConfigSplitEntityForm extends EntityForm {
     return new static(
       $container->get('config_split.status_override'),
       $container->get('state'),
-      $container->get('theme_handler')
+      $container->get('extension.list.module'),
+      $container->get('extension.list.theme'),
     );
   }
 
@@ -184,10 +197,10 @@ class ConfigSplitEntityForm extends EntityForm {
        recorded in a config patch saved in in the split storage."),
     ];
 
-    $module_handler = $this->moduleHandler;
+    $module_handler = $this->moduleExtensionList;
     $modules = array_map(function ($module) use ($module_handler) {
       return $module_handler->getName($module->getName());
-    }, $module_handler->getModuleList());
+    }, $module_handler->getList());
     // Add the existing ones with the machine name, so they do not get lost.
     foreach (array_diff_key($config->get('module'), $modules) as $missing => $weight) {
       $modules[$missing] = $missing;
@@ -214,10 +227,10 @@ class ConfigSplitEntityForm extends EntityForm {
     ];
 
     // We should probably find a better way for this.
-    $theme_handler = $this->themeHandler;
+    $theme_handler = $this->themeExtensionList;
     $themes = array_map(function ($theme) use ($theme_handler) {
       return $theme_handler->getName($theme->getName());
-    }, $theme_handler->listInfo());
+    }, $theme_handler->getList());
     $form['complete_fieldset']['theme'] = [
       '#type' => $multiselect_type,
       '#title' => $this->t('Themes'),

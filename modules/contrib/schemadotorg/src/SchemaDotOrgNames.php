@@ -23,7 +23,7 @@ class SchemaDotOrgNames implements SchemaDotOrgNamesInterface {
    * Constructs a SchemaDotOrgNames object.
    *
    * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
-   *   The configuration object factory.
+   *   The config factory.
    */
   public function __construct(
     protected ConfigFactoryInterface $configFactory,

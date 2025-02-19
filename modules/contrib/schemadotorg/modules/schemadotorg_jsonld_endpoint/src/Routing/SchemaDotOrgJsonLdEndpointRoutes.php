@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Drupal\schemadotorg_jsonld_endpoint\Routing;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
+use Drupal\Core\DependencyInjection\AutowireTrait;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouteCollection;
 
@@ -15,6 +15,7 @@ use Symfony\Component\Routing\RouteCollection;
  * Defines dynamic routes for Schema.org JSON-LD endpoint module.
  */
 class SchemaDotOrgJsonLdEndpointRoutes implements ContainerInjectionInterface {
+  use AutowireTrait;
 
   /**
    * A key with which to flag a route as belonging to the Schema.org JSON-LD endpoint module.
@@ -22,24 +23,17 @@ class SchemaDotOrgJsonLdEndpointRoutes implements ContainerInjectionInterface {
   const JSONLD_ROUTE_FLAG_KEY = '_is_schemadotorg_jsonld_endpoint';
 
   /**
-   * The configuration factory.
+   * Constructs a SchemaDotOrgJsonLdEndpointRoutes object.
+   *
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
+   *   The configuration factory.
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
+   *   The entity type manager.
    */
-  protected ConfigFactoryInterface $configFactory;
-
-  /**
-   * The entity type manager.
-   */
-  protected EntityTypeManagerInterface $entityTypeManager;
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function create(ContainerInterface $container): static {
-    $instance = new static();
-    $instance->configFactory = $container->get('config.factory');
-    $instance->entityTypeManager = $container->get('entity_type.manager');
-    return $instance;
-  }
+  public function __construct(
+    protected ConfigFactoryInterface $configFactory,
+    protected EntityTypeManagerInterface $entityTypeManager,
+  ) {}
 
   /**
    * {@inheritdoc}

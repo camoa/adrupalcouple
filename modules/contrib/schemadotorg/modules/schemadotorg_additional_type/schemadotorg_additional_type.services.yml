@@ -1,12 +1,20 @@
 services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+
   schemadotorg_additional_type.manager:
     class: Drupal\schemadotorg_additional_type\SchemaDotOrgAdditionalTypeManager
-    arguments: ['@module_handler', '@config.factory', '@entity_type.manager', '@request_stack', '@schemadotorg.names', '@schemadotorg.schema_type_manager']
+  Drupal\schemadotorg_additional_type\SchemaDotOrgAdditionalTypeManagerInterface: '@schemadotorg_additional_type.manager'
+
+  schemadotorg_additional_type.jsonld_manager:
+    class: Drupal\schemadotorg_additional_type\SchemaDotOrgAdditionalTypeJsonLdManager
+  Drupal\schemadotorg_additional_type\SchemaDotOrgAdditionalTypeJsonLdManagerInterface: '@schemadotorg_additional_type.jsonld_manager'
+
   schemadotorg_additional_type.event_subscriber:
     class: Drupal\schemadotorg_additional_type\EventSubscriber\SchemaDotOrgAdditionalTypeEventSubscriber
     arguments: ['@current_route_match', '@entity_type.manager']
-    tags:
-      - { name: event_subscriber }
+
   schemadotorg_additional_type.controller.entity_form:
     # Override the entity form controller to handle the node entity's
     # additional type add and edit operation.

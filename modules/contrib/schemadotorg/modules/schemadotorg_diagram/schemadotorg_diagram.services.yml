@@ -1,4 +1,7 @@
 services:
-  schemadotorg_diagram:
-    class: Drupal\schemadotorg_diagram\SchemaDotOrgDiagram
-    arguments: ['@current_user', '@config.factory', '@current_route_match', '@entity_type.manager', '@schemadotorg.schema_type_builder']
+  _defaults:
+    autowire: true
+
+  schemadotorg_diagram.builder:
+    class: Drupal\schemadotorg_diagram\SchemaDotOrgDiagramBuilder
+  Drupal\schemadotorg_diagram\SchemaDotOrgDiagramBuilderInterface: '@schemadotorg_diagram.builder'

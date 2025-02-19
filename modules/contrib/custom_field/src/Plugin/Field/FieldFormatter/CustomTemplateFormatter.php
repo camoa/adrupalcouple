@@ -4,6 +4,7 @@ namespace Drupal\custom_field\Plugin\Field\FieldFormatter;
 
 use Drupal\Core\Field\FieldItemInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Render\BubbleableMetadata;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -30,11 +31,19 @@ class CustomTemplateFormatter extends BaseFormatter {
   protected $renderer;
 
   /**
+   * The token service.
+   *
+   * @var \Drupal\Core\Utility\Token
+   */
+  protected $tokenService;
+
+  /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
     $instance = parent::create($container, $configuration, $plugin_id, $plugin_definition);
     $instance->renderer = $container->get('renderer');
+    $instance->tokenService = $container->get('token');
 
     return $instance;
   }
@@ -45,6 +54,11 @@ class CustomTemplateFormatter extends BaseFormatter {
   public static function defaultSettings(): array {
     return [
       'template' => '',
+      'tokens' => 'basic',
+      'advanced_tokens' => [
+        'recursion_limit' => 3,
+        'global_types' => FALSE,
+      ],
     ];
   }
 
@@ -53,25 +67,91 @@ class CustomTemplateFormatter extends BaseFormatter {
    */
   public function settingsForm(array $form, FormStateInterface $form_state): array {
     $form = parent::settingsForm($form, $form_state);
+    $entity_type = $this->fieldDefinition->getTargetEntityTypeId();
+    $custom_items = $this->getCustomFieldItems();
+    $token_module_installed = $this->moduleHandler->moduleExists('token');
+    $field_name = $this->fieldDefinition->getName();
+    $is_views_form = $form_state->getFormObject()->getFormId() == 'views_ui_config_item_form';
+    $visibility_path = 'fields[' . $field_name . '][settings_edit_form][settings]';
+    if ($is_views_form) {
+      $visibility_path = 'options[settings]';
+    }
     // Remove field level settings as they are not applicable.
     unset($form['fields']);
 
-    $tokens = [
-      '#theme' => 'item_list',
+    $form['tokens'] = [
+      '#type' => 'radios',
+      '#title' => $this->t('Tokens'),
+      '#options' => [
+        'basic' => $this->t('Basic'),
+        'advanced' => $this->t('Advanced'),
+      ],
+      '#required' => TRUE,
+      '#default_value' => $this->getSetting('tokens'),
     ];
-    foreach ($this->getCustomFieldItems() as $name => $custom_item) {
-      $label = $custom_item->getLabel();
-      $tokens['#items'][] = "[$name]: $label value";
-      $tokens['#items'][] = "[$name:label]: $label label";
-    }
-
     $form['template'] = [
       '#type' => 'textarea',
       '#title' => $this->t('Template'),
-      '#description' => $this->t('Output custom field items using a custom template. The following tokens are available for replacement: <br>') . $this->renderer->render($tokens),
       '#rows' => 5,
       '#default_value' => $this->getSetting('template'),
+      '#attributes' => [
+        'placeholder' => $this->t('Insert tokens here along with any desired html.'),
+      ],
     ];
+    // Build the basic tokens markup.
+    $basic_tokens = [
+      '#theme' => 'item_list',
+      '#items' => [],
+    ];
+    foreach ($custom_items as $name => $custom_item) {
+      $label = $custom_item->getLabel();
+      $basic_tokens['#items'][] = "[$name]: $label value";
+      $basic_tokens['#items'][] = "[$name:label]: $label label";
+    }
+
+    $form['basic_tokens'] = [
+      '#type' => 'item',
+      '#description' => $this->t('<p><strong>The following tokens are available for replacement.</strong></p>') . $this->renderer->render($basic_tokens),
+      '#states' => [
+        'visible' => [
+          ':input[name="' . $visibility_path . '[tokens]"]' => ['value' => 'basic'],
+        ],
+      ],
+    ];
+
+    if (!$token_module_installed) {
+      $form['advanced_tokens_notice'] = [
+        '#theme_wrappers' => ['container'],
+        '#type' => 'markup',
+        '#markup' => $this->t('Advanced token replacement requires the <a href=":url" target="_blank">Token module</a>.', [
+          ':url' => 'https://www.drupal.org/project/token',
+        ]),
+        '#states' => [
+          'visible' => [
+            ':input[name="' . $visibility_path . '[tokens]"]' => ['value' => 'advanced'],
+          ],
+        ],
+      ];
+    }
+    else {
+      $token_mapper = \Drupal::service('token.entity_mapper');
+      $token_type = $token_mapper->getTokenTypeForEntityType($entity_type);
+      $form['advanced_tokens'] = [
+        '#type' => 'token_browser',
+        '#theme_wrappers' => ['fieldset'],
+        '#title' => $this->t('Advanced Tokens'),
+        '#token_types' => [$token_type],
+        '#recursion_limit' => $this->getSetting('advanced_tokens')['recursion_limit'],
+        '#recursion_limit_max' => 6,
+        '#global_types' => $this->getSetting('advanced_tokens')['global_types'],
+        '#show_settings' => TRUE,
+        '#states' => [
+          'visible' => [
+            ':input[name="' . $visibility_path . '[tokens]"]' => ['value' => 'advanced'],
+          ],
+        ],
+      ];
+    }
 
     return $form;
   }
@@ -80,30 +160,47 @@ class CustomTemplateFormatter extends BaseFormatter {
    * {@inheritdoc}
    */
   public function settingsSummary(): array {
-    $summary[] = $this->t('Template: @template', ['@template' => $this->getSetting('template')]);
+    $tokens_type = $this->getSetting('tokens');
+    $summary[] = $this->t('Tokens: @tokens', ['@tokens' => $tokens_type]);
+    if ($tokens_type === 'advanced') {
+      $summary[] = $this->t('Recursion limit: @limit', ['@limit' => $this->getSetting('advanced_tokens')['recursion_limit']]);
+      $summary[] = $this->t('Global types: @global', ['@global' => $this->getSetting('advanced_tokens')['global_types'] ? 'Yes' : 'No']);
+    }
 
     return $summary;
   }
 
   /**
-   * Generate the output appropriate for one field item.
-   *
-   * @param \Drupal\Core\Field\FieldItemInterface $item
-   *   One field item.
-   *
-   * @return array
-   *   The textual output generated.
+   * {@inheritdoc}
    */
-  protected function viewValue(FieldItemInterface $item): array {
+  public function viewValue(FieldItemInterface $item, string $langcode): array {
     $replacements = [];
-    foreach ($this->getCustomFieldItems() as $name => $custom_item) {
-      $markup = $custom_item->value($item) ?? '';
-      $replacements["[$name]"] = $markup;
-      $replacements["[$name:label]"] = $custom_item->getLabel();
-    }
-    $output = strtr($this->getSetting('template'), $replacements);
+    $entity = $item->getEntity();
+    $entity_type = $entity->getEntityTypeId();
+    $template = $this->getSetting('template');
+    $bubbleable_metadata = new BubbleableMetadata();
 
-    return ['#markup' => $output];
+    // Replace advanced tokens.
+    if ($this->getSetting('tokens') === 'advanced' && $this->moduleHandler->moduleExists('token')) {
+      $output = $this->tokenService->replace($template, [$entity_type => $entity], [
+        'clear' => TRUE,
+        'langcode' => $langcode,
+      ], $bubbleable_metadata);
+    }
+    // Replace basic tokens.
+    else {
+      foreach ($this->getCustomFieldItems() as $name => $custom_item) {
+        $markup = $custom_item->value($item) ?? '';
+        $replacements["[$name]"] = $markup;
+        $replacements["[$name:label]"] = $custom_item->getLabel();
+      }
+      $output = strtr($template, $replacements);
+    }
+
+    $build['#markup'] = $output;
+    $bubbleable_metadata->applyTo($build);
+
+    return $build;
   }
 
 }

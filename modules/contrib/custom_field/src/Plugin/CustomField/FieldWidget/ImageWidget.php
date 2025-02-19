@@ -33,19 +33,11 @@ class ImageWidget extends FileWidget {
   protected $imageFactory;
 
   /**
-   * The typed data manager service.
-   *
-   * @var \Drupal\Core\TypedData\TypedDataManagerInterface
-   */
-  protected $typedDataManager;
-
-  /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
     $instance = parent::create($container, $configuration, $plugin_id, $plugin_definition);
     $instance->imageFactory = $container->get('image.factory');
-    $instance->typedDataManager = $container->get('typed_data_manager');
 
     return $instance;
   }
@@ -189,14 +181,15 @@ class ImageWidget extends FileWidget {
     $element = parent::widget($items, $delta, $element, $form, $form_state, $field);
     /** @var \Drupal\custom_field\Plugin\Field\FieldType\CustomItem $item */
     $item = $items[$delta];
-    $fid = $item->{$field->getName()};
+    $name = $field->getName();
+    $fid = $item->{$name};
     // Account for temporary storage settings.
     $current_settings = $form_state->get('current_settings');
     if (!empty($current_settings)) {
-      $uri_scheme = $current_settings['columns'][$field->getName()]['uri_scheme'] ?? 'public';
+      $uri_scheme = $current_settings['columns'][$name]['uri_scheme'] ?? 'public';
     }
     else {
-      $uri_scheme = $item->getFieldDefinition()->getSetting('columns')[$field->getName()]['uri_scheme'];
+      $uri_scheme = $item->getFieldDefinition()->getSetting('columns')[$name]['uri_scheme'];
     }
     $settings = $field->getWidgetSetting('settings') + static::defaultSettings()['settings'];
     $settings['uri_scheme'] = $uri_scheme;
@@ -226,8 +219,8 @@ class ImageWidget extends FileWidget {
     $element['#accept'] = 'image/*';
 
     // Add properties needed by process() method.
-    $element['#image_width'] = NULL;
-    $element['#image_height'] = NULL;
+    $element['#image_width'] = $item->{$name . '__width'} ?? NULL;
+    $element['#image_height'] = $item->{$name . '__height'} ?? NULL;
     $element['#title_field'] = $settings['title_field'];
     $element['#title_field_required'] = !$is_config_form && $settings['title_field_required'];
     $element['#alt_field'] = $settings['alt_field'];
@@ -235,22 +228,9 @@ class ImageWidget extends FileWidget {
     $element['#preview_image_style'] = $settings['preview_image_style'];
     $element['#default_value'] = [
       'fids' => [],
-      'alt' => NULL,
-      'title' => NULL,
+      'alt' => $item->{$name . '__alt'} ?? NULL,
+      'title' => $item->{$name . '__title'} ?? NULL,
     ];
-    try {
-      /** @var \Drupal\custom_field\Plugin\DataType\CustomFieldImage $instance */
-      $instance = $this->typedDataManager->getPropertyInstance($item, $field->getName());
-      if ($instance->getPluginId() === 'custom_field_image') {
-        $element['#image_width'] = $instance->getWidth();
-        $element['#image_height'] = $instance->getHeight();
-        $element['#default_value']['alt'] = $instance->getAlt();
-        $element['#default_value']['title'] = $instance->getTitle();
-      }
-    }
-    catch (\InvalidArgumentException $exception) {
-      // Property not found.
-    }
 
     if (!empty($fid)) {
       if (is_array($fid) && isset($fid['fids'])) {
@@ -397,21 +377,6 @@ class ImageWidget extends FileWidget {
     $return = ManagedFile::valueCallback($element, $input, $form_state);
 
     return $return;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function massageFormValue(mixed $value, array $column): mixed {
-    $fids = $value['fids'] ?? NULL;
-    if (empty($fids)) {
-      return NULL;
-    }
-    $fid = reset($fids);
-    $value['target_id'] = $fid;
-    unset($value['fids']);
-
-    return $value;
   }
 
 }

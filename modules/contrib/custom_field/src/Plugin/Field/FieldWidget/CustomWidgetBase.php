@@ -2,6 +2,7 @@
 
 namespace Drupal\custom_field\Plugin\Field\FieldWidget;
 
+use Drupal\Component\Plugin\Exception\PluginException;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
 use Drupal\Core\Field\WidgetBase;
@@ -114,6 +115,7 @@ abstract class CustomWidgetBase extends WidgetBase {
    * {@inheritdoc}
    */
   public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state): array {
+    $element['#attached']['library'][] = 'custom_field/custom-field-widget';
     if ($this->getSetting('label')) {
       switch ($this->getSetting('wrapper')) {
         case 'fieldset':
@@ -226,6 +228,33 @@ abstract class CustomWidgetBase extends WidgetBase {
       }
     }
     return isset($error->arrayPropertyPath[0]) ? $element[$error->arrayPropertyPath[0]] : $element;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function calculateDependencies(): array {
+    $dependencies = parent::calculateDependencies();
+    $field_settings = $this->getFieldSetting('field_settings');
+    if (!empty($field_settings)) {
+      foreach ($field_settings as $field_setting) {
+        $widget_settings = $field_setting['widget_settings'] ?? [];
+        if (empty($widget_settings)) {
+          continue;
+        }
+        try {
+          /** @var \Drupal\custom_field\Plugin\CustomFieldWidgetInterface $plugin */
+          $plugin = $this->customFieldWidgetManager->createInstance($field_setting['type']);
+          $plugin_dependencies = $plugin->calculateWidgetDependencies($widget_settings);
+          $dependencies = array_merge($dependencies, $plugin_dependencies);
+        }
+        catch (PluginException $e) {
+          // No dependencies applicable if we somehow have invalid plugin.
+        }
+      }
+    }
+
+    return $dependencies;
   }
 
 }

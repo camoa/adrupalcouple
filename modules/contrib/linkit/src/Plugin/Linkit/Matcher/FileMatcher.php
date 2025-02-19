@@ -2,6 +2,7 @@
 
 namespace Drupal\linkit\Plugin\Linkit\Matcher;
 
+use Drupal\Component\Utility\DeprecationHelper;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\file\FileInterface;
@@ -194,9 +195,22 @@ class FileMatcher extends EntityMatcher {
     if ($this->configuration['images']['show_dimensions'] || $this->configuration['images']['show_thumbnail']) {
       $image_factory = \Drupal::service('image.factory');
       $supported_extensions = $image_factory->getSupportedExtensions();
-
+      /** @var \Drupal\file\Validation\FileValidatorInterface $file_validator */
+      $file_validator = \Drupal::service('file.validator');
+      $extensions = implode(' ', $supported_extensions);
+      $validators = ['FileExtension' => ['extensions' => $extensions]];
       // Check if the file extension is supported by the image toolkit.
-      if (empty(file_validate_extensions($entity, implode(' ', $supported_extensions)))) {
+      $result = DeprecationHelper::backwardsCompatibleCall(
+       \Drupal::VERSION,
+        '10.2',
+        static function () use ($entity, $file_validator, $validators) {
+          return $file_validator->validate($entity, $validators);
+        },
+        static function () use ($entity, $extensions) {
+          return file_validate_extensions($entity, $extensions);
+        }
+      );
+      if (empty($result)) {
         /** @var \Drupal\Core\Image\ImageInterface $image */
         $image = $image_factory->get($file);
         if ($image->isValid()) {

@@ -31,6 +31,9 @@ Requirements
 **[Mercury Editor](https://www.drupal.org/project/mercury_editor)**    
 Effortless, drag-and-drop editing for Drupal.
 
+**[Mercury Editor Task](https://www.drupal.org/project/mercury_editor_task)**    
+Provide dedicated node edit and layout form modes for Mercury Editor.
+
 
 Known Issues
 ------------

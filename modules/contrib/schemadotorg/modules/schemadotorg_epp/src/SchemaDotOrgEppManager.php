@@ -25,7 +25,7 @@ class SchemaDotOrgEppManager implements SchemaDotOrgEppManagerInterface {
    * Constructs a SchemaDotOrgEppManager object.
    *
    * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
-   *   The config factory service.
+   *   The config factory.
    * @param \Drupal\Core\Session\AccountProxyInterface $currentUser
    *   The current user.
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
@@ -33,7 +33,7 @@ class SchemaDotOrgEppManager implements SchemaDotOrgEppManagerInterface {
    * @param \Drupal\schemadotorg\SchemaDotOrgNamesInterface $schemaNames
    *   The Schema.org names service.
    * @param \Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager
-   *   The Schema.org type manager.
+   *   The Schema.org schema type manager.
    */
   public function __construct(
     protected ConfigFactoryInterface $configFactory,
@@ -91,7 +91,7 @@ class SchemaDotOrgEppManager implements SchemaDotOrgEppManagerInterface {
     $build = $this->buildNodeLinks($node, $display);
     if ($build) {
       switch ($display) {
-        case static::DROPDOWN;
+        case static::DROPDOWN:
           // Unset the default links wrapper.
           // @see \Drupal\node\NodeViewBuilder::renderLinks
           unset($links['#theme'], $links['#pre_render'], $links['#attributes']);
@@ -212,7 +212,7 @@ class SchemaDotOrgEppManager implements SchemaDotOrgEppManagerInterface {
 
     $build = [];
     switch ($display) {
-      case static::DROPDOWN;
+      case static::DROPDOWN:
         // Add button--action plus sig to all links.
         foreach ($node_links as &$node_link) {
           $node_link['attributes'] = ['class' => ['button--action']];

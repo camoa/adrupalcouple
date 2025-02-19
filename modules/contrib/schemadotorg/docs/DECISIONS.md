@@ -45,6 +45,7 @@ non-function decisions behind the Schema.org Blueprints module.
 ##### Namespace everything with schemadotorg_- or SchemaDotOrg- prefix
 - Sub-modules should be prefixed with schemadotorg_{module_name}
 - Ensures all Schema.org code is searchable and identifiable. 
+- Services should be suffixed with the purpose (i.e., `(module_name).(installer|manager|builder|converter|names)`)
 
 ##### Use loosely coupled sub-modules that do one thing over monolithic modules doing many things
 
@@ -53,7 +54,7 @@ non-function decisions behind the Schema.org Blueprints module.
 ##### Use sub-modules to support distinct Schema.org features
 - Features include https://schema.org/Role, https://schema.org/identifier, and sub-typing
 
-##### Use for simple sub-modules use hooks and use services for complex sub-modules.
+##### Use hooks that call services in preparation for [OOP hooks](https://www.drupal.org/node/3442349).
 
 ##### Track details about sub-modules in help section including, install hooks, required for production, and outputs or alters JSON-LD
 
@@ -318,7 +319,6 @@ for managing optional dependencies and patches.
 - [Link Attributes](https://www.drupal.org/project/link_attributes) for adding attributes to links
 - [Quick Node Clone](https://www.drupal.org/project/quick_node_clone) for quickly cloning a node.
 - [Token Filter](https://www.drupal.org/project/token_filter) for allowing tokens to be used within a text format
-- [Context Stack](https://www.drupal.org/project/context_stack) for accessing entity tokens via the token filter
 
 ##### For Demo & Starter Kits: Use Menu enhancements as needed
 - [Menu Select](https://www.drupal.org/project/menu_select) for improving node menu select field functionality
@@ -349,12 +349,14 @@ for managing optional dependencies and patches.
 - [CKEditor Link Styles](https://www.drupal.org/project/ckeditor_link_styles) for styling links as buttons
 - [CKEditor5 Embedded Content](https://www.drupal.org/project/ckeditor5_embedded_content) ⭐ allows rich content to be inserted into HTML
 - [CKEditor5 Paste Filter](https://www.drupal.org/project/ckeditor5_paste_filter) to clean-up MS-Word HTML markup
+- [CKEditor(5) Emoji](https://www.drupal.org/project/ckeditor_emoji) for inserting emojis
 
 ##### For Demo: Use administration improvement modules as needed.
 - [Admin Dialogs](https://www.drupal.org/project/admin_dialogs) for opening simple forms and tasks in a dialog (modal).
 - [Content Model Documentation](https://www.drupal.org/project/content_model_documentation) ⭐ for displaying entity relationship diagrams (ERD)
-- [Dashboards with Layout Builder](https://www.drupal.org/project/dashboards) for providing customizable dashboards to users
+- [Dashboard](https://www.drupal.org/project/dashboard) for providing customizable dashboards to users
 - [Environment Indicator](https://www.drupal.org/project/environment_indicator) for displaying the current environment to administrators
+- [Local Task More](https://www.drupal.org/project/local_tasks_more) for adding a show more/less tasks
 - [Type Tray](https://www.drupal.org/project/type_tray) ⭐ for improving the 'Add content' UI/UX
 - [Queue UI](https://www.drupal.org/project/queue_ui) for viewing and managing queues
 - [Ultimate Cron](https://www.drupal.org/project/ultimate_cron) for viewing and managing cron tasks
@@ -362,7 +364,7 @@ for managing optional dependencies and patches.
 - [Media file delete](https://www.drupal.org/project/media_file_delete) for deleting the associated file when deleting a media entity.
 - [Media Library Media Modify](https://www.drupal.org/project/media_library_media_modify) ⭐ adds the ability to modify the referenced media items.
 - [Help Topics](https://www.drupal.org/node/2354963) for better documentation
-- [Field Compare](https://www.drupal.org/project/field_compare) for comparing field configuration across content types
+- [Trash](https://www.drupal.org/project/trash) adds a 'trash' bin for deleted content.
 
 ##### For Demo: Use translation improvement modules as needed.
 - [Admin Toolbar Language Switcher](https://www.drupal.org/project/toolbar_language_switcher) for switching languages via the Gin Admin theme
@@ -396,5 +398,6 @@ for managing optional dependencies and patches.
 
 ##### Use the [Layout Paragraphs](https://www.drupal.org/project/layout_paragraphs) ⭐ for structured data layout
 - [Mercury Editor](https://www.drupal.org/project/mercury_editor) ⭐ for effortless, drag-and-drop editing
+- [Mercury Editor Task](https://www.drupal.org/project/mercury_editor_task) for providing dedicated node edit and layout form modes
 - Drupal's [Layout Builder](https://www.drupal.org/docs/8/core/modules/layout-builder)
   does not provide easy to understand structured data that be mapped to Schema.org 

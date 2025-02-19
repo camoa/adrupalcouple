@@ -14,6 +14,7 @@ use Drupal\Core\Url;
 use Drupal\jsonapi\ResourceType\ResourceTypeRepositoryInterface;
 use Drupal\jsonapi_extras\EntityToJsonApi;
 use Drupal\schemadotorg_jsonapi\SchemaDotOrgJsonApiManagerInterface;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
 /**
  * Schema.org JSON:API preview builder.
@@ -36,6 +37,7 @@ class SchemaDotOrgJsonApiPreviewBuilder implements SchemaDotOrgJsonApiPreviewBui
   public function __construct(
     protected RendererInterface $renderer,
     protected ResourceTypeRepositoryInterface $resourceTypeRepository,
+    #[Autowire(service: 'jsonapi_extras.entity.to_jsonapi')]
     protected EntityToJsonApi $entityToJsonApi,
     protected SchemaDotOrgJsonApiManagerInterface $schemaJsonApiManager,
   ) {}

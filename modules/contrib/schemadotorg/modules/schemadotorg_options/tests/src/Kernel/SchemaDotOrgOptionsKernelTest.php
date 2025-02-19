@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\schemadotorg_options\Kernel;
 
-use Drupal\Tests\schemadotorg\Kernel\SchemaDotOrgEntityKernelTestBase;
 use Drupal\field\Entity\FieldStorageConfig;
+use Drupal\Tests\schemadotorg\Kernel\SchemaDotOrgEntityKernelTestBase;
 
 /**
  * Tests the Schema.org options.

@@ -2,9 +2,9 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.custom_field_entity_test.field_custom_field_test
-    - field.field.node.custom_field_entity_test.field_custom_field_test_multiple
-    - field.field.node.custom_field_entity_test.field_custom_field_test_unlimite
+    - field.field.node.custom_field_entity_test.field_test
+    - field.field.node.custom_field_entity_test.field_test_multiple
+    - field.field.node.custom_field_entity_test.field_test_unlimited
     - node.type.custom_field_entity_test
   module:
     - custom_field
@@ -20,7 +20,7 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-  field_custom_field_test:
+  field_test:
     type: custom_flex
     weight: 121
     region: content
@@ -46,9 +46,10 @@ content:
         entity_reference_test: '12'
         file_test: '12'
         image_test: '12'
+        viewfield_test: '12'
       breakpoint: ''
     third_party_settings: {  }
-  field_custom_field_test_multiple:
+  field_test_multiple:
     type: custom_flex
     weight: 121
     region: content
@@ -74,9 +75,10 @@ content:
         entity_reference_test: '12'
         file_test: '12'
         image_test: '12'
+        viewfield_test: '12'
       breakpoint: ''
     third_party_settings: {  }
-  field_custom_field_test_unlimite:
+  field_test_unlimited:
     type: custom_flex
     weight: 121
     region: content
@@ -102,6 +104,7 @@ content:
         entity_reference_test: '12'
         file_test: '12'
         image_test: '12'
+        viewfield_test: '12'
       breakpoint: ''
     third_party_settings: {  }
   path:

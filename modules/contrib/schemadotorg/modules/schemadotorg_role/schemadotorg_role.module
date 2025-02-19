@@ -27,23 +27,15 @@ function schemadotorg_role_schemadotorg_mapping_defaults_alter(array &$defaults,
  * Implements hook_form_BASE_FORM_ID_alter().
  */
 function schemadotorg_role_form_schemadotorg_mapping_form_alter(array &$form, FormStateInterface $form_state): void {
-  if (!\Drupal::moduleHandler()->moduleExists('schemadotorg_ui')) {
-    return;
-  }
-
   /** @var \Drupal\schemadotorg_role\SchemaDotOrgRoleFieldManagerInterface $role_field_manager */
   $role_field_manager = \Drupal::service('schemadotorg_role.field_manager');
   $role_field_manager->mappingFormAlter($form, $form_state);
 }
 
 /**
- * Implements hook_schemadotorg_mapping_insert().
+ * Implements hook_ENTITY_TYPE_insert().
  */
 function schemadotorg_role_schemadotorg_mapping_insert(SchemaDotOrgMappingInterface $mapping): void {
-  if ($mapping->isSyncing()) {
-    return;
-  }
-
   /** @var \Drupal\schemadotorg_role\SchemaDotOrgRoleFieldManagerInterface $role_field_manager */
   $role_field_manager = \Drupal::service('schemadotorg_role.field_manager');
   $role_field_manager->mappingInsert($mapping);
@@ -109,7 +101,7 @@ function schemadotorg_role_schemadotorg_jsonld_schema_type_entity_load(array &$d
 /* ************************************************************************** */
 
 /**
- * Implements hook_jsonapi_resource_config_presave().
+ * Implements hook_ENTITY_TYPE_presave().
  */
 function schemadotorg_role_jsonapi_resource_config_presave(EntityInterface $entity): void {
   /** @var \Drupal\jsonapi_extras\Entity\JsonapiResourceConfig $entity */

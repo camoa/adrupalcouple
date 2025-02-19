@@ -177,6 +177,10 @@ schemadotorg.settings:
               formatter_settings:
                 type: ignore
                 label: 'Formatter settings'
+              copy:
+                type: boolean
+                label: 'Copy existing field, form, and view settings'
+
         default_field_formatter_settings:
           type: sequence
           label: 'Default field formatter settings'

@@ -9,7 +9,7 @@ use Drupal\schemadotorg\Entity\SchemaDotOrgMapping;
 use Drupal\schemadotorg\SchemaDotOrgEntityFieldManagerInterface;
 
 /**
- * Tests the Schema.org mapping manager service.
+ * Tests the Schema.org mapping manager.
  *
  * @coversDefaultClass \Drupal\schemadotorg\SchemaDotOrgMappingManager
  * @group schemadotorg
@@ -27,6 +27,9 @@ class SchemaDotOrgMappingManagerKernelTest extends SchemaDotOrgEntityKernelTestB
   protected function setUp(): void {
     parent::setUp();
     $this->entityFieldManager = $this->container->get('entity_field.manager');
+
+    // Allow givenName settings to be copied.
+    $this->config('schemadotorg.settings')->set('schema_properties.default_fields.givenName.copy', TRUE)->save();
   }
 
   /**
@@ -153,6 +156,7 @@ class SchemaDotOrgMappingManagerKernelTest extends SchemaDotOrgEntityKernelTestB
       'machine_name' => 'name',
       'unlimited' => FALSE,
       'required' => FALSE,
+      'copy' => FALSE,
       'description' => 'The name of the item.',
     ];
     $this->assertEquals($expected, $mapping_defaults['properties']['name']);
@@ -170,6 +174,24 @@ class SchemaDotOrgMappingManagerKernelTest extends SchemaDotOrgEntityKernelTestB
       'machine_name' => 'given_name',
       'unlimited' => FALSE,
       'required' => TRUE,
+      'copy' => TRUE,
+      'description' => 'Given name.',
+    ];
+    $this->assertEquals($expected, $mapping_defaults['properties']['givenName']);
+
+    $this->config('schemadotorg.settings')->set('schema_properties.default_fields.givenName.copy', TRUE)->save();
+    $mapping_defaults = $this->mappingManager->getMappingDefaults(
+      entity_type_id: 'node',
+      schema_type: 'Person',
+    );
+    $expected = [
+      'name' => SchemaDotOrgEntityFieldManagerInterface::ADD_FIELD,
+      'type' => 'string',
+      'label' => 'First name',
+      'machine_name' => 'given_name',
+      'unlimited' => FALSE,
+      'required' => TRUE,
+      'copy' => TRUE,
       'description' => 'Given name.',
     ];
     $this->assertEquals($expected, $mapping_defaults['properties']['givenName']);

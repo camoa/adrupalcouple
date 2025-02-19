@@ -58,12 +58,12 @@ class SchemaDotOrgStarterkitConfirmForm extends ConfirmFormBase {
   protected SchemaDotOrgSchemaTypeBuilderInterface $schemaTypeBuilder;
 
   /**
-   * The Schema.org mapping manager service.
+   * The Schema.org mapping manager.
    */
   protected SchemaDotOrgMappingManagerInterface $schemaMappingManager;
 
   /**
-   * The Schema.org starter kit manager service.
+   * The Schema.org starter kit manager.
    */
   protected SchemaDotOrgStarterkitManagerInterface $schemaStarterkitManager;
 
@@ -149,7 +149,7 @@ class SchemaDotOrgStarterkitConfirmForm extends ConfirmFormBase {
       if (!isset($module_data[$dependency])) {
         $missing_dependencies[] = $dependency;
       }
-    };
+    }
     if ($missing_dependencies) {
       $starterkit = $this->schemaStarterkitManager->getStarterkit($this->name);
       $t_args = [

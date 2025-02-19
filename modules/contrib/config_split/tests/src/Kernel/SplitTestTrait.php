@@ -91,7 +91,7 @@ trait SplitTestTrait {
    * @return \Drupal\Core\Config\StorageInterface
    *   The storage.
    */
-  protected function getSplitPreviewStorage(Config $config, StorageInterface $export = NULL): StorageInterface {
+  protected function getSplitPreviewStorage(Config $config, ?StorageInterface $export = NULL): StorageInterface {
     if ('collection' === $config->get('storage')) {
       if ($export === NULL) {
         throw new \InvalidArgumentException();
@@ -179,7 +179,8 @@ trait SplitTestTrait {
       $container->get('module_installer'),
       $container->get('theme_handler'),
       $container->get('string_translation'),
-      $container->get('extension.list.module')
+      $container->get('extension.list.module'),
+      $container->get('extension.list.theme'),
     );
 
     $importer->validate();

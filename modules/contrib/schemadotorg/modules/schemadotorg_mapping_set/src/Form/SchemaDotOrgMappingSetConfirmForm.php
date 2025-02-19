@@ -30,7 +30,7 @@ class SchemaDotOrgMappingSetConfirmForm extends ConfirmFormBase {
   protected ModuleHandlerInterface $moduleHandler;
 
   /**
-   * The Schema.org mapping set manager service.
+   * The Schema.org mapping set manager.
    */
   protected SchemaDotOrgMappingSetManagerInterface $schemaMappingSetManager;
 

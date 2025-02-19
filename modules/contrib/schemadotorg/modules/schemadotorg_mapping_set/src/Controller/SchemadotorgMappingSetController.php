@@ -13,7 +13,6 @@ use Drupal\schemadotorg\SchemaDotOrgSchemaTypeBuilderInterface;
 use Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface;
 use Drupal\schemadotorg\Traits\SchemaDotOrgBuildTrait;
 use Drupal\schemadotorg_mapping_set\SchemaDotOrgMappingSetManagerInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
@@ -23,42 +22,26 @@ class SchemadotorgMappingSetController extends ControllerBase {
   use SchemaDotOrgBuildTrait;
 
   /**
-   * The Schema.org names manager.
+   * Constructs a SchemadotorgMappingSetController object.
+   *
+   * @param \Drupal\schemadotorg\SchemaDotOrgNamesInterface $schemaNames
+   *   The Schema.org names manager.
+   * @param \Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager
+   *   The Schema.org schema type manager.
+   * @param \Drupal\schemadotorg\SchemaDotOrgSchemaTypeBuilderInterface $schemaTypeBuilder
+   *   The Schema.org schema type builder.
+   * @param \Drupal\schemadotorg\SchemaDotOrgMappingManagerInterface $schemaMappingManager
+   *   The Schema.org mapping manager.
+   * @param \Drupal\schemadotorg_mapping_set\SchemaDotOrgMappingSetManagerInterface $schemaMappingSetManager
+   *   The Schema.org mapping set manager.
    */
-  protected SchemaDotOrgNamesInterface $schemaNames;
-
-  /**
-   * The Schema.org schema type manager.
-   */
-  protected SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager;
-
-  /**
-   * The Schema.org schema type builder.
-   */
-  protected SchemaDotOrgSchemaTypeBuilderInterface $schemaTypeBuilder;
-
-  /**
-   * The Schema.org mapping manager service.
-   */
-  protected SchemaDotOrgMappingManagerInterface $schemaMappingManager;
-
-  /**
-   * The Schema.org mapping set manager service.
-   */
-  protected SchemaDotOrgMappingSetManagerInterface $schemaMappingSetManager;
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function create(ContainerInterface $container): static {
-    $instance = parent::create($container);
-    $instance->schemaNames = $container->get('schemadotorg.names');
-    $instance->schemaTypeManager = $container->get('schemadotorg.schema_type_manager');
-    $instance->schemaTypeBuilder = $container->get('schemadotorg.schema_type_builder');
-    $instance->schemaMappingManager = $container->get('schemadotorg.mapping_manager');
-    $instance->schemaMappingSetManager = $container->get('schemadotorg_mapping_set.manager');
-    return $instance;
-  }
+  public function __construct(
+    protected SchemaDotOrgNamesInterface $schemaNames,
+    protected SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager,
+    protected SchemaDotOrgSchemaTypeBuilderInterface $schemaTypeBuilder,
+    protected SchemaDotOrgMappingManagerInterface $schemaMappingManager,
+    protected SchemaDotOrgMappingSetManagerInterface $schemaMappingSetManager,
+  ) {}
 
   /**
    * Builds the response for the mapping sets overview page.

@@ -68,7 +68,7 @@ class NoPatchSplitMergeTest extends KernelTestBase {
    * @return string[][]
    *   The different storage types.
    */
-  public function storageAlternativesProvider(): array {
+  public static function storageAlternativesProvider(): array {
     return [['folder'], ['collection'], ['database']];
   }
 
@@ -266,8 +266,6 @@ class NoPatchSplitMergeTest extends KernelTestBase {
             $expectedExport->write($name, $originalSystem);
           }
           else {
-            // The option "skip equal" is false, write to both.
-//            $expectedSplit->write($name, $data);
             $expectedExport->write($name, $data);
           }
         }

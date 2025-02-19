@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\schemadotorg_pathauto\Kernel;
 
-use Drupal\Tests\schemadotorg\Kernel\SchemaDotOrgTokenKernelTestBase;
 use Drupal\node\Entity\Node;
+use Drupal\Tests\schemadotorg\Kernel\SchemaDotOrgTokenKernelTestBase;
 
 /**
  * Test Schema.org Pathauto tokens.

@@ -1,6 +1,7 @@
 services:
-  schemadotorg_ui.subscriber:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+
+  schemadotorg_ui.route_subscriber:
     class: Drupal\schemadotorg_ui\Routing\SchemaDotOrgRouteSubscriber
-    arguments: ['@module_handler', '@entity_type.manager']
-    tags:
-      - { name: event_subscriber }

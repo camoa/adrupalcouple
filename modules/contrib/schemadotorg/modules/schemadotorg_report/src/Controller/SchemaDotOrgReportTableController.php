@@ -4,29 +4,43 @@ declare(strict_types=1);
 
 namespace Drupal\schemadotorg_report\Controller;
 
+use Drupal\Core\Block\BlockManagerInterface;
+use Drupal\Core\Controller\ControllerBase;
+use Drupal\Core\Database\Connection;
 use Drupal\Core\Database\Query\PagerSelectExtender;
 use Drupal\Core\Routing\RouteMatchInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\schemadotorg\SchemaDotOrgSchemaTypeBuilderInterface;
+use Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface;
+use Drupal\schemadotorg_report\Traits\SchemaDotOrgReportBuildTrait;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Returns responses for Schema.org report table routes.
  */
-class SchemaDotOrgReportTableController extends SchemaDotOrgReportControllerBase {
+class SchemaDotOrgReportTableController extends ControllerBase {
+  use SchemaDotOrgReportBuildTrait;
 
   /**
-   * The route match.
+   * Constructs a SchemaDotOrgReportTableController object.
+   *
+   * @param \Drupal\Core\Database\Connection $database
+   *   The database connection.
+   * @param \Drupal\Core\Block\BlockManagerInterface $blockManager
+   *   The block manager.
+   * @param \Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager
+   *   The Schema.org schema type manager.
+   * @param \Drupal\schemadotorg\SchemaDotOrgSchemaTypeBuilderInterface $schemaTypeBuilder
+   *   The Schema.org schema type builder.
+   * @param \Drupal\Core\Routing\RouteMatchInterface $routeMatch
+   *   The route match.
    */
-  protected RouteMatchInterface $routeMatch;
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function create(ContainerInterface $container): static {
-    $instance = parent::create($container);
-    $instance->routeMatch = $container->get('current_route_match');
-    return $instance;
-  }
+  public function __construct(
+    protected Connection $database,
+    protected BlockManagerInterface $blockManager,
+    protected SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager,
+    protected SchemaDotOrgSchemaTypeBuilderInterface $schemaTypeBuilder,
+    protected RouteMatchInterface $routeMatch,
+  ) {}
 
   /**
    * Builds the Schema.org types or properties documentation.
@@ -95,7 +109,7 @@ class SchemaDotOrgReportTableController extends SchemaDotOrgReportControllerBase
       '@type' => ($table === 'types') ? $this->t('types') : $this->t('properties'),
     ];
 
-    $build = parent::buildHeader($table);
+    $build = $this->buildHeader($table);
     if (!$this->isAjax()) {
       $build['filter'] = $this->getFilterForm($table, $id);
     }

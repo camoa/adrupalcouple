@@ -15,7 +15,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class SchemaDotOrgMappingListBuilder extends SchemaDotOrgConfigEntityListBuilderBase {
 
   /**
-   * The entity type manager service.
+   * The entity type manager.
    */
   protected EntityTypeManagerInterface $entityTypeManager;
 

@@ -49,8 +49,9 @@ Drupal.behaviors.editoria11yAdmin = {
                 // Send a request to the purge API endpoint.
                 let postData = async function (data, action) {
                     if (!csrfToken) {
-                        getCsrfToken(data, action);
-                    } else {
+                        await getCsrfToken(data, action);
+                    }
+                    if (csrfToken) {
                         let apiRoot = apiUrl.replace('results/report', 'purge');
                         let url = `${apiRoot}/${action}`;
                         fetch(url, {

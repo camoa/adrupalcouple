@@ -29,34 +29,29 @@ class SchemadotorgRecipeController extends ControllerBase {
   protected string $root;
 
   /**
-   * The module list service.
+   * Constructs a SchemadotorgRecipeController object.
+   *
+   * @param \Drupal\Core\Extension\ModuleExtensionList $moduleExtensionList
+   *   The module list service.
+   * @param \Drupal\schemadotorg\SchemaDotOrgNamesInterface $schemaNames
+   *   The Schema.org names manager.
+   * @param \Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager
+   *   The Schema.org schema type manager.
+   * @param \Drupal\schemadotorg\SchemaDotOrgSchemaTypeBuilderInterface $schemaTypeBuilder
+   *   The Schema.org schema type builder.
+   * @param \Drupal\schemadotorg\SchemaDotOrgMappingManagerInterface $schemaMappingManager
+   *   The Schema.org mapping manager.
+   * @param \Drupal\schemadotorg_recipe\SchemaDotOrgRecipeManagerInterface $schemaRecipeManager
+   *   The Schema.org recipe manager.
    */
-  protected ModuleExtensionList $moduleExtensionList;
-
-  /**
-   * The Schema.org names manager.
-   */
-  protected SchemaDotOrgNamesInterface $schemaNames;
-
-  /**
-   * The Schema.org schema type manager.
-   */
-  protected SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager;
-
-  /**
-   * The Schema.org schema type builder.
-   */
-  protected SchemaDotOrgSchemaTypeBuilderInterface $schemaTypeBuilder;
-
-  /**
-   * The Schema.org mapping manager service.
-   */
-  protected SchemaDotOrgMappingManagerInterface $schemaMappingManager;
-
-  /**
-   * The Schema.org recipe manager service.
-   */
-  protected SchemaDotOrgRecipeManagerInterface $schemaRecipeManager;
+  public function __construct(
+    protected ModuleExtensionList $moduleExtensionList,
+    protected SchemaDotOrgNamesInterface $schemaNames,
+    protected SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager,
+    protected SchemaDotOrgSchemaTypeBuilderInterface $schemaTypeBuilder,
+    protected SchemaDotOrgMappingManagerInterface $schemaMappingManager,
+    protected SchemaDotOrgRecipeManagerInterface $schemaRecipeManager,
+  ) {}
 
   /**
    * {@inheritdoc}
@@ -64,12 +59,6 @@ class SchemadotorgRecipeController extends ControllerBase {
   public static function create(ContainerInterface $container): static {
     $instance = parent::create($container);
     $instance->root = $container->getParameter('app.root');
-    $instance->moduleExtensionList = $container->get('extension.list.module');
-    $instance->schemaNames = $container->get('schemadotorg.names');
-    $instance->schemaTypeManager = $container->get('schemadotorg.schema_type_manager');
-    $instance->schemaTypeBuilder = $container->get('schemadotorg.schema_type_builder');
-    $instance->schemaMappingManager = $container->get('schemadotorg.mapping_manager');
-    $instance->schemaRecipeManager = $container->get('schemadotorg_recipe.manager');
     return $instance;
   }
 
@@ -126,7 +115,7 @@ class SchemadotorgRecipeController extends ControllerBase {
         else {
           $dependencies[] = ['#markup' => $dependency . ' <em>(' . $this->t('Missing') . ')</em>'];
         }
-      };
+      }
 
       $title = $recipe_settings['name'];
       $title = str_replace('Schema.org Blueprints Recipe: ', '', $title);

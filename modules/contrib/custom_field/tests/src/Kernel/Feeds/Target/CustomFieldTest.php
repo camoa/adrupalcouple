@@ -23,11 +23,13 @@ class CustomFieldTest extends FeedsKernelTestBase {
     'file',
     'node',
     'custom_field',
+    'custom_field_viewfield',
     'custom_field_test',
     'feeds',
     'system',
     'user',
     'image',
+    'views',
   ];
 
   /**
@@ -73,7 +75,7 @@ class CustomFieldTest extends FeedsKernelTestBase {
     // Define the entity type and field names from the provided configuration.
     $this->entityTypeId = 'node';
     $bundle = 'custom_field_entity_test';
-    $this->fieldName = 'field_custom_field_test';
+    $this->fieldName = 'field_test';
 
     $this->installConfig([
       'custom_field_test',

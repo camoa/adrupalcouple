@@ -20,7 +20,7 @@ function schemadotorg_metatag_requirements_alter(array &$requirements): void {
 }
 
 /**
- * Implements hook_schemadotorg_mapping_presave().
+ * Implements hook_ENTITY_TYPE_presave().
  */
 function schemadotorg_metatag_schemadotorg_mapping_presave(SchemaDotOrgMappingInterface $mapping): void {
   /** @var \Drupal\schemadotorg_metatag\SchemaDotOrgMetatagManagerInterface $schemadotorg_metatag_manager */
@@ -29,7 +29,7 @@ function schemadotorg_metatag_schemadotorg_mapping_presave(SchemaDotOrgMappingIn
 }
 
 /**
- * Implements hook_schemadotorg_mapping_insert().
+ * Implements hook_ENTITY_TYPE_insert().
  */
 function schemadotorg_metatag_schemadotorg_mapping_insert(SchemaDotOrgMappingInterface $mapping): void {
   /** @var \Drupal\schemadotorg_metatag\SchemaDotOrgMetatagManagerInterface $schemadotorg_metatag_manager */

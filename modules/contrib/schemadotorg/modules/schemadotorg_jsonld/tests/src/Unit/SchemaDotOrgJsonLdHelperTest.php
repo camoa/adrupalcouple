@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\schemadotorg_jsonld\Unit;
 
-use Drupal\Tests\UnitTestCase;
 use Drupal\schemadotorg_jsonld\Utility\SchemaDotOrgJsonLdHelper;
+use Drupal\Tests\UnitTestCase;
 
 /**
  * @coversDefaultClass \Drupal\schemadotorg_jsonld\Utility\SchemaDotOrgJsonLdHelper
@@ -39,7 +39,7 @@ class SchemaDotOrgJsonLdHelperTest extends UnitTestCase {
    *
    * @see testAppendValue()
    */
-  public function providerAppendValue(): array {
+  public static function providerAppendValue(): array {
     $tests = [];
 
     $tests[] = [

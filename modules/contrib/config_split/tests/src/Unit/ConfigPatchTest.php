@@ -66,7 +66,7 @@ class ConfigPatchTest extends TestCase {
    *
    * @dataProvider standardPatchMergeProvider
    */
-  public function testStandardPatchMerge(array $configA, array $configB, ConfigPatch $expectedAB = NULL) {
+  public function testStandardPatchMerge(array $configA, array $configB, ?ConfigPatch $expectedAB = NULL) {
     $patchAB = $this->patchMerge->createPatch($configA, $configB, 'test');
     $patchBA = $this->patchMerge->createPatch($configB, $configA, 'test');
 
@@ -90,7 +90,7 @@ class ConfigPatchTest extends TestCase {
    * @return \Generator
    *   The test cases.
    */
-  public function standardPatchMergeProvider() {
+  public static function standardPatchMergeProvider() {
     yield 'deep merge' => [
       'configA' => [
         'dependencies' => ['a', 'b'],

@@ -12,8 +12,8 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Routing\RedirectDestinationInterface;
 use Drupal\field\FieldConfigInterface;
 use Drupal\jsonapi\ResourceType\ResourceType;
+use Drupal\jsonapi\ResourceType\ResourceTypeRepositoryInterface;
 use Drupal\jsonapi_extras\Entity\JsonapiResourceConfig;
-use Drupal\jsonapi_extras\ResourceType\ConfigurableResourceTypeRepository;
 use Drupal\schemadotorg\SchemaDotOrgMappingInterface;
 use Drupal\schemadotorg\SchemaDotOrgNamesInterface;
 
@@ -26,14 +26,14 @@ class SchemaDotOrgJsonApiManager implements SchemaDotOrgJsonApiManagerInterface 
    * Constructs a SchemaDotOrgJsonApiManager object.
    *
    * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
-   *   The configuration object factory.
+   *   The config factory.
    * @param \Drupal\Core\Routing\RedirectDestinationInterface $redirectDestination
    *   The redirect destination service.
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
    *   The entity type manager.
    * @param \Drupal\Core\Entity\EntityFieldManagerInterface $entityFieldManager
    *   The entity field manager.
-   * @param \Drupal\jsonapi_extras\ResourceType\ConfigurableResourceTypeRepository $resourceTypeRepository
+   * @param \Drupal\jsonapi\ResourceType\ResourceTypeRepositoryInterface $resourceTypeRepository
    *   The JSON:API configurable resource type repository.
    * @param \Drupal\schemadotorg\SchemaDotOrgNamesInterface $schemaNames
    *   The Schema.org names service.
@@ -43,7 +43,7 @@ class SchemaDotOrgJsonApiManager implements SchemaDotOrgJsonApiManagerInterface 
     protected RedirectDestinationInterface $redirectDestination,
     protected EntityTypeManagerInterface $entityTypeManager,
     protected EntityFieldManagerInterface $entityFieldManager,
-    protected ConfigurableResourceTypeRepository $resourceTypeRepository,
+    protected ResourceTypeRepositoryInterface $resourceTypeRepository,
     protected SchemaDotOrgNamesInterface $schemaNames,
   ) {}
 
@@ -130,10 +130,14 @@ class SchemaDotOrgJsonApiManager implements SchemaDotOrgJsonApiManagerInterface 
   /**
    * {@inheritdoc}
    */
-  public function insertMappingResourceConfig(SchemaDotOrgMappingInterface $mapping): void {
+  public function insertMapping(SchemaDotOrgMappingInterface $mapping): void {
+    if ($mapping->isSyncing()) {
+      return;
+    }
+
     $resource_config = $this->loadResourceConfig($mapping);
     if ($resource_config) {
-      $this->updateMappingResourceConfig($mapping);
+      $this->updateMapping($mapping);
       return;
     }
 
@@ -168,10 +172,14 @@ class SchemaDotOrgJsonApiManager implements SchemaDotOrgJsonApiManagerInterface 
   /**
    * {@inheritdoc}
    */
-  public function updateMappingResourceConfig(SchemaDotOrgMappingInterface $mapping): void {
+  public function updateMapping(SchemaDotOrgMappingInterface $mapping): void {
+    if ($mapping->isSyncing()) {
+      return;
+    }
+
     $resource_config = $this->loadResourceConfig($mapping);
     if (!$resource_config) {
-      $this->insertMappingResourceConfig($mapping);
+      $this->insertMapping($mapping);
       return;
     }
 

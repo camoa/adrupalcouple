@@ -13,11 +13,27 @@ use Drupal\Core\Render\BubbleableMetadata;
 use Drupal\schemadotorg\Entity\SchemaDotOrgMapping;
 
 /* ************************************************************************** */
+// Duration field.
+/* ************************************************************************** */
+
+/**
+ * Implements hook_schemadotorg_jsonld_schema_property_alter().
+ */
+function duration_field_schemadotorg_jsonld_schema_property_alter(mixed &$value, FieldItemInterface $item, BubbleableMetadata $bubbleable_metadata): void {
+  $field_type = $item->getFieldDefinition()->getType();
+  if ($field_type !== 'duration') {
+    return;
+  }
+
+  $value = $item->duration;
+}
+
+/* ************************************************************************** */
 // Datetime range.
 /* ************************************************************************** */
 
 /**
- * Implements hook_schemadotorg_jsonld_schema_type_field_alter() for the datetime_range.module.
+ * Implements hook_schemadotorg_jsonld_schema_type_field_alter().
  *
  * Sets the endDate property for a single startDate property that is
  * using a daterange.
@@ -65,7 +81,7 @@ function datetime_range_schemadotorg_jsonld_schema_type_field_alter(array &$data
 /* ************************************************************************** */
 
 /**
- * Implements hook_schemadotorg_jsonld_schema_property_alter() for the range.module.
+ * Implements hook_schemadotorg_jsonld_schema_property_alter().
  */
 function range_schemadotorg_jsonld_schema_property_alter(mixed &$value, FieldItemInterface $item, BubbleableMetadata $bubbleable_metadata): void {
   $field_definition = $item->getFieldDefinition();

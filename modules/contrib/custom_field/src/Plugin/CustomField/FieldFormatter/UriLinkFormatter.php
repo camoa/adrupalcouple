@@ -11,7 +11,6 @@ use Drupal\Core\Field\FieldItemInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
 use Drupal\custom_field\Plugin\CustomFieldFormatterBase;
-use Drupal\custom_field\Plugin\CustomFieldTypeInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -55,7 +54,7 @@ class UriLinkFormatter extends CustomFieldFormatterBase {
   /**
    * {@inheritdoc}
    */
-  public static function defaultSettings() {
+  public static function defaultSettings(): array {
     return [
       'trim_length' => '80',
       'url_plain' => FALSE,
@@ -68,38 +67,37 @@ class UriLinkFormatter extends CustomFieldFormatterBase {
   /**
    * {@inheritdoc}
    */
-  public function settingsForm(array $form, FormStateInterface $form_state, array $settings) {
-    $settings += static::defaultSettings();
+  public function settingsForm(array $form, FormStateInterface $form_state): array {
     $elements['title'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Title'),
       '#description' => $this->t('Leave blank to render the url.'),
-      '#default_value' => $settings['title'],
+      '#default_value' => $this->getSetting('title'),
     ];
     $elements['trim_length'] = [
       '#type' => 'number',
       '#title' => $this->t('Trim link text length'),
       '#field_suffix' => $this->t('characters'),
-      '#default_value' => $settings['trim_length'],
+      '#default_value' => $this->getSetting('trim_length'),
       '#min' => 1,
       '#description' => $this->t('Leave blank to allow unlimited link text lengths.'),
     ];
     $elements['url_plain'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Show URL as plain text'),
-      '#default_value' => $settings['url_plain'],
+      '#default_value' => $this->getSetting('url_plain'),
     ];
     $elements['rel'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Add rel="nofollow" to links'),
       '#return_value' => 'nofollow',
-      '#default_value' => $settings['rel'],
+      '#default_value' => $this->getSetting('rel'),
     ];
     $elements['target'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Open link in new window'),
       '#return_value' => '_blank',
-      '#default_value' => $settings['target'],
+      '#default_value' => $this->getSetting('target'),
     ];
 
     return $elements;
@@ -108,16 +106,15 @@ class UriLinkFormatter extends CustomFieldFormatterBase {
   /**
    * Builds the \Drupal\Core\Url object for a link field item.
    *
-   * @param array $settings
-   *   An array of settings to build the url from.
+   * @param string $value
+   *   The raw value to build the url from.
    *
    * @return \Drupal\Core\Url
    *   A Url object.
    */
-  protected function buildUrl(array $settings) {
-    $formatter_settings = $settings['formatter_settings'] + static::defaultSettings();
+  protected function buildUrl($value) {
     try {
-      $url = $this->getUrl($settings['value']);
+      $url = $this->getUrl($value);
     }
     catch (\InvalidArgumentException $e) {
       // @todo Add logging here in https://www.drupal.org/project/drupal/issues/3348020
@@ -127,12 +124,12 @@ class UriLinkFormatter extends CustomFieldFormatterBase {
     $options = $url->getOptions();
 
     // Add optional 'rel' attribute to link options.
-    if (!empty($formatter_settings['rel'])) {
-      $options['attributes']['rel'] = $formatter_settings['rel'];
+    if (!empty($this->getSetting('rel'))) {
+      $options['attributes']['rel'] = $this->getSetting('rel');
     }
     // Add optional 'target' attribute to link options.
-    if (!empty($formatter_settings['target']) && $url->isExternal()) {
-      $options['attributes']['target'] = $formatter_settings['target'];
+    if (!empty($this->getSetting('target')) && $url->isExternal()) {
+      $options['attributes']['target'] = $this->getSetting('target');
     }
     $url->setOptions($options);
 
@@ -168,9 +165,9 @@ class UriLinkFormatter extends CustomFieldFormatterBase {
   /**
    * {@inheritdoc}
    */
-  public function formatValue(FieldItemInterface $item, CustomFieldTypeInterface $field, array $settings) {
-    $formatter_settings = $settings['formatter_settings'] + static::defaultSettings();
-    $url = $this->buildUrl($settings);
+  public function formatValue(FieldItemInterface $item, $value) {
+    $langcode = $item->getEntity()->language()->getId();
+    $url = $this->buildUrl($value);
     // Use the full URL as the link title by default.
     $link_title = $url->toString();
     $link_entity = NULL;
@@ -192,7 +189,7 @@ class UriLinkFormatter extends CustomFieldFormatterBase {
         }
         // Set the entity in the correct language for display.
         if ($link_entity instanceof TranslatableInterface) {
-          $link_entity = $this->entityRepository->getTranslationFromContext($link_entity, $settings['langcode']);
+          $link_entity = $this->entityRepository->getTranslationFromContext($link_entity, $langcode);
         }
         if ($link_entity instanceof EntityInterface) {
           $access = $link_entity->access('view', NULL, TRUE);
@@ -205,17 +202,17 @@ class UriLinkFormatter extends CustomFieldFormatterBase {
     }
 
     // Trim the link text to the desired length.
-    if (!empty($settings['trim_length'])) {
-      $link_title = Unicode::truncate($link_title, $settings['trim_length'], FALSE, TRUE);
+    if (!empty($this->getSetting('trim_length'))) {
+      $link_title = Unicode::truncate($link_title, $this->getSetting('trim_length'), FALSE, TRUE);
     }
 
     // If the title field value is available, use it for the link text.
-    if (!empty($formatter_settings['title'])) {
-      $link_title = $formatter_settings['title'];
+    if (!empty($this->getSetting('title'))) {
+      $link_title = $this->getSetting('title');
     }
-    if ($formatter_settings['url_plain']) {
+    if ($this->getSetting('url_plain')) {
       $build = [
-        '#plain_text' => $settings['value'],
+        '#plain_text' => $value,
       ];
     }
     else {

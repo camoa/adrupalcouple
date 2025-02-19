@@ -5,29 +5,35 @@ declare(strict_types=1);
 namespace Drupal\schemadotorg_export\Controller;
 
 use Drupal\Component\Utility\NestedArray;
+use Drupal\Core\Controller\ControllerBase;
+use Drupal\schemadotorg\SchemaDotOrgMappingManagerInterface;
+use Drupal\schemadotorg\SchemaDotOrgNamesInterface;
+use Drupal\schemadotorg\Traits\SchemaDotOrgMappingStorageTrait;
 use Drupal\schemadotorg_pathauto\Controller\SchemaDotOrgPathautoReportController;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
 /**
  * Returns responses for Schema.org paths export.
  */
-class SchemaDotOrgExportReportPathsController extends SchemaDotOrgExportMappingDefaultBaseController {
+class SchemaDotOrgExportReportPathsController extends ControllerBase {
+  use SchemaDotOrgMappingStorageTrait;
 
   /**
-   * The Schema.org Pathauto paths report  controller.
+   * Constructs a SchemaDotOrgExportReportPathsController object.
+   *
+   * @param \Drupal\schemadotorg\SchemaDotOrgNamesInterface $schemaNames
+   *   The Schema.org names service.
+   * @param \Drupal\schemadotorg\SchemaDotOrgMappingManagerInterface $schemaMappingManager
+   *   The Schema.org mapping manager.
+   * @param \Drupal\schemadotorg_pathauto\Controller\SchemaDotOrgPathautoReportController $controller
+   *   The Schema.org Pathauto paths report  controller.
    */
-  protected SchemaDotOrgPathautoReportController $controller;
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function create(ContainerInterface $container): static {
-    $instance = parent::create($container);
-    $instance->controller = SchemaDotOrgPathautoReportController::create($container);
-    return $instance;
-  }
+  public function __construct(
+    protected SchemaDotOrgNamesInterface $schemaNames,
+    protected SchemaDotOrgMappingManagerInterface $schemaMappingManager,
+    protected SchemaDotOrgPathautoReportController $controller,
+  ) {}
 
   /**
    * Returns response for Schema.org mapping set CSV export request.

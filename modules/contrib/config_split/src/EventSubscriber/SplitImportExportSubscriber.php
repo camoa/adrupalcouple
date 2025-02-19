@@ -120,7 +120,7 @@ final class SplitImportExportSubscriber implements EventSubscriberInterface {
    * @return \Drupal\Core\Config\ImmutableConfig[]
    *   The default priority configs.
    */
-  protected function getDefaultPrioritySplitConfigs(StorageInterface $storage = NULL): array {
+  protected function getDefaultPrioritySplitConfigs(?StorageInterface $storage = NULL): array {
     $names = $this->manager->listAll($storage);
     $explicit = Settings::get('config_split_priorities', []);
     if (is_array($explicit)) {

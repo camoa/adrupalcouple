@@ -23,9 +23,9 @@ class StackedWidgetTest extends CustomFieldWidgetTestBase {
     $entity_display_repository = \Drupal::service('entity_display.repository');
 
     $fields = [
-      'field_custom_field_test',
-      'field_custom_field_test_multiple',
-      'field_custom_field_test_unlimite',
+      'field_test',
+      'field_test_multiple',
+      'field_test_unlimited',
     ];
 
     $form_display = $entity_display_repository->getFormDisplay('node', 'custom_field_entity_test');

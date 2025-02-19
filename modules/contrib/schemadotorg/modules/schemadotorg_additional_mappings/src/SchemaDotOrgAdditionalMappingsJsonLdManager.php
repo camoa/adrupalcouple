@@ -16,6 +16,7 @@ use Drupal\schemadotorg\Traits\SchemaDotOrgMappingStorageTrait;
 use Drupal\schemadotorg_jsonld\SchemaDotOrgJsonLdBuilderInterface;
 use Drupal\schemadotorg_jsonld\SchemaDotOrgJsonLdManagerInterface;
 use Drupal\schemadotorg_jsonld\Utility\SchemaDotOrgJsonLdHelper;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
 /**
  * Schema.org additional mappings JSON-LD manager.
@@ -29,16 +30,18 @@ class SchemaDotOrgAdditionalMappingsJsonLdManager implements SchemaDotOrgAdditio
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
    *   The entity type manager.
    * @param \Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager
-   *   The Schema.org type manager.
+   *   The Schema.org schema type manager.
    * @param \Drupal\schemadotorg_jsonld\SchemaDotOrgJsonLdManagerInterface|null $schemaJsonLdManager
-   *   The Schema.org JSON-LD manager service.
+   *   The Schema.org JSON-LD manager.
    * @param \Drupal\schemadotorg_jsonld\SchemaDotOrgJsonLdBuilderInterface|null $schemaJsonLdBuilder
-   *   The Schema.org JSON-LD builder service.
+   *   The Schema.org JSON-LD builder.
    */
   public function __construct(
     protected EntityTypeManagerInterface $entityTypeManager,
     protected SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager,
+    #[Autowire(service: 'schemadotorg_jsonld.manager')]
     protected ?SchemaDotOrgJsonLdManagerInterface $schemaJsonLdManager = NULL,
+    #[Autowire(service: 'schemadotorg_jsonld.builder')]
     protected ?SchemaDotOrgJsonLdBuilderInterface $schemaJsonLdBuilder = NULL,
   ) {}
 
@@ -123,7 +126,7 @@ class SchemaDotOrgAdditionalMappingsJsonLdManager implements SchemaDotOrgAdditio
    * {@inheritdoc}
    */
   public function schemaPropertyAlter(mixed &$value, FieldItemInterface $item, BubbleableMetadata $bubbleable_metadata): void {
-    // Check that this this is an entity reference field.
+    // Check that this is an entity reference field.
     if (!$item instanceof EntityReferenceItem) {
       return;
     }
@@ -144,6 +147,10 @@ class SchemaDotOrgAdditionalMappingsJsonLdManager implements SchemaDotOrgAdditio
     // Get the target's entity, mapping, and types.
     $target_entity = $item->entity;
     $target_mapping = $this->getMappingStorage()->loadByEntity($target_entity);
+    if (!$target_mapping) {
+      return;
+    }
+
     $target_additional_mappings = $target_mapping->getAdditionalMappings();
     $target_schema_types = (array) $value['@type'];
     if ($target_additional_mappings) {
@@ -162,11 +169,11 @@ class SchemaDotOrgAdditionalMappingsJsonLdManager implements SchemaDotOrgAdditio
 
     // Update the @type to include the updated target Schema.org types.
     switch (count($target_schema_types)) {
-      case 0;
+      case 0:
         $value = NULL;
         break;
 
-      case 1;
+      case 1:
         $value['@type'] = reset($target_schema_types);
         break;
 

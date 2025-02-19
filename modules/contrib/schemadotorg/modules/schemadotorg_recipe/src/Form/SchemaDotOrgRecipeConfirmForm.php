@@ -58,12 +58,12 @@ class SchemaDotOrgRecipeConfirmForm extends ConfirmFormBase {
   protected SchemaDotOrgSchemaTypeBuilderInterface $schemaTypeBuilder;
 
   /**
-   * The Schema.org mapping manager service.
+   * The Schema.org mapping manager.
    */
   protected SchemaDotOrgMappingManagerInterface $schemaMappingManager;
 
   /**
-   * The Schema.org recipe manager service.
+   * The Schema.org recipe manager.
    */
   protected SchemaDotOrgRecipeManagerInterface $schemaRecipeManager;
 
@@ -149,7 +149,7 @@ class SchemaDotOrgRecipeConfirmForm extends ConfirmFormBase {
       if (!isset($module_data[$dependency])) {
         $missing_dependencies[] = $dependency;
       }
-    };
+    }
     if ($missing_dependencies) {
       $recipe = $this->schemaRecipeManager->getRecipe($this->name);
       $t_args = [

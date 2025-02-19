@@ -100,7 +100,7 @@ class SplitContentEntityTypeTest extends KernelTestBase {
    * @return string[][]
    *   The different storage types.
    */
-  public function storageAlternativesProvider(): array {
+  public static function storageAlternativesProvider(): array {
     return [['folder'], ['collection'], ['database']];
   }
 

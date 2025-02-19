@@ -29,7 +29,9 @@ class CustomFieldUpdateManagerTest extends KernelTestBase {
     'system',
     'field',
     'node',
+    'views',
     'custom_field',
+    'custom_field_viewfield',
     'custom_field_test',
     'user',
     'path',
@@ -131,7 +133,7 @@ class CustomFieldUpdateManagerTest extends KernelTestBase {
     // Define the entity type and field names from the provided configuration.
     $entityTypeId = 'node';
     $bundle = 'custom_field_entity_test';
-    $fieldName = 'field_custom_field_test';
+    $fieldName = 'field_test';
 
     // Define the new property (column) name and data type.
     $newProperty = 'new_property';
@@ -196,7 +198,7 @@ class CustomFieldUpdateManagerTest extends KernelTestBase {
   public function testRemoveColumn(): void {
     // Define the entity type and field names from the provided configuration.
     $entityTypeId = 'node';
-    $fieldName = 'field_custom_field_test';
+    $fieldName = 'field_test';
     $bundle = 'custom_field_entity_test';
 
     // Perform assertions to verify that the column was added successfully.
@@ -205,8 +207,9 @@ class CustomFieldUpdateManagerTest extends KernelTestBase {
     $this->assertEquals('custom', $fieldStorageConfig->getType(), 'The field storage type is "custom".');
     // Create a node.
     $columns = $fieldStorageConfig->getSetting('columns');
-    // Image has extra image columns that alters test.
+    // Some types have extra columns that alter test.
     unset($columns['image_test']);
+    unset($columns['viewfield_test']);
     $fieldStorageConfig->setSetting('columns', $columns)->save();
     $node = $this->createNode([
       'type' => $bundle,

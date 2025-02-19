@@ -25,33 +25,25 @@ function schemadotorg_jsonapi_help(string $route_name, RouteMatchInterface $rout
 }
 
 /**
- * Implements hook_schemadotorg_mapping_insert().
+ * Implements hook_ENTITY_TYPE_insert().
  */
 function schemadotorg_jsonapi_schemadotorg_mapping_insert(SchemaDotOrgMappingInterface $mapping): void {
-  if ($mapping->isSyncing()) {
-    return;
-  }
-
   /** @var \Drupal\schemadotorg_jsonapi\SchemaDotOrgJsonApiManagerInterface $manager */
   $manager = \Drupal::service('schemadotorg_jsonapi.manager');
-  $manager->insertMappingResourceConfig($mapping);
+  $manager->insertMapping($mapping);
 }
 
 /**
- * Implements hook_schemadotorg_mapping_update().
+ * Implements hook_ENTITY_TYPE_update().
  */
 function schemadotorg_jsonapi_schemadotorg_mapping_update(SchemaDotOrgMappingInterface $mapping): void {
-  if ($mapping->isSyncing()) {
-    return;
-  }
-
-  /** @var \Drupal\schemadotorg_jsonapi\SchemaDotOrgJsonApiManagerInterface $manager */
-  $manager = \Drupal::service('schemadotorg_jsonapi.manager');
-  $manager->updateMappingResourceConfig($mapping);
+  /** @var \Drupal\schemadotorg_jsonapi\SchemaDotOrgJsonApiManagerInterface $schemadotorg_jsonapi_manager */
+  $schemadotorg_jsonapi_manager = \Drupal::service('schemadotorg_jsonapi.manager');
+  $schemadotorg_jsonapi_manager->updateMapping($mapping);
 }
 
 /**
- * Implements hook_field_config_insert().
+ * Implements hook_ENTITY_TYPE_insert().
  */
 function schemadotorg_jsonapi_field_config_insert(FieldConfigInterface $field_config): void {
   /** @var \Drupal\schemadotorg_jsonapi\SchemaDotOrgJsonApiManagerInterface $manager */

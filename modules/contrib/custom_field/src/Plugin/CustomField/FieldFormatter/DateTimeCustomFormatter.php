@@ -21,7 +21,7 @@ class DateTimeCustomFormatter extends DateTimeFormatterBase {
   /**
    * {@inheritdoc}
    */
-  public static function defaultSettings() {
+  public static function defaultSettings(): array {
     return [
       'date_format' => CustomFieldTypeInterface::DATETIME_STORAGE_FORMAT,
     ] + parent::defaultSettings();
@@ -30,9 +30,8 @@ class DateTimeCustomFormatter extends DateTimeFormatterBase {
   /**
    * {@inheritdoc}
    */
-  public function settingsForm(array $form, FormStateInterface $form_state, array $settings) {
-    $settings += static::defaultSettings();
-    $elements = parent::settingsForm($form, $form_state, $settings);
+  public function settingsForm(array $form, FormStateInterface $form_state): array {
+    $elements = parent::settingsForm($form, $form_state);
 
     $elements['date_format'] = [
       '#type' => 'textfield',
@@ -40,7 +39,7 @@ class DateTimeCustomFormatter extends DateTimeFormatterBase {
       '#description' => $this->t('See <a href=":url" target="_blank">the documentation for PHP date formats</a>.', [
         ':url' => 'https://www.php.net/manual/datetime.format.php#refsect1-datetime.format-parameters',
       ]),
-      '#default_value' => $settings['date_format'],
+      '#default_value' => $this->getSetting('date_format'),
     ];
 
     return $elements;
@@ -49,10 +48,9 @@ class DateTimeCustomFormatter extends DateTimeFormatterBase {
   /**
    * {@inheritdoc}
    */
-  protected function formatDate(object $date, array $settings): string {
-    $settings += static::defaultSettings();
-    $format = $settings['date_format'];
-    $timezone = $settings['timezone_override'] ?: $date->getTimezone()->getName();
+  protected function formatDate(object $date): string {
+    $format = $this->getSetting('date_format');
+    $timezone = $this->getSetting('timezone_override') ?: $date->getTimezone()->getName();
     return $this->dateFormatter->format($date->getTimestamp(), 'custom', $format, $timezone != '' ? $timezone : NULL);
   }
 

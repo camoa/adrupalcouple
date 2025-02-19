@@ -15,6 +15,8 @@ use Drupal\Core\Render\BubbleableMetadata;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\schemadotorg_jsonld\SchemaDotOrgJsonLdBuilderInterface;
 
+require_once 'schemadotorg_jsonld.schemadotorg.inc';
+
 /**
  * Implements hook_help().
  */
@@ -56,7 +58,6 @@ function schemadotorg_jsonld_page_attachments_alter(array &$page): void {
   // apply the JSON-LD cache tags and contexts to the page.
   /** @var Drupal\Core\Cache\VariationCacheInterface $variation_cache */
   $variation_cache = \Drupal::service('variation_cache.schemadotorg_jsonld');
-
   // Cache settings.
   $cache_keys = ['html_head'];
   $cache_contexts = SchemaDotOrgJsonLdBuilderInterface::ROUTE_MATCH_CACHE_CONTEXTS;
@@ -109,4 +110,14 @@ function schemadotorg_jsonld_page_attachments_alter(array &$page): void {
     ],
     'schemadotorg_jsonld',
   ];
+}
+
+/**
+ * Implements hook_cache_flush().
+ */
+function schemadotorg_jsonld_cache_flush(): void {
+  // Ensure the variation cache is cleared for JSON-LD.
+  /** @var \Drupal\Core\Cache\CacheFactory $cache_factory */
+  $cache_factory = \Drupal::service('cache_factory');
+  $cache_factory->get('schemadotorg_jsonld')->deleteAll();
 }

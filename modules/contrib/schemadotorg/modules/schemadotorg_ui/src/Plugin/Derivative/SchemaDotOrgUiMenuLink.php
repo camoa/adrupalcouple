@@ -42,11 +42,15 @@ class SchemaDotOrgUiMenuLink extends DeriverBase implements ContainerDeriverInte
    * {@inheritdoc}
    */
   public function getDerivativeDefinitions($base_plugin_definition): array {
+    $this->derivatives = [];
+    if ($this->moduleHandler->moduleExists('navigation')) {
+      return $this->derivatives;
+    }
+
     /** @var \Drupal\schemadotorg\SchemaDotOrgMappingTypeStorageInterface $mapping_type_storage */
     $mapping_type_storage = $this->entityTypeManager->getStorage('schemadotorg_mapping_type');
     $entity_types = $mapping_type_storage->getEntityTypes();
 
-    $this->derivatives = [];
     foreach ($this->entityTypeManager->getDefinitions() as $entity_type_id => $entity_type) {
       $bundle_of = $entity_type->getBundleOf();
 

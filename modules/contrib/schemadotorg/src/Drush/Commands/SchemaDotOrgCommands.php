@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Drupal\schemadotorg\Drush\Commands;
 
 use Consolidation\AnnotatedCommand\CommandData;
-use Drupal\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\schemadotorg\SchemaDotOrgConfigManagerInterface;
 use Drupal\schemadotorg\SchemaDotOrgInstallerInterface;
 use Drupal\schemadotorg\SchemaDotOrgMappingManagerInterface;
 use Drupal\schemadotorg\Traits\SchemaDotOrgMappingStorageTrait;
+use Drush\Commands\AutowireTrait;
 use Drush\Commands\DrushCommands;
 use Drush\Exceptions\UserAbortException;
 
@@ -18,6 +18,7 @@ use Drush\Exceptions\UserAbortException;
  * Schema.org Drush commands.
  */
 class SchemaDotOrgCommands extends DrushCommands {
+  use AutowireTrait;
   use SchemaDotOrgMappingStorageTrait;
 
   /**
@@ -38,18 +39,6 @@ class SchemaDotOrgCommands extends DrushCommands {
     protected SchemaDotOrgConfigManagerInterface $schemaConfigManager,
     protected SchemaDotOrgMappingManagerInterface $schemaMappingManager,
   ) {}
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function create(ContainerInterface $container): self {
-    return new static(
-      $container->get('entity_type.manager'),
-      $container->get('schemadotorg.installer'),
-      $container->get('schemadotorg.config_manager'),
-      $container->get('schemadotorg.mapping_manager'),
-    );
-  }
 
   /**
    * Download Schema.org CSV data.

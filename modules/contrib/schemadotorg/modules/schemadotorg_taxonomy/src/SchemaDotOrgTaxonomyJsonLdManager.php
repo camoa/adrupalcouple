@@ -7,6 +7,8 @@ namespace Drupal\schemadotorg_taxonomy;
 use Drupal\Component\Utility\NestedArray;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Field\FieldItemInterface;
+use Drupal\Core\Field\Plugin\Field\FieldType\EntityReferenceItem;
 use Drupal\Core\Render\BubbleableMetadata;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\Url;
@@ -30,15 +32,29 @@ class SchemaDotOrgTaxonomyJsonLdManager implements SchemaDotOrgTaxonomyJsonLdMan
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
    *   The entity type manager.
    * @param \Drupal\schemadotorg_jsonld\SchemaDotOrgJsonLdManagerInterface|null $schemaJsonLdManager
-   *   The Schema.org JSON-LD manager service.
+   *   The Schema.org JSON-LD manager.
    * @param \Drupal\schemadotorg_jsonld\SchemaDotOrgJsonLdBuilderInterface|null $schemaJsonLdBuilder
-   *   The Schema.org JSON-LD builder service.
+   *   The Schema.org JSON-LD builder.
    */
   public function __construct(
     protected EntityTypeManagerInterface $entityTypeManager,
     protected ?SchemaDotOrgJsonLdManagerInterface $schemaJsonLdManager = NULL,
     protected ?SchemaDotOrgJsonLdBuilderInterface $schemaJsonLdBuilder = NULL,
   ) {}
+
+  /**
+   * {@inheritdoc}
+   */
+  public function schemaPropertyAlter(mixed &$value, FieldItemInterface $item, BubbleableMetadata $bubbleable_metadata): void {
+    // If the JSON-LD item value is null for an entity_reference:taxonomy_terms,
+    // the term's name is used as the JSON-LD item value.
+    if (is_null($value)
+      && $item instanceof EntityReferenceItem
+      && $item->getDataDefinition()->getSetting('target_type') === 'taxonomy_term'
+      && $item->entity) {
+      $value = $item->entity->label();
+    }
+  }
 
   /**
    * {@inheritdoc}
@@ -70,7 +86,7 @@ class SchemaDotOrgTaxonomyJsonLdManager implements SchemaDotOrgTaxonomyJsonLdMan
   /**
    * {@inheritdoc}
    */
-  public function schemaTypeEntityAlter(array &$data, EntityInterface $entity, ?SchemaDotOrgMappingInterface $mapping): void {
+  public function schemaTypeEntityAlter(array &$data, EntityInterface $entity, ?SchemaDotOrgMappingInterface $mapping, ?BubbleableMetadata $bubbleable_metadata): void {
     // Make sure this is a term with a mapping.
     if (!$entity instanceof TermInterface
       || !$mapping) {
@@ -94,6 +110,10 @@ class SchemaDotOrgTaxonomyJsonLdManager implements SchemaDotOrgTaxonomyJsonLdMan
    * {@inheritdoc}
    */
   public function preprocessBlock(array &$variables): void {
+    if ($variables['base_plugin_id'] !== 'schemadotorg_jsonld_preview') {
+      return;
+    }
+
     if (empty($this->schemaJsonLdBuilder)) {
       return;
     }

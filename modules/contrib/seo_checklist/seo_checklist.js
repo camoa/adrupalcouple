@@ -15,8 +15,8 @@
           return this.hostname && this.hostname !== window.location.hostname;
         })
         .each(function () {
-          // Send all links to drupal.org to the same window. Open others in their
-          // own windows.
+          // Send all links to drupal.org to the same window.
+          // Open others in their own windows.
           $(this).attr(
             'target',
             this.hostname === 'drupal.org' ? 'drupal_org' : '_blank',

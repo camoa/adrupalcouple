@@ -26,6 +26,8 @@ class SchemaDotOrgMercuryEditorKernelTest extends SchemaDotOrgEntityKernelTestBa
    */
   protected static $modules = [
     'taxonomy',
+    'layout_discovery',
+    'layout_paragraphs',
     'mercury_editor',
     'schemadotorg_layout_paragraphs',
     'schemadotorg_mercury_editor',

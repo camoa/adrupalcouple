@@ -6,9 +6,9 @@ namespace Drupal\Tests\schemadotorg_custom_field\Kernel;
 
 use Drupal\Core\Entity\Entity\EntityFormDisplay;
 use Drupal\Core\Entity\Entity\EntityViewDisplay;
-use Drupal\Tests\schemadotorg\Kernel\SchemaDotOrgEntityKernelTestBase;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
+use Drupal\Tests\schemadotorg\Kernel\SchemaDotOrgEntityKernelTestBase;
 
 /**
  * Tests the functionality of the Schema.org custom field manager.
@@ -240,6 +240,19 @@ class SchemaDotOrgCustomFieldManagerKernelTest extends SchemaDotOrgEntityKernelT
     /** @var \Drupal\Core\Entity\Display\EntityViewDisplayInterface $entity_form_display */
     $entity_view_display = EntityViewDisplay::load('node.recipe.default');
     $components = $entity_view_display->getComponents();
+    $component_defaults = [
+      'wrappers' => [
+        'field_wrapper_tag' => '',
+        'field_wrapper_classes' => '',
+        'field_tag' => '',
+        'field_classes' => '',
+        'label_tag' => '',
+        'label_classes' => '',
+      ],
+      'formatter_settings' => [
+        'prefix_suffix' => TRUE,
+      ],
+    ];
     $expected_component = [
       'type' => 'custom_formatter',
       'label' => 'above',
@@ -247,68 +260,37 @@ class SchemaDotOrgCustomFieldManagerKernelTest extends SchemaDotOrgEntityKernelT
         'fields' => [
           'calories' => [
             'format_type' => 'number_integer',
-            'formatter_settings' => ['prefix_suffix' => TRUE],
-          ],
+          ] + $component_defaults,
           'carbohydrate_content' => [
             'format_type' => 'number_integer',
-            'formatter_settings' => [
-              'prefix_suffix' => TRUE,
-            ],
-          ],
+          ] + $component_defaults,
           'cholesterol_content' => [
             'format_type' => 'number_integer',
-            'formatter_settings' => [
-              'prefix_suffix' => TRUE,
-            ],
-          ],
+          ] + $component_defaults,
           'fat_content' => [
             'format_type' => 'number_integer',
-            'formatter_settings' => [
-              'prefix_suffix' => TRUE,
-            ],
-          ],
+          ] + $component_defaults,
           'fiber_content' => [
             'format_type' => 'number_integer',
-            'formatter_settings' => [
-              'prefix_suffix' => TRUE,
-            ],
-          ],
+          ] + $component_defaults,
           'protein_content' => [
             'format_type' => 'number_integer',
-            'formatter_settings' => [
-              'prefix_suffix' => TRUE,
-            ],
-          ],
+          ] + $component_defaults,
           'saturated_fat_content' => [
             'format_type' => 'number_integer',
-            'formatter_settings' => [
-              'prefix_suffix' => TRUE,
-            ],
-          ],
+          ] + $component_defaults,
           'sodium_content' => [
             'format_type' => 'number_integer',
-            'formatter_settings' => [
-              'prefix_suffix' => TRUE,
-            ],
-          ],
+          ] + $component_defaults,
           'sugar_content' => [
             'format_type' => 'number_integer',
-            'formatter_settings' => [
-              'prefix_suffix' => TRUE,
-            ],
-          ],
+          ] + $component_defaults,
           'trans_fat_content' => [
             'format_type' => 'number_integer',
-            'formatter_settings' => [
-              'prefix_suffix' => TRUE,
-            ],
-          ],
+          ] + $component_defaults,
           'unsaturated_fat_content' => [
             'format_type' => 'number_integer',
-            'formatter_settings' => [
-              'prefix_suffix' => TRUE,
-            ],
-          ],
+          ] + $component_defaults,
         ],
       ],
       'third_party_settings' => [],

@@ -1,4 +1,7 @@
 services:
+  _defaults:
+    autowire: true
+
   schemadotorg_jsonld_custom.manager:
     class: Drupal\schemadotorg_jsonld_custom\SchemaDotOrgJsonLdCustomManager
-    arguments: ['@config.factory', '@entity_type.manager', '@token', '@schemadotorg.schema_type_manager']
+  Drupal\schemadotorg_jsonld_custom\SchemaDotOrgJsonLdCustomManagerInterface: '@schemadotorg_jsonld_custom.manager'

@@ -79,7 +79,7 @@ class ConfigSplitCliService {
     ConfigSplitManager $manager,
     StorageInterface $activeStorage,
     StorageInterface $syncStorage,
-    StatusOverride $statusOverride
+    StatusOverride $statusOverride,
   ) {
     $this->manager = $manager;
     $this->activeStorage = $activeStorage;

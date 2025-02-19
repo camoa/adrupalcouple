@@ -9,7 +9,7 @@ use Drupal\Core\Entity\Entity\EntityViewDisplay;
 use Drupal\schemadotorg\SchemaDotOrgEntityDisplayBuilderInterface;
 
 /**
- * Tests the Schema.org entity display builder service.
+ * Tests the Schema.org entity display builder.
  *
  * @coversClass \Drupal\schemadotorg\SchemaDotOrgEntityDisplayBuilder
  * @group schemadotorg

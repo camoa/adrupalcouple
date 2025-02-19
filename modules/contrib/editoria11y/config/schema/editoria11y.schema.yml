@@ -17,6 +17,9 @@ editoria11y.settings:
     ignore_elements:
       type: string
       label: 'Do not run tests on these containers'
+    panel_no_cover:
+      type: string
+      label: 'Move toggle to avoid colliding with these widgets'
     embedded_content_warning:
       type: string
       label: 'Full check should warn on these elements with embedded uncheckable content'
@@ -53,3 +56,21 @@ editoria11y.settings:
     custom_tests:
       type: integer
       label: 'Number of custom test finished events the checker should wait for'
+    disable_live:
+      type: boolean
+      label: 'Disables live editor checking'
+    live_h_inherit:
+      type: string
+      label: 'Selector for frontend-context editors that should inherit the document outline'
+    live_h2:
+      type: string
+      label: 'Selector for editors where their first heading should be h2'
+    live_h3:
+      type: string
+      label: 'Selector for editors where their first heading should be h3'
+    live_h4:
+      type: string
+      label: 'Selector for editors where their first heading should be h4'
+    hide_edit_links:
+      type: string
+      label: 'Selectors for components where edit links are meaningless on tips'

@@ -54,6 +54,8 @@ interface SchemaDotOrgAdditionalMappingsJsonLdManagerInterface {
    *   The entity's field item.
    * @param \Drupal\Core\Render\BubbleableMetadata $bubbleable_metadata
    *   Object to collect JSON-LD's bubbleable metadata.
+   *
+   * @see hook_schemadotorg_jsonld_schema_property_alter()
    */
   public function schemaPropertyAlter(mixed &$value, FieldItemInterface $item, BubbleableMetadata $bubbleable_metadata): void;
 

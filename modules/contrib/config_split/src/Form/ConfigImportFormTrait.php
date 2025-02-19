@@ -56,7 +56,7 @@ trait ConfigImportFormTrait {
   public function __construct(
     StorageInterface $activeStorage,
     ConfigSplitManager $configSplitManager,
-    StatusOverride $statusOverride
+    StatusOverride $statusOverride,
   ) {
     $this->activeStorage = $activeStorage;
     $this->manager = $configSplitManager;
@@ -82,7 +82,7 @@ trait ConfigImportFormTrait {
     FormStateInterface $form_state,
     StorageComparer $storage_comparer,
     array $options,
-    $validate = TRUE
+    $validate = TRUE,
   ) {
     $form['actions'] = ['#type' => 'actions'];
     $form['actions']['submit'] = [
@@ -200,7 +200,7 @@ trait ConfigImportFormTrait {
   /**
    * {@inheritdoc}
    */
-  protected function launchImport(StorageInterface $storage, string $override = NULL) {
+  protected function launchImport(StorageInterface $storage, ?string $override = NULL) {
     $comparer = new StorageComparer($storage, $this->activeStorage);
     $config_importer = $this->getConfigImporterFromComparer($comparer);
     if ($config_importer->alreadyImporting()) {

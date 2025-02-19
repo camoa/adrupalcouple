@@ -196,14 +196,14 @@ class Fivestar extends FormElementBase {
    *
    * @param array $element
    *   Fivestar element data, containing at least #stars, #values and
-   *   #text_format keys. Other keys include #microdata, #display_format.
+   *   #text_format keys. Other keys include #display_format.
    *
    * @return array
    *   A Drupal render array containing a 'fivestar_summary' element suitable
    *   for describing this element.
    *   If the setting format is present and not 'none', and there are values,
    *   it will contain:
-   *     #theme, #stars, #microdata, #votes, and one or both of #average_rating
+   *     #theme, #stars, #votes, and one or both of #average_rating
    *     and #user_rating.
    *   Otherwise, it returns an empty array.
    */
@@ -218,7 +218,6 @@ class Fivestar extends FormElementBase {
     $base_element_data = [
       '#theme' => 'fivestar_summary',
       '#stars' => $element['#stars'],
-      '#microdata' => $settings['microdata'] ?? NULL,
     ];
 
     switch ($settings['text_format']) {

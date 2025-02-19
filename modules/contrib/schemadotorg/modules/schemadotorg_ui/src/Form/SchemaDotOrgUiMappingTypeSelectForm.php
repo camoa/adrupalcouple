@@ -36,7 +36,7 @@ class SchemaDotOrgUiMappingTypeSelectForm extends FormBase {
   protected SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager;
 
   /**
-   * The Schema.org schema type builder service.
+   * The Schema.org schema type builder.
    */
   protected SchemaDotOrgSchemaTypeBuilderInterface $schemaTypeBuilder;
 

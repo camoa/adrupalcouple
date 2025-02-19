@@ -10,7 +10,7 @@ use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Url;
 
 /**
- * Schema.org schema type builder service.
+ * Schema.org schema type builder.
  *
  * The Schema.org schema type builder service helps render Schema.org's types
  * and properties via Drupal.
@@ -24,7 +24,7 @@ class SchemaDotOrgSchemaTypeBuilder implements SchemaDotOrgSchemaTypeBuilderInte
    * Constructs a SchemaDotOrgSchemaTypeBuilder object.
    *
    * @param \Drupal\Core\Extension\ModuleHandlerInterface $moduleHandler
-   *   The module handler service.
+   *   The module handler.
    * @param \Drupal\Core\Session\AccountInterface $currentUser
    *   The current user.
    * @param \Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager

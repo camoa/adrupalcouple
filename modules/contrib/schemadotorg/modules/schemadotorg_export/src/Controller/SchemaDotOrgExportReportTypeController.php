@@ -5,28 +5,35 @@ declare(strict_types=1);
 namespace Drupal\schemadotorg_export\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
+use Drupal\schemadotorg\SchemaDotOrgMappingManagerInterface;
+use Drupal\schemadotorg\SchemaDotOrgNamesInterface;
 use Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\schemadotorg\Traits\SchemaDotOrgMappingStorageTrait;
+use Drupal\schemadotorg_export\Traits\SchemaDotOrgExportTrait;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
 /**
  * Returns responses for Schema.org report about and item routes.
  */
 class SchemaDotOrgExportReportTypeController extends ControllerBase {
+  use SchemaDotOrgMappingStorageTrait;
+  use SchemaDotOrgExportTrait;
 
   /**
-   * The Schema.org schema type manager.
+   * Constructs a SchemaDotOrgExportReportTypeController object.
+   *
+   * @param \Drupal\schemadotorg\SchemaDotOrgNamesInterface $schemaNames
+   *   The Schema.org names service.
+   * @param \Drupal\schemadotorg\SchemaDotOrgMappingManagerInterface $schemaMappingManager
+   *   The Schema.org mapping manager.
+   * @param \Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager
+   *   The Schema.org schema type manager.
    */
-  protected SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager;
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function create(ContainerInterface $container): static {
-    $instance = parent::create($container);
-    $instance->schemaTypeManager = $container->get('schemadotorg.schema_type_manager');
-    return $instance;
-  }
+  public function __construct(
+    protected SchemaDotOrgNamesInterface $schemaNames,
+    protected SchemaDotOrgMappingManagerInterface $schemaMappingManager,
+    protected SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager,
+  ) {}
 
   /**
    * Exports a Schema.org type.

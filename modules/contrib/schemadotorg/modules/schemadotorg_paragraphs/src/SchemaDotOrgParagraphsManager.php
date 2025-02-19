@@ -55,6 +55,10 @@ class SchemaDotOrgParagraphsManager implements SchemaDotOrgParagraphsManagerInte
    * {@inheritdoc}
    */
   public function mappingPresave(SchemaDotOrgMappingInterface $mapping): void {
+    if ($mapping->isSyncing()) {
+      return;
+    }
+
     if (!$mapping->isNew() || $mapping->getTargetEntityTypeId() !== 'paragraph') {
       return;
     }

@@ -2,6 +2,7 @@
 
 namespace Drupal\custom_field\Plugin\CustomField\FieldType;
 
+use Drupal\Core\Field\FieldItemInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\TypedData\DataDefinition;
 use Drupal\custom_field\Plugin\CustomFieldTypeBase;
@@ -62,6 +63,30 @@ class DateTimeType extends CustomFieldTypeBase {
     }
 
     return $value;
+  }
+
+  /**
+   * Get the Unix timestamp from the stored datetime value.
+   *
+   * @return int|null
+   *   The Unix timestamp, or NULL if the value is invalid.
+   */
+  public function getTimestamp(FieldItemInterface $item): ?int {
+    $value = $this->value($item);
+
+    // Ensure the value is not empty and is in the correct ISO 8601 format.
+    if (!empty($value)) {
+      try {
+        $datetime = new \DateTime($value);
+        return $datetime->getTimestamp();
+      }
+      catch (\Exception $e) {
+        // Handle invalid datetime formats gracefully.
+        return NULL;
+      }
+    }
+
+    return NULL;
   }
 
 }

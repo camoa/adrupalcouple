@@ -48,3 +48,8 @@ tota
 webform
 Yoyodyne
 yuja
+klaro
+nocache
+varchar
+fontawesome
+fonticons

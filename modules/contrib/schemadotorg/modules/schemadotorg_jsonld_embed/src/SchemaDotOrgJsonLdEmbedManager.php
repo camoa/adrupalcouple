@@ -8,12 +8,14 @@ use Drupal\Component\Utility\Html;
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Render\BubbleableMetadata;
+use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\schemadotorg_jsonld\SchemaDotOrgJsonLdBuilderInterface;
+use Drupal\schemadotorg_jsonld\SchemaDotOrgJsonLdManagerInterface;
 
 /**
  * Schema.org JSON-LD embed manager.
  */
-class SchemaDotOrgJsonLdEmbedManager implements SchemaDotOrgJsonLdEmbedInterface {
+class SchemaDotOrgJsonLdEmbedManager implements SchemaDotOrgJsonLdEmbedManagerInterface {
 
   /**
    * Xpath selector for finding embedded media.
@@ -25,18 +27,41 @@ class SchemaDotOrgJsonLdEmbedManager implements SchemaDotOrgJsonLdEmbedInterface
    *
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
    *   The entity type manager.
-   * @param \Drupal\schemadotorg_jsonld\SchemaDotOrgJsonLdBuilderInterface|null $schemaJsonLdBuilder
-   *   The Schema.org JSON-LD builder service.
+   * @param \Drupal\schemadotorg_jsonld\SchemaDotOrgJsonLdManagerInterface $schemaJsonLdManager
+   *   The Schema.org JSON-LD manager.
+   * @param \Drupal\schemadotorg_jsonld\SchemaDotOrgJsonLdBuilderInterface $schemaJsonLdBuilder
+   *   The Schema.org JSON-LD builder.
    */
   public function __construct(
     protected EntityTypeManagerInterface $entityTypeManager,
-    protected ?SchemaDotOrgJsonLdBuilderInterface $schemaJsonLdBuilder = NULL,
+    protected SchemaDotOrgJsonLdManagerInterface $schemaJsonLdManager,
+    protected SchemaDotOrgJsonLdBuilderInterface $schemaJsonLdBuilder,
   ) {}
 
   /**
    * {@inheritdoc}
    */
-  public function build(ContentEntityInterface $entity, BubbleableMetadata $bubbleable_metadata): array {
+  public function jsonLd(RouteMatchInterface $route_match, BubbleableMetadata $bubbleable_metadata): ?array {
+    $entity = $this->schemaJsonLdManager->getRouteMatchEntity($route_match);
+    if (!$entity || !$entity instanceof ContentEntityInterface) {
+      return [];
+    }
+
+    return $this->build($entity, $bubbleable_metadata);
+  }
+
+  /**
+   * Build embedded media and content entity JSON-LD data.
+   *
+   * @param \Drupal\Core\Entity\ContentEntityInterface $entity
+   *   The entity.
+   * @param \Drupal\Core\Render\BubbleableMetadata $bubbleable_metadata
+   *   Object to collect JSON-LD's bubbleable metadata.
+   *
+   * @return array
+   *   The embedded media and content entity JSON-LD data.
+   */
+  protected function build(ContentEntityInterface $entity, BubbleableMetadata $bubbleable_metadata): array {
     /** @var \Drupal\schemadotorg\SchemaDotOrgMappingStorageInterface $mapping_storage */
     $mapping_storage = $this->entityTypeManager->getStorage('schemadotorg_mapping');
 

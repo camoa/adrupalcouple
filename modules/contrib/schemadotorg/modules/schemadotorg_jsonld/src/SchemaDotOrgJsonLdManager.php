@@ -23,6 +23,7 @@ use Drupal\image\ImageStyleInterface;
 use Drupal\schemadotorg\SchemaDotOrgMappingInterface;
 use Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface;
 use Drupal\schemadotorg\Traits\SchemaDotOrgMappingStorageTrait;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\Routing\RouterInterface;
 
 /**
@@ -36,7 +37,7 @@ class SchemaDotOrgJsonLdManager implements SchemaDotOrgJsonLdManagerInterface {
    * Constructs a SchemaDotOrgJsonLdManager object.
    *
    * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
-   *   The configuration object factory.
+   *   The config factory.
    * @param \Drupal\Core\Render\RendererInterface $renderer
    *   The renderer service.
    * @param \Symfony\Component\Routing\RouterInterface $router
@@ -57,6 +58,7 @@ class SchemaDotOrgJsonLdManager implements SchemaDotOrgJsonLdManagerInterface {
   public function __construct(
     protected ConfigFactoryInterface $configFactory,
     protected RendererInterface $renderer,
+    #[Autowire(service: 'router')]
     protected RouterInterface $router,
     protected RouteMatchInterface $routeMatch,
     protected EntityTypeManagerInterface $entityTypeManager,
@@ -141,7 +143,7 @@ class SchemaDotOrgJsonLdManager implements SchemaDotOrgJsonLdManagerInterface {
     $field_storage = $items->getFieldDefinition()->getFieldStorageDefinition();
     $field_type = $field_storage->getType();
     switch ($field_type) {
-      case 'text_with_summary';
+      case 'text_with_summary':
         $mapping = $this->getMappingStorage()->loadByEntity($items->getEntity());
         $field_name = $field_storage->getName();
         $cardinality = $field_storage->getCardinality();
@@ -380,6 +382,7 @@ class SchemaDotOrgJsonLdManager implements SchemaDotOrgJsonLdManagerInterface {
       ['entity_type_id', 'schema_type'],
       ['bundle'],
       ['schema_type'],
+      ['entity_type_id'],
     ];
     $setting = $this->schemaTypeManager->getSetting($settings, $target_parts, [], $target_pattern);
     if ($setting) {

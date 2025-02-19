@@ -34,6 +34,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *         - schemadotorg_media
  *         - schemadotorg_taxonomy
  * </code>
+ *
+ * @see https://www.drupal.org/project/distributions_recipes/issues/3478921
  */
 #[ConfigAction(
   id: 'executeInstallHook',
@@ -79,7 +81,7 @@ class SchemaDotOrgExecuteInstallHook implements ConfigActionPluginInterface, Con
         if (str_starts_with($module, $value)) {
           $install_modules[] = $module;
         }
-      };
+      }
     }
     elseif (is_array($value)) {
       $install_modules = $value;

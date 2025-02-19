@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Drupal\schemadotorg_starterkit\Drush\Commands;
 
 use Consolidation\AnnotatedCommand\CommandData;
-use Drupal\Component\DependencyInjection\ContainerInterface;
 use Drupal\schemadotorg_starterkit\SchemaDotOrgStarterkitConverterInterface;
 use Drupal\schemadotorg_starterkit\SchemaDotOrgStarterkitManagerInterface;
+use Drush\Commands\AutowireTrait;
 use Drush\Commands\DrushCommands;
 use Drush\Exceptions\UserAbortException;
 use Symfony\Component\Console\Input\InputInterface;
@@ -16,6 +16,7 @@ use Symfony\Component\Console\Input\InputInterface;
  * Schema.org starter kit Drush commands.
  */
 class SchemaDotOrgStarterkitCommands extends DrushCommands {
+  use AutowireTrait;
 
   /**
    * Constructs a SchemaDotOrgStarterkitCommands object.
@@ -29,16 +30,6 @@ class SchemaDotOrgStarterkitCommands extends DrushCommands {
     protected SchemaDotOrgStarterkitManagerInterface $starterkitManager,
     protected SchemaDotOrgStarterkitConverterInterface $starterkitConverter,
   ) {}
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function create(ContainerInterface $container): self {
-    return new static(
-      $container->get('schemadotorg_starterkit.manager'),
-      $container->get('schemadotorg_starterkit.converter')
-    );
-  }
 
   /* ************************************************************************ */
   // Info.

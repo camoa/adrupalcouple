@@ -7,7 +7,6 @@ use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Field\FieldItemInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\custom_field\Plugin\CustomFieldFormatterBase;
-use Drupal\custom_field\Plugin\CustomFieldTypeInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -51,7 +50,7 @@ class TimestampAgoFormatter extends CustomFieldFormatterBase {
   /**
    * {@inheritdoc}
    */
-  public static function defaultSettings() {
+  public static function defaultSettings(): array {
     return [
       'future_format' => '@interval hence',
       'past_format' => '@interval ago',
@@ -62,20 +61,19 @@ class TimestampAgoFormatter extends CustomFieldFormatterBase {
   /**
    * {@inheritdoc}
    */
-  public function settingsForm(array $form, FormStateInterface $form_state, array $settings) {
-    $settings += static::defaultSettings();
+  public function settingsForm(array $form, FormStateInterface $form_state): array {
 
     $elements['future_format'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Future format'),
-      '#default_value' => $settings['future_format'],
+      '#default_value' => $this->getSetting('future_format'),
       '#description' => $this->t('Use <em>@interval</em> where you want the formatted interval text to appear.'),
     ];
 
     $elements['past_format'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Past format'),
-      '#default_value' => $settings['past_format'],
+      '#default_value' => $this->getSetting('past_format'),
       '#description' => $this->t('Use <em>@interval</em> where you want the formatted interval text to appear.'),
     ];
 
@@ -83,7 +81,7 @@ class TimestampAgoFormatter extends CustomFieldFormatterBase {
       '#type' => 'number',
       '#title' => $this->t('Granularity'),
       '#description' => $this->t('How many time interval units should be shown in the formatted output.'),
-      '#default_value' => $settings['granularity'] ?: 2,
+      '#default_value' => $this->getSetting('granularity') ?: 2,
       '#min' => 1,
       '#max' => 6,
     ];
@@ -94,10 +92,8 @@ class TimestampAgoFormatter extends CustomFieldFormatterBase {
   /**
    * {@inheritdoc}
    */
-  public function formatValue(FieldItemInterface $item, CustomFieldTypeInterface $field, array $settings) {
-    $formatter_settings = $settings['formatter_settings'] + static::defaultSettings();
-    $timestamp = $settings['value'];
-    $build = $this->formatTimestamp($timestamp, $formatter_settings);
+  public function formatValue(FieldItemInterface $item, $value) {
+    $build = $this->formatTimestamp($value);
 
     return $this->renderer->render($build);
   }
@@ -107,29 +103,26 @@ class TimestampAgoFormatter extends CustomFieldFormatterBase {
    *
    * @param int $timestamp
    *   A UNIX timestamp to format.
-   * @param array $settings
-   *   The formatter settings.
    *
    * @return array
    *   The formatted timestamp string using the past or future format setting.
    */
-  protected function formatTimestamp($timestamp, array $settings) {
-    $granularity = $settings['granularity'];
+  protected function formatTimestamp(int $timestamp): array {
     $options = [
-      'granularity' => $granularity,
+      'granularity' => $this->getSetting('granularity'),
       'return_as_object' => TRUE,
     ];
 
     if ($this->request->server->get('REQUEST_TIME') > $timestamp) {
       $result = $this->dateFormatter->formatTimeDiffSince($timestamp, $options);
       $build = [
-        '#markup' => new FormattableMarkup($settings['past_format'], ['@interval' => $result->getString()]),
+        '#markup' => new FormattableMarkup($this->getSetting('past_format'), ['@interval' => $result->getString()]),
       ];
     }
     else {
       $result = $this->dateFormatter->formatTimeDiffUntil($timestamp, $options);
       $build = [
-        '#markup' => new FormattableMarkup($settings['future_format'], ['@interval' => $result->getString()]),
+        '#markup' => new FormattableMarkup($this->getSetting('future_format'), ['@interval' => $result->getString()]),
       ];
     }
     CacheableMetadata::createFromObject($result)->applyTo($build);

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\starterkit\Kernel;
 
-use Drupal\Tests\schemadotorg\Kernel\SchemaDotOrgEntityKernelTestBase;
 use Drupal\schemadotorg_starterkit\SchemaDotOrgStarterkitManagerInterface;
+use Drupal\Tests\schemadotorg\Kernel\SchemaDotOrgEntityKernelTestBase;
 
 /**
  * Tests the functionality of the Schema.org starter kit manager.
@@ -23,7 +23,7 @@ class SchemaDotOrgStarterkitManagerKernelTest extends SchemaDotOrgEntityKernelTe
   ];
 
   /**
-   * The Schema.org starter kit manager service.
+   * The Schema.org starter kit manager.
    */
   protected SchemaDotOrgStarterkitManagerInterface $schemaStarterkitManager;
 

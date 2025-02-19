@@ -74,6 +74,13 @@ propertyName:
   default_value: 0
   prefix: Prefix
   suffix: Suffix
+  # Field settings
+  widget_id: widget_id
+  widget_settings: {  }
+  formatter_id: formatter_id
+  formatter_settings: {  }
+  # Copy existing field settings.
+  copy: true
   # Applicable to number fields.
   scale: 2
   min: 0

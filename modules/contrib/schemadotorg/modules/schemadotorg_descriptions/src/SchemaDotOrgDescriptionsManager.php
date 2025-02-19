@@ -27,6 +27,19 @@ class SchemaDotOrgDescriptionsManager implements SchemaDotOrgDescriptionsManager
 
   /**
    * Constructs a SchemaDotOrgDescriptionsManager object.
+   *
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
+   *   The config factory.
+   * @param \Drupal\Core\Extension\ModuleHandlerInterface $moduleHandler
+   *   The module handler.
+   * @param \Drupal\Core\Routing\RouteMatchInterface $routeMatch
+   *   The current route match service.
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
+   *   The entity type manager.
+   * @param \Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager
+   *   The Schema.org schema type manager.
+   * @param \Drupal\schemadotorg\SchemaDotOrgSchemaTypeBuilderInterface $schemaTypeBuilder
+   *   The Schema.org type builder.
    */
   public function __construct(
     protected ConfigFactoryInterface $configFactory,

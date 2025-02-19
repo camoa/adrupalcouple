@@ -107,7 +107,6 @@ class RolesSplittingTest extends KernelTestBase {
       'removing' => [],
     ]);
 
-
     foreach (['test_role', 'test_role_empty'] as $id) {
       // The patches look the same for all.
       $patch = $storage->createCollection('split.test_split')->read('config_split.patch.user.role.' . $id);
@@ -121,10 +120,10 @@ class RolesSplittingTest extends KernelTestBase {
   }
 
   /**
-   * Test splitting a role into multiple "feature-splits"
+   * Test splitting a role into multiple "feature-splits".
    */
   public function testRoleMultiSplit() {
-    // We use shortcut and block to create the "feature-splits"
+    // We use shortcut and block to create the "feature-splits".
     $this->enableModules(['shortcut', 'block']);
 
     // Create a role with permissions from both modules.
@@ -137,7 +136,6 @@ class RolesSplittingTest extends KernelTestBase {
       ],
     ]);
     $role->save();
-
 
     // Create a split for the shortcut module.
     $this->createSplitConfig('feature_shortcut', [
@@ -180,10 +178,9 @@ class RolesSplittingTest extends KernelTestBase {
       'removing' => [],
     ]);
 
-
-    foreach (['feature_shortcut','feature_block'] as $id) {
+    foreach (['feature_shortcut', 'feature_block'] as $id) {
       // Check if the split actually has the expected configs.
-      $patch = $storage->createCollection('split.'.$id)->read('config_split.patch.user.role.test_role');
+      $patch = $storage->createCollection('split.' . $id)->read('config_split.patch.user.role.test_role');
       self::assertEquals($expectedPatches[$id]->toArray(), $patch);
     }
   }

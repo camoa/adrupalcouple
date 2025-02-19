@@ -4,7 +4,6 @@ namespace Drupal\custom_field\Plugin\CustomField\FieldFormatter;
 
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Field\FieldItemInterface;
-use Drupal\custom_field\Plugin\CustomFieldTypeInterface;
 
 /**
  * Plugin implementation of the 'file_default' formatter.
@@ -23,24 +22,23 @@ class GenericFileFormatter extends EntityReferenceFormatterBase {
   /**
    * {@inheritdoc}
    */
-  public function formatValue(FieldItemInterface $item, CustomFieldTypeInterface $field, array $settings) {
-    $entity = $settings['value'];
+  public function formatValue(FieldItemInterface $item, $value) {
 
-    if (!$entity instanceof EntityInterface) {
+    if (!$value instanceof EntityInterface) {
       return NULL;
     }
 
-    $access = $this->checkAccess($entity);
+    $access = $this->checkAccess($value);
     if (!$access->isAllowed()) {
       return NULL;
     }
 
     $build = [
       '#theme' => 'file_link',
-      '#file' => $entity,
+      '#file' => $value,
       '#description' => NULL,
       '#cache' => [
-        'tags' => $entity->getCacheTags(),
+        'tags' => $value->getCacheTags(),
       ],
     ];
 

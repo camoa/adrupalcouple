@@ -48,12 +48,12 @@ abstract class SchemaDotOrgEntityReferenceSelection extends SelectionPluginBase 
   protected AccountInterface $currentUser;
 
   /**
-   * The entity type manager service.
+   * The entity type manager.
    */
   protected EntityTypeManagerInterface $entityTypeManager;
 
   /**
-   * The schema.org mapping service.
+   * The Schema.org mapping service.
    */
   protected SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager;
 

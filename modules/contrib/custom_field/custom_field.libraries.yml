@@ -10,6 +10,12 @@ custom-field-flex:
     component:
       css/custom-field-flex.css: {}
 
+custom-field-widget:
+  version: 1.x
+  css:
+    component:
+      css/custom-field-widget.css: {}
+
 custom-field-flex-admin:
   version: 1.x
   js:

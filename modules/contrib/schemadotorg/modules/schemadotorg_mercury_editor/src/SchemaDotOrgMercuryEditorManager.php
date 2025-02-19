@@ -13,20 +13,20 @@ use Drupal\schemadotorg_layout_paragraphs\SchemaDotOrgLayoutParagraphsManager;
 use Drupal\schemadotorg_layout_paragraphs\SchemaDotOrgLayoutParagraphsManagerInterface;
 
 /**
- * The Schema.org Mercury Editor manager.
+ * The Schema.org mercury editor manager.
  */
 class SchemaDotOrgMercuryEditorManager implements SchemaDotOrgMercuryEditorManagerInterface {
   use StringTranslationTrait;
 
   /**
-   * Constructs a new instance of the class.
+   * Constructs a SchemaDotOrgMercuryEditorManager object.
    *
    * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
    *   The configuration factory.
    * @param \Drupal\Core\Extension\ModuleHandlerInterface $moduleHandler
    *   The module handler.
    * @param \Drupal\schemadotorg_layout_paragraphs\SchemaDotOrgLayoutParagraphsManagerInterface $schemaLayoutParagraphsManager
-   *   The Schema.org Layout Paragraphs manager.
+   *   The Schema.org layout paragraphs manager.
    */
   public function __construct(
     protected ConfigFactoryInterface $configFactory,
@@ -85,6 +85,17 @@ class SchemaDotOrgMercuryEditorManager implements SchemaDotOrgMercuryEditorManag
       $this->configFactory->getEditable('mercury_editor.settings')
         ->set("bundles.node.$target_bundle", $target_bundle)
         ->save();
+
+      // phpcs:disable
+      // Create dedicated 'mercury_editor" form display for Mercury Editor task.
+      if ($this->moduleHandler->moduleExists('mercury_editor_task')) {
+        /** @var \Drupal\mercury_editor_task\MercuryEditorTaskFormDisplayBuilderInterface $form_display_builder */
+        // @phpstan-ignore-next-line \Drupal calls should be avoided in classes.
+        $form_display_builder = \Drupal::service('mercury_editor_task.form_display_builder');
+        // @phpstan-ignore-next-line Call to method update() on an unknown class.
+        $form_display_builder->update();
+      }
+      // phpcs:enabled
     }
   }
 

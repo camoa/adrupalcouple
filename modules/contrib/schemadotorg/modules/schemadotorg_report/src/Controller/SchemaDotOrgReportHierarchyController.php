@@ -4,10 +4,33 @@ declare(strict_types=1);
 
 namespace Drupal\schemadotorg_report\Controller;
 
+use Drupal\Core\Controller\ControllerBase;
+use Drupal\Core\Database\Connection;
+use Drupal\schemadotorg\SchemaDotOrgSchemaTypeBuilderInterface;
+use Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface;
+use Drupal\schemadotorg_report\Traits\SchemaDotOrgReportBuildTrait;
+
 /**
  * Returns responses for Schema.org report hierarchy routes.
  */
-class SchemaDotOrgReportHierarchyController extends SchemaDotOrgReportControllerBase {
+class SchemaDotOrgReportHierarchyController extends ControllerBase {
+  use SchemaDotOrgReportBuildTrait;
+
+  /**
+   * Constructs a SchemaDotOrgReportHierarchyController object.
+   *
+   * @param \Drupal\Core\Database\Connection $database
+   *   The database connection.
+   * @param \Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager
+   *   The Schema.org schema type manager.
+   * @param \Drupal\schemadotorg\SchemaDotOrgSchemaTypeBuilderInterface $schemaTypeBuilder
+   *   The Schema.org schema type builder.
+   */
+  public function __construct(
+    protected Connection $database,
+    protected SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager,
+    protected SchemaDotOrgSchemaTypeBuilderInterface $schemaTypeBuilder,
+  ) {}
 
   /**
    * Builds the Schema.org types hierarchy.

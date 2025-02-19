@@ -4,29 +4,37 @@ declare(strict_types=1);
 
 namespace Drupal\schemadotorg_export\Controller;
 
+use Drupal\Core\Controller\ControllerBase;
+use Drupal\schemadotorg\SchemaDotOrgMappingManagerInterface;
+use Drupal\schemadotorg\SchemaDotOrgNamesInterface;
+use Drupal\schemadotorg\Traits\SchemaDotOrgMappingStorageTrait;
+use Drupal\schemadotorg_export\Traits\SchemaDotOrgExportTrait;
 use Drupal\schemadotorg_recipe\SchemaDotOrgRecipeManagerInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Returns responses for Schema.org recipe export.
  */
-class SchemaDotOrgExportRecipeController extends SchemaDotOrgExportMappingDefaultBaseController {
+class SchemaDotOrgExportRecipeController extends ControllerBase {
+  use SchemaDotOrgMappingStorageTrait;
+  use SchemaDotOrgExportTrait;
 
   /**
-   * The Schema.org starter kit manager service.
+   * Constructs a SchemaDotOrgExportRecipeController object.
+   *
+   * @param \Drupal\schemadotorg\SchemaDotOrgNamesInterface $schemaNames
+   *   The Schema.org names service.
+   * @param \Drupal\schemadotorg\SchemaDotOrgMappingManagerInterface $schemaMappingManager
+   *   The Schema.org mapping manager.
+   * @param \Drupal\schemadotorg_recipe\SchemaDotOrgRecipeManagerInterface $schemaRecipeManager
+   *   The Schema.org starter kit manager.
    */
-  protected SchemaDotOrgRecipeManagerInterface $schemaRecipeManager;
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function create(ContainerInterface $container): static {
-    $instance = parent::create($container);
-    $instance->schemaRecipeManager = $container->get('schemadotorg_recipe.manager');
-    return $instance;
-  }
+  public function __construct(
+    protected SchemaDotOrgNamesInterface $schemaNames,
+    protected SchemaDotOrgMappingManagerInterface $schemaMappingManager,
+    protected SchemaDotOrgRecipeManagerInterface $schemaRecipeManager,
+  ) {}
 
   /**
    * Returns response for Schema.org mapping set CSV export request.
