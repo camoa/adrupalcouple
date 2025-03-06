@@ -18,22 +18,22 @@ interface SchemaDotOrgJsonLdManagerInterface {
   /**
    * Entity reference display url.
    */
-  const ENTITY_REFERENCE_DISPLAY_URL = 'url';
+  const string ENTITY_REFERENCE_DISPLAY_URL = 'url';
 
   /**
    * Entity reference display label.
    */
-  const ENTITY_REFERENCE_DISPLAY_LABEL = 'label';
+  const string ENTITY_REFERENCE_DISPLAY_LABEL = 'label';
 
   /**
    * Entity reference display entity.
    */
-  const ENTITY_REFERENCE_DISPLAY_ENTITY = 'entity';
+  const string ENTITY_REFERENCE_DISPLAY_ENTITY = 'entity';
 
   /**
    * Entity reference display none.
    */
-  const ENTITY_REFERENCE_DISPLAY_NONE = 'none';
+  const string ENTITY_REFERENCE_DISPLAY_NONE = 'none';
 
   /**
    * Get an entity's canonical route match.

@@ -12,7 +12,7 @@ interface SchemaDotOrgNamesInterface {
   /**
    * Default prefix for Schema.org table and field names.
    */
-  const DEFAULT_PREFIX = 'schema_';
+  const string DEFAULT_PREFIX = 'schema_';
 
   /**
    * Gets the field prefix for Schema.org properties.

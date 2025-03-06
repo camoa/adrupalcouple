@@ -636,6 +636,54 @@ class SchemaDotOrgCustomFieldManagerKernelTest extends SchemaDotOrgEntityKernelT
       ],
     ];
     $this->assertEquals($expected_settings, $settings['field_settings']);
+
+    /* ********************************************************************** */
+    // Custom.
+    /* ********************************************************************** */
+
+    $this->config('schemadotorg_custom_field.settings')->set('default_schema_properties.field_custom', [
+      'schema_properties' => [
+        'name' => ['data_type' => 'string'],
+        'value' => ['data_type' => 'string'],
+      ],
+    ])->save();
+
+    $this->createSchemaEntity('node', 'Thing', [
+      'properties' => [
+        'field_custom' => [
+          'type' => 'custom',
+          'name' => 'field_custom',
+          'label' => 'Custom',
+        ],
+      ],
+    ]);
+
+    // Check custom field storage columns.
+    /** @var \Drupal\field\FieldStorageConfigInterface|null $field_storage_config */
+    $field_storage_config = FieldStorageConfig::loadByName('node', 'field_custom');
+    $expected_settings = [
+      'columns' => [
+        'name' => [
+          'name' => 'name',
+          'type' => 'string',
+          'max_length' => '255',
+          'unsigned' => 0,
+          'precision' => '10',
+          'scale' => '2',
+          'datetime_type' => 'datetime',
+        ],
+        'value' => [
+          'name' => 'value',
+          'type' => 'string',
+          'max_length' => '255',
+          'unsigned' => 0,
+          'precision' => '10',
+          'scale' => '2',
+          'datetime_type' => 'datetime',
+        ],
+      ],
+    ];
+    $this->assertEquals($expected_settings, $field_storage_config->getSettings());
   }
 
 }

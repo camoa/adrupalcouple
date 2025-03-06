@@ -198,11 +198,13 @@ class ViewfieldDefaultFormatter extends CustomFieldFormatterBase implements Cont
 
       $token_data = [$entity->getEntityTypeId() => $entity];
       foreach ($arguments as $key => $value) {
-        $arguments[$key] = $this->tokenService->replace($value, $token_data);
+        $arguments[$key] = $this->tokenService->replace($value, $token_data, ['clear' => TRUE]);
       }
     }
 
-    return $arguments;
+    return array_filter($arguments, function ($value) {
+      return trim((string) $value) !== '';
+    });
   }
 
 }

@@ -8,6 +8,9 @@ field.field_settings.custom:
   type: mapping
   label: 'Custom field settings'
   mapping:
+    add_more_label:
+      type: string
+      label: 'Add another button label'
     field_settings:
       type: sequence
       label: 'Field settings'
@@ -40,6 +43,9 @@ field.widget.settings.custom_flex:
     breakpoint:
       type: string
       label: 'Stack items on:'
+
+field.widget.settings.custom_stacked:
+  type: custom_field_widget_base
 
 custom_field_widget_base:
   type: mapping

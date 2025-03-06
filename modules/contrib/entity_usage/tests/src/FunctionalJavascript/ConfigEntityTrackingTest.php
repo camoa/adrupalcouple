@@ -141,7 +141,7 @@ class ConfigEntityTrackingTest extends EntityUsageJavascriptTestBase {
     $page->fillField('field_eu_test_related_webforms[0][target_id]', 'Contact (contact)');
     $page->pressButton('Save');
     $this->saveHtmlOutput();
-    $this->assertSession()->pageTextContains('eu_test_ct Node that points to a webform has been created.');
+    $this->assertSession()->pageTextContains('Entity Usage test content Node that points to a webform has been created.');
 
     // Visit the webform page, check the usage tab is there.
     $this->clickLink('Contact');
@@ -232,7 +232,7 @@ class ConfigEntityTrackingTest extends EntityUsageJavascriptTestBase {
     $this->saveHtmlOutput();
     $page->pressButton('Save');
     $this->saveHtmlOutput();
-    $this->assertSession()->pageTextContains('eu_test_ct Node that points to a block with a view has been created.');
+    $this->assertSession()->pageTextContains('Entity Usage test content Node that points to a block with a view has been created.');
     /** @var \Drupal\node\NodeInterface $host_node */
     $host_node = $this->getLastEntityOfType('node', TRUE);
 
@@ -261,7 +261,7 @@ class ConfigEntityTrackingTest extends EntityUsageJavascriptTestBase {
     $this->assertEquals($host_node->label(), $first_row_title_link->getText());
     $this->assertStringContainsString($host_node->toUrl()->toString(), $first_row_title_link->getAttribute('href'));
     $first_row_type = $this->xpath('//table/tbody/tr[1]/td[2]')[0];
-    $this->assertEquals('Content', $first_row_type->getText());
+    $this->assertEquals('Content: Entity Usage test content', $first_row_type->getText());
     $first_row_langcode = $this->xpath('//table/tbody/tr[1]/td[3]')[0];
     $this->assertEquals('English', $first_row_langcode->getText());
     $first_row_field_label = $this->xpath('//table/tbody/tr[1]/td[4]')[0];
@@ -349,7 +349,7 @@ class ConfigEntityTrackingTest extends EntityUsageJavascriptTestBase {
     $this->saveHtmlOutput();
     $page->pressButton('Save');
     $this->saveHtmlOutput();
-    $this->assertSession()->pageTextContains('eu_test_ct Node that points to a custom block has been created.');
+    $this->assertSession()->pageTextContains('Entity Usage test content Node that points to a custom block has been created.');
     /** @var \Drupal\node\NodeInterface $host_node */
     $host_node = $this->getLastEntityOfType('node', TRUE);
 
@@ -377,7 +377,7 @@ class ConfigEntityTrackingTest extends EntityUsageJavascriptTestBase {
     $this->assertEquals($host_node->label(), $first_row_title_link->getText());
     $this->assertStringContainsString($host_node->toUrl()->toString(), $first_row_title_link->getAttribute('href'));
     $first_row_type = $this->xpath('//table/tbody/tr[1]/td[2]')[0];
-    $this->assertEquals('Content', $first_row_type->getText());
+    $this->assertEquals('Content: Entity Usage test content', $first_row_type->getText());
     $first_row_langcode = $this->xpath('//table/tbody/tr[1]/td[3]')[0];
     $this->assertEquals('English', $first_row_langcode->getText());
     $first_row_field_label = $this->xpath('//table/tbody/tr[1]/td[4]')[0];

@@ -34,7 +34,7 @@ class SchemaDotOrgDescriptionsConfigFactoryOverride extends ConfigFactoryOverrid
   /**
    * The cache id.
    */
-  const CACHE_ID = 'schemadotorg_descriptions.override';
+  const string CACHE_ID = 'schemadotorg_descriptions.override';
 
   /**
    * Constructs a SchemaDotOrgDescriptionsConfigFactoryOverride object.

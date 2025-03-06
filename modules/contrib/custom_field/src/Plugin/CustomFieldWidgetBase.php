@@ -6,6 +6,7 @@ use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\PluginSettingsBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Language\LanguageInterface;
 use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
@@ -108,13 +109,12 @@ abstract class CustomFieldWidgetBase extends PluginSettingsBase implements Custo
     $item = $items[$delta];
     $access = TRUE;
     if (!$this->isDefaultValueWidget($form_state) && $entity->isTranslatable()) {
-      $langcode = $this->languageManager->getCurrentLanguage()->getId();
-      $is_default_translation = TRUE;
+      $langcode = $this->languageManager->getCurrentLanguage(LanguageInterface::TYPE_CONTENT)->getId();
       $is_translatable = $field_definition->isTranslatable() && $field->getWidgetSetting('translatable');
-      if (!$entity->isNew()) {
+      if (!$entity->isNew() && $entity->hasTranslation($langcode)) {
         $entity = $entity->getTranslation($langcode);
-        $is_default_translation = $entity->isDefaultTranslation();
       }
+      $is_default_translation = $entity->isDefaultTranslation();
       $access = $is_default_translation || $is_translatable || $entity->isNew();
     }
 

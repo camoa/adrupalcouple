@@ -934,9 +934,6 @@ schema_properties:
     - assesses
     - branchCode
     - conditionsOfAccess
-    - contentLocation
-    - contentRating
-    - contentReferenceTime
     - correction
     - creditText
     - deathPlace

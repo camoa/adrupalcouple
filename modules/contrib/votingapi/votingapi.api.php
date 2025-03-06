@@ -1,5 +1,5 @@
 <?php
-
+// phpcs:ignoreFile
 /**
  * @file
  * Provides hook documentation for the Voting API module.

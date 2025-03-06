@@ -22,6 +22,7 @@ class Count extends VoteResultFunctionBase {
    * {@inheritdoc}
    */
   public function calculateResult(array $votes): float {
+    /** @var \Drupal\votingapi\VoteInterface[] $votes */
     return count($votes);
   }
 

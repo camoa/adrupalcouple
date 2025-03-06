@@ -203,3 +203,12 @@ function schemadotorg_update_10011(): void {
     }
   }
 }
+
+/**
+ * Update to Schema.org v28.1.
+ */
+function schemadotorg_update_10012(): void {
+  /** @var \Drupal\schemadotorg\SchemaDotOrgInstallerInterface $installer */
+  $installer = \Drupal::service('schemadotorg.installer');
+  $installer->install();
+}

@@ -11,6 +11,7 @@ default_schema_properties:
   - courseWorkload
   - credential
   - certification
+  - contentLocation
   - dateline
   - dietFeatures
   - doseUnit

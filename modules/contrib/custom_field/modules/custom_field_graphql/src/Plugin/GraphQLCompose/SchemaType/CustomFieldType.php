@@ -29,17 +29,17 @@ class CustomFieldType extends GraphQLComposeSchemaTypeBase {
     array_walk_recursive($fields, function ($field) use (&$types) {
       if ($field instanceof CustomFieldItem) {
         $columns = $field->getFieldDefinition()->getSetting('columns');
-        $fields = [];
+        $subfields = [];
         foreach ($columns as $name => $column) {
-          $fields[$name] = [
+          $subfields[$name] = [
             'type' => static::type($field->getSubfieldTypeSdl($name)),
             'description' => (string) $this->t('The @field value of the custom field', ['@field' => $name]),
           ];
         }
         $types[$field->getTypeSdl()] = new ObjectType([
           'name' => $field->getTypeSdl(),
-          'description' => (string) $this->t('A custom field is a speciality field provided by the CMS.'),
-          'fields' => fn() => $fields,
+          'description' => (string) $this->t('A custom field is a field of fields.'),
+          'fields' => fn() => $subfields,
         ]);
       }
     });

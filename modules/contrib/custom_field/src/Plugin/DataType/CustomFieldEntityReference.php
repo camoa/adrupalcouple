@@ -50,7 +50,7 @@ class CustomFieldEntityReference extends TypedData implements PrimitiveInterface
         }
       }
       $this->entity = $entity;
-      $value = $entity->id();
+      $value = $entity?->id();
     }
     $this->value = $value['target_id'] ?? $value;
   }

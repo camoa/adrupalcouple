@@ -22,11 +22,17 @@ class Average extends VoteResultFunctionBase {
    * {@inheritdoc}
    */
   public function calculateResult(array $votes): float {
+    /** @var \Drupal\votingapi\VoteInterface[] $votes */
+    $count = count($votes);
+    if ($count === 0) {
+      return 0;
+    }
+
     $total = 0;
     foreach ($votes as $vote) {
       $total += $vote->getValue();
     }
-    return ($total / count($votes));
+    return ($total / $count);
   }
 
 }

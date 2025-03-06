@@ -15,12 +15,12 @@ interface SchemaDotOrgJsonLdPreviewBuilderInterface {
   /**
    * Format Schema.org prevent via JSON-LD.
    */
-  const JSONLD = 'jsonld';
+  const string JSONLD = 'jsonld';
 
   /**
    * Format Schema.org prevent via data (table).
    */
-  const DATA = 'data';
+  const string DATA = 'data';
 
   /**
    * Build JSON-LD preview for a route.

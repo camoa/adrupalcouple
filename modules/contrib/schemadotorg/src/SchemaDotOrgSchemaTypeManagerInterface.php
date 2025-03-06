@@ -22,17 +22,17 @@ interface SchemaDotOrgSchemaTypeManagerInterface {
   /**
    * Schema.org type.
    */
-  const SCHEMA_TYPES = 'types';
+  const string SCHEMA_TYPES = 'types';
 
   /**
    * Schema.org property.
    */
-  const SCHEMA_PROPERTIES = 'properties';
+  const string SCHEMA_PROPERTIES = 'properties';
 
   /**
    * The Schema.org base URI.
    */
-  const URI = 'https://schema.org/';
+  const string URI = 'https://schema.org/';
 
   /**
    * Gets Schema.org type or property URI.

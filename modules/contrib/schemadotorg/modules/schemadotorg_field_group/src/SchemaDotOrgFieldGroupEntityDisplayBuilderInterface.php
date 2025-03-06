@@ -15,7 +15,7 @@ interface SchemaDotOrgFieldGroupEntityDisplayBuilderInterface {
   /**
    * Disabled field group patterns.
    */
-  const PATTERNS = [
+  const array PATTERNS = [
     ['entity_type_id'],
     ['entity_type_id', 'display_type'],
     ['entity_type_id', 'display_type', 'bundle'],

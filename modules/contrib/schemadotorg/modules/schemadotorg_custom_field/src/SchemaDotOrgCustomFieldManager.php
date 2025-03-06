@@ -166,6 +166,7 @@ class SchemaDotOrgCustomFieldManager implements SchemaDotOrgCustomFieldManagerIn
     $default_schema_properties = $this->getDefaultProperties(
       entity_type_id: $field_values['entity_type'],
       bundle: $field_values['bundle'],
+      field_name: $field_values['field_name'],
       schema_type: $schema_type,
       schema_property: $schema_property,
     );
@@ -278,7 +279,7 @@ class SchemaDotOrgCustomFieldManager implements SchemaDotOrgCustomFieldManagerIn
   /**
    * {@inheritdoc}
    */
-  public function hasDefaultProperties(?string $entity_type_id = NULL, ?string $bundle = NULL, ?string $schema_type = NULL, ?string $schema_property = NULL): bool {
+  public function hasDefaultProperties(?string $entity_type_id = NULL, ?string $bundle = NULL, ?string $field_name = NULL, ?string $schema_type = NULL, ?string $schema_property = NULL): bool {
     return (bool) $this->getDefaultProperties(
       entity_type_id: $entity_type_id,
       bundle: $bundle,
@@ -290,12 +291,13 @@ class SchemaDotOrgCustomFieldManager implements SchemaDotOrgCustomFieldManagerIn
   /**
    * {@inheritdoc}
    */
-  public function getDefaultProperties(?string $entity_type_id = NULL, ?string $bundle = NULL, ?string $schema_type = NULL, ?string $schema_property = NULL): ?array {
+  public function getDefaultProperties(?string $entity_type_id = NULL, ?string $bundle = NULL, ?string $field_name = NULL, ?string $schema_type = NULL, ?string $schema_property = NULL): ?array {
     $default_schema_properties = $this->configFactory->get('schemadotorg_custom_field.settings')
       ->get('default_schema_properties') ?? [];
     $parts = [
       'entity_type_id' => $entity_type_id,
       'bundle' => $bundle,
+      'field_name' => $field_name,
       'schema_type' => $schema_type,
       'schema_property' => $schema_property,
     ];

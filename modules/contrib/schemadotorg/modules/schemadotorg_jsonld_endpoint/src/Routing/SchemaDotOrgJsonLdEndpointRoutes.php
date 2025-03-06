@@ -20,7 +20,7 @@ class SchemaDotOrgJsonLdEndpointRoutes implements ContainerInjectionInterface {
   /**
    * A key with which to flag a route as belonging to the Schema.org JSON-LD endpoint module.
    */
-  const JSONLD_ROUTE_FLAG_KEY = '_is_schemadotorg_jsonld_endpoint';
+  const string JSONLD_ROUTE_FLAG_KEY = '_is_schemadotorg_jsonld_endpoint';
 
   /**
    * Constructs a SchemaDotOrgJsonLdEndpointRoutes object.

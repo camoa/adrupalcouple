@@ -16,8 +16,11 @@ class RuleStorage extends SqlContentEntityStorage implements RuleStorageInterfac
    * {@inheritdoc}
    */
   public function getRuleIdsToCheck() {
-    return $this->database->query('SELECT rid FROM {' . $this->getBaseTable() . '} WHERE `limit` IS NULL')
-      ->fetchCol();
+    $select = $this->database->select($this->getBaseTable(), 'alias');
+    $select->isNull('limit');
+    $select->addField('alias', 'rid');
+
+    return $select->execute()->fetchCol();
   }
 
 }

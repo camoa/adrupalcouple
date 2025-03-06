@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\votingapi;
 
 use Drupal\Core\Entity\Sql\SqlContentEntityStorage;
@@ -35,7 +37,7 @@ class VoteStorage extends SqlContentEntityStorage implements VoteStorageInterfac
   /**
    * {@inheritdoc}
    */
-  public function deleteUserVotes($uid, $vote_type_id = NULL, $entity_type_id = NULL, $entity_id = NULL, $vote_source = NULL) {
+  public function deleteUserVotes($uid, $vote_type_id = NULL, $entity_type_id = NULL, $entity_id = NULL, $vote_source = NULL): void {
     $votes = $this->getUserVotes($uid, $vote_type_id, $entity_type_id, $entity_id, $vote_source);
     if (!empty($votes)) {
       $entities = $this->loadMultiple($votes);
@@ -46,7 +48,7 @@ class VoteStorage extends SqlContentEntityStorage implements VoteStorageInterfac
   /**
    * {@inheritdoc}
    */
-  public static function defaultVoteSource($vote_source = NULL) {
+  public static function defaultVoteSource(?string $vote_source = NULL): string {
     if (is_null($vote_source)) {
       $vote = Vote::create(['type' => 'vote']);
       $callback = $vote->getFieldDefinition('vote_source')
@@ -73,7 +75,7 @@ class VoteStorage extends SqlContentEntityStorage implements VoteStorageInterfac
   /**
    * {@inheritdoc}
    */
-  public function deleteVotesForDeletedEntity($entity_type_id, $entity_id) {
+  public function deleteVotesForDeletedEntity($entity_type_id, $entity_id): void {
     $votes = \Drupal::entityQuery('vote')
       ->accessCheck(TRUE)
       ->condition('entity_type', $entity_type_id)

@@ -449,6 +449,7 @@ class SchemaDotOrgEntityTypeBuilder implements SchemaDotOrgEntityTypeBuilderInte
         if (!isset($field_storage_values['settings']['datetime_type'])) {
           switch ($schema_property) {
             case 'expires':
+            case 'contentDate':
             case 'dateCreated':
             case 'dateDeleted':
             case 'dateIssued':

@@ -289,6 +289,7 @@ tr.even .smartdate--widget .form-type--select label {
     flex-wrap: wrap;
     align-items: center;
     justify-content: flex-end;
+    gap: 5px;
   }
   .smartdate--time-inline
     .form-datetime-wrapper:nth-of-type(2)

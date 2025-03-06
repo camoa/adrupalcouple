@@ -41,22 +41,19 @@ interface VoteStorageInterface extends EntityStorageInterface {
    *   The entity ID.
    * @param string $vote_source
    *   The vote source, only used if $uid == 0.
-   *
-   * @return bool
-   *   TRUE if the votes were deleted.
    */
-  public function deleteUserVotes($uid, $vote_type_id = NULL, $entity_type_id = NULL, $entity_id = NULL, $vote_source = NULL);
+  public function deleteUserVotes($uid, $vote_type_id = NULL, $entity_type_id = NULL, $entity_id = NULL, $vote_source = NULL): void;
 
   /**
    * Returns the default vote source.
    *
    * @param string $vote_source
-   *   The vote source.
+   *   (optional) The vote source.
    *
    * @return string
    *   The $vote_source parameter or, if it is NULL, the default vote source.
    */
-  public static function defaultVoteSource($vote_source = NULL);
+  public static function defaultVoteSource(?string $vote_source = NULL): string;
 
   /**
    * Gets votes since a determined moment.
@@ -73,10 +70,7 @@ interface VoteStorageInterface extends EntityStorageInterface {
    *   The entity type ID.
    * @param int $entity_id
    *   The entity ID.
-   *
-   * @return bool
-   *   TRUE if the votes were deleted.
    */
-  public function deleteVotesForDeletedEntity($entity_type_id, $entity_id);
+  public function deleteVotesForDeletedEntity($entity_type_id, $entity_id): void;
 
 }

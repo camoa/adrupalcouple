@@ -14,7 +14,7 @@ interface SchemaDotOrgEntityFieldManagerInterface {
   /**
    * Add new field mapping option.
    */
-  const ADD_FIELD = '_add_';
+  const string ADD_FIELD = '_add_';
 
   /**
    * Determine if a field exists.

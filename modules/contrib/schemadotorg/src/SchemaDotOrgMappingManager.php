@@ -408,15 +408,35 @@ class SchemaDotOrgMappingManager implements SchemaDotOrgMappingManagerInterface 
         // Set new mappings to add the field.
         $property_defaults['name'] = SchemaDotOrgEntityFieldManagerInterface::ADD_FIELD;
 
+        // Check for existing field storage for another entity.
+        $existing_field_name = $this->schemaNames->getFieldPrefix() . $property_defaults['machine_name'];
+        $existing_field_storage_exists = $this->schemaEntityFieldManager->fieldStorageExists(
+          $entity_type_id,
+          $existing_field_name,
+        );
+        if ($existing_field_storage_exists) {
+          $property_defaults['name'] = $existing_field_name;
+        }
+
         // Check for existing base field name and Schema.org property field storage.
-        $field_names = $base_field_mappings[$schema_property] ?? [];
-        $field_names[] = $this->schemaNames->getFieldPrefix() . $property_defaults['machine_name'];
-        foreach ($field_names as $field_name) {
-          $field_storage_exists = $this->schemaEntityFieldManager->fieldStorageExists(
+        // A Schema.org properties base field mapping can be
+        // a property (title, changed, langcode, etc...)
+        // or field (ImageObject--field_media_image).
+        $schema_property_base_field_mappings = $base_field_mappings[$schema_property]
+          ?? [];
+        foreach ($schema_property_base_field_mappings as $schema_property_base_field_mapping) {
+          [$field_schema_type, $field_name] = (str_contains($schema_property_base_field_mapping, '--'))
+            ? explode('--', $schema_property_base_field_mapping)
+            : [NULL, $schema_property_base_field_mapping];
+          if ($field_schema_type && $field_schema_type !== $schema_type) {
+            continue;
+          }
+
+          $base_field_storage_exists = $this->schemaEntityFieldManager->fieldStorageExists(
             $entity_type_id,
             $field_name
           );
-          if ($field_storage_exists) {
+          if ($base_field_storage_exists) {
             $property_defaults['name'] = $field_name;
             break;
           }

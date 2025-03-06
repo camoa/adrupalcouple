@@ -10,6 +10,7 @@ use Drupal\Core\Field\FieldTypeCategoryManagerInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Template\Attribute;
+use Drupal\custom_field\Plugin\Field\FieldType\CustomFieldItemListInterface;
 use Drupal\custom_field\TagManagerInterface;
 
 /**
@@ -150,4 +151,17 @@ function custom_field_field_type_category_info_alter(&$definitions) {
   // The `custom` field type belongs in the `general` category, so the libraries
   // need to be attached using an alter hook.
   $definitions[FieldTypeCategoryManagerInterface::FALLBACK_CATEGORY]['libraries'][] = 'custom_field/drupal.custom-icon';
+}
+
+/**
+ * Implements hook_field_widget_complete_form_alter().
+ */
+function custom_field_field_widget_complete_form_alter(&$element, FormStateInterface $form_state, $context) {
+  $items = $context['items'];
+  if ($items instanceof CustomFieldItemListInterface) {
+    $add_more_label = $items->getItemDefinition()->getSetting('add_more_label') ?? '';
+    if (isset($element['widget']['add_more']) && !empty(trim($add_more_label))) {
+      $element['widget']['add_more']['#value'] = $add_more_label;
+    }
+  }
 }

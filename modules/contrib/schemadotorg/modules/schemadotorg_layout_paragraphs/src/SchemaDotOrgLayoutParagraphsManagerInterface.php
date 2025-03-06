@@ -16,7 +16,7 @@ interface SchemaDotOrgLayoutParagraphsManagerInterface {
   /**
    * The layout paragraphs Schema.org property name.
    */
-  const PROPERTY_NAME = 'mainEntity';
+  const string PROPERTY_NAME = 'mainEntity';
 
   /**
    * Get layout paragraphs field machine name.

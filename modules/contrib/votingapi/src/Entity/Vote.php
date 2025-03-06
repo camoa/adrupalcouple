@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\votingapi\Entity;
 
 use Drupal\Core\Entity\ContentEntityBase;
@@ -52,122 +54,120 @@ class Vote extends ContentEntityBase implements VoteInterface {
   /**
    * {@inheritdoc}
    */
-  public function getVotedEntityType() {
+  public function getVotedEntityType(): string {
     return $this->get('entity_type')->value;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function setVotedEntityType($name) {
+  public function setVotedEntityType(string $name): static {
     return $this->set('entity_type', $name);
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getVotedEntityId() {
+  public function getVotedEntityId(): string|int {
     return $this->get('entity_id')->target_id;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function setVotedEntityId($id) {
+  public function setVotedEntityId(string|int $id): static {
     return $this->set('entity_id', $id);
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getValue() {
-    return $this->get('value')->value;
+  public function getValue(): float {
+    return (float) $this->get('value')->value;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function setValue($value) {
+  public function setValue(float $value): static {
     return $this->set('value', $value);
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getValueType() {
+  public function getValueType(): string {
     return $this->get('value_type')->value;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function setValueType($value_type) {
+  public function setValueType($value_type): static {
     return $this->set('value_type', $value_type);
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getOwner() {
+  public function getOwner(): UserInterface {
     return $this->get('user_id')->entity;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function setOwner(UserInterface $account) {
-    $this->set('user_id', $account->id());
-    return $this;
+  public function setOwner(UserInterface $account): static {
+    return $this->set('user_id', $account->id());
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getOwnerId() {
-    return $this->get('user_id')->target_id;
+  public function getOwnerId(): int|null {
+    return (int) $this->get('user_id')->target_id;
   }
 
   /**
    * {@inheritdoc}
    */
   public function setOwnerId($uid) {
-    $this->set('user_id', $uid);
-    return $this;
+    return $this->set('user_id', $uid);
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getCreatedTime() {
+  public function getCreatedTime(): int {
     return $this->get('timestamp')->value;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function setCreatedTime($timestamp) {
+  public function setCreatedTime(int $timestamp): static {
     return $this->set('timestamp', $timestamp);
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getSource() {
+  public function getSource(): string {
     return $this->get('vote_source')->value;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function setSource($source) {
+  public function setSource(string $source): static {
     return $this->set('vote_source', $source);
   }
 
   /**
    * {@inheritdoc}
    */
-  public static function baseFieldDefinitions(EntityTypeInterface $entity_type) {
-
+  public static function baseFieldDefinitions(EntityTypeInterface $entity_type): array {
+    /** @var \Drupal\Core\Field\BaseFieldDefinition[] $fields */
     $fields['id'] = BaseFieldDefinition::create('integer')
       ->setLabel(new TranslatableMarkup('ID'))
       ->setDescription(new TranslatableMarkup('The vote ID.'))

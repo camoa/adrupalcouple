@@ -101,11 +101,11 @@ class SchemaDotOrgMappingTypeEntityKernelTest extends SchemaDotOrgEntityKernelTe
       'changed' => 'changed',
       'path' => 'path',
       'langcode' => 'langcode',
-      'field_media_audio_file' => 'field_media_audio_file',
-      'field_media_document' => 'field_media_document',
-      'field_media_image' => 'field_media_image',
-      'field_media_oembed_video' => 'field_media_oembed_video',
-      'field_media_video_file' => 'field_media_video_file',
+      'AudioObject--field_media_audio_file' => 'AudioObject--field_media_audio_file',
+      'DataDownload--field_media_document' => 'DataDownload--field_media_document',
+      'ImageObject--field_media_image' => 'ImageObject--field_media_image',
+      'VideoObject--field_media_oembed_video' => 'VideoObject--field_media_oembed_video',
+      'VideoObject--field_media_video_file' => 'VideoObject--field_media_video_file',
     ];
     $actual_base_field_names = $media_mapping_type->getBaseFieldNames();
     $this->assertEquals($expected_base_field_names, $actual_base_field_names);

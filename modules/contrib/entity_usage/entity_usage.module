@@ -12,6 +12,7 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Url;
 use Drupal\entity_usage\EntityUpdateManagerInterface;
+use Drupal\entity_usage\PreSaveUrlRecorder;
 use Drupal\field\FieldStorageConfigInterface;
 
 /**
@@ -32,6 +33,19 @@ function entity_usage_help(string $route_name, RouteMatchInterface $route_match)
 }
 
 /**
+ * Implements hook_entity_presave().
+ */
+function entity_usage_entity_presave(EntityInterface $entity): void {
+  if (!$entity->isNew() && ($entity->hasLinkTemplate('canonical') || $entity->hasLinkTemplate('edit-form'))) {
+    $enabled_target_entity_types = \Drupal::config('track_enabled_target_entity_types');
+    // Every entity type is tracked if not set.
+    if (!is_array($enabled_target_entity_types) || in_array($entity->getEntityTypeId(), $enabled_target_entity_types, TRUE)) {
+      \Drupal::service(PreSaveUrlRecorder::class)->recordEntity($entity);
+    }
+  }
+}
+
+/**
  * Implements hook_entity_insert().
  */
 function entity_usage_entity_insert(EntityInterface $entity): void {
@@ -45,6 +59,10 @@ function entity_usage_entity_update(EntityInterface $entity): void {
   $entity_usage_update_manager = \Drupal::service('entity_usage.entity_update_manager');
   assert($entity_usage_update_manager instanceof EntityUpdateManagerInterface);
   $entity_usage_update_manager->trackUpdateOnEdition($entity);
+  // The previous URL is no longer needed so remove it to save memory in case
+  // this is a part of a long-running process updating a large number of
+  // entities.
+  \Drupal::service(PreSaveUrlRecorder::class)->removeEntity($entity);
 }
 
 /**

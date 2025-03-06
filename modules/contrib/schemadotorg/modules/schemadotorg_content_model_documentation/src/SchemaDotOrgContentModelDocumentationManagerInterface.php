@@ -15,7 +15,7 @@ interface SchemaDotOrgContentModelDocumentationManagerInterface {
   /**
    * A mapping of Schema.org mapping types to documentable entities.
    */
-  public const DOCUMENTABLE_ENTITIES = [
+  public const array DOCUMENTABLE_ENTITIES = [
     'taxonomy_term' => 'taxonomy',
     'block_content' => 'block',
     'node' => 'node',

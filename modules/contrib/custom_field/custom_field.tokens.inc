@@ -236,11 +236,14 @@ function custom_field_tokens($type, $tokens, array $data, array $options, Bubble
       // For the [entity:field_name] token.
       if (!str_contains($name, ':')) {
         $field_name = $name;
+        if (is_array($original)) {
+          $property_name = key($original);
+        }
       }
       // For [entity:field_name:0], [entity:field_name:0:value] and
       // [entity:field_name:value] tokens.
       else {
-        $parts = explode(':', $name, 4);
+        $parts = explode(':', $name);
         $field_name = $parts[0];
         $delta = $parts[1];
         $property_name = $parts[2] ?? NULL;
@@ -262,7 +265,7 @@ function custom_field_tokens($type, $tokens, array $data, array $options, Bubble
 
       $display_options = 'token';
       // Handle [entity:field_name] and [entity:field_name:0] tokens.
-      if ($field_name === $name || (isset($delta) && !isset($property_name))) {
+      if ($field_name === $name && !isset($property_name) || (isset($delta) && !isset($property_name))) {
         $view_display = _custom_field_get_token_view_display($entity);
         if (!$view_display) {
           // We don't have the token view display and should fall back on
@@ -478,9 +481,22 @@ function _custom_field_process_property(string $property, mixed $properties, Cus
           $replacements[$property_value] = _custom_field_find_value_by_key($allowed_values, $raw_value);
         }
         elseif ($sub_property === 'entity' && $referenced_entity) {
+          $token_type = $token_mapper->getTokenTypeForEntityType($referenced_entity->getEntityTypeId(), TRUE);
           if (is_array($property_value)) {
-            $token_type = $token_mapper->getTokenTypeForEntityType($referenced_entity->getEntityTypeId(), TRUE);
-            $replacements += \Drupal::token()->generate($token_type, $property_value, [$token_type => $referenced_entity], $options, $bubbleable_metadata);
+            $term_properties = [];
+            // @todo Figure out what to do with field values not replaced here.
+            $field_properties = [];
+            foreach ($property_value as $property_value_key => $property_value_value) {
+              if (!is_array($property_value_value)) {
+                $term_properties[$property_value_key] = $property_value_value;
+              }
+              else {
+                $field_properties[$property_value_key] = $property_value_value;
+              }
+            }
+            if (!empty($term_properties)) {
+              $replacements += \Drupal::token()->generate($token_type, $term_properties, [$token_type => $referenced_entity], $options, $bubbleable_metadata);
+            }
           }
           else {
             $replacements[$property_value] = $referenced_entity->label();

@@ -12,13 +12,13 @@ interface VoteResultFunctionManagerInterface {
    *
    * @param string $entity_type_id
    *   The type of entity, e.g. 'node'.
-   * @param int $entity_id
+   * @param string|int $entity_id
    *   The ID of the entity.
    *
    * @return array
    *   A nested array
    */
-  public function getResults(string $entity_type_id, int $entity_id): array;
+  public function getResults(string $entity_type_id, string|int $entity_id): array;
 
   /**
    * Recalculates the aggregate voting results of all votes for a given entity.
@@ -31,11 +31,11 @@ interface VoteResultFunctionManagerInterface {
    * @param string $entity_type_id
    *   A string identifying the type of content being rated. Node, comment,
    *   aggregator item, etc.
-   * @param string $entity_id
+   * @param string|int $entity_id
    *   The key ID of the content being rated.
    * @param string $vote_type
    *   The type of vote cast.
    */
-  public function recalculateResults(string $entity_type_id, int $entity_id, string $vote_type): void;
+  public function recalculateResults(string $entity_type_id, string|int $entity_id, string $vote_type): void;
 
 }

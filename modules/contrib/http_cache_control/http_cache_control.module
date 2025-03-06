@@ -28,7 +28,7 @@ function http_cache_control_help($route_name, RouteMatchInterface $route_match) 
 /**
  * Implements hook_module_implements_alter().
  */
-function http_cache_control_module_implements_alter(array &$implementations, string $hook) {
+function http_cache_control_module_implements_alter(array &$implementations, string|int $hook) {
   if (!isset($implementations['http_cache_control'])) {
     return;
   }

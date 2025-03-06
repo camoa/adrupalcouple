@@ -41,11 +41,13 @@ class SmartDateFormat extends AbstractExtension {
    *   The field values to process.
    * @param string $format
    *   The Smart Date format to use for output.
+   * @param string|null $timezone
+   *   (optional) Time zone identifier.
    *
    * @return array
    *   A render array of the output.
    */
-  public function formatInput($input, $format = 'default') {
+  public function formatInput($input, $format = 'default', $timezone = NULL) {
     $output = '';
     // Conditional logic to handle different initial values.
     if (isset($input['#object']) && is_object($input['#object']) && method_exists($input['#object'], 'getFieldDefinition')) {
@@ -68,7 +70,7 @@ class SmartDateFormat extends AbstractExtension {
       $start_ts = $input['#value'];
       $end_ts = $input['#end_value'] ?? $input['#value'];
       // @todo pull timezone from render array and pass in.
-      $output = $this->formatSmartDate($start_ts, $end_ts, $settings);
+      $output = $this->formatSmartDate($start_ts, $end_ts, $settings, $timezone);
     }
     else {
       // @todo any default fallback needed? Handle a single timestamp?

@@ -31,7 +31,7 @@ interface VoteResultFunctionInterface {
   /**
    * Performs the calculations on a set of votes to derive the result.
    *
-   * @param \Drupal\votingapi\Entity\Vote[] $votes
+   * @param \Drupal\votingapi\VoteInterface[] $votes
    *   An array of Vote entities.
    *
    * @return float

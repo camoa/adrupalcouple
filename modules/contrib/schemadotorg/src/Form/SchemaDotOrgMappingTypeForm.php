@@ -177,6 +177,9 @@ base_field_name: null
 base_field_name:
   - property_name_01
   - property_name_02
+SchemaType--base_field_name:
+  - property_name_01
+  - property_name_02
 ',
     ];
     $form['properties']['default_component_weights'] = [

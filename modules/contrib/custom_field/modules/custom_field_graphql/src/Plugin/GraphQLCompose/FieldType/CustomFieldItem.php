@@ -87,6 +87,7 @@ class CustomFieldItem extends GraphQLComposeFieldTypeBase implements FieldProduc
       $reference = $entities[$name] ?? NULL;
       // Pass the widget settings down as context.
       $context->setContextValue('settings', $settings['field_settings'][$name]['widget_settings']['settings'] ?? []);
+      $context->setContextValue('property_name', $name);
       $fields[$name] = $this->getSubField($name, $item, $context, $reference) ?: NULL;
     }
 
@@ -96,8 +97,8 @@ class CustomFieldItem extends GraphQLComposeFieldTypeBase implements FieldProduc
   /**
    * Get the subfield value for a subfield.
    *
-   * @param string $delta
-   *   The delta of the subfield. (first, second)
+   * @param string $subfield
+   *   The name of the subfield. (first, second)
    * @param \Drupal\Core\Field\FieldItemInterface $item
    *   The field item.
    * @param \Drupal\graphql\GraphQL\Execution\FieldContext $context
@@ -108,18 +109,18 @@ class CustomFieldItem extends GraphQLComposeFieldTypeBase implements FieldProduc
    * @return mixed
    *   The value of the subfield.
    */
-  protected function getSubField(string $delta, FieldItemInterface $item, FieldContext $context, ?EntityInterface $reference = NULL) {
+  protected function getSubField(string $subfield, FieldItemInterface $item, FieldContext $context, ?EntityInterface $reference = NULL) {
     $settings = $item->getFieldDefinition()->getSettings();
     $custom_items = $this->customFieldManager->getCustomFieldItems($settings);
-    $custom_item = $custom_items[$delta];
-    $value = $item->{$delta};
+    $custom_item = $custom_items[$subfield];
+    $value = $item->{$subfield};
     // If the value is empty, go no further.
     if ($value === NULL || $value === "") {
       return NULL;
     }
 
     // Attempt to load the plugin for the field type.
-    $plugin = $this->getSubfieldPlugin($delta);
+    $plugin = $this->getSubfieldPlugin($subfield);
 
     if (!$plugin) {
       return $value;
@@ -246,6 +247,10 @@ class CustomFieldItem extends GraphQLComposeFieldTypeBase implements FieldProduc
 
       case 'entity_reference':
         $type = 'custom_field_entity_reference';
+        break;
+
+      case 'viewfield':
+        $type = 'custom_field_viewfield';
         break;
     }
 

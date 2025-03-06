@@ -460,7 +460,7 @@ abstract class BaseFormatter extends FormatterBase implements BaseFormatterInter
         $format_type = $formatter_settings['format_type'];
       }
 
-      $options = $this->createOptionsForInstance($custom_item, $format_type, $formatter_settings['formatter_settings']);
+      $options = $this->createOptionsForInstance($custom_item, $format_type, $formatter_settings['formatter_settings'] ?? []);
       $plugin = $this->customFieldFormatterManager->getInstance($options);
       $value = $plugin->formatValue($item, $value);
       if ($value === '' || $value === NULL) {

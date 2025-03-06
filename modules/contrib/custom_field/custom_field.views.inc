@@ -16,21 +16,28 @@ use Drupal\field\FieldStorageConfigInterface;
  */
 function custom_field_field_views_data(FieldStorageConfigInterface $field_storage) {
   $data = views_field_default_views_data($field_storage);
+  $entity_type_id = $field_storage->getTargetEntityTypeId();
   $entity_manager = \Drupal::entityTypeManager();
+  $entity_type = $entity_manager->getDefinition($entity_type_id);
+  /** @var \Drupal\custom_field\Plugin\CustomFieldTypeManagerInterface $custom_field_type_manager */
+  $custom_field_type_manager = \Drupal::service('plugin.manager.custom_field_type');
   $field_name = $field_storage->getName();
-  $columns = $field_storage->getSetting('columns');
+  $custom_fields = $custom_field_type_manager->getCustomFieldItems($field_storage->getSettings());
   $types_with_relationships = [
     'file',
     'image',
     'entity_reference',
   ];
+
   foreach ($data as $table_name => $table_data) {
-    foreach ($columns as $name => $column) {
+    foreach ($custom_fields as $name => $custom_field) {
+      $type = $custom_field->getDataType();
       $subfield = $field_name . '_' . $name;
       $field = [
         'id' => 'standard',
         'field_name' => $field_name,
         'property' => $name,
+        'entity_type' => $entity_type_id,
       ];
       $filter = [
         'id' => 'standard',
@@ -42,7 +49,7 @@ function custom_field_field_views_data(FieldStorageConfigInterface $field_storag
         'id' => 'standard',
       ];
 
-      switch ($column['type']) {
+      switch ($type) {
         case 'boolean':
           $field['id'] = 'boolean';
           $filter['id'] = 'boolean';
@@ -55,6 +62,47 @@ function custom_field_field_views_data(FieldStorageConfigInterface $field_storag
         case 'color':
           $filter['id'] = 'string';
           $argument['id'] = 'string';
+          break;
+
+        case 'datetime':
+          $datetime_type = $custom_field->getDatetimeType();
+          $argument = [
+            'id' => 'custom_field_datetime',
+            'datetime_type' => $custom_field->getDatetimeType(),
+          ];
+          $arguments = [
+            // Argument type => help text.
+            'year' => t('Date in the form of YYYY.'),
+            'month' => t('Date in the form of MM (01 - 12).'),
+            'day' => t('Date in the form of DD (01 - 31).'),
+            'week' => t('Date in the form of WW (01 - 53).'),
+            'year_month' => t('Date in the form of YYYYMM.'),
+            'full_date' => t('Date in the form of CCYYMMDD.'),
+          ];
+          $filter['id'] = 'custom_field_datetime';
+          $filter['datetime_type'] = $datetime_type;
+          foreach ($arguments as $argument_type => $help_text) {
+            $data[$table_name][$subfield . '_' . $argument_type] = [
+              'title' => t('@label@column (@argument)', [
+                '@label' => $field_storage->getLabel(),
+                '@column' => ':' . $name,
+                '@argument' => $argument_type,
+              ]),
+              'help' => $help_text,
+              'argument' => [
+                'field' => $subfield,
+                'id' => 'custom_field_datetime_' . $argument_type,
+                'entity_type' => $entity_type_id,
+                'field_name' => $field_name,
+                'datetime_type' => $datetime_type,
+              ],
+              'group' => $entity_type->getLabel(),
+            ];
+          }
+          $sort = [
+            'id' => 'custom_field_datetime',
+            'datetime_type' => $datetime_type,
+          ];
           break;
 
         case 'integer':
@@ -79,6 +127,7 @@ function custom_field_field_views_data(FieldStorageConfigInterface $field_storag
           $filter['id'] = $id_type;
           $sort['id'] = $id_type;
           $argument['id'] = $id_type;
+          break;
       }
       $data[$table_name][$subfield]['field'] = $field;
       $data[$table_name][$subfield]['filter'] = $filter;
@@ -86,12 +135,11 @@ function custom_field_field_views_data(FieldStorageConfigInterface $field_storag
       $data[$table_name][$subfield]['argument'] = $argument;
 
       // Build views relationships.
-      if (in_array($column['type'], $types_with_relationships)) {
-        if ($entity_manager->hasHandler($column['target_type'], 'views_data')) {
-          $target_entity_type = $entity_manager->getDefinition($column['target_type']);
-          $entity_type_id = $field_storage->getTargetEntityTypeId();
-          $entity_type = $entity_manager->getDefinition($entity_type_id);
-          $target_base_table = $entity_manager->getHandler($column['target_type'], 'views_data')
+      if (in_array($type, $types_with_relationships)) {
+        $target_type = $custom_field->getTargetType();
+        if ($entity_manager->hasHandler($target_type, 'views_data')) {
+          $target_entity_type = $entity_manager->getDefinition($target_type);
+          $target_base_table = $entity_manager->getHandler($target_type, 'views_data')
             ->getViewsTableForEntityType($target_entity_type);
           $args = [
             '@label' => $target_entity_type->getLabel(),
@@ -103,7 +151,7 @@ function custom_field_field_views_data(FieldStorageConfigInterface $field_storag
             'group' => $entity_type->getLabel(),
             'id' => 'standard',
             'base' => $target_base_table,
-            'entity type' => $column['target_type'],
+            'entity type' => $target_type,
             'base field' => $target_entity_type->getKey('id'),
             'relationship field' => $subfield,
             'label' => t('@field_name: @label', $args),

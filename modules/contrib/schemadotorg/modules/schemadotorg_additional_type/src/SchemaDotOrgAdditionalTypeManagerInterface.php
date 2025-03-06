@@ -16,12 +16,12 @@ interface SchemaDotOrgAdditionalTypeManagerInterface {
   /**
    * Add new field mapping option.
    */
-  const ADD_FIELD = SchemaDotOrgEntityFieldManagerInterface::ADD_FIELD;
+  const string ADD_FIELD = SchemaDotOrgEntityFieldManagerInterface::ADD_FIELD;
 
   /**
    * The additional type field name suffix.
    */
-  const FIELD_NAME_SUFFIX = '_type';
+  const string FIELD_NAME_SUFFIX = '_type';
 
   /**
    * Alter Schema.org mapping entity default values.

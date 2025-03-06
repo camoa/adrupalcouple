@@ -18,22 +18,22 @@ interface SchemaDotOrgJsonLdBuilderInterface {
   /**
    * Cache contexts when building JSON-LD from a route match.
    */
-  public const ROUTE_MATCH_CACHE_CONTEXTS = ['user.permissions', 'route'];
+  public const array ROUTE_MATCH_CACHE_CONTEXTS = ['user.permissions', 'route'];
 
   /**
    * Cache tags when building JSON-LD from a route match.
    */
-  public const ROUTE_MATCH_CACHE_TAGS = ['config:schemadotorg_jsonld.settings'];
+  public const array ROUTE_MATCH_CACHE_TAGS = ['config:schemadotorg_jsonld.settings'];
 
   /**
    * Cache contexts when building JSON-LD for an entity.
    */
-  public const ENTITY_CACHE_CONTEXTS = ['user.permissions'];
+  public const array ENTITY_CACHE_CONTEXTS = ['user.permissions'];
 
   /**
    * Cache contexts when building JSON-LD for an entity.
    */
-  public const ENTITY_CACHE_TAGS = ['config:schemadotorg_jsonld.settings', 'config:schemadotorg_mapping_list'];
+  public const array ENTITY_CACHE_TAGS = ['config:schemadotorg_jsonld.settings', 'config:schemadotorg_mapping_list'];
 
   /**
    * Build JSON-LD for a route.

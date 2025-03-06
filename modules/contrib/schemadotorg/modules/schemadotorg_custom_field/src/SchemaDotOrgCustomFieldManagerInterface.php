@@ -81,6 +81,8 @@ interface SchemaDotOrgCustomFieldManagerInterface {
    *   The entity type ID.
    * @param string|null $bundle
    *   The bundle.
+   * @param string|null $field_name
+   *   The field name.
    * @param string|null $schema_type
    *   The Schema.org type.
    * @param string|null $schema_property
@@ -89,7 +91,7 @@ interface SchemaDotOrgCustomFieldManagerInterface {
    * @return bool
    *   TRUE if a Schema.org property is a custom field.
    */
-  public function hasDefaultProperties(?string $entity_type_id = NULL, ?string $bundle = NULL, ?string $schema_type = NULL, ?string $schema_property = NULL): bool;
+  public function hasDefaultProperties(?string $entity_type_id = NULL, ?string $bundle = NULL, ?string $field_name = NULL, ?string $schema_type = NULL, ?string $schema_property = NULL): bool;
 
   /**
    * Retrieves the default custom field properties.
@@ -98,6 +100,8 @@ interface SchemaDotOrgCustomFieldManagerInterface {
    *   The entity type ID.
    * @param string|null $bundle
    *   The bundle.
+   * @param string|null $field_name
+   *   The field name.
    * @param string|null $schema_type
    *   The Schema.org type.
    * @param string|null $schema_property
@@ -106,7 +110,7 @@ interface SchemaDotOrgCustomFieldManagerInterface {
    * @return array|null
    *   The default custom field properties.
    */
-  public function getDefaultProperties(?string $entity_type_id = NULL, ?string $bundle = NULL, ?string $schema_type = NULL, ?string $schema_property = NULL): ?array;
+  public function getDefaultProperties(?string $entity_type_id = NULL, ?string $bundle = NULL, ?string $field_name = NULL, ?string $schema_type = NULL, ?string $schema_property = NULL): ?array;
 
   /**
    * Prepare a property's field data before the Schema.org mapping form.

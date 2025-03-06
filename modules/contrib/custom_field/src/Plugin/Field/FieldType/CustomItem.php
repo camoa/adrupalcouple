@@ -797,6 +797,7 @@ class CustomItem extends FieldItemBase {
   public static function defaultFieldSettings(): array {
     return [
       'field_settings' => [],
+      'add_more_label' => '',
     ] + parent::defaultFieldSettings();
   }
 
@@ -813,6 +814,17 @@ class CustomItem extends FieldItemBase {
       $storage = $form_state->getValue('field_storage');
       $is_cloning = !empty($storage['subform']['settings']['clone']);
     }
+
+    $element['add_more_label'] = [
+      '#type' => 'textfield',
+      '#title' => t('Add another button label'),
+      '#description' => t('The add button label for multiple items. Leave empty for default button text.'),
+      '#weight' => -100,
+      '#default_value' => $this->getSetting('add_more_label'),
+      '#attributes' => [
+        'disabled' => !$this->getFieldDefinition()->getFieldStorageDefinition()->isMultiple(),
+      ],
+    ];
 
     $element['field_settings'] = [
       '#type' => 'table',

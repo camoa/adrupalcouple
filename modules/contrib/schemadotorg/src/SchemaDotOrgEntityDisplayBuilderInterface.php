@@ -14,7 +14,7 @@ interface SchemaDotOrgEntityDisplayBuilderInterface {
   /**
    * Hide component from entity display.
    */
-  const COMPONENT_HIDDEN = 'schemadotorg_component_hidden';
+  const string COMPONENT_HIDDEN = 'schemadotorg_component_hidden';
 
   /**
    * Gets default field weights.

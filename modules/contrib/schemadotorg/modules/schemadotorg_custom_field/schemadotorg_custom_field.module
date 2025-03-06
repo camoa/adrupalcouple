@@ -163,7 +163,12 @@ entity_type_id--bundle--SchemaType--propertyName:
   schema_type: SchemaType
   schema_properties:
     propertyName01:
-      data_type: string",
+      data_type: string
+entity_type_id--field_custom_name:
+  schema_properties:
+    propertyName01:
+      data_type: string
+",
   ];
   $form['schemadotorg_custom_field']['default_format'] = [
     '#type' => 'select',

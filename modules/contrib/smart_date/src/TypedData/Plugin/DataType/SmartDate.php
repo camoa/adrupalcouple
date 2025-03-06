@@ -4,7 +4,6 @@ namespace Drupal\smart_date\TypedData\Plugin\DataType;
 
 use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\TypedData\Plugin\DataType\Timestamp;
-use Drupal\Core\TypedData\Type\DateTimeInterface;
 
 /**
  * The SmartDate data type.
@@ -14,7 +13,7 @@ use Drupal\Core\TypedData\Type\DateTimeInterface;
  *   label = @Translation("Smart Date")
  * )
  */
-class SmartDate extends Timestamp implements DateTimeInterface {
+class SmartDate extends Timestamp {
 
   /**
    * The data value as a UNIX timestamp.

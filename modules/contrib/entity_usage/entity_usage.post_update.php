@@ -24,3 +24,10 @@ function entity_usage_post_update_clean_up_regenerate_queue(array &$sandbox): vo
     \Drupal::messenger()->addWarning('There were unprocessed items in the entity_usage_regenerate_queue. Queue processing is no longer an option for the entity-usage:recreate command. Please re-run the command without the --use-queue flag, or visit the UI and trigger the batch update there.');
   }
 }
+
+/**
+ * Rebuild the container to add new services for Entity Usage module.
+ */
+function entity_usage_post_update_add_pre_save_url_recorder_service(array &$sandbox): void {
+  // Empty update to force container rebuild.
+}

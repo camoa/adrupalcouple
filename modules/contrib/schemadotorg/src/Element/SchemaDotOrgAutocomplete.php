@@ -22,12 +22,12 @@ class SchemaDotOrgAutocomplete extends Textfield {
   /**
    * Schema.org type.
    */
-  const SCHEMA_TYPES = SchemaDotOrgSchemaTypeManagerInterface::SCHEMA_TYPES;
+  const string SCHEMA_TYPES = SchemaDotOrgSchemaTypeManagerInterface::SCHEMA_TYPES;
 
   /**
    * Schema.org property.
    */
-  const SCHEMA_PROPERTIES = SchemaDotOrgSchemaTypeManagerInterface::SCHEMA_PROPERTIES;
+  const string SCHEMA_PROPERTIES = SchemaDotOrgSchemaTypeManagerInterface::SCHEMA_PROPERTIES;
 
   /**
    * Schema.org Thing without Enumerations.
@@ -36,7 +36,7 @@ class SchemaDotOrgAutocomplete extends Textfield {
    *
    * @see \Drupal\schemadotorg\Controller\SchemaDotOrgAutocompleteController::autocomplete
    */
-  const SCHEMA_THINGS = 'Thing';
+  const string SCHEMA_THINGS = 'Thing';
 
   /**
    * {@inheritdoc}
