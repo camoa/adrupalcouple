@@ -4,6 +4,8 @@ status: true
 dependencies:
   config:
     - filter.format.basic_html
+    - node.type.article
+    - node.type.couple
     - taxonomy.vocabulary.tags
   module:
     - comment
@@ -32,16 +34,25 @@ permissions:
   - 'access toolbar'
   - 'administer comments'
   - 'administer url aliases'
+  - 'create article content'
+  - 'create couple content'
   - 'create terms in tags'
   - 'create url aliases'
+  - 'delete own couple content'
   - 'delete own files'
+  - 'edit own article content'
   - 'edit own comments'
+  - 'edit own couple content'
   - 'edit terms in tags'
   - 'mark as hidden in editoria11y'
   - 'revert all revisions'
+  - 'revert article revisions'
+  - 'revert couple revisions'
   - 'skip comment approval'
   - 'use text format basic_html'
   - 'view all revisions'
+  - 'view article revisions'
+  - 'view couple revisions'
   - 'view editoria11y checker'
   - 'view own unpublished content'
   - 'view the administration theme'
