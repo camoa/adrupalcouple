@@ -438,6 +438,13 @@ class SettingsForm extends ConfigFormBase {
       '#default_value' => $config->get('styles') ? implode(',', $config->get('styles')) : '',
     ];
 
+    $form['styling']['show_notice_title'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Show title in notice dialog.', [], ['context' => 'klaro']),
+      '#description' => $this->t('Activate to display the title of the Klaro! notice dialog. Otherwise it will be visually hidden.', [], ['context' => 'klaro']),
+      '#default_value' => $config->get('show_notice_title'),
+    ];
+
     $form['styling']['html_texts'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Allow HTML in texts', [], ['context' => 'klaro']),
@@ -514,6 +521,7 @@ class SettingsForm extends ConfigFormBase {
       ->set('exclude_urls', array_filter($exclude_urls))
       ->set('disable_urls', array_filter($disable_urls))
       ->set('styles', $styles)
+      ->set('show_notice_title', $form_state->getValue('show_notice_title'))
       ->set('override_css', $form_state->getValue('override_css'))
       ->set('process_descriptions', $form_state->getValue([
         'apps',

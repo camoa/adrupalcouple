@@ -52,7 +52,7 @@ function entity_browser_schemadotorg_property_field_alter(
         'field_widget_edit' => TRUE,
         'field_widget_remove' => TRUE,
         'field_widget_replace' => TRUE,
-        'open' => FALSE,
+        'open' => TRUE,
         'field_widget_display_settings' => [],
         'selection_mode' => 'selection_append',
       ];

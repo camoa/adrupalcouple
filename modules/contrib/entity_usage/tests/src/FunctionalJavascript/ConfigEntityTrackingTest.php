@@ -113,11 +113,7 @@ class ConfigEntityTrackingTest extends EntityUsageJavascriptTestBase {
     // Check it so we can test it later.
     $webform_tab_checkbox->click();
 
-    // We should have an unchecked checkbox for source/target entity type.
-    $sources_fieldset_wrapper = $assert_session->elementExists('css', '#edit-track-enabled-source-entity-types summary');
-    $sources_fieldset_wrapper->click();
-    $assert_session->fieldExists('track_enabled_source_entity_types[entity_types][webform]');
-    $assert_session->checkboxNotChecked('track_enabled_source_entity_types[entity_types][webform]');
+    // We should have an unchecked checkbox for target entity type.
     $targets_fieldset_wrapper = $assert_session->elementExists('css', '#edit-track-enabled-target-entity-types summary');
     $targets_fieldset_wrapper->click();
     $webform_target_checkbox = $assert_session->fieldExists('track_enabled_target_entity_types[entity_types][webform]');
@@ -196,11 +192,7 @@ class ConfigEntityTrackingTest extends EntityUsageJavascriptTestBase {
     // Check some config-entity related settings on the config form.
     $this->drupalGet('/admin/config/entity-usage/settings');
 
-    // We should have an unchecked checkbox for source/target entity type.
-    $sources_fieldset_wrapper = $assert_session->elementExists('css', '#edit-track-enabled-source-entity-types summary');
-    $sources_fieldset_wrapper->click();
-    $assert_session->fieldExists('track_enabled_source_entity_types[entity_types][view]');
-    $assert_session->checkboxNotChecked('track_enabled_source_entity_types[entity_types][view]');
+    // We should have an unchecked checkbox for target entity type.
     $targets_fieldset_wrapper = $assert_session->elementExists('css', '#edit-track-enabled-target-entity-types summary');
     $targets_fieldset_wrapper->click();
     $view_target_checkbox = $assert_session->fieldExists('track_enabled_target_entity_types[entity_types][view]');

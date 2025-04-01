@@ -6,6 +6,7 @@
  */
 
 use Drupal\Core\Asset\AttachedAssetsInterface;
+use Drupal\Core\Render\Markup;
 use Drupal\Core\Routing\RouteMatchInterface;
 
 /**
@@ -212,6 +213,9 @@ function klaro_preprocess_field(&$variables) {
   if ($variables["element"]['#formatter'] == "video_embed_field_video") {
     foreach ($variables['items'] as $i => $item) {
       $src = $item['content']['children']['#url'];
+      if (empty($src)) {
+        continue;
+      }
       $app = $helper->matchKlaroApp($src);
       if ($app) {
         $variables['items'][$i]['content']['children']['#attributes']['data-src'] = $src;
@@ -222,6 +226,18 @@ function klaro_preprocess_field(&$variables) {
     $url = $helper->getThumbnail($variables['element']['#object']);
     if ($url) {
       $variables['items'][0]['content']['children']['#attributes']['data-thumbnail'] = $url;
+    }
+  }
+
+  // Rewrite markup from field formatter simple_gmap.
+  if ($variables["element"]['#formatter'] == "simple_gmap") {
+    foreach ($variables['items'] as $i => &$item) {
+      // We have to render the field to process the markup.
+      $output = \Drupal::service('renderer')->render($item['content']);
+      $output = $helper->processHtml($output);
+      $item['content'] = [
+        '#markup' => Markup::create($output),
+      ];
     }
   }
 

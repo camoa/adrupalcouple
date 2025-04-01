@@ -1,6 +1,6 @@
 /**
  * @file
- * Javascript for the geolocation geometry google maps widget.
+ * Javascript for the geolocation geometry Google Maps widget.
  */
 
 /**

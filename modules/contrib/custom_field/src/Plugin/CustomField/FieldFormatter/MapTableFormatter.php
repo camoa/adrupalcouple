@@ -2,21 +2,22 @@
 
 namespace Drupal\custom_field\Plugin\CustomField\FieldFormatter;
 
+use Drupal\Core\Field\Attribute\FieldFormatter;
 use Drupal\Core\Field\FieldItemInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\custom_field\Plugin\CustomFieldFormatterBase;
 
 /**
- * Plugin implementation of the 'map_table' custom field formatter.
- *
- * @FieldFormatter(
- *   id = "map_table",
- *   label = @Translation("Table"),
- *   field_types = {
- *     "map",
- *   }
- * )
+ * Plugin implementation of the 'map_table' formatter.
  */
+#[FieldFormatter(
+  id: 'map_table',
+  label: new TranslatableMarkup('Table'),
+  field_types: [
+    'map',
+  ],
+)]
 class MapTableFormatter extends CustomFieldFormatterBase {
 
   /**
@@ -67,7 +68,7 @@ class MapTableFormatter extends CustomFieldFormatterBase {
         $mapping['value'],
       ];
     }
-    $build = [
+    return [
       '#type' => 'table',
       '#header' => [
         'key' => $this->getSetting('key_label'),
@@ -75,8 +76,6 @@ class MapTableFormatter extends CustomFieldFormatterBase {
       ],
       '#rows' => $rows,
     ];
-
-    return $this->renderer->render($build);
   }
 
 }

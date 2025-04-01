@@ -1,7 +1,7 @@
 name: Geolocation - Geometry - Data
 type: module
 description: Multiple data sets prepared for import
-core_version_requirement: ^10 || ^11
+core_version_requirement: ^10 || ^11 || ^12
 package: Geolocation
 dependencies:
   - geolocation:geolocation_geometry

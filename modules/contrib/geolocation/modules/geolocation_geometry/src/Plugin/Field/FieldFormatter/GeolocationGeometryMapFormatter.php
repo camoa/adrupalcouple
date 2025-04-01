@@ -29,7 +29,7 @@ class GeolocationGeometryMapFormatter extends GeolocationMapFormatterBase {
   /**
    * {@inheritdoc}
    */
-  static protected string $dataProviderId = 'geolocation_geometry';
+  protected static string $dataProviderId = 'geolocation_geometry';
 
   /**
    * {@inheritdoc}

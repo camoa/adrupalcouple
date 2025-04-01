@@ -48,6 +48,12 @@ class TextSettingsForm extends ConfigFormBase {
       '#tree' => TRUE,
     ];
 
+    $form['initial']['title'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Title', [], ['context' => 'klaro']),
+      '#default_value' => $config->get('consentNotice.title'),
+      '#description' => $this->t('Title of consent notice', [], ['context' => 'klaro']),
+    ];
     $form['initial']['description'] = [
       '#type' => 'textarea',
       '#title' => $this->t('Description', [], ['context' => 'klaro']),
@@ -288,6 +294,10 @@ class TextSettingsForm extends ConfigFormBase {
 
     // "Consent Notice" settings.
     $config
+      ->set('consentNotice.title', $form_state->getValue([
+        'initial',
+        'title',
+      ]))
       ->set('consentNotice.description', $form_state->getValue([
         'initial',
         'description',

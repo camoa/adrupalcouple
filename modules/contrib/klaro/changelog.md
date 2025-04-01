@@ -1,3 +1,22 @@
+**V.3.x-dev**
+
+Includes:
+  - Issue #3508693: Add base_path to klaro_placeholder.js.
+  - Issue #3512275: Bugfix TypeError in Drupal\klaro\Utility\KlaroHelper::matchKlaroApp()
+
+**V.3.0.2**
+
+Includes:
+  - Issue #3512019: Add Umami Analytics service
+
+**V.3.0.1**
+
+Includes:
+  - Issue #3484844: Show title on notice dialog optional
+  - Issue #3498377: Add configurable description for purpose
+  - Issue #3500091: Add link to consent manager in contextual dialog.
+  - Issue #3495242: Add service for Simple Google Maps
+
 **V.3.0.0**
 
 Includes:

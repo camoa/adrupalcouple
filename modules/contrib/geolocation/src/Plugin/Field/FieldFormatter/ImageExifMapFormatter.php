@@ -19,6 +19,6 @@ class ImageExifMapFormatter extends GeolocationMapFormatterBase {
   /**
    * {@inheritdoc}
    */
-  static protected string $dataProviderId = 'image_field_provider';
+  protected static string $dataProviderId = 'image_field_provider';
 
 }

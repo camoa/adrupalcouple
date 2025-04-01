@@ -66,7 +66,7 @@ interface MapCenterInterface extends PluginInspectionInterface {
   public function getAvailableMapCenterOptions(array $context = []): array;
 
   /**
-   * Alter map..
+   * Alter map.
    *
    * @param array $render_array
    *   Render array.

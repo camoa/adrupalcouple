@@ -2,24 +2,24 @@
 
 namespace Drupal\custom_field\Plugin\Field\FieldFormatter;
 
+use Drupal\Component\Utility\Xss;
+use Drupal\Core\Field\Attribute\FieldFormatter;
 use Drupal\Core\Field\FieldItemInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 
 /**
  * Plugin implementation of the 'custom_inline' formatter.
- *
- * Renders the items inline using a simple separator and no additional wrapper
- * markup.
- *
- * @FieldFormatter(
- *   id = "custom_inline",
- *   label = @Translation("Inline"),
- *   weight = 1,
- *   field_types = {
- *     "custom"
- *   }
- * )
  */
+#[FieldFormatter(
+  id: 'custom_inline',
+  label: new TranslatableMarkup('Inline'),
+  description: new TranslatableMarkup('Renders the items inline using a simple separator and no additional wrapper markup'),
+  field_types: [
+    'custom',
+  ],
+  weight: 1,
+)]
 class CustomInlineFormatter extends BaseFormatter {
 
   /**
@@ -91,27 +91,66 @@ class CustomInlineFormatter extends BaseFormatter {
    * {@inheritdoc}
    */
   public function viewValue(FieldItemInterface $item, string $langcode): array {
+    $field_name = $this->fieldDefinition->getName();
     $output = [];
     $values = $this->getFormattedValues($item, $langcode);
+    $valid_items = [];
+
+    // Force no wrappers.
+    $inline_wrappers = [
+      'field_wrapper_tag' => 'none',
+      'field_tag' => 'none',
+      'label_tag' => 'none',
+    ];
 
     foreach ($values as $value) {
-      // Skip 'map' custom field types.
-      if ($value['type'] == 'map') {
+      if ($value === NULL || $value['type'] === 'map') {
         continue;
       }
-      $markup = $value['value']['#markup'];
+
+      // Build the render array for each item.
+      $item_render = [
+        '#theme' => 'custom_field_item',
+        '#field_name' => $field_name,
+        '#name' => $value['name'],
+        '#value' => $value['value']['#markup'],
+        '#label' => $value['label'],
+        '#label_display' => 'hidden',
+        '#type' => $value['type'],
+        '#wrappers' => $inline_wrappers,
+        '#entity_type' => $value['entity_type'],
+        '#lang_code' => $langcode,
+      ];
+
       if ($this->getSetting('show_labels')) {
-        $output[] = implode($this->getSetting('label_separator'), [
-          $value['label'],
-          $markup,
-        ]);
+        $valid_items[] = [
+          '#type' => 'inline_template',
+          '#template' => '{{ label }}{{ separator }}{{ item }}',
+          '#context' => [
+            'label' => $value['label'],
+            'separator' => $this->getSetting('label_separator'),
+            'item' => $item_render,
+          ],
+        ];
       }
       else {
-        $output[] = $markup;
+        $valid_items[] = $item_render;
       }
     }
 
-    return ['#markup' => implode($this->getSetting('item_separator'), $output)];
+    // Now build the output with separators between items.
+    foreach ($valid_items as $index => $item_render) {
+      $output[] = $item_render;
+
+      // Add the item_separator after each item except the last one.
+      if ($index < count($valid_items) - 1) {
+        $output[] = [
+          '#markup' => Xss::filterAdmin($this->getSetting('item_separator')),
+        ];
+      }
+    }
+
+    return $output;
   }
 
 }

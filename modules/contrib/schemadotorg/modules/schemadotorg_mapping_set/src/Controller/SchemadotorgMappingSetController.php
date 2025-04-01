@@ -114,7 +114,7 @@ class SchemadotorgMappingSetController extends ControllerBase {
       }
 
       if ($invalid_types) {
-        $rows[] = ['data' => $row, 'class' => ['color-error']];
+        $rows[] = ['data' => $row, 'class' => ['color-warning']];
       }
       elseif ($is_setup) {
         $rows[] = ['data' => $row, 'class' => ['color-success']];
@@ -131,7 +131,7 @@ class SchemadotorgMappingSetController extends ControllerBase {
           ':href' => Url::fromRoute('schemadotorg_mapping_set.settings')->toString(),
         ];
         $message = $this->t('%types in %set are not valid. <a href=":href">Please update this information.</a>', $t_args);
-        $this->messenger()->addError($message);
+        $this->messenger()->addWarning($message);
       }
     }
 

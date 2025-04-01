@@ -1,4 +1,4 @@
-core_version_requirement: ^10 || ^11
+core_version_requirement: ^10 || ^11 || ^12
 type: module
 name: Geolocation
 description: 'Provides a simple geolocation field type to store and display location data (lat, lng).'

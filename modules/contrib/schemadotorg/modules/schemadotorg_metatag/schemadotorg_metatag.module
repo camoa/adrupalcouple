@@ -61,12 +61,24 @@ function schemadotorg_metatag_form_schemadotorg_types_settings_form_alter(array 
     '#type' => 'details',
     '#title' => t('Metatag settings'),
   ];
+  $form['schemadotorg_metatag']['schema_types'] = [
+    '#type' => 'schemadotorg_settings',
+    '#title' => t('Schema.org type'),
+    '#description' => t('Enter the Schema.org types that should have a meta tags field added when the Schema.org mapping is created.'),
+    '#example' => '
+- entity_type_id--SchemaType
+- entity_type_id--bundle
+- entity_type_id--bundle--SchemaType
+',
+  ];
   $form['schemadotorg_metatag']['default_groups'] = [
     '#type' => 'checkboxes',
     '#title' => t('Default meta tag groups'),
     '#description' => t('Identify which metatag groups should be available on which entity type / bundle combination. Unselected groups will not appear on the configuration form for that entity type, reducing the size of the form and increasing performance. If no groups are selected for a type, all groups will appear.'),
     '#options' => $metatag_group_options,
   ];
+
+  $form['schemadotorg_metatag']['apply'] = [];
 }
 
 /**

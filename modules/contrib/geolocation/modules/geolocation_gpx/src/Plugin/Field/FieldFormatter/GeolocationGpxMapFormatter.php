@@ -22,7 +22,7 @@ class GeolocationGpxMapFormatter extends GeolocationMapFormatterBase {
   /**
    * {@inheritdoc}
    */
-  static protected string $dataProviderId = 'geolocation_gpx';
+  protected static string $dataProviderId = 'geolocation_gpx';
 
   /**
    * {@inheritdoc}

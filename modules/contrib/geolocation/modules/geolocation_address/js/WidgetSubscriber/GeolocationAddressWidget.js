@@ -6,6 +6,8 @@
  * @prop {String} address_field
  * @prop {String} direction
  * @prop {String} sync_mode
+ * @prop {String} geocoder_url
+ * @prop {String} geocoder_reverse_url
  */
 
 import { FieldWidgetBase } from "../../../../js/WidgetSubscriber/FieldWidgetBase.js";
@@ -47,15 +49,17 @@ export default class GeolocationAddressWidget extends FieldWidgetBase {
 
   getAllInputElements(returnElements = false) {
     const hyphenatedFieldName = this.settings.field_name.replaceAll("_", "-");
-    const pattern = new RegExp(`^edit-${hyphenatedFieldName}-\\d+$`);
+    const pattern = new RegExp(`${hyphenatedFieldName}-\\d+$`);
 
-    const map = new Map();
-    const elements = this.form.querySelectorAll(`details[data-drupal-selector*="${this.settings.field_name.replaceAll("_", "-")}-"]`);
+    const elements = Array.from(this.form.querySelectorAll(`[data-drupal-selector*="${hyphenatedFieldName}-"]`)).filter((element) => {
+      return pattern.test(element.getAttribute("data-drupal-selector"));
+    });
 
     if (returnElements) {
       return elements;
     }
 
+    const map = new Map();
     elements.forEach((element) => {
       map.set(this.getIndexByElement(element), element);
     });
@@ -88,7 +92,7 @@ export default class GeolocationAddressWidget extends FieldWidgetBase {
         resolve(null);
         return;
       }
-      fetch(Drupal.url("geolocation/address/geocoder/geocode"), {
+      fetch(this.settings.geocoder_url, {
         method: "POST",
         mode: "cors",
         cache: "no-cache",
@@ -131,7 +135,7 @@ export default class GeolocationAddressWidget extends FieldWidgetBase {
    */
   coordinatesToAddress(latitude, longitude) {
     return new Promise((resolve, reject) => {
-      fetch(Drupal.url("geolocation/address/geocoder/reverse"), {
+      fetch(this.settings.geocoder_reverse_url, {
         method: "POST",
         mode: "cors",
         cache: "no-cache",

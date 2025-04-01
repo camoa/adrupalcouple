@@ -16,8 +16,8 @@
         'a[href*="/admin/reports/schemadotorg"]',
         context,
       ).forEach((link) => {
-        // Skip links in the toolbar-bar.
-        if (link.closest('nav.toolbar-bar')) {
+        // Skip links in the toolbar-bar or toolbar-menu.
+        if (link.closest('nav.toolbar-bar, .toolbar-menu')) {
           return;
         }
 

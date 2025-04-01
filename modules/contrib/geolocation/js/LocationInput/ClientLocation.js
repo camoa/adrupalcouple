@@ -1,6 +1,9 @@
 import { GeolocationLocationInputBase } from "./GeolocationLocationInputBase.js";
 import { GeolocationCoordinates } from "../Base/GeolocationCoordinates.js";
 
+/**
+ * @prop {Boolean} settings.auto_submit
+ */
 export default class ClientLocation extends GeolocationLocationInputBase {
   constructor(form, settings = {}) {
     super(form, settings);

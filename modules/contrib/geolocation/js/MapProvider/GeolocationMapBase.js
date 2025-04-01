@@ -108,6 +108,17 @@ export class GeolocationMapBase {
         return Promise.all(stylesheetLoads);
       })
       .then(() => {
+        // Some features depend on libraries loaded AFTER main script but BEFORE instantiating.
+        const featureScriptLoads = [];
+        Object.keys(this.settings.features ?? {}).forEach((featureName) => {
+          const featureScripts = this.settings.features[featureName]?.scripts || [];
+          featureScripts.forEach((featureScript) => {
+            featureScriptLoads.push(Drupal.geolocation.addScript(featureScript));
+          });
+        });
+        return Promise.all(featureScriptLoads);
+      })
+      .then(() => {
         return this;
       });
   }
@@ -123,12 +134,6 @@ export class GeolocationMapBase {
       return null;
     }
 
-    const scripts = featureSettings.scripts || [];
-    const scriptLoads = [];
-    scripts.forEach((script) => {
-      scriptLoads.push(Drupal.geolocation.addScript(script));
-    });
-
     const asyncScripts = featureSettings.async_scripts || [];
     const asyncScriptLoads = [];
     asyncScripts.forEach((script) => {
@@ -141,10 +146,7 @@ export class GeolocationMapBase {
       stylesheetLoads.push(Drupal.geolocation.addStylesheet(stylesheet));
     });
 
-    return Promise.all(scriptLoads)
-      .then(() => {
-        return Promise.all(asyncScriptLoads);
-      })
+    return Promise.all(asyncScriptLoads)
       .then(() => {
         return Promise.all(stylesheetLoads);
       })

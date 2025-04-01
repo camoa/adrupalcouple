@@ -8,7 +8,7 @@ use Drupal\geolocation_geometry\GeometryType\GeometryTypeInterface;
 /**
  * XML support class.
  */
-abstract class XML implements GeometryFormatInterface {
+abstract class XML implements GeometryFormatInterface { // phpcs:ignore
 
   /**
    * {@inheritdoc}

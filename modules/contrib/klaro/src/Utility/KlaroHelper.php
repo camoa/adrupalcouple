@@ -339,13 +339,21 @@ class KlaroHelper {
 
     $settings['config']['translations'][$langcode] = $translations;
     $settings['config']['translations'][$langcode]['privacyPolicy'] = $translations['consentModal']['privacyPolicy'];
-    $settings['config']['translations'][$langcode]['purposes'] = $this->optionPurposes();
+    $settings['config']['translations'][$langcode]['purposes'] = $this->optionPurposes(TRUE);
 
     $settings['show_toggle_button'] = $config->get('show_toggle_button');
     $settings['toggle_button_icon'] = $config->get('toggle_button_icon');
     $settings['show_close_button'] = $config->get('show_close_button');
     $settings['exclude_urls'] = $config->get('exclude_urls');
     $settings['disable_urls'] = $config->get('disable_urls');
+
+    // Force show title. For a11y it will visually hidden later.
+    $settings['config']['showNoticeTitle'] = TRUE;
+    // Visually hide only if not explicitly configured to show.
+    if (!$config->get('show_notice_title')) {
+      $settings['config']['additionalClass'] .= " hide-consent-dialog-title";
+    }
+
     $styles = $config->get('styles');
     if (!empty($styles)) {
       $settings['config']['styling']['theme'] = $styles;
@@ -353,6 +361,7 @@ class KlaroHelper {
     if (isset($settings['config']['learnMoreAsButton']) && $settings['config']['learnMoreAsButton']) {
       $settings['config']['additionalClass'] .= " learn-more-as-button";
     }
+
     $settings['config']['additionalClass'] .= " klaro-theme-" . $this->themeManager->getActiveTheme()->getName();
 
     return $settings;
@@ -478,14 +487,20 @@ class KlaroHelper {
   /**
    * Retrieves available purposes as an options array.
    *
+   * @param bool $with_description
+   *   Returns an array of titles and descriptions if enabled.
+   *
    * @return array
    *   The purposes options.
    */
-  public function optionPurposes(): array {
+  public function optionPurposes($with_description = FALSE): array {
     $options = [];
 
     foreach ($this->getAvailablePurposes() as $purpose) {
-      $options[$purpose->id()] = $purpose->label();
+      $options[$purpose->id()] = $with_description ? [
+        'title' => $purpose->label(),
+        'description' => $purpose->description(),
+      ] : $purpose->label();
     }
 
     return $options;

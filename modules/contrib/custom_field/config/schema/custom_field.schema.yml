@@ -141,6 +141,9 @@ custom_field.formatter.*:
         label_display:
           type: string
           label: 'Label display'
+        field_label:
+          type: string
+          label: 'Field label'
         prefix_suffix:
           type: boolean
           label: 'Display prefix/suffix'

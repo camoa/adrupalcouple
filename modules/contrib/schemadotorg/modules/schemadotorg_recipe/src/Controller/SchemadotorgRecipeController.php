@@ -153,10 +153,15 @@ class SchemadotorgRecipeController extends ControllerBase {
         ],
       ];
 
+      $count = count($dependencies);
       $row['dependencies'] = [
         'data' => [
-          '#theme' => 'item_list',
-          '#items' => $dependencies,
+          '#type' => 'details',
+          '#title' => $this->formatPlural($count, '1 dependency', '@count dependencies'),
+          'list' => [
+            '#theme' => 'item_list',
+            '#items' => $dependencies,
+          ],
         ],
       ];
 
@@ -195,16 +200,22 @@ class SchemadotorgRecipeController extends ControllerBase {
     $recipe = $this->schemaRecipeManager->getRecipe($name);
 
     $build = [];
+
     $build['#title'] = $recipe['name'];
     $build['description'] = [
       '#markup' => $recipe['description'],
       '#prefix' => '<p>',
       '#suffix' => '</p>',
     ];
+
     $build['summary'] = $this->buildSummary($name);
     $build['details'] = $this->buildDetails($name);
+
+    $build['divider'] = ['#markup' => '<br/>'];
+
     $build['dependencies'] = $this->buildDependencies($name);
     $build['recipe'] = $this->buildRecipe($name);
+
     return $build;
   }
 

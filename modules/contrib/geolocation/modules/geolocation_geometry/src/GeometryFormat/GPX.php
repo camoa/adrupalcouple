@@ -9,7 +9,7 @@ use Drupal\geolocation_geometry\GeometryType\Point;
 /**
  * GPX support class.
  */
-class GPX extends XML implements GeometryFormatInterface {
+class GPX extends XML implements GeometryFormatInterface { // phpcs:ignore
 
   /**
    * {@inheritdoc}

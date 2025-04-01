@@ -7,6 +7,8 @@
 
 declare(strict_types=1);
 
+use Drupal\Component\Serialization\Yaml;
+
 /**
  * Implements hook_install().
  */
@@ -59,4 +61,15 @@ function schemadotorg_cer_update_10000(): void {
 
   $schema_config_manager->unsetSchemaTypeDefaultProperties('WebContent', ['isPartOf', 'hasPart']);
   $schema_config_manager->setMappingTypeSchemaTypeDefaultProperties('node', 'WebPage', ['isPartOf', 'hasPart']);
+}
+
+/**
+ * Issue #3514016: Corresponding references should be bidirectional.
+ */
+function schemadotorg_cer_update_10002(): void {
+  $module_path = \Drupal::service('extension.list.module')->getPath('schemadotorg_cer');
+  $data = Yaml::decode(file_get_contents($module_path . '/config/install/schemadotorg_cer.settings.yml'));
+  $config = \Drupal::configFactory()->getEditable('schemadotorg_cer.settings');
+  $config->set('default_schema_properties', $data['default_schema_properties']);
+  $config->save();
 }

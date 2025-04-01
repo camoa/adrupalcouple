@@ -232,7 +232,7 @@ class SchemaDotOrgMappingSetListBuilderTest extends SchemaDotOrgBrowserTestBase 
     $this->drupalGet('admin/config/schemadotorg/sets');
     $assert->responseContains('Required');
     $assert->responseContains('<td><strong>not:Valid</strong></td>');
-    $assert->statusMessageContains('not:Valid in Required are not valid. Please update this information.', 'error');
+    $assert->statusMessageContains('not:Valid in Required are not valid. Please update this information.', 'warning');
     $assert->linkByHrefNotExists($base_path . 'admin/config/schemadotorg/sets/required/setup');
   }
 

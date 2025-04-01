@@ -145,7 +145,12 @@ class SchemaDotOrgAdditionalMappingsJsonLdManager implements SchemaDotOrgAdditio
     }
 
     // Get the target's entity, mapping, and types.
+    /** @var \Drupal\Core\Entity\EntityInterface|null $target_entity */
     $target_entity = $item->entity;
+    if (!$target_entity) {
+      return;
+    }
+
     $target_mapping = $this->getMappingStorage()->loadByEntity($target_entity);
     if (!$target_mapping) {
       return;

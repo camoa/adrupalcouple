@@ -15,8 +15,8 @@ class VoteStorage extends SqlContentEntityStorage implements VoteStorageInterfac
   /**
    * {@inheritdoc}
    */
-  public function getUserVotes($uid, $vote_type_id = NULL, $entity_type_id = NULL, $entity_id = NULL, $vote_source = NULL) {
-    $query = \Drupal::entityQuery('vote')
+  public function getUserVotes(int $uid, ?string $vote_type_id = NULL, ?string $entity_type_id = NULL, string|int|null $entity_id = NULL, ?string $vote_source = NULL): array {
+    $query = $this->getQuery()
       ->accessCheck(TRUE)
       ->condition('user_id', $uid);
     if ($vote_type_id) {
@@ -37,7 +37,7 @@ class VoteStorage extends SqlContentEntityStorage implements VoteStorageInterfac
   /**
    * {@inheritdoc}
    */
-  public function deleteUserVotes($uid, $vote_type_id = NULL, $entity_type_id = NULL, $entity_id = NULL, $vote_source = NULL): void {
+  public function deleteUserVotes(int $uid, ?string $vote_type_id = NULL, ?string $entity_type_id = NULL, string|int|null $entity_id = NULL, ?string $vote_source = NULL): void {
     $votes = $this->getUserVotes($uid, $vote_type_id, $entity_type_id, $entity_id, $vote_source);
     if (!empty($votes)) {
       $entities = $this->loadMultiple($votes);
@@ -61,9 +61,9 @@ class VoteStorage extends SqlContentEntityStorage implements VoteStorageInterfac
   /**
    * {@inheritdoc}
    */
-  public function getVotesSinceMoment() {
+  public function getVotesSinceMoment(): array {
     $last_cron = \Drupal::state()->get('votingapi.last_cron', 0);
-    return \Drupal::entityQueryAggregate('vote')
+    return $this->getAggregateQuery()
       ->condition('timestamp', $last_cron, '>')
       ->groupBy('entity_type')
       ->groupBy('entity_id')
@@ -75,8 +75,8 @@ class VoteStorage extends SqlContentEntityStorage implements VoteStorageInterfac
   /**
    * {@inheritdoc}
    */
-  public function deleteVotesForDeletedEntity($entity_type_id, $entity_id): void {
-    $votes = \Drupal::entityQuery('vote')
+  public function deleteVotesForDeletedEntity(string $entity_type_id, string|int $entity_id): void {
+    $votes = $this->getQuery()
       ->accessCheck(TRUE)
       ->condition('entity_type', $entity_type_id)
       ->condition('entity_id', $entity_id)

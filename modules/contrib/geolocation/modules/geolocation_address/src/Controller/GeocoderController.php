@@ -4,6 +4,7 @@ namespace Drupal\geolocation_address\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\geolocation\GeocoderManager;
+use Drupal\geolocation\GeolocationAddress;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -67,35 +68,18 @@ class GeocoderController extends ControllerBase {
       $geocoded_result = $geocoder->geocode($data['address']);
     }
     elseif (is_array($data['address'])) {
-      /** @var \Drupal\address\Repository\AddressFormatRepository $addressFormatRepository */
-      $addressFormatRepository = \Drupal::service('address.address_format_repository');
-      $address_format = $addressFormatRepository->get($data['address']['countryCode']);
-      if ($address_format) {
-        $components = [
-          '%givenName' => '',
-          '%familyName' => '',
-          '%organization' => '',
-          '%addressLine1' => '',
-          '%addressLine2' => '',
-          '%locality' => '',
-          '%administrativeArea' => '',
-          '%postalCode' => '',
-        ];
-        foreach ($data['address'] as $component => $value) {
-          if (array_key_exists('%' . $component, $components)) {
-            $components['%' . $component] = $value;
-          }
-        }
-        $address_string = trim(strtr($address_format->getFormat(), $components));
-        $address_string = str_replace("\n\n", "\n", $address_string);
-        $address_string = str_replace("\n", ", ", $address_string);
-        $address_string .= ", " . ($data['address']['country'] ?? $data['address']['countryCode']);
-      }
-      else {
-        $address_string = implode(', ', $data['address']);
-      }
-
-      $geocoded_result = $geocoder->geocode($address_string);
+      $geocoded_result = $geocoder->geocode(new GeolocationAddress(
+        organization: $data['address']['organization'] ?? '',
+        addressLine1: $data['address']['addressLine1'] ?? '',
+        addressLine2: $data['address']['addressLine2'] ?? '',
+        addressLine3: $data['address']['addressLine3'] ?? '',
+        dependentLocality: $data['address']['dependentLocality'] ?? '',
+        locality: $data['address']['locality'] ?? '',
+        administrativeArea: $data['address']['administrativeArea'] ?? '',
+        postalCode: $data['address']['postalCode'] ?? '',
+        sortingCode: $data['address']['sortingCode'] ?? '',
+        countryCode: $data['address']['countryCode'] ?? '',
+      ));
     }
     else {
       return new JsonResponse([], Response::HTTP_BAD_REQUEST);

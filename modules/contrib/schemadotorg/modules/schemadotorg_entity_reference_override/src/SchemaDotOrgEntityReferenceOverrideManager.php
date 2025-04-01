@@ -122,10 +122,12 @@ class SchemaDotOrgEntityReferenceOverrideManager implements SchemaDotOrgEntityRe
       }
     }
 
-    // Ensure that #options includes the #default_value to #options.
-    if (isset($element['override']['#options'])
-      && !empty($element['override']['#default_value'])) {
-      $element['override']['#options'][$element['override']['#default_value']] = $element['override']['#default_value'];
+    // Ensure that #options includes the #default_value in #options.
+    if (isset($element['override']['#options'])) {
+      $default_value = $element['override']['#default_value'] ?? NULL;
+      if (!isset($element['override']['#options'][$default_value])) {
+        $element['override']['#options'][$default_value] = $default_value;
+      }
     }
   }
 

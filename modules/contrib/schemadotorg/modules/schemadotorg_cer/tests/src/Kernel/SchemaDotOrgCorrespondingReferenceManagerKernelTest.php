@@ -84,7 +84,7 @@ class SchemaDotOrgCorrespondingReferenceManagerKernelTest extends SchemaDotOrgEn
 
     // Check adding corresponding entity references when a mapping is
     // inserted or updated.
-    $this->assertCount(2, CorrespondingReference::loadMultiple());
+    $this->assertCount(4, CorrespondingReference::loadMultiple());
 
     /** @var \Drupal\cer\Entity\CorrespondingReferenceInterface $corresponding_reference */
     $corresponding_reference = CorrespondingReference::load('schema_subject_of');

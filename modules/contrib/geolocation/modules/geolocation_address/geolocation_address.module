@@ -9,6 +9,7 @@ use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\WidgetInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\BubbleableMetadata;
+use Drupal\Core\Url;
 use Drupal\geolocation\Plugin\Field\FieldWidget\GeolocationMapWidget;
 use Drupal\geolocation_address\Plugin\migrate\field\Location;
 
@@ -41,6 +42,18 @@ function geolocation_address_geolocation_field_map_widget_alter(&$element, $cont
     }
   }
 
+  $geocoder_token = \Drupal::service('csrf_token')->get(Url::fromRoute('geolocation_address.geocoder.geocode')->getInternalPath());
+  $geocoder_url = Url::fromRoute(
+    route_name: 'geolocation_address.geocoder.geocode',
+    options: ['query' => ['token' => $geocoder_token]]
+  )->toString();
+
+  $geocoder_reverse_token = \Drupal::service('csrf_token')->get(Url::fromRoute('geolocation_address.geocoder.reverse')->getInternalPath());
+  $geocoder_reverse_url = Url::fromRoute(
+    route_name: 'geolocation_address.geocoder.reverse',
+    options: ['query' => ['token' => $geocoder_reverse_token]]
+  )->toString();
+
   $element['#attached'] = BubbleableMetadata::mergeAttachments(
     empty($element['#attached']) ? [] : $element['#attached'],
     [
@@ -60,6 +73,8 @@ function geolocation_address_geolocation_field_map_widget_alter(&$element, $cont
                     'sync_mode' => $settings['sync_mode'],
                     'direction' => $settings['direction'],
                     'ignore' => $settings['ignore'],
+                    'geocoder_url' => $geocoder_url,
+                    'geocoder_reverse_url' => $geocoder_reverse_url,
                   ],
                 ],
               ],

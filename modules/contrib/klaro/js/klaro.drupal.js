@@ -58,9 +58,6 @@
       // Observe klaro-element to add aria-features.
       Drupal.behaviors.klaro.klaroElementObserver();
 
-      // Fix broken aria reference, see #3483896
-      document.querySelector('#klaro-cookie-notice')?.removeAttribute('aria-labelledby');
-
       // Add title to learn more link.
       let label_open_consent_dialog = Drupal.t("Open consent dialog", {},{context: 'klaro'});
       document.querySelector('a.cm-link.cn-learn-more')?.setAttribute('title', label_open_consent_dialog);
@@ -125,6 +122,14 @@
             el.parentNode.replaceChild(title_elem, el);
           }
         }
+      });
+
+      // Add link to consent manager for contextual consents.
+      var elements = once('klaro-consent-link', '[data-type="placeholder"] div.context-notice');
+      var title = Drupal.t("Open the Consent Management Dialog", {}, {context: 'klaro'});
+      var linktext = Drupal.t("Manage privacy settings", {}, {context: 'klaro'});
+      Array.prototype.forEach.call(elements, function (el) {
+        el.insertAdjacentHTML('beforeend', `<p class="cm-dialog-link"><a href="#" title="${title}" rel="open-consent-manager">${linktext}</a></p>`);
       });
 
       // Call Behaviors if needed.

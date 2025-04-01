@@ -13,6 +13,7 @@ use Drupal\entity_usage\EntityUsageTrackUrlUpdateInterface;
  *   label = @Translation("HTML links"),
  *   description = @Translation("Tracks relationships created with standard links inside formatted text fields."),
  *   field_types = {"text", "text_long", "text_with_summary"},
+ *   source_entity_class = "Drupal\Core\Entity\FieldableEntityInterface",
  * )
  */
 class HtmlLink extends TextFieldEmbedBase implements EntityUsageTrackUrlUpdateInterface {

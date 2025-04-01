@@ -62,6 +62,13 @@ abstract class BaseFormatter extends FormatterBase implements BaseFormatterInter
   protected $tagManager;
 
   /**
+   * The renderer service.
+   *
+   * @var \Drupal\Core\Render\RendererInterface
+   */
+  protected $renderer;
+
+  /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
@@ -72,6 +79,7 @@ abstract class BaseFormatter extends FormatterBase implements BaseFormatterInter
     $instance->entityRepository = $container->get('entity.repository');
     $instance->moduleHandler = $container->get('module_handler');
     $instance->tagManager = $container->get('custom_field.tag_manager');
+    $instance->renderer = $container->get('renderer');
 
     return $instance;
   }
@@ -114,13 +122,12 @@ abstract class BaseFormatter extends FormatterBase implements BaseFormatterInter
    */
   public function settingsForm(array $form, FormStateInterface $form_state): array {
     $form = parent::settingsForm($form, $form_state);
-    $form_id = $form_state->getFormObject()->getFormId();
     $field_name = $this->fieldDefinition->getName();
-    $is_views_form = $this->moduleHandler->moduleExists('views_ui') && $form_id == 'views_ui_config_item_form';
     $form['fields'] = [
       '#type' => 'details',
       '#title' => $this->t('Field settings'),
       '#open' => TRUE,
+      '#weight' => 10,
     ];
 
     foreach ($this->getCustomFieldItems() as $name => $custom_item) {
@@ -133,29 +140,15 @@ abstract class BaseFormatter extends FormatterBase implements BaseFormatterInter
       if (isset($settings['format_type']) && isset($formatter_options[$settings['format_type']])) {
         $default_format = $settings['format_type'];
       }
-      $value_keys = [
-        'fields',
-        $field_name,
-        'settings_edit_form',
-        'settings',
-        'fields',
-        $name,
-        'format_type',
-      ];
-      if ($is_views_form) {
-        $value_keys = [
-          'options',
-          'settings',
-          'fields',
-          $name,
-          'format_type',
-        ];
-      }
-
+      $value_keys = $this->customFieldFormatterManager->getFormatterValueKeys($form_state, $field_name, $name);
       $format_type = NestedArray::getValue($form_state->getValues(), $value_keys) ?? $default_format;
 
       $visibility_path = $this->customFieldFormatterManager->getInputPathForStatesApi($form_state, $field_name, $name);
-      $root_visibility_path = str_replace('[formatter_settings]', '', $visibility_path);
+      $root_visibility_path = $visibility_path;
+      // Strip the last [formatter_settings] to get root path.
+      if (str_ends_with($visibility_path, '[formatter_settings]')) {
+        $root_visibility_path = substr($visibility_path, 0, -strlen('[formatter_settings]'));
+      }
       $form['#visibility_path'] = $visibility_path;
       $wrapper_id = 'field-' . $field_name . '-' . $name . '-ajax';
       $form['fields'][$name] = [
@@ -200,6 +193,20 @@ abstract class BaseFormatter extends FormatterBase implements BaseFormatterInter
           '#default_value' => $formatter_settings['label_display'] ?? 'above',
           '#weight' => 10,
           '#access' => $type !== 'boolean' && $format_type !== 'hidden',
+        ];
+        $form['fields'][$name]['formatter_settings']['field_label'] = [
+          '#type' => 'textfield',
+          '#title' => $this->t('Field label'),
+          '#description' => $this->t('The label for viewing this field. Leave blank to use the default field label.'),
+          '#default_value' => $formatter_settings['field_label'] ?? $custom_item->getLabel(),
+          '#weight' => 11,
+          '#maxlength' => 255,
+          '#access' => $format_type !== 'hidden',
+          '#states' => [
+            'visible' => [
+              ':input[name="' . $visibility_path . '[label_display]"]' => ['!value' => 'hidden'],
+            ],
+          ],
         ];
         // HTML wrapper settings.
         $tag_options = $this->tagManager->getTagOptions();
@@ -389,7 +396,33 @@ abstract class BaseFormatter extends FormatterBase implements BaseFormatterInter
    * {@inheritdoc}
    */
   public function viewValue(FieldItemInterface $item, string $langcode): array {
-    return [];
+    $field_name = $this->fieldDefinition->get('field_name');
+    $output = [
+      '#theme' => 'custom_field',
+      '#field_name' => $field_name,
+      '#items' => [],
+    ];
+
+    $values = $this->getFormattedValues($item, $langcode);
+
+    foreach ($values as $value) {
+      if ($value !== NULL && $value !== '') {
+        $output['#items'][] = [
+          '#theme' => 'custom_field_item',
+          '#field_name' => $field_name,
+          '#name' => $value['name'],
+          '#value' => $value['value']['#markup'],
+          '#label' => $value['label'],
+          '#label_display' => $value['label_display'],
+          '#type' => $value['type'],
+          '#wrappers' => $value['wrappers'],
+          '#entity_type' => $value['entity_type'],
+          '#lang_code' => $langcode,
+        ];
+      }
+    }
+
+    return $output;
   }
 
   /**
@@ -448,15 +481,18 @@ abstract class BaseFormatter extends FormatterBase implements BaseFormatterInter
         'label_tag' => '',
         'label_classes' => '',
       ];
-      $formatter_settings = $settings[$name] ?? [
-        'formatter_settings' => [],
-        'wrappers' => $default_wrappers,
+
+      $wrappers = $settings[$name]['wrappers'] ?? $default_wrappers;
+      $formatter_settings = [
+        'format_type' => $settings[$name]['format_type'] ?? NULL,
+        'formatter_settings' => $settings[$name]['formatter_settings'] ?? [],
+        'wrappers' => array_merge($default_wrappers, $wrappers),
       ];
 
       $format_type = $custom_item->getDefaultFormatter();
       // Get the available formatter options for this field type.
       $formatter_options = $this->customFieldFormatterManager->getOptions($custom_item);
-      if (isset($formatter_settings['format_type']) && isset($formatter_options[$formatter_settings['format_type']])) {
+      if (!empty($formatter_settings['format_type']) && isset($formatter_options[$formatter_settings['format_type']])) {
         $format_type = $formatter_settings['format_type'];
       }
 
@@ -466,18 +502,22 @@ abstract class BaseFormatter extends FormatterBase implements BaseFormatterInter
       if ($value === '' || $value === NULL) {
         continue;
       }
-      $formatter_settings += $plugin->defaultSettings();
+
+      $formatter_settings['formatter_settings'] += $plugin->defaultSettings();
+      $field_label = $formatter_settings['formatter_settings']['field_label'] ?? NULL;
+
       $markup = [
         'name' => $name,
         'value' => [
           '#markup' => $value,
         ],
-        'label' => $custom_item->getLabel(),
+        'label' => !empty($field_label) ? $field_label : $custom_item->getLabel(),
         'label_display' => $formatter_settings['formatter_settings']['label_display'] ?? 'above',
         'type' => $custom_item->getPluginId(),
-        'wrappers' => $formatter_settings['wrappers'] ?? $default_wrappers,
+        'wrappers' => $formatter_settings['wrappers'],
         'entity_type' => $entity_type,
       ];
+
       $values[$name] = $markup;
     }
 

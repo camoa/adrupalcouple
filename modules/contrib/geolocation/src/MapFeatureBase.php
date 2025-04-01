@@ -2,7 +2,7 @@
 
 namespace Drupal\geolocation;
 
-use Drupal\Core\Asset\LibraryDiscovery;
+use Drupal\Core\Asset\LibraryDiscoveryInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\Form\FormStateInterface;
@@ -43,7 +43,7 @@ abstract class MapFeatureBase extends PluginBase implements MapFeatureInterface,
     protected ModuleHandlerInterface $moduleHandler,
     protected FileSystemInterface $fileSystem,
     protected Token $token,
-    protected LibraryDiscovery $libraryDiscovery,
+    protected LibraryDiscoveryInterface $libraryDiscovery,
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
 

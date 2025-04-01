@@ -55,6 +55,7 @@ class VoteTest extends BrowserTestBase {
     $vote->save();
     $votes = $query->execute();
     $this->assertCount(1, $votes, 'After a vote is cast on a node, it can be retrieved.');
+    /** @var \Drupal\votingapi\VoteInterface $vote */
     $vote = $vote_storage->load(reset($votes));
     $this->assertNotNull($vote, 'Node vote was loaded.');
     $this->assertEquals($user->id(), $vote->getOwnerId(), 'Node vote has correct user.');
@@ -75,6 +76,7 @@ class VoteTest extends BrowserTestBase {
       ->accessCheck(TRUE);
     $votes = $query->execute();
     $this->assertCount(1, $votes, 'After a vote is cast on a user, it can be retrieved.');
+    /** @var \Drupal\votingapi\VoteInterface $vote */
     $vote = $vote_storage->load(reset($votes));
     $this->assertNotNull($vote, 'User vote was loaded.');
     $this->assertEquals(0, $vote->getOwnerId(), 'A vote with no explicit user received the default value.');
@@ -143,6 +145,7 @@ class VoteTest extends BrowserTestBase {
    * Test voting by anonymous users.
    */
   public function testAnonymousVoting(): void {
+    /** @var \Drupal\votingapi\VoteStorageInterface $vote_storage */
     $vote_storage = $this->container->get('entity_type.manager')->getStorage('vote');
     $node = $this->drupalCreateNode();
 

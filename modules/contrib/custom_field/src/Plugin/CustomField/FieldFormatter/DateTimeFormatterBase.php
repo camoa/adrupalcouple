@@ -85,9 +85,7 @@ abstract class DateTimeFormatterBase extends CustomFieldFormatterBase {
       return NULL;
     }
 
-    $build = $this->buildDateWithIsoAttribute($date, $datetime_type);
-
-    return $this->renderer->render($build);
+    return $this->buildDateWithIsoAttribute($date, $datetime_type);
   }
 
   /**

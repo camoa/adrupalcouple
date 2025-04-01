@@ -19,6 +19,6 @@ class GeolocationMapFormatter extends GeolocationMapFormatterBase {
   /**
    * {@inheritdoc}
    */
-  static protected string $dataProviderId = 'geolocation_field_provider';
+  protected static string $dataProviderId = 'geolocation_field_provider';
 
 }

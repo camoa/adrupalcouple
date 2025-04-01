@@ -64,6 +64,17 @@ interface GeocoderInterface extends PluginInspectionInterface {
   public function geocode(string $address): ?array;
 
   /**
+   * Geocode an address.
+   *
+   * @param \Drupal\geolocation\GeolocationAddress $address
+   *   Address to geocode.
+   *
+   * @return array|null
+   *   Location or NULL.
+   */
+  public function geocodeAddress(GeolocationAddress $address): ?array;
+
+  /**
    * Reverse geocode an address.
    *
    * Intended return subject to available data:

@@ -143,7 +143,7 @@ class SchemaDotOrgRecipeCommands extends DrushCommands {
    *
    * @command schemadotorg:recipe-generate
    *
-   * @usage drush schemadotorg:recipe-generate schemadotorg_recipe_events
+   * @usage drush schemadotorg:recipe-generate schemadotorg_starterkit_events
    */
   public function generate(string $name): void {
     $this->confirmRecipe($name, 'generate');
@@ -240,7 +240,7 @@ class SchemaDotOrgRecipeCommands extends DrushCommands {
   }
 
   /**
-   * Convert Schema.org recipe command action.
+   * Schema.org recipe confirm action.
    *
    * @param string $name
    *   The recipe name.

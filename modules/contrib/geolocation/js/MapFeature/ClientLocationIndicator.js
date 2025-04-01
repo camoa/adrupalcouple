@@ -1,6 +1,9 @@
 import { GeolocationMapFeature } from "./GeolocationMapFeature.js";
 import { GeolocationCoordinates } from "../Base/GeolocationCoordinates.js";
 
+/**
+ * @prop {String} settings.icon_path
+ */
 export default class ClientLocationIndicator extends GeolocationMapFeature {
   constructor(settings, map) {
     super(settings, map);

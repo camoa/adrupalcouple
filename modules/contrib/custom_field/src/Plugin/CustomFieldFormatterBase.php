@@ -6,7 +6,6 @@ use Drupal\Core\Field\FieldItemInterface;
 use Drupal\Core\Field\PluginSettingsBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
-use Drupal\Core\Render\RendererInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -36,13 +35,6 @@ abstract class CustomFieldFormatterBase extends PluginSettingsBase implements Cu
   protected $viewMode;
 
   /**
-   * The renderer service.
-   *
-   * @var \Drupal\Core\Render\RendererInterface
-   */
-  protected $renderer;
-
-  /**
    * Constructs a CustomFieldFormatterBase object.
    *
    * @param string $plugin_id
@@ -57,23 +49,20 @@ abstract class CustomFieldFormatterBase extends PluginSettingsBase implements Cu
    *   The view mode.
    * @param array $third_party_settings
    *   Any third party settings.
-   * @param \Drupal\Core\Render\RendererInterface $renderer
-   *   The renderer.
    */
-  final public function __construct($plugin_id, $plugin_definition, ?CustomFieldTypeInterface $custom_field_definition, array $settings, $view_mode, array $third_party_settings, RendererInterface $renderer) {
+  final public function __construct($plugin_id, $plugin_definition, ?CustomFieldTypeInterface $custom_field_definition, array $settings, $view_mode, array $third_party_settings) {
     parent::__construct([], $plugin_id, $plugin_definition);
     $this->customFieldDefinition = $custom_field_definition;
     $this->settings = $settings;
     $this->viewMode = $view_mode;
     $this->thirdPartySettings = $third_party_settings;
-    $this->renderer = $renderer;
   }
 
   /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
-    return new static($plugin_id, $plugin_definition, $configuration['custom_field_definition'] ?? NULL, $configuration['settings'] ?? [], $configuration['view_mode'] ?? '', $configuration['third_party_settings'] ?? [], $container->get('renderer'));
+    return new static($plugin_id, $plugin_definition, $configuration['custom_field_definition'] ?? NULL, $configuration['settings'] ?? [], $configuration['view_mode'] ?? '', $configuration['third_party_settings'] ?? []);
   }
 
   /**

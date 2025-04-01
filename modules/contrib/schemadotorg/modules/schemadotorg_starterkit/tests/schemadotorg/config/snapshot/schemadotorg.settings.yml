@@ -943,7 +943,6 @@ schema_properties:
     - editEIDR
     - encoding
     - encodingFormat
-    - funding
     - geoContains
     - geoCoveredBy
     - geoCovers

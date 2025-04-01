@@ -576,7 +576,15 @@ END;
    */
   protected function getRecipePath(string $module_name): string {
     $recipe_name = $this->replaceText($module_name);
-    $recipe_path = $this->root . '/recipes/sandbox/' . $recipe_name;
+    // Get the recipes directory.
+    $recipe_directory = (file_exists($this->root . '/../recipes'))
+      ? $this->root . '/../recipes'
+      : $this->root . '/recipes';
+    // If the schemadotorg_recipe directory exists, append it.
+    if (file_exists($recipe_directory . '/schemadotorg_recipes')) {
+      $recipe_directory .= '/schemadotorg_recipes';
+    }
+    $recipe_path = $recipe_directory . '/' . $recipe_name;
     $this->fileSystem->prepareDirectory($recipe_path, FileSystemInterface::CREATE_DIRECTORY);
     return $recipe_path;
   }

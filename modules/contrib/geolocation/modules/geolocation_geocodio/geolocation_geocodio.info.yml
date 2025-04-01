@@ -1,7 +1,7 @@
 name: Geolocation - Geocodio
 type: module
 description: 'Geocodio provider.'
-core_version_requirement: ^10 || ^11
+core_version_requirement: ^10 || ^11 || ^12
 package: Geolocation
 configure: geolocation_geocodio.settings
 dependencies:

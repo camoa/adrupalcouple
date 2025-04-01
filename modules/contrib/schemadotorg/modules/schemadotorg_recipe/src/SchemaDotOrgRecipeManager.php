@@ -78,7 +78,11 @@ class SchemaDotOrgRecipeManager implements SchemaDotOrgRecipeManagerInterface {
   public function getRecipes(bool $applied = FALSE): array {
     if (!isset($this->recipes)) {
       $root = $this->container->getParameter('app.root');
-      $recipe_directories = ['modules', 'recipes'];
+      $recipe_directories = [
+        'modules',
+        'recipes',
+        '../recipes',
+      ];
       $recipe_files = [];
       foreach ($recipe_directories as $recipe_directory) {
         if (file_exists($root . '/' . $recipe_directory)) {
@@ -90,6 +94,11 @@ class SchemaDotOrgRecipeManager implements SchemaDotOrgRecipeManagerInterface {
       foreach (array_keys($recipe_files) as $recipe_path) {
         $recipe_directory = dirname($recipe_path);
         $recipe_name = basename(dirname($recipe_path));
+
+        // Ignore symlinks which are generally pointing to core recipes.
+        if (is_link($recipe_directory)) {
+          continue;
+        }
 
         // Ignore any recipe in /tests/recipes/* directory.
         // @see schemadotorg/tests/recipes/schemadotorg_recipe_test/recipe.yml
@@ -111,11 +120,14 @@ class SchemaDotOrgRecipeManager implements SchemaDotOrgRecipeManagerInterface {
 
         $types = [];
         $actions = NestedArray::getValue($recipe_data, ['config', 'actions']) ?? [];
+        $has_schema_mapping = FALSE;
         foreach ($actions as $config_name => $action) {
           if (!str_starts_with($config_name, 'schemadotorg.schemadotorg_mapping.')
             || !NestedArray::keyExists($action, ['createSchemaType'])) {
             continue;
           }
+
+          $has_schema_mapping = TRUE;
 
           // Extract the entity type id and bundle from the config name.
           [, , $entity_type_id, $bundle] = explode('.', $config_name);
@@ -125,6 +137,10 @@ class SchemaDotOrgRecipeManager implements SchemaDotOrgRecipeManagerInterface {
 
           $type = "$entity_type_id:$bundle:$schema_type";
           $types[$type] = $defaults;
+        }
+        // Skip any recipe that does not create Schema.org types.
+        if (!$has_schema_mapping) {
+          continue;
         }
 
         $is_applied = ($types) ? TRUE : FALSE;

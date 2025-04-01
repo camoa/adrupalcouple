@@ -37,7 +37,7 @@ abstract class GeolocationMapFormatterBase extends FormatterBase {
    *
    * @var string
    */
-  static protected string $dataProviderId = 'geolocation_field_provider';
+  protected static string $dataProviderId = 'geolocation_field_provider';
 
   /**
    * Data provider.

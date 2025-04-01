@@ -5,6 +5,7 @@ namespace Drupal\custom_field\Plugin;
 use Drupal\Component\Plugin\Factory\DefaultFactory;
 use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
+use Drupal\Core\Field\Attribute\FieldFormatter;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\DefaultPluginManager;
 
@@ -39,6 +40,7 @@ class CustomFieldFormatterManager extends DefaultPluginManager implements Custom
       $namespaces,
       $module_handler,
       'Drupal\custom_field\Plugin\CustomFieldFormatterInterface',
+      FieldFormatter::class,
       'Drupal\Core\Field\Annotation\FieldFormatter'
     );
 
@@ -179,11 +181,75 @@ class CustomFieldFormatterManager extends DefaultPluginManager implements Custom
    * {@inheritdoc}
    */
   public function getInputPathForStatesApi(FormStateInterface $form_state, string $field_name, string $property, bool $is_views_subfield = FALSE): string {
-    $is_views_form = $form_state->getFormObject()->getFormId() == 'views_ui_config_item_form';
+    $form_id = $form_state->getFormObject()->getFormId();
+    $is_views_form = $form_id === 'views_ui_config_item_form';
+    $is_block_form = $form_id === 'block_form';
+    $is_layout_builder_form = $form_id === 'layout_builder_add_block' || $form_id === 'layout_builder_update_block';
     if ($is_views_form) {
       return $is_views_subfield ? 'options[settings]' : "options[settings][fields][$property][formatter_settings]";
     }
+    elseif ($is_block_form) {
+      return "settings[formatter_settings][fields][$property][formatter_settings]";
+    }
+    elseif ($is_layout_builder_form) {
+      return "settings[formatter][settings][fields][$property][formatter_settings]";
+    }
     return "fields[$field_name][settings_edit_form][settings][fields][$property][formatter_settings]";
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getFormatterValueKeys(FormStateInterface $form_state, string $field_name, string $property): array {
+    $form_id = $form_state->getFormObject()->getFormId();
+    $value_keys = [
+      'fields',
+      $field_name,
+      'settings_edit_form',
+      'settings',
+      'fields',
+      $property,
+      'format_type',
+    ];
+
+    switch ($form_id) {
+      case 'views_ui_config_item_form':
+        $value_keys = [
+          'options',
+          'settings',
+          'fields',
+          $property,
+          'format_type',
+        ];
+        break;
+
+      case 'block_form':
+        $value_keys = [
+          'settings',
+          'formatter_settings',
+          'fields',
+          $property,
+          'format_type',
+        ];
+        break;
+
+      case 'layout_builder_add_block':
+      case 'layout_builder_update_block':
+        $value_keys = [
+          'settings',
+          'formatter',
+          'settings',
+          'fields',
+          $property,
+          'format_type',
+        ];
+        break;
+
+      default:
+        break;
+    }
+
+    return $value_keys;
   }
 
 }

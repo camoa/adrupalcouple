@@ -1,7 +1,7 @@
 hotlink: false
-origin: 'https://www.adrupalcouple.us'
-origin_dir: sites/default/files
-proxy_headers: ''
+origin: ''
+origin_dir: ''
 use_imagecache_root: true
+proxy_headers: ''
 verify: true
 excluded_extensions: ''

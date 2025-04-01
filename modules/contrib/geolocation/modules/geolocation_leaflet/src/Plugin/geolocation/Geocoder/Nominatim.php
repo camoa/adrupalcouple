@@ -7,6 +7,7 @@ use Drupal\Core\Url;
 use Drupal\Core\Utility\Error;
 use Drupal\geolocation\GeocoderBase;
 use Drupal\geolocation\GeocoderInterface;
+use Drupal\geolocation\GeolocationAddress;
 use GuzzleHttp\Exception\RequestException;
 
 /**
@@ -50,6 +51,61 @@ class Nominatim extends GeocoderBase implements GeocoderInterface {
       'query' => [
         'q' => $address,
         'email' => $this->getRequestEmail(),
+        'limit' => 1,
+        'format' => 'json',
+        'connect_timeout' => 5,
+      ],
+    ]);
+
+    try {
+      $result = Json::decode(\Drupal::httpClient()->get($url->toString())->getBody());
+    }
+    catch (RequestException $e) {
+      $logger = \Drupal::logger('geolocation');
+      Error::logException($logger, $e);
+      return NULL;
+    }
+
+    $location = [];
+
+    if (empty($result[0])) {
+      return NULL;
+    }
+    else {
+      $location['location'] = [
+        'lat' => $result[0]['lat'],
+        'lng' => $result[0]['lon'],
+      ];
+    }
+
+    if (!empty($result[0]['boundingbox'])) {
+      $location['boundary'] = [
+        'lat_north_east' => $result[0]['boundingbox'][1],
+        'lng_north_east' => $result[0]['boundingbox'][3],
+        'lat_south_west' => $result[0]['boundingbox'][0],
+        'lng_south_west' => $result[0]['boundingbox'][2],
+      ];
+    }
+
+    if (!empty($result[0]['display_name'])) {
+      $location['address'] = $result[0]['display_name'];
+    }
+
+    return $location;
+  }
+
+  /**
+   * Geocode a structured address.
+   */
+  public function geocodeAddress(GeolocationAddress $address): ?array {
+    $url = Url::fromUri($this->getGeocodingUrl(), [
+      'query' => [
+        'street' => $address->addressLine1,
+        'city' => $address->locality ?? NULL,
+        'county' => $address->dependentLocality ?? NULL,
+        'state' => $address->administrativeArea ?? NULL,
+        'country' => $address->countryCode ?? NULL,
+        'postalcode' => $address->postalCode ?? NULL,
         'limit' => 1,
         'format' => 'json',
         'connect_timeout' => 5,

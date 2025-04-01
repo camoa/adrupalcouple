@@ -2,9 +2,6 @@
 
 namespace Drupal\geolocation_address\Plugin\geolocation\DataProvider;
 
-use CommerceGuys\Addressing\AddressFormat\AddressFormatRepositoryInterface;
-use CommerceGuys\Addressing\Country\CountryRepositoryInterface;
-use Drupal\Component\Render\FormattableMarkup;
 use Drupal\Core\Entity\EntityFieldManagerInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Field\FieldDefinitionInterface;
@@ -15,6 +12,7 @@ use Drupal\geolocation\DataProviderBase;
 use Drupal\geolocation\DataProviderInterface;
 use Drupal\geolocation\GeocoderInterface;
 use Drupal\geolocation\GeocoderManager;
+use Drupal\geolocation\GeolocationAddress;
 use Drupal\views\Plugin\views\field\EntityField;
 use Drupal\views\Plugin\views\field\FieldPluginBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -48,8 +46,6 @@ class AddressFieldProvider extends DataProviderBase implements DataProviderInter
     ModuleHandlerInterface $moduleHandler,
     Token $token,
     protected GeocoderManager $geocoderManager,
-    protected AddressFormatRepositoryInterface $addressFormatRepository,
-    protected CountryRepositoryInterface $countryRepository,
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition, $entity_field_manager, $moduleHandler, $token);
     if (!empty($configuration['geocoder'])) {
@@ -68,9 +64,7 @@ class AddressFieldProvider extends DataProviderBase implements DataProviderInter
       $container->get('entity_field.manager'),
       $container->get('module_handler'),
       $container->get('token'),
-      $container->get('plugin.manager.geolocation.geocoder'),
-      $container->get('address.address_format_repository'),
-      $container->get('address.country_repository')
+      $container->get('plugin.manager.geolocation.geocoder')
     );
   }
 
@@ -120,26 +114,19 @@ class AddressFieldProvider extends DataProviderBase implements DataProviderInter
       return [];
     }
 
-    $address_format = str_replace(["\r", "\n"], ' ', $this->addressFormatRepository->get($fieldItem->getCountryCode())->getFormat());
+    $coordinates = $this->geocoder->geocodeAddress(new GeolocationAddress(
+      organization: $fieldItem->getOrganization(),
+      addressLine1: $fieldItem->getAddressLine1(),
+      addressLine2: $fieldItem->getAddressLine2(),
+      addressLine3: $fieldItem->getAddressLine3(),
+      dependentLocality: $fieldItem->getDependentLocality(),
+      locality: $fieldItem->getLocality(),
+      administrativeArea: $fieldItem->getAdministrativeArea(),
+      postalCode: $fieldItem->getPostalCode(),
+      sortingCode: $fieldItem->getSortingCode(),
+      countryCode: $fieldItem->getCountryCode(),
+    ));
 
-    $formatted_address = new FormattableMarkup(str_replace('%', ':', $address_format), [
-      ':givenName' => $fieldItem->getGivenName(),
-      ':familyName' => $fieldItem->getFamilyName(),
-      ':organization' => $fieldItem->getOrganization(),
-      ':addressLine1' => $fieldItem->getAddressLine1(),
-      ':addressLine2' => $fieldItem->getAddressLine2(),
-      ':dependentLocality' => $fieldItem->getDependentLocality(),
-      ':locality' => $fieldItem->getLocality(),
-      ':administrativeArea' => $fieldItem->getAdministrativeArea(),
-      ':postalCode' => $fieldItem->getPostalCode(),
-      ':sortingCode' => $fieldItem->getSortingCode(),
-    ]);
-
-    $address = (string) $formatted_address;
-    $address = trim($address);
-    $address = $address . ' ' . $this->countryRepository->get($fieldItem->getCountryCode())->getName();
-
-    $coordinates = $this->geocoder->geocode($address);
     return !empty($coordinates['location']) ? [$coordinates['location']] : [];
   }
 

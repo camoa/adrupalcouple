@@ -3,22 +3,23 @@
 namespace Drupal\custom_field\Plugin\CustomField\FieldFormatter;
 
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Field\Attribute\FieldFormatter;
 use Drupal\Core\Field\FieldItemInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Plugin implementation of the 'entity reference rendered entity' formatter.
- *
- * @FieldFormatter(
- *   id = "entity_reference_entity_view",
- *   label = @Translation("Rendered entity"),
- *   description = @Translation("Render the referenced entity."),
- *   field_types = {
- *     "entity_reference",
- *   }
- * )
+ * Plugin implementation of the 'entity_reference_entity_view' formatter.
  */
+#[FieldFormatter(
+  id: 'entity_reference_entity_view',
+  label: new TranslatableMarkup('Rendered entity'),
+  description: new TranslatableMarkup('Render the referenced entity.'),
+  field_types: [
+    'entity_reference',
+  ],
+)]
 class EntityReferenceEntityFormatter extends EntityReferenceFormatterBase {
 
   /**
@@ -100,9 +101,8 @@ class EntityReferenceEntityFormatter extends EntityReferenceFormatterBase {
 
     $view_mode = $this->getSetting('view_mode');
     $view_builder = $this->entityTypeManager->getViewBuilder($value->getEntityTypeId());
-    $build = $view_builder->view($value, $view_mode, $value->language()->getId());
 
-    return $this->renderer->render($build);
+    return $view_builder->view($value, $view_mode, $value->language()->getId());
   }
 
 }

@@ -88,7 +88,6 @@ class VoteAccessTest extends KernelTestBase {
    */
   protected function setUp(): void {
     parent::setUp();
-    $this->installSchema('system', 'sequences');
     $this->installEntitySchema('user');
     $this->installEntitySchema('vote');
     $this->installEntitySchema('entity_test');

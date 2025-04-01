@@ -31,3 +31,28 @@ function entity_usage_post_update_clean_up_regenerate_queue(array &$sandbox): vo
 function entity_usage_post_update_add_pre_save_url_recorder_service(array &$sandbox): void {
   // Empty update to force container rebuild.
 }
+
+/**
+ * Remove unsupported source entity types from config.
+ */
+function entity_usage_post_update_remove_unsupported_source_entity_types(array &$sandbox): void {
+  /** @var \Drupal\entity_usage\EntityUsageTrackManager $plugin_manager */
+  $plugin_manager = \Drupal::service('plugin.manager.entity_usage.track');
+  $entity_type_manager = \Drupal::service('entity_type.manager');
+  $config = \Drupal::configFactory()->getEditable('entity_usage.settings');
+
+  // Remove any entity types that are not supported.
+  $source_entity_types = $config->get('track_enabled_source_entity_types') ?? [];
+  $updated_entity_types = [];
+  foreach ($source_entity_types as $entity_type_id) {
+    if ($entity_type_manager->hasDefinition($entity_type_id) && $plugin_manager->isEntityTypeSource($entity_type_manager->getDefinition($entity_type_id))) {
+      $updated_entity_types[] = $entity_type_id;
+    }
+  }
+
+  if ($source_entity_types !== $updated_entity_types) {
+    $config
+      ->set('track_enabled_source_entity_types', $updated_entity_types)
+      ->save();
+  }
+}

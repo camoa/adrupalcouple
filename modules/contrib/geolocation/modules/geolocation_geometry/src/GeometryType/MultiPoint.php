@@ -3,7 +3,7 @@
 namespace Drupal\geolocation_geometry\GeometryType;
 
 /**
- * Multi point.
+ * Multipoint.
  *
  * @property \Drupal\geolocation_geometry\GeometryType\Point[] $components
  */

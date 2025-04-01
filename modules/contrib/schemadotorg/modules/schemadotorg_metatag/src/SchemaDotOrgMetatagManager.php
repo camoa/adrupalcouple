@@ -60,8 +60,11 @@ class SchemaDotOrgMetatagManager implements SchemaDotOrgMetatagManagerInterface 
     $bundle = $mapping->getTargetBundle();
     $field_name = 'field_metatag';
 
-    // Only add the meta tags field to node types.
-    if ($entity_type_id !== 'node') {
+    // Determine is the Schema.org mapping should have meta tag field.
+    $schema_types = $this->configFactory
+      ->get('schemadotorg_metatag.settings')
+      ->get('schema_types');
+    if (!$this->schemaTypeManager->getSetting($schema_types, $mapping)) {
       return;
     }
 

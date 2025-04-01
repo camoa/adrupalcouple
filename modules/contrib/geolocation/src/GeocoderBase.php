@@ -193,6 +193,13 @@ abstract class GeocoderBase extends PluginBase implements GeocoderInterface, Con
   /**
    * {@inheritdoc}
    */
+  public function geocodeAddress(GeolocationAddress $address): ?array {
+    return $this->geocode((string) $address);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function reverseGeocode(float $latitude, float $longitude): ?array {
     return NULL;
   }

@@ -2,7 +2,7 @@
 
 namespace Drupal\geolocation\Plugin\geolocation\MapFeature;
 
-use Drupal\Core\Asset\LibraryDiscovery;
+use Drupal\Core\Asset\LibraryDiscoveryInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\Utility\Token;
@@ -33,7 +33,7 @@ class ControlTileLayers extends ControlCustomElementBase {
     ModuleHandlerInterface $moduleHandler,
     FileSystemInterface $fileSystem,
     Token $token,
-    LibraryDiscovery $libraryDiscovery,
+    LibraryDiscoveryInterface $libraryDiscovery,
     protected TileLayerProviderManager $tileLayerProviderManager,
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition, $moduleHandler, $fileSystem, $token, $libraryDiscovery);

@@ -44,6 +44,7 @@ Configuration
 - Go to the Schema.org types configuration page.  
   (/admin/config/schemadotorg/settings/types#edit-schemadotorg-metatag)
 - Go to the 'Metatag settings' details.
+- Enter the Schema.org types that should have a meta tags field added when the Schema.org mapping is created.
 - Enter allowed meta tag groups to be displayed on node edit forms.
 
 - Go to the Schema.org properties configuration page.  

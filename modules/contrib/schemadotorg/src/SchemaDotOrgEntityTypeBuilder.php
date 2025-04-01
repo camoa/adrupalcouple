@@ -482,6 +482,7 @@ class SchemaDotOrgEntityTypeBuilder implements SchemaDotOrgEntityTypeBuilderInte
         break;
 
       case 'entity_reference':
+      case 'entity_reference_override':
       case 'entity_reference_revisions':
         if (!isset($field_values['settings']['handler_settings'])) {
           $target_type = $field_storage_values['settings']['target_type'] ?? 'node';

@@ -6,4 +6,4 @@ dependencies:
   - geolocation:geolocation
   - geolocation:geolocation_demo
 hidden: true
-core_version_requirement: ^10 || ^11
+core_version_requirement: ^10 || ^11 || ^12

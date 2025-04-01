@@ -10,9 +10,9 @@ Table of contents
 Introduction
 ------------
 
-The **Schema.org Blueprints Subtype module** enhances the Schema.org additional
-type property to allow additional type specificity without having to create 
-dedicated entity types for every appropriate Schema.org type.
+The **Schema.org Blueprints Additional Type module** enhances the Schema.org 
+additional type property to allow additional type specificity without having 
+to create dedicated entity types for every appropriate Schema.org type.
 
 For example, the sub types for <http://schema.org/Event> are mainly for adding a 
 little extra specificity about an Event. Most event additional types do not need to 

@@ -3,22 +3,23 @@
 namespace Drupal\custom_field\Plugin\CustomField\FieldFormatter;
 
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Field\Attribute\FieldFormatter;
 use Drupal\Core\Field\FieldItemInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\custom_field\Plugin\CustomFieldTypeInterface;
 
 /**
  * Plugin implementation of the 'hierarchical_term_formatter' formatter.
- *
- * @FieldFormatter(
- *   id = "hierarchical_term_formatter",
- *   label = @Translation("Hierarchical term"),
- *   description = @Translation("Display the term hierarchy."),
- *   field_types = {
- *     "entity_reference",
- *   }
- * )
  */
+#[FieldFormatter(
+  id: 'hierarchical_term_formatter',
+  label: new TranslatableMarkup('Hierarchical term'),
+  description: new TranslatableMarkup('Display the term hierarchy.'),
+  field_types: [
+    'entity_reference',
+  ],
+)]
 class HierarchicalFormatter extends EntityReferenceFormatterBase {
 
   /**
@@ -189,15 +190,13 @@ class HierarchicalFormatter extends EntityReferenceFormatterBase {
       }
     }
 
-    $build = [
+    return [
       '#theme' => 'custom_field_hierarchical_formatter',
       '#terms' => $term_tree,
       '#wrapper' => $this->getSetting('hierarchy_wrap'),
       '#separator' => $this->getSetting('hierarchy_separator'),
       '#link' => $this->getSetting('hierarchy_link'),
     ];
-
-    return $this->renderer->render($build);
   }
 
   /**

@@ -15,7 +15,7 @@ use Drupal\geolocation_geometry\GeometryType\Polygon;
 /**
  * KML format type.
  */
-class KML extends XML implements GeometryFormatInterface {
+class KML extends XML implements GeometryFormatInterface { // phpcs:ignore
 
   /**
    * {@inheritdoc}

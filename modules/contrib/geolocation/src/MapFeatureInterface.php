@@ -19,7 +19,7 @@ interface MapFeatureInterface extends PluginInspectionInterface {
   public static function getDefaultSettings(): array;
 
   /**
-   * Provide map feature specific settings ready to handover to JS.
+   * Provide map feature specific settings ready to hand over to JS.
    *
    * @param array $settings
    *   Current general map settings. Might contain unrelated settings as well.

@@ -15,7 +15,7 @@ use Drupal\geolocation_geometry\GeometryType\Polygon;
 /**
  * WKT geometry format.
  */
-class WKT implements GeometryFormatInterface {
+class WKT implements GeometryFormatInterface { // phpcs:ignore
 
   /**
    * {@inheritdoc}

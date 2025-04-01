@@ -45,14 +45,18 @@ class SchemaDotOrgCorrespondingReferenceManager implements SchemaDotOrgCorrespon
       return;
     }
 
+    // Default corresponding properties to use 'field_ui:entity_reference:node'
+    // if the property is using an entity reference field.
     $default_schema_properties = $this->configFactory
       ->get('schemadotorg_cer.settings')
       ->get('default_schema_properties');
     foreach ($default_schema_properties as $first_property_name => $second_property_name) {
-      if (isset($defaults['properties'][$first_property_name])) {
+      if (isset($defaults['properties'][$first_property_name])
+        && !str_contains($defaults['properties'][$first_property_name]['type'], 'entity_reference')) {
         $defaults['properties'][$first_property_name]['type'] = 'field_ui:entity_reference:node';
       }
-      if (isset($defaults['properties'][$second_property_name])) {
+      if (isset($defaults['properties'][$second_property_name])
+        && !str_contains($defaults['properties'][$second_property_name]['type'], 'entity_reference')) {
         $defaults['properties'][$second_property_name]['type'] = 'field_ui:entity_reference:node';
       }
     }

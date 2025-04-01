@@ -38,4 +38,19 @@ interface CustomFieldFormatterManagerInterface {
    */
   public function getInputPathForStatesApi(FormStateInterface $form_state, string $field_name, string $property, bool $is_views_subfield): string;
 
+  /**
+   * Return the value keys in formatter settings form for format_type selection.
+   *
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The form state.
+   * @param string $field_name
+   *   The field name of the parent custom field.
+   * @param string $property
+   *   The property name of the custom field.
+   *
+   * @return array
+   *   An array of value keys.
+   */
+  public function getFormatterValueKeys(FormStateInterface $form_state, string $field_name, string $property): array;
+
 }

@@ -139,7 +139,7 @@ class Vote extends ContentEntityBase implements VoteInterface {
    * {@inheritdoc}
    */
   public function getCreatedTime(): int {
-    return $this->get('timestamp')->value;
+    return (int) $this->get('timestamp')->value;
   }
 
   /**
