@@ -1,0 +1,17 @@
+uuid: 2dd9dd56-3d55-4b21-971f-611165038fee
+langcode: en
+status: false
+dependencies: {  }
+id: prod
+label: prod
+description: ''
+weight: 1
+stackable: false
+no_patching: false
+storage: folder
+folder: sites/default/envs/prod
+module:
+  smtp: 0
+theme: {  }
+complete_list: {  }
+partial_list: {  }
