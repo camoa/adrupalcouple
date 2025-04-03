@@ -1,0 +1,21 @@
+services:
+  brevo.brevo_client_factory:
+    class: Drupal\brevo\BrevoFactory
+    arguments: ['@config.factory', '@http_client']
+
+  brevo.brevo_transactional_emails_api_client:
+    class: Brevo\Client\Api\TransactionalEmailsApi
+    factory: brevo.brevo_client_factory:createTransactionalEmailsApiClient
+
+  brevo.brevo_account_api_client:
+    class: Brevo\Client\Api\Account
+    factory: brevo.brevo_client_factory:createAccountApiClient
+
+  brevo.handler:
+    class: Drupal\brevo\BrevoHandler
+    arguments: ['@brevo.brevo_client_factory', '@config.factory', '@logger.channel.brevo', '@messenger']
+
+  logger.channel.brevo:
+    class: Drupal\Core\Logger\LoggerChannel
+    factory: logger.factory:get
+    arguments: ['brevo']

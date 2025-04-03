@@ -1,0 +1,10 @@
+brevo-js-sdk:
+  js:
+    https://cdn.brevo.com/js/sdk-loader.js: { type: external, minified: false, attributes: { async: true } }
+
+brevo-marketing-automation:
+  js:
+    js/marketing_automation.js: {}
+  dependencies:
+    - brevo/brevo-js-sdk
+    - core/drupalSettings

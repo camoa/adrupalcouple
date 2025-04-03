@@ -1,0 +1,9 @@
+brevo_mailer.settings:
+  route_name: brevo_mailer.admin_settings_form
+  title: 'Transactional emails'
+  base_route: brevo.admin_settings_form
+
+brevo_mailer.test_email_form:
+  route_name: brevo_mailer.test_email_form
+  title: 'Send test email'
+  base_route: brevo.admin_settings_form

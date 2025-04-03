@@ -1,0 +1,7 @@
+brevo.admin_settings_form:
+  path: '/admin/config/services/brevo/settings'
+  defaults:
+    _form: '\Drupal\brevo\Form\BrevoAdminSettingsForm'
+    _title: 'Brevo Settings'
+  requirements:
+    _permission: 'administer brevo'

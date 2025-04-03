@@ -1,0 +1,16 @@
+{
+  "require": {
+    "html2text/html2text": {
+      "version": "v4.3.1",
+      "url": "https://github.com/mtibben/html2text/archive/4.3.1.zip"
+    },
+    "getbrevo/brevo-php": {
+      "version": "v2.0.4",
+      "url": "https://github.com/getbrevo/brevo-php/archive/refs/tags/v2.0.4.zip"
+    },
+    "nyholm/psr7": {
+      "version": "1.8.2",
+      "url": "https://github.com/Nyholm/psr7/archive/refs/tags/1.8.2.zip"
+    }
+  }
+}

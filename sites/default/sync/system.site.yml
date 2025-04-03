@@ -3,7 +3,7 @@ _core:
 langcode: en
 uuid: 6b905249-4230-4c8c-aba3-aafbe2493b6d
 name: 'A Drupal Couple'
-mail: info@adrupalcouple.com
+mail: info@adrupalcouple.us
 slogan: 'The Drupal Couple'
 page:
   403: ''
@@ -12,4 +12,4 @@ page:
 admin_compact_mode: false
 weight_select_max: 100
 default_langcode: en
-mail_notification: null
+mail_notification: info@adrupalcouple.us

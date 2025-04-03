@@ -1,0 +1,11 @@
+brevo_mailer.admin_settings_form:
+  title: 'Brevo Mailer'
+  route_name: brevo_mailer.admin_settings_form
+  description: 'Configure the Brevo email service.'
+  parent: brevo.admin_settings_form
+
+brevo_mailer.test_email_form:
+  title: 'Send test email'
+  route_name: brevo_mailer.test_email_form
+  description: 'Send test email to make sure that it works.'
+  parent: brevo_mailer.admin_settings_form

@@ -1,0 +1,18 @@
+
+# Get account details
+
+GET https://api.brevo.com/v3/account
+accept: application/json
+api-key: {{BREVO_API_KEY}}
+
+###
+
+# Enable the e-commerce features
+# @see https://developers.brevo.com/reference/post_ecommerce-activate
+
+POST https://api.brevo.com/v3/ecommerce/activate
+accept: application/json
+api-key: {{BREVO_API_KEY}}
+
+
+

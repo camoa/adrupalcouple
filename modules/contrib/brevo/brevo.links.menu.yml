@@ -1,0 +1,5 @@
+brevo.admin_settings_form:
+  title: 'Brevo'
+  route_name: brevo.admin_settings_form
+  description: 'Configure the Brevo service.'
+  parent: system.admin_config_services

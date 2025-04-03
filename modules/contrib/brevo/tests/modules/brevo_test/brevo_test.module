@@ -1,0 +1,31 @@
+<?php
+
+/**
+ * @file
+ * Brevo test module.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function brevo_test_form_brevo_admin_settings_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  // Replace settings form validate with fake one.
+  $index = array_search('::validateForm', $form['#validate']);
+  $form['#validate'][$index] = 'brevo_test_settings_form_validate';
+}
+
+/**
+ * Overridden validate for test purposes.
+ */
+function brevo_test_settings_form_validate($form, FormStateInterface $form_state) {
+  /** @var \Drupal\brevo\BrevoHandlerInterface $brevo_handler */
+  $brevo_handler = \Drupal::service('brevo.handler');
+  if ($form_state->getValue('api_key') === 'xkeysib-cukjwg4wpabh68ErgX4fd4i1Brv63Zum91C6mxyo8bljOhC7gnoACQKKKOxn2Sjd-XzzqOjdWSIOwjYNw') {
+    // Do nothing. It's just to emulate correct API key.
+  }
+  elseif ($brevo_handler->validateBrevoApiKey($form_state->getValue('api_key')) === FALSE) {
+    $form_state->setErrorByName('api_key', "Couldn't connect to the Brevo API. Please check your API settings.");
+  }
+}

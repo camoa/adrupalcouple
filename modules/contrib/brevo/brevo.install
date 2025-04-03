@@ -1,0 +1,95 @@
+<?php
+
+/**
+ * @file
+ * Contains install/uninstall stuff.
+ */
+
+use Drupal\Core\Link;
+
+/**
+ * Implements hook_requirements().
+ */
+function brevo_requirements($phase) {
+  $requirements = [];
+
+  if ($phase !== 'runtime') {
+    return $requirements;
+  }
+
+  $requirements = [
+    'brevo' => [
+      'title' => t('Brevo'),
+    ],
+  ];
+
+  /** @var \Drupal\brevo\BrevoHandlerInterface $brevo_handler */
+  $brevo_handler = \Drupal::service('brevo.handler');
+  if ($brevo_handler->validateBrevoApiSettings() === FALSE) {
+    $requirements['brevo']['value'] = t('The Brevo library is installed but API settings are not configured. Please check your @link.', [
+      '@link' => Link::createFromRoute(t('settings'), 'brevo.admin_settings_form')->toString(),
+    ]);
+    $requirements['brevo']['severity'] = REQUIREMENT_WARNING;
+  }
+  else {
+    $requirements['brevo']['value'] = t('The Brevo library is installed correctly. API settings are configured.');
+    $requirements['brevo']['severity'] = REQUIREMENT_OK;
+  }
+
+  return $requirements;
+}
+
+/**
+ * Implements hook_update_N().
+ *
+ * Install Brevo Mailer & migrate configurations.
+ */
+function brevo_update_8001() {
+  $module_handler = \Drupal::service('module_handler');
+  $module_installer = \Drupal::service('module_installer');
+  $module = 'brevo_mailer';
+
+  // Make sure that Brevo Mailer module is installed.
+  if (!$module_handler->moduleExists($module)) {
+    $module_installer->install([$module]);
+    $message = t('The module "@module" has been installed.', ['@module' => $module]);
+  } else {
+    $message = t('The module "@module" is already installed.', ['@module' => $module]);
+  }
+
+  // Make sure that the configuration is migrated.
+  $brevoConfig = \Drupal::service('config.factory')->getEditable('brevo.settings');
+  $brevoMailerConfig = \Drupal::service('config.factory')->getEditable('brevo_mailer.settings');
+  if ($brevoConfig->get('debug_mode') !== NULL) {
+    $brevoMailerConfig->set('debug_mode', $brevoConfig->get('debug_mode', FALSE));
+    $brevoConfig->clear('debug_mode');
+  }
+
+  if ($brevoConfig->get('test_mode') !== NULL) {
+    $brevoMailerConfig->set('test_mode', $brevoConfig->get('test_mode', FALSE));
+    $brevoConfig->clear('test_mode');
+  }
+
+  if ($brevoConfig->get('format_filter') !== NULL) {
+    $brevoMailerConfig->set('format_filter', $brevoConfig->get('format_filter', NULL));
+    $brevoConfig->clear('format_filter');
+  }
+
+  if ($brevoConfig->get('use_queue') !== NULL) {
+    $brevoMailerConfig->set('use_queue', $brevoConfig->get('use_queue', FALSE));
+    $brevoConfig->clear('use_queue');
+  }
+
+  if ($brevoConfig->get('use_theme') !== NULL) {
+    $brevoMailerConfig->set('use_theme', $brevoConfig->get('use_theme', FALSE));
+    $brevoConfig->clear('use_theme');
+  }
+
+  $brevoMailerConfig->save();
+  $brevoConfig->save();
+
+  // Clear plugin caches.
+  \Drupal::service('plugin.cache_clearer')->clearCachedDefinitions();
+
+  return $message;
+}

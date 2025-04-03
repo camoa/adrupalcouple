@@ -1,0 +1,121 @@
+<?php
+
+/**
+ * @file
+ * Contains install/uninstall stuff.
+ */
+
+use Drupal\Core\Link;
+use Drupal\Core\Url;
+use Drupal\symfony_mailer\Entity\MailerTransport;
+
+/**
+ * Implements hook_install().
+ */
+function brevo_mailer_install() {
+  if (\Drupal::moduleHandler()->moduleExists('mailsystem')) {
+    $config = \Drupal::configFactory()->getEditable('system.mail');
+    $mail_plugins = $config->get('interface');
+    if (in_array('brevo', array_keys($mail_plugins))) {
+      return;
+    }
+
+    $mail_plugins['brevo'] = 'brevo';
+    $config->set('interface', $mail_plugins)->save();
+  }
+
+  if (\Drupal::moduleHandler()->moduleExists('symfony_mailer')) {
+    // Create a new Brevo transport if it does not exist yet.
+    // Make sure to define it as the default transport.
+    $brevo_config = \Drupal::config('brevo.settings');
+    $api_key = $brevo_config->get('api_key') ?? 'API_KEY';
+
+    $brevo_mailer_transport = MailerTransport::load('brevo');
+    if (empty($brevo_mailer_transport)) {
+      $brevo_mailer_transport = MailerTransport::create([
+        'id' => 'brevo',
+        'label' => 'Brevo',
+        'plugin' => 'dsn',
+        'configuration' => [
+          'dsn' => 'brevo+api://'.$api_key.'@default'
+        ]
+      ]);
+
+      $brevo_mailer_transport->save();
+      $brevo_mailer_transport->setAsDefault();
+    }
+  }
+}
+
+/**
+ * Implements hook_install().
+ */
+function brevo_mailer_uninstall() {
+  if (\Drupal::moduleHandler()->moduleExists('mailsystem')) {
+    $config = \Drupal::configFactory()->getEditable('system.mail');
+    $mail_plugins = $config->get('interface');
+    if (!in_array('brevo', array_keys($mail_plugins))) {
+      return;
+    }
+
+    unset($mail_plugins['brevo']);
+    $config->set('interface', $mail_plugins)->save();
+  }
+
+  if (\Drupal::moduleHandler()->moduleExists('symfony_mailer')) {
+    // Delete the Brevo transport.
+    $brevo_mailer_transport = MailerTransport::load('brevo');
+    if (!empty($brevo_mailer_transport)) {
+      $brevo_mailer_transport->delete();
+    }
+  }
+}
+
+/**
+ * Implements hook_requirements().
+ */
+function brevo_mailer_requirements($phase) {
+  $requirements = [];
+
+  if ($phase !== 'runtime') {
+    return $requirements;
+  }
+
+  $requirements = [
+    'brevo_mailer' => [
+      'title' => t('Brevo Mailer'),
+    ],
+  ];
+
+  /** @var \Drupal\brevo_mailer\BrevoMailerHandlerInterface $brevo_mailer_handler */
+  $brevo_handler = \Drupal::service('brevo.handler');
+  /** @var \Drupal\brevo_mailer\BrevoMailerHandlerInterface $brevo_mailer_handler */
+  $brevo_mailer_handler = \Drupal::service('brevo_mailer.mail_handler');
+  if ($brevo_handler->validateBrevoLibrary() === FALSE) {
+    $requirements['brevo_mailer']['value'] = t('The Brevo library has not been installed correctly.');
+    $requirements['brevo_mailer']['severity'] = REQUIREMENT_ERROR;
+  }
+  else {
+    if ($brevo_mailer_handler->validateDrupalMailerLibrary() === FALSE) {
+      $requirements['brevo_mailer']['value'] = t('Please make sure to install one of the following Drupal modules : @mailsystem or @sfmailer.', [
+        '@mailsystem' => Link::fromTextAndUrl('Mailsystem', Url::fromUri('https://www.drupal.org/project/mailsystem'))->toString(),
+        '@sfmailer' => Link::fromTextAndUrl('Symfony Mailer', Url::fromUri('https://www.drupal.org/project/symfony_mailer'))->toString(),
+      ]);
+      $requirements['brevo_mailer']['severity'] = REQUIREMENT_ERROR;
+    }
+    else {
+      if ($brevo_handler->validateBrevoApiSettings() === FALSE) {
+        $requirements['brevo_mailer']['value'] = t('The Brevo library is installed but API settings are not configured. Please check your @link.', [
+          '@link' => Link::createFromRoute(t('settings'), 'brevo.admin_settings_form')->toString(),
+        ]);
+        $requirements['brevo_mailer']['severity'] = REQUIREMENT_WARNING;
+      }
+      else {
+        $requirements['brevo_mailer']['value'] = t('The Brevo Mailer module is installed correctly.');
+        $requirements['brevo_mailer']['severity'] = REQUIREMENT_OK;
+      }
+    }
+  }
+
+  return $requirements;
+}

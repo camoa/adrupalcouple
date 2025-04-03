@@ -1,0 +1,62 @@
+<?php
+
+/**
+ * @file
+ * Contains Brevo module.
+ */
+
+use Brevo\Client\ApiException;
+use Drupal\Core\Routing\RouteMatchInterface;
+
+// Ludwig module integration.
+if (\Drupal::hasService('ludwig.require_once')) {
+  $ludwig_require_once = \Drupal::service('ludwig.require_once');
+  $ludwig_require_once->requireOnce('html2text/html2text', 'src/Html2Text.php', dirname(__FILE__));
+}
+
+/**
+ * Implements hook_help().
+ */
+function brevo_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the brevo module.
+    case 'help.page.brevo':
+
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Enables site to integrate with Brevo CRM service') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_page_attachments_alter().
+ */
+function brevo_page_attachments_alter(array &$page) {
+  $admin_context = \Drupal::service('router.admin_context');
+  $brevo_config = \Drupal::config('brevo.settings');
+  $activate_marketing_automation = $brevo_config->get('activate_marketing_automation');
+  if ($activate_marketing_automation && !$admin_context->isAdminRoute()) {
+    // Get the client key from marketing automation.
+    $client_key = $brevo_config->get('client_key');
+    if (empty($client_key)) {
+      try {
+        $brevo_handler = \Drupal::service('brevo.handler');
+        $apiKey = $brevo_config->get('api_key');
+        $account = $brevo_handler->getBrevoAccount($apiKey);
+        $accountMarketingAutomation = $account->getMarketingAutomation();
+        $client_key = $accountMarketingAutomation->getKey();
+      }
+      catch (ApiException $e) {
+        \Drupal::logger('brevo')
+          ->error($e->getMessage());
+      }
+    }
+
+    $settings = ['clientKey' => $client_key];
+    $page['#attached']['drupalSettings']['brevo'] = $settings;
+    $page['#attached']['library'][] = 'brevo/brevo-marketing-automation';
+  }
+}

@@ -11,7 +11,8 @@ no_patching: false
 storage: folder
 folder: sites/default/envs/prod
 module:
-  smtp: 0
+  brevo: 0
+  brevo_mailer: 0
 theme: {  }
 complete_list: {  }
 partial_list: {  }

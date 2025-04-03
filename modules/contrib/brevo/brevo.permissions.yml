@@ -1,0 +1,4 @@
+administer brevo:
+  title: Administer Brevo
+  description: Perform administration tasks for the Brevo service.
+  restrict access: true

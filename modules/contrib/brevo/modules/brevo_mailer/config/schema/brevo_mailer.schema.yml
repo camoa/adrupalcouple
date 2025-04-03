@@ -1,0 +1,14 @@
+brevo_mailer.settings:
+  type: config_object
+  label: 'Brevo transactional emails settings'
+  mapping:
+    debug_mode:
+      type: boolean
+    test_mode:
+      type: boolean
+    format_filter:
+      type: string
+    use_queue:
+      type: boolean
+    use_theme:
+      type: boolean

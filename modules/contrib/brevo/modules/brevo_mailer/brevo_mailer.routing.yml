@@ -1,0 +1,15 @@
+brevo_mailer.admin_settings_form:
+  path: '/admin/config/services/brevo/mailer/settings'
+  defaults:
+    _form: '\Drupal\brevo_mailer\Form\BrevoMailerAdminSettingsForm'
+    _title: 'Brevo transactional emails settings'
+  requirements:
+    _permission: 'administer brevo'
+
+brevo_mailer.test_email_form:
+  path: '/admin/config/services/brevo/mailer/settings/test'
+  defaults:
+    _form: '\Drupal\brevo_mailer\Form\BrevoMailerTestEmailForm'
+    _title: 'Test Email Form'
+  requirements:
+    _permission: 'administer brevo'

@@ -21,6 +21,7 @@
         "drupal/allowed_formats": "^3.0",
         "drupal/antibot": "^2.0",
         "drupal/auto_entitylabel": "^3.0",
+        "drupal/brevo": "^1.0",
         "drupal/config_overlay": "^2.3",
         "drupal/config_split": "^2.0",
         "drupal/core-composer-scaffold": "^11",

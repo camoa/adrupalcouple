@@ -1,0 +1,134 @@
+<?php
+
+/**
+ * @file
+ * Contains Brevo Mailer module.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Link;
+use Drupal\Core\Render\Markup;
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\symfony_mailer\Entity\MailerTransport;
+
+/**
+ * Implements hook_help().
+ */
+function brevo_mailer_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the brevo_mailer module.
+    case 'help.page.brevo_mailer':
+
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Enables site to send emails using Brevo.com') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function brevo_mailer_theme($existing, $type, $theme, $path) {
+  return [
+    'brevo' => [
+      'variables' => [
+        'message' => [],
+      ],
+      'mail theme' => TRUE,
+    ],
+  ];
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK().
+ */
+function brevo_mailer_theme_suggestions_brevo(array $variables) {
+  $suggestions = [];
+  $suggestions[] = 'brevo__' . $variables['message']['module'];
+  $suggestions[] = 'brevo__' . $variables['message']['key'];
+  $suggestions[] = 'brevo__' . $variables['message']['module'] . '__' . $variables['message']['key'];
+  return $suggestions;
+}
+
+/**
+ * Prepares variables for brevo templates.
+ *
+ * Default template: brevo.html.twig.
+ *
+ * @param array $variables
+ *   An associative array containing:
+ *   - message: An associative array containing the message array.
+ *   - body: The processed body.
+ */
+function template_preprocess_brevo(array &$variables) {
+  $variables['subject'] = $variables['message']['subject'];
+  $variables['body'] = $variables['message']['body'];
+}
+
+/**
+ * Implements hook_mail().
+ */
+function brevo_mailer_mail($key, &$message, $params) {
+  switch ($key) {
+    case 'test_form_email':
+      $message['body'] = $message['params']['body'];
+      $message['subject'] = $message['params']['subject'];
+
+      if (isset($params['cc'])) {
+        $message['headers']['Cc'] = $params['cc'];
+      }
+      if (isset($params['bcc'])) {
+        $message['headers']['Bcc'] = $params['bcc'];
+      }
+      break;
+  }
+}
+
+/**
+ * Implements hook_modules_installed().
+ */
+function brevo_mailer_modules_installed($modules, $is_syncing) {
+  if ($is_syncing) {
+    return;
+  }
+
+  // Automatically create a Brevo transport when Symfony Mailer is installed.
+  if (in_array('symfony_mailer', $modules)) {
+    $brevo_config = \Drupal::config('brevo.settings');
+    $api_key = $brevo_config->get('api_key') ?? 'API_KEY';
+
+    $brevo_mailer_transport = MailerTransport::create([
+      'id' => 'brevo',
+      'label' => 'Brevo',
+      'plugin' => 'dsn',
+      'configuration' => [
+        'dsn' => 'brevo+api://'.$api_key.'@default',
+      ],
+    ]);
+
+    $brevo_mailer_transport->save();
+
+    // Set as default only if the API key is properly defined.
+    if (!empty($api_key)) {
+      $brevo_mailer_transport->setAsDefault();
+    }
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * Block the edition of the Symfony Mailer Brevo's DSN.
+ * As it is managed globally via the configuration form.
+ */
+function brevo_mailer_form_mailer_transport_edit_form_alter(array &$form, FormStateInterface $form_state, string $form_id) {
+  if ($form['id']['#default_value'] === 'brevo') {
+    $form['dsn']['#disabled'] = TRUE;
+    $form['dsn']['#description'] = Markup::create(t('The DSN is managed automatically by the brevo module. Please go to @link to change your API key, if necessary.', [
+      '@link' => Link::createFromRoute(t('Brevo\'s configuration page'), 'brevo.admin_settings_form')->toString(),
+    ]));
+  }
+}

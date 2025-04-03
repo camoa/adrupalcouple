@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'drupal/recommended-project',
-        'pretty_version' => 'dev-main',
-        'version' => 'dev-main',
-        'reference' => 'f0558c3ef6c60462f70656af44adb601702a5c9d',
+        'pretty_version' => 'dev-simple_blog',
+        'version' => 'dev-simple_blog',
+        'reference' => '6926f3890a0644ee2e6d7050cba91a0014f51cbb',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -271,6 +271,15 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
+        'drupal/brevo' => array(
+            'pretty_version' => '1.0.3',
+            'version' => '1.0.3.0',
+            'reference' => '1.0.3',
+            'type' => 'drupal-module',
+            'install_path' => __DIR__ . '/../../modules/contrib/brevo',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'drupal/checklistapi' => array(
             'pretty_version' => '2.1.6',
             'version' => '2.1.6.0',
@@ -438,7 +447,7 @@
             'version' => '11.1.5.0',
             'reference' => 'b776d6c250fa168ecd0ba480b4c915ac22d84e9e',
             'type' => 'metapackage',
-            'install_path' => null,
+            'install_path' => NULL,
             'aliases' => array(),
             'dev_requirement' => false,
         ),
@@ -863,9 +872,9 @@
             'dev_requirement' => false,
         ),
         'drupal/recommended-project' => array(
-            'pretty_version' => 'dev-main',
-            'version' => 'dev-main',
-            'reference' => 'f0558c3ef6c60462f70656af44adb601702a5c9d',
+            'pretty_version' => 'dev-simple_blog',
+            'version' => 'dev-simple_blog',
+            'reference' => '6926f3890a0644ee2e6d7050cba91a0014f51cbb',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -883,9 +892,9 @@
         'drupal/redirect_404' => array(
             'pretty_version' => '1.11.0',
             'version' => '1.11.0.0',
-            'reference' => null,
+            'reference' => NULL,
             'type' => 'metapackage',
-            'install_path' => null,
+            'install_path' => NULL,
             'aliases' => array(),
             'dev_requirement' => false,
         ),
@@ -1064,6 +1073,15 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
+        'getbrevo/brevo-php' => array(
+            'pretty_version' => 'v2.0.4',
+            'version' => '2.0.4.0',
+            'reference' => 'f4741eece5eacb96192417b06080abf43f47c44e',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../getbrevo/brevo-php',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'goalgorilla/rtseo.js' => array(
             'pretty_version' => '2.1.0',
             'version' => '2.1.0.0',
@@ -1115,6 +1133,15 @@
             'reference' => 'c2270caaabe631b3b44c85f99e5a04bbb8060d16',
             'type' => 'library',
             'install_path' => __DIR__ . '/../guzzlehttp/psr7',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'html2text/html2text' => array(
+            'pretty_version' => '4.3.2',
+            'version' => '4.3.2.0',
+            'reference' => '3b443cbe302b52eb5806a21a9dbd79524203970a',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../html2text/html2text',
             'aliases' => array(),
             'dev_requirement' => false,
         ),
@@ -1262,6 +1289,15 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
+        'nyholm/psr7' => array(
+            'pretty_version' => '1.8.2',
+            'version' => '1.8.2.0',
+            'reference' => 'a71f2b11690f4b24d099d6b16690a90ae14fc6f3',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../nyholm/psr7',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'orno/di' => array(
             'dev_requirement' => false,
             'replaced' => array(
@@ -1321,6 +1357,12 @@
             'install_path' => __DIR__ . '/../phootwork/lang',
             'aliases' => array(),
             'dev_requirement' => false,
+        ),
+        'php-http/message-factory-implementation' => array(
+            'dev_requirement' => false,
+            'provided' => array(
+                0 => '1.0',
+            ),
         ),
         'php-tuf/composer-stager' => array(
             'pretty_version' => 'v2.0.0',
@@ -1388,8 +1430,8 @@
         'psr/container-implementation' => array(
             'dev_requirement' => false,
             'provided' => array(
-                0 => '1.1|2.0',
-                1 => '^1.0',
+                0 => '^1.0',
+                1 => '1.1|2.0',
             ),
         ),
         'psr/event-dispatcher' => array(

@@ -1,0 +1,4 @@
+brevo.settings:
+  route_name: brevo.admin_settings_form
+  title: 'Settings'
+  base_route: brevo.admin_settings_form

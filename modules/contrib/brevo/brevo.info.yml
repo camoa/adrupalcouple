@@ -1,0 +1,11 @@
+name: Brevo
+type: module
+description: Integration with the Brevo CRM.
+core_version_requirement: ^9.3 || ^10 || ^11
+package: Integration
+configure: brevo.admin_settings_form
+
+# Information added by Drupal.org packaging script on 2025-04-01
+version: '1.0.3'
+project: 'brevo'
+datestamp: 1743525149

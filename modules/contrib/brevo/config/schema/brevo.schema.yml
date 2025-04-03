@@ -1,0 +1,10 @@
+brevo.settings:
+  type: config_object
+  label: 'Brevo settings'
+  mapping:
+    api_key:
+      type: string
+    activate_marketing_automation:
+      type: boolean
+    client_key:
+      type: string

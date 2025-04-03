@@ -1,0 +1,36 @@
+{
+    "name": "drupal/brevo",
+    "description": "Brevo is a leading CRM platform, this module provides integration with the Brevo API services.",
+    "type": "drupal-module",
+    "homepage": "https://www.drupal.org/project/brevo",
+    "authors": [
+        {
+            "name": "Quentin Fahrner",
+            "homepage": "https://www.drupal.org/u/renrhaf",
+            "role": "Creator"
+        },
+        {
+            "name": "Chris Matthews",
+            "homepage": "https://www.drupal.org/u/chris-matthews",
+            "role": "Maintainer"
+        }
+    ],
+    "support": {
+        "issues": "https://www.drupal.org/project/issues/brevo",
+        "source": "https://git.drupalcode.org/project/brevo.git"
+    },
+    "license": "GPL-2.0-or-later",
+    "minimum-stability": "dev",
+    "require": {
+        "getbrevo/brevo-php": "~2.0",
+        "nyholm/psr7": "~1.2",
+        "html2text/html2text": "^4.0.1"
+    },
+    "suggest": {
+        "drupal/mailsystem": "*",
+        "drupal/symfony_mailer": "*",
+        "symfony/http-client": "*",
+        "symfony/brevo-mailer": "*",
+        "php-http/guzzle6-adapter": "Required for working with Guzzle 6 e.g. Drupal 9.3.x or earlier"
+    }
+}

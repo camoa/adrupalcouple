@@ -1,0 +1,15 @@
+services:
+  brevo_mailer.mail_handler:
+    class: Drupal\brevo_mailer\BrevoMailerHandler
+    arguments: ['@brevo.brevo_client_factory', '@config.factory', '@logger.channel.brevo_mailer', '@messenger', '@email.validator', '@module_handler']
+
+  brevo_mailer.event_subscriber:
+    class: Drupal\brevo_mailer\EventSubscriber\BrevoMailerSubscriber
+    arguments: ['@module_handler']
+    tags:
+      - { name: event_subscriber }
+
+  logger.channel.brevo_mailer:
+    class: Drupal\Core\Logger\LoggerChannel
+    factory: logger.factory:get
+    arguments: ['brevo_mailer']

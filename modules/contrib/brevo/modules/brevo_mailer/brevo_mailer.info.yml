@@ -1,0 +1,13 @@
+name: Brevo Mailer
+type: module
+description: Allows site to send emails using Brevo email service.
+core_version_requirement: ^9.3 || ^10 || ^11
+package: Mail
+configure: brevo_mailer.admin_settings_form
+dependencies:
+  - brevo:brevo
+
+# Information added by Drupal.org packaging script on 2025-04-01
+version: '1.0.3'
+project: 'brevo'
+datestamp: 1743525149
