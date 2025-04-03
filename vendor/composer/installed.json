@@ -118,17 +118,17 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.342.18",
-            "version_normalized": "3.342.18.0",
+            "version": "3.342.19",
+            "version_normalized": "3.342.19.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "e6c81bf323b082f8fe2b76d8d41e2614806d5892"
+                "reference": "b2eb01f8dc4015f50095fcdf2ac99e3342a63dc0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/e6c81bf323b082f8fe2b76d8d41e2614806d5892",
-                "reference": "e6c81bf323b082f8fe2b76d8d41e2614806d5892",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/b2eb01f8dc4015f50095fcdf2ac99e3342a63dc0",
+                "reference": "b2eb01f8dc4015f50095fcdf2ac99e3342a63dc0",
                 "shasum": ""
             },
             "require": {
@@ -168,7 +168,7 @@
                 "ext-openssl": "Allows working with CloudFront private distributions and verifying received SNS messages",
                 "ext-sockets": "To use client-side monitoring"
             },
-            "time": "2025-04-01T18:15:02+00:00",
+            "time": "2025-04-02T18:16:12+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -212,7 +212,7 @@
             "support": {
                 "forum": "https://github.com/aws/aws-sdk-php/discussions",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.342.18"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.342.19"
             },
             "install-path": "../aws/aws-sdk-php"
         },
@@ -2417,17 +2417,17 @@
         },
         {
             "name": "drupal/core",
-            "version": "11.1.5",
-            "version_normalized": "11.1.5.0",
+            "version": "11.1.6",
+            "version_normalized": "11.1.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/drupal/core.git",
-                "reference": "d883560fc134296e3979f07280fe9bd8c7ecdaeb"
+                "reference": "d436fecd9f6296c49fcec0acda19df03129f59dd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/drupal/core/zipball/d883560fc134296e3979f07280fe9bd8c7ecdaeb",
-                "reference": "d883560fc134296e3979f07280fe9bd8c7ecdaeb",
+                "url": "https://api.github.com/repos/drupal/core/zipball/d436fecd9f6296c49fcec0acda19df03129f59dd",
+                "reference": "d436fecd9f6296c49fcec0acda19df03129f59dd",
                 "shasum": ""
             },
             "require": {
@@ -2511,7 +2511,7 @@
             "suggest": {
                 "ext-zip": "Needed to extend the plugin.manager.archiver service capability with the handling of files in the ZIP format."
             },
-            "time": "2025-03-19T15:53:25+00:00",
+            "time": "2025-04-02T21:04:03+00:00",
             "type": "drupal-core",
             "extra": {
                 "drupal-scaffold": {
@@ -2582,14 +2582,14 @@
             ],
             "description": "Drupal is an open source content management platform powering millions of websites and applications.",
             "support": {
-                "source": "https://github.com/drupal/core/tree/11.1.5"
+                "source": "https://github.com/drupal/core/tree/11.1.6"
             },
             "install-path": "../../core"
         },
         {
             "name": "drupal/core-composer-scaffold",
-            "version": "11.1.5",
-            "version_normalized": "11.1.5.0",
+            "version": "11.1.6",
+            "version_normalized": "11.1.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/drupal/core-composer-scaffold.git",
@@ -2635,14 +2635,14 @@
                 "drupal"
             ],
             "support": {
-                "source": "https://github.com/drupal/core-composer-scaffold/tree/11.1.5"
+                "source": "https://github.com/drupal/core-composer-scaffold/tree/11.1.6"
             },
             "install-path": "../drupal/core-composer-scaffold"
         },
         {
             "name": "drupal/core-project-message",
-            "version": "11.1.5",
-            "version_normalized": "11.1.5.0",
+            "version": "11.1.6",
+            "version_normalized": "11.1.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/drupal/core-project-message.git",
@@ -2679,23 +2679,23 @@
                 "drupal"
             ],
             "support": {
-                "source": "https://github.com/drupal/core-project-message/tree/11.1.5"
+                "source": "https://github.com/drupal/core-project-message/tree/11.1.6"
             },
             "install-path": "../drupal/core-project-message"
         },
         {
             "name": "drupal/core-recommended",
-            "version": "11.1.5",
-            "version_normalized": "11.1.5.0",
+            "version": "11.1.6",
+            "version_normalized": "11.1.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/drupal/core-recommended.git",
-                "reference": "b776d6c250fa168ecd0ba480b4c915ac22d84e9e"
+                "reference": "a34dd6ccbe4dcb2ec9fc79bdb9deb0c16da55e64"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/drupal/core-recommended/zipball/b776d6c250fa168ecd0ba480b4c915ac22d84e9e",
-                "reference": "b776d6c250fa168ecd0ba480b4c915ac22d84e9e",
+                "url": "https://api.github.com/repos/drupal/core-recommended/zipball/a34dd6ccbe4dcb2ec9fc79bdb9deb0c16da55e64",
+                "reference": "a34dd6ccbe4dcb2ec9fc79bdb9deb0c16da55e64",
                 "shasum": ""
             },
             "require": {
@@ -2704,7 +2704,7 @@
                 "doctrine/annotations": "~2.0.2",
                 "doctrine/deprecations": "~1.1.3",
                 "doctrine/lexer": "~2.1.1",
-                "drupal/core": "11.1.5",
+                "drupal/core": "11.1.6",
                 "egulias/email-validator": "~4.0.2",
                 "guzzlehttp/guzzle": "~7.9.2",
                 "guzzlehttp/promises": "~2.0.4",
@@ -2759,7 +2759,7 @@
             "conflict": {
                 "webflo/drupal-core-strict": "*"
             },
-            "time": "2025-03-19T15:53:25+00:00",
+            "time": "2025-04-02T21:04:03+00:00",
             "type": "metapackage",
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -2767,7 +2767,7 @@
             ],
             "description": "Core and its dependencies with known-compatible minor versions. Require this project INSTEAD OF drupal/core.",
             "support": {
-                "source": "https://github.com/drupal/core-recommended/tree/11.1.5"
+                "source": "https://github.com/drupal/core-recommended/tree/11.1.6"
             },
             "install-path": null
         },
