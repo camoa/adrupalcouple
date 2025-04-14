@@ -16,6 +16,7 @@ dependencies:
     - node
     - node_read_time
     - user
+    - views_infinite_scroll
 _core:
   default_config_hash: 6eeliKIydPjqyv5V__QqTfahvJMWkHjOVUUuUIdB1ik
 id: frontpage
@@ -35,7 +36,7 @@ display:
       title: ''
       fields: {  }
       pager:
-        type: full
+        type: infinite_scroll
         options:
           offset: 0
           pagination_heading_level: h4
@@ -45,8 +46,6 @@ display:
           tags:
             next: 'Next ›'
             previous: '‹ Previous'
-            first: '« First'
-            last: 'Last »'
           expose:
             items_per_page: false
             items_per_page_label: 'Items per page'
@@ -55,7 +54,10 @@ display:
             items_per_page_options_all_label: '- All -'
             offset: false
             offset_label: Offset
-          quantity: 9
+          views_infinite_scroll:
+            button_text: 'Load More'
+            automatically_load_content: true
+            initially_load_all_pages: false
       exposed_form:
         type: basic
         options:
@@ -300,6 +302,7 @@ display:
           replica: false
           query_tags: {  }
       relationships: {  }
+      use_ajax: true
       header: {  }
       footer: {  }
       display_extenders: {  }

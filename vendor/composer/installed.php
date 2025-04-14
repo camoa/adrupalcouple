@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'drupal/recommended-project',
-        'pretty_version' => 'dev-simple_blog',
-        'version' => 'dev-simple_blog',
-        'reference' => '8b481a891a7b1857724558d43e9f0384d95fa255',
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
+        'reference' => '7ead40ed4e9a247fb76baa5d611f57b28b0f8b94',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -447,7 +447,7 @@
             'version' => '11.1.6.0',
             'reference' => 'a34dd6ccbe4dcb2ec9fc79bdb9deb0c16da55e64',
             'type' => 'metapackage',
-            'install_path' => NULL,
+            'install_path' => null,
             'aliases' => array(),
             'dev_requirement' => false,
         ),
@@ -872,9 +872,9 @@
             'dev_requirement' => false,
         ),
         'drupal/recommended-project' => array(
-            'pretty_version' => 'dev-simple_blog',
-            'version' => 'dev-simple_blog',
-            'reference' => '8b481a891a7b1857724558d43e9f0384d95fa255',
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'reference' => '7ead40ed4e9a247fb76baa5d611f57b28b0f8b94',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -892,9 +892,9 @@
         'drupal/redirect_404' => array(
             'pretty_version' => '1.11.0',
             'version' => '1.11.0.0',
-            'reference' => NULL,
+            'reference' => null,
             'type' => 'metapackage',
-            'install_path' => NULL,
+            'install_path' => null,
             'aliases' => array(),
             'dev_requirement' => false,
         ),
@@ -1023,6 +1023,15 @@
             'reference' => '4.3.6',
             'type' => 'drupal-module',
             'install_path' => __DIR__ . '/../../modules/contrib/upgrade_status',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'drupal/views_infinite_scroll' => array(
+            'pretty_version' => '2.0.3',
+            'version' => '2.0.3.0',
+            'reference' => '2.0.3',
+            'type' => 'drupal-module',
+            'install_path' => __DIR__ . '/../../modules/contrib/views_infinite_scroll',
             'aliases' => array(),
             'dev_requirement' => false,
         ),
@@ -1430,8 +1439,8 @@
         'psr/container-implementation' => array(
             'dev_requirement' => false,
             'provided' => array(
-                0 => '^1.0',
-                1 => '1.1|2.0',
+                0 => '1.1|2.0',
+                1 => '^1.0',
             ),
         ),
         'psr/event-dispatcher' => array(
