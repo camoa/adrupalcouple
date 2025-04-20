@@ -194,6 +194,14 @@ component_name: 100
 field_name: 100
 ',
     ];
+    $form['properties']['default_component_weights_update'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Update default component weights when entity form/view display is saved.'),
+      '#description' => $this->t('If checked, default component weights will be reapplied every time an entity form/view display is saved')
+      . ' ' . $this->t('This is useful if you want to ensure that certain components, fields, and groups have set weight.'),
+      '#return_value' => TRUE,
+      '#default_value' => $entity->get('default_component_weights_update'),
+    ];
     return $form;
   }
 

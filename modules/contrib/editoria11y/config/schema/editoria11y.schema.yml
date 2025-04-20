@@ -38,12 +38,21 @@ editoria11y.settings:
     hidden_handlers:
       type: string
       label: 'Hidden elements in these containers will be revealed by theme JS on request via a dispatched event'
+    element_hides_overflow:
+      type: string
+      label: 'Elements that truncate overflow, partially hiding buttons'
     ed11y_theme:
       type: string
       label: 'Color scheme for panel and tooltips'
     shadow_components:
       type: string
       label: 'Web components the checker should check'
+    detect_shadow:
+      type: boolean
+      label: 'Auto-detects for additional shadow components'
+    watch_for_changes:
+      type: string
+      label: 'Auto-detects and checks new content'
     disable_sync:
       type: boolean
       label: 'Disables dashboard and synchronized marking of elements as OK'
@@ -74,3 +83,95 @@ editoria11y.settings:
     hide_edit_links:
       type: string
       label: 'Selectors for components where edit links are meaningless on tips'
+    ignore_tests:
+      type: mapping
+      label: 'Disable the tests you are not ready for'
+      mapping:
+        linkNewWindow:
+          type: string
+          label: 'linkNewWindow'
+        linkNoText:
+          type: string
+          label: 'linkNoText'
+        altEmptyLinked:
+          type: string
+          label: 'altEmptyLinked'
+        linkDocument:
+          type: string
+          label: 'linkDocument'
+        linkTextIsURL:
+          type: string
+          label: 'linkTextIsURL'
+        linkTextIsGeneric:
+          type: string
+          label: 'linkTextIsGeneric'
+        textPossibleList:
+          type: string
+          label: 'textPossibleList'
+        textPossibleHeading:
+          type: string
+          label: 'textPossibleHeading'
+        textUppercase:
+          type: string
+          label: 'textUppercase'
+        tableNoHeaderCells:
+          type: string
+          label: 'tableNoHeaderCells'
+        tableEmptyHeaderCell:
+          type: string
+          label: 'tableEmptyHeaderCell'
+        tableContainsContentHeading:
+          type: string
+          label: 'tableContainsContentHeading'
+        embedVideo:
+          type: string
+          label: 'embedVideo'
+        embedAudio:
+          type: string
+          label: 'embedAudio'
+        embedVisualization:
+          type: string
+          label: 'embedVisualization'
+        embedTwitter:
+          type: string
+          label: 'embedTwitter'
+        embedCustom:
+          type: string
+          label: 'embedCustom'
+        headingEmpty:
+          type: string
+          label: 'headingEmpty'
+        headingIsLong:
+          type: string
+          label: 'headingIsLong'
+        headingLevelSkipped:
+          type: string
+          label: 'headingLevelSkipped'
+        blockquoteIsShort:
+          type: string
+          label: 'blockquoteIsShort'
+        altMissing:
+          type: string
+          label: 'altMissing'
+        altNull:
+          type: string
+          label: 'altNull'
+        altMeaningless:
+          type: string
+          label: 'altMeaningless'
+        altURL:
+          type: string
+          label: 'altURL'
+        altImageOf:
+          type: string
+          label: 'altImageOf'
+        altDeadspace:
+          type: string
+          label: 'altDeadspace'
+        altLong:
+          type: string
+          label: 'altLong'
+        altPartOfLinkWithText:
+          type: string
+          label: 'altPartOfLinkWithText'
+

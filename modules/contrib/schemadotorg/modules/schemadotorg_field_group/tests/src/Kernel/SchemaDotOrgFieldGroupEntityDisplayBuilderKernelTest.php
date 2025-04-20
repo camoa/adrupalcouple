@@ -65,8 +65,12 @@ class SchemaDotOrgFieldGroupEntityDisplayBuilderKernelTest extends SchemaDotOrgE
       ->set('schema_properties.default_field_weights', ['name', 'disambiguatingDescription', 'description'])
       ->save();
 
+    $general = $this->config('schemadotorg_field_group.settings')
+      ->get('default_field_groups.node.general');
+    $general['description'] = 'Enter general information';
+    $general['properties'][] = 'custom_a';
     $this->config('schemadotorg_field_group.settings')
-      ->set('default_field_groups.node.general.description', 'Enter general information')
+      ->set('default_field_groups.node.general', $general)
       ->save();
 
     // Add custom_b field to the general field group's properties.
@@ -84,8 +88,6 @@ class SchemaDotOrgFieldGroupEntityDisplayBuilderKernelTest extends SchemaDotOrgE
           'name' => 'custom_a',
           'type' => 'string',
           'label' => 'Custom A',
-          'group' => 'general',
-          'group_field_weight' => -100,
         ],
         'custom_b' => [
           'name' => 'custom_b',
@@ -111,7 +113,7 @@ class SchemaDotOrgFieldGroupEntityDisplayBuilderKernelTest extends SchemaDotOrgE
     $component = $view_display->getComponent('custom_a');
     $this->assertEquals('string', $component['type']);
     $this->assertEquals('above', $component['label']);
-    $this->assertEquals(-100, $component['weight']);
+    $this->assertEquals(32, $component['weight']);
 
     // Check the thing field group.
     $this->assertEquals(['schema_disambiguating_desc'], $field_group['group_thing']['children']);

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Drupal\schemadotorg;
 
 use Drupal\Core\Entity\Display\EntityDisplayInterface;
+use Drupal\Core\Form\FormStateInterface;
 
 /**
  * Schema.org entity display builder interface.
@@ -53,6 +54,36 @@ interface SchemaDotOrgEntityDisplayBuilderInterface {
    *   A new Schema.org mapping.
    */
   public function initializeDisplays(SchemaDotOrgMappingInterface $mapping): void;
+
+  /**
+   * Retrieves and filters the display component weights for updates.
+   *
+   * @param \Drupal\Core\Entity\Display\EntityDisplayInterface $display
+   *   The display object from which the weights are retrieved and filtered.
+   *
+   * @return array|null
+   *   An associative array of component weights indexed by their names, or NULL
+   *   if no weights are available.
+   */
+  public function getDisplayComponentWeights(EntityDisplayInterface $display): ?array;
+
+  /**
+   * Alters the entity display edit form by modifying component weights and human-readable names.
+   *
+   * @param array $form
+   *   The renderable form array for the entity display edit form.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The current state of the form.
+   */
+  public function alterEntityDisplayEditForm(array &$form, FormStateInterface $form_state): void;
+
+  /**
+   * Updates the default component weights for an entity display.
+   *
+   * @param\Drupal\Core\Entity\Display\EntityDisplayInterface $display
+   *   The entity display object that needs to be updated.
+   */
+  public function updateDisplayComponentWeights(EntityDisplayInterface $display): void;
 
   /**
    * Set the display settings for a field.

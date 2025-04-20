@@ -23,7 +23,17 @@ class PageLink extends Standard {
     $value = parent::render($values);
 
     if (!empty($value)) {
-      $path = $values->editoria11y_results_page_path ?? $values->editoria11y_dismissals_page_path;
+      $path = '';
+
+      if (property_exists($values, 'editoria11y_results_page_path')) {
+        $path = $values->editoria11y_results_page_path;
+      }
+      elseif (property_exists($values, 'editoria11y_dismissals_page_path')) {
+        $path = $values->editoria11y_dismissals_page_path;
+      }
+      else {
+        return $value . ' ' . t('(invalid URL)');
+      }
 
       // @phpstan-ignore-next-line
       $config = \Drupal::config('editoria11y.settings');

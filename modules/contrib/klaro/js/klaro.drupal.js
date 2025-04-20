@@ -285,7 +285,7 @@
           var elem = document.querySelector('#klaro-cookie-notice');
         }
         else if (document.querySelector('.cm-modal.cm-klaro')) {
-          var elem = document.querySelector('.cm-modal.cm-klaro .cm-footer');
+          var elem = document.querySelector('.cm-modal.cm-klaro');
           if ((Drupal.behaviors.klaro.manager.confirmed) && (!Drupal.behaviors.klaro.config.mustConsent)) {
             elem = false;
           }

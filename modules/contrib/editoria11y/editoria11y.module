@@ -8,9 +8,32 @@
 use Drupal\Core\Cache\Cache;
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Link;
 use Drupal\Core\Routing\RouteObjectInterface;
 use Drupal\Core\Url;
 use Drupal\taxonomy\TermInterface;
+
+/**
+ * Implements hook_post_update().
+ */
+function editoria11y_hook_post_update() {
+  if (!\Drupal::state()->get('editoria11y.show_help_message')) {
+    return;
+  }
+  $messenger = \Drupal::messenger();
+
+  $config_url = Url::fromRoute('editoria11y.settings');
+  $config_link = Link::fromTextAndUrl(t('Editoria11y config'), $config_url)->toString();
+
+  $permissions_url = Url::fromRoute('user.admin_permissions');
+  $permissions_link = Link::fromTextAndUrl(t('confirm editor roles have permission'), $permissions_url)->toString();
+
+  $messenger->addStatus(
+    t('Please remember to set up @config for live editing, and @permissions to "View Editoria11y Checker"', [
+      '@config' => $config_link,
+      '@permissions' => $permissions_link,
+    ]));
+}
 
 /**
  * Implements template_preprocess_views_view()
@@ -314,7 +337,7 @@ function editoria11y_page_attachments(array &$attachments): void {
   $attachments['#attached']['drupalSettings']['editoria11y']['session_url'] = $sessionUrl;
   $attachments['#attached']['drupalSettings']['editoria11y']['lang'] = $language;
   $attachments['#attached']['drupalSettings']['editoria11y']['page_path'] = $page_path;
-  $attachments['#attached']['drupalSettings']['editoria11y']['entity_type'] = $entity_type;
+  $attachments['#attached']['drupalSettings']['editoria11y']['entity_type'] = substr($entity_type, 0, 32);
   $attachments['#attached']['drupalSettings']['editoria11y']['entity_id'] = $entity_id;
   $attachments['#attached']['drupalSettings']['editoria11y']['route_name'] = $route_name;
   $attachments['#attached']['drupalSettings']['editoria11y']['preserve_params'] = $config->get('preserve_params');
@@ -326,6 +349,18 @@ function editoria11y_page_attachments(array &$attachments): void {
   $attachments['#attached']['drupalSettings']['editoria11y']['ignore_all_if_absent'] = $config->get('ignore_all_if_absent');
   $attachments['#attached']['drupalSettings']['editoria11y']['content_root'] = $config->get('content_root');
   $attachments['#attached']['drupalSettings']['editoria11y']['shadow_components'] = $config->get('shadow_components');
+  $ignore_test_config = $config->get('ignore_tests');
+  if (is_array($ignore_test_config)) {
+    $ignore_tests = [];
+    foreach ($ignore_test_config as $ignore_test) {
+      if ($ignore_test) {
+        $ignore_tests[] = $ignore_test;
+      }
+    }
+    $attachments['#attached']['drupalSettings']['editoria11y']['ignore_tests'] = $ignore_tests;
+  }
+
+  $attachments['#attached']['drupalSettings']['editoria11y']['detect_shadow'] = $config->get('detect_shadow');
   $attachments['#attached']['drupalSettings']['editoria11y']['ignore_elements'] = $config->get('ignore_elements');
   $attachments['#attached']['drupalSettings']['editoria11y']['panel_no_cover'] = $config->get('panel_no_cover');
   $attachments['#attached']['drupalSettings']['editoria11y']['embedded_content_warning'] = $config->get('embedded_content_warning');
@@ -340,9 +375,11 @@ function editoria11y_page_attachments(array &$attachments): void {
   $attachments['#attached']['drupalSettings']['editoria11y']['ignore_link_strings'] = $config->get('ignore_link_strings');
   $attachments['#attached']['drupalSettings']['editoria11y']['link_ignore_selector'] = $config->get('link_ignore_selector');
   $attachments['#attached']['drupalSettings']['editoria11y']['sync'] = $sync;
+  $attachments['#attached']['drupalSettings']['editoria11y']['watch_for_changes'] = $config->get('watch_for_changes');
   $attachments['#attached']['drupalSettings']['editoria11y']['dismissals'] = $dismissals;
   $attachments['#attached']['drupalSettings']['editoria11y']['theme'] = $config->get('ed11y_theme');
   $attachments['#attached']['drupalSettings']['editoria11y']['custom_tests'] = $config->get('custom_tests');
+  $attachments['#attached']['drupalSettings']['editoria11y']['element_hides_overflow'] = $config->get('element_hides_overflow');
   /** @var \Drupal\Core\File\FileUrlGeneratorInterface $fileUrlGenerator */
   $fileUrlGenerator = \Drupal::service('file_url_generator');
   $attachments['#attached']['drupalSettings']['editoria11y']['css_url'] = $fileUrlGenerator

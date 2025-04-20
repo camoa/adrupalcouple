@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\schemadotorg;
 
+use Drupal\Component\Utility\NestedArray;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\Display\EntityDisplayInterface;
 use Drupal\Core\Entity\Display\EntityFormDisplayInterface;
@@ -11,7 +12,12 @@ use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
 use Drupal\Core\Entity\EntityDisplayRepositoryInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Messenger\MessengerInterface;
+use Drupal\Core\Routing\RedirectDestinationInterface;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\schemadotorg\Traits\SchemaDotOrgMappingStorageTrait;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * Schema.org entity display builder.
@@ -20,6 +26,7 @@ use Drupal\schemadotorg\Traits\SchemaDotOrgMappingStorageTrait;
  * field's entity display component settings ana weight.
  */
 class SchemaDotOrgEntityDisplayBuilder implements SchemaDotOrgEntityDisplayBuilderInterface {
+  use StringTranslationTrait;
   use SchemaDotOrgMappingStorageTrait;
 
   /**
@@ -29,6 +36,12 @@ class SchemaDotOrgEntityDisplayBuilder implements SchemaDotOrgEntityDisplayBuild
    *   The module handler.
    * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
    *   The config factory.
+   * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
+   *   The request stack.
+   * @param \Drupal\Core\Routing\RedirectDestinationInterface $redirectDestination
+   *   The redirect destination service.
+   * @param \Drupal\Core\Messenger\MessengerInterface $messenger
+   *   The messenger service.
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
    *   The entity type manager.
    * @param \Drupal\Core\Entity\EntityDisplayRepositoryInterface $entityDisplayRepository
@@ -41,6 +54,9 @@ class SchemaDotOrgEntityDisplayBuilder implements SchemaDotOrgEntityDisplayBuild
   public function __construct(
     protected ModuleHandlerInterface $moduleHandler,
     protected ConfigFactoryInterface $configFactory,
+    protected RequestStack $requestStack,
+    protected RedirectDestinationInterface $redirectDestination,
+    protected MessengerInterface $messenger,
     protected EntityTypeManagerInterface $entityTypeManager,
     protected EntityDisplayRepositoryInterface $entityDisplayRepository,
     protected SchemaDotOrgNamesInterface $schemaNames,
@@ -279,6 +295,127 @@ class SchemaDotOrgEntityDisplayBuilder implements SchemaDotOrgEntityDisplayBuild
     $schema_property = $field['schema_property'];
     $options['weight'] = $options['weight'] ?? $this->getSchemaPropertyDefaultFieldWeight($entity_type_id, $bundle, $field_name, $schema_type, $schema_property);
     $display->setComponent($field_name, $options);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getDisplayComponentWeights(EntityDisplayInterface $display): ?array {
+    $entity_type_id = $display->getTargetEntityTypeId();
+    $bundle = $display->getTargetBundle();
+    if (!$this->loadMapping($entity_type_id, $bundle)) {
+      return NULL;
+    }
+
+    $mapping_type = $this->loadMappingType($entity_type_id);
+    if (!$mapping_type
+      || !$mapping_type->get('default_component_weights_update')) {
+      return NULL;
+    }
+
+    $modes = $this->getModes($display);
+    if (!isset($modes[$display->getMode()])) {
+      return NULL;
+    }
+
+    $weights = $mapping_type->getDefaultComponentWeights();
+    foreach ($weights as $name => $weight) {
+      $component = $display->getComponent($name);
+      if ($component) {
+        continue;
+      }
+
+      $field_group = $display->getThirdPartySetting('field_group', $name);
+      if ($field_group) {
+        continue;
+      }
+
+      unset($weights[$name]);
+    }
+    return $weights;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function updateDisplayComponentWeights(EntityDisplayInterface $display): void {
+    $weights = $this->getDisplayComponentWeights($display);
+    if (!$weights) {
+      return;
+    }
+
+    $components = $display->getComponents();
+    foreach ($weights as $name => $weight) {
+      if (isset($components[$name])) {
+        $component = $display->getComponent($name);
+        $component['weight'] = $weight;
+        $display->setComponent($name, $component);
+      }
+
+      $field_group = $display->getThirdPartySetting('field_group', $name);
+      if ($field_group) {
+        $field_group['weight'] = $weight;
+        $display->setThirdPartySetting('field_group', $name, $field_group);
+      }
+    }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function alterEntityDisplayEditForm(array &$form, FormStateInterface $form_state): void {
+    /** @var \Drupal\field_ui\Form\EntityFormDisplayEditForm $form_object */
+    $form_object = $form_state->getFormObject();
+    /** @var \Drupal\Core\Entity\Display\EntityDisplayInterface|null $display */
+    $display = $form_object->getEntity();
+
+    $weights = $this->getDisplayComponentWeights($display);
+    if (empty($weights)) {
+      return;
+    }
+
+    $human_names = [];
+    foreach ($weights as $component_name => $weight) {
+      $human_name = NestedArray::getValue($form, [
+          'fields',
+          $component_name,
+          'human_name',
+          '#plain_text',
+      ]) ?? NestedArray::getValue($form, [
+          'fields',
+          $component_name,
+          'human_name',
+          '#markup',
+      ]);
+
+      if ($human_name) {
+        $human_names[$component_name] = $human_name;
+        $suffix = NestedArray::getValue(
+          $form,
+          ['fields', $component_name, 'human_name', '#suffix']
+        ) ?? '';
+        $suffix .= '<div><small>' . $this->t('(Weight: @weight)', ['@weight' => $weight]) . '</small></div>';
+
+        NestedArray::setValue(
+          $form,
+          ['fields', $component_name, 'human_name', '#suffix'],
+          $suffix,
+        );
+      }
+    }
+
+    if ($this->requestStack->getCurrentRequest()->isMethod('GET')) {
+      $mapping_type = $this->loadMappingType($display->getTargetEntityTypeId());
+      $t_args = [
+        ':href' => $mapping_type->toUrl('edit-form')
+          ->setOption('query', $this->redirectDestination->getAsArray())
+          ->toString(),
+        '%components' => implode('; ', $human_names),
+      ];
+      $this->messenger->addWarning(
+        $this->t('The following components have hard code weights: %components. <a href=":href">Configure default component weights</a>', $t_args)
+      );
+    }
   }
 
   /**

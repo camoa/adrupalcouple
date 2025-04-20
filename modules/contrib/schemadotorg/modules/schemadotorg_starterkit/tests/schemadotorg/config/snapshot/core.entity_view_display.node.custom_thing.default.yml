@@ -19,11 +19,19 @@ third_party_settings:
         - schema_description
         - schema_image
         - schema_name
-        - custom
       label: General
       parent_name: ''
       region: content
       weight: -20
+      format_type: fieldset
+      format_settings: {  }
+    group_thing:
+      children:
+        - custom
+      label: Thing
+      parent_name: ''
+      region: content
+      weight: 0
       format_type: fieldset
       format_settings: {  }
 id: node.custom_thing.default
@@ -37,7 +45,7 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: -100
+    weight: 110
     region: content
   links:
     settings: {  }

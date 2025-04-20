@@ -1,4 +1,9 @@
-**V.3.x-dev**
+**V.3.0.4**
+
+Includes:
+  - Issue #3512989: Move close button to header
+
+**V.3.0.3**
 
 Includes:
   - Issue #3508693: Add base_path to klaro_placeholder.js.

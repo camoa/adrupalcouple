@@ -49,7 +49,10 @@ const ed11yLangDrupal = {
     Drupal.t("photo of"),
     Drupal.t('spacer'),
     Drupal.t('tbd'),
-    Drupal.t('todo')
+    Drupal.t('todo'),
+    Drupal.t('copyright'),
+    Drupal.t('courtesy of'),
+    Drupal.t('photo by')
   ],
   meaninglessAlt: [
     Drupal.t('alt'),
@@ -63,7 +66,10 @@ const ed11yLangDrupal = {
     Drupal.t('spacer'),
     Drupal.t('tbd'),
     Drupal.t('todo'),
-    Drupal.t('to do')
+    Drupal.t('to do'),
+    Drupal.t('copyright'),
+    Drupal.t('courtesy of'),
+    Drupal.t('photo by')
   ],
   linksUrls: ['http:/', 'https:/', '.asp', '.htm', '.php', '.edu/', '.com/'],
   linkStringsNewWindows: new RegExp(`(${[
@@ -115,6 +121,11 @@ const ed11yLangDrupal = {
   transferFocus: Drupal.t('Edit this content'),
   dismissOkButtonContent: Drupal.t('Mark as checked and OK'),
   dismissHideButtonContent: Drupal.t('Hide alert'),
+  dismissActions: (count) =>  Drupal.t("@count similar issues", {
+    '@count': count
+  }), // 2.3.10
+  dismissHideAllButton: Drupal.t('Ignore all like this'), // 2.3.10
+  dismissOkAllButton: Drupal.t('Mark all like this as OK'), // 2.3.10
   dismissOkTitle: Drupal.t('Hides this alert for all editors'),
   dismissHideTitle: Drupal.t('Hides this alert for you'),
   undismissOKButton: Drupal.t('Restore this alert marked as OK'),
@@ -273,12 +284,12 @@ const ed11yLangDrupal = {
   altMeaninglessLinked : {
     title: 'Linked alt text is meaningless',
     tip: (alt = '') =>`
-        <p>${Drupal.t('The alt text for this image is "%alt," which probably does not describe this link.', {
-          '%alt': alt,
-        })}</p>
         <p>
           ${Drupal.t("When a link includes an image, the image's alt text becomes the link text announced by screen readers. Links should clearly and concisely describe their destination, even out of context.")}
         </p>
+        <p>${Drupal.t('The alt text for this image is "%alt," which probably does not describe this link.', {
+          '%alt': alt,
+        })}</p>
         `,
   },
 
@@ -384,15 +395,19 @@ const ed11yLangDrupal = {
   altPartOfLinkWithText : {
     title: Drupal.t("Manual check: link contains both text and an image"),
     tip: (alt = '') => `
-        <p>${Drupal.t("When a link includes an image, screen readers speak the image's alt text as part of the link. This can be confusing if the image's alt is irrelevant to the link.")}</p>
-        <p>${Drupal.t("E.g., for a card-style link with both text and a stock photo, compare:")}</p>
+        <p>${Drupal.t("Screen readers will include the image's alt text when describing this link")}</p>
+        <p>${Drupal.t("Check that the combined text is concise and meaningful:")}
+          <br>"<em><strong>${alt}</strong></em>"
+        </p>
         <ul>
-          <li>${Drupal.t('"Link, image, five people jumping and high-fiving around a conference table, About us"')}</li>
-          <li>${Drupal.t('Link, About us"')}</li>
+          <li>${Drupal.t("Keep alts that add relevant meaning:")}<br>
+            ${Drupal.t('"Buy (A Tigers v. Falcons ticket)."')}</li>
+          <li>${Drupal.t("Edit unhelpful or irrelevant alts:")}<br>
+            ${Drupal.t('"Buy (A piece of paper with team logos on it)."')}</li>
+            <li>${Drupal.t("Remove unnecessary alts:")}<br>
+            ${Drupal.t('"Buy Tigers v. Falcons tickets (A Tigers v. Falcons ticket)."')}</li>
         </ul>
-        <p>${Drupal.t("If the content of this image is not relevant, it may be better to leave this alt text blank.")}</p>
-        <p>${Drupal.t("This image's alt text is: <em>%alt</em>", { '%alt': alt })}</p>
-      `,
+      `, // 2.3.10.
   },
 
     // todo check br in translation

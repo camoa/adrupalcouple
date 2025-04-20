@@ -7,8 +7,6 @@
 
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\user\Entity\Role;
-use Drupal\Core\Link;
-use Drupal\Core\Url;
 
 /**
  * Implements hook_install().
@@ -26,19 +24,9 @@ function editoria11y_install() {
       $role->save();
     }
   }
-  $messenger = \Drupal::messenger();
 
-  $config_url = Url::fromRoute('editoria11y.settings');
-  $config_link = Link::fromTextAndUrl(t('Editoria11y config'), $config_url)->toString();
-
-  $permissions_url = Url::fromRoute('user.admin_permissions');
-  $permissions_link = Link::fromTextAndUrl(t('confirm editor roles have permission'), $permissions_url)->toString();
-
-  $messenger->addStatus(
-    t('Please remember to set up @config for live editing, and @permissions to "View Editoria11y Checker"', [
-      '@config' => $config_link,
-      '@permissions' => $permissions_link,
-    ]));
+  // Display a help message once after it is installed:
+  \Drupal::state()->set('editoria11y.show_help_message', TRUE);
 }
 
 /**
@@ -65,7 +53,7 @@ function editoria11y_results_table(): array {
         'type' => 'varchar',
         'not null' => TRUE,
         'default' => 'node',
-        'length' => EntityTypeInterface::ID_MAX_LENGTH,
+        'length' => 32,
         'description' => 'The entity type; "route" if no type found.',
       ],
       'route_name' => [

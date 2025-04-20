@@ -37,6 +37,11 @@ const ed11yInitializer = function () {
     drupalSettings.editoria11y.ignore_all_if_absent :
     false;
   options.buttonZIndex = 491; // 99999
+  options.autoDetectShadowComponents = !!drupalSettings.editoria11y.detect_shadow;
+  options.shadowComponents = drupalSettings.editoria11y.shadow_components ? drupalSettings.editoria11y.shadow_components : false;
+  options.watchForChanges = drupalSettings.editoria11y.watch_for_changes === 'checkRoots' ?
+    'checkRoots' :
+    drupalSettings.editoria11y.watch_for_changes === 'true';
 
   const editors = (Drupal.editors && (Object.hasOwn(Drupal.editors, 'ckeditor5') || Object.hasOwn(Drupal.editors, 'gutenberg')));
 
@@ -60,20 +65,18 @@ const ed11yInitializer = function () {
     ed11yOnce = true;
     ed11yInitialized = 'disabled';
     return;
-    /*if (!!drupalSettings.editoria11y.disable_live) {
-      return;
-    }
-    options.inlineAlerts = false;
-    delay = 250;*/
+
   } else if (editors) {
     // Editable content is present.
     options.buttonZIndex = 99999;
+    options.autoDetectShadowComponents = false;
     // But we don't try to check live inside layout builder.
     if (drupalSettings.path.currentPathIsAdmin &&
       !!drupalSettings.editoria11y.disable_live) {
       // Don't disable in frontend for comment fields.
       ed11yOnce = true;
       ed11yInitialized = 'disabled';
+      options.watchForChanges = true;
       return;
     }
     options.inlineAlerts = false;
@@ -165,7 +168,7 @@ const ed11yInitializer = function () {
     'p': 'table:not(.field-multiple-table) p',
     'h': '.filter-guidelines-item *, nav *, [id$="-local-tasks"] *, .block-local-tasks-block *, .tabledrag h4',
     // disable alt text tests on unspoken images
-    'img': '[aria-hidden], [aria-hidden] img',
+    'img': '[aria-hidden], [aria-hidden] img, a[href][aria-label] img, button[aria-label] img, a[href][aria-labelledby] img, button[aria-labelledby] img',
     // disable link text check on disabled and admin links:
     'a': `[aria-hidden][tabindex], [id$="-local-tasks"] a, .block-local-tasks-block a, .filter-help > a, .contextual-region > nav a ${drupalSettings.path.currentPathIsAdmin ? ', a[target="_blank"]' : ''}`,
     // 'li': false,
@@ -188,18 +191,20 @@ const ed11yInitializer = function () {
     '.layout-builder-form';
   // todo postpone: preventCheckingIfAbsent
   options.linkStringsNewWindows = !!drupalSettings.editoria11y.link_strings_new_windows ?
-    new RegExp (drupalSettings.editoria11y.link_strings_new_windows, 'g')
+    new RegExp (drupalSettings.editoria11y.link_strings_new_windows, 'gi')
     : !!drupalSettings.editoria11y.ignore_link_strings ?
-      new RegExp(drupalSettings.editoria11y.ignore_link_strings, 'g')
-      : new RegExp ('(' + Drupal.t('download') + ')|(\\s' + Drupal.t('tab') + ')|(' + Drupal.t('window') + ')', 'g');
-  options.linkIgnoreStrings = !!drupalSettings.editoria11y.ignore_link_strings ? new RegExp(drupalSettings.editoria11y.ignore_link_strings, 'g') : new RegExp('(' + Drupal.t('link is external') + ')|(' + Drupal.t('link sends email') + ')', 'g');
+      new RegExp(drupalSettings.editoria11y.ignore_link_strings, 'gi')
+      : new RegExp ('(' + Drupal.t('download') + ')|(\\s' + Drupal.t('tab') + ')|(' + Drupal.t('window') + ')', 'gi');
+  options.linkIgnoreStrings = !!drupalSettings.editoria11y.ignore_link_strings ? new RegExp(drupalSettings.editoria11y.ignore_link_strings, 'gi') : new RegExp('(' + Drupal.t('link is external') + ')|(' + Drupal.t('link sends email') + ')', 'gi');
   options.linkIgnoreSelector = !!drupalSettings.editoria11y.link_ignore_selector ? drupalSettings.editoria11y.link_ignore_selector : false;
   options.hiddenHandlers = !!drupalSettings.editoria11y.hidden_handlers ? drupalSettings.editoria11y.hidden_handlers : '';
+  options.constrainButtons = !!drupalSettings.editoria11y.element_hides_overflow ? drupalSettings.editoria11y.element_hides_overflow : '';
   options.theme = !!drupalSettings.editoria11y.theme ? drupalSettings.editoria11y.theme : 'sleekTheme';
   options.embeddedContent = !!drupalSettings.editoria11y.embedded_content_warning ? drupalSettings.editoria11y.embedded_content_warning : false;
   options.documentLinks = !!drupalSettings.editoria11y.download_links ? drupalSettings.editoria11y.download_links : `a[href$='.pdf'], a[href*='.pdf?']`;
   options.customTests = drupalSettings.editoria11y.custom_tests;
   options.cssUrls = !!drupalSettings.editoria11y.css_url ? [drupalSettings.editoria11y.css_url + '/library/css/editoria11y.css'] : false;
+  options.ignoreTests = drupalSettings.editoria11y.ignore_tests ? drupalSettings.editoria11y.ignore_tests : false;
 
 
   const editSelector = (selector, action) => {
@@ -255,7 +260,6 @@ const ed11yInitializer = function () {
     // twitterContent: 'twitter-timeline',
     ,
     editableContent: '[contentEditable="true"], #quickedit-entity-toolbar, .layout-builder-form',
-    shadowComponents: drupalSettings.editoria11y.shadow_components ? drupalSettings.editoria11y.shadow_components : false,
     ,
   };*/
 
@@ -272,23 +276,30 @@ const ed11yInitializer = function () {
     ed11yInitialized = true;
     const ed11y = new Ed11y(options);
     ed11yWaiting = false;
+    // todo: Remove once confirmed that new library listeners cover this.
     // Listen for events that may modify content without triggering a mutation.
-    window.addEventListener('keyup', (e) => {
-      if (!e.target.closest('.ed11y-wrapper, [contenteditable="true"]') && Ed11y.bodyStyle) {
+    /*window.addEventListener('keyup', (e) => {
+      if (Ed11y.bodyStyle &&
+        !e.target.closest('.ed11y-element, .ed11y-wrapper, [contenteditable="true"]')) {
         // Arrow changes of radio and select controls.
         Ed11y.incrementalAlign(); // Immediately realign tips.
         Ed11y.alignPending = false;
-        //Ed11y.incrementalCheck();
       }
-    });
-    window.addEventListener('click', (e) => {
+    });*/
+    /*window.addEventListener('click', (e) => {
       // Click covers mouse, keyboard and touch.
-      if (!e.target.closest('.ed11y-wrapper, [contenteditable="true"]') && Ed11y.bodyStyle) {
+      console.log(`Drupal query ignored due to Ed11y click target: ${!!e.target.closest('.ed11y-element, .ed11y-wrapper, [contenteditable="true"]')}`);
+      console.log(e.target);
+      if (Ed11y.bodyStyle &&
+        Ed11y.options.watchForChanges &&
+        !e.target.closest('.ed11y-element, .ed11y-wrapper, [contenteditable="true"]')
+      ) {
+        console.log('drupal click listener');
         Ed11y.incrementalAlign(); // Immediately realign tips.
         Ed11y.alignPending = false;
         Ed11y.incrementalCheck();
       }
-    });
+    });*/
     window.setTimeout(function() {
       // Append ?ed1string to URLs to check translations
       if (!urlParams.has('ed1strings')) {
@@ -453,10 +464,13 @@ const ed11yInitializer = function () {
     });
   }
 
+  let ed11yDismissalsCache = {};
+
   let sendDismissal = function (detail) {
     if (!!detail) {
       let data = {};
       if (detail.dismissAction === 'reset') {
+        ed11yDismissalsCache = {};
         data = {
           page_path: drupalSettings.editoria11y.page_path,
           language: drupalSettings.editoria11y.lang,
@@ -468,7 +482,16 @@ const ed11yInitializer = function () {
             sendResults();
           },100);
         }
+      } else if (detail.dismissTest in ed11yDismissalsCache && ed11yDismissalsCache[detail.dismissTest].includes(detail.dismissKey)) {
+        return false;
       } else {
+        // Send if we have not already sent the same key.
+        // Prevents repeatedly sending during batch dismissal.
+        if (!(detail.dismissTest in ed11yDismissalsCache)) {
+          ed11yDismissalsCache[detail.dismissTest] = [detail.dismissKey];
+        } else {
+          ed11yDismissalsCache[detail.dismissTest].push(detail.dismissKey);
+        }
         data = {
           page_title: drupalSettings.editoria11y.page_title,
           page_path: drupalSettings.editoria11y.page_path,

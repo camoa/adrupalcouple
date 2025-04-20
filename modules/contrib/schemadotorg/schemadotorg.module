@@ -8,6 +8,8 @@
 declare(strict_types=1);
 
 use Drupal\Component\Utility\NestedArray;
+use Drupal\Core\Entity\Display\EntityFormDisplayInterface;
+use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
 use Drupal\Core\Extension\Extension;
 use Drupal\Core\Field\FieldConfigInterface;
 use Drupal\Core\Form\FormStateInterface;
@@ -194,6 +196,45 @@ function schemadotorg_field_config_presave(FieldConfigInterface $field_config): 
 }
 
 /**
+ * Implements hook_entity_form_display_presave().
+ */
+function schemadotorg_entity_form_display_presave(EntityFormDisplayInterface $form_display): void {
+  /** @var \Drupal\schemadotorg\SchemaDotOrgEntityDisplayBuilderInterface $schema_entity_display_builder */
+  $schema_entity_display_builder = \Drupal::service('schemadotorg.entity_display_builder');
+  $schema_entity_display_builder->updateDisplayComponentWeights($form_display);
+}
+
+/**
+ * Implements hook_entity_view_display_presave().
+ */
+function schemadotorg_entity_view_display_presave(EntityViewDisplayInterface $view_display): void {
+  /** @var \Drupal\schemadotorg\SchemaDotOrgEntityDisplayBuilderInterface $schema_entity_display_builder */
+  $schema_entity_display_builder = \Drupal::service('schemadotorg.entity_display_builder');
+  $schema_entity_display_builder->updateDisplayComponentWeights($view_display);
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * Display a warning message when default component weights are being applied
+ * to the display.
+ */
+function schemadotorg_form_entity_form_display_edit_form_alter(array &$form, FormStateInterface $form_state): void {
+  /** @var \Drupal\schemadotorg\SchemaDotOrgEntityDisplayBuilderInterface $schema_entity_display_builder */
+  $schema_entity_display_builder = \Drupal::service('schemadotorg.entity_display_builder');
+  $schema_entity_display_builder->alterEntityDisplayEditForm($form, $form_state);
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function schemadotorg_form_entity_view_display_edit_form_alter(array &$form, FormStateInterface $form_state): void {
+  /** @var \Drupal\schemadotorg\SchemaDotOrgEntityDisplayBuilderInterface $schema_entity_display_builder */
+  $schema_entity_display_builder = \Drupal::service('schemadotorg.entity_display_builder');
+  $schema_entity_display_builder->alterEntityDisplayEditForm($form, $form_state);
+}
+
+/**
  * Implements hook_form_FORM_ID_alter().
  *
  * Display a warning on the entity reference configuration page when the
@@ -312,19 +353,14 @@ function schemadotorg_preprocess_page_title(array &$variables): void {
 
   // Add the Schema.org Blueprints logo to all 'schemadotorg' routes.
   $module_path = \Drupal::service('extension.list.module')->getPath('schemadotorg');
-  $variables['title'] = [
-    'image' => [
-      [
-        '#theme' => 'image',
-        '#uri' => $module_path . '/logo.png',
-        '#alt' => t('Logo for the Schema.org Blueprints project'),
-        '#attributes' => ['class' => ['schemadotorg-logo']],
-        '#attached' => ['library' => ['schemadotorg/schemadotorg.logo']],
-      ],
-    ],
-    'title' => [
-      '#markup' => $variables['title'],
-    ],
+  $variables['title_prefix'] = [
+    '#theme' => 'image',
+    '#uri' => $module_path . '/logo.png',
+    '#alt' => t('Logo for the Schema.org Blueprints project'),
+    '#attributes' => ['class' => ['schemadotorg-logo']],
+    '#attached' => ['library' => ['schemadotorg/schemadotorg.logo']],
+    '#prefix' => '<h1>',
+    '#suffix' => '</h1>',
   ];
 }
 

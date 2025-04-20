@@ -75,3 +75,6 @@
       sequence:
         type: integer
         label: 'Default component weight'
+    default_component_weights_update:
+      type: boolean
+      label: 'Update default component weights when entity form/view display is saved.'

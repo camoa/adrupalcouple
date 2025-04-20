@@ -128,6 +128,13 @@ function hook_schemadotorg_mapping_defaults_alter(array &$defaults, string $enti
 }
 
 /**
+ * Implements hook_schemadotorg_mapping_apply().
+ */
+function hook_schemadotorg_mapping_apply(\Drupal\schemadotorg\SchemaDotOrgMappingInterface $mapping): void {
+  // @todo Provide example code.
+}
+
+/**
  * Respond to inserts/updates to an entity of a particular type.
  *
  * This hook runs after an entity insert or update.

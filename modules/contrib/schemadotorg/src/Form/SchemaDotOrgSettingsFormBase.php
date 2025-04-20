@@ -75,20 +75,25 @@ abstract class SchemaDotOrgSettingsFormBase extends ConfigFormBase {
     // Re-apply a sub-module settings to all existing Schema.org mappings.
     $values = $form_state->getValues();
     foreach ($values as $module_name => $settings) {
-      $hook = $module_name . '_schemadotorg_mapping_insert';
-      if (function_exists($hook) && !empty($settings['apply'])) {
-        /** @var \Drupal\schemadotorg\SchemaDotOrgMappingInterface[] $mappings */
-        $mappings = $this->getMappingStorage()->loadMultiple();
-        foreach ($mappings as $mapping) {
-          $hook($mapping);
-        }
+      $hooks = [
+        $module_name . '_schemadotorg_mapping_apply',
+        $module_name . '_schemadotorg_mapping_insert',
+      ];
+      foreach ($hooks as $hook) {
+        if (function_exists($hook) && !empty($settings['apply'])) {
+          /** @var \Drupal\schemadotorg\SchemaDotOrgMappingInterface[] $mappings */
+          $mappings = $this->getMappingStorage()->loadMultiple();
+          foreach ($mappings as $mapping) {
+            $hook($mapping);
+          }
 
-        $message = $form[$module_name]['apply']['#message']
-          ?? $this->t(
-            '@title have been re-applied to all existing Schema.org mappings.',
-            ['@title' => $form[$module_name]['#title'] ?? $module_name]
-          );
-        $this->messenger()->addStatus($message);
+          $message = $form[$module_name]['apply']['#message']
+            ?? $this->t(
+              '@title have been re-applied to all existing Schema.org mappings.',
+              ['@title' => $form[$module_name]['#title'] ?? $module_name]
+            );
+          $this->messenger()->addStatus($message);
+        }
       }
     }
   }

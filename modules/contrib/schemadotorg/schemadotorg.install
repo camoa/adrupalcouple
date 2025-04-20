@@ -212,3 +212,17 @@ function schemadotorg_update_10012(): void {
   $installer = \Drupal::service('schemadotorg.installer');
   $installer->install();
 }
+
+/**
+ * Issue #3517258: Refactor default component weight.
+ */
+function schemadotorg_update_10014(): void {
+  $mapping_type_storage = \Drupal::entityTypeManager()
+    ->getStorage('schemadotorg_mapping_type');
+  /** @var \Drupal\schemadotorg\SchemaDotOrgMappingTypeInterface[] $mapping_types */
+  $mapping_types = $mapping_type_storage->loadMultiple();
+  foreach ($mapping_types as $mapping_type) {
+    $mapping_type->set('default_component_weights_update', TRUE);
+    $mapping_type->save();
+  }
+}

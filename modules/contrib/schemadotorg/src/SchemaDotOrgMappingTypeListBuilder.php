@@ -72,6 +72,11 @@ class SchemaDotOrgMappingTypeListBuilder extends SchemaDotOrgConfigEntityListBui
         'class' => [RESPONSIVE_PRIORITY_LOW],
         'width' => '10%',
       ];
+      $header['default_component_weights_update'] = [
+        'data' => $this->t('Update default component weights'),
+        'class' => [RESPONSIVE_PRIORITY_LOW],
+        'width' => '10%',
+      ];
     }
     else {
       $header['entity_type'] = [
@@ -129,7 +134,6 @@ class SchemaDotOrgMappingTypeListBuilder extends SchemaDotOrgConfigEntityListBui
 
     $details_toggle = $this->getDetailsToggle();
     if ($details_toggle) {
-
       // Default Schema.org type properties.
       $row['default_schema_type_properties'] = $this->buildAssociationItems($entity->get('default_schema_type_properties'));
 
@@ -138,6 +142,9 @@ class SchemaDotOrgMappingTypeListBuilder extends SchemaDotOrgConfigEntityListBui
 
       // Default component weights.
       $row['default_component_weights'] = $this->buildKeyValuePairs($entity->get('default_component_weights'));
+
+      // Update default component weights.
+      $row['default_component_weights_update'] = $entity->get('default_component_weights') ? $this->t('Yes') : $this->t('No');
     }
 
     $row = $row + parent::buildRow($entity);

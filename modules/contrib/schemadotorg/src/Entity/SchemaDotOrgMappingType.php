@@ -53,6 +53,7 @@ use Drupal\schemadotorg\SchemaDotOrgMappingTypeInterface;
  *     "default_schema_type_view_displays",
  *     "default_base_fields",
  *     "default_component_weights",
+ *     "default_component_weights_update",
  *   }
  * )
  */

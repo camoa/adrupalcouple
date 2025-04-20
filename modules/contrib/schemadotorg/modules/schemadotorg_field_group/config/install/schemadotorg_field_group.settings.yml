@@ -263,6 +263,8 @@ disable_field_groups:
   - node--view--teaser
   - node--view--content_browser
   - node--mainEntity
+  - node--field_metatag
+  - node--field_editorial
   - node--created
   - node--uid
   - block_content

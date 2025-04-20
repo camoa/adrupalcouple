@@ -76,6 +76,30 @@ class SchemaDotOrgEntityDisplayBuilderKernelTest extends SchemaDotOrgEntityKerne
     $this->assertEquals(200, $components['uid']['weight']);
     $this->assertEquals(210, $components['promote']['weight']);
 
+    // Get the promote component
+    // Check updating the default component weights for an entity display.
+    $entity_form_display->setComponent('promote',
+      ['weight' => -100] + $entity_form_display->getComponent('promote')
+    );
+    $this->schemaEntityDisplayBuilder->updateDisplayComponentWeights($entity_form_display);
+    $component = $entity_form_display->getComponent('promote');
+    $this->assertNotEquals(-100, $component['weight']);
+    $this->assertEquals(210, $component['weight']);
+
+    // Display updating default component weights.
+    $mapping_type = $this->loadMappingType('node');
+    $mapping_type->set('default_component_weights_update', FALSE);
+    $mapping_type->save();
+
+    // Check NOT updating the default component weights for an entity display.
+    $entity_form_display->setComponent('promote',
+      ['weight' => -100] + $entity_form_display->getComponent('promote')
+    );
+    $this->schemaEntityDisplayBuilder->updateDisplayComponentWeights($entity_form_display);
+    $component = $entity_form_display->getComponent('promote');
+    $this->assertEquals(-100, $component['weight']);
+    $this->assertNotEquals(210, $component['weight']);
+
     // Check getting display form modes for a specific entity type.
     $this->assertEquals(['default' => 'default'], $this->schemaEntityDisplayBuilder->getFormModes('node', 'page'));
 
