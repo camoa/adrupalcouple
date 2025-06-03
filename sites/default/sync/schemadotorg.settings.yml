@@ -1733,3 +1733,4 @@ schema_properties:
     - relatedLink
     - hasPart
     - mainEntity
+  disable_entity_display: {  }
