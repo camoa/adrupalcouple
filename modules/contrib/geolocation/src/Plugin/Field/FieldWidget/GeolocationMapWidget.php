@@ -2,21 +2,16 @@
 
 namespace Drupal\geolocation\Plugin\Field\FieldWidget;
 
+use Drupal\Core\Field\Attribute\FieldWidget;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\BubbleableMetadata;
 
 /**
  * Plugin implementation of the 'geolocation_map' widget.
- *
- * @FieldWidget(
- *   id = "geolocation_map",
- *   label = @Translation("Geolocation Map"),
- *   field_types = {
- *     "geolocation"
- *   }
- * )
  */
+#[FieldWidget(id: 'geolocation_map',
+  label: new \Drupal\Core\StringTranslation\TranslatableMarkup('Geolocation Map'), field_types: ['geolocation'])]
 class GeolocationMapWidget extends GeolocationMapWidgetBase {
 
   /**

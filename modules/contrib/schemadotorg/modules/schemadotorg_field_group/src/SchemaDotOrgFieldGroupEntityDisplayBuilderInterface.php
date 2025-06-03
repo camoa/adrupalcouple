@@ -14,32 +14,6 @@ use Drupal\schemadotorg\SchemaDotOrgMappingInterface;
 interface SchemaDotOrgFieldGroupEntityDisplayBuilderInterface {
 
   /**
-   * Disabled field group patterns.
-   */
-  const array PATTERNS = [
-    ['entity_type_id'],
-    ['entity_type_id', 'display_type'],
-    ['entity_type_id', 'display_type', 'bundle'],
-    ['entity_type_id', 'display_type', 'bundle', 'field_name'],
-    ['entity_type_id', 'display_type', 'schema_type'],
-    ['entity_type_id', 'display_type', 'schema_type', 'schema_property'],
-    ['entity_type_id', 'display_type', 'schema_property'],
-    ['entity_type_id', 'display_type', 'field_name'],
-    ['entity_type_id', 'display_type', 'display_mode'],
-    ['entity_type_id', 'display_type', 'display_mode', 'bundle'],
-    ['entity_type_id', 'display_type', 'display_mode', 'bundle', 'field_name'],
-    ['entity_type_id', 'display_type', 'display_mode', 'schema_type'],
-    ['entity_type_id', 'display_type', 'display_mode', 'schema_type', 'schema_property'],
-    ['entity_type_id', 'display_type', 'display_mode', 'schema_property'],
-    ['entity_type_id', 'bundle'],
-    ['entity_type_id', 'bundle', 'field_name'],
-    ['entity_type_id', 'schema_type'],
-    ['entity_type_id', 'schema_type', 'schema_property'],
-    ['entity_type_id', 'schema_property'],
-    ['entity_type_id', 'field_name'],
-  ];
-
-  /**
    * Apply function to re-apply field groups a Schema.org mapping.
    *
    * @param \Drupal\schemadotorg\SchemaDotOrgMappingInterface $mapping

@@ -34,7 +34,7 @@ class SchemaDotOrgUiMappingForm extends EntityForm {
   /**
    * Add new field mapping option.
    */
-  public const string ADD_FIELD = SchemaDotOrgEntityFieldManagerInterface::ADD_FIELD;
+  public const ADD_FIELD = SchemaDotOrgEntityFieldManagerInterface::ADD_FIELD;
 
   /**
    * The service container.

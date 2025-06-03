@@ -2,6 +2,7 @@
 
 namespace Drupal\geolocation_search_api\Plugin\geolocation\DataProvider;
 
+use Drupal\geolocation\Attribute\DataProvider;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\geolocation\DataProviderBase;
 use Drupal\geolocation\DataProviderInterface;
@@ -14,13 +15,12 @@ use Drupal\views\ResultRow;
 
 /**
  * Provides Google Maps.
- *
- * @DataProvider(
- *   id = "search_api",
- *   name = @Translation("Search API"),
- *   description = @Translation("Search API indexed fields support, works with Search API Location module too."),
- * )
  */
+#[DataProvider(
+  id: 'search_api',
+  name: new \Drupal\Core\StringTranslation\TranslatableMarkup('Search API'),
+  description: new \Drupal\Core\StringTranslation\TranslatableMarkup('Search API indexed fields support, works with Search API Location module too.')
+)]
 class SearchAPI extends DataProviderBase implements DataProviderInterface {
 
   /**
@@ -112,8 +112,8 @@ class SearchAPI extends DataProviderBase implements DataProviderInterface {
   /**
    * {@inheritdoc}
    */
-  public function getPositionsFromViewsRow(ResultRow $row, ?FieldPluginBase $viewsField = NULL): array {
-    $positions = [];
+  public function getLocationsFromViewsRow(ResultRow $row, ?FieldPluginBase $viewsField = NULL): array {
+    $locations = [];
 
     if (!($viewsField instanceof SearchApiEntityField)) {
       return [];
@@ -135,9 +135,12 @@ class SearchAPI extends DataProviderBase implements DataProviderInterface {
             ) {
               continue 2;
             }
-            $positions[] = [
-              'lat' => $geojson->coordinates[1],
-              'lng' => $geojson->coordinates[0],
+            $locations[] = [
+              '#type' => 'geolocation_map_location',
+              '#coordinates' => [
+                'lat' => $geojson->coordinates[1],
+                'lng' => $geojson->coordinates[0],
+              ],
             ];
             break;
 
@@ -147,9 +150,12 @@ class SearchAPI extends DataProviderBase implements DataProviderInterface {
               continue 2;
             }
 
-            $positions[] = [
-              'lat' => $pieces[0],
-              'lng' => $pieces[1],
+            $locations[] = [
+              '#type' => 'geolocation_map_location',
+              '#coordinates' => [
+                'lat' => $pieces[0],
+                'lng' => $pieces[1],
+              ],
             ];
             break;
 
@@ -173,25 +179,31 @@ class SearchAPI extends DataProviderBase implements DataProviderInterface {
             ) {
               continue 2;
             }
-            $positions[] = [
-              'lat' => $geojson->coordinates[1],
-              'lng' => $geojson->coordinates[0],
+            $locations[] = [
+              '#type' => 'geolocation_map_location',
+              '#coordinates' => [
+                'lat' => $geojson->coordinates[1],
+                'lng' => $geojson->coordinates[0],
+              ],
             ];
             break;
 
           case 'location':
             /** @var \Drupal\geolocation\Plugin\Field\FieldType\GeolocationItem $geolocation_item */
             $geolocation_item = $item['raw'];
-            $positions[] = [
-              'lat' => $geolocation_item->get('lat')->getValue(),
-              'lng' => $geolocation_item->get('lng')->getValue(),
+            $locations[] = [
+              '#type' => 'geolocation_map_location',
+              '#coordinates' => [
+                'lat' => $geolocation_item->get('lat')->getValue(),
+                'lng' => $geolocation_item->get('lng')->getValue(),
+              ],
             ];
             break;
         }
       }
     }
 
-    return $positions;
+    return $locations;
   }
 
 }

@@ -2,20 +2,20 @@
 
 namespace Drupal\geolocation_google_maps\Plugin\geolocation\MapFeature;
 
+use Drupal\geolocation\Attribute\MapFeature;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\geolocation\MapFeatureBase;
 use Drupal\geolocation\MapProviderInterface;
 
 /**
  * Provides map styling support.
- *
- * @MapFeature(
- *   id = "map_type_style",
- *   name = @Translation("Map Type Style"),
- *   description = @Translation("Add map styling JSON."),
- *   type = "google_maps",
- * )
  */
+#[MapFeature(
+  id: 'map_type_style',
+  name: new \Drupal\Core\StringTranslation\TranslatableMarkup('Map Type Style'),
+  description: new \Drupal\Core\StringTranslation\TranslatableMarkup('Add map styling JSON.'),
+  type: 'google_maps'
+)]
 class GoogleMapTypeStyle extends MapFeatureBase {
 
   /**

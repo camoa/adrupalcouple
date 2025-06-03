@@ -30,17 +30,17 @@ class SchemaDotOrgDiagramBuilder implements SchemaDotOrgDiagramBuilderInterface 
   /**
    * Current node.
    */
-  const string CURRENT_NODE = 'current';
+  const CURRENT_NODE = 'current';
 
   /**
    * Parent node.
    */
-  const string PARENT_NODE = 'parent';
+  const PARENT_NODE = 'parent';
 
   /**
    * Child node.
    */
-  const string CHILD_NODE = 'child';
+  const CHILD_NODE = 'child';
 
   /**
    * Max depth for hierarchy.

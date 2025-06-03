@@ -1,8 +1,0 @@
-name: 'Geolocation Dummy Geocoder'
-type: module
-description: 'Test the geocoding functionality'
-package: Testing
-dependencies:
-  - geolocation:geolocation
-hidden: true
-core_version_requirement: ^10 || ^11 || ^12

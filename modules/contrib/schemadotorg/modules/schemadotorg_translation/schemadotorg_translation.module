@@ -14,21 +14,21 @@ use Drupal\Core\Render\BubbleableMetadata;
 use Drupal\schemadotorg\SchemaDotOrgMappingInterface;
 
 /**
- * Implements hook_ENTITY_TYPE_insert().
+ * Implements hook_presave().
  */
-function schemadotorg_translation_schemadotorg_mapping_insert(SchemaDotOrgMappingInterface $mapping): void {
+function schemadotorg_translation_entity_insert(EntityInterface $entity): void {
   /** @var \Drupal\schemadotorg_translation\SchemaDotOrgTranslationManagerInterface $manager */
   $manager = \Drupal::service('schemadotorg_translation.manager');
-  $manager->mappingInsert($mapping);
+  $manager->entityInsert($entity);
 }
 
 /**
- * Implements hook_ENTITY_TYPE_insert().
+ * Implements hook_ENTITY_TYPE_presave().
  */
-function schemadotorg_translation_field_config_insert(FieldConfigInterface $field_config): void {
+function schemadotorg_translation_field_config_presave(FieldConfigInterface $field_config): void {
   /** @var \Drupal\schemadotorg_translation\SchemaDotOrgTranslationManagerInterface $manager */
   $manager = \Drupal::service('schemadotorg_translation.manager');
-  $manager->fieldConfigInsert($field_config);
+  $manager->fieldConfigPresave($field_config);
 }
 
 /**
@@ -61,29 +61,23 @@ function schemadotorg_translation_form_schemadotorg_general_settings_form_alter(
     '#description' => t('Enter Schema.org types that should never be translated.'),
     '#description_link' => 'types',
     '#example' => '
-- SchemaType01
-- SchemaType02
-- SchemaType03
+- SchemaType
+- entity_type_id--SchemaType
+- entity_type_id--bundle
+- entity_type_id--bundle--SchemaType
 ',
   ];
   $form['schemadotorg_translation']['excluded_schema_properties'] = [
     '#type' => 'schemadotorg_settings',
-    '#title' => t('Excluded Schema.org properties'),
-    '#description' => t('Enter Schema.org properties that should never be translated.'),
+    '#title' => t('Excluded Schema.org properties and fields'),
+    '#description' => t('Enter Schema.org properties and field names that should never be translated.'),
     '#description_link' => 'properties',
     '#example' => '
 - propertyName
 - SchemaType--propertyName
-',
-  ];
-  $form['schemadotorg_translation']['excluded_field_names'] = [
-    '#type' => 'schemadotorg_settings',
-    '#title' => t('Excluded field names'),
-    '#description' => t('Enter field names that should never be translated.'),
-    '#example' => '
-- field_name_01
-- field_name_02
-- field_name_03
+- entity_type_id--bundle--schema_type--schema_property
+- field_name
+- entity_type_id--bundle--field_name
 ',
   ];
   $form['schemadotorg_translation']['included_field_names'] = [
@@ -122,28 +116,12 @@ function schemadotorg_translation_form_schemadotorg_general_settings_form_alter(
  */
 function schemadotorg_translation_form_schemadotorg_types_settings_form_submit(array &$form, FormStateInterface $form_state): void {
   // Apply translation settings to all existing Schema.org mappings
-  // by triggering the mapping and field config insert hooks.
+  // by triggering the mapping's target bundle entities insert hook.
   $apply_translation_settings = $form_state->getValue(['schemadotorg_translation', 'apply_translation_settings']);
   if ($apply_translation_settings) {
-    /** @var \Drupal\schemadotorg\SchemaDotOrgMappingStorageInterface $mapping_storage */
-    $mapping_storage = \Drupal::entityTypeManager()->getStorage('schemadotorg_mapping');
-    /** @var \Drupal\field\FieldConfigStorage $field_config_storage */
-    $field_config_storage = \Drupal::entityTypeManager()->getStorage('field_config');
-
-    /** @var \Drupal\schemadotorg\SchemaDotOrgMappingInterface[] $mappings */
-    $mappings = $mapping_storage->loadMultiple();
-    foreach ($mappings as $mapping) {
-      schemadotorg_translation_schemadotorg_mapping_insert($mapping);
-
-      /** @var \Drupal\Core\Field\FieldConfigInterface[] $field_configs */
-      $field_configs = $field_config_storage->loadByProperties([
-        'entity_type' => $mapping->getTargetEntityTypeId(),
-        'bundle' => $mapping->getTargetBundle(),
-      ]);
-      foreach ($field_configs as $field_config) {
-        schemadotorg_translation_field_config_insert($field_config);
-      }
-    }
+    /** @var \Drupal\schemadotorg_translation\SchemaDotOrgTranslationManagerInterface $manager */
+    $manager = \Drupal::service('schemadotorg_translation.manager');
+    $manager->applyTranslations();
     \Drupal::messenger()->addStatus(t('Translation settings applied to all existing Schema.org mappings.'));
   }
 }

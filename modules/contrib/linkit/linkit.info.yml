@@ -8,7 +8,7 @@ test_dependencies:
   - imce:imce
   - drupal:ckeditor
 
-# Information added by Drupal.org packaging script on 2025-01-30
-version: '7.0.3'
+# Information added by Drupal.org packaging script on 2025-04-23
+version: '7.0.4'
 project: 'linkit'
-datestamp: 1738264706
+datestamp: 1745413702

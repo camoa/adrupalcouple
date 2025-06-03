@@ -107,6 +107,8 @@ export class GeolocationMapFeature {
   /**
    * @param {GeolocationShape} shape
    *  Shape.
+   * @param {GeolocationCoordinates} coordinates
+   *   Coordinates.
    */
-  onShapeClicked(shape) {}
+  onShapeClicked(shape, coordinates) {}
 }

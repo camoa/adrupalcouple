@@ -28,7 +28,6 @@ class GeolocationGeocoderTest extends BrowserTestBase {
     'geolocation_yandex',
     'geolocation_here',
     'geolocation_baidu',
-    'geolocation_bing',
   ];
 
   /**

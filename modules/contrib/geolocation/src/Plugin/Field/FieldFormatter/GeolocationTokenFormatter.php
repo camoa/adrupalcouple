@@ -2,6 +2,7 @@
 
 namespace Drupal\geolocation\Plugin\Field\FieldFormatter;
 
+use Drupal\Core\Field\Attribute\FieldFormatter;
 use Drupal\Component\Utility\Unicode;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemListInterface;
@@ -14,16 +15,12 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Plugin implementation of the 'geolocation_token' formatter.
- *
- * @FieldFormatter(
- *   id = "geolocation_token",
- *   module = "geolocation",
- *   label = @Translation("Geolocation tokenized text"),
- *   field_types = {
- *     "geolocation"
- *   }
- * )
  */
+#[FieldFormatter(
+  id: 'geolocation_token',
+  label: new \Drupal\Core\StringTranslation\TranslatableMarkup('Geolocation tokenized text'),
+  field_types: ['geolocation']
+)]
 class GeolocationTokenFormatter extends FormatterBase {
 
   /**

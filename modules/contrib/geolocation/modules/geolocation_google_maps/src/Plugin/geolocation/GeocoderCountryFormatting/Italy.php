@@ -2,17 +2,17 @@
 
 namespace Drupal\geolocation_google_maps\Plugin\geolocation\GeocoderCountryFormatting;
 
+use Drupal\geolocation\Attribute\GeocoderCountryFormatting;
 use Drupal\geolocation_google_maps\GoogleCountryFormattingBase;
 
 /**
  * Provides address formatting.
- *
- * @GeocoderCountryFormatting(
- *   id = "google_it",
- *   country_code = "it",
- *   geocoder = "google_geocoding_api",
- * )
  */
+#[GeocoderCountryFormatting(
+  id: 'google_it',
+  countryCode: 'it',
+  geocoder: 'google_geocoding_api'
+)]
 class Italy extends GoogleCountryFormattingBase {
 
   /**

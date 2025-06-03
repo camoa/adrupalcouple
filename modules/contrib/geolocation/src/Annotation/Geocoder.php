@@ -8,6 +8,9 @@ use Drupal\Core\Annotation\Translation;
 /**
  * Defines a geocoder annotation object.
  *
+ * @deprecated in geolocation:4.0.0 and is removed from geolocation:4.0.1. Use Attribute instead.
+ * @see https://www.drupal.org/project/geolocation/issues/3525013
+ *
  * @see \Drupal\geolocation\GeocoderManager
  * @see plugin_api
  *

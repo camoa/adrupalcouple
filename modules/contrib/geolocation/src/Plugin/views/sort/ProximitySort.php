@@ -2,6 +2,7 @@
 
 namespace Drupal\geolocation\Plugin\views\sort;
 
+use Drupal\views\Attribute\ViewsSort;
 use Drupal\views\Plugin\views\query\Sql;
 use Drupal\views\Plugin\views\sort\SortPluginBase;
 
@@ -9,9 +10,8 @@ use Drupal\views\Plugin\views\sort\SortPluginBase;
  * Sort handler for geolocation field.
  *
  * @ingroup views_sort_handlers
- *
- * @ViewsSort("geolocation_sort_proximity")
  */
+#[ViewsSort(id: 'geolocation_sort_proximity')]
 class ProximitySort extends SortPluginBase {
 
   /**

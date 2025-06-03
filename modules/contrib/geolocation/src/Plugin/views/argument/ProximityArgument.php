@@ -2,6 +2,7 @@
 
 namespace Drupal\geolocation\Plugin\views\argument;
 
+use Drupal\views\Attribute\ViewsArgument;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\geolocation\ProximityTrait;
 use Drupal\views\Plugin\views\argument\Formula;
@@ -14,9 +15,8 @@ use Drupal\views\Plugin\views\query\Sql;
  * "37.7749295,-122.41941550000001<=5mi" (defaults to km).
  *
  * @ingroup views_argument_handlers
- *
- * @ViewsArgument("geolocation_argument_proximity")
  */
+#[ViewsArgument(id: 'geolocation_argument_proximity')]
 class ProximityArgument extends Formula {
 
   use ProximityTrait;

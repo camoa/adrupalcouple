@@ -2,6 +2,7 @@
 
 namespace Drupal\geolocation_geometry\Plugin\Field\FieldFormatter;
 
+use Drupal\Core\Field\Attribute\FieldFormatter;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Form\FormStateInterface;
@@ -9,22 +10,21 @@ use Drupal\Core\Url;
 
 /**
  * Plugin implementation of the 'geolocation_geometry_file' formatter.
- *
- * @FieldFormatter(
- *   id = "geolocation_geometry_file",
- *   label = @Translation("Geolocation Geometry - File"),
- *   field_types = {
- *     "geolocation_geometry_geometry",
- *     "geolocation_geometry_geometrycollection",
- *     "geolocation_geometry_point",
- *     "geolocation_geometry_linestring",
- *     "geolocation_geometry_polygon",
- *     "geolocation_geometry_multipoint",
- *     "geolocation_geometry_multilinestring",
- *     "geolocation_geometry_multipolygon",
- *   }
- * )
  */
+#[FieldFormatter(
+  id: 'geolocation_geometry_file',
+  label: new \Drupal\Core\StringTranslation\TranslatableMarkup('Geolocation Geometry - File'),
+  field_types: [
+    'geolocation_geometry_geometry',
+    'geolocation_geometry_geometrycollection',
+    'geolocation_geometry_point',
+    'geolocation_geometry_linestring',
+    'geolocation_geometry_polygon',
+    'geolocation_geometry_multipoint',
+    'geolocation_geometry_multilinestring',
+    'geolocation_geometry_multipolygon',
+  ]
+)]
 class GeolocationGeometryFileFormatter extends FormatterBase {
 
   /**

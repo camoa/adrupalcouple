@@ -51,4 +51,30 @@ export class GeolocationLayerFeature {
    *   Marker.
    */
   onMarkerClicked(marker) {}
+
+  /**
+   * @param {GeolocationShape} shape
+   *  Marker.
+   */
+  onShapeAdded(shape) {}
+
+  /**
+   * @param {GeolocationShape} shape
+   *  Shape.
+   */
+  onShapeUpdated(shape) {}
+
+  /**
+   * @param {GeolocationShape} shape
+   *  Shape.
+   */
+  onShapeRemove(shape) {}
+
+  /**
+   * @param {GeolocationShape} shape
+   *  Shape.
+   * @param {GeolocationCoordinates} coordinates
+   *  Coordinates.
+   */
+  onShapeClicked(shape, coordinates) {}
 }

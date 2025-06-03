@@ -2,6 +2,7 @@
 
 namespace Drupal\geolocation\Plugin\Field\FieldType;
 
+use Drupal\Core\Field\Attribute\FieldType;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemBase;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
@@ -11,15 +12,6 @@ use Drupal\geolocation\TypedData\GeolocationComputed;
 
 /**
  * Plugin implementation of the 'geolocation' field type.
- *
- * @FieldType(
- *   id = "geolocation",
- *   label = @Translation("Geolocation - Coordinates"),
- *   description = @Translation("This field stores latitude & longitude coordinates."),
- *   category = "geo_spatial",
- *   default_widget = "geolocation_latlng",
- *   default_formatter = "geolocation_latlng"
- * )
  *
  * @property ?float $lat
  *   Latitude.
@@ -34,6 +26,14 @@ use Drupal\geolocation\TypedData\GeolocationComputed;
  * @property ?mixed $data
  *    Data.
  */
+#[FieldType(
+  id: 'geolocation',
+  label: new \Drupal\Core\StringTranslation\TranslatableMarkup('Geolocation - Coordinates'),
+  description: new \Drupal\Core\StringTranslation\TranslatableMarkup('This field stores latitude & longitude coordinates.'),
+  category: 'geo_spatial',
+  default_widget: 'geolocation_latlng',
+  default_formatter: 'geolocation_latlng'
+)]
 class GeolocationItem extends FieldItemBase {
 
   /**

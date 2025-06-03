@@ -2,6 +2,7 @@
 
 namespace Drupal\geolocation_gpx\Plugin\Field\FieldWidget;
 
+use Drupal\Core\Field\Attribute\FieldWidget;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemListInterface;
@@ -24,15 +25,12 @@ use phpGPX\phpGPX;
 
 /**
  * Provides a custom field widget.
- *
- * @FieldWidget(
- *   id = "geolocation_gpx_file",
- *   label = @Translation("Geolocation GPX File"),
- *   field_types = {
- *     "geolocation_gpx"
- *   }
- * )
  */
+#[FieldWidget(
+  id: 'geolocation_gpx_file',
+  label: new \Drupal\Core\StringTranslation\TranslatableMarkup('Geolocation GPX File'),
+  field_types: ['geolocation_gpx']
+)]
 class GeolocationGpxFileWidget extends WidgetBase {
 
   /**

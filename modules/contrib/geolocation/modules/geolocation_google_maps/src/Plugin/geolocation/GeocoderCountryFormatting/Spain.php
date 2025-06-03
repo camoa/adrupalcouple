@@ -2,17 +2,17 @@
 
 namespace Drupal\geolocation_google_maps\Plugin\geolocation\GeocoderCountryFormatting;
 
+use Drupal\geolocation\Attribute\GeocoderCountryFormatting;
 use Drupal\geolocation_google_maps\GoogleCountryFormattingBase;
 
 /**
  * Provides address formatting.
- *
- * @GeocoderCountryFormatting(
- *   id = "google_es",
- *   country_code = "es",
- *   geocoder = "google_geocoding_api",
- * )
  */
+#[GeocoderCountryFormatting(
+  id: 'google_es',
+  countryCode: 'es',
+  geocoder: 'google_geocoding_api'
+)]
 class Spain extends GoogleCountryFormattingBase {
 
   /**

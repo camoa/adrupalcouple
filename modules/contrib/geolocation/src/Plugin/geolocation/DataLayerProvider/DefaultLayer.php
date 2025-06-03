@@ -2,18 +2,16 @@
 
 namespace Drupal\geolocation\Plugin\geolocation\DataLayerProvider;
 
+use Drupal\geolocation\Attribute\DataLayerProvider;
 use Drupal\geolocation\DataLayerProviderBase;
 use Drupal\geolocation\DataLayerProviderInterface;
 
 /**
  * Provides default layer.
- *
- * @DataLayerProvider(
- *   id = "geolocation_default_layer",
- *   name = @Translation("Map Default"),
- *   description = @Translation("This is the content of the map itself without any additional data."),
- * )
  */
+#[DataLayerProvider(id: 'geolocation_default_layer',
+  name: new \Drupal\Core\StringTranslation\TranslatableMarkup('Map Default'),
+  description: new \Drupal\Core\StringTranslation\TranslatableMarkup('This is the content of the map itself without any additional data.'))]
 class DefaultLayer extends DataLayerProviderBase implements DataLayerProviderInterface {
 
   /**

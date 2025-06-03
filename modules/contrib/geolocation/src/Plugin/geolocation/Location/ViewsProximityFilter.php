@@ -2,6 +2,7 @@
 
 namespace Drupal\geolocation\Plugin\geolocation\Location;
 
+use Drupal\geolocation\Attribute\Location;
 use Drupal\geolocation\LocationBase;
 use Drupal\geolocation\LocationInputManager;
 use Drupal\geolocation\LocationInterface;
@@ -10,13 +11,12 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Derive center from proximity filter.
- *
- * @Location(
- *   id = "views_proximity_filter",
- *   name = @Translation("Proximity filter"),
- *   description = @Translation("Set map center from proximity filter."),
- * )
  */
+#[Location(
+  id: 'views_proximity_filter',
+  name: new \Drupal\Core\StringTranslation\TranslatableMarkup('Proximity filter'),
+  description: new \Drupal\Core\StringTranslation\TranslatableMarkup('Set map center from proximity filter.')
+)]
 class ViewsProximityFilter extends LocationBase implements LocationInterface {
 
   use ViewsContextTrait;

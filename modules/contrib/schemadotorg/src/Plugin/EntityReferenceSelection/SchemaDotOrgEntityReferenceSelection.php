@@ -12,6 +12,7 @@ use Drupal\Core\Entity\EntityRepositoryInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Entity\Exception\UnsupportedEntityTypeDefinitionException;
 use Drupal\Core\Entity\Query\QueryInterface;
+use Drupal\Core\Field\FieldConfigInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Session\AccountInterface;
@@ -373,6 +374,32 @@ abstract class SchemaDotOrgEntityReferenceSelection extends SelectionPluginBase 
     }
 
     return $target_bundles;
+  }
+
+  /**
+   * Updates the configuration of a field to adjust handler settings.
+   *
+   * This method checks if the given field configuration corresponds to an
+   * entity reference field with a 'schemadotorg' handler. If so, it updates
+   * the handler settings to include the appropriate target bundles.
+   *
+   * @param \Drupal\Core\Field\FieldConfigInterface $field_config
+   *   The field configuration entity to be updated.
+   */
+  public static function updateFieldConfig(FieldConfigInterface $field_config): void {
+    // Check that the field type is an entity reference
+    // and the entity reference handler is a 'schemadotorg' handler.
+    if (!str_starts_with($field_config->getType(), 'entity_reference')
+      || !str_starts_with($field_config->getSetting('handler'), 'schemadotorg')) {
+      return;
+    }
+
+    $settings = $field_config->getSettings();
+    $handler_settings = $settings['handler_settings'];
+
+    $target_bundles = SchemaDotOrgEntityReferenceSelection::getTargetBundles($handler_settings);
+    $handler_settings['target_bundles'] = $target_bundles;
+    $field_config->setSetting('handler_settings', $handler_settings);
   }
 
 }

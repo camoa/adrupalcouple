@@ -157,6 +157,14 @@ schema_types:
       - text
     Quiz:
       - hasPart
+    Legislation:
+      - legislationDate
+      - legislationDateOfApplicability
+      - legislationPassedBy
+      - legislationResponsible
+      - legislationType
+      - name
+      - text
     MediaObject:
       - name
     AudioObject:
@@ -383,7 +391,6 @@ schema_types:
       - repeatFrequency
       - startDate
     Service:
-      - availableChannel
       - description
       - hoursAvailable
       - name
@@ -803,6 +810,7 @@ schema_types:
         - Organization
         - Service
         - JobPosting
+        - Legislation
     education:
       label: Education
       color: '#dbe7e4'
@@ -810,12 +818,19 @@ schema_types:
         - EducationalOrganization
         - CourseInstance
         - Course
-    hospitality:
-      label: Hospitality
+    place:
+      label: Place
       color: '#c5dedd'
       types:
-        - LodgingBusiness
         - Accommodation
+        - AdministrativeArea
+        - CivicStructure
+        - Landform
+        - LandmarksOrHistoricalBuildings
+        - LodgingBusiness
+        - Residence
+        - TouristAttraction
+        - TouristDestination
     food:
       label: Food
       color: '#f0efeb'
@@ -1340,6 +1355,8 @@ schema_properties:
       unlimited: true
     jobBenefits:
       unlimited: true
+    jurisdiction:
+      type: text_long
     keywords:
       unlimited: true
     knowsAbout:
@@ -1457,6 +1474,9 @@ schema_properties:
       scale: 0
       min: 0
       max: 1000
+    provider:
+      label: Providers
+      unlimited: true
     publication:
       label: Publications
       unlimited: true
@@ -1510,6 +1530,8 @@ schema_properties:
     secondaryPrevention:
       label: 'Secondary preventions'
       unlimited: true
+    serviceOutput:
+      type: text_long
     signOrSymptom:
       label: 'Sign or symptoms'
       unlimited: true
@@ -1729,6 +1751,7 @@ schema_properties:
     - relatedLink
     - hasPart
     - mainEntity
+  disable_entity_display: {  }
 replace:
   - schema_types.default_properties.Article
   - schema_types.default_properties.Article

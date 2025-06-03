@@ -14,12 +14,6 @@ schemadotorg_translation.settings:
       sequence:
         type: string
         label: 'Excluded Schema.org property'
-    excluded_field_names:
-      type: sequence
-      label: 'Excluded field names'
-      sequence:
-        type: string
-        label: 'Excluded field name'
     included_field_names:
       type: sequence
       label: 'Included field names'

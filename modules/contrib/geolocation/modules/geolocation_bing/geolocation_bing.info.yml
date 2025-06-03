@@ -1,8 +1,0 @@
-name: Geolocation - Bing Maps
-type: module
-description: 'Bing Maps provider.'
-core_version_requirement: ^10 || ^11 || ^12
-package: Geolocation
-configure: geolocation_bing.settings
-dependencies:
-  - geolocation:geolocation

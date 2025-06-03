@@ -2,17 +2,17 @@
 
 namespace Drupal\geolocation_leaflet\Plugin\geolocation\GeocoderCountryFormatting;
 
+use Drupal\geolocation\Attribute\GeocoderCountryFormatting;
 use Drupal\geolocation_leaflet\NominatimRoadFirstFormattingBase;
 
 /**
  * Provides address formatting.
- *
- * @GeocoderCountryFormatting(
- *   id = "photon_de",
- *   country_code = "de",
- *   geocoder = "photon",
- * )
  */
+#[GeocoderCountryFormatting(
+  id: 'photon_de',
+  countryCode: 'de',
+  geocoder: 'photon'
+)]
 class PhotonGermany extends NominatimRoadFirstFormattingBase {
 
   /**

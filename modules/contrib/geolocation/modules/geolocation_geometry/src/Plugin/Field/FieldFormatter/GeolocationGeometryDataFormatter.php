@@ -2,6 +2,7 @@
 
 namespace Drupal\geolocation_geometry\Plugin\Field\FieldFormatter;
 
+use Drupal\Core\Field\Attribute\FieldFormatter;
 use Drupal\Component\Utility\Html;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
@@ -10,22 +11,21 @@ use Drupal\geolocation_geometry\GeometryFormat\GeoJSON;
 
 /**
  * Plugin implementation of the 'geolocation_geometry_data' formatter.
- *
- * @FieldFormatter(
- *   id = "geolocation_geometry_data",
- *   label = @Translation("Geolocation Geometry - Data"),
- *   field_types = {
- *     "geolocation_geometry_geometry",
- *     "geolocation_geometry_geometrycollection",
- *     "geolocation_geometry_point",
- *     "geolocation_geometry_linestring",
- *     "geolocation_geometry_polygon",
- *     "geolocation_geometry_multipoint",
- *     "geolocation_geometry_multilinestring",
- *     "geolocation_geometry_multipolygon",
- *   }
- * )
  */
+#[FieldFormatter(
+  id: 'geolocation_geometry_data',
+  label: new \Drupal\Core\StringTranslation\TranslatableMarkup('Geolocation Geometry - Data'),
+  field_types: [
+    'geolocation_geometry_geometry',
+    'geolocation_geometry_geometrycollection',
+    'geolocation_geometry_point',
+    'geolocation_geometry_linestring',
+    'geolocation_geometry_polygon',
+    'geolocation_geometry_multipoint',
+    'geolocation_geometry_multilinestring',
+    'geolocation_geometry_multipolygon',
+  ]
+)]
 class GeolocationGeometryDataFormatter extends FormatterBase {
 
   /**

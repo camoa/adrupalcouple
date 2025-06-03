@@ -2,6 +2,7 @@
 
 namespace Drupal\geolocation_geometry\Plugin\views\field;
 
+use Drupal\views\Attribute\ViewsField;
 use Drupal\geolocation\Plugin\views\field\ProximityField;
 use Drupal\geolocation_geometry\GeometryProximityTrait;
 
@@ -9,9 +10,8 @@ use Drupal\geolocation_geometry\GeometryProximityTrait;
  * Field handler for geolocation field.
  *
  * @ingroup views_field_handlers
- *
- * @ViewsField("geolocation_geometry_field_proximity")
  */
+#[ViewsField(id: 'geolocation_geometry_field_proximity')]
 class GeoProximityField extends ProximityField {
 
   use GeometryProximityTrait;

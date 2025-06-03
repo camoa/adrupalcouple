@@ -309,6 +309,27 @@ AdditionalType: Additional Type
   /**
    * {@inheritdoc}
    */
+  public function menuLinksDiscoveredAlter(array &$links): void {
+    foreach ($links as $link_id => &$link) {
+      if (str_starts_with($link_id, 'navigation.content.node_type.')) {
+        $route_name = $link['route_name'] ?? NULL;
+        if ($route_name === 'node.add') {
+          $node_type = $link['route_parameters']['node_type'] ?? NULL;
+          if ($this->isNodeTypeAdditionalTypeRequired($node_type)) {
+            $link += ['options' => []];
+            $link['options'] += ['attributes' => []];
+            $link['options']['attributes']['class'][] = 'use-ajax';
+            $link['options']['attributes']['data-dialog-type'] = 'modal';
+            $link['options']['attributes']['data-dialog-options'] = Json::encode(['width' => 600]);
+          }
+        }
+      }
+    }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function linkAlter(array &$variables): void {
     /** @var \Drupal\Core\Url|null $url */
     $url = $variables['url'] ?? NULL;
@@ -320,25 +341,12 @@ AdditionalType: Additional Type
     }
 
     $node_type = $url->getRouteParameters()['node_type'] ?? '';
-    $mapping = $this->getMappingStorage()->loadByBundle('node', $node_type);
-    if (!$mapping
-      || !$mapping->hasSchemaPropertyMapping('additionalType', TRUE)) {
-      return;
+    if ($this->isNodeTypeAdditionalTypeRequired($node_type)) {
+      $variables['options'] += ['attributes' => []];
+      $variables['options']['attributes']['class'][] = 'use-ajax';
+      $variables['options']['attributes']['data-dialog-type'] = 'modal';
+      $variables['options']['attributes']['data-dialog-options'] = Json::encode(['width' => 600]);
     }
-
-    $is_required = $this->isAdditionalTypeRequired(
-      $mapping->getTargetEntityTypeId(),
-      $mapping->getTargetBundle(),
-      $mapping->getSchemaType()
-    );
-    if (!$is_required) {
-      return;
-    }
-
-    $variables['options'] += ['attributes' => []];
-    $variables['options']['attributes']['class'][] = 'use-ajax';
-    $variables['options']['attributes']['data-dialog-type'] = 'modal';
-    $variables['options']['attributes']['data-dialog-options'] = Json::encode(['width' => 600]);
   }
 
   /**
@@ -390,6 +398,30 @@ AdditionalType: Additional Type
       'schema_type' => $schema_type,
     ];
     return (bool) $this->schemaTypeManager->getSetting($required_types, $parts, ['parents' => FALSE]);
+  }
+
+  /**
+   * Determines if the additionalType property is required for a given content type.
+   *
+   * @param string $node_type
+   *   A content type.
+   *
+   * @return bool
+   *   TRUE if the additionalType property is required for the
+   *   specified content type, otherwise FALSE.
+   */
+  protected function isNodeTypeAdditionalTypeRequired(string $node_type): bool {
+    $mapping = $this->getMappingStorage()->loadByBundle('node', $node_type);
+    if (!$mapping
+      || !$mapping->hasSchemaPropertyMapping('additionalType', TRUE)) {
+      return FALSE;
+    }
+
+    return $this->isAdditionalTypeRequired(
+      $mapping->getTargetEntityTypeId(),
+      $mapping->getTargetBundle(),
+      $mapping->getSchemaType()
+    );
   }
 
   /**

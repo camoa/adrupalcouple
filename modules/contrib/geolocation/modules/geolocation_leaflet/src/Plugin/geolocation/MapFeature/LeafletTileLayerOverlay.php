@@ -2,6 +2,7 @@
 
 namespace Drupal\geolocation_leaflet\Plugin\geolocation\MapFeature;
 
+use Drupal\geolocation\Attribute\MapFeature;
 use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\ReplaceCommand;
 use Drupal\Core\Form\FormStateInterface;
@@ -11,14 +12,13 @@ use Drupal\geolocation\MapProviderInterface;
 
 /**
  * Provides map tile layer overlay support.
- *
- * @MapFeature(
- *   id = "leaflet_tile_layer_overlay",
- *   name = @Translation("Tile Layer - Overlays"),
- *   description = @Translation("Select a map tile layer overlay."),
- *   type = "leaflet",
- * )
  */
+#[MapFeature(
+  id: 'leaflet_tile_layer_overlay',
+  name: new \Drupal\Core\StringTranslation\TranslatableMarkup('Tile Layer - Overlays'),
+  description: new \Drupal\Core\StringTranslation\TranslatableMarkup('Select a map tile layer overlay.'),
+  type: 'leaflet'
+)]
 class LeafletTileLayerOverlay extends MapFeatureBase {
 
   /**

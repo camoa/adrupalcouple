@@ -2,19 +2,19 @@
 
 namespace Drupal\geolocation\Plugin\geolocation\Location;
 
+use Drupal\geolocation\Attribute\Location;
 use Drupal\geolocation\LocationBase;
 use Drupal\geolocation\LocationInterface;
 use Drupal\geolocation\ViewsContextTrait;
 
 /**
  * Derive center from proximity filter.
- *
- * @Location(
- *   id = "views_boundary_filter",
- *   name = @Translation("Boundary filter"),
- *   description = @Translation("Set map center from boundary filter."),
- * )
  */
+#[Location(
+  id: 'views_boundary_filter',
+  name: new \Drupal\Core\StringTranslation\TranslatableMarkup('Boundary filter'),
+  description: new \Drupal\Core\StringTranslation\TranslatableMarkup('Set map center from boundary filter.')
+)]
 class ViewsBoundaryFilter extends LocationBase implements LocationInterface {
 
   use ViewsContextTrait;

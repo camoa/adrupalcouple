@@ -2,28 +2,28 @@
 
 namespace Drupal\geolocation_google_maps\Plugin\Field\FieldWidget;
 
+use Drupal\Core\Field\Attribute\FieldWidget;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\geolocation\Plugin\Field\FieldWidget\GeolocationGeometryWidgetBase;
 
 /**
  * Plugin implementation of 'geolocation_geometry_widget_google_maps' widget.
- *
- * @FieldWidget(
- *   id = "geolocation_geometry_widget_google_maps",
- *   label = @Translation("Geolocation Geometry Google Maps API - GeoJSON"),
- *   field_types = {
- *     "geolocation_geometry_point",
- *     "geolocation_geometry_multi_point",
- *     "geolocation_geometry_linestring",
- *     "geolocation_geometry_multi_linestring",
- *     "geolocation_geometry_polygon",
- *     "geolocation_geometry_multi_polygon",
- *     "geolocation_geometry_geometry",
- *     "geolocation_geometry_multi_geometry"
- *   }
- * )
  */
+#[FieldWidget(
+  id: 'geolocation_geometry_widget_google_maps',
+  label: new \Drupal\Core\StringTranslation\TranslatableMarkup('Geolocation Geometry Google Maps API - GeoJSON'),
+  field_types: [
+    'geolocation_geometry_point',
+    'geolocation_geometry_multi_point',
+    'geolocation_geometry_linestring',
+    'geolocation_geometry_multi_linestring',
+    'geolocation_geometry_polygon',
+    'geolocation_geometry_multi_polygon',
+    'geolocation_geometry_geometry',
+    'geolocation_geometry_multi_geometry',
+  ]
+)]
 class GeolocationGeometryWidgetGoogleMaps extends GeolocationGeometryWidgetBase {
 
   /**

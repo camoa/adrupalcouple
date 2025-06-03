@@ -4,6 +4,7 @@ namespace Drupal\geolocation_geometry\Plugin\views\relationship;
 
 use Drupal\Component\Plugin\PluginManagerInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\views\Attribute\ViewsRelationship;
 use Drupal\views\Plugin\ViewsHandlerManager;
 use Drupal\views\Plugin\views\relationship\RelationshipPluginBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -15,6 +16,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *
  * @ViewsRelationship("geolocation_geometry")
  */
+#[ViewsRelationship(id: 'geolocation_geometry')]
 class GeolocationGeometry extends RelationshipPluginBase {
 
   /**

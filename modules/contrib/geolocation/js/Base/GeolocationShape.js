@@ -202,19 +202,19 @@ export class GeolocationShape {
       return null;
     }
 
-    bounds.north = bounds.north < 90 ? bounds.north : 90;
-    bounds.south = bounds.south > -90 ? bounds.south : -90;
-    bounds.east = bounds.east < 180 ? bounds.east : 180;
-    bounds.west = bounds.west > -180 ? bounds.west : -180;
-
     return new GeolocationBoundaries(bounds);
   }
 
   remove() {}
 
-  click() {
+  /**
+   * Click handler delegation.
+   *
+   * @param {GeolocationCoordinates} coordinates
+   */
+  click(coordinates) {
     this.map.dataLayers.forEach((layer) => {
-      layer.shapeClicked(this);
+      layer.shapeClicked(this, coordinates);
     });
   }
 }

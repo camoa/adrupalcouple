@@ -1,5 +1,6 @@
 import { GeolocationShapeMultiLine } from "../../../js/Base/GeolocationShapeMultiLine.js";
 import { GoogleShapeTrait } from "./GoogleShapeTrait.js";
+import { GeolocationCoordinates } from "../../../js/Base/GeolocationCoordinates.js";
 
 /**
  * @prop {GoogleMaps} map
@@ -20,8 +21,12 @@ export class GoogleShapeMultiLine extends GeolocationShapeMultiLine {
       });
 
       if (this.title) {
-        this.googleShapeTrait.setTitle(this, this.title);
+        this.googleShapeTrait.setTitle(line, this.title, this.map);
       }
+
+      line.addListener("click", (event) => {
+        this.click(new GeolocationCoordinates(event.latLng.lat(), event.latLng.lng()));
+      });
 
       line.setMap(this.map.googleMap);
 

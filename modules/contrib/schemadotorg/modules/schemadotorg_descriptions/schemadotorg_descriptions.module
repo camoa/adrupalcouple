@@ -39,6 +39,15 @@ function schemadotorg_descriptions_entity_load(array $entities, string $entity_t
 }
 
 /**
+ * Implements hook_entity_presave().
+ */
+function schemadotorg_descriptions_entity_presave(EntityInterface $entity): void {
+  /** @var \Drupal\schemadotorg_descriptions\SchemaDotOrgDescriptionsManagerInterface $schema_descriptions_manager */
+  $schema_descriptions_manager = \Drupal::service('schemadotorg_descriptions.manager');
+  $schema_descriptions_manager->entityPresave($entity);
+}
+
+/**
  * Implements hook_form_FORM_ID_alter().
  *
  * Sets the node title field's description to the corresponding

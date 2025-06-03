@@ -8,6 +8,9 @@ use Drupal\Core\Annotation\Translation;
 /**
  * Defines a DataProvider annotation object.
  *
+ * @deprecated in geolocation:4.0.0 and is removed from geolocation:4.0.1. Use Attribute instead.
+ * @see https://www.drupal.org/project/geolocation/issues/3525013
+ *
  * @see \Drupal\geolocation\DataProviderManager
  * @see plugin_api
  *

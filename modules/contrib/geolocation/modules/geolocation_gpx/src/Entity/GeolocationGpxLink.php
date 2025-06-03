@@ -2,6 +2,7 @@
 
 namespace Drupal\geolocation_gpx\Entity;
 
+use Drupal\Core\Entity\Attribute\ContentEntityType;
 use Drupal\Core\Entity\ContentEntityBase;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Field\BaseFieldDefinition;
@@ -10,20 +11,14 @@ use Drupal\Core\Field\BaseFieldDefinition;
  * Defines the Link entity.
  *
  * @ingroup geolocation_gpx
- *
- * @ContentEntityType(
- *   id = "geolocation_gpx_link",
- *   label = @Translation("Geolocation GPX Link"),
- *   base_table = "geolocation_gpx_link",
- *   entity_keys = {
- *     "id" = "id",
- *     "uuid" = "uuid",
- *   },
- *   handlers = {
- *     "views_data" = "Drupal\views\EntityViewsData",
- *   },
- * )
  */
+#[ContentEntityType(
+  id: 'geolocation_gpx_link',
+  label: new \Drupal\Core\StringTranslation\TranslatableMarkup('Geolocation GPX Link'),
+  entity_keys: ['id' => 'id', 'uuid' => 'uuid'],
+  handlers: ['views_data' => 'Drupal\views\EntityViewsData'],
+  base_table: 'geolocation_gpx_link'
+)]
 class GeolocationGpxLink extends ContentEntityBase {
 
   /**

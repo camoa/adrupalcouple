@@ -2,6 +2,7 @@
 
 namespace Drupal\geolocation\Plugin\Block;
 
+use Drupal\Core\Block\Attribute\Block;
 use Drupal\Component\Utility\NestedArray;
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Extension\ModuleHandlerInterface;
@@ -14,12 +15,11 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Exposes a map rendered as a block.
- *
- * @Block(
- *   id = "geolocation_block",
- *   admin_label = @Translation("Geolocation Map")
- * )
  */
+#[Block(
+  id: 'geolocation_block',
+  admin_label: new \Drupal\Core\StringTranslation\TranslatableMarkup('Geolocation Map')
+)]
 class GeolocationBlock extends BlockBase implements ContainerFactoryPluginInterface {
 
   /**

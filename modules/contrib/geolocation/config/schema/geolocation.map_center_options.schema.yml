@@ -1,21 +1,24 @@
-plugin.plugin_configuration.geolocation.map_center_option.fit_bounds:
+plugin.plugin_configuration.geolocation.map_center_option.client_location:
   type: geolocation.map_center_option_settings
-  label: 'Fit Locations'
+  label: 'Client location'
   mapping:
     settings:
       type: mapping
       label: 'Settings'
       mapping:
-        reset_zoom:
+        initial_latitude:
+          type: float
+          label: 'Initial Latitude'
+        initial_longitude:
+          type: float
+          label: 'Initial Longitude'
+        follow_client:
           type: boolean
-          label: 'Reset zoom'
-        min_zoom:
-          type: integer
-          label: 'Min zoom'
+          label: 'Follow Client'
 
-plugin.plugin_configuration.geolocation.map_center_option.fit_shapes:
+plugin.plugin_configuration.geolocation.map_center_option.fit_bounds:
   type: geolocation.map_center_option_settings
-  label: 'Fit Shapes'
+  label: 'Fit Locations'
   mapping:
     settings:
       type: mapping

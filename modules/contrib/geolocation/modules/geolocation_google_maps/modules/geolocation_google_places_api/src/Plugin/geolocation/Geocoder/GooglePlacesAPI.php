@@ -2,6 +2,7 @@
 
 namespace Drupal\geolocation_google_places_api\Plugin\geolocation\Geocoder;
 
+use Drupal\geolocation\Attribute\Geocoder;
 use Drupal\Component\Serialization\Json;
 use Drupal\Core\Render\BubbleableMetadata;
 use Drupal\Core\Utility\Error;
@@ -10,17 +11,16 @@ use GuzzleHttp\Exception\RequestException;
 
 /**
  * Provides the Google Places API.
- *
- * @Geocoder(
- *   id = "google_places_api",
- *   name = @Translation("Google Places API"),
- *   description = @Translation("Attention: This Plugin needs you to follow Google Places API TOS and either use the Attribution Block or provide it yourself."),
- *   locationCapable = true,
- *   boundaryCapable = true,
- *   frontendCapable = true,
- *   reverseCapable = false,
- * )
  */
+#[Geocoder(
+  id: 'google_places_api',
+  name: new \Drupal\Core\StringTranslation\TranslatableMarkup('Google Places API'),
+  description: new \Drupal\Core\StringTranslation\TranslatableMarkup('Attention: This Plugin needs you to follow Google Places API TOS and either use the Attribution Block or provide it yourself.'),
+  locationCapable: TRUE,
+  boundaryCapable: TRUE,
+  frontendCapable: TRUE,
+  reverseCapable: FALSE
+)]
 class GooglePlacesAPI extends GoogleGeocoderBase {
 
   /**

@@ -108,7 +108,7 @@ SchemaType--propertyName:
     '#type' => 'schemadotorg_settings',
     '#title' => t('Allowed value URIs'),
     '#description' => t('Enter URIs to be used in the Schema.org JSON-LD for an allowed value.')
-      . ' ' . t('The allowed value URIs allows internal option machine names to mapped to  a well known URL from Wikipedia or Wikidata'),
+      . ' ' . t('The allowed value URIs allows internal option machine names to mapped to a well known URL from Wikipedia or Wikidata'),
     '#description_link' => 'properties',
     '#example' => "
 warning: 'https://www.wikidata.org/wiki/Q1759104'

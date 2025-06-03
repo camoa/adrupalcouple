@@ -74,7 +74,6 @@ class SchemaDotOrgRecipeManagerKernelTest extends SchemaDotOrgEntityKernelTestBa
               'type' => 'string',
               'label' => 'Custom',
               'group' => 'general',
-              'group_field_weight' => -100,
               'default_value' => [['value' => 'Custom value']],
             ],
           ],

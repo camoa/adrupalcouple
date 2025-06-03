@@ -2,20 +2,20 @@
 
 namespace Drupal\geolocation_leaflet\Plugin\geolocation\MapFeature;
 
+use Drupal\geolocation\Attribute\MapFeature;
 use Drupal\Core\Render\BubbleableMetadata;
 use Drupal\geolocation\MapFeatureBase;
 use Drupal\geolocation\MapProviderInterface;
 
 /**
  * Provides rotation control.
- *
- * @MapFeature(
- *   id = "leaflet_rotate",
- *   name = @Translation("Leaflet Rotate"),
- *   description = @Translation("Allow map rotation."),
- *   type = "leaflet",
- * )
  */
+#[MapFeature(
+  id: 'leaflet_rotate',
+  name: new \Drupal\Core\StringTranslation\TranslatableMarkup('Leaflet Rotate'),
+  description: new \Drupal\Core\StringTranslation\TranslatableMarkup('Allow map rotation.'),
+  type: 'leaflet'
+)]
 class LeafletRotate extends MapFeatureBase {
 
   /**

@@ -440,6 +440,7 @@ class SchemaDotOrgSchemaTypeManagerKernelTest extends SchemaDotOrgKernelTestBase
       'Place' => 'This is a place.',
       'Thing' => 'This is thing',
       'name' => 'A name',
+      '-recipe' => 'Negated recipe (not returned)',
     ];
 
     $parts = [
@@ -501,6 +502,15 @@ class SchemaDotOrgSchemaTypeManagerKernelTest extends SchemaDotOrgKernelTestBase
         'Thing' => 'This is thing',
       ],
       $this->schemaTypeManager->getSetting($settings, $parts, ['multiple' => TRUE])
+    );
+
+    $parts = [
+      'schema_type' => 'Recipe',
+      'schema_property' => 'name',
+      'bundle' => 'recipe',
+    ];
+    $this->assertNull(
+      $this->schemaTypeManager->getSetting($settings, $parts)
     );
 
     // Check getting setting from an indexed array by type and property.

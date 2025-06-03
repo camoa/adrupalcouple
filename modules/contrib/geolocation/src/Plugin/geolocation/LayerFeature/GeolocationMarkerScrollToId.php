@@ -1,21 +1,21 @@
 <?php
 
-namespace Drupal\geolocation\Plugin\geolocation\MapFeature;
+namespace Drupal\geolocation\Plugin\geolocation\LayerFeature;
 
+use Drupal\geolocation\Attribute\LayerFeature;
 use Drupal\Core\Template\Attribute;
 use Drupal\geolocation\LayerFeatureBase;
 use Drupal\geolocation\MapProviderInterface;
 
 /**
  * Provides map tilt.
- *
- * @MapFeature(
- *   id = "geolocation_marker_scroll_to_id",
- *   name = @Translation("Marker Scroll-to-ID"),
- *   description = @Translation("Clicking on a marker will try to scroll to the respective ID."),
- *   type = "all",
- * )
  */
+#[LayerFeature(
+  id: 'geolocation_marker_scroll_to_id',
+  name: new \Drupal\Core\StringTranslation\TranslatableMarkup('Marker Scroll-to-ID'),
+  description: new \Drupal\Core\StringTranslation\TranslatableMarkup('Clicking on a marker will try to scroll to the respective ID.'),
+  type: 'all'
+)]
 class GeolocationMarkerScrollToId extends LayerFeatureBase {
 
   /**

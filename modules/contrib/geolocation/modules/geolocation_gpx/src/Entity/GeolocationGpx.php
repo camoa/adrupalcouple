@@ -2,6 +2,7 @@
 
 namespace Drupal\geolocation_gpx\Entity;
 
+use Drupal\Core\Entity\Attribute\ContentEntityType;
 use Drupal\Core\Entity\ContentEntityBase;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
@@ -14,36 +15,15 @@ use Drupal\geolocation_geometry\GeometryType\GeometryTypeBase;
  * Defines the GPX entity.
  *
  * @ingroup geolocation_gpx
- *
- * @ContentEntityType(
- *   id = "geolocation_gpx",
- *   label = @Translation("Geolocation GPX"),
- *   base_table = "geolocation_gpx",
- *   admin_permission = "administer geolocation_gpx",
- *   entity_keys = {
- *     "id" = "id",
- *     "uuid" = "uuid",
- *   },
- *   handlers = {
- *     "views_data" =
- *   "Drupal\geolocation_gpx\ViewsData\GeolocationGpxViewsData",
- *     "list_builder" = "Drupal\Core\Entity\EntityListBuilder",
- *     "access" = "Drupal\Core\Entity\EntityAccessControlHandler",
- *     "form" = {
- *       "delete" = "Drupal\Core\Entity\ContentEntityDeleteForm",
- *       "delete-multiple-confirm" =
- *   "Drupal\Core\Entity\Form\DeleteMultipleForm"
- *     },
- *    "route_provider" = {
- *       "html" = "Drupal\Core\Entity\Routing\DefaultHtmlRouteProvider",
- *     },
- *   },
- *   links = {
- *      "delete-form" = "/geolocation-gpx/{geolocation_gpx}/delete",
- *      "delete-multiple-form" = "/geolocation-gpx/delete",
- *   },
- * )
  */
+#[ContentEntityType(
+  id: 'geolocation_gpx',
+  label: new \Drupal\Core\StringTranslation\TranslatableMarkup('Geolocation GPX'),
+  entity_keys: ['id' => 'id', 'uuid' => 'uuid'],
+  handlers: ['views_data' => ''],
+  admin_permission: 'administer geolocation_gpx',
+  base_table: 'geolocation_gpx'
+)]
 class GeolocationGpx extends ContentEntityBase {
 
   use StringTranslationTrait;

@@ -2,18 +2,18 @@
 
 namespace Drupal\geolocation\Plugin\geolocation\MapCenter;
 
+use Drupal\geolocation\Attribute\MapCenter;
 use Drupal\geolocation\MapCenterBase;
 use Drupal\geolocation\MapCenterInterface;
 
 /**
  * Fixed boundaries map center.
- *
- * @MapCenter(
- *   id = "fixed_boundaries",
- *   name = @Translation("Fixed boundaries"),
- *   description = @Translation("Fit map to preset boundaries."),
- * )
  */
+#[MapCenter(
+  id: 'fixed_boundaries',
+  name: new \Drupal\Core\StringTranslation\TranslatableMarkup('Fixed boundaries'),
+  description: new \Drupal\Core\StringTranslation\TranslatableMarkup('Fit map to preset boundaries.')
+)]
 class FixedBoundaries extends MapCenterBase implements MapCenterInterface {
 
   /**

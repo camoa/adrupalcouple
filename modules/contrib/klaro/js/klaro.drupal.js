@@ -42,6 +42,11 @@
       // Decorate wrapperIdentifiers in context.
       Drupal.behaviors.klaro.klaroDecorateWrapper(context, settings);
 
+      // Remove unused data attributes.
+      context.querySelectorAll('a[data-name]')?.forEach((item) => {
+        item.removeAttribute('data-href');
+      });
+
       // Store reference to manager once.
       if (!Drupal.behaviors.klaro.manager) {
         Drupal.behaviors.klaro.manager = klaro.getManager(Drupal.behaviors.klaro.config);

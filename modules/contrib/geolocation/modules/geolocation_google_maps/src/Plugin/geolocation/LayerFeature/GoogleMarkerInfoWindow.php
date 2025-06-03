@@ -2,19 +2,16 @@
 
 namespace Drupal\geolocation_google_maps\Plugin\geolocation\LayerFeature;
 
+use Drupal\geolocation\Attribute\LayerFeature;
 use Drupal\geolocation\LayerFeatureBase;
 use Drupal\geolocation\MapProviderInterface;
 
 /**
  * Provides marker infowindow.
- *
- * @LayerFeature(
- *   id = "marker_infowindow",
- *   name = @Translation("Marker InfoWindow"),
- *   description = @Translation("Open InfoWindow on Marker click."),
- *   type = "google_maps",
- * )
  */
+#[LayerFeature(id: 'marker_infowindow',
+  name: new \Drupal\Core\StringTranslation\TranslatableMarkup('Marker InfoWindow'),
+  description: new \Drupal\Core\StringTranslation\TranslatableMarkup('Open InfoWindow on Marker click.'), type: 'google_maps')]
 class GoogleMarkerInfoWindow extends LayerFeatureBase {
 
   /**

@@ -2,6 +2,7 @@
 
 namespace Drupal\geolocation\Plugin\views\argument;
 
+use Drupal\views\Attribute\ViewsArgument;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\geolocation\GeocoderManager;
@@ -11,9 +12,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * Argument handler for geolocation.
  *
  * @ingroup views_argument_handlers
- *
- * @ViewsArgument("geolocation_geocoder_argument")
  */
+#[ViewsArgument(id: 'geolocation_geocoder_argument')]
 class GeocoderArgument extends ProximityArgument implements ContainerFactoryPluginInterface {
 
   /**

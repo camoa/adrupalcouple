@@ -2,6 +2,7 @@
 
 namespace Drupal\geolocation\Plugin\geolocation\LocationInput;
 
+use Drupal\geolocation\Attribute\LocationInput;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\File\FileSystemInterface;
 use Drupal\geolocation\LocationInputBase;
@@ -11,13 +12,12 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Location based proximity center.
- *
- * @LocationInput(
- *   id = "location_plugins",
- *   name = @Translation("Location Plugins"),
- *   description = @Translation("Select a location plugin."),
- * )
  */
+#[LocationInput(
+  id: 'location_plugins',
+  name: new \Drupal\Core\StringTranslation\TranslatableMarkup('Location Plugins'),
+  description: new \Drupal\Core\StringTranslation\TranslatableMarkup('Select a location plugin.')
+)]
 class Location extends LocationInputBase implements LocationInputInterface {
 
   /**

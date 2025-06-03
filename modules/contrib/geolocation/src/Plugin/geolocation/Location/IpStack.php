@@ -2,6 +2,7 @@
 
 namespace Drupal\geolocation\Plugin\geolocation\Location;
 
+use Drupal\geolocation\Attribute\Location;
 use Drupal\geolocation\LocationBase;
 use Drupal\geolocation\LocationInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -9,13 +10,12 @@ use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Fixed coordinates map center.
- *
- * @Location(
- *   id = "ipstack",
- *   name = @Translation("ipstack Service"),
- *   description = @Translation("See https://ipstack.com/ website. Limited to 10000 requests per month. Access key required."),
- * )
  */
+#[Location(
+  id: 'ipstack',
+  name: new \Drupal\Core\StringTranslation\TranslatableMarkup('ipstack Service'),
+  description: new \Drupal\Core\StringTranslation\TranslatableMarkup('See https://ipstack.com/ website. Limited to 10000 requests per month. Access key required.')
+)]
 class IpStack extends LocationBase implements LocationInterface {
 
   /**

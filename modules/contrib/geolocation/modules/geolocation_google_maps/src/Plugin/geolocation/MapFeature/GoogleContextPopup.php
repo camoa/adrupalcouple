@@ -2,19 +2,19 @@
 
 namespace Drupal\geolocation_google_maps\Plugin\geolocation\MapFeature;
 
+use Drupal\geolocation\Attribute\MapFeature;
 use Drupal\geolocation\MapFeatureBase;
 use Drupal\geolocation\MapProviderInterface;
 
 /**
  * Provides context popup.
- *
- * @MapFeature(
- *   id = "context_popup",
- *   name = @Translation("Context Popup"),
- *   description = @Translation("Provide context / right-click popup window."),
- *   type = "google_maps",
- * )
  */
+#[MapFeature(
+  id: 'context_popup',
+  name: new \Drupal\Core\StringTranslation\TranslatableMarkup('Context Popup'),
+  description: new \Drupal\Core\StringTranslation\TranslatableMarkup('Provide context / right-click popup window.'),
+  type: 'google_maps'
+)]
 class GoogleContextPopup extends MapFeatureBase {
 
   /**

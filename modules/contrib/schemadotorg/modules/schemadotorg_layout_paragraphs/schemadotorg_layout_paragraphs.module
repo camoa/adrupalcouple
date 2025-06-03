@@ -96,12 +96,12 @@ function schemadotorg_layout_paragraphs_form_schemadotorg_types_settings_form_al
     '#title' => t('Default Schema.org types/content types'),
     '#description' => t('Enter Schema.org types or content types (a.k.a bundles) that default to using layout paragraphs.'),
     '#description_link' => 'types',
-    '#example' => '
-- SchemaType01
-- SchemaType02
-- SchemaType03
-- advanced_page
-',
+    '#example' => "
+- SchemaType
+- bundle
+- '-SchemaType'
+- '-bundle'
+",
   ];
   $form['schemadotorg_layout_paragraphs']['default_paragraph_types'] = [
     '#type' => 'schemadotorg_settings',

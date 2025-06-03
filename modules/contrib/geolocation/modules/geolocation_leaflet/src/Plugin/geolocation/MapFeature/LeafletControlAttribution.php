@@ -2,19 +2,19 @@
 
 namespace Drupal\geolocation_leaflet\Plugin\geolocation\MapFeature;
 
+use Drupal\geolocation\Attribute\MapFeature;
 use Drupal\geolocation\MapProviderInterface;
 use Drupal\geolocation\Plugin\geolocation\MapFeature\ControlElementBase;
 
 /**
  * Provides Attribution control element.
- *
- * @MapFeature(
- *   id = "leaflet_control_attribution",
- *   name = @Translation("Map Control - Attribution"),
- *   description = @Translation("Add attribution the map."),
- *   type = "leaflet",
- * )
  */
+#[MapFeature(
+  id: 'leaflet_control_attribution',
+  name: new \Drupal\Core\StringTranslation\TranslatableMarkup('Map Control - Attribution'),
+  description: new \Drupal\Core\StringTranslation\TranslatableMarkup('Add attribution the map.'),
+  type: 'leaflet'
+)]
 class LeafletControlAttribution extends ControlElementBase {
 
   /**

@@ -38,6 +38,8 @@ abstract class AbstractValidatorsTest extends CKEditor5CoreValidatorsTest {
 if (version_compare(\Drupal::VERSION, '10.3', '>')) {
   /**
    * {@inheritdoc}
+   *
+   * @group linkit
    */
   class ValidatorsTest extends AbstractValidatorsTest {
 
@@ -138,6 +140,8 @@ if (version_compare(\Drupal::VERSION, '10.3', '>')) {
 else {
   /**
    * {@inheritdoc}
+   *
+   * @group linkit
    */
   class ValidatorsTest extends AbstractValidatorsTest {
 

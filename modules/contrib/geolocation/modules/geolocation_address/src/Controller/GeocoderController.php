@@ -68,7 +68,7 @@ class GeocoderController extends ControllerBase {
       $geocoded_result = $geocoder->geocode($data['address']);
     }
     elseif (is_array($data['address'])) {
-      $geocoded_result = $geocoder->geocode(new GeolocationAddress(
+      $geocoded_result = $geocoder->geocodeAddress(new GeolocationAddress(
         organization: $data['address']['organization'] ?? '',
         addressLine1: $data['address']['addressLine1'] ?? '',
         addressLine2: $data['address']['addressLine2'] ?? '',

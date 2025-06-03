@@ -2,6 +2,7 @@
 
 namespace Drupal\geolocation_yandex\Plugin\geolocation\Geocoder;
 
+use Drupal\geolocation\Attribute\Geocoder;
 use Drupal\Component\Serialization\Json;
 use Drupal\Core\Render\BubbleableMetadata;
 use Drupal\Core\Url;
@@ -13,16 +14,15 @@ use GuzzleHttp\Exception\RequestException;
 
 /**
  * Provides the Yandex.
- *
- * @Geocoder(
- *   id = "yandex",
- *   name = @Translation("Yandex"),
- *   description = @Translation("See https://tech.yandex.com/maps/doc/geocoder/desc/concepts/about-docpage/ for details."),
- *   locationCapable = true,
- *   boundaryCapable = true,
- *   frontendCapable = true,
- * )
  */
+#[Geocoder(
+  id: 'yandex',
+  name: new \Drupal\Core\StringTranslation\TranslatableMarkup('Yandex'),
+  description: new \Drupal\Core\StringTranslation\TranslatableMarkup('See https://tech.yandex.com/maps/doc/geocoder/desc/concepts/about-docpage/ for details.'),
+  locationCapable: TRUE,
+  boundaryCapable: TRUE,
+  frontendCapable: TRUE
+)]
 class Yandex extends GeocoderBase implements GeocoderInterface {
 
   /**

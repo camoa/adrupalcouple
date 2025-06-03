@@ -3,7 +3,6 @@ status: true
 dependencies:
   config:
     - field.storage.node.schema_member_of
-    - node.type.organization
     - node.type.person
 id: node.person.schema_member_of
 field_name: schema_member_of

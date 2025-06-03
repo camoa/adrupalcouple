@@ -65,11 +65,14 @@ function schemadotorg_metatag_form_schemadotorg_types_settings_form_alter(array 
     '#type' => 'schemadotorg_settings',
     '#title' => t('Schema.org type'),
     '#description' => t('Enter the Schema.org types that should have a meta tags field added when the Schema.org mapping is created.'),
-    '#example' => '
+    '#example' => "
 - entity_type_id--SchemaType
 - entity_type_id--bundle
 - entity_type_id--bundle--SchemaType
-',
+- '-entity_type_id--SchemaType'
+- '-entity_type_id--bundle'
+- '-entity_type_id--bundle--SchemaType'
+",
   ];
   $form['schemadotorg_metatag']['default_groups'] = [
     '#type' => 'checkboxes',

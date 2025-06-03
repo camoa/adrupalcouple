@@ -2,18 +2,15 @@
 
 namespace Drupal\geolocation\Plugin\geolocation\MapFeature;
 
+use Drupal\geolocation\Attribute\MapFeature;
 use Drupal\geolocation\MapProviderInterface;
 
 /**
  * Provides Recenter control element.
- *
- * @MapFeature(
- *   id = "control_recenter",
- *   name = @Translation("Map Control - Recenter"),
- *   description = @Translation("Add button to recenter map."),
- *   type = "all",
- * )
  */
+#[MapFeature(id: 'control_recenter',
+  name: new \Drupal\Core\StringTranslation\TranslatableMarkup('Map Control - Recenter'),
+  description: new \Drupal\Core\StringTranslation\TranslatableMarkup('Add button to recenter map.'), type: 'all')]
 class ControlCustomRecenter extends ControlCustomElementBase {
 
   /**

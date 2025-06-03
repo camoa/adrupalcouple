@@ -8,16 +8,16 @@ namespace Drupal\geolocation;
 class GeolocationAddress {
 
   public function __construct(
-    public string $organization = '',
-    public string $addressLine1 = '',
-    public string $addressLine2 = '',
-    public string $addressLine3 = '',
-    public string $dependentLocality = '',
-    public string $locality = '',
-    public string $administrativeArea = '',
-    public string $postalCode = '',
-    public string $sortingCode = '',
-    public string $countryCode = '',
+    public ?string $organization = NULL,
+    public ?string $addressLine1 = NULL,
+    public ?string $addressLine2 = NULL,
+    public ?string $addressLine3 = NULL,
+    public ?string $dependentLocality = NULL,
+    public ?string $locality = NULL,
+    public ?string $administrativeArea = NULL,
+    public ?string $postalCode = NULL,
+    public ?string $sortingCode = NULL,
+    public ?string $countryCode = NULL,
   ) {}
 
   /**

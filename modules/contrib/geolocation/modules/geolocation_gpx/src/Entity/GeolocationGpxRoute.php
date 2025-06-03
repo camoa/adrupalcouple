@@ -2,6 +2,7 @@
 
 namespace Drupal\geolocation_gpx\Entity;
 
+use Drupal\Core\Entity\Attribute\ContentEntityType;
 use Drupal\Core\Entity\ContentEntityBase;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
@@ -12,20 +13,14 @@ use Drupal\Core\Field\FieldStorageDefinitionInterface;
  * Defines the Route entity.
  *
  * @ingroup geolocation_gpx
- *
- * @ContentEntityType(
- *   id = "geolocation_gpx_route",
- *   label = @Translation("Geolocation GPX Route"),
- *   base_table = "geolocation_gpx_route",
- *   entity_keys = {
- *     "id" = "id",
- *     "uuid" = "uuid",
- *   },
- *   handlers = {
- *     "views_data" = "Drupal\views\EntityViewsData",
- *   },
- * )
  */
+#[ContentEntityType(
+  id: 'geolocation_gpx_route',
+  label: new \Drupal\Core\StringTranslation\TranslatableMarkup('Geolocation GPX Route'),
+  entity_keys: ['id' => 'id', 'uuid' => 'uuid'],
+  handlers: ['views_data' => 'Drupal\views\EntityViewsData'],
+  base_table: 'geolocation_gpx_route'
+)]
 class GeolocationGpxRoute extends ContentEntityBase {
 
   /**

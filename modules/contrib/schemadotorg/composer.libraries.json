@@ -61,7 +61,6 @@
     },
     "patches": {
       "drupal/core": {
-        "Issue #3388047: Suppress Drupal core entity reference errors": "https://www.drupal.org/files/issues/2024-03-22/schemadotorg-drupal-core-3388047-4.patch",
         "Issue #3345064: Media library field_widget_id is not unique enough": "https://www.drupal.org/files/issues/2023-02-28/3345064.patch",
         "Issue #3356667: Error: Cannot read properties of undefined (reading 'settings') with dialog.position.js": "https://www.drupal.org/files/issues/2024-08-11/3356667-undefined-settings-dialog-position-52.patch"
       },
@@ -70,9 +69,6 @@
       },
       "drupal/cer": {
         "Issue #2998138: Could support Remove field name prefix module?": "https://www.drupal.org/files/issues/2018-09-17/support_fields_without_prefix-2998138-4-D8.patch"
-      },
-      "drupal/config_views": {
-        "Issue #3378687: Dynamic property issue in ConfigEntityQuery with PHP 8.2": "https://www.drupal.org/files/issues/2023-08-02/config_views-fix-dynamic-property-3378687-2.patch"
       },
       "drupal/entity_reference_revisions": {
         "Issue #3265084: EntityReferenceRevisionsItem:generateSampleValue can break when all bundle types are allowed": "https://www.drupal.org/files/issues/2022-02-18/treat-no-selection-as-all-3265084-2.patch"

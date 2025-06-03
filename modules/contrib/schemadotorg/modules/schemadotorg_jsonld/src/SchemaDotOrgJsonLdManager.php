@@ -249,7 +249,7 @@ class SchemaDotOrgJsonLdManager implements SchemaDotOrgJsonLdManagerInterface {
    * {@inheritdoc}
    */
   public function getSchemaPropertyValueDefaultSchemaType(string $schema_type, string $schema_property, mixed $value): array|string|int|bool|NULL {
-    // If the value is an array return it with the  @type  default values.
+    // If the value is an array return it with the  @type default values.
     if (is_array($value)) {
       $range_include = $value['@type'] ?? NULL;
       return $value + $this->getSchemaTypeDefaultValues($schema_type, $schema_property, $range_include);

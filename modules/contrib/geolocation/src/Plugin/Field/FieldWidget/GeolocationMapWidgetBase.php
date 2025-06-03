@@ -95,9 +95,6 @@ abstract class GeolocationMapWidgetBase extends WidgetBase implements ContainerF
         'enable' => TRUE,
         'weight' => -101,
         'map_center_id' => 'fit_bounds',
-        'settings' => [
-          'reset_zoom' => TRUE,
-        ],
       ],
     ];
 

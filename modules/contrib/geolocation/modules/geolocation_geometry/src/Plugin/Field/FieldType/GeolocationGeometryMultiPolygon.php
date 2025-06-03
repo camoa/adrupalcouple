@@ -2,20 +2,20 @@
 
 namespace Drupal\geolocation_geometry\Plugin\Field\FieldType;
 
+use Drupal\Core\Field\Attribute\FieldType;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
 
 /**
  * Plugin implementation of the 'geolocation' field type.
- *
- * @FieldType(
- *   id = "geolocation_geometry_multipolygon",
- *   label = @Translation("Geolocation Geometry - MultiPolygon"),
- *   category = "geo_spatial",
- *   description = @Translation("This field stores spatial geometry of type 'MultiPolygon'."),
- *   default_widget = "geolocation_geometry_geojson",
- *   default_formatter = "geolocation_geometry_data"
- * )
  */
+#[FieldType(
+  id: 'geolocation_geometry_multipolygon',
+  label: new \Drupal\Core\StringTranslation\TranslatableMarkup('Geolocation Geometry - MultiPolygon'),
+  description: new \Drupal\Core\StringTranslation\TranslatableMarkup("This field stores spatial geometry of type 'MultiPolygon'."),
+  category: 'geo_spatial',
+  default_widget: 'geolocation_geometry_geojson',
+  default_formatter: 'geolocation_geometry_data'
+)]
 class GeolocationGeometryMultiPolygon extends GeolocationGeometryBase {
 
   /**

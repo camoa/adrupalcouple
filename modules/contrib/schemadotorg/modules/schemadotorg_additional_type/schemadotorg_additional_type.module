@@ -61,6 +61,15 @@ function schemadotorg_additional_type_node_prepare_form(NodeInterface $node, str
 }
 
 /**
+ * Implements hook_menu_links_discovered_alter().
+ */
+function schemadotorg_additional_type_menu_links_discovered_alter(array &$links): void {
+  /** @var \Drupal\schemadotorg_additional_type\SchemaDotOrgAdditionalTypeManagerInterface $additional_type_manager */
+  $additional_type_manager = \Drupal::service('schemadotorg_additional_type.manager');
+  $additional_type_manager->menuLinksDiscoveredAlter($links);
+}
+
+/**
  * Implements hook_link_alter().
  */
 function schemadotorg_additional_type_link_alter(array &$variables): void {

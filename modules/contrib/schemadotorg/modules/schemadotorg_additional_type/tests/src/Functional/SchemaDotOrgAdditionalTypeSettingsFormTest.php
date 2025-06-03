@@ -29,7 +29,7 @@ class SchemaDotOrgAdditionalTypeSettingsFormTest extends SchemaDotOrgBrowserTest
   }
 
   /**
-   * Test Schema.org  Additional type settings form.
+   * Test Schema.org Additional type settings form.
    */
   public function testSettingsForm(): void {
     $this->assertSaveSettingsConfigForm('schemadotorg_additional_type.settings', '/admin/config/schemadotorg/settings/types');

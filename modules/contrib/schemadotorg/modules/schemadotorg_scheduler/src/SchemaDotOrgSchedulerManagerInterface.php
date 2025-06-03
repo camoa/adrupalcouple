@@ -12,7 +12,7 @@ use Drupal\schemadotorg\SchemaDotOrgMappingInterface;
 interface SchemaDotOrgSchedulerManagerInterface {
 
   /**
-   * Add scheduler settings  when a mapping is inserted.
+   * Add scheduler settings when a mapping is inserted.
    *
    * @param \Drupal\schemadotorg\SchemaDotOrgMappingInterface $mapping
    *   The Schema.org mapping.

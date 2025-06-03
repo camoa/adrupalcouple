@@ -2,6 +2,7 @@
 
 namespace Drupal\geolocation\Plugin\views\display;
 
+use Drupal\views\Attribute\ViewsDisplay;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\views\Plugin\views\display\Attachment;
 use Drupal\views\ViewExecutable;
@@ -10,16 +11,14 @@ use Drupal\views\ViewExecutable;
  * The plugin that handles a geolocation attachment display.
  *
  * @ingroup views_display_plugins
- *
- * @ViewsDisplay(
- *   id = "geolocation_layer",
- *   title = @Translation("Geolocation - Attachment Layer"),
- *   help = @Translation("Can be attached to an existing map display view. Can inherit filters."),
- *   theme = "views_view",
- *   register_theme = FALSE,
- *   contextual_links_locations = {""}
- * )
  */
+#[ViewsDisplay(
+  id: 'geolocation_layer',
+  title: new \Drupal\Core\StringTranslation\TranslatableMarkup('Geolocation - Attachment Layer'), help: new \Drupal\Core\StringTranslation\TranslatableMarkup('Can be attached to an existing map display view. Can inherit filters.'),
+  contextual_links_locations: [''],
+  theme: 'views_view',
+  register_theme: FALSE
+)]
 class GeolocationAttachmentLayer extends Attachment {
 
   /**

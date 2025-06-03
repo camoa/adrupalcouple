@@ -77,7 +77,7 @@ class SchemaDotOrgFieldGroupEntityDisplayBuilder implements SchemaDotOrgFieldGro
     if ($disable_field_groups && $this->schemaTypeManager->getSetting(
       settings: $disable_field_groups,
       parts: ['entity_type_id' => $entity_type_id, 'bundle' => $bundle, 'schema_type' => $schema_type],
-      patterns: static::PATTERNS,
+      patterns: SchemaDotOrgEntityDisplayBuilderInterface::PATTERNS,
     )) {
       return;
     }
@@ -208,7 +208,7 @@ class SchemaDotOrgFieldGroupEntityDisplayBuilder implements SchemaDotOrgFieldGro
     if ($disable_field_groups && $this->schemaTypeManager->getSetting(
         settings: $disable_field_groups,
         parts: ['entity_type_id' => $entity_type_id, 'bundle' => $bundle, 'display_type' => $display_type, 'mode' => $mode],
-        patterns: static::PATTERNS,
+        patterns: SchemaDotOrgEntityDisplayBuilderInterface::PATTERNS,
       )) {
       return;
     }
@@ -525,7 +525,7 @@ class SchemaDotOrgFieldGroupEntityDisplayBuilder implements SchemaDotOrgFieldGro
     return !$this->schemaTypeManager->getSetting(
       settings: $disable_field_groups,
       parts: $parts,
-      patterns: static::PATTERNS,
+      patterns: SchemaDotOrgEntityDisplayBuilderInterface::PATTERNS,
     );
   }
 

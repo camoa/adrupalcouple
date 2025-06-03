@@ -66,10 +66,11 @@ content:
     weight: 200
     region: content
   schema_duration:
-    type: string
+    type: number_integer
     label: above
     settings:
-      link_to_entity: false
+      thousand_separator: ''
+      prefix_suffix: true
     third_party_settings: {  }
     weight: 110
     region: content

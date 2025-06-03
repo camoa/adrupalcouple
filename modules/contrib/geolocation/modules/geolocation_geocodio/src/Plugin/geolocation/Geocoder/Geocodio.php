@@ -2,6 +2,7 @@
 
 namespace Drupal\geolocation_geocodio\Plugin\geolocation\Geocoder;
 
+use Drupal\geolocation\Attribute\Geocoder;
 use Drupal\Core\Utility\Error;
 use Drupal\geolocation\GeocoderBase;
 use Drupal\geolocation\GeocoderInterface;
@@ -11,16 +12,15 @@ use GuzzleHttp\Exception\RequestException;
 
 /**
  * Provides a Geocodio integration.
- *
- * @Geocoder(
- *   id = "geocodio",
- *   name = @Translation("Geocodio"),
- *   description = @Translation("See https://www.geocod.io/docs/ for details."),
- *   locationCapable = true,
- *   boundaryCapable = false,
- *   frontendCapable = false,
- * )
  */
+#[Geocoder(
+  id: 'geocodio',
+  name: new \Drupal\Core\StringTranslation\TranslatableMarkup('Geocodio'),
+  description: new \Drupal\Core\StringTranslation\TranslatableMarkup('See https://www.geocod.io/docs/ for details.'),
+  locationCapable: TRUE,
+  boundaryCapable: FALSE,
+  frontendCapable: FALSE
+)]
 class Geocodio extends GeocoderBase implements GeocoderInterface {
 
   /**

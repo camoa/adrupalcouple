@@ -132,7 +132,7 @@ class SchemaDotOrgMappingStorage extends ConfigEntityStorage implements SchemaDo
     }
 
     // Ignore all data types to improve performance by reducing queries and
-    // ensure that data types like  https://schema.org/PronounceableText can't
+    // ensure that data types like https://schema.org/PronounceableText can't
     // be used as an entity reference's target bundle.
     $range_includes = array_diff_key(
       $range_includes,

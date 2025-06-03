@@ -2,18 +2,18 @@
 
 namespace Drupal\geolocation_leaflet\Plugin\geolocation\MapFeature;
 
+use Drupal\geolocation\Attribute\MapFeature;
 use Drupal\geolocation\Plugin\geolocation\MapFeature\ControlCustomElementBase;
 
 /**
  * Provides Fullscreen control element.
- *
- * @MapFeature(
- *   id = "leaflet_control_fullscreen",
- *   name = @Translation("Map Control - Fullscreen"),
- *   description = @Translation("Add button to toggle fullscreen."),
- *   type = "leaflet",
- * )
  */
+#[MapFeature(
+  id: 'leaflet_control_fullscreen',
+  name: new \Drupal\Core\StringTranslation\TranslatableMarkup('Map Control - Fullscreen'),
+  description: new \Drupal\Core\StringTranslation\TranslatableMarkup('Add button to toggle fullscreen.'),
+  type: 'leaflet'
+)]
 class LeafletControlFullscreen extends ControlCustomElementBase {
 
   /**

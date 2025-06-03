@@ -16,12 +16,12 @@ interface SchemaDotOrgAdditionalTypeManagerInterface {
   /**
    * Add new field mapping option.
    */
-  const string ADD_FIELD = SchemaDotOrgEntityFieldManagerInterface::ADD_FIELD;
+  const ADD_FIELD = SchemaDotOrgEntityFieldManagerInterface::ADD_FIELD;
 
   /**
    * The additional type field name suffix.
    */
-  const string FIELD_NAME_SUFFIX = '_type';
+  const FIELD_NAME_SUFFIX = '_type';
 
   /**
    * Alter Schema.org mapping entity default values.
@@ -60,6 +60,17 @@ interface SchemaDotOrgAdditionalTypeManagerInterface {
    *   The form state object.
    */
   public function nodePrepareForm(NodeInterface $node, string $operation, FormStateInterface $form_state): void;
+
+  /**
+   * Alters the navigation.module's add content menu links.
+   *
+   * @param array &$links
+   *   The discovered menu links to be altered.
+   *
+   * @see navigation_menu_links_discovered_alter()
+   * @see \Drupal\navigation\NavigationContentLinks::addMenuLinks
+   */
+  public function menuLinksDiscoveredAlter(array &$links): void;
 
   /**
    * Alter the link variables.

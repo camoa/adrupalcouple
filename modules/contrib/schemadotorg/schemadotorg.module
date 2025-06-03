@@ -77,7 +77,7 @@ function schemadotorg_system_info_alter(array &$info, Extension $file, string $t
 /**
  * Implements hook_module_implements_alter().
  */
-function schemadotorg_module_implements_alter(array &$implementations, string $hook): void {
+function schemadotorg_module_implements_alter(array &$implementations, string|int $hook): void {
   if ($hook === 'form_alter') {
     $implementation = $implementations['schemadotorg'];
     unset($implementations['schemadotorg']);
@@ -158,15 +158,16 @@ function schemadotorg_schemadotorg_mapping_insert(SchemaDotOrgMapping $mapping):
     return;
   }
 
-  // Trigger field config save to update the target bundles for the
-  // Schema.org entity reference selection handler.
+  // Trigger field config save to update the changed target bundles
+  // for the Schema.org entity reference selection handler.
   /** @var \Drupal\Core\Field\FieldConfigInterface[] $field_configs */
   $field_configs = \Drupal::entityTypeManager()
     ->getStorage('field_config')
     ->loadMultiple();
   foreach ($field_configs as $field_config) {
-    if (str_starts_with($field_config->getType(), 'entity_reference')
-      && str_starts_with($field_config->getSetting('handler'), 'schemadotorg')) {
+    $settings = $field_config->getSettings();
+    SchemaDotOrgEntityReferenceSelection::updateFieldConfig($field_config);
+    if ($settings !== $field_config->getSettings()) {
       $field_config->save();
     }
   }
@@ -180,19 +181,7 @@ function schemadotorg_field_config_presave(FieldConfigInterface $field_config): 
     return;
   }
 
-  // Check that the field type is an entity reference
-  // and the entity reference handler is a 'schemadotorg' handler.
-  if (!str_starts_with($field_config->getType(), 'entity_reference')
-    || !str_starts_with($field_config->getSetting('handler'), 'schemadotorg')) {
-    return;
-  }
-
-  $settings = $field_config->getSettings();
-  $handler_settings = $settings['handler_settings'];
-
-  $target_bundles = SchemaDotOrgEntityReferenceSelection::getTargetBundles($handler_settings);
-  $handler_settings['target_bundles'] = $target_bundles;
-  $field_config->setSetting('handler_settings', $handler_settings);
+  SchemaDotOrgEntityReferenceSelection::updateFieldConfig($field_config);
 }
 
 /**

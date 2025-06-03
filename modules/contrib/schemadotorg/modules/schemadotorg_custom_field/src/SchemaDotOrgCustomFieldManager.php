@@ -8,6 +8,7 @@ use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityReferenceSelection\SelectionPluginManagerInterface;
 use Drupal\Core\Field\FieldItemInterface;
 use Drupal\Core\Field\FieldItemListInterface;
+use Drupal\custom_field\Plugin\CustomFieldTypeInterface;
 use Drupal\custom_field\Plugin\CustomFieldTypeManager;
 use Drupal\custom_field\Plugin\CustomFieldWidgetManager;
 use Drupal\schemadotorg\Entity\SchemaDotOrgMapping;
@@ -209,13 +210,7 @@ class SchemaDotOrgCustomFieldManager implements SchemaDotOrgCustomFieldManagerIn
       $field_storage_columns[$name] = [
         'name' => $name,
         'type' => $data_type,
-        // Set default storage column values.
-        'max_length' => '255',
-        'unsigned' => 0,
-        'precision' => '10',
-        'scale' => '2',
-        'datetime_type' => 'datetime',
-      ];
+      ] + $this->getDefaultStorageSettings($data_type);
 
       $field_settings[$name] = [
         'type' => $widget_type,
@@ -312,6 +307,55 @@ class SchemaDotOrgCustomFieldManager implements SchemaDotOrgCustomFieldManagerIn
     return ($field_type === 'custom')
       ? SchemaDotOrgMapping::loadByEntity($item->getEntity())
       : NULL;
+  }
+
+  /**
+   * Get the default storage settings for a given data type.
+   *
+   * @param string $data_type
+   *   A custom field data type.
+   *
+   * @return array
+   *   An array of default storage settings specific to the given data type.
+   *
+   * @see \Drupal\custom_field\Plugin\Field\FieldType\CustomItem::storageSettingsForm
+   */
+  protected function getDefaultStorageSettings(string $data_type): array {
+    $settings = [];
+    if (in_array($data_type, ['string', 'telephone'])) {
+      $settings['length'] = ($data_type === 'telephone') ? 256 : 255;
+    }
+    // Size field for supported types.
+    if (in_array($data_type, ['integer', 'float'])) {
+      $settings['size'] = 'normal';
+    }
+    // Unsigned field for supported types.
+    if (in_array($data_type, ['integer', 'float', 'decimal'])) {
+      $settings['unsigned'] = FALSE;
+    }
+    // Decimal field extra settings.
+    if ($data_type === 'decimal') {
+      $settings['precision'] = 10;
+      $settings['scale'] = 2;
+    }
+    // Datetime field extra settings.
+    if ($data_type === 'datetime') {
+      $settings['datetime_type'] = CustomFieldTypeInterface::DATETIME_TYPE_DATETIME;
+    }
+    // Entity reference field extra settings.
+    if ($data_type === 'entity_reference') {
+      $settings['target_type'] = NULL;
+    }
+    // File & Image field extra settings.
+    if ($data_type === 'file' || $data_type === 'image') {
+      $settings['uri_scheme'] = $this->configFactory->get('system.file')->get('default_scheme');
+      $settings['target_type'] = 'file';
+    }
+    // Viewfield extra settings.
+    if ($data_type === 'viewfield') {
+      $settings['target_type'] = 'view';
+    }
+    return $settings;
   }
 
   /**

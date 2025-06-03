@@ -726,10 +726,16 @@ class SchemaDotOrgSchemaTypeManager implements SchemaDotOrgSchemaTypeManagerInte
    * {@inheritdoc}
    */
   public function getSetting(array $settings, SchemaDotOrgMappingInterface|array $parts, array $options = [], ?array $patterns = NULL): mixed {
+    // Check for empty settings and immediately return NULL.
+    if (empty($settings)) {
+      return NULL;
+    }
+
     // Set options defaults.
     $options += [
       'multiple' => FALSE,
       'parents' => TRUE,
+      'negate' => TRUE,
     ];
 
     // Get the parts from a Schema.org mapping.
@@ -751,6 +757,20 @@ class SchemaDotOrgSchemaTypeManager implements SchemaDotOrgSchemaTypeManagerInte
     if (array_is_list($settings)) {
       $settings = array_flip($settings);
       $settings = array_fill_keys(array_keys($settings), TRUE);
+    }
+
+    // If negate settings are passed we need to find them and return NULL.
+    if (!empty($options['negate'])) {
+      $negate_settings = [];
+      foreach ($settings as $key => $value) {
+        if (str_starts_with($key, '-')) {
+          // Change the value to TRUE because we are ignoring that settings.
+          $negate_settings[ltrim($key, '-')] = TRUE;
+        }
+      }
+      if ($this->getSetting($negate_settings, $parts, ['negate' => FALSE] + $options, $patterns)) {
+        return NULL;
+      }
     }
 
     // Filter the patterns to only applicable patterns by part name.

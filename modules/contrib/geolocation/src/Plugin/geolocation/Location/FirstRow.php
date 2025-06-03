@@ -2,6 +2,7 @@
 
 namespace Drupal\geolocation\Plugin\geolocation\Location;
 
+use Drupal\geolocation\Attribute\Location;
 use Drupal\geolocation\DataProviderManager;
 use Drupal\geolocation\LocationBase;
 use Drupal\geolocation\LocationInterface;
@@ -10,13 +11,12 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Derive center from first row.
- *
- * @Location(
- *   id = "first_row",
- *   name = @Translation("View first row"),
- *   description = @Translation("Use geolocation field value from first row."),
- * )
  */
+#[Location(
+  id: 'first_row',
+  name: new \Drupal\Core\StringTranslation\TranslatableMarkup('View first row'),
+  description: new \Drupal\Core\StringTranslation\TranslatableMarkup('Use geolocation field value from first row.')
+)]
 class FirstRow extends LocationBase implements LocationInterface {
 
   use ViewsContextTrait;
@@ -91,10 +91,10 @@ class FirstRow extends LocationBase implements LocationInterface {
       return parent::getCoordinates($location_option_id, $location_option_settings, $context);
     }
 
-    $positions = $data_provider->getPositionsFromViewsRow($views_style->view->result[0], $source_field);
+    $locations = $data_provider->getLocationsFromViewsRow($views_style->view->result[0], $source_field);
 
-    if (!empty($positions[0])) {
-      return $positions[0];
+    if (!empty($locations[0])) {
+      return $locations[0]['#coordinates'];
     }
 
     return parent::getCoordinates($location_option_id, $location_option_settings, $context);

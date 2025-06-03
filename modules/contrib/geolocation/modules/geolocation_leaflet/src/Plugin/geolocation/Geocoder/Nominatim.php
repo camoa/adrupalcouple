@@ -2,6 +2,7 @@
 
 namespace Drupal\geolocation_leaflet\Plugin\geolocation\Geocoder;
 
+use Drupal\geolocation\Attribute\Geocoder;
 use Drupal\Component\Serialization\Json;
 use Drupal\Core\Url;
 use Drupal\Core\Utility\Error;
@@ -12,17 +13,16 @@ use GuzzleHttp\Exception\RequestException;
 
 /**
  * Provides the Nominatim API.
- *
- * @Geocoder(
- *   id = "nominatim",
- *   name = @Translation("Nominatim"),
- *   description = @Translation("See https://wiki.openstreetmap.org/wiki/Nominatim for details."),
- *   locationCapable = true,
- *   boundaryCapable = true,
- *   frontendCapable = false,
- *   reverseCapable = true,
- * )
  */
+#[Geocoder(
+  id: 'nominatim',
+  name: new \Drupal\Core\StringTranslation\TranslatableMarkup('Nominatim'),
+  description: new \Drupal\Core\StringTranslation\TranslatableMarkup('See https://wiki.openstreetmap.org/wiki/Nominatim for details.'),
+  locationCapable: TRUE,
+  boundaryCapable: TRUE,
+  frontendCapable: FALSE,
+  reverseCapable: TRUE
+)]
 class Nominatim extends GeocoderBase implements GeocoderInterface {
 
   /**

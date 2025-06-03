@@ -2,20 +2,17 @@
 
 namespace Drupal\geolocation\Plugin\geolocation\LayerFeature;
 
+use Drupal\geolocation\Attribute\LayerFeature;
 use Drupal\Core\Template\Attribute;
 use Drupal\geolocation\LayerFeatureBase;
 use Drupal\geolocation\MapProviderInterface;
 
 /**
  * Marker zoom by anchor.
- *
- * @LayerFeature(
- *   id = "marker_zoom_by_anchor",
- *   name = @Translation("Marker Zoom By Anchor"),
- *   description = @Translation("Set a URL anchor."),
- *   type = "all",
- * )
  */
+#[LayerFeature(id: 'marker_zoom_by_anchor',
+  name: new \Drupal\Core\StringTranslation\TranslatableMarkup('Marker Zoom By Anchor'),
+  description: new \Drupal\Core\StringTranslation\TranslatableMarkup('Set a URL anchor.'), type: 'all')]
 class MarkerZoomByAnchor extends LayerFeatureBase {
 
   /**

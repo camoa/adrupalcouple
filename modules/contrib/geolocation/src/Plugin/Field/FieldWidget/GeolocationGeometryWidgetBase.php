@@ -69,27 +69,6 @@ abstract class GeolocationGeometryWidgetBase extends WidgetBase implements Conta
   /**
    * {@inheritdoc}
    */
-  public static function defaultSettings(): array {
-    $settings = parent::defaultSettings();
-
-    $settings['map_provider_settings'] = [];
-    $settings['centre'] = [
-      'fit_shapes' => [
-        'enable' => TRUE,
-        'weight' => -101,
-        'map_center_id' => 'fit_shapes',
-        'settings' => [
-          'reset_zoom' => TRUE,
-        ],
-      ],
-    ];
-
-    return $settings;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function settingsForm(array $form, FormStateInterface $form_state): array {
     $settings = $this->getSettings();
     $element = parent::settingsForm($form, $form_state);

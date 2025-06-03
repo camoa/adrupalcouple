@@ -2,6 +2,7 @@
 
 namespace Drupal\geolocation\Plugin\views\field;
 
+use Drupal\views\Attribute\ViewsField;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\geolocation\Plugin\Field\FieldType\GeolocationItem;
 use Drupal\views\Plugin\views\field\EntityField;
@@ -10,9 +11,8 @@ use Drupal\views\Plugin\views\field\EntityField;
  * Field handler for geolocation field.
  *
  * @ingroup views_field_handlers
- *
- * @ViewsField("geolocation_field")
  */
+#[ViewsField(id: 'geolocation_field')]
 class GeolocationField extends EntityField {
 
   /**

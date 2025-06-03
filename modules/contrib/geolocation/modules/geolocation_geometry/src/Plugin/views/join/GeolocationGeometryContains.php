@@ -2,6 +2,7 @@
 
 namespace Drupal\geolocation_geometry\Plugin\views\join;
 
+use Drupal\views\Attribute\ViewsJoin;
 use Drupal\views\Plugin\views\join\JoinPluginBase;
 use Drupal\views\Plugin\views\join\JoinPluginInterface;
 
@@ -9,9 +10,8 @@ use Drupal\views\Plugin\views\join\JoinPluginInterface;
  * Geometry joins.
  *
  * @ingroup views_join_handlers
- *
- * @ViewsJoin("geolocation_geometry_contains")
  */
+#[ViewsJoin(id: 'geolocation_geometry_contains')]
 class GeolocationGeometryContains extends JoinPluginBase implements JoinPluginInterface {
 
   /**

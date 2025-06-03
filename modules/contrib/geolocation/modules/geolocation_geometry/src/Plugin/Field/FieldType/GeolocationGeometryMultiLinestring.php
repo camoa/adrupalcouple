@@ -2,20 +2,20 @@
 
 namespace Drupal\geolocation_geometry\Plugin\Field\FieldType;
 
+use Drupal\Core\Field\Attribute\FieldType;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
 
 /**
  * Plugin implementation of the 'geolocation' field type.
- *
- * @FieldType(
- *   id = "geolocation_geometry_multilinestring",
- *   label = @Translation("Geolocation Geometry - MultiLine"),
- *   category = "geo_spatial",
- *   description = @Translation("This field stores spatial geometry of type 'MultiLineString'."),
- *   default_widget = "geolocation_geometry_geojson",
- *   default_formatter = "geolocation_geometry_data"
- * )
  */
+#[FieldType(
+  id: 'geolocation_geometry_multilinestring',
+  label: new \Drupal\Core\StringTranslation\TranslatableMarkup('Geolocation Geometry - MultiLine'),
+  description: new \Drupal\Core\StringTranslation\TranslatableMarkup("This field stores spatial geometry of type 'MultiLineString'."),
+  category: 'geo_spatial',
+  default_widget: 'geolocation_geometry_geojson',
+  default_formatter: 'geolocation_geometry_data'
+)]
 class GeolocationGeometryMultiLinestring extends GeolocationGeometryBase {
 
   /**

@@ -2,19 +2,19 @@
 
 namespace Drupal\geolocation_leaflet\Plugin\geolocation\MapFeature;
 
+use Drupal\geolocation\Attribute\MapFeature;
 use Drupal\geolocation\MapProviderInterface;
 use Drupal\geolocation\Plugin\geolocation\MapFeature\ControlElementBase;
 
 /**
  * Provides Scale control element.
- *
- * @MapFeature(
- *   id = "leaflet_control_scale",
- *   name = @Translation("Map Control - Scale"),
- *   description = @Translation("A simple scale control that shows the scale of the current center of screen in metric (m/km) and imperial (mi/ft) systems."),
- *   type = "leaflet",
- * )
  */
+#[MapFeature(
+  id: 'leaflet_control_scale',
+  name: new \Drupal\Core\StringTranslation\TranslatableMarkup('Map Control - Scale'),
+  description: new \Drupal\Core\StringTranslation\TranslatableMarkup('A simple scale control that shows the scale of the current center of screen in metric (m/km) and imperial (mi/ft) systems.'),
+  type: 'leaflet'
+)]
 class LeafletControlScale extends ControlElementBase {
 
   /**

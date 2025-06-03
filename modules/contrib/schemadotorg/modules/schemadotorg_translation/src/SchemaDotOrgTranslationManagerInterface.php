@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Drupal\schemadotorg_translation;
 
+use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Field\FieldConfigInterface;
-use Drupal\schemadotorg\SchemaDotOrgMappingInterface;
 
 /**
  * Schema.org translate manager interface.
@@ -13,19 +13,27 @@ use Drupal\schemadotorg\SchemaDotOrgMappingInterface;
 interface SchemaDotOrgTranslationManagerInterface {
 
   /**
-   * Enable translation for a Schema.org mapping when a mapping is inserted.
+   * Applies translations based on the available mappings.
    *
-   * @param \Drupal\schemadotorg\SchemaDotOrgMappingInterface $mapping
-   *   The Schema.org mapping.
+   * Iterates through loaded mappings, applies translations by assigning
+   * Schema.org types to target bundle entities, and persists the changes.
    */
-  public function mappingInsert(SchemaDotOrgMappingInterface $mapping): void;
+  public function applyTranslations(): void;
 
   /**
-   * Enable translation for a Schema.org mapping field when a field config is inserted.
+   * Enable translation for a Schema.org mapping bundle or field when it is inserted.
+   *
+   * @param \Drupal\Core\Entity\EntityInterface $entity
+   *   A Schema.org mapping bundle.
+   */
+  public function entityInsert(EntityInterface $entity): void;
+
+  /**
+   * Enable translation for a Schema.org mapping field when a field config is saved.
    *
    * @param \Drupal\Core\Field\FieldConfigInterface $field_config
    *   The field.
    */
-  public function fieldConfigInsert(FieldConfigInterface $field_config): void;
+  public function fieldConfigPresave(FieldConfigInterface $field_config): void;
 
 }

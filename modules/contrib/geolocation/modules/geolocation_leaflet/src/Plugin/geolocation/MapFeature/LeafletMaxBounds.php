@@ -2,19 +2,19 @@
 
 namespace Drupal\geolocation_leaflet\Plugin\geolocation\MapFeature;
 
+use Drupal\geolocation\Attribute\MapFeature;
 use Drupal\geolocation\MapFeatureBase;
 use Drupal\geolocation\MapProviderInterface;
 
 /**
  * Provides Leaflet.
- *
- * @MapFeature(
- *   id = "leaflet_max_bounds",
- *   name = @Translation("Max Bounds"),
- *   description = @Translation("Restrict map to set bounds."),
- *   type = "leaflet",
- * )
  */
+#[MapFeature(
+  id: 'leaflet_max_bounds',
+  name: new \Drupal\Core\StringTranslation\TranslatableMarkup('Max Bounds'),
+  description: new \Drupal\Core\StringTranslation\TranslatableMarkup('Restrict map to set bounds.'),
+  type: 'leaflet'
+)]
 class LeafletMaxBounds extends MapFeatureBase {
 
   /**

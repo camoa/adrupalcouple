@@ -1,4 +1,0 @@
-geolocation_bing.loader:
-  version: 4.x
-  js:
-    js/geolocation-bing-loader.js: { }

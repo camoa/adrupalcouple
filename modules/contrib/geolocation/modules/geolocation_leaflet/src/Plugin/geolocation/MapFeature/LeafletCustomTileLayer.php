@@ -2,19 +2,19 @@
 
 namespace Drupal\geolocation_leaflet\Plugin\geolocation\MapFeature;
 
+use Drupal\geolocation\Attribute\MapFeature;
 use Drupal\geolocation\MapFeatureBase;
 use Drupal\geolocation\MapProviderInterface;
 
 /**
  * Provides map tile layer support.
- *
- * @MapFeature(
- *   id = "leaflet_custom_tile_layer",
- *   name = @Translation("Tile Layer - Custom"),
- *   description = @Translation("Set a custom map tile layer."),
- *   type = "leaflet",
- * )
  */
+#[MapFeature(
+  id: 'leaflet_custom_tile_layer',
+  name: new \Drupal\Core\StringTranslation\TranslatableMarkup('Tile Layer - Custom'),
+  description: new \Drupal\Core\StringTranslation\TranslatableMarkup('Set a custom map tile layer.'),
+  type: 'leaflet'
+)]
 class LeafletCustomTileLayer extends MapFeatureBase {
 
   /**

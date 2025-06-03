@@ -35,7 +35,7 @@ class SchemaDotOrgInstaller implements SchemaDotOrgInstallerInterface {
   /**
    * Schema.org version.
    */
-  const string VERSION = '28.1';
+  const VERSION = '29.1';
 
   /**
    * Constructs a SchemaDotOrgInstaller object.

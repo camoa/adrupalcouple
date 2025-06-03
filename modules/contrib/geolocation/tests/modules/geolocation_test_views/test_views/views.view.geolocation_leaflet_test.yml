@@ -204,12 +204,6 @@ display:
               settings:
                 location_option_id: first_row
               map_center_id: location_plugins
-            fit_shapes:
-              enable: false
-              weight: 0
-              settings:
-                min_zoom: null
-              map_center_id: fit_shapes
             fixed_boundaries:
               enable: false
               weight: 0

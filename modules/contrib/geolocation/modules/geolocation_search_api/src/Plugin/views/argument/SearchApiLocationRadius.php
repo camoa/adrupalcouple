@@ -2,6 +2,7 @@
 
 namespace Drupal\search_api_location_views\Plugin\views\argument;
 
+use Drupal\views\Attribute\ViewsArgument;
 use Drupal\search_api\Plugin\views\SearchApiHandlerTrait;
 use Drupal\views\Plugin\views\argument\ArgumentPluginBase;
 
@@ -9,9 +10,8 @@ use Drupal\views\Plugin\views\argument\ArgumentPluginBase;
  * Provides a contextual filter for defining a location filter radius.
  *
  * @ingroup views_argument_handlers
- *
- * @ViewsArgument("search_api_location_radius")
  */
+#[ViewsArgument]
 class SearchApiLocationRadius extends ArgumentPluginBase {
 
   use SearchApiHandlerTrait;

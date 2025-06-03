@@ -5,6 +5,7 @@ namespace Drupal\geolocation\Plugin\Field\FieldFormatter;
 use Drupal\Component\Utility\NestedArray;
 use Drupal\Core\DependencyInjection\DependencySerializationTrait;
 use Drupal\Core\Field\FieldDefinitionInterface;
+use Drupal\Core\Field\FieldItemInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
 use Drupal\Core\Field\FormatterBase;
@@ -114,9 +115,6 @@ abstract class GeolocationMapFormatterBase extends FormatterBase {
         'enable' => TRUE,
         'weight' => -101,
         'map_center_id' => 'fit_bounds',
-        'settings' => [
-          'reset_zoom' => TRUE,
-        ],
       ],
     ];
     $settings['map_provider_settings'] = [];
@@ -352,7 +350,7 @@ abstract class GeolocationMapFormatterBase extends FormatterBase {
 
     $settings = $this->getSettings();
 
-    $locations = $this->getLocations($items);
+    $map_objects = $this->getMapObjects($items);
 
     $parent_entity = $items->getEntity();
 
@@ -373,20 +371,20 @@ abstract class GeolocationMapFormatterBase extends FormatterBase {
         0 => $element_pattern,
       ];
       $elements[0]['#id'] = uniqid("map-");
-      foreach ($locations as $delta => $location) {
+      foreach ($map_objects as $delta => $object) {
         if (!empty($settings['show_delta_label'])) {
-          $location['#label'] = $delta + 1;
+          $object['#label'] = $delta + 1;
         }
-        $elements[0][$delta] = $location;
+        $elements[0][$delta] = $object;
       }
 
       $elements[0] = $this->mapCenterManager->alterMap($elements[0], $settings['centre'], ['formatter' => $this]);
     }
     else {
-      foreach ($locations as $delta => $location) {
+      foreach ($map_objects as $delta => $object) {
         $elements[$delta] = $element_pattern;
         $elements[$delta]['#id'] = uniqid("map-" . $delta . "-");
-        $elements[$delta]['content'] = $location;
+        $elements[$delta]['content'] = $object;
 
         $elements[$delta] = $this->mapCenterManager->alterMap($elements[$delta], $settings['centre'], ['formatter' => $this]);
       }
@@ -422,57 +420,78 @@ abstract class GeolocationMapFormatterBase extends FormatterBase {
    * @return array
    *   Renderable locations.
    */
-  protected function getLocations(FieldItemListInterface $items): array {
-
-    $settings = $this->getSettings();
-
-    $locations = [];
+  protected function getMapObjects(FieldItemListInterface $items): array {
+    $map_objects = [];
 
     foreach ($items as $delta => $item) {
-      foreach ($this->dataProvider->getPositionsFromItem($item) as $item_position) {
-        if (empty($item_position)) {
+      foreach ($this->dataProvider->getLocationsFromItem($item) as $location) {
+        if (empty($location)) {
           continue;
         }
 
-        $title = $this->dataProvider->replaceFieldItemTokens($settings['title'], $item);
-        if (empty($title)) {
-          $title = $item_position['lat'] . ', ' . $item_position['lng'];
-        }
+        $location['#weight'] = $delta;
 
-        $location = [
-          '#type' => 'geolocation_map_location',
-          '#title' => $title,
-          '#disable_marker' => empty($settings['set_marker']),
-          '#coordinates' => [
-            'lat' => $item_position['lat'],
-            'lng' => $item_position['lng'],
-          ],
-          '#weight' => $delta,
-        ];
-
-        if ($settings['show_label']) {
-          $location['#label'] = $title;
-        }
-
-        if (
-          !empty($settings['info_text']['value'])
-          && !empty($settings['info_text']['format'])
-        ) {
-          $location['content'] = [
-            '#type' => 'processed_text',
-            '#text' => $this->dataProvider->replaceFieldItemTokens($settings['info_text']['value'], $item),
-            '#format' => $settings['info_text']['format'],
-          ];
-        }
-
-        $locations[] = $location;
+        $map_objects[] = $this->addSettingsToLocation($location, $item);
       }
 
-      $locations = array_merge($this->dataProvider->getLocationsFromItem($item), $locations);
-      $locations = array_merge($this->dataProvider->getShapesFromItem($item), $locations);
+      $map_objects = array_merge($this->dataProvider->getShapesFromItem($item), $map_objects);
     }
 
-    return $locations;
+    return $map_objects;
+  }
+
+  /**
+   * Add settings to location.
+   *
+   * @param array $location
+   *   Map location render array.
+   * @param \Drupal\Core\Field\FieldItemInterface $item
+   *   Field item.
+   *
+   * @return array
+   *   Completed map location render array.
+   */
+  protected function addSettingsToLocation(array $location, FieldItemInterface $item): array {
+    $settings = $this->getSettings();
+
+    if (
+      empty($location['#type'])
+      || $location['#type'] != 'geolocation_map_location'
+    ) {
+      return $location;
+    }
+
+    if (empty($location['#coordinates'])) {
+      return $location;
+    }
+
+    $title = $this->dataProvider->replaceFieldItemTokens($settings['title'], $item);
+    if (empty($title)) {
+      $title = $location['#coordinates']['lat'] . ', ' . $location['#coordinates']['lng'];
+    }
+
+    if (empty($location['#title'])) {
+      $location['#title'] = $title;
+    }
+
+    if ($settings['show_label']) {
+      $location['#label'] = $location['#title'];
+    }
+
+    $location['#disable_marker'] = empty($settings['set_marker']);
+
+    if (
+      !empty($settings['info_text']['value'])
+      && !empty($settings['info_text']['format'])
+    ) {
+      $location['content'] = [
+        '#type' => 'processed_text',
+        '#text' => $this->dataProvider->replaceFieldItemTokens($settings['info_text']['value'], $item),
+        '#format' => $settings['info_text']['format'],
+      ];
+    }
+
+    return $location;
   }
 
   /**

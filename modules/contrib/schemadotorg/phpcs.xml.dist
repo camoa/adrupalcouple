@@ -54,6 +54,7 @@
     <exclude name="SlevomatCodingStandard.TypeHints.ReturnTypeHint.MissingTraversableTypeHintSpecification"/>
     <exclude name="SlevomatCodingStandard.TypeHints.DisallowArrayTypeHintSyntax.DisallowedArrayTypeHintSyntax"/>
     <exclude name="SlevomatCodingStandard.TypeHints.DisallowMixedTypeHint"/>
+    <exclude name="SlevomatCodingStandard.TypeHints.ClassConstantTypeHint.MissingNativeTypeHint"/>
   </rule>
 
 </ruleset>

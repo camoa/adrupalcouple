@@ -200,7 +200,7 @@ abstract class DataProviderBase extends PluginBase implements DataProviderInterf
   /**
    * {@inheritdoc}
    */
-  public function getPositionsFromViewsRow(ResultRow $row, ?FieldPluginBase $viewsField = NULL): array {
+  public function getLocationsFromViewsRow(ResultRow $row, ?FieldPluginBase $viewsField = NULL): array {
     $positions = [];
 
     if (!$viewsField) {
@@ -212,23 +212,17 @@ abstract class DataProviderBase extends PluginBase implements DataProviderInterf
       $lat_field_name = $viewsField->table . '_' . $viewsField->field . '_lat';
       $lng_field_name = $viewsField->table . '_' . $viewsField->field . '_lng';
       if (isset($row->$lat_field_name) && isset($row->$lng_field_name)) {
-        return [['lat' => $row->$lat_field_name, 'lng' => $row->$lng_field_name]];
+        return [
+          [
+            '#type' => 'geolocation_map_location',
+            '#coordinates' => [
+              'lat' => $row->$lat_field_name,
+              'lng' => $row->$lng_field_name,
+            ],
+          ],
+        ];
       }
     }
-
-    // Get all positions from row entity values.
-    foreach ($this->getFieldItemsFromViewsRow($row, $viewsField) ?? [] as $item) {
-      $positions = array_merge($this->getPositionsFromItem($item), $positions);
-    }
-
-    return $positions;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getLocationsFromViewsRow(ResultRow $row, ?FieldPluginBase $viewsField = NULL): array {
-    $positions = [];
 
     foreach ($this->getFieldItemsFromViewsRow($row, $viewsField) ?? [] as $item) {
       $positions = array_merge($this->getLocationsFromItem($item), $positions);
@@ -293,13 +287,6 @@ abstract class DataProviderBase extends PluginBase implements DataProviderInterf
    */
   public function setFieldDefinition(FieldDefinitionInterface $fieldDefinition): void {
     $this->fieldDefinition = $fieldDefinition;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getPositionsFromItem(FieldItemInterface $fieldItem): array {
-    return [];
   }
 
   /**

@@ -2,6 +2,7 @@
 
 namespace Drupal\geolocation_leaflet\Plugin\geolocation\LayerFeature;
 
+use Drupal\geolocation\Attribute\LayerFeature;
 use Drupal\Core\Asset\LibraryDiscoveryInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\File\FileSystemInterface;
@@ -16,14 +17,13 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Provides marker icon adjustment.
- *
- * @LayerFeature(
- *   id = "leaflet_marker_icon",
- *   name = @Translation("Marker Icon Adjustment"),
- *   description = @Translation("Icon properties."),
- *   type = "leaflet",
- * )
  */
+#[LayerFeature(
+  id: 'leaflet_marker_icon',
+  name: new \Drupal\Core\StringTranslation\TranslatableMarkup('Marker Icon Adjustment'),
+  description: new \Drupal\Core\StringTranslation\TranslatableMarkup('Icon properties.'),
+  type: 'leaflet'
+)]
 class LeafletMarkerIcon extends LayerFeatureBase implements ContainerFactoryPluginInterface {
 
   /**

@@ -2,6 +2,7 @@
 
 namespace Drupal\geolocation\Plugin\geolocation\Location;
 
+use Drupal\geolocation\Attribute\Location;
 use Drupal\geolocation\LocationBase;
 use Drupal\geolocation\LocationInterface;
 
@@ -9,13 +10,12 @@ use Drupal\geolocation\LocationInterface;
  * Fixed coordinates map center.
  *
  * PluginID for compatibility with v1.
- *
- * @Location(
- *   id = "fixed_value",
- *   name = @Translation("Fixed coordinates"),
- *   description = @Translation("Use preset fixed values as center."),
- * )
  */
+#[Location(
+  id: 'fixed_value',
+  name: new \Drupal\Core\StringTranslation\TranslatableMarkup('Fixed coordinates'),
+  description: new \Drupal\Core\StringTranslation\TranslatableMarkup('Use preset fixed values as center.')
+)]
 class FixedCoordinates extends LocationBase implements LocationInterface {
 
   /**

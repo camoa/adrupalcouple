@@ -22,17 +22,17 @@ interface SchemaDotOrgSchemaTypeManagerInterface {
   /**
    * Schema.org type.
    */
-  const string SCHEMA_TYPES = 'types';
+  const SCHEMA_TYPES = 'types';
 
   /**
    * Schema.org property.
    */
-  const string SCHEMA_PROPERTIES = 'properties';
+  const SCHEMA_PROPERTIES = 'properties';
 
   /**
    * The Schema.org base URI.
    */
-  const string URI = 'https://schema.org/';
+  const URI = 'https://schema.org/';
 
   /**
    * Gets Schema.org type or property URI.
@@ -496,6 +496,9 @@ interface SchemaDotOrgSchemaTypeManagerInterface {
    *     Return multiple matches. Defaults to FALSE and returns the first match.
    *   - parents (bool)
    *     Checks parent Schema.org types. Defaults to TRUE.
+   *   - negate (bool)
+   *     Checks for settings that should not being applied. Defaults to TRUE.
+   *     (i.e., starts with a minus (-))
    * @param array|null $patterns
    *   Optional. The patterns to match against the settings array.
    *   Defaults to NULL.

@@ -36,19 +36,6 @@ interface DataProviderInterface extends PluginInspectionInterface {
   public function isFieldGeoOption(FieldDefinitionInterface $fieldDefinition): bool;
 
   /**
-   * Get positions from views row.
-   *
-   * @param \Drupal\views\ResultRow $row
-   *   Row.
-   * @param \Drupal\views\Plugin\views\field\FieldPluginBase|null $viewsField
-   *   Views field definition.
-   *
-   * @return array
-   *   Retrieved locations.
-   */
-  public function getPositionsFromViewsRow(ResultRow $row, ?FieldPluginBase $viewsField = NULL): array;
-
-  /**
    * Get locations from views row.
    *
    * @param \Drupal\views\ResultRow $row
@@ -73,17 +60,6 @@ interface DataProviderInterface extends PluginInspectionInterface {
    *   Renderable shapes.
    */
   public function getShapesFromViewsRow(ResultRow $row, ?FieldPluginBase $viewsField = NULL): array;
-
-  /**
-   * Get positions from field item list.
-   *
-   * @param \Drupal\Core\Field\FieldItemInterface $fieldItem
-   *   Views field definition.
-   *
-   * @return array
-   *   Retrieved coordinates.
-   */
-  public function getPositionsFromItem(FieldItemInterface $fieldItem): array;
 
   /**
    * Get locations from field item list.

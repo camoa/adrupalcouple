@@ -41,6 +41,7 @@ import { GeolocationShapeLine } from "../Base/GeolocationShapeLine.js";
 import { GeolocationShapeMultiLine } from "../Base/GeolocationShapeMultiLine.js";
 import { GeolocationShapeMultiPolygon } from "../Base/GeolocationShapeMultiPolygon.js";
 import { GeolocationCircle } from "../Base/GeolocationCircle.js";
+import { GeolocationShape } from "../Base/GeolocationShape.js";
 
 /**
  * @prop {String} id
@@ -278,6 +279,41 @@ export class GeolocationMapBase {
   }
 
   /**
+   *
+   * @param {Array.<GeolocationMapMarker|GeolocationShape>} elements
+   *
+   * @return {GeolocationBoundaries}
+   *   Boundaries.
+   */
+  getElementBoundaries(elements) {
+    elements = elements || (this.dataLayers.get("default").markers || []).concat(this.dataLayers.get("default").shapes || []);
+    if (!elements.length) {
+      return null;
+    }
+
+    const markers = [];
+    const shapes = [];
+
+    elements.forEach((element) => {
+      if (element instanceof GeolocationMapMarker) {
+        markers.push(element);
+      } else if (element instanceof GeolocationShape) {
+        shapes.push(element);
+      }
+    });
+
+    let bounds = this.getMarkerBoundaries(markers);
+
+    if (bounds === null) {
+      bounds = this.getShapeBoundaries(shapes);
+    } else {
+      bounds.extend(this.getShapeBoundaries(shapes));
+    }
+
+    return bounds;
+  }
+
+  /**
    * @param {GeolocationMapMarker[]} markers
    *   Markers.
    *
@@ -301,34 +337,26 @@ export class GeolocationMapBase {
       return null;
     }
 
-    const bounds = {
-      north: null,
-      south: null,
-      east: null,
-      west: null,
-    };
+    let bounds;
 
     shapes.forEach((shape) => {
       const currentBounds = shape.getBounds();
       if (currentBounds === null) {
         return;
       }
-      bounds.north = bounds.north > currentBounds.north ? bounds.north : currentBounds.north;
-      bounds.south = bounds.south < currentBounds.south ? bounds.south : currentBounds.south;
-      bounds.east = bounds.east > currentBounds.east ? bounds.east : currentBounds.east;
-      bounds.west = bounds.west < currentBounds.west ? bounds.west : currentBounds.west;
+
+      if (bounds) {
+        bounds.extend(currentBounds);
+      } else {
+        bounds = currentBounds;
+      }
     });
 
-    if (bounds.east === null || bounds.west === null || bounds.north === null || bounds.south === null) {
-      return null;
+    if (bounds) {
+      return bounds;
     }
 
-    bounds.north = bounds.north < 90 ? bounds.north : 90;
-    bounds.south = bounds.south > -90 ? bounds.south : -90;
-    bounds.east = bounds.east < 180 ? bounds.east : 180;
-    bounds.west = bounds.west > -180 ? bounds.west : -180;
-
-    return new GeolocationBoundaries(bounds);
+    return null;
   }
 
   /**
@@ -644,17 +672,8 @@ export class GeolocationMapBase {
     // this.tileLayers.delete(layerId);
   }
 
-  fitMapToMarkers(markers) {
-    const boundaries = this.getMarkerBoundaries(markers);
-    if (!boundaries) {
-      return false;
-    }
-
-    this.setBoundaries(boundaries);
-  }
-
-  fitMapToShapes(shapes) {
-    const boundaries = this.getShapeBoundaries(shapes);
+  fitMapToElements(elements) {
+    const boundaries = this.getElementBoundaries(elements);
     if (!boundaries) {
       return false;
     }

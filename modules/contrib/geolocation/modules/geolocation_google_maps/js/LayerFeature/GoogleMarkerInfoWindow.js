@@ -74,4 +74,65 @@ export default class GoogleMarkerInfoWindow extends GoogleLayerFeature {
       marker.infoWindowOpened = true;
     }
   }
+
+  /**
+   * @param {GeolocationShape}        shape
+   * @param {google.maps.InfoWindow}  shape.infoWindow
+   * @param {boolean}                 shape.infoWindowOpened
+   *
+   * @param {GeolocationCoordinates}  coordinates
+   */
+  onShapeClicked(shape, coordinates) {
+    super.onShapeClicked(shape, coordinates);
+
+    if (this.settings.info_window_solitary) {
+      this.layer.map.dataLayers.get("default").shapes.forEach((currentShape) => {
+        if (currentShape.infoWindow) {
+          currentShape.infoWindow.close();
+        }
+      });
+    }
+
+    if (shape.infoWindow) {
+      if (shape.infoWindowOpened) {
+        shape.infoWindow.close();
+        shape.infoWindowOpened = false;
+      } else {
+        shape.infoWindow.setPosition({ lat: coordinates.lat, lng: coordinates.lng });
+        shape.infoWindow.open({
+          map: this.layer.map.googleMap,
+          shouldFocus: true,
+        });
+        shape.infoWindowOpened = true;
+      }
+    }
+  }
+
+  onShapeAdded(shape) {
+    super.onShapeAdded(shape);
+
+    shape.infoWindowOpened = false;
+
+    // Set the info popup text.
+    shape.infoWindow = new google.maps.InfoWindow({
+      content: shape.getContent(),
+      disableAutoPan: this.settings.disable_auto_pan,
+      maxWidth: this.settings.max_width ?? undefined,
+    });
+    shape.infoWindow.addListener("close", () => {
+      shape.infoWindowOpened = false;
+    });
+
+    if (shape.title) {
+      shape.infoWindow.setHeaderContent(shape.title);
+    }
+
+    if (this.settings.info_auto_display) {
+      shape.infoWindow.open({
+        map: this.layer.map.googleMap,
+        shouldFocus: false,
+      });
+      shape.infoWindowOpened = true;
+    }
+  }
 }

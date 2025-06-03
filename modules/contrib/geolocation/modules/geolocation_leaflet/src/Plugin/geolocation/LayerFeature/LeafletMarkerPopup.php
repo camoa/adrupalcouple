@@ -2,19 +2,16 @@
 
 namespace Drupal\geolocation_leaflet\Plugin\geolocation\LayerFeature;
 
+use Drupal\geolocation\Attribute\LayerFeature;
 use Drupal\geolocation\LayerFeatureBase;
 use Drupal\geolocation\MapProviderInterface;
 
 /**
  * Provides marker popup.
- *
- * @LayerFeature(
- *   id = "leaflet_marker_popup",
- *   name = @Translation("Marker Popup"),
- *   description = @Translation("Open Popup on Marker click."),
- *   type = "leaflet",
- * )
  */
+#[LayerFeature(id: 'leaflet_marker_popup',
+  name: new \Drupal\Core\StringTranslation\TranslatableMarkup('Marker Popup'),
+  description: new \Drupal\Core\StringTranslation\TranslatableMarkup('Open Popup on Marker click.'), type: 'leaflet')]
 class LeafletMarkerPopup extends LayerFeatureBase {
 
   /**

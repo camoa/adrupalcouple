@@ -2,6 +2,7 @@
 
 namespace Drupal\geolocation_address\Plugin\geolocation\DataProvider;
 
+use Drupal\geolocation\Attribute\DataProvider;
 use Drupal\Core\Entity\EntityFieldManagerInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Field\FieldDefinitionInterface;
@@ -19,13 +20,12 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Provides default address field.
- *
- * @DataProvider(
- *   id = "geolocation_address_field_provider",
- *   name = @Translation("Address Field"),
- *   description = @Translation("Address Field."),
- * )
  */
+#[DataProvider(
+  id: 'geolocation_address_field_provider',
+  name: new \Drupal\Core\StringTranslation\TranslatableMarkup('Address Field'),
+  description: new \Drupal\Core\StringTranslation\TranslatableMarkup('Address Field.')
+)]
 class AddressFieldProvider extends DataProviderBase implements DataProviderInterface {
 
   /**
@@ -105,7 +105,7 @@ class AddressFieldProvider extends DataProviderBase implements DataProviderInter
   /**
    * {@inheritdoc}
    */
-  public function getPositionsFromItem(FieldItemInterface $fieldItem): array {
+  public function getLocationsFromItem(FieldItemInterface $fieldItem): array {
     if (!($fieldItem instanceof AddressItem)) {
       return [];
     }
@@ -127,7 +127,10 @@ class AddressFieldProvider extends DataProviderBase implements DataProviderInter
       countryCode: $fieldItem->getCountryCode(),
     ));
 
-    return !empty($coordinates['location']) ? [$coordinates['location']] : [];
+    return !empty($coordinates['location']) ? [
+      '#type' => 'geolocation_map_location',
+      '#coordinates' => $coordinates['location'],
+    ] : [];
   }
 
   /**

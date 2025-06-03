@@ -2,6 +2,7 @@
 
 namespace Drupal\geolocation\Plugin\geolocation\MapCenter;
 
+use Drupal\geolocation\Attribute\MapCenter;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\Render\BubbleableMetadata;
@@ -12,21 +13,13 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Location based map center.
- *
- * @MapCenter(
- *   id = "location_plugins",
- *   name = @Translation("Location Plugins"),
- *   description = @Translation("Select a location plugin."),
- * )
  */
+#[MapCenter(
+  id: 'location_plugins',
+  name: new \Drupal\Core\StringTranslation\TranslatableMarkup('Location Plugins'),
+  description: new \Drupal\Core\StringTranslation\TranslatableMarkup('Select a location plugin.')
+)]
 class Location extends MapCenterBase implements MapCenterInterface {
-
-  /**
-   * Location Plugin ID.
-   *
-   * @var string
-   */
-  protected string $locationPluginId = '';
 
   /**
    * {@inheritdoc}

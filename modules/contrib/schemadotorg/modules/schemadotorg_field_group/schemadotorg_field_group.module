@@ -13,8 +13,8 @@ use Drupal\Core\Entity\Display\EntityFormDisplayInterface;
 use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\field\FieldConfigInterface;
+use Drupal\schemadotorg\SchemaDotOrgEntityDisplayBuilderInterface;
 use Drupal\schemadotorg\SchemaDotOrgMappingInterface;
-use Drupal\schemadotorg_field_group\SchemaDotOrgFieldGroupEntityDisplayBuilderInterface;
 
 /**
  * Implements hook_schemadotorg_mapping_apply().
@@ -202,7 +202,7 @@ group_name:
     '#options' => $type_options,
     '#required' => TRUE,
   ];
-  $patterns = SchemaDotOrgFieldGroupEntityDisplayBuilderInterface::PATTERNS;
+  $patterns = SchemaDotOrgEntityDisplayBuilderInterface::PATTERNS;
   $examples = [];
   foreach ($patterns as $pattern) {
     $example = implode('--', $pattern);

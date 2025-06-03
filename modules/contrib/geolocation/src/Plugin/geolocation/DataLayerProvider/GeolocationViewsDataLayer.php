@@ -2,6 +2,7 @@
 
 namespace Drupal\geolocation\Plugin\geolocation\DataLayerProvider;
 
+use Drupal\geolocation\Attribute\DataLayerProvider;
 use Drupal\geolocation\DataLayerProviderBase;
 use Drupal\geolocation\DataLayerProviderInterface;
 use Drupal\views\ViewExecutable;
@@ -9,13 +10,10 @@ use Drupal\views\Views;
 
 /**
  * Provides default layer.
- *
- * @DataLayerProvider(
- *   id = "geolocation_views_data_layer",
- *   name = @Translation("Geolocation Views Data Layer"),
- *   description = @Translation("Views with Geolocation Data Layer Display. Cannot inherit filters."),
- * )
  */
+#[DataLayerProvider(id: 'geolocation_views_data_layer',
+  name: new \Drupal\Core\StringTranslation\TranslatableMarkup('Geolocation Views Data Layer'),
+  description: new \Drupal\Core\StringTranslation\TranslatableMarkup('Views with Geolocation Data Layer Display. Cannot inherit filters.'))]
 class GeolocationViewsDataLayer extends DataLayerProviderBase implements DataLayerProviderInterface {
 
   /**

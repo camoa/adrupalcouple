@@ -12,14 +12,12 @@ export default class ClientLocationIndicator extends GeolocationMapFeature {
       return;
     }
 
-    const clientLocationMarker = this.map.createMarker(new GeolocationCoordinates(0, 0), {
-      id: "current-location",
-      title: Drupal.t("Current location"),
-      icon: drupalSettings.path.baseUrl + settings.icon_path,
-    });
+    /** @type {GeolocationMapMarker} */
+    let clientLocationMarker;
 
     /** @type {GeolocationCircle} */
     let indicatorCircle;
+
     /** @type {GeolocationCoordinates} */
     let currentCoordinates;
 
@@ -27,7 +25,15 @@ export default class ClientLocationIndicator extends GeolocationMapFeature {
       navigator.geolocation.getCurrentPosition((currentPosition) => {
         currentCoordinates = new GeolocationCoordinates(currentPosition.coords.latitude, currentPosition.coords.longitude);
 
-        clientLocationMarker.update(currentCoordinates);
+        if (!clientLocationMarker) {
+          clientLocationMarker = this.map.createMarker(currentCoordinates, {
+            id: "current-location",
+            title: Drupal.t("Current location"),
+            icon: drupalSettings.path.baseUrl + settings.icon_path,
+          });
+        } else {
+          clientLocationMarker.update(currentCoordinates);
+        }
 
         if (indicatorCircle) {
           indicatorCircle.update(currentCoordinates, parseInt(currentPosition.coords.accuracy.toString()));
@@ -35,6 +41,6 @@ export default class ClientLocationIndicator extends GeolocationMapFeature {
           indicatorCircle = this.map.createCircle(currentCoordinates, parseInt(currentPosition.coords.accuracy.toString()));
         }
       });
-    }, 5000);
+    }, 20000);
   }
 }

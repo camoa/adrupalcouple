@@ -113,12 +113,12 @@ non-function decisions behind the Schema.org Blueprints module.
 - Use https://schema.org/Role with https://schema.org/Organization to https://schema.org/Person relationships, 
   which includes https://schema.org/actor, https://schema.org/employee, https://schema.org/member, https://schema.org/performer, https://schema.org/provider, https://schema.org/organizer, and https://schema.org/sponsor.
 - Use https://schema.org/image for the main image of a https://schema.org/WebPage
-- Use https://schema.org/video  for the main video of a https://schema.org/WebPage
+- Use https://schema.org/video for the main video of a https://schema.org/WebPage
 - Use https://schema.org/additionalProperty for additional properties
 - Use https://schema.org/sameAs for social media links
 - Use https://schema.org/relatedLink for other related web pages, including related blog posts. Related links can be personalized and dynamic.
 - Use https://schema.org/significantLink for significant URLs on the page, including the content immediately relevant to the current page. Significant links should not be personalized because they are always relevant.
-- Use https://schema.org/about  for direct corresponding relationships. Generally, a https://schema.org/CreativeWork should be about only one https://schema.org/Thing.
+- Use https://schema.org/about for direct corresponding relationships. Generally, a https://schema.org/CreativeWork should be about only one https://schema.org/Thing.
 - Use https://schema.org/mentions for information included in the page's content. Mentions could be extracted from the body's inline links. Mentions should not be personalized.
 
 ##### Define inverse of relationships using entity references
@@ -355,7 +355,6 @@ for managing optional dependencies and patches.
 - [Admin Dialogs](https://www.drupal.org/project/admin_dialogs) for opening simple forms and tasks in a dialog (modal).
 - [Content Model Documentation](https://www.drupal.org/project/content_model_documentation) ⭐ for displaying entity relationship diagrams (ERD)
 - [Dashboard](https://www.drupal.org/project/dashboard) for providing customizable dashboards to users
-- [Environment Indicator](https://www.drupal.org/project/environment_indicator) for displaying the current environment to administrators
 - [Local Task More](https://www.drupal.org/project/local_tasks_more) for adding a show more/less tasks
 - [Type Tray](https://www.drupal.org/project/type_tray) ⭐ for improving the 'Add content' UI/UX
 - [Queue UI](https://www.drupal.org/project/queue_ui) for viewing and managing queues

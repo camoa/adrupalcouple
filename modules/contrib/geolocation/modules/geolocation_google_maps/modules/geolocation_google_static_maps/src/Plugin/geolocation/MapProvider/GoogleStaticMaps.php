@@ -2,19 +2,19 @@
 
 namespace Drupal\geolocation_google_static_maps\Plugin\geolocation\MapProvider;
 
+use Drupal\geolocation\Attribute\MapProvider;
 use Drupal\Core\Url;
 use Drupal\geolocation\Element\GeolocationMap;
 use Drupal\geolocation_google_maps\GoogleMapsProviderBase;
 
 /**
  * Provides Google Maps.
- *
- * @MapProvider(
- *   id = "google_static_maps",
- *   name = @Translation("Google Static Maps"),
- *   description = @Translation("You do require an API key for this plugin to work."),
- * )
  */
+#[MapProvider(
+  id: 'google_static_maps',
+  name: new \Drupal\Core\StringTranslation\TranslatableMarkup('Google Static Maps'),
+  description: new \Drupal\Core\StringTranslation\TranslatableMarkup('You do require an API key for this plugin to work.')
+)]
 class GoogleStaticMaps extends GoogleMapsProviderBase {
 
   /**

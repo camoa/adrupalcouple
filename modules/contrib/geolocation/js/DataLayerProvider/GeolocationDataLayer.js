@@ -393,16 +393,16 @@ export default class GeolocationDataLayer {
     return null;
   }
 
-  shapeClicked(shape) {
+  shapeClicked(shape, coordinates) {
     if (!this.getShapeById(shape.id)) {
       return;
     }
 
-    this.shapes.forEach((feature) => {
+    this.features.forEach((feature) => {
       try {
-        feature.onShapeClicked(shape);
+        feature.onShapeClicked(shape, coordinates);
       } catch (e) {
-        console.error(e, `Feature  ${feature.constructor.name} failed onShapeClicked: ${e.toString()}`);
+        console.error(e, `Feature ${feature.constructor.name} failed onShapeClicked: ${e.toString()}`);
       }
     });
   }

@@ -1,5 +1,6 @@
 import { GeolocationShapePolygon } from "../../../js/Base/GeolocationShapePolygon.js";
 import { GoogleShapeTrait } from "./GoogleShapeTrait.js";
+import { GeolocationCoordinates } from "../../../js/Base/GeolocationCoordinates.js";
 
 /**
  * @prop {GoogleMaps} map
@@ -22,8 +23,12 @@ export class GoogleShapePolygon extends GeolocationShapePolygon {
     });
 
     if (this.title) {
-      this.googleShapeTrait.setTitle(this, this.title);
+      this.googleShapeTrait.setTitle(polygon, this.title, this.map);
     }
+
+    polygon.addListener("click", (event) => {
+      this.click(new GeolocationCoordinates(event.latLng.lat(), event.latLng.lng()));
+    });
 
     polygon.setMap(this.map.googleMap);
 

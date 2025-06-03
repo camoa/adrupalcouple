@@ -2,6 +2,7 @@
 
 namespace Drupal\geolocation\Plugin\geolocation\DataProvider;
 
+use Drupal\geolocation\Attribute\DataProvider;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemInterface;
 use Drupal\geolocation\DataProviderBase;
@@ -11,13 +12,10 @@ use Drupal\views\Plugin\views\field\FieldPluginBase;
 
 /**
  * Provides image field data integration.
- *
- * @DataProvider(
- *   id = "image_field_provider",
- *   name = @Translation("Image Field"),
- *   description = @Translation("EXIF data from images."),
- * )
  */
+#[DataProvider(id: 'image_field_provider',
+  name: new \Drupal\Core\StringTranslation\TranslatableMarkup('Image Field'),
+  description: new \Drupal\Core\StringTranslation\TranslatableMarkup('EXIF data from images.'))]
 class ImageFieldProvider extends DataProviderBase implements DataProviderInterface {
 
   /**
@@ -45,7 +43,7 @@ class ImageFieldProvider extends DataProviderBase implements DataProviderInterfa
   /**
    * {@inheritdoc}
    */
-  public function getPositionsFromItem(FieldItemInterface $fieldItem): array {
+  public function getLocationsFromItem(FieldItemInterface $fieldItem): array {
     if ($fieldItem instanceof ImageItem) {
       $exif = exif_read_data($fieldItem->entity?->getFileUri() ?? NULL);
       if (!$exif) {
@@ -63,8 +61,11 @@ class ImageFieldProvider extends DataProviderBase implements DataProviderInterfa
 
       return [
         [
-          'lat' => self::exifToCoordinates($lat, $lat_ref),
-          'lng' => self::exifToCoordinates($lon, $lon_ref),
+          '#type' => 'geolocation_map_location',
+          '#coordinates' => [
+            'lat' => self::exifToCoordinates($lat, $lat_ref),
+            'lng' => self::exifToCoordinates($lon, $lon_ref),
+          ],
         ],
       ];
     }

@@ -2,19 +2,19 @@
 
 namespace Drupal\geolocation_leaflet\Plugin\geolocation\MapFeature;
 
+use Drupal\geolocation\Attribute\MapFeature;
 use Drupal\geolocation\MapFeatureBase;
 use Drupal\geolocation\MapProviderInterface;
 
 /**
  * Provides Web Map services.
- *
- * @MapFeature(
- *   id = "leaflet_wms",
- *   name = @Translation("Web Map services"),
- *   description = @Translation("Provide single-tile/untiled/nontiled layers, shared WMS sources, and GetFeatureInfo-powered identify."),
- *   type = "leaflet",
- * )
  */
+#[MapFeature(
+  id: 'leaflet_wms',
+  name: new \Drupal\Core\StringTranslation\TranslatableMarkup('Web Map services'),
+  description: new \Drupal\Core\StringTranslation\TranslatableMarkup('Provide single-tile/untiled/nontiled layers, shared WMS sources, and GetFeatureInfo-powered identify.'),
+  type: 'leaflet'
+)]
 class LeafletWMS extends MapFeatureBase {
 
   /**

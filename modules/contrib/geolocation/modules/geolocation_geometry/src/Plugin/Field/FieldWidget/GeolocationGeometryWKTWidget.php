@@ -2,6 +2,7 @@
 
 namespace Drupal\geolocation_geometry\Plugin\Field\FieldWidget;
 
+use Drupal\Core\Field\Attribute\FieldWidget;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\WidgetBase;
 use Drupal\Core\Form\FormStateInterface;
@@ -12,22 +13,21 @@ use Drupal\geolocation_geometry\GeometryFormat\WKT;
 
 /**
  * Plugin implementation of the 'geolocation_wkt' widget.
- *
- * @FieldWidget(
- *   id = "geolocation_geometry_wkt",
- *   label = @Translation("Geolocation Geometry WKT"),
- *   field_types = {
- *     "geolocation_geometry_geometry",
- *     "geolocation_geometry_geometrycollection",
- *     "geolocation_geometry_point",
- *     "geolocation_geometry_linestring",
- *     "geolocation_geometry_polygon",
- *     "geolocation_geometry_multipoint",
- *     "geolocation_geometry_multilinestring",
- *     "geolocation_geometry_multipolygon",
- *   }
- * )
  */
+#[FieldWidget(
+  id: 'geolocation_geometry_wkt',
+  label: new \Drupal\Core\StringTranslation\TranslatableMarkup('Geolocation Geometry WKT'),
+  field_types: [
+    'geolocation_geometry_geometry',
+    'geolocation_geometry_geometrycollection',
+    'geolocation_geometry_point',
+    'geolocation_geometry_linestring',
+    'geolocation_geometry_polygon',
+    'geolocation_geometry_multipoint',
+    'geolocation_geometry_multilinestring',
+    'geolocation_geometry_multipolygon',
+  ]
+)]
 class GeolocationGeometryWKTWidget extends WidgetBase {
 
   /**

@@ -124,9 +124,9 @@ class SchemaDotOrgTranslationManagerKernelTest extends SchemaDotOrgEntityKernelT
     $field_definitions = $this->fieldManager->getFieldDefinitions('node', 'place');
     $this->assertTrue($field_definitions['schema_text']->isTranslatable());
 
-    // Check exclude field name do not have translation enabled.
+    // Check excluded Schema.org property and field name do not have translation enabled.
     $this->config('schemadotorg_translation.settings')
-      ->set('excluded_field_names', ['field_excluded'])
+      ->set('excluded_schema_properties', ['field_excluded'])
       ->save();
     FieldStorageConfig::create([
       'entity_type' => 'node',

@@ -178,12 +178,8 @@ function hook_schemadotorg_jsonld_schema_type_field_alter(array &$data, \Drupal\
   $field_storage = $items->getFieldDefinition()->getFieldStorageDefinition();
   $field_type = $field_storage->getType();
   if ($field_type === 'text_with_summary') {
-    /** @var \Drupal\schemadotorg\SchemaDotOrgMappingStorageInterface $mapping_storage */
-    $mapping_storage = \Drupal::entityTypeManager()->getStorage('schemadotorg_mapping');
-    $mapping = $mapping_storage->loadByEntity($items->getEntity());
-    $field_name = $field_storage->getName();
     $cardinality = $field_storage->getCardinality();
-    $schema_property = $mapping->getSchemaPropertyMapping($field_name);
+    $schema_property = \Drupal\schemadotorg\Utility\SchemaDotOrgFieldHelper::getSchemaProperty($items);
     // For text and articleBody properties set the description
     // to the summary.
     if (in_array($schema_property, ['text', 'articleBody']) && $cardinality === 1) {
@@ -224,11 +220,9 @@ function hook_schemadotorg_jsonld_schema_property_alter(mixed &$value, \Drupal\C
   $main_property_data_type = $main_property_definition->getDataType();
 
   // Get Schema.org mapping.
-  /** @var \Drupal\schemadotorg\SchemaDotOrgMappingStorageInterface $mapping_storage */
-  $mapping_storage = \Drupal::entityTypeManager()->getStorage('schemadotorg_mapping');
-  $mapping = $mapping_storage->loadByEntity($entity);
-  $schema_type = $mapping->getSchemaType();
-  $schema_property = $mapping->getSchemaPropertyMapping($field_name);
+  $mapping = \Drupal\schemadotorg\Utility\SchemaDotOrgFieldHelper::getSchemaMapping($item);
+  $schema_type = \Drupal\schemadotorg\Utility\SchemaDotOrgFieldHelper::getSchemaType($item);
+  $schema_property = \Drupal\schemadotorg\Utility\SchemaDotOrgFieldHelper::getSchemaProperty($item);
 
   // Massage the data.
   // ...

@@ -81,6 +81,41 @@ class SchemaDotOrgDescriptionsKernelTest extends SchemaDotOrgEntityKernelTestBas
     /** @var \Drupal\node\NodeTypeInterface $node_type */
     $node_type = NodeType::load('faq');
     $this->assertEquals('A page presenting one or more "Frequently asked questions".', $node_type->getDescription());
+
+    /* ********************************************************************** */
+
+    // Check that entity pre save clears description overrides.
+    // @see \Drupal\schemadotorg_descriptions\SchemaDotOrgDescriptionsManagerInterface::entityPresave
+    /** @var \Drupal\node\NodeTypeInterface $node_type */
+    $node_type = NodeType::load('event');
+    $this->assertEquals('An event happening at a certain time and location, such as a concert, lecture, or festival.', $node_type->getDescription());
+    $this->assertEquals('An event happening at a certain time and location, such as a concert, lecture, or festival.', $node_type->getHelp());
+    $this->assertEquals('', $this->config('node.type.event')->get('description'));
+    $this->assertEquals('', $this->config('node.type.event')->get('help'));
+
+    $node_type->save();
+
+    $this->assertEquals('', $node_type->getDescription());
+    $this->assertEquals('', $node_type->getHelp());
+    $this->assertEquals('', $this->config('node.type.event')->get('description'));
+    $this->assertEquals('', $this->config('node.type.event')->get('help'));
+
+    // Check that entity pre save respects custom description.
+    // @see \Drupal\schemadotorg_descriptions\SchemaDotOrgDescriptionsManagerInterface::entityPresave
+    /** @var \Drupal\node\NodeTypeInterface $node_type */
+    $node_type = NodeType::load('event');
+    $node_type->set('description', 'This is a custom description.');
+    $this->assertEquals('This is a custom description.', $node_type->getDescription());
+    $this->assertEquals('An event happening at a certain time and location, such as a concert, lecture, or festival.', $node_type->getHelp());
+    $this->assertEquals('', $this->config('node.type.event')->get('description'));
+    $this->assertEquals('', $this->config('node.type.event')->get('help'));
+
+    $node_type->save();
+
+    $this->assertEquals('This is a custom description.', $node_type->getDescription());
+    $this->assertEquals('', $node_type->getHelp());
+    $this->assertEquals('This is a custom description.', $this->config('node.type.event')->get('description'));
+    $this->assertEquals('', $this->config('node.type.event')->get('help'));
   }
 
 }

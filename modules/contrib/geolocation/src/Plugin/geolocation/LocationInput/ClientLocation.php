@@ -2,19 +2,19 @@
 
 namespace Drupal\geolocation\Plugin\geolocation\LocationInput;
 
+use Drupal\geolocation\Attribute\LocationInput;
 use Drupal\Core\Url;
 use Drupal\geolocation\LocationInputBase;
 use Drupal\geolocation\LocationInputInterface;
 
 /**
  * Location based proximity center.
- *
- * @LocationInput(
- *   id = "client_location",
- *   name = @Translation("Client location"),
- *   description = @Translation("If client provides location, use it."),
- * )
  */
+#[LocationInput(
+  id: 'client_location',
+  name: new \Drupal\Core\StringTranslation\TranslatableMarkup('Client location'),
+  description: new \Drupal\Core\StringTranslation\TranslatableMarkup('If client provides location, use it.')
+)]
 class ClientLocation extends LocationInputBase implements LocationInputInterface {
 
   /**

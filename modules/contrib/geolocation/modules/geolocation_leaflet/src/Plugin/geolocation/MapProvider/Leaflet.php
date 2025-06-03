@@ -2,17 +2,17 @@
 
 namespace Drupal\geolocation_leaflet\Plugin\geolocation\MapProvider;
 
+use Drupal\geolocation\Attribute\MapProvider;
 use Drupal\geolocation\MapProviderBase;
 
 /**
  * Provides Leaflet maps.
- *
- * @MapProvider(
- *   id = "leaflet",
- *   name = @Translation("Leaflet"),
- *   description = @Translation("Leaflet support."),
- * )
  */
+#[MapProvider(
+  id: 'leaflet',
+  name: new \Drupal\Core\StringTranslation\TranslatableMarkup('Leaflet'),
+  description: new \Drupal\Core\StringTranslation\TranslatableMarkup('Leaflet support.')
+)]
 class Leaflet extends MapProviderBase {
 
   /**

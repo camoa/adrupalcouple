@@ -1,18 +1,22 @@
 export class GoogleShapeTrait {
   /**
-   * @param {GeolocationShape} shape
-   * @param {GoogleMaps} shape.map
-   *
+   * @param {google.maps.MVCObject} shape
    * @param {String} title
+   * @param {GoogleMaps} map
    */
-  setTitle(shape, title) {
-    const infoWindow = new google.maps.InfoWindow();
+  setTitle(shape, title, map) {
+    const infoWindow = new google.maps.InfoWindow({
+      disableAutoPan: true,
+      headerDisabled: true,
+    });
     google.maps.event.addListener(shape, "mouseover", (e) => {
       infoWindow.setPosition(e.latLng);
       infoWindow.setContent(title);
-      infoWindow.open(shape.map.googleMap);
+      infoWindow.open({
+        map: map.googleMap,
+      });
     });
-    google.maps.event.addListener(this, "mouseout", () => {
+    google.maps.event.addListener(shape, "mouseout", () => {
       infoWindow.close();
     });
   }

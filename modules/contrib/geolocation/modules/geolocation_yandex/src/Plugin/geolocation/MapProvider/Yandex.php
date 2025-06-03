@@ -2,18 +2,18 @@
 
 namespace Drupal\geolocation_yandex\Plugin\geolocation\MapProvider;
 
+use Drupal\geolocation\Attribute\MapProvider;
 use Drupal\Core\Render\BubbleableMetadata;
 use Drupal\geolocation\MapProviderBase;
 
 /**
  * Provides Yandex Maps API.
- *
- * @MapProvider(
- *   id = "yandex",
- *   name = @Translation("Yandex Maps"),
- *   description = @Translation("Yandex support."),
- * )
  */
+#[MapProvider(
+  id: 'yandex',
+  name: new \Drupal\Core\StringTranslation\TranslatableMarkup('Yandex Maps'),
+  description: new \Drupal\Core\StringTranslation\TranslatableMarkup('Yandex support.')
+)]
 class Yandex extends MapProviderBase {
 
   /**

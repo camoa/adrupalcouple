@@ -16,7 +16,13 @@ export class GoogleMapMarker extends GeolocationMapMarker {
     });
 
     if (this.label) {
-      this.googleMarker.content = this.label;
+      const glyphLabel = document.createElement("span");
+      glyphLabel.style.fontWeight = "bold";
+      glyphLabel.style.fontSize = "14px";
+      glyphLabel.innerText = this.label;
+      this.googleMarker.content = new google.maps.marker.PinElement({
+        glyph: glyphLabel,
+      }).element;
     }
 
     if (this.icon || this.map.settings.google_map_settings.marker_icon_path) {
@@ -25,7 +31,7 @@ export class GoogleMapMarker extends GeolocationMapMarker {
       this.googleMarker.content = icon;
     }
 
-    this.googleMarker.addListener("click", () => {
+    this.googleMarker.addListener("gmp-click", () => {
       this.click();
     });
 
@@ -41,7 +47,7 @@ export class GoogleMapMarker extends GeolocationMapMarker {
     super.update(newCoordinates, settings);
 
     if (newCoordinates) {
-      if (!newCoordinates.equals(this.googleMarker.position.lat(), this.googleMarker.position.lng())) {
+      if (!newCoordinates.equals(this.googleMarker.position.lat, this.googleMarker.position.lng)) {
         this.googleMarker.position = this.coordinates;
       }
     }
@@ -51,7 +57,13 @@ export class GoogleMapMarker extends GeolocationMapMarker {
     }
 
     if (this.label) {
-      this.googleMarker.content = this.label;
+      const glyphLabel = document.createElement("span");
+      glyphLabel.style.fontWeight = "bold";
+      glyphLabel.style.fontSize = "14px";
+      glyphLabel.innerText = this.label;
+      this.googleMarker.content = new google.maps.marker.PinElement({
+        glyph: glyphLabel,
+      }).element;
     }
 
     if (this.icon || this.map.settings.google_map_settings.marker_icon_path) {

@@ -2,19 +2,19 @@
 
 namespace Drupal\geolocation\Plugin\geolocation\MapFeature;
 
+use Drupal\geolocation\Attribute\MapFeature;
 use Drupal\geolocation\MapFeatureBase;
 use Drupal\geolocation\MapProviderInterface;
 
 /**
  * Redraw locations as shapes.
- *
- * @MapFeature(
- *   id = "geolocation_shapes",
- *   name = @Translation("Draw Shapes"),
- *   description = @Translation("Draw shapes based on locations."),
- *   type = "all",
- * )
  */
+#[MapFeature(
+  id: 'geolocation_shapes',
+  name: new \Drupal\Core\StringTranslation\TranslatableMarkup('Draw Shapes'),
+  description: new \Drupal\Core\StringTranslation\TranslatableMarkup('Draw shapes based on locations.'),
+  type: 'all'
+)]
 class GeolocationShapes extends MapFeatureBase {
 
   /**

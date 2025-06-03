@@ -2,19 +2,16 @@
 
 namespace Drupal\geolocation_google_maps\Plugin\geolocation\LayerFeature;
 
+use Drupal\geolocation\Attribute\LayerFeature;
 use Drupal\geolocation\LayerFeatureBase;
 use Drupal\geolocation\MapProviderInterface;
 
 /**
  * Provides Google Maps.
- *
- * @LayerFeature(
- *   id = "marker_label",
- *   name = @Translation("Marker Label Adjustment"),
- *   description = @Translation("Label properties."),
- *   type = "google_maps",
- * )
  */
+#[LayerFeature(id: 'marker_label',
+  name: new \Drupal\Core\StringTranslation\TranslatableMarkup('Marker Label Adjustment'),
+  description: new \Drupal\Core\StringTranslation\TranslatableMarkup('Label properties.'), type: 'google_maps')]
 class GoogleMarkerLabel extends LayerFeatureBase {
 
   /**

@@ -123,12 +123,16 @@ function schemadotorg_content_model_documentation_form_schemadotorg_types_settin
     '#type' => 'schemadotorg_settings',
     '#title' => t('Entity type'),
     '#description' => t('Enter the entity and Schema.org types that should automatically generate corresponding content model documentation.'),
-    '#example' => '
+    '#example' => "
 - entity_type_id--SchemaType
 - entity_type_id--bundle
 - entity_type_id
 - SchemaType
-',
+- '-entity_type_id--SchemaType'
+- '-entity_type_id--bundle'
+- '-entity_type_id'
+- '-SchemaType'
+",
   ];
   $form['schemadotorg_content_model_documentation']['default_notes'] = [
     '#type' => 'textarea',

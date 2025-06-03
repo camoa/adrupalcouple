@@ -25,7 +25,7 @@ function schemadotorg_jsonapi_preview_help(string $route_name, RouteMatchInterfa
  * Implements hook_local_tasks_alter().
  */
 function schemadotorg_jsonapi_preview_local_tasks_alter(array &$local_tasks): void {
-  // Determine if  JSON:API preview should be displayed as a node tab/task.
+  // Determine if JSON:API preview should be displayed as a node tab/task.
   $node_task = \Drupal::configFactory()
     ->get('schemadotorg_jsonapi_preview.settings')
     ->get('node_task');

@@ -2,19 +2,17 @@
 
 namespace Drupal\geolocation\Plugin\geolocation\DataLayerProvider;
 
+use Drupal\geolocation\Attribute\DataLayerProvider;
 use Drupal\geolocation\DataLayerProviderBase;
 use Drupal\geolocation\DataLayerProviderInterface;
 use Drupal\geolocation\ViewsContextTrait;
 
 /**
  * Provides default layer.
- *
- * @DataLayerProvider(
- *   id = "geolocation_views_attachment_layer",
- *   name = @Translation("Geolocation Views Attachment"),
- *   description = @Translation("Attached view providing geodata. Can inherit filters."),
- * )
  */
+#[DataLayerProvider(id: 'geolocation_views_attachment_layer',
+  name: new \Drupal\Core\StringTranslation\TranslatableMarkup('Geolocation Views Attachment'),
+  description: new \Drupal\Core\StringTranslation\TranslatableMarkup('Attached view providing geodata. Can inherit filters.'))]
 class GeolocationViewsAttachment extends DataLayerProviderBase implements DataLayerProviderInterface {
 
   use ViewsContextTrait;

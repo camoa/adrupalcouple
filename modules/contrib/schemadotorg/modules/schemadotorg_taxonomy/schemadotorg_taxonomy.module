@@ -121,17 +121,29 @@ function schemadotorg_taxonomy_form_schemadotorg_types_settings_form_alter(array
     '#type' => 'schemadotorg_settings',
     '#title' => t('Default vocabularies'),
     '#description' => t('Enter default vocabularies that will be added to every Schema.org content type.'),
-    '#example' => '
-propertyName:
+    '#example' => "
+unique_name:
   id: vocabulary_id
   label: Vocabulary name
   description: Vocabulary description goes here
+  field_name: field_unique_name
   group: group_name
-SchemaType--propertyName:
-  id: vocabulary_id
-  label: Vocabulary name
-  group: group_name
-',
+  auto_create: true
+  unlimited: true
+  required: true
+  widget_id: widget_id
+  widget_settings: {  }
+  formatter_id: formatter_id
+  formatter_settings: {  }
+  schema_types:
+   - SchemaType
+   - entity_type_id--bundle
+   - bundle
+   - '-SchemaType'
+   - '-entity_type_id--bundle'
+   - '-bundle'
+
+",
   ];
 
   $form['schemadotorg_taxonomy']['apply'] = [];

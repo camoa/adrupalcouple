@@ -229,7 +229,7 @@ class SchemaDotOrgContentModelDocumentationManager implements SchemaDotOrgConten
       return $target_entity_bundle_description;
     }
 
-    // Check for a  custom description.
+    // Check for a custom description.
     $schema_type = $mapping->getSchemaType();
     $custom_description = $this->configFactory
       ->get('schemadotorg_descriptions.settings')

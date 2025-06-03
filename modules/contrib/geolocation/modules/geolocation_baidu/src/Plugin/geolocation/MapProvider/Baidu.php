@@ -2,18 +2,17 @@
 
 namespace Drupal\geolocation_baidu\Plugin\geolocation\MapProvider;
 
+use Drupal\geolocation\Attribute\MapProvider;
 use Drupal\Core\Render\BubbleableMetadata;
 use Drupal\geolocation\MapProviderBase;
 
 /**
  * Provides Baidu Maps API.
- *
- * @MapProvider(
- *   id = "baidu",
- *   name = @Translation("Baidu Maps"),
- *   description = @Translation("Baidu support."),
- * )
  */
+#[MapProvider(
+  id: 'baidu',
+  name: new \Drupal\Core\StringTranslation\TranslatableMarkup('Baidu Maps'),
+  description: new \Drupal\Core\StringTranslation\TranslatableMarkup('Baidu support.'))]
 class Baidu extends MapProviderBase {
 
   /**

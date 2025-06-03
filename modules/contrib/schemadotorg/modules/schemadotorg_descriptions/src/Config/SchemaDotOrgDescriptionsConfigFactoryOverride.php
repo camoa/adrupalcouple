@@ -10,7 +10,6 @@ use Drupal\Core\Config\ConfigCollectionInfo;
 use Drupal\Core\Config\ConfigCrudEvent;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Config\ConfigFactoryOverrideBase;
-use Drupal\Core\Config\ConfigFactoryOverrideInterface;
 use Drupal\Core\Config\ConfigRenameEvent;
 use Drupal\Core\Config\StorableConfigBase;
 use Drupal\Core\Config\StorageInterface;
@@ -18,7 +17,6 @@ use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\schemadotorg\SchemaDotOrgSchemaTypeBuilderInterface;
 use Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface;
 use Drupal\schemadotorg\Utility\SchemaDotOrgStringHelper;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
  * Provides Schema.org descriptions overrides for the configuration factory.
@@ -28,13 +26,18 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  * @see https://www.flocondetoile.fr/blog/dynamically-override-configuration-drupal-8
  * @see https://www.drupal.org/docs/drupal-apis/configuration-api/configuration-override-system
  */
-class SchemaDotOrgDescriptionsConfigFactoryOverride extends ConfigFactoryOverrideBase implements ConfigFactoryOverrideInterface, EventSubscriberInterface {
+class SchemaDotOrgDescriptionsConfigFactoryOverride extends ConfigFactoryOverrideBase implements SchemaDotOrgDescriptionConfigFactoryOverrideInterface {
   use StringTranslationTrait;
 
   /**
    * The cache id.
    */
-  const string CACHE_ID = 'schemadotorg_descriptions.override';
+  const CACHE_ID = 'schemadotorg_descriptions.override';
+
+  /**
+   * Tracks if description overrides should be applied.
+   */
+  protected bool $isApplicable;
 
   /**
    * Constructs a SchemaDotOrgDescriptionsConfigFactoryOverride object.
@@ -57,6 +60,25 @@ class SchemaDotOrgDescriptionsConfigFactoryOverride extends ConfigFactoryOverrid
     protected SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager,
     protected SchemaDotOrgSchemaTypeBuilderInterface $schemaTypeBuilder,
   ) {}
+
+  /**
+   * Applies description overrides if running tests or UI (not CLI).
+   *
+   * Description overrides should are only useful via UI and cause a performance
+   * hit via CLI. Therefore, we are only going to apply description overrides
+   * via the UI and tests.
+   *
+   * @return bool
+   *   Returns TRUE if running tests or UI (not CLI).
+   */
+  protected function applyDescriptionOverrides(): bool {
+    if (isset($this->isApplicable)) {
+      return $this->isApplicable;
+    }
+
+    $this->isApplicable = drupal_valid_test_ua() || (PHP_SAPI !== 'cli');
+    return $this->isApplicable;
+  }
 
   /**
    * {@inheritdoc}
@@ -148,11 +170,18 @@ class SchemaDotOrgDescriptionsConfigFactoryOverride extends ConfigFactoryOverrid
   /**
    * Reset Schema.org description configuration overrides.
    */
-  public function resetDescriptionOverrides(): void {
+  protected function resetDescriptionOverrides(): void {
+    // Reset cached descriptions.
+    $this->defaultCacheBackend->delete(static::CACHE_ID);
+
+    // Skip resetting anything else if description are not being applied.
+    if (!$this->applyDescriptionOverrides()) {
+      return;
+    }
+
     // Reset config.
     $this->configFactory->reset();
-    // Reset default cache item.
-    $this->defaultCacheBackend->delete(static::CACHE_ID);
+
     // Reset the entire plugin discovery cache.
     $this->discoveryCacheBackend->deleteAll();
   }
@@ -164,7 +193,11 @@ class SchemaDotOrgDescriptionsConfigFactoryOverride extends ConfigFactoryOverrid
    *   An array of description configuration overrides for
    *   mapped entity types and fields.
    */
-  public function getDescriptionOverrides(): array {
+  protected function getDescriptionOverrides(): array {
+    if (!$this->applyDescriptionOverrides()) {
+      return [];
+    }
+
     if ($cache = $this->defaultCacheBackend->get(static::CACHE_ID)) {
       return $cache->data;
     }
@@ -290,7 +323,7 @@ class SchemaDotOrgDescriptionsConfigFactoryOverride extends ConfigFactoryOverrid
       if (empty($data)
         || !empty($data['description'])
         || empty($description)) {
-        // Having empty overrides allows use to easily purge them as needed.
+        // Having empty overrides allows us to easily purge them as needed.
         // @see \Drupal\schemadotorg_descriptions\Config\SchemaDotOrgDescriptionsConfigFactoryOverride::onConfigChange
         $overrides[$config_name] = [];
       }

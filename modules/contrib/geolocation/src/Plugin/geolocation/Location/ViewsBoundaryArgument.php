@@ -2,19 +2,19 @@
 
 namespace Drupal\geolocation\Plugin\geolocation\Location;
 
+use Drupal\geolocation\Attribute\Location;
 use Drupal\geolocation\LocationBase;
 use Drupal\geolocation\LocationInterface;
 use Drupal\geolocation\ViewsContextTrait;
 
 /**
  * Derive center from proximity argument.
- *
- * @Location(
- *   id = "views_boundary_argument",
- *   name = @Translation("Boundary argument - center only"),
- *   description = @Translation("Set map center from boundary argument."),
- * )
  */
+#[Location(
+  id: 'views_boundary_argument',
+  name: new \Drupal\Core\StringTranslation\TranslatableMarkup('Boundary argument - center only'),
+  description: new \Drupal\Core\StringTranslation\TranslatableMarkup('Set map center from boundary argument.')
+)]
 class ViewsBoundaryArgument extends LocationBase implements LocationInterface {
 
   use ViewsContextTrait;

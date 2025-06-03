@@ -2,6 +2,7 @@
 
 namespace Drupal\geolocation_geometry\Plugin\views\filter;
 
+use Drupal\views\Attribute\ViewsFilter;
 use Drupal\geolocation\Plugin\views\filter\ProximityFilter;
 use Drupal\geolocation_geometry\GeometryProximityTrait;
 
@@ -9,9 +10,8 @@ use Drupal\geolocation_geometry\GeometryProximityTrait;
  * Filter handler for search keywords.
  *
  * @ingroup views_filter_handlers
- *
- * @ViewsFilter("geolocation_geometry_filter_proximity")
  */
+#[ViewsFilter(id: 'geolocation_geometry_filter_proximity')]
 class GeoProximityFilter extends ProximityFilter {
 
   use GeometryProximityTrait;

@@ -2,18 +2,18 @@
 
 namespace Drupal\geolocation\Plugin\geolocation\MapFeature;
 
+use Drupal\geolocation\Attribute\MapFeature;
 use Drupal\geolocation\MapProviderInterface;
 
 /**
  * Provides Locate control element.
- *
- * @MapFeature(
- *   id = "control_locate",
- *   name = @Translation("Map Control - Locate"),
- *   description = @Translation("Add button to center on client location. Hidden on non-https connection."),
- *   type = "all",
- * )
  */
+#[MapFeature(
+  id: 'control_locate',
+  name: new \Drupal\Core\StringTranslation\TranslatableMarkup('Map Control - Locate'),
+  description: new \Drupal\Core\StringTranslation\TranslatableMarkup('Add button to center on client location. Hidden on non-https connection.'),
+  type: 'all'
+)]
 class ControlCustomLocate extends ControlCustomElementBase {
 
   /**

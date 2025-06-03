@@ -70,18 +70,18 @@ class SchemaDotOrgTaxonomyDefaultVocabularyManager implements SchemaDotOrgTaxono
 
     $default_vocabularies = $this->configFactory->get('schemadotorg_taxonomy.settings')
       ->get('default_vocabularies');
-    foreach ($default_vocabularies as $vocabulary_id => $vocabulary_settings) {
+    foreach ($default_vocabularies as $field_name => $vocabulary_settings) {
       $schema_types = $vocabulary_settings['schema_types'] ?? NULL;
       // Check if the default vocabulary is for a specific Schema.org type.
       if ($schema_types
-        && !$this->schemaTypeManager->getSetting($schema_types, $mapping)) {
+        && !$this->schemaTypeManager->getSetting($schema_types, $mapping, ['negate' => TRUE])) {
         continue;
       }
 
-      // Make sure the vocabulary ID is a machine name.
-      $vocabulary_id = preg_replace('/[^a-z0-9_]+/', '_', $vocabulary_id);
+      $default_field_prefix = $this->configFactory->get('field_ui.settings')->get('field_prefix') ?? 'field_';
 
       // Create vocabulary.
+      $vocabulary_id = $vocabulary_settings['id'] ?? $field_name;
       $vocabulary = $this->createVocabulary($vocabulary_id, $vocabulary_settings);
 
       $field = $vocabulary_settings + [
@@ -92,7 +92,7 @@ class SchemaDotOrgTaxonomyDefaultVocabularyManager implements SchemaDotOrgTaxono
         // Entity type and bundle.
         'entity_type' => $entity_type_id,
         'bundle' => $bundle,
-        'field_name' => 'field_' . $vocabulary_id,
+        'field_name' => $default_field_prefix . $field_name,
         // Schema.org type and property.
         'schema_type' => $mapping->getSchemaType(),
         'schema_property' => '',
@@ -105,11 +105,17 @@ class SchemaDotOrgTaxonomyDefaultVocabularyManager implements SchemaDotOrgTaxono
         ],
       ];
 
-      $this->schemaEntityTypeBuilder->addFieldToEntity(
-        $entity_type_id,
-        $bundle,
-        $field
-      );
+      $field_config_id = "$entity_type_id.$bundle.$default_field_prefix$field_name";
+      $field_config = $this->entityTypeManager
+        ->getStorage('field_config')
+        ->load($field_config_id);
+      if (!$field_config) {
+        $this->schemaEntityTypeBuilder->addFieldToEntity(
+          $entity_type_id,
+          $bundle,
+          $field
+        );
+      }
     }
   }
 

@@ -37,7 +37,7 @@ class MapFeatureManager extends DefaultPluginManager {
    *   The module handler to invoke the alter hook with.
    */
   public function __construct(\Traversable $namespaces, CacheBackendInterface $cache_backend, ModuleHandlerInterface $module_handler) {
-    parent::__construct('Plugin/geolocation/MapFeature', $namespaces, $module_handler, 'Drupal\geolocation\MapFeatureInterface', 'Drupal\geolocation\Annotation\MapFeature');
+    parent::__construct('Plugin/geolocation/MapFeature', $namespaces, $module_handler, 'Drupal\geolocation\MapFeatureInterface', 'Drupal\geolocation\Attribute\MapFeature');
     $this->alterInfo('geolocation_mapfeature_info');
     $this->setCacheBackend($cache_backend, 'geolocation_mapfeature');
   }

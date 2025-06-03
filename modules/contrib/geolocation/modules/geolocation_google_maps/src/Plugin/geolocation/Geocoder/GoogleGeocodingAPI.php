@@ -2,6 +2,7 @@
 
 namespace Drupal\geolocation_google_maps\Plugin\geolocation\Geocoder;
 
+use Drupal\geolocation\Attribute\Geocoder;
 use Drupal\Component\Serialization\Json;
 use Drupal\Core\Utility\Error;
 use Drupal\geolocation\KeyProvider;
@@ -10,17 +11,16 @@ use GuzzleHttp\Exception\RequestException;
 
 /**
  * Provides the Google Geocoding API.
- *
- * @Geocoder(
- *   id = "google_geocoding_api",
- *   name = @Translation("Google Geocoding API"),
- *   description = @Translation("You do require an API key for this plugin to work."),
- *   locationCapable = true,
- *   boundaryCapable = true,
- *   frontendCapable = true,
- *   reverseCapable = true,
- * )
  */
+#[Geocoder(
+  id: 'google_geocoding_api',
+  name: new \Drupal\Core\StringTranslation\TranslatableMarkup('Google Geocoding API'),
+  description: new \Drupal\Core\StringTranslation\TranslatableMarkup('You do require an API key for this plugin to work.'),
+  locationCapable: TRUE,
+  boundaryCapable: TRUE,
+  frontendCapable: TRUE,
+  reverseCapable: TRUE
+)]
 class GoogleGeocodingAPI extends GoogleGeocoderBase {
 
   /**

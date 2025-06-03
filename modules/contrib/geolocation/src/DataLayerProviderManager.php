@@ -39,7 +39,7 @@ class DataLayerProviderManager extends DefaultPluginManager {
    *   The module handler to invoke the alter hook with.
    */
   public function __construct(\Traversable $namespaces, CacheBackendInterface $cache_backend, ModuleHandlerInterface $module_handler) {
-    parent::__construct('Plugin/geolocation/DataLayerProvider', $namespaces, $module_handler, 'Drupal\geolocation\DataLayerProviderInterface', 'Drupal\geolocation\Annotation\DataLayerProvider');
+    parent::__construct('Plugin/geolocation/DataLayerProvider', $namespaces, $module_handler, 'Drupal\geolocation\DataLayerProviderInterface', 'Drupal\geolocation\Attribute\DataLayerProvider');
     $this->alterInfo('geolocation_datalayerprovider_info');
     $this->setCacheBackend($cache_backend, 'geolocation_datalayerprovider');
 

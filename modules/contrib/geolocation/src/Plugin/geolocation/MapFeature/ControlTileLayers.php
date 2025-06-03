@@ -2,6 +2,7 @@
 
 namespace Drupal\geolocation\Plugin\geolocation\MapFeature;
 
+use Drupal\geolocation\Attribute\MapFeature;
 use Drupal\Core\Asset\LibraryDiscoveryInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\File\FileSystemInterface;
@@ -13,14 +14,10 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Provides Recenter control element.
- *
- * @MapFeature(
- *   id = "control_tile_layers",
- *   name = @Translation("Map Control - Tile Layers"),
- *   description = @Translation("Shows list of toggleable tile layers."),
- *   type = "all",
- * )
  */
+#[MapFeature(id: 'control_tile_layers',
+  name: new \Drupal\Core\StringTranslation\TranslatableMarkup('Map Control - Tile Layers'),
+  description: new \Drupal\Core\StringTranslation\TranslatableMarkup('Shows list of toggleable tile layers.'), type: 'all')]
 class ControlTileLayers extends ControlCustomElementBase {
 
   /**

@@ -54,6 +54,7 @@ default_schema_properties:
   - productionCompany
   - programPrerequisites
   - programType
+  - provider
   - qualifications
   - responsibilities
   - riskFactor

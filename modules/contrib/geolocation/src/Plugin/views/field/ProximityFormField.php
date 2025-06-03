@@ -2,6 +2,7 @@
 
 namespace Drupal\geolocation\Plugin\views\field;
 
+use Drupal\views\Attribute\ViewsField;
 use Drupal\Component\Utility\NestedArray;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
@@ -15,9 +16,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * Field handler for geolocation field.
  *
  * @ingroup views_field_handlers
- *
- * @ViewsField("geolocation_field_proximity_form")
  */
+#[ViewsField(id: 'geolocation_field_proximity_form')]
 class ProximityFormField extends ProximityField implements ContainerFactoryPluginInterface {
 
   use ProximityTrait;

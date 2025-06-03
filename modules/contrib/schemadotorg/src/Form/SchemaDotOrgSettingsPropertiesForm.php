@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Drupal\schemadotorg\Form;
 
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\schemadotorg\SchemaDotOrgEntityDisplayBuilderInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -140,6 +141,20 @@ SchemaType--propertyName:
 - entity_type--bundle--field_name
 - entity_type--SchemaType--schemaProperty
 - SchemaType--schemaProperty',
+    ];
+    $patterns = SchemaDotOrgEntityDisplayBuilderInterface::PATTERNS;
+    $examples = [];
+    foreach ($patterns as $pattern) {
+      $example = implode('--', $pattern);
+      $example = str_replace('schema_type', 'SchemaType', $example);
+      $example = str_replace('schema_property', 'schemaProperty', $example);
+      $examples[] = $example;
+    }
+    $form['schema_properties']['disable_entity_display'] = [
+      '#type' => 'schemadotorg_settings',
+      '#title' => $this->t('Disable entity form/view displays'),
+      '#description' => $this->t('Enter the Schema.org types and properties that should NOT have entity form/view display automatically created.'),
+      '#example' => '- ' . implode(PHP_EOL . '- ', $examples),
     ];
     $form['schema_properties']['range_includes'] = [
       '#type' => 'schemadotorg_settings',

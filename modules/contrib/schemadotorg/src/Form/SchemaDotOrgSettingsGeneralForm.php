@@ -105,7 +105,7 @@ class SchemaDotOrgSettingsGeneralForm extends SchemaDotOrgSettingsFormBase {
     // Reinstall the tables.
     if ($reinstall) {
       $this->installer->importTables();
-      $this->messenger()->addStatus($this->t('The  Schema.org types and properties tables have been updated.'));
+      $this->messenger()->addStatus($this->t('The Schema.org types and properties tables have been updated.'));
     }
 
     parent::submitForm($form, $form_state);

@@ -93,7 +93,7 @@ class LinkitFilter extends FilterBase implements ContainerFactoryPluginInterface
   public function process($text, $langcode) {
     $result = new FilterProcessResult($text);
 
-    if (strpos($text, 'data-entity-type') !== FALSE && strpos($text, 'data-entity-uuid') !== FALSE) {
+    if (!empty($text) && strpos($text, 'data-entity-type') !== FALSE && strpos($text, 'data-entity-uuid') !== FALSE) {
       $dom = Html::load($text);
       $xpath = new \DOMXPath($dom);
 

@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Installation hooks for the Schema.org Blueprints JSON-LD  module.
+ * Installation hooks for the Schema.org Blueprints JSON-LD module.
  */
 
 declare(strict_types=1);

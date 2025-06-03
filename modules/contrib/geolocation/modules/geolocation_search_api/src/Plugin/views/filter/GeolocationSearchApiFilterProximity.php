@@ -2,6 +2,7 @@
 
 namespace Drupal\geolocation_search_api\Plugin\views\filter;
 
+use Drupal\views\Attribute\ViewsFilter;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\geolocation\LocationInputManager;
@@ -13,9 +14,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * Filter handler for search keywords.
  *
  * @ingroup views_filter_handlers
- *
- * @ViewsFilter("geolocation_search_api_filter_proximity")
  */
+#[ViewsFilter]
 class GeolocationSearchApiFilterProximity extends NumericFilter implements ContainerFactoryPluginInterface {
 
   use ProximityTrait;

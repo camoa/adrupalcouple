@@ -2,6 +2,7 @@
 
 namespace Drupal\geolocation_gpx\Plugin\geolocation\DataProvider;
 
+use Drupal\geolocation\Attribute\DataProvider;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemInterface;
 use Drupal\geolocation\DataProviderBase;
@@ -11,13 +12,10 @@ use Drupal\views\Plugin\views\field\FieldPluginBase;
 
 /**
  * Provides GPX.
- *
- * @DataProvider(
- *   id = "geolocation_gpx",
- *   name = @Translation("Geolocation GPX Field"),
- *   description = @Translation("Tracks, Routes & Waypoints."),
- * )
  */
+#[DataProvider(id: 'geolocation_gpx',
+  name: new \Drupal\Core\StringTranslation\TranslatableMarkup('Geolocation GPX Field'),
+  description: new \Drupal\Core\StringTranslation\TranslatableMarkup('Tracks, Routes & Waypoints.'))]
 class GeolocationGpxFieldDataProvider extends DataProviderBase implements DataProviderInterface {
 
   /**

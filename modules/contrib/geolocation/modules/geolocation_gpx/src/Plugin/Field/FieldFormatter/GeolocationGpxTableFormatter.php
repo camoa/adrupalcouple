@@ -2,6 +2,7 @@
 
 namespace Drupal\geolocation_gpx\Plugin\Field\FieldFormatter;
 
+use Drupal\Core\Field\Attribute\FieldFormatter;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Url;
@@ -9,16 +10,9 @@ use Drupal\file\Entity\File;
 
 /**
  * Plugin implementation of the 'geofield' formatter.
- *
- * @FieldFormatter(
- *   id = "geolocation_gpx_table",
- *   module = "geolocation",
- *   label = @Translation("Geolocation GPX Formatter - Data Table"),
- *   field_types = {
- *     "geolocation_gpx"
- *   }
- * )
  */
+#[FieldFormatter(id: 'geolocation_gpx_table',
+  label: new \Drupal\Core\StringTranslation\TranslatableMarkup('Geolocation GPX Formatter - Data Table'), field_types: ['geolocation_gpx'])]
 class GeolocationGpxTableFormatter extends FormatterBase {
 
   /**

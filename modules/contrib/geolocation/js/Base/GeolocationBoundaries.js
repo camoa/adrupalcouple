@@ -43,6 +43,8 @@ export class GeolocationBoundaries {
       default:
         throw new Error("GeolocationBoundary could not be created.");
     }
+
+    this.containToMax();
   }
 
   /**
@@ -70,5 +72,27 @@ export class GeolocationBoundaries {
     }
 
     return equal;
+  }
+
+  extend(bounds) {
+    if (!bounds) {
+      return this;
+    }
+
+    this.north = bounds.north > this.north ? bounds.north : this.north;
+    this.south = bounds.south < this.south ? bounds.south : this.south;
+    this.east = bounds.east > this.east ? bounds.east : this.east;
+    this.west = bounds.west < this.west ? bounds.west : this.west;
+
+    return this.containToMax();
+  }
+
+  containToMax() {
+    this.north = this.north < 90 ? this.north : 90;
+    this.south = this.south > -90 ? this.south : -90;
+    this.east = this.east < 180 ? this.east : 180;
+    this.west = this.west > -180 ? this.west : -180;
+
+    return this;
   }
 }

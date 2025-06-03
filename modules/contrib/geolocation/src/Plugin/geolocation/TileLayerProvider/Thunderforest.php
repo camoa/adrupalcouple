@@ -2,18 +2,16 @@
 
 namespace Drupal\geolocation\Plugin\geolocation\TileLayerProvider;
 
+use Drupal\geolocation\Attribute\TileLayerProvider;
 use Drupal\geolocation\TileLayerProviderBase;
 use Drupal\geolocation\TileLayerProviderInterface;
 
 /**
  * Provides Thunderforest tile layers.
- *
- * @TileLayerProvider(
- *   id = "geolocation_tile_thunderforest",
- *   name = @Translation("Thunderforest"),
- *   description = @Translation("See https://www.thunderforest.com/. Requires API key."),
- * )
  */
+#[TileLayerProvider(id: 'geolocation_tile_thunderforest',
+  name: new \Drupal\Core\StringTranslation\TranslatableMarkup('Thunderforest'),
+  description: new \Drupal\Core\StringTranslation\TranslatableMarkup('See https://www.thunderforest.com/. Requires API key.'))]
 class Thunderforest extends TileLayerProviderBase implements TileLayerProviderInterface {
 
   /**

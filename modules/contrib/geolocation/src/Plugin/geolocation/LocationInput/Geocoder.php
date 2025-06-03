@@ -2,6 +2,7 @@
 
 namespace Drupal\geolocation\Plugin\geolocation\LocationInput;
 
+use Drupal\geolocation\Attribute\LocationInput;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
@@ -12,13 +13,12 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Location based proximity center.
- *
- * @LocationInput(
- *   id = "geocoder",
- *   name = @Translation("Geocoder address input"),
- *   description = @Translation("Enter an address and use the geocoded location."),
- * )
  */
+#[LocationInput(
+  id: 'geocoder',
+  name: new \Drupal\Core\StringTranslation\TranslatableMarkup('Geocoder address input'),
+  description: new \Drupal\Core\StringTranslation\TranslatableMarkup('Enter an address and use the geocoded location.')
+)]
 class Geocoder extends LocationInputBase implements LocationInputInterface, ContainerFactoryPluginInterface {
 
   /**

@@ -25,7 +25,7 @@ class GeocoderCountryFormattingManager extends DefaultPluginManager {
    *   The module handler to invoke the alter hook with.
    */
   public function __construct(\Traversable $namespaces, CacheBackendInterface $cache_backend, ModuleHandlerInterface $module_handler) {
-    parent::__construct('Plugin/geolocation/GeocoderCountryFormatting', $namespaces, $module_handler, 'Drupal\geolocation\GeocoderCountryFormattingInterface', 'Drupal\geolocation\Annotation\GeocoderCountryFormatting');
+    parent::__construct('Plugin/geolocation/GeocoderCountryFormatting', $namespaces, $module_handler, 'Drupal\geolocation\GeocoderCountryFormattingInterface', 'Drupal\geolocation\Attribute\GeocoderCountryFormatting');
     $this->alterInfo('geolocation_geocoder_country_formatting_info');
     $this->setCacheBackend($cache_backend, 'geolocation_geocoder_country_formatting');
   }

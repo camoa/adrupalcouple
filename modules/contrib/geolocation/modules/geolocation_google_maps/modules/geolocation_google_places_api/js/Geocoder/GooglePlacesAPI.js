@@ -29,8 +29,6 @@ export default class GooglePlacesAPI extends GeolocationGeocoder {
       sessionToken: this.AutocompleteSessionToken,
     };
 
-    console.log(this.settings, "Settings");
-
     if (this.settings.component_restrictions) {
       parameters.componentRestrictions = {};
       if (this.settings.component_restrictions.administrative_area) {
@@ -64,8 +62,6 @@ export default class GooglePlacesAPI extends GeolocationGeocoder {
     if (this.settings.region) {
       parameters.region = this.settings.region;
     }
-
-    console.log(parameters, "Parameters");
 
     this.AutocompleteService.getPlacePredictions(
       parameters,

@@ -14,7 +14,7 @@ use Drupal\schemadotorg\SchemaDotOrgMappingInterface;
 /**
  * Implements hook_module_implements_alter().
  */
-function schemadotorg_node_module_implements_alter(array &$implementations, string $hook): void {
+function schemadotorg_node_module_implements_alter(array &$implementations, string|int $hook): void {
   if ($hook === 'local_tasks_alter') {
     $implementation = $implementations['schemadotorg_node'];
     unset($implementations['schemadotorg_node']);

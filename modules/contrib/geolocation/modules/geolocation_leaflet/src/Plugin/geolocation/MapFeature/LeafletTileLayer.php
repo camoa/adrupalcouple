@@ -2,6 +2,7 @@
 
 namespace Drupal\geolocation_leaflet\Plugin\geolocation\MapFeature;
 
+use Drupal\geolocation\Attribute\MapFeature;
 use Drupal\Core\Render\BubbleableMetadata;
 use Drupal\geolocation\MapFeatureBase;
 use Drupal\geolocation\MapProviderInterface;
@@ -9,14 +10,13 @@ use Drupal\geolocation_leaflet\LeafletTileLayerProviders;
 
 /**
  * Provides map tile layer support.
- *
- * @MapFeature(
- *   id = "leaflet_tile_layer",
- *   name = @Translation("Tile Layer - Providers"),
- *   description = @Translation("Select a map tile layer."),
- *   type = "leaflet",
- * )
  */
+#[MapFeature(
+  id: 'leaflet_tile_layer',
+  name: new \Drupal\Core\StringTranslation\TranslatableMarkup('Tile Layer - Providers'),
+  description: new \Drupal\Core\StringTranslation\TranslatableMarkup('Select a map tile layer.'),
+  type: 'leaflet'
+)]
 class LeafletTileLayer extends MapFeatureBase {
 
   use LeafletTileLayerProviders;

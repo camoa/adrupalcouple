@@ -2,22 +2,17 @@
 
 namespace Drupal\geolocation_gpx\Plugin\Field\FieldType;
 
+use Drupal\Core\Field\Attribute\FieldType;
 use Drupal\Core\Field\FieldItemBase;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
 use Drupal\Core\TypedData\DataDefinition;
 
 /**
  * Plugin implementation of the 'geolocation_gpx' field type.
- *
- * @FieldType(
- *   id = "geolocation_gpx",
- *   label = @Translation("Geolocation GPX - File & Data"),
- *   description = @Translation("This field stores a GPX file and references the GPX Entity imported from it."),
- *   category = "geo_spatial",
- *   default_widget = "geolocation_gpx_file",
- *   default_formatter = "geolocation_gpx_table",
- * )
  */
+#[FieldType(id: 'geolocation_gpx',
+  label: new \Drupal\Core\StringTranslation\TranslatableMarkup('Geolocation GPX - File & Data'),
+  description: new \Drupal\Core\StringTranslation\TranslatableMarkup('This field stores a GPX file and references the GPX Entity imported from it.'), category: 'geo_spatial', default_widget: 'geolocation_gpx_file', default_formatter: 'geolocation_gpx_table')]
 class GeolocationGpx extends FieldItemBase {
 
   /**

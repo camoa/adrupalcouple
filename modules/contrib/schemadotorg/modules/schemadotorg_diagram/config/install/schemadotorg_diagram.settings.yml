@@ -57,3 +57,11 @@ diagrams:
     title: 'Related drugs'
     parent: ''
     child: relatedDrug
+  serviceOperator:
+    title: 'Service operator'
+    parent: serviceOperator
+    child: ''
+  hiringOrganization:
+    title: 'Hiring organization'
+    parent: hiringOrganization
+    child: ''

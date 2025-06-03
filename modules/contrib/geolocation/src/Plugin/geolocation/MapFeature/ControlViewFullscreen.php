@@ -2,18 +2,15 @@
 
 namespace Drupal\geolocation\Plugin\geolocation\MapFeature;
 
+use Drupal\geolocation\Attribute\MapFeature;
 use Drupal\geolocation\MapProviderInterface;
 
 /**
  * Provides Recenter control element.
- *
- * @MapFeature(
- *   id = "control_view_fullscreen",
- *   name = @Translation("Map Control - View Fullscreen"),
- *   description = @Translation("Trigger Fullscreen on entire View container."),
- *   type = "all",
- * )
  */
+#[MapFeature(id: 'control_view_fullscreen',
+  name: new \Drupal\Core\StringTranslation\TranslatableMarkup('Map Control - View Fullscreen'),
+  description: new \Drupal\Core\StringTranslation\TranslatableMarkup('Trigger Fullscreen on entire View container.'), type: 'all')]
 class ControlViewFullscreen extends ControlCustomElementBase {
 
   /**

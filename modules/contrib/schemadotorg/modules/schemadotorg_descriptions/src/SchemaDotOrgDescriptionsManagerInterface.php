@@ -23,6 +23,14 @@ interface SchemaDotOrgDescriptionsManagerInterface {
   public function entityLoad(array $entities, string $entity_type_id): void;
 
   /**
+   * Removes description override from config entity before it is created or updated.
+   *
+   * @param \Drupal\Core\Entity\EntityInterface $entity
+   *   The entity object.
+   */
+  public function entityPresave(EntityInterface $entity): void;
+
+  /**
    * Alter node form and adds a description.
    *
    * @param array $form

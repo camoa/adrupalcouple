@@ -155,26 +155,30 @@ abstract class GeolocationStyleBase extends StylePluginBase {
       return [];
     }
 
-    foreach ($data_provider->getPositionsFromViewsRow($row, $this->view->field[$this->options['geolocation_field']]) as $index => $position) {
-      $location = [
-        '#type' => 'geolocation_map_location',
-        'content' => $this->view->rowPlugin->render($row),
+    foreach ($data_provider->getLocationsFromViewsRow($row, $this->view->field[$this->options['geolocation_field']]) as $location) {
+      if (empty($location)) {
+        continue;
+      }
+
+      $location = array_merge([
         '#row' => $row,
         '#title' => $this->getTitleField($row) ?? '',
         '#label' => $this->getLabelField($row) ?? '',
-        '#coordinates' => $position,
         '#weight' => $row->index,
-        '#attributes' => ['data-views-row-index' => $row->index],
-      ];
+      ], $location);
+
+      $location['#attributes'] = array_merge(['data-views-row-index' => $row->index], $location['#attributes'] ?? []);
+
+      $location['content'] = $this->view->rowPlugin->render($row);
 
       // @phpstan-ignore-next-line
       if ($row->_entity) {
-        $location['#id'] = Html::getUniqueId($row->_entity->getEntityTypeId() . '-' . $row->_entity->id() . '-' . $index);
+        $location['#id'] = Html::getUniqueId($row->_entity->getEntityTypeId() . '-' . $row->_entity->id() . '-' . count($locations));
         $location['#attributes']['data-entity-type'] = $row->_entity->getEntityTypeId();
         $location['#attributes']['data-entity-id'] = $row->_entity->id();
       }
       else {
-        $location['#id'] = $row->index . '-' . $index;
+        $location['#id'] = $row->index . '-' . count($locations);
       }
 
       if (!empty($icon_url)) {
@@ -195,8 +199,34 @@ abstract class GeolocationStyleBase extends StylePluginBase {
       $locations[] = $location;
     }
 
-    $locations = array_merge($data_provider->getLocationsFromViewsRow($row, $this->view->field[$this->options['geolocation_field']]), $locations);
-    $locations = array_merge($data_provider->getShapesFromViewsRow($row, $this->view->field[$this->options['geolocation_field']]), $locations);
+    foreach ($data_provider->getShapesFromViewsRow($row, $this->view->field[$this->options['geolocation_field']]) as $shape) {
+      if (empty($shape)) {
+        continue;
+      }
+
+      $shape = array_merge([
+        '#row' => $row,
+        '#title' => $this->getTitleField($row) ?? '',
+        '#label' => $this->getLabelField($row) ?? '',
+        '#weight' => $row->index,
+      ], $shape);
+
+      $shape['#attributes'] = array_merge(['data-views-row-index' => $row->index], $shape['#attributes'] ?? []);
+
+      $shape['content'] = $this->view->rowPlugin->render($row);
+
+      // @phpstan-ignore-next-line
+      if ($row->_entity) {
+        $shape['#id'] = Html::getUniqueId($row->_entity->getEntityTypeId() . '-' . $row->_entity->id() . '-' . count($locations));
+        $shape['#attributes']['data-entity-type'] = $row->_entity->getEntityTypeId();
+        $shape['#attributes']['data-entity-id'] = $row->_entity->id();
+      }
+      else {
+        $shape['#id'] = $row->index . '-' . count($locations);
+      }
+
+      $locations[] = $shape;
+    }
 
     return $locations;
   }
@@ -418,10 +448,10 @@ abstract class GeolocationStyleBase extends StylePluginBase {
     ) {
       $title_field = $this->options['title_field'];
       if (!empty($this->rendered_fields[$row->index][$title_field])) {
-        return PlainTextOutput::renderFromHtml($this->rendered_fields[$row->index][$title_field]);
+        return trim(PlainTextOutput::renderFromHtml($this->rendered_fields[$row->index][$title_field]));
       }
       elseif (!empty($this->view->field[$title_field])) {
-        return PlainTextOutput::renderFromHtml($this->view->field[$title_field]->render($row));
+        return trim(PlainTextOutput::renderFromHtml($this->view->field[$title_field]->render($row)));
       }
     }
 
@@ -444,10 +474,10 @@ abstract class GeolocationStyleBase extends StylePluginBase {
     ) {
       $label_field = $this->options['label_field'];
       if (!empty($this->rendered_fields[$row->index][$label_field])) {
-        return PlainTextOutput::renderFromHtml($this->rendered_fields[$row->index][$label_field]);
+        return trim(PlainTextOutput::renderFromHtml($this->rendered_fields[$row->index][$label_field]));
       }
       elseif (!empty($this->view->field[$label_field])) {
-        return PlainTextOutput::renderFromHtml($this->view->field[$label_field]->render($row));
+        return trim(PlainTextOutput::renderFromHtml($this->view->field[$label_field]->render($row)));
       }
     }
 

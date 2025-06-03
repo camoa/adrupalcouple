@@ -206,3 +206,9 @@ schemadotorg.settings:
           sequence:
             type: string
             label: 'Default field weight'
+        disable_entity_display:
+          type: sequence
+          label: 'Disable entity form/view display'
+          sequence:
+            type: string
+            label: 'Entity form/view display'

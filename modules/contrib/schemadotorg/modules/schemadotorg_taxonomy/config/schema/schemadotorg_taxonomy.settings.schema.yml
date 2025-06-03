@@ -27,12 +27,6 @@ schemadotorg_taxonomy.settings:
           group:
             type: string
             label: 'Group name'
-          schema_types:
-            type: sequence
-            label: 'Schema.org types'
-            sequence:
-              type: string
-              label: 'Schema.org type'
           unlimited:
             type: boolean
             label: 'Unlimited values'
@@ -51,6 +45,13 @@ schemadotorg_taxonomy.settings:
           formatter_settings:
             type: ignore
             label: 'Formatter settings'
+          schema_types:
+            type: sequence
+            label: 'Schema.org types'
+            sequence:
+              type: string
+              label: 'Schema.org type'
+
     schema_property_vocabularies:
       type: sequence
       label: 'Default properties'

@@ -2,6 +2,7 @@
 
 namespace Drupal\geolocation_leaflet\Plugin\geolocation\Geocoder;
 
+use Drupal\geolocation\Attribute\Geocoder;
 use Drupal\Component\Serialization\Json;
 use Drupal\Core\Url;
 use Drupal\Core\Utility\Error;
@@ -11,17 +12,16 @@ use GuzzleHttp\Exception\RequestException;
 
 /**
  * Provides the Photon.
- *
- * @Geocoder(
- *   id = "photon",
- *   name = @Translation("Photon"),
- *   description = @Translation("See https://photon.komoot.io for details."),
- *   locationCapable = true,
- *   boundaryCapable = true,
- *   frontendCapable = true,
- *   reverseCapable = true,
- * )
  */
+#[Geocoder(
+  id: 'photon',
+  name: new \Drupal\Core\StringTranslation\TranslatableMarkup('Photon'),
+  description: new \Drupal\Core\StringTranslation\TranslatableMarkup('See https://photon.komoot.io for details.'),
+  locationCapable: TRUE,
+  boundaryCapable: TRUE,
+  frontendCapable: TRUE,
+  reverseCapable: TRUE
+)]
 class Photon extends GeocoderBase implements GeocoderInterface {
 
   /**

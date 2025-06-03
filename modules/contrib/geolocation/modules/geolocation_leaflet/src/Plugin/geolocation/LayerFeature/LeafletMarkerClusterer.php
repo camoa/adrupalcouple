@@ -2,19 +2,19 @@
 
 namespace Drupal\geolocation_leaflet\Plugin\geolocation\LayerFeature;
 
+use Drupal\geolocation\Attribute\LayerFeature;
 use Drupal\geolocation\LayerFeatureBase;
 use Drupal\geolocation\MapProviderInterface;
 
 /**
  * Provides marker clusterer.
- *
- * @LayerFeature(
- *   id = "leaflet_marker_clusterer",
- *   name = @Translation("Marker Clusterer"),
- *   description = @Translation("Cluster close markers together."),
- *   type = "leaflet",
- * )
  */
+#[LayerFeature(
+  id: 'leaflet_marker_clusterer',
+  name: new \Drupal\Core\StringTranslation\TranslatableMarkup('Marker Clusterer'),
+  description: new \Drupal\Core\StringTranslation\TranslatableMarkup('Cluster close markers together.'),
+  type: 'leaflet'
+)]
 class LeafletMarkerClusterer extends LayerFeatureBase {
 
   /**

@@ -2,19 +2,19 @@
 
 namespace Drupal\geolocation_google_maps\Plugin\geolocation\MapFeature;
 
+use Drupal\geolocation\Attribute\MapFeature;
 use Drupal\Component\Utility\Html;
 use Drupal\geolocation\MapProviderInterface;
 
 /**
  * Provides Directions Service.
- *
- * @MapFeature(
- *   id = "geolocation_google_maps_control_directions",
- *   name = @Translation("Directions"),
- *   description = @Translation("Integrate direction finder."),
- *   type = "google_maps",
- * )
  */
+#[MapFeature(
+  id: 'geolocation_google_maps_control_directions',
+  name: new \Drupal\Core\StringTranslation\TranslatableMarkup('Directions'),
+  description: new \Drupal\Core\StringTranslation\TranslatableMarkup('Integrate direction finder.'),
+  type: 'google_maps'
+)]
 class GoogleControlDirections extends GoogleControlElementBase {
 
   /**

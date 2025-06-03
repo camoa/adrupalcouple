@@ -30,6 +30,7 @@ class SchemaDotOrgContentModelDocumentationHelpTest extends SchemaDotOrgBrowserT
     'block',
     'node',
     'help',
+    'pathauto',
     'schemadotorg_content_model_documentation',
   ];
 

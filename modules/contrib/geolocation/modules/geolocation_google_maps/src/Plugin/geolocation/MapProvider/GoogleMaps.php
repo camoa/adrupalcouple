@@ -2,18 +2,18 @@
 
 namespace Drupal\geolocation_google_maps\Plugin\geolocation\MapProvider;
 
+use Drupal\geolocation\Attribute\MapProvider;
 use Drupal\Core\Render\BubbleableMetadata;
 use Drupal\geolocation_google_maps\GoogleMapsProviderBase;
 
 /**
  * Provides Google Maps.
- *
- * @MapProvider(
- *   id = "google_maps",
- *   name = @Translation("Google Maps"),
- *   description = @Translation("You do require an API key for this plugin to work."),
- * )
  */
+#[MapProvider(
+  id: 'google_maps',
+  name: new \Drupal\Core\StringTranslation\TranslatableMarkup('Google Maps'),
+  description: new \Drupal\Core\StringTranslation\TranslatableMarkup('You do require an API key for this plugin to work.')
+)]
 class GoogleMaps extends GoogleMapsProviderBase {
 
   /**

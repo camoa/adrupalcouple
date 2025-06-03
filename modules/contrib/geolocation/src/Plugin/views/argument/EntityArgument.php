@@ -2,6 +2,7 @@
 
 namespace Drupal\geolocation\Plugin\views\argument;
 
+use Drupal\views\Attribute\ViewsArgument;
 use Drupal\Core\Entity\EntityFieldManagerInterface;
 use Drupal\Core\Entity\EntityTypeBundleInfoInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
@@ -13,9 +14,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * Argument handler for geolocation.
  *
  * @ingroup views_argument_handlers
- *
- * @ViewsArgument("geolocation_entity_argument")
  */
+#[ViewsArgument(id: 'geolocation_entity_argument')]
 class EntityArgument extends ProximityArgument implements ContainerFactoryPluginInterface {
 
   /**

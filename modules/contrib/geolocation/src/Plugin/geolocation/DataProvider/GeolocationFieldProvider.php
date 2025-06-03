@@ -2,6 +2,7 @@
 
 namespace Drupal\geolocation\Plugin\geolocation\DataProvider;
 
+use Drupal\geolocation\Attribute\DataProvider;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemInterface;
 use Drupal\Core\Utility\Error;
@@ -12,13 +13,12 @@ use Drupal\views\Plugin\views\field\FieldPluginBase;
 
 /**
  * Provides default geolocation field.
- *
- * @DataProvider(
- *   id = "geolocation_field_provider",
- *   name = @Translation("Geolocation Field"),
- *   description = @Translation("Geolocation Field."),
- * )
  */
+#[DataProvider(
+  id: 'geolocation_field_provider',
+  name: new \Drupal\Core\StringTranslation\TranslatableMarkup('Geolocation Field'),
+  description: new \Drupal\Core\StringTranslation\TranslatableMarkup('Geolocation Field.')
+)]
 class GeolocationFieldProvider extends DataProviderBase implements DataProviderInterface {
 
   /**
@@ -125,12 +125,15 @@ class GeolocationFieldProvider extends DataProviderBase implements DataProviderI
   /**
    * {@inheritdoc}
    */
-  public function getPositionsFromItem(FieldItemInterface $fieldItem): array {
+  public function getLocationsFromItem(FieldItemInterface $fieldItem): array {
     if ($fieldItem instanceof GeolocationItem) {
       return [
         [
-          'lat' => $fieldItem->get('lat')->getValue(),
-          'lng' => $fieldItem->get('lng')->getValue(),
+          '#type' => 'geolocation_map_location',
+          '#coordinates' => [
+            'lat' => $fieldItem->get('lat')->getValue(),
+            'lng' => $fieldItem->get('lng')->getValue(),
+          ],
         ],
       ];
     }

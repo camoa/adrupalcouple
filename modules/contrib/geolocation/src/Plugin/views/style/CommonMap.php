@@ -2,6 +2,7 @@
 
 namespace Drupal\geolocation\Plugin\views\style;
 
+use Drupal\views\Attribute\ViewsStyle;
 use Drupal\Component\Utility\NestedArray;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\File\FileUrlGeneratorInterface;
@@ -16,15 +17,13 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * Allow to display several field items on a common map.
  *
  * @ingroup views_style_plugins
- *
- * @ViewsStyle(
- *   id = "maps_common",
- *   title = @Translation("Geolocation CommonMap"),
- *   help = @Translation("Display geolocations on a common map."),
- *   theme = "views_view_list",
- *   display_types = {"normal"},
- * )
  */
+#[ViewsStyle(
+  id: 'maps_common',
+  title: new \Drupal\Core\StringTranslation\TranslatableMarkup('Geolocation CommonMap'), help: new \Drupal\Core\StringTranslation\TranslatableMarkup('Display geolocations on a common map.'),
+  theme: 'views_view_list',
+  display_types: ['normal']
+)]
 class CommonMap extends GeolocationStyleBase {
 
   /**
@@ -497,9 +496,7 @@ class CommonMap extends GeolocationStyleBase {
       }
     }
 
-    $build = $this->mapCenterManager->alterMap($build, $this->options['centre'], ['views_style' => $this]);
-
-    return $build;
+    return $this->mapCenterManager->alterMap($build, $this->options['centre'], ['views_style' => $this]);
   }
 
 }

@@ -2,6 +2,7 @@
 
 namespace Drupal\geolocation_geometry\Plugin\views\argument;
 
+use Drupal\views\Attribute\ViewsArgument;
 use Drupal\geolocation\Plugin\views\argument\ProximityArgument;
 use Drupal\geolocation_geometry\GeometryProximityTrait;
 
@@ -12,9 +13,8 @@ use Drupal\geolocation_geometry\GeometryProximityTrait;
  * "37.7749295,-122.41941550000001<=5mi" (defaults to km).
  *
  * @ingroup views_argument_handlers
- *
- * @ViewsArgument("geolocation_geometry_argument_proximity")
  */
+#[ViewsArgument(id: 'geolocation_geometry_argument_proximity')]
 class GeoProximityArgument extends ProximityArgument {
 
   use GeometryProximityTrait;

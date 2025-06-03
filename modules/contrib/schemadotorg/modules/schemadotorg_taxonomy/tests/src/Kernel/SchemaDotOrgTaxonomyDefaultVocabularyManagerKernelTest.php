@@ -63,6 +63,11 @@ class SchemaDotOrgTaxonomyDefaultVocabularyManagerKernelTest extends SchemaDotOr
         'id' => 'tags',
         'label' => 'Tags',
       ])
+      ->set('default_vocabularies.tag', [
+        'id' => 'tags',
+        'label' => 'Tag',
+        'unlimited' => FALSE,
+      ])
       ->set('default_vocabularies.article_tags', [
         'id' => 'article_tags',
         'label' => 'Article Tags',
@@ -79,11 +84,21 @@ class SchemaDotOrgTaxonomyDefaultVocabularyManagerKernelTest extends SchemaDotOr
 
     // Check that the field storage is created.
     $this->assertNotNull(FieldStorageConfig::loadByName('node', 'field_tags'));
+    $this->assertNotNull(FieldStorageConfig::loadByName('node', 'field_tag'));
     $this->assertNotNull(FieldStorageConfig::loadByName('node', 'field_article_tags'));
 
     // Check that the field is created.
     $this->assertNotNull(FieldConfig::loadByName('node', 'article', 'field_tags'));
+    $this->assertNotNull(FieldConfig::loadByName('node', 'article', 'field_tag'));
     $this->assertNotNull(FieldConfig::loadByName('node', 'article', 'field_article_tags'));
+
+    // Check that field tag vs tags cardinality is set.
+    /** @var \Drupal\field\FieldStorageConfigInterface $field_storage */
+    $field_storage = FieldStorageConfig::loadByName('node', 'field_tag');
+    $this->assertEquals(1, $field_storage->getCardinality());
+    /** @var \Drupal\field\FieldStorageConfigInterface $field_storage */
+    $field_storage = FieldStorageConfig::loadByName('node', 'field_tags');
+    $this->assertEquals(-1, $field_storage->getCardinality());
 
     /** @var \Drupal\Core\Entity\EntityDisplayRepositoryInterface $entity_display_repository */
     $entity_display_repository = \Drupal::service('entity_display.repository');
@@ -98,7 +113,7 @@ class SchemaDotOrgTaxonomyDefaultVocabularyManagerKernelTest extends SchemaDotOr
     $form_group = $form_display->getThirdPartySetting('field_group', 'group_taxonomy');
     $this->assertEquals('Categories/Services', $form_group['label']);
     $this->assertEquals('details', $form_group['format_type']);
-    $this->assertEquals(['field_tags', 'field_article_tags'], $form_group['children']);
+    $this->assertEquals(['field_tags', 'field_tag', 'field_article_tags'], $form_group['children']);
 
     // Check that the view display and component are created.
     $view_display = $entity_display_repository->getViewDisplay('node', 'article');
@@ -110,7 +125,7 @@ class SchemaDotOrgTaxonomyDefaultVocabularyManagerKernelTest extends SchemaDotOr
     $view_group = $view_display->getThirdPartySetting('field_group', 'group_taxonomy');
     $this->assertEquals('Categories/Services', $view_group['label']);
     $this->assertEquals('fieldset', $view_group['format_type']);
-    $this->assertEquals(['field_tags', 'field_article_tags'], $view_group['children']);
+    $this->assertEquals(['field_tags', 'field_tag', 'field_article_tags'], $view_group['children']);
 
     // Check that tags and article_tags vocabularies are translated.
     $this->assertNotNull(ContentLanguageSettings::load('taxonomy_term.tags'));

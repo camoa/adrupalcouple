@@ -15,12 +15,12 @@ interface SchemaDotOrgJsonLdPreviewBuilderInterface {
   /**
    * Format Schema.org prevent via JSON-LD.
    */
-  const string JSONLD = 'jsonld';
+  const JSONLD = 'jsonld';
 
   /**
    * Format Schema.org prevent via data (table).
    */
-  const string DATA = 'data';
+  const DATA = 'data';
 
   /**
    * Build JSON-LD preview for a route.
@@ -33,7 +33,7 @@ interface SchemaDotOrgJsonLdPreviewBuilderInterface {
    *   (optional) Object to collect JSON-LD's bubbleable metadata.
    *
    * @return array|null
-   *   The JSON-LD preview  for a route or NULL if the route does not return JSON-LD.
+   *   The JSON-LD preview for a route or NULL if the route does not return JSON-LD.
    */
   public function build(string $format = self::JSONLD, ?RouteMatchInterface $route_match = NULL, ?BubbleableMetadata $bubbleable_metadata = NULL): ?array;
 

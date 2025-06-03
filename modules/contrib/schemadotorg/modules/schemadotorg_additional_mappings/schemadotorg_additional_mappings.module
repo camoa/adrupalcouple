@@ -104,9 +104,9 @@ node--MainSchemaType:
   ];
   $form['schemadotorg_additional_mappings']['default_properties'] = [
     '#type' => 'schemadotorg_settings',
-    '#title' => t('Default Schema.org type properties'),
+    '#title' => t('Default additional Schema.org mappings properties'),
     '#rows' => 10,
-    '#description' => t('Enter default properties for Schema.org types.'),
+    '#description' => t('Enter default properties for  additional Schema.org mappings types.'),
     '#description_link' => 'types',
     '#example' => "
 SchemaType:

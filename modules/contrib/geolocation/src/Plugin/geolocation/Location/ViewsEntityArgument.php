@@ -2,19 +2,19 @@
 
 namespace Drupal\geolocation\Plugin\geolocation\Location;
 
+use Drupal\geolocation\Attribute\Location;
 use Drupal\geolocation\LocationBase;
 use Drupal\geolocation\LocationInterface;
 use Drupal\geolocation\ViewsContextTrait;
 
 /**
  * Derive center from proximity argument.
- *
- * @Location(
- *   id = "views_entity_argument",
- *   name = @Translation("Entity ID argument"),
- *   description = @Translation("Location from entity ID argument."),
- * )
  */
+#[Location(
+  id: 'views_entity_argument',
+  name: new \Drupal\Core\StringTranslation\TranslatableMarkup('Entity ID argument'),
+  description: new \Drupal\Core\StringTranslation\TranslatableMarkup('Location from entity ID argument.')
+)]
 class ViewsEntityArgument extends LocationBase implements LocationInterface {
 
   use ViewsContextTrait;

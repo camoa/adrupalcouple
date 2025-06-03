@@ -293,7 +293,26 @@ class SchemaDotOrgEntityDisplayBuilder implements SchemaDotOrgEntityDisplayBuild
     $field_name = $field['field_name'];
     $schema_type = $field['schema_type'];
     $schema_property = $field['schema_property'];
-    $options['weight'] = $options['weight'] ?? $this->getSchemaPropertyDefaultFieldWeight($entity_type_id, $bundle, $field_name, $schema_type, $schema_property);
+
+    // Disable adding component to entity form/view display based on configurable settings.
+    $disable_entity_display = $this->configFactory
+      ->get('schemadotorg.settings')
+      ->get('schema_properties.disable_entity_display');
+    $parts = [
+      'entity_type_id' => $entity_type_id,
+      'bundle' => $bundle,
+      'field_name' => $field_name,
+      'schema_type' => $schema_type,
+      'schema_property' => $schema_property,
+      'display_type' => $display instanceof EntityViewDisplayInterface ? 'view' : 'form',
+      'display_mode' => $display->getMode(),
+    ];
+    if ($this->schemaTypeManager->getSetting($disable_entity_display, $parts, [], static::PATTERNS)) {
+      return;
+    }
+
+    $options['weight'] = $options['weight']
+      ?? $this->getSchemaPropertyDefaultFieldWeight($entity_type_id, $bundle, $field_name, $schema_type, $schema_property);
     $display->setComponent($field_name, $options);
   }
 

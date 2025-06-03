@@ -2,6 +2,7 @@
 
 namespace Drupal\geolocation_geometry\Plugin\geolocation\DataProvider;
 
+use Drupal\geolocation\Attribute\DataProvider;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemInterface;
 use Drupal\geolocation\DataProviderBase;
@@ -12,13 +13,12 @@ use Drupal\views\ResultRow;
 
 /**
  * Provides GPX.
- *
- * @DataProvider(
- *   id = "geolocation_geometry",
- *   name = @Translation("Geolocation Geometry"),
- *   description = @Translation("Points, Polygons, Polyines."),
- * )
  */
+#[DataProvider(
+  id: 'geolocation_geometry',
+  name: new \Drupal\Core\StringTranslation\TranslatableMarkup('Geolocation Geometry'),
+  description: new \Drupal\Core\StringTranslation\TranslatableMarkup('Points, Polygons, Polyines.')
+)]
 class GeolocationGeometry extends DataProviderBase implements DataProviderInterface {
 
   /**

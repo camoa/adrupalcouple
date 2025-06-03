@@ -2,21 +2,18 @@
 
 namespace Drupal\geolocation_gpx\Plugin\Field\FieldFormatter;
 
+use Drupal\Core\Field\Attribute\FieldFormatter;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\geolocation\Plugin\Field\FieldFormatter\GeolocationMapFormatterBase;
 
 /**
  * Plugin implementation of the 'geofield' formatter.
- *
- * @FieldFormatter(
- *   id = "geolocation_gpx_map",
- *   module = "geolocation",
- *   label = @Translation("Geolocation GPX Formatter - Map"),
- *   field_types = {
- *     "geolocation_gpx"
- *   }
- * )
  */
+#[FieldFormatter(
+  id: 'geolocation_gpx_map',
+  label: new \Drupal\Core\StringTranslation\TranslatableMarkup('Geolocation GPX Formatter - Map'),
+  field_types: ['geolocation_gpx']
+)]
 class GeolocationGpxMapFormatter extends GeolocationMapFormatterBase {
 
   /**

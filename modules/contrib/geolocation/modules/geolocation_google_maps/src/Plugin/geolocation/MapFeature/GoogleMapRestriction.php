@@ -2,19 +2,19 @@
 
 namespace Drupal\geolocation_google_maps\Plugin\geolocation\MapFeature;
 
+use Drupal\geolocation\Attribute\MapFeature;
 use Drupal\geolocation\MapFeatureBase;
 use Drupal\geolocation\MapProviderInterface;
 
 /**
  * Provides Google Maps.
- *
- * @MapFeature(
- *   id = "map_restriction",
- *   name = @Translation("Map Restriction"),
- *   description = @Translation("Restrict map to set bounds."),
- *   type = "google_maps",
- * )
  */
+#[MapFeature(
+  id: 'map_restriction',
+  name: new \Drupal\Core\StringTranslation\TranslatableMarkup('Map Restriction'),
+  description: new \Drupal\Core\StringTranslation\TranslatableMarkup('Restrict map to set bounds.'),
+  type: 'google_maps'
+)]
 class GoogleMapRestriction extends MapFeatureBase {
 
   /**

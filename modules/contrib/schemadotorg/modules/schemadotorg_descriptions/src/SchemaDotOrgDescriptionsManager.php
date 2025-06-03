@@ -6,6 +6,7 @@ namespace Drupal\schemadotorg_descriptions;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Config\Entity\ConfigEntityBundleBase;
+use Drupal\Core\Config\Entity\ConfigEntityInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
@@ -17,6 +18,7 @@ use Drupal\field\FieldConfigInterface;
 use Drupal\schemadotorg\Entity\SchemaDotOrgMapping;
 use Drupal\schemadotorg\SchemaDotOrgSchemaTypeBuilderInterface;
 use Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface;
+use Drupal\schemadotorg_descriptions\Config\SchemaDotOrgDescriptionConfigFactoryOverrideInterface;
 use Drupal\schemadotorg_ui\Form\SchemaDotOrgUiMappingForm;
 
 /**
@@ -40,6 +42,8 @@ class SchemaDotOrgDescriptionsManager implements SchemaDotOrgDescriptionsManager
    *   The Schema.org schema type manager.
    * @param \Drupal\schemadotorg\SchemaDotOrgSchemaTypeBuilderInterface $schemaTypeBuilder
    *   The Schema.org type builder.
+   * @param \Drupal\schemadotorg_descriptions\Config\SchemaDotOrgDescriptionConfigFactoryOverrideInterface $configFactoryOverride
+   *   The Schema.org descriptions overrides for the configuration factory.
    */
   public function __construct(
     protected ConfigFactoryInterface $configFactory,
@@ -48,6 +52,7 @@ class SchemaDotOrgDescriptionsManager implements SchemaDotOrgDescriptionsManager
     protected EntityTypeManagerInterface $entityTypeManager,
     protected SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager,
     protected SchemaDotOrgSchemaTypeBuilderInterface $schemaTypeBuilder,
+    protected SchemaDotOrgDescriptionConfigFactoryOverrideInterface $configFactoryOverride,
   ) {}
 
   /**
@@ -81,6 +86,24 @@ class SchemaDotOrgDescriptionsManager implements SchemaDotOrgDescriptionsManager
       $custom_description = $this->getSchemaCustomDescription($schema_type);
       if ($custom_description) {
         $entity->set('description', $custom_description);
+      }
+    }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function entityPresave(EntityInterface $entity): void {
+    if (!$entity instanceof ConfigEntityInterface) {
+      return;
+    }
+
+    $config_name = $entity->getConfigDependencyName();
+    $overrides = $this->configFactoryOverride->loadOverrides([$config_name]);
+    $override = $overrides[$config_name] ?? [];
+    foreach ($override as $key => $value) {
+      if ($entity->get($key) === $value) {
+        $entity->set($key, '');
       }
     }
   }

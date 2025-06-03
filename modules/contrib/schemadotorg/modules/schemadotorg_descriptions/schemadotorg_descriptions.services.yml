@@ -12,3 +12,4 @@ services:
     tags:
       - { name: config.factory.override }
       - { name: event_subscriber }
+  Drupal\schemadotorg_descriptions\Config\SchemaDotOrgDescriptionConfigFactoryOverrideInterface: '@schemadotorg_descriptions.config_factory_override'

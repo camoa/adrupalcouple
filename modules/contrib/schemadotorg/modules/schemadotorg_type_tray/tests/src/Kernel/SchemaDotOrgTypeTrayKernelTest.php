@@ -51,7 +51,7 @@ class SchemaDotOrgTypeTrayKernelTest extends SchemaDotOrgEntityKernelTestBase {
       'content' => 'Content',
       'organization' => 'Organization',
       'education' => 'Education',
-      'hospitality' => 'Hospitality',
+      'place' => 'Place',
       'food' => 'Food',
       'media' => 'Media',
       'medical_organization' => 'Medical organization',

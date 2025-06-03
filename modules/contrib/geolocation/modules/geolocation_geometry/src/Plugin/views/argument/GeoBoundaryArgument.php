@@ -2,6 +2,7 @@
 
 namespace Drupal\geolocation_geometry\Plugin\views\argument;
 
+use Drupal\views\Attribute\ViewsArgument;
 use Drupal\geolocation\Plugin\views\argument\BoundaryArgument;
 use Drupal\geolocation_geometry\GeometryBoundaryTrait;
 use Drupal\views\Plugin\views\query\Sql;
@@ -13,9 +14,8 @@ use Drupal\views\Plugin\views\query\Sql;
  * NE-Lat,NE-Lng,SW-Lat,SW-Lng, so "11.1,33.3,55.5,77.7".
  *
  * @ingroup views_argument_handlers
- *
- * @ViewsArgument("geolocation_geometry_argument_boundary")
  */
+#[ViewsArgument(id: 'geolocation_geometry_argument_boundary')]
 class GeoBoundaryArgument extends BoundaryArgument {
 
   use GeometryBoundaryTrait;

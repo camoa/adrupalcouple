@@ -2,6 +2,7 @@
 
 namespace Drupal\geolocation\Plugin\views\display;
 
+use Drupal\views\Attribute\ViewsDisplay;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\views\Plugin\views\display\DisplayPluginBase;
 
@@ -9,16 +10,14 @@ use Drupal\views\Plugin\views\display\DisplayPluginBase;
  * The plugin that handles a geolocation attachment display.
  *
  * @ingroup views_display_plugins
- *
- * @ViewsDisplay(
- *   id = "geolocation_data_layer",
- *   title = @Translation("Geolocation - Data Layer"),
- *   help = @Translation("Can be used as layer on any map. Cannot inherit filters."),
- *   theme = "views_view",
- *   register_theme = FALSE,
- *   contextual_links_locations = {""}
- * )
  */
+#[ViewsDisplay(
+  id: 'geolocation_data_layer',
+  title: new \Drupal\Core\StringTranslation\TranslatableMarkup('Geolocation - Data Layer'), help: new \Drupal\Core\StringTranslation\TranslatableMarkup('Can be used as layer on any map. Cannot inherit filters.'),
+  contextual_links_locations: [''],
+  theme: 'views_view',
+  register_theme: FALSE
+)]
 class GeolocationDataLayer extends DisplayPluginBase {
 
   /**

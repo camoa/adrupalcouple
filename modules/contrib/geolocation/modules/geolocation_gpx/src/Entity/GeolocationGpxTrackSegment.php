@@ -2,6 +2,7 @@
 
 namespace Drupal\geolocation_gpx\Entity;
 
+use Drupal\Core\Entity\Attribute\ContentEntityType;
 use Drupal\Core\Entity\ContentEntityBase;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
@@ -12,20 +13,14 @@ use Drupal\Core\Field\FieldStorageDefinitionInterface;
  * Defines the Track Segment entity.
  *
  * @ingroup geolocation_gpx
- *
- * @ContentEntityType(
- *   id = "geolocation_gpx_track_segment",
- *   label = @Translation("Geolocation GPX Track Segment"),
- *   base_table = "geolocation_gpx_track_segment",
- *   entity_keys = {
- *     "id" = "id",
- *     "uuid" = "uuid",
- *   },
- *   handlers = {
- *     "views_data" = "Drupal\views\EntityViewsData",
- *   },
- * )
  */
+#[ContentEntityType(
+  id: 'geolocation_gpx_track_segment',
+  label: new \Drupal\Core\StringTranslation\TranslatableMarkup('Geolocation GPX Track Segment'),
+  entity_keys: ['id' => 'id', 'uuid' => 'uuid'],
+  handlers: ['views_data' => 'Drupal\views\EntityViewsData'],
+  base_table: 'geolocation_gpx_track_segment'
+)]
 class GeolocationGpxTrackSegment extends ContentEntityBase {
 
   /**

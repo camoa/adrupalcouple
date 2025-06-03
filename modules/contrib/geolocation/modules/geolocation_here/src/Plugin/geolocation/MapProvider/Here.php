@@ -2,18 +2,18 @@
 
 namespace Drupal\geolocation_here\Plugin\geolocation\MapProvider;
 
+use Drupal\geolocation\Attribute\MapProvider;
 use Drupal\Core\Render\BubbleableMetadata;
 use Drupal\geolocation\MapProviderBase;
 
 /**
  * Provides HERE Maps API.
- *
- * @MapProvider(
- *   id = "here",
- *   name = @Translation("HERE Maps"),
- *   description = @Translation("Here support."),
- * )
  */
+#[MapProvider(
+  id: 'here',
+  name: new \Drupal\Core\StringTranslation\TranslatableMarkup('HERE Maps'),
+  description: new \Drupal\Core\StringTranslation\TranslatableMarkup('Here support.')
+)]
 class Here extends MapProviderBase {
 
   /**

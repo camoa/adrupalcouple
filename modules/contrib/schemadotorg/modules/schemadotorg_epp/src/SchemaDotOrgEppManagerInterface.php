@@ -14,17 +14,17 @@ interface SchemaDotOrgEppManagerInterface {
   /**
    * Do not display node links.
    */
-  const string HIDDEN = '';
+  const HIDDEN = '';
 
   /**
    * Display node links as dropdown menu.
    */
-  const string DROPDOWN = 'dropdown';
+  const DROPDOWN = 'dropdown';
 
   /**
    * Display node links as buttons.
    */
-  const string BUTTONS = 'buttons';
+  const BUTTONS = 'buttons';
 
   /**
    * Alter field storage and field values before they are created.

@@ -2,18 +2,18 @@
 
 namespace Drupal\geolocation_google_maps\Plugin\geolocation\MapFeature;
 
+use Drupal\geolocation\Attribute\MapFeature;
 use Drupal\geolocation\MapProviderInterface;
 
 /**
  * Provides MapType control element.
- *
- * @MapFeature(
- *   id = "control_maptype",
- *   name = @Translation("Map Control - MapType"),
- *   description = @Translation("Add button to toggle map type."),
- *   type = "google_maps",
- * )
  */
+#[MapFeature(
+  id: 'control_maptype',
+  name: new \Drupal\Core\StringTranslation\TranslatableMarkup('Map Control - MapType'),
+  description: new \Drupal\Core\StringTranslation\TranslatableMarkup('Add button to toggle map type.'),
+  type: 'google_maps'
+)]
 class GoogleControlMapType extends GoogleControlElementBase {
 
   /**

@@ -2,6 +2,7 @@
 
 namespace Drupal\geolocation_leaflet\Plugin\geolocation\MapFeature;
 
+use Drupal\geolocation\Attribute\MapFeature;
 use Drupal\Core\Render\BubbleableMetadata;
 use Drupal\geolocation\MapProviderInterface;
 use Drupal\geolocation\Plugin\geolocation\MapFeature\ControlCustomElementBase;
@@ -9,14 +10,13 @@ use Drupal\geolocation_leaflet\LeafletTileLayerProviders;
 
 /**
  * Provides Tile Layer control element.
- *
- * @MapFeature(
- *   id = "leaflet_control_layer",
- *   name = @Translation("Map Control - Tile layer"),
- *   description = @Translation("Add button to change layers."),
- *   type = "leaflet",
- * )
  */
+#[MapFeature(
+  id: 'leaflet_control_layer',
+  name: new \Drupal\Core\StringTranslation\TranslatableMarkup('Map Control - Tile layer'),
+  description: new \Drupal\Core\StringTranslation\TranslatableMarkup('Add button to change layers.'),
+  type: 'leaflet'
+)]
 class LeafletControlLayer extends ControlCustomElementBase {
 
   use LeafletTileLayerProviders;

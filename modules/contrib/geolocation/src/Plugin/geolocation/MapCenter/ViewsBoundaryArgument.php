@@ -2,6 +2,7 @@
 
 namespace Drupal\geolocation\Plugin\geolocation\MapCenter;
 
+use Drupal\geolocation\Attribute\MapCenter;
 use Drupal\Core\Render\BubbleableMetadata;
 use Drupal\geolocation\MapCenterBase;
 use Drupal\geolocation\MapCenterInterface;
@@ -9,13 +10,12 @@ use Drupal\geolocation\ViewsContextTrait;
 
 /**
  * Derive center from boundary filter.
- *
- * @MapCenter(
- *   id = "views_boundary_argument",
- *   name = @Translation("Boundary argument - boundaries"),
- *   description = @Translation("Fit map to boundary argument."),
- * )
  */
+#[MapCenter(
+  id: 'views_boundary_argument',
+  name: new \Drupal\Core\StringTranslation\TranslatableMarkup('Boundary argument - boundaries'),
+  description: new \Drupal\Core\StringTranslation\TranslatableMarkup('Fit map to boundary argument.')
+)]
 class ViewsBoundaryArgument extends MapCenterBase implements MapCenterInterface {
 
   use ViewsContextTrait;

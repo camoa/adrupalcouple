@@ -226,3 +226,33 @@ function schemadotorg_update_10014(): void {
     $mapping_type->save();
   }
 }
+
+/**
+ * Update to Schema.org v29.1.
+ */
+function schemadotorg_update_10015(): void {
+  /** @var \Drupal\schemadotorg\SchemaDotOrgInstallerInterface $installer */
+  $installer = \Drupal::service('schemadotorg.installer');
+  $installer->install();
+}
+
+/**
+ * Add legislation' to custom and prefixed names to truncate legislation* properties.
+ */
+function schemadotorg_update_10016(): void {
+  \Drupal::configFactory()
+    ->getEditable('schemadotorg.names')
+    ->set('custom_names.legislation_ensures_implementation_of', 'leg_ensures_implement_of')
+    ->set('prefixes.legislation', 'leg')
+    ->save();
+}
+
+/**
+ * Issue #3523448: Allow entity display for Schema.org properties to be disabled.
+ */
+function schemadotorg_update_10017(): void {
+  \Drupal::configFactory()
+    ->getEditable('schemadotorg.settings')
+    ->set('schema_properties.disable_entity_display', [])
+    ->save();
+}

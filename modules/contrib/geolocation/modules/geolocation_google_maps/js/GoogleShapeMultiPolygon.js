@@ -1,5 +1,6 @@
 import { GeolocationShapeMultiPolygon } from "../../../js/Base/GeolocationShapeMultiPolygon.js";
 import { GoogleShapeTrait } from "./GoogleShapeTrait.js";
+import { GeolocationCoordinates } from "../../../js/Base/GeolocationCoordinates.js";
 
 /**
  * @prop {GoogleMaps} map
@@ -21,8 +22,12 @@ export class GoogleShapeMultiPolygon extends GeolocationShapeMultiPolygon {
         fillOpacity: this.fillOpacity,
       });
       if (this.title) {
-        this.googleShapeTrait.setTitle(this, this.title);
+        this.googleShapeTrait.setTitle(polygon, this.title, this.map);
       }
+
+      polygon.addListener("click", (event) => {
+        this.click(new GeolocationCoordinates(event.latLng.lat(), event.latLng.lng()));
+      });
 
       polygon.setMap(this.map.googleMap);
 

@@ -2,6 +2,7 @@
 
 namespace Drupal\geolocation_search_api\Plugin\views\filter;
 
+use Drupal\views\Attribute\ViewsFilter;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Render\BubbleableMetadata;
@@ -14,9 +15,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * Filter handler for search keywords.
  *
  * @ingroup views_filter_handlers
- *
- * @ViewsFilter("geolocation_search_api_filter_boundary")
  */
+#[ViewsFilter]
 class GeolocationSearchApiFilterBoundary extends FilterPluginBase implements ContainerFactoryPluginInterface {
 
   use BoundaryTrait;

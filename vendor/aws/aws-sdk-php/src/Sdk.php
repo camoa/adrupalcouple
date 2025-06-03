@@ -592,8 +592,6 @@ namespace Aws;
  * @method \Aws\MultiRegionClient createMultiRegionPolly(array $args = [])
  * @method \Aws\Pricing\PricingClient createPricing(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionPricing(array $args = [])
- * @method \Aws\PrivateNetworks\PrivateNetworksClient createPrivateNetworks(array $args = [])
- * @method \Aws\MultiRegionClient createMultiRegionPrivateNetworks(array $args = [])
  * @method \Aws\PrometheusService\PrometheusServiceClient createPrometheusService(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionPrometheusService(array $args = [])
  * @method \Aws\Proton\ProtonClient createProton(array $args = [])
@@ -664,6 +662,8 @@ namespace Aws;
  * @method \Aws\MultiRegionClient createMultiRegionS3Tables(array $args = [])
  * @method \Aws\SSMContacts\SSMContactsClient createSSMContacts(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionSSMContacts(array $args = [])
+ * @method \Aws\SSMGuiConnect\SSMGuiConnectClient createSSMGuiConnect(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionSSMGuiConnect(array $args = [])
  * @method \Aws\SSMIncidents\SSMIncidentsClient createSSMIncidents(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionSSMIncidents(array $args = [])
  * @method \Aws\SSMQuickSetup\SSMQuickSetupClient createSSMQuickSetup(array $args = [])
@@ -813,7 +813,7 @@ namespace Aws;
  */
 class Sdk
 {
-    const VERSION = '3.342.30';
+    const VERSION = '3.343.24';
 
     /** @var array Arguments for creating clients */
     private $args;

@@ -106,14 +106,37 @@ class SchemaDotOrgEntityDisplayBuilderKernelTest extends SchemaDotOrgEntityKerne
     // Check getting display view modes for a specific entity type.
     $this->assertEquals(['default' => 'default'], $this->schemaEntityDisplayBuilder->getViewModes('node', 'page'));
 
-    // Check Schema.org types default view display properties for Event.
+    // Hide the end date for the teaser display.
+    $this->config('schemadotorg.settings')
+      ->set('schema_properties.disable_entity_display', ['node--view--endDate'])
+      ->save();
+    // Create the event content type.
     $this->createSchemaEntity('node', 'Event');
+
+    // Check Schema.org types default view display properties for Event.
+    /** @var \Drupal\Core\Entity\Display\EntityFormDisplayInterface $entity_form_display */
+    $entity_form_display = EntityFormDisplay::load('node.event.default');
+    $expected_components = [
+      'body',
+      'created',
+      'promote',
+      'schema_duration',
+      'schema_end_date',
+      'schema_start_date',
+      'status',
+      'sticky',
+      'title',
+      'uid',
+      'langcode',
+      'revision_log',
+    ];
+    $this->assertEquals($expected_components, array_keys($entity_form_display->getComponents()));
+
     /** @var \Drupal\Core\Entity\Display\EntityViewDisplayInterface $entity_view_display */
     $entity_view_display = EntityViewDisplay::load('node.event.teaser');
     $expected_components = [
       'body',
       'links',
-      'schema_end_date',
       'schema_start_date',
       'uid',
       'title',

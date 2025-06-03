@@ -97,12 +97,12 @@ export default class DefaultLayer extends GeolocationDataLayer {
     });
   }
 
-  shapeClicked(shape) {
-    super.shapeClicked(shape);
+  shapeClicked(shape, coordinates) {
+    super.shapeClicked(shape, coordinates);
 
     this.map.features.forEach((feature) => {
       try {
-        feature.onShapeClicked(shape);
+        feature.onShapeClicked(shape, coordinates);
       } catch (e) {
         console.error(e, `Feature  ${feature.constructor.name} failed onShapeClicked: ${e.toString()}`);
       }

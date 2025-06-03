@@ -27,7 +27,7 @@ class SchemaDotOrgExportReportPathsController extends ControllerBase {
    * @param \Drupal\schemadotorg\SchemaDotOrgMappingManagerInterface $schemaMappingManager
    *   The Schema.org mapping manager.
    * @param \Drupal\schemadotorg_pathauto\Controller\SchemaDotOrgPathautoReportController $controller
-   *   The Schema.org Pathauto paths report  controller.
+   *   The Schema.org Pathauto paths report controller.
    */
   public function __construct(
     protected SchemaDotOrgNamesInterface $schemaNames,
