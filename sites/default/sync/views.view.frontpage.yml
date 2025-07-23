@@ -812,7 +812,7 @@ display:
           exclude: false
           alter:
             alter_text: true
-            text: "  <div class=\"blog-text\">\r\n    {{ field_tags }} \r\n    <h3>\r\n      {{title}}\r\n    </h3>\r\n    <p>\r\n      {{ schema_abstract }} \r\n    </p>\r\n  </div>\r\n{{ node_read_time }}"
+            text: "  <div class=\"blog-text text-nowrap\">\r\n    {{ field_tags }} \r\n    <h3>\r\n      {{title}}\r\n    </h3>\r\n    <p>\r\n      {{ schema_abstract }} \r\n    </p>\r\n  </div>\r\n{{ node_read_time }}"
             make_link: false
             path: ''
             absolute: false
@@ -838,7 +838,7 @@ display:
             preserve_tags: ''
             html: false
           element_type: ''
-          element_class: ''
+          element_class: text-nowrap
           element_label_type: ''
           element_label_class: ''
           element_label_colon: false
