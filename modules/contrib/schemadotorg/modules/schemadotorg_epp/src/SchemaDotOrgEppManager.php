@@ -220,6 +220,7 @@ class SchemaDotOrgEppManager implements SchemaDotOrgEppManagerInterface {
 
         $build['schemadotorg_epp'] = [
           '#type' => 'operations',
+          '#theme' => 'links__dropbutton__operations__schemadotorg_epp',
           '#links' => $node_links,
           '#weight' => -100,
           '#prefix' => '<div class="schemadotorg-epp-node-links-dropdown">',

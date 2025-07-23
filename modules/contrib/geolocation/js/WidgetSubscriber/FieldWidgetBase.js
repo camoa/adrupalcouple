@@ -12,6 +12,8 @@ import { WidgetSubscriberBase } from "./WidgetSubscriberBase.js";
 import { GeolocationCoordinates } from "../Base/GeolocationCoordinates.js";
 
 /**
+ * @abstract
+ *
  * @prop {GeolocationWidgetBroker} broker
  * @prop {Object} settings
  */
@@ -137,7 +139,7 @@ export class FieldWidgetBase extends WidgetSubscriberBase {
    */
   getAllInputElements(returnElements = false) {
     const map = new Map();
-    const elements = this.form.querySelectorAll(".geolocation-widget-input");
+    const elements = this.form.querySelectorAll(this.getElementSelector());
 
     if (returnElements) {
       return elements;
@@ -161,6 +163,10 @@ export class FieldWidgetBase extends WidgetSubscriberBase {
    */
   getIndexByElement(element) {
     return parseInt(element.getAttribute("data-geolocation-widget-index"));
+  }
+
+  getElementSelector() {
+    return ".geolocation-widget-input";
   }
 
   getElementSelectorByIndex(index) {
@@ -208,7 +214,17 @@ export class FieldWidgetBase extends WidgetSubscriberBase {
     return promise;
   }
 
+  /**
+   * @param {GeolocationCoordinates} coordinates
+   * @param {Element} element
+   */
   setCoordinatesByElement(coordinates, element) {}
+
+  /**
+   * @param {GeolocationGeometry} geometry
+   * @param {Element} element
+   */
+  setGeometryByElement(geometry, element) {}
 
   /**
    * @param {Element} element
@@ -218,6 +234,17 @@ export class FieldWidgetBase extends WidgetSubscriberBase {
    *   Coordinates.
    */
   getCoordinatesByElement(element) {
+    return null;
+  }
+
+  /**
+   * @param {Element} element
+   *   Element.
+   *
+   * @return {Promise<GeolocationGeometry>}
+   *   Coordinates.
+   */
+  getGeometryByElement(element) {
     return null;
   }
 
@@ -290,6 +317,30 @@ export class FieldWidgetBase extends WidgetSubscriberBase {
 
     this.getElementByIndex(index).then((element) => {
       this.setCoordinatesByElement(coordinates, element);
+    });
+  }
+
+  addGeometry(geometry, index, source) {
+    super.addGeometry(geometry, index, source);
+
+    this.getElementByIndex(index).then((element) => {
+      this.setGeometryByElement(geometry, element);
+    });
+  }
+
+  removeGeometry(index, source) {
+    super.removeGeometry(index, source);
+
+    this.getElementByIndex(index).then((element) => {
+      this.setGeometryByElement(null, element);
+    });
+  }
+
+  alterGeometry(geometry, index, source) {
+    super.alterGeometry(geometry, index, source);
+
+    this.getElementByIndex(index).then((element) => {
+      this.setGeometryByElement(geometry, element);
     });
   }
 }

@@ -46,9 +46,6 @@ function geolocation_geometry_field_views_data(FieldStorageConfigInterface $fiel
     }
   }
 
-  // Make sure views.views.inc is loaded.
-  \Drupal::moduleHandler()->loadInclude('views', 'inc', 'views.views');
-
   $entity_definition = \Drupal::entityTypeManager()->getDefinition($field_storage->getTargetEntityTypeId());
   $entity_type_storage = \Drupal::entityTypeManager()->getStorage($entity_definition->getBundleEntityType());
 
@@ -58,7 +55,17 @@ function geolocation_geometry_field_views_data(FieldStorageConfigInterface $fiel
   }
 
   // Get the default data from the views module.
-  $data = views_field_default_views_data($field_storage);
+  if (\Drupal::hasService('views.field_data_provider')) {
+    $data = \Drupal::service('views.field_data_provider')->defaultFieldImplementation($field_storage);
+  }
+  // Compatibility with D10. Remove after D12.
+  elseif (function_exists('views_field_default_views_data')) {
+    // @phpstan-ignore-next-line
+    $data = views_field_default_views_data($field_storage);
+  }
+  else {
+    return [];
+  }
 
   $args = ['@field_name' => $field_storage->getName()];
 

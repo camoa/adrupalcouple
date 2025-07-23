@@ -163,14 +163,14 @@ class GeolocationGpxFileWidget extends WidgetBase {
     $gpx = $this->entityTypeManager->getStorage('geolocation_gpx')->create([
       'version' => '1.1',
       'creator' => $data->creator ?? $currentUser->getAccountName(),
-      'name' => $data->metadata?->name ?? '',
-      'description' => $data->metadata?->description ?? '',
-      'author' => $data->metadata?->author ?? '',
+      'name' => $data->metadata->name ?? '',
+      'description' => $data->metadata->description ?? '',
+      'author' => $data->metadata->author ?? '',
       'copyright' => $data->metadata->copyright ?? '',
-      'time' => $data->metadata?->time?->format('Y-m-d H:i:s') ?? '',
+      'time' => $data->metadata->time->format('Y-m-d H:i:s'),
       'keywords' => $data->metadata?->keywords,
     ]);
-    foreach ($data->metadata?->links ?? [] as $linkData) {
+    foreach ($data->metadata->links ?? [] as $linkData) {
       $gpx->get('link')->appendItem($this->linkByData($linkData));
     }
 

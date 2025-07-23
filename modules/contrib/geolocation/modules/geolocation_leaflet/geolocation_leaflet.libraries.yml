@@ -1,6 +1,0 @@
-widget.leaflet.geojson:
-  version: 4.x
-  js:
-    js/geolocation-geometry-widget-leaflet.js: {}
-  dependencies:
-    - geolocation/geolocation.map

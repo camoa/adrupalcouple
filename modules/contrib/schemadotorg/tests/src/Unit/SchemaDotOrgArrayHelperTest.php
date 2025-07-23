@@ -27,7 +27,7 @@ class SchemaDotOrgArrayHelperTest extends UnitTestCase {
   /**
    * Data provider for testInsertBefore.
    */
-  public function providerInsertBefore(): array {
+  public static function providerInsertBefore(): array {
     return [
       'insert before key2' => [
         ['key1' => 'value1', 'key2' => 'value2', 'key3' => 'value3'],
@@ -59,7 +59,7 @@ class SchemaDotOrgArrayHelperTest extends UnitTestCase {
   /**
    * Data provider for testInsertAfter.
    */
-  public function providerInsertAfter(): array {
+  public static function providerInsertAfter(): array {
     return [
       'insert after key2' => [
         ['key1' => 'value1', 'key2' => 'value2', 'key3' => 'value3'],
@@ -91,7 +91,7 @@ class SchemaDotOrgArrayHelperTest extends UnitTestCase {
   /**
    * Data provider for testRemoveValue.
    */
-  public function providerRemoveValue(): array {
+  public static function providerRemoveValue(): array {
     return [
       'remove existing value' => [
         ['value1', 'value2', 'value3'],
@@ -120,7 +120,7 @@ class SchemaDotOrgArrayHelperTest extends UnitTestCase {
   /**
    * Data provider for testRemoveValues.
    */
-  public function providerRemoveValues(): array {
+  public static function providerRemoveValues(): array {
     return [
       'remove multiple values' => [
         ['value1', 'value2', 'value3', 'value4'],

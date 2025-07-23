@@ -40,7 +40,7 @@ interface MapProviderInterface extends PluginInspectionInterface {
   public function getSettingsSummary(array $settings): array;
 
   /**
-   * Provide a generic map settings form array.
+   * Provide the generic map settings form array.
    *
    * @param array $settings
    *   The current map settings.

@@ -227,7 +227,7 @@ class SchemaDotOrgMappingType extends ConfigEntityBase implements SchemaDotOrgMa
     }
 
     foreach ($properties[$type] as $property) {
-      if ($property[0] === '-') {
+      if ($property[0] === '-' || $property[0] === '!') {
         unset($default_properties[substr($property, 1)]);
       }
       else {

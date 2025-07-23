@@ -102,8 +102,8 @@ default_schema_type_properties:
     - dateCreated
     - dateModified
   Article:
-    - '-name'
-    - '-text'
+    - '!name'
+    - '!text'
     - articleBody
 default_schema_type_view_displays:
   teaser:

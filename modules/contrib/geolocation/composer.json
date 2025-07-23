@@ -15,5 +15,16 @@
     "support": {
         "issues": "https://www.drupal.org/project/issues/geolocation",
         "source": "https://git.drupal.org/project/geolocation.git"
+    },
+    "require-dev": {
+        "drupal/address": "^2",
+        "drupal/feeds": "^3.0",
+        "drupal/geocoder": "^4.29",
+        "drupal/geofield": "^1.64",
+        "drupal/search_api": "^1.38",
+        "drupal/search_api_location": "^1.x-dev@dev",
+        "drupal/migrate_plus": "^6.0",
+        "sibyx/phpgpx": "^1.1",
+        "gasparesganga/php-shapefile": "^3"
     }
 }

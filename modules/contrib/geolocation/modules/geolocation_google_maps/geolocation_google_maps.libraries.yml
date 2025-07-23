@@ -2,10 +2,3 @@ geolocation_google_maps.loader:
   version: 4.x
   js:
     js/geolocation-google-maps-loader.js: {}
-
-widget.google_maps.geojson:
-  version: 4.x
-  js:
-    js/geolocation-geometry-widget-google-maps.js: {}
-  dependencies:
-    - geolocation/geolocation.map

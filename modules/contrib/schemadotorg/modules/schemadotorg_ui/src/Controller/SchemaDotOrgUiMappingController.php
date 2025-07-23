@@ -84,7 +84,7 @@ class SchemaDotOrgUiMappingController extends ControllerBase {
     $mapping_types = $this->getMappingTypeStorage()->loadMultiple();
     foreach ($mapping_types as $entity_type_id => $mapping_type) {
       $default_schema_types = $mapping_type->get('default_schema_types');
-      // Make sure the default schema types are set and the entity is supported.
+      // Make sure the default Schema.org types are set and the entity is supported.
       if (empty($default_schema_types)
         || !$this->entityTypeManager()->hasDefinition($entity_type_id)) {
         continue;

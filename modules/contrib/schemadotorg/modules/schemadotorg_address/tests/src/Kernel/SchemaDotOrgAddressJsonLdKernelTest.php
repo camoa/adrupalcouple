@@ -47,6 +47,12 @@ class SchemaDotOrgAddressJsonLdKernelTest extends SchemaDotOrgJsonLdKernelTestBa
   public function testJsonLdAddress(): void {
     \Drupal::currentUser()->setAccount($this->createUser(['access content']));
 
+    // Create https://schema.org/Place with an https://schema.org/address
+    // and https://schema.org/containsPlace.
+    $this->config('schemadotorg.settings')
+      ->set('schema_properties.default_fields.containsPlace.type', 'address')
+      ->save();
+    $this->appendSchemaTypeDefaultProperties('Place', 'containsPlace');
     $this->createSchemaEntity('node', 'Place');
 
     // Place node.
@@ -54,6 +60,12 @@ class SchemaDotOrgAddressJsonLdKernelTest extends SchemaDotOrgJsonLdKernelTestBa
       'type' => 'place',
       'title' => 'Some place',
       'schema_address' => [
+        'country_code' => 'AD',
+        'locality' => 'Canillo',
+        'postal_code' => 'AD500',
+        'address_line1' => 'C. Prat de la Creu, 62-64',
+      ],
+      'schema_contains_place' => [
         'country_code' => 'AD',
         'locality' => 'Canillo',
         'postal_code' => 'AD500',
@@ -72,6 +84,18 @@ class SchemaDotOrgAddressJsonLdKernelTest extends SchemaDotOrgJsonLdKernelTestBa
         'addressLocality' => 'Canillo',
         'postalCode' => 'AD500',
         'streetAddress' => 'C. Prat de la Creu, 62-64',
+      ],
+      'containsPlace' => [
+        [
+          '@type' => 'Place',
+          'address' => [
+            '@type' => 'PostalAddress',
+            'addressCountry' => 'AD',
+            'addressLocality' => 'Canillo',
+            'postalCode' => 'AD500',
+            'streetAddress' => 'C. Prat de la Creu, 62-64',
+          ],
+        ],
       ],
     ];
     $actual_value = $this->builder->buildEntity($place_node);

@@ -159,6 +159,11 @@ function schemadotorg_custom_field_form_schemadotorg_properties_settings_form_al
       rows: 3
     propertyName04:
       data_type: boolean
+  # Field settings
+  widget_id: widget_id
+  widget_settings: {  }
+  formatter_id: formatter_id
+  formatter_settings: {  }
 entity_type_id--bundle--SchemaType--propertyName:
   schema_type: SchemaType
   schema_properties:

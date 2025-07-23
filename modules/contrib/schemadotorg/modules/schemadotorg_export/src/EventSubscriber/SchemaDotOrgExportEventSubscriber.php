@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Drupal\schemadotorg_export\EventSubscriber;
 
 use Drupal\Component\Render\MarkupInterface;
+use Drupal\Core\Ajax\AjaxHelperTrait;
 use Drupal\Core\DependencyInjection\ServiceProviderBase;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
@@ -23,6 +24,7 @@ use Symfony\Component\HttpKernel\KernelEvents;
  */
 class SchemaDotOrgExportEventSubscriber extends ServiceProviderBase implements EventSubscriberInterface {
   use StringTranslationTrait;
+  use AjaxHelperTrait;
 
   /**
    * Constructs a SchemaDotOrgExportEventSubscriber object.
@@ -50,6 +52,10 @@ class SchemaDotOrgExportEventSubscriber extends ServiceProviderBase implements E
    *   The event to process.
    */
   public function onView(ViewEvent $event): void {
+    if ($this->isAjax()) {
+      return;
+    }
+
     $route_name = $this->routeMatch->getRouteName();
     if (!str_contains($route_name, 'schemadotorg')) {
       return;

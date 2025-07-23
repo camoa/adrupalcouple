@@ -15,7 +15,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *
  * @ingroup views_filter_handlers
  */
-#[ViewsFilter]
+#[ViewsFilter(id: 'geolocation_search_api_filter_proximity')]
 class GeolocationSearchApiFilterProximity extends NumericFilter implements ContainerFactoryPluginInterface {
 
   use ProximityTrait;

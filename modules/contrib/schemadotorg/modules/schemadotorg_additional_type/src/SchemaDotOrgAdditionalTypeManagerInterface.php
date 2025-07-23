@@ -80,4 +80,12 @@ interface SchemaDotOrgAdditionalTypeManagerInterface {
    */
   public function linkAlter(array &$variables): void;
 
+  /**
+   * Preprocess links variables.
+   *
+   * @param array $variables
+   *   The links variables.
+   */
+  public function preprocessLinks(array &$variables): void;
+
 }

@@ -36,7 +36,7 @@ export default class GeolocationFieldWidget extends FieldWidgetBase {
   }
 
   getElementSelectorByIndex(index) {
-    return `.geolocation-widget-input[data-geolocation-widget-index='${index.toString()}']`;
+    return `${this.getElementSelector()}[data-geolocation-widget-index='${index.toString()}']`;
   }
 
   getCoordinatesByElement(element) {

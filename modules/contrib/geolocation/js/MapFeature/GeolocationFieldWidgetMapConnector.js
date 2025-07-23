@@ -1,9 +1,16 @@
+/**
+ * @typedef {Object} GeolocationFieldWidgetMapConnectorSettings
+ *
+ * @prop {int} cardinality
+ * @prop {string} field_type
+ */
+
 import { GeolocationMapFeature } from "./GeolocationMapFeature.js";
 
 /**
  * @prop {WidgetSubscriberBase} subscriber
- * @prop {Object} settings
- * @prop {int} settings.cardinality
+ *
+ * @prop {GeolocationFieldWidgetMapConnectorSettings} settings
  */
 export default class GeolocationFieldWidgetMapConnector extends GeolocationMapFeature {
   setWidgetSubscriber(subscriber) {
@@ -79,7 +86,7 @@ export default class GeolocationFieldWidgetMapConnector extends GeolocationMapFe
     this.map.dataLayers.get("default").markerAdded(marker);
     delete marker.geolocationWidgetIgnore;
 
-    this.map.fitMapToMarkers();
+    this.map.fitMapToElements();
 
     return marker;
   }
@@ -113,7 +120,7 @@ export default class GeolocationFieldWidgetMapConnector extends GeolocationMapFe
     marker.update(coordinates, settings ?? {});
     delete marker.geolocationWidgetIgnore;
 
-    this.map.fitMapToMarkers();
+    this.map.fitMapToElements();
 
     return marker;
   }
@@ -124,15 +131,13 @@ export default class GeolocationFieldWidgetMapConnector extends GeolocationMapFe
     marker.geolocationWidgetIgnore = true;
     marker.remove();
 
-    this.map.fitMapToMarkers();
+    this.map.fitMapToElements();
   }
 
   onClick(coordinates) {
     super.onClick(coordinates);
 
-    const numberOfMarkers = this.map.dataLayers.get("default").markers.length;
-
-    if (this.settings.cardinality > numberOfMarkers || this.settings.cardinality === -1) {
+    if (this.settings.cardinality > this.map.dataLayers.get("default").markers.length || this.settings.cardinality === -1) {
       let newIndex = 0;
       this.map.dataLayers.get("default").markers.forEach((marker) => {
         const markerIndex = this.getIndexByMarker(marker) ?? 0;
@@ -158,7 +163,7 @@ export default class GeolocationFieldWidgetMapConnector extends GeolocationMapFe
       const warning = document.createElement("div");
       warning.innerHTML = `<p>${Drupal.t("Maximum number of locations reached.")}</p>`;
       Drupal.dialog(warning, {
-        title: Drupal.t("Address synchronization"),
+        title: Drupal.t("Synchronization"),
       }).showModal();
     } else {
       const marker = this.getMarkerByIndex(0);
@@ -174,7 +179,7 @@ export default class GeolocationFieldWidgetMapConnector extends GeolocationMapFe
 
     if (marker.geolocationWidgetIgnore ?? false) return;
 
-    this.subscriber.coordinatesAdded(marker.coordinates, this.getIndexByMarker(marker) ?? 0);
+    this.subscriber?.coordinatesAdded(marker.coordinates, this.getIndexByMarker(marker) ?? 0);
   }
 
   onMarkerClicked(marker) {
@@ -189,7 +194,7 @@ export default class GeolocationFieldWidgetMapConnector extends GeolocationMapFe
 
     if (marker.geolocationWidgetIgnore ?? false) return;
 
-    this.subscriber.coordinatesAltered(marker.coordinates, this.getIndexByMarker(marker));
+    this.subscriber?.coordinatesAltered(marker.coordinates, this.getIndexByMarker(marker));
   }
 
   onMarkerRemove(marker) {
@@ -197,6 +202,6 @@ export default class GeolocationFieldWidgetMapConnector extends GeolocationMapFe
 
     if (marker.geolocationWidgetIgnore ?? false) return;
 
-    this.subscriber.coordinatesRemoved(this.getIndexByMarker(marker));
+    this.subscriber?.coordinatesRemoved(this.getIndexByMarker(marker));
   }
 }

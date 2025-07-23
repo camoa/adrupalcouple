@@ -128,10 +128,10 @@ function schemadotorg_content_model_documentation_form_schemadotorg_types_settin
 - entity_type_id--bundle
 - entity_type_id
 - SchemaType
-- '-entity_type_id--SchemaType'
-- '-entity_type_id--bundle'
-- '-entity_type_id'
-- '-SchemaType'
+- '!entity_type_id--SchemaType'
+- '!entity_type_id--bundle'
+- '!entity_type_id'
+- '!SchemaType'
 ",
   ];
   $form['schemadotorg_content_model_documentation']['default_notes'] = [

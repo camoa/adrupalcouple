@@ -183,5 +183,15 @@ function custom_field_update_8005(): void {
     $field_storage_config->save();
     \Drupal::entityDefinitionUpdateManager()->updateFieldStorageDefinition($field_storage_config);
   }
+}
 
+/**
+ * Enable jsonapi integration module if jsonapi module is enabled.
+ */
+function custom_field_update_8006(): void {
+  $module_handler = \Drupal::moduleHandler();
+  if ($module_handler->moduleExists('jsonapi') &&
+    !$module_handler->moduleExists('custom_field_jsonapi')) {
+    \Drupal::service('module_installer')->install(['custom_field_jsonapi']);
+  }
 }

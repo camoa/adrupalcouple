@@ -8,7 +8,7 @@
 /**
  * Implements hook_page_attachments().
  */
-function geolocation_google_js_errors_page_attachments(array &$attachments) {
+function geolocation_google_js_errors_page_attachments(array &$attachments): void {
   // Unconditionally attach an asset to the page.
   $attachments['#attached']['library'][] = 'geolocation_google_js_errors/log';
 }

@@ -60,7 +60,7 @@ class SchemaDotOrgReportFilterForm extends FormBase {
       '#type' => 'schemadotorg_autocomplete',
       '#title' => $this->t('Find a @label', $t_args),
       '#title_display' => 'invisible',
-      '#placeholder' => $this->t('Find a Schema.org @labels', $t_args),
+      '#placeholder' => $this->t('Find a Schema.org @label', $t_args),
       '#size' => 30,
       '#novalidate' => TRUE,
       '#target_type' => $table,

@@ -49,7 +49,7 @@ class SchemaDotOrgAdditionalMappingsJsonLdKernelTest extends SchemaDotOrgJsonLdK
   public function testJsonLd(): void {
     \Drupal::currentUser()->setAccount($this->createUser(['access content']));
 
-    $this->appendSchemaTypeDefaultProperties('WebPage', ['isPartOf', '-dateCreated', '-dateModified']);
+    $this->appendSchemaTypeDefaultProperties('WebPage', ['isPartOf', '!dateCreated', '!dateModified']);
     $this->config('schemadotorg.settings')
       ->set('schema_properties.default_fields.isPartOf.type', 'field_ui:entity_reference:node')
       ->save();

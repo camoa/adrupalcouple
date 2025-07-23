@@ -112,7 +112,8 @@ class ProximityField extends NumericField implements ContainerFactoryPluginInter
 
     // Get a placeholder for this query and save the field_alias for it.
     // Remove the initial ':' from the placeholder and avoid collision with
-    // original field name.
+    // the original field name.
+    // @phpstan-ignore-next-line
     $this->field_alias = $query->addField(NULL, $expression, substr($this->placeholder(), 1));
   }
 

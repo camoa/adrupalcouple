@@ -73,12 +73,6 @@ class CustomFlexWidget extends CustomWidgetBase {
       if (isset($columns[$name])) {
         $elements['columns'][$name]['#default_value'] = $columns[$name];
         $elements['columns'][$name]['#wrapper_attributes']['class'][] = 'custom-field-col-' . $columns[$name];
-        $is_disabled = in_array($plugin_id, ['color_boxes', 'map_key_value']);
-        if ($is_disabled) {
-          $elements['columns'][$name]['#default_value'] = 12;
-          $elements['columns'][$name]['#attributes'] = ['disabled' => TRUE];
-          $elements['columns'][$name]['#description'] = $this->t('This widget type as configured requires full width.');
-        }
       }
     }
 
@@ -143,6 +137,7 @@ class CustomFlexWidget extends CustomWidgetBase {
     }
 
     foreach ($custom_items as $name => $custom_item) {
+      $data_type = $custom_item->getDataType();
       $type = $field_settings[$name]['type'] ?? $custom_item->getDefaultWidget();
       if (!in_array($type, $this->customFieldWidgetManager->getWidgetsForField($custom_item->getPluginId()))) {
         $type = $custom_item->getDefaultWidget();
@@ -172,10 +167,9 @@ class CustomFlexWidget extends CustomWidgetBase {
       if (in_array($type, $entity_reference_widgets)) {
         $element[$name]['target_id'][$attributes]['class'][] = $column_class;
       }
-      $date_widgets = [
-        'datetime_default',
-      ];
-      if ($custom_item->getDatetimeType() === 'date' && in_array($type, $date_widgets)) {
+
+      // Date only widget needs to be handled in after build.
+      if ($data_type === 'datetime' && $custom_item->getDateTimeType() === 'date' && $type === 'datetime_default') {
         $element[$name]['#column_class'] = $column_class;
         $element[$name]['#after_build'][] = [$this, 'callDateAfterBuild'];
       }
@@ -265,8 +259,7 @@ class CustomFlexWidget extends CustomWidgetBase {
    */
   public static function dateAfterBuild(array $element, FormStateInterface $form_state, string $column): array {
     // Add an outer div with our class.
-    $element['#prefix'] = '<div class="' . $column . '">';
-    $element['#suffix'] = '</div>';
+    $element['date']['#wrapper_attributes'] = ['class' => [$column]];
 
     return $element;
   }
@@ -286,17 +279,21 @@ class CustomFlexWidget extends CustomWidgetBase {
    */
   protected function getAttributesKey(CustomFieldTypeInterface $custom_item, array $widget_settings, string $type): string {
     $attribute_types = [
+      'color_boxes',
       'media_library_widget',
       'viewfield_select',
       'entity_reference_radios',
       'radios',
       'datetime_datelist',
-      'datetime_default',
       'url',
       'link_default',
       'linkit_url',
       'linkit',
     ];
+
+    if ($custom_item->getDataType() === 'datetime' && $custom_item->getDatetimeType() !== 'date') {
+      $attribute_types[] = 'datetime_default';
+    }
 
     if (in_array($type, $attribute_types)) {
       return '#attributes';

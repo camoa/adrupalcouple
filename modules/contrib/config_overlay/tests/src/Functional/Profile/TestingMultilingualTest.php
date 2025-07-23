@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\Tests\config_overlay\Functional\Profile;
 
 use Drupal\Core\Config\StorageInterface;
@@ -39,9 +41,8 @@ class TestingMultilingualTest extends ConfigOverlayTestBase {
   protected function prepareEnvironment() {
     parent::prepareEnvironment();
 
-    /* @see https://www.drupal.org/project/drupal/issues/2990234 */
-    $this->translationFilesDirectory = $this->publicFilesDirectory . '/translations';
-    mkdir($this->translationFilesDirectory, 0777, TRUE);
+    $translationFilesDirectory = $this->publicFilesDirectory . '/translations';
+    mkdir($translationFilesDirectory, 0777, TRUE);
 
     // Prepare translation files to avoid attempting to download translation
     // files from the actual translation server during the test. The files
@@ -54,7 +55,7 @@ msgstr ""
 msgid "User account"
 msgstr "Benutzerkonto"
 PO;
-    file_put_contents("$this->root/$this->translationFilesDirectory/drupal-8.0.0.de.po", $po_de);
+    file_put_contents("$this->root/$translationFilesDirectory/drupal-8.0.0.de.po", $po_de);
     // cspell:ignore Cuenta usuario
     $po_fr = <<<PO
 msgid ""
@@ -63,7 +64,7 @@ msgstr ""
 msgid "User account"
 msgstr "Cuenta de usuario"
 PO;
-    file_put_contents("$this->root/$this->translationFilesDirectory/drupal-8.0.0.es.po", $po_fr);
+    file_put_contents("$this->root/$translationFilesDirectory/drupal-8.0.0.es.po", $po_fr);
   }
 
   /**

@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Drupal\schemadotorg_recipe;
 
-use Symfony\Component\Process\Process;
-
 /**
  * Schema.org recipe manager interface.
  */
@@ -62,10 +60,9 @@ interface SchemaDotOrgRecipeManagerInterface {
    * @param string $name
    *   A Schema.org recipe name.
    *
-   * @return \Symfony\Component\Process\Process
-   *   The command process.
+   * @see https://git.drupalcode.org/project/distributions_recipes/-/blob/1.0.x/docs/recipe_apply_programmatically.md
    */
-  public function apply(string $name): Process;
+  public function apply(string $name): void;
 
   /**
    * Generate a Schema.org recipe's content.

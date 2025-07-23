@@ -26,7 +26,7 @@ class LayerFeatureManager extends DefaultPluginManager {
   use DependencySerializationTrait;
 
   /**
-   * Constructs an LayerFeatureManager object.
+   * Constructs a LayerFeatureManager object.
    *
    * @param \Traversable $namespaces
    *   An object that implements \Traversable which contains the root paths
@@ -128,7 +128,7 @@ class LayerFeatureManager extends DefaultPluginManager {
     $layer_features_form = [
       '#type' => 'table',
       '#weight' => 100,
-      '#caption' => $this->t('<p>Select features to alter functionality of this layer.</p>'),
+      '#caption' => $this->t('<p>Select features to alter the functionality of this layer.</p>'),
       '#header' => [
         $this->t('Enable'),
         $this->t('Feature'),
@@ -150,6 +150,10 @@ class LayerFeatureManager extends DefaultPluginManager {
     foreach ($layer_features as $feature_id => $feature_definition) {
       $feature = $this->getLayerFeature($feature_id);
       if (empty($feature)) {
+        continue;
+      }
+
+      if ($feature->getPluginDefinition()['hidden'] ?? FALSE) {
         continue;
       }
 
@@ -242,8 +246,7 @@ class LayerFeatureManager extends DefaultPluginManager {
         continue;
       }
 
-      $feature = $this->getLayerFeature($feature_id);
-      if ($feature && method_exists($feature, 'validateSettingsForm')) {
+      if ($feature = $this->getLayerFeature($feature_id)) {
         $feature_parents = $parents;
         array_push($feature_parents, $feature_id, 'settings');
         $feature->validateSettingsForm(empty($feature_settings['settings']) ? [] : $feature_settings['settings'], $form_state, $feature_parents);

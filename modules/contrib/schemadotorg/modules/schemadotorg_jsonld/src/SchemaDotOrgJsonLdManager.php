@@ -285,9 +285,9 @@ class SchemaDotOrgJsonLdManager implements SchemaDotOrgJsonLdManagerInterface {
    * Gets the default values for a range includes Schema.org type.
    *
    * @param string $schema_type
-   *   The schema type.
+   *   The Schema.org type.
    * @param string $schema_property
-   *   The schema property.
+   *   The Schema.org property.
    * @param string|null $range_include
    *   The range include value.
    *

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\Tests\config_overlay\Functional;
 
 use Drupal\Core\Config\StorageInterface;
@@ -23,5 +25,12 @@ abstract class ConfigOverlayTestBase extends BrowserTestBase {
    * @var string[]
    */
   protected array $collections = [StorageInterface::DEFAULT_COLLECTION];
+
+  /**
+   * The language to install the site in.
+   *
+   * @var string
+   */
+  protected string $langcode = 'en';
 
 }

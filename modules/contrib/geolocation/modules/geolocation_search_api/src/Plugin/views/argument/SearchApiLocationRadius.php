@@ -11,7 +11,7 @@ use Drupal\views\Plugin\views\argument\ArgumentPluginBase;
  *
  * @ingroup views_argument_handlers
  */
-#[ViewsArgument]
+#[ViewsArgument(id: 'search_api_location_radius')]
 class SearchApiLocationRadius extends ArgumentPluginBase {
 
   use SearchApiHandlerTrait;
@@ -20,7 +20,7 @@ class SearchApiLocationRadius extends ArgumentPluginBase {
   /**
    * {@inheritdoc}
    */
-  public function query($group_by = FALSE) {
+  public function query(mixed $group_by = FALSE): void {
     // Must be single and must be a decimal.
     if (is_numeric($this->argument) && $this->argument > 0) {
       $query = $this->getQuery();

@@ -26,6 +26,7 @@ class ProximitySort extends SortPluginBase {
     $field = $this->displayHandler->getHandler('field', $this->field);
 
     if (!empty($field->field_alias) && $field->field_alias != 'unknown') {
+      // @phpstan-ignore-next-line
       $this->query->addOrderBy(NULL, NULL, $this->options['order'], $field->field_alias);
       if (!empty($field->tableAlias)) {
         $this->tableAlias = $field->tableAlias;

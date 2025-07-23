@@ -5,6 +5,8 @@
  * Contains install, uninstall, and update functions for Config Overlay.
  */
 
+declare(strict_types=1);
+
 use Drupal\Core\Config\StorageInterface;
 
 /**

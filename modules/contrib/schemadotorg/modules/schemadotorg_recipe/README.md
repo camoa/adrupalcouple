@@ -26,14 +26,27 @@ Features
 References
 ----------
 
-- https://git.drupalcode.org/project/distributions_recipes/-/blob/1.0.x/docs/recipe_author_guide.md
+Recipes
+
+- [Drupal Recipes](https://www.drupal.org/docs/extending-drupal/drupal-recipes)
+- [recipe_author_guide.md](https://git.drupalcode.org/project/distributions_recipes/-/blob/1.0.x/docs/recipe_author_guide.md)
+
+Config actions
+
+- https://git.drupalcode.org/project/distributions_recipes/-/blob/1.0.x/docs/config_action_list.md?ref_type=heads
+- https://git.drupalcode.org/project/distributions_recipes/-/blob/1.0.x/docs/config_action_list_contrib.md?ref_type=heads
+
+Default content
+
+- [Default Content module](https://www.drupal.org/project/default_content)
+- [Default Content in Drupal](https://kanopi.com/blog/default-content-in-drupal/)
+- [Drupal 10: Using Default Content Deploy To Create Testing Content](https://www.hashbangcode.com/article/drupal-10-using-default-content-deploy-create-testing-content)
 
 
 Known Issues
 ------------
 
 - [Issue #3478921: A recipe should install new modules in the same way/result as modules installed via the UI or CLI](https://www.drupal.org/project/distributions_recipes/issues/3478921)
-- [Issue #3390916: Error when installing a recipe that has configuration files already in the system, even if there is no difference](https://www.drupal.org/project/distributions_recipes/issues/3390916)
 - [Issue #3452995: \[Meta\] Support automated tests of recipes](https://www.drupal.org/project/distributions_recipes/issues/3452995)
 
 

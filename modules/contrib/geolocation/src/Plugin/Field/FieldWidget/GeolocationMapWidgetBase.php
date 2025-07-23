@@ -18,7 +18,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 
 /**
- * Base class for map based field widgets.
+ * Base class for map-based field widgets.
  */
 abstract class GeolocationMapWidgetBase extends WidgetBase implements ContainerFactoryPluginInterface {
 
@@ -284,6 +284,19 @@ abstract class GeolocationMapWidgetBase extends WidgetBase implements ContainerF
       $element['map_provider_settings']['#title'] .= ' - ' . $this->t('Override Map Default Preset');
     }
 
+    $element['map']['#settings'] = array_merge($element['map']['#settings'], [
+      'map_features' => [
+        $this->getWidgetFeatureId() => [
+          'enabled' => TRUE,
+          'settings' => [
+            'field_name' => $this->fieldDefinition->getName(),
+            'field_type' => $this->fieldDefinition->getType(),
+            'cardinality' => $this->fieldDefinition->getFieldStorageDefinition()->getCardinality(),
+          ],
+        ],
+      ],
+    ]);
+
     $element['map'] = $this->mapCenterManager->alterMap($element['map'], $settings['centre']);
 
     if ($settings['hide_inputs'] ?? FALSE) {
@@ -313,6 +326,15 @@ abstract class GeolocationMapWidgetBase extends WidgetBase implements ContainerF
           );
         }
       }
+    }
+    $context = [
+      'widget' => $this,
+      'form_state' => $form_state,
+      'field_definition' => $this->fieldDefinition,
+    ];
+
+    if (!$this->isDefaultValueWidget($form_state)) {
+      $this->moduleHandler->alter('geolocation_field_map_widget', $element, $context);
     }
 
     return $element;
@@ -373,6 +395,16 @@ abstract class GeolocationMapWidgetBase extends WidgetBase implements ContainerF
     }
 
     return NULL;
+  }
+
+  /**
+   * Get ID of feature to connect map and widget.
+   *
+   * @return string
+   *   Feature ID.
+   */
+  protected function getWidgetFeatureId(): string {
+    return 'geolocation_field_widget_map_connector';
   }
 
 }

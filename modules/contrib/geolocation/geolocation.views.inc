@@ -11,15 +11,22 @@ use Drupal\field\FieldStorageConfigInterface;
  * Implements hook_field_views_data().
  */
 function geolocation_field_views_data(FieldStorageConfigInterface $field_storage): array {
-  // Make sure views.views.inc is loaded.
-  Drupal::moduleHandler()->loadInclude('views', 'inc', 'views.views');
-
   /** @var \Drupal\Core\Entity\Sql\SqlEntityStorageInterface $entity_storage */
   $entity_storage = Drupal::entityTypeManager()->getStorage($field_storage->getTargetEntityTypeId());
   $entity_definition = Drupal::entityTypeManager()->getDefinition($field_storage->getTargetEntityTypeId());
 
   // Get the default data from the views module.
-  $data = views_field_default_views_data($field_storage);
+  if (\Drupal::hasService('views.field_data_provider')) {
+    $data = \Drupal::service('views.field_data_provider')->defaultFieldImplementation($field_storage);
+  }
+  // Compatibility with D10. Remove after D12.
+  elseif (function_exists('views_field_default_views_data')) {
+    // @phpstan-ignore-next-line
+    $data = views_field_default_views_data($field_storage);
+  }
+  else {
+    return [];
+  }
 
   $title_short = $help = '';
 

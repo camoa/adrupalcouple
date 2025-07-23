@@ -34,7 +34,7 @@ class SchemaDotOrgFieldPrefixTest extends SchemaDotOrgBrowserTestBase {
     // Create the page content type.
     $this->drupalCreateContentType(['type' => 'page']);
 
-    if (version_compare(\Drupal::VERSION, '10.3.9', '>=')) {
+    if (version_compare(\Drupal::VERSION, '11.2', '<')) {
       // Set the new field storage type.
       $this->drupalGet('admin/structure/types/manage/page/fields/add-field');
       $this->submitForm(['new_storage_type' => 'general'], 'Continue');
@@ -99,15 +99,19 @@ class SchemaDotOrgFieldPrefixTest extends SchemaDotOrgBrowserTestBase {
       $this->drupalGet('admin/structure/types/manage/page/fields/add-field');
       $assert->fieldNotExists('field_prefix');
     }
-    elseif (version_compare(\Drupal::VERSION, '10.3', '>=')) {
-      // Set the new field storage type.
-      $this->drupalGet('admin/structure/types/manage/page/fields/add-field');
-      $this->submitForm(['new_storage_type' => 'email'], 'Continue');
+    else {
+      // Add general field type.
+      $this->drupalGet('admin/structure/types/manage/page/fields/add-field/general/true', ['query' => ['entity_type' => 'node']]);
 
       // Check that changing the field prefix does exist.
       $assert->fieldExists('field_prefix');
       // Check the field prefix options.
-      $assert->responseContains('<option value="field_" selected="selected">field_</option><option value="field_page_">field_page_</option><option value="schema_">schema_</option><option value="schema_page_">schema_page_</option><option value="">&lt;none&gt;</option>');
+      $assert->optionExists('field_prefix', 'field_');
+      $assert->optionExists('field_prefix', 'field_page_');
+      $assert->optionExists('field_prefix', 'schema_');
+      $assert->optionExists('field_prefix', 'field_page_');
+      $assert->optionExists('field_prefix', '');
+
       // Check the field prefix description.
       $assert->responseContains("Select the field's prefix. Use <code>&lt;none&gt;</code> with caution because the machine-readable name can conflict with existing base field/property names.");
 
@@ -116,9 +120,10 @@ class SchemaDotOrgFieldPrefixTest extends SchemaDotOrgBrowserTestBase {
         'field_prefix' => 'schema_',
         'label' => '',
         'field_name' => 'test',
+        'field_options_wrapper' => 'email',
       ];
       $this->submitForm($edit, 'Continue');
-      $assert->responseContains('Add new field: you need to provide a label.');
+      $assert->responseContains('Label field is required.');
 
       // Check missing field name validation.
       $edit = [
@@ -127,7 +132,7 @@ class SchemaDotOrgFieldPrefixTest extends SchemaDotOrgBrowserTestBase {
         'field_name' => '',
       ];
       $this->submitForm($edit, 'Continue');
-      $assert->responseContains('Add new field: you need to provide a machine name for the field.');
+      $assert->responseContains('Machine-readable name field is required.');
 
       // Check create a schema_* field.
       $edit = [
@@ -137,21 +142,21 @@ class SchemaDotOrgFieldPrefixTest extends SchemaDotOrgBrowserTestBase {
       ];
       $this->submitForm($edit, 'Continue');
       $edit = [];
-      $this->submitForm($edit, 'Save settings');
+      $this->submitForm($edit, 'Save');
       $this->assertNotNull(FieldStorageConfig::loadByName('node', 'schema_test'));
       $this->assertNotNull(FieldConfig::loadByName('node', 'page', 'schema_test'));
 
       // Check existing schema_* field validation.
-      $this->drupalGet('admin/structure/types/manage/page/fields/add-field');
-      $this->submitForm(['new_storage_type' => 'email'], 'Continue');
+      $this->drupalGet('admin/structure/types/manage/page/fields/add-field/general/true', ['query' => ['entity_type' => 'node']]);
       $edit = [
         'field_prefix' => 'schema_',
         'label' => 'Test',
         'field_name' => 'test',
+        'field_options_wrapper' => 'email',
       ];
       $this->submitForm($edit, 'Continue');
       $edit = [];
-      $this->submitForm($edit, 'Save settings');
+      $this->submitForm($edit, 'Save');
       $assert->statusMessageContains("An error occurred while saving the field: 'field_storage_config' entity with ID 'node.schema_test' already exists.");
       $assert->statusMessageContains("An error occurred while saving the field: 'field_config' entity with ID 'node.page.schema_test' already exists.");
 
@@ -159,7 +164,7 @@ class SchemaDotOrgFieldPrefixTest extends SchemaDotOrgBrowserTestBase {
       $this->config('schemadotorg_field_prefix.settings')
         ->set('field_prefix_options', [])
         ->save();
-      $this->drupalGet('admin/structure/types/manage/page/fields/add-field');
+      $this->drupalGet('admin/structure/types/manage/page/fields/add-field/general/true', ['query' => ['entity_type' => 'node']]);
       $assert->fieldNotExists('field_prefix');
     }
   }

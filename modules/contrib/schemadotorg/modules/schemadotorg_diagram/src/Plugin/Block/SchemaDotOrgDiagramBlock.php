@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Drupal\schemadotorg_diagram\Plugin\Block;
 
 use Drupal\Core\Access\AccessResult;
+use Drupal\Core\Block\Attribute\Block;
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Cache\Cache;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
@@ -17,13 +18,12 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Provides a 'Schema.org Diagrams' block.
- *
- * @Block(
- *   id = "schemadotorg_diagram",
- *   admin_label = @Translation("Schema.org Blueprints Diagrams"),
- *   category = @Translation("Schema.org Blueprints")
- * )
  */
+#[Block(
+  id: 'schemadotorg_diagram',
+  admin_label: new \Drupal\Core\StringTranslation\TranslatableMarkup('Schema.org Blueprints Diagrams'),
+  category: new \Drupal\Core\StringTranslation\TranslatableMarkup('Schema.org Blueprints'),
+)]
 class SchemaDotOrgDiagramBlock extends BlockBase implements ContainerFactoryPluginInterface {
   use StringTranslationTrait;
 

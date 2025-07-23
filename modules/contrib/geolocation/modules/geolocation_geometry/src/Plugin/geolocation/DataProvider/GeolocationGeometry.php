@@ -31,10 +31,10 @@ class GeolocationGeometry extends DataProviderBase implements DataProviderInterf
 
     $settings['stroke_color'] = '#FF0044';
     $settings['stroke_width'] = 1;
-    $settings['stroke_opacity'] = 0.8;
+    $settings['stroke_opacity'] = 0.9;
 
     $settings['fill_color'] = '#0033FF';
-    $settings['fill_opacity'] = 0.1;
+    $settings['fill_opacity'] = 0.2;
 
     return $settings;
 
@@ -178,13 +178,13 @@ class GeolocationGeometry extends DataProviderBase implements DataProviderInterf
   public function getShapesFromItem(FieldItemInterface $fieldItem): array {
     $settings = $this->getSettings();
 
-    $geometries = [];
+    $shapes = [];
 
-    foreach ($this->getShapesFromGeoJson($fieldItem->get('geojson')->getString()) as $shapeElement) {
-      $geometries[] = self::getRenderedElementByGeoJSON($shapeElement, $settings);
+    foreach ($this->getShapeGeometriesFromGeoJson($fieldItem->get('geojson')->getString()) as $geometry) {
+      $shapes[] = self::getRenderedElementByGeoJSON($geometry, $settings);
     }
 
-    return $geometries;
+    return $shapes;
   }
 
   /**
@@ -193,13 +193,13 @@ class GeolocationGeometry extends DataProviderBase implements DataProviderInterf
   public function getLocationsFromItem(FieldItemInterface $fieldItem): array {
     $settings = $this->getSettings();
 
-    $positions = [];
+    $locations = [];
 
-    foreach ($this->getLocationsFromGeoJson($fieldItem->get('geojson')->getString()) as $location) {
-      $positions[] = self::getRenderedElementByGeoJSON($location, $settings);
+    foreach ($this->getLocationGeometriesFromGeoJson($fieldItem->get('geojson')->getString()) as $geometry) {
+      $locations[] = self::getRenderedElementByGeoJSON($geometry, $settings);
     }
 
-    return $positions;
+    return $locations;
   }
 
   /**
@@ -259,17 +259,10 @@ class GeolocationGeometry extends DataProviderBase implements DataProviderInterf
         return $container;
 
       case 'Polygon':
-        $geometry = [
-          'type' => 'polygon',
-          'points' => [],
-        ];
-        foreach ($geojson->coordinates[0] as $coordinate) {
-          $geometry['points'][] = ['lat' => $coordinate[1], 'lng' => $coordinate[0]];
-        }
-
         return [
-          '#type' => 'geolocation_map_geometry',
-          '#geometry' => $geometry,
+          '#type' => 'geolocation_map_shape',
+          '#geometry' => json_encode($geojson),
+          '#geometry_type' => 'polygon',
           '#stroke_color' => $settings['color_randomize'] ? $random_color : $settings['stroke_color'],
           '#stroke_width' => (int) $settings['stroke_width'],
           '#stroke_opacity' => (float) $settings['stroke_opacity'],
@@ -278,23 +271,9 @@ class GeolocationGeometry extends DataProviderBase implements DataProviderInterf
         ];
 
       case 'MultiPolygon':
-        $geometry = [
-          'type' => 'multipolygon',
-          'polygons' => [],
-        ];
-        foreach ($geojson->coordinates as $current_polygon) {
-          $polygon = [
-            'type' => 'polygon',
-            'points' => [],
-          ];
-          foreach ($current_polygon[0] as $coordinate) {
-            $polygon['points'][] = ['lat' => $coordinate[1], 'lng' => $coordinate[0]];
-          }
-          $geometry['polygons'][] = $polygon;
-        }
         return [
-          '#type' => 'geolocation_map_geometry',
-          '#geometry' => $geometry,
+          '#type' => 'geolocation_map_shape',
+          '#geometry' => json_encode($geojson),
           '#geometry_type' => 'multipolygon',
           '#stroke_color' => $settings['color_randomize'] ? $random_color : $settings['stroke_color'],
           '#stroke_width' => (int) $settings['stroke_width'],
@@ -304,40 +283,20 @@ class GeolocationGeometry extends DataProviderBase implements DataProviderInterf
         ];
 
       case 'LineString':
-        $geometry = [
-          'type' => 'line',
-          'points' => [],
-        ];
-        foreach ($geojson->coordinates as $coordinate) {
-          $geometry['points'][] = ['lat' => $coordinate[1], 'lng' => $coordinate[0]];
-        }
-
         return [
-          '#type' => 'geolocation_map_geometry',
-          '#$geometry' => $geometry,
+          '#type' => 'geolocation_map_shape',
+          '#geometry' => json_encode($geojson),
+          '#geometry_type' => 'line',
           '#stroke_color' => $settings['color_randomize'] ? $random_color : $settings['stroke_color'],
           '#stroke_width' => (int) $settings['stroke_width'],
           '#stroke_opacity' => (float) $settings['stroke_opacity'],
         ];
 
       case 'MultiLineString':
-        $geometry = [
-          'type' => 'multiline',
-          'lines' => [],
-        ];
-        foreach ($geojson->coordinates as $current_line) {
-          $line = [
-            'type' => 'line',
-            'points' => [],
-          ];
-          foreach ($current_line as $coordinate) {
-            $line['points'][] = ['lat' => $coordinate[1], 'lng' => $coordinate[0]];
-          }
-          $geometry['lines'][] = $line;
-        }
         return [
-          '#type' => 'geolocation_map_geometry',
-          '#geometry' => $geometry,
+          '#type' => 'geolocation_map_shape',
+          '#geometry' => json_encode($geojson),
+          '#geometry_type' => 'multiline',
           '#stroke_color' => $settings['color_randomize'] ? $random_color : $settings['stroke_color'],
           '#stroke_width' => (int) $settings['stroke_width'],
           '#stroke_opacity' => (float) $settings['stroke_opacity'],
@@ -373,8 +332,8 @@ class GeolocationGeometry extends DataProviderBase implements DataProviderInterf
    * @return array
    *   Shapes.
    */
-  protected function getShapesFromGeoJson(string $geoJson): array {
-    $shapes = [];
+  protected function getShapeGeometriesFromGeoJson(string $geoJson): array {
+    $geometries = [];
 
     $json = json_decode($geoJson);
 
@@ -394,21 +353,21 @@ class GeolocationGeometry extends DataProviderBase implements DataProviderInterf
           if (empty($entry->features)) {
             continue 2;
           }
-          $shapes = array_merge($shapes, $this->getShapesFromGeoJson(is_string($entry->features) ?: json_encode($entry->features)));
+          $geometries = array_merge($geometries, $this->getShapeGeometriesFromGeoJson(is_string($entry->features) ?: json_encode($entry->features)));
           break;
 
         case 'Feature':
           if (empty($entry->geometry)) {
             continue 2;
           }
-          $shapes = array_merge($shapes, $this->getShapesFromGeoJson(is_string($entry->geometry) ?: json_encode($entry->geometry)));
+          $geometries = array_merge($geometries, $this->getShapeGeometriesFromGeoJson(is_string($entry->geometry) ?: json_encode($entry->geometry)));
           break;
 
         case 'GeometryCollection':
           if (empty($entry->geometries)) {
             continue 2;
           }
-          $shapes = array_merge($shapes, $this->getShapesFromGeoJson(is_string($entry->geometries) ?: json_encode($entry->geometries)));
+          $geometries = array_merge($geometries, $this->getShapeGeometriesFromGeoJson(is_string($entry->geometries) ?: json_encode($entry->geometries)));
           break;
 
         case 'MultiPolygon':
@@ -418,12 +377,12 @@ class GeolocationGeometry extends DataProviderBase implements DataProviderInterf
           if (empty($entry->coordinates)) {
             continue 2;
           }
-          $shapes[] = $entry;
+          $geometries[] = $entry;
           break;
       }
     }
 
-    return $shapes;
+    return $geometries;
   }
 
   /**
@@ -435,8 +394,8 @@ class GeolocationGeometry extends DataProviderBase implements DataProviderInterf
    * @return array
    *   Locations.
    */
-  protected function getLocationsFromGeoJson(string $geoJson): array {
-    $locations = [];
+  protected function getLocationGeometriesFromGeoJson(string $geoJson): array {
+    $geometries = [];
 
     $json = json_decode($geoJson);
 
@@ -456,21 +415,21 @@ class GeolocationGeometry extends DataProviderBase implements DataProviderInterf
           if (empty($entry->features)) {
             continue 2;
           }
-          $locations = array_merge($locations, $this->getShapesFromGeoJson(is_string($entry->features) ?: json_encode($entry->features)));
+          $geometries = array_merge($geometries, $this->getLocationGeometriesFromGeoJson(is_string($entry->features) ?: json_encode($entry->features)));
           break;
 
         case 'Feature':
           if (empty($entry->geometry)) {
             continue 2;
           }
-          $locations = array_merge($locations, $this->getShapesFromGeoJson(is_string($entry->geometry) ?: json_encode($entry->geometry)));
+          $geometries = array_merge($geometries, $this->getLocationGeometriesFromGeoJson(is_string($entry->geometry) ?: json_encode($entry->geometry)));
           break;
 
         case 'GeometryCollection':
           if (empty($entry->geometries)) {
             continue 2;
           }
-          $locations = array_merge($locations, $this->getShapesFromGeoJson(is_string($entry->geometries) ?: json_encode($entry->geometries)));
+          $geometries = array_merge($geometries, $this->getLocationGeometriesFromGeoJson(is_string($entry->geometries) ?: json_encode($entry->geometries)));
           break;
 
         case 'MultiPoint':
@@ -478,12 +437,12 @@ class GeolocationGeometry extends DataProviderBase implements DataProviderInterf
           if (empty($entry->coordinates)) {
             continue 2;
           }
-          $locations[] = $entry;
+          $geometries[] = $entry;
           break;
       }
     }
 
-    return $locations;
+    return $geometries;
   }
 
 }

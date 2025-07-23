@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Drupal\schemadotorg_jsonapi_preview\Plugin\Block;
 
 use Drupal\Core\Access\AccessResult;
+use Drupal\Core\Block\Attribute\Block;
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Cache\Cache;
 use Drupal\Core\Entity\EntityInterface;
@@ -17,13 +18,12 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Provides a 'Schema.org JSON:API preview' block.
- *
- * @Block(
- *   id = "schemadotorg_jsonapi_preview",
- *   admin_label = @Translation("Schema.org Blueprints JSON:API Preview"),
- *   category = @Translation("Schema.org Blueprints")
- * )
  */
+#[Block(
+  id: 'schemadotorg_jsonapi_preview',
+  admin_label: new \Drupal\Core\StringTranslation\TranslatableMarkup('Schema.org Blueprints JSON:API Preview'),
+  category: new \Drupal\Core\StringTranslation\TranslatableMarkup('Schema.org Blueprints'),
+)]
 class SchemaDotOrgJsonApiPreviewBlock extends BlockBase implements ContainerFactoryPluginInterface {
   use StringTranslationTrait;
 

@@ -15,9 +15,12 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 /**
  * Provides Recenter control element.
  */
-#[MapFeature(id: 'control_tile_layers',
+#[MapFeature(
+  id: 'control_tile_layers',
   name: new \Drupal\Core\StringTranslation\TranslatableMarkup('Map Control - Tile Layers'),
-  description: new \Drupal\Core\StringTranslation\TranslatableMarkup('Shows list of toggleable tile layers.'), type: 'all')]
+  description: new \Drupal\Core\StringTranslation\TranslatableMarkup('Shows list of toggleable tile layers.'),
+  type: 'all',
+)]
 class ControlTileLayers extends ControlCustomElementBase {
 
   /**

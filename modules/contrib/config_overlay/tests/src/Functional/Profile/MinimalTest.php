@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\Tests\config_overlay\Functional\Profile;
 
 use Drupal\Core\Config\StorageInterface;

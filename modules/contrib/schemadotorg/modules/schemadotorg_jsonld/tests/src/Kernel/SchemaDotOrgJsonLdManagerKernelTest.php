@@ -168,7 +168,7 @@ class SchemaDotOrgJsonLdManagerKernelTest extends SchemaDotOrgJsonLdKernelTestBa
 
     // Check getting how an entity reference should be included in JSON-LD.
     $this->assertEquals(
-      SchemaDotOrgJsonLdManagerInterface::ENTITY_REFERENCE_DISPLAY_URL,
+      SchemaDotOrgJsonLdManagerInterface::ENTITY_REFERENCE_DISPLAY_ENTITY,
       $this->manager->getSchemaTypeEntityReferenceDisplay($place_node, '', $place_node)
     );
     $this->assertEquals(

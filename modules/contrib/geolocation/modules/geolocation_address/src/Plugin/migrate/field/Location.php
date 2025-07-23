@@ -42,7 +42,7 @@ class Location extends LocationAddress {
   /**
    * {@inheritdoc}
    */
-  public function defineValueProcessPipeline(MigrationInterface $migration, $field_name, $data) {
+  public function defineValueProcessPipeline(MigrationInterface $migration, mixed $field_name, mixed $data): void {
     parent::defineValueProcessPipeline($migration, $field_name, $data);
     // Address cannot store geographical locations, so we need a separate
     // geolocation field.
@@ -73,7 +73,9 @@ class Location extends LocationAddress {
         ]
       )
     );
-    $migration->set('migration_dependencies', $migration_dependencies);
+    if (method_exists($migration, 'set')) {
+      $migration->set('migration_dependencies', $migration_dependencies);
+    }
   }
 
 }

@@ -15,9 +15,12 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 /**
  * Provides Geocoding control element.
  */
-#[MapFeature(id: 'control_geocoder',
+#[MapFeature(
+  id: 'control_geocoder',
   name: new \Drupal\Core\StringTranslation\TranslatableMarkup('Map Control - Geocoder'),
-  description: new \Drupal\Core\StringTranslation\TranslatableMarkup('Add address search with geocoding functionality map.'), type: 'all')]
+  description: new \Drupal\Core\StringTranslation\TranslatableMarkup('Add address search with geocoding functionality map.'),
+  type: 'all',
+)]
 class ControlCustomGeocoder extends ControlCustomElementBase {
 
   /**

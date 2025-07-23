@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\Tests\config_overlay\Functional\Language;
 
 use Drupal\Core\Config\Entity\ConfigEntityInterface;
@@ -22,9 +24,7 @@ class LanguageTestingTest extends ConfigOverlayTestBase {
   protected $defaultTheme = 'stark';
 
   /**
-   * The language to install the site in.
-   *
-   * @var string
+   * {@inheritdoc}
    */
   protected string $langcode = 'af';
 
@@ -34,9 +34,8 @@ class LanguageTestingTest extends ConfigOverlayTestBase {
   protected function prepareEnvironment() {
     parent::prepareEnvironment();
 
-    /* @see https://www.drupal.org/project/drupal/issues/2990234 */
-    $this->translationFilesDirectory = $this->publicFilesDirectory . '/translations';
-    mkdir($this->translationFilesDirectory, 0777, TRUE);
+    $translationFilesDirectory = $this->publicFilesDirectory . '/translations';
+    mkdir($translationFilesDirectory, 0777, TRUE);
 
     // Prepare a translation file to avoid attempting to download a translation
     // file from the actual translation server during the test. The file
@@ -49,7 +48,7 @@ msgstr ""
 msgid "User account"
 msgstr "Gebruikersrekening"
 PO;
-    file_put_contents("$this->root/$this->translationFilesDirectory/drupal-8.0.0.$this->langcode.po", $po);
+    file_put_contents("$this->root/$translationFilesDirectory/drupal-8.0.0.$this->langcode.po", $po);
   }
 
   /**
@@ -179,19 +178,6 @@ PO;
     }
 
     return $overridden_config;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  protected function getBaseModules(): array {
-    $modules = parent::getBaseModules();
-    // Installing in a language other than English enables the Interface
-    // Translation module.
-    $modules += [
-      'locale' => 0,
-    ];
-    return $modules;
   }
 
 }

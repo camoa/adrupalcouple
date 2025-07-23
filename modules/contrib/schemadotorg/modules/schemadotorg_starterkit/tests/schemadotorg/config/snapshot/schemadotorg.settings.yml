@@ -121,9 +121,9 @@ schema_types:
       - text
       - tool
     Recipe:
-      - '-step'
-      - '-supply'
-      - '-tool'
+      - '!step'
+      - '!supply'
+      - '!tool'
       - cookTime
       - cookingMethod
       - isFamilyFriendly
@@ -281,9 +281,9 @@ schema_types:
       - significantLink
       - text
     CollectionPage:
-      - '-primaryImageOfPage'
-      - '-relatedLink'
-      - '-significantLink'
+      - '!primaryImageOfPage'
+      - '!relatedLink'
+      - '!significantLink'
       - hasPart
       - name
       - text
@@ -450,10 +450,10 @@ schema_types:
       - value
       - valueReference
     LocationFeatureSpecification:
-      - '-unitCode'
-      - '-unitText'
-      - '-value'
-      - '-valueReference'
+      - '!unitCode'
+      - '!unitText'
+      - '!value'
+      - '!valueReference'
       - description
       - hoursAvailable
       - image
@@ -499,18 +499,18 @@ schema_types:
       - infectiousAgentClass
       - transmissionMethod
     MedicalSignOrSymptom:
-      - '-epidemiology'
-      - '-expectedPrognosis'
-      - '-naturalProgression'
-      - '-pathophysiology'
-      - '-possibleComplication'
-      - '-possibleTreatment'
-      - '-primaryPrevention'
-      - '-riskFactor'
-      - '-secondaryPrevention'
-      - '-signOrSymptom'
-      - '-study'
-      - '-typicalTest'
+      - '!epidemiology'
+      - '!expectedPrognosis'
+      - '!naturalProgression'
+      - '!pathophysiology'
+      - '!possibleComplication'
+      - '!possibleTreatment'
+      - '!primaryPrevention'
+      - '!riskFactor'
+      - '!secondaryPrevention'
+      - '!signOrSymptom'
+      - '!study'
+      - '!typicalTest'
     MedicalDevice:
       - adverseOutcome
       - contraindication
@@ -616,10 +616,10 @@ schema_types:
       - occupationalCategory
       - usNPI
     IndividualPhysician:
-      - '-employee'
-      - '-healthPlanNetworkId'
-      - '-parentOrganization'
-      - '-subOrganization'
+      - '!employee'
+      - '!healthPlanNetworkId'
+      - '!parentOrganization'
+      - '!subOrganization'
       - practicesAt
     MedicalOrganization:
       - healthPlanNetworkId
@@ -652,15 +652,15 @@ schema_types:
       - name
       - telephone
     Accommodation:
-      - '-openingHours'
-      - '-openingHoursSpecification'
-      - '-telephone'
+      - '!openingHours'
+      - '!openingHoursSpecification'
+      - '!telephone'
       - amenityFeature
     Room:
-      - '-address'
-      - '-geo'
-      - '-latitude'
-      - '-longitude'
+      - '!address'
+      - '!geo'
+      - '!latitude'
+      - '!longitude'
     HotelRoom:
       - amenityFeature
       - bed

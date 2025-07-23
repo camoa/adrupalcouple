@@ -13,18 +13,16 @@ export default class GeolocationFieldMapWidget extends WidgetSubscriberBase {
       Drupal.geolocation.maps.getMap(settings.mapId).then((map) => {
         this.map = map;
 
-        this.settings.featureSettings.settings = this.settings.featureSettings.settings ?? {};
-        this.settings.featureSettings.settings.cardinality = this.settings.featureSettings.settings.cardinality ?? this.settings.cardinality;
-
-        this.map.loadFeature(this.settings.featureSettings).then(
-          /** @param {GeolocationFieldWidgetMapConnector} feature Feature */ (feature) => {
-            this.mapFeature = feature;
-            if (typeof this.mapFeature.setWidgetSubscriber === "function") {
-              this.mapFeature.setWidgetSubscriber(this);
-            }
-            resolve(feature);
+        this.map.features.forEach((feature, id) => {
+          if (this.settings.feature_id !== id) {
+            return;
           }
-        );
+          this.mapFeature = feature;
+          if (typeof this.mapFeature.setWidgetSubscriber === "function") {
+            this.mapFeature.setWidgetSubscriber(this);
+          }
+          resolve(feature);
+        });
       });
     });
   }

@@ -156,9 +156,9 @@ SchemaType:
       '#config_key' => 'default_schema_type_properties',
       '#example' => "
 SchemaType:
-  - '-removedPropertyName01'
-  - '-removedPropertyName02'
-  - '-removedPropertyName03'
+  - '!removedPropertyName01'
+  - '!removedPropertyName02'
+  - '!removedPropertyName03'
   - propertyName01
   - propertyName02
   - propertyName03
@@ -186,12 +186,12 @@ SchemaType--base_field_name:
       '#type' => 'schemadotorg_settings',
       '#title' => $this->t('Default component display weights'),
       '#description' => $this->t('Enter default display component weights.')
-      . ' ' . $this->t('Generally, existing component weights should come after Schema.org fields and their weighting should start at 200.'),
+      . ' ' . $this->t('Generally, existing component weights should come before or after Schema.org properties/fields. Schema.org property/field weights are between 1 to 200.'),
       '#config_name' => $config_name,
       '#config_key' => 'default_component_weights',
       '#example' => '
-component_name: 100
-field_name: 100
+component_name: -100
+field_name: 210
 ',
     ];
     $form['properties']['default_component_weights_update'] = [

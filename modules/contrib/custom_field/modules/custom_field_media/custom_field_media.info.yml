@@ -7,7 +7,7 @@ dependencies:
   - custom_field:custom_field
   - drupal:media_library
 
-# Information added by Drupal.org packaging script on 2025-05-27
-version: '3.1.10'
+# Information added by Drupal.org packaging script on 2025-07-10
+version: '3.1.12'
 project: 'custom_field'
-datestamp: 1748358777
+datestamp: 1752127437

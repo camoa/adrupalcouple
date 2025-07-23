@@ -115,7 +115,7 @@ class SchemaDotOrgMappingTypeListBuilder extends SchemaDotOrgConfigEntityListBui
     // Type.
     $row['entity_type'] = $entity->label();
 
-    // Default schema types.
+    // Default Schema.org types.
     $row['default_schema_types'] = $this->buildAssociationItems($entity->get('default_schema_types'));
 
     // Recommended Schema.org types.

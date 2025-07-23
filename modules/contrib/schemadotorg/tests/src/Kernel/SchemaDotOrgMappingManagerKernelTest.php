@@ -137,6 +137,32 @@ class SchemaDotOrgMappingManagerKernelTest extends SchemaDotOrgEntityKernelTestB
     ];
     $this->assertEquals($expected, $defaults['properties']['custom']);
 
+    // Check preparing a custom field with settings via 'schema_properties.default_fields'.
+    $this->config('schemadotorg.settings')
+      ->set('schema_properties.default_fields.custom', [
+        'label' => 'Custom label',
+        'type' => 'integer',
+      ])
+      ->save();
+    $defaults = $this->mappingManager->prepareCustomMappingDefaults(
+      entity_type_id: 'node',
+      schema_type: 'Event',
+      defaults: [
+        'properties' => [
+          'custom' => TRUE,
+        ],
+      ],
+    );
+    $expected = [
+      'type' => 'integer',
+      'label' => 'Custom label',
+      'description' => '',
+      'name' => 'custom',
+      'unlimited' => FALSE,
+      'required' => FALSE,
+    ];
+    $this->assertEquals($expected, $defaults['properties']['custom']);
+
     /* ********************************************************************** */
     // Get mappings defaults.
     /* ********************************************************************** */

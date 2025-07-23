@@ -29,7 +29,7 @@ interface SchemaDotOrgMappingManagerInterface {
    * @param string|null $bundle
    *   The bundle (optional).
    * @param string $schema_type
-   *   The schema type.
+   *   The Schema.org type.
    * @param array $defaults
    *   The custom defaults for a Schema.org mapping.
    *

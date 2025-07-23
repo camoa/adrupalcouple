@@ -1,5 +1,8 @@
 import { GeolocationMapFeature } from "../../../../js/MapFeature/GeolocationMapFeature.js";
 
+/**
+ * @prop {L.Map} map.leafletMap
+ */
 export class LeafletMapFeature extends GeolocationMapFeature {
   /**
    * @param {LeafletMapMarker} marker

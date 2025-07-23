@@ -444,6 +444,8 @@ class SchemaDotOrgCustomFieldManagerKernelTest extends SchemaDotOrgEntityKernelT
             'data_type' => 'link',
           ],
         ],
+        'widget_id' => 'custom_stacked',
+        'widget_settings' => ['wrapper' => 'details', 'open' => FALSE],
       ])
       ->save();
     $this->appendSchemaTypeDefaultProperties('Thing', 'alternateName');
@@ -593,6 +595,15 @@ class SchemaDotOrgCustomFieldManagerKernelTest extends SchemaDotOrgEntityKernelT
       ],
     ];
     $this->assertEquals($expected_settings, $settings['field_settings']);
+
+    // Check entity form display settings.
+    /** @var \Drupal\Core\Entity\EntityDisplayRepositoryInterface $entity_display_repository */
+    $entity_display_repository = \Drupal::service('entity_display.repository');
+    $form_display = $entity_display_repository->getFormDisplay('node', 'thing', 'default');
+    $component = $form_display->getComponent('schema_alternate_name');
+    $this->assertEquals('custom_stacked', $component['type']);
+    $this->assertEquals('details', $component['settings']['wrapper']);
+    $this->assertFalse($component['settings']['open']);
 
     /* ********************************************************************** */
     // Custom.

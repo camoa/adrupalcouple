@@ -144,7 +144,7 @@ class DateTimeDatelistWidget extends DateTimeWidgetBase {
     }
 
     // Wrap all the select elements with a fieldset.
-    $element['#theme_wrappers'][] = 'fieldset';
+    $element['#theme_wrappers'] = ['fieldset', 'container'];
 
     return [
       '#type' => 'datelist',

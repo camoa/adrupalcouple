@@ -110,12 +110,12 @@ node--MainSchemaType:
     '#description_link' => 'types',
     '#example' => "
 SchemaType:
-  - '-removedPropertyName01'
+  - '!removedPropertyName01'
   - propertyName01
   - propertyName02
   - propertyName03
 MainSchemaType--AdditionalSchemaType:
-  - '-removedPropertyName01'
+  - '!removedPropertyName01'
   - propertyName01
   - propertyName02
   - propertyName03

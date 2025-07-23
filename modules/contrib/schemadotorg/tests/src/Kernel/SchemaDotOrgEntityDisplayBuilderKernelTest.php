@@ -43,6 +43,29 @@ class SchemaDotOrgEntityDisplayBuilderKernelTest extends SchemaDotOrgEntityKerne
     $this->assertEquals(5, $default_field_weights['alternateName']);
     $this->assertEquals(17, $default_field_weights['description']);
 
+    // Check default field weights that exceed the 200 thresholds.
+    $original_default_field_weights = $this->config('schemadotorg.settings')
+      ->get('schema_properties.default_field_weights');
+    $default_field_weights = [];
+    for ($i = 0; $i < 250; $i++) {
+      $default_field_weights[] = 'field_' . str_pad((string) $i, 3, '0', STR_PAD_LEFT);
+    }
+    $this->config('schemadotorg.settings')
+      ->set('schema_properties.default_field_weights', $default_field_weights)
+      ->save();
+    $default_field_weights = $this->schemaEntityDisplayBuilder->getDefaultFieldWeights();
+    $this->assertEquals(1, $default_field_weights['field_000']);
+    $this->assertEquals(2, $default_field_weights['field_001']);
+    $this->assertEquals(3, $default_field_weights['field_002']);
+    $this->assertEquals(99, $default_field_weights['field_098']);
+    $this->assertEquals(100, $default_field_weights['field_099']);
+    $this->assertEquals(101, $default_field_weights['field_100']);
+    $this->assertEquals(102, $default_field_weights['field_101']);
+    $this->assertEquals(102, $default_field_weights['field_102']);
+    $this->config('schemadotorg.settings')
+      ->set('schema_properties.default_field_weights', $original_default_field_weights)
+      ->save();
+
     // Check setting entity displays for a field.
     $this->schemaEntityDisplayBuilder->setFieldDisplays(
       [

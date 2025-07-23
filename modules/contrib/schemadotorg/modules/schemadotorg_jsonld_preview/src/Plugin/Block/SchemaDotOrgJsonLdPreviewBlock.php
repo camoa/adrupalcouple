@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Drupal\schemadotorg_jsonld_preview\Plugin\Block;
 
 use Drupal\Core\Access\AccessResult;
+use Drupal\Core\Block\Attribute\Block;
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
@@ -17,13 +18,12 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Provides a 'Schema.org JSON-LD preview' block.
- *
- * @Block(
- *   id = "schemadotorg_jsonld_preview",
- *   admin_label = @Translation("Schema.org Blueprints JSON-LD Preview"),
- *   category = @Translation("Schema.org Blueprints")
- * )
  */
+#[Block(
+  id: 'schemadotorg_jsonld_preview',
+  admin_label: new \Drupal\Core\StringTranslation\TranslatableMarkup('Schema.org Blueprints JSON-LD Preview'),
+  category: new \Drupal\Core\StringTranslation\TranslatableMarkup('Schema.org Blueprints'),
+)]
 class SchemaDotOrgJsonLdPreviewBlock extends BlockBase implements ContainerFactoryPluginInterface {
   use StringTranslationTrait;
 
@@ -99,7 +99,7 @@ class SchemaDotOrgJsonLdPreviewBlock extends BlockBase implements ContainerFacto
     $build['#title'] = ($format === SchemaDotOrgJsonLdPreviewBuilderInterface::JSONLD)
       ? $this->t('Schema.org JSON-LD')
       : $this->t('Schema.org data');
-    $build['#attributes']['data-schemadotorg-details-key'] = 'schemadotorg-' . $format . '-preview';
+    $build['#attributes']['data-schemadotorg-details-key'] = 'schemadotorg-' . $format . '!preview';
     return ['details' => $build];
   }
 

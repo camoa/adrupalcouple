@@ -97,7 +97,7 @@ abstract class SchemaDotOrgBrowserTestBase extends BrowserTestBase {
         $result = TRUE;
       }
     }
-    $this->assertSession()->assert($result, $message);
+    $this->assertTrue($result, $message);
   }
 
   /**

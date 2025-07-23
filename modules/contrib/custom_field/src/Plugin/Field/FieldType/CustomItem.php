@@ -263,6 +263,9 @@ class CustomItem extends FieldItemBase {
             break;
 
           case 'image':
+            if (is_array($subfield_value) && isset($subfield_value['target_id'])) {
+              $subfield_value = $subfield_value['target_id'];
+            }
             if (!empty($subfield_value)) {
               $width = $current_field->get($name . self::SEPARATOR . 'width')->getValue();
               $height = $current_field->get($name . self::SEPARATOR . 'height')->getValue();
@@ -323,6 +326,7 @@ class CustomItem extends FieldItemBase {
       $columns = $settings['items'];
       $user_input = $form_state->getUserInput();
       $input = NestedArray::getValue($user_input, [...$parents, 'items']);
+      $widget_input = NestedArray::getValue($user_input, ['settings', 'field_settings']);
       $reset_input = FALSE;
       foreach ($settings['items'] as $name => $item) {
         unset($item['remove']);
@@ -334,6 +338,15 @@ class CustomItem extends FieldItemBase {
           if (isset($field_settings[$name])) {
             unset($field_settings[$name]);
           }
+          // Clear out existing input.
+          if (isset($input[$name])) {
+            unset($input[$name]);
+          }
+          // Clear out existing widget input.
+          if (isset($widget_input[$name])) {
+            unset($widget_input[$name]);
+          }
+          $reset_input = TRUE;
         }
         elseif (isset($current_columns[$name])) {
           $diffs = array_diff($item, $current_columns[$name]);
@@ -344,14 +357,36 @@ class CustomItem extends FieldItemBase {
             }
           }
           if ($item['type'] !== $current_columns[$name]['type']) {
+            // Clear out existing widget.
             if (isset($field_settings[$name])) {
               unset($field_settings[$name]);
             }
-            if (in_array($item['type'], ['string', 'telephone'])) {
-              $input[$name]['length'] = NULL;
-              $settings['items'][$name]['length'] = NULL;
+            // Clear out existing widget input.
+            if (isset($widget_input[$name])) {
+              unset($widget_input[$name]);
               $reset_input = TRUE;
             }
+
+            if (isset($item['length'])) {
+              // Unset length.
+              if (!in_array($item['type'], ['string', 'telephone'])) {
+                unset($item['length']);
+                if (isset($input[$name]['length'])) {
+                  unset($input[$name]['length']);
+                }
+              }
+              // Reset length.
+              else {
+                $item['length'] = NULL;
+                if (isset($input[$name]['length'])) {
+                  $input[$name]['length'] = NULL;
+                }
+              }
+              $columns[$name] = $item;
+              $settings['items'][$name] = $item;
+              $reset_input = TRUE;
+            }
+
             if ($item['type'] === 'entity_reference') {
               $settings['items'][$name]['target_type'] = NULL;
               // Force the selection of target type.
@@ -373,6 +408,8 @@ class CustomItem extends FieldItemBase {
       if ($reset_input) {
         $user_input = $form_state->getUserInput();
         NestedArray::setValue($user_input, [...$parents, 'items'], $input);
+        NestedArray::setValue($user_input, ['settings', 'field_settings'], $widget_input);
+        $form_state->setUserInput($user_input);
       }
     }
     else {

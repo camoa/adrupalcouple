@@ -3,6 +3,8 @@
  */
 
 /**
+ * @abstract
+ *
  * @prop {String} id
  * @prop {Object} settings
  * @prop {int} settings.cardinality
@@ -51,4 +53,32 @@ export class WidgetSubscriberBase {
    *   Source.
    */
   alterCoordinates(coordinates, index, source) {}
+
+  /**
+   * @param {GeolocationGeometry} geometry
+   *   Shape.
+   * @param {Number} index
+   *   Index.
+   * @param {String} source
+   *   Source.
+   */
+  addGeometry(geometry, index, source) {}
+
+  /**
+   * @param {Number} index
+   *   Index.
+   * @param {String} source
+   *   Source.
+   */
+  removeGeometry(index, source) {}
+
+  /**
+   * @param {GeolocationGeometry} geometry
+   *   Shape.
+   * @param {Number} index
+   *   Index.
+   * @param {String} source
+   *   Source.
+   */
+  alterGeometry(geometry, index, source) {}
 }

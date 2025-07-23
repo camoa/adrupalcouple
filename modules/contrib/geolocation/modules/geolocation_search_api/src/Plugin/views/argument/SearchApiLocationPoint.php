@@ -12,7 +12,7 @@ use Drupal\views\Plugin\views\argument\ArgumentPluginBase;
  *
  * @ingroup views_argument_handlers
  */
-#[ViewsArgument]
+#[ViewsArgument(id: 'search_api_location_point')]
 class SearchApiLocationPoint extends ArgumentPluginBase {
 
   use SearchApiHandlerTrait;
@@ -33,7 +33,7 @@ class SearchApiLocationPoint extends ArgumentPluginBase {
   /**
    * {@inheritdoc}
    */
-  public function buildOptionsForm(&$form, FormStateInterface $form_state) {
+  public function buildOptionsForm(mixed &$form, FormStateInterface $form_state): void {
     $form['default_radius'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Provide radius default'),
@@ -56,7 +56,7 @@ class SearchApiLocationPoint extends ArgumentPluginBase {
   /**
    * {@inheritdoc}
    */
-  public function validateOptionsForm(&$form, FormStateInterface $form_state) {
+  public function validateOptionsForm(mixed &$form, FormStateInterface $form_state): void {
     $radius = $form_state->getValue('options')['radius'];
     if (!is_numeric($radius) || $radius <= 0) {
       $form_state->setError($form['radius'], $this->t('You have to enter a numeric radius greater than 0.'));
@@ -67,7 +67,7 @@ class SearchApiLocationPoint extends ArgumentPluginBase {
   /**
    * {@inheritdoc}
    */
-  public function query($group_by = FALSE) {
+  public function query(mixed $group_by = FALSE): void {
     if ($geofilt = $this->parsePoint($this->argument)) {
       // Add radius from options, if appropriate.
       if ($this->options['default_radius']) {

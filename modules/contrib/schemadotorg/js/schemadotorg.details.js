@@ -31,7 +31,7 @@
 
       once(
         'schemadotorg-details-state',
-        'details[data-schemadotorg-details-key]',
+        'details[data-schemadotorg-details-key]:not(.field-group-tab)',
         context,
       ).forEach((element) => {
         const key = element.getAttribute('data-schemadotorg-details-key');
@@ -152,7 +152,7 @@
         // eslint-disable-next-line
         if (drupalSettings.path.currentPath.indexOf('node/add/') === 0 && drupalSettings.schemadotorg.request.method === 'GET') {
           // eslint-disable-next-line
-          document.querySelectorAll('details:not([open])').forEach((details) => {
+          document.querySelectorAll('details:not([open]):not(.field-group-tab)').forEach((details) => {
               if (details.querySelector('[required]')) {
                 setDetailsOpenState(details, true);
               }
@@ -164,13 +164,17 @@
 
         // Add button click event handler.
         button.addEventListener('click', () => {
-          const isClosed = document.querySelector('details:not([open])');
+          const isClosed = document.querySelector(
+            'details:not([open]):not(.field-group-tab)',
+          );
 
           // Toggle all details.
-          if (document.querySelector('details')) {
-            document.querySelectorAll('details').forEach((details) => {
-              setDetailsOpenState(details, isClosed);
-            });
+          if (document.querySelector('details:not(.field-group-tab)')) {
+            document
+              .querySelectorAll('details:not(.field-group-tab)')
+              .forEach((details) => {
+                setDetailsOpenState(details, isClosed);
+              });
 
             // Announce toggling of details state.
             const text = isClosed

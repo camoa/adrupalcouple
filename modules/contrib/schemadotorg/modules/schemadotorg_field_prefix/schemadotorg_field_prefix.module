@@ -13,25 +13,19 @@ use Drupal\field\Entity\FieldStorageConfig;
 /**
  * Implements hook_form_FORM_ID_alter().
  *
+ * Accounts for field UI improvements between Drupal 10.3 and 11.x.
+ *
  * @see \Drupal\field_ui\Form\FieldStorageAddForm::buildForm
+ * @see https://www.drupal.org/project/drupal/issues/3386762
  */
 function schemadotorg_field_prefix_form_field_ui_field_storage_add_form_alter(array &$form, FormStateInterface $form_state): void {
-  $field_prefix_options = \Drupal::config('schemadotorg_field_prefix.settings')->get('field_prefix_options');
+  $field_prefix_options = \Drupal::config('schemadotorg_field_prefix.settings')
+    ->get('field_prefix_options');
   if (empty($field_prefix_options)) {
     return;
   }
 
-  // Make sure the new field storage wrapper exists.
-  if (!isset($form['new_storage_wrapper'])) {
-    return;
-  }
-
-  $default_field_prefix = \Drupal::config('field_ui.settings')->get('field_prefix');
-  $field_prefix_value = $form_state->getValue('field_prefix')
-    ?? $default_field_prefix;
-
-  $field_prefix_description = \Drupal::config('schemadotorg_field_prefix.settings')->get('field_prefix_description');
-
+  // Field prefix options.
   $bundle = $form_state->get('bundle');
   $options = [];
   foreach ($field_prefix_options as $key => $value) {
@@ -40,34 +34,68 @@ function schemadotorg_field_prefix_form_field_ui_field_storage_add_form_alter(ar
     $options[$key] = $value;
   }
 
-  $form['new_storage_wrapper'] = [
-    // Add the ajax wrapper container.
-    '#prefix' => '<div id="schemadotorg-field-prefix-container">',
-    '#suffix' => '</div>',
-    // Add the field prefix select menu.
-    'field_prefix' => [
+  // Field prefix value.
+  $default_field_prefix = \Drupal::config('field_ui.settings')
+    ->get('field_prefix');
+  $field_prefix = $form_state->getValue('field_prefix')
+    ?? $default_field_prefix;
+
+  // Field prefix description.
+  $field_prefix_description = \Drupal::config('schemadotorg_field_prefix.settings')
+    ->get('field_prefix_description');
+
+  if (version_compare(\Drupal::VERSION, '11.2', '<')) {
+    // Make sure the new field storage wrapper exists.
+    if (isset($form['new_storage_wrapper'])) {
+      $form['new_storage_wrapper'] = [
+          // Add the ajax wrapper container.
+          '#prefix' => '<div id="schemadotorg-field-prefix-container">',
+          '#suffix' => '</div>',
+          // Add the field prefix select menu.
+          'field_prefix' => [
+            '#type' => 'select',
+            '#title' => t('Prefix'),
+            '#description' => $field_prefix_description,
+            '#options' => $options,
+            '#default_value' => $field_prefix,
+            '#ajax' => [
+              'callback' => 'schemadotorg_field_prefix_form_field_ui_field_storage_add_ajax_callback',
+              'wrapper' => 'schemadotorg-field-prefix-container',
+            ],
+          ],
+      ] + $form['new_storage_wrapper'];
+
+      // Update the field name (aka machine name) field prefix and maxlength.
+      $form['new_storage_wrapper']['field_name']['#field_prefix'] = $field_prefix;
+      $form['new_storage_wrapper']['field_name']['#maxlength'] = FieldStorageConfig::NAME_MAX_LENGTH - strlen($field_prefix);
+
+      // Validation callback to set the field name using the custom field prefix.
+      $form['actions']['submit']['#validate'][] = 'schemadotorg_field_prefix_form_field_ui_field_storage_add_form_validate';
+    }
+  }
+  else {
+    $form['#prefix'] = '<div id="schemadotorg-field-prefix-container">';
+    $form['#suffix'] = '</div>';
+
+    // Add field prefix element.
+    $form['field_prefix'] = [
       '#type' => 'select',
       '#title' => t('Prefix'),
+      '#weight' => -20,
       '#description' => $field_prefix_description,
       '#options' => $options,
-      '#default_value' => $field_prefix_value,
+      '#default_value' => $field_prefix,
       '#ajax' => [
         'callback' => 'schemadotorg_field_prefix_form_field_ui_field_storage_add_ajax_callback',
         'wrapper' => 'schemadotorg-field-prefix-container',
       ],
-    ],
-  ] + $form['new_storage_wrapper'];
+    ];
 
-  // Update the field name (aka machine name) field prefix and maxlength.
-  $form['new_storage_wrapper']['field_name']['#field_prefix'] = $field_prefix_value;
-  $form['new_storage_wrapper']['field_name']['#maxlength'] = FieldStorageConfig::NAME_MAX_LENGTH - strlen($field_prefix_value);
+    // Update the field name (aka machine name) field prefix and maxlength.
+    $form['field_name']['#field_prefix'] = $field_prefix;
+    $form['field_name']['#maxlength'] = FieldStorageConfig::NAME_MAX_LENGTH - strlen($field_prefix);
 
-  // Validation callback to set the field name using the custom field prefix.
-  if (version_compare(\Drupal::VERSION, '10.3', '>=')) {
-    $form['actions']['submit']['#validate'][] = 'schemadotorg_field_prefix_form_field_ui_field_storage_add_form_validate';
-  }
-  else {
-    // @todo Remove the below code when drupal:10.3.0 is full supported.
+    // Validation callback to set the field name using the custom field prefix.
     $form['#validate'][] = 'schemadotorg_field_prefix_form_field_ui_field_storage_add_form_validate';
   }
 }
@@ -78,18 +106,22 @@ function schemadotorg_field_prefix_form_field_ui_field_storage_add_form_alter(ar
 function schemadotorg_field_prefix_form_field_ui_field_storage_add_ajax_callback(array $form, FormStateInterface $form_state): array {
   // Ensure that the field label is required.
   // The field label's required state is lost via Drupal's #states API.
-  $form['new_storage_wrapper']['label']['#required'] = TRUE;
-  return $form['new_storage_wrapper'];
+  if (version_compare(\Drupal::VERSION, '11.2', '<=')) {
+    $form['new_storage_wrapper']['label']['#required'] = TRUE;
+    return $form['new_storage_wrapper'];
+  }
+  else {
+    unset($form['#prefix'], $form['#suffix']);
+    $form['label']['#required'] = TRUE;
+    return $form;
+  }
 }
 
 /**
  * Form validation handler for schemadotorg_field_prefix_form_field_ui_field_storage_add_form_alter().
- *
- * @see \Drupal\field_ui\Form\FieldStorageAddForm::validateAddNew()
  */
 function schemadotorg_field_prefix_form_field_ui_field_storage_add_form_validate(array &$form, FormStateInterface $form_state): void {
-  if ($form_state->getValue('new_storage_type')
-    && $form_state->getValue('label')
+  if ($form_state->getValue('label')
     && $form_state->getValue('field_name')
   ) {
     $field_prefix = $form_state->getValue('field_prefix');
@@ -99,7 +131,32 @@ function schemadotorg_field_prefix_form_field_ui_field_storage_add_form_validate
     $field_name = $form_state->getValue('field_name');
     $field_name = preg_replace('/^' . preg_quote($default_field_prefix, '/') . '/', '', $field_name);
 
-    $form_state->setValueForElement($form['new_storage_wrapper']['field_name'], $field_prefix . $field_name);
+    if (version_compare(\Drupal::VERSION, '11.2', '<=')) {
+      // @see \Drupal\field_ui\Form\FieldStorageAddForm::validateAddNew
+      if (isset($form['new_storage_wrapper'])) {
+        $form_state->setValueForElement($form['new_storage_wrapper']['field_name'], $field_prefix . $field_name);
+      }
+    }
+    else {
+      // @see \Drupal\field_ui\Form\FieldStorageAddForm::validateForm
+      $form_state->setValueForElement($form['field_name'], $field_prefix . $field_name);
+
+      /** @var \Drupal\field_ui\Form\FieldStorageAddForm $form_object */
+      $form_object = $form_state->getFormObject();
+      $entity_type_id = $form_state->get('entity_type_id');
+      $bundle = $form_state->get('bundle');
+
+      $field_storage_type = $form_state->getValue('field_options_wrapper') ?? $form_state->get('field_type');
+      // @phpstan-ignore-next-line method.notFound
+      $form_object->setTempStore(
+        $entity_type_id,
+        $field_storage_type,
+        $bundle,
+        $form_state->getValue('label'),
+        $field_prefix . $field_name,
+        $form_state->getValue('translatable')
+      );
+    }
   }
 }
 

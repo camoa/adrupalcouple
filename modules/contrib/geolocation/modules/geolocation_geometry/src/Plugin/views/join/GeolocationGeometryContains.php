@@ -19,7 +19,7 @@ class GeolocationGeometryContains extends JoinPluginBase implements JoinPluginIn
    *
    * @param \Drupal\Core\Database\Query\SelectInterface $select_query
    *   Select query.
-   * @param array $table
+   * @param string|array $table
    *   Table data.
    * @param \Drupal\views\Plugin\views\query\QueryPluginBase $view_query
    *   View query.

@@ -1,11 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\config_overlay\EventSubscriber;
 
+use Drupal\config_ignore\ConfigIgnoreConfig;
 use Drupal\Core\Config\ConfigCrudEvent;
 use Drupal\Core\Config\ConfigEvents;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Config\StorageInterface;
+use Drupal\Core\Extension\ModuleHandlerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -28,22 +32,36 @@ class ConfigDeleteSubscriber implements EventSubscriberInterface {
   protected ConfigFactoryInterface $configFactory;
 
   /**
+   * The module handler.
+   *
+   * @var \Drupal\Core\Extension\ModuleHandlerInterface
+   */
+  protected ModuleHandlerInterface $moduleHandler;
+
+  /**
    * Constructs a configuration subscriber for Config Overlay.
    *
    * @param \Drupal\Core\Config\StorageInterface $extensionStorage
    *   The configuration overlay extension storage.
    * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
    *   The configuration factory.
+   * @param \Drupal\Core\Extension\ModuleHandlerInterface $moduleHandler
+   *   The module handler.
    */
-  public function __construct(StorageInterface $extensionStorage, ConfigFactoryInterface $configFactory) {
+  public function __construct(
+    StorageInterface $extensionStorage,
+    ConfigFactoryInterface $configFactory,
+    ModuleHandlerInterface $moduleHandler,
+  ) {
     $this->extensionStorage = $extensionStorage;
     $this->configFactory = $configFactory;
+    $this->moduleHandler = $moduleHandler;
   }
 
   /**
    * {@inheritdoc}
    */
-  public static function getSubscribedEvents() {
+  public static function getSubscribedEvents(): array {
     return [
       ConfigEvents::SAVE => 'onSave',
       ConfigEvents::DELETE => 'onDelete',
@@ -75,6 +93,39 @@ class ConfigDeleteSubscriber implements EventSubscriberInterface {
    */
   public function onDelete(ConfigCrudEvent $event): void {
     $config_name = $event->getConfig()->getName();
+
+    // Do not record a deletion that should be ignored via Config Ignore.
+    // Integration with Config Ignore 1.x or 2.x are not supported (because
+    // those versions are not supported themselves), but avoid a fatal error
+    // by checking that the ConfigIgnoreConfig class, which was introduced in
+    // 3.x, exists.
+    if ($this->moduleHandler->moduleExists('config_ignore') && class_exists(ConfigIgnoreConfig::class)) {
+      $ignore_config = ConfigIgnoreConfig::fromConfig(
+        $this->configFactory->get('config_ignore.settings'),
+      );
+      $collection = $event->getConfig()->getStorage()->getCollectionName();
+      $ignoreImport = $ignore_config->isIgnored(
+        $collection,
+        $config_name,
+        'import',
+        'delete',
+      );
+      $ignoreExport = $ignore_config->isIgnored(
+        $collection,
+        $config_name,
+        'export',
+        'delete',
+      );
+      // If an advanced configuration only ignores the deletion on either import
+      // or export, the intended behavior for Config Overlay is not inherently
+      // clear so in that case we do record the deletion and assume that the
+      // "config_overlay.deleted" configuration is ignored explicitly on import
+      // or export depending on the use-case.
+      if ($ignoreImport && $ignoreExport) {
+        return;
+      }
+    }
+
     if ($this->extensionStorage->exists($config_name)) {
       $deleted = $this->configFactory->getEditable('config_overlay.deleted');
       $deleted_names = $deleted->get('names') ?: [];

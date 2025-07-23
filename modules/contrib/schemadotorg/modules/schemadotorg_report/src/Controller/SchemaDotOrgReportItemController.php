@@ -429,7 +429,8 @@ class SchemaDotOrgReportItemController extends ControllerBase {
     }
 
     // Get mapping defaults.
-    if (!$this->schemaTypeManager->isSubTypeOf($id, ['Enumeration'])) {
+    if (!$this->schemaTypeManager->isSubTypeOf($id, ['Enumeration'])
+      && !$this->isAjax()) {
       if ($table === 'types') {
         $default_entity_type_id = $this->getDefaultEntityTypeId($id);
         $mapping_defaults = $this->schemaMappingManager->getMappingDefaults(
@@ -490,7 +491,7 @@ class SchemaDotOrgReportItemController extends ControllerBase {
       ];
 
       // Subtype.
-      if ($item['sub_types']) {
+      if ($item['sub_types'] && !$this->isAjax()) {
         $subtypes = $this->schemaTypeManager->parseIds($item['sub_types']);
         $tree = $this->schemaTypeManager->getTypeTree($subtypes);
         $build['sub_types_hierarchy'] = [

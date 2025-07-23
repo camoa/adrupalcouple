@@ -37,7 +37,7 @@ class SchemaDotOrgEntityPrepopulateNodeLinksTest extends SchemaDotOrgBrowserTest
     $assert = $this->assertSession();
 
     $this->appendSchemaTypeDefaultProperties('Organization', ['member', 'subOrganization', 'parentOrganization']);
-    $this->appendSchemaTypeDefaultProperties('LocalBusiness', ['-member', 'employee']);
+    $this->appendSchemaTypeDefaultProperties('LocalBusiness', ['!member', 'employee']);
     $this->config('schemadotorg.settings')
       ->set('schema_properties.default_fields.worksFor.type', 'field_ui:entity_reference:node')
       ->set('schema_properties.default_fields.memberOf.type', 'field_ui:entity_reference:node')

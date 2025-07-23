@@ -171,7 +171,7 @@ class GeolocationGpxFieldDataProvider extends DataProviderBase implements DataPr
       return [];
     }
 
-    /** @var \Drupal\geolocation_gpx\Entity\GeolocationGpx $gpx */
+    /** @var \Drupal\geolocation_gpx\Entity\GeolocationGpx|null $gpx */
     $gpx = \Drupal::entityTypeManager()->getStorage('geolocation_gpx')->load($fieldItem->getValue()['gpx_id']);
 
     if (!$gpx) {
@@ -195,9 +195,9 @@ class GeolocationGpxFieldDataProvider extends DataProviderBase implements DataPr
       }
 
       $shapes[] = [
-        '#type' => 'geolocation_map_geometry',
+        '#type' => 'geolocation_map_shape',
         '#geometry' => $geometry,
-        '#title' => $track->entity->name?->value ?? $gpx->name->value,
+        '#title' => $track->entity->name->value ?? $gpx->name->value,
         '#stroke_color' => $settings['track_stroke_color_randomize'] ? sprintf('#%06X', mt_rand(0, 0xFFFFFF)) : $settings['track_stroke_color'],
         '#stroke_width' => (int) $settings['track_stroke_width'],
         '#stroke_opacity' => (float) $settings['track_stroke_opacity'],
@@ -217,7 +217,7 @@ class GeolocationGpxFieldDataProvider extends DataProviderBase implements DataPr
       }
 
       $shapes[] = [
-        '#type' => 'geolocation_map_geometry',
+        '#type' => 'geolocation_map_shape',
         '#geometry' => $geometry,
         '#title' => $route->entity->name->toString(),
         '#stroke_color' => $settings['track_stroke_color_randomize'] ? sprintf('#%06X', mt_rand(0, 0xFFFFFF)) : $settings['track_stroke_color'],
@@ -242,7 +242,7 @@ class GeolocationGpxFieldDataProvider extends DataProviderBase implements DataPr
       return [];
     }
 
-    /** @var \Drupal\geolocation_gpx\Entity\GeolocationGpx $gpx */
+    /** @var \Drupal\geolocation_gpx\Entity\GeolocationGpx|null $gpx */
     $gpx = \Drupal::entityTypeManager()->getStorage('geolocation_gpx')->load($fieldItem->getValue()['gpx_id']);
 
     if (!$gpx) {

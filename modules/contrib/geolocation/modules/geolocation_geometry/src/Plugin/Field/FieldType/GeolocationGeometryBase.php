@@ -12,6 +12,8 @@ use Drupal\Core\TypedData\MapDataDefinition;
  * Class Geolocation Geometry Base.
  *
  * @package Drupal\geolocation_geometry\Plugin\Field\FieldType
+ *
+ * @property string $geojson
  */
 abstract class GeolocationGeometryBase extends FieldItemBase {
 
@@ -134,6 +136,7 @@ abstract class GeolocationGeometryBase extends FieldItemBase {
    *   Coordinates.
    */
   protected static function getRandomCoordinates(?array $reference_point = NULL, float $range = 5): array {
+    // @todo Update to Gemeotry!
     if ($reference_point) {
       return [
         'latitude' => rand(

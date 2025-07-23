@@ -8,7 +8,7 @@ use Drupal\Component\Utility\Html;
 use Drupal\node\Entity\Node;
 
 /**
- * Tests the schema type entity reference selection.
+ * Tests The Schema.org type entity reference selection.
  *
  * @coversDefaultClass \Drupal\schemadotorg\Plugin\EntityReferenceSelection\SchemaDotOrgNodeReferenceSelection
  * @covers \Drupal\schemadotorg\Plugin\EntityReferenceSelection\SchemaDotOrgEntityReferenceSelection

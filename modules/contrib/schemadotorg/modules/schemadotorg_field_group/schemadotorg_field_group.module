@@ -9,6 +9,7 @@
 
 declare(strict_types=1);
 
+use Drupal\Component\Serialization\Yaml;
 use Drupal\Core\Entity\Display\EntityFormDisplayInterface;
 use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
 use Drupal\Core\Form\FormStateInterface;
@@ -166,13 +167,18 @@ group_name:
   name: Group label
   description: Group description
   weight: 0
+  form_type: details
+  form_settings:
+    open: true
+  view_type: fieldset
+  view_settings: {  }
   properties:
-    - schemaProperty
     - SchemaType--schemaProperty
-    - entity_type_id--schemaProperty
-    - entity_type_id--SchemaType--schemaProperty
-    - entity_type_id--bundle--field_name
-    - entity_type_id--field_name
+    - bundle--schemaProperty
+    - schemaProperty
+    - SchemaType--field_name
+    - bundle--field_name
+    - field_name
 ',
     ];
   }
@@ -187,6 +193,7 @@ group_name:
     'details' => t('Details'),
     'html_element' => t('HTML element'),
     'fieldset' => t('Fieldset'),
+    'tab' => t('Tab'),
   ];
   $form['schemadotorg_field_group']['default_form_type'] = [
     '#type' => 'select',
@@ -218,6 +225,65 @@ group_name:
     . '<strong>' . t('Please make sure to include any fields that will be placed in custom field group or should never be placed in a field group.') . '</strong>',
     '#example' => '- ' . implode(PHP_EOL . '- ', $examples),
   ];
+  $form['schemadotorg_field_group']['update_default_field_groups'] = [
+    '#type' => 'checkbox',
+    '#title' => t('Update default field groups for ungrouped Schema.org properties.'),
+    '#description' => t('If checked, the ungrouped Schema.org property/field names will be appended to the default field groups using the field name.'),
+    '#return_value' => TRUE,
+  ];
 
   $form['schemadotorg_field_group']['apply'] = [];
+
+  // Convert content (node) field group weights to default Schema.org property field weights.
+  $form['schemadotorg_field_group']['convert'] = [
+    '#type' => 'checkbox',
+    '#title' => t('Convert content (node) field group weights to default Schema.org property field weights.'),
+    '#description' => t("If checked, the 'Default Schema.org property field weights' will be updated to use the 'Default content (node) field groups' property/field weights."),
+    '#return_value' => TRUE,
+  ];
+  $default_field_groups = \Drupal::config('schemadotorg_field_group.settings')
+    ->get('default_field_groups.node');
+  $default_field_weights = [];
+  foreach ($default_field_groups as $default_field_group) {
+    $default_field_weights = array_merge($default_field_weights, $default_field_group['properties']);
+  }
+  $form['schemadotorg_field_group']['default_field_weights'] = [
+    '#type' => 'details',
+    '#title' => t('Default Schema.org property field weights'),
+    '#description' => t('Below is an example of default Schema.org property field weights generated from the current content (node) field group weights.'),
+    'code' => [
+      '#type' => 'html_tag',
+      '#tag' => 'pre',
+      '#plain_text' => Yaml::encode($default_field_weights),
+      '#attributes' => ['data-schemadotorg-codemirror-mode' => 'text/x-yaml'],
+      '#attached' => ['library' => ['schemadotorg/codemirror.yaml']],
+    ],
+  ];
+
+  // Add submit callback.
+  $form['#submit'][] = 'schemadotorg_field_group_form_schemadotorg_properties_settings_form_submit';
+}
+
+/**
+ * Form submission handler for schemadotorg_field_group_form_schemadotorg_properties_settings_form_alter().
+ *
+ * @see schemadotorg_field_group_form_schemadotorg_properties_settings_form_alter()
+ */
+function schemadotorg_field_group_form_schemadotorg_properties_settings_form_submit(array &$form, FormStateInterface $form_state): void {
+  if ($form_state->getValue(['schemadotorg_field_group', 'convert'])) {
+    $default_field_groups = \Drupal::config('schemadotorg_field_group.settings')
+      ->get('default_field_groups.node');
+
+    $default_field_weights = [];
+    foreach ($default_field_groups as $default_field_group) {
+      $default_field_weights = array_merge($default_field_weights, $default_field_group['properties']);
+    }
+
+    \Drupal::configFactory()
+      ->getEditable('schemadotorg.settings')
+      ->set('schema_properties.default_field_weights', $default_field_weights)
+      ->save();
+
+    \Drupal::messenger()->addStatus(t('Content (node) field group weights converted to default Schema.org property field weights.'));
+  }
 }

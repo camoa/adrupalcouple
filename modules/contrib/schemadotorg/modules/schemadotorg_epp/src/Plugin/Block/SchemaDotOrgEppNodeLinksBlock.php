@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\schemadotorg_epp\Plugin\Block;
 
+use Drupal\Core\Block\Attribute\Block;
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Cache\Cache;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
@@ -16,13 +17,11 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Provides a 'Schema.org Blueprint Entity Prepopulate Node Links' block.
- *
- * @Block(
- *   id = "schemadotorg_epp_node_links",
- *   admin_label = @Translation("Schema.org Blueprint Entity Prepopulate Node Links"),
- *   category = @Translation("Schema.org Blueprints"),
- * )
  */
+#[Block(id: 'schemadotorg_epp_node_links',
+  admin_label: new \Drupal\Core\StringTranslation\TranslatableMarkup('Schema.org Blueprint Entity Prepopulate Node Links'),
+  category: new \Drupal\Core\StringTranslation\TranslatableMarkup('Schema.org Blueprints'),
+)]
 class SchemaDotOrgEppNodeLinksBlock extends BlockBase implements ContainerFactoryPluginInterface {
 
   /**

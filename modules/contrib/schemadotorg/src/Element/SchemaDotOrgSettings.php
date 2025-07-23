@@ -14,14 +14,14 @@ use Drupal\Core\Form\ConfigTarget;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Form\ToConfig;
 use Drupal\Core\Link;
+use Drupal\Core\Render\Attribute\FormElement;
 use Drupal\Core\Render\Element\Textarea;
 use Drupal\Core\Url;
 
 /**
  * Provides a form element for Schema.org Blueprints settings.
- *
- * @FormElement("schemadotorg_settings")
  */
+#[FormElement("schemadotorg_settings")]
 class SchemaDotOrgSettings extends Textarea {
 
   /**

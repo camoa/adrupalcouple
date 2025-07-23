@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\Tests\config_overlay\Functional\Integration;
 
 use Drupal\system\MenuInterface;
@@ -39,8 +41,6 @@ class ConfigIgnoreTest extends ConfigOverlayTestBase {
       ])
       ->save();
     $this->exportConfig();
-    $this->container->set('config.storage.sync', NULL);
-    $this->configSyncStorage = $this->container->get('config.storage.sync');
 
     // Change the system date configuration and make sure that no change is
     // detected.
@@ -82,6 +82,15 @@ class ConfigIgnoreTest extends ConfigOverlayTestBase {
     $menu = $menuStorage->load('admin');
     $this->assertInstanceof(MenuInterface::class, $menu);
     $this->assertSame('Administration EDITED', $menu->label());
+
+    // Delete the shipped menu and make sure that Config Overlay does not
+    // recreate it (because it should be ignored per Config Ignore).
+    $menu->delete();
+    $this->assertConfigStorageChanges();
+    $this->configImporter()->import();
+    $menuStorage->resetCache(['admin']);
+    $menu = $menuStorage->load('admin');
+    $this->assertNull($menu);
   }
 
 }

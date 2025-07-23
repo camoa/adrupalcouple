@@ -38,22 +38,31 @@ class SchemaDotOrgAddressManager implements SchemaDotOrgAddressManagerInterface 
     ?string &$formatter_id,
     array &$formatter_settings,
   ): void {
-    // Make sure the field type is set to 'address'.
-    if ($field_storage_values['type'] !== 'address') {
+    // Make sure the field type is set to 'address' and that field overrides
+    // are empty.
+    if ($field_storage_values['type'] !== 'address'
+      || !empty($field_values['settings']['field_overrides'])) {
       return;
     }
 
     $config = $this->configFactory->get('schemadotorg_address.settings');
 
+    $parts = [
+      'entity_type_id' => $field_values['entity_type'],
+      'bundle' => $field_values['bundle'],
+      'schema_type' => $schema_type,
+      'schema_property' => $schema_property,
+    ];
+    $multiple_field_overrides = $this->schemaTypeManager->getSetting(
+      $config->get('field_overrides'),
+      $parts,
+      ['multiple' => TRUE],
+    ) ?? [];
+
     $field_overrides = [];
-    $field_overrides += $this->schemaTypeManager->getSetting(
-      $config->get('field_overrides'),
-      ['schema_type' => $schema_type, 'schema_property' => $schema_property]
-    ) ?? [];
-    $field_overrides += $this->schemaTypeManager->getSetting(
-      $config->get('field_overrides'),
-      ['schema_property' => $schema_property]
-    ) ?? [];
+    foreach ($multiple_field_overrides as $overrides) {
+      $field_overrides += $overrides;
+    }
 
     $field_values['settings']['field_overrides'] = [];
     foreach ($field_overrides as $property => $override) {

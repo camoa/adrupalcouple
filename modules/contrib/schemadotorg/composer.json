@@ -35,7 +35,7 @@
         "drupal/entity_usage": "^2.0",
         "drupal/epp": "^1.0",
         "drupal/existing_values_autocomplete_widget": "^2.0",
-        "drupal/field_group": "^3.0",
+        "drupal/field_group": "^4.0",
         "drupal/field_validation": "^3.0",
         "drupal/focal_point": "^2.0",
         "drupal/geolocation": "^3.0",

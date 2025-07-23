@@ -8,9 +8,12 @@ use Drupal\geolocation\MapProviderInterface;
 /**
  * Provides Recenter control element.
  */
-#[MapFeature(id: 'control_view_fullscreen',
+#[MapFeature(
+  id: 'control_view_fullscreen',
   name: new \Drupal\Core\StringTranslation\TranslatableMarkup('Map Control - View Fullscreen'),
-  description: new \Drupal\Core\StringTranslation\TranslatableMarkup('Trigger Fullscreen on entire View container.'), type: 'all')]
+  description: new \Drupal\Core\StringTranslation\TranslatableMarkup('Trigger Fullscreen on entire View container.'),
+  type: 'all',
+)]
 class ControlViewFullscreen extends ControlCustomElementBase {
 
   /**

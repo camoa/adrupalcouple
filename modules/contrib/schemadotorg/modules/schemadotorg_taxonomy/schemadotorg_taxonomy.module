@@ -139,9 +139,9 @@ unique_name:
    - SchemaType
    - entity_type_id--bundle
    - bundle
-   - '-SchemaType'
-   - '-entity_type_id--bundle'
-   - '-bundle'
+   - '!SchemaType'
+   - '!entity_type_id--bundle'
+   - '!bundle'
 
 ",
   ];

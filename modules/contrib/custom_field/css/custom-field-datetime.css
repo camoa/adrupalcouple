@@ -1,0 +1,18 @@
+/**
+ * @file
+ * Stylesheet for the custom_field_datetime form element.
+ */
+
+fieldset.custom-field-datetime-grid .fieldset__wrapper > div.form-wrapper {
+  display: inline-grid;
+  grid-template-columns: auto;
+  grid-auto-flow: column;
+  column-gap: 0.5rem;
+}
+
+fieldset.custom-field-datetime-grid
+  .fieldset__wrapper
+  > div.form-wrapper
+  > div.form-item {
+  margin-block: 0;
+}

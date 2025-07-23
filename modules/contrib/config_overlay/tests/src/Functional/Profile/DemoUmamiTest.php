@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\Tests\config_overlay\Functional\Profile;
 
 use Drupal\Core\Config\StorageInterface;
@@ -23,13 +25,12 @@ class DemoUmamiTest extends ConfigOverlayTestBase {
   protected function prepareEnvironment() {
     parent::prepareEnvironment();
 
-    /* @see https://www.drupal.org/project/drupal/issues/2990234 */
-    $this->translationFilesDirectory = $this->publicFilesDirectory . '/translations';
-    mkdir($this->translationFilesDirectory, 0777, TRUE);
+    $translationFilesDirectory = $this->publicFilesDirectory . '/translations';
+    mkdir($translationFilesDirectory, 0777, TRUE);
 
     // Prepare a translation file to avoid attempting to download a translation
     // file from the actual translation server during the test.
-    file_put_contents("$this->root/$this->translationFilesDirectory/drupal-8.0.0.es.po", '');
+    file_put_contents("$this->root/$translationFilesDirectory/drupal-8.0.0.es.po", '');
   }
 
   /**
@@ -75,12 +76,13 @@ class DemoUmamiTest extends ConfigOverlayTestBase {
   /**
    * {@inheritdoc}
    */
-  protected function getModules(): array {
-    $modules = parent::getModules();
-    $modules += [
-      'demo_umami_content' => 0,
-    ];
-    return $modules;
+  protected function getCoreExtensionConfiguration(): array {
+    $config = parent::getCoreExtensionConfiguration();
+    $config['module'] = module_config_sort(
+      $config['module']
+      + ['demo_umami_content' => 0]
+    );
+    return $config;
   }
 
 }

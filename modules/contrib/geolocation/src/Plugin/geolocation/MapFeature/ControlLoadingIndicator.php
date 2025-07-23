@@ -8,9 +8,12 @@ use Drupal\geolocation\MapProviderInterface;
 /**
  * Provides Recenter control element.
  */
-#[MapFeature(id: 'control_loading_indicator',
+#[MapFeature(
+  id: 'control_loading_indicator',
   name: new \Drupal\Core\StringTranslation\TranslatableMarkup('Map Control - Loading Indicator'),
-  description: new \Drupal\Core\StringTranslation\TranslatableMarkup('When using an interactive map, shows a loading icon and label if there is currently data fetched from the backend via AJAX.'), type: 'all')]
+  description: new \Drupal\Core\StringTranslation\TranslatableMarkup('When using an interactive map, shows a loading icon and label if there is currently data fetched from the backend via AJAX.'),
+  type: 'all',
+)]
 class ControlLoadingIndicator extends ControlCustomElementBase {
 
   /**

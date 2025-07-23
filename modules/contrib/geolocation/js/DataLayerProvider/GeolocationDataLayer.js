@@ -6,7 +6,7 @@ import { GeolocationShape } from "../Base/GeolocationShape.js";
  *
  * @prop {String} import_path
  * @prop {Object} settings
- * @prop {Object.<string, Object>} features
+ * @prop {Map<string, GeolocationLayerFeature>} features
  * @prop {String[]} scripts
  * @prop {String[]} async_scripts
  * @prop {String[]} stylesheets
@@ -28,7 +28,7 @@ export default class GeolocationDataLayer {
   constructor(map, id, layerSettings) {
     this.map = map;
     this.settings = layerSettings.settings;
-    this.features = [];
+    this.features = new Map();
     this.markers = [];
     this.shapes = [];
     this.id = id;
@@ -37,10 +37,12 @@ export default class GeolocationDataLayer {
   /**
    * @param {GeolocationLayerFeatureSettings} layerFeatureSettings
    *   Layer feature settings.
+   * @param {?string} id
+   *   Layer feature ID.
    * @return {Promise<GeolocationLayerFeature>|null}
    *   Loading feature Promise.
    */
-  loadFeature(layerFeatureSettings) {
+  loadFeature(layerFeatureSettings, id = null) {
     if (!layerFeatureSettings.import_path) {
       return null;
     }
@@ -76,7 +78,7 @@ export default class GeolocationDataLayer {
       .then((featureImport) => {
         try {
           const feature = new featureImport.default(layerFeatureSettings.settings, this);
-          this.features.push(feature);
+          this.features.set(id, feature);
 
           return feature;
         } catch (e) {
@@ -93,7 +95,7 @@ export default class GeolocationDataLayer {
     const featureImports = [];
 
     Object.keys(this.settings.features ?? {}).forEach((featureName) => {
-      const featurePromise = this.loadFeature(this.settings.features[featureName]);
+      const featurePromise = this.loadFeature(this.settings.features[featureName], featureName);
 
       if (featurePromise) {
         featureImports.push(featurePromise);
@@ -234,63 +236,10 @@ export default class GeolocationDataLayer {
         fillOpacity: shapeElement.getAttribute("data-fill-opacity") ?? 0.2,
       };
 
-      let geometry = {};
-      const geometryWrapper = shapeElement.querySelector(".geometry");
-      if (!geometryWrapper) {
-        return;
-      }
-
-      let points;
-
-      switch (geometryWrapper.getAttribute("data-type")) {
-        case "line":
-        case "polygon":
-          points = GeolocationShape.getPointsByGeoShapeMeta(geometryWrapper.querySelector('span[typeof="GeoShape"] meta'));
-
-          if (!points) {
-            break;
-          }
-          geometry = {
-            points,
-          };
-          break;
-
-        case "multiline":
-          geometry = {
-            lines: [],
-          };
-          geometryWrapper.querySelectorAll('span[typeof="GeoShape"] meta').forEach((meta) => {
-            points = GeolocationShape.getPointsByGeoShapeMeta(meta);
-            if (!points) {
-              return;
-            }
-            geometry.lines.push({
-              points,
-            });
-          });
-          break;
-
-        case "multipolygon":
-          geometry = {
-            polygons: [],
-          };
-          geometryWrapper.querySelectorAll('span[typeof="GeoShape"] meta').forEach((meta) => {
-            points = GeolocationShape.getPointsByGeoShapeMeta(meta);
-            if (!points) {
-              return;
-            }
-            geometry.polygons.push({
-              points,
-            });
-          });
-          break;
-
-        default:
-          console.error("Unknown shape type cannot be added.");
-      }
+      const geometry = JSON.parse(shapeElement.querySelector(".geometry")?.textContent);
 
       let shape;
-      switch (geometryWrapper.getAttribute("data-type")) {
+      switch (shapeElement.getAttribute("data-geometry-type")) {
         case "line":
           shape = this.map.createShapeLine(geometry, settings);
           break;

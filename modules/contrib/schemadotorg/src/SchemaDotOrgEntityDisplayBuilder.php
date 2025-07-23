@@ -71,11 +71,29 @@ class SchemaDotOrgEntityDisplayBuilder implements SchemaDotOrgEntityDisplayBuild
       ->get('schemadotorg.settings')
       ->get('schema_properties.default_field_weights');
     $weights = array_flip($weights);
-    // Start field weights at 1 since most default fields are set to 0.
-    array_walk(
-      $weights,
-      fn (&$weight) => ($weight += 1)
-    );
+
+    // Limit default field weight to maximum of 200 while preserving the weight
+    // of first 1/2 of the weights (i.e., 100).
+    $max_weight = 200;
+    $mid_weight = $max_weight / 2;
+    if (count($weights) < $max_weight) {
+      foreach ($weights as $key => $value) {
+        $weights[$key] = $value + 1;
+      }
+    }
+    else {
+      $increment = $mid_weight / (count($weights) - $mid_weight);
+      $weight = $mid_weight;
+      foreach ($weights as $key => $value) {
+        if ($value < $mid_weight) {
+          $weights[$key] = $value + 1;
+        }
+        else {
+          $weights[$key] = (int) round($weight) + 1;
+          $weight += $increment;
+        }
+      }
+    }
     return $weights;
   }
 
@@ -119,6 +137,9 @@ class SchemaDotOrgEntityDisplayBuilder implements SchemaDotOrgEntityDisplayBuild
     $max_field_weight = ($default_field_weights)
       ? (int) ceil(max($default_field_weights) / 10) * 10
       : 0;
+    if ($max_field_weight > 200) {
+      $max_field_weight = 200;
+    }
 
     // Get the field storage entity.
     /** @var \Drupal\field\FieldStorageConfigInterface|null $field_storage */

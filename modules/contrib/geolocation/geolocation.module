@@ -70,7 +70,7 @@ function geolocation_theme(): array {
         'row' => NULL,
       ],
     ],
-    'geolocation_map_geometry' => [
+    'geolocation_map_shape' => [
       'variables' => [
         'attributes' => NULL,
         'children' => NULL,
@@ -104,7 +104,7 @@ function geolocation_theme(): array {
 /**
  * Implements hook_migrate_field_info_alter().
  */
-function geolocation_migrate_field_info_alter(&$definitions): void {
+function geolocation_migrate_field_info_alter(array &$definitions): void {
   // Defines the location-to-geolocation migrate field plugin.
   // This code also wants to replace the location-to-address migrate field
   // plugin of Address module: a geolocation with latitude and longitude is way

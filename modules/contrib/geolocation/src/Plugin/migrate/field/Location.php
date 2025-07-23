@@ -17,7 +17,7 @@ class Location extends FieldPluginBase {
   /**
    * {@inheritdoc}
    */
-  public function alterFieldInstanceMigration(MigrationInterface $migration) {
+  public function alterFieldInstanceMigration(MigrationInterface $migration): void {
     parent::alterFieldInstanceMigration($migration);
     $additional_processes = [
       [
@@ -49,7 +49,7 @@ class Location extends FieldPluginBase {
   /**
    * {@inheritdoc}
    */
-  public function defineValueProcessPipeline(MigrationInterface $migration, $field_name, $data) {
+  public function defineValueProcessPipeline(MigrationInterface $migration, $field_name, $data): void {
     $migration->mergeProcessOfProperty($field_name, [
       'plugin' => 'location_to_geolocation',
       'source' => $field_name,

@@ -17,7 +17,7 @@ trait SearchApiLocationArgumentTrait {
    * @param string $field
    *   The field for which to add the options.
    */
-  protected function addFieldOptions(array &$original_options, array $add_options, $field) {
+  protected function addFieldOptions(array &$original_options, array $add_options, string $field): void {
     foreach ($original_options as &$field_options) {
       if ($field_options['field'] == $field) {
         // Found existing filter. Add our options and return.
@@ -25,7 +25,7 @@ trait SearchApiLocationArgumentTrait {
         return;
       }
     }
-    // Field not yet in options, create new element.
+    // Field not yet in options, create a new element.
     $add_options['field'] = $field;
     $original_options[] = $add_options;
   }

@@ -31,9 +31,9 @@ class CustomTableFormatter extends BaseFormatter {
     $form = parent::settingsForm($form, $form_state);
     foreach ($this->getCustomFieldItems() as $name => $custom_item) {
       // Remove non-applicable settings.
-      unset($form['fields'][$name]['formatter_settings']['label_display']);
-      unset($form['fields'][$name]['wrappers']['label_tag']);
-      unset($form['fields'][$name]['wrappers']['label_classes']);
+      unset($form['fields'][$name]['content']['formatter_settings']['label_display']);
+      unset($form['fields'][$name]['content']['wrappers']['label_tag']);
+      unset($form['fields'][$name]['content']['wrappers']['label_classes']);
     }
 
     return $form;
@@ -44,18 +44,20 @@ class CustomTableFormatter extends BaseFormatter {
    */
   public function viewElements(FieldItemListInterface $items, $langcode): array {
     $elements = [];
-    $settings = $this->getSettings();
     if (!$items->isEmpty()) {
       $component = Html::cleanCssIdentifier($this->fieldDefinition->getName());
-      $custom_items = $this->getCustomFieldItems();
+      $settings = $this->getSetting('fields') ?? [];
+      $custom_items = $this->sortFields($settings);
+
       $header = [];
       foreach ($custom_items as $name => $custom_item) {
-        $setting = $settings['fields'][$name] ?? [];
+        $setting = $settings[$name] ?? [];
         $is_hidden = isset($setting['format_type']) && $setting['format_type'] === 'hidden';
         if ($is_hidden) {
           continue;
         }
-        $field_label = $settings['fields'][$name]['formatter_settings']['field_label'] ?? NULL;
+        $formatter_settings = $setting['formatter_settings'] ?? [];
+        $field_label = $formatter_settings['field_label'] ?? NULL;
         $header[] = !empty($field_label) ? $field_label : $custom_item->getLabel();
       }
 
@@ -75,7 +77,7 @@ class CustomTableFormatter extends BaseFormatter {
         $elements[0]['#rows'][$delta]['class'][] = $component . '__item';
         $values = $this->getFormattedValues($item, $langcode);
         foreach ($custom_items as $name => $custom_item) {
-          $setting = $settings['fields'][$name] ?? [];
+          $setting = $settings[$name] ?? [];
           $is_hidden = isset($setting['format_type']) && $setting['format_type'] === 'hidden';
           if ($is_hidden) {
             continue;

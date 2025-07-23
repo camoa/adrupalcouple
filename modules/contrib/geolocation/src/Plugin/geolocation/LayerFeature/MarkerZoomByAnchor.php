@@ -12,7 +12,9 @@ use Drupal\geolocation\MapProviderInterface;
  */
 #[LayerFeature(id: 'marker_zoom_by_anchor',
   name: new \Drupal\Core\StringTranslation\TranslatableMarkup('Marker Zoom By Anchor'),
-  description: new \Drupal\Core\StringTranslation\TranslatableMarkup('Set a URL anchor.'), type: 'all')]
+  description: new \Drupal\Core\StringTranslation\TranslatableMarkup('Set a URL anchor.'),
+  type: 'all',
+)]
 class MarkerZoomByAnchor extends LayerFeatureBase {
 
   /**

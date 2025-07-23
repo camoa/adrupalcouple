@@ -19,6 +19,7 @@
     "new-cap": "off",
     "radix": "off",
     "no-jquery/no-ajax-events": "off",
+    "no-case-declarations": "off",
     "no-restricted-syntax": "off",
     "no-bitwise": "off"
   },

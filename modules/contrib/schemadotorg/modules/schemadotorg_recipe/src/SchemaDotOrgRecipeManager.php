@@ -10,12 +10,11 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Extension\ModuleExtensionList;
 use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\Recipe\Recipe;
+use Drupal\Core\Recipe\RecipeRunner;
 use Drupal\devel_generate\DevelGeneratePluginManager;
 use Drupal\schemadotorg\SchemaDotOrgMappingManagerInterface;
 use Drupal\schemadotorg\Traits\SchemaDotOrgDevelGenerateTrait;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\Process\PhpExecutableFinder;
-use Symfony\Component\Process\Process;
 
 /**
  * Schema.org Recipe manager.
@@ -198,28 +197,11 @@ class SchemaDotOrgRecipeManager implements SchemaDotOrgRecipeManagerInterface {
   /**
    * {@inheritdoc}
    */
-  public function apply(string $name): Process {
+  public function apply(string $name): void {
     $recipe = $this->getRecipe($name);
-
-    // Apply the recipe using a Process to get result.
-    // @see \Drupal\FunctionalTests\Core\Recipe\RecipeTestTrait::applyRecipe
-    // @see \Drupal\Core\Recipe\RecipeRunner::processRecipe
-    $root = $this->container->getParameter('app.root');
-    $path = $recipe['schemadotorg']['directory'];
-
-    $process = new Process([
-      (new PhpExecutableFinder())->find(),
-      'core/scripts/drupal',
-      'recipe',
-      $path,
-    ]);
-    $process->setWorkingDirectory($root);
-    $process->setTimeout(500);
-    $process->run();
-
+    $recipe = Recipe::createFromDirectory($recipe['schemadotorg']['directory']);
+    RecipeRunner::processRecipe($recipe);
     drupal_flush_all_caches();
-
-    return $process;
   }
 
   /**

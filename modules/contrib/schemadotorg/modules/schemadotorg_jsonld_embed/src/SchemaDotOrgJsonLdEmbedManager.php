@@ -139,6 +139,10 @@ class SchemaDotOrgJsonLdEmbedManager implements SchemaDotOrgJsonLdEmbedManagerIn
    *   Embedded media and content JSON-LD data.
    */
   protected function getEntityData(string $entity_type_id, string $uuid, BubbleableMetadata $bubbleable_metadata): ?array {
+    if (!$this->entityTypeManager->hasDefinition($entity_type_id)) {
+      return NULL;
+    }
+
     $embed_storage = $this->entityTypeManager->getStorage($entity_type_id);
     $embed_entities = $embed_storage->loadByProperties(['uuid' => $uuid]);
     if (!$embed_entities) {

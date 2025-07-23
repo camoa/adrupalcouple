@@ -58,9 +58,9 @@ SchemaType:
       '#description_link' => 'types',
       '#example' => "
 SchemaType:
-  - '-removedPropertyName01'
-  - '-removedPropertyName02'
-  - '-removedPropertyName03'
+  - '!removedPropertyName01'
+  - '!removedPropertyName02'
+  - '!removedPropertyName03'
   - propertyName01
   - propertyName02
   - propertyName03

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Drupal\schemadotorg_starterkit\EventSubscriber;
 
 use Drupal\Component\Serialization\Yaml;
+use Drupal\Core\Ajax\AjaxHelperTrait;
 use Drupal\Core\DependencyInjection\ServiceProviderBase;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
@@ -23,6 +24,7 @@ use Symfony\Component\HttpKernel\KernelEvents;
 class SchemaDotOrgStarterkitEventSubscriber extends ServiceProviderBase implements EventSubscriberInterface {
   use StringTranslationTrait;
   use SchemaDotOrgMappingStorageTrait;
+  use AjaxHelperTrait;
 
   /**
    * Constructs a SchemaDotOrgStarterkitEventSubscriber object.
@@ -50,6 +52,10 @@ class SchemaDotOrgStarterkitEventSubscriber extends ServiceProviderBase implemen
    *   The event to process.
    */
   public function onView(ViewEvent $event): void {
+    if ($this->isAjax()) {
+      return;
+    }
+
     $route_name = $this->routeMatch->getRouteName();
     $id = $this->routeMatch->getParameter('id');
     if ($route_name !== 'schemadotorg_report'

@@ -56,7 +56,7 @@ const ed11yInitializer = function () {
     'p': 'table:not(.field-multiple-table) p',
     'h': '.filter-guidelines-item *, nav *, [id$="-local-tasks"] *, .block-local-tasks-block *, .tabledrag h4',
     // disable alt text tests on unspoken images
-    'img': '[aria-hidden], [aria-hidden] img, a[href][aria-label] img, button[aria-label] img, a[href][aria-labelledby] img, button[aria-labelledby] img',
+    'img': '[aria-hidden], [aria-hidden] img, [role="presentation"], a[href][aria-label] img, button[aria-label] img, a[href][aria-labelledby] img, button[aria-labelledby] img',
     // disable link text check on disabled and admin links:
     'a': `[aria-hidden][tabindex], [id$="-local-tasks"] a, .block-local-tasks-block a, .filter-help > a, .contextual-region > nav a ${drupalSettings.path.currentPathIsAdmin ? ', a[target="_blank"]' : ''}`,
     // 'li': false,

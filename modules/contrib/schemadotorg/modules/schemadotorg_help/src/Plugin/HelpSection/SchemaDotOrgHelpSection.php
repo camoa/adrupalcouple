@@ -9,20 +9,20 @@ use Drupal\Core\Extension\ModuleExtensionList;
 use Drupal\Core\Link;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Url;
+use Drupal\help\Attribute\HelpSection;
 use Drupal\help\Plugin\HelpSection\HelpSectionPluginBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Provides the Schema.org Blueprints section for the help page.
- *
- * @HelpSection(
- *   id = "schemadotorg",
- *   title = @Translation("Schema.org Blueprints"),
- *   weight = 20,
- *   description = @Translation("The Schema.org Blueprints module uses Schema.org as the blueprint for the content architecture and structured data in a Drupal website."),
- *   permission = "access help pages"
- * )
  */
+#[HelpSection(
+  id: 'schemadotorg',
+  title: new \Drupal\Core\StringTranslation\TranslatableMarkup('Schema.org Blueprints'),
+  weight: 20,
+  description: new \Drupal\Core\StringTranslation\TranslatableMarkup('The Schema.org Blueprints module uses Schema.org as the blueprint for the content architecture and structured data in a Drupal website.'),
+  permission: 'access help pages',
+)]
 class SchemaDotOrgHelpSection extends HelpSectionPluginBase implements ContainerFactoryPluginInterface {
 
   /**

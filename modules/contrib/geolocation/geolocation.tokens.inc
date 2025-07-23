@@ -64,7 +64,7 @@ function geolocation_token_info(): array {
 /**
  * Implements hook_tokens().
  */
-function geolocation_tokens($type, $tokens, array $data, array $options, BubbleableMetadata $bubbleable_metadata): array {
+function geolocation_tokens(string $type, array $tokens, array $data, array $options, BubbleableMetadata $bubbleable_metadata): array {
   $replacements = [];
 
   if (!empty($data['field_property'])) {

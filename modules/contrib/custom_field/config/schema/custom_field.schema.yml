@@ -75,6 +75,9 @@ custom_field.formatter.*:
   type: mapping
   label: 'Formatter settings'
   mapping:
+    weight:
+      type: weight
+      label: 'Weight'
     format_type:
       type: string
       label: 'Format type'
@@ -268,6 +271,10 @@ field.formatter.settings.custom_list:
 field.formatter.settings.custom_table:
   type: custom_field_formatter_base
   label: 'Table'
+
+field.formatter.settings.flipped_table:
+  type: custom_field_formatter_base
+  label: 'Table (flipped)'
 
 field.formatter.settings.custom_template:
   type: mapping

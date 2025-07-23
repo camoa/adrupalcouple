@@ -21,6 +21,7 @@ class LayerFeature extends Plugin {
     public readonly ?TranslatableMarkup $name = NULL,
     public readonly ?TranslatableMarkup $description = NULL,
     public readonly ?string $type = NULL,
+    public readonly bool $hidden = FALSE,
     public readonly ?string $deriver = NULL,
   ) {}
 

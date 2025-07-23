@@ -45,6 +45,7 @@
 
   <rule ref="SlevomatCodingStandard.Namespaces.AlphabeticallySortedUses"/>
   <rule ref="SlevomatCodingStandard.ControlStructures.DisallowYodaComparison"/>
+  <rule ref="SlevomatCodingStandard.TypeHints.DNFTypeHintFormat"/>
 
   <rule ref="SlevomatCodingStandard.TypeHints">
     <exclude name="SlevomatCodingStandard.TypeHints.ParameterTypeHint.UselessAnnotation"/>
@@ -55,6 +56,7 @@
     <exclude name="SlevomatCodingStandard.TypeHints.DisallowArrayTypeHintSyntax.DisallowedArrayTypeHintSyntax"/>
     <exclude name="SlevomatCodingStandard.TypeHints.DisallowMixedTypeHint"/>
     <exclude name="SlevomatCodingStandard.TypeHints.ClassConstantTypeHint.MissingNativeTypeHint"/>
+    <exclude name="SlevomatCodingStandard.TypeHints.UnionTypeHintFormat"/>
   </rule>
 
 </ruleset>

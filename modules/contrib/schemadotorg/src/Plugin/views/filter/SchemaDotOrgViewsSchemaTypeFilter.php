@@ -8,6 +8,7 @@ use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface;
 use Drupal\schemadotorg\Traits\SchemaDotOrgMappingStorageTrait;
+use Drupal\views\Attribute\ViewsFilter;
 use Drupal\views\Plugin\views\display\DisplayPluginBase;
 use Drupal\views\Plugin\views\filter\InOperator;
 use Drupal\views\ViewExecutable;
@@ -18,9 +19,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *
  * @ingroup views_filter_handlers
  * @see \Drupal\views\Plugin\views\filter\Bundle
- *
- * @ViewsFilter("schemadotorg_type")
  */
+#[ViewsFilter("schemadotorg_type")]
 class SchemaDotOrgViewsSchemaTypeFilter extends InOperator {
   use SchemaDotOrgMappingStorageTrait;
 

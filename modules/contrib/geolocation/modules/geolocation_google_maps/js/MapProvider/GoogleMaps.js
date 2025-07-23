@@ -265,18 +265,30 @@ export default class GoogleMaps extends GeolocationMapBase {
     return new GoogleCircle(center, radius, this, settings);
   }
 
+  /**
+   * @return {GoogleShapeLine}
+   */
   createShapeLine(geometry, settings) {
     return new GoogleShapeLine(geometry, settings, this);
   }
 
+  /**
+   * @return {GoogleShapePolygon}
+   */
   createShapePolygon(geometry, settings) {
     return new GoogleShapePolygon(geometry, settings, this);
   }
 
+  /**
+   * @return {GoogleShapeMultiLine}
+   */
   createShapeMultiLine(geometry, settings) {
     return new GoogleShapeMultiLine(geometry, settings, this);
   }
 
+  /**
+   * @return {GoogleShapeMultiPolygon}
+   */
   createShapeMultiPolygon(geometry, settings) {
     return new GoogleShapeMultiPolygon(geometry, settings, this);
   }

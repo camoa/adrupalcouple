@@ -91,7 +91,7 @@ class SchemaDotOrgUiMappingFormTest extends SchemaDotOrgBrowserTestBase {
     // Validation.
     /* ********************************************************************** */
 
-    // Check validating the schema type before continuing.
+    // Check validating The Schema.org type before continuing.
     $this->drupalGet('admin/structure/paragraphs_type/schemadotorg', ['query' => ['type' => 'NotThing']]);
     $assert->statusMessageContains('The Schema.org type NotThing is not valid.', 'warning');
     $assert->buttonExists('Find');

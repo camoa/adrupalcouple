@@ -82,6 +82,23 @@ schemadotorg_custom_field.settings:
                 rows:
                   type: integer
                   label: Rows
+                enabled_attributes:
+                  type: sequence
+                  sequence:
+                    type: boolean
+                    label: 'Enabled attributes'
+          widget_id:
+            type: string
+            label: 'Widget ID'
+          widget_settings:
+            type: ignore
+            label: 'Widget settings'
+          formatter_id:
+            type: string
+            label: 'Formatter ID'
+          formatter_settings:
+            type: ignore
+            label: 'Formatter settings'
     default_format:
       type: string
       label: 'Default format'

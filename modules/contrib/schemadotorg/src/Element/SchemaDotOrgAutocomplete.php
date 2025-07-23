@@ -5,18 +5,18 @@ declare(strict_types=1);
 namespace Drupal\schemadotorg\Element;
 
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Render\Attribute\FormElement;
 use Drupal\Core\Render\Element\Textfield;
 use Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface;
 
 /**
  * Provides a Schema.org (type or property) autocomplete form element.
  *
- * @FormElement("schemadotorg_autocomplete")
- *
  * @see \Drupal\schemadotorg\Controller\SchemaDotOrgAutocompleteController::autocomplete
  * @see \Drupal\schemadotorg_report\Form\SchemaDotOrgReportFilterForm::buildForm
  * @see \Drupal\schemadotorg_ui\Form\SchemaDotOrgUiMappingTypeSelectForm::buildForm
  */
+#[FormElement("schemadotorg_autocomplete")]
 class SchemaDotOrgAutocomplete extends Textfield {
 
   /**

@@ -123,10 +123,7 @@ abstract class DataProviderBase extends PluginBase implements DataProviderInterf
       $element['token_items'][] = $item;
     }
 
-    if (
-      $this->moduleHandler->moduleExists('token')
-      && method_exists($fieldDefinition, 'getTargetEntityTypeId')
-    ) {
+    if ($this->moduleHandler->moduleExists('token')) {
       // Add the token UI from the token module if present.
       $element['token_help'] = [
         '#theme' => 'token_tree_link',

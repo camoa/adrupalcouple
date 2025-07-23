@@ -2,8 +2,7 @@ import { GeolocationCoordinates } from "./GeolocationCoordinates.js";
 import { GeolocationShape } from "./GeolocationShape.js";
 
 /**
- * @prop {Object} geometry
- * @prop {{points: GeolocationCoordinates[]}} geometry.polygons
+ * @prop {GeolocationGeometry} geometry
  */
 export class GeolocationShapeMultiPolygon extends GeolocationShape {
   constructor(geometry, settings = {}, map) {

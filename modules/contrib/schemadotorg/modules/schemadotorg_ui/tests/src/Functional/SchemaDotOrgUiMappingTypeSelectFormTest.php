@@ -32,7 +32,7 @@ class SchemaDotOrgUiMappingTypeSelectFormTest extends SchemaDotOrgBrowserTestBas
     $assert->fieldExists('type');
     $assert->buttonExists('Find');
 
-    // Check validating the schema type before continuing.
+    // Check validating The Schema.org type before continuing.
     $this->submitForm(['type' => 'NotThing'], 'Find');
     $assert->statusMessageContains('The Schema.org type NotThing is not valid.', 'error');
     $assert->fieldExists('type');

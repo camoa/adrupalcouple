@@ -88,6 +88,15 @@ function schemadotorg_additional_type_link_alter(array &$variables): void {
 }
 
 /**
+ * Implements hook_preprocess_links().
+ */
+function schemadotorg_additional_type_preprocess_links(array &$variables): void {
+  /** @var \Drupal\schemadotorg_additional_type\SchemaDotOrgAdditionalTypeManagerInterface $additional_type_manager */
+  $additional_type_manager = \Drupal::service('schemadotorg_additional_type.manager');
+  $additional_type_manager->preprocessLinks($variables);
+}
+
+/**
  * Implements hook_schemadotorg_jsonld_schema_type_entity_alter().
  */
 function schemadotorg_additional_type_schemadotorg_jsonld_schema_type_entity_alter(array &$data, EntityInterface $entity, ?SchemaDotOrgMappingInterface $mapping, BubbleableMetadata $bubbleable_metadata): void {

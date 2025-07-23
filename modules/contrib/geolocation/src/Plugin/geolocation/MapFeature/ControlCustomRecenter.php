@@ -8,9 +8,12 @@ use Drupal\geolocation\MapProviderInterface;
 /**
  * Provides Recenter control element.
  */
-#[MapFeature(id: 'control_recenter',
+#[MapFeature(
+  id: 'control_recenter',
   name: new \Drupal\Core\StringTranslation\TranslatableMarkup('Map Control - Recenter'),
-  description: new \Drupal\Core\StringTranslation\TranslatableMarkup('Add button to recenter map.'), type: 'all')]
+  description: new \Drupal\Core\StringTranslation\TranslatableMarkup('Add button to recenter map.'),
+  type: 'all',
+)]
 class ControlCustomRecenter extends ControlCustomElementBase {
 
   /**

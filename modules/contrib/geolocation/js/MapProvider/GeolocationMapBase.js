@@ -50,7 +50,7 @@ import { GeolocationShape } from "../Base/GeolocationShape.js";
  * @prop {HTMLElement} container
  * @prop {Map<String, GeolocationDataLayer>} dataLayers
  * @prop {Map<String, Object>} tileLayers
- * @prop {GeolocationMapFeature[]} features
+ * @prop {Map<String, GeolocationMapFeature>} features
  * @prop {GeolocationMapCenterBase[]} mapCenter
  */
 export class GeolocationMapBase {
@@ -64,7 +64,7 @@ export class GeolocationMapBase {
       throw new Error("Geolocation - Map container not found");
     }
 
-    this.features = [];
+    this.features = new Map();
     this.mapCenter = [];
     this.dataLayers = new Map();
     this.tileLayers = new Map();
@@ -127,10 +127,12 @@ export class GeolocationMapBase {
   /**
    * @param {GeolocationMapFeatureSettings} featureSettings
    *   Feature settings.
+   * @param {?string} id
+   *   Feature ID.
    * @return {Promise<GeolocationMapFeature>|null}
    *   Loaded feature.
    */
-  loadFeature(featureSettings) {
+  loadFeature(featureSettings, id = null) {
     if (!featureSettings.import_path) {
       return null;
     }
@@ -157,7 +159,7 @@ export class GeolocationMapBase {
       .then((featureImport) => {
         try {
           const feature = new featureImport.default(featureSettings.settings, this);
-          this.features.push(feature);
+          this.features.set(id, feature);
 
           return feature;
         } catch (e) {
@@ -173,7 +175,7 @@ export class GeolocationMapBase {
     const featureImports = [];
 
     Object.keys(this.settings.features ?? {}).forEach((featureName) => {
-      const featurePromise = this.loadFeature(this.settings.features[featureName]);
+      const featurePromise = this.loadFeature(this.settings.features[featureName], featureName);
 
       if (featurePromise) {
         featureImports.push(featurePromise);

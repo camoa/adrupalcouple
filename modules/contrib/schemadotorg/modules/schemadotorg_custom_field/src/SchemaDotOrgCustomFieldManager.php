@@ -183,10 +183,6 @@ class SchemaDotOrgCustomFieldManager implements SchemaDotOrgCustomFieldManagerIn
     $entity_type_id = $field_values['entity_type'];
     $field_storage_columns = [];
     $field_settings = [];
-
-    $formatter_id = 'custom_formatter';
-    $formatter_settings = [];
-
     foreach ($custom_field_schema_properties as $schema_property => $settings) {
       $data_type = $settings['data_type'] ?? 'string';
       /** @var \Drupal\custom_field\Plugin\CustomFieldTypeInterface $field_type */
@@ -267,8 +263,16 @@ class SchemaDotOrgCustomFieldManager implements SchemaDotOrgCustomFieldManagerIn
       'field_type' => 'custom',
     ];
 
-    $widget_id = 'custom_stacked';
-    $widget_settings = ['wrapper' => 'fieldset'];
+    // Widget id and settings.
+    $widget_id = $widget_id ?? $default_schema_properties['widget_id'] ?? 'custom_stacked';
+    $widget_settings += $default_schema_properties['widget_settings'] ?? [];
+    if ($widget_id === 'custom_stacked') {
+      $widget_settings += ['wrapper' => 'fieldset'];
+    }
+
+    // Formatter id and settings.
+    $formatter_id = $formatter_id ?? $default_schema_properties['formatter_id'] ?? 'custom_formatter';
+    $formatter_settings += $default_schema_properties['formatter_settings'] ?? [];
   }
 
   /**

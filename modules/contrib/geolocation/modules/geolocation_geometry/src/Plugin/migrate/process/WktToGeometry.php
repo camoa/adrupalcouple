@@ -32,6 +32,7 @@ class WktToGeometry extends ProcessPluginBase implements MigrateProcessInterface
       'wkt' => $geometry->toWKT(),
       'kml' => $geometry->toKML(),
       'gpx' => $geometry->toGPX(),
+      default => '',
     };
   }
 

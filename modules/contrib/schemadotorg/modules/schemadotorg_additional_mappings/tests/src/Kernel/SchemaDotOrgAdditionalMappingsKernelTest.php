@@ -50,7 +50,7 @@ class SchemaDotOrgAdditionalMappingsKernelTest extends SchemaDotOrgEntityKernelT
     $this->assertEquals($expected_additional_mappings, $mappings_defaults['additional_mappings']);
 
     // Check getting Schema.org mapping entity default values with
-    // schema properties that are disabled.
+    // Schema.org properties that are disabled.
     $defaults = [
       'additional_mappings' => [
         'WebPage' => [

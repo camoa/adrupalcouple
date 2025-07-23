@@ -47,3 +47,13 @@ function schemadotorg_field_group_update_10001(): void {
   $config->set('default_field_groups', $default_field_groups);
   $config->save();
 }
+
+/**
+ * Issue #3529498: Update default field groups for Schema.org properties.
+ */
+function schemadotorg_field_group_update_10002(): void {
+  \Drupal::configFactory()
+    ->getEditable('schemadotorg_field_group.settings')
+    ->set('update_default_field_groups', FALSE)
+    ->save();
+}

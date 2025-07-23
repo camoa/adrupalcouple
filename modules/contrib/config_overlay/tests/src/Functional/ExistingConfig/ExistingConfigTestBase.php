@@ -1,19 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\Tests\config_overlay\Functional\ExistingConfig;
 
-use Drupal\Component\FileSystem\FileSystem;
-use Drupal\Component\Serialization\Yaml;
-use Drupal\Core\Archiver\ArchiveTar;
+use Drupal\Component\Uuid\Php;
 use Drupal\Core\Config\StorageInterface;
-use Drupal\Core\StreamWrapper\PublicStream;
-use Drupal\FunctionalTests\Installer\InstallerExistingConfigTestBase;
+use Drupal\FunctionalTests\Installer\InstallerConfigDirectoryTestBase;
 use Drupal\Tests\config_overlay\Functional\ConfigOverlayTestTrait;
+use org\bovigo\vfs\vfsStream;
 
 /**
- * Provides a base class for testing existing configuration.
+ * Provides a base class for testing installation from existing configuration.
  */
-abstract class ExistingConfigTestBase extends InstallerExistingConfigTestBase {
+abstract class ExistingConfigTestBase extends InstallerConfigDirectoryTestBase {
 
   use ConfigOverlayTestTrait {
     getExpectedConfig as traitGetExpectedConfig;
@@ -26,11 +26,6 @@ abstract class ExistingConfigTestBase extends InstallerExistingConfigTestBase {
   protected static $modules = ['config_overlay'];
 
   /**
-   * {@inheritdoc}
-   */
-  protected $existingSyncDirectory = TRUE;
-
-  /**
    * A list of collections for this test's configuration.
    *
    * @var string[]
@@ -38,75 +33,32 @@ abstract class ExistingConfigTestBase extends InstallerExistingConfigTestBase {
   protected array $collections = [StorageInterface::DEFAULT_COLLECTION];
 
   /**
+   * The site UUID for the test site.
+   *
+   * @var string
+   */
+  protected string $siteUuid;
+
+  /**
    * {@inheritdoc}
    */
-  protected function getConfigTarball() {
-    /* @see \Drupal\config\Controller\ConfigController::downloadExport() */
-    // This is called from the test set-up, so we cannot use the file-system
-    // service.
-    /* @see \Drupal\Core\File\FileSystem::getTempDirectory() */
-    $temporaryDirectory = FileSystem::getOsTemporaryDirectory() ?: PublicStream::basePath() . '/tmp';
-    $archivePath = tempnam($temporaryDirectory, 'config');
-    $archive = new ArchiveTar($archivePath, 'gz');
+  protected function prepareEnvironment() {
+    vfsStream::setup('empty');
 
-    // The tarballs contain the following configuration files:
-    // - core.extension.yml: With the extensions given by the respective,
-    //   profile, the database driver module and Config Overlay.
-    // - system.date.yml: To set the default timezone to UTC.
-    // - system.site.yml: To set the site UUID, name and mail.
-    // This is called from the test set-up, so we cannot
-    // ConfigOverlayTestingTrait::getModules().
-    $config = [
-      'core.extension' => [
-        'module' => module_config_sort($this->getBaseModules() + ['config_overlay' => 0]),
-        'theme' => [
-          'stark' => 0,
-        ],
-        'profile' => $this->profile,
-      ],
-      'system.date' => [
-        'first_day' => 0,
-        'country' => [
-          'default' => NULL,
-        ],
-        'timezone' => [
-          'default' => 'UTC',
-          'user' => [
-            'configurable' => TRUE,
-            'default' => 0,
-            'warn' => FALSE,
-          ],
-        ],
-      ],
-      'system.site' => [
-        'langcode' => 'en',
-        'uuid' => 'bf34ffa4-5095-4316-9bea-99df28a35e03',
-        'name' => 'Site with ' . ucfirst($this->profile) . ' profile and Config Overlay',
-        'mail' => 'admin@example.com',
-        'slogan' => '',
-        'page' => [
-          '403' => '',
-          '404' => '',
-          'front' => '/user/login',
-        ],
-        'admin_compact_mode' => FALSE,
-        'weight_select_max' => 100,
-        'default_langcode' => 'en',
-        'mail_notification' => NULL,
-      ],
-    ];
+    $profile = $this->profile;
+    $this->profile = FALSE;
+    parent::prepareEnvironment();
+    $this->profile = $profile;
 
-    if (version_compare(\Drupal::VERSION, '10.3.0', '<')) {
-      // See https://www.drupal.org/project/drupal/issues/3437325
-      $config['system.date']['country']['default'] = '';
-      unset($config['system.site']['mail_notification']);
-    }
+    $this->siteUuid = (new Php())->generate();
+  }
 
-    foreach ($config as $name => $data) {
-      $archive->addString("$name.yml", Yaml::encode($data));
-    }
-
-    return $archivePath;
+  /**
+   * {@inheritdoc}
+   */
+  protected function getConfigLocation() {
+    /* @see \Drupal\Tests\config_overlay\Functional\ExistingConfig\ExistingConfigTestBase::prepareEnvironment() */
+    return 'vfs://empty';
   }
 
   /**
@@ -128,49 +80,105 @@ abstract class ExistingConfigTestBase extends InstallerExistingConfigTestBase {
   }
 
   /**
-   * {@inheritdoc}
+   * Returns the "system.date" configuration data for this test.
+   *
+   * @return array{'first_day': int, 'country': array, 'timezone': array}
+   *   The extension configuration data.
    */
-  protected function getOverriddenConfig(): array {
-    $overridden_config = $this->traitGetOverriddenConfig();
+  protected function getSystemDateConfiguration(): array {
+    $config = [
+      'first_day' => 0,
+      'country' => [
+        'default' => NULL,
+      ],
+      'timezone' => [
+        'default' => 'UTC',
+        'user' => [
+          'configurable' => TRUE,
+          'default' => 0,
+          'warn' => FALSE,
+        ],
+      ],
+    ];
 
-    // Tests based on InstallerTestBase do not call
-    // BrowserTestBase::installDrupal() and, by extension,
-    // FunctionalTestSetupTrait::initConfig(). The change to the 'system.mail'
-    // configuration is still performed, however.
-    /* @see \Drupal\FunctionalTests\Installer\InstallerTestBase::setUp() */
-    unset(
-      $overridden_config[StorageInterface::DEFAULT_COLLECTION]['system.logging'],
-      $overridden_config[StorageInterface::DEFAULT_COLLECTION]['system.performance'],
-    );
-
-    // The existing configuration should always be overridden.
-    foreach ($this->getExistingConfigNames() as $config_name) {
-      $overridden_config[StorageInterface::DEFAULT_COLLECTION] += [
-        $config_name => [],
-      ];
+    if (version_compare(\Drupal::VERSION, '10.3.0', '<')) {
+      // See https://www.drupal.org/project/drupal/issues/3437325
+      $config['country']['default'] = '';
     }
 
-    return $overridden_config;
+    return $config;
   }
 
   /**
-   * Gets a list of configuration names of the existing configuration.
+   * Returns the "system.mail" configuration data for this test.
    *
-   * @return string[]
-   *   A list of configuration names.
-   *
-   * @see \Drupal\FunctionalTests\Installer\InstallerExistingConfigTestBase::prepareEnvironment()
+   * @return array{'interface': string[], 'mailer_dsn'?: array}
+   *   The extension configuration data.
    */
-  protected function getExistingConfigNames(): array {
-    $archiver = new ArchiveTar($this->getConfigTarball(), 'gz');
-    $list = $archiver->listContent();
-    $config_names = [];
-    if (is_array($list)) {
-      foreach ($list as $file) {
-        $config_names[] = basename($file['filename'], '.yml');
-      }
+  protected function getSystemMailConfiguration(): array {
+    $config = [
+      'interface' => [
+        'default' => 'test_mail_collector',
+      ],
+    ];
+
+    if (version_compare(\Drupal::VERSION, '10.2.0-dev', '>=')) {
+      $config['mailer_dsn'] = [
+        'scheme' => 'null',
+        'host' => 'null',
+        'user' => NULL,
+        'password' => NULL,
+        'port' => NULL,
+        'options' => [],
+      ];
     }
-    return $config_names;
+
+    return $config;
+  }
+
+  /**
+   * Returns the "system.site" configuration data for this test.
+   *
+   * @return array
+   *   The extension configuration data.
+   */
+  protected function getSystemSiteConfiguration(): array {
+    $config = [
+      'langcode' => 'en',
+      'uuid' => $this->siteUuid,
+      'name' => 'Site with ' . ucfirst($this->profile) . ' profile and Config Overlay',
+      'mail' => 'admin@example.com',
+      'slogan' => '',
+      'page' => [
+        '403' => '',
+        '404' => '',
+        'front' => '/user/login',
+      ],
+      'admin_compact_mode' => FALSE,
+      'weight_select_max' => 100,
+      'default_langcode' => 'en',
+      'mail_notification' => NULL,
+    ];
+
+    if (version_compare(\Drupal::VERSION, '10.3.0', '<')) {
+      unset($config['mail_notification']);
+    }
+
+    return $config;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function testConfigSync(): void {
+    $change_list = $this->configImporter()->getStorageComparer()->getChangelist();
+    $expected = [
+      'create' => [],
+      'update' => [],
+      'delete' => [],
+      'rename' => [],
+    ];
+    $this->assertEquals($expected, $change_list);
   }
 
 }

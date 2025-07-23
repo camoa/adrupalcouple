@@ -1,6 +1,66 @@
 CHANGELOG
 =========
 
+7.3
+---
+
+ * Add the `filenameCharset` and `filenameCountUnit` options to the `File` constraint
+ * Deprecate defining custom constraints not supporting named arguments
+
+   Before:
+
+   ```php
+   use Symfony\Component\Validator\Constraint;
+
+   class CustomConstraint extends Constraint
+   {
+       public function __construct(array $options)
+       {
+           // ...
+       }
+   }
+   ```
+
+   After:
+
+   ```php
+   use Symfony\Component\Validator\Attribute\HasNamedArguments;
+   use Symfony\Component\Validator\Constraint;
+
+   class CustomConstraint extends Constraint
+   {
+       #[HasNamedArguments]
+       public function __construct($option1, $option2, $groups, $payload)
+       {
+           // ...
+       }
+   }
+   ```
+ * Deprecate passing an array of options to the constructors of the constraint classes, pass each option as a dedicated argument instead
+
+   Before:
+
+   ```php
+   new NotNull([
+       'groups' => ['foo', 'bar'],
+       'message' => 'a custom constraint violation message',
+   ])
+   ```
+
+   After:
+
+   ```php
+   new NotNull(
+       groups: ['foo', 'bar'],
+       message: 'a custom constraint violation message',
+   )
+   ```
+ * Add support for ratio checks for SVG files to the `Image` constraint
+ * Add support for the `otherwise` option in the `When` constraint
+ * Add support for multiple fields containing nested constraints in `Composite` constraints
+ * Add the `stopOnFirstError` option to the `Unique` constraint to validate all elements
+ * Add support for closures in the `When` constraint
+
 7.2
 ---
 
@@ -13,6 +73,7 @@ CHANGELOG
  * Add the `Week` constraint
  * Add `CompoundConstraintTestCase` to ease testing Compound Constraints
  * Add context variable to `WhenValidator`
+ * Add `format` parameter to `DateTime` constraint violation message
 
 7.1
 ---

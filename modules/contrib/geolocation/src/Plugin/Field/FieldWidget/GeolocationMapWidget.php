@@ -10,8 +10,11 @@ use Drupal\Core\Render\BubbleableMetadata;
 /**
  * Plugin implementation of the 'geolocation_map' widget.
  */
-#[FieldWidget(id: 'geolocation_map',
-  label: new \Drupal\Core\StringTranslation\TranslatableMarkup('Geolocation Map'), field_types: ['geolocation'])]
+#[FieldWidget(
+  id: 'geolocation_map',
+  label: new \Drupal\Core\StringTranslation\TranslatableMarkup('Geolocation Map'),
+  field_types: ['geolocation']
+)]
 class GeolocationMapWidget extends GeolocationMapWidgetBase {
 
   /**
@@ -66,39 +69,36 @@ class GeolocationMapWidget extends GeolocationMapWidgetBase {
   public function form(FieldItemListInterface $items, array &$form, FormStateInterface $form_state, $get_delta = NULL): array {
     $element = parent::form($items, $form, $form_state, $get_delta);
 
-    $element['#attached'] = BubbleableMetadata::mergeAttachments(
-      $element['#attached'] ?? [],
-      [
-        'drupalSettings' => [
-          'geolocation' => [
-            'widgetSettings' => [
-              $element['#attributes']['id'] => [
-                'widgetSubscribers' => [
-                  'geolocation_map' => [
-                    'import_path' => base_path() . $this->moduleHandler->getModule('geolocation')->getPath() . '/js/WidgetSubscriber/GeolocationFieldMapWidget.js',
-                    'settings' => [
-                      'mapId' => $element['map']['#id'],
-                      'cardinality' => $this->fieldDefinition->getFieldStorageDefinition()->getCardinality(),
-                      'field_name' => $this->fieldDefinition->getName(),
-                      'featureSettings' => [
-                        'import_path' => base_path() . $this->moduleHandler->getModule('geolocation')->getPath() . '/js/MapFeature/GeolocationFieldWidgetMapConnector.js',
-                      ],
-                    ],
+    $element['#attached'] = BubbleableMetadata::mergeAttachments($element['#attached'], [
+      'drupalSettings' => [
+        'geolocation' => [
+          'widgetSettings' => [
+            $element['#attributes']['id'] => [
+              'widgetSubscribers' => [
+                'geolocation_field' => [
+                  'import_path' => base_path() . $this->moduleHandler->getModule('geolocation')->getPath() . '/js/WidgetSubscriber/GeolocationFieldWidget.js',
+                  'settings' => [
+                    'cardinality' => $this->fieldDefinition->getFieldStorageDefinition()->getCardinality(),
+                    'field_name' => $this->fieldDefinition->getName(),
+                    'field_type' => $this->fieldDefinition->getType(),
                   ],
-                  'geolocation_field' => [
-                    'import_path' => base_path() . $this->moduleHandler->getModule('geolocation')->getPath() . '/js/WidgetSubscriber/GeolocationFieldWidget.js',
-                    'settings' => [
-                      'cardinality' => $this->fieldDefinition->getFieldStorageDefinition()->getCardinality(),
-                      'field_name' => $this->fieldDefinition->getName(),
-                    ],
+                ],
+                'geolocation_map' => [
+                  'import_path' => base_path() . $this->moduleHandler->getModule('geolocation')->getPath() . '/js/WidgetSubscriber/GeolocationFieldMapWidget.js',
+                  'settings' => [
+                    'mapId' => $element['map']['#id'],
+                    'cardinality' => $this->fieldDefinition->getFieldStorageDefinition()->getCardinality(),
+                    'field_name' => $this->fieldDefinition->getName(),
+                    'field_type' => $this->fieldDefinition->getType(),
+                    'feature_id' => $this->getWidgetFeatureId(),
                   ],
                 ],
               ],
             ],
           ],
         ],
-      ]
-    );
+      ],
+    ]);
 
     /**
      * @var Integer $index
@@ -121,16 +121,6 @@ class GeolocationMapWidget extends GeolocationMapWidgetBase {
           'data-geolocation-widget-index' => $index,
         ],
       ];
-    }
-
-    $context = [
-      'widget' => $this,
-      'form_state' => $form_state,
-      'field_definition' => $this->fieldDefinition,
-    ];
-
-    if (!$this->isDefaultValueWidget($form_state)) {
-      $this->moduleHandler->alter('geolocation_field_map_widget', $element, $context);
     }
 
     return $element;

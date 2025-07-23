@@ -4,4 +4,5 @@ description: Example views and pages for some more common use cases
 core_version_requirement: ^10 || ^11 || ^12
 package: Geolocation
 dependencies:
+  - geolocation:geolocation_leaflet
   - geolocation:geolocation_geometry

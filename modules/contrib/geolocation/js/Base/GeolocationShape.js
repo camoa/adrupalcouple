@@ -12,14 +12,6 @@
  * @prop {Number} [fillOpacity]
  */
 
-/**
- * @typedef {Object} GeolocationGeometry
- *
- * @prop {GeolocationCoordinates[]} [points]
- * @prop {Array.<GeolocationCoordinates[]>} [lines]
- * @prop {Array.<GeolocationCoordinates[]>} [polygons]
- */
-
 import { GeolocationCoordinates } from "./GeolocationCoordinates.js";
 import { GeolocationBoundaries } from "./GeolocationBoundaries.js";
 
@@ -72,37 +64,6 @@ export class GeolocationShape {
     }
   }
 
-  /**
-   * @param {Element} metaWrapper
-   *   Element.
-   * @return {GeolocationCoordinates[]}
-   *   Points.
-   */
-  static getPointsByGeoShapeMeta(metaWrapper) {
-    const points = [];
-
-    if (!metaWrapper) {
-      return points;
-    }
-
-    metaWrapper
-      .getAttribute("content")
-      ?.split(" ")
-      .forEach((value) => {
-        const coordinates = value.split(",");
-        if (coordinates.length !== 2) {
-          return;
-        }
-
-        const lat = parseFloat(coordinates[0]);
-        const lon = parseFloat(coordinates[1]);
-
-        points.push(new GeolocationCoordinates(lat, lon));
-      });
-
-    return points;
-  }
-
   getContent() {
     if (!this.content) {
       this.content = this.wrapper?.querySelector(".location-content")?.innerHTML ?? "";
@@ -112,7 +73,7 @@ export class GeolocationShape {
   }
 
   /**
-   * @param {Object} [geometry]
+   * @param {GeolocationGeometry} [geometry]
    *   Geometry.
    * @param {GeolocationShapeSettings} [settings]
    *   Settings.
@@ -169,30 +130,30 @@ export class GeolocationShape {
     switch (this.type) {
       case "line":
       case "polygon":
-        this.geometry.points.forEach((value) => {
-          bounds.north = bounds.north === null || value.lat > bounds.north ? value.lat : bounds.north;
-          bounds.south = bounds.south === null || value.lat < bounds.south ? value.lat : bounds.south;
-          bounds.east = bounds.east === null || value.lat > bounds.east ? value.lat : bounds.east;
-          bounds.west = bounds.west === null || value.lat < bounds.west ? value.lat : bounds.west;
+        this.geometry.coordinates.forEach((value) => {
+          bounds.north = bounds.north === null || value[1] > bounds.north ? value[1] : bounds.north;
+          bounds.south = bounds.south === null || value[1] < bounds.south ? value[1] : bounds.south;
+          bounds.east = bounds.east === null || value[0] > bounds.east ? value[0] : bounds.east;
+          bounds.west = bounds.west === null || value[0] < bounds.west ? value[0] : bounds.west;
         });
         break;
       case "multiline":
-        this.geometry.lines.forEach((line) => {
-          line.points.forEach((value) => {
-            bounds.north = bounds.north === null || value.lat > bounds.north ? value.lat : bounds.north;
-            bounds.south = bounds.south === null || value.lat < bounds.south ? value.lat : bounds.south;
-            bounds.east = bounds.east === null || value.lat > bounds.east ? value.lat : bounds.east;
-            bounds.west = bounds.west === null || value.lat < bounds.west ? value.lat : bounds.west;
+        this.geometry.coordinates.forEach((line) => {
+          line.coordinates.forEach((value) => {
+            bounds.north = bounds.north === null || value[1] > bounds.north ? value[1] : bounds.north;
+            bounds.south = bounds.south === null || value[1] < bounds.south ? value[1] : bounds.south;
+            bounds.east = bounds.east === null || value[0] > bounds.east ? value[0] : bounds.east;
+            bounds.west = bounds.west === null || value[0] < bounds.west ? value[0] : bounds.west;
           });
         });
         break;
       case "multipolygon":
-        this.geometry.polygons.forEach((polygon) => {
-          polygon.points.forEach((value) => {
-            bounds.north = bounds.north === null || value.lat > bounds.north ? value.lat : bounds.north;
-            bounds.south = bounds.south === null || value.lat < bounds.south ? value.lat : bounds.south;
-            bounds.east = bounds.east === null || value.lat > bounds.east ? value.lat : bounds.east;
-            bounds.west = bounds.west === null || value.lat < bounds.west ? value.lat : bounds.west;
+        this.geometry.coordinates.forEach((polygon) => {
+          polygon.coordinates.forEach((value) => {
+            bounds.north = bounds.north === null || value[1] > bounds.north ? value[1] : bounds.north;
+            bounds.south = bounds.south === null || value[1] < bounds.south ? value[1] : bounds.south;
+            bounds.east = bounds.east === null || value[0] > bounds.east ? value[0] : bounds.east;
+            bounds.west = bounds.west === null || value[0] < bounds.west ? value[0] : bounds.west;
           });
         });
         break;
@@ -205,7 +166,11 @@ export class GeolocationShape {
     return new GeolocationBoundaries(bounds);
   }
 
-  remove() {}
+  remove() {
+    this.map.dataLayers.forEach((layer) => {
+      layer.shapeRemoved(this);
+    });
+  }
 
   /**
    * Click handler delegation.

@@ -4,24 +4,30 @@ import { GeolocationCoordinates } from "../../../js/Base/GeolocationCoordinates.
 
 /**
  * @prop {GoogleMaps} map
+ *
+ * @mixes GoogleShapeTrait
  */
 export class GoogleShapeLine extends GeolocationShapeLine {
   constructor(geometry, settings = {}, map) {
     super(geometry, settings, map);
 
-    this.googleShapeTrait = new GoogleShapeTrait();
+    Object.assign(this, GoogleShapeTrait);
 
     this.googleShapes = [];
 
     const line = new google.maps.Polyline({
-      path: geometry.points,
+      path: [
+        geometry.coordinates.map((value) => {
+          return { lat: value[1], lng: value[0] };
+        }),
+      ],
       strokeColor: this.strokeColor,
       strokeOpacity: this.strokeOpacity,
       strokeWeight: this.strokeWidth,
     });
 
     if (this.title) {
-      this.googleShapeTrait.setTitle(line, this.title, this.map);
+      this.setTitle(line, this.title, this.map);
     }
 
     line.addListener("click", (event) => {
@@ -35,7 +41,7 @@ export class GoogleShapeLine extends GeolocationShapeLine {
 
   remove() {
     this.googleShapes.forEach((googleShape) => {
-      googleShape.remove();
+      googleShape.setMap();
     });
 
     super.remove();

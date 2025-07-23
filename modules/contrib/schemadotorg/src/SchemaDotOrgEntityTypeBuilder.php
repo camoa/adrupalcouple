@@ -85,8 +85,11 @@ class SchemaDotOrgEntityTypeBuilder implements SchemaDotOrgEntityTypeBuilderInte
     // @phpstan-ignore-next-line assign.propertyType
     $bundle_entity->schemaDotOrgType = $schema_type;
     // @phpstan-ignore-next-line assign.propertyType
-    $bundle_entity->schemaDotOrgValues =& $values;
+    $bundle_entity->schemaDotOrgValues = $values;
     $bundle_entity->save();
+    // Get altered values.
+    // @see \Drupal\schemadotorg_media\SchemaDotOrgMediaManager::mediaTypeInsert
+    $values = $bundle_entity->schemaDotOrgValues;
 
     $bundle_of = $bundle_entity->getEntityType()->getBundleOf();
     $bundle = $bundle_entity->id();

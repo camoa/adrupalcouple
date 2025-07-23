@@ -112,4 +112,65 @@ export default class GeolocationWidgetBroker {
       }
     });
   }
+
+  /**
+   * @param {GeolocationGeometry} geometry
+   *   Geometry.
+   * @param {Number} index
+   *   Index.
+   * @param {String} caller
+   *   Calling entity.
+   */
+  geometryAdded(geometry, index, caller) {
+    this.subscribers.forEach((subscriber, id) => {
+      if (id === caller) {
+        return;
+      }
+      try {
+        subscriber.addGeometry(geometry, index, caller);
+      } catch (e) {
+        console.error(e, `Subscriber ${subscriber.id} failed addGeometry: ${e.toString()}`);
+      }
+    });
+  }
+
+  /**
+   * @param {Number} index
+   *   Index.
+   * @param {String} caller
+   *   Caller.
+   */
+  geometryRemoved(index, caller) {
+    this.subscribers.forEach((subscriber, id) => {
+      if (id === caller) {
+        return;
+      }
+      try {
+        subscriber.removeGeometry(index, caller);
+      } catch (e) {
+        console.error(e, `Subscriber ${subscriber.id} failed removeGeometry: ${e.toString()}`);
+      }
+    });
+  }
+
+  /**
+   * @param {GeolocationGeometry} geometry
+   *   Geometry.
+   * @param {Number} index
+   *   Index.
+   * @param {String} caller
+   *   Caller.
+   */
+  geometryAltered(geometry, index, caller) {
+    this.subscribers.forEach((subscriber, id) => {
+      if (id === caller) {
+        return;
+      }
+      try {
+        subscriber.alterGeometry(geometry, index, caller);
+      } catch (e) {
+        console.error(e, `Subscriber ${subscriber.id} failed alterGeometry: ${e.toString()}`);
+      }
+    });
+  }
 }

@@ -194,7 +194,7 @@ class GeolocationGpxWaypoint extends ContentEntityBase {
    *   Time.
    */
   public function getFormattedTime(string $format = 'd.m.Y H:i:s'): ?string {
-    /** @var \DateTime $datetime */
+    /** @var \DateTime|NULL $datetime */
     $datetime = $this->time->value ?? NULL;
     if (!$datetime) {
       return NULL;

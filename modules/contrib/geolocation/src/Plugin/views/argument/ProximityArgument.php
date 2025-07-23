@@ -88,6 +88,7 @@ class ProximityArgument extends Formula {
 
     // The addWhere function is only available for SQL queries.
     if ($this->query instanceof Sql) {
+      // @phpstan-ignore-next-line
       $this->query->addWhere(0, $formula, $placeholders, 'formula');
     }
   }

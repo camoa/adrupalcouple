@@ -9,8 +9,8 @@ services:
     class: Drupal\Core\Config\StorageInterface
     factory: ['@config_overlay.extension_storage_factory', 'create']
     arguments: ['@config.storage']
-  config_overlay.config_subscriber.transform_early:
-    class: Drupal\config_overlay\EventSubscriber\ConfigTransformEarlySubscriber
+  config_overlay.config_subscriber.transform:
+    class: Drupal\config_overlay\EventSubscriber\ConfigTransformSubscriber
     arguments:
       - '@extension.list.profile'
       - '%install_profile%'
@@ -18,8 +18,11 @@ services:
       - '@config.storage'
     tags:
       - { name: event_subscriber }
-  config_overlay.config_subscriber.deletion:
+  config_overlay.config_subscriber.delete:
     class: Drupal\config_overlay\EventSubscriber\ConfigDeleteSubscriber
-    arguments: ['@config_overlay.extension_storage', '@config.factory']
+    arguments:
+      - '@config_overlay.extension_storage'
+      - '@config.factory'
+      - '@module_handler'
     tags:
       - { name: event_subscriber }

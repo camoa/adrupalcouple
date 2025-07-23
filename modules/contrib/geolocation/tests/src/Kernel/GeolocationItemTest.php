@@ -3,7 +3,6 @@
 namespace Drupal\Tests\geolocation\Kernel;
 
 use Drupal\Core\Field\FieldItemInterface;
-use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Tests\field\Kernel\FieldKernelTestBase;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
@@ -65,7 +64,6 @@ class GeolocationItemTest extends FieldKernelTestBase {
 
     /** @var \Drupal\entity_test\Entity\EntityTest $entity */
     $entity = $entityTestStorage->load($id);
-    $this->assertInstanceOf(FieldItemListInterface::class, $entity->get('field_test'), 'Field implements interface.');
     $this->assertInstanceOf(FieldItemInterface::class, $entity->get('field_test')[0], 'Field item implements interface.');
 
     /** @var \Drupal\geolocation\GeolocationItemListInterface $field_item */

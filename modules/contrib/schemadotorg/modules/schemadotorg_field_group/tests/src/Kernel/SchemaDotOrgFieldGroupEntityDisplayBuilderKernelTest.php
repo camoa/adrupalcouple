@@ -81,6 +81,12 @@ class SchemaDotOrgFieldGroupEntityDisplayBuilderKernelTest extends SchemaDotOrgE
       ->set('default_field_groups.node.general.properties', $properties)
       ->save();
 
+    // Set general form format type to details_sidebar.
+    $this->config('schemadotorg_field_group.settings')
+      ->set('default_field_groups.node.general.form_type', 'tab')
+      ->set('default_field_groups.node.general.form_settings', [])
+      ->save();
+
     // Create node.thing with a custom field.
     $defaults = [
       'properties' => [
@@ -100,14 +106,22 @@ class SchemaDotOrgFieldGroupEntityDisplayBuilderKernelTest extends SchemaDotOrgE
 
     // Check that default view display is created for Thing.
     $view_display = $this->entityDisplayRepository->getViewDisplay('node', 'thing', 'default');
-
     $field_group = $view_display->getThirdPartySettings('field_group');
 
-    // Check the general field group.
+    // Check the general field group tab.
     $this->assertEquals(['custom_a', 'custom_b', 'title'], $field_group['group_general']['children']);
     $this->assertEquals('General', $field_group['group_general']['label']);
     $this->assertEquals(-20, $field_group['group_general']['weight']);
+    $this->assertEquals('tab', $field_group['group_general']['format_type']);
     $this->assertEquals([], $field_group['group_general']['format_settings']);
+    $this->assertEquals('group_tabs', $field_group['group_general']['parent_name']);
+
+    // Check the field group tabs.
+    $this->assertEquals(['group_general'], $field_group['group_tabs']['children']);
+    $this->assertEquals('Tabs', $field_group['group_tabs']['label']);
+    $this->assertEquals(0, $field_group['group_tabs']['weight']);
+    $this->assertEquals('tabs', $field_group['group_tabs']['format_type']);
+    $this->assertEquals(['direction' => 'horizontal'], $field_group['group_tabs']['format_settings']);
 
     // Check the custom component.
     $component = $view_display->getComponent('custom_a');
@@ -209,6 +223,31 @@ class SchemaDotOrgFieldGroupEntityDisplayBuilderKernelTest extends SchemaDotOrgE
     $this->assertEquals('This is a placeholder', $component['settings']['placeholder']);
     $this->assertTrue($component['settings']['show_summary']);
     $this->assertEquals(18, $component['weight']);
+
+    // Check update default field groups for ungrouped Schema.org properties.
+    // Clear default field groups and create node:Event.
+    $this->config('schemadotorg_field_group.settings')
+      ->set('default_field_groups.node', [])
+      ->set('update_default_field_groups', TRUE)
+      ->save();
+    $this->createSchemaEntity('node', 'Event');
+    $expected_default_field_groups = [
+      'event' => [
+        'label' => 'Event',
+        'weight' => 0,
+        'properties' => [
+          'schema_disambiguating_desc',
+          'schema_duration',
+          'schema_end_date',
+          'schema_start_date',
+          'body',
+          'title',
+        ],
+      ],
+    ];
+    $actual_default_field_groups = $this->config('schemadotorg_field_group.settings')
+      ->get('default_field_groups.node');
+    $this->assertEquals($expected_default_field_groups, $actual_default_field_groups);
   }
 
 }

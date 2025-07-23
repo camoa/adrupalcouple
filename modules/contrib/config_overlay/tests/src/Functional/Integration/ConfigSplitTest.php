@@ -1,13 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\Tests\config_overlay\Functional\Integration;
 
 use Drupal\config_split\ConfigSplitManager;
 use Drupal\config_split\Entity\ConfigSplitEntityInterface;
 use Drupal\Core\Config\FileStorage;
+use Drupal\Core\Extension\ModuleExtensionList;
 use Drupal\Core\File\FileSystemInterface;
 use Drupal\system\MenuInterface;
 use Drupal\Tests\config_overlay\Functional\ConfigOverlayTestBase;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 // cspell:ignore stackable
 
@@ -17,6 +21,13 @@ use Drupal\Tests\config_overlay\Functional\ConfigOverlayTestBase;
  * @group config_overlay
  */
 class ConfigSplitTest extends ConfigOverlayTestBase {
+
+  /**
+   * The module extension list.
+   *
+   * @var \Drupal\Core\Extension\ModuleExtensionList
+   */
+  protected ModuleExtensionList $moduleExtensionList;
 
   /**
    * The configuration split manager.
@@ -43,6 +54,31 @@ class ConfigSplitTest extends ConfigOverlayTestBase {
    */
   protected function setUp(): void {
     parent::setUp();
+
+    // We want to ensure that the alteration of the config transformer
+    // subscriber priorities does not rely on a previously existing container.
+    // Thus, we unset the global container and compile a new container for the
+    // test.
+    \Drupal::unsetContainer();
+    // In order to compile a new container instead of just rebuilding an
+    // existing one:
+    // 1. There may be no cached container definition.
+    $this->kernel->invalidateContainer();
+    // 2. The kernel's container property must not be set, which can only be
+    //    achieved by creating a new kernel.
+    $requestStack = $this->container->get(RequestStack::class);
+    $this->initKernel($requestStack->getCurrentRequest());
+
+    $this->container = $this->kernel->getContainer();
+
+    $this->setUpServices();
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function setUpServices(): void {
+    parent::setUpServices();
 
     $this->configSplitManager = $this->container->get('config_split.manager');
   }
@@ -131,10 +167,11 @@ class ConfigSplitTest extends ConfigOverlayTestBase {
     $this->assertFileDoesNotExist("$splitDirectory/core.date_format.html_date.$extension");
     $this->assertFileDoesNotExist("$splitDirectory/field.settings.$extension");
 
-    // Now make the 'from_sync' split stack-able, so that shipped configuration
-    // from the User module, which it splits off, is no longer exported to the
-    // split directory.
+    // Now make the 'from_sync' split stack-able, so that shipped
+    // configuration from the User module, which it splits off, is no longer
+    // exported to the split directory.
     $syncSplitEntity->set('stackable', TRUE)->save();
+
     // Read the menu configuration into memory, before it is removed.
     $exportedMenuConfiguration = $this->readConfigFile("$splitDirectory/system.menu.admin.$extension");
     $this->exportConfig();

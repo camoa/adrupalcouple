@@ -271,3 +271,4 @@ disable_field_groups:
   - media
   - paragraph
   - taxonomy_term
+update_default_field_groups: false

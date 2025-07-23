@@ -38,6 +38,7 @@ class CoordinatesToGeometryPoint extends ProcessPluginBase implements MigratePro
       'wkt' => $point->toWKT(),
       'kml' => $point->toKML(),
       'gpx' => $point->toGPX(),
+      default => '',
     };
   }
 

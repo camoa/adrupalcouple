@@ -125,6 +125,15 @@ class SchemaDotOrgMappingManager implements SchemaDotOrgMappingManagerInterface 
             }
           }
 
+          // Check for custom field defaults via property default field.
+          if (!is_array($property)) {
+            $property_defaults = $this->schemaEntityFieldManager
+              ->getPropertyDefaultField($entity_type_id, $schema_type, $property_name);
+            if ($property_defaults) {
+              $property = $property_defaults;
+            }
+          }
+
           // Make sure the property definition is a field definition/array.
           if (!is_array($property)) {
             throw new \Exception(sprintf("Custom '%s' property/field is not defined or does not exist.", $property_name));

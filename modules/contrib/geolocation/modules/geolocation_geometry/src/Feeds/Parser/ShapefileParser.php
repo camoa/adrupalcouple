@@ -96,9 +96,11 @@ class ShapefileParser extends ParserBase {
 
     $result = new ParserResult();
 
+    // Debugging helping variable.
     $sample_data = [];
     $sample_set = FALSE;
 
+    // @phpstan-ignore-next-line Record might be empty.
     while ($record = $shapefile->fetchRecord()) {
       if ($record->isDeleted()) {
         continue;
@@ -133,6 +135,7 @@ class ShapefileParser extends ParserBase {
       $sample_set = TRUE;
     }
 
+    // @phpstan-ignore-next-line What?
     return $result;
   }
 

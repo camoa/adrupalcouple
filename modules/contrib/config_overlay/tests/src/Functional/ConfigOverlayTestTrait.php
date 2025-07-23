@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\Tests\config_overlay\Functional;
 
 use Drupal\Component\Serialization\SerializationInterface;
@@ -16,7 +18,6 @@ use Drupal\Core\Config\StorageInterface;
 use Drupal\Core\Database\Database;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
-use Drupal\Core\Extension\ProfileExtensionList;
 use Drupal\Core\Field\EntityReferenceFieldItemListInterface;
 use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\Site\Settings;
@@ -28,10 +29,11 @@ use Drupal\user\RoleInterface;
  *
  * This should only be used by tests extending BrowserTestBase.
  *
- * Classes using this should install the Config Overlay module and declare a
- * $collections property.
+ * Classes using this should install the Config Overlay module and declare
+ * $collections and $langcode properties.
  *
  * @see \Drupal\Tests\config_overlay\Functional\ConfigOverlayTestBase::$collections
+ * @see \Drupal\Tests\config_overlay\Functional\ConfigOverlayTestBase::$langcode
  */
 trait ConfigOverlayTestTrait {
 
@@ -55,13 +57,6 @@ trait ConfigOverlayTestTrait {
    * @var string
    */
   protected string $configSyncDirectory;
-
-  /**
-   * The configuration synchronization storage.
-   *
-   * @var \Drupal\Core\Config\StorageInterface
-   */
-  protected StorageInterface $configSyncStorage;
 
   /**
    * The entity type manager.
@@ -92,13 +87,6 @@ trait ConfigOverlayTestTrait {
   protected SerializationInterface $serializer;
 
   /**
-   * The profile extension list.
-   *
-   * @var \Drupal\Core\Extension\ProfileExtensionList
-   */
-  protected ProfileExtensionList $profileExtensionList;
-
-  /**
    * {@inheritdoc}
    *
    * @throws \Drupal\Core\Config\ConfigDirectoryNotDefinedException
@@ -106,20 +94,25 @@ trait ConfigOverlayTestTrait {
   protected function setUp(): void {
     parent::setUp();
 
-    $this->configManager = $this->container->get('config.manager');
-    $this->configStorage = $this->container->get('config.storage');
-    $this->configSyncStorage = $this->container->get('config.storage.sync');
-    $this->entityTypeManager = $this->container->get('entity_type.manager');
-    $this->fileSystem = $this->container->get('file_system');
-    $this->moduleHandler = $this->container->get('module_handler');
-    $this->serializer = $this->container->get('serialization.yaml');
-    $this->profileExtensionList = $this->container->get('extension.list.profile');
-
     /* @see \Drupal\Core\Config\FileStorageFactory::getSync() */
     $this->configSyncDirectory = Settings::get('config_sync_directory', FALSE);
     if ($this->configSyncDirectory === FALSE) {
       throw new ConfigDirectoryNotDefinedException('The config sync directory is not defined in $settings["config_sync_directory"]');
     }
+
+    $this->setUpServices();
+  }
+
+  /**
+   * Sets up the services used in the test.
+   */
+  protected function setUpServices(): void {
+    $this->configManager = $this->container->get('config.manager');
+    $this->configStorage = $this->container->get('config.storage');
+    $this->entityTypeManager = $this->container->get('entity_type.manager');
+    $this->fileSystem = $this->container->get('file_system');
+    $this->moduleHandler = $this->container->get('module_handler');
+    $this->serializer = $this->container->get('serialization.yaml');
   }
 
   /**
@@ -165,7 +158,7 @@ trait ConfigOverlayTestTrait {
    */
   public function testConfigExport(): void {
     $this->doTestInitialConfig();
-    if (in_array('config', array_keys($this->getModules()))) {
+    if (in_array('config', array_keys($this->getCoreExtensionConfiguration()['module']))) {
       $this->doTestExportTarball();
     }
 
@@ -387,13 +380,16 @@ trait ConfigOverlayTestTrait {
   protected function exportConfig(): array {
     $this->container->set('config.storage.export', NULL);
     $export_storage = $this->container->get('config.storage.export');
-    self::replaceStorageContents($export_storage, $this->configSyncStorage);
+    $sync_storage = $this->container->get('config.storage.sync');
+    self::replaceStorageContents($export_storage, $sync_storage);
 
     $extension = $this->serializer->getFileExtension();
     $files = $this->fileSystem->scanDirectory($this->configSyncDirectory, "/.\.$extension$/");
 
     // Build a list of URIs per configuration name and per collection.
-    $uris = [];
+    $uris = [
+      StorageInterface::DEFAULT_COLLECTION => [],
+    ];
     foreach ($files as $uri => $file) {
       $path = substr($uri, strlen($this->configSyncDirectory . '/'));
       if (!str_contains($path, '/')) {
@@ -498,13 +494,7 @@ trait ConfigOverlayTestTrait {
     // The core.extension will always be overridden.
     $overridden_config = [];
     $overridden_config[StorageInterface::DEFAULT_COLLECTION] = [];
-    $overridden_config[StorageInterface::DEFAULT_COLLECTION]['core.extension'] = [
-      'module' => module_config_sort($this->getModules()),
-      'theme' => [
-        $this->defaultTheme => 0,
-      ],
-      'profile' => $this->profile,
-    ];
+    $overridden_config[StorageInterface::DEFAULT_COLLECTION]['core.extension'] = $this->getCoreExtensionConfiguration();
 
     /* @see \Drupal\Core\Test\FunctionalTestSetupTrait::initConfig() */
     $overridden_config[StorageInterface::DEFAULT_COLLECTION]['system.date'] = [
@@ -608,17 +598,12 @@ trait ConfigOverlayTestTrait {
   }
 
   /**
-   * The base list of modules that will be installed in this test.
+   * Returns the "core.extension" configuration data for this test.
    *
-   * This list does not contain the list of modules installed by the
-   * installation profile.
-   *
-   * This method may be called during test set-up.
-   *
-   * @return int[]
-   *   The list of module weights, keyed by the respective module names.
+   * @return array{'modules': int[], 'themes': int[], 'profile': string}
+   *   The extension configuration data.
    */
-  protected function getBaseModules(): array {
+  protected function getCoreExtensionConfiguration(): array {
     $database_info = Database::getConnectionInfo()['default'];
     if (version_compare(\Drupal::VERSION, '10.2.0-dev', '>=')) {
       /* @see \Drupal\Core\Database\Database::getConnectionInfoAsUrl() */
@@ -638,29 +623,20 @@ trait ConfigOverlayTestTrait {
       /* @see install_finished() */
       $this->profile => 1000,
     ];
-    return $modules;
-  }
-
-  /**
-   * The list of modules that will be installed in this test.
-   *
-   * This list contains the list of modules installed by the installation
-   * profile.
-   *
-   * This method may not be called during test set-up, use
-   * ConfigOverlayTestingTrait::getBaseModules() for that.
-   *
-   * @return int[]
-   *   The list of module weights, keyed by the respective module names.
-   *
-   * @see \Drupal\Tests\config_overlay\Functional\ConfigOverlayTestTrait::getBaseModules()
-   */
-  protected function getModules(): array {
-    $modules = $this->getBaseModules();
 
     // Add any dependencies listed explicitly by the profile.
-    $profileInfo = $this->profileExtensionList->get($this->profile)->info;
-    $additionalDependencies = $profileInfo['install'] ?? [];
+    include_once $this->root . '/core/includes/install.inc';
+    $profileInfo = install_profile_info($this->profile);
+    $additionalDependencies = array_merge(
+      $profileInfo['dependencies'] ?? [],
+      $profileInfo['install'] ?? [],
+    );
+
+    // Installing in a language other than English enables the Interface
+    // Translation module.
+    if ($this->langcode !== 'en') {
+      $additionalDependencies[] = 'locale';
+    }
 
     // Also add any modules explicitly installed by the test.
     /* @see \Drupal\Core\Test\FunctionalTestSetupTrait::installModulesFromClassProperty() */
@@ -672,7 +648,6 @@ trait ConfigOverlayTestTrait {
       $class = get_parent_class($class);
     }
 
-    $prefixToRemove = 'drupal:';
     $moduleWeights = [
       /* @see content_translation_install() */
       'content_translation' => 10,
@@ -682,9 +657,6 @@ trait ConfigOverlayTestTrait {
       'views' => 10,
     ];
     foreach ($additionalDependencies as $additionalDependency) {
-      if (str_starts_with($additionalDependency, $prefixToRemove)) {
-        $additionalDependency = substr($additionalDependency, strlen($prefixToRemove));
-      }
       $modules[$additionalDependency] = $moduleWeights[$additionalDependency] ?? 0;
     }
 
@@ -715,7 +687,11 @@ trait ConfigOverlayTestTrait {
       ];
     }
 
-    return $modules;
+    return [
+      'module' => module_config_sort($modules),
+      'theme' => array_fill_keys($profileInfo['themes'] ?? [], 0),
+      'profile' => $this->profile,
+    ];
   }
 
   /**

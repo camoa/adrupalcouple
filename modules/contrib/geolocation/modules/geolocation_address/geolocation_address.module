@@ -16,7 +16,7 @@ use Drupal\geolocation_address\Plugin\migrate\field\Location;
 /**
  * Implements hook_geolocation_field_map_widget_alter().
  */
-function geolocation_address_geolocation_field_map_widget_alter(&$element, $context): void {
+function geolocation_address_geolocation_field_map_widget_alter(array &$element, array $context): void {
   /** @var \Drupal\geolocation\Plugin\Field\FieldWidget\GeolocationMapWidget $widget */
   $widget = $context['widget'];
 
@@ -141,7 +141,7 @@ function geolocation_address_geolocation_field_map_widget_alter(&$element, $cont
 /**
  * Implements hook_field_widget_third_party_settings_form().
  */
-function geolocation_address_field_widget_third_party_settings_form(WidgetInterface $widget, FieldDefinitionInterface $field_definition, $form_mode, $form, FormStateInterface $form_state): array {
+function geolocation_address_field_widget_third_party_settings_form(WidgetInterface $widget, FieldDefinitionInterface $field_definition, string $form_mode, array $form, FormStateInterface $form_state): array {
   if (!($widget instanceof GeolocationMapWidget)) {
     return [];
   }
@@ -330,8 +330,7 @@ function geolocation_address_field_widget_third_party_settings_form(WidgetInterf
 /**
  * Implements hook_field_widget_settings_summary_alter().
  */
-function geolocation_address_field_widget_settings_summary_alter(&$summary, $context): void {
-  /** @var \Drupal\geolocation\Plugin\Field\FieldWidget\GeolocationMapWidget $widget */
+function geolocation_address_field_widget_settings_summary_alter(array &$summary, array $context): void {
   $widget = $context['widget'];
 
   if (!($widget instanceof GeolocationMapWidget)) {
@@ -378,7 +377,7 @@ function geolocation_address_get_widget_settings(WidgetInterface $widget): array
 /**
  * Implements hook_migrate_field_info_alter().
  */
-function geolocation_address_migrate_field_info_alter(&$definitions): void {
+function geolocation_address_migrate_field_info_alter(array &$definitions): void {
   // When geolocation and also address modules are present, we can migrate both
   // the geological locations and also the addresses into their own field.
   if (!empty($definitions['location'])) {

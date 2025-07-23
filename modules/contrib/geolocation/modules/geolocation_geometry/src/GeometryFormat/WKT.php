@@ -82,11 +82,12 @@ class WKT implements GeometryFormatInterface { // phpcs:ignore
       case 'Polygon':
       case 'MultiPolygon':
         $components = [];
+        /** @var string $subvalue */
         foreach (preg_split('/\)\s*,\s*\(/', $value) as $subvalue) {
-          if ($subvalue[0] ?? FALSE == '(') {
+          if (($subvalue[0] ?? FALSE) === '(') {
             $subvalue = substr($subvalue, 1);
           }
-          if ($subvalue[strlen($subvalue) - 1] ?? FALSE == ')') {
+          if (($subvalue[strlen($subvalue) - 1] ?? FALSE) == ')') {
             $subvalue = substr($subvalue, 0, -1);
           }
 

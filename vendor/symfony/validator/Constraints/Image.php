@@ -11,6 +11,8 @@
 
 namespace Symfony\Component\Validator\Constraints;
 
+use Symfony\Component\Validator\Attribute\HasNamedArguments;
+
 /**
  * Validates that a file (or a path to a file) is a valid image.
  *
@@ -118,6 +120,7 @@ class Image extends File
      *
      * @see https://www.iana.org/assignments/media-types/media-types.xhtml Existing media types
      */
+    #[HasNamedArguments]
     public function __construct(
         ?array $options = null,
         int|string|null $maxSize = null,
@@ -167,6 +170,9 @@ class Image extends File
         mixed $payload = null,
         array|string|null $extensions = null,
         ?string $extensionsMessage = null,
+        ?string $filenameCharset = null,
+        ?string $filenameCountUnit = null,
+        ?string $filenameCharsetMessage = null,
     ) {
         parent::__construct(
             $options,
@@ -192,6 +198,9 @@ class Image extends File
             $payload,
             $extensions,
             $extensionsMessage,
+            $filenameCharset,
+            $filenameCountUnit,
+            $filenameCharsetMessage,
         );
 
         $this->minWidth = $minWidth ?? $this->minWidth;

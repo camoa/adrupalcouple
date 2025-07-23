@@ -440,7 +440,7 @@ class SchemaDotOrgSchemaTypeManagerKernelTest extends SchemaDotOrgKernelTestBase
       'Place' => 'This is a place.',
       'Thing' => 'This is thing',
       'name' => 'A name',
-      '-recipe' => 'Negated recipe (not returned)',
+      '!recipe' => 'Negated recipe (not returned)',
     ];
 
     $parts = [

@@ -4,17 +4,23 @@ import { GeolocationCoordinates } from "../../../js/Base/GeolocationCoordinates.
 
 /**
  * @prop {GoogleMaps} map
+ *
+ * @mixes GoogleShapeTrait
  */
 export class GoogleShapeMultiPolygon extends GeolocationShapeMultiPolygon {
   constructor(geometry, settings = {}, map) {
     super(geometry, settings, map);
 
-    this.googleShapeTrait = new GoogleShapeTrait();
+    Object.assign(this, GoogleShapeTrait);
 
     this.googleShapes = [];
-    this.geometry.polygons.forEach((polygonGeometry) => {
+    this.geometry.coordinates.forEach((polygonGeometry) => {
       const polygon = new google.maps.Polygon({
-        paths: polygonGeometry.points,
+        paths: [
+          polygonGeometry.coordinates[0].map((value) => {
+            return { lat: value[1], lng: value[0] };
+          }),
+        ],
         strokeColor: this.strokeColor,
         strokeOpacity: this.strokeOpacity,
         strokeWeight: this.strokeWidth,
@@ -22,7 +28,7 @@ export class GoogleShapeMultiPolygon extends GeolocationShapeMultiPolygon {
         fillOpacity: this.fillOpacity,
       });
       if (this.title) {
-        this.googleShapeTrait.setTitle(polygon, this.title, this.map);
+        this.setTitle(polygon, this.title, this.map);
       }
 
       polygon.addListener("click", (event) => {
@@ -37,7 +43,7 @@ export class GoogleShapeMultiPolygon extends GeolocationShapeMultiPolygon {
 
   remove() {
     this.googleShapes.forEach((googleShape) => {
-      googleShape.remove();
+      googleShape.setMap();
     });
 
     super.remove();

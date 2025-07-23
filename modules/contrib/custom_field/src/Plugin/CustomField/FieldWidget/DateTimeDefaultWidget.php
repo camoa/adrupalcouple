@@ -34,11 +34,14 @@ class DateTimeDefaultWidget extends DateTimeWidgetBase {
 
     // Wrap date and time elements with a fieldset.
     if ($datetime_type === 'datetime') {
-      $element['#theme_wrappers'][] = 'fieldset';
+      $element['#type'] = 'custom_field_datetime';
+      $element['#theme_wrappers'] = ['container', 'fieldset', 'container'];
+    }
+    else {
+      $element['#type'] = 'custom_field_datetime_date';
     }
 
     // Identify the type of date and time elements to use.
-    $date_type = 'date';
     $date_format = $date_storage->load('html_date')->getPattern();
     switch ($datetime_type) {
       case CustomFieldTypeInterface::DATETIME_TYPE_DATE:
@@ -54,7 +57,7 @@ class DateTimeDefaultWidget extends DateTimeWidgetBase {
 
     $element += [
       '#date_date_format' => $date_format,
-      '#date_date_element' => $date_type,
+      '#date_date_element' => 'date',
       '#date_date_callbacks' => [],
       '#date_time_format' => $time_format,
       '#date_time_element' => $time_type,

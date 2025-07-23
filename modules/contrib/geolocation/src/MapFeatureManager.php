@@ -26,7 +26,7 @@ class MapFeatureManager extends DefaultPluginManager {
   use DependencySerializationTrait;
 
   /**
-   * Constructs an MapFeatureManager object.
+   * Constructs a MapFeatureManager object.
    *
    * @param \Traversable $namespaces
    *   An object that implements \Traversable which contains the root paths
@@ -77,13 +77,9 @@ class MapFeatureManager extends DefaultPluginManager {
    *   Map feature list.
    */
   public function getMapFeaturesByMapType(string $type): array {
-    $definitions = $this->getDefinitions();
-    $list = [];
-    foreach ($definitions as $id => $definition) {
-      if ($definition['type'] == $type || $definition['type'] == 'all') {
-        $list[$id] = $definition;
-      }
-    }
+    $list = array_filter($this->getDefinitions(), function ($definition) use ($type) {
+      return $definition['type'] == $type || $definition['type'] == 'all';
+    });
 
     uasort($list, [self::class, 'sortByName']);
 
@@ -150,6 +146,10 @@ class MapFeatureManager extends DefaultPluginManager {
     foreach ($map_features as $feature_id => $feature_definition) {
       $feature = $this->getMapFeature($feature_id);
       if (empty($feature)) {
+        continue;
+      }
+
+      if ($feature->getPluginDefinition()['hidden'] ?? FALSE) {
         continue;
       }
 
@@ -246,8 +246,7 @@ class MapFeatureManager extends DefaultPluginManager {
         continue;
       }
 
-      $feature = $this->getMapFeature($feature_id);
-      if ($feature && method_exists($feature, 'validateSettingsForm')) {
+      if ($feature = $this->getMapFeature($feature_id)) {
         $feature_parents = $parents;
         array_push($feature_parents, $feature_id, 'settings');
         $feature->validateSettingsForm($feature_settings['settings'] ?? [], $form_state, $feature_parents);

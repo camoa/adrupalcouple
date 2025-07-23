@@ -48,7 +48,14 @@
       link.setAttribute('href', url);
 
       // Init the dialog behavior.
-      Drupal.behaviors.schemaDotOrgDialog.attach(link);
+      Drupal.ajax({
+        progress: { type: 'fullscreen' },
+        url: link.getAttribute('href'),
+        event: 'click',
+        dialogType: 'modal',
+        dialog: { width: '1000px' },
+        element: link,
+      });
 
       // Trigger the link.
       link.click();

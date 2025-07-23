@@ -764,8 +764,10 @@ class SchemaDotOrgSchemaTypeManager implements SchemaDotOrgSchemaTypeManagerInte
       $negate_settings = [];
       foreach ($settings as $key => $value) {
         if (str_starts_with($key, '-')) {
-          // Change the value to TRUE because we are ignoring that settings.
           $negate_settings[ltrim($key, '-')] = TRUE;
+        }
+        elseif (str_starts_with($key, '!')) {
+          $negate_settings[ltrim($key, '!')] = TRUE;
         }
       }
       if ($this->getSetting($negate_settings, $parts, ['negate' => FALSE] + $options, $patterns)) {

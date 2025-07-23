@@ -214,10 +214,7 @@ function editoria11y_page_attachments(array &$attachments): void {
     $dismissals = FALSE;
   }
   elseif ($sync && $sync !== 'disable') {
-    $matched_term = FALSE;
-    $matched_user = FALSE;
     $matched_node = FALSE;
-    $parameters = FALSE;
     $entity = FALSE;
     // Get extra dashboard data if we plan to sync information.
     if (($route = $route_match->getRouteObject()) && ($parameters = $route->getOption('parameters'))) {
@@ -242,7 +239,7 @@ function editoria11y_page_attachments(array &$attachments): void {
         $page_title = $matched_term->label();
         // @todo used to return term label rather than bundle label.
         // $entity_type = "Taxonomy: " . $matched_term->label();
-        $entity_type = "Taxonomy: " . $entity->bundle();
+        $entity_type = $entity && method_exists($entity, 'bundle') ? "Taxonomy: " . $entity->bundle() : 'Taxonomy term';
         // The TID.
         $entity_id = $matched_term->id();
         $page_path = \Drupal::service('path_alias.manager')->getAliasByPath('/taxonomy/term/' . $entity_id, $language);

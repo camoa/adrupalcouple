@@ -18,6 +18,8 @@ export class GeolocationMapFeature {
   /**
    * @constructor
    *
+   * Called when map is initialized, but no map content is loaded yet.
+   *
    * @param {GeolocationMapFeatureSettings} settings
    *   Settings.
    * @param {GeolocationMapBase} map
@@ -52,6 +54,9 @@ export class GeolocationMapFeature {
    */
   onContextClick(coordinates) {}
 
+  /**
+   * Called when map content is fully loaded.
+   */
   onMapReady() {}
 
   onMapIdle() {}

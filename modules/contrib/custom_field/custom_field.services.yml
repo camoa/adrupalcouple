@@ -39,29 +39,6 @@ services:
     arguments:
       - '@plugin.manager.custom_field_type'
 
-  custom_field.normalizer.string_long:
-    class: Drupal\custom_field\Normalizer\StringLongNormalizer
-    tags:
-      # Priority must be higher than serializer.normalizer.primitive_data.
-      - { name: normalizer, priority: 20 }
-
-  custom_field.normalizer.entity_reference:
-    class: Drupal\custom_field\Normalizer\EntityReferenceNormalizer
-    arguments:
-      - '@entity.repository'
-    tags:
-      # Priority must be higher than serializer.normalizer.primitive_data.
-      - { name: normalizer, priority: 20 }
-
-  custom_field.normalizer.uri:
-    class: Drupal\custom_field\Normalizer\UriNormalizer
-    arguments:
-      - '@entity_type.manager'
-      - '@entity.repository'
-    tags:
-      # Priority must be higher than serializer.normalizer.primitive_data.
-      - { name: normalizer, priority: 20 }
-
   custom_field.tag_manager:
     class: Drupal\custom_field\TagManager
     arguments:

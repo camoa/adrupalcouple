@@ -69,9 +69,9 @@ function schemadotorg_metatag_form_schemadotorg_types_settings_form_alter(array 
 - entity_type_id--SchemaType
 - entity_type_id--bundle
 - entity_type_id--bundle--SchemaType
-- '-entity_type_id--SchemaType'
-- '-entity_type_id--bundle'
-- '-entity_type_id--bundle--SchemaType'
+- '!entity_type_id--SchemaType'
+- '!entity_type_id--bundle'
+- '!entity_type_id--bundle--SchemaType'
 ",
   ];
   $form['schemadotorg_metatag']['default_groups'] = [
