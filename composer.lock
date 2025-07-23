@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3e3eb183ae618996a543c46c13535175",
+    "content-hash": "b0c782e1aac3bb13de099da4e919775e",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -4950,26 +4950,26 @@
         },
         {
             "name": "drupal/moderation_dashboard",
-            "version": "3.1.0",
+            "version": "4.0.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/moderation_dashboard.git",
-                "reference": "3.1.0"
+                "reference": "4.0.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/moderation_dashboard-3.1.0.zip",
-                "reference": "3.1.0",
-                "shasum": "efe8ce67a4c78291726ef3883f3fb815dfb6f17b"
+                "url": "https://ftp.drupal.org/files/projects/moderation_dashboard-4.0.0.zip",
+                "reference": "4.0.0",
+                "shasum": "13bc2ae7ec03b99f8c3c3b8dba8b2048af95ff12"
             },
             "require": {
-                "drupal/core": "^10.3 || ^11"
+                "drupal/core": "^11.2"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "3.1.0",
-                    "datestamp": "1725558905",
+                    "version": "4.0.0",
+                    "datestamp": "1750860234",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
