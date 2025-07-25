@@ -16,6 +16,7 @@
     ],
     "require": {
         "composer/installers": "^2.0",
+        "cweagans/composer-patches": "^1.7",
         "drupal/address": "^2.0",
         "drupal/admin_toolbar": "^3.4",
         "drupal/allowed_formats": "^3.0",
@@ -80,7 +81,8 @@
         "drupal/upgrade_status": "^4.3",
         "drupal/views_infinite_scroll": "^2.0",
         "drupal/yoast_seo": "^2",
-        "drush/drush": "^13"
+        "drush/drush": "^13",
+        "oomphinc/composer-installers-extender": "^2.0"
     },
     "conflict": {
         "drupal/drupal": "*"
@@ -90,10 +92,12 @@
     "config": {
         "allow-plugins": {
             "composer/installers": true,
+            "cweagans/composer-patches": true,
+            "dealerdirect/phpcodesniffer-composer-installer": true,
             "drupal/core-composer-scaffold": true,
             "drupal/core-project-message": true,
-            "phpstan/extension-installer": true,
-            "dealerdirect/phpcodesniffer-composer-installer": true
+            "oomphinc/composer-installers-extender": true,
+            "phpstan/extension-installer": true
         },
         "sort-packages": true
     },
@@ -136,26 +140,10 @@
                 "type:drupal-custom-theme"
             ]
         },
-        "drupal-core-project-message": {
-            "include-keys": [
-                "homepage",
-                "support"
-            ],
-            "post-create-project-cmd-message": [
-                "<bg=blue;fg=white>                                                         </>",
-                "<bg=blue;fg=white>  Congratulations, you’ve installed the Drupal codebase  </>",
-                "<bg=blue;fg=white>  from the drupal/recommended-project template!          </>",
-                "<bg=blue;fg=white>                                                         </>",
-                "",
-                "<bg=yellow;fg=black>Next steps</>:",
-                "  * Install the site: https://www.drupal.org/docs/installing-drupal",
-                "  * Read the user guide: https://www.drupal.org/docs/user_guide/en/index.html",
-                "  * Get support: https://www.drupal.org/support",
-                "  * Get involved with the Drupal community:",
-                "      https://www.drupal.org/getting-involved",
-                "  * Remove the plugin that prints this message:",
-                "      composer remove drupal/core-project-message"
-            ]
+        "patches": {
+            "drupal/core": {
+                "Issue 3387100: Missing config schema for core.base_field_override.*.*.* third_party_settings.content_translation": "https://git.drupalcode.org/project/drupal/-/merge_requests/4768.patch"
+            }
         }
     }
 }

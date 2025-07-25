@@ -14,7 +14,7 @@ bundle: page
 label: 'Related links'
 description: 'A link related to this web page, for example to other related web pages.'
 required: false
-translatable: true
+translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:

@@ -16,7 +16,7 @@ bundle: couple
 label: 'Couple Desription'
 description: 'A description of the item.'
 required: false
-translatable: false
+translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:

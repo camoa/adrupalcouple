@@ -1,0 +1,20 @@
+uuid: 12345678-1234-1234-1234-123456789012
+langcode: en
+status: true
+dependencies:
+  module:
+    - language
+  theme:
+    - simple_blog
+id: simple_blog_language_switcher
+theme: simple_blog
+region: navbar
+weight: -6
+provider: null
+plugin: 'language_block:language_interface'
+settings:
+  id: 'language_block:language_interface'
+  label: 'Language switcher'
+  label_display: '0'
+  provider: language
+visibility: {  }

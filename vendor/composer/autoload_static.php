@@ -49,6 +49,10 @@ class ComposerStaticInit5c7f23189dfdbae478d03c4985419aea
         array (
             'dekor\\' => 6,
         ),
+        'c' => 
+        array (
+            'cweagans\\Composer\\' => 18,
+        ),
         'T' => 
         array (
             'Twig\\' => 5,
@@ -110,6 +114,10 @@ class ComposerStaticInit5c7f23189dfdbae478d03c4985419aea
             'Peast\\' => 6,
             'PHPStan\\' => 8,
             'PHPMailer\\PHPMailer\\' => 20,
+        ),
+        'O' => 
+        array (
+            'OomphInc\\ComposerInstallersExtender\\' => 36,
         ),
         'N' => 
         array (
@@ -210,6 +218,10 @@ class ComposerStaticInit5c7f23189dfdbae478d03c4985419aea
         'dekor\\' => 
         array (
             0 => __DIR__ . '/..' . '/dekor/php-array-table/src',
+        ),
+        'cweagans\\Composer\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/cweagans/composer-patches/src',
         ),
         'Twig\\' => 
         array (
@@ -411,6 +423,10 @@ class ComposerStaticInit5c7f23189dfdbae478d03c4985419aea
         'PHPMailer\\PHPMailer\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
+        ),
+        'OomphInc\\ComposerInstallersExtender\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/oomphinc/composer-installers-extender/src',
         ),
         'Nyholm\\Psr7\\' => 
         array (

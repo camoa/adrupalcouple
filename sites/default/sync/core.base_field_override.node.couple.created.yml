@@ -1,0 +1,18 @@
+uuid: 5a71a109-949f-44f6-b90b-17f545acb25a
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.couple
+id: node.couple.created
+field_name: created
+entity_type: node
+bundle: couple
+label: 'Authored on'
+description: 'The date and time that the content was created.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: created

@@ -1,5 +1,16 @@
 # Schema for the Content Translation module.
 
+core.base_field_override.*.*.*.third_party.content_translation:
+  type: mapping
+  label: 'Content translation base field override settings'
+  mapping:
+    translation_sync:
+      type: sequence
+      label: 'Base field override properties for which to synchronize translations'
+      sequence:
+        type: string
+        label: 'Base field override column for which to synchronize translations'
+
 field.field.*.*.*.third_party.content_translation:
   type: mapping
   label: 'Content translation field settings'

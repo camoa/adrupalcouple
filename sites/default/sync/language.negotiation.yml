@@ -11,3 +11,25 @@ url:
     en: ''
     es: ''
 selected_langcode: site_default
+interface:
+  enabled:
+    language-url: -10
+    language-user: -8
+    language-browser: -6
+    language-selected: -4
+  method_weights:
+    language-url: -10
+    language-user: -8
+    language-browser: -6
+    language-selected: -4
+content:
+  enabled:
+    language-url: -10
+    language-user: -8
+    language-browser: -6
+    language-selected: -4
+  method_weights:
+    language-url: -10
+    language-user: -8
+    language-browser: -6
+    language-selected: -4
