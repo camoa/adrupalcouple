@@ -14,7 +14,7 @@ bundle: article
 label: Subtype
 description: 'A more specific subtype for the item. This is used to allow more specificity without having to create dedicated Schema.org entity types.'
 required: false
-translatable: false
+translatable: true
 default_value:
   -
     value: BlogPosting
