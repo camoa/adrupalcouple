@@ -19,12 +19,14 @@ use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\RendererInterface;
+use Drupal\custom_field\Event\PreFormatEvent;
 use Drupal\custom_field\Plugin\CustomFieldFormatterInterface;
 use Drupal\custom_field\Plugin\CustomFieldFormatterManagerInterface;
 use Drupal\custom_field\Plugin\CustomFieldTypeInterface;
 use Drupal\custom_field\Plugin\CustomFieldTypeManagerInterface;
 use Drupal\custom_field\TagManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 /**
  * The base formatter for custom_field.
@@ -60,6 +62,13 @@ abstract class BaseFormatter extends FormatterBase implements BaseFormatterInter
   protected EntityRepositoryInterface $entityRepository;
 
   /**
+   * The event dispatcher.
+   *
+   * @var \Symfony\Contracts\EventDispatcher\EventDispatcherInterface
+   */
+  protected EventDispatcherInterface $eventDispatcher;
+
+  /**
    * The module handler service.
    *
    * @var \Drupal\Core\Extension\ModuleHandlerInterface
@@ -89,6 +98,7 @@ abstract class BaseFormatter extends FormatterBase implements BaseFormatterInter
     $instance->customFieldFormatterManager = $container->get('plugin.manager.custom_field_formatter');
     $instance->entityTypeManager = $container->get('entity_type.manager');
     $instance->entityRepository = $container->get('entity.repository');
+    $instance->eventDispatcher = $container->get('event_dispatcher');
     $instance->moduleHandler = $container->get('module_handler');
     $instance->tagManager = $container->get('custom_field.tag_manager');
     $instance->renderer = $container->get('renderer');
@@ -529,6 +539,10 @@ abstract class BaseFormatter extends FormatterBase implements BaseFormatterInter
     $settings = $this->getSetting('fields') ?? [];
     $custom_items = $this->sortFields($settings);
 
+    $event = new PreFormatEvent($custom_items, $item, $langcode);
+    $this->eventDispatcher->dispatch($event);
+    $custom_items = $event->getCustomItems();
+
     $values = [];
     $entity_type = $this->fieldDefinition->getTargetEntityTypeId();
     foreach ($custom_items as $name => $custom_item) {
@@ -555,6 +569,12 @@ abstract class BaseFormatter extends FormatterBase implements BaseFormatterInter
           'uri' => $value,
           'title' => $item->{$name . '__title'},
           'options' => $item->{$name . '__options'},
+        ];
+      }
+      elseif ($data_type === 'datetime') {
+        $value = [
+          'date' => $item->{$name . '__date'},
+          'timezone' => $item->{$name . '__timezone'},
         ];
       }
       elseif (in_array($data_type, ['entity_reference', 'file', 'image'])) {

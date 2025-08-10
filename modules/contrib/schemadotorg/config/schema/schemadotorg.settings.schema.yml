@@ -165,6 +165,12 @@ schemadotorg.settings:
               ignore_additional_mappings:
                 type: boolean
                 label: 'Ignore additional Schema.org mappings'
+              field_storage_settings:
+                type: ignore
+                label: 'Field storage settings'
+              field_settings:
+                type: ignore
+                label: 'Field settings'
               widget_id:
                 type: string
                 label: 'Widget ID'

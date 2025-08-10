@@ -6,15 +6,16 @@ namespace Drupal\Tests\config_overlay\Functional\Profile;
 
 use Drupal\Core\Config\StorageInterface;
 use Drupal\Tests\config_overlay\Functional\ConfigOverlayTestBase;
-
-// cspell:ignore Benutzerkonto
+use Drupal\Tests\config_overlay\Functional\ConfigOverlayLanguageTestTrait;
 
 /**
- * Tests the Testing multilingual profile with Config Overlay.
+ * Tests importing translations of shipped configuration with Config Overlay.
  *
  * @group config_overlay
  */
 class TestingMultilingualTest extends ConfigOverlayTestBase {
+
+  use ConfigOverlayLanguageTestTrait;
 
   /**
    * {@inheritdoc}
@@ -36,36 +37,24 @@ class TestingMultilingualTest extends ConfigOverlayTestBase {
   ];
 
   /**
-   * {@inheritdoc}
+   * An array of translations used in this test.
+   *
+   * The keys of the array are the language codes of the translations and the
+   * respective (language-specific) values are arrays where the keys are the
+   * translation message identifiers and the values are the translation strings.
+   *
+   * @var string[][]
    */
-  protected function prepareEnvironment() {
-    parent::prepareEnvironment();
-
-    $translationFilesDirectory = $this->publicFilesDirectory . '/translations';
-    mkdir($translationFilesDirectory, 0777, TRUE);
-
-    // Prepare translation files to avoid attempting to download translation
-    // files from the actual translation server during the test. The files
-    // contain an actual translation to test that translations for configuration
-    // are imported correctly.
-    $po_de = <<<PO
-msgid ""
-msgstr ""
-
-msgid "User account"
-msgstr "Benutzerkonto"
-PO;
-    file_put_contents("$this->root/$translationFilesDirectory/drupal-8.0.0.de.po", $po_de);
-    // cspell:ignore Cuenta usuario
-    $po_fr = <<<PO
-msgid ""
-msgstr ""
-
-msgid "User account"
-msgstr "Cuenta de usuario"
-PO;
-    file_put_contents("$this->root/$translationFilesDirectory/drupal-8.0.0.es.po", $po_fr);
-  }
+  protected array $translationsByLanguage = [
+    'de' => [
+      // spellchecker:ignore Benutzerkonto
+      'User account' => 'Benutzerkonto',
+    ],
+    'es' => [
+      // spellchecker:ignore Cuenta usuario
+      'User account' => 'Cuenta de usuario',
+    ],
+  ];
 
   /**
    * {@inheritdoc}
@@ -73,27 +62,7 @@ PO;
   protected function getOverriddenConfig(): array {
     $overridden_config = parent::getOverriddenConfig();
 
-    /* @see \Drupal\language\Entity\ConfigurableLanguage::postSave() */
-    $overridden_config[StorageInterface::DEFAULT_COLLECTION]['language.negotiation'] = [
-      'url' => [
-        'prefixes' => [
-          'de' => 'de',
-          'es' => 'es',
-        ],
-        'domains' => [
-          'de' => '',
-          'es' => '',
-        ],
-      ],
-    ];
-
-    /* @see https://www.drupal.org/node/3348540 */
-    if (version_compare(\Drupal::VERSION, '9.5.8', '>=')) {
-      /* @see locale_test_translate_modules_installed() */
-      $overridden_config[StorageInterface::DEFAULT_COLLECTION]['locale_test_translate.settings'] = [
-        'key_set_during_install' => TRUE,
-      ];
-    }
+    $overridden_config[StorageInterface::DEFAULT_COLLECTION]['language.negotiation'] = $this->getLanguageNegotiationConfig();
 
     // Add overrides for translated configuration.
     /* @see \Drupal\Tests\config_overlay\Functional\ConfigOverlayTestingLanguageTest::prepareEnvironment() */

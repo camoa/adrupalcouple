@@ -13,8 +13,6 @@ use Drupal\system\MenuInterface;
 use Drupal\Tests\config_overlay\Functional\ConfigOverlayTestBase;
 use Symfony\Component\HttpFoundation\RequestStack;
 
-// cspell:ignore stackable
-
 /**
  * Tests installing with Config Split and Config Overlay.
  *
@@ -170,6 +168,7 @@ class ConfigSplitTest extends ConfigOverlayTestBase {
     // Now make the 'from_sync' split stack-able, so that shipped
     // configuration from the User module, which it splits off, is no longer
     // exported to the split directory.
+    // spellchecker:ignore stackable
     $syncSplitEntity->set('stackable', TRUE)->save();
 
     // Read the menu configuration into memory, before it is removed.

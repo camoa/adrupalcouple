@@ -285,6 +285,8 @@ class CustomFlexWidget extends CustomWidgetBase {
       'entity_reference_radios',
       'radios',
       'datetime_datelist',
+      'daterange_default',
+      'daterange_local',
       'url',
       'link_default',
       'linkit_url',

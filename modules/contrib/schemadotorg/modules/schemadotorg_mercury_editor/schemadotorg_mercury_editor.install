@@ -15,7 +15,14 @@ function schemadotorg_mercury_editor_install(bool $is_syncing): void {
     return;
   }
 
-  // Setting weight to 1 so that Mercury Editor is called after the
-  // Schema.org mapping and related fields are inserted and created.
-  module_set_weight('schemadotorg_mercury_editor', 2);
+  // Setting weight to 12 so that hooks are called after
+  // the Schema.org mapping and related fields are inserted and created.
+  module_set_weight('schemadotorg_mercury_editor', 12);
+}
+
+/**
+ * Setting weight to 12 so that hooks are called after the Schema.org mapping and related fields are inserted and created.
+ */
+function schemadotorg_mercury_editor_update_10000(): void {
+  module_set_weight('schemadotorg_mercury_editor', 12);
 }

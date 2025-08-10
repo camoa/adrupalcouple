@@ -55,7 +55,7 @@ function schemadotorg_additional_mappings_schemadotorg_mapping_postsave(SchemaDo
  */
 function schemadotorg_additional_mappings_schemadotorg_jsonld_schema_type_entity_alter(array &$data, EntityInterface $entity, ?SchemaDotOrgMappingInterface $mapping, BubbleableMetadata $bubbleable_metadata): void {
   /** @var \Drupal\schemadotorg_additional_mappings\SchemaDotOrgAdditionalMappingsJsonLdManagerInterface $schemadotorg_additional_mappings_jsonld_manager */
-  $schemadotorg_additional_mappings_jsonld_manager = \Drupal::service('schemadotorg_additional_mapping.jsonld_manager');
+  $schemadotorg_additional_mappings_jsonld_manager = \Drupal::service('schemadotorg_additional_mappings.jsonld_manager');
   $schemadotorg_additional_mappings_jsonld_manager->entityAlter($data, $entity, $mapping, $bubbleable_metadata);
 }
 
@@ -64,7 +64,7 @@ function schemadotorg_additional_mappings_schemadotorg_jsonld_schema_type_entity
  */
 function schemadotorg_additional_mappings_schemadotorg_jsonld_alter(array &$data, RouteMatchInterface $route_match, BubbleableMetadata $bubbleable_metadata): void {
   /** @var \Drupal\schemadotorg_additional_mappings\SchemaDotOrgAdditionalMappingsJsonLdManagerInterface $schemadotorg_additional_mappings_jsonld_manager */
-  $schemadotorg_additional_mappings_jsonld_manager = \Drupal::service('schemadotorg_additional_mapping.jsonld_manager');
+  $schemadotorg_additional_mappings_jsonld_manager = \Drupal::service('schemadotorg_additional_mappings.jsonld_manager');
   $schemadotorg_additional_mappings_jsonld_manager->alter($data, $route_match, $bubbleable_metadata);
 }
 
@@ -73,7 +73,7 @@ function schemadotorg_additional_mappings_schemadotorg_jsonld_alter(array &$data
  */
 function schemadotorg_additional_mappings_schemadotorg_jsonld_schema_property_alter(mixed &$value, FieldItemInterface $item, BubbleableMetadata $bubbleable_metadata): void {
   /** @var \Drupal\schemadotorg_additional_mappings\SchemaDotOrgAdditionalMappingsJsonLdManagerInterface $schemadotorg_additional_mappings_jsonld_manager */
-  $schemadotorg_additional_mappings_jsonld_manager = \Drupal::service('schemadotorg_additional_mapping.jsonld_manager');
+  $schemadotorg_additional_mappings_jsonld_manager = \Drupal::service('schemadotorg_additional_mappings.jsonld_manager');
   $schemadotorg_additional_mappings_jsonld_manager->schemaPropertyAlter($value, $item, $bubbleable_metadata);
 }
 

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\schemadotorg_additional_type;
 
+use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Render\BubbleableMetadata;
 use Drupal\schemadotorg\SchemaDotOrgMappingInterface;
@@ -18,12 +19,15 @@ class SchemaDotOrgAdditionalTypeJsonLdManager implements SchemaDotOrgAdditionalT
   /**
    * Constructs a SchemaDotOrgAdditionalTypeJsonLdManager object.
    *
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
+   *   The config factory.
    * @param \Drupal\schemadotorg\SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager
    *   The Schema.org schema type manager.
    * @param \Drupal\schemadotorg\SchemaDotOrgNamesInterface $schemaNames
    *   The Schema.org names manager.
    */
   public function __construct(
+    protected ConfigFactoryInterface $configFactory,
     protected SchemaDotOrgSchemaTypeManagerInterface $schemaTypeManager,
     protected SchemaDotOrgNamesInterface $schemaNames,
   ) {}
@@ -37,13 +41,22 @@ class SchemaDotOrgAdditionalTypeJsonLdManager implements SchemaDotOrgAdditionalT
       return;
     }
 
+    // Check if the additional type is ignored and should be removed.
+    $additional_type = $data['additionalType'];
+    $ignored_types = $this->configFactory
+      ->get('schemadotorg_additional_type.settings')
+      ->get('ignored_types');
+    if (in_array($additional_type, $ignored_types)) {
+      unset($data['additionalType']);
+      return;
+    }
+
     // If the additional type property is valid subtype move it to the @type
     // and unset the additionalType property.
-    $additional_type = $data['additionalType'];
-    $additional_type = str_replace(' ', '_', $additional_type);
-    $additional_type = $this->schemaNames->snakeCaseToUpperCamelCase($additional_type);
-    if ($this->schemaTypeManager->isSubTypeOf($additional_type, $data['@type'])) {
-      $data['@type'] = $additional_type;
+    $additional_schema_type = str_replace(' ', '_', $data['additionalType']);
+    $additional_schema_type = $this->schemaNames->snakeCaseToUpperCamelCase($additional_schema_type);
+    if ($this->schemaTypeManager->isSubTypeOf($additional_schema_type, $data['@type'])) {
+      $data['@type'] = $additional_schema_type;
       unset($data['additionalType']);
     }
   }

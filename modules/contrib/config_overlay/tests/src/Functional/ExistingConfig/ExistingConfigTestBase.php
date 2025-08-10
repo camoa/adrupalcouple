@@ -17,7 +17,6 @@ abstract class ExistingConfigTestBase extends InstallerConfigDirectoryTestBase {
 
   use ConfigOverlayTestTrait {
     getExpectedConfig as traitGetExpectedConfig;
-    getOverriddenConfig as traitGetOverriddenConfig;
   }
 
   /**

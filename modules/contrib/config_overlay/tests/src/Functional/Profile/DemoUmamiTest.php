@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Drupal\Tests\config_overlay\Functional\Profile;
 
 use Drupal\Core\Config\StorageInterface;
+use Drupal\Tests\config_overlay\Functional\ConfigOverlayLanguageTestTrait;
 use Drupal\Tests\config_overlay\Functional\ConfigOverlayTestBase;
 
 /**
@@ -14,24 +15,25 @@ use Drupal\Tests\config_overlay\Functional\ConfigOverlayTestBase;
  */
 class DemoUmamiTest extends ConfigOverlayTestBase {
 
+  use ConfigOverlayLanguageTestTrait;
+
   /**
    * {@inheritdoc}
    */
   protected $profile = 'demo_umami';
 
   /**
-   * {@inheritdoc}
+   * An array of translations used in this test.
+   *
+   * The keys of the array are the language codes of the translations and the
+   * respective (language-specific) values are arrays where the keys are the
+   * translation message identifiers and the values are the translation strings.
+   *
+   * @var string[][]
    */
-  protected function prepareEnvironment() {
-    parent::prepareEnvironment();
-
-    $translationFilesDirectory = $this->publicFilesDirectory . '/translations';
-    mkdir($translationFilesDirectory, 0777, TRUE);
-
-    // Prepare a translation file to avoid attempting to download a translation
-    // file from the actual translation server during the test.
-    file_put_contents("$this->root/$translationFilesDirectory/drupal-8.0.0.es.po", '');
-  }
+  protected array $translationsByLanguage = [
+    'es' => [],
+  ];
 
   /**
    * {@inheritdoc}

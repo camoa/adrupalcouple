@@ -82,9 +82,14 @@ propertyName:
   default_value: 0
   prefix: Prefix
   suffix: Suffix
+  # Field storage settings
+  field_storage_settings: {  }
   # Field settings
+  field_settings: {  }
+  # Form display settings
   widget_id: widget_id
   widget_settings: {  }
+  # View display settings
   formatter_id: formatter_id
   formatter_settings: {  }
   # Copy existing field settings.

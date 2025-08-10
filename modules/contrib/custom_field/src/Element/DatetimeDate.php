@@ -14,17 +14,6 @@ class DatetimeDate extends DatetimeBase {
   /**
    * {@inheritdoc}
    */
-  public function getInfo(): array {
-    $info = parent::getInfo();
-    $info['#theme_wrappers'] = [];
-    $info['#theme'] = NULL;
-
-    return $info;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public static function processDatetime(&$element, FormStateInterface $form_state, &$complete_form): array {
     $element = parent::processDatetime($element, $form_state, $complete_form);
     if (!empty($element['#title'])) {

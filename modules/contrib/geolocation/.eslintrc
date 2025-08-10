@@ -16,6 +16,7 @@
     "import/extensions": ["off"],
     "no-console": ["off"],
     "class-methods-use-this": "off",
+    "prefer-template": "off",
     "new-cap": "off",
     "radix": "off",
     "no-jquery/no-ajax-events": "off",

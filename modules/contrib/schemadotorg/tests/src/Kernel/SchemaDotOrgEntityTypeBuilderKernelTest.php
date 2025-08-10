@@ -106,7 +106,9 @@ class SchemaDotOrgEntityTypeBuilderKernelTest extends SchemaDotOrgEntityKernelTe
       'description' => '',
       'unlimited' => '1',
       'required' => '1',
-      'max_length' => 50,
+      'field_storage_settings' => [
+        'max_length' => 50,
+      ],
       'schema_type' => 'Thing',
       'schema_property' => 'alternateName',
     ];
@@ -157,6 +159,9 @@ class SchemaDotOrgEntityTypeBuilderKernelTest extends SchemaDotOrgEntityKernelTe
       'required' => '0',
       'schema_type' => 'Thing',
       'schema_property' => 'description',
+      'field_settings' => [
+        'display_summary' => 1,
+      ],
     ];
     $this->schemaEntityTypeBuilder->addFieldToEntity('node', 'thing', $field);
 
@@ -178,6 +183,11 @@ class SchemaDotOrgEntityTypeBuilderKernelTest extends SchemaDotOrgEntityKernelTe
     $body_component = $this->entityDisplayRepository->getViewDisplay('node', 'thing', 'teaser')->getComponent('body');
     $this->assertEquals('text_summary_or_trimmed', $body_component['type']);
     $this->assertEquals('hidden', $body_component['label']);
+
+    // Check that the body summary is displayed.
+    /** @var \Drupal\field\FieldConfigInterface $field */
+    $field = FieldConfig::load('node.thing.body');
+    $this->assertEquals(1, $field->getSetting('display_summary'));
 
     // Check adding an image field to an entity.
     $field = [

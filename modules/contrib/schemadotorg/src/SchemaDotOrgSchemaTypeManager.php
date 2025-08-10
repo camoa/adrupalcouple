@@ -21,36 +21,56 @@ class SchemaDotOrgSchemaTypeManager implements SchemaDotOrgSchemaTypeManagerInte
   use StringTranslationTrait;
 
   /**
+   * Cached type properties.
+   */
+  protected array $typePropertiesCache = [];
+
+  /**
    * Pattern used to match settings.
    *
    * @see \Drupal\schemadotorg\SchemaDotOrgSchemaTypeManager::getSetting
    */
   protected array $settingPatterns = [
+    // Entity type.
     ['entity_type_id', 'bundle', 'field_name'],
     ['entity_type_id', 'bundle'],
     ['entity_type_id', 'field_name'],
 
+    // Entity type + Schema.org type.
+    ['entity_type_id', 'schema_type', 'bundle', 'schema_property'],
+    ['entity_type_id', 'schema_type', 'bundle', 'field_name'],
+    ['entity_type_id', 'schema_type', 'bundle'],
     ['entity_type_id', 'schema_type', 'schema_property'],
     ['entity_type_id', 'schema_type', 'field_name'],
+
+    // Entity type + bundle.
     ['entity_type_id', 'bundle', 'schema_type', 'schema_property'],
+    ['entity_type_id', 'bundle', 'schema_type', 'field_name'],
     ['entity_type_id', 'bundle', 'schema_type'],
     ['entity_type_id', 'bundle', 'schema_property'],
-    ['entity_type_id', 'schema_property'],
-    ['entity_type_id', 'schema_type'],
+    ['entity_type_id', 'bundle', 'field_name'],
 
+    // Entity type + Schema.org type and property.
+    ['entity_type_id', 'schema_type'],
+    ['entity_type_id', 'schema_property'],
+
+    // Bundle.
+    ['bundle', 'schema_type'],
+    ['bundle', 'field_name'],
+    ['bundle', 'schema_property'],
+
+    // Schema.org type.
+    ['schema_type', 'bundle'],
+    ['schema_type', 'field_name'],
+    ['schema_type', 'schema_property'],
+
+    // Schema.org/additional_type.
     ['entity_type_id', 'schema_type', 'additional_type'],
     ['entity_type_id', 'bundle', 'additional_type'],
     ['bundle', 'additional_type'],
     ['schema_type', 'additional_type'],
 
-    ['bundle', 'field_name'],
-    ['bundle', 'schema_type'],
-    ['bundle', 'schema_property'],
-
-    ['schema_type', 'field_name'],
-    ['schema_type', 'bundle'],
-    ['schema_type', 'schema_property'],
-
+    // Other.
     ['bundle'],
     ['schema_type'],
     ['additional_type'],
@@ -710,8 +730,18 @@ class SchemaDotOrgSchemaTypeManager implements SchemaDotOrgSchemaTypeManagerInte
    * {@inheritdoc}
    */
   public function hasProperty(string $type, string $property): bool {
-    $type_definition = $this->getType($type);
-    return ($type_definition && str_contains($type_definition['properties'], '/' . $property));
+    if (!isset($this->typePropertiesCache[$type])) {
+      $type_definition = $this->getType($type);
+      if ($type_definition) {
+        $ids = $this->parseIds($type_definition['properties']);
+        $this->typePropertiesCache[$type] = array_combine($ids, $ids);
+      }
+      else {
+        $this->typePropertiesCache[$type] = [];
+      }
+    }
+
+    return isset($this->typePropertiesCache[$type][$property]);
   }
 
   /**

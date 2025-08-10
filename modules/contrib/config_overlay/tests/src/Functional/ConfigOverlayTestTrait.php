@@ -34,6 +34,7 @@ use Drupal\user\RoleInterface;
  *
  * @see \Drupal\Tests\config_overlay\Functional\ConfigOverlayTestBase::$collections
  * @see \Drupal\Tests\config_overlay\Functional\ConfigOverlayTestBase::$langcode
+ * @see \Drupal\FunctionalTests\Installer\InstallerTestBase::$langcode
  */
 trait ConfigOverlayTestTrait {
 
@@ -477,6 +478,14 @@ trait ConfigOverlayTestTrait {
       }
     }
 
+    $extension_config = $this->configStorage->read('core.extension');
+    if (isset($extension_config['module']['language']) && ($this->langcode !== 'en')) {
+      unset(
+        $expected_config[StorageInterface::DEFAULT_COLLECTION]['language.negotiation']['url']['prefixes']['en'],
+        $expected_config[StorageInterface::DEFAULT_COLLECTION]['language.negotiation']['url']['domains']['en'],
+      );
+    }
+
     return $expected_config;
   }
 
@@ -592,6 +601,14 @@ trait ConfigOverlayTestTrait {
           'rid' => $role_id,
         ],
       ]);
+    }
+
+    /* @see https://www.drupal.org/node/3348540 */
+    if (version_compare(\Drupal::VERSION, '9.5.8', '>=') && isset($extension_config['module']['locale_test_translate'])) {
+      /* @see locale_test_translate_modules_installed() */
+      $overridden_config[StorageInterface::DEFAULT_COLLECTION]['locale_test_translate.settings'] = [
+        'key_set_during_install' => TRUE,
+      ];
     }
 
     return $overridden_config;

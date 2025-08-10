@@ -64,6 +64,7 @@ return array(
     'PHPMailer\\PHPMailer\\' => array($vendorDir . '/phpmailer/phpmailer/src'),
     'OomphInc\\ComposerInstallersExtender\\' => array($vendorDir . '/oomphinc/composer-installers-extender/src'),
     'Nyholm\\Psr7\\' => array($vendorDir . '/nyholm/psr7/src'),
+    'Nette\\' => array($vendorDir . '/nette/utils/src'),
     'Masterminds\\' => array($vendorDir . '/masterminds/html5/src'),
     'MabeEnum\\' => array($vendorDir . '/marc-mabe/php-enum/src'),
     'League\\Container\\' => array($vendorDir . '/league/container/src'),

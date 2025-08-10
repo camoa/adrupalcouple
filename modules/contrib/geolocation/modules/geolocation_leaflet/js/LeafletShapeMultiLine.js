@@ -12,10 +12,10 @@ export class LeafletShapeMultiLine extends GeolocationShapeMultiLine {
   }
 
   addShape() {
-    this.geometry.lines.forEach((lineGeometry) => {
+    this.geometry.coordinates.forEach((lineGeometry) => {
       const line = L.polyline(
         [
-          lineGeometry.coordinates.map((value) => {
+          lineGeometry.map((value) => {
             return { lat: value[1], lng: value[0] };
           }),
         ],

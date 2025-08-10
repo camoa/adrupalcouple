@@ -8,7 +8,8 @@ use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\custom_field\Attribute\CustomFieldWidget;
-use Drupal\custom_field\Plugin\CustomField\DateTimeWidgetBase;
+use Drupal\custom_field\Plugin\CustomField\FieldType\DateTimeType;
+use Drupal\custom_field\Plugin\CustomField\FieldType\DateTimeTypeInterface;
 use Drupal\custom_field\Plugin\CustomFieldTypeInterface;
 
 /**
@@ -29,16 +30,23 @@ class DateTimeLocalWidget extends DateTimeWidgetBase {
    */
   public function widget(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state, CustomFieldTypeInterface $field): array {
     $element = parent::widget($items, $delta, $element, $form, $form_state, $field);
+    $settings = $this->getSettings()['settings'] + static::defaultSettings()['settings'];
 
-    $element['#type'] = 'custom_field_datetime_date';
-    $element += [
-      '#date_date_format' => CustomFieldTypeInterface::DATETIME_STORAGE_FORMAT,
+    $element['value']['#type'] = 'custom_field_datetime_date';
+    $element['value'] += [
+      '#date_date_format' => DateTimeTypeInterface::DATETIME_STORAGE_FORMAT,
       '#date_date_element' => 'datetime-local',
       '#date_date_callbacks' => [],
       '#date_time_format' => '',
       '#date_time_element' => 'none',
       '#date_time_callbacks' => [],
     ];
+    if ($settings['timezone_enabled']) {
+      $element['#theme_wrappers'] = ['container', 'fieldset', 'container'];
+      $element['#attributes']['class'][] = 'custom-field-datetime-grid';
+      $element['#title'] = NULL;
+      $element['value']['#description'] = NULL;
+    }
 
     return $element;
   }
@@ -47,7 +55,7 @@ class DateTimeLocalWidget extends DateTimeWidgetBase {
    * {@inheritdoc}
    */
   public static function isApplicable(CustomFieldTypeInterface $custom_item): bool {
-    return $custom_item->getDatetimeType() === CustomFieldTypeInterface::DATETIME_TYPE_DATETIME;
+    return $custom_item->getDatetimeType() === DateTimeType::DATETIME_TYPE_DATETIME;
   }
 
 }

@@ -32,6 +32,7 @@ Features
   before a form is built and altered.
 - Alters node add links to prompt for additional type to be defined.
 
+
 Configuration
 -------------
 
@@ -40,6 +41,7 @@ Configuration
 - Go to the 'Schema.org additional type' details.
 - Enter Schema.org types that support additional typing by default.
 - Enter Schema.org types and bundles whose additional type field should be required.
+- Enter Schema.org additional types that should be ignored.
 - Enter default additional type allowed values for Schema.org types.
 
 

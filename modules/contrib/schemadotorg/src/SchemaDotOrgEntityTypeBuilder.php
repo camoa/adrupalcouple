@@ -548,13 +548,17 @@ class SchemaDotOrgEntityTypeBuilder implements SchemaDotOrgEntityTypeBuilderInte
 
     $default_field_storage_settings = $this->fieldTypePluginManager->getDefaultStorageSettings($field_type);
     $field_storage_values['settings'] = array_intersect_key($field_settings, $default_field_storage_settings)
+      + array_intersect_key($field_settings['field_storage_settings'] ?? [], $default_field_storage_settings)
       + array_intersect_key($property_settings, $default_field_storage_settings)
+      + array_intersect_key($property_settings['field_storage_settings'] ?? [], $default_field_storage_settings)
       + ($field_storage_values['settings'] ?? [])
       + $default_field_storage_settings;
 
     $default_field_settings = $this->fieldTypePluginManager->getDefaultFieldSettings($field_type);
     $field_values['settings'] = array_intersect_key($field_settings, $default_field_settings)
+      + array_intersect_key($field_settings['field_settings'] ?? [], $default_field_settings)
       + array_intersect_key($property_settings, $default_field_settings)
+      + array_intersect_key($property_settings['field_settings'] ?? [], $default_field_settings)
       + ($field_values['settings'] ?? [])
       + $default_field_settings;
 

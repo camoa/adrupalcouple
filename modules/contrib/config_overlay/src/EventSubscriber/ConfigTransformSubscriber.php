@@ -203,47 +203,98 @@ class ConfigTransformSubscriber implements EventSubscriberInterface {
    *   The configuration storage import event.
    */
   public function overlayShipped(StorageTransformEvent $event): void {
-    $storage = $event->getStorage();
+    $targetStorage = $event->getStorage();
     // Fetch all shipped configuration that has not been deleted and is not
     // overridden.
-    $extensionStorage = $this->extensionStorageFactory->create($storage);
-    $extensionNames = array_diff(
-      $extensionStorage->listAll(),
-      $storage->read('config_overlay.deleted')['names'] ?? [],
-      $storage->listAll(),
-    );
+    $extensionStorage = $this->extensionStorageFactory->create($targetStorage);
 
-    if (!$extensionNames) {
-      return;
+    $deletedNames = $targetStorage->read('config_overlay.deleted')['names'] ?? [];
+
+    $allCollections = [
+      StorageInterface::DEFAULT_COLLECTION,
+      ...$targetStorage->getAllCollectionNames(),
+    ];
+    if (isset($targetStorage->read('core.extension')['module']['language'])) {
+      // Add collections for all languages that will exist after the
+      // transformation.
+      /* @see \Drupal\language\Config\LanguageConfigFactoryOverride::addCollections() */
+      $storageLanguages = $targetStorage->listAll('language.entity.');
+      $extensionLanguages = array_diff(
+        $extensionStorage->listAll('language.entity.'),
+        $deletedNames,
+        $storageLanguages,
+      );
+
+      $languageCollections = array_map(
+        $this->languageConfigToCollection(...),
+        [...$storageLanguages, ...$extensionLanguages],
+      );
+
+      $allCollections = [...$allCollections, ...$languageCollections];
     }
 
-    // Add ignored data from the active configuration to the shipped
-    // configuration and copy it into the storage to be imported.
-    $allExtensionData = $extensionStorage->readMultiple($extensionNames);
-    $allActiveData = $this->activeStorage->readMultiple($extensionNames);
-    foreach ($extensionNames as $extensionName) {
-      $extensionData = $allExtensionData[$extensionName];
+    foreach ($allCollections as $collection) {
+      $targetStorageCollection = $targetStorage->createCollection($collection);
+      $extensionStorageCollection = $extensionStorage->createCollection($collection);
+      $activeStorageCollection = $this->activeStorage->createCollection($collection);
 
-      if (isset($allActiveData[$extensionName])) {
-        $activeData = $allActiveData[$extensionName];
-        foreach ($this->ignoreKeys as $ignoreKey) {
-          // The system.site configuration specifies an empty UUID, so checking
-          // whether the 'uuid' key is set is not sufficient.
-          if (empty($extensionData[$ignoreKey]) && isset($activeData[$ignoreKey])) {
-            $extensionData[$ignoreKey] = $activeData[$ignoreKey];
-          }
-        }
-        // Make sure that the amended data is positioned in the same place in
-        // the data array as it is in the active configuration so that strict
-        // equality between the exported and active configuration can be
-        // achieved. The intersection makes sure that other keys that are
-        // available in the active configuration but not in the exported
-        // configuration are not merged.
-        $extensionData = array_intersect_key(array_merge($activeData, $extensionData), $extensionData);
+      $extensionNames = array_diff(
+        $extensionStorageCollection->listAll(),
+        $deletedNames,
+        $targetStorageCollection->listAll(),
+      );
+
+      if (!$extensionNames) {
+        continue;
       }
 
-      $storage->write($extensionName, $extensionData);
+      // Add ignored data from the active configuration to the shipped
+      // configuration and copy it into the storage to be imported.
+      $allExtensionData = $extensionStorageCollection->readMultiple($extensionNames);
+      $allActiveData = $activeStorageCollection->readMultiple($extensionNames);
+      foreach ($extensionNames as $extensionName) {
+        $extensionData = $allExtensionData[$extensionName];
+
+        if (isset($allActiveData[$extensionName])) {
+          $activeData = $allActiveData[$extensionName];
+          foreach ($this->ignoreKeys as $ignoreKey) {
+            // The system.site configuration specifies an empty UUID, so
+            // checking whether the 'uuid' key is set is not sufficient.
+            if (empty($extensionData[$ignoreKey]) && isset($activeData[$ignoreKey])) {
+              $extensionData[$ignoreKey] = $activeData[$ignoreKey];
+            }
+          }
+          // Make sure that the amended data is positioned in the same place in
+          // the data array as it is in the active configuration so that strict
+          // equality between the exported and active configuration can be
+          // achieved. The intersection makes sure that other keys that are
+          // available in the active configuration but not in the exported
+          // configuration are not merged.
+          $extensionData = array_intersect_key(array_merge($activeData, $extensionData), $extensionData);
+        }
+
+        $targetStorageCollection->write($extensionName, $extensionData);
+      }
     }
+  }
+
+  /**
+   * Turns a language configuration name into a collection name.
+   *
+   * Language codes (which are the language entity IDs) may not contain periods,
+   * so can safely be done by simple string replacement.
+   *
+   * @param string $configName
+   *   The configuration name of the form "language.entity.*".
+   *
+   * @return string
+   *   The collection name of the form "language.*".
+   *
+   * @see \Drupal\language\Config\LanguageConfigCollectionNameTrait::createConfigCollectionName()
+   * @see \Drupal\Core\Language\LanguageInterface::VALID_LANGCODE_REGEX
+   */
+  protected function languageConfigToCollection(string $configName): string {
+    return str_replace('language.entity.', 'language.', $configName);
   }
 
   /**
@@ -253,31 +304,45 @@ class ConfigTransformSubscriber implements EventSubscriberInterface {
    *   The configuration storage export event.
    */
   public function removeShipped(StorageTransformEvent $event): void {
-    $storage = $event->getStorage();
+    $targetStorage = $event->getStorage();
+    $extensionStorage = $this->extensionStorageFactory->create($targetStorage);
 
-    // Compare the configuration to be exported with the shipped configuration.
-    $names = $storage->listAll();
-    $extensionStorage = $this->extensionStorageFactory->create($storage);
-    $allExtensionData = $extensionStorage->readMultiple($names);
-    $allData = $storage->readMultiple(array_keys($extensionStorage->readMultiple($names)));
-    foreach ($names as $name) {
-      if (isset($allExtensionData[$name])) {
-        $extensionData = $allExtensionData[$name];
-        $data = $allData[$name];
+    $allCollections = [
+      ...$targetStorage->getAllCollectionNames(),
+      // Process the default collection last, as that might remove the
+      // 'core.extension' configuration so that any collections processed
+      // afterward cannot access the list of installed modules correctly.
+      /* @see \Drupal\Core\Config\ExtensionInstallStorage::getAllFolders() */
+      StorageInterface::DEFAULT_COLLECTION,
+    ];
+    foreach ($allCollections as $collection) {
+      $targetStorageCollection = $targetStorage->createCollection($collection);
+      $extensionStorageCollection = $extensionStorage->createCollection($collection);
 
-        foreach ($this->ignoreKeys as $ignoreKey) {
-          // Generally shipped configuration does not contain a UUID or a
-          // default config hash, but if it does it should not be removed for
-          // the comparison.
-          if (!isset($extensionData[$ignoreKey])) {
-            unset($data[$ignoreKey]);
+      // Compare the configuration to be exported with the shipped
+      // configuration.
+      $names = $targetStorageCollection->listAll();
+      $allExtensionData = $extensionStorageCollection->readMultiple($names);
+      $allTargetData = $targetStorageCollection->readMultiple(array_keys($allExtensionData));
+      foreach ($names as $name) {
+        if (isset($allExtensionData[$name])) {
+          $extensionData = $allExtensionData[$name];
+          $targetData = $allTargetData[$name];
+
+          foreach ($this->ignoreKeys as $ignoreKey) {
+            // Generally shipped configuration does not contain a UUID or a
+            // default config hash, but if it does it should not be removed for
+            // the comparison.
+            if (!isset($extensionData[$ignoreKey])) {
+              unset($targetData[$ignoreKey]);
+            }
           }
-        }
 
-        // If the configuration to be exported matches the shipped
-        // configuration, do not export it.
-        if ($data === $extensionData) {
-          $storage->delete($name);
+          // If the configuration to be exported matches the shipped
+          // configuration, do not export it.
+          if ($targetData === $extensionData) {
+            $targetStorageCollection->delete($name);
+          }
         }
       }
     }

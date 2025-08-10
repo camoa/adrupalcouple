@@ -141,6 +141,16 @@ function schemadotorg_additional_type_form_schemadotorg_types_settings_form_alte
 - bundle
 ',
   ];
+  $form['schemadotorg_additional_type']['ignored_types'] = [
+    '#type' => 'schemadotorg_settings',
+    '#title' => t('Ignored additional types'),
+    '#description' => t('Enter Schema.org additional types that should be ignored.'),
+    '#description_link' => 'types',
+    '#example' => '
+- SchemaType
+- schema_type
+',
+  ];
   $form['schemadotorg_additional_type']['default_allowed_values'] = [
     '#type' => 'schemadotorg_settings',
     '#title' => t('Schema.org default additional types allowed values'),

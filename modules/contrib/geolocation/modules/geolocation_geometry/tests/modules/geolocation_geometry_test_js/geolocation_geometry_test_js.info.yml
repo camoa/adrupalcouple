@@ -1,0 +1,13 @@
+name: 'Geolocation Geometry Test JS'
+type: module
+description: 'Support module for Geolocation Geometry Views tests'
+package: Testing
+dependencies:
+  - geolocation:geolocation
+  - geolocation:geolocation_geometry
+  - geolocation:geolocation_geometry_demo
+  - drupal:views
+  - drupal:node
+  - drupal:field
+hidden: true
+core_version_requirement: ^10 || ^11 || ^12

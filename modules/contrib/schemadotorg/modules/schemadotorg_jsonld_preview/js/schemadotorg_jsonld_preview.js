@@ -29,7 +29,10 @@
           // Copy code from textarea to the clipboard.
           // @see https://stackoverflow.com/questions/47879184/document-execcommandcopy-not-working-on-chrome/47880284
           if (window.navigator.clipboard) {
-            window.navigator.clipboard.writeText(input.value);
+            window.navigator.clipboard
+              .writeText(`<script type="application/ld+json">
+${input.value}
+</script>`);
           }
 
           showMessage();

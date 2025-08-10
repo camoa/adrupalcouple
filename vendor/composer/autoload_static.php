@@ -122,6 +122,7 @@ class ComposerStaticInit5c7f23189dfdbae478d03c4985419aea
         'N' => 
         array (
             'Nyholm\\Psr7\\' => 12,
+            'Nette\\' => 6,
         ),
         'M' => 
         array (
@@ -431,6 +432,10 @@ class ComposerStaticInit5c7f23189dfdbae478d03c4985419aea
         'Nyholm\\Psr7\\' => 
         array (
             0 => __DIR__ . '/..' . '/nyholm/psr7/src',
+        ),
+        'Nette\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/nette/utils/src',
         ),
         'Masterminds\\' => 
         array (

@@ -15,12 +15,19 @@ function schemadotorg_descriptions_install(bool $is_syncing): void {
     return;
   }
 
-  // Setting weight to 10 so that descriptions will be added or removed after
+  // Setting weight to 20 so that descriptions will be added or removed after
   // entity and field forms have been altered.
-  module_set_weight('schemadotorg_descriptions', 10);
+  module_set_weight('schemadotorg_descriptions', 20);
 
   // Make sure the weight is updated.
   // Other modules are reporting this issue.
   // @see https://www.drupal.org/project/drupal/issues/2886083
   drupal_flush_all_caches();
+}
+
+/**
+ * Setting weight to 20 so that descriptions will be added or removed after entity and field forms have been altered.
+ */
+function schemadotorg_descriptions_update_10003(): void {
+  module_set_weight('schemadotorg_descriptions', 20);
 }

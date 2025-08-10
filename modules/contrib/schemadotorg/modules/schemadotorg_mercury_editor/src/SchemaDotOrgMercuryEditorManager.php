@@ -93,7 +93,7 @@ class SchemaDotOrgMercuryEditorManager implements SchemaDotOrgMercuryEditorManag
         // @phpstan-ignore-next-line \Drupal calls should be avoided in classes.
         $form_display_builder = \Drupal::service('mercury_editor_task.form_display_builder');
         // @phpstan-ignore-next-line Call to method update() on an unknown class.
-        $form_display_builder->update();
+        $form_display_builder->updateContentType($target_bundle, TRUE);
       }
       // phpcs:enabled
     }

@@ -41,6 +41,8 @@ export class LeafletShapePolygon extends GeolocationShapePolygon {
       this.click(new GeolocationCoordinates(event.latlng.lat, event.latlng.lng));
     });
 
+    polygon.addTo(this.map.leafletMap);
+
     this.leafletShapes.push(polygon);
   }
 

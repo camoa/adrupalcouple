@@ -15,7 +15,7 @@ function schemadotorg_jsonld_breadcrumb_install(bool $is_syncing): void {
     return;
   }
 
-  // Setting weight to 2 so that the breadcrumb is set after an
+  // Setting weight to 11 so that the breadcrumb is set after an
   // additional mappings WebPage's JSON-LD is defined.
   // @see schemadotorg_additional_mappings_install()
   module_set_weight('schemadotorg_jsonld_breadcrumb', 11);

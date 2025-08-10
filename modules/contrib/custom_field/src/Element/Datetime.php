@@ -13,29 +13,18 @@ class Datetime extends DatetimeBase {
 
   /**
    * {@inheritdoc}
-   */
-  public function getInfo(): array {
-    $info = parent::getInfo();
-    $info['#theme_wrappers'] = ['container', 'fieldset'];
-    $info['#theme'] = NULL;
-    $info['#attached'] = [
-      'library' => [
-        'custom_field/custom-field-datetime',
-      ],
-    ];
-
-    return $info;
-  }
-
-  /**
-   * {@inheritdoc}
    *
    * @return array<string, mixed>
    *   The processed element.
    */
   public static function processDatetime(&$element, FormStateInterface $form_state, &$complete_form): array {
-    $element['#attributes']['class'][] = 'custom-field-datetime-grid';
-    return parent::processDatetime($element, $form_state, $complete_form);
+    $element = parent::processDatetime($element, $form_state, $complete_form);
+    if ($element['#timezone_element']) {
+      $element['date']['#title_display'] = 'before';
+      $element['time']['#title_display'] = 'before';
+    }
+
+    return $element;
   }
 
 }

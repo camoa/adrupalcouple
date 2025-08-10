@@ -10,7 +10,8 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Render\Element;
-use Drupal\custom_field\Plugin\CustomFieldTypeInterface;
+use Drupal\custom_field\Plugin\CustomField\FieldType\DateTimeType;
+use Drupal\custom_field\Plugin\CustomField\FieldType\DateTimeTypeInterface;
 use Drupal\views\Attribute\ViewsFilter;
 use Drupal\views\Plugin\views\filter\Date as NumericDate;
 use Drupal\views\Plugin\views\query\Sql;
@@ -48,14 +49,14 @@ class CustomFieldDate extends NumericDate implements ContainerFactoryPluginInter
    *
    * @see \Drupal\views\Plugin\views\query\Sql::getDateFormat()
    */
-  protected string $dateFormat = CustomFieldTypeInterface::DATETIME_STORAGE_FORMAT;
+  protected string $dateFormat = DateTimeTypeInterface::DATETIME_STORAGE_FORMAT;
 
   /**
    * The date type.
    *
    * @var string
    */
-  protected string $dateType = CustomFieldTypeInterface::DATETIME_TYPE_DATETIME;
+  protected string $dateType = DateTimeType::DATETIME_TYPE_DATETIME;
 
   /**
    * Determines if the timezone offset is calculated.
@@ -83,13 +84,13 @@ class CustomFieldDate extends NumericDate implements ContainerFactoryPluginInter
     $this->dateFormatter = $date_formatter;
     $this->entityTypeManager = $entity_type_manager;
 
-    if ($configuration['datetime_type'] === CustomFieldTypeInterface::DATETIME_TYPE_DATE) {
+    if ($configuration['datetime_type'] === DateTimeType::DATETIME_TYPE_DATE) {
       // Date format depends on field storage format.
-      $this->dateFormat = CustomFieldTypeInterface::DATE_STORAGE_FORMAT;
+      $this->dateFormat = DateTimeTypeInterface::DATE_STORAGE_FORMAT;
       // Timezone offset calculation is not applicable to dates that are stored
       // as date-only.
       $this->calculateOffset = FALSE;
-      $this->dateType = CustomFieldTypeInterface::DATETIME_TYPE_DATE;
+      $this->dateType = DateTimeType::DATETIME_TYPE_DATE;
     }
   }
 
@@ -471,10 +472,10 @@ class CustomFieldDate extends NumericDate implements ContainerFactoryPluginInter
         'datetime' => $this->t('Date and time (separate elements)'),
         'datetime_local' => $this->t('Date and time (combined elements)'),
       ],
-      '#access' => $type === 'date' && $this->dateType !== CustomFieldTypeInterface::DATETIME_TYPE_DATE,
+      '#access' => $type === 'date' && $this->dateType !== DateTimeType::DATETIME_TYPE_DATE,
     ];
     if ($type === 'date') {
-      // Placeholders are only applicable when value type is offset.
+      // Placeholders are only applicable when a value type is offset.
       foreach (['placeholder', 'min_placeholder', 'max_placeholder'] as $key) {
         $form['expose'][$key]['#access'] = FALSE;
       }
@@ -592,8 +593,8 @@ class CustomFieldDate extends NumericDate implements ContainerFactoryPluginInter
 
     // Convert to ISO format and format for query. UTC timezone is used since
     // dates are stored in UTC.
-    $a = $this->query->getDateFormat($this->query->getDateField("'" . $this->dateFormatter->format($min_date->getTimestamp() + $origin_offset, 'custom', CustomFieldTypeInterface::DATETIME_STORAGE_FORMAT, CustomFieldTypeInterface::STORAGE_TIMEZONE) . "'", TRUE, $this->calculateOffset), $this->dateFormat, TRUE);
-    $b = $this->query->getDateFormat($this->query->getDateField("'" . $this->dateFormatter->format($max_date->getTimestamp() + $origin_offset, 'custom', CustomFieldTypeInterface::DATETIME_STORAGE_FORMAT, CustomFieldTypeInterface::STORAGE_TIMEZONE) . "'", TRUE, $this->calculateOffset), $this->dateFormat, TRUE);
+    $a = $this->query->getDateFormat($this->query->getDateField("'" . $this->dateFormatter->format($min_date->getTimestamp() + $origin_offset, 'custom', DateTimeTypeInterface::DATETIME_STORAGE_FORMAT, DateTimeTypeInterface::STORAGE_TIMEZONE) . "'", TRUE, $this->calculateOffset), $this->dateFormat, TRUE);
+    $b = $this->query->getDateFormat($this->query->getDateField("'" . $this->dateFormatter->format($max_date->getTimestamp() + $origin_offset, 'custom', DateTimeTypeInterface::DATETIME_STORAGE_FORMAT, DateTimeTypeInterface::STORAGE_TIMEZONE) . "'", TRUE, $this->calculateOffset), $this->dateFormat, TRUE);
 
     // This is safe because we are manually scrubbing the values.
     $operator = strtoupper($this->operator);
@@ -637,7 +638,7 @@ class CustomFieldDate extends NumericDate implements ContainerFactoryPluginInter
     }
 
     // Convert to ISO. UTC timezone is used since dates are stored in UTC.
-    $value = $this->query->getDateFormat($this->query->getDateField("'" . $this->dateFormatter->format($date->getTimestamp() + $origin_offset, 'custom', CustomFieldTypeInterface::DATETIME_STORAGE_FORMAT, CustomFieldTypeInterface::STORAGE_TIMEZONE) . "'", TRUE, $this->calculateOffset), $this->dateFormat, TRUE);
+    $value = $this->query->getDateFormat($this->query->getDateField("'" . $this->dateFormatter->format($date->getTimestamp() + $origin_offset, 'custom', DateTimeTypeInterface::DATETIME_STORAGE_FORMAT, DateTimeTypeInterface::STORAGE_TIMEZONE) . "'", TRUE, $this->calculateOffset), $this->dateFormat, TRUE);
 
     // This is safe because we are manually scrubbing the value.
     $field = $this->query->getDateFormat($this->query->getDateField($field, TRUE, $this->calculateOffset), $this->dateFormat, TRUE);
@@ -657,8 +658,8 @@ class CustomFieldDate extends NumericDate implements ContainerFactoryPluginInter
    *   The time zone name.
    */
   protected function getTimezone(): string {
-    return $this->dateFormat === CustomFieldTypeInterface::DATE_STORAGE_FORMAT
-      ? CustomFieldTypeInterface::STORAGE_TIMEZONE
+    return $this->dateFormat === DateTimeTypeInterface::DATE_STORAGE_FORMAT
+      ? DateTimeTypeInterface::STORAGE_TIMEZONE
       : date_default_timezone_get();
   }
 
@@ -683,7 +684,7 @@ class CustomFieldDate extends NumericDate implements ContainerFactoryPluginInter
     // with them. For relative (i.e. 'offset') comparisons, we need to compute
     // the user's offset from UTC for use in the query.
     $origin_offset = 0;
-    if ($this->dateFormat === CustomFieldTypeInterface::DATE_STORAGE_FORMAT && $this->value['type'] === 'offset') {
+    if ($this->dateFormat === DateTimeTypeInterface::DATE_STORAGE_FORMAT && $this->value['type'] === 'offset') {
       $origin_offset = $origin_offset + timezone_offset_get(new \DateTimeZone(date_default_timezone_get()), new \DateTime($time, new \DateTimeZone($timezone)));
     }
 
@@ -722,7 +723,7 @@ class CustomFieldDate extends NumericDate implements ContainerFactoryPluginInter
       $element_type = 'custom_field_datetime_date';
       $date_element = $exposed ? 'date' : 'datetime-local';
       $time_element = 'none';
-      $date_format = CustomFieldTypeInterface::DATE_STORAGE_FORMAT;
+      $date_format = DateTimeTypeInterface::DATE_STORAGE_FORMAT;
       $time_format = '';
       $date_timezone = date_default_timezone_get();
       if ($exposed) {
@@ -734,12 +735,12 @@ class CustomFieldDate extends NumericDate implements ContainerFactoryPluginInter
             break;
 
           case 'date':
-            $date_timezone = CustomFieldTypeInterface::STORAGE_TIMEZONE;
+            $date_timezone = DateTimeTypeInterface::STORAGE_TIMEZONE;
             break;
 
           case 'datetime_local':
             $date_element = 'datetime-local';
-            $date_format = CustomFieldTypeInterface::DATETIME_STORAGE_FORMAT;
+            $date_format = DateTimeTypeInterface::DATETIME_STORAGE_FORMAT;
             break;
         }
       }
@@ -758,6 +759,12 @@ class CustomFieldDate extends NumericDate implements ContainerFactoryPluginInter
           'class' => ['views-exposed-form__item'],
         ],
       ];
+      if ($filter_type === 'datetime') {
+        $element['#theme_wrappers'] = ['container', 'fieldset'];
+        $element['#attributes'] = [
+          'class' => ['custom-field-datetime-grid'],
+        ];
+      }
     }
     else {
       $element = [

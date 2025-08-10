@@ -17,9 +17,10 @@ function schemadotorg_layout_paragraphs_install(bool $is_syncing): void {
     return;
   }
 
-  // Setting weight to 1 so that the Schema.org Layout Paragraphs
-  // hooks are triggered after the Schema.org Paragraphs module.
-  module_set_weight('schemadotorg_layout_paragraphs', 1);
+  // Setting weight to 11 so that hooks are triggered after
+  // the Schema.org Blueprints Paragraphs module
+  // and the Schema.org Blueprints Additional Mappings module.
+  module_set_weight('schemadotorg_layout_paragraphs', 11);
 }
 
 /**
@@ -53,4 +54,11 @@ function schemadotorg_layout_paragraphs_update_10002(): void {
     ->getEditable('schemadotorg_layout_paragraphs.settings')
     ->set('default_view_display_components', ['mainEntity', 'links'])
     ->save();
+}
+
+/**
+ * Setting weight to 11 after the Schema.org Blueprints Additional Mappings module.
+ */
+function schemadotorg_layout_paragraphs_update_10003(): void {
+  module_set_weight('schemadotorg_layout_paragraphs', 11);
 }

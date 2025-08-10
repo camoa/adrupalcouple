@@ -9,6 +9,7 @@
 
 declare(strict_types=1);
 
+use Drupal\Component\Utility\DeprecationHelper;
 use Drupal\Core\Entity\ContentEntityTypeInterface;
 use Drupal\Core\Entity\Sql\DefaultTableMapping;
 use Drupal\Core\Entity\Sql\SqlEntityStorageInterface;
@@ -24,7 +25,13 @@ use Drupal\field\FieldStorageConfigInterface;
  * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
  */
 function custom_field_field_views_data(FieldStorageConfigInterface $field_storage): array {
-  $data = views_field_default_views_data($field_storage);
+
+  $data = DeprecationHelper::backwardsCompatibleCall(
+    currentVersion: \Drupal::VERSION,
+    deprecatedVersion: '11.2.0',
+    currentCallable: fn() => \Drupal::service('views.field_data_provider')->defaultFieldImplementation($field_storage),
+    deprecatedCallable: fn() => views_field_default_views_data($field_storage),
+  );
 
   $entity_type_manager = \Drupal::entityTypeManager();
   $entity_type_id = $field_storage->getTargetEntityTypeId();
@@ -70,6 +77,10 @@ function custom_field_field_views_data(FieldStorageConfigInterface $field_storag
         $add_fields[] = $subfield . '__title';
         $extra_columns['title'] = t('title');
       }
+      elseif ($custom_field->getDataType() === 'daterange') {
+        $add_fields[] = $subfield . '__end';
+        $extra_columns['end'] = t('end');
+      }
       $field = [
         'id' => 'custom_field',
         'field_name' => $field_name,
@@ -106,6 +117,7 @@ function custom_field_field_views_data(FieldStorageConfigInterface $field_storag
           break;
 
         case 'datetime':
+        case 'daterange':
           $datetime_type = $custom_field->getDatetimeType();
           $argument = [
             'id' => 'custom_field_datetime',
@@ -162,11 +174,25 @@ function custom_field_field_views_data(FieldStorageConfigInterface $field_storag
           break;
 
         case 'entity_reference':
+          $target_entity_type_id = $custom_field->getTargetType();
+          $filter = [
+            'id' => 'custom_field_entity_reference',
+            'target_type' => $target_entity_type_id,
+            'allow empty' => TRUE,
+            'field_name' => $field_name,
+            'subfield' => $name,
+          ];
+
+          // Use entity_target_id for argument to get entity label handling.
+          $argument = [
+            'id' => 'entity_target_id',
+            'target_entity_type_id' => $target_entity_type_id,
+          ];
+
+          // Keep the sort as numeric/string based on the data type.
           $data_type = $field_storage->getPropertyDefinition($name)->getSetting('data_type');
           $id_type = $data_type === 'integer' ? 'numeric' : 'string';
-          $filter['id'] = $id_type;
           $sort['id'] = $id_type;
-          $argument['id'] = $id_type;
           break;
       }
       $data[$table_name][$subfield]['field'] = $field;
@@ -225,10 +251,6 @@ function custom_field_field_views_data(FieldStorageConfigInterface $field_storag
             ],
           ];
         }
-        // Provide an argument plugin that has a meaningful titleQuery()
-        // implementation getting the entity label.
-        $data[$table_name][$subfield]['argument']['id'] = 'entity_target_id';
-        $data[$table_name][$subfield]['argument']['target_entity_type_id'] = $target_entity_type_id;
       }
     }
   }

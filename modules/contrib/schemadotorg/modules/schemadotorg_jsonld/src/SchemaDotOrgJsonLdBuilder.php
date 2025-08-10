@@ -201,6 +201,11 @@ class SchemaDotOrgJsonLdBuilder implements SchemaDotOrgJsonLdBuilderInterface {
         continue;
       }
 
+      // Make sure the Schema.org type supports the Schema.org property.
+      if (!$this->schemaTypeManager->hasProperty($schema_type, $schema_property)) {
+        continue;
+      }
+
       // Get property values from field items.
       /** @var \Drupal\Core\Field\FieldItemListInterface $field_items */
       $field_items = $entity->get($field_name);
@@ -264,10 +269,10 @@ class SchemaDotOrgJsonLdBuilder implements SchemaDotOrgJsonLdBuilderInterface {
    */
   public function getSchemaPropertyFieldItems(string $schema_type, string $schema_property, FieldItemListInterface $items, ?BubbleableMetadata $bubbleable_metadata = NULL): array {
     $total_items = $items->count();
-
     $position = 1;
     $property_values = [];
     foreach ($items as $item) {
+
       $property_value = $this->getSchemaPropertyFieldItem($schema_type, $schema_property, $item, $bubbleable_metadata);
 
       // Alter the Schema.org property's individual value.

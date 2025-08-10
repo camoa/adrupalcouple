@@ -48,3 +48,13 @@ function schemadotorg_additional_type_update_10002(): void {
   // hooks are triggered after the Navigation module.
   module_set_weight('schemadotorg_additional_type', 1);
 }
+
+/**
+ * Issue #3540563: Allow certain additional types to be ignored.
+ */
+function schemadotorg_additional_type_update_10003(): void {
+  \Drupal::configFactory()
+    ->getEditable('schemadotorg_additional_type.settings')
+    ->set('ignored_types', ['Default', 'default', 'Other', 'other'])
+    ->save();
+}

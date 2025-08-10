@@ -47,7 +47,7 @@ class UninstallTest extends BrowserTestBase {
   /**
    * Tests installing and uninstalling Config Overlay.
    */
-  public function testUninstall() {
+  public function testUninstall(): void {
     // Before the module is installed, its configuration should not exist.
     $this->assertFalse($this->configStorage->exists('config_overlay.deleted'));
 

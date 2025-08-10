@@ -28,6 +28,10 @@ views.filter.custom_field_datetime:
           type: string
           label: 'Filter type'
 
+views.filter.custom_field_entity_reference:
+  type: views.filter.entity_reference
+  label: 'Entity reference'
+
 views.filter_value.custom_field_datetime:
   type: views.filter_value.date
 

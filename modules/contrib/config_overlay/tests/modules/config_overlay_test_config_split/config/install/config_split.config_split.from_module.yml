@@ -6,7 +6,7 @@ id: from_module
 label: 'Test shipped configuration split'
 description: ''
 weight: 0
-# cspell:ignore stackable
+# spellchecker:ignore stackable
 stackable: false
 storage: database
 folder: ''

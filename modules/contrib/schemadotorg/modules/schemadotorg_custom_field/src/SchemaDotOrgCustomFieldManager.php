@@ -8,7 +8,6 @@ use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityReferenceSelection\SelectionPluginManagerInterface;
 use Drupal\Core\Field\FieldItemInterface;
 use Drupal\Core\Field\FieldItemListInterface;
-use Drupal\custom_field\Plugin\CustomFieldTypeInterface;
 use Drupal\custom_field\Plugin\CustomFieldTypeManager;
 use Drupal\custom_field\Plugin\CustomFieldWidgetManager;
 use Drupal\schemadotorg\Entity\SchemaDotOrgMapping;
@@ -344,7 +343,7 @@ class SchemaDotOrgCustomFieldManager implements SchemaDotOrgCustomFieldManagerIn
     }
     // Datetime field extra settings.
     if ($data_type === 'datetime') {
-      $settings['datetime_type'] = CustomFieldTypeInterface::DATETIME_TYPE_DATETIME;
+      $settings['datetime_type'] = 'datetime';
     }
     // Entity reference field extra settings.
     if ($data_type === 'entity_reference') {

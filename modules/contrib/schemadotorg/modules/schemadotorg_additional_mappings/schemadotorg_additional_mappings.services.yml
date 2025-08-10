@@ -6,7 +6,7 @@ services:
     class: Drupal\schemadotorg_additional_mappings\SchemaDotOrgAdditionalMappingsManager
   Drupal\schemadotorg_additional_mappings\SchemaDotOrgAdditionalMappingsManagerInterface: '@schemadotorg_additional_mappings.manager'
 
-  schemadotorg_additional_mapping.jsonld_manager:
+  schemadotorg_additional_mappings.jsonld_manager:
     class: Drupal\schemadotorg_additional_mappings\SchemaDotOrgAdditionalMappingsJsonLdManager
-  Drupal\schemadotorg_additional_mappings\SchemaDotOrgAdditionalMappingsJsonLdManagerInterface: '@schemadotorg_additional_mapping.jsonld_manager'
+  Drupal\schemadotorg_additional_mappings\SchemaDotOrgAdditionalMappingsJsonLdManagerInterface: '@schemadotorg_additional_mappings.jsonld_manager'
 

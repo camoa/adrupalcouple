@@ -8,8 +8,7 @@ use Drupal\Core\Config\Entity\ConfigEntityInterface;
 use Drupal\Core\Config\StorageInterface;
 use Drupal\language\Entity\ConfigurableLanguage;
 use Drupal\Tests\config_overlay\Functional\ConfigOverlayTestBase;
-
-// cspell:ignore Gebruikersrekening
+use Drupal\Tests\config_overlay\Functional\ConfigOverlayLanguageTestTrait;
 
 /**
  * Tests installing with a different language with Config Overlay.
@@ -17,6 +16,8 @@ use Drupal\Tests\config_overlay\Functional\ConfigOverlayTestBase;
  * @group config_overlay
  */
 class LanguageTestingTest extends ConfigOverlayTestBase {
+
+  use ConfigOverlayLanguageTestTrait;
 
   /**
    * {@inheritdoc}
@@ -29,27 +30,20 @@ class LanguageTestingTest extends ConfigOverlayTestBase {
   protected string $langcode = 'af';
 
   /**
-   * {@inheritdoc}
+   * An array of translations used in this test.
+   *
+   * The keys of the array are the language codes of the translations and the
+   * respective (language-specific) values are arrays where the keys are the
+   * translation message identifiers and the values are the translation strings.
+   *
+   * @var string[][]
    */
-  protected function prepareEnvironment() {
-    parent::prepareEnvironment();
-
-    $translationFilesDirectory = $this->publicFilesDirectory . '/translations';
-    mkdir($translationFilesDirectory, 0777, TRUE);
-
-    // Prepare a translation file to avoid attempting to download a translation
-    // file from the actual translation server during the test. The file
-    // contains an actual translation to test that translations for
-    // configuration are imported correctly.
-    $po = <<<PO
-msgid ""
-msgstr ""
-
-msgid "User account"
-msgstr "Gebruikersrekening"
-PO;
-    file_put_contents("$this->root/$translationFilesDirectory/drupal-8.0.0.$this->langcode.po", $po);
-  }
+  protected array $translationsByLanguage = [
+    'af' => [
+      // spellchecker:ignore Gebruikersrekening
+      'User account' => 'Gebruikersrekening',
+    ],
+  ];
 
   /**
    * {@inheritdoc}
@@ -71,20 +65,6 @@ PO;
     $this->exportConfig();
 
     return $recreated_entity;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  protected function getExpectedConfig(): array {
-    $expected_config = parent::getExpectedConfig();
-
-    unset(
-      $expected_config[StorageInterface::DEFAULT_COLLECTION]['language.negotiation']['url']['prefixes']['en'],
-      $expected_config[StorageInterface::DEFAULT_COLLECTION]['language.negotiation']['url']['domains']['en']
-    );
-
-    return $expected_config;
   }
 
   /**
@@ -121,13 +101,8 @@ PO;
       'weight' => 0,
       'locked' => FALSE,
     ];
-    /* @see \Drupal\language\Entity\ConfigurableLanguage::postSave() */
-    $overridden_config[StorageInterface::DEFAULT_COLLECTION]['language.negotiation'] = [
-      'url' => [
-        'prefixes' => [$this->langcode => ''],
-        'domains' => [$this->langcode => ''],
-      ],
-    ];
+
+    $overridden_config[StorageInterface::DEFAULT_COLLECTION]['language.negotiation'] = $this->getLanguageNegotiationConfig();
 
     // All configuration will specify the site default language as their its
     // language while the shipped configuration specifies English.

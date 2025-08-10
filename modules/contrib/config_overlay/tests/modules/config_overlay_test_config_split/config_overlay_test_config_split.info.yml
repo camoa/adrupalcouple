@@ -7,7 +7,7 @@ dependencies:
   - drupal:field
   - config_split:config_split
 
-# Information added by Drupal.org packaging script on 2025-07-20
-version: '2.4.1'
+# Information added by Drupal.org packaging script on 2025-08-01
+version: '2.5.1'
 project: 'config_overlay'
-datestamp: 1753023522
+datestamp: 1754085548

@@ -9,6 +9,8 @@ declare(strict_types=1);
 
 use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Render\BubbleableMetadata;
+use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\paragraphs\ParagraphsTypeInterface;
 
 /**
@@ -74,6 +76,15 @@ function schemadotorg_layout_paragraphs_entity_view_display_presave(EntityViewDi
   /** @var \Drupal\schemadotorg_layout_paragraphs\SchemaDotOrgLayoutParagraphsManagerInterface $layout_paragraphs_manager */
   $layout_paragraphs_manager = \Drupal::service('schemadotorg_layout_paragraphs.manager');
   $layout_paragraphs_manager->entityDisplayPreSave($view_display);
+}
+
+/**
+ * Implements hook_schemadotorg_jsonld_alter().
+ */
+function schemadotorg_layout_paragraphs_schemadotorg_jsonld_alter(array &$data, RouteMatchInterface $route_match, BubbleableMetadata $bubbleable_metadata): void {
+  /** @var \Drupal\schemadotorg_additional_mappings\SchemaDotOrgAdditionalMappingsJsonLdManagerInterface $layout_paragraphs_jsonld_manager */
+  $layout_paragraphs_jsonld_manager = \Drupal::service('schemadotorg_layout_paragraphs.jsonld_manager');
+  $layout_paragraphs_jsonld_manager->alter($data, $route_match, $bubbleable_metadata);
 }
 
 /* ************************************************************************** */

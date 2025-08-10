@@ -266,7 +266,8 @@ class SchemaDotOrgJsonLdManager implements SchemaDotOrgJsonLdManagerInterface {
     $schema_property_schema_type = ($range_includes)
       ? reset($range_includes)
       : $this->schemaTypeManager->getPropertyDefaultType($schema_property);
-    if (!$schema_property_schema_type) {
+    if (!$schema_property_schema_type
+      || $this->schemaTypeManager->isDataType($schema_property_schema_type)) {
       return $value;
     }
 

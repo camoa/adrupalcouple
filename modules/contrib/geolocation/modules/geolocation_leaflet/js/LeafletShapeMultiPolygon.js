@@ -14,10 +14,10 @@ export class LeafletShapeMultiPolygon extends GeolocationShapeMultiPolygon {
   }
 
   addShape() {
-    this.geometry.forEach((polygonGeometry) => {
+    this.geometry.coordinates.forEach((polygonGeometry) => {
       const polygon = L.polygon(
         [
-          polygonGeometry.coordinates[0].map((value) => {
+          polygonGeometry[0].map((value) => {
             return { lat: value[1], lng: value[0] };
           }),
         ],

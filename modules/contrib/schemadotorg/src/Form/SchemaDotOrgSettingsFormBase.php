@@ -168,7 +168,7 @@ abstract class SchemaDotOrgSettingsFormBase extends ConfigFormBase {
         $form[$module_name]['apply'] += [
           '#type' => 'checkbox',
           '#title' => t('Re-apply %title to all existing Schema.org mappings.', $t_args),
-          '#description' => t('If checked, @title will be re-applied to all the existing Schema.org mappings.', $t_args),
+          '#description' => t('If checked, @title will be re-applied to all the existing Schema.org mappings after saving this configuration.', $t_args),
           '#return_value' => TRUE,
           '#prefix' => '<hr/>',
         ];

@@ -15,6 +15,23 @@ abstract class DatetimeBase extends Datetime {
   /**
    * {@inheritdoc}
    */
+  public function getInfo(): array {
+    $info = parent::getInfo();
+    $info['#theme_wrappers'] = [];
+    $info['#theme'] = NULL;
+    $info['#attached'] = [
+      'library' => [
+        'custom_field/custom-field-datetime',
+      ],
+    ];
+    $info['#timezone_element'] = FALSE;
+
+    return $info;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public static function valueCallback(&$element, $input, FormStateInterface $form_state) {
     $element += ['#date_timezone' => date_default_timezone_get()];
     if ($input !== FALSE) {

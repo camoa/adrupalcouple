@@ -14,6 +14,12 @@ schemadotorg_additional_type.settings:
       sequence:
         type: string
         label: 'Schema.org required additional type type'
+    ignored_types:
+      type: sequence
+      label: 'Schema.org ignored additional type types'
+      sequence:
+        type: string
+        label: 'Schema.org ignored additional type type'
     use_snake_case:
       type: boolean
       label: 'Use snake case for additional type values'

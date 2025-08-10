@@ -89,6 +89,17 @@ class SchemaDotOrgAdditionalTypeJsonLdKernelTest extends SchemaDotOrgJsonLdKerne
     ];
     $this->assertEquals($expected_result, $this->builder->buildEntity($other_node));
 
+    // Check that ignored additional types are removed.
+    $this->config('schemadotorg_additional_type.settings')
+      ->set('ignored_types', ['OtherOrganization'])
+      ->save();
+    $expected_result = [
+      '@type' => 'Organization',
+      '@url' => $other_node->toUrl()->setAbsolute()->toString(),
+      'name' => 'OtherOrganization',
+    ];
+    $this->assertEquals($expected_result, $this->builder->buildEntity($other_node));
+
   }
 
 }
