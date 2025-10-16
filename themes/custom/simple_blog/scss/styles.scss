@@ -156,6 +156,7 @@ p {
 .blog-post-section .blog-section-content .image-content .blog-text ul  {
   display: flex;
   gap: 20px;
+  flex-wrap: wrap;
   align-items: center;
   text-align: center;
   @include sm-down-device {
