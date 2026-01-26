@@ -41,7 +41,7 @@
     "drupal/jsonapi_extras": "^3.0",
     "drupal/layout_paragraphs": "^2.0",
     "drupal/link_attributes": "^2.0",
-    "drupal/mercury_editor": "^2.0",
+    "drupal/mercury_editor": "^2.0 || ^3.0",
     "drupal/metatag": "^2.0",
     "drupal/office_hours": "^1.0",
     "drupal/paragraphs": "^1.0",
@@ -74,12 +74,8 @@
         "Issue #3265084: EntityReferenceRevisionsItem:generateSampleValue can break when all bundle types are allowed": "https://www.drupal.org/files/issues/2022-02-18/treat-no-selection-as-all-3265084-2.patch"
       },
       "drupal/entity_browser": {
-        "Issue #2914385: Warning: key() expects parameter 1 to be array, null given in Drupal\\entity_browser\\Plugin\\Field\\FieldWidget\\EntityReferenceBrowserWidget::processEntityBrowser()": "https://www.drupal.org/files/issues/2024-06-12/2914385-35.patch",
         "Issue #3012432: Broken views exposed form in modals": "https://www.drupal.org/files/issues/2020-04-29/3012432-4_remove_enctype_on_views_widget.patch",
         "Issue #2946829: Make submit button on modal always visible": "https://www.drupal.org/files/issues/2020-10-19/2946829-submit-button-always-visible-on-modals-4.patch"
-      },
-      "drupal/field_validation": {
-        "Issue #3491233: Fix Drupal 10.4 RC1 error with field_ui.js": "https://www.drupal.org/files/issues/2025-06-17/field_validation-issue-3524477-mr-15.patch"
       },
       "drupal/jsonapi_extras": {
         "Issue #3524477: Breaking errors in D11.2 or D11.x": "https://www.drupal.org/files/issues/2020-02-08/3031524-8.patch"

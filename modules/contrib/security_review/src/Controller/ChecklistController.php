@@ -142,7 +142,7 @@ class ChecklistController extends ControllerBase {
         'security_review.help',
         [
           'namespace' => $this->getMachineName($check->getNamespace()),
-          'title' => $this->getMachineName($check->getTitle()),
+          'title' => $check->getPluginId(),
         ]
       );
 

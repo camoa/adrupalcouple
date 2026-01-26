@@ -60,7 +60,7 @@ class SecurityReviewCommands extends DrushCommands {
    *   Do not run the checklist, just print last results
    * @option check
    *   Comma-separated list of specified checks to run. See README.txt for
-   *    list of options
+   *    a list of options
    * @option skip
    *   Comma-separated list of specified checks not to run. This takes
    *    precedence over --check
@@ -139,7 +139,10 @@ class SecurityReviewCommands extends DrushCommands {
       // Mark checks listed after --skip for removal.
       if (!empty($skip_checks)) {
         foreach (explode(',', $skip_checks) as $skip_check) {
-          $to_skip[] = $this->getCheck($skip_check);
+          $check = $this->getCheck($skip_check);
+          if ($check !== NULL) {
+            $to_skip[] = $check;
+          }
         }
       }
 
@@ -163,20 +166,20 @@ class SecurityReviewCommands extends DrushCommands {
 
       // If $checks is empty at this point, return with an error.
       if (empty($checks)) {
-        throw new \Exception(t("No checks to run. Run 'drush help secrev' for option use or consult the drush section of API.txt for further help."));
+        throw new \Exception(t("No checks to run. Run 'drush help secrev' for option use or consult the drush section of API.txt for further help.")->render());
       }
 
       // Run the checks.
       $this->securityReviewService->runChecks($checks, TRUE);
 
       foreach ($checks as $check) {
-        $results[$this->getMachineName($check->getTitle())] = $check->lastResult();
+        $results[$check->getPluginId()] = $check->lastResult();
       }
     }
     else {
       // Show the latest stored results.
       foreach ($this->checkPluginManager->getChecks() as $check) {
-        $results[$this->getMachineName($check->getTitle())] = $check->lastResult();
+        $results[$check->getPluginId()] = $check->lastResult();
       }
     }
 
@@ -198,7 +201,7 @@ class SecurityReviewCommands extends DrushCommands {
    * @param \Drupal\security_review\CheckResult[] $results
    *   An array of CheckResults.
    * @param bool $short_titles
-   *   Whether to use short message (check title) or full check success or
+   *   Whether to use a short message (check title) or full check success or
    *   failure message.
    * @param bool $show_findings
    *   Whether to print failed check results.
@@ -209,12 +212,12 @@ class SecurityReviewCommands extends DrushCommands {
   private function formatResults(array $results, bool $short_titles = FALSE, bool $show_findings = FALSE): array {
     $output = [];
 
-    foreach ($results as $check_name => $result) {
-      $check = $this->getCheck($check_name);
-      $message = $short_titles ? $check->getTitle() : $check->getStatusMessage($result['result']);
+    foreach ($results as $id => $result) {
+      $check = $this->checkPluginManager->getCheckById($id);
+      $message = $short_titles ? $check->getTitle() : (!empty($result) ? $check->getStatusMessage($result['result']) : '');
       $status = 'notice';
 
-      // Set log level according to check result.
+      // Set the log level according to the check result.
       switch ($result['result']) {
         case CheckResult::SUCCESS:
           $status = 'success';
@@ -261,7 +264,7 @@ class SecurityReviewCommands extends DrushCommands {
    *   The found Check.
    */
   private function getCheck(string $check_name): ?SecurityCheckInterface {
-    // Default namespace is Security Review.
+    // The default namespace is Security Review.
     $namespace = 'security_review';
     $title = $check_name;
 
@@ -270,8 +273,12 @@ class SecurityReviewCommands extends DrushCommands {
       [$namespace, $title] = explode(':', $check_name);
     }
 
-    // Return the found check if any.
-    return $this->checkPluginManager->getCheck($namespace, $title);
+    // Return the found check, if any.
+    $check = $this->checkPluginManager->getCheck($namespace, $title);
+    if ($check == NULL) {
+      $check = $this->checkPluginManager->getCheckById($check_name);
+    }
+    return $check;
   }
 
 }

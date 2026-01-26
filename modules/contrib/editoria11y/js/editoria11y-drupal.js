@@ -94,12 +94,17 @@ const ed11yInitializer = function () {
       drupalSettings.editoria11y.watch_for_changes !== 'false';
   }
 
+  options.preventCheckingIfPresent = !!drupalSettings.editoria11y.no_load ?
+    drupalSettings.editoria11y.no_load + ', .layout-builder-form' :
+    '.layout-builder-form';
+
   let delay = drupalSettings.path.currentPathIsAdmin ? 250 : 0;
   // Way too many race conditions on admin side.
   if (document.URL.indexOf('mode=same_page_preview') > -1 || (
     drupalSettings.path.currentPathIsAdmin &&
     drupalSettings.editoria11y.disable_live === true
-  )) {
+  ) || document.querySelector(options.preventCheckingIfPresent)
+  ) {
     ed11yOnce = true;
     ed11yInitialized = 'disabled';
     return;
@@ -209,9 +214,16 @@ const ed11yInitializer = function () {
   options.syncedDismissals = drupalSettings.editoria11y.dismissals;
   options.showDismissed = urlParams.has('ed1ref');
   // todo postpone: ignoreAllIfPresent
-  options.preventCheckingIfPresent = !!drupalSettings.editoria11y.no_load ?
-    drupalSettings.editoria11y.no_load + ', .layout-builder-form, #experience-builder, ' :
-    '.layout-builder-form, #experience-builder';
+  try {
+    // 3567434 Try to catch CSP errors.
+    if (!!(parent?.drupalSettings?.canvas) && !parent.document.body.querySelector('[class^=_PagePreviewIframe]')) {
+      // Only run when Drupal Canvas is running if it is in Preview mode.
+      options.preventCheckingIfPresent = 'body';
+    }
+  } catch (error) {
+    console.error(error);
+  }
+
   // todo postpone: preventCheckingIfAbsent
   options.linkStringsNewWindows = !!drupalSettings.editoria11y.link_strings_new_windows ?
     new RegExp (drupalSettings.editoria11y.link_strings_new_windows, 'gi')
@@ -513,6 +525,7 @@ const ed11yInitializer = function () {
         ed11yDismissalsCache = {};
         data = {
           page_path: drupalSettings.editoria11y.page_path,
+          element_id: detail.dismissKey,
           language: drupalSettings.editoria11y.lang,
           route_name: drupalSettings.editoria11y.route_name,
           dismissal_status: 'reset', // ok, ignore or reset

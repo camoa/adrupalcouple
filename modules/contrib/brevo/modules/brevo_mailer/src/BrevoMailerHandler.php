@@ -193,9 +193,17 @@ class BrevoMailerHandler implements BrevoMailerHandlerInterface {
       // Display a warning if Brevo is not a default mailer for Symfony Mailer.
       $default_transport = $this->configFactory->get('symfony_mailer.settings')->get('default_transport');
       if (!strstr($default_transport, 'brevo')) {
-        $this->messenger->addMessage($this->t('Brevo is not the default transport (Symfony Mailer). You may update settings at @link.', [
-          '@link' => Link::createFromRoute($this->t('here'), 'entity.mailer_transport.collection')->toString(),
-        ]), 'warning');
+        $default_non_overridden_transport = $this->configFactory->getEditable('symfony_mailer.settings')->get('default_transport');
+        if ($default_non_overridden_transport === 'brevo') {
+          $this->messenger->addMessage($this->t('Brevo is configured as the default transport (Symfony Mailer) but your current environment has overridden this with "@transport".', [
+            '@transport' => $default_transport,
+          ]), 'warning');
+        }
+        else {
+          $this->messenger->addMessage($this->t('Brevo is not the default transport (Symfony Mailer). You may update settings at @link.', [
+            '@link' => Link::createFromRoute($this->t('here'), 'entity.mailer_transport.collection')->toString(),
+          ]), 'warning');
+        }
       }
     }
 

@@ -7,26 +7,27 @@ namespace Drupal\security_review\Plugin\SecurityCheck;
 use Drupal\Core\Database\Connection;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Logger\RfcLogLevel;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\security_review\Attribute\SecurityCheck;
 use Drupal\security_review\CheckResult;
 use Drupal\security_review\SecurityCheckBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Checks for abundant query errors.
- *
- * @SecurityCheck(
- *   id = "query_errors",
- *   title = @Translation("Query errors"),
- *   description = @Translation("Checks for abundant query errors."),
- *   namespace = @Translation("Security Review"),
- *   success_message = @Translation("No query errors from same IP found."),
- *   failure_message = @Translation("Query errors from the same IP. These may be a SQL injection attack or an attempt at information disclosure."),
- *   info_message = @Translation("Query errors - Dblog module not installed."),
- *   help = {
- *     @Translation("Database errors triggered from the same IP may be an artifact of a malicious user attempting to probe the system for weaknesses like SQL injection or information disclosure."),
- *   }
- * )
  */
+#[SecurityCheck(
+  id: 'query_errors',
+  title: new TranslatableMarkup('Query errors'),
+  description: new TranslatableMarkup('Checks for abundant query errors.'),
+  namespace: new TranslatableMarkup('Security Review'),
+  success_message: new TranslatableMarkup('No query errors from same IP found.'),
+  failure_message: new TranslatableMarkup('Query errors from the same IP. These may be a SQL injection attack or an attempt at information disclosure.'),
+  info_message: new TranslatableMarkup('Query errors - Dblog module not installed.'),
+  help: [
+    new TranslatableMarkup('Database errors triggered from the same IP may be an artifact of a malicious user attempting to probe the system for weaknesses like SQL injection or information disclosure.'),
+  ]
+)]
 class QueryErrors extends SecurityCheckBase {
 
   /**
@@ -60,7 +61,7 @@ class QueryErrors extends SecurityCheckBase {
     $result = CheckResult::SUCCESS;
     $findings = [];
 
-    // If dblog is not enabled return with hidden INFO.
+    // If dblog is not enabled, return with hidden INFO.
     if (!$this->moduleHandler->moduleExists('dblog')) {
       $result = CheckResult::INFO;
     }
@@ -78,8 +79,7 @@ class QueryErrors extends SecurityCheckBase {
         'variables',
         'hostname',
       ]);
-      $query->condition('type', 'php')
-        ->condition('severity', RfcLogLevel::ERROR);
+      $query->condition('type', 'php')->condition('severity', RfcLogLevel::ERROR);
 
       if (isset($last_result['time'])) {
         $query->condition('timestamp', $last_result['time'], '>=');
@@ -157,8 +157,8 @@ class QueryErrors extends SecurityCheckBase {
     else {
       $output[] = [
         '#theme' => 'check_evaluation',
-        '#paragraphs' => $paragraphs,
-        '#items' => $findings,
+        '#additional_paragraphs' => $paragraphs,
+        '#finding_items' => $findings,
       ];
     }
 

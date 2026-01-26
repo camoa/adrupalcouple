@@ -920,6 +920,8 @@ schema_properties:
       - Text
     worksFor:
       - LocalBusiness
+    roleName:
+      - Text
   ignored_properties:
     - accessMode
     - accessModeSufficient
@@ -1636,6 +1638,7 @@ schema_properties:
       label: hidden
   default_field_types: {  }
   default_field_weights:
+    - roleName
     - additionalType
     - name
     - title
@@ -1710,7 +1713,6 @@ schema_properties:
     - programPrerequisites
     - member
     - membershipNumber
-    - roleName
     - audienceType
     - timeOfDay
     - timeToComplete

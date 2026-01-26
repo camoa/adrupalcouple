@@ -5,8 +5,9 @@ core_version_requirement: ^9 || ^10 || ^11
 package: SEO
 dependencies:
   - metatag:metatag
+configure: metatag_ai.admin_settings
 
-# Information added by Drupal.org packaging script on 2024-05-18
-version: '1.0.2'
+# Information added by Drupal.org packaging script on 2025-09-10
+version: '1.0.4'
 project: 'metatag_ai'
-datestamp: 1716003969
+datestamp: 1757510703

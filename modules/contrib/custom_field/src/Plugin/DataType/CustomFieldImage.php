@@ -62,7 +62,6 @@ class CustomFieldImage extends CustomFieldEntityReferenceBase {
    */
   public function __construct(DataDefinitionInterface $definition, $name = NULL, ?FieldItemInterface $parent = NULL) {
     parent::__construct($definition, $name, $parent);
-    $this->value = $parent->{$this->getName()};
     $this->alt = $parent->get($this->getName() . '__alt')->getValue();
     $this->title = $parent->get($this->getName() . '__title')->getValue();
     $this->width = $parent->get($this->getName() . '__width')->getValue();

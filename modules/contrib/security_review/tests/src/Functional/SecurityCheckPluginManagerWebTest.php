@@ -47,7 +47,7 @@ class SecurityCheckPluginManagerWebTest extends BrowserTestBase {
    */
   protected function setUp(): void {
     parent::setUp();
-    // Login.
+
     $this->user = $this->drupalCreateUser(
       [
         'run security checks',
@@ -82,15 +82,17 @@ class SecurityCheckPluginManagerWebTest extends BrowserTestBase {
     foreach ($this->checks as $check) {
       $result = $check->lastResult();
       $this->assertIsArray($result, $check->getTitle() . ' has been run.');
-      $this->assertIsInt($result['result'], $check->getTitle() . ' has been run.');
-      $this->assertIsInt($result['time'], $check->getTitle() . ' has been run.');
-      $this->assertIsArray($result['findings'], $check->getTitle() . ' has been run.');
-      $this->assertIsArray($result['hushed'], $check->getTitle() . ' has been run.');
+      if (!empty($result)) {
+        $this->assertIsInt($result['result'], $check->getTitle() . ' has been run.');
+        $this->assertIsInt($result['time'], $check->getTitle() . ' has been run.');
+        $this->assertIsArray($result['findings'], $check->getTitle() . ' has been run.');
+        $this->assertIsArray($result['hushed'], $check->getTitle() . ' has been run.');
+      }
     }
   }
 
   /**
-   * Skips all checks then runs the checklist. No checks should be run.
+   * Skips all checks, then runs the checklist. No checks should be run.
    */
   public function testSkippedRun(): void {
     $security_review_service = $this->container->get('security_review');

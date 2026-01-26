@@ -4,7 +4,7 @@ description: Helpful module for test staff.
 core_version_requirement: ^9.3 || ^10 || ^11
 package: Mail
 
-# Information added by Drupal.org packaging script on 2025-04-01
-version: '1.0.3'
+# Information added by Drupal.org packaging script on 2025-12-27
+version: '1.0.4'
 project: 'brevo'
-datestamp: 1743525149
+datestamp: 1766844361

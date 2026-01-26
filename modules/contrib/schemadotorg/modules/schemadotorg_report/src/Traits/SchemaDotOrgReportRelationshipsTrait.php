@@ -15,7 +15,7 @@ trait SchemaDotOrgReportRelationshipsTrait {
   use SchemaDotOrgMappingStorageTrait;
 
   /**
-   * An array of empty relationships..
+   * An array of empty relationships.
    */
   protected array $relationships = [
     'hierarchical' => [],

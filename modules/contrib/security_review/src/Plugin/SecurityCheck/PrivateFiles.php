@@ -7,6 +7,8 @@ namespace Drupal\security_review\Plugin\SecurityCheck;
 use Drupal\Core\Link;
 use Drupal\Core\StreamWrapper\PrivateStream;
 use Drupal\Core\StreamWrapper\StreamWrapperManagerInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\security_review\Attribute\SecurityCheck;
 use Drupal\security_review\CheckResult;
 use Drupal\security_review\SecurityCheckBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -14,20 +16,19 @@ use Symfony\Component\Filesystem\Filesystem;
 
 /**
  * Checks whether the private files' directory is under the web root.
- *
- * @SecurityCheck(
- *   id = "private_files",
- *   title = @Translation("Private files"),
- *   description = @Translation("Checks whether the private files' directory is under the web root."),
- *   namespace = @Translation("Security Review"),
- *   success_message = @Translation("Private files directory is outside the web server root."),
- *   failure_message = @Translation("Private files is enabled but the specified directory is not secure outside the web server root."),
- *   info_message = @Translation("Private files is not enabled."),
- *   help = {
- *     @Translation("If you have Drupal's private files feature enabled you should move the files directory outside of the web server's document root. Drupal will secure access to files that it renders the link to, but if a user knows the actual system path they can circumvent Drupal's private files feature. You can protect against this by specifying a files directory outside of the webserver root."),
- *   }
- * )
  */
+#[SecurityCheck(
+  id: 'private_files',
+  title: new TranslatableMarkup('Private files'),
+  description: new TranslatableMarkup("Checks whether the private files' directory is under the web root."),
+  namespace: new TranslatableMarkup('Security Review'),
+  success_message: new TranslatableMarkup('Private files directory is outside the web server root.'),
+  failure_message: new TranslatableMarkup('Private files is enabled but the specified directory is not secure outside the web server root.'),
+  info_message: new TranslatableMarkup('Private files is not enabled.'),
+  help: [
+    new TranslatableMarkup("If you have Drupal's private files feature enabled you should move the files directory outside of the web server\'s document root. Drupal will secure access to files that it renders the link to, but if a user knows the actual system path they can circumvent Drupal\'s private files feature. You can protect against this by specifying a files directory outside of the webserver root."),
+  ]
+)]
 class PrivateFiles extends SecurityCheckBase {
 
   /**
@@ -56,7 +57,7 @@ class PrivateFiles extends SecurityCheckBase {
     if ($wrapper = $this->streamWrapperManager->getViaScheme('private')) {
       $file_directory_path = $wrapper->realPath();
     }
-    // Fallback to previous approach.
+    // Fallback to the previous approach.
     else {
       $base = PrivateStream::basePath();
       $file_directory_path = !is_null($base) ? realpath($base) : NULL;
@@ -69,7 +70,7 @@ class PrivateFiles extends SecurityCheckBase {
     }
     elseif (
       // Make a relative path from the Drupal root to the private files path; if
-      // the relative path doesn't start with '../', it's most likely contained
+      // the relative path doesn't start with, '../', it's most likely contained
       // in the Drupal root.
       !str_starts_with($filesystem->makePathRelative($file_directory_path, DRUPAL_ROOT), '../') &&
       // Double check that the private files path does not start with the Drupal
@@ -80,7 +81,7 @@ class PrivateFiles extends SecurityCheckBase {
       // private files directory that starts with the Drupal directory name.
       str_starts_with($file_directory_path, DRUPAL_ROOT . DIRECTORY_SEPARATOR)
     ) {
-      // Path begins at root.
+      // Path begins at the root.
       $result = CheckResult::FAIL;
     }
 
@@ -110,7 +111,7 @@ class PrivateFiles extends SecurityCheckBase {
     else {
       $output[] = [
         '#theme' => 'check_evaluation',
-        '#paragraphs' => $paragraphs,
+        '#finding_items' => $paragraphs,
       ];
     }
 

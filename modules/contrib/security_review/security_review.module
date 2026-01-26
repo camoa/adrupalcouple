@@ -46,15 +46,14 @@ function security_review_theme($existing, $type, $theme, $path): array {
     'check_evaluation' => [
       'template' => 'check_evaluation',
       'variables' => [
-        'paragraphs' => [],
-        'items' => [],
+        'additional_paragraphs' => [],
+        'finding_items' => [],
         'hushed_items' => [],
       ],
     ],
     'check_help' => [
       'template' => 'check_help',
       'variables' => [
-        'title' => [],
         'paragraphs' => [],
       ],
     ],

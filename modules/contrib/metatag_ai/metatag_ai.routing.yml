@@ -12,4 +12,4 @@ metatag_ai.content_settings:
     _form: '\Drupal\metatag_ai\Form\MetatagAISettingsForm'
     _title: 'Metatag Content Type Settings'
   requirements:
-    _permission: 'Administer Metatag AI'
+    _permission: 'Administer Metatag Content'

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Drupal\security_review\Plugin\SecurityCheck;
 
+use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\security_review\Attribute\SecurityCheck;
 use Drupal\security_review\CheckResult;
 use Drupal\security_review\SecurityCheckBase;
 use Drupal\user\Entity\User;
@@ -11,20 +13,19 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Checks whether untrusted roles have restricted permissions.
- *
- * @SecurityCheck(
- *   id = "admin_user",
- *   title = @Translation("Blocked Admin account"),
- *   description = @Translation("Checks whether Admin user 1 is blocked."),
- *   namespace = @Translation("Security Review"),
- *   success_message = @Translation("The administrative account is disabled - protected."),
- *   failure_message = @Translation("The administrative account is enabled - dangerous!"),
- *   info_message = @Translation("The 'enable_super_user' parameter is set to false."),
- *   help = {
- *     @Translation("The administrative account, uid 1, is commonly targeted by attackers because this account has superuser privileges which cannot be blocked or limited.  Attacks that do things like change the administrator password, or even brute force or social engineering attacks could compromise the administrator password.  Because the administrative account has such wide privileges it is a good idea to create a role for administrators and explicitly create these less privileged accounts.  The administrative account can be unblocked by users with the ""administer users"" permission if you need to use the account at a later time."),
- *   }
- * )
  */
+#[SecurityCheck(
+  id: 'admin_user',
+  title: new TranslatableMarkup('Blocked Admin account'),
+  description: new TranslatableMarkup('Checks whether Admin user 1 is blocked.'),
+  namespace: new TranslatableMarkup('Security Review'),
+  success_message: new TranslatableMarkup('The administrative account is disabled - protected.'),
+  failure_message: new TranslatableMarkup('The administrative account is enabled - dangerous!'),
+  info_message: new TranslatableMarkup('The "enable_super_user" parameter is set to false.'),
+  help: [
+    new TranslatableMarkup('The administrative account, uid 1, is commonly targeted by attackers because this account has superuser privileges which cannot be blocked or limited.  Attacks that do things like change the administrator password, or even brute force or social engineering attacks could compromise the administrator password.  Because the administrative account has such wide privileges it is a good idea to create a role for administrators and explicitly create these less privileged accounts.  The administrative account can be unblocked by users with the "administer users" permission if you need to use the account at a later time.'),
+  ]
+)]
 class AdminUser extends SecurityCheckBase {
 
   /**
@@ -90,7 +91,7 @@ class AdminUser extends SecurityCheckBase {
     else {
       $output[] = [
         '#theme' => 'check_evaluation',
-        '#paragraphs' => $paragraphs,
+        '#finding_items' => $paragraphs,
       ];
     }
 

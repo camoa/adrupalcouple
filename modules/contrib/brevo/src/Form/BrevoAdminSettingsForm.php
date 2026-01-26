@@ -95,7 +95,7 @@ class BrevoAdminSettingsForm extends ConfigFormBase {
                 $account = $this->brevoHandler->getBrevoAccount($apiKey);
             }
             catch (ApiException $e) {
-                $this->messenger->addError($this->t('Can not fetch Brevo account : @error', ['@error' => $e->getMessage()]));
+                $this->messenger()->addError($this->t('Can not fetch Brevo account : @error', ['@error' => $e->getMessage()]));
             }
         }
 

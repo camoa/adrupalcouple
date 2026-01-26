@@ -345,9 +345,6 @@ class SchemaDotOrgAdditionalMappingsManager implements SchemaDotOrgAdditionalMap
     foreach ($additional_mappings as $additional_mapping) {
       $additional_schema_type = $additional_mapping['schema_type'];
       $additional_schema_properties = $additional_mapping['schema_properties'];
-      if ($this->schemaTypeManager->isSubTypeOf($additional_schema_type, $schema_type)) {
-        continue;
-      }
 
       $additional_mapping_defaults = $this->schemaMappingManager->getMappingDefaults(
         entity_type_id: $entity_type_id,

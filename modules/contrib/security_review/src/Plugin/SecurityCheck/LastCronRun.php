@@ -4,24 +4,25 @@ declare(strict_types=1);
 
 namespace Drupal\security_review\Plugin\SecurityCheck;
 
+use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\security_review\Attribute\SecurityCheck;
 use Drupal\security_review\CheckResult;
 use Drupal\security_review\SecurityCheckBase;
 
 /**
  * Checks the last time cron has run.
- *
- * @SecurityCheck(
- *   id = "last_cron_run",
- *   title = @Translation("Last Cron Run"),
- *   description = @Translation("Checks the last time cron has run."),
- *   namespace = @Translation("Security Review"),
- *   success_message = @Translation("Cron has ran within the last 3 days."),
- *   failure_message = @Translation("Cron has not ran within the last 3 days."),
- *   help = {
- *     @Translation("A properly configured cron job executes, initiates, or manages a variety of tasks."),
- *   }
- * )
  */
+#[SecurityCheck(
+  id: 'last_cron_run',
+  title: new TranslatableMarkup('Last Cron Run'),
+  description: new TranslatableMarkup('Checks the last time cron has run.'),
+  namespace: new TranslatableMarkup('Security Review'),
+  success_message: new TranslatableMarkup('Cron has ran within the last 3 days.'),
+  failure_message: new TranslatableMarkup('Cron has not ran within the last 3 days.'),
+  help: [
+    new TranslatableMarkup('A properly configured cron job executes, initiates, or manages a variety of tasks.'),
+  ]
+)]
 class LastCronRun extends SecurityCheckBase {
 
   /**
@@ -60,7 +61,7 @@ class LastCronRun extends SecurityCheckBase {
     else {
       $output[] = [
         '#theme' => 'check_evaluation',
-        '#paragraphs' => $paragraphs,
+        '#finding_items' => $paragraphs,
       ];
     }
 

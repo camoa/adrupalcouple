@@ -4,24 +4,25 @@ declare(strict_types=1);
 
 namespace Drupal\security_review\Plugin\SecurityCheck;
 
+use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\security_review\Attribute\SecurityCheck;
 use Drupal\security_review\CheckResult;
 use Drupal\security_review\SecurityCheckBase;
 
 /**
  * Checks the last time cron has run.
- *
- * @SecurityCheck(
- *   id = "vendor_directory",
- *   title = @Translation("Vendor Directory Location"),
- *   description = @Translation("Checks the vendor directory is outside webroot."),
- *   namespace = @Translation("Security Review"),
- *   success_message = @Translation("Vendor directory is outside webroot."),
- *   failure_message = @Translation("Vendor directory is not outside webroot."),
- *   help = {
- *     @Translation("Verify the vendor directory is located outside the webroot directory."),
- *   }
- * )
  */
+#[SecurityCheck(
+  id: 'vendor_directory',
+  title: new TranslatableMarkup('Vendor Directory Location'),
+  description: new TranslatableMarkup('Checks the vendor directory is outside webroot.'),
+  namespace: new TranslatableMarkup('Security Review'),
+  success_message: new TranslatableMarkup('Vendor directory is outside webroot.'),
+  failure_message: new TranslatableMarkup('Vendor directory is not outside webroot.'),
+  help: [
+    new TranslatableMarkup('Verify the vendor directory is located outside the webroot directory.'),
+  ]
+)]
 class VendorDirectory extends SecurityCheckBase {
 
   /**
@@ -62,7 +63,7 @@ class VendorDirectory extends SecurityCheckBase {
     else {
       $output[] = [
         '#theme' => 'check_evaluation',
-        '#paragraphs' => $paragraphs,
+        '#finding_items' => $paragraphs,
       ];
     }
 

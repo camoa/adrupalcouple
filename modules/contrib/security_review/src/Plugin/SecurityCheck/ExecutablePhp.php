@@ -7,6 +7,8 @@ namespace Drupal\security_review\Plugin\SecurityCheck;
 use Drupal\Component\FileSecurity\FileSecurity;
 use Drupal\Core\Logger\LoggerChannelTrait;
 use Drupal\Core\StreamWrapper\PublicStream;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\security_review\Attribute\SecurityCheck;
 use Drupal\security_review\CheckResult;
 use Drupal\security_review\SecurityCheckBase;
 use GuzzleHttp\Client;
@@ -16,20 +18,19 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Checks if PHP files written to the files directory can be executed.
- *
- * @SecurityCheck(
- *   id = "executable_php",
- *   title = @Translation("Executable PHP"),
- *   description = @Translation("Checks if PHP files written to the files directory can be executed."),
- *   namespace = @Translation("Security Review"),
- *   success_message = @Translation("PHP files in the Drupal files directory cannot be executed."),
- *   failure_message = @Translation("PHP files in the Drupal files directory can be executed."),
- *   warning_message = @Translation("The .htaccess file in the files directory is writable."),
- *   help = {
- *     @Translation("The Drupal files directory is for user-uploaded files and by default provides some protection against a malicious user executing arbitrary PHP code against your site. Read more about the <a href=""https://drupal.org/node/615888"">risk of PHP code execution on Drupal.org</a>."),
- *   }
- * )
  */
+#[SecurityCheck(
+  id: 'executable_php',
+  title: new TranslatableMarkup('Executable PHP'),
+  description: new TranslatableMarkup('Checks if PHP files written to the files directory can be executed.'),
+  namespace: new TranslatableMarkup('Security Review'),
+  success_message: new TranslatableMarkup('PHP files in the Drupal files directory cannot be executed.'),
+  failure_message: new TranslatableMarkup('PHP files in the Drupal files directory can be executed.'),
+  warning_message: new TranslatableMarkup('The .htaccess file in the files directory is writable.'),
+  help: [
+    new TranslatableMarkup('The Drupal files directory is for user-uploaded files and by default provides some protection against a malicious user executing arbitrary PHP code against your site. Read more about the <a href="https://drupal.org/node/615888">risk of PHP code execution</a> and <a href=https://www.drupal.org/node/3092168">Securing file permissions and ownership</a> on Drupal.org.'),
+  ]
+)]
 class ExecutablePhp extends SecurityCheckBase {
 
   use LoggerChannelTrait;
@@ -71,7 +72,7 @@ class ExecutablePhp extends SecurityCheckBase {
 
     // Try to access the test file.
     try {
-      $response = $this->httpClient->get($base_url . '/' . $file_path);
+      $response = $this->httpClient->request('GET', $base_url . '/' . $file_path);
       if ($response->getStatusCode() == 200 && $response->getBody()->getContents() === $message) {
         $result = CheckResult::FAIL;
         $findings[] = 'executable_php';
@@ -79,8 +80,7 @@ class ExecutablePhp extends SecurityCheckBase {
     }
     catch (RequestException | GuzzleException) {
       // Access was correctly denied to the file.
-      $this->getLogger('security_review')
-        ->info('Error executable_php, access was denied to the file.');
+      $this->getLogger('security_review')->info('Error executable_php, access was denied to the file.');
     }
 
     // Remove the test file.
@@ -91,7 +91,7 @@ class ExecutablePhp extends SecurityCheckBase {
     // Only perform .htaccess checks if the webserver is Apache.
     $str = isset($_SERVER['SERVER_SOFTWARE']) ? substr($_SERVER['SERVER_SOFTWARE'], 0, 6) : '';
     if ($str == 'Apache') {
-      // Check for presence of the .htaccess file and if the contents are
+      // Check for the presence of the .htaccess file and if the contents are
       // correct.
       $htaccess_path = PublicStream::basePath() . '/.htaccess';
       if (!file_exists($htaccess_path)) {
@@ -103,7 +103,7 @@ class ExecutablePhp extends SecurityCheckBase {
         $contents = file_get_contents($htaccess_path);
         $expected = FileSecurity::htaccessLines(FALSE);
 
-        // Trim each line separately then put them back together.
+        // Trim each line separately, then put them back together.
         $contents = implode("\n", array_map('trim', explode("\n", trim($contents))));
         $expected = implode("\n", array_map('trim', explode("\n", trim($expected))));
 
@@ -130,7 +130,7 @@ class ExecutablePhp extends SecurityCheckBase {
       }
     }
 
-    if (!empty($findings)) {
+    if (!empty($findings) && $result !== CheckResult::WARN) {
       $result = CheckResult::FAIL;
     }
 
@@ -176,7 +176,7 @@ class ExecutablePhp extends SecurityCheckBase {
     else {
       $output[] = [
         '#theme' => 'check_evaluation',
-        '#paragraphs' => $paragraphs,
+        '#finding_items' => $paragraphs,
       ];
     }
 

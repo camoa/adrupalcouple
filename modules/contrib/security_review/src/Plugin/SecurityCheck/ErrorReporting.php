@@ -6,26 +6,27 @@ namespace Drupal\security_review\Plugin\SecurityCheck;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Link;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\security_review\Attribute\SecurityCheck;
 use Drupal\security_review\CheckResult;
 use Drupal\security_review\SecurityCheckBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Defines a security check that checks the error reporting setting.
- *
- * @SecurityCheck(
- *   id = "error_reporting",
- *   title = @Translation("Error reporting"),
- *   description = @Translation("Defines a security check that checks the error reporting setting."),
- *   namespace = @Translation("Security Review"),
- *   success_message = @Translation("Error reporting set to log only."),
- *   failure_message = @Translation("Errors are written to the screen."),
- *   info_message = @Translation("Errors are managed in the ""verbose"" way from local settings overrides."),
- *   help = {
- *     @Translation("As a form of hardening your site you should avoid information disclosure. Drupal by default prints errors to the screen and writes them to the log. Error messages disclose the full path to the file where the error occurred."),
- *   }
- * )
  */
+#[SecurityCheck(
+  id: 'error_reporting',
+  title: new TranslatableMarkup('Error reporting'),
+  description: new TranslatableMarkup('Defines a security check that checks the error reporting setting.'),
+  namespace: new TranslatableMarkup('Security Review'),
+  success_message: new TranslatableMarkup('Error reporting set to log only.'),
+  failure_message: new TranslatableMarkup('Errors are written to the screen.'),
+  info_message: new TranslatableMarkup('Errors are managed in the "verbose" way from local settings overrides.'),
+  help: [
+    new TranslatableMarkup('As a form of hardening your site you should avoid information disclosure. Drupal by default prints errors to the screen and writes them to the log. Error messages disclose the full path to the file where the error occurred.'),
+  ]
+)]
 class ErrorReporting extends SecurityCheckBase {
 
   /**
@@ -99,7 +100,7 @@ class ErrorReporting extends SecurityCheckBase {
     else {
       $output[] = [
         '#theme' => 'check_evaluation',
-        '#paragraphs' => $paragraphs,
+        '#finding_items' => $paragraphs,
       ];
     }
 

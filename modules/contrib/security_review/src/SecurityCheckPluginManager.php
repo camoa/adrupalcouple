@@ -9,6 +9,7 @@ use Drupal\Core\Logger\LoggerChannelTrait;
 use Drupal\Core\Logger\RfcLogLevel;
 use Drupal\Core\Plugin\DefaultPluginManager;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
+use Drupal\security_review\Attribute\SecurityCheck;
 
 /**
  * Plugin Manager for SecurityChecks.
@@ -31,7 +32,7 @@ class SecurityCheckPluginManager extends DefaultPluginManager {
    *   The module handler to invoke the alter hook with.
    */
   public function __construct(\Traversable $namespaces, CacheBackendInterface $cache_backend, ModuleHandlerInterface $module_handler) {
-    parent::__construct('Plugin/SecurityCheck', $namespaces, $module_handler, 'Drupal\security_review\SecurityCheckInterface', 'Drupal\security_review\Annotation\SecurityCheck');
+    parent::__construct('Plugin/SecurityCheck', $namespaces, $module_handler, 'Drupal\security_review\SecurityCheckInterface', SecurityCheck::class, 'Drupal\security_review\Annotation\SecurityCheck');
     $this->alterInfo('security_review_check_info');
     $this->setCacheBackend($cache_backend, 'security_review_check');
   }
@@ -92,7 +93,7 @@ class SecurityCheckPluginManager extends DefaultPluginManager {
   public function getCheck(string $namespace, string $title): ?SecurityCheckInterface {
     foreach (static::getChecks() as $check) {
       $same_namespace = $this->getMachineName($check->getNamespace()) == $namespace;
-      $same_title = $this->getMachineName($check->getTitle()) == $title;
+      $same_title = $this->getMachineName($check->getPluginId()) == $title;
       if ($same_namespace && $same_title) {
         return $check;
       }

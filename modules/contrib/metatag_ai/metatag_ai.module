@@ -9,30 +9,37 @@ use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\InvokeCommand;
 use Drupal\Core\Ajax\MessageCommand;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\node\NodeForm;
+use Drupal\node\Form\NodeForm;
+use Drupal\Core\Access\AccessResult;
 
 /**
  * Implements hook_form_alter() for node form alter to add the Generator button.
  */
 function metatag_ai_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   $form_object = $form_state->getFormObject();
-  $isNodeForm = $form_object instanceof NodeForm;
-  if ($isNodeForm) {
+  $isNodeForm = $form_object instanceof Drupal\node\Form\NodeForm;
+
+  // @deprecated but required for backwards compatibility
+  $isNodeForm2 = $form_object instanceof Drupal\node\NodeForm;
+  
+  if ($isNodeForm || $isNodeForm2) {
     $node = $form_object->getEntity();
     $content_type = $node->getType();
     $config = \Drupal::config('metatag_ai.content_settings');
     $selected_content_types = $config->get('metatag_ai.metadata_content_types');
 
     if (!empty($selected_content_types) && in_array($content_type, $selected_content_types)) {
-      $form['actions']['generate_metadata'] = [
-        '#type' => 'button',
-        '#value' => t('Generate Metatag'),
-        '#weight' => 4,
-        '#ajax' => [
-          'callback' => 'metatag_ai_generate_submit_form',
-          'event' => 'click',
-        ],
-      ];
+      if (\Drupal::currentUser()->hasPermission('administer metatag content')) {
+        $form['actions']['generate_metadata'] = [
+          '#type' => 'button',
+          '#value' => t('Generate Metatag'),
+          '#weight' => 4,
+          '#ajax' => [
+            'callback' => 'metatag_ai_generate_submit_form',
+            'event' => 'click',
+          ],
+        ];
+      }
     }
   }
 }
@@ -85,7 +92,13 @@ function metatag_ai_generate_submit_form(array &$form, FormStateInterface $form_
     return $response;
   }
 
-  if ($result['title']) {
+  // Check if result is valid before accessing array elements.
+  if (!$result || !is_array($result)) {
+    $response->addCommand(new MessageCommand('AI Generator returned an invalid response.', NULL, ['type' => 'error'], TRUE));
+    return $response;
+  }
+
+  if (!empty($result['title'])) {
     $pattern = '';
     if (isset($data[$metadata_field_id][0]['basic']['title'])) {
       $pattern = $data[$metadata_field_id][0]['basic']['title'];
@@ -99,7 +112,7 @@ function metatag_ai_generate_submit_form(array &$form, FormStateInterface $form_
     $response->addCommand(new MessageCommand('AI Generator returned an empty title.', NULL, ['type' => 'error'], TRUE));
   }
 
-  if ($result['description']) {
+  if (!empty($result['description'])) {
     $pattern = '';
     if (isset($data[$metadata_field_id][0]['basic']['description'])) {
       $pattern = $data[$metadata_field_id][0]['basic']['description'];
@@ -113,11 +126,11 @@ function metatag_ai_generate_submit_form(array &$form, FormStateInterface $form_
     $response->addCommand(new MessageCommand('AI Generator returned an empty description.', NULL, ['type' => 'error'], TRUE));
   }
 
-  if ($result['abstract']) {
+  if (!empty($result['abstract'])) {
     $response->addCommand(new InvokeCommand('#edit-'.$elem_id.'-0-basic-abstract', 'val', [$result['abstract']]));
   }
 
-  if ($result['keywords']) {
+  if (!empty($result['keywords'])) {
     $response->addCommand(new InvokeCommand('#edit-'.$elem_id.'-0-basic-keywords', 'val', [$result['keywords']]));
   }
 

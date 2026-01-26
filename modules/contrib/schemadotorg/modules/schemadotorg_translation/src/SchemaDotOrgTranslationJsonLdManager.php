@@ -67,8 +67,13 @@ class SchemaDotOrgTranslationJsonLdManager implements SchemaDotOrgTranslationJso
     // Get current language translation for the entity.
     // phpcs:ignore @phpstan-ignore-next-line
     $current_langcode = $this->languageManager->getCurrentLanguage()->getId();
-    $entity = $entity->getTranslation($current_langcode);
 
+    // Make sure the entity has a translation.
+    if (!$entity->hasTranslation($current_langcode)) {
+      return;
+    }
+
+    $entity = $entity->getTranslation($current_langcode);
     if ($entity->isDefaultTranslation()) {
       // Default translation list all translations
       // using https://schema.org/workTranslation.

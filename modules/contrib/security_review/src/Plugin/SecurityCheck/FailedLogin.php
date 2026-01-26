@@ -7,26 +7,27 @@ namespace Drupal\security_review\Plugin\SecurityCheck;
 use Drupal\Core\Database\Connection;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Logger\RfcLogLevel;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\security_review\Attribute\SecurityCheck;
 use Drupal\security_review\CheckResult;
 use Drupal\security_review\SecurityCheckBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Checks for abundant failed logins.
- *
- * @SecurityCheck(
- *   id = "failed_logins",
- *   title = @Translation("Failed logins"),
- *   description = @Translation("Checks for abundant failed logins."),
- *   namespace = @Translation("Security Review"),
- *   success_message = @Translation("No failed login attempts from same IP."),
- *   failure_message = @Translation("Failed login attempts from the same IP. These may be a brute-force attack to gain access to your site."),
- *   info_message = @Translation("Failed login attempts - Dblog module not installed."),
- *   help = {
- *     @Translation("Failed login attempts from the same IP may be an artifact of a malicious user attempting to brute-force their way onto your site as an authenticated user to carry out nefarious deeds."),
- *   }
- * )
  */
+#[SecurityCheck(
+  id: 'failed_logins',
+  title: new TranslatableMarkup('Failed logins'),
+  description: new TranslatableMarkup('Checks for abundant failed logins.'),
+  namespace: new TranslatableMarkup('Security Review'),
+  success_message: new TranslatableMarkup('No failed login attempts from same IP.'),
+  failure_message: new TranslatableMarkup('PFailed login attempts from the same IP. These may be a brute-force attack to gain access to your site.'),
+  info_message: new TranslatableMarkup('Failed login attempts - Dblog module not installed.'),
+  help: [
+    new TranslatableMarkup('Failed login attempts from the same IP may be an artifact of a malicious user attempting to brute-force their way onto your site as an authenticated user to carry out nefarious deeds.'),
+  ]
+)]
 class FailedLogin extends SecurityCheckBase {
 
   /**
@@ -57,7 +58,7 @@ class FailedLogin extends SecurityCheckBase {
    * {@inheritdoc}
    */
   public function doRun(bool $cli = FALSE): void {
-    // If dblog is not enabled return with hidden INFO.
+    // If dblog is not enabled, return with hidden INFO.
     if (!$this->moduleHandler->moduleExists('dblog')) {
       $this->createResult(CheckResult::INFO);
     }
@@ -141,8 +142,8 @@ class FailedLogin extends SecurityCheckBase {
     else {
       $output[] = [
         '#theme' => 'check_evaluation',
-        '#paragraphs' => $paragraphs,
-        '#items' => $findings,
+        '#additional_paragraphs' => $paragraphs,
+        '#finding_items' => $findings,
       ];
     }
 

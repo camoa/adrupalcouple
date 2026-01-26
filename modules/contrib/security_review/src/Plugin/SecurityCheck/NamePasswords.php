@@ -10,6 +10,8 @@ use Drupal\Component\Utility\Html;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Extension\ExtensionPathResolver;
 use Drupal\Core\Messenger\MessengerTrait;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\security_review\Attribute\SecurityCheck;
 use Drupal\security_review\CheckResult;
 use Drupal\security_review\SecurityCheckBase;
 use Drupal\user\Entity\User;
@@ -18,19 +20,18 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Checks if a user has the same name and password.
- *
- * @SecurityCheck(
- *   id = "name_passwords",
- *   title = @Translation("Name password check"),
- *   description = @Translation("Checks if a user has the same name and password."),
- *   namespace = @Translation("Security Review"),
- *   success_message = @Translation("No users, with matching username and password, found."),
- *   failure_message = @Translation("Users, with matching username and password, found."),
- *   help = {
- *     @Translation("Verifies that users have not set their password to be the same as their username."),
- *   }
- * )
  */
+#[SecurityCheck(
+  id: 'name_passwords',
+  title: new TranslatableMarkup('Name password check'),
+  description: new TranslatableMarkup('Checks if a user has the same name and password.'),
+  namespace: new TranslatableMarkup('Security Review'),
+  success_message: new TranslatableMarkup('No users, with matching username and password, found.'),
+  failure_message: new TranslatableMarkup('Users, with matching username and password, found.'),
+  help: [
+    new TranslatableMarkup('Verifies that users have not set their password to be the same as their username.'),
+  ]
+)]
 class NamePasswords extends SecurityCheckBase {
 
   use MessengerTrait;
@@ -119,7 +120,7 @@ class NamePasswords extends SecurityCheckBase {
       return 1;
     }
 
-    // Report we are not finished, and provide an estimation of the
+    // Report we are not finished and provide an estimation of the
     // completion level we reached.
     return $sandbox['progress'] / $sandbox['max'];
   }
@@ -141,7 +142,7 @@ class NamePasswords extends SecurityCheckBase {
       $user_list[] = Html::escape($user);
     }
 
-    $paragraphs[] = $this->t('Consider installing the <a href="https://www.drupal.org/project/password_policy">Password Policy</a> module, to enforce users to have a stronger password.');
+    $paragraphs[] = $this->t('Consider installing the <a href="https://www.drupal.org/project/password_policy">Password Policy</a> module to enforce users to have a stronger password.');
 
     if ($returnString) {
       $output .= implode("", $paragraphs) . implode("", $user_list);
@@ -149,8 +150,8 @@ class NamePasswords extends SecurityCheckBase {
     else {
       $output[] = [
         '#theme' => 'check_evaluation',
-        '#paragraphs' => $paragraphs,
-        '#items' => $user_list,
+        '#additional_paragraphs' => $paragraphs,
+        '#finding_items' => $user_list,
       ];
     }
 

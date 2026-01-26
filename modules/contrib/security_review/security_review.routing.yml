@@ -10,6 +10,7 @@ security_review.help:
   path: '/admin/reports/security-review/help/{namespace}/{title}'
   defaults:
     _controller: '\Drupal\security_review\Controller\HelpController::index'
+    _title_callback: '\Drupal\security_review\Controller\HelpController::title'
     namespace: ~
     title: ~
   requirements:

@@ -11,6 +11,14 @@ services:
     class: Drupal\custom_field\Hook\ThemeHooks
     autowire: true
 
+  Drupal\custom_field\Hook\TokenHooks:
+    class: Drupal\custom_field\Hook\TokenHooks
+    autowire: true
+
+  Drupal\custom_field\Hook\ViewsHooks:
+    class: Drupal\custom_field\Hook\ViewsHooks
+    autowire: true
+
   logger.channel.custom_field:
     parent: logger.channel_base
     arguments:
@@ -18,19 +26,32 @@ services:
 
   plugin.manager.custom_field_type:
     class: Drupal\custom_field\Plugin\CustomFieldTypeManager
+    autowire: true
     parent: default_plugin_manager
     arguments:
       - '@plugin.manager.custom_field_widget'
 
+  # Alias to CustomFieldTypeManager.
+  Drupal\custom_field\Plugin\CustomFieldTypeManagerInterface:
+    alias: plugin.manager.custom_field_type
+
   plugin.manager.custom_field_widget:
     class: Drupal\custom_field\Plugin\CustomFieldWidgetManager
     parent: default_plugin_manager
+
+  # Alias to CustomFieldWidgetManager.
+  Drupal\custom_field\Plugin\CustomFieldWidgetManagerInterface:
+    alias: plugin.manager.custom_field_widget
 
   plugin.manager.custom_field_formatter:
     class: Drupal\custom_field\Plugin\CustomFieldFormatterManager
     parent: default_plugin_manager
     arguments:
       - '@plugin.manager.custom_field_type'
+
+  # Alias to CustomFieldFormatterManager.
+  Drupal\custom_field\Plugin\CustomFieldFormatterManagerInterface:
+    alias: plugin.manager.custom_field_formatter
 
   plugin.manager.custom_field_feeds:
     class: Drupal\custom_field\Plugin\CustomFieldFeedsManager

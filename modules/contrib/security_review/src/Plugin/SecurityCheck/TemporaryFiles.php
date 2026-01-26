@@ -5,25 +5,26 @@ declare(strict_types=1);
 namespace Drupal\security_review\Plugin\SecurityCheck;
 
 use Drupal\Core\Extension\ModuleHandlerInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\security_review\Attribute\SecurityCheck;
 use Drupal\security_review\CheckResult;
 use Drupal\security_review\SecurityCheckBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Check for sensitive temporary files like settings.php.
- *
- * @SecurityCheck(
- *   id = "temporary_files",
- *   title = @Translation("Temporary setting files"),
- *   description = @Translation("Check for sensitive temporary files like settings.php."),
- *   namespace = @Translation("Security Review"),
- *   success_message = @Translation("No sensitive temporary files were found."),
- *   failure_message = @Translation("Sensitive temporary files were found on your files system."),
- *   help = {
- *     @Translation("Some file editors create temporary copies of a file that can be left on the file system. A copy of a sensitive file like Drupal's settings.php may be readable by a malicious user who could use that information to further attack a site."),
- *   }
- * )
  */
+#[SecurityCheck(
+  id: 'temporary_files',
+  title: new TranslatableMarkup('Temporary setting files'),
+  description: new TranslatableMarkup('Check for sensitive temporary files like settings.php.'),
+  namespace: new TranslatableMarkup('Security Review'),
+  success_message: new TranslatableMarkup('No sensitive temporary files were found.'),
+  failure_message: new TranslatableMarkup('Sensitive temporary files were found on your files system.'),
+  help: [
+    new TranslatableMarkup("Some file editors create temporary copies of a file that can be left on the file system. A copy of a sensitive file like Drupal's settings.php may be readable by a malicious user who could use that information to further attack a site."),
+  ]
+)]
 class TemporaryFiles extends SecurityCheckBase {
 
   /**
@@ -49,24 +50,26 @@ class TemporaryFiles extends SecurityCheckBase {
     $result = CheckResult::SUCCESS;
     $findings = [];
 
-    // Get list of files from the site directory.
+    // Get a list of files from the site directory.
     $files = [];
     $site_path = $this->securitySettings->sitePath() . '/';
-    $dir = scandir($site_path);
-    foreach ($dir as $file) {
-      // Set full path to only files.
-      if (!in_array($file, ['.', '..'], TRUE) && !is_dir($file)) {
-        $files[] = $site_path . $file;
+    if (is_dir($site_path)) {
+      $dir = scandir($site_path);
+      foreach ($dir as $file) {
+        // Set the full path to only files.
+        if (!in_array($file, ['.', '..'], TRUE) && !is_dir($file)) {
+          $files[] = $site_path . $file;
+        }
       }
-    }
-    $this->moduleHandler->alter('security_review_temporary_files', $files);
+      $this->moduleHandler->alter('security_review_temporary_files', $files);
 
-    // Analyze the files' names.
-    foreach ($files as $path) {
-      $matches = [];
-      if (file_exists($path) && preg_match('/.*(~|\.sw[op]|\.bak|\.orig|\.save)$/', $path, $matches) !== FALSE && !empty($matches)) {
-        // Found a temporary file.
-        $findings[] = $path;
+      // Analyze the files' names.
+      foreach ($files as $path) {
+        $matches = [];
+        if (file_exists($path) && preg_match('/.*(~|\.sw[op]|\.bak|\.orig|\.save)$/', $path, $matches) !== FALSE && !empty($matches)) {
+          // Found a temporary file.
+          $findings[] = $path;
+        }
       }
     }
 
@@ -96,8 +99,8 @@ class TemporaryFiles extends SecurityCheckBase {
     else {
       $output[] = [
         '#theme' => 'check_evaluation',
-        '#paragraphs' => $paragraphs,
-        '#items' => $findings,
+        '#additional_paragraphs' => $paragraphs,
+        '#finding_items' => $findings,
       ];
     }
 

@@ -12,6 +12,8 @@ use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Link;
 use Drupal\Core\Messenger\MessengerTrait;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\security_review\Attribute\SecurityCheck;
 use Drupal\security_review\CheckResult;
 use Drupal\security_review\SecurityCheckBase;
 use Drupal\views\Entity\View;
@@ -19,22 +21,19 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Checks for Views that do not check access.
- *
- * @SecurityCheck(
- *   id = "views_access",
- *   title = @Translation("Views Access"),
- *   description = @Translation("Checks for Views that do not check access."),
- *   namespace = @Translation("Security Review"),
- *   success_message = @Translation("Views are access controlled."),
- *   failure_message = @Translation("There are Views that do not provide any
- *   access checks."), info_message = @Translation("Module views is not
- *   enabled."), help = {
- *     @Translation("Views can check if the user is allowed access to the
- *   content. It is recommended that all Views implement some amount of access
- *   control, at a minimum checking for the permission 'access content'."),
- *   }
- * )
  */
+#[SecurityCheck(
+  id: 'views_access',
+  title: new TranslatableMarkup('Views Access'),
+  description: new TranslatableMarkup('Checks for Views that do not check access.'),
+  namespace: new TranslatableMarkup('Security Review'),
+  success_message: new TranslatableMarkup('Views are access controlled.'),
+  failure_message: new TranslatableMarkup('There are Views that do not provide any access checks.'),
+  info_message: new TranslatableMarkup('Module views is not enabled.'),
+  help: [
+    new TranslatableMarkup('Views can check if the user is allowed access to the content. It is recommended that all Views implement some amount of access control, at a minimum checking for the permission "access content".'),
+  ]
+)]
 class ViewsAccess extends SecurityCheckBase {
 
   use MessengerTrait;
@@ -75,7 +74,7 @@ class ViewsAccess extends SecurityCheckBase {
    * {@inheritdoc}
    */
   public function run(bool $cli = FALSE, &$sandbox = []): float {
-    // If views is not enabled return with INFO.
+    // If views is not enabled, return with INFO.
     if (!$this->moduleHandler->moduleExists('views')) {
       $this->createResult(CheckResult::INFO);
       return 1;
@@ -83,6 +82,8 @@ class ViewsAccess extends SecurityCheckBase {
 
     $config = $this->securityReview->getCheckSettings($this->pluginId);
     $ignore_default = $config['ignore_default'] ?? FALSE;
+    $hushed_views = $config['hushed_views'] ?? [];
+
     if (!isset($sandbox['vids'])) {
       try {
         $vids = $this->entityTypeManager->getStorage('view')
@@ -99,22 +100,36 @@ class ViewsAccess extends SecurityCheckBase {
       $sandbox['progress'] = 0;
       $sandbox['max'] = count($vids);
       $sandbox['findings'] = [];
+      $sandbox['hushed'] = [];
     }
 
     // 5 at a time.
     $ids = array_slice($sandbox['vids'], $sandbox['progress'], 5);
     $views = View::loadMultiple($ids);
-    $findings = [];
     $default = NULL;
 
     foreach ($views as $view) {
-      if ($view->status()) {
+      if (in_array($view->id(), $hushed_views)) {
+        // The entire view is hushed.
+        $sandbox['hushed'][$view->id()] = $view->id();
+        $sandbox['progress']++;
+        continue;
+      }
+      elseif ($view->status()) {
         foreach ($view->get('display') as $display_name => $display) {
           $access = $display['display_options']['access'] ?? $default;
-          if ($display_name == 'default' && $ignore_default) {
+          if ($display_name == 'default') {
             $default = $access;
+            if ($ignore_default) {
+              continue;
+            }
           }
-          elseif (isset($access) && $access['type'] == 'none') {
+
+          if (in_array($view->id() . ':' . $display_name, $hushed_views)) {
+            // Individually hushed.
+            $sandbox['hushed'][$view->id()][] = $display_name;
+          }
+          elseif ((isset($access) && $access['type'] == 'none')) {
             // Access is not controlled for this display.
             $sandbox['findings'][$view->id()][] = $display_name;
           }
@@ -129,12 +144,12 @@ class ViewsAccess extends SecurityCheckBase {
       if (!empty($sandbox['findings'])) {
         $result = CheckResult::FAIL;
       }
-      $this->createResult($result, $sandbox['findings']);
+      $this->createResult($result, $sandbox['findings'], NULL, $sandbox['hushed']);
 
       return 1;
     }
 
-    // Report we are not finished, and provide an estimation of the
+    // Report we are not finished and provide an estimation of the
     // completion level we reached.
     return $sandbox['progress'] / $sandbox['max'];
   }
@@ -153,6 +168,14 @@ class ViewsAccess extends SecurityCheckBase {
       '#default_value' => $ignore_default,
     ];
 
+    $hushed_views = $config['hushed_views'] ?? [];
+    $form['hushed_views'] = [
+      '#type' => 'textarea',
+      '#title' => t('Hushed view'),
+      '#description' => t('Enter views or displays to ignore i.e. "security_review_test" or "security_review_test:page_1". One entry a line.'),
+      '#default_value' => implode("\n", $hushed_views),
+    ];
+
     return $form;
   }
 
@@ -163,6 +186,9 @@ class ViewsAccess extends SecurityCheckBase {
     if (isset($values['ignore_default'])) {
       $values['ignore_default'] = (bool) $values['ignore_default'];
     }
+    if (isset($values['hushed_views'])) {
+      $values['hushed_views'] = array_filter(explode("\n", str_replace("\r", "\n", trim($values['hushed_views']))));
+    }
     $this->securityReview->setCheckSettings($this->pluginId, $values);
   }
 
@@ -172,7 +198,7 @@ class ViewsAccess extends SecurityCheckBase {
   public function getDetails(array $findings, array $hushed = [], bool $returnString = FALSE): array|string {
     $output = $returnString ? '' : [];
 
-    if (empty($findings)) {
+    if (empty($findings) && empty($hushed)) {
       return $output;
     }
 
@@ -181,32 +207,48 @@ class ViewsAccess extends SecurityCheckBase {
     $paragraphs[] = $this->t('The following View displays do not check access.');
     $items = [];
     foreach ($findings as $view_id => $displays) {
-      $view = View::load($view_id);
       /** @var \Drupal\views\Entity\View $view */
+      $view = View::load($view_id);
 
       foreach ($displays as $display) {
         $label = $view->label() . ': ' . $display;
         $items[] = $views_ui_enabled ?
-          Link::createFromRoute(
-            $label,
-            'entity.view.edit_display_form',
-            [
-              'view' => $view_id,
-              'display_id' => $display,
-            ]
-          )->toString() :
-          $label;
+          Link::createFromRoute($label, 'entity.view.edit_display_form', ['view' => $view_id, 'display_id' => $display])->toString() : $label;
+      }
+    }
+
+    $hushed_items = [];
+    foreach ($hushed as $view_id => $displays) {
+      /** @var \Drupal\views\Entity\View $view */
+      $view = View::load($view_id);
+
+      if ($view_id === $displays) {
+        $label = $view->label() . ': Whole view';
+        $hushed_items[] = $views_ui_enabled ? Link::createFromRoute($label, 'entity.view.edit_display_form', [
+          'view' => $view_id,
+          'display_id' => 'default',
+        ])->toString() : $label;
+      }
+      else {
+        foreach ($displays as $display) {
+          $label = $view->label() . ': ' . $display;
+          $hushed_items[] = $views_ui_enabled ? Link::createFromRoute($label, 'entity.view.edit_display_form', [
+            'view' => $view_id,
+            'display_id' => $display,
+          ])->toString() : $label;
+        }
       }
     }
 
     if ($returnString) {
-      $output .= implode("", $paragraphs) . implode("", $items);
+      $output .= implode("", $paragraphs) . implode("", $items) . implode("", $hushed_items);
     }
     else {
       $output[] = [
         '#theme' => 'check_evaluation',
-        '#paragraphs' => $paragraphs,
-        '#items' => $items,
+        '#additional_paragraphs' => $paragraphs,
+        '#finding_items' => $items,
+        '#hushed_items' => $hushed_items,
       ];
     }
 

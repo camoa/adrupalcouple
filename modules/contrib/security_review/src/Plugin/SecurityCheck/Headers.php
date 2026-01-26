@@ -7,6 +7,8 @@ namespace Drupal\security_review\Plugin\SecurityCheck;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Logger\LoggerChannelTrait;
 use Drupal\Core\Logger\RfcLogLevel;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\security_review\Attribute\SecurityCheck;
 use Drupal\security_review\CheckResult;
 use Drupal\security_review\SecurityCheckBase;
 use GuzzleHttp\Client;
@@ -15,20 +17,19 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
- * Checks for specific headers in request.
- *
- * @SecurityCheck(
- *   id = "headers",
- *   title = @Translation("Headers"),
- *   description = @Translation("Checks for specific headers in request."),
- *   namespace = @Translation("Security Review"),
- *   success_message = @Translation("All specified headers present."),
- *   failure_message = @Translation("Some specified headers are missing."),
- *   help = {
- *     @Translation("There are some headers a site should set. One such header is X-Frame-Options with a value that will protect the site against clickjacking."),
- *   }
- * )
+ * Checks for specific headers in a request.
  */
+#[SecurityCheck(
+  id: 'headers',
+  title: new TranslatableMarkup('Headers'),
+  description: new TranslatableMarkup('Checks for specific headers in request.'),
+  namespace: new TranslatableMarkup('Security Review'),
+  success_message: new TranslatableMarkup('All specified headers present.'),
+  failure_message: new TranslatableMarkup('Some specified headers are missing.'),
+  help: [
+    new TranslatableMarkup('There are some headers a site should set. One such header is X-Frame-Options with a value that will protect the site against clickjacking.'),
+  ]
+)]
 class Headers extends SecurityCheckBase {
 
   use LoggerChannelTrait;
@@ -69,10 +70,10 @@ class Headers extends SecurityCheckBase {
     $headers = array_merge(['X-Frame-Options'], $additional_headers);
     $host = $this->requestStack->getCurrentRequest()->getSchemeAndHttpHost();
     try {
-      $requestHeaders = $this->httpClient->request('GET', $host)->getHeaders();
+      $requestHeaders = array_change_key_case($this->httpClient->request('GET', $host)->getHeaders());
 
       foreach ($headers as $header) {
-        if (!array_key_exists($header, $requestHeaders)) {
+        if (!array_key_exists(strtolower($header), $requestHeaders)) {
           $findings[] = $header;
         }
       }
@@ -139,8 +140,8 @@ class Headers extends SecurityCheckBase {
     else {
       $output[] = [
         '#theme' => 'check_evaluation',
-        '#paragraphs' => $paragraphs,
-        '#items' => $findings,
+        '#additional_paragraphs' => $paragraphs,
+        '#finding_items' => $findings,
       ];
     }
 

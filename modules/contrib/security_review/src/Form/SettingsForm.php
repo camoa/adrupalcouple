@@ -7,7 +7,6 @@ use Drupal\Core\Config\TypedConfigManagerInterface;
 use Drupal\Core\Datetime\DateFormatterInterface;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Session\AccountInterface;
 use Drupal\security_review\SecurityCheckPluginManager;
 use Drupal\security_review\SecurityReview;
 use Drupal\security_review\SecurityReviewData;
@@ -110,20 +109,11 @@ class SettingsForm extends ConfigFormBase {
       $options[$rid] = $role->label();
     }
 
-    // Notify the user if anonymous users can create accounts.
-    $message = '';
-    if (in_array(AccountInterface::AUTHENTICATED_ROLE, $this->securityData->untrustedRoles())) {
-      $message = $this->t('You have allowed anonymous users to create accounts without approval so the authenticated role defaults to untrusted.');
-    }
-
     // Show the untrusted roles form element.
     $form['untrusted_roles'] = [
       '#type' => 'checkboxes',
       '#title' => $this->t('Untrusted roles'),
-      '#description' => $this->t(
-        'Define which roles are for less trusted users. The anonymous role defaults to untrusted. @message Most Security Review checks look for resources usable by untrusted roles.',
-        ['@message' => $message]
-      ),
+      '#description' => $this->t('Define which roles are for less trusted users.'),
       '#options' => $options,
       '#default_value' => $this->securityData->untrustedRoles(),
     ];

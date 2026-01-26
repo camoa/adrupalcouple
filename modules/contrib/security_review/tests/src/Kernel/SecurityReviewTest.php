@@ -39,6 +39,8 @@ class SecurityReviewTest extends KernelTestBase {
 
   /**
    * Tests the 'logging' setting.
+   *
+   * @throws \Exception
    */
   public function testConfigLogging(): void {
     $this->assertFalse($this->securityReview->isLogging(), 'Logging disabled.');
@@ -48,6 +50,8 @@ class SecurityReviewTest extends KernelTestBase {
 
   /**
    * Tests the 'untrusted_roles' setting.
+   *
+   * @throws \Exception
    */
   public function testConfigUntrustedRoles(): void {
     $this->assertEquals(['anonymous', 'authenticated'], $this->securityReview->getUntrustedRoles(), 'untrusted_roles empty by default.');
@@ -59,6 +63,8 @@ class SecurityReviewTest extends KernelTestBase {
 
   /**
    * Tests the 'last_run' setting.
+   *
+   * @throws \Exception
    */
   public function testConfigLastRun(): void {
     $this->assertEquals(0, $this->securityReview->getLastRun(), 'last_run is 0 by default.');

@@ -38,8 +38,7 @@
   font-size: 0.8em;
 }
 
-.schemadotorg-settings-example.is-open
-  .schemadotorg-settings-example--link::before {
+.schemadotorg-settings-example.is-open .schemadotorg-settings-example--link::before {
   content: "▼ ";
 }
 
@@ -53,9 +52,7 @@ html.js .schemadotorg-settings-example--content {
   transition: max-height 0.25s ease-out;
 }
 
-html.js
-  .schemadotorg-settings-example.is-open
-  .schemadotorg-settings-example--content {
+html.js .schemadotorg-settings-example.is-open .schemadotorg-settings-example--content {
   max-height: 500px;
   transition: max-height 0.5s ease-in;
 }

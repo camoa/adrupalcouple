@@ -5,25 +5,26 @@ declare(strict_types=1);
 namespace Drupal\security_review\Plugin\SecurityCheck;
 
 use Drupal\Core\Link;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\security_review\Attribute\SecurityCheck;
 use Drupal\security_review\CheckResult;
 use Drupal\security_review\SecurityCheckBase;
 use Drupal\user\Entity\Role;
 
 /**
  * Checks whether untrusted roles have restricted permissions.
- *
- * @SecurityCheck(
- *   id = "admin_permissions",
- *   title = @Translation("Administrative Permissions"),
- *   description = @Translation("Checks whether untrusted roles have restricted permissions."),
- *   namespace = @Translation("Security Review"),
- *   success_message = @Translation("Untrusted roles do not have administrative or trusted Drupal permissions."),
- *   failure_message = @Translation("Untrusted roles have been granted administrative or trusted Drupal permissions."),
- *   help = {
- *     @Translation("Drupal's permission system is extensive and allows for varying degrees of control. Certain permissions would allow a user total control, or the ability to escalate their control, over your site and should only be granted to trusted users."),
- *   }
- * )
  */
+#[SecurityCheck(
+  id: 'admin_permissions',
+  title: new TranslatableMarkup('Administrative Permissions'),
+  description: new TranslatableMarkup('Checks whether untrusted roles have restricted permissions.'),
+  namespace: new TranslatableMarkup('Security Review'),
+  success_message: new TranslatableMarkup('Untrusted roles do not have administrative or trusted Drupal permissions.'),
+  failure_message: new TranslatableMarkup('Untrusted roles have been granted administrative or trusted Drupal permissions.'),
+  help: [
+    new TranslatableMarkup("Drupal's permission system is extensive and allows for varying degrees of control. Certain permissions would allow a user total control, or the ability to escalate their control, over your site and should only be granted to trusted users."),
+  ]
+)]
 class AdminPermissions extends SecurityCheckBase {
 
   /**
@@ -86,8 +87,7 @@ class AdminPermissions extends SecurityCheckBase {
       else {
         $output[] = [
           '#theme' => 'check_evaluation',
-          '#paragraphs' => $paragraphs,
-          '#items' => $permissions,
+          '#finding_items' => $paragraphs,
         ];
       }
     }

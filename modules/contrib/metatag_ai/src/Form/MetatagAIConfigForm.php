@@ -88,7 +88,7 @@ class MetatagAIConfigForm extends ConfigFormBase {
     ];
 
     $form['openai']['metatagai_token'] = [
-      '#type' => 'textfield',
+      '#type' => 'textarea',
       '#title' => $this->t('OpenAI Access Token'),
       '#description' => $this->t('Please provide the OpenAI Access Token here.'),
       '#default_value' => $config->get('metatag_ai.metatagai_token'),
@@ -160,8 +160,8 @@ class MetatagAIConfigForm extends ConfigFormBase {
     $metatagai_temperature = $form_state->getValue('metatagai_temperature');
     $context_length = $form_state->getValue('metatagai_max_context_length');
 
-    if (!empty($access_token) && !preg_match('/^[A-Za-z0-9-_]+$/', $access_token)) {
-      $form_state->setErrorByName('metatagai_token', $this->t('Access Token contains invalid characters. Only alphanumeric characters, hyphens, and underscores are allowed.'));
+    if (!empty($access_token) && !preg_match('/^[A-Za-z0-9\-_.]+$/', $access_token)) {
+      $form_state->setErrorByName('metatagai_token', $this->t('Access Token contains invalid characters. Only alphanumeric characters, hyphens, underscores and periods are allowed.'));
     }
 
     if (!empty($api_max_token) && !is_numeric($api_max_token)) {

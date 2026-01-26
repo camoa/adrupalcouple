@@ -2,15 +2,12 @@
 
 namespace Drupal\hreflang\EventSubscriber;
 
-use Drupal\Core\Cache\CacheBackendInterface;
+use Drupal\Core\Cache\CacheTagsInvalidatorInterface;
 use Drupal\Core\Config\ConfigCrudEvent;
 use Drupal\Core\Config\ConfigEvents;
 use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
-use Psr\Log\LoggerInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpKernel\KernelEvents;
 
 /**
  * Listens to the config save event for hreflang.settings.
@@ -20,32 +17,11 @@ class HreflangConfigSubscriber implements EventSubscriberInterface {
   use StringTranslationTrait;
 
   /**
-   * The dynamic page cache.
+   * Cache tags invalidator.
    *
-   * @var \Drupal\Core\Cache\CacheBackendInterface|null
+   * @var \Drupal\Core\Cache\CacheTagsInvalidatorInterface
    */
-  protected $cacheDynamicPageCache;
-
-  /**
-   * The page cache.
-   *
-   * @var \Drupal\Core\Cache\CacheBackendInterface|null
-   */
-  protected $cachePage;
-
-  /**
-   * The event dispatcher.
-   *
-   * @var \Symfony\Component\EventDispatcher\EventDispatcherInterface
-   */
-  protected $eventDispatcher;
-
-  /**
-   * A logger instance.
-   *
-   * @var \Psr\Log\LoggerInterface
-   */
-  protected $logger;
+  protected $cacheTagsInvalidator;
 
   /**
    * The messenger.
@@ -57,22 +33,13 @@ class HreflangConfigSubscriber implements EventSubscriberInterface {
   /**
    * Constructs the HreflangConfigSubscriber.
    *
-   * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $event_dispatcher
-   *   The event dispatcher.
-   * @param \Psr\Log\LoggerInterface $logger
-   *   A logger instance.
+   * @param \Drupal\Core\Cache\CacheTagsInvalidatorInterface $cacheTagsInvalidator
+   *   Cache tags invalidator.
    * @param \Drupal\Core\Messenger\MessengerInterface $messenger
    *   The messenger.
-   * @param \Drupal\Core\Cache\CacheBackendInterface|null $cache_dynamic_page_cache
-   *   The dynamic page cache.
-   * @param \Drupal\Core\Cache\CacheBackendInterface|null $cache_page
-   *   The page cache.
    */
-  public function __construct(EventDispatcherInterface $event_dispatcher, LoggerInterface $logger, MessengerInterface $messenger, ?CacheBackendInterface $cache_dynamic_page_cache = NULL, ?CacheBackendInterface $cache_page = NULL) {
-    $this->cacheDynamicPageCache = $cache_dynamic_page_cache;
-    $this->cachePage = $cache_page;
-    $this->eventDispatcher = $event_dispatcher;
-    $this->logger = $logger;
+  public function __construct(CacheTagsInvalidatorInterface $cacheTagsInvalidator, MessengerInterface $messenger) {
+    $this->cacheTagsInvalidator = $cacheTagsInvalidator;
     $this->messenger = $messenger;
   }
 
@@ -89,20 +56,8 @@ class HreflangConfigSubscriber implements EventSubscriberInterface {
     if (!$event->isChanged('x_default') && !$event->isChanged('x_default_fallback') && !$event->isChanged('defer_to_content_translation')) {
       return;
     }
-    if (!$this->cacheDynamicPageCache && !$this->cachePage) {
-      return;
-    }
     $this->messenger->addStatus($this->t('Page caches are being cleared for new Hreflang settings to take effect.'));
-    $listener = function () {
-      if ($this->cacheDynamicPageCache) {
-        $this->cacheDynamicPageCache->invalidateAll();
-      }
-      if ($this->cachePage) {
-        $this->cachePage->invalidateAll();
-      }
-      $this->logger->notice('Page caches have been cleared for new Hreflang settings.');
-    };
-    $this->eventDispatcher->addListener(KernelEvents::TERMINATE, $listener, 400);
+    $this->cacheTagsInvalidator->invalidateTags(['http_response']);
   }
 
   /**

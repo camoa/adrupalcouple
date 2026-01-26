@@ -10,33 +10,34 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\StreamWrapper\PrivateStream;
 use Drupal\Core\StreamWrapper\PublicStream;
 use Drupal\Core\StreamWrapper\StreamWrapperInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\security_review\Attribute\SecurityCheck;
 use Drupal\security_review\CheckResult;
 use Drupal\security_review\SecurityCheckBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Check that files aren't writeable by the server.
- *
- * @SecurityCheck(
- *   id = "file_permissions",
- *   title = @Translation("File permissions"),
- *   description = @Translation("Check that files aren't writeable by the server."),
- *   namespace = @Translation("Security Review"),
- *   success_message = @Translation("Drupal installation files and directories (except required) are not writable by the server."),
- *   failure_message = @Translation("Some files and directories in your install are writable by the server."),
- *   info_message = @Translation("The test cannot be run on this system."),
- *   help = {
- *     @Translation("It is dangerous to allow the web server to write to files inside the document root of your server. Doing so could allow Drupal to write files that could then be executed. An attacker might use such a vulnerability to take control of your site. An exception is the Drupal files, private files, and temporary directories which Drupal needs permission to write to in order to provide features like file attachments."),
- *     @Translation("In addition to inspecting existing directories, this test attempts to create and write to your file system. Look in your security_review module directory on the server for files named file_write_test.YYYYMMDDHHMMSS and for a file called IGNOREME.txt which gets a timestamp appended to it if it is writeable."),
- *     @Translation("In addition to inspecting existing directories, this test attempts to create and write to your file system. Look in your security_review module directory on the server for:<ul><li>A file named: file_write_test.YYYYMMDDHHMMSS<ul><li>If this file exists the web server can write files to the security_review module directory and perhaps to other directories. You should correct the file permissions on all code directories of your Drupal installation.</li></ul></li><li>Open the file IGNOREME.txt.<ul><li>If a timestamp is appended at the end of it. That means the web server has permission to write to your files. This is insecure and the permissions should be corrected.</li></ul></li></ul>"),
- *     @Translation("Read more about file system permissions in the handbooks. <a href=""https://drupal.org/node/244924"">https://drupal.org/node/244924</a>"),
- *   }
- * )
  */
+#[SecurityCheck(
+  id: 'file_permissions',
+  title: new TranslatableMarkup('File permissions'),
+  description: new TranslatableMarkup("Check that files aren't writeable by the server."),
+  namespace: new TranslatableMarkup('Security Review'),
+  success_message: new TranslatableMarkup('Drupal installation files and directories (except required) are not writable by the server.'),
+  failure_message: new TranslatableMarkup('Some files and directories in your install are writable by the server.'),
+  info_message: new TranslatableMarkup('The test cannot be run on this system.'),
+  help: [
+    new TranslatableMarkup('It is dangerous to allow the web server to write to files inside the document root of your server. Doing so could allow Drupal to write files that could then be executed. An attacker might use such a vulnerability to take control of your site. An exception is the Drupal files, private files, and temporary directories which Drupal needs permission to write to in order to provide features like file attachments.'),
+    new TranslatableMarkup('In addition to inspecting existing directories, this test attempts to create and write to your file system. Look in your security_review module directory on the server for files named file_write_test.YYYYMMDDHHMMSS and for a file called IGNOREME.txt which gets a timestamp appended to it if it is writeable.'),
+    new TranslatableMarkup('In addition to inspecting existing directories, this test attempts to create and write to your file system. Look in your security_review module directory on the server for:<ul><li>A file named: file_write_test.YYYYMMDDHHMMSS<ul><li>If this file exists the web server can write files to the security_review module directory and perhaps to other directories. You should correct the file permissions on all code directories of your Drupal installation.</li></ul></li><li>Open the file IGNOREME.txt.<ul><li>If a timestamp is appended at the end of it. That means the web server has permission to write to your files. This is insecure and the permissions should be corrected.</li></ul></li></ul>'),
+    new TranslatableMarkup('Read more about file system permissions in the handbooks. <a href="https://drupal.org/node/244924">https://drupal.org/node/244924</a>'),
+  ]
+)]
 class FilePermissions extends SecurityCheckBase {
 
   /**
-   * The assets stream.
+   * The asset stream.
    *
    * @var \Drupal\Core\StreamWrapper\StreamWrapperInterface
    *
@@ -166,7 +167,7 @@ class FilePermissions extends SecurityCheckBase {
 
     $paragraphs = [];
     $paragraphs[] = $this->t('The following files and directories appear to be writeable by your web server.');
-    $paragraphs[] = $this->t('In most cases you can fix this by simply altering the file permissions or ownership. If you have command-line access to your host try running "chmod 644 [file path]" where [file path] is one of the following paths (relative to your webroot). For more information consult the <a href="https://drupal.org/node/244924">Drupal.org handbooks on file permissions</a>.');
+    $paragraphs[] = $this->t('In most cases you can fix this by simply altering the file permissions or ownership. If you have command-line access to your host, try running "chmod 644 [file path]" where [file path] is one of the following paths (relative to your webroot). For more information consult the <a href="https://drupal.org/node/244924">Drupal.org handbooks on file permissions</a>.');
     $paragraphs[] = $this->t('If you have shared hosting, your options will be severely limited and you should check directly with your hosting provider. Whatever the method, the end result should be such that the web server itself cannot write to any of the Drupal core directories or individual files');
 
     if ($returnString) {
@@ -178,8 +179,8 @@ class FilePermissions extends SecurityCheckBase {
     else {
       $output[] = [
         '#theme' => 'check_evaluation',
-        '#paragraphs' => $paragraphs,
-        '#items' => $findings,
+        '#additional_paragraphs' => $paragraphs,
+        '#finding_items' => $findings,
         '#hushed_items' => $hushed,
       ];
     }
@@ -238,6 +239,7 @@ class FilePermissions extends SecurityCheckBase {
   private function getSites(): array {
     $sites = [];
     if (file_exists(DRUPAL_ROOT . '/sites/sites.php')) {
+      // @phpstan-ignore-next-line
       include DRUPAL_ROOT . '/sites/sites.php';
     }
     return $sites;
@@ -259,23 +261,23 @@ class FilePermissions extends SecurityCheckBase {
 
     $ignore = array_unique($ignore);
 
-    // Add temporary files directory if it's set.
+    // Add a temporary files directory if it's set.
     $temp_path = $this->fileSystem->getTempDirectory();
     if (!empty($temp_path)) {
       $ignore[] = realpath('./' . rtrim($temp_path, '/'));
     }
 
-    // Add private files directory if it's set.
+    // Add a private files directory if it's set.
     $private_files = PrivateStream::basePath();
     if (!empty($private_files)) {
-      // Remove leading slash if set.
+      // Remove the leading slash if set.
       if (strrpos($private_files, '/') !== FALSE) {
         $private_files = substr($private_files, strrpos($private_files, '/') + 1);
       }
       $ignore[] = $private_files;
     }
 
-    // If the assets stream wrapper service exists, get the assets path.
+    // If the asset stream wrapper service exists, get the assets' path.
     if (isset($this->assetsStream)) {
       $assetsPath = $this->assetsStream->basePath();
       $ignore[] = realpath($assetsPath);
@@ -286,13 +288,13 @@ class FilePermissions extends SecurityCheckBase {
   }
 
   /**
-   * Turn hushed ignore list into array with real paths.
+   * Turn the hushed ignore list into an array with real paths.
    *
    * @param array $ignore_list
-   *   Ignore list without real paths.
+   *   Ignore a list without real paths.
    *
    * @return array
-   *   Array of ignored files with real path.
+   *   Array of ignored files with a real path.
    */
   private function getRealPaths(array $ignore_list): array {
     $real_paths = [];

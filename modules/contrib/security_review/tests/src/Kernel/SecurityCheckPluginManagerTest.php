@@ -49,6 +49,8 @@ class SecurityCheckPluginManagerTest extends KernelTestBase {
 
   /**
    * Tests the ability to retrieve check plugins.
+   *
+   * @throws \Exception
    */
   public function testGetChecks(): void {
     $checks = $this->pluginManager->getChecks();
@@ -63,11 +65,13 @@ class SecurityCheckPluginManagerTest extends KernelTestBase {
 
   /**
    * Tests PluginManager Check search functions.
+   *
+   * @throws \Exception
    */
   public function testCheckSearch(): void {
     foreach ($this->pluginManager->getChecks() as $check) {
       // Test getCheck().
-      $found = $this->pluginManager->getCheck($this->getMachineName($check->getNamespace()), $this->getMachineName($check->getTitle()));
+      $found = $this->pluginManager->getCheck($this->getMachineName($check->getNamespace()), $check->getPluginId());
       $this->assertEquals($check->getPluginId(), $found->getPluginId());
 
       // Test getCheckById().

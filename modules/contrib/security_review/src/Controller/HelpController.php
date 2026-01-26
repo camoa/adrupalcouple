@@ -8,6 +8,7 @@ use Drupal\Core\Entity\EntityMalformedException;
 use Drupal\Core\Link;
 use Drupal\Core\Logger\LoggerChannelTrait;
 use Drupal\Core\Logger\RfcLogLevel;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\security_review\SecurityCheckPluginManager;
 use Drupal\security_review\SecurityReview;
 use Drupal\security_review\SecurityReviewHelperTrait;
@@ -95,6 +96,25 @@ class HelpController extends ControllerBase {
   }
 
   /**
+   * Title for the check help page.
+   *
+   * @param string|null $title
+   *   Machine title.
+   *
+   * @return \Drupal\Core\StringTranslation\TranslatableMarkup
+   *   Title for the check help page.
+   */
+  public function title(?string $title): TranslatableMarkup {
+    if (!$title) {
+      return $this->t('Security Review');
+    }
+    $check = $this->checkPluginManager->getCheckById($title);
+    return $this->t('Security Review: @title', [
+      '@title' => $check->getTitle(),
+    ]);
+  }
+
+  /**
    * Returns the general help page.
    *
    * @return array
@@ -105,7 +125,7 @@ class HelpController extends ControllerBase {
 
     // Print the general help.
     $paragraphs[] = $this->t('You should take the security of your site very seriously. Fortunately, Drupal is fairly secure by default. The Security Review module automates many of the easy-to-make mistakes that render your site insecure, however it does not automatically make your site impenetrable. You should give care to what modules you install and how you configure your site and server. Be mindful of who visits your site and what features you expose for their use.');
-    $paragraphs[] = $this->t('You can read more about securing your site in the <a href="https://drupal.org/security/secure-configuration">drupal.org handbooks</a> and on <a href="https://crackingdrupal.com">CrackingDrupal.com</a>. There are also additional modules you can install to secure or protect your site. Be aware though that the more modules you have running on your site the greater (usually) attack area you expose.');
+    $paragraphs[] = $this->t('You can read more about securing your site in the <a href="https://drupal.org/security/secure-configuration">drupal.org handbooks</a> and on <a href="https://crackingdrupal.com">CrackingDrupal.com</a>. There are also additional modules you can install to secure or protect your site. Be aware, though, that the more modules you have running on your site, the greater (usually) attack area you expose.');
     $paragraphs[] = $this->t('<a href="https://drupal.org/node/382752">Drupal.org Handbook: Introduction to security-related contrib modules</a>');
 
     // Print the list of security checks with links to their help pages.
@@ -126,7 +146,7 @@ class HelpController extends ControllerBase {
         'security_review.help',
         [
           'namespace' => $this->getMachineName($check->getNamespace()),
-          'title' => $this->getMachineName($check->getTitle()),
+          'title' => $check->getPluginId(),
         ]
       );
     }
@@ -143,15 +163,15 @@ class HelpController extends ControllerBase {
    *
    * @param string $namespace
    *   The namespace of the check.
-   * @param string $title
+   * @param string $pluginId
    *   The name of the check.
    *
    * @return array
    *   The check's help page.
    */
-  private function checkHelp(string $namespace, string $title): array {
+  private function checkHelp(string $namespace, string $pluginId): array {
     // Get the requested check.
-    $check = $this->checkPluginManager->getCheck($namespace, $title);
+    $check = $this->checkPluginManager->getCheck($namespace, $pluginId);
 
     // If the check doesn't exist, throw 404.
     if ($check == NULL) {
@@ -162,7 +182,7 @@ class HelpController extends ControllerBase {
     $output = [];
     $output[] = $check->getHelp();
 
-    // If the check is skipped print the skip message, else print the
+    // If the check is skipped, print the skip message, else print the
     // evaluation.
     $skipped_info = $this->securityReview->isCheckSkipped($check->getPluginId());
     if ($this->securityReview->isCheckSkipped($check->getPluginId())) {
@@ -195,7 +215,7 @@ class HelpController extends ControllerBase {
       ];
     }
     else {
-      // Evaluate last result, if any.
+      // Evaluate the last result, if any.
       $last_result = $check->lastResult();
       // Separator.
       $output[] = [
@@ -203,8 +223,10 @@ class HelpController extends ControllerBase {
         '#markup' => '<div />',
       ];
 
+      $findings = $last_result['findings'] ?? [];
+      $hushed = $last_result['hushed'] ?? [];
       // Evaluation page.
-      $output[] = $check->getDetails($last_result['findings'] ?: [], $last_result['hushed']);
+      $output[] = $check->getDetails($findings, $hushed);
     }
 
     // Return the completed page.

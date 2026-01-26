@@ -7,6 +7,50 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [6.6.4] - 2025-12-19
+### Changed
+- ci: Run workflows against 5.x.x branches ([#859](https://github.com/jsonrainbow/json-schema/pull/859))
+### Fixed
+- UriValidator: Allow `file:/` and `file:///` ([#856](https://github.com/jsonrainbow/json-schema/discussions/856))
+- Fix .php-cs-fixer.dist.php export-ignore ([#861](https://github.com/jsonrainbow/json-schema/discussions/861))
+
+## [6.6.3] - 2025-12-02
+### Changed
+- Restricted `mark-mabe/php-enum` dependency to `^4.4` due to lower versions emitting a warning on PHP 8 ([#854](https://github.com/jsonrainbow/json-schema/pull/854))
+
+## [6.6.2] - 2025-11-28
+### Changed
+- Move PHP 8.5 to default add PHP 8.6 as experimental ([#852](https://github.com/jsonrainbow/json-schema/pull/852))
+### Fixed
+- Allow underscore and tilde in URI hostnames as per RFC 3986 ([#853](https://github.com/jsonrainbow/json-schema/pull/853))
+
+## [6.6.1] - 2025-11-07
+### Changed
+- Rename master to main ([#848](https://github.com/jsonrainbow/json-schema/pull/848))
+### Fixed
+- Don't skip ref expanding for property called enum when child of property called properties ([#851](https://github.com/jsonrainbow/json-schema/pull/851))
+
+## [6.6.0] - 2025-10-10
+### Added
+- Add lint check for class autoloading PSR compliance ([#845](https://github.com/jsonrainbow/json-schema/pull/845))
+- add implementation for strict fully validating using draft-06 schema ([#843](https://github.com/jsonrainbow/json-schema/pull/835))
+
+## [6.5.2] - 2025-09-09
+### Fixed
+- Fix issue when http headers are already present ([#843](https://github.com/jsonrainbow/json-schema/pull/843))
+
+## [6.5.1] - 2025-08-29
+### Changed
+- ci: Add PHP 8.5 to pipeline, ignoring dependencies and as experimental ([#842](https://github.com/jsonrainbow/json-schema/pull/842))
+
+## [6.5.0] - 2025-08-29
+### Changed
+- Update test case to current (PHP) standards ([#831](https://github.com/jsonrainbow/json-schema/pull/831))
+- Upgrade test suite to use generators ([#834](https://github.com/jsonrainbow/json-schema/pull/834))
+- update to latest json schema test suite ([#821](https://github.com/jsonrainbow/json-schema/pull/821))
+### Fixed
+- Fix PHP 8.5 $http_response_header deprecation ([#840](https://github.com/jsonrainbow/json-schema/pull/840))
+
 ## [6.4.2] - 2025-06-03
 ### Fixed
 - Fix objects are non-unique despite key order ([#819](https://github.com/jsonrainbow/json-schema/pull/819))

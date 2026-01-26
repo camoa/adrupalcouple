@@ -5,6 +5,7 @@ log: false
 skipped: []
 views_access:
   ignore_default: false
+  hushed_views: {  }
 upload_extensions:
   hush_upload_extensions: {  }
 fields:

@@ -1344,7 +1344,8 @@ schema_properties:
     isBasedOn:
       unlimited: true
     isFamilyFriendly:
-      default_value: true
+      default_value:
+        - value: true
     isPartOf:
       ignore_additional_mappings: true
     itemListElement:

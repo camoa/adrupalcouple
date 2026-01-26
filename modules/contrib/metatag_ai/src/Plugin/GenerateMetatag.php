@@ -50,6 +50,13 @@ class GenerateMetatag {
   protected $loggerFactory;
 
   /**
+   * The state service.
+   *
+   * @var \Drupal\Core\State\State
+   */
+  protected $state;
+
+  /**
    * Constructor method.
    *
    * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory

@@ -5,6 +5,7 @@
  * Adds hreflang link elements to the header of each page.
  */
 
+use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Language\LanguageInterface;
 use Drupal\Core\Url;
@@ -16,35 +17,42 @@ use Drupal\Core\Url;
  */
 function hreflang_page_attachments(array &$page): void {
   // No need to add hreflang tags for 404/403 pages.
-  if (\Drupal::request()->attributes->has('exception')) {
+  if (Drupal::request()->attributes->has('exception')) {
     return;
   }
 
-  $config = \Drupal::config('hreflang.settings');
+  $config = Drupal::config('hreflang.settings');
   $addXDefault = $config->get('x_default');
-  $is_front_page = \Drupal::service('path.matcher')->isFrontPage();
+  $is_front_page = Drupal::service('path.matcher')->isFrontPage();
   if ($config->get('defer_to_content_translation') && $entity = hreflang_content_translation_get_entity()) {
     if ($addXDefault) {
-      $url = $is_front_page ? Url::fromRoute('<front>') : $entity->toUrl();
-      $page['#attached']['html_head_link'][] = [
-        [
-          'rel' => 'alternate',
-          'hreflang' => 'x-default',
-          'href' => $url
-            ->setOption('language', $entity->getUntranslated()->language())
-            ->setAbsolute()
-            ->toString(),
-        ],
-      ];
+      $translation = $entity->getUntranslated();
+      $access = $translation->access('view', NULL, TRUE);
+      if ($access->isAllowed()) {
+        $url = $is_front_page ? Url::fromRoute('<front>') : $entity->toUrl();
+        $page['#attached']['html_head_link'][] = [
+          [
+            'rel' => 'alternate',
+            'hreflang' => 'x-default',
+            'href' => $url
+              ->setOption('language', $translation->language())
+              ->setAbsolute()
+              ->toString(),
+          ],
+        ];
+      }
+      CacheableMetadata::createFromRenderArray($page)
+        ->addCacheableDependency($access)
+        ->applyTo($page);
     }
     return;
   }
 
-  $language_manager = \Drupal::languageManager();
+  $language_manager = Drupal::languageManager();
   if (!$language_manager->isMultilingual()) {
     return;
   }
-  $url = $is_front_page ? Url::fromRoute('<front>') : Url::fromRouteMatch(\Drupal::routeMatch());
+  $url = $is_front_page ? Url::fromRoute('<front>') : Url::fromRouteMatch(Drupal::routeMatch());
   $links = $language_manager->getLanguageSwitchLinks(LanguageInterface::TYPE_INTERFACE, $url);
   if (empty($links->links)) {
     return;
@@ -53,8 +61,8 @@ function hreflang_page_attachments(array &$page): void {
   // Adding x-default if option checked.
   $defaultLanguageId = $language_manager->getDefaultLanguage()->getId();
   if ($config->get('x_default_fallback')) {
-    $fallbackLanguageId = \Drupal::config('language.negotiation')->get('selected_langcode');
-    if (isset($fallbackLanguageId) && $fallbackLanguageId !== 'site_default') {
+    $fallbackLanguageId = Drupal::config('language.negotiation')->get('selected_langcode');
+    if (isset($fallbackLanguageId) && $fallbackLanguageId !== LanguageInterface::LANGCODE_SITE_DEFAULT) {
       $defaultLanguageId = $fallbackLanguageId;
     }
   }
@@ -90,11 +98,11 @@ function hreflang_page_attachments(array &$page): void {
  *   links by the content_translation module.
  */
 function hreflang_content_translation_get_entity() {
-  if (!\Drupal::service('module_handler')->moduleExists('content_translation')) {
+  if (!Drupal::service('module_handler')->moduleExists('content_translation')) {
     return NULL;
   }
 
-  $route_match = \Drupal::routeMatch();
+  $route_match = Drupal::routeMatch();
   if (!$route = $route_match->getRouteObject()) {
     return NULL;
   }

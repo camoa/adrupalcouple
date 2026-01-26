@@ -180,7 +180,7 @@ class Ed11yElementTip extends HTMLElement {
       this.prev.classList.add('ed11y-tip-prev');
       this.prev.setAttribute('aria-label', Ed11y.M.buttonPrevContent);
       this.prev.setAttribute('title', Ed11y.M.buttonPrevContent);
-      this.prev.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 -10 30 120"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16" d="m40 100,-50 -50 50-50 50"></path></svg>';
+      this.prev.innerHTML = '<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="11" viewBox="0 -15 90 120"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="m30 00 50 50-50 50" stroke-width="18"></path></svg>';
       this.prev.addEventListener('click', (event) => {
         event.preventDefault();
         Ed11y.jumpTo(-1);
@@ -212,7 +212,7 @@ class Ed11yElementTip extends HTMLElement {
     this.navBar.append(this.help);
 
     let closeButton = document.createElement('button');
-    closeButton.setAttribute('arial-label',Ed11y.M.closeTip);
+    closeButton.setAttribute('aria-label',Ed11y.M.closeTip);
     closeButton.setAttribute('title',Ed11y.M.closeTip);
     closeButton.classList.add('close');
     closeButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" viewBox="0 0 384 512"><path fill="currentColor" d="M343 151c13-13 13-33 0-46s-33-13-45 0L192 211 87 105c-13-13-33-13-45 0s-13 33 0 45L147 256 41 361c-13 13-13 33 0 45s33 13 45 0L192 301 297 407c13 13 33 13 45 0s13-33 0-45L237 256 343 151z"/></svg>';

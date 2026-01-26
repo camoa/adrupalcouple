@@ -35,6 +35,9 @@ security_review.settings:
           skipped_on:
             type: timestamp
             label: 'Skipped on'
+            constraints:
+              NotBlank:
+                allowNull: true
     views_access:
       type: mapping
       label: 'Views Access Check'
@@ -42,6 +45,15 @@ security_review.settings:
         ignore_default:
           type: boolean
           label: 'Ignore default views'
+        hushed_views:
+          type: sequence
+          label: 'Hushed views'
+          sequence:
+            type: string
+            label: 'View ID'
+            constraints:
+              NotBlank:
+                allowNull: true
     upload_extensions:
       type: mapping
       label: 'Upload Extensions check'

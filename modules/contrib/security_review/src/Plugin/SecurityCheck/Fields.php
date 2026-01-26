@@ -15,26 +15,27 @@ use Drupal\Core\Entity\Exception\UndefinedLinkTemplateException;
 use Drupal\Core\Entity\Sql\SqlContentEntityStorage;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Messenger\MessengerTrait;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\field\Entity\FieldStorageConfig;
+use Drupal\security_review\Attribute\SecurityCheck;
 use Drupal\security_review\CheckResult;
 use Drupal\security_review\SecurityCheckBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Checks for Javascript and PHP in submitted content.
- *
- * @SecurityCheck(
- *   id = "fields",
- *   title = @Translation("Dangerous tags in content exclude list"),
- *   description = @Translation("Checks for Javascript and PHP in submitted content."),
- *   namespace = @Translation("Security Review"),
- *   success_message = @Translation("Dangerous tags were not found in any submitted content (fields)."),
- *   failure_message = @Translation("Dangerous tags were found in submitted content (fields)."),
- *   help = {
- *     @Translation("Script and PHP code in content does not align with Drupal best practices and may be a vulnerability if an untrusted user is allowed to edit such content. It is recommended you remove such contents or add to exclude list in security review settings page."),
- *   }
- * )
+ * Checks for JavaScript and PHP in submitted content.
  */
+#[SecurityCheck(
+  id: 'fields',
+  title: new TranslatableMarkup('Dangerous tags in content exclude list'),
+  description: new TranslatableMarkup('Checks for Javascript and PHP in submitted content.'),
+  namespace: new TranslatableMarkup('Security Review'),
+  success_message: new TranslatableMarkup('Dangerous tags were not found in any submitted content (fields).'),
+  failure_message: new TranslatableMarkup('Dangerous tags were found in submitted content (fields).'),
+  help: [
+    new TranslatableMarkup('Script and PHP code in content does not align with Drupal best practices and may be a vulnerability if an untrusted user is allowed to edit such content. It is recommended you remove such contents or add to exclude list in security review settings page.'),
+  ]
+)]
 class Fields extends SecurityCheckBase {
 
   use MessengerTrait;
@@ -318,7 +319,7 @@ class Fields extends SecurityCheckBase {
     }
 
     if ($returnString) {
-      $output = $this->t('There were some dangerous tags found, see UI for more details.');
+      $output = (string) $this->t('There were some dangerous tags found, see UI for more details.');
     }
     else {
       $paragraphs = [];
@@ -328,8 +329,8 @@ class Fields extends SecurityCheckBase {
       $hushed_items = $this->loopThroughItems($hushed, TRUE);
       $output[] = [
         '#theme' => 'check_evaluation',
-        '#paragraphs' => $paragraphs,
-        '#items' => $items,
+        '#additional_paragraphs' => $paragraphs,
+        '#finding_items' => $items,
         '#hushed_items' => $hushed_items,
       ];
     }

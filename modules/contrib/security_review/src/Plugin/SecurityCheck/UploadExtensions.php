@@ -12,28 +12,30 @@ use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Link;
 use Drupal\Core\Messenger\MessengerTrait;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\field\Entity\FieldConfig;
+use Drupal\security_review\Attribute\SecurityCheck;
 use Drupal\security_review\CheckResult;
 use Drupal\security_review\SecurityCheckBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Routing\Exception\RouteNotFoundException;
+use Symfony\Component\Routing\Exception\MissingMandatoryParametersException;
 
 /**
  * Checks for unsafe extensions in the allowed extensions settings of fields.
- *
- * @SecurityCheck(
- *   id = "upload_extensions",
- *   title = @Translation("Allowed upload extensions"),
- *   description = @Translation("Checks for unsafe extensions in the allowed extensions settings of fields."),
- *   namespace = @Translation("Security Review"),
- *   success_message = @Translation("Only safe extensions are allowed for uploaded files and images."),
- *   failure_message = @Translation("Unsafe file extensions are allowed in uploads."),
- *   info_message = @Translation("Module field is not enabled."),
- *   help = {
- *     @Translation("File and image fields allow for uploaded files. Some extensions are considered dangerous because the files can be evaluated and then executed in the browser. A malicious user could use this opening to gain control of your site. Review <a href=""/admin/reports/fields"">all fields on your site</a>."),
- *   }
- * )
  */
+#[SecurityCheck(
+  id: 'upload_extensions',
+  title: new TranslatableMarkup('Allowed upload extensions'),
+  description: new TranslatableMarkup('Checks for unsafe extensions in the allowed extensions settings of fields.'),
+  namespace: new TranslatableMarkup('Security Review'),
+  success_message: new TranslatableMarkup('Only safe extensions are allowed for uploaded files and images.'),
+  failure_message: new TranslatableMarkup('Unsafe file extensions are allowed in uploads.'),
+  info_message: new TranslatableMarkup('Module field is not enabled.'),
+  help: [
+    new TranslatableMarkup('File and image fields allow for uploaded files. Some extensions are considered dangerous because the files can be evaluated and then executed in the browser. A malicious user could use this opening to gain control of your site. Review <a href="/admin/reports/fields">all fields on your site</a>.'),
+  ]
+)]
 class UploadExtensions extends SecurityCheckBase {
 
   use MessengerTrait;
@@ -147,7 +149,7 @@ class UploadExtensions extends SecurityCheckBase {
       return 1;
     }
 
-    // Report we are not finished, and provide an estimation of the
+    // Report we are not finished and provide an estimation of the
     // completion level we reached.
     return $sandbox['progress'] / $sandbox['max'];
   }
@@ -212,13 +214,14 @@ class UploadExtensions extends SecurityCheckBase {
           if (in_array($entity->getTargetEntityTypeId(), ['node', 'media'])) {
             $url_params[$entity->getTargetEntityTypeId() . '_type'] = $entity->getTargetBundle();
           }
+          $route_name = sprintf('entity.field_config.%s_field_edit_form', $entity->getTargetEntityTypeId());
           $items[] = Link::createFromRoute(
             $item,
-            sprintf('entity.field_config.%s_field_edit_form', $entity->getTargetEntityTypeId()),
+            $route_name,
             $url_params
           );
         }
-        catch (RouteNotFoundException) {
+        catch (RouteNotFoundException | MissingMandatoryParametersException) {
           $items[] = $item;
         }
       }
@@ -244,13 +247,14 @@ class UploadExtensions extends SecurityCheckBase {
         if (in_array($entity->getTargetEntityTypeId(), ['node', 'media'])) {
           $url_params[$entity->getTargetEntityTypeId() . '_type'] = $entity->getTargetBundle();
         }
+        $route_name = sprintf('entity.field_config.%s_field_edit_form', $entity->getTargetEntityTypeId());
         $hushed_items[] = Link::createFromRoute(
           $item,
-          sprintf('entity.field_config.%s_field_edit_form', $entity->getTargetEntityTypeId()),
+          $route_name,
           $url_params
         );
       }
-      catch (RouteNotFoundException) {
+      catch (RouteNotFoundException | MissingMandatoryParametersException) {
         $hushed_items[] = $item;
       }
     }
@@ -261,8 +265,8 @@ class UploadExtensions extends SecurityCheckBase {
     else {
       $output[] = [
         '#theme' => 'check_evaluation',
-        '#paragraphs' => $paragraphs,
-        '#items' => $items,
+        '#additional_paragraphs' => $paragraphs,
+        '#finding_items' => $items,
         '#hushed_items' => $hushed_items,
       ];
     }
@@ -274,7 +278,7 @@ class UploadExtensions extends SecurityCheckBase {
    * Generates an array of hushed extensions.
    *
    * @param array $values
-   *   Array of values from config where key is numerical. Turn this into
+   *   Array of values from config where the key is numerical. Turn this into
    *   something more useable.
    *
    * @return array

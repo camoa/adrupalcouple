@@ -52,6 +52,13 @@ class Openai {
   protected $loggerFactory;
 
   /**
+   * The state service.
+   *
+   * @var \Drupal\Core\State\State
+   */
+  protected $state;
+
+  /**
    * Constructor method.
    *
    * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
@@ -80,7 +87,7 @@ class Openai {
     $response_body = $this->invokeApi($text);
     if (!$response_body) {
       $this->logError('AI generator returned an empty response.');
-      return $response;
+      return FALSE;
     }
 
     // Extract title and description.
@@ -121,9 +128,8 @@ class Openai {
    *   Array with title, description, abstract, and keywords needed by Metatag.
    */
   public function invokeApi(string $text) {
-    $api_key = $this->config->get(self::MODULE_PREFIX . '.metatagai_token');
-
     $endpoint = $this->config->get(self::MODULE_PREFIX . '.metatagai_endpoint');
+    $api_key = $this->config->get(self::MODULE_PREFIX . '.metatagai_token');
     $max_tokens = (int) $this->config->get(self::MODULE_PREFIX . '.metatagai_max_token');
     $max_context_length = (int) $this->config->get(self::MODULE_PREFIX . '.metatagai_max_context_length');
     $model = $this->config->get(self::MODULE_PREFIX . '.metatagai_model');
@@ -153,11 +159,11 @@ class Openai {
     $message[] = [
       'role' => 'system',
       'content' => 'When i ask for help, you will reply the following information:
-        1. title with maximum of 60 characters 
-        2. description with maximimum of 160 characters 
+        1. title with maximum of 60 characters
+        2. description with maximum of 160 characters
         3. abstract - a brief and concise summary of the content with maximum of 160 characters
         4. maximum of 10 keywords
-        Suggest content for SEO ranking. Reply in JSON format of the title, description, abstract and keywords',
+        Suggest content for SEO ranking. Reply in pure JSON format without code block indicator, of the title, description, abstract and keywords',
     ];
     $message[] = [
       "role" => "user",

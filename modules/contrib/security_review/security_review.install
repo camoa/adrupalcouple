@@ -23,6 +23,10 @@ function security_review_install(): void {
       [':url' => Url::fromRoute('user.admin_permissions')->toString()]
     )
   );
+
+  /** @var \Drupal\security_review\SecurityReview $security_review_service */
+  $security_review_service = \Drupal::service('security_review');
+  $security_review_service->skip('account_creation');
 }
 
 /**

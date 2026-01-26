@@ -59,6 +59,13 @@ class Bedrock {
   protected $loggerFactory;
 
   /**
+   * The state service.
+   *
+   * @var \Drupal\Core\State\State
+   */
+  protected $state;
+
+  /**
    * Constructor method.
    *
    * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
@@ -145,7 +152,7 @@ class Bedrock {
       $content = [
         "prompt" => "\n\nHuman:When i ask for help, you will reply the following information:"
         . "\n1. title with maximum of 60 characters"
-        . "\n2. description with maximimum of 160 characters"
+        . "\n2. description with maximum of 160 characters"
         . "\n3. abstract - a brief and concise summary of the content with maximum of 150 characters"
         . "\n4. maximum of 10 keywords"
         . "\nSuggest content for SEO ranking. Reply in JSON format of the title, description, abstract"

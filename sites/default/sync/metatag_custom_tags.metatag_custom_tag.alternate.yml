@@ -6,5 +6,8 @@ id: alternate
 label: alternate
 description: 'RSS Link'
 htmlElement: link
-htmlNameAttribute: rel
 htmlValueAttribute: href
+attributes:
+  -
+    name: rel
+    value: alternate

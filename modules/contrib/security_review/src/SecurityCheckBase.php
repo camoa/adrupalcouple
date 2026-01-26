@@ -170,7 +170,6 @@ abstract class SecurityCheckBase extends PluginBase implements SecurityCheckInte
   public function getHelp(): array {
     return [
       '#theme' => 'check_help',
-      '#title' => $this->pluginDefinition['title'],
       '#paragraphs' => $this->pluginDefinition['help'],
     ];
   }

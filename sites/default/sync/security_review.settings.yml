@@ -4,9 +4,14 @@ untrusted_roles:
   - anonymous
   - authenticated
 log: true
-skipped: {  }
+skipped:
+  account_creation:
+    skipped: true
+    skipped_by: '1'
+    skipped_on: 1769460124
 views_access:
   ignore_default: false
+  hushed_views: {  }
 upload_extensions:
   hush_upload_extensions: {  }
 fields:

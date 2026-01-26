@@ -6,26 +6,27 @@ namespace Drupal\security_review\Plugin\SecurityCheck;
 
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Link;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\security_review\Attribute\SecurityCheck;
 use Drupal\security_review\CheckResult;
 use Drupal\security_review\SecurityCheckBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Checks for vulnerabilities related to input formats.
- *
- * @SecurityCheck(
- *   id = "input_formats",
- *   title = @Translation("Text formats"),
- *   description = @Translation("Checks for formats that either do not have HTML filter that can be used by untrusted users, or if they do check if unsafe tags are allowed."),
- *   namespace = @Translation("Security Review"),
- *   success_message = @Translation("Untrusted users are not allowed to input dangerous HTML tags."),
- *   failure_message = @Translation("Untrusted users are allowed to input dangerous HTML tags."),
- *   info_message = @Translation("Module filter is not enabled."),
- *   help = {
- *     @Translation("Certain HTML tags can allow an attacker to take control of your site. Drupal's input format system makes use of a set filters to run on incoming text. The 'HTML Filter' strips out harmful tags and Javascript events and should be used on all formats accessible by untrusted users."),
- *   }
- * )
  */
+#[SecurityCheck(
+  id: 'input_formats',
+  title: new TranslatableMarkup('Text formats'),
+  description: new TranslatableMarkup('Checks for formats that either do not have HTML filter that can be used by untrusted users, or if they do check if unsafe tags are allowed.'),
+  namespace: new TranslatableMarkup('Security Review'),
+  success_message: new TranslatableMarkup('Untrusted users are not allowed to input dangerous HTML tags.'),
+  failure_message: new TranslatableMarkup('Untrusted users are allowed to input dangerous HTML tags.'),
+  info_message: new TranslatableMarkup('Module filter is not enabled.'),
+  help: [
+    new TranslatableMarkup("Certain HTML tags can allow an attacker to take control of your site. Drupal's input format system makes use of a set filters to run on incoming text. The 'HTML Filter' strips out harmful tags and Javascript events and should be used on all formats accessible by untrusted users."),
+  ]
+)]
 class InputFormats extends SecurityCheckBase {
 
   /**
@@ -121,8 +122,8 @@ class InputFormats extends SecurityCheckBase {
       $paragraphs[] = $this->t('It is recommended you remove the following tags from roles accessible by untrusted users.');
       $output[] = [
         '#theme' => 'check_evaluation',
-        '#paragraphs' => $paragraphs,
-        '#items' => $findings['tags'],
+        '#additional_paragraphs' => $paragraphs,
+        '#finding_items' => $findings['tags'],
       ];
     }
 
@@ -130,8 +131,8 @@ class InputFormats extends SecurityCheckBase {
       $paragraphs[] = $this->t('The following formats are usable by untrusted roles and do not filter or escape allowed HTML tags.');
       $output[] = [
         '#theme' => 'check_evaluation',
-        '#paragraphs' => $paragraphs,
-        '#items' => $findings['formats'],
+        '#additional_paragraphs' => $paragraphs,
+        '#finding_items' => $findings['formats'],
       ];
     }
 
