@@ -247,6 +247,8 @@ use Psr\Http\Message\RequestInterface;
  * @method \GuzzleHttp\Promise\Promise updateBucketMetadataInventoryTableConfigurationAsync(array $args = [])
  * @method \Aws\Result updateBucketMetadataJournalTableConfiguration(array $args = [])
  * @method \GuzzleHttp\Promise\Promise updateBucketMetadataJournalTableConfigurationAsync(array $args = [])
+ * @method \Aws\Result updateObjectEncryption(array $args = [])
+ * @method \GuzzleHttp\Promise\Promise updateObjectEncryptionAsync(array $args = [])
  * @method \Aws\Result uploadPart(array $args = [])
  * @method \GuzzleHttp\Promise\Promise uploadPartAsync(array $args = [])
  * @method \Aws\Result uploadPartCopy(array $args = [])
@@ -1140,7 +1142,7 @@ class S3Client extends AwsClient implements S3ClientInterface
 
         // Add a note on the CopyObject docs
          $s3ExceptionRetryMessage = "<p>Additional info on response behavior: if there is"
-            . " an internal error in S3 after the request was successfully recieved,"
+            . " an internal error in S3 after the request was successfully received,"
             . " a 200 response will be returned with an <code>S3Exception</code> embedded"
             . " in it; this will still be caught and retried by"
             . " <code>RetryMiddleware.</code></p>";

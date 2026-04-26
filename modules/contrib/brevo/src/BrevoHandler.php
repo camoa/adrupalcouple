@@ -5,12 +5,15 @@ namespace Drupal\brevo;
 use Brevo\Client\ApiException;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Messenger\MessengerInterface;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Psr\Log\LoggerInterface;
 
 /**
  * Mail handler to send out an email message array to the Brevo API.
  */
 class BrevoHandler implements BrevoHandlerInterface {
+
+  use StringTranslationTrait;
 
   /**
    * Brevo factory.
@@ -63,7 +66,7 @@ class BrevoHandler implements BrevoHandlerInterface {
     $this->brevoConfig = $config_factory->get(BrevoHandlerInterface::CONFIG_NAME);
     $this->logger = $logger;
     $this->brevoFactory = $brevo_factory;
-    $this->brevo =  $this->brevoFactory->createTransactionalEmailsApiClient();
+    $this->brevo = $this->brevoFactory->createTransactionalEmailsApiClient();
     $this->messenger = $messenger;
   }
 
@@ -87,7 +90,24 @@ class BrevoHandler implements BrevoHandlerInterface {
       $brevo = $this->brevoFactory->createAccountApiClient($key);
       $brevo->getAccount();
     }
-    catch (ApiException $e) {
+    catch (\Throwable $e) {
+      // Catch all errors including ApiException and PHP deprecation errors
+      // that may be thrown by the Brevo SDK on newer PHP versions.
+      $errorMessage = $e->getMessage();
+      $errorCode = $e->getCode();
+
+      // Extract detailed error message if available from ApiException.
+      if ($e instanceof ApiException && $responseBody = $e->getResponseBody()) {
+        if ($decoded = json_decode($responseBody)) {
+          $errorMessage = $decoded->message ?? $errorMessage;
+          $errorCode = $decoded->code ?? $errorCode;
+        }
+      }
+
+      $this->messenger->addError($this->t('API key validation failed with code @code: @message', [
+        '@code' => $errorCode,
+        '@message' => $errorMessage,
+      ]));
       return FALSE;
     }
 
@@ -99,7 +119,7 @@ class BrevoHandler implements BrevoHandlerInterface {
    */
   public function getBrevoAccount($key) {
     if (!$this->validateBrevoLibrary()) {
-      return null;
+      return NULL;
     }
 
     $brevo = $this->brevoFactory->createAccountApiClient($key);

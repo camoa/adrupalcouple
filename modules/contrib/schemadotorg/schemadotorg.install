@@ -279,3 +279,12 @@ function schemadotorg_update_10018(): void {
 
   $config->save();
 }
+
+/**
+ * Update to Schema.org v29.4.
+ */
+function schemadotorg_update_10019(): void {
+  /** @var \Drupal\schemadotorg\SchemaDotOrgInstallerInterface $installer */
+  $installer = \Drupal::service('schemadotorg.installer');
+  $installer->install();
+}

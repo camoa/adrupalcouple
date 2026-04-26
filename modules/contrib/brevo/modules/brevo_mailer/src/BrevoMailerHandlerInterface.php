@@ -35,13 +35,13 @@ interface BrevoMailerHandlerInterface {
   public function validateDrupalMailerLibrary($showMessage = FALSE);
 
   /**
-   * Checks if Brevo's drupal's associated mail modules configuration are properly set.
+   * Checks if Brevo's Drupal mail modules configuration is properly set.
    *
    * @param bool $showMessage
    *   Whether error messages should be shown.
    *
    * @return bool
-   *   Whether Brevo's drupal's associated mail modules configuration are properly set.
+   *   Whether Brevo's Drupal mail modules configuration is properly set.
    */
   public function validateDrupalMailerConfiguration($showMessage = FALSE);
 

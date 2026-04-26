@@ -37,8 +37,8 @@ function brevo_mailer_install() {
         'label' => 'Brevo',
         'plugin' => 'dsn',
         'configuration' => [
-          'dsn' => 'brevo+api://'.$api_key.'@default'
-        ]
+          'dsn' => 'brevo+api://' . $api_key . '@default',
+        ],
       ]);
 
       $brevo_mailer_transport->save();

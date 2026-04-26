@@ -43,7 +43,9 @@ use Symfony\Component\TypeInfo\Type\NullableType;
 use Symfony\Component\TypeInfo\Type\ObjectType;
 use Symfony\Component\TypeInfo\Type\UnionType;
 use Symfony\Component\TypeInfo\Type\WrappingTypeInterface;
+use Symfony\Component\TypeInfo\TypeContext\TypeContextFactory;
 use Symfony\Component\TypeInfo\TypeIdentifier;
+use Symfony\Component\TypeInfo\TypeResolver\ReflectionTypeResolver;
 
 /**
  * Base class for a normalizer dealing with objects.
@@ -540,18 +542,18 @@ abstract class AbstractObjectNormalizer extends AbstractNormalizer
                     $builtinType = LegacyType::BUILTIN_TYPE_OBJECT;
                     $class = $collectionValueType->getClassName().'[]';
 
-                    if (\count($collectionKeyType = $type->getCollectionKeyTypes()) > 0) {
+                    if ($collectionKeyType = $type->getCollectionKeyTypes()) {
                         $context['key_type'] = \count($collectionKeyType) > 1 ? $collectionKeyType : $collectionKeyType[0];
                     }
 
                     $context['value_type'] = $collectionValueType;
-                } elseif ($type->isCollection() && \count($collectionValueType = $type->getCollectionValueTypes()) > 0 && LegacyType::BUILTIN_TYPE_ARRAY === $collectionValueType[0]->getBuiltinType()) {
+                } elseif ($type->isCollection() && ($collectionValueType = $type->getCollectionValueTypes()) && LegacyType::BUILTIN_TYPE_ARRAY === $collectionValueType[0]->getBuiltinType()) {
                     // get inner type for any nested array
                     [$innerType] = $collectionValueType;
 
                     // note that it will break for any other builtinType
                     $dimensions = '[]';
-                    while (\count($innerType->getCollectionValueTypes()) > 0 && LegacyType::BUILTIN_TYPE_ARRAY === $innerType->getBuiltinType()) {
+                    while ($innerType->getCollectionValueTypes() && LegacyType::BUILTIN_TYPE_ARRAY === $innerType->getBuiltinType()) {
                         $dimensions .= '[]';
                         [$innerType] = $innerType->getCollectionValueTypes();
                     }
@@ -560,6 +562,12 @@ abstract class AbstractObjectNormalizer extends AbstractNormalizer
                         // the builtinType is the inner one and the class is the class followed by []...[]
                         $builtinType = $innerType->getBuiltinType();
                         $class = $innerType->getClassName().$dimensions;
+
+                        if ($collectionKeyType = $type->getCollectionKeyTypes()) {
+                            $context['key_type'] = \count($collectionKeyType) > 1 ? $collectionKeyType : $collectionKeyType[0];
+                        }
+
+                        $context['value_type'] = $collectionValueType[0];
                     } else {
                         // default fallback (keep it as array)
                         $builtinType = $type->getBuiltinType();
@@ -836,6 +844,8 @@ abstract class AbstractObjectNormalizer extends AbstractNormalizer
                             // the builtinType is the inner one and the class is the class followed by []...[]
                             $typeIdentifier = TypeIdentifier::OBJECT;
                             $class = $innerType->getClassName().$dimensions;
+                            $context['key_type'] = $collectionKeyType;
+                            $context['value_type'] = $collectionValueType;
                         } else {
                             // default fallback (keep it as array)
                             if ($t instanceof ObjectType) {
@@ -973,11 +983,76 @@ abstract class AbstractObjectNormalizer extends AbstractNormalizer
         // BC layer for PropertyTypeExtractorInterface::getTypes().
         // Can be removed as soon as PropertyTypeExtractorInterface::getTypes() is removed (8.0).
         if (\is_array($type)) {
+            if (($parameterType = $parameter->getType()) instanceof \ReflectionNamedType && 'mixed' !== $parameterType->getName()) {
+                $matches = false;
+
+                if ($parameterType->isBuiltin()) {
+                    foreach ($type as $legacyType) {
+                        if ($parameterType->getName() === $legacyType->getBuiltinType()) {
+                            $matches = true;
+                            break;
+                        }
+                    }
+
+                    if (!$matches) {
+                        $type = [new LegacyType($parameterType->getName(), $parameter->allowsNull())];
+                    }
+                } else {
+                    $parameterTypeName = match ($parameterType->getName()) {
+                        'self' => $parameter->getDeclaringClass()?->name ?? $class->name,
+                        'parent' => $parameter->getDeclaringClass()?->getParentClass()?->name ?? $parameterType->getName(),
+                        'static' => $class->name,
+                        default => $parameterType->getName(),
+                    };
+
+                    foreach ($type as $legacyType) {
+                        if (LegacyType::BUILTIN_TYPE_OBJECT === $legacyType->getBuiltinType() && $parameterTypeName === $legacyType->getClassName()) {
+                            $matches = true;
+                            break;
+                        }
+                    }
+
+                    if (!$matches) {
+                        $type = [new LegacyType(LegacyType::BUILTIN_TYPE_OBJECT, $parameter->allowsNull(), $parameterTypeName)];
+                    }
+                }
+            }
+
             $parameterData = $this->validateAndDenormalizeLegacy($type, $class->getName(), $parameterName, $parameterData, $format, $context);
-        } else {
-            $parameterData = $this->validateAndDenormalize($type, $class->getName(), $parameterName, $parameterData, $format, $context);
+            $parameterData = $this->applyCallbacks($parameterData, $class->getName(), $parameterName, $format, $context);
+
+            return $this->applyFilterBool($parameter, $parameterData, $context);
         }
 
+        $parameterType = $parameter->getType();
+        static $parameterTypeResolver;
+        static $parameterTypeContextFactory;
+
+        if (null !== $parameterType && $parameterTypeResolver ??= class_exists(ReflectionTypeResolver::class) ? new ReflectionTypeResolver() : false) {
+            $resolvedParameterType = $parameterTypeResolver->resolve($parameterType, ($parameterTypeContextFactory ??= new TypeContextFactory())->createFromClassName($class->name, $parameter->getDeclaringClass()?->name));
+            if ($resolvedParameterType->isSatisfiedBy(static fn (Type $t) => match (true) {
+                $t instanceof BuiltinType && !\in_array($t->getTypeIdentifier(), [TypeIdentifier::NULL, TypeIdentifier::MIXED], true) => !$type->isIdentifiedBy($t->getTypeIdentifier()),
+                $t instanceof ObjectType => !$type->isIdentifiedBy($t->getClassName()),
+                default => false,
+            })) {
+                $type = $resolvedParameterType;
+            }
+        } elseif ($parameterType instanceof \ReflectionNamedType) {
+            if ($parameterType->isBuiltin()) {
+                $typeIdentifier = TypeIdentifier::tryFrom($parameterType->getName());
+
+                if (null !== $typeIdentifier && TypeIdentifier::MIXED !== $typeIdentifier && !$type->isIdentifiedBy($typeIdentifier)) {
+                    $type = Type::builtin($typeIdentifier);
+                }
+            } elseif (!$type->isIdentifiedBy($parameterType->getName())) {
+                $type = Type::object($parameterType->getName());
+            }
+            if ($parameter->allowsNull()) {
+                $type = Type::nullable($type);
+            }
+        }
+
+        $parameterData = $this->validateAndDenormalize($type, $class->getName(), $parameterName, $parameterData, $format, $context);
         $parameterData = $this->applyCallbacks($parameterData, $class->getName(), $parameterName, $format, $context);
 
         return $this->applyFilterBool($parameter, $parameterData, $context);

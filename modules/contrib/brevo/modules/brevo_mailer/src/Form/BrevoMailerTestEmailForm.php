@@ -106,13 +106,13 @@ class BrevoMailerTestEmailForm extends FormBase {
       '#required' => TRUE,
       '#default_value' => $this->t('Howdy!
 
-If this e-mail is displayed correctly and delivered sound and safe, congrats! You have successfully configured Brevo.'),
+If this email is displayed correctly and delivered sound and safe, congrats! You have successfully configured Brevo.'),
     ];
 
     $form['include_attachment'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Include attachment'),
-      '#description' => $this->t('If checked, an image will be included as an attachment with the test e-mail.'),
+      '#description' => $this->t('If checked, an image will be included as an attachment with the test email.'),
     ];
 
     $form['extra'] = [

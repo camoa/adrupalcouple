@@ -84,10 +84,12 @@ class SchemaDotOrgAdditionalTypeReportTest extends SchemaDotOrgBrowserTestBase {
 
     $this->drupalGet('/admin/reports/schemadotorg/docs/additional-types/download');
     $expected_csv = <<<CSV
+entity_type_id,bundle,schema_type,additional_type,amenityFeature,title,schema_location
 node,event,Event,,,"'This is an event'",
 node,event,Event,business_event,,"'This is a business event'",1
 node,event,Event,childrens_event,,"'This is an event'",
 node,event,Event,comedy_event,,"'This is an event'",
+node,event,Event,conference_event,,"'This is an event'",
 node,event,Event,course_instance,,"'This is an event'",
 node,event,Event,dance_event,,"'This is an event'",
 node,event,Event,delivery_event,,"'This is an event'",
@@ -99,6 +101,7 @@ node,event,Event,food_event,,"'This is an event'",
 node,event,Event,hackathon,,"'This is an event'",
 node,event,Event,literary_event,,"'This is an event'",
 node,event,Event,music_event,,"'This is an event'",
+node,event,Event,performing_arts_event,,"'This is an event'",
 node,event,Event,publication_event,,"'This is an event'",
 node,event,Event,broadcast_event,,"'This is an event'",
 node,event,Event,on_demand_event,,"'This is an event'",

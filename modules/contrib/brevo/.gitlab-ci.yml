@@ -1,0 +1,27 @@
+################
+# GitLab CI for Drupal contrib projects.
+#
+# This template is designed to give any Drupal contrib project a jumpstart.
+# It is kept up to date automatically via include files that are centrally
+# managed.
+#
+# For more information on how to use this template, see:
+# https://www.drupal.org/docs/develop/git/using-gitlab-to-contribute-to-drupal/gitlab-ci
+################
+
+include:
+  - project: $_GITLAB_TEMPLATES_REPO
+    ref: $_GITLAB_TEMPLATES_REF
+    file:
+      - '/includes/include.drupalci.main.yml'
+      - '/includes/include.drupalci.variables.yml'
+      - '/includes/include.drupalci.workflows.yml'
+
+################
+# Customizations to the standard template below.
+# Documentation: https://git.drupalcode.org/project/gitlab_templates
+################
+
+variables:
+  # Skip ESLint if no JS files.
+  SKIP_ESLINT: '1'

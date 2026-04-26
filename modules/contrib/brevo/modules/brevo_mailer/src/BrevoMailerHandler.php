@@ -2,7 +2,6 @@
 
 namespace Drupal\brevo_mailer;
 
-use Brevo\Client\ApiException;
 use Brevo\Client\Model\SendSmtpEmail;
 use Drupal\brevo\BrevoFactory;
 use Drupal\Component\Utility\EmailValidatorInterface;
@@ -97,7 +96,7 @@ class BrevoMailerHandler implements BrevoMailerHandlerInterface {
     $this->brevoMailerConfig = $config_factory->get(BrevoMailerHandlerInterface::CONFIG_NAME);
     $this->logger = $logger;
     $this->brevoFactory = $brevo_factory;
-    $this->brevo =  $this->brevoFactory->createTransactionalEmailsApiClient();
+    $this->brevo = $this->brevoFactory->createTransactionalEmailsApiClient();
     $this->messenger = $messenger;
     $this->emailValidator = $email_validator;
     $this->moduleHandler = $module_handler;
@@ -125,7 +124,9 @@ class BrevoMailerHandler implements BrevoMailerHandlerInterface {
       }
       return $response;
     }
-    catch (ApiException $e) {
+    catch (\Throwable $e) {
+      // Catch all errors including ApiException and PHP deprecation errors
+      // that may be thrown by the Brevo SDK on newer PHP versions.
       $this->logger->error('Exception occurred while trying to send test email. From: %from. Recipients: %to. Error code @code: @message',
         [
           '%from' => $brevoMessage['sender']['email'],

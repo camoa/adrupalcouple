@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset name="brevo">
+  <description>PHP CodeSniffer configuration for Brevo module.</description>
+
+  <file>.</file>
+
+  <!-- Exclude vendor and node_modules directories -->
+  <exclude-pattern>*/vendor/*</exclude-pattern>
+  <exclude-pattern>*/node_modules/*</exclude-pattern>
+
+  <!-- Use Drupal coding standards -->
+  <rule ref="Drupal"/>
+  <rule ref="DrupalPractice"/>
+
+  <!-- Exclude method naming rule for methods using acronyms (CRM, SMS) -->
+  <!-- These method names match the Brevo SDK class naming conventions -->
+  <rule ref="Drupal.NamingConventions.ValidFunctionName.ScopeNotCamelCaps">
+    <exclude-pattern>*/src/BrevoFactory.php</exclude-pattern>
+  </rule>
+
+</ruleset>

@@ -10,6 +10,9 @@ use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\symfony_mailer\Entity\MailerTransport;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
+/**
+ * Event subscriber for Brevo mailer configuration changes.
+ */
 final class BrevoMailerSubscriber implements EventSubscriberInterface {
 
   /**
@@ -41,7 +44,7 @@ final class BrevoMailerSubscriber implements EventSubscriberInterface {
       }
 
       // Update the DSN of the transport with new API key.
-      $brevo_transport->set('configuration', ['dsn' => 'brevo+api://'.$event->getConfig()->get('api_key').'@default']);
+      $brevo_transport->set('configuration', ['dsn' => 'brevo+api://' . $event->getConfig()->get('api_key') . '@default']);
       $brevo_transport->save();
     }
   }

@@ -53,7 +53,8 @@ function brevo_update_8001() {
   if (!$module_handler->moduleExists($module)) {
     $module_installer->install([$module]);
     $message = t('The module "@module" has been installed.', ['@module' => $module]);
-  } else {
+  }
+  else {
     $message = t('The module "@module" is already installed.', ['@module' => $module]);
   }
 

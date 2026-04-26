@@ -89,7 +89,13 @@ trait SchemaDotOrgRecipeTestTrait {
 
     $source = new FileStorage($directory);
     foreach ($names as $name) {
-      $this->configStorage->write($name, $source->read($name));
+      $data = $source->read($name);
+      if ($data !== FALSE) {
+        $this->configStorage->write($name, $data);
+      }
+      else {
+        throw new \RuntimeException("Configuration file '$name' not found in directory '$directory'.");
+      }
     }
   }
 

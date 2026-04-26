@@ -16,12 +16,13 @@ use Drupal\symfony_mailer\Entity\MailerTransport;
  */
 function brevo_mailer_help($route_name, RouteMatchInterface $route_match) {
   switch ($route_name) {
-    // Main module help for the brevo_mailer module.
     case 'help.page.brevo_mailer':
-
       $output = '';
       $output .= '<h3>' . t('About') . '</h3>';
-      $output .= '<p>' . t('Enables site to send emails using Brevo.com') . '</p>';
+      $output .= '<p>' . t('The Brevo Mailer module enables the site to send emails using <a href=":brevo">Brevo</a>. For more information, see the <a href=":documentation">online documentation for the Brevo Mailer module</a>.', [
+        ':brevo' => 'https://www.brevo.com',
+        ':documentation' => 'https://www.drupal.org/project/brevo',
+      ]) . '</p>';
       return $output;
 
     default:
@@ -105,7 +106,7 @@ function brevo_mailer_modules_installed($modules, $is_syncing) {
       'label' => 'Brevo',
       'plugin' => 'dsn',
       'configuration' => [
-        'dsn' => 'brevo+api://'.$api_key.'@default',
+        'dsn' => 'brevo+api://' . $api_key . '@default',
       ],
     ]);
 
@@ -128,7 +129,7 @@ function brevo_mailer_form_mailer_transport_edit_form_alter(array &$form, FormSt
   if ($form['id']['#default_value'] === 'brevo') {
     $form['dsn']['#disabled'] = TRUE;
     $form['dsn']['#description'] = Markup::create(t('The DSN is managed automatically by the brevo module. Please go to @link to change your API key, if necessary.', [
-      '@link' => Link::createFromRoute(t('Brevo\'s configuration page'), 'brevo.admin_settings_form')->toString(),
+      '@link' => Link::createFromRoute(t("Brevo's configuration page"), 'brevo.admin_settings_form')->toString(),
     ]));
   }
 }

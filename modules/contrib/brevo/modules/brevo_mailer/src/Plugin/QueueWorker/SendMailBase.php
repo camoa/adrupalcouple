@@ -68,8 +68,8 @@ class SendMailBase extends QueueWorkerBase implements ContainerFactoryPluginInte
     if ($this->brevoMailerConfig->get('debug_mode')) {
       $this->logger->notice('Successfully sent message on CRON from %from to %to.',
         [
-          '%from' => $data->message['from'],
-          '%to' => $data->message['to'],
+          '%from' => $data->message['from'] ?? 'unknown',
+          '%to' => $data->message['to'] ?? 'unknown',
         ]
       );
     }

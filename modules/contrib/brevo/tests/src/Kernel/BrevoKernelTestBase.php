@@ -3,7 +3,7 @@
 namespace Drupal\Tests\brevo\Kernel;
 
 use Drupal\KernelTests\KernelTestBase;
-use Drupal\Brevo\BrevoHandlerInterface;
+use Drupal\brevo\BrevoHandlerInterface;
 
 /**
  * Brevo kernel test base class.

@@ -1,0 +1,12 @@
+parameters:
+  level: 0
+  paths:
+    - .
+  ignoreErrors:
+    # symfony_mailer is an optional dependency for brevo_mailer module.
+    # These classes may not exist if symfony_mailer is not installed.
+    - '#Call to static method (load|create)\(\) on an unknown class Drupal\\symfony_mailer\\Entity\\MailerTransport#'
+    # "new static()" is the standard Drupal pattern for dependency injection
+    # in forms and plugins via ContainerInjectionInterface::create().
+    -
+      identifier: new.static

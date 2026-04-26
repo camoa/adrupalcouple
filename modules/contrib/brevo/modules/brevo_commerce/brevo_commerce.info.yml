@@ -1,0 +1,13 @@
+name: 'Brevo Commerce'
+type: module
+description: 'Provides a checkout pane for brevo lists subscription during checkout.'
+core_version_requirement: ^10.3 || ^11
+package: 'Commerce'
+dependencies:
+  - commerce:commerce_checkout
+  - brevo:brevo
+
+# Information added by Drupal.org packaging script on 2026-03-21
+version: '1.0.6'
+project: 'brevo'
+datestamp: 1774120340

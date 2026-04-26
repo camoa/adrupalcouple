@@ -7,6 +7,8 @@
 
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\user\Entity\Role;
+use Drupal\views\Views;
+use Symfony\Component\Yaml\Yaml;
 
 /**
  * Implements hook_install().
@@ -27,6 +29,20 @@ function editoria11y_install() {
 
   // Display a help message once after it is installed:
   \Drupal::state()->set('editoria11y.show_help_message', TRUE);
+
+  $config_factory = Drupal::configFactory();
+  $view_ids = ['editoria11y_dismissals', 'editoria11y_results'];
+  foreach ($view_ids as $view_id) {
+    $view = Views::getView($view_id);
+
+    if (!$view) {
+      // Import the view configuration.
+      $config_path = \Drupal::service('extension.list.module')->getPath('editoria11y') . '/config/optional/views.view.' . $view_id . '.yml';
+      $data = Yaml::parseFile($config_path);
+      $config_factory->getEditable('views.view.' . $view_id)->setData($data)->save(TRUE);
+    }
+  }
+
 }
 
 /**

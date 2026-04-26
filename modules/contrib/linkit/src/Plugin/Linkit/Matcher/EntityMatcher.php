@@ -410,6 +410,9 @@ class EntityMatcher extends ConfigurableMatcherBase {
     // Add access tag for the query.
     $query->addTag('entity_access');
     $query->addTag($this->targetType . '_access');
+
+    // Add metadata to the query for this plugin instance.
+    $query->addMetadata('linkit_matcher', $this);
   }
 
   /**

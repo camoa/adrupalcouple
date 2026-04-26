@@ -6,8 +6,9 @@ package: Mail
 configure: brevo_mailer.admin_settings_form
 dependencies:
   - brevo:brevo
+  - drupal:filter
 
-# Information added by Drupal.org packaging script on 2025-12-27
-version: '1.0.4'
+# Information added by Drupal.org packaging script on 2026-03-21
+version: '1.0.6'
 project: 'brevo'
-datestamp: 1766844361
+datestamp: 1774120340

@@ -107,6 +107,7 @@ settings:
       allowed_tags: {  }
     editor_advanced_link_link:
       enabled_attributes:
+        - aria-label
         - class
         - target
 image_upload:

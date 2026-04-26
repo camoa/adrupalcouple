@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace Drupal\schemadotorg;
 
 use Drupal\Core\Database\Connection;
+use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
+use Drupal\schemadotorg\Entity\SchemaDotOrgMapping;
 use Drupal\schemadotorg\Utility\SchemaDotOrgStringHelper;
 
 /**
@@ -793,7 +795,7 @@ class SchemaDotOrgSchemaTypeManager implements SchemaDotOrgSchemaTypeManagerInte
   /**
    * {@inheritdoc}
    */
-  public function getSetting(array $settings, SchemaDotOrgMappingInterface|array $parts, array $options = [], ?array $patterns = NULL): mixed {
+  public function getSetting(array $settings, SchemaDotOrgMappingInterface|ContentEntityInterface|array $parts, array $options = [], ?array $patterns = NULL): mixed {
     // Set options defaults.
     $options += [
       'multiple' => FALSE,
@@ -805,6 +807,29 @@ class SchemaDotOrgSchemaTypeManager implements SchemaDotOrgSchemaTypeManagerInte
     // Check for empty settings and return NULL immediately.
     if (empty($settings)) {
       return $options['return'];
+    }
+
+    // Get the parts from a content entity.
+    if ($parts instanceof ContentEntityInterface) {
+      $entity = $parts;
+      $mapping = SchemaDotOrgMapping::loadByEntity($entity);
+      if (!$mapping) {
+        return $options['return'];
+      }
+
+      $additional_type_field_name = $mapping->getSchemaPropertyFieldName('additionalType');
+      $additional_type = $entity->hasField($additional_type_field_name)
+        ? $entity->get($additional_type_field_name)->value
+        : NULL;
+      $parts = [
+        'entity_type_id' => $mapping->getTargetEntityTypeId(),
+        'bundle' => $mapping->getTargetBundle(),
+        'schema_type' => $mapping->getSchemaType(),
+        'additional_type' => $additional_type,
+      ];
+
+      // Ignore empty parts.
+      $parts = array_filter($parts);
     }
 
     // Get the parts from a Schema.org mapping.

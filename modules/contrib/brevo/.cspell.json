@@ -1,0 +1,24 @@
+{
+  "version": "0.2",
+  "language": "en",
+  "words": [
+    "abzq",
+    "automations",
+    "brevo",
+    "filecontent",
+    "getbrevo",
+    "mailsystem",
+    "mymodule",
+    "nyholm",
+    "renrhaf",
+    "sfmailer",
+    "transac",
+    "webform",
+    "xkeysib",
+    "xzzq"
+  ],
+  "ignorePaths": [
+    "vendor/**",
+    "node_modules/**"
+  ]
+}

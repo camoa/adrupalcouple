@@ -55,7 +55,13 @@ class BrevoMailerAdminSettingsForm extends ConfigFormBase {
   /**
    * {@inheritdoc}
    */
-  public function __construct(ConfigFactoryInterface $config_factory, TypedConfigManagerInterface $typedConfigManager, BrevoMailerHandlerInterface $brevo_mailer_handler, FilterPluginManager $filter_manager, ModuleHandlerInterface $module_handler) {
+  public function __construct(
+    ConfigFactoryInterface $config_factory,
+    TypedConfigManagerInterface $typedConfigManager,
+    BrevoMailerHandlerInterface $brevo_mailer_handler,
+    FilterPluginManager $filter_manager,
+    ModuleHandlerInterface $module_handler,
+  ) {
     parent::__construct($config_factory, $typedConfigManager);
     $this->brevoMailerHandler = $brevo_mailer_handler;
     $this->filterManager = $filter_manager;
@@ -81,13 +87,6 @@ class BrevoMailerAdminSettingsForm extends ConfigFormBase {
   /**
    * {@inheritdoc}
    */
-  public function validateForm(array &$form, FormStateInterface $form_state) {
-    parent::validateForm($form, $form_state);
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function buildForm(array $form, FormStateInterface $form_state) {
     $this->brevoMailerHandler->validateDrupalMailerLibrary(TRUE);
     $this->brevoMailerHandler->validateDrupalMailerConfiguration(TRUE);
@@ -97,7 +96,7 @@ class BrevoMailerAdminSettingsForm extends ConfigFormBase {
       '#title' => $this->t('Enable Debug Mode'),
       '#type' => 'checkbox',
       '#default_value' => $config->get('debug_mode'),
-      '#description' => $this->t('Enable to log every email and queuing.'),
+      '#description' => $this->t('Enable to log every email and queueing.'),
     ];
 
     $form['test_mode'] = [
@@ -128,9 +127,15 @@ class BrevoMailerAdminSettingsForm extends ConfigFormBase {
     }
 
     // Add additional description text if there is a recommended filter plugin.
-    // To be sure we are using the correct plugin name, let's use the plugin definition.
-    $recommendation = !$this->filterManager->hasDefinition('filter_autop') ? ''
-      : $this->t('Recommended format filters: @filter.', ['@filter' => $this->filterManager->getDefinition('filter_autop')['title'] ?? '']);
+    // To be sure we are using the correct plugin name, use the definition.
+    $recommendation = '';
+    if ($this->filterManager->hasDefinition('filter_autop')) {
+      $filter_title = $this->filterManager
+        ->getDefinition('filter_autop')['title'] ?? '';
+      $recommendation = $this->t('Recommended format filters: @filter.', [
+        '@filter' => $filter_title,
+      ]);
+    }
 
     $form['advanced_settings']['format']['format_filter'] = [
       '#title' => $this->t('Format filter'),

@@ -19,3 +19,12 @@ services:
     class: Drupal\Core\Logger\LoggerChannel
     factory: logger.factory:get
     arguments: ['brevo']
+
+  logger.channel.brevo_webform:
+    class: Drupal\Core\Logger\LoggerChannel
+    factory: logger.factory:get
+    arguments: ['brevo_webform']
+
+  brevo.contacts_api_client_helper:
+    class: Drupal\brevo\ContactsApiClientHelper
+    arguments: ['@brevo.brevo_client_factory', '@logger.channel.brevo']

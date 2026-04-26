@@ -1,0 +1,60 @@
+commerce_checkout.commerce_checkout_pane.brevo_lists_subscriber:
+  type: commerce_checkout_pane_configuration
+  mapping:
+    enabled_lists:
+      type: sequence
+      label: 'Enabled lists'
+      sequence:
+        type: integer
+        label: 'List ID'
+    checkboxes_title:
+      type: label
+      label: 'Checkboxes title'
+    checkboxes_description:
+      type: label
+      label: 'Checkboxes description'
+    checkboxes_information_top:
+      type: text_format
+      label: 'Checkboxes information top'
+      translatable: true
+    checkboxes_information_bottom:
+      type: text_format
+      label: 'Checkboxes information bottom'
+      translatable: true
+    enable_double_opt_in:
+      type: boolean
+      label: 'Enable double opt-in'
+    doi_redirect_url:
+      type: string
+      label: 'Double opt-in redirect URL'
+    doi_template_id:
+      type: integer
+      label: 'Double opt-in template ID'
+    fetched_lists:
+      type: sequence
+      label: 'Fetched lists'
+      sequence:
+        type: brevo_commerce.list
+
+brevo_commerce.list:
+  type: mapping
+  label: 'List'
+  mapping:
+    id:
+      type: integer
+      label: 'List ID'
+    name:
+      type: string
+      label: 'List name'
+    folderId:
+      type: integer
+      label: 'Folder ID'
+    uniqueSubscribers:
+      type: integer
+      label: 'Unique subscribers'
+    totalBlacklisted:
+      type: integer
+      label: 'Total blacklisted'
+    totalSubscribers:
+      type: integer
+      label: 'Total subscribers'

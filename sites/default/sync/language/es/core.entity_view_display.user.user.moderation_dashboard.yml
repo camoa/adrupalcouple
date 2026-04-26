@@ -17,8 +17,8 @@ third_party_settings:
               label_display: visible
           de4b18d0-c1cb-4074-b239-3895f7747260:
             configuration:
-              label: 'Recientemente creado'
               label_display: visible
+              label: 'Recientemente creado'
               views_label: 'Recientemente creado'
           fc6cadb0-275f-440a-8eb5-d5a1993c1016:
             configuration:

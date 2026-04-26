@@ -5,7 +5,6 @@
  * Contains Brevo module.
  */
 
-use Brevo\Client\ApiException;
 use Drupal\Core\Routing\RouteMatchInterface;
 
 // Ludwig module integration.
@@ -19,12 +18,13 @@ if (\Drupal::hasService('ludwig.require_once')) {
  */
 function brevo_help($route_name, RouteMatchInterface $route_match) {
   switch ($route_name) {
-    // Main module help for the brevo module.
     case 'help.page.brevo':
-
       $output = '';
       $output .= '<h3>' . t('About') . '</h3>';
-      $output .= '<p>' . t('Enables site to integrate with Brevo CRM service') . '</p>';
+      $output .= '<p>' . t('The Brevo module enables site integration with <a href=":brevo">Brevo CRM</a> service. For more information, see the <a href=":documentation">online documentation for the Brevo module</a>.', [
+        ':brevo' => 'https://www.brevo.com',
+        ':documentation' => 'https://www.drupal.org/project/brevo',
+      ]) . '</p>';
       return $output;
 
     default:
@@ -49,7 +49,9 @@ function brevo_page_attachments_alter(array &$page) {
         $accountMarketingAutomation = $account->getMarketingAutomation();
         $client_key = $accountMarketingAutomation->getKey();
       }
-      catch (ApiException $e) {
+      catch (\Throwable $e) {
+        // Catch all errors including ApiException and PHP deprecation errors
+        // that may be thrown by the Brevo SDK on newer PHP versions.
         \Drupal::logger('brevo')
           ->error($e->getMessage());
       }

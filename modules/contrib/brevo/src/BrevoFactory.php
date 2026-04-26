@@ -51,7 +51,7 @@ class BrevoFactory {
   /**
    * Http client service.
    *
-   * @var \Drupal\Core\Config\ImmutableConfig
+   * @var \GuzzleHttp\ClientInterface
    */
   protected $httpClient;
 
@@ -60,6 +60,8 @@ class BrevoFactory {
    *
    * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
    *   The config factory.
+   * @param \GuzzleHttp\ClientInterface $httpClient
+   *   The HTTP client.
    */
   public function __construct(ConfigFactoryInterface $configFactory, ClientInterface $httpClient) {
     $this->brevoConfig = $configFactory->get(BrevoHandlerInterface::CONFIG_NAME);
@@ -75,7 +77,7 @@ class BrevoFactory {
    * @return \Brevo\Client\Configuration
    *   Brevo PHP SDK configuration.
    */
-  public function getConfiguration(?string $api_key = null) {
+  public function getConfiguration(?string $api_key = NULL) {
     $api_key = $api_key ?? (string) $this->brevoConfig->get('api_key');
     $config = Configuration::getDefaultConfiguration()
       ->setApiKey('api-key', $api_key);
@@ -89,9 +91,9 @@ class BrevoFactory {
    * @return \Brevo\Client\Api\AccountApi
    *   Brevo PHP SDK Account API client.
    */
-  public function createAccountApiClient(?string $api_key = null) {
+  public function createAccountApiClient(?string $api_key = NULL) {
     if (!$this->isBrevoLibraryInstalled()) {
-        return NULL;
+      return NULL;
     }
 
     return new AccountApi($this->httpClient, $this->getConfiguration($api_key));
@@ -103,7 +105,7 @@ class BrevoFactory {
    * @return \Brevo\Client\Api\AttributesApi
    *   Brevo PHP SDK Attributes API client.
    */
-  public function createAttributesApiClient(?string $api_key = null) {
+  public function createAttributesApiClient(?string $api_key = NULL) {
     if (!$this->isBrevoLibraryInstalled()) {
       return NULL;
     }
@@ -117,7 +119,7 @@ class BrevoFactory {
    * @return \Brevo\Client\Api\CompaniesApi
    *   Brevo PHP SDK Companies API client.
    */
-  public function createCompaniesApiClient(?string $api_key = null) {
+  public function createCompaniesApiClient(?string $api_key = NULL) {
     if (!$this->isBrevoLibraryInstalled()) {
       return NULL;
     }
@@ -131,7 +133,7 @@ class BrevoFactory {
    * @return \Brevo\Client\Api\ContactsApi
    *   Brevo PHP SDK Contacts API client.
    */
-  public function createContactsApiClient(?string $api_key = null) {
+  public function createContactsApiClient(?string $api_key = NULL) {
     if (!$this->isBrevoLibraryInstalled()) {
       return NULL;
     }
@@ -145,7 +147,7 @@ class BrevoFactory {
    * @return \Brevo\Client\Api\ConversationsApi
    *   Brevo PHP SDK Conversations API client.
    */
-  public function createConversationsApiClient(?string $api_key = null) {
+  public function createConversationsApiClient(?string $api_key = NULL) {
     if (!$this->isBrevoLibraryInstalled()) {
       return NULL;
     }
@@ -159,7 +161,7 @@ class BrevoFactory {
    * @return \Brevo\Client\Api\CouponsApi
    *   Brevo PHP SDK Coupons API client.
    */
-  public function createCouponsApiClient(?string $api_key = null) {
+  public function createCouponsApiClient(?string $api_key = NULL) {
     if (!$this->isBrevoLibraryInstalled()) {
       return NULL;
     }
@@ -170,10 +172,10 @@ class BrevoFactory {
   /**
    * Create Brevo CRM API client.
    *
-   * @return \Brevo\Client\Api\CRMApi
-   *   Brevo PHP SDK CRM API client.
+   * @return \Brevo\Client\Api\CRMApi|null
+   *   Brevo PHP SDK CRM API client or NULL if library not installed.
    */
-  public function createCRMApiClient(?string $api_key = null) {
+  public function createCRMApiClient(?string $api_key = NULL) {
     if (!$this->isBrevoLibraryInstalled()) {
       return NULL;
     }
@@ -187,7 +189,7 @@ class BrevoFactory {
    * @return \Brevo\Client\Api\DealsApi
    *   Brevo PHP SDK Deals API client.
    */
-  public function createDealsApiClient(?string $api_key = null) {
+  public function createDealsApiClient(?string $api_key = NULL) {
     if (!$this->isBrevoLibraryInstalled()) {
       return NULL;
     }
@@ -201,7 +203,7 @@ class BrevoFactory {
    * @return \Brevo\Client\Api\DomainsApi
    *   Brevo PHP SDK Domains API client.
    */
-  public function createDomainsApiClient(?string $api_key = null) {
+  public function createDomainsApiClient(?string $api_key = NULL) {
     if (!$this->isBrevoLibraryInstalled()) {
       return NULL;
     }
@@ -215,7 +217,7 @@ class BrevoFactory {
    * @return \Brevo\Client\Api\EcommerceApi
    *   Brevo PHP SDK Ecommerce API client.
    */
-  public function createEcommerceApiClient(?string $api_key = null) {
+  public function createEcommerceApiClient(?string $api_key = NULL) {
     if (!$this->isBrevoLibraryInstalled()) {
       return NULL;
     }
@@ -229,7 +231,7 @@ class BrevoFactory {
    * @return \Brevo\Client\Api\EmailCampaignsApi
    *   Brevo PHP SDK EmailCampaigns API client.
    */
-  public function createEmailCampaignsApiClient(?string $api_key = null) {
+  public function createEmailCampaignsApiClient(?string $api_key = NULL) {
     if (!$this->isBrevoLibraryInstalled()) {
       return NULL;
     }
@@ -243,7 +245,7 @@ class BrevoFactory {
    * @return \Brevo\Client\Api\EventsApi
    *   Brevo PHP SDK Events API client.
    */
-  public function createEventsApiClient(?string $api_key = null) {
+  public function createEventsApiClient(?string $api_key = NULL) {
     if (!$this->isBrevoLibraryInstalled()) {
       return NULL;
     }
@@ -257,7 +259,7 @@ class BrevoFactory {
    * @return \Brevo\Client\Api\ExternalFeedsApi
    *   Brevo PHP SDK ExternalFeeds API client.
    */
-  public function createExternalFeedsApiClient(?string $api_key = null) {
+  public function createExternalFeedsApiClient(?string $api_key = NULL) {
     if (!$this->isBrevoLibraryInstalled()) {
       return NULL;
     }
@@ -271,7 +273,7 @@ class BrevoFactory {
    * @return \Brevo\Client\Api\FilesApi
    *   Brevo PHP SDK Files API client.
    */
-  public function createFilesApiClient(?string $api_key = null) {
+  public function createFilesApiClient(?string $api_key = NULL) {
     if (!$this->isBrevoLibraryInstalled()) {
       return NULL;
     }
@@ -285,7 +287,7 @@ class BrevoFactory {
    * @return \Brevo\Client\Api\FoldersApi
    *   Brevo PHP SDK Folders API client.
    */
-  public function createFoldersApiClient(?string $api_key = null) {
+  public function createFoldersApiClient(?string $api_key = NULL) {
     if (!$this->isBrevoLibraryInstalled()) {
       return NULL;
     }
@@ -299,7 +301,7 @@ class BrevoFactory {
    * @return \Brevo\Client\Api\InboundParsingApi
    *   Brevo PHP SDK InboundParsing API client.
    */
-  public function createInboundParsingApiClient(?string $api_key = null) {
+  public function createInboundParsingApiClient(?string $api_key = NULL) {
     if (!$this->isBrevoLibraryInstalled()) {
       return NULL;
     }
@@ -313,7 +315,7 @@ class BrevoFactory {
    * @return \Brevo\Client\Api\ListsApi
    *   Brevo PHP SDK Lists API client.
    */
-  public function createListsApiClient(?string $api_key = null) {
+  public function createListsApiClient(?string $api_key = NULL) {
     if (!$this->isBrevoLibraryInstalled()) {
       return NULL;
     }
@@ -327,7 +329,7 @@ class BrevoFactory {
    * @return \Brevo\Client\Api\MasterAccountApi
    *   Brevo PHP SDK MasterAccount API client.
    */
-  public function createMasterAccountApiClient(?string $api_key = null) {
+  public function createMasterAccountApiClient(?string $api_key = NULL) {
     if (!$this->isBrevoLibraryInstalled()) {
       return NULL;
     }
@@ -341,7 +343,7 @@ class BrevoFactory {
    * @return \Brevo\Client\Api\NotesApi
    *   Brevo PHP SDK Notes API client.
    */
-  public function createNotesApiClient(?string $api_key = null) {
+  public function createNotesApiClient(?string $api_key = NULL) {
     if (!$this->isBrevoLibraryInstalled()) {
       return NULL;
     }
@@ -355,7 +357,7 @@ class BrevoFactory {
    * @return \Brevo\Client\Api\ProcessApi
    *   Brevo PHP SDK Process API client.
    */
-  public function createProcessApiClient(?string $api_key = null) {
+  public function createProcessApiClient(?string $api_key = NULL) {
     if (!$this->isBrevoLibraryInstalled()) {
       return NULL;
     }
@@ -369,7 +371,7 @@ class BrevoFactory {
    * @return \Brevo\Client\Api\ResellerApi
    *   Brevo PHP SDK Reseller API client.
    */
-  public function createResellerApiClient(?string $api_key = null) {
+  public function createResellerApiClient(?string $api_key = NULL) {
     if (!$this->isBrevoLibraryInstalled()) {
       return NULL;
     }
@@ -383,7 +385,7 @@ class BrevoFactory {
    * @return \Brevo\Client\Api\SendersApi
    *   Brevo PHP SDK Senders API client.
    */
-  public function createSendersApiClient(?string $api_key = null) {
+  public function createSendersApiClient(?string $api_key = NULL) {
     if (!$this->isBrevoLibraryInstalled()) {
       return NULL;
     }
@@ -394,10 +396,10 @@ class BrevoFactory {
   /**
    * Create Brevo SMSCampaigns API client.
    *
-   * @return \Brevo\Client\Api\SMSCampaignsApi
-   *   Brevo PHP SDK SMSCampaigns API client.
+   * @return \Brevo\Client\Api\SMSCampaignsApi|null
+   *   Brevo PHP SDK SMSCampaigns API client or NULL if library not installed.
    */
-  public function createSMSCampaignsApiClient(?string $api_key = null) {
+  public function createSMSCampaignsApiClient(?string $api_key = NULL) {
     if (!$this->isBrevoLibraryInstalled()) {
       return NULL;
     }
@@ -411,7 +413,7 @@ class BrevoFactory {
    * @return \Brevo\Client\Api\TasksApi
    *   Brevo PHP SDK Tasks API client.
    */
-  public function createTasksApiClient(?string $api_key = null) {
+  public function createTasksApiClient(?string $api_key = NULL) {
     if (!$this->isBrevoLibraryInstalled()) {
       return NULL;
     }
@@ -425,7 +427,7 @@ class BrevoFactory {
    * @return \Brevo\Client\Api\TransactionalEmailsApi
    *   Brevo PHP SDK Transactional emails API client.
    */
-  public function createTransactionalEmailsApiClient(?string $api_key = null) {
+  public function createTransactionalEmailsApiClient(?string $api_key = NULL) {
     if (!$this->isBrevoLibraryInstalled()) {
       return NULL;
     }
@@ -436,10 +438,10 @@ class BrevoFactory {
   /**
    * Create Brevo TransactionalSMS API client.
    *
-   * @return \Brevo\Client\Api\TransactionalSMSApi
-   *   Brevo PHP SDK TransactionalSMS API client.
+   * @return \Brevo\Client\Api\TransactionalSMSApi|null
+   *   Brevo PHP SDK TransactionalSMS API client, or NULL if not installed.
    */
-  public function createTransactionalSMSApiClient(?string $api_key = null) {
+  public function createTransactionalSMSApiClient(?string $api_key = NULL) {
     if (!$this->isBrevoLibraryInstalled()) {
       return NULL;
     }
@@ -453,7 +455,7 @@ class BrevoFactory {
    * @return \Brevo\Client\Api\TransactionalWhatsAppApi
    *   Brevo PHP SDK TransactionalWhatsApp API client.
    */
-  public function createTransactionalWhatsAppApiClient(?string $api_key = null) {
+  public function createTransactionalWhatsAppApiClient(?string $api_key = NULL) {
     if (!$this->isBrevoLibraryInstalled()) {
       return NULL;
     }
@@ -467,7 +469,7 @@ class BrevoFactory {
    * @return \Brevo\Client\Api\UserApi
    *   Brevo PHP SDK User API client.
    */
-  public function createUserApiClient(?string $api_key = null) {
+  public function createUserApiClient(?string $api_key = NULL) {
     if (!$this->isBrevoLibraryInstalled()) {
       return NULL;
     }
@@ -481,7 +483,7 @@ class BrevoFactory {
    * @return \Brevo\Client\Api\WebhooksApi
    *   Brevo PHP SDK Webhooks API client.
    */
-  public function createWebhooksApiClient(?string $api_key = null) {
+  public function createWebhooksApiClient(?string $api_key = NULL) {
     if (!$this->isBrevoLibraryInstalled()) {
       return NULL;
     }
@@ -495,7 +497,7 @@ class BrevoFactory {
    * @return \Brevo\Client\Api\WhatsAppCampaignsApi
    *   Brevo PHP SDK WhatsAppCampaigns API client.
    */
-  public function createWhatsAppCampaignsApiClient(?string $api_key = null) {
+  public function createWhatsAppCampaignsApiClient(?string $api_key = NULL) {
     if (!$this->isBrevoLibraryInstalled()) {
       return NULL;
     }
@@ -507,8 +509,10 @@ class BrevoFactory {
    * Check if Brevo library is installed.
    *
    * @return bool
+   *   TRUE if the Brevo library is installed, FALSE otherwise.
    */
   public function isBrevoLibraryInstalled() {
     return class_exists('\Brevo\Client\Configuration');
   }
+
 }
