@@ -405,12 +405,11 @@ abstract class SchemaDotOrgEntityReferenceSelection extends SelectionPluginBase 
       $has_entity_reference = FALSE;
       foreach ($settings['columns'] as $column_name => $column) {
         if ($column['type'] === 'entity_reference') {
-          $handler = NestedArray::getValue($settings, ['field_settings', $column_name, 'widget_settings', 'settings', 'handler']);
-          if (str_starts_with($handler, 'schemadotorg')) {
+          $handler = NestedArray::getValue($settings, ['field_settings', $column_name, 'handler']);
+          if ($handler && str_starts_with($handler, 'schemadotorg')) {
             $has_entity_reference = TRUE;
-            $handler_settings =& NestedArray::getValue($settings, ['field_settings', $column_name, 'widget_settings', 'settings', 'handler_settings']);
+            $handler_settings =& NestedArray::getValue($settings, ['field_settings', $column_name, 'handler_settings']);
             $handler_settings['target_bundles'] = SchemaDotOrgEntityReferenceSelection::getTargetBundles($handler_settings);
-
           }
         }
       }

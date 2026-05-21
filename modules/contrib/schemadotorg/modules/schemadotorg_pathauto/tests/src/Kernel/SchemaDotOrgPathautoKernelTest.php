@@ -94,7 +94,7 @@ class SchemaDotOrgPathautoKernelTest extends SchemaDotOrgEntityKernelTestBase {
     $pathauto_pattern = $pathauto_pattern_storage->load('schema_node_thing');
     $this->assertEquals('schema_node_thing', $pathauto_pattern->id());
     $this->assertEquals('Schema.org: Content - Thing', $pathauto_pattern->label());
-    $this->assertEquals('[node:schemadotorg:base-path]/[node:schemadotorg:alternate-name]', $pathauto_pattern->get('pattern'));
+    $this->assertEquals('/[node:schemadotorg:base-path]/[node:schemadotorg:alternate-name]', $pathauto_pattern->get('pattern'));
 
     // Check that node thing pathauto pattern selection condition bundle
     // includes thing.
@@ -130,7 +130,7 @@ class SchemaDotOrgPathautoKernelTest extends SchemaDotOrgEntityKernelTestBase {
     /** @var \Drupal\pathauto\PathautoPatternInterface $bundle_pattern */
     $bundle_pattern = $pathauto_pattern_storage->load('schema_node_web_page_landing_page');
     $this->assertEquals('Schema.org: Content - Web Page (Landing Page)', $bundle_pattern->label());
-    $this->assertEquals('[node:title]', $bundle_pattern->get('pattern'));
+    $this->assertEquals('/[node:title]', $bundle_pattern->get('pattern'));
     $configuration = $bundle_pattern->getSelectionConditions()->getConfiguration();
     $configuration = reset($configuration);
     $this->assertEquals(['landing_page' => 'landing_page'], $configuration['bundles']);
