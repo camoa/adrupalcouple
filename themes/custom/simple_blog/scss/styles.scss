@@ -330,15 +330,12 @@ p {
 
 .comment-area {
   .title {
-    @extend .comment-title;
   }
   .comment {
     .indented {
-      @extend .comment-replay ;
     }
     .single-comment-area {
       .layout__region--content {
-        @extend .comment-content;
       }
     }
   }
@@ -607,7 +604,6 @@ p {
       }
   }
   #edit-actions {
-    Color: red;
     input {
       background: var(--dark-text-color);
       padding: 17px 30px;
