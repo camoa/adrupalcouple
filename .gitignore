@@ -19,3 +19,6 @@ node_modules/
 .design-intelligence/
 .design-intelligence-audit/
 .scratch-audits/
+
+# Git worktrees (task isolation)
+.worktrees/
