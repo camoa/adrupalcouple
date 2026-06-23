@@ -1,0 +1,53 @@
+name: Collapse
+description: "Collapse is used for showing and hiding content."
+group: "Data display"
+links:
+  - "https://daisyui.com/components/collapse/"
+slots:
+  title:
+    title: Title
+    description: "The collapse title."
+  content:
+    title: Content
+    description: "The collapse renderable content."
+props:
+  type: object
+  properties:
+    collapse_type:
+      title: "Collapse type"
+      description: "Choose between focus, checkbox or details."
+      type: string
+      enum:
+        - focus
+        - checkbox
+        - details
+      "meta:enum":
+        focus: "Focus"
+        checkbox: "Checkbox"
+        details: "Details"
+    collapse_icon:
+      title: "Collapse icon"
+      description: "Choose between arrow or plus icon."
+      type: string
+      enum:
+        - arrow
+        - plus
+      "meta:enum":
+        arrow: "Arrow"
+        plus: "Plus"
+    open:
+      title: "Force open?"
+      description: "It is possible to force collapse to be opened."
+      type: boolean
+    close:
+      title: "Force close?"
+      description: "It is possible to force collapse to be closed."
+      type: boolean
+    accordion_id:
+      title: "Accordion ID"
+      description: "To fill for collapse used inside an Accordion component."
+      $ref: "ui-patterns://identifier"
+    checked:
+      title: "Checked?"
+      description: "To set to true for a collapse used inside an Accordion component."
+      type: boolean

@@ -1,0 +1,11 @@
+name: Icon
+slots:
+  label: Label
+props:
+  icon:
+    pack_id: hero_outline_24
+    icon_id: heart
+    settings:
+      size: 20
+      stroke_width: 2
+  icon_position: right

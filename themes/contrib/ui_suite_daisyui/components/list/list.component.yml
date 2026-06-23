@@ -1,0 +1,10 @@
+name: "List"
+description: "List is a vertical layout to display information in rows."
+group: "Data display"
+links:
+  - "https://daisyui.com/components/list/"
+slots:
+  title:
+    title: Title
+  rows:
+    title: Rows

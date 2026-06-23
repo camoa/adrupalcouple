@@ -1,0 +1,30 @@
+{%
+  set classes = [
+    'drawer',
+    variant and variant != 'default' ? 'drawer-' ~ variant,
+    open ? 'drawer-open',
+  ]
+%}
+
+{% set attributes = attributes.addClass(classes) %}
+
+{% set drawer_attributes = create_attribute().addClass('drawer-toggle') %}
+{% set drawer_attributes = drawer_attributes.setAttribute('id', drawer_id) %}
+{% set drawer_attributes = drawer_attributes.setAttribute('type', 'checkbox') %}
+
+{% set drawer_side_attributes = create_attribute().addClass('drawer-overlay') %}
+{% set drawer_side_attributes = drawer_side_attributes.setAttribute('for', drawer_id) %}
+{% set drawer_side_attributes = drawer_side_attributes.setAttribute('aria-label', 'close sidebar') %}
+
+<div {{ attributes }}>
+  <input {{ drawer_attributes }} />
+  <div class="drawer-content">
+    <!-- Page content here -->
+    {{ content }}
+  </div>
+  <div class="drawer-side">
+    <label {{ drawer_side_attributes }}></label>
+    <!-- Sidebar content here -->
+    {{ sidebar }}
+  </div>
+</div>

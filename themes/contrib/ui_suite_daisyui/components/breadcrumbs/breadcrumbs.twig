@@ -1,0 +1,26 @@
+{% if items %}
+{%
+  set classes = [
+    'text-sm', 'breadcrumbs',
+    max_width ? 'max-w-xs',
+  ]
+%}
+
+{% set attributes = attributes.addClass(classes) %}
+
+<div{{ attributes }}>
+<ul>
+{% for item in items %}
+    {% if item.url %}
+        <li>
+            <a href="{{ item.url }}">{{ item.title }}</a>
+        </li>
+    {% else %}
+        <li>
+            {{ item.title }}
+        </li>
+    {% endif %}
+{% endfor %}
+</ul>
+</div>
+{% endif %}

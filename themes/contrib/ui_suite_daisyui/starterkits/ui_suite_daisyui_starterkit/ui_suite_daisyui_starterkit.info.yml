@@ -1,0 +1,37 @@
+name: 'UI Suite DaisyUI Starterkit'
+type: theme
+description: 'Example DaisyUI theme.'
+core_version_requirement: ^10.2 || ^11
+base theme: ui_suite_daisyui
+hidden: true
+starterkit: true
+
+regions:
+  navbar_start: Navbar start
+  navbar_center: Navbar center
+  navbar_end: Navbar end
+  header: 'Top Bar'
+  highlighted: 'Highlighted'
+  help: 'Help'
+  content: 'Content'
+  sidebar: Sidebar
+  footer: 'Footer'
+  page_top: 'Page top'
+  page_bottom: 'Page bottom'
+
+libraries:
+  - ui_suite_daisyui_starterkit/daisyui
+
+libraries-override:
+  ui_suite_daisyui/daisyui:
+    css:
+      theme:
+        "dist/css/app.css": false
+
+ckeditor5-stylesheets:
+  - dist/css/app.css
+
+# Information added by Drupal.org packaging script on 2026-02-15
+version: '5.0.0-alpha6'
+project: 'ui_suite_daisyui'
+datestamp: 1771186822

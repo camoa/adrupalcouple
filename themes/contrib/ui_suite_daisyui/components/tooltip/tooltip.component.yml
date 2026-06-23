@@ -1,0 +1,58 @@
+name: "Tooltip"
+description: "Tooltip can be used to show a message when hovering over an element."
+group: "Feedback"
+links:
+  - "https://daisyui.com/components/tooltip/"
+variants:
+  default:
+    title: Default
+  primary:
+    title: Primary
+  secondary:
+    title: Secondary
+  accent:
+    title: Accent
+  neutral:
+    title: Neutral
+  info:
+    title: Info
+  success:
+    title: Success
+  warning:
+    title: Warning
+  error:
+    title: Error
+slots:
+  content:
+    title: "Content"
+  tooltip_content:
+    title: "Tooltip content"
+props:
+  type: object
+  properties:
+    responsive:
+      title: "Responsive?"
+      description: "Responsive tooltip. only show for large screen."
+      type: boolean
+    data_tip:
+      title: "Data tip"
+      description: "It is possible to set the data-tip"
+      type: string
+    open:
+      title: "Open?"
+      description: "Force open tooltip"
+      type: boolean
+    position:
+      title: Position
+      description: "Position of the tooltip."
+      type: string
+      enum:
+        - top
+        - bottom
+        - left
+        - right
+      "meta:enum":
+        top: Top
+        bottom: Bottom
+        left: Left
+        right: Right

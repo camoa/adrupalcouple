@@ -1,0 +1,16 @@
+{%
+  set classes = [
+    'list',
+  ]
+%}
+
+{% set attributes = attributes.addClass(classes) %}
+
+<ul {{ attributes }}>
+  {% if title %}
+  <li class="p-4 pb-2 text-xs opacity-60 tracking-wide">{{ title }}</li>
+  {% endif %}
+  {% if rows %}
+  {{ rows }}
+  {% endif %}
+</ul>

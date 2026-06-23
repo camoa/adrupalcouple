@@ -1,0 +1,5 @@
+name: "Indeterminate"
+props:
+  variant: default
+  attributes:
+    class: w-96

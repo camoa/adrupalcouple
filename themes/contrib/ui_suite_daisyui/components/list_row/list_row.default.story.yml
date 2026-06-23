@@ -1,0 +1,48 @@
+name: List row (second column grows - default)
+slots:
+  avatar:
+    type: component
+    component: "ui_suite_daisyui:avatar"
+    slots:
+      image:
+        theme: image
+        uri: "https://img.daisyui.com/images/profile/demo/1@94.webp"
+    props:
+      size: 10
+      rounded: rounded
+  title: Dio Lupa
+  subtitle:
+    type: html_tag
+    tag: span
+    value: "Remaining Reason"
+    attributes:
+      class: "text-xs uppercase font-semibold opacity-60"
+  actions:
+    - type: component
+      component: "ui_suite_daisyui:button"
+      props:
+        shape: square
+        ghost: true
+        icon:
+          pack_id: hero_outline_24
+          icon_id: play
+          settings:
+            size: 20
+            stroke_width: 2
+    - type: component
+      component: "ui_suite_daisyui:button"
+      props:
+        shape: square
+        ghost: true
+        icon:
+          pack_id: hero_outline_24
+          icon_id: heart
+          settings:
+            size: 20
+            stroke_width: 2
+library_wrapper: >
+  <div class="w-full max-w-lg">
+  <ul class="list bg-base-100 rounded-box shadow-md">
+  {{ _story }}
+  </ul>
+  </div>

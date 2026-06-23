@@ -1,0 +1,12 @@
+{%
+  set classes = [
+    'stack',
+    variant and variant != 'default' ? 'stack-' ~ variant,
+  ]
+%}
+
+{% set attributes = attributes.addClass(classes) %}
+
+{% if items %}
+<div {{ attributes }}>{{ items }}</div>
+{% endif %}

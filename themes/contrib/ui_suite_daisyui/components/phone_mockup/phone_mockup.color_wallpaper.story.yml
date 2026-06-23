@@ -1,0 +1,10 @@
+name: With color and wallpaper
+slots:
+  content:
+    theme: image
+    uri: "https://www.iclarified.com/images/news/94911/453966/453966.jpg"
+    alt: wallpaper
+props:
+  camera: true
+  attributes:
+    class: "border-primary"

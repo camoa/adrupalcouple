@@ -1,0 +1,37 @@
+name: Accordion with arrow icon
+slots:
+  items:
+    - type: component
+      component: "ui_suite_daisyui:collapse"
+      slots:
+        title: "How do I create an account?"
+        content: Click the "Sign Up" button in the top right corner and follow the registration process.
+      props:
+        accordion_id: my-accordion-2
+        checked: true
+        collapse_icon: arrow
+        attributes:
+          class: bg-base-100 border border-base-300
+    - type: component
+      component: "ui_suite_daisyui:collapse"
+      slots:
+        title: "I forgot my password. What should I do?"
+        content: Click on "Forgot Password" on the login page and follow the instructions sent to your email.
+      props:
+        accordion_id: my-accordion-2
+        collapse_icon: arrow
+        attributes:
+          class: bg-base-100 border border-base-300
+    - type: component
+      component: "ui_suite_daisyui:collapse"
+      slots:
+        title: "How do I update my profile information?"
+        content: 'Go to "My Account" settings and select "Edit Profile" to make changes.'
+      props:
+        accordion_id: my-accordion-2
+        collapse_icon: arrow
+        attributes:
+          class: bg-base-100 border border-base-300
+props:
+  attributes:
+    class: "gap-2 flex flex-wrap"

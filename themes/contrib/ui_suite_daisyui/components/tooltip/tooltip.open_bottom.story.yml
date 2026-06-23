@@ -1,0 +1,12 @@
+name: Open bottom
+slots:
+  content:
+    type: component
+    component: "ui_suite_daisyui:button"
+    slots:
+      label: "Hover me"
+props:
+  variant: default
+  data_tip: hello
+  position: bottom
+  open: true

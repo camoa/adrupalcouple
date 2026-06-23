@@ -1,0 +1,5 @@
+name: "Default: end"
+slots:
+  bubble: "Calm down, Anakin."
+props:
+  position: end

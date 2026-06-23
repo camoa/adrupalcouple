@@ -1,0 +1,57 @@
+{%
+  set classes = [
+    'btn',
+    variant and variant != 'default' ? 'btn-' ~ variant,
+    status and status == 'active' ? 'btn-active',
+    outline ? 'btn-' ~ outline,
+    size ? 'btn-' ~ size,
+    responsive ? 'btn-xs sm:btn-sm md:btn-md lg:btn-lg xl:btn-xl',
+    soft ? 'btn-soft',
+    display ? 'btn-' ~ display,
+    ghost ? 'btn-ghost',
+    link ? 'btn-link',
+    shape ? 'btn-' ~ shape,
+  ]
+%}
+
+{% set icon_position = icon_position|default('right') %}
+
+{% set attributes = attributes.addClass(classes) %}
+
+{% if modal_id %}
+  {% set attributes = attributes.setAttribute('onclick', modal_id ~ '.showModal()') %}
+{% endif %}
+
+{% if drawer_id %}
+  {% set attributes = attributes.setAttribute('for', drawer_id) %}
+  {% set attributes = attributes.addClass('drawer-button') %}
+  <label {{ attributes }}>{{ label }}</label>
+{% elseif url or attributes.href %}
+  {% set url = url|default(attributes.href) %}
+  {% set attributes = attributes.setAttribute('href', url) %}
+  {% if status and status == 'disabled' %}
+    {% set attributes = attributes.setAttribute('href', false).setAttribute('tabindex', '-1').setAttribute('aria-disabled', 'true').addClass('btn-disabled') %}
+  {% endif %}
+  <a{{ attributes.setAttribute('role', 'button') }}>
+  {% if icon_position == 'left' %}
+    {{ icon(icon.pack_id, icon.icon_id, icon.settings) }}
+  {% endif %}
+  {{ label }}
+  {% if icon_position == 'right' %}
+    {{ icon(icon.pack_id, icon.icon_id, icon.settings) }}
+  {% endif %}
+  </a>
+{% else %}
+  {% if status and status == 'disabled' %}
+    {% set attributes = attributes.setAttribute('disabled', 'disabled') %}
+  {% endif %}
+  <button{{ attributes }}>
+  {% if icon_position == 'left' %}
+    {{ icon(icon.pack_id, icon.icon_id, icon.settings) }}
+  {% endif %}
+  {{ label }}
+  {% if icon_position == 'right' %}
+    {{ icon(icon.pack_id, icon.icon_id, icon.settings) }}
+  {% endif %}
+  </button>
+{% endif %}

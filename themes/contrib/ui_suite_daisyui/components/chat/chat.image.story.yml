@@ -1,0 +1,14 @@
+name: Image
+slots:
+  avatar:
+    type: component
+    component: "ui_suite_daisyui:avatar"
+    props:
+      rounded: rounded-full
+      size: "10"
+    slots:
+      image:
+        theme: image
+        uri: "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+        alt: "Tailwind CSS chat bubble component"
+  bubble: "It was said that you would, destroy the Sith, not join them."

@@ -1,0 +1,210 @@
+hero_solid_16:
+  label: Hero solid 16
+  description: "Beautiful hand-crafted SVG icons, by the makers of Tailwind CSS."
+  extractor: svg
+  config:
+    sources:
+      - "/libraries/heroicons/16/solid/{icon_id}.svg"
+  library: ui_suite_daisyui/daisyui
+  settings:
+    size:
+      title: Size
+      type: "integer"
+      minimum: 12
+      maximum: 128
+      multipleOf: 4
+      default: 16
+    fill_color:
+      title: Fill color
+      type: string
+      enum:
+        - fill-current
+        - fill-primary
+        - fill-primary-content
+        - fill-secondary
+        - fill-secondary-content
+        - fill-accent
+        - fill-accent-content
+        - fill-neutral
+        - fill-neutral-content
+        - fill-base-100
+        - fill-base-200
+        - fill-base-300
+        - fill-base-content
+        - fill-info
+        - fill-info-content
+        - fill-success
+        - fill-success-content
+        - fill-warning
+        - fill-warning-content
+        - fill-error
+        - fill-error-content
+  template: >
+    <svg xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 16 16"
+      height="{{ size|default(16) }}"
+      width="{{ size|default(16) }}"
+      class="{{ fill_color|default('fill-current') }}"
+    >
+      {{ content }} 
+    </svg>
+
+hero_solid_20:
+  label: Hero solid 20
+  description: "Beautiful hand-crafted SVG icons, by the makers of Tailwind CSS."
+  extractor: svg
+  config:
+    sources:
+      - "/libraries/heroicons/20/solid/{icon_id}.svg"
+  library: ui_suite_daisyui/daisyui
+  settings:
+    size:
+      title: Size
+      type: "integer"
+      minimum: 12
+      maximum: 128
+      multipleOf: 4
+      default: 20
+    fill_color:
+      title: Fill color
+      type: string
+      enum:
+        - fill-current
+        - fill-primary
+        - fill-primary-content
+        - fill-secondary
+        - fill-secondary-content
+        - fill-accent
+        - fill-accent-content
+        - fill-neutral
+        - fill-neutral-content
+        - fill-base-100
+        - fill-base-200
+        - fill-base-300
+        - fill-base-content
+        - fill-info
+        - fill-info-content
+        - fill-success
+        - fill-success-content
+        - fill-warning
+        - fill-warning-content
+        - fill-error
+        - fill-error-content
+  template: >
+    <svg xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 20 20"
+      height="{{ size|default(20) }}"
+      width="{{ size|default(20) }}"
+      class="{{ fill_color|default('fill-current') }}"
+    >
+      {{ content }} 
+    </svg>
+
+hero_solid_24:
+  label: Hero solid 24
+  description: "Beautiful hand-crafted SVG icons, by the makers of Tailwind CSS."
+  extractor: svg
+  config:
+    sources:
+      - "/libraries/heroicons/24/solid/{icon_id}.svg"
+  library: ui_suite_daisyui/daisyui
+  settings:
+    size:
+      title: Size
+      type: "integer"
+      minimum: 12
+      maximum: 128
+      multipleOf: 4
+      default: 24
+    fill_color:
+      title: Fill color
+      type: string
+      enum:
+        - fill-current
+        - fill-primary
+        - fill-primary-content
+        - fill-secondary
+        - fill-secondary-content
+        - fill-accent
+        - fill-accent-content
+        - fill-neutral
+        - fill-neutral-content
+        - fill-base-100
+        - fill-base-200
+        - fill-base-300
+        - fill-base-content
+        - fill-info
+        - fill-info-content
+        - fill-success
+        - fill-success-content
+        - fill-warning
+        - fill-warning-content
+        - fill-error
+        - fill-error-content
+  template: >
+    <svg xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      height="{{ size|default(24) }}"
+      width="{{ size|default(24) }}"
+      class="{{ fill_color|default('fill-current') }}"
+    >
+      {{ content }} 
+    </svg>
+
+hero_outline_24:
+  label: Hero outline 24
+  description: "Beautiful hand-crafted SVG icons, by the makers of Tailwind CSS."
+  extractor: svg
+  config:
+    sources:
+      - "/libraries/heroicons/24/outline/{icon_id}.svg"
+  library: ui_suite_daisyui/daisyui
+  settings:
+    stroke_width:
+      title: Stroke width
+      type: "integer"
+      enum: [0, 1, 2, 3, 4, 5, 6]
+      default: 2
+    size:
+      title: Size
+      type: "integer"
+      minimum: 12
+      maximum: 128
+      multipleOf: 4
+      default: 24
+    stroke_color:
+      title: Stroke color
+      type: string
+      enum:
+        - stroke-current
+        - stroke-primary
+        - stroke-primary-content
+        - stroke-secondary
+        - stroke-secondary-content
+        - stroke-accent
+        - stroke-accent-content
+        - stroke-neutral
+        - stroke-neutral-content
+        - stroke-base-100
+        - stroke-base-200
+        - stroke-base-300
+        - stroke-base-content
+        - stroke-info
+        - stroke-info-content
+        - stroke-success
+        - stroke-success-content
+        - stroke-warning
+        - stroke-warning-content
+        - stroke-error
+        - stroke-error-content
+  template: >
+    <svg xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      height="{{ size|default(24) }}"
+      width="{{ size|default(24) }}"
+      fill="none"
+      class="{{ stroke_color|default('stroke-current') }}"
+      stroke-width="{{ stroke_width|default(2) }}"
+    >
+      {{ content }} 
+    </svg>

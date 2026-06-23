@@ -1,0 +1,7 @@
+name: "Without prefix"
+slots:
+  lines:
+    - type: component
+      component: "ui_suite_daisyui:code"
+      slots:
+        content: without prefix

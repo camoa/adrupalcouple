@@ -1,0 +1,10 @@
+name: 'UI Styles Test Theme 2'
+type: theme
+description: 'UI Styles test theme.'
+base theme: false
+package: 'Testing'
+
+# Information added by Drupal.org packaging script on 2026-05-30
+version: '8.x-1.20'
+project: 'ui_styles'
+datestamp: 1780176868

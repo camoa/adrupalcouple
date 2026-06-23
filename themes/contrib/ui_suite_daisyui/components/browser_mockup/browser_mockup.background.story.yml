@@ -1,0 +1,12 @@
+name: Background
+slots:
+  content:
+    type: html_tag
+    tag: div
+    value: "Hello!"
+    attributes:
+      class: ["grid", "place-content-center", "h-80"]
+props:
+  toolbar: https://daisyui.com
+  attributes:
+    class: ["bg-base-100", "border-base-300", "border", "w-full"]

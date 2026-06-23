@@ -1,0 +1,6 @@
+name: Responsive
+slots:
+  label: Label
+props:
+  variant: default
+  responsive: true

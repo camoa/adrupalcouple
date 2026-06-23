@@ -1,0 +1,23 @@
+name: Responsive
+slots:
+  image:
+    theme: image
+    uri: "https://img.daisyui.com/images/stock/photo-1494232410401-ad00d5433cfa.webp"
+    alt: Album
+  title: "New album is released!"
+  text:
+    type: html_tag
+    tag: p
+    value: "Click the button to listen on Spotiwhy app."
+  actions:
+    type: component
+    component: "ui_suite_daisyui:button"
+    slots:
+      label: "Listen"
+    props:
+      variant: primary
+props:
+  variant: responsive
+  heading_level: 2
+  attributes:
+    class: ["bg-base-100", "shadow-sm"]

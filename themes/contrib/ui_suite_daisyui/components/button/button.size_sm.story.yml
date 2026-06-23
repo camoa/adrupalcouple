@@ -1,0 +1,5 @@
+name: "Size: sm"
+slots:
+  label: Label
+props:
+  size: sm

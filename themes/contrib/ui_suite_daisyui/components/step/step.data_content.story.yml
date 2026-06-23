@@ -1,0 +1,9 @@
+name: Data content
+slots:
+  text: Register
+props:
+  data_content: ★
+library_wrapper: >
+  <ul class="steps">
+  {{ _story }}
+  </ul>

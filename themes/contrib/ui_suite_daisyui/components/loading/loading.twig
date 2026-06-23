@@ -1,0 +1,12 @@
+{%
+  set classes = [
+    'loading',
+    variant and variant != 'default' ? 'loading-' ~ variant,
+    size ? 'loading-' ~ size,
+    color ? 'text-' ~ color,
+  ]
+%}
+
+{% set attributes = attributes.addClass(classes) %}
+
+<span {{ attributes }}></span>

@@ -1,0 +1,6 @@
+name: "Display: block"
+slots:
+  label: Label
+props:
+  variant: default
+  display: block

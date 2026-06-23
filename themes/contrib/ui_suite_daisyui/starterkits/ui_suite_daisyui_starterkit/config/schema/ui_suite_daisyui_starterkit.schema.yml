@@ -1,0 +1,4 @@
+# Schema for the configuration files of the ui_suite_daisyui_starterkit theme.
+ui_suite_daisyui_starterkit.settings:
+  type: ui_suite_daisyui.settings
+  label: 'daisyui starterkit settings'

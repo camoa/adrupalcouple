@@ -1,0 +1,24 @@
+name: End bottom
+slots:
+  items:
+    - type: component
+      component: "ui_suite_daisyui:alert"
+      slots:
+        message: "New mail arrived."
+      props:
+        variant: info
+    - type: component
+      component: "ui_suite_daisyui:alert"
+      slots:
+        message: "Message sent successfully."
+      props:
+        variant: success
+props:
+  position_x: end
+  position_y: bottom
+  attributes:
+    class: absolute
+library_wrapper: >
+  <div class="w-full h-64 relative bg-base-200">
+  {{ _story }}
+  </div>

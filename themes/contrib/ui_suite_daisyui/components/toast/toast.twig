@@ -1,0 +1,13 @@
+{%
+  set classes = [
+    'toast',
+    position_x ? 'toast-' ~ position_x,
+    position_y ? 'toast-' ~ position_y,
+  ]
+%}
+
+{% set attributes = attributes.addClass(classes) %}
+
+{% if items %}
+<div {{ attributes }}>{{ items }}</div>
+{% endif %}

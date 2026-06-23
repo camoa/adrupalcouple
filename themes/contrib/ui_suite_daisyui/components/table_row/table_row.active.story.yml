@@ -1,0 +1,50 @@
+name: Active
+slots:
+  content:
+    - type: component
+      component: "ui_suite_daisyui:table_cell"
+      slots:
+        content: "1"
+      props:
+        tag: th
+    - type: component
+      component: "ui_suite_daisyui:table_cell"
+      slots:
+        content: "Cy Ganderton"
+      props:
+        tag: td
+    - type: component
+      component: "ui_suite_daisyui:table_cell"
+      slots:
+        content: "Quality Control Specialist"
+      props:
+        tag: td
+    - type: component
+      component: "ui_suite_daisyui:table_cell"
+      slots:
+        content: "Littel, Schaden and Vandervort"
+      props:
+        tag: td
+    - type: component
+      component: "ui_suite_daisyui:table_cell"
+      slots:
+        content: Canada
+      props:
+        tag: td
+    - type: component
+      component: "ui_suite_daisyui:table_cell"
+      slots:
+        content: "1"
+      props:
+        tag: th
+props:
+  attributes:
+    class: bg-base-200
+library_wrapper: >
+  <div class="overflow-x-auto">
+  <table>
+  <tbody>
+  {{ _story }}
+  </tbody>
+  </table>
+  </div>

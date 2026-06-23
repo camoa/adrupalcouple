@@ -1,0 +1,23 @@
+{%
+  set classes = [
+    responsive ? 'lg:tooltip' : 'tooltip',
+    variant and variant != 'default' ? 'tooltip-' ~ variant,
+    position ? 'tooltip-' ~ position,
+    open ? 'tooltip-open',
+  ]
+%}
+
+{% set attributes = attributes.addClass(classes) %}
+
+{% if data_tip %}
+{% set attributes = attributes.setAttribute('data-tip', data_tip) %}
+{% endif %}
+
+<div {{ attributes }}>
+{% if tooltip_content %}
+<div class="tooltip-content">
+{{ tooltip_content }}
+</div>
+{% endif %}
+{{ content }}
+</div>

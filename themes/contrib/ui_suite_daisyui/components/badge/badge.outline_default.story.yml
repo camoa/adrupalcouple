@@ -1,0 +1,5 @@
+name: "Outline: default"
+slots:
+  label: Label
+props:
+  outline: outline

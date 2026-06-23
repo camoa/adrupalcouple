@@ -1,0 +1,9 @@
+name: Stat single
+slots:
+  title: Total Page Views
+  value: 89,400
+  desc: 21% more than last month
+library_wrapper: >
+  <div class="stats shadow">
+  {{ _story }}
+  </div>

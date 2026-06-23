@@ -1,0 +1,21 @@
+/* stylelint-disable */
+@import "./tailwind.config.pcss";
+
+@import "tailwindcss" source(none);
+
+/**
+ * Include additional plugins here
+ */
+@import "./plugins/daisyui.config.pcss";
+@import "./plugins/tailwindcss.typography.config.pcss";
+
+@import "./utils/breakout.pcss";
+
+/**
+ * Declare all source files to take into account all utility classes used in the theme for the build process.
+ */
+@source "../templates/**/*.{twig,js}";
+@source "../components/**/*.{twig,js,yml}";
+@source "../*.ui_styles.yml";
+@source "../*.icons.yml";
+@source "./safelist.txt";

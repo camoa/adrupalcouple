@@ -1,0 +1,20 @@
+name: Stack
+description: "Stack visually puts elements on top of each other."
+group: Layout
+links:
+  - "https://daisyui.com/components/stack/"
+variants:
+  default:
+    title: Default
+  top:
+    title: Top
+  bottom:
+    title: Bottom
+  start:
+    title: Start
+  end:
+    title: End
+slots:
+  items:
+    title: Items
+    description: "Expect a list of items"

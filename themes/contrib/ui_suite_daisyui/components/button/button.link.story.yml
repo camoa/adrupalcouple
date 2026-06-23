@@ -1,0 +1,6 @@
+name: Link
+slots:
+  label: Label
+props:
+  variant: default
+  link: true

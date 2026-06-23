@@ -1,0 +1,18 @@
+name: Drawer
+slots:
+  label: Label
+props:
+  variant: primary
+  drawer_id: my-drawer
+library_wrapper: >
+  <div class="drawer">
+  <input id="my-drawer" type="checkbox" class="drawer-toggle" />
+  <div class="drawer-content">
+  {{ _story }}
+  </div>
+  <div class="drawer-side">
+  <label for="my-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
+  <div class="bg-base-200 min-h-full w-80 p-4">
+  </div>
+  </div>
+  </div>

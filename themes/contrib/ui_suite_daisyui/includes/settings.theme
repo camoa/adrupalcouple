@@ -1,0 +1,77 @@
+<?php
+
+/**
+ * @file
+ * settings.theme
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Form settings.
+ */
+function ui_suite_daisyui_form_system_theme_settings_alter(array &$form, FormStateInterface $form_state, ?string $form_id = NULL): void {
+  // Work-around for a core bug affecting admin themes. See issue #943212.
+  if (isset($form_id)) {
+    return;
+  }
+
+  $form['form_settings'] = [
+    '#type' => 'details',
+    '#open' => TRUE,
+    '#title' => t('Form settings'),
+  ];
+
+  // Allow form settings.
+  $form['form_settings']['form_display'] = [
+    '#type' => 'radios',
+    '#options' => [
+      'fieldset' => t('Fieldset wrapper. See: https://daisyui.com/components/fieldset/#fieldset-fieldset-legend-and-label'),
+      'inline' => t('Label wrapper with input class. See: https://daisyui.com/components/label/#label-for-input'),
+    ],
+    '#title' => t('Form label display'),
+    '#default_value' => ui_suite_daisyui_form_display(),
+  ];
+  $form['form_settings']['form_label'] = [
+    '#type' => 'radios',
+    '#options' => [
+      'label' => t('Label. See: https://daisyui.com/components/label/#label-for-input'),
+      'floating-label' => t('Floating label. See: https://daisyui.com/components/label/#floating-label'),
+    ],
+    '#title' => t('Form label'),
+    '#states' => [
+      'visible' => [
+        ':input[name="form_display"]' => ['value' => 'inline'],
+      ],
+    ],
+    '#default_value' => ui_suite_daisyui_form_label(),
+  ];
+
+  $form['#submit'][] = '_ui_suite_daisyui_theme_settings_form_submit';
+}
+
+/**
+ * Save settings.
+ */
+function _ui_suite_daisyui_theme_settings_form_submit(array &$form, FormStateInterface $form_state):void {
+  $config = \Drupal::configFactory()->getEditable('ui_suite_daisyui.settings');
+  $config->set('form_display', $form_state->get('form_display'));
+  $config->set('form_label', $form_state->get('form_label'));
+  $config->save();
+}
+
+/**
+ * Returns the form label setting.
+ */
+function ui_suite_daisyui_form_label(): string {
+  $config = \Drupal::configFactory()->get('ui_suite_daisyui.settings');
+  return !empty($config->get('form_label')) ? $config->get('form_label') : 'label';
+}
+
+/**
+ * Returns the form display setting.
+ */
+function ui_suite_daisyui_form_display(): string {
+  $config = \Drupal::configFactory()->get('ui_suite_daisyui.settings');
+  return !empty($config->get('form_display')) ? $config->get('form_display') : 'fieldset';
+}

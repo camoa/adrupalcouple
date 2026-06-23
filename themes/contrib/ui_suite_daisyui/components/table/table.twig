@@ -1,0 +1,29 @@
+{%
+  set classes = [
+    'table',
+    variant and variant != 'default' ? 'table-' ~ variant,
+    zebra ? 'table-zebra',
+    pinned_rows ? 'table-pin-rows',
+    pinned_cols ? 'table-pin-cols',
+  ]
+%}
+
+{% set attributes = attributes.addClass(classes) %}
+
+<table{{ attributes }}>
+{% if header %}
+  <thead>
+    {{ header }}
+  </thead>
+{% endif %}
+{% if body %}
+  <tbody>
+    {{ body }}
+  </tbody>
+{% endif %}
+{% if footer %}
+  <tfoot>
+    {{ footer }}
+  </tfoot>
+{% endif %}
+</table>

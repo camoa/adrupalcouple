@@ -1,0 +1,5 @@
+name: Default
+slots:
+  label: "Click me"
+props:
+  url: "#"

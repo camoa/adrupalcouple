@@ -1,0 +1,4 @@
+# Schema for the configuration files of the adrupalcouple theme.
+adrupalcouple.settings:
+  type: ui_suite_daisyui.settings
+  label: 'daisyui starterkit settings'

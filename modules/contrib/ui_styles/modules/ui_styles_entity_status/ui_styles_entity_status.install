@@ -1,0 +1,50 @@
+<?php
+
+/**
+ * @file
+ * Install and update functions for the ui_styles_entity_status module.
+ */
+
+declare(strict_types=1);
+
+use Drupal\ui_styles_entity_status\UiStylesEntityStatusInterface;
+
+/**
+ * Implements hook_uninstall().
+ */
+function ui_styles_entity_status_uninstall(): void {
+  $themeHandler = \Drupal::service('theme_handler');
+  $configFactory = \Drupal::configFactory();
+  foreach ($themeHandler->listInfo() as $theme) {
+    $config = $configFactory->getEditable($theme->getName() . '.settings');
+    $config->clear(UiStylesEntityStatusInterface::UNPUBLISHED_CLASSES_THEME_SETTING_KEY);
+
+    if (empty($config->get('third_party_settings.ui_styles_entity_status'))) {
+      $config->clear('third_party_settings.ui_styles_entity_status');
+    }
+    if (empty($config->get('third_party_settings'))) {
+      $config->clear('third_party_settings');
+    }
+
+    $config->save();
+  }
+}
+
+/**
+ * Put UI Styles Entity Status config into theme's third party settings.
+ */
+function ui_styles_entity_status_update_10101(): void {
+  $themeHandler = \Drupal::service('theme_handler');
+  $configFactory = \Drupal::configFactory();
+  foreach ($themeHandler->listInfo() as $theme) {
+    $config = $configFactory->getEditable($theme->getName() . '.settings');
+
+    $ui_styles_entity_status_unpublished = $config->get('ui_styles_entity_status_unpublished');
+    if ($ui_styles_entity_status_unpublished) {
+      $config->set('third_party_settings.ui_styles_entity_status.unpublished', $ui_styles_entity_status_unpublished);
+      $config->clear('ui_styles_entity_status_unpublished');
+    }
+
+    $config->save();
+  }
+}

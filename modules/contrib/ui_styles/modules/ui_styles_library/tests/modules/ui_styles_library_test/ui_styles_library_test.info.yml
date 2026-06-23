@@ -1,0 +1,9 @@
+name: 'UI Styles Library Test'
+type: module
+description: 'Provides test for UI Styles Library.'
+package: 'Testing'
+
+# Information added by Drupal.org packaging script on 2026-05-30
+version: '8.x-1.20'
+project: 'ui_styles'
+datestamp: 1780176868

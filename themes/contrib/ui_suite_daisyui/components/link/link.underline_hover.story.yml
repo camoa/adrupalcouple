@@ -1,0 +1,6 @@
+name: Default
+slots:
+  label: "Click me"
+props:
+  url: "#"
+  underline_hover: true

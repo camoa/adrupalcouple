@@ -1,0 +1,9 @@
+{%
+  set classes = [
+    'avatar-group', '-space-x-6',
+  ]
+%}
+
+{% set attributes = attributes.addClass(classes) %}
+
+<div {{ attributes }}>{{ items }}</div>

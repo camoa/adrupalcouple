@@ -1,0 +1,44 @@
+name: With custom colors and button
+slots:
+  items:
+    - type: component
+      component: "ui_suite_daisyui:stat_item"
+      slots:
+        title: Account balance
+        value:
+          - type: "html_tag"
+            tag: "div"
+            value: $89,400
+        actions:
+          type: component
+          component: "ui_suite_daisyui:button"
+          slots:
+            label: Add funds
+          props:
+            variant: success
+            size: xs
+    - type: component
+      component: "ui_suite_daisyui:stat_item"
+      slots:
+        title: Current balance
+        value:
+          - type: "html_tag"
+            tag: "div"
+            value: $89,400
+        actions:
+          - type: component
+            component: "ui_suite_daisyui:button"
+            slots:
+              label: Withdrawal
+            props:
+              size: xs
+          - type: component
+            component: "ui_suite_daisyui:button"
+            slots:
+              label: Deposit
+            props:
+              size: xs
+props:
+  variant: default
+  attributes:
+    class: "shadow"

@@ -1,0 +1,11 @@
+name: Collapse with checkbox
+slots:
+  title: "How do I create an account?"
+  content:
+    type: html_tag
+    tag: p
+    value: 'Click the "Sign Up" button in the top right corner and follow the registration process.'
+props:
+  collapse_type: checkbox
+  attributes:
+    class: bg-base-100 border border-base-300

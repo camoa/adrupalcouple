@@ -1,0 +1,47 @@
+{%
+  set classes = [
+    'avatar',
+    variant and variant != 'default' ? 'avatar-' ~ variant,
+    placeholder ? 'avatar-placeholder',
+  ]
+%}
+
+{%
+  set avatar_classes = [
+    size ? 'w-' ~ size : 'w-' ~ size|default(24),
+    rounded ? rounded,
+    mask ? 'mask ' ~ mask,
+    ring ? 'ring ring-primary ring-offset-base-100 ring-offset-2',
+    placeholder ? 'bg-neutral text-neutral-content',
+  ]
+%}
+
+{%
+  set width_font_size = {
+    8: 'text-xs',
+    10: 'text-sm',
+    12: '',
+    14: 'text-lg',
+    16: 'text-xl',
+    20: 'text-2xl',
+    24: 'text-3xl',
+    28: 'text-4xl',
+    32: 'text-5xl',
+  }
+%}
+
+{% set attributes = attributes.addClass(classes) %}
+{% set avatar_attributes = create_attribute() %}
+{% set avatar_attributes = avatar_attributes.addClass(avatar_classes) %}
+
+<div {{ attributes }}>
+  {% if placeholder %}
+  <div {{ avatar_attributes }}>
+    <span class={{ width_font_size[size|default(24)] }}>{{ placeholder }}</span>
+  </div>
+  {% else %}
+  <div {{ avatar_attributes }}>
+    {{ image }}
+  </div>
+  {% endif %}
+</div>

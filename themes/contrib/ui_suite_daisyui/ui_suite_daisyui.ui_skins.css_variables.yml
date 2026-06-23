@@ -1,0 +1,195 @@
+color-primary:
+  category: "Colors"
+  label: "Primary brand color"
+  type: textfield
+  default_values:
+    ":root": ""
+
+color-primary-content:
+  category: "Colors"
+  label: "Foreground content color to use on primary color"
+  type: textfield
+  default_values:
+    ":root": ""
+
+color-secondary:
+  category: "Colors"
+  label: "Secondary brand color"
+  type: textfield
+  default_values:
+    ":root": ""
+
+color-secondary-content:
+  category: "Colors"
+  label: "Foreground content color to use on secondary color"
+  type: textfield
+  default_values:
+    ":root": ""
+
+color-accent:
+  category: "Colors"
+  label: "Accent brand color"
+  type: textfield
+  default_values:
+    ":root": ""
+
+color-accent-content:
+  category: "Colors"
+  label: "Foreground content color to use on accent color"
+  type: textfield
+  default_values:
+    ":root": ""
+
+color-neutral:
+  category: "Colors"
+  label: "Neutral dark color"
+  type: textfield
+  default_values:
+    ":root": ""
+
+color-neutral-content:
+  category: "Colors"
+  label: "Foreground content color to use on neutral color"
+  type: textfield
+  default_values:
+    ":root": ""
+
+color-base-100:
+  category: "Colors"
+  label: "Base color of page, used for blank backgrounds"
+  type: textfield
+  default_values:
+    ":root": ""
+
+color-base-200:
+  category: "Colors"
+  label: "Base color, darker shade"
+  type: textfield
+  default_values:
+    ":root": ""
+
+color-base-300:
+  category: "Colors"
+  label: "Base color, even more darker shade"
+  type: textfield
+  default_values:
+    ":root": ""
+
+color-base-content:
+  category: "Colors"
+  label: "Foreground content color to use on base color"
+  type: textfield
+  default_values:
+    ":root": ""
+
+color-info:
+  category: "Colors"
+  label: "Info color"
+  type: textfield
+  default_values:
+    ":root": ""
+
+color-info-content:
+  category: "Colors"
+  label: "Foreground content color to use on info color"
+  type: textfield
+  default_values:
+    ":root": ""
+
+color-success:
+  category: "Colors"
+  label: "Success color"
+  type: textfield
+  default_values:
+    ":root": ""
+
+color-success-content:
+  category: "Colors"
+  label: "Foreground content color to use on success color"
+  type: textfield
+  default_values:
+    ":root": ""
+
+color-warning:
+  category: "Colors"
+  label: "Warning color"
+  type: textfield
+  default_values:
+    ":root": ""
+
+color-warning-content:
+  category: "Colors"
+  label: "Foreground content color to use on warning color"
+  type: textfield
+  default_values:
+    ":root": ""
+
+color-error:
+  category: "Colors"
+  label: "Error color"
+  type: textfield
+  default_values:
+    ":root": ""
+
+color-error-content:
+  category: "Colors"
+  label: "Foreground content color to use on error color"
+  type: textfield
+  default_values:
+    ":root": ""
+
+radius-selector:
+  category: "Border radius"
+  label: "Border radius for selectors like checkbox, toggle, badge, etc"
+  type: textfield
+  default_values:
+    ":root": ""
+
+radius-field:
+  category: "Border radius"
+  label: "Border radius for fields like input, select, tab, etc"
+  type: textfield
+  default_values:
+    ":root": ""
+
+radius-box:
+  category: "Border radius"
+  label: "Border radius for boxes like card, modal, alert, etc"
+  type: textfield
+  default_values:
+    ":root": ""
+
+size-selector:
+  category: "Sizes"
+  label: "Base scale size for selectors like checkbox, toggle, badge, etc"
+  type: textfield
+  default_values:
+    ":root": ""
+
+size-field:
+  category: "Sizes"
+  label: "Base scale size for fields like input, select, tab, etc"
+  type: textfield
+  default_values:
+    ":root": ""
+
+border:
+  category: "Borders"
+  label: "Border width of all components"
+  type: textfield
+  default_values:
+    ":root": ""
+
+depth:
+  category: "Effects"
+  label: "(binary) Adds a depth effect for relevant components"
+  type: textfield
+  default_values:
+    ":root": ""
+
+noise:
+  category: "Effects"
+  label: "(binary) Adds a background noise effect for relevant components"
+  type: textfield
+  default_values:
+    ":root": ""

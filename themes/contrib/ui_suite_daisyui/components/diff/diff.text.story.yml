@@ -1,0 +1,32 @@
+name: Text
+slots:
+  item_1:
+    type: html_tag
+    tag: div
+    value: "DAISY"
+    attributes:
+      class:
+        [
+          "bg-primary",
+          "text-primary-content",
+          "grid",
+          "place-content-center",
+          "font-black",
+          "text-9xl",
+        ]
+  item_2:
+    type: html_tag
+    tag: div
+    value: "DAISY"
+    attributes:
+      class:
+        [
+          "bg-base-200",
+          "grid",
+          "place-content-center",
+          "font-black",
+          "text-9xl",
+        ]
+props:
+  attributes:
+    class: aspect-[16/9]

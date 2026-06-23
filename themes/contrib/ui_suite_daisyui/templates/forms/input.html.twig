@@ -1,0 +1,33 @@
+{#
+/**
+ * @file
+ * Default theme implementation for an 'input' #type form element.
+ *
+ * Available variables:
+ * - attributes: A list of HTML attributes for the input element.
+ * - children: Optional additional rendered elements.
+ *
+ * @see template_preprocess_input()
+ *
+ * @ingroup themeable
+ */
+#}
+
+{% set type = element['#type'] %}
+{% set input_class = element['#daisy_ui_form']['input_class'] %}
+{% set wrapper_class = element['#daisy_ui_form']['wrapper_class'] %}
+{% set button_type = element['#button_type'] %}
+{% set is_boolean = type == 'checkbox' and (element['#attributes']['value'] == 1 or element['#attributes']['value'] == 0) %}
+{% if wrapper_class == 'floating-label' %}
+    {% set attributes = attributes.setAttribute('placeholder', element['#title']) %}
+{% endif %}
+{% set classes = [
+    input_class,
+    type == 'file' ? 'file-input',
+    type == 'checkbox' and is_boolean ? 'toggle',
+    type == 'checkbox' and not is_boolean ? 'checkbox',
+    type == 'radio' ? 'radio',
+    type == 'submit' ? 'btn',
+    type == 'submit' and button_type == 'primary' ? 'btn-primary',
+] %}
+<input{{ attributes.addClass(classes) }} />{{ children }}

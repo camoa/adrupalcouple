@@ -1,0 +1,5 @@
+name: "Status: active"
+slots:
+  label: Label
+props:
+  status: active

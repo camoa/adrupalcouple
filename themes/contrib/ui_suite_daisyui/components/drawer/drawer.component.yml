@@ -1,0 +1,28 @@
+name: Drawer
+description: "Drawer is a grid layout that can show/hide a sidebar on the left or right side of the page."
+group: Layout
+links:
+  - "https://daisyui.com/components/drawer"
+variants:
+  default:
+    title: Default
+  end:
+    title: End
+slots:
+  content:
+    title: Content
+    description: All your page content goes here
+  sidebar:
+    title: Sidebar
+    description: Sidebar content (menu or anything)
+props:
+  type: object
+  properties:
+    drawer_id:
+      title: "Drawer ID"
+      description: "To use in combination with Button component, with same drawers ID."
+      $ref: "ui-patterns://identifier"
+    open:
+      title: "Open?"
+      description: "If true drawer will be opened by default."
+      type: boolean

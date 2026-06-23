@@ -1,0 +1,34 @@
+name: "Size: xs"
+slots:
+  items:
+    - type: component
+      component: "ui_suite_daisyui:tab"
+      slots:
+        link:
+          type: html_tag
+          tag: a
+          value: "Xsmall"
+          attributes:
+            href: "#"
+    - type: component
+      component: "ui_suite_daisyui:tab"
+      slots:
+        link:
+          type: html_tag
+          tag: a
+          value: "Xsmall"
+          attributes:
+            href: "#"
+      props:
+        active: true
+    - type: component
+      component: "ui_suite_daisyui:tab"
+      slots:
+        link:
+          type: html_tag
+          tag: a
+          value: "Xsmall"
+          attributes:
+            href: "#"
+props:
+  size: xs

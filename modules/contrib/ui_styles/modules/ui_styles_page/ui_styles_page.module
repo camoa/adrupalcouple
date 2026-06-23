@@ -1,0 +1,20 @@
+<?php
+
+/**
+ * @file
+ * Adding styles to regions.
+ */
+
+declare(strict_types=1);
+
+use Drupal\ui_styles_page\HookHandler\PreprocessRegion;
+
+/**
+ * Implements hook_preprocess_region().
+ */
+function ui_styles_page_preprocess_region(array &$variables): void {
+  /** @var \Drupal\ui_styles_page\HookHandler\PreprocessRegion $instance */
+  $instance = \Drupal::service('class_resolver')
+    ->getInstanceFromDefinition(PreprocessRegion::class);
+  $instance->preprocess($variables);
+}

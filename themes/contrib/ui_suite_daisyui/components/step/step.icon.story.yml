@@ -1,0 +1,14 @@
+name: Icon
+slots:
+  text: Register
+props:
+  icon:
+    pack_id: hero_outline_24
+    icon_id: heart
+    settings:
+      size: 20
+      stroke_width: 2
+library_wrapper: >
+  <ul class="steps">
+  {{ _story }}
+  </ul>

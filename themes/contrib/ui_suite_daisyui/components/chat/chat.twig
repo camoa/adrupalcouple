@@ -1,0 +1,34 @@
+{%
+  set classes = [
+    'chat',
+    position ? 'chat-' ~ position : 'chat-start',
+  ]
+%}
+
+{% set attributes = attributes.addClass(classes) %}
+
+{%
+  set bubble_classes = [
+    'chat-bubble',
+    variant and variant != 'default' ? 'chat-bubble-' ~ variant,
+  ]
+%}
+
+{% set bubble_attributes = create_attribute() %}
+{% set bubble_attributes = bubble_attributes.addClass(bubble_classes) %}
+
+<div {{ attributes }}>
+  {{ avatar|add_class('chat-image') }}
+  {% if header or time %}
+  <div class="chat-header">
+    {{ header }}
+    <time class="text-xs opacity-50">{{ time }}</time>
+  </div>
+  {% endif %}
+  {% if bubble %}
+  <div {{ bubble_attributes }}>{{ bubble }}</div>
+  {% endif %}
+  {% if footer %}
+  <div class="chat-footer opacity-50">{{ footer }}</div>
+  {% endif %}
+</div>

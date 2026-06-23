@@ -1,0 +1,16 @@
+{%
+  set classes = [
+    'badge',
+    variant and variant != 'default' ? 'badge-' ~ variant,
+    outline ? 'badge-' ~ outline,
+    size ? 'badge-' ~ size,
+    soft ? 'badge-soft',
+    ghost ? 'badge-ghost',
+  ]
+%}
+
+{% set attributes = attributes.addClass(classes) %}
+
+<div{{ attributes }}>
+{{ label }}
+</div>

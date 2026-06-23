@@ -1,0 +1,20 @@
+theme_settings.third_party.ui_skins:
+  type: mapping
+  label: 'UI Skins settings'
+  mapping:
+    theme:
+      type: 'string'
+      label: 'Theme'
+    css_variables:
+      type: 'sequence'
+      label: 'CSS variables'
+      sequence:
+        type: 'ui_skins.css_variable'
+        label: 'CSS variable'
+
+ui_skins.css_variable:
+  type: 'sequence'
+  label: 'CSS variable scoped values'
+  sequence:
+    type: 'string'
+    label: 'Scope value'

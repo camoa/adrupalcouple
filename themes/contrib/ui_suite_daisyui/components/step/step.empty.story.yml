@@ -1,0 +1,9 @@
+name: Empty
+slots:
+  text: Register
+props:
+  empty_data_content: true
+library_wrapper: >
+  <ul class="steps">
+  {{ _story }}
+  </ul>

@@ -1,0 +1,112 @@
+<?php
+
+/**
+ * @file
+ * Form settings.
+ */
+
+/**
+ * Returns the daisy ui form config.
+ *
+ * An array keyed by:
+ *  - wrapper_class
+ *  - wrapper_tag
+ *  - label_class
+ *  - label_tag
+ *  - input_class.
+ */
+function ui_suite_daisyui_form_config(string $type): ?array {
+  $result = & drupal_static('ui_suite_daisyui_form_config_' . $type);
+  if ($result !== NULL) {
+    return $result;
+  }
+  $form_display = ui_suite_daisyui_form_display();
+
+  // List of form types which can possible be inside a label with "input" class.
+  $input_elements = [
+    'password',
+    'email',
+    'tel',
+    'url',
+    'search',
+    'textfield',
+    'token',
+    'entity_autocomplete',
+    'number',
+    'date',
+  ];
+  $select_elements = ['select'];
+
+  if ($form_display === 'inline') {
+    if (in_array($type, $input_elements)) {
+      if (ui_suite_daisyui_form_label() == 'floating-label') {
+        $result = [
+          'wrapper_class' => 'floating-label',
+          'wrapper_tag' => 'label',
+          'label_class' => '',
+          'label_tag' => 'span',
+          'input_class' => 'input input-md',
+        ];
+      }
+      else {
+        $result = [
+          'wrapper_class' => 'input',
+          'wrapper_tag' => 'label',
+          'label_class' => 'label',
+          'label_tag' => 'span',
+          'input_class' => '',
+        ];
+      }
+      return $result;
+    }
+    if (in_array($type, $select_elements)) {
+      $result = [
+        'wrapper_class' => 'select',
+        'wrapper_tag' => 'label',
+        'label_class' => 'label',
+        'label_tag' => 'span',
+        'input_class' => '',
+      ];
+      return $result;
+    }
+    // If we in inline mode but no form type match we switch to fieldset.
+    $form_display = 'fieldset';
+  }
+
+  if ($form_display === 'fieldset') {
+    // List of form types which can possible be inside a fieldset.
+    $fieldset_elements = array_merge(['textarea', 'managed_file'], $input_elements, $select_elements);
+    if (in_array($type, $fieldset_elements)) {
+      $result = [
+        'wrapper_class' => 'fieldset',
+        'wrapper_tag' => 'fieldset',
+        'label_class' => 'label',
+        'label_tag' => 'label',
+        'input_class' => 'input input-md',
+      ];
+    }
+    return $result;
+  }
+  return $result;
+}
+
+/**
+ * Implements hook_preprocess_form_element().
+ */
+function ui_suite_daisyui_preprocess_form_element(array &$variables): void {
+  $type = $variables['element']['#type'];
+  $variables['element']['#daisy_ui_form'] = ui_suite_daisyui_form_config($type);
+  if (isset($variables['element']['#type']) && isset($variables['label'])) {
+    // Assign type to label.
+    $variables['label']['#label_type'] = $variables['element']['#type'];
+    $variables['label']['#daisy_ui_form'] = ui_suite_daisyui_form_config($type);
+  }
+}
+
+/**
+ * Implements hook_preprocess_input().
+ */
+function ui_suite_daisyui_preprocess_input(array &$variables): void {
+  $type = $variables['element']['#type'];
+  $variables['element']['#daisy_ui_form'] = ui_suite_daisyui_form_config($type);
+}

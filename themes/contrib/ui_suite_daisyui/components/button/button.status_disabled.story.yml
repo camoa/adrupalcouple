@@ -1,0 +1,5 @@
+name: "Status: disabled"
+slots:
+  label: Label
+props:
+  status: disabled

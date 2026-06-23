@@ -1,0 +1,5 @@
+name: Soft
+slots:
+  label: Label
+props:
+  soft: true

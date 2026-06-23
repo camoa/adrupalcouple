@@ -1,0 +1,9 @@
+name: Max-width
+props:
+  items:
+    - title: Long text 1
+    - title: Long text 2
+    - title: Long text 3
+    - title: Long text 4
+    - title: Long text 5
+  max_width: true

@@ -1,0 +1,23 @@
+name: "Actions on top"
+slots:
+  text:
+    type: html_tag
+    tag: p
+    value: "We are using cookies for no reason."
+  actions:
+    type: component
+    component: "ui_suite_daisyui:button"
+    props:
+      shape: square
+      size: sm
+      icon:
+        pack_id: hero_outline_24
+        icon_id: x-mark
+        settings:
+          size: 20
+          stroke_width: 2
+props:
+  variant: default
+  actions_top: true
+  attributes:
+    class: ["bg-base-100", "w-96", "shadow-sm"]

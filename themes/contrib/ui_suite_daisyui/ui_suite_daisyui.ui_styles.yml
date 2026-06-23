@@ -1,0 +1,243 @@
+################################################################################
+# DaisyUI classes.
+################################################################################
+
+daisyui_glass:
+  category: "DaisyUI effects"
+  label: "Glass"
+  description: "Utilities for applying a glass effect."
+  links:
+    - "https://daisyui.com/docs/utilities/#-2"
+  options:
+    glass: "glass"
+  previewed_with:
+    - border
+    - bg-neutral-content
+    - my-3
+    - p-2
+
+daisyui_mask:
+  category: "DaisyUI effects"
+  label: "Mask"
+  description: "Utilities for applying a mask effect to images or components."
+  links:
+    - "https://daisyui.com/components/mask/"
+  options:
+    mask mask-squircle: "Squircle"
+    mask mask-heart: "Heart"
+    mask mask-hexagon: "Hexagon"
+    mask mask-hexagon-2: "Hexagon-2"
+    mask mask-decagon: "Decagon"
+    mask mask-pentagon: "Pentagon"
+    mask mask-diamond: "Diamond"
+    mask mask-square: "Square"
+    mask mask-circle: "Circle"
+    mask mask-star: "Star"
+    mask mask-star-2: "Star-2"
+    mask mask-triangle: "Triangle"
+    mask mask-triangle-2: "Triangle-2"
+    mask mask-triangle-3: "Triangle-3"
+    mask mask-triangle-4: "Triangle-4"
+  previewed_with:
+    - bg-neutral
+    - my-3
+    - p-2
+
+################################################################################
+# Colors.
+################################################################################
+
+colors_background_color:
+  category: "Colors"
+  label: "Background color"
+  description: "Utilities for controlling an element's background color."
+  links:
+    - "https://daisyui.com/docs/colors/"
+  options:
+    bg-primary: "Primary"
+    bg-secondary: "Secondary"
+    bg-accent: "Accent"
+    bg-neutral:
+      label: "Neutral"
+      previewed_with: ["text-secondary-content"]
+    bg-base-100: "Base 100"
+    bg-base-200: "Base 200"
+    bg-base-300: "Base 300"
+  previewed_with:
+    - p-2
+    - my-2
+
+colors_text_color:
+  category: "Colors"
+  label: "Text color"
+  description: "Utilities for controlling the text color of an element."
+  links:
+    - "https://daisyui.com/docs/colors/"
+  options:
+    text-primary-content: "primary-content"
+    text-secondary-content: "secondary-content"
+    text-accent-content: "accent-content"
+    text-neutral-content: "neutral-content"
+    text-base-content: "base-content"
+  previewed_with:
+    - p-2
+
+################################################################################
+# Typography.
+################################################################################
+
+typography_font_size:
+  category: "Typography"
+  label: "Font size"
+  description: "Utilities for controlling the font size of an element."
+  links:
+    - "https://tailwindcss.com/docs/font-size"
+  options:
+    text-xs: "xs"
+    text-sm: "sm"
+    text-base: "base"
+    text-lg: "lg"
+    text-xl: "xl"
+    text-2xl: "2xl"
+    text-3xl: "3xl"
+    text-4xl: "4xl"
+    text-5xl: "5xl"
+    text-6xl: "6xl"
+    text-7xl: "7xl"
+    text-8xl: "8xl"
+    text-9xl: "9xl"
+  previewed_with:
+    - p-2
+
+################################################################################
+# Effects.
+################################################################################
+
+effects_box_shadow:
+  category: "Effects"
+  label: "Box shadow"
+  description: "Utilities for controlling the box shadow of an element."
+  links:
+    - "https://tailwindcss.com/docs/box-shadow"
+  options:
+    shadow-sm: "sm"
+    shadow: "default"
+    shadow-md: "md"
+    shadow-lg: "lg"
+    shadow-xl: "xl"
+    shadow-2xl: "2xl"
+    shadow-inner: "inner"
+    shadow-none: "none"
+  previewed_with:
+    - p-2
+    - my-3
+    - border
+
+################################################################################
+# Sizing.
+################################################################################
+
+sizing_width:
+  category: "Sizing"
+  label: "Width"
+  description: "Utilities for setting the width of an element."
+  links:
+    - "https://tailwindcss.com/docs/width"
+  options:
+    w-1/2: "1/2"
+    w-1/3: "1/3"
+    w-2/3: "2/3"
+    w-1/4: "1/4"
+    w-2/4: "2/4"
+    w-3/4: "3/4"
+    w-1/5: "1/5"
+    w-2/5: "2/5"
+    w-3/5: "3/5"
+    w-4/5: "4/5"
+  previewed_with:
+    - border
+    - bg-neutral-content
+    - my-3
+    - p-2
+
+################################################################################
+# Spacing.
+################################################################################
+
+spacing_padding_top:
+  category: "Spacing"
+  label: "Padding top"
+  description: "Utilities for controlling an element's padding top."
+  links:
+    - "https://tailwindcss.com/docs/padding"
+  options:
+    pt-0: "0"
+    pt-px: "px"
+    pt-0.5: "0.5"
+    pt-1: "1"
+    pt-1.5: "1.5"
+    pt-2: "2"
+    pt-2.5: "2.5"
+    pt-3: "3"
+    pt-3.5: "3.5"
+    pt-4: "4"
+    pt-5: "5"
+    pt-6: "6"
+    pt-7: "7"
+    pt-8: "8"
+  previewed_with:
+    - border
+    - bg-neutral-content
+    - my-3
+
+spacing_padding_bottom:
+  category: "Spacing"
+  label: "Padding bottom"
+  description: "Utilities for controlling an element's padding bottom."
+  links:
+    - "https://tailwindcss.com/docs/padding"
+  options:
+    pb-0: "0"
+    pb-px: "px"
+    pb-0.5: "0.5"
+    pb-1: "1"
+    pb-1.5: "1.5"
+    pb-2: "2"
+    pb-2.5: "2.5"
+    pb-3: "3"
+    pb-3.5: "3.5"
+    pb-4: "4"
+    pb-5: "5"
+    pb-6: "6"
+    pb-7: "7"
+    pb-8: "8"
+  previewed_with:
+    - border
+    - bg-neutral-content
+    - my-3
+
+spacing_margin_bottom:
+  category: "Spacing"
+  label: "Margin bottom"
+  description: "Utilities for controlling an element's margin bottom."
+  links:
+    - "https://tailwindcss.com/docs/margin"
+  options:
+    mb-0: "0"
+    mb-px: "px"
+    mb-0.5: "0.5"
+    mb-1: "1"
+    mb-1.5: "1.5"
+    mb-2: "2"
+    mb-2.5: "2.5"
+    mb-3: "3"
+    mb-3.5: "3.5"
+    mb-4: "4"
+    mb-5: "5"
+    mb-6: "6"
+    mb-7: "7"
+    mb-8: "8"
+  previewed_with:
+    - border
+    - bg-neutral-content
+    - my-3

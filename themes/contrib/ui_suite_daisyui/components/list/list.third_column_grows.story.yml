@@ -1,0 +1,125 @@
+name: List (third column grows)
+slots:
+  title: "Most played songs this week"
+  rows:
+    - type: component
+      component: "ui_suite_daisyui:list_row"
+      slots:
+        number:
+          type: html_tag
+          tag: span
+          value: "01"
+          attributes:
+            class: "text-4xl font-thin opacity-30 tabular-nums"
+        avatar:
+          type: component
+          component: "ui_suite_daisyui:avatar"
+          slots:
+            image:
+              theme: image
+              uri: "https://img.daisyui.com/images/profile/demo/1@94.webp"
+          props:
+            size: 10
+            rounded: rounded
+        title: Dio Lupa
+        subtitle:
+          type: html_tag
+          tag: span
+          value: "Remaining Reason"
+          attributes:
+            class: "text-xs uppercase font-semibold opacity-60"
+        actions:
+          type: component
+          component: "ui_suite_daisyui:button"
+          props:
+            shape: square
+            ghost: true
+            icon:
+              pack_id: hero_outline_24
+              icon_id: play
+              settings:
+                size: 20
+                stroke_width: 2
+    - type: component
+      component: "ui_suite_daisyui:list_row"
+      slots:
+        number:
+          type: html_tag
+          tag: span
+          value: "02"
+          attributes:
+            class: "text-4xl font-thin opacity-30 tabular-nums"
+        avatar:
+          type: component
+          component: "ui_suite_daisyui:avatar"
+          slots:
+            image:
+              theme: image
+              uri: "https://img.daisyui.com/images/profile/demo/4@94.webp"
+          props:
+            size: 10
+            rounded: rounded
+        title: Ellie Beilish
+        subtitle:
+          type: html_tag
+          tag: span
+          value: "Bears of a fever"
+          attributes:
+            class: "text-xs uppercase font-semibold opacity-60"
+        actions:
+          type: component
+          component: "ui_suite_daisyui:button"
+          props:
+            shape: square
+            ghost: true
+            icon:
+              pack_id: hero_outline_24
+              icon_id: play
+              settings:
+                size: 20
+                stroke_width: 2
+    - type: component
+      component: "ui_suite_daisyui:list_row"
+      slots:
+        number:
+          type: html_tag
+          tag: span
+          value: "02"
+          attributes:
+            class: "text-4xl font-thin opacity-30 tabular-nums"
+        avatar:
+          type: component
+          component: "ui_suite_daisyui:avatar"
+          slots:
+            image:
+              theme: image
+              uri: "https://img.daisyui.com/images/profile/demo/3@94.webp"
+          props:
+            size: 10
+            rounded: rounded
+        title: Sabrino Gardener
+        subtitle:
+          type: html_tag
+          tag: span
+          value: "Cappuccino"
+          attributes:
+            class: "text-xs uppercase font-semibold opacity-60"
+        actions:
+          type: component
+          component: "ui_suite_daisyui:button"
+          props:
+            shape: square
+            ghost: true
+            icon:
+              pack_id: hero_outline_24
+              icon_id: play
+              settings:
+                size: 20
+                stroke_width: 2
+props:
+  attributes:
+    class: "list bg-base-100 rounded-box shadow-md"
+library_wrapper: >
+  <div class="w-full max-w-lg">
+  {{ _story }}
+  </div>

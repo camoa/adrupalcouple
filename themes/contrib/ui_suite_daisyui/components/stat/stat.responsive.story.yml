@@ -1,0 +1,37 @@
+name: Responsive (vertical on small screen, horizontal on large screen)
+slots:
+  items:
+    - type: component
+      component: "ui_suite_daisyui:stat_item"
+      slots:
+        title: Downloads
+        value:
+          - type: "html_tag"
+            tag: "div"
+            value: 31K
+        desc: "Jan 1st - Feb 1st"
+    - type: component
+      component: "ui_suite_daisyui:stat_item"
+      slots:
+        title: New Users
+        value:
+          - type: "html_tag"
+            tag: "div"
+            value: 4,200
+        desc:
+          - type: "html_tag"
+            tag: "div"
+            value: ↗︎ 400 (22%)
+    - type: component
+      component: "ui_suite_daisyui:stat_item"
+      slots:
+        title: New Registers
+        value: 1,200
+        desc:
+          - type: "html_tag"
+            tag: "div"
+            value: ↘︎ 90 (14%)
+props:
+  variant: responsive
+  attributes:
+    class: "shadow"

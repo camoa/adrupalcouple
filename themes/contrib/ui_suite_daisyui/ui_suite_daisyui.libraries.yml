@@ -1,0 +1,9 @@
+daisyui:
+  license:
+    name: MIT
+    url: https://github.com/saadeghi/daisyui/blob/v5/packages/daisyui/LICENSE
+    gpl-compatible: false
+  css:
+    theme:
+      "dist/css/app.css":
+        { minified: true }

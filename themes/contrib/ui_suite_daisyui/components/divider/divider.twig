@@ -1,0 +1,13 @@
+{%
+  set classes = [
+    'divider',
+    variant and variant != 'default' ? 'divider-' ~ variant,
+    orientation == 'horizontal' ? 'divider-horizontal',
+    orientation == 'responsive' ? 'lg:divider-horizontal',
+    position ? 'divider-' ~ position,
+  ]
+%}
+
+{% set attributes = attributes.addClass(classes) %}
+
+<div {{ attributes }}>{{ content }}</div>

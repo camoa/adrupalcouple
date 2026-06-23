@@ -1,0 +1,17 @@
+{%
+  set classes = [
+    'link',
+    variant and variant != 'default' ? 'link-' ~ variant,
+    underline_hover ? 'link-hover',
+  ]
+%}
+
+{% set attributes = attributes.addClass(classes) %}
+
+{% if url or attributes.href %}
+    {% set attributes = attributes.setAttribute('href', url) %}
+{% endif %}
+
+<a{{ attributes }}>
+  {{ label }}
+</a>

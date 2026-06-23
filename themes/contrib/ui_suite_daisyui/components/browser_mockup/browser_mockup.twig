@@ -1,0 +1,14 @@
+{%
+  set classes = [
+    'mockup-browser',
+  ]
+%}
+
+{% set attributes = attributes.addClass(classes) %}
+
+<div {{ attributes }}>
+  <div class="mockup-browser-toolbar">
+    <div class="input">{{ toolbar }}</div>
+  </div>
+  {{ content }}
+</div>

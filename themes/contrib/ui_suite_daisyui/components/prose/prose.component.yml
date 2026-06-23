@@ -1,0 +1,11 @@
+name: Prose
+group: "Data display"
+description: "Tailwind prose component. Works only with imported typography plugin. See the starterkit for more details."
+links:
+  - "https://github.com/tailwindlabs/tailwindcss-typography"
+status: stable
+props:
+  type: object
+slots:
+  content:
+    title: Content

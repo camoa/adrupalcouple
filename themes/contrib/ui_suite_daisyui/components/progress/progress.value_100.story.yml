@@ -1,0 +1,6 @@
+name: "Value:100 and Max:100"
+props:
+  value: 100
+  max: 100
+  attributes:
+    class: w-96

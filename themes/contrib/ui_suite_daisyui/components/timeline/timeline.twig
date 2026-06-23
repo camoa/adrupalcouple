@@ -1,0 +1,11 @@
+{% set attributes = (variant != 'default') ? attributes.addClass('timeline-' ~ variant) : attributes %}
+
+{% if items %}
+<ul {{ attributes.addClass('timeline') }}>
+{% for item in items %}
+  <li>
+  {{ item }}
+  </li>
+{% endfor %}
+</ul>
+{% endif %}

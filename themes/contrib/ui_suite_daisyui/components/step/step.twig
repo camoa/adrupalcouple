@@ -1,0 +1,23 @@
+{%
+  set classes = [
+    'step',
+    variant and variant != 'default' ? 'step-' ~ variant,
+  ]
+%}
+
+{% set attributes = attributes.addClass(classes) %}
+
+{% if empty_data_content %}
+    {% set attributes = attributes.setAttribute('data-content', '') %}
+{% elseif data_content %}
+    {% set attributes = attributes.setAttribute('data-content', data_content) %}
+{% endif %}
+
+<li {{ attributes }}>
+{% if text %}
+    {% if icon %}
+    <span class="step-icon">{{ icon(icon.pack_id, icon.icon_id, icon.settings) }}</span>
+    {% endif %}
+    {{ text }}
+{% endif %}
+</li>

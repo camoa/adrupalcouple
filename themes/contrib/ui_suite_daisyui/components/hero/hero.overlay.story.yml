@@ -1,0 +1,20 @@
+name: Hero with overlay image
+slots:
+  title: "Hello there"
+  text:
+    type: html_tag
+    tag: p
+    value: "Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi."
+  button:
+    type: component
+    component: "ui_suite_daisyui:button"
+    slots:
+      label: "Get Started"
+    props:
+      variant: primary
+props:
+  heading_level: 1
+  centered: true
+  overlay_image: https://img.daisyui.com/images/stock/photo-1507358522600-9f71e620c44e.webp
+  attributes:
+    class: ["rounded", "min-h-[30rem]"]

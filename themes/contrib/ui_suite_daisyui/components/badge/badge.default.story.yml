@@ -1,0 +1,5 @@
+name: Default
+slots:
+  label: Label
+props:
+  size: md

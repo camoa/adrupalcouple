@@ -1,0 +1,15 @@
+{%
+  set classes = [
+    'tabs',
+    variant and variant != 'default' ? 'tabs-' ~ variant,
+    size ? 'tabs-' ~ size,
+  ]
+%}
+
+{% set attributes = attributes.addClass(classes) %}
+
+{% set attributes = attributes.setAttribute('role', 'tablist') %}
+
+{% if items %}
+<div {{ attributes }}>{{ items }}</div>
+{% endif %}

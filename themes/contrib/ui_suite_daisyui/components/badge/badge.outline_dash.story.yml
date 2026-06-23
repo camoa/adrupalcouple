@@ -1,0 +1,5 @@
+name: "Outline: dash"
+slots:
+  label: Label
+props:
+  outline: dash

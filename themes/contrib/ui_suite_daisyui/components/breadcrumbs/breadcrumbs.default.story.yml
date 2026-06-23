@@ -1,0 +1,8 @@
+name: Default
+props:
+  items:
+    - title: Home
+      url: "#"
+    - title: Documents
+      url: "#"
+    - title: Add document

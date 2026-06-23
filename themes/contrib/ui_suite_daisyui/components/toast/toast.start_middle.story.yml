@@ -1,0 +1,24 @@
+name: Start middle
+slots:
+  items:
+    - type: component
+      component: "ui_suite_daisyui:alert"
+      slots:
+        message: "New mail arrived."
+      props:
+        variant: info
+    - type: component
+      component: "ui_suite_daisyui:alert"
+      slots:
+        message: "Message sent successfully."
+      props:
+        variant: success
+props:
+  position_x: start
+  position_y: middle
+  attributes:
+    class: absolute
+library_wrapper: >
+  <div class="w-full h-64 relative bg-base-200">
+  {{ _story }}
+  </div>

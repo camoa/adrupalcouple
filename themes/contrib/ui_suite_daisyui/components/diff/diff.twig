@@ -1,0 +1,18 @@
+{%
+  set classes = [
+    'diff',
+  ]
+%}
+
+{% set attributes = attributes.addClass(classes) %}
+{% set attributes = attributes.setAttribute('tabindex', '0') %}
+
+<figure {{ attributes }}>
+  <div class="diff-item-1" role="img">
+    {{ item_1 }}
+  </div>
+  <div class="diff-item-2" role="img" tabindex="0">
+    {{ item_2 }}
+  </div>
+  <div class="diff-resizer"></div>
+</figure>

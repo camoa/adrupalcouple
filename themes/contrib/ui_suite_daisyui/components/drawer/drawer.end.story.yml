@@ -1,0 +1,28 @@
+name: End
+slots:
+  content:
+    type: component
+    component: "ui_suite_daisyui:button"
+    slots:
+      label: Open drawer
+    props:
+      variant: primary
+      drawer_id: my-drawer-2
+      attributes:
+        class: ["drawer-button"]
+  sidebar:
+    type: component
+    component: "ui_suite_daisyui:menu"
+    props:
+      variant: vertical__md
+      items:
+        - title: "Sidebar Item 1"
+          url: "#"
+        - title: "Sidebar Item 2"
+        - title: "Sidebar Item 3"
+          url: "#"
+      attributes:
+        class: ["bg-base-200", "text-base-content", "min-h-full", "w-80", "p-4"]
+props:
+  variant: end
+  drawer_id: my-drawer-2

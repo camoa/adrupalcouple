@@ -1,0 +1,9 @@
+name: "Shape: circle"
+props:
+  shape: circle
+  icon:
+    pack_id: hero_outline_24
+    icon_id: heart
+    settings:
+      size: 20
+      stroke_width: 2

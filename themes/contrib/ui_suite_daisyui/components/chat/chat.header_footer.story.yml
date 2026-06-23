@@ -1,0 +1,8 @@
+name: Header and footer
+slots:
+  header: "Obi-Wan Kenobi"
+  time: "2 hours ago"
+  bubble: "You were my brother, Anakin."
+  footer: Seen
+props:
+  variant: default

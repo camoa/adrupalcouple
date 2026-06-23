@@ -1,0 +1,11 @@
+# Schema for the configuration files of the ui_suite_daisyui theme.
+ui_suite_daisyui.settings:
+  type: theme_settings
+  label: 'daisyui settings'
+  mapping:
+    form_display:
+      type: string
+      label: 'Form handling'
+    form_label:
+      type: string
+      label: 'Form label'

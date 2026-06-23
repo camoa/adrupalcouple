@@ -78,6 +78,8 @@
         "drupal/smart_date": "^4.0",
         "drupal/smtp": "^1.4",
         "drupal/stage_file_proxy": "^3.1",
+        "drupal/twig_tweak": "^3.4",
+        "drupal/ui_suite_daisyui": "^5.0@alpha",
         "drupal/upgrade_status": "^4.3",
         "drupal/views_infinite_scroll": "^2.0",
         "drupal/yoast_seo": "^2",

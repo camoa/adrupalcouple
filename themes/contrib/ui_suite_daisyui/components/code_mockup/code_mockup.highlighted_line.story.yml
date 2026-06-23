@@ -1,0 +1,23 @@
+name: "Highlighted line"
+slots:
+  lines:
+    - type: component
+      component: "ui_suite_daisyui:code"
+      slots:
+        content: npm i daisyui
+      props:
+        prefix: "1"
+    - type: component
+      component: "ui_suite_daisyui:code"
+      slots:
+        content: installing...
+      props:
+        prefix: "2"
+    - type: component
+      component: "ui_suite_daisyui:code"
+      slots:
+        content: Done!
+      props:
+        prefix: "3"
+        attributes:
+          class: bg-warning text-warning-content

@@ -1,0 +1,10 @@
+name: "With color"
+slots:
+  lines:
+    - type: component
+      component: "ui_suite_daisyui:code"
+      slots:
+        content: can be any color!
+props:
+  attributes:
+    class: bg-primary text-primary-content

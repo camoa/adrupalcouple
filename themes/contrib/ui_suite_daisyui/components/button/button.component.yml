@@ -1,0 +1,126 @@
+name: Button
+description: "Buttons allow the user to take actions or make choices."
+group: Actions
+links:
+  - "https://daisyui.com/components/button/"
+variants:
+  default:
+    title: Default
+  neutral:
+    title: Neutral
+  primary:
+    title: Primary
+  secondary:
+    title: Secondary
+  accent:
+    title: Accent
+  info:
+    title: Info
+  success:
+    title: Success
+  warning:
+    title: Warning
+  error:
+    title: Error
+slots:
+  label:
+    title: Label
+props:
+  type: object
+  properties:
+    outline:
+      title: "Outlined?"
+      description: "It is possible to outline any button."
+      type: string
+      enum:
+        - outline
+        - dash
+      "meta:enum":
+        outline: "Default"
+        dash: "Dash"
+    shape:
+      title: "Shape"
+      description: "It is possible to choose the shape square or circle of any button."
+      type: string
+      enum:
+        - square
+        - circle
+      "meta:enum":
+        square: "Square"
+        circle: "Circle"
+    size:
+      title: Size
+      description: "It is possible to set the size of buttons."
+      type: string
+      enum:
+        - xs
+        - sm
+        - lg
+        - xl
+      "meta:enum":
+        xs: "Extra small"
+        sm: Small
+        lg: Large
+        xl: Xlarge
+    responsive:
+      title: "Responsive?"
+      description: "It is possible to display a responsive button."
+      type: boolean
+    soft:
+      title: "Soft?"
+      description: "It is possible to display a soft button."
+      type: boolean
+    display:
+      title: "Display"
+      description: "It is possible to display a wide or block button."
+      type: string
+      enum:
+        - wide
+        - block
+      "meta:enum":
+        wide: "Wide"
+        block: "Block"
+    status:
+      title: "Status"
+      description: "It is possible to activate or disable button."
+      type: string
+      enum:
+        - active
+        - disabled
+      "meta:enum":
+        active: "Active"
+        disabled: "Disabled"
+    ghost:
+      title: Ghost
+      description: "It is possible to display a ghost button."
+      type: boolean
+    link:
+      title: Link
+      description: "It is possible to display a link button."
+      type: boolean
+    url:
+      title: URL
+      description: "The button URL. Optional."
+      $ref: "ui-patterns://url"
+    modal_id:
+      title: "Modal ID"
+      description: "To use in combination with Modal component, with same modal ID."
+      $ref: "ui-patterns://identifier"
+    drawer_id:
+      title: "Drawer ID"
+      description: "To use in combination with Drawer component, with same drawers ID."
+      $ref: "ui-patterns://identifier"
+    icon:
+      title: Icon
+      description: "Available button icons."
+      $ref: ui-patterns://icon
+    icon_position:
+      title: "Icon position"
+      type: string
+      default: right
+      enum:
+        - left
+        - right
+      "meta:enum":
+        left: Left
+        right: Right

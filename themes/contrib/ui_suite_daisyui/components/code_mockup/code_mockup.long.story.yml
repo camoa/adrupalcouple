@@ -1,0 +1,9 @@
+name: "Long line will scroll"
+slots:
+  lines:
+    - type: component
+      component: "ui_suite_daisyui:code"
+      slots:
+        content: Magnam dolore beatae necessitatibus nemopsum itaque sit. Et porro quae qui et et dolore ratione. Magnam dolore beatae necessitatibus nemopsum itaque sit. Et porro quae qui et et dolore ratione.
+      props:
+        prefix: "~"

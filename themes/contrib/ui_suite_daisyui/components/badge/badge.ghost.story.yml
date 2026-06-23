@@ -1,0 +1,6 @@
+name: Ghost
+slots:
+  label: Label
+props:
+  variant: default
+  ghost: true

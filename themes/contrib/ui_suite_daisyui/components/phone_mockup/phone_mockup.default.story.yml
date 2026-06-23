@@ -1,0 +1,10 @@
+name: Default
+slots:
+  content:
+    - type: "html_tag"
+      tag: "div"
+      value: It's Glowtime.
+      attributes:
+        class: text-base-100
+props:
+  camera: true

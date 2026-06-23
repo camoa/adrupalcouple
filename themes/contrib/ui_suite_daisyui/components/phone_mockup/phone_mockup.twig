@@ -1,0 +1,16 @@
+{%
+  set classes = [
+    'mockup-phone',
+  ]
+%}
+
+{% set attributes = attributes.addClass(classes) %}
+
+<div {{ attributes }}>
+  {% if camera %}
+  <div class="mockup-phone-camera"></div>
+  {% endif %}
+  <div class="mockup-phone-display grid place-content-center">
+    {{ content }}
+  </div>
+</div>

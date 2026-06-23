@@ -1,0 +1,243 @@
+################################################################################
+# Typography.
+################################################################################
+
+typography_font_size_starterkit:
+  category: "Typography"
+  label: "Font size"
+  description: "We use specifics size classes (with custom tokens) for a responsive typography display"
+  options:
+    title-2xl: Title 2xl (42px)
+    title-xl: Title xl (36px)
+    title-lg: Title lg (28px)
+    title-md: Title md (22px)
+    title-sm: Title sm (18px)
+    title-xs: Title xs (16px)
+    title-2xs: Title 2xs (14px)
+    copy-2xl: Text 2xl (22px)
+    copy-xl: Text xl (18px)
+    copy-lg: Text lg (16px)
+    copy-md: Text md (14px)
+    copy-sm: Text sm (12px)
+    copy-xs: Text xs (10px)
+  previewed_with:
+    - mb-4
+
+typography_text_align_starterkit:
+  category: "Typography"
+  label: "Text align"
+  description: "Utilities for controlling the alignment of text."
+  options:
+    text-center: "Centered text"
+    text-left: "Left text"
+    text-right: "Right text"
+  previewed_with:
+    - mb-4
+
+typography_font_weight_starterkit:
+  category: "Typography"
+  label: "Font weight"
+  description: "Utilities for controlling the font weight of an element."
+  links:
+    - "https://tailwindcss.com/docs/font-weight"
+  options:
+    font-thin: "thin"
+    font-extralight: "extralight"
+    font-light: "light"
+    font-normal: "normal"
+    font-medium: "medium"
+    font-semibold: "semibold"
+    font-bold: "bold"
+    font-extrabold: "extrabold"
+    font-black: "black"
+  previewed_with:
+    - p-2
+
+################################################################################
+# Spacing.
+################################################################################
+
+spacing_padding_top_starterkit:
+  category: "Spacing"
+  label: "Padding top"
+  description: "Utilities for controlling an element's padding top."
+  links:
+    - "https://tailwindcss.com/docs/padding"
+  options:
+    pt-auto: "Padding top auto"
+    pt-2xl: "Padding top 2xlarge"
+    pt-xl: "Padding top xlarge"
+    pt-lg: "Padding top large"
+    pt-md: "Padding top medium"
+    pt-sm: "Padding top small"
+    pt-xs: "Padding top extra small"
+    pt-none: "Padding top none"
+
+spacing_padding_bottom_starterkit:
+  category: "Spacing"
+  label: "Padding bottom"
+  description: "Utilities for controlling an element's padding bottom."
+  links:
+    - "https://tailwindcss.com/docs/padding"
+  options:
+    pb-auto: "Padding bottom auto"
+    pb-2xl: "Padding bottom 2xlarge"
+    pb-xl: "Padding bottom xlarge"
+    pb-lg: "Padding bottom large"
+    pb-md: "Padding bottom medium"
+    pb-sm: "Padding bottom small"
+    pb-xs: "Padding bottom extra small"
+    pb-none: "Padding bottom none"
+
+spacing_margin_bottom_starterkit:
+  category: "Spacing"
+  label: "Margin bottom"
+  description: "Utilities for controlling an element's margin bottom."
+  links:
+    - "https://tailwindcss.com/docs/margin"
+  options:
+    mb-auto: "Margin bottom auto"
+    mb-2xl: "Margin bottom 2xlarge"
+    mb-xl: "Margin bottom xlarge"
+    mb-lg: "Margin bottom large"
+    mb-md: "Margin bottom medium"
+    mb-sm: "Margin bottom small"
+    mb-xs: "Margin bottom extra small"
+    mb-none: "Margin bottom none"
+
+spacing_margin_top_starterkit:
+  category: "Spacing"
+  label: "Margin top"
+  description: "Utilities for controlling an element's margin top."
+  links:
+    - "https://tailwindcss.com/docs/margin"
+  options:
+    mt-auto: "Margin top auto"
+    mt-2xl: "Margin top 2xlarge"
+    mt-xl: "Margin top xlarge"
+    mt-lg: "Margin top large"
+    mt-md: "Margin top medium"
+    mt-sm: "Margin top small"
+    mt-xs: "Margin top extra small"
+    mt-none: "Margin top none"
+
+spacing_gap_starterkit:
+  category: "Spacing"
+  label: "Gap"
+  description: "Utilities for controlling an grid layout gaps."
+  links:
+    - "https://tailwindcss.com/docs/gap"
+  options:
+    gap-xs: "Gap xs"
+    gap-sm: "Gap sm"
+    gap-md: "Gap md"
+    gap-lg: "Gap lg"
+    gap-xl: "Gap xl"
+    gap-2xl: "Gap 2xl"
+
+################################################################################
+# Layout.
+################################################################################
+
+layout_grid_starterkit:
+  category: "Layout"
+  label: "Grid"
+  description: "Handle grid layout."
+  links:
+    - "https://tailwindcss.com/docs/grid-column"
+  options:
+    grid-1: 1 column
+    grid-2: 2 columns 50x50
+    grid-2-33x66: 2 columns 33x66
+    grid-2-66x33: 2 columns 66x33
+    grid-3: 3 columns 33x33x33
+    grid-3-25x50x25: 3 columns 25x50x25
+    grid-3-50x25x25: 3 columns 50x25x25
+    grid-3-25x25x50: 3 columns 25x25x50
+    grid-4: 4 columns 25x25x25x25
+  previewed_with:
+    - grid
+
+layout_container_starterkit:
+  category: "Layout"
+  label: "Container"
+  description: "Handle container layout."
+  links:
+    - "https://daisyui.com/docs/utilities/#-2"
+  options:
+    container-xs: Container xs (672px)
+    container-sm: Container sm (896px)
+    container-md: Container md (1024px)
+    container-lg: Container lg (1152px)
+    container-xl: Container xl (1280px)
+    container-full: Container full
+  previewed_with:
+    - h-16
+    - bg-base-100
+
+################################################################################
+# Effects.
+################################################################################
+
+effects_box_shadow_starterkit:
+  category: "Effects"
+  label: "Box shadow"
+  description: "Utilities for controlling the box shadow of an element."
+  links:
+    - "https://tailwindcss.com/docs/box-shadow"
+  options:
+    shadow-xs: "Shadow xs"
+    shadow-sm: "Shadow sm"
+    shadow-md: "Shadow md"
+    shadow-lg: "Shadow lg"
+  previewed_with:
+    - p-2
+    - my-3
+    - border
+
+effects_border_radius_starterkit:
+  category: "Effects"
+  label: "Border radius"
+  description: "Utilities for controlling the border-radius of an element."
+  links:
+    - "https://tailwindcss.com/docs/border-radius"
+  options:
+    rounded-none: "none (Radius 0)"
+    rounded-xs: "xs (Radius 2px)"
+    rounded-sm: "sm (Radius 4px)"
+    rounded-lg: "lg (Radius 8px)"
+    rounded-xl: "xl (Radius 12px)"
+    rounded-2xl: "2xl (Radius 16px)"
+    rounded-full: "full (Radius 100%)"
+  previewed_with:
+    - p-2
+    - my-3
+    - border
+
+################################################################################
+# Disable UI Suite DaisyUI classes.
+################################################################################
+
+daisyui_glass:
+  enabled: false
+
+sizing_width:
+  enabled: false
+
+typography_font_size:
+  enabled: false
+
+daisyui_mask:
+  enabled: false
+
+spacing_padding_top:
+  enabled: false
+
+spacing_padding_bottom:
+  enabled: false
+
+spacing_margin_bottom:
+  enabled: false
+
+effects_box_shadow:
+  enabled: false

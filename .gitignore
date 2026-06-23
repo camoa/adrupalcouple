@@ -8,3 +8,14 @@ settings.*.php
 sites/*/files/*
 
 themes/*/whitecanvas
+
+# Theme build artifacts + tooling
+node_modules/
+**/node_modules/
+
+# Agent/session telemetry (not part of the codebase)
+.claude/
+.claude-telemetry/
+.design-intelligence/
+.design-intelligence-audit/
+.scratch-audits/

@@ -1,0 +1,99 @@
+ui_suite_daisyui.xs-max:
+  label: 'Extra small'
+  mediaQuery: 'all and (max-width: 639px)'
+  weight: 1
+  multipliers:
+    - 1x
+    - 1.5x
+    - 2x
+    - 3x
+
+ui_suite_daisyui.sm-min:
+  label: 'Small and larger'
+  mediaQuery: 'all and (min-width: 640px)'
+  weight: 2
+  multipliers:
+    - 1x
+    - 1.5x
+    - 2x
+    - 3x
+
+ui_suite_daisyui.sm-max:
+  label: 'Small and smaller'
+  mediaQuery: 'all and (max-width: 767px)'
+  weight: 3
+  multipliers:
+    - 1x
+    - 1.5x
+    - 2x
+    - 3x
+
+ui_suite_daisyui.md-min:
+  label: 'Medium and larger'
+  mediaQuery: 'all and (min-width: 768px)'
+  weight: 4
+  multipliers:
+    - 1x
+    - 1.5x
+    - 2x
+    - 3x
+
+ui_suite_daisyui.md-max:
+  label: 'Medium and smaller'
+  mediaQuery: 'all and (max-width: 1023px)'
+  weight: 5
+  multipliers:
+    - 1x
+    - 1.5x
+    - 2x
+    - 3x
+
+ui_suite_daisyui.lg-min:
+  label: 'Large and larger'
+  mediaQuery: 'all and (min-width: 1024px)'
+  weight: 6
+  multipliers:
+    - 1x
+    - 1.5x
+    - 2x
+    - 3x
+
+ui_suite_daisyui.lg-max:
+  label: 'Large and smaller'
+  mediaQuery: 'all and (max-width: 1279px)'
+  weight: 7
+  multipliers:
+    - 1x
+    - 1.5x
+    - 2x
+    - 3x
+
+ui_suite_daisyui.xl-min:
+  label: 'Extra large and larger'
+  mediaQuery: 'all and (min-width: 1280px)'
+  weight: 8
+  multipliers:
+    - 1x
+    - 1.5x
+    - 2x
+    - 3x
+
+ui_suite_daisyui.xl-max:
+  label: 'Extra large and smaller'
+  mediaQuery: 'all and (max-width: 1535px)'
+  weight: 9
+  multipliers:
+    - 1x
+    - 1.5x
+    - 2x
+    - 3x
+
+ui_suite_daisyui.xxl-min:
+  label: 'Extra extra large'
+  mediaQuery: 'all and (min-width: 1536px)'
+  weight: 10
+  multipliers:
+    - 1x
+    - 1.5x
+    - 2x
+    - 3x

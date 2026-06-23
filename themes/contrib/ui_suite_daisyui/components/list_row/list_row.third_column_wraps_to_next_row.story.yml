@@ -1,0 +1,54 @@
+name: List row (third column wraps to next row)
+slots:
+  avatar:
+    type: component
+    component: "ui_suite_daisyui:avatar"
+    slots:
+      image:
+        theme: image
+        uri: "https://img.daisyui.com/images/profile/demo/3@94.webp"
+    props:
+      size: 10
+      rounded: rounded
+  title: Sabrino Gardener
+  subtitle:
+    type: html_tag
+    tag: span
+    value: "Cappuccino"
+    attributes:
+      class: "text-xs uppercase font-semibold opacity-60"
+  text:
+    type: html_tag
+    tag: p
+    value: '"Cappuccino" quickly gained attention for its smooth melody and relatable themes. The song’s success propelled Sabrino into the spotlight, solidifying their status as a rising star.'
+    attributes:
+      class: "list-col-wrap text-xs"
+  actions:
+    - type: component
+      component: "ui_suite_daisyui:button"
+      props:
+        shape: square
+        ghost: true
+        icon:
+          pack_id: hero_outline_24
+          icon_id: play
+          settings:
+            size: 20
+            stroke_width: 2
+    - type: component
+      component: "ui_suite_daisyui:button"
+      props:
+        shape: square
+        ghost: true
+        icon:
+          pack_id: hero_outline_24
+          icon_id: heart
+          settings:
+            size: 20
+            stroke_width: 2
+library_wrapper: >
+  <div class="w-full max-w-lg">
+  <ul class="list bg-base-100 rounded-box shadow-md">
+  {{ _story }}
+  </ul>
+  </div>

@@ -1,0 +1,18 @@
+{%
+  set classes = [
+    'join',
+    variant == 'vertical' ? 'join-vertical',
+    variant == 'vertical_responsive' ? 'join-vertical lg:join-horizontal',
+  ]
+%}
+
+{% set attributes = attributes.addClass(classes) %}
+
+{% if items %}
+<div {{ attributes }}>
+{% set items = items and items is not sequence ? [items] : items %}
+{% for item in items %}
+  {{ item|add_class('join-item') }}
+{% endfor %}
+</div>
+{% endif %}

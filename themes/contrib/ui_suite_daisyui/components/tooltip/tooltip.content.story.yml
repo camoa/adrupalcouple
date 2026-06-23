@@ -1,0 +1,12 @@
+name: With tooltip-content
+slots:
+  content:
+    type: component
+    component: "ui_suite_daisyui:button"
+    slots:
+      label: "Hover me"
+  tooltip_content: <div class='animate-bounce text-orange-400 -rotate-10 text-2xl font-black'>Wow!</div>
+props:
+  variant: default
+  data_tip: hello
+  position: right

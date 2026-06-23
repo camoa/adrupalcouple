@@ -1,0 +1,9 @@
+name: Placeholder
+slots:
+  image:
+    theme: image
+    uri: "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+props:
+  size: 32
+  rounded: rounded-full
+  placeholder: D

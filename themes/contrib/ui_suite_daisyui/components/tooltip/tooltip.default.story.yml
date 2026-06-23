@@ -1,0 +1,10 @@
+name: Default
+slots:
+  content:
+    type: component
+    component: "ui_suite_daisyui:button"
+    slots:
+      label: "Hover me"
+props:
+  data_tip: hello
+  position: top

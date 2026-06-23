@@ -1,0 +1,34 @@
+name: "Size: md"
+slots:
+  items:
+    - type: component
+      component: "ui_suite_daisyui:tab"
+      slots:
+        link:
+          type: html_tag
+          tag: a
+          value: "Medium"
+          attributes:
+            href: "#"
+    - type: component
+      component: "ui_suite_daisyui:tab"
+      slots:
+        link:
+          type: html_tag
+          tag: a
+          value: "Medium"
+          attributes:
+            href: "#"
+      props:
+        active: true
+    - type: component
+      component: "ui_suite_daisyui:tab"
+      slots:
+        link:
+          type: html_tag
+          tag: a
+          value: "Medium"
+          attributes:
+            href: "#"
+props:
+  size: md

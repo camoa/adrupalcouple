@@ -1,0 +1,6 @@
+name: "Display: wide"
+slots:
+  label: Label
+props:
+  variant: default
+  display: wide
