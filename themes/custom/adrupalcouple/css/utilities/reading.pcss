@@ -1,0 +1,33 @@
+/**
+ * Brand layout primitives — reading column and prose rhythm.
+ * From design-system-tokens.yml §density / component-palette.
+ */
+
+@layer components {
+  /* Reading column — 68ch measure (Bringhurst; design-system §density / component-palette #3) */
+  .reading-column {
+    max-inline-size: 68ch;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+  }
+
+  /* Article prose rhythm: ≥17px body, 1.7 leading, generous spacing */
+  .reading-prose {
+    font-size: 1.0625rem;
+    line-height: 1.7;
+  }
+
+  .reading-prose > * + * {
+    margin-block-start: 1.25rem;
+  }
+
+  .reading-prose h2 {
+    font-size: 1.5rem; /* tokens.yml typography.scale.2xl */
+    margin-block-start: 2.25rem;
+  }
+
+  .reading-prose h3 {
+    font-size: 1.25rem; /* tokens.yml typography.scale.xl */
+    margin-block-start: 1.75rem;
+  }
+}

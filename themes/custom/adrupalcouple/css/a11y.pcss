@@ -1,0 +1,103 @@
+/**
+ * A11y overrides — reduced-motion floor + unlayered cascade overrides.
+ *
+ * These declarations are INTENTIONALLY outside any @layer.
+ * In the CSS cascade, unlayered rules win over all @layer declarations,
+ * beating DaisyUI's @layer daisyui.* without !important.
+ *
+ * Exception: prefers-reduced-motion uses !important — the only sanctioned
+ * use in the codebase (§M7.1 STRONG a11y guarantee).
+ */
+
+/**
+ * Motion design tokens — declared in :root unconditionally.
+ * Tailwind 4 tree-shakes @theme vars not referenced in content; declaring here
+ * ensures TOK-07 tokens are always present for CSS consumers and DevTools inspection.
+ * Values verbatim from design-system-tokens.yml §motion.
+ */
+:root {
+  /* Durations */
+  --duration-quick: 150ms;    /* hover, focus rings, press states */
+  --duration-standard: 250ms; /* disclosure, nav/menu open, form validation */
+  --duration-relaxed: 350ms;  /* home/about section reveal ONLY */
+
+  /* Easing curves */
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);  /* symmetric state changes */
+  --ease-decelerate: cubic-bezier(0, 0, 0.2, 1);  /* elements entering/settling */
+  --ease-accelerate: cubic-bezier(0.4, 0, 1, 1);  /* elements leaving */
+}
+
+/* ── Prefers-reduced-motion floor (a11y §M7.1 STRONG) ── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ── D2 — verified muted ink; replaces opacity-* hacks on text ── */
+.text-muted {
+  color: var(--color-muted-content);
+}
+
+/* D2 — override DaisyUI .footer-title (applies opacity: 0.6) */
+.footer-title {
+  color: var(--color-muted-content);
+  opacity: 1;
+}
+
+/* D2 — override DaisyUI .stat-title (applies color-mix(in oklab, base-content 60%)) */
+.stat-title {
+  color: var(--color-muted-content);
+}
+
+/* ── D4 — focus-visible ring on .menu items (DaisyUI suppresses browser outline) ── */
+.menu :where(li > a):focus-visible,
+.menu :where(li > button):focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* ── D6 — topic chip: WCAG 2.5.8 AA touch target floor (24px min; DaisyUI badge-sm = ~20px) ── */
+.topic-chip {
+  min-block-size: 1.5rem; /* 24px WCAG AA floor; brand target 48px */
+  padding-block: 0.25rem;
+  display: inline-flex;
+  align-items: center;
+  line-height: 1;
+}
+
+/* ── D7 — prefers-contrast: more; remove all ink softening ── */
+@media (prefers-contrast: more) {
+  .text-muted,
+  .footer-title,
+  .stat-title {
+    color: var(--color-base-content);
+    opacity: 1;
+  }
+}
+
+/* ── D7/D8 — forced-colors (Windows High Contrast Mode) ── */
+@media (forced-colors: active) {
+  :focus-visible,
+  .menu :where(li > a):focus-visible,
+  .menu :where(li > button):focus-visible {
+    outline: 3px solid ButtonText;
+    outline-offset: 2px;
+  }
+
+  .badge {
+    border-color: ButtonBorder;
+  }
+
+  .text-muted,
+  .footer-title,
+  .stat-title {
+    color: CanvasText;
+    opacity: 1;
+  }
+}

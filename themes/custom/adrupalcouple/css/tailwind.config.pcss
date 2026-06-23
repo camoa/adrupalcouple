@@ -1,4 +1,5 @@
 @theme {
+  /* Generic font stacks (Tailwind defaults — kept for utility compatibility) */
   --font-sans:
     ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
     "Segoe UI Symbol", "Noto Color Emoji";
@@ -6,6 +7,21 @@
   --font-mono:
     ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
     "Courier New", monospace;
+
+  /* Brand font tokens — generate font-heading / font-body / font-mono utilities */
+  --font-heading: "Fraunces Variable", "Fraunces", Georgia, serif;
+  --font-body: "Atkinson Hyperlegible", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", monospace;
+
+  /* Motion durations — institutional-restraint bands (tokens.yml §motion) */
+  --duration-quick: 150ms;    /* hover, focus rings, press states */
+  --duration-standard: 250ms; /* disclosure, nav/menu open, form validation */
+  --duration-relaxed: 350ms;  /* home/about section reveal ONLY */
+
+  /* Easing curves (tokens.yml §motion.easings) */
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);  /* symmetric state changes */
+  --ease-decelerate: cubic-bezier(0, 0, 0.2, 1);  /* elements entering/settling */
+  --ease-accelerate: cubic-bezier(0.4, 0, 1, 1);  /* elements leaving */
 
   --grid-cols--66x33: minmax(0, 2fr) minmax(0, 1fr);
   --grid-cols--33x66: minmax(0, 1fr) minmax(0, 2fr);

@@ -1,36 +1,38 @@
 /**
- * Use this file to add styles of basic HTML elements.
+ * Base typography defaults and global resets.
+ * All font-family values reference @theme tokens defined in tailwind.config.pcss.
+ * Values verbatim from design-system-tokens.yml §typography.
  */
 
 @layer base {
-  h1 {
-    font-size: 36px;
-    line-height: 48px;
-    font-weight: bold;
+  html {
+    font-family: var(--font-body);
+    scroll-behavior: smooth;
   }
-  h2 {
-    font-size: 28px;
-    line-height: 38px;
-    font-weight: bold;
+
+  body {
+    font-family: var(--font-body);
+    background-color: var(--color-base-100);
+    color: var(--color-base-content);
+    line-height: 1.65;
+    text-rendering: optimizeLegibility;
   }
-  h3 {
-    font-size: 22px;
-    line-height: 30px;
-    font-weight: bold;
-  }
-  h4 {
-    font-size: 18px;
-    line-height: 25px;
-    font-weight: bold;
-  }
-  h5 {
-    font-size: 16px;
-    line-height: 22px;
-    font-weight: bold;
-  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
   h6 {
-    font-size: 14px;
-    line-height: 19px;
-    font-weight: bold;
+    font-family: var(--font-heading);
+    line-height: 1.15;
+    text-wrap: balance;
+  }
+
+  code,
+  pre,
+  kbd,
+  samp {
+    font-family: var(--font-mono);
   }
 }
