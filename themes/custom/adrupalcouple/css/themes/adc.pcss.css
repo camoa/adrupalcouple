@@ -1,0 +1,115 @@
+/**
+ * ADrupalCouple brand DaisyUI 5 themes.
+ *
+ * adc-warm — light default theme (plum-tinted warm ground, teal primary).
+ * adc-dark  — dark prefers-dark theme (plum-charcoal ground, teal.400 primary).
+ *
+ * Values are verbatim from design-system-tokens.yml (authoritative).
+ * Do NOT re-derive colors from the React template.
+ */
+
+/* adc-warm — light, default */
+@plugin "daisyui/theme" {
+  name: "adc-warm";
+  default: true;
+  prefersdark: false;
+  color-scheme: light;
+
+  /* Base grounds (warm-grey ramp, hue 335) */
+  --color-base-100: oklch(98.0% 0.005 335);
+  --color-base-200: oklch(91.5% 0.008 335);
+  --color-base-300: oklch(84.0% 0.011 335);
+  --color-base-content: oklch(26.3% 0.014 164);
+
+  /* Primary (teal.700) */
+  --color-primary: oklch(46.5% 0.082 186);
+  --color-primary-content: oklch(98.0% 0.005 335);
+
+  /* Secondary (plum.700) */
+  --color-secondary: oklch(46.1% 0.062 335);
+  --color-secondary-content: oklch(98.0% 0.005 335);
+
+  /* Accent (teal.600) */
+  --color-accent: oklch(53.6% 0.094 185);
+  --color-accent-content: oklch(98.0% 0.005 335);
+
+  /* Neutral (warm-dark-ink) */
+  --color-neutral: oklch(26.3% 0.014 164);
+  --color-neutral-content: oklch(91.5% 0.008 335);
+
+  /* Semantic states */
+  --color-info: oklch(54.6% 0.215 263);
+  --color-info-content: oklch(100.0% 0.000 90);
+  --color-success: oklch(52.7% 0.137 150);
+  --color-success-content: oklch(100.0% 0.000 90);
+  --color-warning: oklch(55.5% 0.146 49);
+  --color-warning-content: oklch(100.0% 0.000 90);
+  --color-error: oklch(50.5% 0.190 28);
+  --color-error-content: oklch(100.0% 0.000 90);
+
+  /* Shape / structure */
+  --radius-selector: 0.5rem;
+  --radius-field: 0.375rem;
+  --radius-box: 0.5rem;
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+  --border: 1px;
+  --depth: 0;
+  --noise: 0;
+
+  /* Brand extra — verified muted ink (5.62:1 vs base-100; 4.62:1 vs base-200) */
+  --color-muted-content: oklch(50% 0.010 164);
+}
+
+/* adc-dark — dark, prefers-dark */
+@plugin "daisyui/theme" {
+  name: "adc-dark";
+  default: false;
+  prefersdark: true;
+  color-scheme: dark;
+
+  /* Base grounds (plum-charcoal, hue 335) */
+  --color-base-100: oklch(21.5% 0.012 335);
+  --color-base-200: oklch(27.5% 0.014 335);
+  --color-base-300: oklch(34.0% 0.016 335);
+  --color-base-content: oklch(91.5% 0.006 335);
+
+  /* Primary (teal.400 — lighter for dark background) */
+  --color-primary: oklch(69.9% 0.099 187);
+  --color-primary-content: oklch(21.5% 0.012 335);
+
+  /* Secondary (plum.300 — light for dark background) */
+  --color-secondary: oklch(80.0% 0.051 335);
+  --color-secondary-content: oklch(21.5% 0.012 335);
+
+  /* Accent (teal.500) */
+  --color-accent: oklch(61.1% 0.107 186);
+  --color-accent-content: oklch(21.5% 0.012 335);
+
+  /* Neutral (plum-deepest) */
+  --color-neutral: oklch(19.0% 0.012 335);
+  --color-neutral-content: oklch(91.5% 0.006 335);
+
+  /* Semantic states (dark-accessible variants) */
+  --color-info: oklch(71.4% 0.143 255);
+  --color-info-content: oklch(22.2% 0.033 181);
+  --color-success: oklch(80.0% 0.182 152);
+  --color-success-content: oklch(22.2% 0.033 181);
+  --color-warning: oklch(83.7% 0.164 84);
+  --color-warning-content: oklch(18.7% 0.038 89);
+  --color-error: oklch(71.1% 0.166 22);
+  --color-error-content: oklch(15.8% 0.037 22);
+
+  /* Shape / structure (identical to adc-warm) */
+  --radius-selector: 0.5rem;
+  --radius-field: 0.375rem;
+  --radius-box: 0.5rem;
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+  --border: 1px;
+  --depth: 0;
+  --noise: 0;
+
+  /* Brand extra — verified muted ink (8.16:1 vs base-100; 6.93:1 vs base-200) */
+  --color-muted-content: oklch(76% 0.006 335);
+}

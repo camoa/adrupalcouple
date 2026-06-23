@@ -2,6 +2,11 @@
   "name": "ui_suite_daisyui",
   "private": true,
   "type": "module",
+  "dependencies": {
+    "@fontsource-variable/fraunces": "^5.1.0",
+    "@fontsource/atkinson-hyperlegible": "^5.1.0",
+    "@fontsource/ibm-plex-mono": "^5.1.0"
+  },
   "devDependencies": {
     "@tailwindcss/cli": "^4.0",
     "@tailwindcss/postcss": "^4.0.12",

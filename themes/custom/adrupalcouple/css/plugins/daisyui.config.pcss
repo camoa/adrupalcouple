@@ -1,9 +1,12 @@
 /**
  * Import DaisyUI excluding DaisyUI reset.css as Tailwind already provide same mechanism (Preflight).
  * We exclude DaisyUI reset.css as it prevents style from base layer to be applied.
+ *
+ * themes: false — suppresses ALL 35 built-in DaisyUI themes.
+ * Brand themes (adc-warm, adc-dark) are registered via @plugin "daisyui/theme" in css/themes/adc.pcss.css.
  */
 @plugin "daisyui" {
   exclude: reset;
-  themes: light --default, dark, cupcake, aqua, black, bumblebee, cmyk, corporate, cyberpunk, dracula, emerald, fantasy, forest, garden, halloween, lofi, luxury, pastel, retro, synthwave, valentine, wireframe, autumn, business, acid, lemonade, night, coffee, winter, dim, nord, sunset, caramellatte, abyss, silk;
+  themes: false;
   logs: false;
 }

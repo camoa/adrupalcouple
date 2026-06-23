@@ -2,4 +2,4 @@ daisyui:
   css:
     theme:
       "dist/css/app.css": { minified: true }
-      "dist/css/themes/dark.css": { minified: true }
+      "dist/css/themes/adc.css": { minified: true }

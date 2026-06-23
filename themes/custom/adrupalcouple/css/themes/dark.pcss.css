@@ -1,9 +1,0 @@
-/**
- * Use this file to override DaisyUI themes,
- * Or add your own themes.
- */
-
-@plugin "daisyui/theme" {
-  name: "dark";
-  --color-primary: oklch(55% 0.3 240);
-}
