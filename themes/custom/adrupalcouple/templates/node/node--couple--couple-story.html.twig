@@ -1,0 +1,67 @@
+{#
+/**
+ * @file
+ * Couple Story entity render — node.couple, `couple_story` view mode.
+ *
+ * Renders the community-arc section (About §3 CoupleStory):
+ *   - Community story prose (field_community_story → CKEditor text_long output)
+ *   - Dual person faces side-by-side (field_couple → person:couple_faces)
+ *   - Milestone list (field_milestone → ui_suite_daisyui:timeline_item)
+ *
+ * The outer §3 section heading ("Along the way, in the open" / "Por el camino,
+ * en abierto") is a SEPARATE translatable LB text inline block placed at weight 0
+ * in the LB section above this block (weight 1). This template is responsible only
+ * for the CoupleStory body — not the h2 heading.
+ *
+ * Design contract (About §3):
+ *   - Wrapper: mt-6 (CoupleStory offset from section heading above).
+ *   - Story prose: rendered as CKEditor HTML inside .prose wrapper.
+ *   - Faces: same flex layout as couple_hero (128px, rounded-full).
+ *   - Milestones: DaisyUI timeline (timeline-vertical timeline-compact) via
+ *     ui_patterns formatter — year in timeline-start, label in timeline-end.
+ *
+ * Available content:
+ * - content.field_community_story Community arc prose (text_default formatter).
+ * - content.field_couple          Two person:couple_faces atoms.
+ * - content.field_milestone       Milestone timeline (ui_patterns formatter).
+ *
+ * @see template_preprocess_node()
+ * @see node--couple--couple-hero.html.twig
+ * @see node--person--couple-faces.html.twig
+ */
+#}
+<div{{ attributes.addClass('couple-story-entity mt-6') }}>
+
+  {# ── Community story prose ───────────────────────────────────────────────── #}
+  {% if content.field_community_story|render|trim %}
+    <div class="couple-story-body prose max-w-none mb-6">
+      {{ content.field_community_story }}
+    </div>
+  {% endif %}
+
+  {# ── Dual faces ──────────────────────────────────────────────────────────── #}
+  {% if content.field_couple|render|trim %}
+    <div class="couple-faces flex flex-wrap items-start gap-8 sm:gap-12 mb-8">
+      {{ content.field_couple }}
+    </div>
+  {% endif %}
+
+  {# ── Milestone timeline ──────────────────────────────────────────────────── #}
+  {#
+   * field_milestone is rendered via ui_patterns_component_per_item formatter
+   * (ui_suite_daisyui:timeline_item). The formatter wraps each delta in a
+   * timeline-item SDC. The ul.timeline wrapper below is provided by the
+   * field formatter's own container template or by ui_suite_daisyui itself;
+   * if the formatter does not add the outer ul, add it here.
+   *
+   * Year accent: text-primary font-semibold (teal — DaisyUI --color-primary).
+   * Applied inside the timeline_item SDC's timeline-start cell via class on the
+   * cell; override via ui_suite_daisyui template if needed.
+   #}
+  {% if content.field_milestone|render|trim %}
+    <div class="couple-milestones mt-4">
+      {{ content.field_milestone }}
+    </div>
+  {% endif %}
+
+</div>

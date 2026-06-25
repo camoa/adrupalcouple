@@ -1,0 +1,59 @@
+{#
+/**
+ * @file _writing-s1-header.html.twig
+ *
+ * Writing index — S1: Above-fold header + topic-chip browse.
+ *
+ * Included from views-view--writing-index--page-1.html.twig.
+ * Background: bg-base-100 (surface_default).
+ *
+ * Variables provided by adrupalcouple_preprocess_views_view__writing_index():
+ *   tag_chips: array of { name: string, url: string } — all terms in vocab 'tags'.
+ *
+ * Motion: transition-colors duration-150 on chip hover ONLY.
+ *         No entrance animation (page arrives composed, M8.2).
+ *
+ * Strings: |t filter registers strings in Drupal translation UI.
+ * i18n: pages.writing.title, pages.writing.lede, common.browseByTopic.
+ */
+#}
+<section aria-labelledby="writing-heading" class="bg-base-100">
+  <div class="mx-auto max-w-5xl px-4 py-12 sm:py-16">
+
+    {# H1 — page title. Fraunces via font-heading token. #}
+    <h1 id="writing-heading" class="font-heading text-4xl font-semibold sm:text-5xl">
+      {{ 'Writing'|t }}
+    </h1>
+
+    {# Lede — max-w-prose keeps prose measure; full ink (D2: 14.43:1 on base-100). #}
+    <p class="mt-3 max-w-prose text-lg">
+      {{ 'A real, browsable body of work. Production truth about Drupal, AI, and open source.'|t }}
+    </p>
+
+    {# Browse-by-topic nav — chips link to /topics/{slug} via path alias. #}
+    <nav class="mt-6" aria-label="{{ 'Browse by topic'|t }}">
+      {# D2: text-muted (5.62:1) replaces opacity-70 (2.87:1) for the section label. #}
+      <p class="text-sm font-semibold text-muted">{{ 'Browse by topic'|t }}</p>
+
+      {% if tag_chips is defined and tag_chips is not empty %}
+        <ul class="mt-2 flex flex-wrap gap-2">
+          {% for chip in tag_chips %}
+            <li>
+              {#
+               * D6: topic-chip class raises min-height to 24px (WCAG 2.5.8 AA).
+               * See a11y.pcss .topic-chip rule.
+               * transition-colors duration-150: 150 ms state change.
+               * Reduced-motion override in a11y.pcss collapses transition to 0.01ms.
+               #}
+              <a href="{{ chip.url }}"
+                 class="badge badge-outline badge-lg topic-chip transition-colors duration-150 hover:border-primary hover:text-primary">
+                {{ chip.name }}
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </nav>
+
+  </div>
+</section>

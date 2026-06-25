@@ -1,0 +1,15 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.couple_story_block
+  module:
+    - content_translation
+id: block_content.couple_story_block
+target_entity_type_id: block_content
+target_bundle: couple_story_block
+default_langcode: en
+language_alterable: false
+third_party_settings:
+  content_translation:
+    enabled: false

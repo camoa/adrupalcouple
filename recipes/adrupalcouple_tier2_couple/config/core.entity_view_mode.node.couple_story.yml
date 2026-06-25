@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.couple_story
+label: 'Couple Story'
+description: 'Couple rendered as the community-arc block for About §3: community prose (field_community_story) + dual person faces (128px) + milestone list. Used by the LB couple_story inline block.'
+targetEntityType: node
+cache: true

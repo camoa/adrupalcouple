@@ -1,0 +1,33 @@
+{#
+/**
+ * @file
+ * Taxonomy term template — tags vocabulary fallback.
+ *
+ * NOTE: When the views.view.taxonomy_term view is active (page_1 display at
+ * taxonomy/term/%), the Views page display overrides the taxonomy term route
+ * and this template is NOT rendered for the topic landing page. The topic
+ * landing page is fully owned by views-view--taxonomy-term.html.twig.
+ *
+ * This template applies when a tags taxonomy term is rendered in OTHER contexts
+ * (e.g., entity_taxonomy_term Views header area, taxonomy term block, or any
+ * non-page render of a tags term entity).
+ *
+ * Provides a minimal, semantic output: term name as H1 + any field content.
+ * No section wrapper / bg- classes — the consuming context provides layout.
+ *
+ * @see views-view--taxonomy-term.html.twig (primary topic page template)
+ * @see template_preprocess_taxonomy_term()
+ */
+#}
+<article{{ attributes.addClass('taxonomy-term taxonomy-term--tags') }}>
+  {{ title_prefix }}
+  {% if not page %}
+    <h2{{ title_attributes }}>{{ term.label }}</h2>
+  {% endif %}
+  {{ title_suffix }}
+  {% if content %}
+    <div{{ content_attributes }}>
+      {{ content }}
+    </div>
+  {% endif %}
+</article>

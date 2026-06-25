@@ -1,0 +1,66 @@
+{#
+/**
+ * @file
+ * Accessibility statement — node.page, structured prose (Tier-3, no Layout Builder).
+ *
+ * The body field is split into five <section> elements by
+ * adrupalcouple_preprocess_node__page__accessibility(), which sets the
+ * `body_sections` variable as an array of { content: Markup } items:
+ *
+ *   body_sections[0]  pre-first-<h2> content — intent paragraph(s)
+ *   body_sections[1]  "What we have in place" h2 block
+ *   body_sections[2]  "What we are still working on" h2 block
+ *   body_sections[3]  "Report an issue" h2 block (excl. draft notice)
+ *   body_sections[4]  Draft notice <p class="rounded-box...">
+ *
+ * Section layout:
+ *   1  bg-base-100 / py-12 / —           title + intent
+ *   2  bg-base-200 / py-12 / reading-prose  built-in features
+ *   3  bg-base-100 / py-12 / reading-prose  in-progress
+ *   4  bg-base-200 / py-12 / —           report an issue
+ *   5  bg-base-100 / py-8  / —           draft notice callout
+ *
+ * Template suggestion added by adrupalcouple_theme_suggestions_node_alter().
+ * Page title block suppressed by adrupalcouple_preprocess_page().
+ *
+ * @see adrupalcouple_theme_suggestions_node_alter()
+ * @see adrupalcouple_preprocess_node__page__accessibility()
+ * @see adrupalcouple_preprocess_page()
+ * @see template_preprocess_node()
+ */
+#}
+<article{{ attributes.addClass('node--page node--page--accessibility') }}>
+
+  {# Section 1 — Title + intent paragraph (bg-base-100, py-12, no prose) #}
+  <section class="bg-base-100">
+    <div class="reading-column py-12">
+      <h1 class="font-heading text-4xl font-semibold sm:text-5xl">{{ label }}</h1>
+      {% if body_sections[0] is defined and body_sections[0].content|render|trim %}
+        {{ body_sections[0].content }}
+      {% endif %}
+    </div>
+  </section>
+
+  {#
+    Sections 2–5: each driven by body_sections[1..4].
+    section_configs is 0-indexed and maps to body_sections[loop.index].
+    loop.index is 1-based (1→section 2, 2→section 3, 3→section 4, 4→section 5).
+  #}
+  {% set section_configs = [
+    { bg: 'bg-base-200', py: 'py-12', prose: 'reading-prose' },
+    { bg: 'bg-base-100', py: 'py-12', prose: 'reading-prose' },
+    { bg: 'bg-base-200', py: 'py-12', prose: '' },
+    { bg: 'bg-base-100', py: 'py-8',  prose: '' },
+  ] %}
+  {% for cfg in section_configs %}
+    {% set section_idx = loop.index %}
+    {% if body_sections[section_idx] is defined %}
+      <section class="{{ cfg.bg }}">
+        <div class="reading-column {{ cfg.py }}{{ cfg.prose ? ' ' ~ cfg.prose }}">
+          {{ body_sections[section_idx].content }}
+        </div>
+      </section>
+    {% endif %}
+  {% endfor %}
+
+</article>

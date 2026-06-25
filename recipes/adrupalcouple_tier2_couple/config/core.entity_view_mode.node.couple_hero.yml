@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.couple_hero
+label: 'Couple Hero'
+description: 'Couple rendered as the above-the-fold hero for About §1: title (h1) + dual person faces (128px). Used by the block_content.couple_hero inline block.'
+targetEntityType: node
+cache: true

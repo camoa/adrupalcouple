@@ -1,0 +1,40 @@
+{#
+/**
+ * @file
+ * Generic inline block template — all block_content inline blocks NOT covered
+ * by a more specific template suggestion.
+ *
+ * Applies to text blocks placed in About §2 (origin heading + prose) and §4
+ * (contact coda paragraph). Wraps block body in .reading-column so content
+ * inherits the 68ch centred column layout.
+ *
+ * Template suggestion specificity (most→least):
+ *   block--inline-block--couple-hero.html.twig     §1 couple hero
+ *   block--inline-block--couple-story-block.html.twig  §3 couple story
+ *   block--inline-block--basic.html.twig           if basic type needs overrides
+ *   block--inline-block.html.twig                  (this file) all others
+ *
+ * The UI Styles section_background (bg-base-100/200) and section_spacing_vertical
+ * (py-12) are applied by the LB section shell — NOT by this template. This
+ * template ONLY provides the inner reading-column container.
+ *
+ * Available variables:
+ * - content  Rendered block content (body field via text_default formatter).
+ *
+ * @see block.html.twig
+ */
+#}
+<div{{ attributes.addClass('block block--inline-block') }}>
+  {{ title_prefix }}
+  {{ title_suffix }}
+  {#
+   * reading-column + prose: prose activates Tailwind Typography styles on the
+   * rendered HTML body (§2 origin prose paragraphs). Heading blocks in §2 carry
+   * explicit font-heading/text-3xl/font-semibold which override prose defaults —
+   * prose does not break heading display. §4 contact paragraph is a single <p>
+   * with link-primary anchors; prose here is benign (no conflicting styles).
+   #}
+  <div class="reading-column prose">
+    {{ content }}
+  </div>
+</div>

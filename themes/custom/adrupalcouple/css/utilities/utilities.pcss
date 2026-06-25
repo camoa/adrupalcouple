@@ -1,3 +1,31 @@
 /**
  * Use this file to override Tailwind CSS style utilities.
  */
+
+/**
+ * Topic chip (tag badge in article cards and Writing index).
+ *
+ * DaisyUI badge-sm renders at ~20px height. WCAG 2.5.8 AA requires a 24px
+ * minimum target size for interactive controls. topic-chip raises the minimum
+ * height without forcing full 44px touch targets on compact inline chips.
+ * See design tension note D6 in TopicBrowse.tsx.
+ *
+ * Applied to: .badge.badge-sm.topic-chip elements in node--article--teaser.html.twig.
+ */
+.topic-chip {
+  min-height: 24px;
+}
+
+/**
+ * Card thumbnail image fill.
+ *
+ * Ensures the <img> rendered by the responsive_image theme function fills the
+ * 16:9 aspect-video <figure> container without distortion. object-cover + h-full
+ * + w-full mirror the React <img className="h-full w-full object-cover"> in
+ * TopicBrowse.tsx.
+ */
+.aspect-video img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}

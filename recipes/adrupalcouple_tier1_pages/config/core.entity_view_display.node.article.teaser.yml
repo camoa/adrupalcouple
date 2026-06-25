@@ -1,0 +1,50 @@
+uuid: 2f843212-63e4-47f4-b8fd-869d751e5c99
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.article.field_tags
+    - field.field.node.article.schema_abstract
+    - field.field.node.article.schema_author
+    - field.field.node.article.schema_image
+    - node.type.article
+  module:
+    - manage_display
+id: node.article.teaser
+targetEntityType: node
+bundle: article
+mode: teaser
+content:
+  title:
+    type: title
+    label: hidden
+    settings:
+      link_to_entity: true
+      tag: h3
+    third_party_settings: {}
+    weight: -49
+    region: content
+hidden:
+  body: true
+  content_moderation_control: true
+  created: true
+  field_closing_question: true
+  field_comments: true
+  field_disclosure: true
+  field_illustrative: true
+  field_metric: true
+  field_review_date: true
+  field_social_excerpt: true
+  field_still_valid: true
+  field_tags: true
+  langcode: true
+  links: true
+  node_read_time: true
+  schema_about: true
+  schema_abstract: true
+  schema_article_subtype: true
+  schema_author: true
+  schema_image: true
+  schema_subject_of: true
+  uid: true

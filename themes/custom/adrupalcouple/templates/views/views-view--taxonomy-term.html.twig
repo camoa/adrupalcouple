@@ -1,0 +1,94 @@
+{#
+/**
+ * @file
+ * Tag (topic) landing page — views.view.taxonomy_term, page_1 display.
+ *
+ * Owns the full two-section layout:
+ *   S1  bg-base-100  — quiet header: eyebrow, H1 (topic name), count sentence, back link.
+ *   S2  bg-base-200  — article listing grid (TopicBrowse) or empty state.
+ *
+ * Architecture note: the taxonomy_term View page display intercepts the route
+ * taxonomy/term/% and replaces the entity display. taxonomy-term.html.twig is
+ * NOT rendered in this flow; this template owns the entire page content area.
+ *
+ * Available variables (standard views-view.html.twig):
+ * - total_rows: integer — total matched rows (used for count sentence).
+ * - rows:       render array — rendered article cards (via views-view-unformatted).
+ * - empty:      render array — empty text (unused; handled inline below).
+ * - title:      string — view title (term label from IndexTid::titleQuery()).
+ *               NOTE: may be wrapped in markup; use topic_label (from preprocess) instead.
+ * - id, display_id: view/display machine names.
+ *
+ * Extra variables (set by adrupalcouple_preprocess_views_view__taxonomy_term):
+ * - topic_label: string — clean taxonomy term label (safe for use as heading text and
+ *               aria-labelledby anchors). Injected via preprocess to avoid relying on
+ *               {{ title }} which carries H2/markup from the Views title mechanism.
+ *
+ * i18n strings (all via t()):
+ * - eyebrow:      "Topic" / "Tema"
+ * - count_one:    "{count} write-up tagged {topic}." / "{count} artículo sobre {topic}."
+ * - count_other:  "{count} write-ups tagged {topic}." / "{count} artículos sobre {topic}."
+ * - back_link:    "← All writing" / "← Toda la escritura"
+ * - empty:        "Nothing tagged this topic yet." / "Todavía no hay nada con este tema."
+ *
+ * React ref: src/pages/TagPage.tsx, src/components/TopicBrowse.tsx
+ *
+ * @see template_preprocess_views_view()
+ * @see adrupalcouple_preprocess_views_view__taxonomy_term()
+ */
+#}
+{%- set count = total_rows -%}
+{%- set tag_name = topic_label ?? '' -%}
+
+{# ──────────────────────────────────────────────────────────────────────────
+   S1 — Quiet topic header (bg-base-100).
+   No entrance animation (brand rule: listing pages carry none).
+   ────────────────────────────────────────────────────────────────────────── #}
+<section class="bg-base-100" aria-labelledby="topic-heading">
+  <div class="mx-auto max-w-5xl px-4 py-12 sm:py-16">
+
+    <p class="text-sm font-semibold uppercase tracking-wide text-primary">
+      {{- 'Topic'|t -}}
+    </p>
+
+    <h1 id="topic-heading" class="mt-2 font-heading text-4xl font-semibold sm:text-5xl">
+      {{- tag_name -}}
+    </h1>
+
+    {# Count sentence — only when there are results. Singular/plural noun branching. #}
+    {% if count > 0 %}
+      <p class="mt-3 text-lg">
+        {%- if count == 1 -%}
+          {{- count }} {{ 'write-up'|t }} {{ 'tagged'|t }} {{ tag_name }}.
+        {%- else -%}
+          {{- count }} {{ 'write-ups'|t }} {{ 'tagged'|t }} {{ tag_name }}.
+        {%- endif -%}
+      </p>
+    {% endif %}
+
+    <p class="mt-6">
+      <a href="/writing" class="link link-primary link-hover">← {{ 'All writing'|t }}</a>
+    </p>
+
+  </div>
+</section>
+
+{# ──────────────────────────────────────────────────────────────────────────
+   S2 — Filtered article-listing stream (bg-base-200).
+   SR-only H2 provides screen-reader context for the article list.
+   Grid or empty state rendered here; view rows go via
+   views-view-unformatted--taxonomy-term.html.twig.
+   ────────────────────────────────────────────────────────────────────────── #}
+<section class="bg-base-200" aria-labelledby="topic-stream">
+  <div class="mx-auto max-w-5xl px-4 py-12 sm:py-16">
+
+    <h2 id="topic-stream" class="sr-only">{{- tag_name -}}</h2>
+
+    {% if rows %}
+      {{- rows -}}
+    {% else %}
+      <p class="text-lg text-muted">{{ 'Nothing tagged this topic yet.'|t }}</p>
+    {% endif %}
+
+  </div>
+</section>

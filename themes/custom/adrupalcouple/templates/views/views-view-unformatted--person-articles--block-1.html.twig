@@ -1,0 +1,27 @@
+{#
+/**
+ * @file views-view-unformatted--person-articles--block-1.html.twig
+ *
+ * Unformatted style wrapper for person_articles:block_1 only.
+ *
+ * Renders article teaser cards in the TopicBrowse 2-column responsive grid:
+ *   Mobile (<640px):  1 column
+ *   sm (>=640px):     2 columns (max; no 3-col on person profile)
+ *
+ * Max-w-4xl container is set by the calling node template (S3 in
+ * node--person--full.html.twig) — this template only wraps the semantic list
+ * and grid. mt-6 provides gap from the "Their writing" heading above.
+ *
+ * <li class="contents"> uses CSS display:contents to flatten the list item so
+ * the card's own border/padding governs layout (matches writing-index pattern).
+ *
+ * @see node--person--full.html.twig
+ * @see node--article--teaser.html.twig
+ * @see views-view-unformatted--writing-index.html.twig
+ */
+#}
+<ul data-component="topic-browse" class="grid grid-cols-1 gap-6 sm:grid-cols-2 mt-6">
+  {% for row in rows %}
+    <li class="contents">{{ row.content }}</li>
+  {% endfor %}
+</ul>

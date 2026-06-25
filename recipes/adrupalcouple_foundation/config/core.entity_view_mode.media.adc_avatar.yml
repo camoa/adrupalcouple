@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - media
+id: media.adc_avatar
+label: 'Author Avatar (1:1 96px)'
+description: 'Square 96px avatar for author bylines and person tokens. Uses image_style adc_author_avatar_1x1_96.'
+targetEntityType: media
+cache: true

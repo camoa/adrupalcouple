@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - media
+id: media.couple_faces
+label: 'Couple Faces (128px)'
+description: 'Square 128px face crop for About page §1 CoupleHero and §3 CoupleStory. Uses image_style adc_couple_faces_1x1_128.'
+targetEntityType: media
+cache: true

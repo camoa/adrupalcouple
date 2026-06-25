@@ -1,0 +1,45 @@
+{#
+/**
+ * @file _avatar.html.twig
+ *
+ * Avatar primitive — DaisyUI avatar (with image) or avatar-placeholder (initials).
+ * Serves the author-avatar use case (byline, card) and couple-faces use case.
+ *
+ * Expected variables (pass via {% include '_avatar.html.twig' with { … } %}):
+ *   name:            string — Person full name. Used for alt text and initials fallback.
+ *   image_renderable: render array|null — If provided, renders the image inside the circle.
+ *                     If null/absent, falls back to initials placeholder.
+ *   size_class:      string — Tailwind width class (e.g. 'w-6', 'w-8', 'w-12').
+ *                    Defaults to 'w-8' (2rem).
+ *
+ * React reference: Avatar.tsx (components/Avatar.tsx).
+ * Initials: first two words' first characters, uppercased (matches Avatar.tsx logic).
+ *
+ * a11y: initials span is aria-hidden; sr-only span carries the full name.
+ */
+#}
+{% set _size = size_class|default('w-8') %}
+
+{# Compute initials from name (max 2 chars, uppercase). #}
+{% set _parts = name|split(' ')|filter %}
+{% set _initials = '' %}
+{% for part in _parts|slice(0, 2) %}
+  {% set _initials = _initials ~ part|first|upper %}
+{% endfor %}
+
+{% if image_renderable %}
+  {# With-image variant: avatar circle with image. #}
+  <div class="avatar">
+    <div class="rounded-full {{ _size }}">
+      {{ image_renderable }}
+    </div>
+  </div>
+{% else %}
+  {# Placeholder variant: bg-primary initials circle. #}
+  <div class="avatar avatar-placeholder">
+    <div class="rounded-full bg-primary text-primary-content {{ _size }}">
+      <span aria-hidden="true">{{ _initials }}</span>
+      <span class="sr-only">{{ name }}</span>
+    </div>
+  </div>
+{% endif %}

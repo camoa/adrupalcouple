@@ -1,0 +1,40 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.couple_hero
+    - field.field.node.couple.field_couple
+    - node.type.couple
+  module:
+    - layout_builder
+    - manage_display
+    - node
+third_party_settings:
+  layout_builder:
+    enabled: false
+    allow_custom: false
+id: node.couple.couple_hero
+targetEntityType: node
+bundle: couple
+mode: couple_hero
+content:
+  field_couple:
+    type: entity_reference_entity_view
+    label: hidden
+    settings:
+      view_mode: couple_faces
+      link: false
+    third_party_settings: {}
+    weight: 0
+    region: content
+hidden:
+  body: true
+  created: true
+  field_community_story: true
+  field_milestone: true
+  langcode: true
+  links: true
+  node_read_time: true
+  schema_image: true
+  title: true
+  uid: true

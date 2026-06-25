@@ -1,0 +1,78 @@
+{#
+/**
+ * @file couples_card.twig
+ *
+ * Couples Card SDC — adrupalcouple:couples_card
+ * React reference: CouplesCard.tsx + Avatar.tsx
+ * Used in: node--couple--teaser.html.twig (couples_grid View row rendering)
+ *
+ * Props (from adrupalcouple_preprocess_node__couple via node template):
+ *   couple_name    — couple display name (h3.card-title)
+ *   couple_url     — path alias /couples/{slug}
+ *   story_excerpt  — body summary or truncated body text
+ *   founding       — boolean founding badge trigger
+ *   founding_label — t('Founding couple')
+ *   couple_persons — array of { name, avatar_url, initials }
+ *   modifier_class — optional extra class on article root
+ *
+ * Motion: transition-colors duration-150 hover:border-primary on card root.
+ * prefers-reduced-motion: a11y.pcss global rule zeroes transition-duration
+ * with !important — no per-card override needed.
+ */
+#}
+<article
+  data-component="couples-card"
+  class="card border border-base-300 bg-base-100 transition-colors duration-150 hover:border-primary{{ modifier_class ? ' ' ~ modifier_class }}"
+>
+  <div class="card-body">
+
+    {# ── Avatar pair — overlapping via -space-x-2 ────────────────────────── #}
+    <div class="flex -space-x-2">
+      {% for person in couple_persons %}
+        {% if person.avatar_url %}
+          {# Image branch: pre-built URL from adc_couple_faces_1x1_128 (128×128px WebP). #}
+          <div class="avatar">
+            <div class="rounded-full w-16">
+              <img
+                src="{{ person.avatar_url }}"
+                alt="{{ person.name }}"
+                width="128"
+                height="128"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+          </div>
+        {% else %}
+          {# Initials fallback — mirrors Avatar.tsx avatar-placeholder branch. #}
+          {#
+            Compute initials inline (no custom Twig filter needed):
+            first letter of each word, max 2 chars, uppercase.
+            person.initials is pre-computed by preprocess (PHP is safer for mb_substr).
+            If for any reason it is empty, fall back to first char of the name.
+          #}
+          {%- set _initials = person.initials is not empty ? person.initials : (person.name[0:1]|upper) -%}
+          <div class="avatar avatar-placeholder">
+            <div class="rounded-full bg-primary text-primary-content w-16">
+              <span aria-hidden="true">{{ _initials }}</span>
+              <span class="sr-only">{{ person.name }}</span>
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    {# ── Couple name + optional founding badge ───────────────────────────── #}
+    <h3 class="card-title mt-2 font-heading">
+      <a href="{{ couple_url }}" class="link link-hover">{{ couple_name }}</a>
+      {% if founding and founding_label %}
+        <span class="badge badge-secondary badge-sm">{{ founding_label }}</span>
+      {% endif %}
+    </h3>
+
+    {# ── Story excerpt ─────────────────────────────────────────────────── #}
+    {# D2: text-muted = var(--color-muted-content) = 5.62:1 contrast on base-100. #}
+    <p class="text-sm text-muted">{{ story_excerpt }}</p>
+
+  </div>
+</article>

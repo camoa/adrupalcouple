@@ -1,18 +1,40 @@
 name: 'ADrupalCouple Tier1 Pages'
 description: >
-  Reconciles the node.page bundle for the compositional Home/About pages and the
-  structured Accessibility-statement page. All node.page fields (body, field_tags,
-  schema_primary_image, schema_about, schema_related_link, schema_significant_link,
-  schema_subject_of, schema_web_page_subtype) already exist on the live site and are
-  kept verbatim (reconcile-only — no rename, no new field). Layout Builder is already
-  enabled site-wide; the per-node Home/About LB section composition (masthead +
-  couple_hero inline blocks from adrupalcouple_tier1_sections, latest-writing View) is
-  applied at the node/template layer, not as bundle-default view-display config here.
+  Provides the node.page bundle configuration for compositional Home and About pages
+  and the structured Accessibility-statement page. Adds field_subtitle to node.page
+  (EN/ES translatable standfirst for the Home masthead). Rebuilds the node.page.full
+  Layout Builder display (2 sections: bg-base-100 masthead + bg-base-200 latest-writing
+  View) with allow_custom:false (fixed bundle-default composition). Adds the block_home
+  display to views.view.frontpage. Updates node.article.teaser to remove the dropped
+  field_rating dependency.
 type: 'Content type'
+recipes:
+  - adrupalcouple_tier2_article
+  - adrupalcouple_tier2_couple
 install:
   - layout_builder
   - node
+  - ui_styles_layout_builder
 config:
-  # strict: false — node.page and all its fields pre-exist on live; this recipe is a
-  # reconcile placeholder in the dependency chain (tier2_article + tier2_couple → here).
+  # strict: false — node.page and its pre-existing fields are reconciled in place.
+  # field_subtitle is NEW and will be created on first apply.
+  # views.view.frontpage reconciles the existing sync config (UUID preserved), dropping
+  # legacy fivestar/node_read_time deps and adding the block_home block display.
+  # core.entity_view_display.node.page.full is fully replaced (2-section LB layout).
   strict: false
+  actions:
+    # ABOUT-PAGE GATE: Enable per-node LB customization so the About page node can
+    # carry its own 4-section LB override (couple_hero §1, origin prose §2, community
+    # arc §3, contact coda §4) independently of the bundle-default Home layout.
+    #
+    # CONFLICT NOTE: The Home page task set allow_custom:false (2-section bundle
+    # default). This action overrides that to allow_custom:true so the About page node
+    # can use a per-node override. Home page should ALSO use a per-node override that
+    # matches the 2-section masthead+writing design. The bundle default (allow_custom:
+    # true) remains as a fallback for other node.page entities.
+    #
+    # This action MUST appear after the setProperties on node.page.full (if that action
+    # sets allow_custom:false). Recipe actions execute sequentially — ordering is safe.
+    core.entity_view_display.node.page.full:
+      setProperties:
+        third_party_settings.layout_builder.allow_custom: true

@@ -1,0 +1,51 @@
+{#
+/**
+ * @file views-view--writing-index--page-1.html.twig
+ *
+ * Writing index — full 3-section page layout.
+ * React reference: WritingPage.tsx + composition.md (page: writing-index).
+ *
+ * Sections:
+ *   S1  Above-fold header + topic-chip browse  (bg-base-100)
+ *       Rendered via _writing-s1-header.html.twig (included below).
+ *       tag_chips var provided by adrupalcouple_preprocess_views_view__writing_index().
+ *
+ *   S2  Article listing stream                 (bg-base-200)
+ *       {{ rows }} → views-view-unformatted--writing-index.html.twig (<ul> grid).
+ *
+ *   S3  Evidence understatement                (bg-base-100)
+ *       Rendered via _writing-s3-evidence.html.twig (included below).
+ *       article_count + topics_count vars provided by preprocess hook.
+ *
+ * Motion: transition-colors duration-150 on chips and cards ONLY.
+ *         No entrance animation; page arrives composed (M8.2, Apple HIG).
+ * Pager:  Standard full pager — no infinite scroll (Norman 2013 ch. 4).
+ *
+ * @see adrupalcouple_preprocess_views_view__writing_index() in adrupalcouple.theme
+ * @see views-view-unformatted--writing-index.html.twig
+ * @see _writing-s1-header.html.twig
+ * @see _writing-s3-evidence.html.twig
+ */
+#}
+
+{# ── S1 — Above-fold header + topic-chip browse (bg-base-100) ── #}
+{% include '@adrupalcouple/partials/_writing-s1-header.html.twig' %}
+
+{# ── S2 — Article listing stream (bg-base-200) ── #}
+<section id="writing-stream" aria-labelledby="stream-heading" class="bg-base-200">
+  <div class="mx-auto max-w-5xl px-4 py-12 sm:py-16">
+    <h2 id="stream-heading" class="font-heading text-2xl font-semibold">
+      {{ 'Latest writing'|t }}
+    </h2>
+    {% if rows %}
+      {# <ul> grid wrapper comes from views-view-unformatted--writing-index.html.twig #}
+      {{ rows }}
+    {% elseif empty %}
+      <p class="mt-6 text-muted">{{ empty }}</p>
+    {% endif %}
+    {{ pager }}
+  </div>
+</section>
+
+{# ── S3 — Evidence understatement (bg-base-100) ── #}
+{% include '@adrupalcouple/partials/_writing-s3-evidence.html.twig' %}

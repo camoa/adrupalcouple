@@ -3,57 +3,144 @@
  * @file
  * Canonical article reading display — node.article, `full_article` view mode.
  *
- * Enforces the 66–72ch reading column (DaisyUI `prose max-w-prose`).
- * Byline (author + date + computed read-time) renders ABOVE the H1.
- * schema_image is NEVER rendered on-page (og/thumbnail only — brand rule Q-05).
+ * Also serves the `full` view mode via hook_theme_suggestions_node_alter()
+ * (inserts node__article__full_article into suggestion list).
  *
- * Conditional regions:
- * - field_metric    → DaisyUI stats block (UI Patterns ui_suite_daisyui:stat_item).
- * - field_disclosure → alert/note box.
+ * Layout: single reading column (68ch, .reading-column) with prose rhythm
+ * (.reading-prose). Three logical sections:
+ *   1. Header   — illustrative badge (conditional) + title + dek + byline
+ *   2. Body     — CKEditor prose + optional evidence callout
+ *   3. Close    — topic chips + read-time + invitation close + comment thread
  *
- * Extra vars:
- * - read_time: int, minutes, from adrupalcouple_preprocess_node__article().
+ * schema_image is NEVER rendered on-page (og:image only — brand rule Q-05).
+ * No on-page hero image anywhere on this page.
  *
- * @see template_preprocess_node()
+ * Extra variables supplied by adrupalcouple_preprocess_node__article():
+ * - read_time        int     — computed reading minutes (≈238 wpm from body).
+ * - is_illustrative  bool    — TRUE when field_illustrative is checked.
+ * - closing_question string  — field_closing_question value; empty string if
+ *                              not set (InvitationClose falls back to no label).
+ * - byline           array   — SDC render array for adrupalcouple:voice_attributed_byline;
+ *                              NULL when schema_author is empty.
+ *
+ * @see adrupalcouple_preprocess_node__article()
+ * @see adrupalcouple_theme_suggestions_node_alter()
+ * @see components/voice_attributed_byline/voice_attributed_byline.component.yml
  */
 #}
-<article{{ attributes.addClass('node--article node--view-mode--full-article') }}>
-  <header class="article-header prose max-w-prose mx-auto px-4 pt-12 pb-6">
-    <div class="byline flex items-center gap-3 text-sm text-base-content/60 mb-4">
-      {{ content.schema_author }}
-      <span aria-hidden="true">·</span>
-      {{ content.created }}
-      {% if read_time %}
-        <span aria-hidden="true">·</span>
-        <span class="read-time">{{ read_time }} min read</span>
-      {% endif %}
-    </div>
-    <h1 class="article-title text-3xl font-bold tracking-tight">{{ label }}</h1>
-    {% if content.schema_abstract|render|trim %}
-      <p class="article-dek text-xl text-base-content/70 mt-3">{{ content.schema_abstract }}</p>
+<article{{ attributes.addClass('reading-column reading-prose py-12') }}>
+
+  {# ──────────────────────────────────────────────────────────────────────── #}
+  {# Section 1 — Article Header                                              #}
+  {# React: <header class="mb-12"> inside ReadingColumn                     #}
+  {# ──────────────────────────────────────────────────────────────────────── #}
+  <header class="mb-12">
+
+    {# 1a. Illustrative badge — conditional; field_illustrative (boolean) #}
+    {% if is_illustrative %}
+      <p class="mb-4 inline-block rounded-field border border-secondary px-3 py-1 text-xs font-semibold uppercase tracking-wide text-secondary">
+        {{ 'Illustrative example'|t }}
+      </p>
     {% endif %}
+
+    {# 1b. Title — bare <h1>, no Drupal field wrapper (brand rule: no div.field--name-title) #}
+    {# React: <h1 class="font-heading text-4xl font-semibold leading-tight sm:text-5xl"> #}
+    <h1 class="font-heading text-4xl font-semibold leading-tight sm:text-5xl">{{ label }}</h1>
+
+    {# 1c. Dek / standfirst — schema_abstract plain text; full ink (D2: no opacity reduction) #}
+    {# React: <p class="mt-4 text-lg leading-relaxed">{article.dek}</p> #}
+    {% if node.schema_abstract.value %}
+      <p class="mt-4 text-lg leading-relaxed">{{ node.schema_abstract.value }}</p>
+    {% endif %}
+
+    {# 1d. VoiceAttributedByline — SDC component render array from preprocess #}
+    {# React: <VoiceAttributedByline className="mt-6" author={...} date={...} ... /> #}
+    {% if byline %}
+      <div class="mt-6">{{ byline }}</div>
+    {% endif %}
+
   </header>
 
-  <div class="article-body prose max-w-prose mx-auto px-4">
-    {{ content.body }}
-    {% if content.field_metric|render|trim %}
-      <div class="stats stats-vertical lg:stats-horizontal shadow w-full my-8" aria-label="Evidence">
-        {{ content.field_metric }}
-      </div>
-    {% endif %}
-  </div>
+  {# ──────────────────────────────────────────────────────────────────────── #}
+  {# Section 2 — Body                                                        #}
+  {# React: <ArticleBody blocks={article.body} /> + <EvidenceCallout />      #}
+  {# ──────────────────────────────────────────────────────────────────────── #}
 
-  <footer class="article-footer prose max-w-prose mx-auto px-4 pb-16">
-    {% if content.field_tags|render|trim %}
-      <nav class="article-tags flex flex-wrap gap-2 mt-8" aria-label="Topics">
-        {{ content.field_tags }}
-      </nav>
+  {# 2a. CKEditor 5 prose body — text_default formatter #}
+  {# Pull-quote/blockquote + code blocks + in-body figures styled by         #}
+  {# code-highlight.css (attached per-article via hook_preprocess) +         #}
+  {# .reading-prose selectors in css/utilities/reading.pcss                 #}
+  {{ content.body }}
+
+  {# 2b. Evidence callout — field_metric via ui_patterns_component_per_item  #}
+  {# → ui_suite_daisyui:stat_item. Template provides the .stats wrapper.     #}
+  {# React: <EvidenceCallout className="my-8 bg-base-200" stats={...} />     #}
+  {# Conditional: only rendered when field_metric is non-empty.              #}
+  {% if content.field_metric|render|trim %}
+    <div
+      data-component="evidence-callout"
+      class="stats stats-vertical w-full border border-base-300 bg-base-200 lg:stats-horizontal my-8"
+      aria-label="{{ 'Evidence'|t }}"
+    >
+      {{ content.field_metric }}
+    </div>
+  {% endif %}
+
+  {# ──────────────────────────────────────────────────────────────────────── #}
+  {# Section 3 — Close                                                       #}
+  {# React: topic chips nav + ReadingAids + InvitationClose                  #}
+  {# ──────────────────────────────────────────────────────────────────────── #}
+
+  {# 3a. Topic chips nav — conditional; iterates node.field_tags directly   #}
+  {# for precise badge class control (entity_reference_label formatter       #}
+  {# would wrap in Drupal field markup we do not want here).                 #}
+  {# React: <nav aria-label={s.topicsLabel}><Link class="badge ...">...</nav>#}
+  {% if node.field_tags is not empty %}
+    <nav class="mt-12 flex flex-wrap items-center gap-2" aria-label="{{ 'Topics'|t }}">
+      {# D2: text-muted = var(--color-muted-content) = 5.62:1 on base-100 #}
+      <span class="text-sm font-semibold text-muted">{{ 'Topics'|t }}</span>
+      {% for item in node.field_tags %}
+        {% if item.entity %}
+          {# D6: topic-chip enforces 24px min-block-size (WCAG 2.5.8 AA) via a11y.pcss #}
+          <a
+            href="{{ url('entity.taxonomy_term.canonical', {taxonomy_term: item.target_id}) }}"
+            class="badge badge-outline badge-sm topic-chip transition-colors duration-150 hover:border-primary hover:text-primary"
+          >
+            {{ item.entity.label }}
+          </a>
+        {% endif %}
+      {% endfor %}
+    </nav>
+  {% endif %}
+
+  {# 3b. ReadingAids — computed read-time (Q-10: no stored field)           #}
+  {# React: <ReadingAids className="mt-12" readTimeMinutes={minutes} />     #}
+  {# Footnote section omitted: CKEditor footnote plugin not confirmed in    #}
+  {# this install; add when CKEditor footnote plugin is verified.           #}
+  {% if read_time %}
+    <div data-component="reading-aids" class="text-sm mt-12">
+      <p class="text-muted">{{ '@minutes min read'|t({'@minutes': read_time}) }}</p>
+    </div>
+  {% endif %}
+
+  {# 3c. InvitationClose — closing question + Drupal core comment thread    #}
+  {# React: <InvitationClose question={s.invitationQuestion} ... />         #}
+  {# closing_question: field_closing_question value from preprocess;        #}
+  {# falls back gracefully when empty (section still renders for comments). #}
+  <section data-component="invitation-close" class="my-10">
+    {% if closing_question %}
+      {# Full ink (14.43:1 on base-100) — no opacity reduction, no text-muted #}
+      <p class="font-heading text-lg">{{ closing_question }}</p>
     {% endif %}
-    {% if content.field_disclosure|render|trim %}
-      <div role="note" class="alert alert-info mt-8 text-sm">
-        <strong>Disclosure:</strong> {{ content.field_disclosure }}
+
+    <div class="mt-8 border-t border-base-300 pt-6">
+      {# <h2> is a semantic heading in the page outline per accessibility spec #}
+      <h2 class="font-heading text-base font-semibold text-muted">{{ 'Comments'|t }}</h2>
+      <p class="mt-1 text-sm text-muted">{{ 'Comments are open. Add yours below.'|t }}</p>
+      <div class="mt-4 rounded-box border border-dashed border-base-300 p-4" style="background-color: color-mix(in oklab, var(--color-base-200) 50%, transparent);">
+        {{ content.field_comments }}
       </div>
-    {% endif %}
-    {{ content.field_comments }}
-  </footer>
+    </div>
+  </section>
+
 </article>

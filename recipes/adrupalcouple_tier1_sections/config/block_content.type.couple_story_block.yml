@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {}
+id: couple_story_block
+label: 'Couple Story Block'
+revision: false
+description: 'Community-arc section block for About §3. References the couple node and renders it via the couple_story view mode (community prose + faces + milestone list).'

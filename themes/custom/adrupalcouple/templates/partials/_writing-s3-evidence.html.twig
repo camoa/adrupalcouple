@@ -1,0 +1,53 @@
+{#
+/**
+ * @file _writing-s3-evidence.html.twig
+ *
+ * Writing index — S3: Evidence understatement callout.
+ *
+ * Included from views-view--writing-index--page-1.html.twig.
+ * Background: bg-base-100 (surface_default).
+ *
+ * Variables provided by adrupalcouple_preprocess_views_view__writing_index():
+ *   article_count: int — published article node count (no illustrative filter in Drupal,
+ *                         see task spec Q-10 note and data-model.md).
+ *   topics_count:  int — taxonomy term count in vocabulary 'tags'.
+ *
+ * CRITICAL: stat values are NEVER animated. Static text, no JavaScript count-up.
+ * Authority is earned via real data. (component-palette.md §6 failure-mode F-Feature-1.)
+ *
+ * DaisyUI stats:
+ *   Mobile/sm: stats-vertical (stacked)
+ *   lg (>=1024px): stats-horizontal (side-by-side)
+ *   .stat-title color: var(--color-muted-content) — global override in a11y.pcss (D2: 5.62:1).
+ *
+ * i18n: writingStrings.evidenceHeading, writingStrings.articlesLabel, writingStrings.topicsLabel.
+ */
+#}
+<section aria-labelledby="evidence-heading" class="bg-base-100">
+  <div class="mx-auto max-w-5xl px-4 py-12 sm:py-16">
+
+    <h2 id="evidence-heading" class="font-heading text-2xl font-semibold">
+      {{ 'What lives here so far'|t }}
+    </h2>
+
+    {#
+     * DaisyUI stats component — static, never animated.
+     * data-component attr is the scoped CSS selector target.
+     #}
+    <div data-component="evidence-callout"
+         class="stats stats-vertical w-full border border-base-300 bg-base-100 lg:stats-horizontal mt-6">
+
+      <div class="stat">
+        <div class="stat-value font-heading text-primary">{{ article_count|default(0) }}</div>
+        <div class="stat-title whitespace-normal">{{ 'honest write-ups published'|t }}</div>
+      </div>
+
+      <div class="stat">
+        <div class="stat-value font-heading text-primary">{{ topics_count|default(0) }}</div>
+        <div class="stat-title whitespace-normal">{{ 'topics in rotation'|t }}</div>
+      </div>
+
+    </div>
+
+  </div>
+</section>

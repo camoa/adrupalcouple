@@ -1,0 +1,69 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.couple_story
+    - field.field.node.couple.field_community_story
+    - field.field.node.couple.field_couple
+    - field.field.node.couple.field_milestone
+    - node.type.couple
+  module:
+    - custom_field
+    - layout_builder
+    - manage_display
+    - node
+    - text
+    - ui_patterns
+third_party_settings:
+  layout_builder:
+    enabled: false
+    allow_custom: false
+id: node.couple.couple_story
+targetEntityType: node
+bundle: couple
+mode: couple_story
+content:
+  field_community_story:
+    type: text_default
+    label: hidden
+    settings: {}
+    third_party_settings: {}
+    weight: 0
+    region: content
+  field_couple:
+    type: entity_reference_entity_view
+    label: hidden
+    settings:
+      view_mode: couple_faces
+      link: false
+    third_party_settings: {}
+    weight: 1
+    region: content
+  field_milestone:
+    type: ui_patterns_component_per_item
+    label: hidden
+    settings:
+      ui_patterns:
+        component_id: 'ui_suite_daisyui:timeline_item'
+        props: {}
+        slots:
+          timeline_start:
+            sources:
+              - source_id: 'field_property:node:field_milestone:year'
+                source: {}
+          timeline_end:
+            sources:
+              - source_id: 'field_property:node:field_milestone:label'
+                source: {}
+    third_party_settings: {}
+    weight: 2
+    region: content
+hidden:
+  body: true
+  created: true
+  langcode: true
+  links: true
+  node_read_time: true
+  schema_image: true
+  title: true
+  uid: true

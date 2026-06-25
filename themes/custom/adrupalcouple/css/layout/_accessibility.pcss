@@ -1,0 +1,31 @@
+/**
+ * Accessibility statement page — scoped styles.
+ *
+ * Applies only to node--page--accessibility.html.twig via the
+ * .node--page--accessibility wrapper class.
+ *
+ * Tailwind v4 Preflight resets heading font-size/weight to inherit, so h2
+ * elements in non-prose sections (section 4: "Report an issue") need an
+ * explicit rule. Sections 2-3 get their h2 styling from .reading-prose h2
+ * (reading.pcss), which sets the same size; both coexist at equal specificity.
+ */
+
+@layer components {
+  /* h2 baseline — applies to all five sections (reading-prose overrides margin
+     for sections 2-3; this covers section 4 which has no .reading-prose wrapper). */
+  .node--page--accessibility h2 {
+    font-size: 1.5rem;   /* text-2xl — matches design spec + .reading-prose h2 */
+    font-weight: 600;    /* font-semibold */
+    line-height: 1.15;   /* matches base.pcss heading line-height */
+    margin-block-end: 0.75rem;
+  }
+
+  /* Section 4 (Report an issue) body paragraph — no .reading-prose wrapper so
+     the mt-4 / text-lg / leading-relaxed inline classes are the only styling.
+     This rule provides a fallback if those classes are purged from the build. */
+  .node--page--accessibility .accessibility-report-body {
+    margin-block-start: 1rem;   /* mt-4 */
+    font-size: 1.125rem;        /* text-lg */
+    line-height: 1.625;         /* leading-relaxed */
+  }
+}

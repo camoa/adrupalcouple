@@ -1,0 +1,35 @@
+{#
+/**
+ * @file
+ * TopicBrowse grid — views-view-unformatted for views.view.taxonomy_term.
+ *
+ * Renders the article card grid matching React <TopicBrowse> component:
+ *   <ul data-component="topic-browse" class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+ *     <li class="contents">…card…</li>
+ *   </ul>
+ *
+ * Breakpoints:
+ * - < sm (640px): single column (grid-cols-1)
+ * - ≥ sm (640px): two columns (sm:grid-cols-2), gap-6
+ *
+ * <li class="contents"> removes the list item box from layout so the card
+ * participates directly in the CSS grid (matches React <li className="contents">).
+ *
+ * Each row renders node.article in teaser view mode →
+ * node--article--teaser.html.twig.
+ *
+ * React ref: src/components/TopicBrowse.tsx
+ *
+ * @see template_preprocess_views_view_unformatted()
+ */
+#}
+<ul
+  data-component="topic-browse"
+  class="grid grid-cols-1 gap-6 sm:grid-cols-2"
+>
+  {% for row in rows %}
+    <li class="contents">
+      {{- row.content -}}
+    </li>
+  {% endfor %}
+</ul>

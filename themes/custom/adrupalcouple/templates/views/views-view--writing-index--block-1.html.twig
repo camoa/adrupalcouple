@@ -1,0 +1,17 @@
+{#
+/**
+ * @file views-view--writing-index--block-1.html.twig
+ *
+ * Writing index — block_1 display for embedding on the Home page (S2 region).
+ *
+ * Renders only the article card grid — no H1, no topic chips, no evidence callout.
+ * The <ul> grid wrapper is provided by views-view-unformatted--writing-index.html.twig.
+ *
+ * @see views-view-unformatted--writing-index.html.twig
+ */
+#}
+{% if rows %}
+  {{ rows }}
+{% elseif empty %}
+  {{ empty }}
+{% endif %}

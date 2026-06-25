@@ -43,10 +43,11 @@
 @import "./utilities/utilities.pcss";
 
 /**
- * Import layout partials (nav + footer chrome).
+ * Import layout partials (nav + footer chrome + page-specific overrides).
  */
 @import "./layout/_nav.pcss";
 @import "./layout/_footer.pcss";
+@import "./layout/_accessibility.pcss";
 
 /**
  * Unlayered a11y overrides — reduced-motion floor + cascade beats @layer daisyui.*.

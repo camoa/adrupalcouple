@@ -4,6 +4,8 @@ type: 'Content type'
 install:
   # twitter:image mapping requires the Twitter Cards metatag submodule (present, was disabled).
   - metatag_twitter_cards
+  # views must be installed before views.view.writing_index config can be applied.
+  - views
 config:
   # strict: false — fields may already exist on live (schema_image pre-dates recipe; illustrative
   # + closing_question added via g_content_model_fields task). Config files provide canonical
@@ -105,7 +107,7 @@ config:
           schema_image:
             type: entity_reference_entity_view
             label: hidden
-            settings: { view_mode: small_thumbnail, link: false }
+            settings: { view_mode: adc_card_thumbnail, link: false }
             third_party_settings: {  }
             weight: 0
             region: content
@@ -126,7 +128,10 @@ config:
           schema_author:
             type: entity_reference_entity_view
             label: hidden
-            settings: { view_mode: token, link: false }
+            # author_byline view mode: w-6 (24px) avatar + name, no role line.
+            # Falls back to token if author_byline is not yet installed (p8 dependency:
+            # local:page_tag → tier2_person must be applied first).
+            settings: { view_mode: author_byline, link: false }
             third_party_settings: {  }
             weight: 3
             region: content
@@ -180,7 +185,7 @@ config:
           schema_image:
             type: entity_reference_entity_view
             label: hidden
-            settings: { view_mode: small_thumbnail, link: false }
+            settings: { view_mode: adc_card_thumbnail, link: false }
             third_party_settings: {  }
             weight: 1
             region: content
@@ -345,3 +350,91 @@ config:
           layout_builder: { enabled: false, allow_custom: false }
         content: *article_reading_content
         hidden: *article_reading_hidden
+
+    # --- View: taxonomy_term (tag listing page) ---
+    # Reconcile G-CONV-36: the sync config at sites/default/sync/views.view.taxonomy_term.yml
+    # has a legacy page_1 display using field-based rows with HTML-rewrite strings.
+    # The canonical version is in config/views.view.taxonomy_term.yml (this recipe).
+    # These setProperties bring the existing install in sync:
+    #   - default display: entity:node teaser row, unformatted style, no pager, no header,
+    #     + field_illustrative filter (exclude illustrative=1), argument title from term label.
+    #   - page_1 display: delegate all to defaults (path only override).
+    # NOTE: setProperties does a deep-merge per top-level key. The 'filters' merge adds
+    # field_illustrative without touching existing status/type/langcode filters.
+    views.view.taxonomy_term:
+      setProperties:
+        # NOTE: SetProperties does NOT deep-merge — it REPLACES each named property.
+        # Therefore we target individual leaves with dotted property paths (like the
+        # couples_grid action) instead of a nested `display:` map, which would drop
+        # display_plugin/id from every display and break the view (null display handler).
+        display.default.display_options.row:
+          type: 'entity:node'
+          options:
+            relationship: none
+            view_mode: teaser
+        display.default.display_options.style:
+          type: default
+          options:
+            grouping: {  }
+            row_class: ''
+            default_row_class: true
+            uses_fields: false
+        display.default.display_options.pager:
+          type: none
+          options:
+            offset: 0
+        # Add the field_illustrative exclusion filter (leaf path preserves existing
+        # langcode/status/type filters).
+        display.default.display_options.filters.field_illustrative:
+          id: field_illustrative
+          table: node__field_illustrative
+          field: field_illustrative_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: boolean
+          operator: '!='
+          value: '1'
+          group: 1
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+        # tid argument already exists (taxonomy_index_tid) — set only the title leaves.
+        display.default.display_options.arguments.tid.title_enable: true
+        display.default.display_options.arguments.tid.title: ''
+        # page_1: inherit row/style/etc from default (drops legacy field-based rows).
+        display.page_1.display_options.defaults:
+          row: true
+          style: true
+          fields: true
+          pager: true
+          header: true
+          footer: true
+          empty: true
+          filters: true
+          arguments: true
+          sorts: true

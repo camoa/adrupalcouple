@@ -1,0 +1,156 @@
+{#
+/**
+ * @file node--page--full.html.twig
+ *
+ * node.page — `full` view mode.
+ *
+ * Used for ALL node.page nodes in full view mode (the `node__page__full`
+ * suggestion is added automatically by template_preprocess_node()).
+ *
+ * HOME PAGE (is_front == true):
+ *   Renders the three-section Home composition directly, bypassing the LB
+ *   section render (content['_layout_builder']). Section backgrounds and
+ *   spacing are hardcoded to match the LB bundle-default UI Styles tokens:
+ *     §1 bg-base-100 py-16  — Compact masthead (brand name, H1, subtitle,
+ *                              TwoPersonCredit SDC, quiet /writing link)
+ *     §1b bg-base-100       — Positioning intro line (node.body in reading col)
+ *     §2 bg-base-200 py-16  — Latest writing card grid (drupal_view())
+ *
+ *   Section aria: §1 aria-labelledby="home-claim" (the H1)
+ *                 §2 aria-labelledby="home-latest" (h2 rendered inside the View)
+ *
+ * NON-HOME PAGES (is_front == false):
+ *   Falls through to {{ content }} — the LB bundle-default render.
+ *   About page task (page_about) will intercept via its own template branch or
+ *   allow_custom: true per-node override (separate recipe action).
+ *
+ * Variables injected by adrupalcouple_preprocess_node__page():
+ *   is_front       — bool, TRUE only on the Drupal front page
+ *   site_name      — string, system site name ('A Drupal Couple')
+ *   couple_credit  — array|null with props for adrupalcouple:two_person_credit SDC:
+ *                    person_1_name, person_1_href, person_2_name, person_2_href,
+ *                    modifier_class, person_1_avatar (render array),
+ *                    person_2_avatar (render array)
+ *
+ * Standard node template variables:
+ *   label           — node.page title (the H1 tagline / homeClaim)
+ *   content.body    — rendered body field (intro line prose; text_default formatter)
+ *   node            — full node entity (for direct .field_subtitle.value access)
+ *   url             — node canonical URL
+ *
+ * Motion: no above-fold entrance animation (design-system §M8.2 universal
+ *         above-fold restraint). Hover on links: 150ms ease (productive register).
+ *
+ * React reference: HomePage.tsx
+ *
+ * @see template_preprocess_node()
+ * @see adrupalcouple_preprocess_node__page()
+ * @see adrupalcouple:two_person_credit (SDC component)
+ * @see views-view--frontpage--block-home.html.twig
+ */
+#}
+
+{% if is_front %}
+
+  {#
+    § 1 — Compact masthead.
+    bg-base-100 (warm-grey #F6F5F4 in adc-warm theme).
+    Inner container max-w-3xl keeps heading measure tight.
+    aria-labelledby="home-claim" references the H1 id below.
+  #}
+  <section class="bg-base-100" aria-labelledby="home-claim">
+    <div class="mx-auto max-w-3xl px-4 py-16 sm:py-24">
+
+      {# Brand logotype line — site name rendered above the H1. #}
+      {% if site_name %}
+        <p class="font-heading text-base font-semibold tracking-tight text-primary">{{ site_name }}</p>
+      {% endif %}
+
+      {#
+        H1 tagline — the node.page title value (homeClaim, translatable).
+        id="home-claim" is the ARIA label target for the section above.
+        Responsive: text-4xl on mobile → sm:text-5xl at ≥640 px.
+      #}
+      <h1 id="home-claim" class="mt-4 font-heading text-4xl font-semibold leading-tight sm:text-5xl">
+        {{ label }}
+      </h1>
+
+      {#
+        Subtitle / standfirst (homeClaimSub, translatable).
+        Full ink color — D2 fix: opacity-80 fails WCAG AA (3.91:1);
+        full color = 14.43:1.  See composition.md §4.
+        Source: node.page.field_subtitle (string_long). Falls back to
+        body.summary only when field_subtitle is empty.
+      #}
+      {% set subtitle_text = node.field_subtitle.value %}
+      {% if not subtitle_text and node.body.summary %}
+        {% set subtitle_text = node.body.summary %}
+      {% endif %}
+      {% if subtitle_text %}
+        <p class="mt-4 max-w-2xl text-lg sm:text-xl">{{ subtitle_text }}</p>
+      {% endif %}
+
+      {#
+        TwoPersonCredit — site-level couple-verification credit above the fold.
+        SDC adrupalcouple:two_person_credit.
+        couple_credit props injected by adrupalcouple_preprocess_node__page().
+        modifier_class 'mt-8' provides the mt-8 spacing from the spec.
+      #}
+      {% if couple_credit %}
+        {{ include('adrupalcouple:two_person_credit', couple_credit, with_context: false) }}
+      {% endif %}
+
+      {# Quiet entry link to /writing (heroLinkLatest, translatable). #}
+      <p class="mt-8">
+        <a href="{{ url('view.writing_index.page_1') }}"
+           class="link link-primary link-hover font-semibold">
+          {{ 'Explore the writing'|t }}
+        </a>
+      </p>
+
+    </div>
+  </section>
+
+  {#
+    § 1b — Positioning intro line.
+    Still bg-base-100 (shares React Section 1 background).
+    ~66ch reading column via max-w-[66ch]; pb-12 asymmetric bottom spacing.
+    Source: node.page.body (text_with_summary, text_default formatter).
+    The body.summary is used as subtitle above; body.value is the intro line.
+  #}
+  {% if content.body|render|trim %}
+    <section class="bg-base-100">
+      <div class="mx-auto max-w-[66ch] px-4 pb-12 prose">
+        {{ content.body }}
+      </div>
+    </section>
+  {% endif %}
+
+  {#
+    § 2 — Latest writing card grid.
+    bg-base-200 (#ECEBE8 in adc-warm theme).
+    drupal_view() renders the frontpage view's block_home display, which applies:
+      views-view--frontpage--block-home.html.twig (heading + grid + footer link)
+      views-view-unformatted--frontpage--block-home.html.twig (3-col grid)
+      node--article--teaser.html.twig (per-card DaisyUI card)
+    aria-labelledby="home-latest" references the h2 id inside the View template.
+  #}
+  <section class="bg-base-200" aria-labelledby="home-latest">
+    {{ drupal_view('frontpage', 'block_home') }}
+  </section>
+
+{% else %}
+
+  {#
+    Non-Home page nodes (About, Accessibility-statement, etc.).
+    Falls through to the LB bundle-default render.
+    NOTE: About page task (page_about) should add its own template branch here
+    or enable allow_custom: true to support per-node LB overrides.
+  #}
+  <article{{ attributes.addClass('node node--type-page node--view-mode-full') }}>
+    {{ title_prefix }}
+    {{ title_suffix }}
+    {{- content -}}
+  </article>
+
+{% endif %}

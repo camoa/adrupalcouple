@@ -1,0 +1,41 @@
+{#
+/**
+ * @file views-view--frontpage--block-home.html.twig
+ *
+ * Frontpage view — block_home display.
+ * Renders the "Latest writing" section on the Home page (§ 2).
+ *
+ * Structure:
+ *   <div> inner container  max-w-5xl, px-4 py-16 (matches section_spacing_vertical token)
+ *     <h2 id="home-latest">  Section heading referenced by aria-labelledby on the
+ *                             surrounding <section> in node--page--full.html.twig.
+ *     {{ rows }}             3-col card grid via views-view-unformatted template.
+ *     <p> footer link        Quiet "All writing" link → /writing.
+ *
+ * React reference: TopicBrowse section heading + card grid + "Browse all topics" link.
+ *
+ * @see views-view-unformatted--frontpage--block-home.html.twig
+ * @see node--page--full.html.twig
+ * @see node--article--teaser.html.twig
+ */
+#}
+<div class="mx-auto max-w-5xl px-4 py-16">
+
+  <h2 id="home-latest" class="font-heading text-2xl font-semibold">
+    {{ 'Latest writing'|t }}
+  </h2>
+
+  {% if rows %}
+    {{ rows }}
+  {% elseif empty %}
+    <p class="mt-8 text-base-content/60">{{ empty }}</p>
+  {% endif %}
+
+  <p class="mt-8">
+    <a href="{{ url('view.writing_index.page_1') }}"
+       class="link link-primary link-hover">
+      {{ 'All writing'|t }}
+    </a>
+  </p>
+
+</div>

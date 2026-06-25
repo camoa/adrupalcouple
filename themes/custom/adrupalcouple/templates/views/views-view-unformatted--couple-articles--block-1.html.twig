@@ -1,0 +1,29 @@
+{#
+/**
+ * @file
+ * Views unformatted list — couple_articles:block_1.
+ *
+ * Wraps article teaser cards in the TopicBrowse 2-column responsive grid:
+ *   1-col mobile (<640px) → 2-col sm: (≥640px).
+ * The max-w-4xl container is set by the calling node template
+ * (node--couple--full-article.html.twig, §4 wrapper div) — this template only
+ * wraps the grid itself.
+ *
+ * Each row.content is node--article--teaser.html.twig rendered in teaser view
+ * mode via the entity:node row plugin (couple_articles view).
+ *
+ * Pattern mirrors views-view-unformatted--person-articles--block-1.html.twig.
+ *
+ * @see node--couple--full-article.html.twig
+ * @see node--article--teaser.html.twig
+ * @see views.view.couple_articles
+ */
+#}
+{% if title %}
+  <h3>{{ title }}</h3>
+{% endif %}
+<div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+  {% for row in rows %}
+    {{ row.content }}
+  {% endfor %}
+</div>

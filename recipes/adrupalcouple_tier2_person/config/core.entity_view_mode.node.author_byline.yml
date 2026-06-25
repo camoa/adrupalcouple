@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.author_byline
+label: 'Author Byline'
+description: 'Compact author byline for article cards: 24px avatar circle + given/family name. No role line.'
+targetEntityType: node
+cache: true

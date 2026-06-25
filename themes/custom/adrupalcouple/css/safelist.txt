@@ -54,6 +54,7 @@ xl:col-end-2 xl:col-end-3 xl:col-end-4 xl:col-end-5 xl:col-end-6 xl:col-end-7 xl
 2xl:col-end-2 2xl:col-end-3 2xl:col-end-4 2xl:col-end-5 2xl:col-end-6 2xl:col-end-7 2xl:col-end-8 2xl:col-end-9 2xl:col-end-10 2xl:col-end-11 2xl:col-end-12 2xl:col-end-13
 justify-start justify-center justify-end
 link-primary link-neutral link-secondary link-accent link-info link-success link-warning link-error
+rounded-box border-warning bg-warning/10 mt-4 text-lg leading-relaxed
 loading-spinner loading-dots loading-ring loading-ball loading-bars loading-infinity
 loading-xs loading-sm loading-md loading-lg loading-xl
 menu-xs menu-sm menu-md menu-lg menu-xl

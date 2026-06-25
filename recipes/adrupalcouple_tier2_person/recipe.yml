@@ -1,6 +1,9 @@
 name: 'ADrupalCouple Tier2 Person'
-description: 'Provides field instances on the person node bundle: schema_image, field_author_focus, field_role (NEW p7). Enables content_translation on node.person (Q-06).'
+description: 'Provides field instances on the person node bundle: schema_image, field_author_focus, field_role (NEW p7). Enables content_translation on node.person (Q-06). Adds person_articles View (S3 article stream on person profile page).'
 type: 'Content type'
+# views is a core module — listed here for explicitness; already installed.
+install:
+  - views
 config:
   # strict: false — fields may already exist on live (schema_image pre-dates recipe;
   # field_author_focus added via g_content_model_fields task). Config files provide canonical
@@ -72,7 +75,7 @@ config:
           schema_image:
             type: entity_reference_entity_view
             label: hidden
-            settings: { view_mode: small_thumbnail, link: false }
+            settings: { view_mode: adc_avatar, link: false }
             third_party_settings: {  }
             weight: 0
             region: content
@@ -128,7 +131,7 @@ config:
           schema_image:
             type: entity_reference_entity_view
             label: hidden
-            settings: { view_mode: small_thumbnail, link: false }
+            settings: { view_mode: adc_avatar, link: false }
             third_party_settings: {  }
             weight: 0
             region: content
@@ -175,9 +178,51 @@ config:
           title: true
           uid: true
 
-    # --- View display: full (author profile page). LB disabled → clean field
-    #     stack rendered through the default node template (task §1.3.3). ---
+    # --- View display: full (author profile page).
+    #     node--person--full.html.twig is template-driven; LB disabled.
+    #     All field rendering is done directly by the template via node field
+    #     accessors (node.body.processed, node.field_role.value, etc.) and
+    #     preprocess vars (avatar_96, avatar_64, person_links).
+    #     The display settings here control cache tag bubbling; all fields are
+    #     surfaced in the hidden map so the render system does not double-render
+    #     them through default field output. ---
     core.entity_view_display.node.person.full:
+      setProperties:
+        third_party_settings:
+          layout_builder: { enabled: false, allow_custom: false }
+        content: {  }
+        hidden:
+          body: true
+          content_moderation_control: true
+          created: true
+          field_author_focus: true
+          field_metatag: true
+          field_tags: true
+          langcode: true
+          links: true
+          node_read_time: true
+          schema_additional_name: true
+          schema_birth_date: true
+          schema_email: true
+          schema_family_name: true
+          schema_given_name: true
+          schema_image: true
+          schema_knows_language: true
+          schema_member_of: true
+          schema_same_as: true
+          schema_subject_of: true
+          schema_telephone: true
+          schema_works_for: true
+          title: true
+          uid: true
+          field_role: true
+
+    # --- View display: author_byline (compact avatar+name for article teaser cards) ---
+    # Used by core.entity_view_display.node.article.teaser schema_author field
+    # (entity_reference_entity_view, view_mode: author_byline).
+    # Template: node--person--author-byline.html.twig
+    # Renders w-6 (24px) avatar circle + given + family name. No role line.
+    core.entity_view_display.node.person.author_byline:
       setProperties:
         third_party_settings:
           layout_builder: { enabled: false, allow_custom: false }
@@ -185,7 +230,7 @@ config:
           schema_image:
             type: entity_reference_entity_view
             label: hidden
-            settings: { view_mode: small_thumbnail, link: false }
+            settings: { view_mode: adc_avatar, link: false }
             third_party_settings: {  }
             weight: 0
             region: content
@@ -203,55 +248,25 @@ config:
             third_party_settings: {  }
             weight: 2
             region: content
-          field_role:
-            type: string
-            label: hidden
-            settings: { link_to_entity: false }
-            third_party_settings: {  }
-            weight: 3
-            region: content
-          body:
-            type: text_default
-            label: hidden
-            settings: {  }
-            third_party_settings: {  }
-            weight: 4
-            region: content
-          schema_same_as:
-            type: link
-            label: above
-            settings: { trim_length: 80, url_only: false, url_plain: false, rel: '', target: _blank }
-            third_party_settings: {  }
-            weight: 5
-            region: content
-          schema_email:
-            type: email_mailto
-            label: above
-            settings: {  }
-            third_party_settings: {  }
-            weight: 6
-            region: content
-          schema_telephone:
-            type: telephone_link
-            label: above
-            settings: { title: '' }
-            third_party_settings: {  }
-            weight: 7
-            region: content
         hidden:
+          body: true
           content_moderation_control: true
           created: true
           field_author_focus: true
           field_metatag: true
+          field_role: true
           field_tags: true
           langcode: true
           links: true
           node_read_time: true
           schema_additional_name: true
           schema_birth_date: true
+          schema_email: true
           schema_knows_language: true
           schema_member_of: true
+          schema_same_as: true
           schema_subject_of: true
+          schema_telephone: true
           schema_works_for: true
           title: true
           uid: true

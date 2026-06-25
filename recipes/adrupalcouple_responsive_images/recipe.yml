@@ -1,0 +1,63 @@
+name: 'ADrupalCouple Responsive Images'
+description: |
+  Wires brand image styles to purpose-specific media view modes and repoints node
+  view displays from the placeholder small_thumbnail to the correct ADC view modes.
+
+  Image chain context (recipe-schema §The chain):
+    image.style.adc_* (p3b)
+    → responsive_image.styles.adc_card_thumbnail (p3b)
+    → media view modes + displays (this recipe, from adrupalcouple_foundation config)
+    → node view displays repointed here via config.actions (G-CONV-36)
+
+  Media view modes created (via adrupalcouple_foundation config):
+    media.adc_card_thumbnail — responsive_image formatter → adc_card_thumbnail style (lazy)
+    media.adc_avatar         — image formatter → adc_author_avatar_1x1_96 (lazy)
+    media.couple_faces       — image formatter → adc_couple_faces_1x1_128 (lazy)
+
+  Node displays repointed (config.actions, all pre-exist on live):
+    node.article.teaser   schema_image → adc_card_thumbnail
+    node.article.default  schema_image → adc_card_thumbnail
+    node.couple.teaser    schema_image → adc_card_thumbnail
+    node.couple.default   schema_image → adc_card_thumbnail
+    node.person.token     schema_image → adc_avatar
+    node.person.teaser    schema_image → adc_avatar
+
+  GAP: node.person.author_byline and node.person.couple_faces view displays do not
+  yet exist on live (view modes node.author_byline / node.couple_faces also absent).
+  These are defined in adrupalcouple_tier2_person/config/ but that recipe has not
+  been re-applied since the config files were added. Apply adrupalcouple_tier2_person
+  (after updating it to use adc_avatar / couple_faces) to complete wiring for those
+  use-cases.
+type: 'Media'
+config:
+  # strict: false — all targeted node view displays already exist on live.
+  strict: false
+  actions:
+    # --- Article card thumbnail: repoint schema_image to adc_card_thumbnail ---
+    # G-CONV-36: these displays pre-exist; config.actions required to update them.
+    # Dotted path sets only view_mode; all other settings preserved.
+    core.entity_view_display.node.article.teaser:
+      setProperties:
+        content.schema_image.settings.view_mode: adc_card_thumbnail
+
+    core.entity_view_display.node.article.default:
+      setProperties:
+        content.schema_image.settings.view_mode: adc_card_thumbnail
+
+    # --- Couple card thumbnail: repoint schema_image to adc_card_thumbnail ---
+    core.entity_view_display.node.couple.teaser:
+      setProperties:
+        content.schema_image.settings.view_mode: adc_card_thumbnail
+
+    core.entity_view_display.node.couple.default:
+      setProperties:
+        content.schema_image.settings.view_mode: adc_card_thumbnail
+
+    # --- Person avatar: repoint schema_image to adc_avatar ---
+    core.entity_view_display.node.person.token:
+      setProperties:
+        content.schema_image.settings.view_mode: adc_avatar
+
+    core.entity_view_display.node.person.teaser:
+      setProperties:
+        content.schema_image.settings.view_mode: adc_avatar

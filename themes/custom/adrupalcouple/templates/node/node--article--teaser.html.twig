@@ -1,0 +1,110 @@
+{#
+/**
+ * @file
+ * Article card — node.article, `teaser` view mode.
+ *
+ * Used by the writing_index View (page_1, block_1) and any other listing
+ * that uses the article teaser view mode (e.g. person profile S3 stream).
+ *
+ * React reference: TopicBrowse.tsx — TopicBrowseCard card anatomy.
+ *
+ * DaisyUI card anatomy:
+ *   card border border-base-300 bg-base-100 (+ hover:border-primary teal border)
+ *   ├── [optional] figure.aspect-video  → card_thumbnail (16:9, adc_card_thumbnail_16x9_640)
+ *   │   text-first fallback: no figure when card_thumbnail is NULL.
+ *   └── card-body
+ *       ├── topic chips  — badge badge-outline badge-sm (hover:border-primary hover:text-primary)
+ *       ├── card-title H3 — linked to canonical URL (link-hover underline)
+ *       ├── dek text-sm text-muted (schema_abstract, no line-clamp on listing)
+ *       └── byline: avatar w-6 + author name · read time
+ *
+ * Preprocess variables from adrupalcouple_preprocess_node__article():
+ *   read_time             — int minutes (body word count / 238 wpm)
+ *   card_thumbnail        — render array (image_style adc_card_thumbnail_16x9_640) or NULL
+ *   card_author_name      — string (first schema_author node label)
+ *   card_author_initial   — single uppercase char for initials fallback
+ *   card_author_avatar_64 — render array (image_style adc_author_avatar_1x1_64) or NULL
+ *
+ * Motion: transition-colors duration-150 on card border and topic chips.
+ *         No entrance animation. Reduced-motion: a11y.pcss collapses to 0.01ms.
+ *
+ * @see adrupalcouple_preprocess_node__article() in adrupalcouple.theme
+ * @see template_preprocess_node()
+ */
+#}
+<article{{ attributes.addClass('card border border-base-300 bg-base-100 transition-colors duration-150 hover:border-primary') }}>
+
+  {# Thumbnail — optional (text-first: no figure when card_thumbnail is NULL). #}
+  {% if card_thumbnail %}
+    <figure class="aspect-video overflow-hidden">
+      {{- card_thumbnail -}}
+    </figure>
+  {% endif %}
+
+  <div class="card-body">
+
+    {# Topic chips — badge-sm + topic-chip (a11y.pcss D6: 24px min-height WCAG 2.5.8 AA).
+       hover:border-primary hover:text-primary; transition-colors duration-150. #}
+    {% set has_tags = false %}
+    {% for tag_item in node.field_tags %}{% set has_tags = true %}{% endfor %}
+    {% if has_tags %}
+      <div class="flex flex-wrap gap-1">
+        {% for tag_item in node.field_tags %}
+          {% set tag = tag_item.entity %}
+          {% if tag %}
+            <a href="{{ path('entity.taxonomy_term.canonical', {'taxonomy_term': tag.id}) }}"
+               class="badge badge-outline badge-sm topic-chip transition-colors duration-150 hover:border-primary hover:text-primary">
+              {{ tag.label }}
+            </a>
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    {# Title — H3, font-heading, linked; link-hover for underline on hover only. #}
+    <h3 class="card-title font-heading text-xl leading-snug">
+      <a href="{{ url }}" class="link link-hover">{{ label }}</a>
+    </h3>
+
+    {# Dek — schema_abstract, plain text. text-muted (5.62:1 D2 override in a11y.pcss). #}
+    {% if node.schema_abstract.0.value|trim %}
+      <p class="text-sm text-muted">{{ node.schema_abstract.value }}</p>
+    {% endif %}
+
+    {# Byline — avatar w-6 + author name · computed read time. #}
+    {% if card_author_name or read_time %}
+      <div class="mt-2 flex items-center gap-2 text-xs text-muted">
+
+        {% if card_author_name %}
+          <div class="avatar shrink-0">
+            {% if card_author_avatar_64 %}
+              {# With-image: author photo at 64px source → 24px (w-6) display. #}
+              <div class="w-6 rounded-full overflow-hidden">
+                {{ card_author_avatar_64 }}
+              </div>
+            {% else %}
+              {# Placeholder: bg-primary initials circle (avatar-placeholder DaisyUI). #}
+              <div class="avatar avatar-placeholder">
+                <div class="bg-primary text-primary-content w-6 rounded-full">
+                  <span class="text-xs" aria-hidden="true">{{ card_author_initial }}</span>
+                  <span class="sr-only">{{ card_author_name }}</span>
+                </div>
+              </div>
+            {% endif %}
+          </div>
+          <span>{{ card_author_name }}</span>
+        {% endif %}
+
+        {% if card_author_name and read_time %}
+          <span aria-hidden="true">·</span>
+        {% endif %}
+
+        {% if read_time %}
+          <span>{{ read_time }} {{ 'min read'|t }}</span>
+        {% endif %}
+
+      </div>
+    {% endif %}
+
+  </div>
+</article>

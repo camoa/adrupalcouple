@@ -7,6 +7,8 @@
 
 declare(strict_types=1);
 
+use Drupal\node\NodeInterface;
+
 /**
  * Implements hook_theme_suggestions_node_alter().
  *
@@ -15,6 +17,10 @@ declare(strict_types=1);
  * reading/profile layout renders on the canonical URL without a separate
  * LB section catalog. See node--article--full-article.html.twig and
  * node--couple--full-article.html.twig.
+ *
+ * Also adds `node__page__accessibility` for the Accessibility statement page
+ * (node.page at EN path alias /accessibility) so the structured 5-section
+ * prose template is used without Layout Builder.
  */
 function adrupalcouple_theme_suggestions_node_alter(array &$suggestions, array $variables): void {
   $node = $variables['elements']['#node'] ?? NULL;
@@ -28,6 +34,278 @@ function adrupalcouple_theme_suggestions_node_alter(array &$suggestions, array $
     // wins template resolution.
     $suggestions[] = 'node__' . $bundle . '__full_article';
   }
+  if ($bundle === 'page') {
+    // Add the accessibility-specific suggestion for the /accessibility node.
+    // Uses the EN alias so both /accessibility and /es/accesibilidad (same node,
+    // different language) resolve to the same template.
+    $nid = $node->id();
+    if ($nid) {
+      /** @var \Drupal\path_alias\AliasManagerInterface $alias_manager */
+      $alias_manager = \Drupal::service('path_alias.manager');
+      $alias = $alias_manager->getAliasByPath('/node/' . $nid, 'en');
+      if ($alias === '/accessibility') {
+        $suggestions[] = 'node__page__accessibility';
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_preprocess_node__page().
+ *
+ * Injects Home page composition variables into node--page--full.html.twig.
+ * Only runs for the `full` view mode (all other view modes bail early).
+ *
+ * Variables injected:
+ *   is_front       — bool, TRUE when this node is the Drupal front page.
+ *   site_name      — string, Drupal system site name (e.g. 'A Drupal Couple').
+ *   couple_credit  — array|null, SDC props for adrupalcouple:two_person_credit:
+ *                    { person_1_name, person_1_href, person_2_name, person_2_href,
+ *                      modifier_class, person_1_avatar?, person_2_avatar? }
+ *                    NULL when no published couple node or persons are found.
+ *
+ * Couple loading: queries the single published node.couple entity and reads its
+ * field_couple (cardinality 2, entity_reference → node.person).
+ * Avatar images: _adrupalcouple_person_avatar() with style adc_couple_faces_1x1_128.
+ *
+ * @see node--page--full.html.twig
+ * @see _adrupalcouple_person_avatar()
+ */
+function adrupalcouple_preprocess_node__page(array &$variables): void {
+  $view_mode = $variables['elements']['#view_mode'] ?? '';
+  if ($view_mode !== 'full') {
+    return;
+  }
+
+  /** @var \Drupal\node\NodeInterface|null $node */
+  $node = $variables['node'] ?? NULL;
+  if (!$node instanceof NodeInterface) {
+    return;
+  }
+
+  // ── is_front: required by the template's is_front check ──────────────────
+  $variables['is_front'] = \Drupal::service('path.matcher')->isFrontPage();
+
+  // ── Site name: brand logotype line above the H1 ──────────────────────────
+  $variables['site_name'] = (string) \Drupal::config('system.site')->get('name');
+
+  // ── Couple credit (TwoPersonCredit SDC props) ─────────────────────────────
+  $variables['couple_credit'] = NULL;
+
+  $couple_nodes = \Drupal::entityTypeManager()
+    ->getStorage('node')
+    ->loadByProperties(['type' => 'couple', 'status' => 1]);
+  /** @var \Drupal\node\NodeInterface|null $couple */
+  $couple = reset($couple_nodes) ?: NULL;
+
+  if (!$couple instanceof NodeInterface
+    || !$couple->hasField('field_couple')
+    || $couple->get('field_couple')->isEmpty()
+  ) {
+    return;
+  }
+
+  /** @var \Drupal\node\NodeInterface[] $persons */
+  $persons = array_values(
+    array_filter(
+      $couple->get('field_couple')->referencedEntities(),
+      static fn($e) => $e instanceof NodeInterface
+    )
+  );
+
+  if (count($persons) < 2) {
+    return;
+  }
+
+  [$p1, $p2] = $persons;
+
+  $p1_name = (string) ($p1->label() ?? '');
+  $p2_name = (string) ($p2->label() ?? '');
+
+  $credit = [
+    'person_1_name'  => $p1_name,
+    'person_1_href'  => $p1->toUrl()->toString(),
+    'person_2_name'  => $p2_name,
+    'person_2_href'  => $p2->toUrl()->toString(),
+    'modifier_class' => 'mt-8',
+  ];
+
+  // Avatars: adc_couple_faces_1x1_128 (1:1, ≤128px, displays at w-10 / 40px
+  // in the two_person_credit SDC). _adrupalcouple_person_avatar() returns NULL
+  // when no media is attached; the SDC placeholder renders initials instead.
+  $p1_avatar = _adrupalcouple_person_avatar($p1, $p1_name, 'adc_couple_faces_1x1_128');
+  $p2_avatar = _adrupalcouple_person_avatar($p2, $p2_name, 'adc_couple_faces_1x1_128');
+  if ($p1_avatar !== NULL) {
+    $credit['person_1_avatar'] = $p1_avatar;
+  }
+  if ($p2_avatar !== NULL) {
+    $credit['person_2_avatar'] = $p2_avatar;
+  }
+
+  $variables['couple_credit'] = $credit;
+}
+
+/**
+ * Implements hook_preprocess_node__couple().
+ *
+ * Populates teaser-view-mode variables for the couples_card SDC.
+ * Bails early for all other view modes (full_article, full, default).
+ *
+ * Variables added for node--couple--teaser.html.twig:
+ *   couple_persons — array of { name, avatar_url, initials } per field_couple ref
+ *   founding       — boolean from field_founding (false when field absent/unset)
+ *   founding_label — t('Founding couple')
+ *   story_excerpt  — body.summary or first 160 chars of body.value (strip_tags)
+ *
+ * Architecture ref: page_couples/architecture.md §7b — preprocess option (b).
+ * Uses _adrupalcouple_person_initials() (defined below) for mb_substr-safe initials.
+ * Avatar URL from $image_style->buildUrl() — SDC takes a raw URL, not a render array.
+ */
+function adrupalcouple_preprocess_node__couple(array &$variables): void {
+  $view_mode = $variables['view_mode'] ?? '';
+
+  /** @var \Drupal\node\NodeInterface $node */
+  $node = $variables['node'];
+
+  // ── Teaser view mode: populate variables for the couples_card SDC ──────────
+  if ($view_mode === 'teaser') {
+    /** @var \Drupal\image\ImageStyleInterface|null $image_style */
+    $image_style = \Drupal::entityTypeManager()
+      ->getStorage('image_style')
+      ->load('adc_couple_faces_1x1_128');
+
+    $persons = [];
+    if ($node->hasField('field_couple') && !$node->get('field_couple')->isEmpty()) {
+      foreach ($node->get('field_couple')->referencedEntities() as $person) {
+        /** @var \Drupal\node\NodeInterface $person */
+        $avatar_url = '';
+        if ($image_style
+          && $person->hasField('schema_image')
+          && !$person->get('schema_image')->isEmpty()
+        ) {
+          /** @var \Drupal\media\MediaInterface|null $media */
+          $media = $person->get('schema_image')->entity;
+          if ($media !== NULL
+            && $media->hasField('field_media_image')
+            && !$media->get('field_media_image')->isEmpty()
+          ) {
+            /** @var \Drupal\file\FileInterface|null $file */
+            $file = $media->get('field_media_image')->entity;
+            if ($file !== NULL) {
+              $avatar_url = $image_style->buildUrl($file->getFileUri());
+            }
+          }
+        }
+        $persons[] = [
+          'name'       => (string) $person->label(),
+          'avatar_url' => $avatar_url,
+          'initials'   => _adrupalcouple_person_initials((string) $person->label()),
+        ];
+      }
+    }
+    $variables['couple_persons'] = $persons;
+
+    $variables['founding'] = FALSE;
+    if ($node->hasField('field_founding') && !$node->get('field_founding')->isEmpty()) {
+      $variables['founding'] = (bool) $node->get('field_founding')->value;
+    }
+    $variables['founding_label'] = t('Founding couple');
+
+    $variables['story_excerpt'] = '';
+    if ($node->hasField('body') && !$node->get('body')->isEmpty()) {
+      $body    = $node->get('body');
+      $summary = trim((string) ($body->summary ?? ''));
+      if ($summary !== '') {
+        $variables['story_excerpt'] = $summary;
+      }
+      else {
+        $raw = trim(strip_tags((string) ($body->value ?? '')));
+        if (mb_strlen($raw) > 160) {
+          $raw = mb_substr($raw, 0, 157) . '…';
+        }
+        $variables['story_excerpt'] = $raw;
+      }
+    }
+    return;
+  }
+
+  // ── Full / full_article view mode: couple profile page six-section layout ──
+  // Populates variables consumed by node--couple--full-article.html.twig.
+  // Variables exposed:
+  //   persons[]        — [{name, role, focus, initials, profile_url,
+  //                        avatar_couple_faces, avatar_author_avatar}]
+  //   lede             — body.summary (string; empty string when absent)
+  //   milestones[]     — [{year, label}] from field_milestone custom_field compound
+  //   person_nids_arg  — "nid1+nid2" for couple_articles view contextual filter (OR)
+  if (!in_array($view_mode, ['full', 'full_article'], TRUE)) {
+    return;
+  }
+
+  // Lede: body.summary.
+  $variables['lede'] = '';
+  if ($node->hasField('body') && !$node->get('body')->isEmpty()) {
+    $variables['lede'] = trim((string) ($node->get('body')->summary ?? ''));
+  }
+
+  // Milestones: field_milestone (custom_field compound: year + label). LOCKED STORAGE.
+  $milestones = [];
+  if ($node->hasField('field_milestone') && !$node->get('field_milestone')->isEmpty()) {
+    foreach ($node->get('field_milestone') as $item) {
+      $milestones[] = [
+        'year'  => (string) ($item->year ?? ''),
+        'label' => (string) ($item->label ?? ''),
+      ];
+    }
+  }
+  $variables['milestones'] = $milestones;
+
+  // Persons from field_couple: name, role, focus, initials, profile_url, avatars.
+  $persons = [];
+  $person_nids = [];
+  if ($node->hasField('field_couple') && !$node->get('field_couple')->isEmpty()) {
+    foreach ($node->get('field_couple') as $ref) {
+      /** @var \Drupal\node\NodeInterface|null $person */
+      $person = $ref->entity;
+      if (!$person instanceof NodeInterface) {
+        continue;
+      }
+
+      $person_nids[] = (int) $person->id();
+      $person_name   = (string) ($person->label() ?? '');
+
+      // field_role — role/title display text.
+      $role = '';
+      if ($person->hasField('field_role') && !$person->get('field_role')->isEmpty()) {
+        $role = (string) $person->get('field_role')->value;
+      }
+
+      // field_author_focus — §2 voice-explainer descriptor; falls back to field_role.
+      $focus = '';
+      if ($person->hasField('field_author_focus') && !$person->get('field_author_focus')->isEmpty()) {
+        $focus = (string) $person->get('field_author_focus')->value;
+      }
+      if ($focus === '') {
+        $focus = $role;
+      }
+
+      // Build avatar render arrays at the two sizes used on this page.
+      $avatar_couple_faces  = _adrupalcouple_person_avatar($person, $person_name, 'adc_couple_faces_1x1_128');
+      $avatar_author_avatar = _adrupalcouple_person_avatar($person, $person_name, 'adc_author_avatar_1x1_96');
+
+      $persons[] = [
+        'name'                => $person_name,
+        'role'                => $role,
+        'focus'               => $focus,
+        'initials'            => _adrupalcouple_person_initials($person_name),
+        'profile_url'         => $person->toUrl()->toString(),
+        'avatar_couple_faces' => $avatar_couple_faces,
+        'avatar_author_avatar'=> $avatar_author_avatar,
+      ];
+    }
+  }
+  $variables['persons']          = $persons;
+  // "nid1+nid2" — Views contextual filter break_phrase:true treats + as OR.
+  $variables['person_nids_arg']  = implode('+', $person_nids);
 }
 
 /**
@@ -36,24 +314,509 @@ function adrupalcouple_theme_suggestions_node_alter(array &$suggestions, array $
  * Attaches the code-highlight library to every article node render so that
  * CKEditor5 codeBlock output (<pre><code class="language-*">) gets the
  * ADrupalCouple honest-code highlighting palette (see js/code-highlight.js).
+ *
+ * Also prepares template variables used by node--article--full-article.html.twig:
+ * - read_time        int    — body word count ÷ 238 wpm (Q-10; no stored field).
+ * - is_illustrative  bool   — TRUE when field_illustrative is checked.
+ * - closing_question string — field_closing_question raw value; empty string when unset.
+ * - byline           array  — SDC render array for adrupalcouple:voice_attributed_byline;
+ *                             NULL when schema_author is empty.
  */
 function adrupalcouple_preprocess_node__article(array &$variables): void {
   $variables['#attached']['library'][] = 'adrupalcouple/code-highlight';
 
-  // Computed read-time (Q-10: no stored field). Counts body words and divides
-  // by a 238 wpm reading speed. Exposed to Twig as {{ read_time }} and consumed
-  // by node--article--full-article.html.twig. Inlined (no global polyfill) to
-  // avoid any function-redeclare risk.
+  // ── Computed read-time (Q-10: no stored field) ────────────────────────────
+  // Counts body words and divides by 238 wpm. Twig: {{ read_time }}.
   $variables['read_time'] = 0;
+  /** @var \Drupal\node\NodeInterface|null $node */
   $node = $variables['node'] ?? NULL;
-  if ($node instanceof \Drupal\node\NodeInterface
-    && $node->hasField('body')
-    && !$node->get('body')->isEmpty()) {
+  if (!$node instanceof NodeInterface) {
+    return;
+  }
+
+  if ($node->hasField('body') && !$node->get('body')->isEmpty()) {
     $text = trim(strip_tags((string) $node->get('body')->value));
     if ($text !== '') {
       $parts = preg_split('/\s+/u', $text) ?: [];
-      $word_count = count(array_filter($parts, static fn ($w) => $w !== ''));
+      $word_count = count(array_filter($parts, static fn($w) => $w !== ''));
       $variables['read_time'] = max(1, (int) round($word_count / 238));
+    }
+  }
+
+  // ── Illustrative flag ──────────────────────────────────────────────────────
+  // field_illustrative (boolean) marks placeholder/illustrative articles.
+  $variables['is_illustrative'] = $node->hasField('field_illustrative')
+    && !$node->get('field_illustrative')->isEmpty()
+    && (bool) $node->get('field_illustrative')->value;
+
+  // ── Closing question ───────────────────────────────────────────────────────
+  // field_closing_question (string_long, translatable). Empty string fallback.
+  $variables['closing_question'] = '';
+  if ($node->hasField('field_closing_question') && !$node->get('field_closing_question')->isEmpty()) {
+    $variables['closing_question'] = (string) $node->get('field_closing_question')->value;
+  }
+
+  // ── Teaser card vars (TopicBrowse cards in person profile S3) ──────────────
+  // Only computed for the teaser view mode — skip the overhead on full_article.
+  // Variables: card_thumbnail, card_author_name, card_author_initial, card_author_avatar_64.
+  $variables['card_thumbnail'] = NULL;
+  $variables['card_author_name'] = '';
+  $variables['card_author_initial'] = '';
+  $variables['card_author_avatar_64'] = NULL;
+  if (($variables['elements']['#view_mode'] ?? '') === 'teaser') {
+    // Card thumbnail: 16:9 crop at 640px from schema_image (media reference).
+    if ($node->hasField('schema_image') && !$node->get('schema_image')->isEmpty()) {
+      /** @var \Drupal\media\Entity\Media|null $thumb_media */
+      $thumb_media = $node->get('schema_image')->entity;
+      if ($thumb_media
+          && $thumb_media->hasField('field_media_image')
+          && !$thumb_media->get('field_media_image')->isEmpty()) {
+        $thumb_item = $thumb_media->get('field_media_image')->first();
+        $thumb_file = $thumb_item?->entity;
+        if ($thumb_file) {
+          $variables['card_thumbnail'] = [
+            '#theme' => 'image_style',
+            '#style_name' => 'adc_card_thumbnail_16x9_640',
+            '#uri' => $thumb_file->getFileUri(),
+            '#alt' => (string) ($thumb_item->alt ?: $node->label()),
+            '#attributes' => ['loading' => 'lazy', 'decoding' => 'async'],
+          ];
+        }
+      }
+    }
+    // Card author: first schema_author — name, initial, 64px avatar.
+    if ($node->hasField('schema_author') && !$node->get('schema_author')->isEmpty()) {
+      /** @var \Drupal\node\NodeInterface|null $card_author */
+      $card_author = $node->get('schema_author')->first()?->entity;
+      if ($card_author instanceof NodeInterface) {
+        $card_author_name = (string) ($card_author->label() ?? '');
+        $variables['card_author_name'] = $card_author_name;
+        $variables['card_author_initial'] = mb_strtoupper(mb_substr($card_author_name, 0, 1));
+        $avatar_64 = _adrupalcouple_person_avatar($card_author, $card_author_name, 'adc_author_avatar_1x1_64');
+        if ($avatar_64 !== NULL) {
+          $variables['card_author_avatar_64'] = $avatar_64;
+          // card_author_avatar (no suffix) is the name expected by the Twig template
+          // node--article--teaser.html.twig. Both point to the same render array.
+          $variables['card_author_avatar'] = $avatar_64;
+        }
+      }
+    }
+  }
+
+  // ── VoiceAttributedByline SDC render array ─────────────────────────────────
+  // Builds a #type:component render array for adrupalcouple:voice_attributed_byline.
+  // Slots (avatar images) are render arrays using the adc_author_avatar_1x1_96
+  // image style. NULL when schema_author is empty.
+  $variables['byline'] = NULL;
+  if (!$node->hasField('schema_author') || $node->get('schema_author')->isEmpty()) {
+    return;
+  }
+
+  /** @var \Drupal\node\NodeInterface[] $authors */
+  $authors = array_values(
+    array_filter(
+      $node->get('schema_author')->referencedEntities(),
+      static fn($e) => $e instanceof NodeInterface
+    )
+  );
+
+  $author1 = $authors[0] ?? NULL;
+  if (!$author1) {
+    return;
+  }
+
+  // Dates — ISO for datetime attribute; long-form for human display.
+  $created = $node->getCreatedTime();
+  $date_iso = \Drupal::service('date.formatter')->format($created, 'custom', 'Y-m-d');
+  $date_formatted = \Drupal::service('date.formatter')->format($created, 'custom', 'F j, Y');
+
+  // Alias → slug extraction (last path segment after alias manager lookup).
+  $alias_manager = \Drupal::service('path_alias.manager');
+
+  $author1_alias = $alias_manager->getAliasByPath('/node/' . $author1->id());
+  $author1_slug = _adrupalcouple_slug_from_alias($author1_alias, $author1->id());
+
+  // Initials (max 2 chars, upper-case) for avatar placeholder fallback.
+  // Cast via (string) ?? '' to satisfy strict_types — label() is string|null.
+  $author1_name = (string) ($author1->label() ?? '');
+  $author1_initials = _adrupalcouple_person_initials($author1_name);
+
+  $props = [
+    'author_name' => $author1_name,
+    'author_role' => $author1->hasField('field_role') && !$author1->get('field_role')->isEmpty()
+      ? (string) $author1->get('field_role')->value
+      : '',
+    'author_slug' => $author1_slug,
+    'author_initials' => $author1_initials,
+    'date_iso' => $date_iso,
+    'date_formatted' => $date_formatted,
+    'read_time_minutes' => $variables['read_time'] > 0 ? $variables['read_time'] : NULL,
+    'mode' => 'single',
+  ];
+
+  $slots = [];
+
+  // Primary author avatar — adc_author_avatar_1x1_96 image style.
+  $avatar1 = _adrupalcouple_person_avatar($author1, $author1_name);
+  if ($avatar1 !== NULL) {
+    $slots['author_avatar_image'] = $avatar1;
+  }
+
+  // Second author (we-mode) — only when cardinality 2 is fully filled.
+  $author2 = $authors[1] ?? NULL;
+  if ($author2) {
+    $author2_alias = $alias_manager->getAliasByPath('/node/' . $author2->id());
+    $author2_slug = _adrupalcouple_slug_from_alias($author2_alias, $author2->id());
+    $author2_name = (string) ($author2->label() ?? '');
+
+    $props['mode'] = 'we';
+    $props['second_author_name'] = $author2_name;
+    $props['second_author_role'] = $author2->hasField('field_role') && !$author2->get('field_role')->isEmpty()
+      ? (string) $author2->get('field_role')->value
+      : '';
+    $props['second_author_slug'] = $author2_slug;
+    $props['second_author_initials'] = _adrupalcouple_person_initials($author2_name);
+
+    $avatar2 = _adrupalcouple_person_avatar($author2, $author2_name);
+    if ($avatar2 !== NULL) {
+      $slots['second_author_avatar_image'] = $avatar2;
+    }
+  }
+
+  $variables['byline'] = [
+    '#type' => 'component',
+    '#component' => 'adrupalcouple:voice_attributed_byline',
+    '#props' => $props,
+    '#slots' => $slots,
+  ];
+}
+
+/**
+ * Build a render array for a person node's author avatar.
+ *
+ * Loads schema_image (media reference) → field_media_image → file URI and
+ * renders via the adc_author_avatar_1x1_96 image style (1:1, ≤96px).
+ *
+ * @param \Drupal\node\NodeInterface $person
+ *   The person node whose avatar to render.
+ * @param string $alt
+ *   Alt text (author name).
+ * @param string $style_name
+ *   Image style machine name. Default: adc_author_avatar_1x1_96.
+ *
+ * @return array|null
+ *   A #theme:image_style render array, or NULL if no image is available.
+ */
+function _adrupalcouple_person_avatar(NodeInterface $person, string $alt, string $style_name = 'adc_author_avatar_1x1_96'): ?array {
+  if (!$person->hasField('schema_image') || $person->get('schema_image')->isEmpty()) {
+    return NULL;
+  }
+  /** @var \Drupal\media\Entity\Media|null $media */
+  $media = $person->get('schema_image')->entity;
+  if (!$media || !$media->hasField('field_media_image') || $media->get('field_media_image')->isEmpty()) {
+    return NULL;
+  }
+  $file = $media->get('field_media_image')->entity;
+  if (!$file) {
+    return NULL;
+  }
+  return [
+    '#theme' => 'image_style',
+    '#style_name' => $style_name,
+    '#uri' => $file->getFileUri(),
+    '#alt' => $alt,
+    '#attributes' => [
+      'loading' => 'lazy',
+      'decoding' => 'async',
+    ],
+  ];
+}
+
+/**
+ * Extract the last path segment from a path alias (the URL slug).
+ *
+ * Example: '/people/carlos-ospina' → 'carlos-ospina'.
+ * Falls back to 'node/{id}' when no meaningful alias exists.
+ *
+ * @param string $alias
+ *   The alias returned by path_alias.manager::getAliasByPath().
+ * @param int|string $node_id
+ *   The node entity ID (fallback).
+ *
+ * @return string
+ *   The slug string.
+ */
+function _adrupalcouple_slug_from_alias(string $alias, int|string $node_id): string {
+  $parts = array_values(array_filter(explode('/', $alias)));
+  if (!empty($parts)) {
+    return end($parts);
+  }
+  return 'node/' . $node_id;
+}
+
+/**
+ * Derive up-to-2-char uppercase initials from a display name.
+ *
+ * Examples: 'Carlos Ospina' → 'CO', 'Carlos' → 'C', 'Anne-Marie Dupont' → 'AD'.
+ *
+ * @param string $name
+ *   The person's display name.
+ *
+ * @return string
+ *   1–2 uppercase characters.
+ */
+function _adrupalcouple_person_initials(string $name): string {
+  $parts = preg_split('/\s+/u', trim($name)) ?: [''];
+  $first = mb_strtoupper(mb_substr($parts[0] ?? '', 0, 1));
+  $last = count($parts) > 1
+    ? mb_strtoupper(mb_substr(end($parts), 0, 1))
+    : '';
+  return $first . ($last !== $first ? $last : '');
+}
+
+/**
+ * Implements hook_preprocess_page().
+ *
+ * Suppresses the default page-title block on the Accessibility statement page.
+ * node--page--accessibility.html.twig renders its own <h1> inside section 1,
+ * so allowing the block to also render would produce a duplicate heading.
+ */
+function adrupalcouple_preprocess_page(array &$variables): void {
+  $node = $variables['node'] ?? NULL;
+  if (!$node instanceof NodeInterface || $node->bundle() !== 'page') {
+    return;
+  }
+  $nid = $node->id();
+  if (!$nid) {
+    return;
+  }
+  /** @var \Drupal\path_alias\AliasManagerInterface $alias_manager */
+  $alias_manager = \Drupal::service('path_alias.manager');
+  $alias = $alias_manager->getAliasByPath('/node/' . $nid, 'en');
+  if ($alias !== '/accessibility') {
+    return;
+  }
+  // The node template owns the <h1>; suppress the standalone page-title block.
+  if (isset($variables['page']['content']['adrupalcouple_page_title'])) {
+    $variables['page']['content']['adrupalcouple_page_title']['#access'] = FALSE;
+  }
+}
+
+/**
+ * Implements hook_preprocess_views_view__taxonomy_term().
+ *
+ * Injects a clean taxonomy term label into the views-view--taxonomy-term.html.twig
+ * template as {{ topic_label }}. The standard {{ title }} variable in views-view
+ * templates may carry H2 wrapper markup from Views' title mechanism, making it
+ * unsafe to embed directly in custom headings; {{ topic_label }} is a plain string.
+ *
+ * Fires only for the `taxonomy_term` view (all displays). The {{ total_rows }}
+ * variable is built-in to views-view.html.twig and provides the count for the
+ * S1 count sentence without an extra query.
+ */
+function adrupalcouple_preprocess_views_view__taxonomy_term(array &$variables): void {
+  /** @var \Drupal\views\ViewExecutable|null $view */
+  $view = $variables['view'] ?? NULL;
+  if (!$view) {
+    return;
+  }
+  $args = $view->args ?? [];
+  $tid = !empty($args[0]) && is_numeric($args[0]) ? (int) $args[0] : 0;
+  if ($tid === 0) {
+    return;
+  }
+  $term = \Drupal::entityTypeManager()
+    ->getStorage('taxonomy_term')
+    ->load($tid);
+  if ($term instanceof \Drupal\taxonomy\TermInterface) {
+    $variables['topic_label'] = $term->label();
+  }
+}
+
+/**
+ * Implements hook_preprocess_views_view__writing_index().
+ *
+ * Provides template variables for the writing_index View page_1 display only.
+ * (block_1 and feed_1 do not render the S1/S3 partials so the queries are skipped.)
+ *
+ * Variables exposed to templates:
+ *   tag_chips      — array of {name: string, url: string} for ALL terms in vocabulary
+ *                    'tags' (published). Consumed by _writing-s1-header.html.twig.
+ *   article_count  — int, published article node count. S3 evidence stat.
+ *   topics_count   — int, count of terms in vocabulary 'tags'. S3 evidence stat.
+ *
+ * CRITICAL: stat values are plain integers — never animate them (component-palette.md §6).
+ *
+ * @see templates/partials/_writing-s1-header.html.twig
+ * @see templates/partials/_writing-s3-evidence.html.twig
+ */
+function adrupalcouple_preprocess_views_view__writing_index(array &$variables): void {
+  $view = $variables['view'] ?? NULL;
+  if (!$view || $view->current_display !== 'page_1') {
+    return;
+  }
+
+  // ── Tag chips: all published terms in vocabulary 'tags' (S1 browse nav) ──
+  $tids = \Drupal::entityQuery('taxonomy_term')
+    ->condition('vid', 'tags')
+    ->condition('status', 1)
+    ->accessCheck(TRUE)
+    ->execute();
+
+  /** @var \Drupal\taxonomy\TermStorageInterface $term_storage */
+  $term_storage = \Drupal::entityTypeManager()->getStorage('taxonomy_term');
+  $terms = $term_storage->loadMultiple($tids);
+
+  $tag_chips = [];
+  foreach ($terms as $term) {
+    /** @var \Drupal\taxonomy\TermInterface $term */
+    $tag_chips[] = [
+      'name' => $term->label(),
+      // toUrl()->toString() returns the path alias via path_alias module.
+      // With adrupalcouple_pathauto_topics recipe, alias is /topics/{slug}.
+      'url' => $term->toUrl()->toString(),
+    ];
+  }
+  $variables['tag_chips'] = $tag_chips;
+
+  // ── Article count (S3 evidence stat) ──────────────────────────────────────
+  // Total published article nodes. No illustrative-flag filter (not in Drupal
+  // listing queries — the React filter on a.illustrative has no Drupal equivalent
+  // at this stage; see task spec Q-10 note).
+  $variables['article_count'] = (int) \Drupal::entityQuery('node')
+    ->condition('type', 'article')
+    ->condition('status', 1)
+    ->accessCheck(TRUE)
+    ->count()
+    ->execute();
+
+  // ── Topics count (S3 evidence stat) ───────────────────────────────────────
+  $variables['topics_count'] = count($tids);
+}
+
+/**
+ * Preprocess for node__page__accessibility template suggestion.
+ *
+ * Splits the CKEditor body HTML into five section chunks keyed by <h2> delimiters
+ * and a trailing rounded-box draft-notice paragraph, then exposes them as the
+ * `body_sections` Twig variable consumed by node--page--accessibility.html.twig.
+ *
+ * body_sections indices:
+ *   0  Pre-first-h2 content — intent paragraph(s)
+ *   1  "What we have in place" h2 block
+ *   2  "What we are still working on" h2 block
+ *   3  "Report an issue" h2 block (minus draft-notice paragraph)
+ *   4  Draft-notice <p class="rounded-box …">
+ *
+ * Section wrapper classes (bg, py, reading-prose) are applied in the Twig
+ * template; this hook only provides the raw section content as Markup objects.
+ *
+ * @see adrupalcouple_theme_suggestions_node_alter()
+ * @see node--page--accessibility.html.twig
+ */
+function adrupalcouple_preprocess_node__page__accessibility(array &$variables): void {
+  /** @var \Drupal\node\NodeInterface|null $node */
+  $node = $variables['node'] ?? NULL;
+  if (!$node instanceof NodeInterface) {
+    return;
+  }
+
+  $body_field = $node->get('body');
+  if ($body_field->isEmpty()) {
+    $variables['body_sections'] = [];
+    return;
+  }
+
+  /** @var \Drupal\Core\Field\FieldItemInterface $body_item */
+  $body_item = $body_field->first();
+  $format = (string) ($body_item->format ?: 'full_html');
+  // Apply the text format filter pipeline to get safe, filtered HTML.
+  $filtered_html = (string) check_markup((string) $body_item->value, $format);
+
+  // Split on <h2 opening tags (look-ahead keeps the delimiter in the next chunk).
+  // Chunk 0 = pre-first-<h2> content (intent paragraph(s)).
+  // Chunks 1-3 = the three <h2>-headed prose sections.
+  $chunks = preg_split('/(?=<h2[\s>\/])/i', $filtered_html, -1, PREG_SPLIT_NO_EMPTY);
+
+  // Separate the draft-notice paragraph from the end of the "Report an issue" chunk.
+  // The draft notice is a <p> element with class "rounded-box" (inline-authored).
+  if (isset($chunks[3])) {
+    $parts = preg_split(
+      '/(<p\b[^>]*class="[^"]*\brounded-box\b[^"]*"[^>]*>)/i',
+      $chunks[3],
+      2,
+      PREG_SPLIT_DELIM_CAPTURE
+    );
+    if (count($parts) === 3) {
+      // parts[0] = report section content without draft notice
+      // parts[1] = opening <p …> tag  (captured delimiter)
+      // parts[2] = draft notice content through closing </p>
+      $chunks[3] = $parts[0];
+      $chunks[4] = $parts[1] . $parts[2];
+    }
+  }
+
+  // Ensure chunk[4] always exists (draft notice might be missing during authoring).
+  $chunks[4] = $chunks[4] ?? '';
+
+  // Build body_sections consumed by the Twig template.
+  $variables['body_sections'] = [];
+  foreach ($chunks as $idx => $chunk_html) {
+    $variables['body_sections'][$idx] = [
+      'content' => \Drupal\Core\Render\Markup::create(trim($chunk_html)),
+    ];
+  }
+
+  // Unset the body render array so the template does not double-render it.
+  unset($variables['content']['body']);
+}
+
+/**
+ * Implements hook_preprocess_node__person().
+ *
+ * Prepares template variables for node--person--full.html.twig (person profile).
+ *
+ * Variables provided:
+ * - avatar_96        — render array (image_style adc_author_avatar_1x1_96) or NULL.
+ *                      Used in S1 PersonHero header (w-24 / 96px DaisyUI avatar).
+ * - avatar_64        — render array (image_style adc_author_avatar_1x1_64) or NULL.
+ *                      Used in S2 compact identity row (w-16 / 64px).
+ * - person_links[]   — [{uri: string, title: string}] from schema_same_as (link field).
+ *                      Reused in both S1 (btn-ghost pills) and S4 (plain text links).
+ *
+ * Field mapping: schema_image (media ref) → field_media_image → file URI.
+ *               schema_same_as (link, unlimited) → person_links array.
+ *
+ * @see node--person--full.html.twig
+ * @see _adrupalcouple_person_avatar()
+ */
+function adrupalcouple_preprocess_node__person(array &$variables): void {
+  /** @var \Drupal\node\NodeInterface|null $node */
+  $node = $variables['node'] ?? NULL;
+  if (!$node instanceof NodeInterface) {
+    return;
+  }
+
+  // ── Avatar render arrays (96px S1, 64px S2) ───────────────────────────────
+  $variables['avatar_96'] = _adrupalcouple_person_avatar($node, (string) ($node->label() ?? ''), 'adc_author_avatar_1x1_96');
+  $variables['avatar_64'] = _adrupalcouple_person_avatar($node, (string) ($node->label() ?? ''), 'adc_author_avatar_1x1_64');
+
+  // ── Links from schema_same_as (link field, unlimited) ─────────────────────
+  // Normalise each item to {uri, title} so Twig can iterate without PHP helpers.
+  $variables['person_links'] = [];
+  if (!$node->hasField('schema_same_as') || $node->get('schema_same_as')->isEmpty()) {
+    return;
+  }
+  foreach ($node->get('schema_same_as') as $link_item) {
+    /** @var \Drupal\link\Plugin\Field\FieldType\LinkItem $link_item */
+    try {
+      $url_obj = $link_item->getUrl()->setAbsolute();
+      $uri = $url_obj->toString(TRUE)->getGeneratedUrl();
+      $title = (string) ($link_item->title ?: $uri);
+      $variables['person_links'][] = ['uri' => $uri, 'title' => $title];
+    }
+    catch (\Exception $e) {
+      // Skip malformed or invalid links silently.
     }
   }
 }

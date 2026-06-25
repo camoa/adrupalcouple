@@ -1,0 +1,53 @@
+{#
+/**
+ * @file
+ * Face figure atom — node.person, `couple_faces` view mode.
+ *
+ * Rendered inside the couple_hero (§1) and couple_story (§3) sections of the
+ * About page. Two of these are placed side-by-side via the field_couple render
+ * on node.couple's couple_hero / couple_story view modes.
+ *
+ * Produces a <figure> with a 128px rounded-full avatar (schema_image via
+ * media.couple_faces view mode → adc_couple_faces_1x1_128 image style) and a
+ * <figcaption> with name + optional role. Mirrors the React
+ * CoupleHero / CoupleStory faces[] prop rendering.
+ *
+ * Available content (from core.entity_view_display.node.person.couple_faces):
+ * - content.schema_image       Portrait at 128px (media:couple_faces view mode).
+ * - content.schema_given_name  Given name (string formatter).
+ * - content.schema_family_name Family name (string formatter).
+ * - content.field_role         Public role label (string, translatable).
+ *
+ * @see template_preprocess_node()
+ */
+#}
+<figure{{ attributes.addClass('couple-face flex flex-col items-center gap-2 text-center') }}>
+  {# ── Avatar ──────────────────────────────────────────────────────────────── #}
+  {% if content.schema_image|render|trim %}
+    <div class="avatar">
+      <div class="rounded-full w-32 h-32 overflow-hidden">
+        {{ content.schema_image }}
+      </div>
+    </div>
+  {% else %}
+    {# Initials fallback — mirrors Avatar.tsx avatar-placeholder branch. #}
+    {% set given  = content.schema_given_name|render|trim %}
+    {% set family = content.schema_family_name|render|trim %}
+    {% set initials = (given|slice(0, 1) ~ family|slice(0, 1))|upper %}
+    <div class="avatar avatar-placeholder">
+      <div class="rounded-full bg-primary text-primary-content w-32 h-32 flex items-center justify-center">
+        <span aria-hidden="true" class="text-2xl font-semibold">{{ initials }}</span>
+      </div>
+    </div>
+  {% endif %}
+
+  {# ── Name + role caption ─────────────────────────────────────────────────── #}
+  <figcaption class="text-sm leading-snug">
+    <span class="block font-heading font-semibold">
+      {{- content.schema_given_name -}}{{ ' ' }}{{- content.schema_family_name -}}
+    </span>
+    {% if content.field_role|render|trim %}
+      <span class="block text-muted">{{ content.field_role }}</span>
+    {% endif %}
+  </figcaption>
+</figure>

@@ -1,0 +1,21 @@
+{#
+/**
+ * @file views-view-unformatted--couples-grid.html.twig
+ *
+ * Couples grid wrapper — responsive CSS Grid.
+ * Applied to all displays of couples_grid (page_1 and block_1).
+ * React reference: CouplesPage.tsx Section 3 grid div.
+ *
+ * Grid breakpoints (composition.md §5 §3):
+ *   base (<640px): 1 column — full width cards
+ *   sm (≥640px):   2 columns — tablet
+ *   lg (≥1024px):  3 columns — desktop
+ *
+ * Each {{ row.content }} renders node--couple--teaser.html.twig → couples_card SDC.
+ */
+#}
+<div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+  {% for row in rows %}
+    {{ row.content }}
+  {% endfor %}
+</div>

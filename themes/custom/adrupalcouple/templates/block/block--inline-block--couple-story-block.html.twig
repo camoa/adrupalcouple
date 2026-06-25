@@ -1,0 +1,39 @@
+{#
+/**
+ * @file
+ * Couple Story inline block — block_content.couple_story_block, default display.
+ *
+ * This LB inline block sits in About §3 (bg-base-100, py-12) at weight 1,
+ * below the community heading text block (weight 0). It renders the couple
+ * entity via the couple_story view mode.
+ *
+ * The couple_story view mode outputs:
+ *   - Community arc prose (field_community_story)
+ *   - Dual person faces (field_couple → person:couple_faces)
+ *   - Milestone list (field_milestone → ui_suite_daisyui:timeline_item)
+ *
+ * Hierarchy:
+ *   LB section (bg-base-100 py-12, via UI Styles)
+ *     ├─ weight 0: text block with h2 "Along the way, in the open"
+ *     └─ weight 1: .reading-column (this template)
+ *          └─ node.couple.couple_story → node--couple--couple-story.html.twig
+ *               ├─ field_community_story (prose)
+ *               ├─ field_couple (dual faces, couple_faces view mode)
+ *               └─ field_milestone (DaisyUI timeline)
+ *
+ * The reading-column wrapper centres the content (68ch max-inline-size).
+ *
+ * Available content:
+ * - content.field_couple  Rendered couple entity (couple_story view mode).
+ *
+ * @see node--couple--couple-story.html.twig
+ * @see core.entity_view_display.block_content.couple_story_block.default
+ */
+#}
+<div{{ attributes.addClass('block block--inline-block block--type-couple-story-block') }}>
+  {{ title_prefix }}
+  {{ title_suffix }}
+  <div class="reading-column">
+    {{ content.field_couple }}
+  </div>
+</div>

@@ -1,32 +1,229 @@
 {#
 /**
  * @file
- * Couple profile display — node.couple, `full_article` view mode.
+ * Couple profile — node.couple, full / full_article view mode.
  *
- * Side-by-side faces (field_couple renders 2 person:token atoms), origin
- * story body, optional milestone timeline. No ceremony / section chrome.
+ * Six-section layout matching CoupleProfilePage.tsx (React reference).
+ * Background alternation (design rule: never two consecutive same ground):
+ *   Hero    bg-base-100
+ *   §1      bg-base-100  (contiguous with Hero — intentional)
+ *   §2      bg-base-200
+ *   §3      bg-base-100
+ *   §4      bg-base-200
+ *   §5      bg-base-100
  *
- * Conditional regions:
- * - field_milestone → DaisyUI timeline (UI Patterns ui_suite_daisyui:timeline_item).
+ * Preprocess variables (adrupalcouple_preprocess_node__couple, full mode):
+ *   persons[]         [{name, role, focus, initials, profile_url,
+ *                       avatar_couple_faces, avatar_author_avatar}]
+ *   lede              body.summary (empty string when absent)
+ *   milestones[]      [{year, label}] from field_milestone compound
+ *   person_nids_arg   "nid1+nid2" for couple_articles contextual filter
  *
- * @see template_preprocess_node()
+ * SDCs used:
+ *   adrupalcouple:couple_story  — §1 story + faces + timeline
+ *
+ * Views used:
+ *   couple_articles:block_1  — §4 article card grid
+ *
+ * @see adrupalcouple.theme adrupalcouple_preprocess_node__couple()
+ * @see components/couple_story/couple_story.component.yml
+ * @see views.view.couple_articles (block_1)
+ * @see CoupleProfilePage.tsx + CoupleProfilePage.strings.ts (React reference)
  */
 #}
-<article{{ attributes.addClass('couple-profile') }}>
-  {% if content.field_couple|render|trim %}
-    <div class="couple-faces flex gap-6 justify-center items-end mb-8">
-      {{ content.field_couple }}
-    </div>
-  {% endif %}
-  <div class="couple-story prose max-w-prose mx-auto px-4">
-    <h1 class="couple-title">{{ label }}</h1>
-    {{ content.body }}
+
+{# ── Hero ─────────────────────────────────────────────────────────────────── #}
+{# bg-base-100. Outer div: max-w-3xl; pt-12 top-only (§1 follows directly). #}
+<section class="bg-base-100">
+  <div class="mx-auto max-w-3xl px-4 pt-12 sm:px-6">
+    <header data-component="couple-hero" class="py-8">
+
+      {# Avatar pair: overlapping circles at -space-x-3; w-24 (96px display). #}
+      {% if persons %}
+        <div class="flex -space-x-3">
+          {% for person in persons %}
+            {% if person.avatar_couple_faces %}
+              <div class="avatar">
+                <div class="rounded-full w-24">
+                  {{ person.avatar_couple_faces }}
+                </div>
+              </div>
+            {% else %}
+              {# Initials fallback — mirrors Avatar.tsx avatar-placeholder branch. #}
+              <div class="avatar avatar-placeholder">
+                <div class="rounded-full bg-primary text-primary-content w-24">
+                  <span aria-hidden="true">{{ person.initials }}</span>
+                  <span class="sr-only">{{ person.name }}</span>
+                </div>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      {% endif %}
+
+      {# Couple name — H1 (single per page; SEO + reading order). #}
+      <h1 class="mt-4 font-heading text-4xl font-semibold">{{ label }}</h1>
+
+      {# Lede from body.summary. Suppress when empty — no orphan <p>. #}
+      {% if lede %}
+        <p class="mt-2 max-w-prose text-lg">{{ lede }}</p>
+      {% endif %}
+
+    </header>
   </div>
-  {% if content.field_milestone|render|trim %}
-    <div class="couple-milestones max-w-prose mx-auto px-4 mt-10">
-      <ul class="timeline timeline-vertical">
-        {{ content.field_milestone }}
-      </ul>
+</section>
+
+{# ── §1 Shared story ───────────────────────────────────────────────────────── #}
+{# bg-base-100 (same as Hero — visually contiguous; py-12 provides gap). #}
+{# Uses adrupalcouple:couple_story SDC (face_1/face_2 props + slots). #}
+<section class="bg-base-100">
+  <div class="reading-column py-12 sm:py-16">
+    <h2 class="font-heading text-2xl font-semibold">{{ 'Our shared story'|t }}</h2>
+
+    {% if persons[0] is defined %}
+      {{ include('adrupalcouple:couple_story', {
+        face_1_name:    persons[0].name,
+        face_1_role:    persons[0].role,
+        face_1_avatar:  persons[0].avatar_couple_faces,
+        face_2_name:    persons[1].name    ?? '',
+        face_2_role:    persons[1].role    ?? '',
+        face_2_avatar:  persons[1].avatar_couple_faces ?? null,
+        story_body:     content.body,
+        milestones:     milestones,
+        milestones_label: 'Milestones'|t,
+        modifier_class: 'mt-6',
+      }, with_context = false) }}
+    {% endif %}
+  </div>
+</section>
+
+{# ── §2 Who speaks ────────────────────────────────────────────────────────── #}
+{# bg-base-200. Inline render — voice_attributed_byline SDC is article-byline #}
+{# scoped (date + "By" + read-time); this section needs named focus + link only. #}
+<section class="bg-base-200">
+  <div class="reading-column py-12 sm:py-16">
+    <h2 class="font-heading text-2xl font-semibold">{{ 'Who speaks here'|t }}</h2>
+    <p class="reading-prose mt-4 max-w-prose">{{ 'Two voices write under this name, and each one stays its own voice. Here is who writes what, so you can follow either of us.'|t }}</p>
+
+    <div class="mt-6 flex flex-col gap-5">
+      {% for person in persons %}
+        <div class="flex items-start gap-3">
+
+          {% if person.avatar_author_avatar %}
+            {# author-avatar size: w-12 (48px display). #}
+            <div class="avatar">
+              <div class="rounded-full w-12">
+                {{ person.avatar_author_avatar }}
+              </div>
+            </div>
+          {% else %}
+            <div class="avatar avatar-placeholder">
+              <div class="bg-neutral text-neutral-content rounded-full w-12">
+                <span aria-hidden="true">{{ person.initials }}</span>
+                <span class="sr-only">{{ person.name }}</span>
+              </div>
+            </div>
+          {% endif %}
+
+          <p class="text-base">
+            <a href="{{ person.profile_url }}" class="link link-hover font-semibold">{{ person.name }}</a>
+            {# D2: text-muted gives ≥4.62:1 on bg-base-200 (light). DO NOT use opacity-80 (3.74:1). #}
+            <span class="text-muted"> {{ person.focus }}</span>
+          </p>
+
+        </div>
+      {% endfor %}
     </div>
-  {% endif %}
-</article>
+  </div>
+</section>
+
+{# ── §3 The two people ────────────────────────────────────────────────────── #}
+{# bg-base-100. Navigational card grid → /people/{slug}. max-w-3xl. #}
+<section class="bg-base-100">
+  <div class="mx-auto max-w-3xl px-4 py-12 sm:px-6 sm:py-16">
+    <h2 class="font-heading text-2xl font-semibold">{{ 'The two people'|t }}</h2>
+    <p class="reading-prose mt-4 max-w-prose">{{ 'We are a couple, and we are also two individuals with our own track records. Open either profile to read that person on their own terms.'|t }}</p>
+
+    {# grid-cols-1 on mobile → sm:grid-cols-2 (640px). #}
+    <div class="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
+      {% for person in persons %}
+        {#
+          Full-card anchor. hover:border-primary with 150ms transition (productive
+          register, no entrance animation). Keyboard-navigable via <a> element.
+        #}
+        <a href="{{ person.profile_url }}"
+           class="card border border-base-300 bg-base-100 transition-colors duration-150 hover:border-primary">
+          <div class="card-body flex-row items-center gap-4">
+
+            {% if person.avatar_author_avatar %}
+              {# author-avatar size: w-16 (64px display). #}
+              <div class="avatar">
+                <div class="rounded-full w-16">
+                  {{ person.avatar_author_avatar }}
+                </div>
+              </div>
+            {% else %}
+              <div class="avatar avatar-placeholder">
+                <div class="bg-neutral text-neutral-content rounded-full w-16">
+                  <span aria-hidden="true">{{ person.initials }}</span>
+                  <span class="sr-only">{{ person.name }}</span>
+                </div>
+              </div>
+            {% endif %}
+
+            <div class="leading-tight">
+              <p class="font-heading text-lg font-semibold">{{ person.name }}</p>
+              {# D2: text-muted gives 5.62:1 on card bg-base-100. DO NOT use opacity-70 (2.87:1). #}
+              <p class="text-sm text-muted">{{ person.role }}</p>
+              <p class="mt-1 text-sm text-primary">{{ "View @name's profile"|t({'@name': person.name}) }}</p>
+            </div>
+
+          </div>
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{# ── §4 Their writing ─────────────────────────────────────────────────────── #}
+{# bg-base-200. Wider container (max-w-4xl) for 2-col card grid breathing room. #}
+{# couple_articles view: block_1 display; contextual filter = person_nids_arg    #}
+{# ("nid1+nid2" — break_phrase:true in View treats + as OR).                     #}
+<section class="bg-base-200">
+  <div class="mx-auto max-w-4xl px-4 py-12 sm:px-6 sm:py-16">
+    <h2 class="font-heading text-2xl font-semibold">{{ 'Their writing'|t }}</h2>
+    <p class="reading-prose mt-4 max-w-prose">{{ 'The body of work this couple has published together, browsable and attributable to the person who wrote each piece.'|t }}</p>
+
+    {% if person_nids_arg %}
+      {% set writing_view = drupal_view('couple_articles', 'block_1', person_nids_arg) %}
+      {% set writing_output = writing_view|render|trim %}
+      <div class="mt-8">
+        {% if writing_output %}
+          {{ writing_view }}
+        {% else %}
+          <p class="reading-prose mt-4 max-w-prose">{{ 'Nothing published yet — check back soon.'|t }}</p>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{# ── §5 Quiet contact close ───────────────────────────────────────────────── #}
+{# bg-base-100. One sentence, inline links (LinkedIn + /contact). No ceremony. #}
+<section class="bg-base-100">
+  <div class="reading-column py-12 sm:py-16">
+    {#
+      D2: full ink (text-base) gives 14.43:1 on bg-base-100 in light mode.
+      opacity-80 gives only 3.91:1 — DO NOT use opacity for readable prose.
+      HTML links embedded in the t() string: @variable escapes plain text safely;
+      |raw needed because the msgid itself contains <a> markup.
+    #}
+    {% set linkedin_label = 'LinkedIn'|t %}
+    {% set contact_label = 'contact form'|t %}
+    <p class="text-base">
+      {{ 'We are on <a href="https://www.linkedin.com/company/a-drupal-couple" class="link link-hover transition-colors duration-150" target="_blank" rel="noopener noreferrer">@linkedin</a> if you want to follow the work, or you can reach us through the <a href="/contact" class="link link-hover transition-colors duration-150">@contact</a> on this site. We read everything.'
+         |t({'@linkedin': linkedin_label, '@contact': contact_label})
+         |raw }}
+    </p>
+  </div>
+</section>

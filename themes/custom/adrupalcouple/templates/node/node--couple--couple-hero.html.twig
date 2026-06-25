@@ -1,0 +1,36 @@
+{#
+/**
+ * @file
+ * Couple Hero entity render — node.couple, `couple_hero` view mode.
+ *
+ * Renders the couple's title as <h1> and the two person face figures side-by-side
+ * (field_couple → person:couple_faces). This output is consumed by the
+ * block_content.couple_hero inline block, which wraps it and adds the
+ * translated lede paragraph (field_lede) below.
+ *
+ * Design contract (About §1):
+ *   - Couple title: <h1 class="font-heading …">
+ *   - Faces: flex row, justify-center, gap-8 sm:gap-12; each is a
+ *     node--person--couple-faces.html.twig figure (128px rounded-full).
+ *   - No lede here — the enclosing block--inline-block--couple-hero.html.twig
+ *     appends field_lede inside the .reading-column wrapper.
+ *
+ * Available content:
+ * - label               Couple name (raw string — used directly for h1 text).
+ * - content.field_couple Two person:couple_faces atoms.
+ *
+ * @see template_preprocess_node()
+ * @see block--inline-block--couple-hero.html.twig
+ */
+#}
+<div{{ attributes.addClass('couple-hero-entity') }}>
+  {# ── Couple name heading ─────────────────────────────────────────────────── #}
+  <h1 class="font-heading text-4xl font-bold text-center mb-8">{{ label }}</h1>
+
+  {# ── Dual faces row ──────────────────────────────────────────────────────── #}
+  {% if content.field_couple|render|trim %}
+    <div class="couple-faces flex flex-wrap justify-center gap-8 sm:gap-12">
+      {{ content.field_couple }}
+    </div>
+  {% endif %}
+</div>

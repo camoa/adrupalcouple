@@ -1,0 +1,31 @@
+{#
+/**
+ * @file node--couple--teaser.html.twig
+ *
+ * Couple node — teaser view mode (used in the couples_grid View listing).
+ * Delegates rendering to the adrupalcouple:couples-card SDC.
+ *
+ * Variables provided by adrupalcouple_preprocess_node__couple() (adrupalcouple.theme):
+ *   couple_persons — array of { name, avatar_url, initials } for up to 2 persons
+ *   founding       — boolean, true when field_founding is set
+ *   founding_label — t('Founding couple')
+ *   story_excerpt  — body.summary or first 160 chars of body.value
+ *   (couple_url comes from {{ url }} — standard node template variable)
+ *
+ * Heading hierarchy:
+ *   h1 "Couples"        ← Section 1 (views-view--couples-grid--page-1.html.twig)
+ *     h2 "Browse…"      ← Section 3 heading (same template)
+ *       h3 couple name  ← couples_card SDC card-title (here)
+ *
+ * @see adrupalcouple.theme → adrupalcouple_preprocess_node__couple()
+ * @see components/couples_card/couples_card.twig
+ */
+#}
+{{ include('adrupalcouple:couples_card', {
+  couple_name: label,
+  couple_url: url,
+  story_excerpt: story_excerpt,
+  founding: founding,
+  founding_label: founding_label,
+  couple_persons: couple_persons,
+}) }}

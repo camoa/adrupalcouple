@@ -1,0 +1,31 @@
+{#
+/**
+ * @file views-view-unformatted--frontpage--block-home.html.twig
+ *
+ * Unformatted style wrapper for the frontpage block_home display.
+ * Renders the latest writing article cards as an accessible <ul> with
+ * responsive 3-column CSS Grid.
+ *
+ * Grid breakpoints:
+ *   Mobile  (<640px):   1 column
+ *   sm      (>=640px):  2 columns
+ *   lg      (>=1024px): 3 columns
+ *
+ * Each row.content renders node--article--teaser.html.twig (<article.card>).
+ * <li class="contents"> flattens the list item — the card's own border/padding
+ * governs layout (CSS display:contents removes the li box).
+ *
+ * React reference: TopicBrowse component grid with 3-col at lg:
+ *   <ul data-component="topic-browse"
+ *       class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+ *
+ * @see views-view--frontpage--block-home.html.twig
+ * @see node--article--teaser.html.twig
+ */
+#}
+<ul data-component="topic-browse"
+    class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+  {% for row in rows %}
+    <li class="contents">{{ row.content }}</li>
+  {% endfor %}
+</ul>

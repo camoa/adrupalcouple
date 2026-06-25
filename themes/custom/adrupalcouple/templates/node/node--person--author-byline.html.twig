@@ -1,0 +1,60 @@
+{#
+/**
+ * @file
+ * Author byline mini-atom — node.person, `author_byline` view mode.
+ *
+ * Consumed inline by article teaser cards via the schema_author field's
+ * entity_reference_entity_view formatter (view_mode: author_byline).
+ * Used in node--article--teaser.html.twig → author row div.
+ *
+ * Output is a compact inline flex: 24px avatar circle + author full name.
+ * No role line (contrast: token view mode includes role for full bylines).
+ * No link to person profile (card context; title already links to article).
+ *
+ * Avatar sizes:
+ * - w-6 = 24px rendered. Source: schema_image → small_thumbnail view mode
+ *   (image style adc_author_avatar_1x1_96, displayed at w-6 = 24px via CSS).
+ * - Initials fallback: bg-primary text-primary-content w-6 rounded-full.
+ *
+ * Initials derivation: first char of given_name + first char of family_name,
+ * both uppercase. Falls back to first char of either when one is absent.
+ *
+ * Accessibility: avatar image uses author name as alt text (meaningful).
+ *   Initials placeholder: aria-hidden on visible initials + sr-only full name.
+ *
+ * React ref: src/components/Avatar.tsx (sizeClass="w-6")
+ *
+ * Available variables (from core.entity_view_display.node.person.author_byline):
+ * - content.schema_image     Author avatar (media → small_thumbnail view mode).
+ * - content.schema_given_name Given name string.
+ * - content.schema_family_name Family name string.
+ *
+ * @see template_preprocess_node()
+ */
+#}
+{%- set given = content.schema_given_name|render|trim -%}
+{%- set family = content.schema_family_name|render|trim -%}
+{%- set full_name = (given ~ ' ' ~ family)|trim -%}
+{%- set initial_given = given[:1]|upper -%}
+{%- set initial_family = family[:1]|upper -%}
+{%- set initials = (initial_given ~ initial_family)|trim ?: full_name[:1]|upper -%}
+
+<span{{ attributes.addClass('author-byline-mini inline-flex items-center gap-2') }}>
+  {%- if content.schema_image|render|trim -%}
+    {# With-image: avatar photo (small_thumbnail → 96px source, w-6 = 24px display). #}
+    <span class="avatar shrink-0">
+      <span class="block w-6 h-6 rounded-full overflow-hidden">
+        {{- content.schema_image -}}
+      </span>
+    </span>
+  {%- else -%}
+    {# Initials placeholder: DaisyUI avatar-placeholder (bg-primary + text-primary-content). #}
+    <span class="avatar avatar-placeholder shrink-0">
+      <span class="flex w-6 h-6 items-center justify-center rounded-full bg-primary text-primary-content">
+        <span class="text-[10px] font-semibold leading-none" aria-hidden="true">{{ initials }}</span>
+        <span class="sr-only">{{ full_name }}</span>
+      </span>
+    </span>
+  {%- endif -%}
+  <span class="author-name">{{ full_name }}</span>
+</span>

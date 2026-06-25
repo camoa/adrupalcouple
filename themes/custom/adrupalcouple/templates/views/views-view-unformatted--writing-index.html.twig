@@ -1,0 +1,26 @@
+{#
+/**
+ * @file views-view-unformatted--writing-index.html.twig
+ *
+ * Unformatted style wrapper for ALL writing_index displays (page_1, block_1).
+ *
+ * Renders the article card grid as an accessible <ul> with responsive CSS Grid:
+ *   Mobile (<640px):  1 column
+ *   sm (>=640px):     2 columns
+ *   (lg has no change — 2-col holds through desktop per composition.md)
+ *
+ * Each row.content renders node--article--teaser.html.twig (<article.card>).
+ * <li class="contents"> flattens the list item so the card's own border/padding
+ * governs layout (CSS display:contents — the li has no box of its own).
+ *
+ * React reference: TopicBrowse component grid:
+ *   <ul data-component="topic-browse" class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+ *
+ * @see node--article--teaser.html.twig
+ */
+#}
+<ul data-component="topic-browse" class="grid grid-cols-1 gap-6 sm:grid-cols-2 mt-6">
+  {% for row in rows %}
+    <li class="contents">{{ row.content }}</li>
+  {% endfor %}
+</ul>

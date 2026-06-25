@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_community_story
+    - node.type.couple
+id: node.couple.field_community_story
+field_name: field_community_story
+entity_type: node
+bundle: couple
+label: 'Community story'
+description: 'The community-arc narrative prose for About §3 (CoupleStory). Authored separately from origin narrative (body). EN/ES translatable via content_translation.'
+required: false
+translatable: true
+default_value: {}
+default_value_callback: ''
+settings: {}
+field_type: text_long

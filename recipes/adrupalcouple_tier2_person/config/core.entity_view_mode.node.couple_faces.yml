@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.couple_faces
+label: 'Couple Faces'
+description: 'Person rendered as a 128px face figure for About page §1 and §3. Shows schema_image (128px, rounded-full), given name, family name, and role.'
+targetEntityType: node
+cache: true

@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - media
+id: media.adc_card_thumbnail
+label: 'Card Thumbnail (16:9 responsive)'
+description: 'Responsive 16:9 card thumbnail for article and couple teasers. Uses responsive_image.styles.adc_card_thumbnail with the adrupalcouple breakpoint group.'
+targetEntityType: media
+cache: true

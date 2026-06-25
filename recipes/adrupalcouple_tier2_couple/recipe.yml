@@ -1,5 +1,5 @@
 name: 'ADrupalCouple Tier2 Couple'
-description: 'Provides schema_image field instance plus the NEW field_milestone compound custom_field on the couple node bundle.'
+description: 'Provides schema_image field instance, field_milestone compound custom_field, field_founding boolean, and couples_grid View updates on the couple node bundle.'
 type: 'Content type'
 config:
   # strict: false — field.field.node.couple.schema_image already exists on live;
@@ -18,6 +18,12 @@ config:
           region: content
           settings: { label: true, wrapper: div, open: true }
           third_party_settings: {  }
+        content.field_community_story:
+          type: text_textarea
+          weight: 5
+          region: content
+          settings: { rows: 8, placeholder: 'Community-arc narrative prose for About §3 (CoupleStory). EN text here; add ES translation separately.' }
+          third_party_settings: {  }
         third_party_settings.field_group:
           group_tabs:
             children: [group_story, group_pairing, group_milestones]
@@ -28,7 +34,7 @@ config:
             format_type: tabs
             format_settings: { direction: horizontal }
           group_story:
-            children: [title, body, schema_image]
+            children: [title, body, field_community_story, schema_image]
             label: 'Story'
             parent_name: group_tabs
             region: content
@@ -61,7 +67,7 @@ config:
           schema_image:
             type: entity_reference_entity_view
             label: hidden
-            settings: { view_mode: small_thumbnail, link: false }
+            settings: { view_mode: adc_card_thumbnail, link: false }
             third_party_settings: {  }
             weight: 0
             region: content
@@ -88,6 +94,7 @@ config:
             region: content
         hidden:
           created: true
+          field_community_story: true
           field_milestone: true
           langcode: true
           links: true
@@ -108,7 +115,7 @@ config:
           schema_image:
             type: entity_reference_entity_view
             label: hidden
-            settings: { view_mode: small_thumbnail, link: false }
+            settings: { view_mode: adc_card_thumbnail, link: false }
             third_party_settings: {  }
             weight: 1
             region: content
@@ -128,6 +135,7 @@ config:
             region: content
         hidden:
           created: true
+          field_community_story: true
           field_milestone: true
           langcode: true
           links: true
@@ -177,6 +185,7 @@ config:
             region: content
         hidden: &couple_profile_hidden
           created: true
+          field_community_story: true
           links: true
           langcode: true
           node_read_time: true
@@ -191,3 +200,97 @@ config:
           layout_builder: { enabled: false, allow_custom: false }
         content: *couple_profile_content
         hidden: *couple_profile_hidden
+
+    # --- couples_grid View: page_couples task updates ---
+    # Canonical View ID: couples_grid (data-model.md §1 — task.md used couples_index, which
+    # is incorrect; actual installed config is views.view.couples_grid).
+    #
+    # Changes applied:
+    # - style: grid_responsive → unformatted (custom Twig provides grid wrapper)
+    # - pager: mini → none (show all couples)
+    # - sorts: created DESC → field_founding DESC + title ASC
+    # - page_1 path: couples-grid → couples
+    # - block_1 display added for LB embed (alternative approach)
+    #
+    # NOTE: field_founding (boolean) is imported by this recipe's config/ files above;
+    # it must exist before the View sort referencing node__field_founding.field_founding_value
+    # is applied. Recipe config import precedes config.actions, so ordering is safe.
+    views.view.couples_grid:
+      setProperties:
+        display.default.display_options.style:
+          type: default
+          options: {}
+        display.default.display_options.pager:
+          type: none
+          options:
+            offset: 0
+        display.default.display_options.sorts:
+          field_founding_value:
+            id: field_founding_value
+            table: node__field_founding
+            field: field_founding_value
+            relationship: none
+            group_type: group
+            admin_label: ''
+            entity_type: node
+            entity_field: field_founding
+            plugin_id: standard
+            order: DESC
+            expose:
+              label: ''
+              field_identifier: ''
+            exposed: false
+          title:
+            id: title
+            table: node_field_data
+            field: title
+            relationship: none
+            group_type: group
+            admin_label: ''
+            entity_type: node
+            entity_field: title
+            plugin_id: standard
+            order: ASC
+            expose:
+              label: ''
+              field_identifier: ''
+            exposed: false
+        display.page_1.display_options.path: couples
+        display.page_1.display_options.menu:
+          type: normal
+          title: Couples
+          description: ''
+          weight: -49
+          expanded: false
+          menu_name: main
+          parent: ''
+          context: '0'
+        display.block_1:
+          id: block_1
+          display_title: 'Block (LB embed)'
+          display_plugin: block
+          position: 2
+          display_options:
+            display_extenders: {}
+            block_description: 'Couples grid'
+            block_hide_empty: false
+            block_category: 'Lists (Views)'
+            allow_settings:
+              use_pager: false
+              offset: false
+              items_per_page: false
+              hide_empty: false
+              link_to_view: false
+              more_link: false
+              path_override: false
+              title: false
+              fields_override: false
+          cache_metadata:
+            max-age: -1
+            contexts:
+              - 'languages:language_content'
+              - 'languages:language_interface'
+              - url.query_args
+              - 'user.node_grants:view'
+              - user.permissions
+            tags: {}

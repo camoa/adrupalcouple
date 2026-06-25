@@ -1,0 +1,57 @@
+{#
+/**
+ * @file views-view--couples-grid--page-1.html.twig
+ *
+ * Couples listing page — full 3-section layout.
+ * React reference: CouplesPage.tsx (react-template/src/pages/)
+ * composition.md §5: No invitation band on listing pages.
+ *
+ * Sections:
+ *   1. Minimal listing header  (bg-base-100) — h1 + lede
+ *   2. Brief editorial framing (bg-base-200) — framingNote prose
+ *   3. Couples card grid       (bg-base-100) — {{ rows }} (grid wrapper in
+ *      views-view-unformatted--couples-grid.html.twig)
+ *
+ * Motion: none above the fold. Card hover (transition-colors duration-150) is
+ * the only motion on the page — handled by node--couple--teaser.html.twig and
+ * the global prefers-reduced-motion override in a11y.pcss.
+ *
+ * Strings: use Twig |t filter so they register in Drupal's translation UI.
+ */
+#}
+
+{# Section 1 — Minimal listing header (base-100) #}
+<section class="bg-base-100">
+  <div class="reading-column pt-14 pb-8">
+    <h1 class="font-heading text-4xl font-semibold sm:text-5xl">
+      {{ 'Couples'|t }}
+    </h1>
+    {# D2: full ink (not opacity-80) — 14.43:1 contrast on base-100. #}
+    <p class="mt-3 text-lg">{{ 'A place built around Drupal couples, starting with the founders.'|t }}</p>
+  </div>
+</section>
+
+{# Section 2 — Brief editorial framing (base-200, one tonal ground step) #}
+<section class="bg-base-200">
+  <div class="reading-column reading-prose py-10">
+    {# D2: full ink (not opacity-90) — 11.87:1 on base-200. #}
+    <p class="max-w-[66ch]">{{ 'We built this around couples because two voices tell a more honest story than one. This is the directory, and it starts with ours. Who else belongs here?'|t }}</p>
+  </div>
+</section>
+
+{# Section 3 — Couples card grid (base-100)
+   D1: aria-labelledby + h2 closes the H1→H3 skip (was H1 in S1, H3 inside each card). #}
+<section class="bg-base-100 py-12" aria-labelledby="couples-grid-heading">
+  <div class="mx-auto max-w-5xl px-4">
+    <h2 id="couples-grid-heading" class="font-heading text-2xl font-semibold mb-6">
+      {{ 'Browse couples'|t }}
+    </h2>
+
+    {% if rows %}
+      {# Grid wrapper rendered by views-view-unformatted--couples-grid.html.twig #}
+      {{ rows }}
+    {% elseif empty %}
+      <p class="text-muted">{{ empty }}</p>
+    {% endif %}
+  </div>
+</section>

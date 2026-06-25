@@ -1,11 +1,12 @@
 name: 'ADrupalCouple Tier1 Sections'
 description: >
-  Provides the two Layout Builder inline-block bundles for the Home and About
-  compositional pages: `masthead` (Home §1 compact masthead) and `couple_hero`
-  (About §1 dual-face + lede block). Reconciles the Q-01 contradiction — the
-  data-model intentionally omitted adrupalcouple_tier1_sections, but Q-01 is
-  locked to LB inline-blocks for Home/About (matrix-default D ownership per
-  data-model §12.1/§12.2). This recipe creates the 2 bundles.
+  Provides three Layout Builder inline-block bundles for the Home and About
+  compositional pages: `masthead` (Home §1 compact masthead), `couple_hero`
+  (About §1 dual-face + lede block), and `couple_story_block` (About §3
+  community-arc block referencing the couple entity via couple_story view mode).
+  Reconciles the Q-01 contradiction — the data-model intentionally omitted
+  adrupalcouple_tier1_sections, but Q-01 is locked to LB inline-blocks for
+  Home/About (matrix-default D ownership per data-model §12.1/§12.2).
   Apply after adrupalcouple_foundation (provides node entity types + language.entity.es).
 type: 'Content type'
 config:

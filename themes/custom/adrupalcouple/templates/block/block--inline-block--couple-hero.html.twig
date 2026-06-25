@@ -1,0 +1,43 @@
+{#
+/**
+ * @file
+ * Couple Hero inline block — block_content.couple_hero, default display.
+ *
+ * This LB inline block sits in About §1 (bg-base-100, py-12). It provides the
+ * §1 reading-column wrapper and composes:
+ *   1. field_couple rendered via node.couple, couple_hero view mode
+ *      → node--couple--couple-hero.html.twig (title h1 + dual faces).
+ *   2. field_lede: the hero origin lede paragraph below the faces.
+ *      Translatable — ES/EN content stored on the block_content entity.
+ *
+ * Hierarchy:
+ *   LB section (bg-base-100 py-12, via UI Styles)
+ *     └─ .reading-column                    ← this template's wrapper
+ *          ├─ node.couple.couple_hero        ← content.field_couple
+ *          └─ <p class="lede mt-6">         ← content.field_lede
+ *
+ * The LB section shell (bg-base-100 + py-12 classes) is applied by UI Styles
+ * on the LB section itself, NOT by this template. This template only provides
+ * the reading-column inner container.
+ *
+ * Available content:
+ * - content.field_couple  Rendered couple entity (couple_hero view mode).
+ * - content.field_lede    Hero lede string (basic_string formatter output).
+ *
+ * @see node--couple--couple-hero.html.twig
+ * @see adrupalcouple.ui_styles.yml (section_background, section_spacing_vertical)
+ */
+#}
+<div{{ attributes.addClass('block block--inline-block block--type-couple-hero') }}>
+  {{ title_prefix }}
+  {{ title_suffix }}
+  <div class="reading-column">
+    {# Couple entity render: title h1 + dual faces. #}
+    {{ content.field_couple }}
+
+    {# Hero lede — origin sentence below the faces. #}
+    {% if content.field_lede|render|trim %}
+      <p class="couple-hero-lede text-lg text-center mt-6">{{ content.field_lede }}</p>
+    {% endif %}
+  </div>
+</div>
