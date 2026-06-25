@@ -54,6 +54,13 @@ export default defineConfig(() => {
             src: 'dist/css/components', // Copy compiled CSS directory
             dest: '../', // to component and folder.
           },
+          // Self-host the brand webfonts: PostCSS inlines the @fontsource @imports but Vite does
+          // not emit the deep url(./files/*.woff2) assets, so the compiled app.css references
+          // dist/css/files/*.woff2 that never exist (404 -> fonts fall back to Georgia/system).
+          // Copy the @fontsource font files into dist/css/files/ so they serve LOCALLY (no CDN).
+          { src: 'node_modules/@fontsource-variable/fraunces/files/*.{woff2,woff}', dest: 'css/files' },
+          { src: 'node_modules/@fontsource/atkinson-hyperlegible/files/*.{woff2,woff}', dest: 'css/files' },
+          { src: 'node_modules/@fontsource/ibm-plex-mono/files/*.{woff2,woff}', dest: 'css/files' },
         ],
       }),
     ],
