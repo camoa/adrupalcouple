@@ -1,0 +1,9 @@
+name: 'ADrupalCouple Tier2 Couple'
+description: 'Provides schema_image field instance on the couple node bundle.'
+type: 'Content type'
+config:
+  # strict: false — field.field.node.couple.schema_image already exists on live.
+  strict: false
+  actions:
+    field.field.node.couple.schema_image:
+      entity_method:field.field:setLabel: 'Couple portrait'

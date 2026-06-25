@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies: {}
+name: adc_card_thumbnail_16x9_640
+label: 'ADC Card Thumbnail 16×9 640px'
+effects:
+  a1fbf1fd-d472-43e0-9713-4065098156ea:
+    uuid: a1fbf1fd-d472-43e0-9713-4065098156ea
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 640
+      height: 360
+      anchor: center-center
+  4d3fd0ca-e59b-4fd1-9dae-26c7316898e8:
+    uuid: 4d3fd0ca-e59b-4fd1-9dae-26c7316898e8
+    id: image_convert
+    weight: 2
+    data:
+      extension: webp

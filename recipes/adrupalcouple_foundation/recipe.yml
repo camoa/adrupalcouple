@@ -1,0 +1,6 @@
+name: 'ADrupalCouple Foundation'
+description: 'Provides foundation image styles, responsive image styles, and shared field storage for ADrupalCouple.'
+type: 'Foundation'
+config:
+  # strict: false allows re-application when field.storage.node.schema_image already exists.
+  strict: false

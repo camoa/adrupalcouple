@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - image.style.adc_card_thumbnail_16x9_640
+  theme:
+    - adrupalcouple
+id: adc_card_thumbnail
+label: 'ADC Card Thumbnail (16:9, responsive)'
+breakpoint_group: adrupalcouple
+fallback_image_style: adc_card_thumbnail_16x9_640
+image_style_mappings:
+  - breakpoint_id: adrupalcouple.xs
+    multiplier: 1x
+    image_mapping_type: image_style
+    image_mapping: adc_card_thumbnail_16x9_640
+  - breakpoint_id: adrupalcouple.sm
+    multiplier: 1x
+    image_mapping_type: image_style
+    image_mapping: adc_card_thumbnail_16x9_640

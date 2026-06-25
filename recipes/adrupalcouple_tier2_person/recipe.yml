@@ -1,0 +1,9 @@
+name: 'ADrupalCouple Tier2 Person'
+description: 'Provides schema_image field instance on the person node bundle.'
+type: 'Content type'
+config:
+  # strict: false — field.field.node.person.schema_image already exists on live.
+  strict: false
+  actions:
+    field.field.node.person.schema_image:
+      entity_method:field.field:setLabel: 'Portrait'

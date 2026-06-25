@@ -1,0 +1,12 @@
+adrupalcouple.xs:
+  label: 'Extra small (< 640px)'
+  mediaQuery: ''
+  weight: 0
+  multipliers:
+    - 1x
+adrupalcouple.sm:
+  label: 'Small (≥ 640px)'
+  mediaQuery: '(min-width: 640px)'
+  weight: 1
+  multipliers:
+    - 1x

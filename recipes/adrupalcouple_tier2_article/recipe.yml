@@ -1,0 +1,12 @@
+name: 'ADrupalCouple Tier2 Article'
+description: 'Provides schema_image field instance on the article node bundle.'
+type: 'Content type'
+config:
+  # strict: false — field.field.node.article.schema_image already exists on live.
+  # Config file provides canonical state for fresh installs; actions update existing instances.
+  strict: false
+  actions:
+    field.field.node.article.schema_image:
+      entity_method:field.field:setLabel: 'Hero image'
+      entity_method:field.field:setDescription: 'Used as card thumbnail and og:image. Never displayed on the article page itself.'
+      entity_method:field.field:setRequired: false
