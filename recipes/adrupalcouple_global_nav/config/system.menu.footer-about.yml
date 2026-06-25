@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {}
+id: footer-about
+label: 'Footer About'
+description: 'Footer navigation — About column. Links: About, Couples, Accessibility.'
+locked: false

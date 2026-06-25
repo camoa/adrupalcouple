@@ -1,0 +1,19 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - adrupalcouple_chrome
+  theme:
+    - adrupalcouple
+id: adrupalcouple_sdc_footer
+theme: adrupalcouple
+region: footer
+weight: 0
+provider: null
+plugin: adrupalcouple_sdc_footer
+settings:
+  id: adrupalcouple_sdc_footer
+  label: 'ADrupalCouple Footer'
+  label_display: '0'
+  provider: adrupalcouple_chrome
+visibility: {}

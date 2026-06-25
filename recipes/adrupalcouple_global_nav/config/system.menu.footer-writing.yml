@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {}
+id: footer-writing
+label: 'Footer Writing'
+description: 'Footer navigation — Writing column. Links: All Writing, Browse by Topic.'
+locked: false

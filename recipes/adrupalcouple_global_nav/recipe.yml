@@ -1,0 +1,34 @@
+name: 'ADrupalCouple Global Nav'
+description: >
+  Global chrome — navigation, menus, regions, block placement.
+  Closes coverage-ledger orphans: Nav wiring, LanguageSwitcher, ThemeToggle.
+
+  Creates:
+    - footer-writing + footer-about menus (links created via drush post-apply
+      since menu_link_content is content, not config)
+    - language_switcher block in navbar_end
+    - adrupalcouple_sdc_footer block in footer region (plugin from
+      adrupalcouple_chrome module: loads footer menus, passes them as rendered
+      slots into the adrupalcouple:footer SDC)
+    - installs adrupalcouple_chrome custom module
+
+  Post-apply steps (not reproducible as config):
+    1. Create Writing menu link in system.menu.main (internal:/writing, weight -51)
+    2. Update existing "About Us" menu_link_content title → "About"
+    3. Disable standard.front_page (Home) from main menu
+    4. Create footer_writing links: All Writing, Browse by Topic
+    5. Create footer_about links: About (/about-us), Couples (/couples),
+       Accessibility (/accessibility)
+    6. drush cr
+type: 'Feature'
+install:
+  - adrupalcouple_chrome
+config:
+  strict: false
+  actions:
+    # Reconcile pre-existing main menu block — no changes needed but note it
+    # exists at navbar_center (G-CONV-36: use actions not full replacement).
+    block.block.adrupalcouple_main_menu:
+      setProperties:
+        region: navbar_center
+        weight: -4

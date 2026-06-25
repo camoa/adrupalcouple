@@ -1,0 +1,55 @@
+{#
+/**
+ * @file
+ * ADrupalCouple main menu — responsive nav override.
+ *
+ * Desktop (md+): horizontal DaisyUI menu via ui_suite_daisyui:menu, hidden on
+ *   mobile with Tailwind "hidden md:flex" so it only appears on md+ screens.
+ * Mobile (< md): DaisyUI <details>/<summary> dropdown (mirrors ThemeSwitcher.tsx
+ *   D5 pattern — native disclosure, no manual aria-expanded/JS needed).
+ *   The summary shows the hamburger ☰; the menu-link list drops below.
+ *   "md:hidden" hides this block on desktop.
+ *
+ * Both sections stay in the navbar-center slot. No custom SDC is introduced —
+ * this template uses only ui_suite_daisyui:menu and plain DaisyUI classes.
+ *
+ * Available variables (from core menu.html.twig):
+ *   items — nested menu items with .title, .url, .in_active_trail, .below.
+ *   menu_name — 'main'.
+ *
+ * @see menu.html.twig
+ */
+#}
+{% if items %}
+  {# Desktop horizontal menu — hidden on mobile, shown as flex on md+ #}
+  <nav class="hidden md:flex" aria-label="Primary navigation">
+    {{ include('ui_suite_daisyui:menu', {
+      items: items,
+      variant: 'horizontal__md',
+      collapsible: 'closed',
+    }, with_context: false) }}
+  </nav>
+
+  {# Mobile dropdown — visible only on mobile (md:hidden), DaisyUI details/summary
+     toggle. No JS needed: the browser's native disclosure handles open/closed. #}
+  <details class="dropdown dropdown-end md:hidden">
+    <summary
+      class="btn btn-ghost btn-sm"
+      aria-label="{{ 'Open navigation menu'|t }}"
+      role="button"
+    >☰</summary>
+    <ul
+      class="menu dropdown-content z-10 mt-2 w-48 rounded-box bg-base-100 p-2 shadow"
+      role="list"
+    >
+      {% for item in items %}
+        <li {{ item.attributes }}>
+          <a href="{{ item.url }}"
+            {% if item.in_active_trail %} class="menu-active"{% endif %}
+            onclick="this.closest('details').removeAttribute('open')"
+          >{{ item.title }}</a>
+        </li>
+      {% endfor %}
+    </ul>
+  </details>
+{% endif %}

@@ -582,6 +582,19 @@ function _adrupalcouple_person_initials(string $name): string {
  * so allowing the block to also render would produce a duplicate heading.
  */
 function adrupalcouple_preprocess_page(array &$variables): void {
+  // ── Theme-toggle button (global — runs for every page) ────────────────────
+  // Picked up and wired by theme-toggle.js (library adrupalcouple/theme-toggle,
+  // header: true) via .theme-toggle class. JS sets glyph, aria-label, and
+  // aria-pressed on DOMContentLoaded; the static markup is the no-JS fallback.
+  // Mirrors ThemeSwitcher.tsx: ☾ = currently light (adc-warm), ☀ = dark.
+  // Use Markup::create() so the <button> tag is not stripped by Xss::filterAdmin()
+  // (#markup plain strings go through admin XSS filtering which excludes <button>).
+  $variables['page']['navbar_end']['adrupalcouple_theme_toggle'] = [
+    '#markup' => \Drupal\Core\Render\Markup::create('<button type="button" class="theme-toggle btn btn-ghost btn-sm transition-colors duration-150" aria-pressed="false" aria-label="Switch to dark theme"><span aria-hidden="true">☾</span></button>'),
+    '#weight' => -4,
+  ];
+
+  // ── Accessibility page: suppress duplicate <h1> from page-title block ─────
   $node = $variables['node'] ?? NULL;
   if (!$node instanceof NodeInterface || $node->bundle() !== 'page') {
     return;
@@ -820,3 +833,4 @@ function adrupalcouple_preprocess_node__person(array &$variables): void {
     }
   }
 }
+
