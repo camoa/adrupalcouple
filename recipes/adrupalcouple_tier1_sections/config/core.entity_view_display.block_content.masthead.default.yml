@@ -1,0 +1,36 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.masthead
+    - field.field.block_content.masthead.field_brand_name
+    - field.field.block_content.masthead.field_subtitle
+    - field.field.block_content.masthead.field_tagline
+id: block_content.masthead.default
+targetEntityType: block_content
+bundle: masthead
+mode: default
+content:
+  field_brand_name:
+    type: string
+    label: hidden
+    settings: {}
+    third_party_settings: {}
+    weight: 0
+    region: content
+  field_tagline:
+    type: basic_string
+    label: hidden
+    settings: {}
+    third_party_settings: {}
+    weight: 1
+    region: content
+  field_subtitle:
+    type: basic_string
+    label: hidden
+    settings: {}
+    third_party_settings: {}
+    weight: 2
+    region: content
+hidden:
+  langcode: true

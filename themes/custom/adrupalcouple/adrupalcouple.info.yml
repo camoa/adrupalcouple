@@ -18,6 +18,7 @@ regions:
   page_bottom: 'Page bottom'
 libraries:
   - adrupalcouple/daisyui
+  - adrupalcouple/theme-toggle
 libraries-override:
   ui_suite_daisyui/daisyui:
     css:

@@ -1,0 +1,9 @@
+name: 'ADrupalCouple Pathauto Topics'
+description: 'Creates the Pathauto alias pattern for tags taxonomy terms → /topics/{slug}, matching the React /topics/{slug} route. Closes gap G-CONV-23.'
+type: 'Pathauto'
+install:
+  - pathauto
+  - token
+config:
+  # strict: false — pathauto.pattern.topics may not exist on first run; no conflict expected.
+  strict: false

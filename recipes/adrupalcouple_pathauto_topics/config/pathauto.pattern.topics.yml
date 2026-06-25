@@ -1,0 +1,25 @@
+uuid: d33c7dc7-4f7d-41d0-b114-dd6e49e7874b
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.tags
+  module:
+    - pathauto
+    - taxonomy
+id: topics
+label: 'Topics (tags vocabulary)'
+type: 'canonical_entities:taxonomy_term'
+pattern: 'topics/[term:name]'
+selection_criteria:
+  2237f5ba-e49a-4f0f-8305-299d382a8a8b:
+    id: 'entity_bundle:taxonomy_term'
+    negate: false
+    context_mapping:
+      taxonomy_term: taxonomy_term
+    bundles:
+      tags: tags
+selection_logic: and
+# Weight -10 takes priority over the existing tax_url pattern (weight -5) for tags terms.
+weight: -10
+relationships: {  }

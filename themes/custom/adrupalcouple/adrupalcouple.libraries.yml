@@ -3,3 +3,25 @@ daisyui:
     theme:
       "dist/css/app.css": { minified: true }
       "dist/css/themes/adc.css": { minified: true }
+
+theme-toggle:
+  header: true
+  js:
+    js/theme-toggle.js: {}
+  dependencies:
+    - core/drupal
+    - core/once
+
+# Attached to article nodes via hook_preprocess_node__article().
+# Provides: (a) dark-ground code block styles for CKEditor5 codeBlock output,
+# blockquote/pull-quote accent styles, and in-article figure caption styles;
+# (b) dependency-free syntax tokenizer matching the React highlight.ts palette.
+code-highlight:
+  version: 1.x
+  css:
+    theme:
+      css/code-highlight.css: {}
+  js:
+    js/code-highlight.js: {}
+  dependencies:
+    - core/drupal

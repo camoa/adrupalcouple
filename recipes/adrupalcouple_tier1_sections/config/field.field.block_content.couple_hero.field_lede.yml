@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.couple_hero
+    - field.storage.block_content.field_lede
+id: block_content.couple_hero.field_lede
+field_name: field_lede
+entity_type: block_content
+bundle: couple_hero
+label: Lede
+description: 'The origin/hero lede paragraph rendered below the dual faces. Maps to AboutPage.strings.heroLede. Translatable for ES variant.'
+required: false
+translatable: true
+default_value: {}
+default_value_callback: ''
+settings: {}
+field_type: string_long

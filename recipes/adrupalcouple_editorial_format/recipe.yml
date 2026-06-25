@@ -1,0 +1,7 @@
+name: 'ADrupalCouple Editorial Format'
+description: 'Reconciles the full_html text format (article body format) for ADrupalCouple authoring needs: adds media_embed filter + drupalMedia toolbar button for InArticleFigure; blockquote + codeBlock already present for PullQuote + HonestCodeBlock. Extends language list with Drupal-relevant languages (Twig, YAML, Bash, JSON).'
+type: 'Content authoring'
+# All required modules (ckeditor5, editor, filter, media) are pre-installed on the live site.
+# strict: false — full_html exists; we are reconciling it, not creating a new one.
+config:
+  strict: false

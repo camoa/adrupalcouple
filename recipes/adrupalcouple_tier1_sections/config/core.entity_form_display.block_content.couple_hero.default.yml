@@ -1,0 +1,46 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.couple_hero
+    - field.field.block_content.couple_hero.field_couple
+    - field.field.block_content.couple_hero.field_lede
+id: block_content.couple_hero.default
+targetEntityType: block_content
+bundle: couple_hero
+mode: default
+content:
+  info:
+    type: string_textfield
+    weight: -5
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {}
+  langcode:
+    type: language_select
+    weight: 2
+    region: content
+    settings:
+      include_locked: true
+    third_party_settings: {}
+  field_couple:
+    type: entity_reference_autocomplete
+    weight: 0
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: 'Select the couple node (e.g. Anilu & Camoa)'
+    third_party_settings: {}
+  field_lede:
+    type: string_textarea
+    weight: 1
+    region: content
+    settings:
+      rows: 4
+      placeholder: 'Lede text displayed below the dual faces (translatable)'
+    third_party_settings: {}
+hidden: {}

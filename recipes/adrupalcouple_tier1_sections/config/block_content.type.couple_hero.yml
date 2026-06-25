@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {}
+id: couple_hero
+label: 'Couple Hero'
+revision: false
+description: 'Dual-face + origin-lede block for the About page (LB inline block, Section 1). References the couple node and carries a translatable lede text field.'

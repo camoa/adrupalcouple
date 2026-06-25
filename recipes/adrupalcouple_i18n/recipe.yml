@@ -1,0 +1,10 @@
+name: 'ADrupalCouple Internationalization'
+description: 'Ensures the Spanish (es) language entity exists; locale and language modules are enabled for interface translation. Ships an ES .po file via the theme; import requires drush locale:import after recipe apply.'
+type: 'Feature'
+install:
+  - language
+  - locale
+  - content_translation
+config:
+  # strict: false — safe to re-apply if ES language entity already exists on the live site.
+  strict: false

@@ -1,0 +1,161 @@
+# ADrupalCouple theme — Spanish (es) interface translation.
+# Sourced from: react-template/src/i18n/es.json (EN→ES key map).
+#
+# Deploy path (NOT config-sync):
+#   drush locale:import es themes/custom/adrupalcouple/translations/es.po \
+#     --type=customized --override=not-customized
+#
+# Re-run after any change to this file. Safe to re-import with --override=not-customized.
+# Interface translations are NOT exported by drush cex; they live in the {locales_*} DB
+# tables and this file. Add this drush command to your deploy pipeline step.
+#
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: es\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+# --- Byline (voice_attributed_byline.twig) ---
+
+msgid "By"
+msgstr "por"
+
+msgid "and"
+msgstr "y"
+
+# Drupal placeholder: @minutes is substituted at render time.
+msgid "@minutes min read"
+msgstr "@minutes min de lectura"
+
+# --- Navigation chrome ---
+
+msgid "Skip to content"
+msgstr "Saltar al contenido"
+
+msgid "Open menu"
+msgstr "Abrir menú"
+
+# Used as aria-label for the primary navigation landmark.
+msgid "Primary"
+msgstr "Principal"
+
+msgid "Home"
+msgstr "Inicio"
+
+msgid "Writing"
+msgstr "Escritura"
+
+msgid "Couples"
+msgstr "Parejas"
+
+msgid "About"
+msgstr "Quiénes somos"
+
+# --- Language & theme switcher ---
+
+msgid "Language"
+msgstr "Idioma"
+
+msgid "Switch language"
+msgstr "Cambiar idioma"
+
+msgid "Theme"
+msgstr "Tema"
+
+msgid "Switch to light theme"
+msgstr "Cambiar a tema claro"
+
+msgid "Switch to dark theme"
+msgstr "Cambiar a tema oscuro"
+
+# DaisyUI theme name labels (used in ThemeSwitcher options).
+msgid "Warm"
+msgstr "Cálido"
+
+msgid "Neutral"
+msgstr "Neutro"
+
+msgid "Cool"
+msgstr "Frío"
+
+msgid "Dark"
+msgstr "Oscuro"
+
+# --- Footer chrome (sdc_footer block props, sourced via t()) ---
+
+msgid "The couple"
+msgstr "La pareja"
+
+msgid "Browse"
+msgstr "Explorar"
+
+msgid "Accessibility"
+msgstr "Accesibilidad"
+
+msgid "Written by two people, from both worlds."
+msgstr "Escrito por dos personas, desde ambos mundos."
+
+msgid "Built with Drupal, read on quiet pages."
+msgstr "Construido con Drupal, leído en páginas tranquilas."
+
+# --- Listing / section labels (Views block titles, heading labels) ---
+
+msgid "All writing"
+msgstr "Toda la escritura"
+
+msgid "Browse by topic"
+msgstr "Explorar por tema"
+
+msgid "Latest writing"
+msgstr "Lo más reciente"
+
+msgid "The two of us"
+msgstr "Nosotros dos"
+
+msgid "Along the way"
+msgstr "En el camino"
+
+# --- Card / profile actions ---
+
+msgid "View profile"
+msgstr "Ver perfil"
+
+msgid "Read the article"
+msgstr "Leer el artículo"
+
+# Drupal placeholder: @name is substituted at render time.
+msgid "Read more from @name"
+msgstr "Leer más de @name"
+
+# --- Article reading ---
+
+msgid "Footnotes"
+msgstr "Notas al pie"
+
+# --- Invitation / CTA ---
+
+msgid "Reply and tell us"
+msgstr "Responde y cuéntanos"
+
+msgid "Join the conversation"
+msgstr "Únete a la conversación"
+
+# --- Not-found / error states ---
+
+msgid "We could not find that article."
+msgstr "No encontramos ese artículo."
+
+msgid "We could not find that couple."
+msgstr "No encontramos esa pareja."
+
+msgid "We could not find that person."
+msgstr "No encontramos esa persona."
+
+msgid "Their writing"
+msgstr "Su escritura"
+
+# --- Brand tagline ---
+
+msgid "Honest, production-grounded writing. From both worlds."
+msgstr "Escritura honesta y de verdad de producción. Desde ambos mundos."

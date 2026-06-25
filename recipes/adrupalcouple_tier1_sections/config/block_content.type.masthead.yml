@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {}
+id: masthead
+label: Masthead
+revision: false
+description: 'Compact above-fold masthead for the Home page (LB inline block, Section 1). Holds brand name, H1 tagline, and subtitle. Used with the TwoPersonCredit View block.'
