@@ -1,4 +1,26 @@
 ################################################################################
+# Section styles (Layout Builder).
+# UI Skins: OFF (Q-08). Light/dark = DaisyUI adc-warm/adc-dark via ThemeSwitcher.
+# UI Icons: OFF (Q-09). Unicode glyphs used directly in templates.
+################################################################################
+
+section_background:
+  category: "Section"
+  label: "Section background"
+  description: "Controls the DaisyUI base surface token applied to the full section wrapper."
+  options:
+    "bg-base-100": "Default surface"
+    "bg-base-200": "Alternate surface"
+
+section_spacing_vertical:
+  category: "Section"
+  label: "Section vertical spacing"
+  description: "Controls vertical padding on the section wrapper using the DaisyUI/Tailwind spacing scale."
+  options:
+    "py-12": "Moderate"
+    "py-16": "Reading-comfortable"
+
+################################################################################
 # Typography.
 ################################################################################
 

@@ -1,6 +1,11 @@
 name: 'ADrupalCouple Foundation'
-description: 'Provides foundation image styles, responsive image styles, and shared field storage for ADrupalCouple.'
+description: 'Provides foundation image styles, responsive image styles, shared field storage, and section-level UI Styles for ADrupalCouple.'
 type: 'Foundation'
+install:
+  # Section-level UI Styles (p3d) only surface in the Layout Builder section "Style" tab when the
+  # ui_styles_layout_builder sub-module is enabled — make the prerequisite reproducible, not live-DB-only.
+  - ui_styles
+  - ui_styles_layout_builder
 config:
   # strict: false allows re-application when field.storage.node.schema_image already exists.
   strict: false
