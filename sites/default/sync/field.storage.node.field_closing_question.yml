@@ -1,0 +1,19 @@
+uuid: d4e1eacd-16b9-40aa-b578-30a8e3c064b8
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.field_closing_question
+field_name: field_closing_question
+entity_type: node
+type: string_long
+settings:
+  case_sensitive: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

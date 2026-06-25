@@ -1,0 +1,19 @@
+uuid: e31802b6-6732-44a1-a457-8b8d4caca76c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_closing_question
+    - node.type.article
+id: node.article.field_closing_question
+field_name: field_closing_question
+entity_type: node
+bundle: article
+label: 'Closing question'
+description: 'The InvitationClose closing question. Optional; degrades to body prose if empty.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

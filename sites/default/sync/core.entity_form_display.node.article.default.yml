@@ -4,7 +4,9 @@ status: true
 dependencies:
   config:
     - field.field.node.article.body
+    - field.field.node.article.field_closing_question
     - field.field.node.article.field_comments
+    - field.field.node.article.field_illustrative
     - field.field.node.article.field_metatag
     - field.field.node.article.field_rating
     - field.field.node.article.field_tags
@@ -102,6 +104,13 @@ content:
     weight: 223
     region: content
     settings: {  }
+    third_party_settings: {  }
+  field_illustrative:
+    type: boolean_checkbox
+    weight: 215
+    region: content
+    settings:
+      display_label: true
     third_party_settings: {  }
   field_metatag:
     type: metatag_firehose
@@ -260,4 +269,6 @@ content:
     settings: {  }
     third_party_settings: {  }
 hidden:
+  field_closing_question: true
   field_editorial: true
+

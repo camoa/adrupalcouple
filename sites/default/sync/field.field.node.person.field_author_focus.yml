@@ -1,0 +1,19 @@
+uuid: 363cef46-a52b-4bb5-abea-344e3f1cbf3b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_author_focus
+    - node.type.person
+id: node.person.field_author_focus
+field_name: field_author_focus
+entity_type: node
+bundle: person
+label: 'What they write about'
+description: 'Short focus line on the person profile. Optional; degrades to bio if empty.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

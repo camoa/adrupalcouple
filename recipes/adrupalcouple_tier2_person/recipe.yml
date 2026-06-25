@@ -1,9 +1,14 @@
 name: 'ADrupalCouple Tier2 Person'
-description: 'Provides schema_image field instance on the person node bundle.'
+description: 'Provides field instances on the person node bundle: schema_image, field_author_focus.'
 type: 'Content type'
 config:
-  # strict: false — field.field.node.person.schema_image already exists on live.
+  # strict: false — fields may already exist on live (schema_image pre-dates recipe;
+  # field_author_focus added via g_content_model_fields task). Config files provide canonical
+  # state for fresh installs; actions update existing instances.
   strict: false
   actions:
     field.field.node.person.schema_image:
       entity_method:field.field:setLabel: 'Portrait'
+    field.field.node.person.field_author_focus:
+      entity_method:field.field:setLabel: 'What they write about'
+      entity_method:field.field:setDescription: 'Short focus line on the person profile. Optional; degrades to bio if empty.'
