@@ -1,0 +1,88 @@
+{#
+  voice_attributed_byline
+  ========================
+  Single-author (or co-authored) attribution byline.
+
+  @prop author_name       string  — Primary author display name (required)
+  @prop author_role       string  — Primary author role/title (required)
+  @prop author_slug       string  — URL slug → /people/{{ author_slug }} (required)
+  @prop date_iso          string  — ISO 8601 date for <time datetime=""> (required)
+  @prop date_formatted    string  — Locale-formatted date from Drupal date.formatter (required)
+  @prop author_initials   string  — Max 2 chars for avatar placeholder (optional)
+  @prop read_time_minutes integer — Appends '· N min read' when present (optional)
+  @prop mode              string  — 'single' (default) | 'we' (co-authored) (optional)
+  @prop second_author_name      string — Only when mode='we' (optional)
+  @prop second_author_role      string — Only when mode='we' (optional)
+  @prop second_author_slug      string — Only when mode='we' (optional)
+  @prop second_author_initials  string — Max 2 chars for second avatar placeholder (optional)
+  @slot author_avatar_image        — Drupal-rendered <img> at 48×48. Falls back to initials placeholder when empty.
+  @slot second_author_avatar_image — Drupal-rendered <img> for second author. Only when mode='we'.
+
+  Accessibility:
+  - Avatar <img> alt text is set by the Drupal image formatter (pass author name as alt).
+  - Initials <span> carries aria-hidden="true" since author name is present in the text block.
+  - No voice-label badge rendered. No business logic (date formatting, slug building,
+    initials) — all computed server-side before passing to this component.
+#}
+{% set is_we = (mode == 'we' and second_author_name) %}
+<div class="flex flex-wrap items-center gap-3" data-component="byline">
+
+  {# ── Avatar group ── #}
+  <div class="flex -space-x-2">
+
+    {# Primary author avatar #}
+    {% if author_avatar_image %}
+      <div class="avatar">
+        <div class="w-12 rounded-full">{{ author_avatar_image }}</div>
+      </div>
+    {% elseif author_initials %}
+      <div class="avatar avatar-placeholder">
+        <div class="bg-neutral text-neutral-content w-12 rounded-full">
+          <span aria-hidden="true">{{ author_initials }}</span>
+        </div>
+      </div>
+    {% endif %}
+
+    {# Second author avatar — we mode only #}
+    {% if is_we %}
+      {% if second_author_avatar_image %}
+        <div class="avatar">
+          <div class="w-12 rounded-full">{{ second_author_avatar_image }}</div>
+        </div>
+      {% elseif second_author_initials %}
+        <div class="avatar avatar-placeholder">
+          <div class="bg-neutral text-neutral-content w-12 rounded-full">
+            <span aria-hidden="true">{{ second_author_initials }}</span>
+          </div>
+        </div>
+      {% endif %}
+    {% endif %}
+
+  </div>
+
+  {# ── Text block ── #}
+  <div class="text-sm leading-tight">
+    <p class="font-semibold">
+      {{ 'By'|t }}
+      <a href="/people/{{ author_slug }}" class="link link-hover">{{ author_name }}</a>
+      {% if is_we %}
+        {{ 'and'|t }}
+        <a href="/people/{{ second_author_slug }}" class="link link-hover">{{ second_author_name }}</a>
+      {% endif %}
+    </p>
+    <p class="text-muted">
+      {% if is_we %}
+        {{ author_role }} · {{ second_author_role }}
+      {% else %}
+        {{ author_role }}
+      {% endif %}
+    </p>
+    <p class="text-muted">
+      <time datetime="{{ date_iso }}">{{ date_formatted }}</time>
+      {% if read_time_minutes %}
+        · {{ '@minutes min read'|t({'@minutes': read_time_minutes}) }}
+      {% endif %}
+    </p>
+  </div>
+
+</div>

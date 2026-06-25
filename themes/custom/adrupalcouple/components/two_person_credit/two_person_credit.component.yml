@@ -1,0 +1,55 @@
+$schema: 'https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json'
+name: Two Person Credit
+status: stable
+description: 'Site-level couple-verification credit: two overlapping round avatars + linked names. Home above-fold only. NOT a per-article byline.'
+group: adrupalcouple
+props:
+  type: object
+  properties:
+    person_1_name:
+      type: string
+      title: 'Person 1 name'
+      description: 'Full display name for person 1. Used as link text and initials fallback.'
+    person_1_href:
+      type: string
+      title: 'Person 1 profile URL'
+      description: 'Pre-resolved path alias to person 1 profile node (e.g. /people/carlos-ospina). Do not build this in Twig.'
+    person_1_role:
+      type: string
+      title: 'Person 1 role (carry, not rendered)'
+      description: 'Public role label (field_role). Passed for forward-compat; NOT rendered by this component.'
+    person_2_name:
+      type: string
+      title: 'Person 2 name'
+      description: 'Full display name for person 2.'
+    person_2_href:
+      type: string
+      title: 'Person 2 profile URL'
+      description: 'Pre-resolved path alias to person 2 profile node.'
+    person_2_role:
+      type: string
+      title: 'Person 2 role (carry, not rendered)'
+      description: 'Public role label. NOT rendered by this component.'
+    label:
+      type: string
+      title: 'Prefix label'
+      description: 'Optional text rendered before the names (e.g. "By"). A trailing space is added automatically in the template. Omit for no label.'
+    modifier_class:
+      type: string
+      title: 'Modifier CSS class'
+      description: 'Additional utility class(es) appended to the root element. Maps to React className prop.'
+  required:
+    - person_1_name
+    - person_1_href
+    - person_2_name
+    - person_2_href
+slots:
+  person_1_avatar:
+    title: 'Person 1 avatar image'
+    description: 'Rendered Drupal image element (image_style: adc_couple_faces_1x1_128, 128px output, displays at w-10/40px). When absent, a DaisyUI avatar-placeholder with computed initials renders.'
+  person_2_avatar:
+    title: 'Person 2 avatar image'
+    description: 'Same pipeline as person_1_avatar. Source: node.person.schema_image via image_style adc_couple_faces_1x1_128.'
+libraryOverrides:
+  dependencies:
+    - core/drupal

@@ -1,0 +1,40 @@
+name: Two Person Credit
+component: adrupalcouple:two_person_credit
+stories:
+  - name: Default (with avatars)
+    props:
+      person_1_name: Carlos Ospina
+      person_1_href: /people/carlos-ospina
+      person_2_name: Ana Ospina
+      person_2_href: /people/ana-ospina
+      label: By
+    slots:
+      person_1_avatar: '<img src="/themes/custom/adrupalcouple/assets/stubs/carlos-avatar.jpg" alt="Carlos Ospina" width="128" height="128" loading="lazy" decoding="async">'
+      person_2_avatar: '<img src="/themes/custom/adrupalcouple/assets/stubs/ana-avatar.jpg" alt="Ana Ospina" width="128" height="128" loading="lazy" decoding="async">'
+
+  - name: Placeholder fallback (no images)
+    props:
+      person_1_name: Carlos Ospina
+      person_1_href: /people/carlos-ospina
+      person_2_name: Ana Ospina
+      person_2_href: /people/ana-ospina
+      label: By
+
+  - name: No label
+    props:
+      person_1_name: Carlos Ospina
+      person_1_href: /people/carlos-ospina
+      person_2_name: Ana Ospina
+      person_2_href: /people/ana-ospina
+    slots:
+      person_1_avatar: '<img src="/themes/custom/adrupalcouple/assets/stubs/carlos-avatar.jpg" alt="Carlos Ospina" width="128" height="128" loading="lazy" decoding="async">'
+      person_2_avatar: '<img src="/themes/custom/adrupalcouple/assets/stubs/ana-avatar.jpg" alt="Ana Ospina" width="128" height="128" loading="lazy" decoding="async">'
+
+  - name: With modifier class
+    props:
+      person_1_name: Carlos Ospina
+      person_1_href: /people/carlos-ospina
+      person_2_name: Ana Ospina
+      person_2_href: /people/ana-ospina
+      label: By
+      modifier_class: mt-4

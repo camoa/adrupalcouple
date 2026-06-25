@@ -1,0 +1,97 @@
+name: Couple Story
+component: adrupalcouple:couple_story
+
+stories:
+  full:
+    name: Full — story + faces + milestones
+    description: >
+      Both faces, community-arc prose, and a 3-item DaisyUI timeline.
+      Matches the About page (AboutPage.tsx) and Couple profile (CoupleProfilePage.tsx)
+      usage with milestonesLabel set.
+    props:
+      face_1_name: Carlos Ospina
+      face_1_role: Technical lead & provocateur
+      face_2_name: Ana Ospina
+      face_2_role: Community advocate
+      milestones_label: Our journey
+      milestones:
+        - year: '2019'
+          label: Met at DrupalCon Amsterdam
+        - year: '2021'
+          label: Joined the Drupal Association Board
+        - year: '2023'
+          label: Published first joint article on Drupal Planet
+      modifier_class: mt-6
+    slots:
+      story_body:
+        value: >
+          <p>We built A Drupal Couple because we saw how often developers were
+          left behind in conversations about tools they were supposed to master.
+          Carlos brought the technical depth; Ana brought the community lens.
+          Together, we write what we actually believe.</p>
+      face_1_avatar:
+        value: >
+          <img
+            src="https://placehold.co/80x80/png"
+            alt="Carlos Ospina"
+            loading="lazy"
+            decoding="async"
+          />
+      face_2_avatar:
+        value: >
+          <img
+            src="https://placehold.co/80x80/png"
+            alt="Ana Ospina"
+            loading="lazy"
+            decoding="async"
+          />
+
+  short:
+    name: Short — story + faces only (no milestones)
+    description: >
+      Variant where milestones are omitted. Timeline block must not render.
+    props:
+      face_1_name: Carlos Ospina
+      face_1_role: Technical lead & provocateur
+      face_2_name: Ana Ospina
+      face_2_role: Community advocate
+    slots:
+      story_body:
+        value: '<p>A short intro about the couple.</p>'
+      face_1_avatar:
+        value: '<img src="https://placehold.co/80x80/png" alt="Carlos Ospina" loading="lazy" decoding="async" />'
+      face_2_avatar:
+        value: '<img src="https://placehold.co/80x80/png" alt="Ana Ospina" loading="lazy" decoding="async" />'
+
+  initials_fallback:
+    name: Initials fallback — no avatar images
+    description: >
+      Both avatar slots empty; Twig renders initials-placeholder circles.
+      Validates the avatar-placeholder DaisyUI pattern with bg-primary
+      text-primary-content.
+    props:
+      face_1_name: Carlos Ospina
+      face_1_role: Technical lead
+      face_2_name: Ana Ospina
+      face_2_role: Community advocate
+      milestones_label: Our journey
+      milestones:
+        - year: '2021'
+          label: DA Board
+    slots:
+      story_body:
+        value: '<p>Community-arc prose without avatar images.</p>'
+
+  no_roles:
+    name: No roles — names only
+    description: face_1_role and face_2_role omitted; role paragraphs must not render.
+    props:
+      face_1_name: Carlos Ospina
+      face_2_name: Ana Ospina
+    slots:
+      story_body:
+        value: '<p>Prose.</p>'
+      face_1_avatar:
+        value: '<img src="https://placehold.co/80x80/png" alt="Carlos Ospina" loading="lazy" decoding="async" />'
+      face_2_avatar:
+        value: '<img src="https://placehold.co/80x80/png" alt="Ana Ospina" loading="lazy" decoding="async" />'

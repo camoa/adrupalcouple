@@ -1,0 +1,78 @@
+name: "Voice Attributed Byline"
+description: "Single-author (or co-authored) attribution byline below an article title. Composes DaisyUI avatar + author name link + role + date. No voice-label badge — voice shows in prose only."
+group: "Content"
+links:
+  - "https://daisyui.com/components/avatar/"
+
+slots:
+  author_avatar_image:
+    title: "Author avatar image"
+    description: "Rendered image markup from Drupal responsive image formatter (48×48 px). Falls back to DaisyUI avatar-placeholder with initials when empty."
+  second_author_avatar_image:
+    title: "Second author avatar image"
+    description: "Rendered image markup for the second author. Only rendered when mode is 'we'. Falls back to initials placeholder when empty."
+
+props:
+  type: object
+  required:
+    - author_name
+    - author_role
+    - author_slug
+    - date_iso
+    - date_formatted
+  properties:
+    author_name:
+      title: "Author name"
+      description: "Display name of the primary author."
+      type: string
+    author_role:
+      title: "Author role"
+      description: "Role or title of the primary author (e.g. 'Technical Architect')."
+      type: string
+    author_slug:
+      title: "Author slug"
+      description: "URL slug for the author profile. Used to build /people/{{ author_slug }}."
+      type: string
+    author_initials:
+      title: "Author initials"
+      description: "Max 2 characters (e.g. 'CO'). Shown in DaisyUI avatar-placeholder when author_avatar_image slot is empty. Compute server-side; do not derive in Twig."
+      type: string
+    date_iso:
+      title: "Date (ISO 8601)"
+      description: "ISO date string emitted as datetime attribute on <time> element (e.g. '2026-06-20')."
+      type: string
+    date_formatted:
+      title: "Date (formatted)"
+      description: "Pre-formatted, locale-aware date string produced by Drupal's date.formatter service (e.g. 'June 20, 2026'). Avoids JS/PHP date logic in Twig."
+      type: string
+    read_time_minutes:
+      title: "Read time (minutes)"
+      description: "Estimated reading time in minutes. When present appends ' · N min read' after the date. Omit or pass null to suppress."
+      type: integer
+    mode:
+      title: "Byline mode"
+      description: "'single' (default) renders one author. 'we' renders two overlapping avatars joined by 'and'. Use 'we' only for genuinely co-authored pieces."
+      type: string
+      default: single
+      enum:
+        - single
+        - we
+      "meta:enum":
+        single: "Single author (default)"
+        we: "Co-authored (we mode)"
+    second_author_name:
+      title: "Second author name"
+      description: "Only rendered when mode is 'we'."
+      type: string
+    second_author_role:
+      title: "Second author role"
+      description: "Only rendered when mode is 'we'."
+      type: string
+    second_author_slug:
+      title: "Second author slug"
+      description: "URL slug for the second author's profile. Only used when mode is 'we'."
+      type: string
+    second_author_initials:
+      title: "Second author initials"
+      description: "Max 2 characters. Shown in avatar-placeholder when second_author_avatar_image slot is empty and mode is 'we'."
+      type: string

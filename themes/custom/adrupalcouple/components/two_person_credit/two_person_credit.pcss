@@ -1,0 +1,12 @@
+/* two_person_credit.pcss
+ * Minimal custom styles. All layout comes from Tailwind utilities in the template.
+ * Only addition: ring separator for the stacked avatar group (not present in React
+ * source — React relies on page background; Drupal needs it explicit for theming
+ * portability). Standard DaisyUI avatar-group pattern.
+ */
+[data-component="two-person-credit"] {
+  /* Avatar ring: 2px solid base-100 separates overlapping avatars visually */
+  & .avatar > div {
+    @apply ring-2 ring-base-100;
+  }
+}

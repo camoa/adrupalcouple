@@ -1,0 +1,16 @@
+name: With additional classes
+props:
+  brand_name: "A Drupal Couple"
+  rights_text: "All rights reserved."
+  built_note: "Built with Drupal, love, and open source."
+  writing_nav_label: "Writing"
+  about_nav_label: "About"
+  additional_classes: "my-custom-class"
+slots:
+  writing_links: |
+    <a href="/writing" class="link link-hover">All writing</a>
+    <a href="/writing" class="link link-hover">Browse by topic</a>
+  about_links: |
+    <a href="/about" class="link link-hover">About</a>
+    <a href="/couples" class="link link-hover">Couples</a>
+    <a href="/accessibility" class="link link-hover">Accessibility</a>

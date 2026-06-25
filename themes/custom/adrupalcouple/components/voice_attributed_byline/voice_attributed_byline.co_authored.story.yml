@@ -1,0 +1,17 @@
+name: "Co-authored (we mode)"
+props:
+  author_name: "Carlos Ospina"
+  author_role: "Technical Architect"
+  author_slug: "carlos-ospina"
+  author_initials: "CO"
+  date_iso: "2026-06-20"
+  date_formatted: "June 20, 2026"
+  read_time_minutes: 8
+  mode: "we"
+  second_author_name: "Ana Ospina"
+  second_author_role: "Community Advocate"
+  second_author_slug: "ana-ospina"
+  second_author_initials: "AO"
+slots:
+  author_avatar_image: ""
+  second_author_avatar_image: ""

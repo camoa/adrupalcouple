@@ -1,0 +1,110 @@
+{#
+  couple_story — DBA signature component (component-palette.md §9).
+  React source: CoupleStory.tsx + Avatar.tsx
+  Classes are verbatim from React source — do not alter without recording reason.
+  No business logic. No Paragraphs. Image slots only (no string avatar URLs).
+#}
+<div data-component="couple-story"{% if modifier_class %} class="{{ modifier_class }}"{% endif %}>
+
+  {# ── Faces row ──────────────────────────────────────────────────────── #}
+  <div class="flex flex-wrap items-center gap-4">
+
+    {# Face 1 #}
+    {% if face_1_name %}
+      <div class="flex items-center gap-3">
+        {% if face_1_avatar %}
+          {# Image slot: pre-rendered <img> from image field formatter. #}
+          <div class="avatar">
+            <div class="rounded-full w-20">
+              {{ face_1_avatar }}
+            </div>
+          </div>
+        {% else %}
+          {# Initials fallback — mirrors Avatar.tsx avatar-placeholder branch. #}
+          {% set face_1_initials = face_1_name|split(' ')|map(w => w[0:1])|join('')|upper|slice(0, 2) %}
+          <div class="avatar avatar-placeholder">
+            <div class="rounded-full bg-primary text-primary-content w-20">
+              <span aria-hidden="true">{{ face_1_initials }}</span>
+              <span class="sr-only">{{ face_1_name }}</span>
+            </div>
+          </div>
+        {% endif %}
+        <div>
+          <p class="font-heading text-lg font-semibold">{{ face_1_name }}</p>
+          {% if face_1_role %}
+            <p class="text-sm text-muted">{{ face_1_role }}</p>
+          {% endif %}
+        </div>
+      </div>
+    {% endif %}
+
+    {# Face 2 #}
+    {% if face_2_name %}
+      <div class="flex items-center gap-3">
+        {% if face_2_avatar %}
+          <div class="avatar">
+            <div class="rounded-full w-20">
+              {{ face_2_avatar }}
+            </div>
+          </div>
+        {% else %}
+          {% set face_2_initials = face_2_name|split(' ')|map(w => w[0:1])|join('')|upper|slice(0, 2) %}
+          <div class="avatar avatar-placeholder">
+            <div class="rounded-full bg-primary text-primary-content w-20">
+              <span aria-hidden="true">{{ face_2_initials }}</span>
+              <span class="sr-only">{{ face_2_name }}</span>
+            </div>
+          </div>
+        {% endif %}
+        <div>
+          <p class="font-heading text-lg font-semibold">{{ face_2_name }}</p>
+          {% if face_2_role %}
+            <p class="text-sm text-muted">{{ face_2_role }}</p>
+          {% endif %}
+        </div>
+      </div>
+    {% endif %}
+
+  </div>{# /.flex.flex-wrap #}
+
+  {# ── Story prose ─────────────────────────────────────────────────────── #}
+  {# story_body slot: pre-rendered HTML from CKEditor field. #}
+  {# React: <p class="reading-prose mt-6 max-w-prose">{story}</p> #}
+  {# In Drupal, story_body may contain block elements so use <div>, not <p>. #}
+  <div class="reading-prose mt-6 max-w-prose">
+    {{ story_body }}
+  </div>
+
+  {# ── Milestones (DaisyUI timeline) — optional ─────────────────────────── #}
+  {% if milestones is not empty %}
+    <div class="mt-8">
+
+      {% if milestones_label %}
+        <h2 class="font-heading text-xl font-semibold">{{ milestones_label }}</h2>
+      {% endif %}
+
+      <ul class="timeline timeline-vertical timeline-compact mt-3">
+        {% for milestone in milestones %}
+          <li>
+            {# Separator above (skip on first item) — React: {i > 0 ? <hr /> : null} #}
+            {% if not loop.first %}<hr>{% endif %}
+
+            <div class="timeline-start font-mono text-sm text-muted">{{ milestone.year }}</div>
+
+            <div class="timeline-middle">
+              {# Decorative dot: badge-xs badge-primary. aria-hidden mandatory. #}
+              <span class="badge badge-primary badge-xs" aria-hidden="true"></span>
+            </div>
+
+            <div class="timeline-end timeline-box">{{ milestone.label }}</div>
+
+            {# Separator below (skip on last item) — React: {i < milestones.length - 1 ? <hr /> : null} #}
+            {% if not loop.last %}<hr>{% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+
+    </div>
+  {% endif %}
+
+</div>{# /[data-component="couple-story"] #}

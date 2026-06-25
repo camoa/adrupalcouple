@@ -1,0 +1,93 @@
+$schema: https://git.drupalcode.org/project/sdc/-/raw/1.x/src/metadata.schema.json
+name: Couple Story
+description: >
+  DBA signature component (component-palette.md §9). Prose narrative carrying the
+  two faces of the couple (Carlos + Ana) and an optional DaisyUI timeline of
+  community milestones. Used on About page and Couple profile only. Never on
+  article pages. Never Paragraphs. Authoring via CKEditor body field + entity
+  reference fields + repeating milestone field group.
+status: experimental
+props:
+  type: object
+  required:
+    - face_1_name
+    - face_2_name
+  properties:
+    face_1_name:
+      type: string
+      title: Face 1 — display name
+      description: >
+        Person display name. Rendered above the role as font-heading text-lg
+        font-semibold. Also used as aria alt text label for the avatar image slot.
+    face_1_role:
+      type: string
+      title: Face 1 — role / title
+      description: >
+        Optional role line beneath the name. Rendered text-sm text-muted.
+        Omit to suppress.
+    face_2_name:
+      type: string
+      title: Face 2 — display name
+    face_2_role:
+      type: string
+      title: Face 2 — role / title
+      description: Same as face_1_role for the second person.
+    milestones_label:
+      type: string
+      title: Milestones section heading
+      description: >
+        Optional h2 above the DaisyUI timeline (font-heading text-xl font-semibold).
+        Omit to suppress the heading (timeline still renders if milestones present).
+    milestones:
+      type: array
+      title: Milestones
+      description: >
+        Ordered list of community/career milestones rendered as a DaisyUI
+        timeline timeline-vertical timeline-compact. Omit or pass empty array
+        to suppress the entire milestones block. LOCKED STORAGE: a single
+        custom_field `field_milestone` with year + label columns — NOT a field
+        group, NOT two parallel fields, NOT Paragraphs.
+      items:
+        type: object
+        required:
+          - year
+          - label
+        properties:
+          year:
+            type: string
+            title: Year
+            description: e.g. "2019". Rendered font-mono text-sm text-muted in timeline-start cell.
+          label:
+            type: string
+            title: Milestone label
+            description: Short phrase. Rendered in timeline-end timeline-box cell.
+    modifier_class:
+      type: string
+      title: BEM modifier class
+      description: >
+        Extra CSS class(es) appended to the root element. Maps to the React
+        className passthrough (cn('', className)). Used by page templates to
+        add layout margin (e.g. mt-6 on About/Couple profile sections).
+slots:
+  story_body:
+    title: Story body (rendered HTML)
+    description: >
+      Pre-rendered rich-text prose from a CKEditor body field. Carries the
+      community-arc narrative. Rendered inside a div.reading-prose.mt-6.max-w-prose
+      wrapper. Do NOT pass plain unescaped text — field value must go through
+      Drupal's text format / render pipeline.
+  face_1_avatar:
+    title: Face 1 — avatar image (rendered img element)
+    description: >
+      Pre-rendered <img> from the person entity's image field, processed through
+      an image style targeting 80x80px square crop (matches React w-20 = 5rem).
+      The img alt attribute must equal face_1_name. If slot is empty, the Twig
+      renders an initials-placeholder (avatar avatar-placeholder + bg-primary
+      text-primary-content). loading="lazy" decoding="async" are required on
+      the img element.
+  face_2_avatar:
+    title: Face 2 — avatar image (rendered img element)
+    description: Same constraints as face_1_avatar. Alt must equal face_2_name.
+libraryOverrides:
+  dependencies:
+    - core/drupal

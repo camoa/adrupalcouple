@@ -1,0 +1,70 @@
+{#
+/**
+ * @file two_person_credit.twig
+ *
+ * Site-level couple-verification credit: two overlapping avatars + linked names.
+ * Home above-fold only. NOT a per-article byline. NEVER Paragraphs.
+ *
+ * Props:
+ *   person_1_name, person_1_href, person_1_role (unused/carry), person_1_avatar (slot)
+ *   person_2_name, person_2_href, person_2_role (unused/carry), person_2_avatar (slot)
+ *   label, modifier_class
+ */
+#}
+<div data-component="two-person-credit" class="flex items-center gap-3{{ modifier_class ? ' ' ~ modifier_class }}">
+
+  {# Avatar cluster — overlapping via -space-x-2 #}
+  <div class="flex -space-x-2">
+
+    {# Person 1 avatar #}
+    {% if person_1_avatar %}
+      <div class="avatar">
+        <div class="rounded-full w-10">
+          {{ person_1_avatar }}
+        </div>
+      </div>
+    {% else %}
+      {%- set _p1_parts = person_1_name | split(' ') -%}
+      {%- set _p1_i1 = _p1_parts[0][0:1] | upper -%}
+      {%- set _p1_i2 = _p1_parts[1] is defined ? _p1_parts[1][0:1] | upper : '' -%}
+      <div class="avatar avatar-placeholder">
+        <div class="rounded-full w-10 bg-primary text-primary-content">
+          <span aria-hidden="true">{{ _p1_i1 ~ _p1_i2 }}</span>
+          <span class="sr-only">{{ person_1_name }}</span>
+        </div>
+      </div>
+    {% endif %}
+
+    {# Person 2 avatar #}
+    {% if person_2_avatar %}
+      <div class="avatar">
+        <div class="rounded-full w-10">
+          {{ person_2_avatar }}
+        </div>
+      </div>
+    {% else %}
+      {%- set _p2_parts = person_2_name | split(' ') -%}
+      {%- set _p2_i1 = _p2_parts[0][0:1] | upper -%}
+      {%- set _p2_i2 = _p2_parts[1] is defined ? _p2_parts[1][0:1] | upper : '' -%}
+      <div class="avatar avatar-placeholder">
+        <div class="rounded-full w-10 bg-primary text-primary-content">
+          <span aria-hidden="true">{{ _p2_i1 ~ _p2_i2 }}</span>
+          <span class="sr-only">{{ person_2_name }}</span>
+        </div>
+      </div>
+    {% endif %}
+
+  </div>{# end .flex.-space-x-2 #}
+
+  {# Name text block #}
+  <p class="text-sm text-muted">
+    {%- if label %}<span>{{ label }} </span>{% endif -%}
+    <span>
+      <a href="{{ person_1_href }}" class="link link-hover font-semibold">{{ person_1_name }}</a>
+    </span>
+    <span>
+      {{ ' · ' }}<a href="{{ person_2_href }}" class="link link-hover font-semibold">{{ person_2_name }}</a>
+    </span>
+  </p>
+
+</div>

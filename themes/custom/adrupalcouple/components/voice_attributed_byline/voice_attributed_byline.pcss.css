@@ -1,0 +1,17 @@
+@reference '../../css/app.pcss';
+
+/*
+ * voice_attributed_byline.pcss.css
+ *
+ * All layout, color, and typography are handled by Tailwind utility classes
+ * in voice_attributed_byline.twig. No component-scoped custom selectors needed.
+ *
+ * text-muted is already defined at the theme level in css/a11y.pcss:
+ *   .text-muted { color: var(--color-muted-content); }
+ * Token --color-muted-content is set in css/themes/adc.pcss.css:
+ *   light: oklch(50% 0.010 164)  → 5.62:1 on base-100 ✓ WCAG AA
+ *   dark:  oklch(76% 0.006 335)  → 8.16:1 on base-100 ✓ WCAG AA
+ *
+ * NEVER replace text-muted with opacity-70 or opacity-60 — both fail WCAG AA
+ * on base-100 (2.87:1 and 2.26:1 respectively). See React source L85–90.
+ */

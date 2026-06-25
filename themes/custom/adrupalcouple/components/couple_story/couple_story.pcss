@@ -1,0 +1,25 @@
+/* couple_story.pcss
+   Component: couple_story
+   React source: CoupleStory.tsx + Avatar.tsx
+   All layout/type classes are Tailwind utilities applied in Twig.
+   This file handles only things that cannot be expressed as Tailwind utilities
+   in the current design-system setup.
+*/
+
+/* The root element carries no classes of its own unless modifier_class is
+   passed. No component-scoped CSS custom properties needed — color tokens
+   (text-muted, bg-primary, text-primary-content) are declared at the design
+   system token layer (design-system-tokens.yml → CSS layer). */
+
+/* Avatar image inside the rounded wrapper fills the container exactly.
+   DaisyUI's .avatar img rule already does this; declare defensively in case
+   SDC stylesheet load order conflicts with DaisyUI. */
+[data-component="couple-story"] .avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Timeline separator <hr> inherits DaisyUI's timeline connector styling.
+   No override needed unless the design-system token for border-color
+   diverges from DaisyUI's base-300 default. */

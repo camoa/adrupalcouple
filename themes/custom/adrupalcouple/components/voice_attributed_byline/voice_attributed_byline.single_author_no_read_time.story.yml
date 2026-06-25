@@ -1,0 +1,11 @@
+name: "Single author — no read time"
+props:
+  author_name: "Ana Ospina"
+  author_role: "Community Advocate"
+  author_slug: "ana-ospina"
+  author_initials: "AO"
+  date_iso: "2026-06-15"
+  date_formatted: "June 15, 2026"
+  mode: "single"
+slots:
+  author_avatar_image: ""

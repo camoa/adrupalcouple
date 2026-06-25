@@ -1,0 +1,12 @@
+name: "Single author (default)"
+props:
+  author_name: "Carlos Ospina"
+  author_role: "Technical Architect"
+  author_slug: "carlos-ospina"
+  author_initials: "CO"
+  date_iso: "2026-06-20"
+  date_formatted: "June 20, 2026"
+  read_time_minutes: 5
+  mode: "single"
+slots:
+  author_avatar_image: ""
