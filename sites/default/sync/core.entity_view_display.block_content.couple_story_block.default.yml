@@ -1,0 +1,25 @@
+uuid: d0ed16ed-a8e4-4391-baec-9487830eca06
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.couple_story_block
+    - field.field.block_content.couple_story_block.field_couple
+_core:
+  default_config_hash: me-VJMmLXnW4LrtOPRo2AkixVNMMAcVdnGlaGxghC8U
+id: block_content.couple_story_block.default
+targetEntityType: block_content
+bundle: couple_story_block
+mode: default
+content:
+  field_couple:
+    type: entity_reference_entity_view
+    label: hidden
+    settings:
+      view_mode: couple_story
+      link: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  langcode: true

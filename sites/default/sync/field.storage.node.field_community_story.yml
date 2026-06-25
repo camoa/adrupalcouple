@@ -1,0 +1,21 @@
+uuid: aa39ae70-3bc7-4cb5-b149-93d082a46e6a
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - text
+_core:
+  default_config_hash: DOOoyxWp3mlmHQxdpyFLivpU7bPezp_8n82xFwzZDTw
+id: node.field_community_story
+field_name: field_community_story
+entity_type: node
+type: text_long
+settings: {  }
+module: text
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

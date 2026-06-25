@@ -1,0 +1,10 @@
+uuid: 6e1df47d-d8d0-43a6-9242-935840f347f7
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: sTCXPEBBEl6TBEyQ-UpT7ySSKEsbiJKez1-WaYmvjdA
+id: footer-about
+label: 'Footer About'
+description: 'Footer navigation — About column. Links: About, Couples, Accessibility.'
+locked: false

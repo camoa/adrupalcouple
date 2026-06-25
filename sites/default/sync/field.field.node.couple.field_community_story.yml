@@ -1,0 +1,24 @@
+uuid: 8f8c78f3-64ae-4894-86eb-4113bf30e47f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_community_story
+    - node.type.couple
+  module:
+    - text
+_core:
+  default_config_hash: 6pp7lN4tUDuaFDNJCZjNumGwBGk1eNZ6rxkFMBQwZgU
+id: node.couple.field_community_story
+field_name: field_community_story
+entity_type: node
+bundle: couple
+label: 'Community story'
+description: 'The community-arc narrative prose for About §3 (CoupleStory). Authored separately from origin narrative (body). EN/ES translatable via content_translation.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats: {  }
+field_type: text_long

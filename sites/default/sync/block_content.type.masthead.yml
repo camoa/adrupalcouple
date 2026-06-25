@@ -1,0 +1,10 @@
+uuid: 2b231193-75a9-4cc9-8503-7325193f456b
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: 1fm6_FrBnIpVHufUWUb6TcHqis1Qo1vJjI1IWorcoD0
+id: masthead
+label: Masthead
+revision: false
+description: 'Compact above-fold masthead for the Home page (LB inline block, Section 1). Holds brand name, H1 tagline, and subtitle. Used with the TwoPersonCredit View block.'

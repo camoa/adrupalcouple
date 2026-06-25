@@ -1,0 +1,56 @@
+uuid: f4612148-d6a1-45ad-a903-bcddb8117e37
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.masthead
+    - field.field.block_content.masthead.field_brand_name
+    - field.field.block_content.masthead.field_subtitle
+    - field.field.block_content.masthead.field_tagline
+_core:
+  default_config_hash: owbxnSVFXYdG-2fUJueNVE_xZYrZ_m7PBzwkoX6DRKM
+id: block_content.masthead.default
+targetEntityType: block_content
+bundle: masthead
+mode: default
+content:
+  field_brand_name:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: 'e.g. A Drupal Couple'
+    third_party_settings: {  }
+  field_subtitle:
+    type: string_textarea
+    weight: 2
+    region: content
+    settings:
+      rows: 3
+      placeholder: 'The standfirst sentence below the heading'
+    third_party_settings: {  }
+  field_tagline:
+    type: string_textarea
+    weight: 1
+    region: content
+    settings:
+      rows: 3
+      placeholder: 'The H1 tagline / home claim'
+    third_party_settings: {  }
+  info:
+    type: string_textfield
+    weight: -5
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  langcode:
+    type: language_select
+    weight: 2
+    region: content
+    settings:
+      include_locked: true
+    third_party_settings: {  }
+hidden: {  }

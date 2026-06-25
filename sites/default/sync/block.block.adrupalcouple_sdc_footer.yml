@@ -1,0 +1,22 @@
+uuid: 21336859-02c9-446a-be01-3b09a05caef7
+langcode: en
+status: true
+dependencies:
+  module:
+    - adrupalcouple_chrome
+  theme:
+    - adrupalcouple
+_core:
+  default_config_hash: Tg14HYdG8uxy_bIHgKMwXNX6RWxB7HNvc0it9xIJt4c
+id: adrupalcouple_sdc_footer
+theme: adrupalcouple
+region: footer
+weight: 0
+provider: null
+plugin: adrupalcouple_sdc_footer
+settings:
+  id: adrupalcouple_sdc_footer
+  label: 'ADrupalCouple Footer'
+  label_display: '0'
+  provider: adrupalcouple_chrome
+visibility: {  }

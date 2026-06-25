@@ -1,0 +1,31 @@
+uuid: 102c0365-3809-47ed-a781-0cb670725f55
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.couple_hero
+    - field.storage.block_content.field_couple
+    - node.type.couple
+_core:
+  default_config_hash: eVNA2QSpXSeAIRj1cjLs6YoT3G7anENtHvk9BrBRX80
+id: block_content.couple_hero.field_couple
+field_name: field_couple
+entity_type: block_content
+bundle: couple_hero
+label: 'Couple reference'
+description: 'Reference to the node.couple entity (anilu-camoa). Provides access to field_couple → person nodes for face images and field_role captions.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      couple: couple
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

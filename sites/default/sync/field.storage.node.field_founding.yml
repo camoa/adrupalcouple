@@ -1,0 +1,20 @@
+uuid: 7c678154-93e9-417a-a4f8-b91b860ada48
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+_core:
+  default_config_hash: p6_nyemd0DXIXmmnAOvtQGR60Y5-eZ50r0Ml1XCTvB8
+id: node.field_founding
+field_name: field_founding
+entity_type: node
+type: boolean
+settings: {  }
+module: core
+locked: false
+cardinality: 1
+translatable: false
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

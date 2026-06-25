@@ -6,7 +6,9 @@ dependencies:
     - core.base_field_override.node.page.title
     - core.entity_view_mode.node.full
     - field.field.node.page.body
+    - field.field.node.page.field_subtitle
     - field.field.node.page.field_tags
+    - field.field.node.page.layout_builder__layout
     - field.field.node.page.schema_about
     - field.field.node.page.schema_primary_image
     - field.field.node.page.schema_related_link
@@ -62,7 +64,7 @@ third_party_settings:
       format_settings: {  }
   layout_builder:
     enabled: true
-    allow_custom: false
+    allow_custom: true
     sections:
       -
         layout_id: layout_twocol_section
@@ -257,7 +259,9 @@ content:
 hidden:
   created: true
   field_editorial: true
+  field_subtitle: true
   langcode: true
+  layout_builder__layout: true
   node_read_time: true
   schema_web_page_subtype: true
   uid: true

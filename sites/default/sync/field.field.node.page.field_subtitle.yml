@@ -1,0 +1,21 @@
+uuid: 4574459d-188c-4d74-a97c-49785c335ea9
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_subtitle
+    - node.type.page
+_core:
+  default_config_hash: aH-Y1VA6XzonQjJ5xXzA9KDlW1pC5ErPEFpVT5d9XAY
+id: node.page.field_subtitle
+field_name: field_subtitle
+entity_type: node
+bundle: page
+label: Subtitle
+description: 'Standfirst sentence displayed below the H1 tagline on the Home page masthead. Translatable for EN/ES variants.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

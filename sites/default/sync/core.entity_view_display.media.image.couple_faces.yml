@@ -1,0 +1,40 @@
+uuid: ea77be37-9ec3-4c1b-91e3-d873e9d7e8aa
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.media.couple_faces
+    - field.field.media.image.field_media_image
+    - image.style.adc_couple_faces_1x1_128
+    - media.type.image
+  module:
+    - image
+    - layout_builder
+third_party_settings:
+  layout_builder:
+    enabled: false
+    allow_custom: false
+_core:
+  default_config_hash: C7rq0p0gDW85oNWwyHT62Nk0TH7iANnO0MMs2NxPpJU
+id: media.image.couple_faces
+targetEntityType: media
+bundle: image
+mode: couple_faces
+content:
+  field_media_image:
+    type: image
+    label: visually_hidden
+    settings:
+      image_link: ''
+      image_style: adc_couple_faces_1x1_128
+      image_loading:
+        attribute: lazy
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  created: true
+  langcode: true
+  name: true
+  thumbnail: true
+  uid: true

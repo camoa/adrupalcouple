@@ -10,7 +10,7 @@ id: node.couple.schema_image
 field_name: schema_image
 entity_type: node
 bundle: couple
-label: Image
+label: 'Couple portrait'
 description: 'An image of the item.'
 required: false
 translatable: false

@@ -1,0 +1,13 @@
+uuid: c6cb128b-3721-4856-a27e-3f685d881c61
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+_core:
+  default_config_hash: V846P-8iuIJE7Kc8ilkbz2tiyPLCv8rjls44Jec_vDk
+id: node.couple_story
+label: 'Couple Story'
+description: 'Couple rendered as the community-arc block for About §3: community prose (field_community_story) + dual person faces (128px) + milestone list. Used by the LB couple_story inline block.'
+targetEntityType: node
+cache: true

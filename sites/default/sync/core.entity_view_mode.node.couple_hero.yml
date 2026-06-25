@@ -1,0 +1,13 @@
+uuid: d520cc7a-2b7d-4e2b-93d8-33ee2745b15c
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+_core:
+  default_config_hash: qmP7UWgzs-1OcOULNbSCqbrq5je_IgQMzlVI9zz7GBE
+id: node.couple_hero
+label: 'Couple Hero'
+description: 'Couple rendered as the above-the-fold hero for About §1: title (h1) + dual person faces (128px). Used by the block_content.couple_hero inline block.'
+targetEntityType: node
+cache: true

@@ -1,0 +1,86 @@
+uuid: 486ade45-834c-456c-b60e-796c490953a4
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_metric
+    - node.type.article
+  module:
+    - custom_field
+_core:
+  default_config_hash: bUzQGef-TdBwBbmynYoJd5--cXkR-2yUe0vgL7H8H5M
+id: node.article.field_metric
+field_name: field_metric
+entity_type: node
+bundle: article
+label: 'Evidence metric'
+description: 'OPTIONAL evidence callout. Static figures only (anti-vanity-counter). Source rendered as a citation link when present.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  field_settings:
+    value:
+      type: text
+      weight: 0
+      check_empty: true
+      widget_settings:
+        label: Value
+        translatable: false
+        settings:
+          description: 'The metric number/value (e.g. "42%", "3 months").'
+          description_display: after
+          size: 16
+          placeholder: ''
+          maxlength: 64
+          maxlength_js: false
+          prefix: ''
+          suffix: ''
+          required: false
+    label:
+      type: text
+      weight: 1
+      check_empty: false
+      widget_settings:
+        label: Label
+        translatable: false
+        settings:
+          description: 'The metric description (e.g. "reduction in deployment time").'
+          description_display: after
+          size: 60
+          placeholder: ''
+          maxlength: 255
+          maxlength_js: false
+          prefix: ''
+          suffix: ''
+          required: false
+    source:
+      type: link_default
+      weight: 2
+      check_empty: false
+      widget_settings:
+        label: Source
+        translatable: false
+        settings:
+          description: 'Citation/source URL for the metric. Omitted when empty.'
+          description_display: after
+          required: false
+          link_type: 16
+          field_prefix: default
+          field_prefix_custom: ''
+          title: 1
+          enabled_attributes:
+            target: false
+            class: false
+            rel: false
+            title: false
+            aria-label: false
+            id: false
+            name: false
+            accesskey: false
+          widget_default_open: expandIfValuesSet
+          placeholder_url: ''
+          placeholder_title: ''
+  add_more_label: ''
+field_type: custom

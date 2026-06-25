@@ -1,0 +1,10 @@
+uuid: a8b30fa4-b24c-415d-8f84-e9b4e8d2d59a
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: '-8eGjBgIaQOAUa6vGnG3NK-5yDE0f6Ppm5svynxwIyg'
+id: couple_hero
+label: 'Couple Hero'
+revision: false
+description: 'Dual-face + origin-lede block for the About page (LB inline block, Section 1). References the couple node and carries a translatable lede text field.'

@@ -1,0 +1,22 @@
+uuid: b79b667e-0162-4c63-80a7-11cb78c680bb
+langcode: en
+status: true
+dependencies:
+  module:
+    - datetime
+    - node
+_core:
+  default_config_hash: m85ItT2JDpD4t57W1MIOo2jtS4i9PmoE7OiBQ4LzelY
+id: node.field_review_date
+field_name: field_review_date
+entity_type: node
+type: datetime
+settings:
+  datetime_type: date
+module: datetime
+locked: false
+cardinality: 1
+translatable: false
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

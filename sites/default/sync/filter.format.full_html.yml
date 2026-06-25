@@ -2,9 +2,12 @@ uuid: 606f10b0-8239-4020-978d-d818950a87f6
 langcode: en
 status: true
 dependencies:
+  config:
+    - core.entity_view_mode.media.link_to_file
   module:
     - editor
     - markdown_easy
+    - media
 _core:
   default_config_hash: WNeK5FbcY8pXgEpbD_KgRzlF1-5PL3BJXwqaBctPTqw
 name: 'Full HTML'
@@ -58,3 +61,14 @@ filters:
     settings:
       flavor: standard
       tips: ''
+  media_embed:
+    id: media_embed
+    provider: media
+    status: true
+    weight: 100
+    settings:
+      default_view_mode: link_to_file
+      allowed_view_modes: {  }
+      allowed_media_types:
+        image: image
+        document: document

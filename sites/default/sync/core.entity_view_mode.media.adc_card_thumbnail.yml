@@ -1,0 +1,13 @@
+uuid: f8816564-554d-4173-827e-5b4b5a8a7f2b
+langcode: en
+status: true
+dependencies:
+  module:
+    - media
+_core:
+  default_config_hash: B_s0mmZxQ-IyDXKfRgeW1pViHviDXaZ3jgen7sE2JQA
+id: media.adc_card_thumbnail
+label: 'Card Thumbnail (16:9 responsive)'
+description: 'Responsive 16:9 card thumbnail for article and couple teasers. Uses responsive_image.styles.adc_card_thumbnail with the adrupalcouple breakpoint group.'
+targetEntityType: media
+cache: true

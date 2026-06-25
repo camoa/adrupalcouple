@@ -1,0 +1,91 @@
+uuid: 9cce44d7-485a-42ff-9551-0346a8bc542f
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.couple_faces
+    - field.field.node.person.body
+    - field.field.node.person.field_author_focus
+    - field.field.node.person.field_metatag
+    - field.field.node.person.field_role
+    - field.field.node.person.field_tags
+    - field.field.node.person.schema_additional_name
+    - field.field.node.person.schema_birth_date
+    - field.field.node.person.schema_email
+    - field.field.node.person.schema_family_name
+    - field.field.node.person.schema_given_name
+    - field.field.node.person.schema_image
+    - field.field.node.person.schema_knows_language
+    - field.field.node.person.schema_member_of
+    - field.field.node.person.schema_same_as
+    - field.field.node.person.schema_subject_of
+    - field.field.node.person.schema_telephone
+    - field.field.node.person.schema_works_for
+    - node.type.person
+  module:
+    - layout_builder
+third_party_settings:
+  layout_builder:
+    enabled: false
+    allow_custom: false
+_core:
+  default_config_hash: SdFAudupEBexDsTYAIKR92IOtRK2peVMzumXR2OzRow
+id: node.person.couple_faces
+targetEntityType: node
+bundle: person
+mode: couple_faces
+content:
+  field_role:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  schema_family_name:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  schema_given_name:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  schema_image:
+    type: entity_reference_entity_view
+    label: hidden
+    settings:
+      view_mode: couple_faces
+      link: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  body: true
+  content_moderation_control: true
+  created: true
+  field_author_focus: true
+  field_metatag: true
+  field_tags: true
+  langcode: true
+  links: true
+  node_read_time: true
+  schema_additional_name: true
+  schema_birth_date: true
+  schema_email: true
+  schema_knows_language: true
+  schema_member_of: true
+  schema_same_as: true
+  schema_subject_of: true
+  schema_telephone: true
+  schema_works_for: true
+  title: true
+  uid: true

@@ -1,0 +1,21 @@
+uuid: a0bfe25c-4e75-4e96-a441-2ecefcf75d0d
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.masthead
+    - field.storage.block_content.field_subtitle
+_core:
+  default_config_hash: LxihCmYYZBSw-jwpPsz5wwPQvfnFTC_Ov4eTA1FbbSk
+id: block_content.masthead.field_subtitle
+field_name: field_subtitle
+entity_type: block_content
+bundle: masthead
+label: Subtitle
+description: 'The standfirst sentence below the H1 tagline. Translatable for ES variant.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

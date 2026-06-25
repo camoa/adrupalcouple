@@ -5,7 +5,9 @@ dependencies:
   config:
     - core.entity_view_mode.node.teaser
     - field.field.node.person.body
+    - field.field.node.person.field_author_focus
     - field.field.node.person.field_metatag
+    - field.field.node.person.field_role
     - field.field.node.person.field_tags
     - field.field.node.person.schema_additional_name
     - field.field.node.person.schema_birth_date
@@ -22,7 +24,6 @@ dependencies:
     - node.type.person
   module:
     - layout_builder
-    - manage_display
 third_party_settings:
   layout_builder:
     enabled: false
@@ -32,28 +33,44 @@ targetEntityType: node
 bundle: person
 mode: teaser
 content:
+  field_role:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  schema_family_name:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  schema_given_name:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 1
+    region: content
   schema_image:
     type: entity_reference_entity_view
     label: hidden
     settings:
-      view_mode: small_thumbnail
+      view_mode: adc_avatar
       link: false
     third_party_settings: {  }
     weight: 0
-    region: content
-  title:
-    type: title
-    label: hidden
-    settings:
-      link_to_entity: true
-      tag: h2
-    third_party_settings: {  }
-    weight: 1
     region: content
 hidden:
   body: true
   content_moderation_control: true
   created: true
+  field_author_focus: true
   field_metatag: true
   field_tags: true
   langcode: true
@@ -62,12 +79,11 @@ hidden:
   schema_additional_name: true
   schema_birth_date: true
   schema_email: true
-  schema_family_name: true
-  schema_given_name: true
   schema_knows_language: true
   schema_member_of: true
   schema_same_as: true
   schema_subject_of: true
   schema_telephone: true
   schema_works_for: true
+  title: true
   uid: true

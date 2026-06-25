@@ -1,0 +1,35 @@
+uuid: 2cf6c8d6-05a3-4945-8700-6239298f20e9
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.couple_story_block
+    - field.field.block_content.couple_story_block.field_couple
+_core:
+  default_config_hash: PodGLsDgrMtHx1oHlWtzP3cpH76xwy90_w2oquV8jmA
+id: block_content.couple_story_block.default
+targetEntityType: block_content
+bundle: couple_story_block
+mode: default
+content:
+  field_couple:
+    type: entity_reference_autocomplete
+    label: above
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  info:
+    type: string_textfield
+    weight: -5
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  langcode: true

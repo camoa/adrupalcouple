@@ -4,7 +4,9 @@ status: true
 dependencies:
   config:
     - field.field.node.page.body
+    - field.field.node.page.field_subtitle
     - field.field.node.page.field_tags
+    - field.field.node.page.layout_builder__layout
     - field.field.node.page.schema_about
     - field.field.node.page.schema_primary_image
     - field.field.node.page.schema_related_link
@@ -153,7 +155,9 @@ content:
 hidden:
   created: true
   field_editorial: true
+  field_subtitle: true
   langcode: true
+  layout_builder__layout: true
   node_read_time: true
   schema_web_page_subtype: true
   uid: true

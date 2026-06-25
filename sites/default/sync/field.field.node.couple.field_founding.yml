@@ -1,0 +1,25 @@
+uuid: 85a23ef7-31bd-4f35-a164-b4e94dede66b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_founding
+    - node.type.couple
+_core:
+  default_config_hash: LmpNW0RnQqXzP6CJvODmiI7VvmeJc5AfrZ_4QqNsXRs
+id: node.couple.field_founding
+field_name: field_founding
+entity_type: node
+bundle: couple
+label: 'Founding couple'
+description: 'Marks this as a founding couple of the community. Controls badge display on the Couples listing page and sort priority.'
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'Founding couple'
+  off_label: 'Not a founding couple'
+field_type: boolean

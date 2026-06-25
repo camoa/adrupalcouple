@@ -5,12 +5,22 @@ dependencies:
   config:
     - core.entity_view_mode.node.full
     - field.field.node.couple.body
+    - field.field.node.couple.field_community_story
     - field.field.node.couple.field_couple
+    - field.field.node.couple.field_milestone
     - field.field.node.couple.schema_image
     - node.type.couple
   module:
-    - manage_display
+    - layout_builder
     - text
+    - ui_patterns
+    - ui_patterns_field_formatters
+  theme:
+    - ui_suite_daisyui
+third_party_settings:
+  layout_builder:
+    enabled: false
+    allow_custom: false
 id: node.couple.full
 targetEntityType: node
 bundle: couple
@@ -21,34 +31,44 @@ content:
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 102
+    weight: 1
     region: content
-  links:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 100
-    region: content
-  schema_image:
+  field_couple:
     type: entity_reference_entity_view
     label: hidden
     settings:
-      view_mode: default
+      view_mode: token
       link: false
     third_party_settings: {  }
-    weight: 101
+    weight: 0
     region: content
-  title:
-    type: title
+  field_milestone:
+    type: ui_patterns_component_per_item
     label: hidden
     settings:
-      link_to_entity: true
-      tag: h2
+      ui_patterns:
+        component_id: 'ui_suite_daisyui:timeline_item'
+        props: {  }
+        slots:
+          timeline_start:
+            sources:
+              -
+                source_id: 'field_property:node:field_milestone:year'
+                source: {  }
+          timeline_end:
+            sources:
+              -
+                source_id: 'field_property:node:field_milestone:label'
+                source: {  }
     third_party_settings: {  }
-    weight: -49
+    weight: 2
     region: content
 hidden:
   created: true
-  field_couple: true
+  field_community_story: true
   langcode: true
+  links: true
   node_read_time: true
+  schema_image: true
+  title: true
   uid: true

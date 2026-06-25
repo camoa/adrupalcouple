@@ -1,0 +1,21 @@
+uuid: 6c87bfae-fee8-4c13-b5f3-c995d5e8a147
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_role
+    - node.type.person
+_core:
+  default_config_hash: gZVJgoklFOe3u3ZwRR5pd2j2owFt7SbULniSVNzD9lM
+id: node.person.field_role
+field_name: field_role
+entity_type: node
+bundle: person
+label: Role
+description: 'Public role label (e.g. "Co-founder, Developer"). Bilingual LocalizedText.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

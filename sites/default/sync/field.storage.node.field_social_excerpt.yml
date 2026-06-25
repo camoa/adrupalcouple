@@ -1,0 +1,21 @@
+uuid: c4ae5b77-2bfc-4f49-ab8f-5f3e10431a54
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+_core:
+  default_config_hash: uai-K6Awzk62ZuLVmuSzV7A-73vXLFvMIFph96UkoFw
+id: node.field_social_excerpt
+field_name: field_social_excerpt
+entity_type: node
+type: string_long
+settings:
+  case_sensitive: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

@@ -5,7 +5,9 @@ dependencies:
   config:
     - core.base_field_override.node.person.title
     - field.field.node.person.body
+    - field.field.node.person.field_author_focus
     - field.field.node.person.field_metatag
+    - field.field.node.person.field_role
     - field.field.node.person.field_tags
     - field.field.node.person.schema_additional_name
     - field.field.node.person.schema_birth_date
@@ -407,6 +409,8 @@ content:
     region: content
 hidden:
   created: true
+  field_author_focus: true
+  field_role: true
   langcode: true
   node_read_time: true
   uid: true

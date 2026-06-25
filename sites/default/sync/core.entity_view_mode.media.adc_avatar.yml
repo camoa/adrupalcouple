@@ -1,0 +1,13 @@
+uuid: 1d1c90fc-0174-4da1-bd09-1239560c35b6
+langcode: en
+status: true
+dependencies:
+  module:
+    - media
+_core:
+  default_config_hash: grF-Sq1wk23ZfJBcBWnViZNs6exBiGzwUtiJXCJm8Ak
+id: media.adc_avatar
+label: 'Author Avatar (1:1 96px)'
+description: 'Square 96px avatar for author bylines and person tokens. Uses image_style adc_author_avatar_1x1_96.'
+targetEntityType: media
+cache: true

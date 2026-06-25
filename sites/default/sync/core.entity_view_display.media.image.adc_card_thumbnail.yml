@@ -1,0 +1,40 @@
+uuid: c05ce66e-b344-4950-a496-cce001517dad
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.media.adc_card_thumbnail
+    - field.field.media.image.field_media_image
+    - media.type.image
+    - responsive_image.styles.adc_card_thumbnail
+  module:
+    - layout_builder
+    - responsive_image
+third_party_settings:
+  layout_builder:
+    enabled: false
+    allow_custom: false
+_core:
+  default_config_hash: 7Z2mFeRorxvzofWj-hN7u6XnEvDgB5VkFly40LO8cxE
+id: media.image.adc_card_thumbnail
+targetEntityType: media
+bundle: image
+mode: adc_card_thumbnail
+content:
+  field_media_image:
+    type: responsive_image
+    label: visually_hidden
+    settings:
+      responsive_image_style: adc_card_thumbnail
+      image_link: ''
+      image_loading:
+        attribute: lazy
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  created: true
+  langcode: true
+  name: true
+  thumbnail: true
+  uid: true

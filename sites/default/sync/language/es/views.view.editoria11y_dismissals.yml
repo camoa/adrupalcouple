@@ -15,7 +15,7 @@ display:
         created:
           label: Activado
         name:
-          label: Por
+          label: por
           separator: ', '
         page_path:
           label: Ruta
@@ -38,7 +38,7 @@ display:
             label: Idioma
         uid:
           expose:
-            label: Por
+            label: por
   recent_dismissals:
     display_options:
       fields:
@@ -47,7 +47,7 @@ display:
         result_name:
           label: Incidencia
         name:
-          label: Por
+          label: por
           separator: ', '
         created:
           label: Activado

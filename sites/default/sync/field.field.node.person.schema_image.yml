@@ -10,7 +10,7 @@ id: node.person.schema_image
 field_name: schema_image
 entity_type: node
 bundle: person
-label: Image
+label: Portrait
 description: 'An image of the item.'
 required: false
 translatable: false

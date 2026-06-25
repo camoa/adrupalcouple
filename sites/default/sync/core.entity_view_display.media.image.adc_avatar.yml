@@ -1,0 +1,40 @@
+uuid: ade9db88-eb2a-44b8-be7d-5de28fb3c26b
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.media.adc_avatar
+    - field.field.media.image.field_media_image
+    - image.style.adc_author_avatar_1x1_96
+    - media.type.image
+  module:
+    - image
+    - layout_builder
+third_party_settings:
+  layout_builder:
+    enabled: false
+    allow_custom: false
+_core:
+  default_config_hash: _KoBz0K5me7fy1h480tVbSmgM5SlbppvkmzWLnqAXSw
+id: media.image.adc_avatar
+targetEntityType: media
+bundle: image
+mode: adc_avatar
+content:
+  field_media_image:
+    type: image
+    label: visually_hidden
+    settings:
+      image_link: ''
+      image_style: adc_author_avatar_1x1_96
+      image_loading:
+        attribute: lazy
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  created: true
+  langcode: true
+  name: true
+  thumbnail: true
+  uid: true

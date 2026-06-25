@@ -1,0 +1,10 @@
+uuid: 12a857bc-ec2a-4122-9b69-f1e244a229c1
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: 20Bww9cOfWoKEzsuhTH1m44Oim2ulVvW16ZU4rpHFo8
+id: couple_story_block
+label: 'Couple Story Block'
+revision: false
+description: 'Community-arc section block for About §3. References the couple node and renders it via the couple_story view mode (community prose + faces + milestone list).'

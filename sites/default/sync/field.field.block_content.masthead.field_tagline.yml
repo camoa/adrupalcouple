@@ -1,0 +1,21 @@
+uuid: a390b173-c39f-43f1-b48a-be71b27a7518
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.masthead
+    - field.storage.block_content.field_tagline
+_core:
+  default_config_hash: 4ojQIhZMxw2B2jCJo2btCtaXmh8bqF_uYXsuMLBz7mI
+id: block_content.masthead.field_tagline
+field_name: field_tagline
+entity_type: block_content
+bundle: masthead
+label: Tagline
+description: 'The H1 claim rendered as the hero heading on the Home page. Translatable for ES variant.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

@@ -1,0 +1,13 @@
+uuid: b5edf30d-54f7-4026-aec0-8ab1cc3080ad
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+_core:
+  default_config_hash: 5U-_x24jTm2fJ_bjl4W-mvw2Wx6K0_3d1SKb33leiC8
+id: node.couple_faces
+label: 'Couple Faces'
+description: 'Person rendered as a 128px face figure for About page §1 and §3. Shows schema_image (128px, rounded-full), given name, family name, and role.'
+targetEntityType: node
+cache: true

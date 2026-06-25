@@ -1,0 +1,10 @@
+uuid: 3c72e716-16c1-4753-a980-6e38f6fd6617
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: rydtSSkd9hA-YZTLmAhqO5aq5L-H8tIRykym3yFwIck
+id: footer-writing
+label: 'Footer Writing'
+description: 'Footer navigation — Writing column. Links: All Writing, Browse by Topic.'
+locked: false

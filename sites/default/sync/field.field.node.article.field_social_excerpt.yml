@@ -1,0 +1,21 @@
+uuid: 3ccbce18-4114-4ffd-b5c1-534097ba5c6b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_social_excerpt
+    - node.type.article
+_core:
+  default_config_hash: gcXnsGbGkvvCqzss6YL45l4zbUUWvKUEyq5rWXR_Wrs
+id: node.article.field_social_excerpt
+field_name: field_social_excerpt
+entity_type: node
+bundle: article
+label: 'Social excerpt'
+description: 'Channel / Planet-RSS projection text.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

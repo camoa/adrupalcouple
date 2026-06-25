@@ -1,0 +1,21 @@
+uuid: 63cc8ee5-fc25-4c8d-b8f8-6805e400d421
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.masthead
+    - field.storage.block_content.field_brand_name
+_core:
+  default_config_hash: Ws0r4Lu2jWha_8OZp-qf7xdC6rOz0Zf1C-OdlyD0SQ8
+id: block_content.masthead.field_brand_name
+field_name: field_brand_name
+entity_type: block_content
+bundle: masthead
+label: 'Brand name'
+description: 'The site brand name rendered above the tagline (e.g. "A Drupal Couple"). Translatable.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

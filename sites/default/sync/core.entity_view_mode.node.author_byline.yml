@@ -1,0 +1,13 @@
+uuid: 3582a8bd-4b87-4639-bb35-0ae6cba18bde
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+_core:
+  default_config_hash: 4FjuVq-MZdh9W8P2tXA6TdhkOm0YNIto-OYd_ToptJg
+id: node.author_byline
+label: 'Author Byline'
+description: 'Compact author byline for article cards: 24px avatar circle + given/family name. No role line.'
+targetEntityType: node
+cache: true

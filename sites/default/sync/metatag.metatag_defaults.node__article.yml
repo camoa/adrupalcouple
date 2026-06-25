@@ -1,0 +1,13 @@
+uuid: 962c70a6-cbd3-47f1-8c14-40d32912df32
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: dBAF6IyZCwvwAVoCweJGqfhbWNOvalz0NwWHX-n7UNs
+id: node__article
+label: 'Content: Article'
+tags:
+  og_image: '[node:schema_image:entity:field_media_image:entity:url]'
+  og_image_width: '[node:schema_image:entity:field_media_image:width]'
+  og_image_height: '[node:schema_image:entity:field_media_image:height]'
+  twitter_cards_image: '[node:schema_image:entity:field_media_image:entity:url]'

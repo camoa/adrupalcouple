@@ -5,7 +5,9 @@ dependencies:
   config:
     - core.entity_form_mode.node.inline_entity_form
     - field.field.node.person.body
+    - field.field.node.person.field_author_focus
     - field.field.node.person.field_metatag
+    - field.field.node.person.field_role
     - field.field.node.person.field_tags
     - field.field.node.person.schema_additional_name
     - field.field.node.person.schema_birth_date
@@ -229,7 +231,9 @@ content:
     third_party_settings: {  }
 hidden:
   created: true
+  field_author_focus: true
   field_metatag: true
+  field_role: true
   field_tags: true
   langcode: true
   path: true

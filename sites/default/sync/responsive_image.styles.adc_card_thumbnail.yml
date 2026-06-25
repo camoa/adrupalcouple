@@ -1,0 +1,25 @@
+uuid: cc91dd5f-d45c-42da-b961-3c43d6b6c339
+langcode: en
+status: true
+dependencies:
+  config:
+    - image.style.adc_card_thumbnail_16x9_640
+  theme:
+    - adrupalcouple
+_core:
+  default_config_hash: 4Ha49KXPtNn3fHYJ7B8Q1DmzO64cSrwcwsuzCLMUhUU
+id: adc_card_thumbnail
+label: 'ADC Card Thumbnail (16:9, responsive)'
+image_style_mappings:
+  -
+    breakpoint_id: adrupalcouple.xs
+    multiplier: 1x
+    image_mapping_type: image_style
+    image_mapping: adc_card_thumbnail_16x9_640
+  -
+    breakpoint_id: adrupalcouple.sm
+    multiplier: 1x
+    image_mapping_type: image_style
+    image_mapping: adc_card_thumbnail_16x9_640
+breakpoint_group: adrupalcouple
+fallback_image_style: adc_card_thumbnail_16x9_640

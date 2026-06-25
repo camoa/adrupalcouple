@@ -3,11 +3,16 @@ langcode: en
 status: true
 dependencies:
   config:
-    - core.entity_view_display.comment.comment.default
     - field.field.node.article.body
+    - field.field.node.article.field_closing_question
     - field.field.node.article.field_comments
+    - field.field.node.article.field_disclosure
+    - field.field.node.article.field_illustrative
     - field.field.node.article.field_metatag
-    - field.field.node.article.field_rating
+    - field.field.node.article.field_metric
+    - field.field.node.article.field_review_date
+    - field.field.node.article.field_social_excerpt
+    - field.field.node.article.field_still_valid
     - field.field.node.article.field_tags
     - field.field.node.article.schema_about
     - field.field.node.article.schema_abstract
@@ -17,12 +22,8 @@ dependencies:
     - field.field.node.article.schema_subject_of
     - node.type.article
   module:
-    - comment
     - field_group
-    - fivestar
     - manage_display
-    - metatag
-    - text
 third_party_settings:
   field_group:
     group_general:
@@ -67,102 +68,49 @@ targetEntityType: node
 bundle: article
 mode: default
 content:
-  addtoany:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 5
-    region: content
-  body:
-    type: text_default
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    weight: 2
-    region: content
-  content_moderation_control:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 0
-    region: content
-  field_comments:
-    type: comment_default
-    label: above
+  created:
+    type: timestamp
+    label: hidden
     settings:
-      view_mode: default
-      pager_id: 0
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
     third_party_settings: {  }
-    weight: 105
-    region: content
-  field_metatag:
-    type: metatag_empty_formatter
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    weight: 103
-    region: content
-  field_rating:
-    type: fivestar_stars
-    label: above
-    settings:
-      text_format: average
-      display_format: average
-      fivestar_widget: basic
-    third_party_settings: {  }
-    weight: 104
+    weight: 4
     region: content
   field_tags:
     type: entity_reference_label
-    label: above
+    label: hidden
     settings:
       link: true
     third_party_settings: {  }
-    weight: 102
-    region: content
-  links:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 7
-    region: content
-  schema_about:
-    type: entity_reference_label
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 14
+    weight: 5
     region: content
   schema_abstract:
     type: string
-    label: above
+    label: hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 100
+    weight: 2
     region: content
   schema_author:
-    type: entity_reference_label
-    label: above
+    type: entity_reference_entity_view
+    label: hidden
     settings:
-      link: true
+      view_mode: token
+      link: false
     third_party_settings: {  }
-    weight: 17
+    weight: 3
     region: content
   schema_image:
     type: entity_reference_entity_view
-    label: above
+    label: hidden
     settings:
-      view_mode: default
+      view_mode: adc_card_thumbnail
       link: false
     third_party_settings: {  }
     weight: 1
-    region: content
-  schema_subject_of:
-    type: entity_reference_label
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 13
     region: content
   title:
     type: title
@@ -171,13 +119,26 @@ content:
       link_to_entity: true
       tag: h2
     third_party_settings: {  }
-    weight: -49
+    weight: 0
     region: content
 hidden:
-  created: true
-  field_editorial: true
+  addtoany: true
+  body: true
+  content_moderation_control: true
+  field_closing_question: true
+  field_comments: true
+  field_disclosure: true
+  field_illustrative: true
+  field_metatag: true
+  field_metric: true
+  field_review_date: true
+  field_social_excerpt: true
+  field_still_valid: true
   langcode: true
+  links: true
   node_read_time: true
   reading_time: true
+  schema_about: true
   schema_article_subtype: true
+  schema_subject_of: true
   uid: true

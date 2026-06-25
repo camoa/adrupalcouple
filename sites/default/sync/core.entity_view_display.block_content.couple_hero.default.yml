@@ -1,0 +1,32 @@
+uuid: d1054128-0aff-4480-9425-3e3276e51170
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.couple_hero
+    - field.field.block_content.couple_hero.field_couple
+    - field.field.block_content.couple_hero.field_lede
+_core:
+  default_config_hash: 6k1gAoUHvWmJ7-G9GX4ED6CLJ1pplkI_zRPiPCZW5Ag
+id: block_content.couple_hero.default
+targetEntityType: block_content
+bundle: couple_hero
+mode: default
+content:
+  field_couple:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_lede:
+    type: basic_string
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden:
+  langcode: true

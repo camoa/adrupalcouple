@@ -10,9 +10,9 @@ id: node.article.schema_image
 field_name: schema_image
 entity_type: node
 bundle: article
-label: Image
-description: 'An image of the item.'
-required: true
+label: 'Hero image'
+description: 'Used as card thumbnail and og:image. Never displayed on the article page itself.'
+required: false
 translatable: true
 default_value: {  }
 default_value_callback: ''

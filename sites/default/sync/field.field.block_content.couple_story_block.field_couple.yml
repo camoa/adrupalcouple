@@ -1,0 +1,31 @@
+uuid: 620aa6b3-92f6-40aa-8e2d-0f0a1938b0c5
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.couple_story_block
+    - field.storage.block_content.field_couple
+    - node.type.couple
+_core:
+  default_config_hash: ztkSgBUum7ki90GHEne2Bcw3N2vwJdjdYPH9cZmVn5w
+id: block_content.couple_story_block.field_couple
+field_name: field_couple
+entity_type: block_content
+bundle: couple_story_block
+label: 'Couple reference'
+description: 'Reference to the node.couple entity (anilu-camoa). Rendered via the couple_story view mode to display community prose, faces, and milestones.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      couple: couple
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

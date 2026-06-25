@@ -5,14 +5,16 @@ dependencies:
   config:
     - core.entity_view_mode.node.teaser
     - field.field.node.couple.body
+    - field.field.node.couple.field_community_story
     - field.field.node.couple.field_couple
+    - field.field.node.couple.field_founding
+    - field.field.node.couple.field_milestone
     - field.field.node.couple.schema_image
-    - image.style.large
     - node.type.couple
   module:
     - layout_builder
     - manage_display
-    - media
+    - text
 third_party_settings:
   layout_builder:
     enabled: false
@@ -22,42 +24,47 @@ targetEntityType: node
 bundle: couple
 mode: teaser
 content:
-  field_couple:
-    type: entity_reference_label
+  body:
+    type: text_summary_or_trimmed
     label: hidden
     settings:
-      link: true
-    third_party_settings: {  }
-    weight: 3
-    region: content
-  links:
-    settings: {  }
+      trim_length: 160
     third_party_settings: {  }
     weight: 2
     region: content
-  schema_image:
-    type: media_thumbnail
+  field_couple:
+    type: entity_reference_entity_view
     label: hidden
     settings:
-      image_link: content
-      image_style: large
-      image_loading:
-        attribute: lazy
+      view_mode: token
+      link: false
     third_party_settings: {  }
-    weight: 1
+    weight: 3
+    region: content
+  schema_image:
+    type: entity_reference_entity_view
+    label: hidden
+    settings:
+      view_mode: adc_card_thumbnail
+      link: false
+    third_party_settings: {  }
+    weight: 0
     region: content
   title:
     type: title
     label: hidden
     settings:
       link_to_entity: true
-      tag: h4
+      tag: h2
     third_party_settings: {  }
-    weight: 0
+    weight: 1
     region: content
 hidden:
-  body: true
   created: true
+  field_community_story: true
+  field_founding: true
+  field_milestone: true
   langcode: true
+  links: true
   node_read_time: true
   uid: true

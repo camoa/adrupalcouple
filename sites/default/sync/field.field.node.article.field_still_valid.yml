@@ -1,0 +1,25 @@
+uuid: 9ab4ff39-7421-482e-b943-9dda34d9d413
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_still_valid
+    - node.type.article
+_core:
+  default_config_hash: kAGs-3T7mW_qgE_IPIE3FohYtltf24t3VFevUSI6aJE
+id: node.article.field_still_valid
+field_name: field_still_valid
+entity_type: node
+bundle: article
+label: 'Still valid'
+description: 'Per-language "still-true" evergreen validity flag.'
+required: false
+translatable: true
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'Still valid'
+  off_label: Outdated
+field_type: boolean

@@ -1,0 +1,23 @@
+uuid: 5b1a8409-ec62-4ea7-a357-539d311c2cb3
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: e0bjf5gzdfd5rwmcrrzq-kpy8FIlj_JnmF5fvnwP7Mo
+name: adc_couple_faces_1x1_128
+label: 'ADC Couple Faces 1×1 128px'
+effects:
+  06296ccb-2f2f-488d-9c91-5ff30d61a2c0:
+    uuid: 06296ccb-2f2f-488d-9c91-5ff30d61a2c0
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 128
+      height: 128
+      anchor: center-center
+  8a6da968-fa1d-4b24-89ca-045e2e919bf6:
+    uuid: 8a6da968-fa1d-4b24-89ca-045e2e919bf6
+    id: image_convert
+    weight: 2
+    data:
+      extension: webp

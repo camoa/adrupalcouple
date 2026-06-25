@@ -5,6 +5,7 @@ module:
   address: 0
   admin_toolbar: 0
   admin_toolbar_tools: 0
+  adrupalcouple_chrome: 0
   allowed_formats: 0
   antibot: 0
   automated_cron: 0
@@ -76,6 +77,7 @@ module:
   metatag_custom_tags: 0
   metatag_facebook: 0
   metatag_open_graph: 0
+  metatag_twitter_cards: 0
   metatag_verification: 0
   moderation_dashboard: 0
   mysql: 0
@@ -120,6 +122,14 @@ module:
   text: 0
   token: 0
   toolbar: 0
+  twig_tweak: 0
+  ui_icons: 0
+  ui_icons_patterns: 0
+  ui_patterns: 0
+  ui_patterns_field_formatters: 0
+  ui_patterns_views: 0
+  ui_styles: 0
+  ui_styles_layout_builder: 0
   update: 0
   upgrade_status: 0
   user: 0
@@ -138,4 +148,6 @@ theme:
   gin: 0
   stable9: 0
   simple_blog: 0
+  ui_suite_daisyui: 0
+  adrupalcouple: 0
 profile: standard

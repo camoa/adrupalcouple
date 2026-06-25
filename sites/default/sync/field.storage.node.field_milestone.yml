@@ -1,0 +1,30 @@
+uuid: 4b3493d7-ff22-4598-8a38-1f5e7884428d
+langcode: en
+status: true
+dependencies:
+  module:
+    - custom_field
+    - node
+_core:
+  default_config_hash: i1NB0zbALvUMVdQOPfT3W5LwZtgipeLsv0bz4cSkj1Y
+id: node.field_milestone
+field_name: field_milestone
+entity_type: node
+type: custom
+settings:
+  columns:
+    year:
+      name: year
+      type: string
+      length: 16
+    label:
+      name: label
+      type: string
+      length: 255
+module: custom_field
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

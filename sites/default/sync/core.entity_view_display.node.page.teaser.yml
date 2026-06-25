@@ -5,7 +5,9 @@ dependencies:
   config:
     - core.entity_view_mode.node.teaser
     - field.field.node.page.body
+    - field.field.node.page.field_subtitle
     - field.field.node.page.field_tags
+    - field.field.node.page.layout_builder__layout
     - field.field.node.page.schema_about
     - field.field.node.page.schema_primary_image
     - field.field.node.page.schema_related_link
@@ -68,8 +70,10 @@ content:
     region: content
 hidden:
   created: true
+  field_subtitle: true
   field_tags: true
   langcode: true
+  layout_builder__layout: true
   node_read_time: true
   schema_about: true
   schema_related_link: true

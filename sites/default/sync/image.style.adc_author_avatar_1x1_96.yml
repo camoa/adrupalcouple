@@ -1,0 +1,23 @@
+uuid: 162f396c-4151-4977-a858-13a7d35f26a6
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: Lmi5I7gT4TBDFHN-yvWhTK3QQisCmdIIUS7fuqMYjYs
+name: adc_author_avatar_1x1_96
+label: 'ADC Author Avatar 1×1 96px'
+effects:
+  faf4199e-946f-4ee6-90db-eede7785d091:
+    uuid: faf4199e-946f-4ee6-90db-eede7785d091
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 96
+      height: 96
+      anchor: center-center
+  73963d88-39ab-43d0-9ddb-bc7d92febc3c:
+    uuid: 73963d88-39ab-43d0-9ddb-bc7d92febc3c
+    id: image_convert
+    weight: 2
+    data:
+      extension: webp
