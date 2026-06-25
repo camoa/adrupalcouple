@@ -43,13 +43,14 @@
 
   <div class="card-body">
 
-    {# Topic chips — badge-sm + topic-chip (a11y.pcss D6: 24px min-height WCAG 2.5.8 AA).
-       hover:border-primary hover:text-primary; transition-colors duration-150. #}
+    {# Single topic badge — one primary topic per card (component-palette §6 `topic_badge`,
+       card-scannability UX). Full tag set lives on the article detail page + the /writing
+       page-top topic browse. The primary topic = the first-listed tag (delta 0). #}
     {% set has_tags = false %}
     {% for tag_item in node.field_tags %}{% set has_tags = true %}{% endfor %}
     {% if has_tags %}
       <div class="flex flex-wrap gap-1">
-        {% for tag_item in node.field_tags %}
+        {% for tag_item in node.field_tags|slice(0, 1) %}
           {% set tag = tag_item.entity %}
           {% if tag %}
             <a href="{{ path('entity.taxonomy_term.canonical', {'taxonomy_term': tag.id}) }}"
