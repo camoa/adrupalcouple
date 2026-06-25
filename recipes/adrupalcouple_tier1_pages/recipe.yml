@@ -1,0 +1,18 @@
+name: 'ADrupalCouple Tier1 Pages'
+description: >
+  Reconciles the node.page bundle for the compositional Home/About pages and the
+  structured Accessibility-statement page. All node.page fields (body, field_tags,
+  schema_primary_image, schema_about, schema_related_link, schema_significant_link,
+  schema_subject_of, schema_web_page_subtype) already exist on the live site and are
+  kept verbatim (reconcile-only — no rename, no new field). Layout Builder is already
+  enabled site-wide; the per-node Home/About LB section composition (masthead +
+  couple_hero inline blocks from adrupalcouple_tier1_sections, latest-writing View) is
+  applied at the node/template layer, not as bundle-default view-display config here.
+type: 'Content type'
+install:
+  - layout_builder
+  - node
+config:
+  # strict: false — node.page and all its fields pre-exist on live; this recipe is a
+  # reconcile placeholder in the dependency chain (tier2_article + tier2_couple → here).
+  strict: false

@@ -1,9 +1,18 @@
 name: 'ADrupalCouple Tier2 Couple'
-description: 'Provides schema_image field instance on the couple node bundle.'
+description: 'Provides schema_image field instance plus the NEW field_milestone compound custom_field on the couple node bundle.'
 type: 'Content type'
 config:
-  # strict: false — field.field.node.couple.schema_image already exists on live.
+  # strict: false — field.field.node.couple.schema_image already exists on live;
+  # field_milestone is NET-NEW (shipped as config files).
   strict: false
   actions:
     field.field.node.couple.schema_image:
       entity_method:field.field:setLabel: 'Couple portrait'
+    # Place the NEW field_milestone custom_field widget on the couple edit form (Milestones).
+    core.entity_form_display.node.couple.default:
+      setComponents:
+        - name: field_milestone
+          options:
+            type: custom_stacked
+            weight: 10
+            region: content

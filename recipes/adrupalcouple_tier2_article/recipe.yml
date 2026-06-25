@@ -1,6 +1,9 @@
 name: 'ADrupalCouple Tier2 Article'
-description: 'Provides field instances on the article node bundle: schema_image, field_illustrative, field_closing_question.'
+description: 'Provides field instances on the article node bundle: schema_image, field_illustrative, field_closing_question, plus NEW p7 fields (field_metric compound custom_field, field_disclosure, field_review_date, field_still_valid, field_social_excerpt) and the og:image/twitter:image metatag defaults.'
 type: 'Content type'
+install:
+  # twitter:image mapping requires the Twitter Cards metatag submodule (present, was disabled).
+  - metatag_twitter_cards
 config:
   # strict: false — fields may already exist on live (schema_image pre-dates recipe; illustrative
   # + closing_question added via g_content_model_fields task). Config files provide canonical
@@ -17,3 +20,31 @@ config:
     field.field.node.article.field_closing_question:
       entity_method:field.field:setLabel: 'Closing question'
       entity_method:field.field:setDescription: 'The InvitationClose closing question. Optional; degrades to body prose if empty.'
+    # Place the NEW p7 field widgets on the article edit form (one setComponents call, all fields).
+    core.entity_form_display.node.article.default:
+      setComponents:
+        - name: field_metric
+          options:
+            type: custom_stacked
+            weight: 20
+            region: content
+        - name: field_disclosure
+          options:
+            type: text_textarea
+            weight: 21
+            region: content
+        - name: field_social_excerpt
+          options:
+            type: string_textarea
+            weight: 22
+            region: content
+        - name: field_review_date
+          options:
+            type: datetime_default
+            weight: 23
+            region: content
+        - name: field_still_valid
+          options:
+            type: boolean_checkbox
+            weight: 24
+            region: content

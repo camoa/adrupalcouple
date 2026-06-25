@@ -1,0 +1,13 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - metatag_open_graph
+    - metatag_twitter_cards
+id: node__article
+label: 'Content: Article'
+tags:
+  og_image: '[node:schema_image:entity:field_media_image:entity:url]'
+  og_image_width: '[node:schema_image:entity:field_media_image:width]'
+  og_image_height: '[node:schema_image:entity:field_media_image:height]'
+  twitter_cards_image: '[node:schema_image:entity:field_media_image:entity:url]'

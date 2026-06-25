@@ -1,0 +1,14 @@
+name: 'ADrupalCouple Site'
+description: >
+  Site-level assembly recipe. Applies the full ADrupalCouple content model in strict
+  dependency order by composing the foundation, tier2 (person → couple → article), and
+  tier1 (pages) recipes. No new field config of its own — pure orchestration.
+type: 'Site'
+recipes:
+  - adrupalcouple_foundation
+  - adrupalcouple_tier2_person
+  - adrupalcouple_tier2_couple
+  - adrupalcouple_tier2_article
+  - adrupalcouple_tier1_pages
+config:
+  strict: false

@@ -1,0 +1,19 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_role
+    - node.type.person
+id: node.person.field_role
+field_name: field_role
+entity_type: node
+bundle: person
+label: 'Role'
+description: 'Public role label (e.g. "Co-founder, Developer"). Bilingual LocalizedText.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  max_length: 128
+field_type: string

@@ -1,0 +1,31 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - custom_field
+    - link
+    - node
+id: node.field_metric
+field_name: field_metric
+entity_type: node
+type: custom
+settings:
+  columns:
+    value:
+      name: value
+      type: string
+      length: 64
+    label:
+      name: label
+      type: string
+      length: 255
+    source:
+      name: source
+      type: link
+module: custom_field
+locked: false
+cardinality: -1
+translatable: false
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

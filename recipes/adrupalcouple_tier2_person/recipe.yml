@@ -1,5 +1,5 @@
 name: 'ADrupalCouple Tier2 Person'
-description: 'Provides field instances on the person node bundle: schema_image, field_author_focus.'
+description: 'Provides field instances on the person node bundle: schema_image, field_author_focus, field_role (NEW p7). Enables content_translation on node.person (Q-06).'
 type: 'Content type'
 config:
   # strict: false — fields may already exist on live (schema_image pre-dates recipe;
@@ -12,3 +12,20 @@ config:
     field.field.node.person.field_author_focus:
       entity_method:field.field:setLabel: 'What they write about'
       entity_method:field.field:setDescription: 'Short focus line on the person profile. Optional; degrades to bio if empty.'
+    # Q-06: enable content_translation on node.person (person.role/bio are bilingual LocalizedText).
+    language.content_settings.node.person:
+      entity_method:language.content_settings:setThirdPartySetting:
+        - content_translation
+        - enabled
+        - true
+    # Place the NEW field_role widget on the person edit form (Identity, top).
+    core.entity_form_display.node.person.default:
+      setComponents:
+        - name: field_role
+          options:
+            type: string_textfield
+            weight: -4
+            region: content
+            settings:
+              size: 60
+              placeholder: ''

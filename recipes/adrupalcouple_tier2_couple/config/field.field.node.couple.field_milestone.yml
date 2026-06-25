@@ -1,0 +1,55 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_milestone
+    - node.type.couple
+  module:
+    - custom_field
+id: node.couple.field_milestone
+field_name: field_milestone
+entity_type: node
+bundle: couple
+label: Milestones
+description: 'OPTIONAL couple relationship timeline. Plain prose in body is an acceptable substitute.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  field_settings:
+    year:
+      type: text
+      weight: 0
+      check_empty: false
+      widget_settings:
+        label: Year
+        translatable: false
+        settings:
+          description: 'Year or year-range (e.g. "2018", "2018–2020").'
+          description_display: after
+          size: 16
+          placeholder: ''
+          maxlength: 16
+          maxlength_js: false
+          prefix: ''
+          suffix: ''
+          required: false
+    label:
+      type: text
+      weight: 1
+      check_empty: true
+      widget_settings:
+        label: Milestone
+        translatable: true
+        settings:
+          description: 'Human-readable milestone description.'
+          description_display: after
+          size: 60
+          placeholder: ''
+          maxlength: 255
+          maxlength_js: false
+          prefix: ''
+          suffix: ''
+          required: false
+field_type: custom
