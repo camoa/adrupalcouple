@@ -72,7 +72,7 @@
         Responsive: text-4xl on mobile → sm:text-5xl at ≥640 px.
       #}
       <h1 id="home-claim" class="mt-4 font-heading text-4xl font-semibold leading-tight sm:text-5xl">
-        {{ label }}
+        {{ node.title.value }}
       </h1>
 
       {#
@@ -118,10 +118,10 @@
     Source: node.page.body (text_with_summary, text_default formatter).
     The body.summary is used as subtitle above; body.value is the intro line.
   #}
-  {% if content.body|render|trim %}
+  {% if node.body.value %}
     <section class="bg-base-100">
       <div class="mx-auto max-w-[66ch] px-4 pb-12 prose">
-        {{ content.body }}
+        {{ node.body.processed }}
       </div>
     </section>
   {% endif %}

@@ -34,7 +34,7 @@
   {# Section 1 — Title + intent paragraph (bg-base-100, py-12, no prose) #}
   <section class="bg-base-100">
     <div class="reading-column py-12">
-      <h1 class="font-heading text-4xl font-semibold sm:text-5xl">{{ label }}</h1>
+      <h1 class="font-heading text-4xl font-semibold sm:text-5xl">{{ node.title.value }}</h1>
       {% if body_sections[0] is defined and body_sections[0].content|render|trim %}
         {{ body_sections[0].content }}
       {% endif %}
