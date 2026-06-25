@@ -8,6 +8,29 @@
 declare(strict_types=1);
 
 /**
+ * Implements hook_theme_suggestions_node_alter().
+ *
+ * The `full` view mode (used on the node canonical page) reuses the
+ * `full_article` reading templates for article and couple, so the designed
+ * reading/profile layout renders on the canonical URL without a separate
+ * LB section catalog. See node--article--full-article.html.twig and
+ * node--couple--full-article.html.twig.
+ */
+function adrupalcouple_theme_suggestions_node_alter(array &$suggestions, array $variables): void {
+  $node = $variables['elements']['#node'] ?? NULL;
+  $view_mode = $variables['elements']['#view_mode'] ?? '';
+  if (!$node || $view_mode !== 'full') {
+    return;
+  }
+  $bundle = $node->bundle();
+  if (in_array($bundle, ['article', 'couple'], TRUE)) {
+    // Insert the full_article suggestion just below node__<bundle>__full so it
+    // wins template resolution.
+    $suggestions[] = 'node__' . $bundle . '__full_article';
+  }
+}
+
+/**
  * Implements hook_preprocess_node__article().
  *
  * Attaches the code-highlight library to every article node render so that
@@ -16,4 +39,21 @@ declare(strict_types=1);
  */
 function adrupalcouple_preprocess_node__article(array &$variables): void {
   $variables['#attached']['library'][] = 'adrupalcouple/code-highlight';
+
+  // Computed read-time (Q-10: no stored field). Counts body words and divides
+  // by a 238 wpm reading speed. Exposed to Twig as {{ read_time }} and consumed
+  // by node--article--full-article.html.twig. Inlined (no global polyfill) to
+  // avoid any function-redeclare risk.
+  $variables['read_time'] = 0;
+  $node = $variables['node'] ?? NULL;
+  if ($node instanceof \Drupal\node\NodeInterface
+    && $node->hasField('body')
+    && !$node->get('body')->isEmpty()) {
+    $text = trim(strip_tags((string) $node->get('body')->value));
+    if ($text !== '') {
+      $parts = preg_split('/\s+/u', $text) ?: [];
+      $word_count = count(array_filter($parts, static fn ($w) => $w !== ''));
+      $variables['read_time'] = max(1, (int) round($word_count / 238));
+    }
+  }
 }

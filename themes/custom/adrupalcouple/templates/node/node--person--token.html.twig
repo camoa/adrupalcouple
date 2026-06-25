@@ -1,0 +1,31 @@
+{#
+/**
+ * @file
+ * Byline atom — node.person rendered in the `token` view mode.
+ *
+ * Consumed inline by article/couple displays via the schema_author /
+ * field_couple entity_reference_entity_view formatter (view_mode: token).
+ * Compact: avatar circle + name + role. No links, no body, no extra markup.
+ *
+ * Available (from core.entity_view_display.node.person.token):
+ * - content.schema_image       Author avatar (media reference render).
+ * - content.schema_given_name  Given name (string).
+ * - content.schema_family_name Family name (string).
+ * - content.field_role         Public role label (string).
+ *
+ * @see template_preprocess_node()
+ */
+#}
+<span{{ attributes.addClass('byline-author inline-flex items-center gap-2') }}>
+  {% if content.schema_image|render|trim %}
+    <span class="avatar">
+      <span class="block w-8 h-8 rounded-full overflow-hidden">{{ content.schema_image }}</span>
+    </span>
+  {% endif %}
+  <span class="byline-name font-medium text-base-content">
+    {{ content.schema_given_name }}{{ ' ' }}{{ content.schema_family_name }}
+  </span>
+  {% if content.field_role|render|trim %}
+    <span class="byline-role text-sm text-base-content/60"> · {{ content.field_role }}</span>
+  {% endif %}
+</span>

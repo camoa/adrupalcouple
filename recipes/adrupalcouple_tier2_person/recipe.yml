@@ -18,14 +18,240 @@ config:
         - content_translation
         - enabled
         - true
-    # Place the NEW field_role widget on the person edit form (Identity, top).
+    # --- Edit form: place field_role + regroup fields into field_group_tabs
+    #     (Identity | Profile | Schema.org) per task §2.3. setProperties replaces
+    #     the whole field_group map (removes legacy details groups). ---
     core.entity_form_display.node.person.default:
-      setComponents:
-        - name: field_role
-          options:
-            type: string_textfield
-            weight: -4
+      setProperties:
+        content.field_role:
+          type: string_textfield
+          weight: -4
+          region: content
+          settings: { size: 60, placeholder: '' }
+          third_party_settings: {  }
+        third_party_settings.field_group:
+          group_tabs:
+            children: [group_identity, group_profile, group_schema]
+            label: 'Person'
+            parent_name: ''
             region: content
-            settings:
-              size: 60
-              placeholder: ''
+            weight: -10
+            format_type: tabs
+            format_settings: { direction: horizontal }
+          group_identity:
+            children: [schema_given_name, schema_family_name, schema_additional_name, field_role, schema_image]
+            label: 'Identity'
+            parent_name: group_tabs
+            region: content
+            weight: 0
+            format_type: tab
+            format_settings: { formatter: open }
+          group_profile:
+            children: [body, schema_same_as, schema_email, schema_telephone, schema_birth_date]
+            label: 'Profile'
+            parent_name: group_tabs
+            region: content
+            weight: 1
+            format_type: tab
+            format_settings: { formatter: closed }
+          group_schema:
+            children: [schema_member_of, schema_works_for, schema_knows_language, field_metatag]
+            label: 'Schema.org'
+            parent_name: group_tabs
+            region: content
+            weight: 2
+            format_type: tab
+            format_settings: { formatter: closed }
+
+    # --- View display: token (the byline atom consumed by article/couple) ---
+    core.entity_view_display.node.person.token:
+      setProperties:
+        third_party_settings:
+          layout_builder: { enabled: false, allow_custom: false }
+        content:
+          schema_image:
+            type: entity_reference_entity_view
+            label: hidden
+            settings: { view_mode: small_thumbnail, link: false }
+            third_party_settings: {  }
+            weight: 0
+            region: content
+          schema_given_name:
+            type: string
+            label: hidden
+            settings: { link_to_entity: false }
+            third_party_settings: {  }
+            weight: 1
+            region: content
+          schema_family_name:
+            type: string
+            label: hidden
+            settings: { link_to_entity: false }
+            third_party_settings: {  }
+            weight: 2
+            region: content
+          field_role:
+            type: string
+            label: hidden
+            settings: { link_to_entity: false }
+            third_party_settings: {  }
+            weight: 3
+            region: content
+        hidden:
+          body: true
+          content_moderation_control: true
+          created: true
+          field_author_focus: true
+          field_metatag: true
+          field_tags: true
+          langcode: true
+          links: true
+          node_read_time: true
+          schema_additional_name: true
+          schema_birth_date: true
+          schema_email: true
+          schema_knows_language: true
+          schema_member_of: true
+          schema_same_as: true
+          schema_subject_of: true
+          schema_telephone: true
+          schema_works_for: true
+          title: true
+          uid: true
+
+    # --- View display: teaser (person card in listings) ---
+    core.entity_view_display.node.person.teaser:
+      setProperties:
+        third_party_settings:
+          layout_builder: { enabled: false, allow_custom: false }
+        content:
+          schema_image:
+            type: entity_reference_entity_view
+            label: hidden
+            settings: { view_mode: small_thumbnail, link: false }
+            third_party_settings: {  }
+            weight: 0
+            region: content
+          schema_given_name:
+            type: string
+            label: hidden
+            settings: { link_to_entity: false }
+            third_party_settings: {  }
+            weight: 1
+            region: content
+          schema_family_name:
+            type: string
+            label: hidden
+            settings: { link_to_entity: false }
+            third_party_settings: {  }
+            weight: 2
+            region: content
+          field_role:
+            type: string
+            label: hidden
+            settings: { link_to_entity: false }
+            third_party_settings: {  }
+            weight: 3
+            region: content
+        hidden:
+          body: true
+          content_moderation_control: true
+          created: true
+          field_author_focus: true
+          field_metatag: true
+          field_tags: true
+          langcode: true
+          links: true
+          node_read_time: true
+          schema_additional_name: true
+          schema_birth_date: true
+          schema_email: true
+          schema_knows_language: true
+          schema_member_of: true
+          schema_same_as: true
+          schema_subject_of: true
+          schema_telephone: true
+          schema_works_for: true
+          title: true
+          uid: true
+
+    # --- View display: full (author profile page). LB disabled → clean field
+    #     stack rendered through the default node template (task §1.3.3). ---
+    core.entity_view_display.node.person.full:
+      setProperties:
+        third_party_settings:
+          layout_builder: { enabled: false, allow_custom: false }
+        content:
+          schema_image:
+            type: entity_reference_entity_view
+            label: hidden
+            settings: { view_mode: small_thumbnail, link: false }
+            third_party_settings: {  }
+            weight: 0
+            region: content
+          schema_given_name:
+            type: string
+            label: hidden
+            settings: { link_to_entity: false }
+            third_party_settings: {  }
+            weight: 1
+            region: content
+          schema_family_name:
+            type: string
+            label: hidden
+            settings: { link_to_entity: false }
+            third_party_settings: {  }
+            weight: 2
+            region: content
+          field_role:
+            type: string
+            label: hidden
+            settings: { link_to_entity: false }
+            third_party_settings: {  }
+            weight: 3
+            region: content
+          body:
+            type: text_default
+            label: hidden
+            settings: {  }
+            third_party_settings: {  }
+            weight: 4
+            region: content
+          schema_same_as:
+            type: link
+            label: above
+            settings: { trim_length: 80, url_only: false, url_plain: false, rel: '', target: _blank }
+            third_party_settings: {  }
+            weight: 5
+            region: content
+          schema_email:
+            type: email_mailto
+            label: above
+            settings: {  }
+            third_party_settings: {  }
+            weight: 6
+            region: content
+          schema_telephone:
+            type: telephone_link
+            label: above
+            settings: { title: '' }
+            third_party_settings: {  }
+            weight: 7
+            region: content
+        hidden:
+          content_moderation_control: true
+          created: true
+          field_author_focus: true
+          field_metatag: true
+          field_tags: true
+          langcode: true
+          links: true
+          node_read_time: true
+          schema_additional_name: true
+          schema_birth_date: true
+          schema_knows_language: true
+          schema_member_of: true
+          schema_subject_of: true
+          schema_works_for: true
+          title: true
+          uid: true

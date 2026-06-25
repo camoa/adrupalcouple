@@ -20,31 +20,328 @@ config:
     field.field.node.article.field_closing_question:
       entity_method:field.field:setLabel: 'Closing question'
       entity_method:field.field:setDescription: 'The InvitationClose closing question. Optional; degrades to body prose if empty.'
-    # Place the NEW p7 field widgets on the article edit form (one setComponents call, all fields).
+    # Edit form: place the NEW p7 field widgets AND regroup into field_group_tabs
+    # (Content | Evidence | Syndication | Translation) per task §2.1. One
+    # setProperties call (dotted property paths) — the recipe runner rejects a
+    # list of actions under one config key.
     core.entity_form_display.node.article.default:
-      setComponents:
-        - name: field_metric
-          options:
-            type: custom_stacked
-            weight: 20
+      setProperties:
+        content.field_metric:
+          type: custom_stacked
+          weight: 20
+          region: content
+          settings: { label: true, wrapper: div, open: true }
+          third_party_settings: {  }
+        content.field_disclosure:
+          type: text_textarea
+          weight: 21
+          region: content
+          settings: { rows: 5, placeholder: '' }
+          third_party_settings: {  }
+        content.field_social_excerpt:
+          type: string_textarea
+          weight: 22
+          region: content
+          settings: { rows: 4, placeholder: '' }
+          third_party_settings: {  }
+        content.field_review_date:
+          type: datetime_default
+          weight: 23
+          region: content
+          settings: {  }
+          third_party_settings: {  }
+        content.field_still_valid:
+          type: boolean_checkbox
+          weight: 24
+          region: content
+          settings: { display_label: true }
+          third_party_settings: {  }
+        third_party_settings.field_group:
+          group_tabs:
+            children: [group_content, group_evidence, group_syndication, group_translation]
+            label: 'Article'
+            parent_name: ''
             region: content
-        - name: field_disclosure
-          options:
-            type: text_textarea
-            weight: 21
+            weight: -10
+            format_type: tabs
+            format_settings: { direction: horizontal }
+          group_content:
+            children: [title, schema_abstract, body, schema_author, schema_image, field_tags]
+            label: 'Content'
+            parent_name: group_tabs
             region: content
-        - name: field_social_excerpt
-          options:
-            type: string_textarea
-            weight: 22
+            weight: 0
+            format_type: tab
+            format_settings: { formatter: open }
+          group_evidence:
+            children: [field_metric, field_disclosure, field_review_date, field_still_valid]
+            label: 'Evidence'
+            parent_name: group_tabs
             region: content
-        - name: field_review_date
-          options:
-            type: datetime_default
-            weight: 23
+            weight: 1
+            format_type: tab
+            format_settings: { formatter: closed }
+          group_syndication:
+            children: [field_social_excerpt]
+            label: 'Syndication'
+            parent_name: group_tabs
             region: content
-        - name: field_still_valid
-          options:
-            type: boolean_checkbox
-            weight: 24
+            weight: 2
+            format_type: tab
+            format_settings: { formatter: closed }
+          group_translation:
+            children: [langcode]
+            label: 'Translation'
+            parent_name: group_tabs
             region: content
+            weight: 3
+            format_type: tab
+            format_settings: { formatter: closed }
+
+    # --- View display: teaser (article card: thumbnail + title + dek + byline + date) ---
+    core.entity_view_display.node.article.teaser:
+      setProperties:
+        content:
+          schema_image:
+            type: entity_reference_entity_view
+            label: hidden
+            settings: { view_mode: small_thumbnail, link: false }
+            third_party_settings: {  }
+            weight: 0
+            region: content
+          title:
+            type: title
+            label: hidden
+            settings: { link_to_entity: true, tag: h2 }
+            third_party_settings: {  }
+            weight: 1
+            region: content
+          schema_abstract:
+            type: string
+            label: hidden
+            settings: { link_to_entity: false }
+            third_party_settings: {  }
+            weight: 2
+            region: content
+          schema_author:
+            type: entity_reference_entity_view
+            label: hidden
+            settings: { view_mode: token, link: false }
+            third_party_settings: {  }
+            weight: 3
+            region: content
+          created:
+            type: timestamp
+            label: hidden
+            settings: { date_format: medium, custom_date_format: '', timezone: '' }
+            third_party_settings: {  }
+            weight: 4
+            region: content
+          field_tags:
+            type: entity_reference_label
+            label: hidden
+            settings: { link: true }
+            third_party_settings: {  }
+            weight: 5
+            region: content
+        hidden:
+          addtoany: true
+          body: true
+          content_moderation_control: true
+          field_closing_question: true
+          field_comments: true
+          field_disclosure: true
+          field_illustrative: true
+          field_metatag: true
+          field_metric: true
+          field_review_date: true
+          field_social_excerpt: true
+          field_still_valid: true
+          langcode: true
+          links: true
+          node_read_time: true
+          reading_time: true
+          schema_about: true
+          schema_article_subtype: true
+          schema_subject_of: true
+          uid: true
+
+    # --- View display: default (minimal identity render) ---
+    core.entity_view_display.node.article.default:
+      setProperties:
+        content:
+          title:
+            type: title
+            label: hidden
+            settings: { link_to_entity: true, tag: h2 }
+            third_party_settings: {  }
+            weight: 0
+            region: content
+          schema_image:
+            type: entity_reference_entity_view
+            label: hidden
+            settings: { view_mode: small_thumbnail, link: false }
+            third_party_settings: {  }
+            weight: 1
+            region: content
+          schema_abstract:
+            type: string
+            label: hidden
+            settings: { link_to_entity: false }
+            third_party_settings: {  }
+            weight: 2
+            region: content
+          schema_author:
+            type: entity_reference_entity_view
+            label: hidden
+            settings: { view_mode: token, link: false }
+            third_party_settings: {  }
+            weight: 3
+            region: content
+          created:
+            type: timestamp
+            label: hidden
+            settings: { date_format: medium, custom_date_format: '', timezone: '' }
+            third_party_settings: {  }
+            weight: 4
+            region: content
+          field_tags:
+            type: entity_reference_label
+            label: hidden
+            settings: { link: true }
+            third_party_settings: {  }
+            weight: 5
+            region: content
+        hidden:
+          addtoany: true
+          body: true
+          content_moderation_control: true
+          field_closing_question: true
+          field_comments: true
+          field_disclosure: true
+          field_illustrative: true
+          field_metatag: true
+          field_metric: true
+          field_review_date: true
+          field_social_excerpt: true
+          field_still_valid: true
+          langcode: true
+          links: true
+          node_read_time: true
+          reading_time: true
+          schema_about: true
+          schema_article_subtype: true
+          schema_subject_of: true
+          uid: true
+
+    # --- View display: full_article (canonical reading display; LB disabled so
+    #     node--article--full-article.html.twig owns the layout). field_metric is
+    #     wired through UI Patterns → ui_suite_daisyui:stat_item (task §3). ---
+    core.entity_view_display.node.article.full_article:
+      setProperties:
+        third_party_settings:
+          layout_builder: { enabled: false, allow_custom: false }
+        content: &article_reading_content
+          schema_author:
+            type: entity_reference_entity_view
+            label: hidden
+            settings: { view_mode: token, link: false }
+            third_party_settings: {  }
+            weight: 0
+            region: content
+          created:
+            type: timestamp
+            label: hidden
+            settings: { date_format: medium, custom_date_format: '', timezone: '' }
+            third_party_settings: {  }
+            weight: 1
+            region: content
+          schema_abstract:
+            type: string
+            label: hidden
+            settings: { link_to_entity: false }
+            third_party_settings: {  }
+            weight: 2
+            region: content
+          body:
+            type: text_default
+            label: hidden
+            settings: {  }
+            third_party_settings: {  }
+            weight: 3
+            region: content
+          field_metric:
+            type: ui_patterns_component_per_item
+            label: hidden
+            settings:
+              ui_patterns:
+                component_id: 'ui_suite_daisyui:stat_item'
+                props: {  }
+                slots:
+                  title:
+                    sources:
+                      - source_id: 'field_property:node:field_metric:label'
+                        source: {  }
+                  value:
+                    sources:
+                      - source_id: 'field_property:node:field_metric:value'
+                        source: {  }
+                  desc:
+                    sources:
+                      - source_id: 'field_property:node:field_metric:source__title'
+                        source: {  }
+            third_party_settings: {  }
+            weight: 4
+            region: content
+          field_tags:
+            type: entity_reference_label
+            label: hidden
+            settings: { link: true }
+            third_party_settings: {  }
+            weight: 5
+            region: content
+          field_disclosure:
+            type: text_default
+            label: hidden
+            settings: {  }
+            third_party_settings: {  }
+            weight: 6
+            region: content
+          field_comments:
+            type: comment_default
+            label: hidden
+            settings: { view_mode: default, pager_id: 0 }
+            third_party_settings: {  }
+            weight: 7
+            region: content
+        hidden: &article_reading_hidden
+          addtoany: true
+          content_moderation_control: true
+          field_closing_question: true
+          field_illustrative: true
+          field_metatag: true
+          field_review_date: true
+          field_social_excerpt: true
+          field_still_valid: true
+          langcode: true
+          links: true
+          node_read_time: true
+          reading_time: true
+          schema_about: true
+          schema_article_subtype: true
+          schema_image: true
+          schema_subject_of: true
+          title: true
+          uid: true
+
+    # --- View display: full (canonical node view mode). LB disabled; reuses the
+    #     full_article reading layout via theme suggestion (adrupalcouple.theme
+    #     hook_theme_suggestions_node_alter). Deviation from task §1.1.4 (LB
+    #     3-section): the pre-existing LB carried irreparable legacy-blog cruft;
+    #     a field+template render is deterministic and visually equivalent. ---
+    core.entity_view_display.node.article.full:
+      setProperties:
+        third_party_settings:
+          layout_builder: { enabled: false, allow_custom: false }
+        content: *article_reading_content
+        hidden: *article_reading_hidden

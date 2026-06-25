@@ -1,0 +1,45 @@
+{#
+/**
+ * @file
+ * Front-page layout override.
+ *
+ * NOTE (G-CONV deviation from task §4.1): the spec's page--front structure
+ * assumed page.header / page.footer regions and a DOCTYPE/html wrapper. This
+ * theme is region-based on the ui_suite_daisyui navbar regions
+ * (navbar_start/center/end) and the document wrapper lives in html.html.twig.
+ * This override therefore mirrors the real templates/system/page.html.twig and
+ * only adds the front-specific behaviour the spec calls for:
+ *   - suppresses the Drupal default page-title block on the front page,
+ *   - tags <main> with `site-main--front` so _nav.pcss can adjust top spacing.
+ *
+ * The site identity mark (H1) is carried by the nav SDC / the Home node's
+ * Layout Builder masthead block — NOT by the Drupal page title.
+ *
+ * @see template_preprocess_page()
+ * @see html.html.twig
+ */
+#}
+{% set navbar %}
+  {{ include('ui_suite_daisyui:navbar', {
+    start: page.navbar_start,
+    center: page.navbar_center,
+    end: page.navbar_end,
+  }, with_context: false) }}
+{% endset %}
+
+{{ include('adrupalcouple:section', {
+  content: navbar,
+  attributes: create_attribute().addClass('pt-0 pb-0'),
+  layout_attributes: create_attribute().addClass('container-full'),
+  content_attributes: create_attribute().addClass('mb-0')
+}, with_context: false)
+}}
+
+{{ page.highlighted }}
+
+<a id="main-content" tabindex="-1"></a>
+<main role="main" class="site-main site-main--front">
+  {{ page.content }}
+</main>
+
+{{ page.footer }}

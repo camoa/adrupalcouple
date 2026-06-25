@@ -9,3 +9,25 @@ install:
 config:
   # strict: false allows re-application when field.storage.node.schema_image already exists.
   strict: false
+  actions:
+    # Tag term embedded render (task §1.5). The /topics/{slug} landing is the
+    # taxonomy_term View; this display is only for embedded tag renders.
+    core.entity_view_display.taxonomy_term.tags.default:
+      setProperties:
+        content:
+          name:
+            type: string
+            label: hidden
+            settings: { link_to_entity: false }
+            third_party_settings: {  }
+            weight: 0
+            region: content
+          description:
+            type: text_default
+            label: hidden
+            settings: {  }
+            third_party_settings: {  }
+            weight: 1
+            region: content
+        hidden:
+          langcode: true

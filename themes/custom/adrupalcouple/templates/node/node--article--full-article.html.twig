@@ -1,0 +1,59 @@
+{#
+/**
+ * @file
+ * Canonical article reading display — node.article, `full_article` view mode.
+ *
+ * Enforces the 66–72ch reading column (DaisyUI `prose max-w-prose`).
+ * Byline (author + date + computed read-time) renders ABOVE the H1.
+ * schema_image is NEVER rendered on-page (og/thumbnail only — brand rule Q-05).
+ *
+ * Conditional regions:
+ * - field_metric    → DaisyUI stats block (UI Patterns ui_suite_daisyui:stat_item).
+ * - field_disclosure → alert/note box.
+ *
+ * Extra vars:
+ * - read_time: int, minutes, from adrupalcouple_preprocess_node__article().
+ *
+ * @see template_preprocess_node()
+ */
+#}
+<article{{ attributes.addClass('node--article node--view-mode--full-article') }}>
+  <header class="article-header prose max-w-prose mx-auto px-4 pt-12 pb-6">
+    <div class="byline flex items-center gap-3 text-sm text-base-content/60 mb-4">
+      {{ content.schema_author }}
+      <span aria-hidden="true">·</span>
+      {{ content.created }}
+      {% if read_time %}
+        <span aria-hidden="true">·</span>
+        <span class="read-time">{{ read_time }} min read</span>
+      {% endif %}
+    </div>
+    <h1 class="article-title text-3xl font-bold tracking-tight">{{ label }}</h1>
+    {% if content.schema_abstract|render|trim %}
+      <p class="article-dek text-xl text-base-content/70 mt-3">{{ content.schema_abstract }}</p>
+    {% endif %}
+  </header>
+
+  <div class="article-body prose max-w-prose mx-auto px-4">
+    {{ content.body }}
+    {% if content.field_metric|render|trim %}
+      <div class="stats stats-vertical lg:stats-horizontal shadow w-full my-8" aria-label="Evidence">
+        {{ content.field_metric }}
+      </div>
+    {% endif %}
+  </div>
+
+  <footer class="article-footer prose max-w-prose mx-auto px-4 pb-16">
+    {% if content.field_tags|render|trim %}
+      <nav class="article-tags flex flex-wrap gap-2 mt-8" aria-label="Topics">
+        {{ content.field_tags }}
+      </nav>
+    {% endif %}
+    {% if content.field_disclosure|render|trim %}
+      <div role="note" class="alert alert-info mt-8 text-sm">
+        <strong>Disclosure:</strong> {{ content.field_disclosure }}
+      </div>
+    {% endif %}
+    {{ content.field_comments }}
+  </footer>
+</article>

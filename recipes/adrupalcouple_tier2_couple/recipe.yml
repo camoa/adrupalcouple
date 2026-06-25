@@ -8,11 +8,186 @@ config:
   actions:
     field.field.node.couple.schema_image:
       entity_method:field.field:setLabel: 'Couple portrait'
-    # Place the NEW field_milestone custom_field widget on the couple edit form (Milestones).
+    # Edit form: place field_milestone widget + regroup into field_group_tabs
+    # (Story | The Pairing | Milestones) per task §2.2.
     core.entity_form_display.node.couple.default:
-      setComponents:
-        - name: field_milestone
-          options:
-            type: custom_stacked
-            weight: 10
+      setProperties:
+        content.field_milestone:
+          type: custom_stacked
+          weight: 10
+          region: content
+          settings: { label: true, wrapper: div, open: true }
+          third_party_settings: {  }
+        third_party_settings.field_group:
+          group_tabs:
+            children: [group_story, group_pairing, group_milestones]
+            label: 'Couple'
+            parent_name: ''
             region: content
+            weight: -10
+            format_type: tabs
+            format_settings: { direction: horizontal }
+          group_story:
+            children: [title, body, schema_image]
+            label: 'Story'
+            parent_name: group_tabs
+            region: content
+            weight: 0
+            format_type: tab
+            format_settings: { formatter: open }
+          group_pairing:
+            children: [field_couple]
+            label: 'The Pairing'
+            parent_name: group_tabs
+            region: content
+            weight: 1
+            format_type: tab
+            format_settings: { formatter: closed }
+          group_milestones:
+            children: [field_milestone]
+            label: 'Milestones'
+            parent_name: group_tabs
+            region: content
+            weight: 2
+            format_type: tab
+            format_settings: { formatter: closed }
+
+    # --- View display: teaser (couples_grid card) ---
+    core.entity_view_display.node.couple.teaser:
+      setProperties:
+        third_party_settings:
+          layout_builder: { enabled: false, allow_custom: false }
+        content:
+          schema_image:
+            type: entity_reference_entity_view
+            label: hidden
+            settings: { view_mode: small_thumbnail, link: false }
+            third_party_settings: {  }
+            weight: 0
+            region: content
+          title:
+            type: title
+            label: hidden
+            settings: { link_to_entity: true, tag: h2 }
+            third_party_settings: {  }
+            weight: 1
+            region: content
+          body:
+            type: text_summary_or_trimmed
+            label: hidden
+            settings: { trim_length: 160 }
+            third_party_settings: {  }
+            weight: 2
+            region: content
+          field_couple:
+            type: entity_reference_entity_view
+            label: hidden
+            settings: { view_mode: token, link: false }
+            third_party_settings: {  }
+            weight: 3
+            region: content
+        hidden:
+          created: true
+          field_milestone: true
+          langcode: true
+          links: true
+          node_read_time: true
+          uid: true
+
+    # --- View display: default ---
+    core.entity_view_display.node.couple.default:
+      setProperties:
+        content:
+          title:
+            type: title
+            label: hidden
+            settings: { link_to_entity: true, tag: h2 }
+            third_party_settings: {  }
+            weight: 0
+            region: content
+          schema_image:
+            type: entity_reference_entity_view
+            label: hidden
+            settings: { view_mode: small_thumbnail, link: false }
+            third_party_settings: {  }
+            weight: 1
+            region: content
+          body:
+            type: text_summary_or_trimmed
+            label: hidden
+            settings: { trim_length: 200 }
+            third_party_settings: {  }
+            weight: 2
+            region: content
+          field_couple:
+            type: entity_reference_entity_view
+            label: hidden
+            settings: { view_mode: token, link: false }
+            third_party_settings: {  }
+            weight: 3
+            region: content
+        hidden:
+          created: true
+          field_milestone: true
+          langcode: true
+          links: true
+          node_read_time: true
+          uid: true
+
+    # --- View display: full_article (couple profile; LB not used → template
+    #     node--couple--full-article.html.twig owns layout). field_couple renders
+    #     person:token atoms; field_milestone wired to ui_suite_daisyui:timeline_item. ---
+    core.entity_view_display.node.couple.full_article:
+      setProperties:
+        third_party_settings:
+          layout_builder: { enabled: false, allow_custom: false }
+        content: &couple_profile_content
+          field_couple:
+            type: entity_reference_entity_view
+            label: hidden
+            settings: { view_mode: token, link: false }
+            third_party_settings: {  }
+            weight: 0
+            region: content
+          body:
+            type: text_default
+            label: hidden
+            settings: {  }
+            third_party_settings: {  }
+            weight: 1
+            region: content
+          field_milestone:
+            type: ui_patterns_component_per_item
+            label: hidden
+            settings:
+              ui_patterns:
+                component_id: 'ui_suite_daisyui:timeline_item'
+                props: {  }
+                slots:
+                  timeline_start:
+                    sources:
+                      - source_id: 'field_property:node:field_milestone:year'
+                        source: {  }
+                  timeline_end:
+                    sources:
+                      - source_id: 'field_property:node:field_milestone:label'
+                        source: {  }
+            third_party_settings: {  }
+            weight: 2
+            region: content
+        hidden: &couple_profile_hidden
+          created: true
+          links: true
+          langcode: true
+          node_read_time: true
+          schema_image: true
+          title: true
+          uid: true
+
+    # --- View display: full (mirrors full_article via theme suggestion; task §1.2.4) ---
+    core.entity_view_display.node.couple.full:
+      setProperties:
+        third_party_settings:
+          layout_builder: { enabled: false, allow_custom: false }
+        content: *couple_profile_content
+        hidden: *couple_profile_hidden
