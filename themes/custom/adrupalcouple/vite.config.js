@@ -58,9 +58,16 @@ export default defineConfig(() => {
           // not emit the deep url(./files/*.woff2) assets, so the compiled app.css references
           // dist/css/files/*.woff2 that never exist (404 -> fonts fall back to Georgia/system).
           // Copy the @fontsource font files into dist/css/files/ so they serve LOCALLY (no CDN).
-          { src: 'node_modules/@fontsource-variable/fraunces/files/*.{woff2,woff}', dest: 'css/files' },
-          { src: 'node_modules/@fontsource/atkinson-hyperlegible/files/*.{woff2,woff}', dest: 'css/files' },
-          { src: 'node_modules/@fontsource/ibm-plex-mono/files/*.{woff2,woff}', dest: 'css/files' },
+          // EN/ES is latin-script: copy ONLY latin + latin-ext, woff2 only (drop vietnamese/cyrillic/
+          // greek subsets + the legacy .woff fallback — woff2 is universal in modern browsers). The
+          // non-latin url()s the @fontsource CSS still references are never requested for latin content
+          // (unicode-range gating), so no 404s in practice.
+          // Exactly the 6 files the compiled app.css references for latin/latin-ext (all -normal;
+          // no italic referenced). Fraunces variable = the single `full` axis file (NOT the per-axis
+          // opsz/soft/wght/wonk variants); Atkinson + IBM Plex Mono = weight 400 only.
+          { src: 'node_modules/@fontsource-variable/fraunces/files/*-latin*-full-normal.woff2', dest: 'css/files' },
+          { src: 'node_modules/@fontsource/atkinson-hyperlegible/files/*-latin*-400-normal.woff2', dest: 'css/files' },
+          { src: 'node_modules/@fontsource/ibm-plex-mono/files/*-latin*-400-normal.woff2', dest: 'css/files' },
         ],
       }),
     ],
