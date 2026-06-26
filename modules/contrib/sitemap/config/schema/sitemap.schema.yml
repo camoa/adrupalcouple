@@ -61,7 +61,7 @@ sitemap_plugin_settings.frontpage:
   mapping:
     rss:
       type: path
-      label: "RSS"
+      label: 'RSS'
       nullable: true
     front_text_override:
       type: label
@@ -86,7 +86,7 @@ sitemap_plugin_settings.vocabulary:
   mapping:
     show_description:
       type: boolean
-      label: "Show description"
+      label: 'Show description'
       nullable: true
     show_count:
       type: boolean

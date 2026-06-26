@@ -13,6 +13,8 @@ use Drupal\Core\Field\FieldStorageDefinitionInterface;
  * Defines the Waypoint entity.
  *
  * @ingroup geolocation_gpx
+ *
+ * @property \Drupal\Core\Field\EntityReferenceFieldItemListInterface<\Drupal\geolocation_gpx\Entity\GeolocationGpxLink> $link
  */
 #[ContentEntityType(
   id: 'geolocation_gpx_waypoint',

@@ -36,9 +36,12 @@ export default class GoogleGeocodingAPI extends GeolocationGeocoder {
     if (typeof google !== "undefined" && typeof google.maps !== "undefined" && typeof google.maps.Geocoder !== "undefined") {
       this.geocoder = new google.maps.Geocoder();
     } else {
-      Drupal.geolocation.addScript(this.settings.google_api_url).then(() => {
+      // Use the same callback mechanism as the map provider to avoid loading
+      // Google Maps API twice with different parameters.
+      Drupal.geolocation.maps.addMapProviderCallback("Google", () => {
         this.geocoder = new google.maps.Geocoder();
       });
+      Drupal.geolocation.addScript(this.settings.google_api_url, true);
     }
   }
 

@@ -51,7 +51,7 @@ class ViewsProximityFilter extends LocationBase implements LocationInterface {
   public function getAvailableLocationOptions(array $context = []): array {
     $options = [];
 
-    if ($context['views_filter'] ?? FALSE) {
+    if (empty($context['views_filter'])) {
       return $options;
     }
 

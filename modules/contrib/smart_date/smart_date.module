@@ -8,8 +8,10 @@
 use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Hook\Attribute\LegacyHook;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Url;
+use Drupal\smart_date\Hook\SmartDateHooks;
 
 /**
  * Implements hook_help().
@@ -174,13 +176,9 @@ function smart_date_views_plugins_filter_alter(array &$plugins) {
 /**
  * Implements hook_config_schema_info_alter().
  */
+#[LegacyHook]
 function smart_date_config_schema_info_alter(&$definitions) {
-  if (isset($definitions['views.filter_value.date'])) {
-    $definitions['views.filter_value.date']['mapping']['granularity'] = [
-      'type' => 'string',
-      'label' => 'Granularity',
-    ];
-  }
+  \Drupal::service(SmartDateHooks::class)->configSchemaInfoAlter($definitions);
 }
 
 /**

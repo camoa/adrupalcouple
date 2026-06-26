@@ -13,6 +13,8 @@ use Drupal\Core\Field\FieldStorageDefinitionInterface;
  * Defines the Track Segment entity.
  *
  * @ingroup geolocation_gpx
+ *
+ * @property \Drupal\Core\Field\EntityReferenceFieldItemListInterface<\Drupal\geolocation_gpx\Entity\GeolocationGpxWaypoint> $track_points
  */
 #[ContentEntityType(
   id: 'geolocation_gpx_track_segment',

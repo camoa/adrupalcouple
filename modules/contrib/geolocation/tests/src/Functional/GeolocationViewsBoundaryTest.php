@@ -14,6 +14,11 @@ class GeolocationViewsBoundaryTest extends BrowserTestBase {
   /**
    * {@inheritdoc}
    */
+  protected $profile = 'minimal';
+
+  /**
+   * {@inheritdoc}
+   */
   protected static $modules = [
     'node',
     'field',
@@ -54,7 +59,7 @@ class GeolocationViewsBoundaryTest extends BrowserTestBase {
     $entity_test_storage->create([
       'id' => 1,
       'title' => 'Boundary 1',
-      'body' => 'test test',
+      'field_geolocation_demo_body' => 'test test',
       'type' => 'geolocation_default_article',
       'field_geolocation_demo_single' => [
         'lat' => 52,
@@ -64,7 +69,7 @@ class GeolocationViewsBoundaryTest extends BrowserTestBase {
     $entity_test_storage->create([
       'id' => 2,
       'title' => 'Boundary 2',
-      'body' => 'bar test',
+      'field_geolocation_demo_body' => 'bar test',
       'type' => 'geolocation_default_article',
       'field_geolocation_demo_single' => [
         'lat' => 53,
@@ -74,7 +79,7 @@ class GeolocationViewsBoundaryTest extends BrowserTestBase {
     $entity_test_storage->create([
       'id' => 3,
       'title' => 'Boundary 3',
-      'body' => 'test foobar',
+      'field_geolocation_demo_body' => 'test foobar',
       'type' => 'geolocation_default_article',
       'field_geolocation_demo_single' => [
         'lat' => 5,

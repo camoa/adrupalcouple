@@ -129,7 +129,7 @@ class ProximityFormField extends ProximityField implements ContainerFactoryPlugi
    */
   protected function getCenter(): array {
     if (empty($this->centerValue)) {
-      $this->centerValue = $this->locationInputManager->getCoordinates((array) $this->view->getRequest()->get('center', []), $this->options['center'], ['views_field' => $this]);
+      $this->centerValue = $this->locationInputManager->getCoordinates((array) $this->view->getRequest()->query->get('center'), $this->options['center'], ['views_field' => $this]);
     }
     return $this->centerValue;
   }

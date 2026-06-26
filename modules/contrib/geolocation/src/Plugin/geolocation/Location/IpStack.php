@@ -5,6 +5,8 @@ namespace Drupal\geolocation\Plugin\geolocation\Location;
 use Drupal\geolocation\Attribute\Location;
 use Drupal\geolocation\LocationBase;
 use Drupal\geolocation\LocationInterface;
+use GuzzleHttp\ClientInterface;
+use GuzzleHttp\Exception\RequestException;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -26,6 +28,7 @@ class IpStack extends LocationBase implements LocationInterface {
     $plugin_id,
     $plugin_definition,
     protected Request $request,
+    protected ClientInterface $httpClient,
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
   }
@@ -38,7 +41,8 @@ class IpStack extends LocationBase implements LocationInterface {
       $configuration,
       $plugin_id,
       $plugin_definition,
-      $container->get('request_stack')->getCurrentRequest()
+      $container->get('request_stack')->getCurrentRequest(),
+      $container->get('http_client'),
     );
   }
 
@@ -78,14 +82,24 @@ class IpStack extends LocationBase implements LocationInterface {
       return [];
     }
 
-    // Get client IP.
+    // Get client IP and validate it is a proper IP address.
     $ip = $this->request->getClientIp();
-    if (empty($ip)) {
+    if (empty($ip) || !filter_var($ip, FILTER_VALIDATE_IP)) {
       return [];
     }
 
     // Get data from api.ipstack.com.
-    $json = file_get_contents("https://api.ipstack.com/" . $ip . "?access_key=" . $settings['access_key']);
+    try {
+      $response = $this->httpClient->request('GET', 'https://api.ipstack.com/' . rawurlencode($ip), [
+        'query' => ['access_key' => $settings['access_key']],
+        'timeout' => 5,
+      ]);
+      $json = $response->getBody()->getContents();
+    }
+    catch (RequestException $e) {
+      return [];
+    }
+
     if (empty($json)) {
       return [];
     }

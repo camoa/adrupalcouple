@@ -37,7 +37,8 @@ use Drupal\smart_date_recur\Entity\SmartDateRule;
  * The entity_type and bundle are only necessary for repeating dates.
  *
  * @MigrateProcessPlugin(
- *   id = "parse_dates"
+ *   id = "parse_dates",
+ *   handle_multiples = TRUE
  * )
  */
 class ParseDates extends ProcessPluginBase {

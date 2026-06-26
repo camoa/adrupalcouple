@@ -14,6 +14,11 @@ class GeolocationViewsProximityArgumentTest extends BrowserTestBase {
   /**
    * {@inheritdoc}
    */
+  protected $profile = 'minimal';
+
+  /**
+   * {@inheritdoc}
+   */
   protected static $modules = [
     'node',
     'field',
@@ -52,7 +57,7 @@ class GeolocationViewsProximityArgumentTest extends BrowserTestBase {
     $entity_test_storage->create([
       'id' => 1,
       'title' => 'Proximity 1',
-      'body' => 'test test',
+      'field_geolocation_demo_body' => 'test test',
       'type' => 'geolocation_default_article',
       'field_geolocation_demo_single' => [
         'lat' => 52,
@@ -62,7 +67,7 @@ class GeolocationViewsProximityArgumentTest extends BrowserTestBase {
     $entity_test_storage->create([
       'id' => 2,
       'title' => 'Proximity 2',
-      'body' => 'bar test',
+      'field_geolocation_demo_body' => 'bar test',
       'type' => 'geolocation_default_article',
       'field_geolocation_demo_single' => [
         'lat' => 53,
@@ -72,7 +77,7 @@ class GeolocationViewsProximityArgumentTest extends BrowserTestBase {
     $entity_test_storage->create([
       'id' => 3,
       'title' => 'Proximity 3',
-      'body' => 'test foobar',
+      'field_geolocation_demo_body' => 'test foobar',
       'type' => 'geolocation_default_article',
       'field_geolocation_demo_single' => [
         'lat' => 54,
@@ -117,7 +122,7 @@ class GeolocationViewsProximityArgumentTest extends BrowserTestBase {
 
     $entity_test_storage->create([
       'title' => 'Proximity 4',
-      'body' => 'test test',
+      'field_geolocation_demo_body' => 'test test',
       'type' => 'geolocation_default_article',
       'field_geolocation_demo_single' => [
         'lat' => 51.4545,
@@ -139,7 +144,7 @@ class GeolocationViewsProximityArgumentTest extends BrowserTestBase {
 
     $entity_test_storage->create([
       'title' => 'Proximity 5',
-      'body' => 'test test',
+      'field_geolocation_demo_body' => 'test test',
       'type' => 'geolocation_default_article',
       'field_geolocation_demo_single' => [
         'lat' => 51.4545,

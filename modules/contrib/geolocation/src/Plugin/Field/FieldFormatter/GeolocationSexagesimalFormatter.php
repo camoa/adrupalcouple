@@ -5,6 +5,7 @@ namespace Drupal\geolocation\Plugin\Field\FieldFormatter;
 use Drupal\Core\Field\Attribute\FieldFormatter;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
+use Drupal\geolocation\Plugin\Field\FieldType\GeolocationItem;
 
 /**
  * Plugin implementation of the 'geolocation_sexagesimal' formatter.
@@ -23,6 +24,7 @@ class GeolocationSexagesimalFormatter extends FormatterBase {
     $element = [];
 
     foreach ($items as $delta => $item) {
+      assert($item instanceof GeolocationItem);
       $element[$delta] = [
         '#theme' => 'geolocation_sexagesimal_formatter',
         '#lat' => $item::decimalToSexagesimal($item->lat),

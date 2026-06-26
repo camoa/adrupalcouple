@@ -98,7 +98,7 @@ class SchemaDotOrgCustomFieldJsonLdManager implements SchemaDotOrgCustomFieldJso
       if ($allowed_values) {
         foreach ($allowed_values as $allowed_value) {
           if ($allowed_value['key'] === $item_value) {
-            $item_value = $allowed_value['value'];
+            $item_value = $allowed_value['label'];
             break;
           }
         }

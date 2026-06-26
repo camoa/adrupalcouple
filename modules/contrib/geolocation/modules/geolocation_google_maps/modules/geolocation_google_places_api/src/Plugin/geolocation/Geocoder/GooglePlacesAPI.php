@@ -27,7 +27,7 @@ class GooglePlacesAPI extends GoogleGeocoderBase {
    * {@inheritdoc}
    */
   public function alterRenderArray(array &$render_array, string $identifier): ?array {
-    $render_array = parent::alterRenderArray($render_array, $identifier);
+    parent::alterRenderArray($render_array, $identifier);
 
     $render_array['#attached'] = BubbleableMetadata::mergeAttachments(
       $render_array['#attached'] ?? [],
@@ -52,16 +52,26 @@ class GooglePlacesAPI extends GoogleGeocoderBase {
 
     $config = \Drupal::config('geolocation_google_maps.settings');
 
-    $request_url = $this->googleMapsService->getGoogleMapsApiUrl() . '/maps/api/place/autocomplete/json?input=' . $address;
+    $params = ['input' => $address];
 
     if (!empty($this->configuration['component_restrictions']['country'])) {
       foreach (explode(',', $this->configuration['component_restrictions']['country']) as $country) {
-        $request_url .= '&components[]=country:' . $country;
+        $params['components[]'] = 'country:' . $country;
       }
     }
     if (!empty($config->get('google_map_custom_url_parameters')['language'])) {
-      $request_url .= '&language=' . $config->get('google_map_custom_url_parameters')['language'];
+      $params['language'] = $config->get('google_map_custom_url_parameters')['language'];
     }
+
+    // Adding session token as per Google Places API to combine both api calls
+    // in a single session to reduce billing.
+    // @see https://developers.google.com/maps/documentation/places/web-service/details#sessiontoken
+    // and
+    // @see https://developers.google.com/maps/documentation/places/web-service/autocomplete#sessiontoken
+    // for more details.
+    $session_token = \Drupal::service('uuid')->generate();
+    $params['sessiontoken'] = $session_token;
+    $request_url = $this->googleMapsService->getGoogleMapsApiUrl($params, '/maps/api/place/autocomplete/json');
 
     try {
       $result = Json::decode(\Drupal::httpClient()->request('GET', $request_url)->getBody());
@@ -80,7 +90,16 @@ class GooglePlacesAPI extends GoogleGeocoderBase {
     }
 
     try {
-      $details_url = $this->googleMapsService->getGoogleMapsApiUrl() . '/maps/api/place/details/json?placeid=' . $result['predictions'][0]['place_id'];
+      // Including the same session token and place_id retrieved for place
+      // details API call.
+      // @see https://developers.google.com/maps/documentation/places/web-service/details
+      // for details.
+      $params = [
+        'place_id' => $result['predictions'][0]['place_id'],
+        'fields' => "geometry,formatted_address",
+        'sessiontoken' => $session_token,
+      ];
+      $details_url = $this->googleMapsService->getGoogleMapsApiUrl($params, '/maps/api/place/details/json');
       $details = Json::decode(\Drupal::httpClient()->request('GET', $details_url)->getBody());
     }
     catch (RequestException $e) {

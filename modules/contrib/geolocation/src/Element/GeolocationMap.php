@@ -150,6 +150,10 @@ class GeolocationMap extends RenderElementBase {
       $render_array['#attributes']->setAttribute('data-lng', $render_array['#centre']['lng']);
     }
 
+    if (!empty($render_array['#centre']['zoom'])) {
+      $render_array['#attributes']->setAttribute('data-zoom', $render_array['#centre']['zoom']);
+    }
+
     if (
       !empty($render_array['#centre']['lat_north_east'])
       && !empty($render_array['#centre']['lng_north_east'])

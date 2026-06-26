@@ -37,6 +37,7 @@ class GeolocationAddress {
       $this->administrativeArea,
       $this->postalCode,
       $this->sortingCode,
+      $this->countryCode,
     ]));
   }
 

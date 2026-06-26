@@ -40,6 +40,7 @@ class GoogleMaps extends GoogleMapsProviderBase {
         'minZoom' => static::$minZoomLevel,
         'maxZoom' => static::$maxZoomLevel,
         'gestureHandling' => 'auto',
+        'mapId' => '',
         'map_features' => [
           'marker_infowindow' => [
             'enabled' => TRUE,
@@ -133,6 +134,23 @@ class GoogleMaps extends GoogleMapsProviderBase {
       ],
       '#pre_render' => [
         ['\Drupal\Core\Render\Element\Number', 'preRenderNumber'],
+        ['\Drupal\Core\Render\Element\RenderElementBase', 'preRenderGroup'],
+      ],
+    ];
+
+    $form['mapId'] = [
+      '#group' => $parents_string . 'general_settings',
+      '#type' => 'textfield',
+      '#title' => $this->t('Map ID'),
+      '#default_value' => $settings['mapId'],
+      '#description' => $this->t('The <a href=":url">Map ID</a> associated with a specific map style or feature. Required for advanced markers and cloud-based map styling. If left empty, the map element ID is used.', [
+        ':url' => 'https://developers.google.com/maps/documentation/javascript/map-ids',
+      ]),
+      '#process' => [
+        ['\Drupal\Core\Render\Element\RenderElementBase', 'processGroup'],
+      ],
+      '#pre_render' => [
+        ['\Drupal\Core\Render\Element\Textfield', 'preRenderTextfield'],
         ['\Drupal\Core\Render\Element\RenderElementBase', 'preRenderGroup'],
       ],
     ];

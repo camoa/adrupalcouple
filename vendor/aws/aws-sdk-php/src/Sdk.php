@@ -442,6 +442,10 @@ namespace Aws;
  * @method \Aws\MultiRegionClient createMultiRegionLakeFormation(array $args = [])
  * @method \Aws\Lambda\LambdaClient createLambda(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionLambda(array $args = [])
+ * @method \Aws\LambdaCore\LambdaCoreClient createLambdaCore(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionLambdaCore(array $args = [])
+ * @method \Aws\LambdaMicrovms\LambdaMicrovmsClient createLambdaMicrovms(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionLambdaMicrovms(array $args = [])
  * @method \Aws\LaunchWizard\LaunchWizardClient createLaunchWizard(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionLaunchWizard(array $args = [])
  * @method \Aws\LexModelBuildingService\LexModelBuildingServiceClient createLexModelBuildingService(array $args = [])
@@ -650,6 +654,8 @@ namespace Aws;
  * @method \Aws\MultiRegionClient createMultiRegionRepostspace(array $args = [])
  * @method \Aws\ResilienceHub\ResilienceHubClient createResilienceHub(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionResilienceHub(array $args = [])
+ * @method \Aws\Resiliencehubv2\Resiliencehubv2Client createResiliencehubv2(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionResiliencehubv2(array $args = [])
  * @method \Aws\ResourceExplorer2\ResourceExplorer2Client createResourceExplorer2(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionResourceExplorer2(array $args = [])
  * @method \Aws\ResourceGroups\ResourceGroupsClient createResourceGroups(array $args = [])
@@ -712,6 +718,8 @@ namespace Aws;
  * @method \Aws\MultiRegionClient createMultiRegionSageMakerRuntime(array $args = [])
  * @method \Aws\SagemakerEdgeManager\SagemakerEdgeManagerClient createSagemakerEdgeManager(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionSagemakerEdgeManager(array $args = [])
+ * @method \Aws\SagemakerJobRuntime\SagemakerJobRuntimeClient createSagemakerJobRuntime(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionSagemakerJobRuntime(array $args = [])
  * @method \Aws\SavingsPlans\SavingsPlansClient createSavingsPlans(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionSavingsPlans(array $args = [])
  * @method \Aws\Scheduler\SchedulerClient createScheduler(array $args = [])
@@ -853,7 +861,7 @@ namespace Aws;
  */
 class Sdk
 {
-    const VERSION = '3.381.5';
+    const VERSION = '3.386.1';
 
     /** @var array Arguments for creating clients */
     private $args;

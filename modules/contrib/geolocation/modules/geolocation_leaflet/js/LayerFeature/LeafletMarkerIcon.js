@@ -38,7 +38,7 @@ export default class LeafletMarkerIcon extends LeafletLayerFeature {
     }
 
     if (!currentIcon) {
-      if (this.settings.marker_icon_path === "string") {
+      if (typeof this.settings.marker_icon_path === "string") {
         iconUrl = this.settings.marker_icon_path;
       } else {
         return;

@@ -323,9 +323,6 @@ display:
               map_disable_tilt:
                 enabled: false
                 weight: 0
-              map_disable_poi:
-                enabled: false
-                weight: 0
               map_disable_user_interaction:
                 enabled: false
                 weight: 0
@@ -416,11 +413,6 @@ display:
                   east: ''
                   west: ''
                   strict: true
-              map_type_style:
-                enabled: false
-                weight: 0
-                settings:
-                  style: '[]'
               google_maps_layer_traffic:
                 enabled: false
                 weight: 0

@@ -5,6 +5,7 @@ namespace Drupal\geolocation\Plugin\Field\FieldWidget;
 use Drupal\Core\Field\Attribute\FieldWidget;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\geolocation\Plugin\Field\FieldType\GeolocationItem;
 use Drupal\Core\Render\BubbleableMetadata;
 
 /**
@@ -100,11 +101,8 @@ class GeolocationMapWidget extends GeolocationMapWidgetBase {
       ],
     ]);
 
-    /**
-     * @var Integer $index
-     * @var \Drupal\geolocation\Plugin\Field\FieldType\GeolocationItem $item
-     */
     foreach ($items as $index => $item) {
+      assert($item instanceof GeolocationItem);
       if ($item->isEmpty()) {
         continue;
       }

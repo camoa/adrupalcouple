@@ -15,6 +15,11 @@ use Drupal\geolocation_geometry\GeometryType\GeometryTypeBase;
  * Defines the GPX entity.
  *
  * @ingroup geolocation_gpx
+ *
+ * @property \Drupal\Core\Field\EntityReferenceFieldItemListInterface<\Drupal\geolocation_gpx\Entity\GeolocationGpxLink> $link
+ * @property \Drupal\Core\Field\EntityReferenceFieldItemListInterface<\Drupal\geolocation_gpx\Entity\GeolocationGpxRoute> $routes
+ * @property \Drupal\Core\Field\EntityReferenceFieldItemListInterface<\Drupal\geolocation_gpx\Entity\GeolocationGpxWaypoint> $waypoints
+ * @property \Drupal\Core\Field\EntityReferenceFieldItemListInterface<\Drupal\geolocation_gpx\Entity\GeolocationGpxTrack> $tracks
  */
 #[ContentEntityType(
   id: 'geolocation_gpx',

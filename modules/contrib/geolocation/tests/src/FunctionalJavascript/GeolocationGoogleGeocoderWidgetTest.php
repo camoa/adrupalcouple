@@ -17,10 +17,13 @@ class GeolocationGoogleGeocoderWidgetTest extends GeolocationJavascriptTestBase 
 
   /**
    * Admin User.
-   *
-   * @var \Drupal\user\Entity\User
    */
   public User $adminUser;
+
+  /**
+   * {@inheritdoc}
+   */
+  protected $profile = 'minimal';
 
   /**
    * {@inheritdoc}
@@ -39,12 +42,12 @@ class GeolocationGoogleGeocoderWidgetTest extends GeolocationJavascriptTestBase 
   protected function setUp(): void {
     parent::setUp();
 
+    $this->drupalCreateContentType(['type' => 'article', 'name' => 'Article']);
+
     $this->adminUser = $this->drupalCreateUser([
       'bypass node access',
       'administer nodes',
     ]);
-
-    $this->drupalCreateContentType(['type' => 'article', 'name' => 'Article']);
 
     // Add the geolocation field to the article content type.
     FieldStorageConfig::create([

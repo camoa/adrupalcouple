@@ -43,8 +43,8 @@ export default class GoogleMaps extends GeolocationMapBase {
           this.googleMap = new google.maps.Map(
             this.container,
             Object.assign(this.settings.google_map_settings, {
-              mapId: this.id,
-              zoom: this.settings.google_map_settings.zoom ?? 2,
+              mapId: this.settings.google_map_settings.mapId ?? this.id,
+              zoom: this.settings.zoom ?? this.settings.google_map_settings.zoom ?? 2,
               maxZoom: this.settings.google_map_settings.maxZoom ?? 20,
               minZoom: this.settings.google_map_settings.minZoom ?? 0,
               center: new google.maps.LatLng(this.settings.lat, this.settings.lng),

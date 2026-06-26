@@ -4,7 +4,7 @@ import { GoogleMapFeature } from "./GoogleMapFeature.js";
  * @prop {GeolocationMapFeatureSettings} settings
  * @prop {GoogleMaps} map
  */
-export default class GoogleMapDisablePOI extends GoogleMapFeature {
+export default class GoogleMapDisableUserInteraction extends GoogleMapFeature {
   constructor(settings, map) {
     super(settings, map);
 

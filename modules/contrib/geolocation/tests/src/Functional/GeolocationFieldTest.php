@@ -15,6 +15,11 @@ use Drupal\user\Entity\User;
 class GeolocationFieldTest extends BrowserTestBase {
 
   /**
+   * {@inheritdoc}
+   */
+  protected $profile = 'minimal';
+
+  /**
    * Modules to enable.
    *
    * @var string[]

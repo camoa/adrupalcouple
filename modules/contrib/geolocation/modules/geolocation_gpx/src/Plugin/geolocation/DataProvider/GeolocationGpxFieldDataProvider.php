@@ -209,7 +209,7 @@ class GeolocationGpxFieldDataProvider extends DataProviderBase implements DataPr
         'type' => 'line',
         'points' => [],
       ];
-      foreach ($route->route_points as $waypoint) {
+      foreach ($route->entity->route_points as $waypoint) {
         $geometry['points'][] = [
           'lat' => (float) $waypoint->entity?->latitude->value,
           'lng' => (float) $waypoint->entity?->longitude->value,
@@ -219,6 +219,7 @@ class GeolocationGpxFieldDataProvider extends DataProviderBase implements DataPr
       $shapes[] = [
         '#type' => 'geolocation_map_shape',
         '#geometry' => $geometry,
+        // @phpstan-ignore-next-line
         '#title' => $route->entity->name->toString(),
         '#stroke_color' => $settings['track_stroke_color_randomize'] ? sprintf('#%06X', mt_rand(0, 0xFFFFFF)) : $settings['track_stroke_color'],
         '#stroke_width' => (int) $settings['track_stroke_width'],

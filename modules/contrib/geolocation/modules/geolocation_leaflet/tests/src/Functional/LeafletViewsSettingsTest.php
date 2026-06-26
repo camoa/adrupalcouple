@@ -12,6 +12,11 @@ use Drupal\Tests\BrowserTestBase;
 class LeafletViewsSettingsTest extends BrowserTestBase {
 
   /**
+   * {@inheritdoc}
+   */
+  protected $profile = 'minimal';
+
+  /**
    * Modules to enable for this test.
    *
    * @var string[]

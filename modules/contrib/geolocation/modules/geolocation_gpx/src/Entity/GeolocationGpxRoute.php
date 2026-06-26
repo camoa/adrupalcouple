@@ -13,6 +13,9 @@ use Drupal\Core\Field\FieldStorageDefinitionInterface;
  * Defines the Route entity.
  *
  * @ingroup geolocation_gpx
+ *
+ * @property \Drupal\Core\Field\EntityReferenceFieldItemListInterface<\Drupal\geolocation_gpx\Entity\GeolocationGpxLink> $link
+ * @property \Drupal\Core\Field\EntityReferenceFieldItemListInterface<\Drupal\geolocation_gpx\Entity\GeolocationGpxWaypoint> $route_points
  */
 #[ContentEntityType(
   id: 'geolocation_gpx_route',

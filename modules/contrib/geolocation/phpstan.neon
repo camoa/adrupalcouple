@@ -2,15 +2,11 @@ parameters:
   level: 6
 
   excludePaths:
-    # Feeds dependency not resolved during test.
-    -  */src/Plugin/Tamper/*
-    # Geocodio dependency not resolved during test.
-    -  modules/geolocation_geocodio/*
+    -  */node_modules/*
 
   ignoreErrors:
     # best practice in Drupal, so we cannot fix that.
-    - '#Unsafe usage of new static\(\)#'
-    - '#\\Drupal calls should be avoided in classes, use dependency injection instead#'
-    - '#no value type specified in iterable type#'
-    - "#but does not specify its types#"
-    - "#by-ref type of method#"
+    - identifier: new.static
+    - identifier: globalDrupalDependencyInjection.useDependencyInjection
+    - identifier: missingType.iterableValue
+    - identifier: missingType.generics

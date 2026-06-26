@@ -14,6 +14,11 @@ class GeolocationGeocoderTest extends BrowserTestBase {
   /**
    * {@inheritdoc}
    */
+  protected $profile = 'minimal';
+
+  /**
+   * {@inheritdoc}
+   */
   protected static $modules = [
     'node',
     'field',

@@ -47,7 +47,11 @@ export class GoogleMapMarker extends GeolocationMapMarker {
     super.update(newCoordinates, settings);
 
     if (newCoordinates) {
-      if (!newCoordinates.equals(this.googleMarker.position.lat, this.googleMarker.position.lng)) {
+      const position = this.googleMarker.position;
+      const lat = typeof position.lat === "function" ? position.lat() : position.lat;
+      const lng = typeof position.lng === "function" ? position.lng() : position.lng;
+
+      if (!newCoordinates.equals(lat, lng)) {
         this.googleMarker.position = this.coordinates;
       }
     }

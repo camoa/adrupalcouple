@@ -6,6 +6,7 @@ use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\BubbleableMetadata;
 use Drupal\geolocation\Plugin\Field\FieldWidget\GeolocationMapWidgetBase;
+use Drupal\geolocation_geometry\Plugin\Field\FieldType\GeolocationGeometryBase;
 use Drupal\geolocation_geometry\Plugin\geolocation\DataProvider\GeolocationGeometry;
 
 /**
@@ -78,11 +79,8 @@ abstract class GeolocationGeometryMapWidget extends GeolocationMapWidgetBase {
       ],
     ]);
 
-    /**
-     * @var Integer $index
-     * @var \Drupal\geolocation_geometry\Plugin\Field\FieldType\GeolocationGeometryLinestring|\Drupal\geolocation_geometry\Plugin\Field\FieldType\GeolocationGeometryPolygon|\Drupal\geolocation_geometry\Plugin\Field\FieldType\GeolocationGeometryPoint $item
-     */
     foreach ($items as $index => $item) {
+      assert($item instanceof GeolocationGeometryBase);
       if ($item->isEmpty()) {
         continue;
       }

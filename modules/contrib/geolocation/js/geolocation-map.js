@@ -214,6 +214,10 @@
           mapSettings.lng = Number(mapWrapper.getAttribute("data-lng"));
         }
 
+        if (mapWrapper.getAttribute("data-zoom")) {
+          mapSettings.zoom = Number(mapWrapper.getAttribute("data-zoom"));
+        }
+
         if (mapWrapper.getAttribute("map-type")) {
           mapSettings.type = mapWrapper.getAttribute("map-type");
         }

@@ -3,7 +3,7 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
-    - field.storage.node.body
+    - field.storage.node.field_geolocation_demo_body
     - field.storage.node.field_geolocation_demo_single
     - field.storage.node.field_geolocation_demo_taxonomy
     - node.type.geolocation_default_article
@@ -80,10 +80,10 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        body:
-          id: body
-          table: node__body
-          field: body
+        field_geolocation_demo_body:
+          id: field_geolocation_demo_body
+          table: node__field_geolocation_demo_body
+          field: field_geolocation_demo_body
           relationship: none
           group_type: group
           admin_label: ''
@@ -494,7 +494,7 @@ display:
         - 'user.node_grants:view'
         - user.permissions
       tags:
-        - 'config:field.storage.node.body'
+        - 'config:field.storage.node.field_geolocation_demo_body'
         - 'config:field.storage.node.field_geolocation_demo_single'
         - 'config:field.storage.node.field_geolocation_demo_taxonomy'
   attachment_1:
@@ -602,9 +602,6 @@ display:
               map_disable_tilt:
                 enabled: false
                 weight: 0
-              map_disable_poi:
-                enabled: false
-                weight: 0
               map_disable_user_interaction:
                 enabled: false
                 weight: 0
@@ -695,11 +692,6 @@ display:
                   east: ''
                   west: ''
                   strict: true
-              map_type_style:
-                enabled: false
-                weight: 0
-                settings:
-                  style: '[]'
               google_maps_layer_traffic:
                 enabled: false
                 weight: 0
@@ -825,7 +817,7 @@ display:
         - 'user.node_grants:view'
         - user.permissions
       tags:
-        - 'config:field.storage.node.body'
+        - 'config:field.storage.node.field_geolocation_demo_body'
         - 'config:field.storage.node.field_geolocation_demo_single'
         - 'config:field.storage.node.field_geolocation_demo_taxonomy'
   common_map_ajax_page:
@@ -859,6 +851,6 @@ display:
         - 'user.node_grants:view'
         - user.permissions
       tags:
-        - 'config:field.storage.node.body'
+        - 'config:field.storage.node.field_geolocation_demo_body'
         - 'config:field.storage.node.field_geolocation_demo_single'
         - 'config:field.storage.node.field_geolocation_demo_taxonomy'

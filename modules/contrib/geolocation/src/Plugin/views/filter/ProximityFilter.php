@@ -257,11 +257,12 @@ class ProximityFilter extends NumericFilter implements ContainerFactoryPluginInt
   protected function opBetween($field): void {
     /** @var \Drupal\views\Plugin\views\query\Sql $query */
     $query = $this->query;
+    $args = [':min' => (float) $this->value['min'], ':max' => (float) $this->value['max']];
     if ($this->operator == 'between') {
-      $query->addWhereExpression($this->options['group'], $field . ' BETWEEN ' . $this->value['min'] . ' AND ' . $this->value['max']);
+      $query->addWhereExpression($this->options['group'], $field . ' BETWEEN :min AND :max', $args);
     }
     else {
-      $query->addWhereExpression($this->options['group'], $field . ' NOT BETWEEN ' . $this->value['min'] . ' AND ' . $this->value['max']);
+      $query->addWhereExpression($this->options['group'], $field . ' NOT BETWEEN :min AND :max', $args);
     }
   }
 
@@ -274,7 +275,9 @@ class ProximityFilter extends NumericFilter implements ContainerFactoryPluginInt
   protected function opSimple($field): void {
     /** @var \Drupal\views\Plugin\views\query\Sql $query */
     $query = $this->query;
-    $query->addWhereExpression($this->options['group'], $field . ' ' . $this->operator . ' ' . $this->value['value']);
+    $allowed = ['<', '>', '<=', '>=', '=', '!=', '<>'];
+    $operator = in_array($this->operator, $allowed, TRUE) ? $this->operator : '=';
+    $query->addWhereExpression($this->options['group'], $field . ' ' . $operator . ' :value', [':value' => (float) $this->value['value']]);
   }
 
   /**
@@ -302,7 +305,7 @@ class ProximityFilter extends NumericFilter implements ContainerFactoryPluginInt
   protected function opRegex($field): void {
     /** @var \Drupal\views\Plugin\views\query\Sql $query */
     $query = $this->query;
-    $query->addWhereExpression($this->options['group'], $field . ' ~* ' . $this->value['value']);
+    $query->addWhereExpression($this->options['group'], $field . ' ~* :value', [':value' => $this->value['value']]);
   }
 
 }

@@ -113,7 +113,7 @@ export default class GeolocationDataLayer {
    */
   async loadMarkers(selector = "") {
     if (!selector) {
-      selector = `#${this.id} .geolocation-map-layer .geolocation-location`;
+      selector = `#${this.id}.geolocation-map-layer .geolocation-location`;
     }
 
     this.map.wrapper.querySelectorAll(selector).forEach((location) => {

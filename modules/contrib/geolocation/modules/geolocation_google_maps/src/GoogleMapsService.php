@@ -68,7 +68,7 @@ class GoogleMapsService {
       $custom_parameters['language'] = $this->languageManager->getCurrentLanguage()->getId();
     }
 
-    $parameters = NestedArray::mergeDeep($additional_parameters, $custom_parameters, $module_parameters, $geolocation_parameters);
+    $parameters = NestedArray::mergeDeep($geolocation_parameters, $additional_parameters, $custom_parameters, $module_parameters);
 
     foreach ($parameters as $key => $value) {
       if ($value === '') {

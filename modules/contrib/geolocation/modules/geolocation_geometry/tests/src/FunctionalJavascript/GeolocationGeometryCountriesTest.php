@@ -27,6 +27,11 @@ class GeolocationGeometryCountriesTest extends WebDriverTestBase {
   /**
    * {@inheritdoc}
    */
+  protected $profile = 'minimal';
+
+  /**
+   * {@inheritdoc}
+   */
   protected static $modules = [
     'node',
     'path',

@@ -20,6 +20,11 @@ class GeolocationYandexJavascriptTest extends WebDriverTestBase {
   /**
    * {@inheritdoc}
    */
+  protected $profile = 'minimal';
+
+  /**
+   * {@inheritdoc}
+   */
   protected static $modules = [
     'geolocation',
     'geolocation_yandex',
@@ -49,17 +54,17 @@ class GeolocationYandexJavascriptTest extends WebDriverTestBase {
     $result = $this->assertSession()->waitForElementVisible('css', '.geolocation-map-container');
     $this->assertNotEmpty($result, "Container present.");
 
-    $result = $this->assertSession()->waitForElementVisible('css', '.geolocation-map-container ymaps', 5000);
+    $result = $this->assertSession()->waitForElementVisible('css', '.geolocation-map-container .ymaps3--map-container', 5000);
     $this->assertNotEmpty($result, "Yandex map present.");
 
-    $result = $this->assertSession()->waitForElementVisible('css', '.geolocation-map-container ymaps[class="ymaps3x0--marker"]:last-child ymaps[class*="default-marker__icon-box"]', 5000);
+    $result = $this->assertSession()->waitForElementVisible('css', '.geolocation-map-container .ymaps3--map-container .ymaps3--marker:last-child .ymaps3--default-marker__icon', 5000);
     $this->assertNotEmpty($result, "Marker element present.");
 
-    $this->assertSession()->elementNotExists('css', 'ymaps:not([class*="default-marker__hider"]) > [class*="default-marker__popup-container"]');
+    $this->assertSession()->elementExists('css', '.ymaps3--marker:last-child .ymaps3--default-marker__popup.ymaps3--default-marker__hider');
 
     $result->click();
 
-    $this->assertSession()->elementExists('css', 'ymaps:not([class*="default-marker__hider"]) > [class*="default-marker__popup-container"]');
+    $this->assertSession()->elementExists('css', '.ymaps3--marker:last-child .ymaps3--default-marker__popup:not(.ymaps3--default-marker__hider)');
   }
 
 }

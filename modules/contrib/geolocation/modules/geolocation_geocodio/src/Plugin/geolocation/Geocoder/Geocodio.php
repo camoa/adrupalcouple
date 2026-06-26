@@ -61,7 +61,8 @@ class Geocodio extends GeocoderBase implements GeocoderInterface {
       return NULL;
     }
 
-    $results = $result->results[0] ?? FALSE;
+    /** @var array{results: array<int, array<string, mixed>>} $result */
+    $results = $result['results'][0] ?? FALSE;
 
     // If no results, return false.
     if (!$results) {
@@ -70,17 +71,17 @@ class Geocodio extends GeocoderBase implements GeocoderInterface {
     // Otherwise add location, formatted address and fields.
     else {
       $location['location'] = [
-        'lat' => $results->location->lat,
-        'lng' => $results->location->lng,
+        'lat' => $results['location']['lat'],
+        'lng' => $results['location']['lng'],
       ];
     }
     // Add formatted address if it exists.
-    if (!empty($results->formatted_address)) {
-      $location['address'] = $results->formatted_address;
+    if (!empty($results['formatted_address'])) {
+      $location['address'] = $results['formatted_address'];
     }
     // Add metadata coming from fields if it exists.
-    if (!empty($results->fields)) {
-      $location['metadata'] = $results->fields;
+    if (!empty($results['fields'])) {
+      $location['metadata'] = $results['fields'];
     }
 
     return $location;

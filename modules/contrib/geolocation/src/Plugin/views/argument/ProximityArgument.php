@@ -118,18 +118,17 @@ class ProximityArgument extends Formula {
       }
 
       // Validate longitude is set and in range.
-      if (!(isset($values[2]) && $values[2] >= -180 && $values[2] <= 180)) {
+      if (!($values[2] >= -180 && $values[2] <= 180)) {
         return NULL;
       }
 
       // Validate operator is in a list of permitted values.
-      if (!(isset($values[3])
-        && in_array($values[3], ['<>', '=', '>=', '<=', '>', '<']))) {
+      if (!in_array($values[3], ['<>', '=', '>=', '<=', '>', '<'])) {
         return NULL;
       }
 
       // Validate distance is positive and non-zero.
-      if (!(isset($values[4]) && $values[4] > 0)) {
+      if (!($values[4] > 0)) {
         return NULL;
       }
 
@@ -138,7 +137,7 @@ class ProximityArgument extends Formula {
         'lng' => floatval($values[2]),
         'operator' => $values[3],
         'distance' => floatval($values[4]),
-        'unit' => $values[5] ?? 'km',
+        'unit' => $values[5] ?: 'km',
       ];
     }
     return $values;

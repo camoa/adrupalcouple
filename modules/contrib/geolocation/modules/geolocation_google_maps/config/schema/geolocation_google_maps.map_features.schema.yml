@@ -1,36 +1,3 @@
-plugin.plugin_configuration.geolocation.map_feature.drawing:
-  type: geolocation.map_feature_settings
-  label: 'Common map draw settings'
-  mapping:
-    settings:
-      type: mapping
-      label: 'Settings'
-      mapping:
-        polyline:
-          type: boolean
-          label: 'Draw polyline'
-        strokeColor:
-          type: string
-          label: 'strokeColor'
-        strokeOpacity:
-          type: string
-          label: 'strokeOpacity'
-        strokeWeight:
-          type: string
-          label: 'strokeWeight'
-        geodesic:
-          type: boolean
-          label: 'Geodesic'
-        polygon:
-          type: boolean
-          label: 'Draw polygon'
-        fillColor:
-          type: string
-          label: 'fillColor'
-        fillOpacity:
-          type: string
-          label: 'fillOpacity'
-
 plugin.plugin_configuration.geolocation.map_feature.map_restriction:
   type: geolocation.map_feature_settings
   label: 'Map Restriction'
@@ -66,18 +33,6 @@ plugin.plugin_configuration.geolocation.map_feature.context_popup:
         content:
           type: text_format
           label: 'Content'
-
-plugin.plugin_configuration.geolocation.map_feature.map_type_style:
-  type: geolocation.map_feature_settings
-  label: 'MapType Style'
-  mapping:
-    settings:
-      type: mapping
-      label: 'Settings'
-      mapping:
-        style:
-          type: string
-          label: 'Style'
 
 geolocation_google_maps.map_control_feature_settings:
   type: geolocation.map_feature_settings

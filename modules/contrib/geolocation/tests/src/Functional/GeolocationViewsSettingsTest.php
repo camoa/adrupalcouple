@@ -31,6 +31,11 @@ class GeolocationViewsSettingsTest extends BrowserTestBase {
   /**
    * {@inheritdoc}
    */
+  protected $profile = 'minimal';
+
+  /**
+   * {@inheritdoc}
+   */
   protected $defaultTheme = 'stark';
 
   /**

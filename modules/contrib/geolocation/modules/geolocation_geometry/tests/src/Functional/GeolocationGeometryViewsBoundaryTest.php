@@ -15,6 +15,11 @@ class GeolocationGeometryViewsBoundaryTest extends BrowserTestBase {
   /**
    * {@inheritdoc}
    */
+  protected $profile = 'minimal';
+
+  /**
+   * {@inheritdoc}
+   */
   protected static $modules = [
     'node',
     'field',

@@ -17,6 +17,11 @@ class GeolocationGeometryFieldTest extends BrowserTestBase {
   /**
    * {@inheritdoc}
    */
+  protected $profile = 'minimal';
+
+  /**
+   * {@inheritdoc}
+   */
   protected static $modules = [
     'field',
     'node',

@@ -25,7 +25,9 @@
         "drupal/search_api_location": "^1.x-dev@dev",
         "drupal/migrate_tools": "^6.0",
         "drupal/migrate_plus": "^6.0",
-        "sibyx/phpgpx": "^1.1",
-        "gasparesganga/php-shapefile": "^3"
+        "drupal/tamper": "^1.0@beta",
+        "gasparesganga/php-shapefile": "^3",
+        "geocodio/geocodio-library-php": "^3.0",
+        "sibyx/phpgpx": "^1.1"
     }
 }

@@ -69,10 +69,10 @@ class GeolocationItemTest extends FieldKernelTestBase {
     /** @var \Drupal\geolocation\GeolocationItemListInterface $field_item */
     $field_item = $entity->get('field_test');
 
-    $this->assertEquals($field_item->lat, $lat, "Lat $field_item->lat is equal to lat $lat.");
-    $this->assertEquals($field_item[0]->lat, $lat, "Lat {$field_item[0]->lat} is equal to lat $lat.");
-    $this->assertEquals($field_item->lng, $lng, "Lng $field_item->lng is equal to lng $lng.");
-    $this->assertEquals($field_item[0]->lng, $lng, "Lng {$field_item[0]->lng} is equal to lng $lng.");
+    $this->assertEqualsWithDelta($lat, (float) $field_item->lat, 0.00001, "Lat $field_item->lat is equal to lat $lat.");
+    $this->assertEqualsWithDelta($lat, (float) $field_item[0]->lat, 0.00001, "Lat {$field_item[0]->lat} is equal to lat $lat.");
+    $this->assertEqualsWithDelta($lng, (float) $field_item->lng, 0.00001, "Lng $field_item->lng is equal to lng $lng.");
+    $this->assertEqualsWithDelta($lng, (float) $field_item[0]->lng, 0.00001, "Lng {$field_item[0]->lng} is equal to lng $lng.");
 
     $this->assertEquals(round($field_item->lat_sin, 5), round(sin(deg2rad($lat)), 5), "Sine for latitude calculated correctly.");
     $this->assertEquals(round($field_item->lat_cos, 5), round(cos(deg2rad($lat)), 5), "Cosine for latitude calculated correctly.");
@@ -108,8 +108,8 @@ class GeolocationItemTest extends FieldKernelTestBase {
     /** @var \Drupal\geolocation\GeolocationItemListInterface $field_item */
     $field_item = $entity->get('field_test');
 
-    $this->assertEquals($field_item->lat, $new_lat, "Lat $field_item->lat is equal to new lat $new_lat.");
-    $this->assertEquals($field_item->lng, $new_lng, "Lng $field_item->lng is equal to new lng $new_lng.");
+    $this->assertEqualsWithDelta($new_lat, (float) $field_item->lat, 0.00001, "Lat $field_item->lat is equal to new lat $new_lat.");
+    $this->assertEqualsWithDelta($new_lng, (float) $field_item->lng, 0.00001, "Lng $field_item->lng is equal to new lng $new_lng.");
     $this->assertEquals($field_item->data, $new_data, "Data is correctly updated to new data.");
 
     // Assert that the calculated properties were updated.
@@ -126,8 +126,8 @@ class GeolocationItemTest extends FieldKernelTestBase {
     /** @var \Drupal\geolocation\GeolocationItemListInterface $field_item */
     $field_item = $entity->get('field_test');
 
-    $this->assertEquals($field_item->lat, $new_lat, "Lat $field_item->lat is equal to new lat $new_lat.");
-    $this->assertEquals($field_item->lng, $new_lng, "Lng $field_item->lng is equal to new lng $new_lng.");
+    $this->assertEqualsWithDelta($new_lat, (float) $field_item->lat, 0.00001, "Lat $field_item->lat is equal to new lat $new_lat.");
+    $this->assertEqualsWithDelta($new_lng, (float) $field_item->lng, 0.00001, "Lng $field_item->lng is equal to new lng $new_lng.");
 
     $this->assertEquals(round($field_item->lat_sin, 5), round(sin(deg2rad($new_lat)), 5), "Sine for latitude calculated correctly after change.");
     $this->assertEquals(round($field_item->lat_cos, 5), round(cos(deg2rad($new_lat)), 5), "Cosine for latitude calculated correctly after change.");

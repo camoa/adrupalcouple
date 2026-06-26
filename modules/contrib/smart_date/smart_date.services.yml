@@ -1,4 +1,6 @@
 services:
+  Drupal\smart_date\Hook\SmartDateHooks:
+    class: Drupal\smart_date\Hook\SmartDateHooks
   smart_date.manager:
     class: Drupal\smart_date\SmartDateManager
   smart_date.route_subscriber:

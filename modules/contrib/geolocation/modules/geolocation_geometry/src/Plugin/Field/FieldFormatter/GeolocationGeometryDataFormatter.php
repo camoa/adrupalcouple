@@ -6,6 +6,7 @@ use Drupal\Core\Field\Attribute\FieldFormatter;
 use Drupal\Component\Utility\Html;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
+use Drupal\geolocation_geometry\Plugin\Field\FieldType\GeolocationGeometryBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\geolocation_geometry\GeometryFormat\GeoJSON;
 
@@ -94,6 +95,7 @@ class GeolocationGeometryDataFormatter extends FormatterBase {
     $settings = $this->getSettings();
 
     foreach ($items as $delta => $item) {
+      assert($item instanceof GeolocationGeometryBase);
       switch ($settings['geometry_format'] ?? FALSE) {
         case 'geojson':
           $data = $item->geojson;

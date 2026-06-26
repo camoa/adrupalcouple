@@ -229,8 +229,8 @@ class SchemaDotOrgCustomFieldManager implements SchemaDotOrgCustomFieldManagerIn
       if ($this->schemaTypeManager->isProperty($schema_property)) {
         $default_field = $this->schemaEntityFieldManager->getPropertyDefaultField($entity_type_id, $custom_field_schema_type, $schema_property);
         $name = $default_field['name'];
-        $settings['label'] = $default_field['label'];
-        $settings['description'] = $default_field['description'];
+        $settings['label'] = $settings['label'] ?? $default_field['label'];
+        $settings['description'] = $settings['description'] ?? $default_field['description'];
       }
       else {
         $name = $settings['name'] ?? $this->schemaNames->camelCaseToSnakeCase($schema_property);
@@ -319,10 +319,10 @@ class SchemaDotOrgCustomFieldManager implements SchemaDotOrgCustomFieldManagerIn
 
         case 'select':
           // Convert key/value pairs to a nested array of key/values.
-          // (i.e, ['key' => 'value'] => [[key => key', value => 'value']).
+          // (i.e, ['key' => 'label'] => [[key => key', label => 'label']).
           array_walk(
             $allowed_values,
-            fn(&$value, $key) => $value = ['value' => $value, 'key' => $key]
+            fn(&$value, $key) => $value = ['label' => $value, 'key' => $key]
           );
           $allowed_values = array_values($allowed_values);
           $custom_field_settings[$name]['allowed_values'] = $allowed_values;
@@ -353,6 +353,8 @@ class SchemaDotOrgCustomFieldManager implements SchemaDotOrgCustomFieldManagerIn
         $settings,
         $widget->defaultSettings()
       ) + $widget->defaultSettings();
+      // Widget type.
+      $custom_field_widget_settings[$name]['type'] = $widget_type;
       // Widget weight.
       $custom_field_widget_settings[$name]['weight'] = $weight;
 
@@ -442,6 +444,9 @@ class SchemaDotOrgCustomFieldManager implements SchemaDotOrgCustomFieldManagerIn
 
   /**
    * {@inheritdoc}
+   *
+   * @param \Drupal\Core\Field\FieldItemListInterface<\Drupal\Core\Field\FieldItemInterface>|\Drupal\Core\Field\FieldItemInterface $item
+   *   A custom field item or custom field items.
    */
   public function getFieldItemSchemaMapping(FieldItemListInterface|FieldItemInterface $item): ?SchemaDotOrgMappingInterface {
     $field_type = $item->getFieldDefinition()->getType();

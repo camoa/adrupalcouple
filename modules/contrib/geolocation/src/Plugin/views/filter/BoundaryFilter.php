@@ -326,9 +326,14 @@ class BoundaryFilter extends FilterPluginBase implements ContainerFactoryPluginI
       return;
     }
 
+    $lat_north_east = (float) $lat_north_east;
+    $lng_north_east = (float) $lng_north_east;
+    $lat_south_west = (float) $lat_south_west;
+    $lng_south_west = (float) $lng_south_west;
+
     $this->query->addWhereExpression(
       $this->options['group'],
-      self::getBoundaryQueryFragment($this->ensureMyTable(), $this->realField, $lat_north_east, $lng_north_east, $lat_south_west, $lng_south_west)
+      self::getBoundaryQueryFragment($this->ensureMyTable(), $this->realField, (string) $lat_north_east, (string) $lng_north_east, (string) $lat_south_west, (string) $lng_south_west)
     );
   }
 

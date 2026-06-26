@@ -116,3 +116,6 @@ geolocation.map_provider.google_maps:
     gestureHandling:
       type: string
       label: 'Smart scrolling'
+    mapId:
+      type: string
+      label: 'Map ID'

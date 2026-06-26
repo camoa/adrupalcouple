@@ -21,6 +21,11 @@ class GeolocationGoogleJavascriptTest extends WebDriverTestBase {
   /**
    * {@inheritdoc}
    */
+  protected $profile = 'minimal';
+
+  /**
+   * {@inheritdoc}
+   */
   protected static $modules = [
     'geolocation_google_js_errors',
     'geolocation',

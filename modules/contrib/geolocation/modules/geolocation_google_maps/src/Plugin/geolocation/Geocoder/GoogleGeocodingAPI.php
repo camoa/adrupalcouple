@@ -43,13 +43,16 @@ class GoogleGeocodingAPI extends GoogleGeocoderBase {
   public function getSettings(array $settings = []): array {
     $settings = parent::getSettings($settings);
 
-    $parameters = [];
+    $parameters = [
+      'callback' => 'DrupalGeolocationGoogleLoader',
+      'loading' => 'async',
+    ];
 
     if (!empty($settings['region'])) {
       $parameters['region'] = $settings['region'];
     }
 
-    $settings['google_api_url'] = $this->googleMapsService->getGoogleMapsApiUrl($parameters, '\js');
+    $settings['google_api_url'] = $this->googleMapsService->getGoogleMapsApiUrl($parameters, '/js');
 
     return $settings;
   }

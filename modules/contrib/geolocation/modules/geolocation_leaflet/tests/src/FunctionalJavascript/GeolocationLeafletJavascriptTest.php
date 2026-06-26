@@ -21,6 +21,11 @@ class GeolocationLeafletJavascriptTest extends WebDriverTestBase {
   /**
    * {@inheritdoc}
    */
+  protected $profile = 'minimal';
+
+  /**
+   * {@inheritdoc}
+   */
   protected static $modules = [
     'geolocation',
     'geolocation_leaflet',

@@ -11,6 +11,12 @@ use Drupal\Tests\BrowserTestBase;
  */
 class GeolocationViewsProximityByEntityTest extends BrowserTestBase {
 
+
+  /**
+   * {@inheritdoc}
+   */
+  protected $profile = 'minimal';
+
   /**
    * {@inheritdoc}
    */
@@ -49,7 +55,7 @@ class GeolocationViewsProximityByEntityTest extends BrowserTestBase {
     $origin_node = $entity_test_storage->create([
       'id' => 1,
       'title' => 'Proximity Origin Node',
-      'body' => 'test test',
+      'field_geolocation_demo_body' => 'test test',
       'type' => 'geolocation_default_article',
       'field_geolocation_demo_single' => [
         'lat' => 52,
@@ -60,7 +66,7 @@ class GeolocationViewsProximityByEntityTest extends BrowserTestBase {
 
     $entity_test_storage->create([
       'title' => 'Closest Node',
-      'body' => 'bar test',
+      'field_geolocation_demo_body' => 'bar test',
       'type' => 'geolocation_default_article',
       'field_geolocation_demo_single' => [
         'lat' => 53,

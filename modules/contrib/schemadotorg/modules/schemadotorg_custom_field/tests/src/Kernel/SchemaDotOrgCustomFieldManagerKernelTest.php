@@ -13,7 +13,7 @@ use Drupal\Tests\schemadotorg\Kernel\SchemaDotOrgEntityKernelTestBase;
 /**
  * Tests the functionality of the Schema.org custom field manager.
  *
- * @covers \Drupal\schemadotorg_custom_field\SchemaDotOrgCustomFieldDefaultVocabularyManager
+ * @covers \Drupal\schemadotorg_custom_field\SchemaDotOrgCustomFieldManager
  * @group schemadotorg
  */
 class SchemaDotOrgCustomFieldManagerKernelTest extends SchemaDotOrgEntityKernelTestBase {
@@ -192,61 +192,73 @@ class SchemaDotOrgCustomFieldManagerKernelTest extends SchemaDotOrgEntityKernelT
                   'placeholder' => '',
                   'maxlength' => NULL,
                   'maxlength_js' => FALSE,
+                  'type' => 'text',
               ],
               'calories' => [
                   'weight' => 1,
                   'label' => 'Calories',
                   'placeholder' => '',
+                  'type' => 'integer',
               ],
               'carbohydrate_content' => [
                   'weight' => 2,
                   'label' => 'Carbohydrate content',
                   'placeholder' => '',
+                  'type' => 'integer',
               ],
               'cholesterol_content' => [
                   'weight' => 3,
                   'label' => 'Cholesterol',
                   'placeholder' => '',
+                  'type' => 'integer',
               ],
               'fat_content' => [
                   'weight' => 4,
                   'label' => 'Fat',
                   'placeholder' => '',
+                  'type' => 'integer',
               ],
               'fiber_content' => [
                   'weight' => 5,
                   'label' => 'Fiber',
                   'placeholder' => '',
+                  'type' => 'integer',
               ],
               'protein_content' => [
                   'weight' => 6,
                   'label' => 'Protein',
                   'placeholder' => '',
+                  'type' => 'integer',
               ],
               'saturated_fat_content' => [
                   'weight' => 7,
                   'label' => 'Saturated Fat',
                   'placeholder' => '',
+                  'type' => 'integer',
               ],
               'sodium_content' => [
                   'weight' => 8,
                   'label' => 'Sodium',
                   'placeholder' => '',
+                  'type' => 'integer',
               ],
               'sugar_content' => [
                   'weight' => 9,
                   'label' => 'Sugar',
                   'placeholder' => '',
+                  'type' => 'integer',
               ],
               'trans_fat_content' => [
                   'weight' => 10,
                   'label' => 'Trans fat',
                   'placeholder' => '',
+                  'type' => 'integer',
               ],
               'unsaturated_fat_content' => [
                   'weight' => 11,
                   'label' => 'Unsaturated fat',
                   'placeholder' => '',
+                  'type' => 'integer',
               ],
           ],
       ],
@@ -614,47 +626,47 @@ class SchemaDotOrgCustomFieldManagerKernelTest extends SchemaDotOrgEntityKernelT
       'allowed_values' => [
         [
           'key' => 'daily',
-          'value' => 'Daily',
+          'label' => 'Daily',
         ],
         [
           'key' => '2_times_a_day',
-          'value' => '2 times a day',
+          'label' => '2 times a day',
         ],
         [
           'key' => '3_times_a_day',
-          'value' => '3 times a day',
+          'label' => '3 times a day',
         ],
         [
           'key' => '4_times_a_day',
-          'value' => '4 times a day',
+          'label' => '4 times a day',
         ],
         [
           'key' => '5_times_a_day',
-          'value' => '5 times a day',
+          'label' => '5 times a day',
         ],
         [
           'key' => 'every_3_hours',
-          'value' => 'Every 3 hours',
+          'label' => 'Every 3 hours',
         ],
         [
           'key' => 'every_6_hours',
-          'value' => 'Every 6 hours',
+          'label' => 'Every 6 hours',
         ],
         [
           'key' => 'every_8_hours',
-          'value' => 'Every 8 hours',
+          'label' => 'Every 8 hours',
         ],
         [
           'key' => 'every_12_hours',
-          'value' => 'Every 12 hours',
+          'label' => 'Every 12 hours',
         ],
         [
           'key' => 'every_24_hours',
-          'value' => 'Every 24 hours',
+          'label' => 'Every 24 hours',
         ],
         [
           'key' => 'bedtime',
-          'value' => 'Bedtime',
+          'label' => 'Bedtime',
         ],
       ],
     ];
@@ -803,15 +815,15 @@ class SchemaDotOrgCustomFieldManagerKernelTest extends SchemaDotOrgEntityKernelT
         'allowed_values' => [
           [
             'key' => 'one',
-            'value' => 'One',
+            'label' => 'One',
           ],
           [
             'key' => 'two',
-            'value' => 'Two',
+            'label' => 'Two',
           ],
           [
             'key' => 'three',
-            'value' => 'Three',
+            'label' => 'Three',
           ],
         ],
       ],

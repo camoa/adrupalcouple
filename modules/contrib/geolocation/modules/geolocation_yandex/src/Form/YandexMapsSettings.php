@@ -50,7 +50,6 @@ class YandexMapsSettings extends ConfigFormBase {
   public function submitForm(array &$form, FormStateInterface $form_state): void {
     $config = $this->configFactory()->getEditable('geolocation_yandex.settings');
     $config->set('api_key', $form_state->getValue('api_key'));
-    $config->set('packages', array_filter(array_values($form_state->getValue('packages'))));
     $config->save();
 
     // Confirmation on form submission.
