@@ -32,19 +32,41 @@
 #}
 <div{{ attributes.addClass('couple-story-entity mt-6') }}>
 
-  {# ── Community story prose ───────────────────────────────────────────────── #}
-  {% if content.field_community_story|render|trim %}
-    <div class="couple-story-body prose max-w-none mb-6">
-      {{ content.field_community_story }}
+  {# ── Faces FIRST (React CoupleStory order) — avatar (w-20) + name + role ──── #}
+  {# inline, not the captioned-below couple_faces atom. couple_persons from
+     adrupalcouple_preprocess_node__couple() (couple_story view mode). #}
+  {% if couple_persons %}
+    <div class="couple-faces flex flex-wrap items-center gap-4 mb-6">
+      {% for person in couple_persons %}
+        <div class="flex items-center gap-3">
+          {% if person.avatar_url %}
+            <div class="avatar">
+              <div class="w-20 rounded-full">
+                <img src="{{ person.avatar_url }}" alt="{{ person.name }}"
+                     width="128" height="128" loading="lazy" decoding="async">
+              </div>
+            </div>
+          {% else %}
+            <div class="avatar avatar-placeholder">
+              <div class="w-20 rounded-full bg-primary text-primary-content">
+                <span aria-hidden="true" class="text-xl font-semibold">{{ person.initials }}</span>
+                <span class="sr-only">{{ person.name }}</span>
+              </div>
+            </div>
+          {% endif %}
+          <div>
+            <p class="font-heading text-lg font-semibold">{{ person.name }}</p>
+            {% if person.role %}<p class="text-sm text-muted">{{ person.role }}</p>{% endif %}
+          </div>
+        </div>
+      {% endfor %}
     </div>
   {% endif %}
 
-  {# ── Dual faces ──────────────────────────────────────────────────────────── #}
-  {% if content.field_couple|render|trim %}
-    <div class="couple-faces flex flex-wrap items-start gap-8 sm:gap-12 mb-8">
-      {% for key, item in content.field_couple %}
-        {% if (key ~ '')|first != '#' %}{{ item }}{% endif %}
-      {% endfor %}
+  {# ── Community story prose (after the faces) ──────────────────────────────── #}
+  {% if content.field_community_story|render|trim %}
+    <div class="couple-story-body prose max-w-none mb-6">
+      {{ content.field_community_story }}
     </div>
   {% endif %}
 

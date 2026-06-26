@@ -123,6 +123,7 @@ content:
 hidden:
   addtoany: true
   body: true
+  comment: true
   content_moderation_control: true
   field_closing_question: true
   field_comments: true

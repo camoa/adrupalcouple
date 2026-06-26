@@ -22,7 +22,11 @@
 #}
 {% if items %}
   {# Desktop horizontal menu — hidden on mobile, shown as flex on md+ #}
-  <nav class="hidden md:flex" aria-label="Primary navigation">
+  {# max-md:hidden (not base `hidden`): in this Tailwind build the base `.hidden`
+     utility out-cascades the responsive `.md\:flex`, leaving the desktop nav
+     display:none at md+. Two media-query utilities avoid the base-utility conflict:
+     below md → max-md:hidden hides; at md+ → md:flex shows. (parity fix 2026-06-25) #}
+  <nav class="max-md:hidden md:flex" aria-label="Primary navigation">
     {{ include('ui_suite_daisyui:menu', {
       items: items,
       variant: 'horizontal__md',

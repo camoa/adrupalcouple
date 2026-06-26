@@ -286,13 +286,71 @@ function adrupalcouple_preprocess_node__couple(array &$variables): void {
         $variables['story_excerpt'] = $summary;
       }
       else {
-        $raw = trim(strip_tags((string) ($body->value ?? '')));
+        // The couple body opens with a "Who are we" <h2> heading; the card
+        // excerpt must be the bio paragraph (matches the React CouplesCard
+        // excerpt). Take the first <p> rather than strip_tags-fusing the
+        // heading onto the paragraph ("Who are weAnilu is…"). (fix 2026-06-25)
+        $html = (string) ($body->value ?? '');
+        if (preg_match('/<p\b[^>]*>(.*?)<\/p>/is', $html, $m)) {
+          $raw = trim(strip_tags($m[1]));
+        }
+        else {
+          $raw = trim(strip_tags($html));
+        }
         if (mb_strlen($raw) > 160) {
           $raw = mb_substr($raw, 0, 157) . '…';
         }
         $variables['story_excerpt'] = $raw;
       }
     }
+    return;
+  }
+
+  // ── couple_hero / couple_story view modes: lightweight person avatars ─────
+  // React CoupleHero (§1) and CoupleStory (§3) both use the Avatar component
+  // (clean image, no stacked figcaption) with different wrappers — the hero
+  // overlaps two uncaptioned avatars BEFORE the name; §3 shows avatar+name+role
+  // inline. Expose couple_persons[{name,avatar_url,initials,role}] so the
+  // templates can render that directly instead of the captioned couple_faces
+  // atom (which matches neither React variant). (parity fix 2026-06-25)
+  if (in_array($view_mode, ['couple_hero', 'couple_story'], TRUE)) {
+    /** @var \Drupal\image\ImageStyleInterface|null $image_style */
+    $image_style = \Drupal::entityTypeManager()
+      ->getStorage('image_style')
+      ->load('adc_couple_faces_1x1_128');
+    $persons = [];
+    if ($node->hasField('field_couple') && !$node->get('field_couple')->isEmpty()) {
+      foreach ($node->get('field_couple')->referencedEntities() as $person) {
+        $avatar_url = '';
+        if ($image_style
+          && $person->hasField('schema_image')
+          && !$person->get('schema_image')->isEmpty()
+        ) {
+          /** @var \Drupal\media\MediaInterface|null $media */
+          $media = $person->get('schema_image')->entity;
+          if ($media !== NULL
+            && $media->hasField('field_media_image')
+            && !$media->get('field_media_image')->isEmpty()
+          ) {
+            $file = $media->get('field_media_image')->entity;
+            if ($file !== NULL) {
+              $avatar_url = $image_style->buildUrl($file->getFileUri());
+            }
+          }
+        }
+        $role = '';
+        if ($person->hasField('field_role') && !$person->get('field_role')->isEmpty()) {
+          $role = (string) $person->get('field_role')->value;
+        }
+        $persons[] = [
+          'name'       => (string) $person->label(),
+          'avatar_url' => $avatar_url,
+          'initials'   => _adrupalcouple_person_initials((string) $person->label()),
+          'role'       => $role,
+        ];
+      }
+    }
+    $variables['couple_persons'] = $persons;
     return;
   }
 
@@ -425,32 +483,14 @@ function adrupalcouple_preprocess_node__article(array &$variables): void {
 
   // ── Teaser card vars (TopicBrowse cards in person profile S3) ──────────────
   // Only computed for the teaser view mode — skip the overhead on full_article.
-  // Variables: card_thumbnail, card_author_name, card_author_initial, card_author_avatar_64.
-  $variables['card_thumbnail'] = NULL;
+  // schema_image (card thumbnail) renders NATIVELY via the media `adc_card_thumbnail`
+  // view mode on the node.article.teaser display (responsive_image_wiring recipe) —
+  // no preprocess thumbnail. Only the author byline is computed here.
   $variables['card_author_name'] = '';
   $variables['card_author_initial'] = '';
   $variables['card_author_avatar_64'] = NULL;
+  $variables['card_author_url'] = '';
   if (($variables['elements']['#view_mode'] ?? '') === 'teaser') {
-    // Card thumbnail: 16:9 crop at 640px from schema_image (media reference).
-    if ($node->hasField('schema_image') && !$node->get('schema_image')->isEmpty()) {
-      /** @var \Drupal\media\Entity\Media|null $thumb_media */
-      $thumb_media = $node->get('schema_image')->entity;
-      if ($thumb_media
-          && $thumb_media->hasField('field_media_image')
-          && !$thumb_media->get('field_media_image')->isEmpty()) {
-        $thumb_item = $thumb_media->get('field_media_image')->first();
-        $thumb_file = $thumb_item?->entity;
-        if ($thumb_file) {
-          $variables['card_thumbnail'] = [
-            '#theme' => 'image_style',
-            '#style_name' => 'adc_card_thumbnail_16x9_640',
-            '#uri' => $thumb_file->getFileUri(),
-            '#alt' => (string) ($thumb_item->alt ?: $node->label()),
-            '#attributes' => ['loading' => 'lazy', 'decoding' => 'async'],
-          ];
-        }
-      }
-    }
     // Card author: first schema_author — name, initial, 64px avatar.
     if ($node->hasField('schema_author') && !$node->get('schema_author')->isEmpty()) {
       /** @var \Drupal\node\NodeInterface|null $card_author */
@@ -459,6 +499,9 @@ function adrupalcouple_preprocess_node__article(array &$variables): void {
         $card_author_name = (string) ($card_author->label() ?? '');
         $variables['card_author_name'] = $card_author_name;
         $variables['card_author_initial'] = mb_strtoupper(mb_substr($card_author_name, 0, 1));
+        // Author profile URL so the card byline can link to the person (Carlos
+        // 2026-06-25: card must navigate to the author, not only the article).
+        $variables['card_author_url'] = $card_author->toUrl()->toString();
         $avatar_64 = _adrupalcouple_person_avatar($card_author, $card_author_name, 'adc_author_avatar_1x1_64');
         if ($avatar_64 !== NULL) {
           $variables['card_author_avatar_64'] = $avatar_64;
@@ -688,37 +731,6 @@ function adrupalcouple_preprocess_page(array &$variables): void {
 
   if (isset($variables['page']['content']['adrupalcouple_page_title'])) {
     $variables['page']['content']['adrupalcouple_page_title']['#access'] = FALSE;
-  }
-}
-
-/**
- * Implements hook_preprocess_views_view__taxonomy_term().
- *
- * Injects a clean taxonomy term label into the views-view--taxonomy-term.html.twig
- * template as {{ topic_label }}. The standard {{ title }} variable in views-view
- * templates may carry H2 wrapper markup from Views' title mechanism, making it
- * unsafe to embed directly in custom headings; {{ topic_label }} is a plain string.
- *
- * Fires only for the `taxonomy_term` view (all displays). The {{ total_rows }}
- * variable is built-in to views-view.html.twig and provides the count for the
- * S1 count sentence without an extra query.
- */
-function adrupalcouple_preprocess_views_view__taxonomy_term(array &$variables): void {
-  /** @var \Drupal\views\ViewExecutable|null $view */
-  $view = $variables['view'] ?? NULL;
-  if (!$view) {
-    return;
-  }
-  $args = $view->args ?? [];
-  $tid = !empty($args[0]) && is_numeric($args[0]) ? (int) $args[0] : 0;
-  if ($tid === 0) {
-    return;
-  }
-  $term = \Drupal::entityTypeManager()
-    ->getStorage('taxonomy_term')
-    ->load($tid);
-  if ($term instanceof \Drupal\taxonomy\TermInterface) {
-    $variables['topic_label'] = $term->label();
   }
 }
 

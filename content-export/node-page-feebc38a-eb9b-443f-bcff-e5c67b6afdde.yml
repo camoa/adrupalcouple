@@ -197,7 +197,7 @@ custom_fields:
               provider: layout_builder
               view_mode: full
               block_id: '13'
-              block_revision_id: '13'
+              block_revision_id: '14'
               block_serialized: null
               context_mapping: {  }
             weight: 0
@@ -464,7 +464,9 @@ custom_fields:
                       schema_subject_of: null
                       schema_telephone: null
                       schema_works_for: null
-                field_founding: null
+                field_founding:
+                  -
+                    value: '1'
                 field_milestone: null
                 schema_image:
                   -
@@ -570,12 +572,12 @@ custom_fields:
           info: 'About contact coda'
           reusable: false
           langcode: en
-          block_revision_id: '13'
+          block_revision_id: '14'
           enforce_new_revision: true
         custom_fields:
           body:
             -
-              value: '<p class="text-lg">Find us on <a href="https://www.linkedin.com/in/camoa/" class="link link-primary" target="_blank" rel="noopener noreferrer">LinkedIn</a> or write to us at <a href="mailto:hello@adrupalcouple.com" class="link link-primary">hello@adrupalcouple.com</a>.</p>'
+              value: '<p class="text-lg">Find us on LinkedIn — <a href="https://www.linkedin.com/in/camoa/" class="link link-primary" target="_blank" rel="noopener noreferrer">Carlos</a> and <a href="https://www.linkedin.com/in/ana-laura-coto-89741355/" class="link link-primary" target="_blank" rel="noopener noreferrer">Ana</a>.</p>'
               summary: null
               format: full_html
               embed_entities: {  }

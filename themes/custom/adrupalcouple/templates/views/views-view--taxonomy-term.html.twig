@@ -38,7 +38,10 @@
  */
 #}
 {%- set count = total_rows -%}
-{%- set tag_name = topic_label ?? '' -%}
+{# tag_name = the view's computed title (term name, native via the tid argument's
+   "Override title" = {{ arguments.tid }}, which Views resolves to the term name).
+   No preprocess — read it straight off the view object. #}
+{%- set tag_name = view.getTitle()|striptags|trim -%}
 
 {# ──────────────────────────────────────────────────────────────────────────
    S1 — Quiet topic header (bg-base-100).

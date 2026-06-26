@@ -36,6 +36,7 @@
         "drupal/editoria11y": "^2.1",
         "drupal/entity_browser": "^2.9",
         "drupal/entity_usage": "^2.0@beta",
+        "drupal/extlink": "^2.0",
         "drupal/field_group": "^4",
         "drupal/fivestar": "3.0.x-dev@dev",
         "drupal/focal_point": "^2.0",

@@ -1,0 +1,22 @@
+uuid: 1d2326c1-d4c8-4fba-b1ad-0a189cc2328c
+langcode: en
+status: false
+dependencies:
+  module:
+    - system
+  theme:
+    - adrupalcouple
+_core:
+  default_config_hash: 5Kul6RWgrcu7T0XGCtC3FzIVB0v84-GW-tHR2PjWWXQ
+id: adrupalcouple_breadcrumbs
+theme: adrupalcouple
+region: content
+weight: -6
+provider: null
+plugin: system_breadcrumb_block
+settings:
+  id: system_breadcrumb_block
+  label: Breadcrumbs
+  label_display: '0'
+  provider: system
+visibility: {  }

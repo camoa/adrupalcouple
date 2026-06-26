@@ -68,10 +68,10 @@ final class SdcFooterBlock extends BlockBase implements ContainerFactoryPluginIn
       '#template' => "{{ include('adrupalcouple:footer', {brand_name: brand_name, rights_text: rights_text, built_note: built_note, writing_nav_label: writing_nav_label, about_nav_label: about_nav_label, writing_links: writing_links, about_links: about_links}, with_context: false) }}",
       '#context' => [
         'brand_name' => $site_name,
-        'rights_text' => $this->t('All rights reserved.'),
-        'built_note' => $this->t('Built with Drupal and open source.'),
+        'rights_text' => $this->t('Written by two people, from both worlds.'),
+        'built_note' => $this->t('Built with Drupal, read on quiet pages.'),
         'writing_nav_label' => $this->t('Writing'),
-        'about_nav_label' => $this->t('About'),
+        'about_nav_label' => $this->t('The couple'),
         'writing_links' => $writing_links,
         'about_links' => $about_links,
       ],

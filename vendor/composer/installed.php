@@ -3,7 +3,7 @@
         'name' => 'drupal/recommended-project',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '4573fefbeab84d2d6ff20bbb7524c80eda175f43',
+        'reference' => '655b1883014dfe1c302d1e35a005f78b8eca41b0',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -586,6 +586,15 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
+        'drupal/extlink' => array(
+            'pretty_version' => '2.0.5',
+            'version' => '2.0.5.0',
+            'reference' => '2.0.5',
+            'type' => 'drupal-module',
+            'install_path' => __DIR__ . '/../../modules/contrib/extlink',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'drupal/field_group' => array(
             'pretty_version' => '4.0.0',
             'version' => '4.0.0.0',
@@ -874,7 +883,7 @@
         'drupal/recommended-project' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '4573fefbeab84d2d6ff20bbb7524c80eda175f43',
+            'reference' => '655b1883014dfe1c302d1e35a005f78b8eca41b0',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

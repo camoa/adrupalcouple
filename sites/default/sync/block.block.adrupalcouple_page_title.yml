@@ -1,0 +1,20 @@
+uuid: 855aeb2e-630c-447e-8452-baa983d5b741
+langcode: en
+status: false
+dependencies:
+  theme:
+    - adrupalcouple
+_core:
+  default_config_hash: a6hxqvRY6asluEg0QXsGTnccrEFpawfPKCuYvxoyjaE
+id: adrupalcouple_page_title
+theme: adrupalcouple
+region: content
+weight: -5
+provider: null
+plugin: page_title_block
+settings:
+  id: page_title_block
+  label: 'Page title'
+  label_display: '0'
+  provider: core
+visibility: {  }

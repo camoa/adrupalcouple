@@ -21,8 +21,10 @@
  * @see components/couples_card/couples_card.twig
  */
 #}
+{# couple_name: node.label (string) — `label` is a render array that yields an
+   empty SDC prop, leaving the card-title link blank. (parity fix 2026-06-25) #}
 {{ include('adrupalcouple:couples_card', {
-  couple_name: label,
+  couple_name: node.label,
   couple_url: url,
   story_excerpt: story_excerpt,
   founding: founding,

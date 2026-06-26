@@ -24,17 +24,32 @@
  */
 #}
 <div{{ attributes.addClass('couple-hero-entity') }}>
-  {# ── Couple name heading ─────────────────────────────────────────────────── #}
-  <h1 class="font-heading text-4xl font-bold text-center mb-8">{{ node.label }}</h1>
-
-  {# ── Dual faces row ──────────────────────────────────────────────────────── #}
-  {% if content.field_couple|render|trim %}
-    {# Render the person face figures as DIRECT flex children (skip the field wrapper div,
-       which would otherwise be the sole flex item and stack the figures as blocks inside it). #}
-    <div class="couple-faces flex flex-wrap justify-center gap-8 sm:gap-12">
-      {% for key, item in content.field_couple %}
-        {% if (key ~ '')|first != '#' %}{{ item }}{% endif %}
+  {# ── Overlapping faces ───────────────────────────────────────────────────── #}
+  {# React CoupleHero: two uncaptioned avatars (w-24) overlapping (-space-x-3),
+     rendered BEFORE the name. couple_persons comes from
+     adrupalcouple_preprocess_node__couple() (couple_hero view mode). #}
+  {% if couple_persons %}
+    <div class="couple-faces flex -space-x-3">
+      {% for person in couple_persons %}
+        {% if person.avatar_url %}
+          <div class="avatar">
+            <div class="w-24 rounded-full ring-2 ring-base-100">
+              <img src="{{ person.avatar_url }}" alt="{{ person.name }}"
+                   width="128" height="128" loading="lazy" decoding="async">
+            </div>
+          </div>
+        {% else %}
+          <div class="avatar avatar-placeholder">
+            <div class="w-24 rounded-full ring-2 ring-base-100 bg-primary text-primary-content">
+              <span aria-hidden="true" class="text-2xl font-semibold">{{ person.initials }}</span>
+              <span class="sr-only">{{ person.name }}</span>
+            </div>
+          </div>
+        {% endif %}
       {% endfor %}
     </div>
   {% endif %}
+
+  {# ── Couple name heading (after the faces, per React order) ───────────────── #}
+  <h1 class="mt-4 font-heading text-4xl font-semibold">{{ node.label }}</h1>
 </div>

@@ -61,8 +61,10 @@
         </div>
       {% endif %}
 
-      {# Couple name — H1 (single per page; SEO + reading order). #}
-      <h1 class="mt-4 font-heading text-4xl font-semibold">{{ label }}</h1>
+      {# Couple name — H1 (single per page; SEO + reading order).
+         node.label (string): themed `label` is empty here (title hidden in display)
+         → empty <h1> (sa11y "heading with no text"). (fix 2026-06-25) #}
+      <h1 class="mt-4 font-heading text-4xl font-semibold">{{ node.label }}</h1>
 
       {# Lede from body.summary. Suppress when empty — no orphan <p>. #}
       {% if lede %}

@@ -34,23 +34,29 @@
 #}
 <article{{ attributes.addClass('card border border-base-300 bg-base-100 transition-colors duration-150 hover:border-primary') }}>
 
-  {# Thumbnail — optional (text-first: no figure when card_thumbnail is NULL). #}
-  {% if card_thumbnail %}
-    <figure class="aspect-video overflow-hidden">
-      {{- card_thumbnail -}}
-    </figure>
+  {# Thumbnail — native: schema_image renders through the media `adc_card_thumbnail`
+     view mode (entity_reference_entity_view → responsive_image), wired on the
+     node.article.teaser display by the responsive_image_wiring recipe. No preprocess.
+     Linked to the article; aria-hidden + tabindex=-1 = mouse-clickable REDUNDANT link
+     (the title link carries the accessible name). #}
+  {% if content.schema_image|render|trim %}
+    <a href="{{ url }}" tabindex="-1" aria-hidden="true" class="block">
+      <figure class="aspect-video overflow-hidden">
+        {{ content.schema_image }}
+      </figure>
+    </a>
   {% endif %}
 
   <div class="card-body">
 
-    {# Single topic badge — one primary topic per card (component-palette §6 `topic_badge`,
-       card-scannability UX). Full tag set lives on the article detail page + the /writing
-       page-top topic browse. The primary topic = the first-listed tag (delta 0). #}
+    {# Topic badges — full tag row per card, mirroring React TopicBrowseCard (Carlos
+       2026-06-25 parity decision: restore the multi-pill row; the earlier single-badge
+       simplification is reverted). Each tag links to its term page. #}
     {% set has_tags = false %}
     {% for tag_item in node.field_tags %}{% set has_tags = true %}{% endfor %}
     {% if has_tags %}
       <div class="flex flex-wrap gap-1">
-        {% for tag_item in node.field_tags|slice(0, 1) %}
+        {% for tag_item in node.field_tags %}
           {% set tag = tag_item.entity %}
           {% if tag %}
             <a href="{{ path('entity.taxonomy_term.canonical', {'taxonomy_term': tag.id}) }}"
@@ -62,9 +68,12 @@
       </div>
     {% endif %}
 
-    {# Title — H3, font-heading, linked; link-hover for underline on hover only. #}
+    {# Title — H3, font-heading, linked; link-hover for underline on hover only.
+       node.label (string), NOT label: the themed `label` is empty here (title hidden
+       in the teaser display) → empty heading + empty link (sa11y: "heading with no
+       text" + "link with no accessible text") + unreachable article. (fix 2026-06-25) #}
     <h3 class="card-title font-heading text-xl leading-snug">
-      <a href="{{ url }}" class="link link-hover">{{ label }}</a>
+      <a href="{{ url }}" class="link link-hover">{{ node.label }}</a>
     </h3>
 
     {# Dek — schema_abstract, plain text. text-muted (5.62:1 D2 override in a11y.pcss). #}
@@ -93,7 +102,11 @@
               </div>
             {% endif %}
           </div>
-          <span>{{ card_author_name }}</span>
+          {% if card_author_url %}
+            <a href="{{ card_author_url }}" class="link link-hover">{{ card_author_name }}</a>
+          {% else %}
+            <span>{{ card_author_name }}</span>
+          {% endif %}
         {% endif %}
 
         {% if card_author_name and read_time %}
