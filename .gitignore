@@ -22,3 +22,6 @@ node_modules/
 
 # Git worktrees (task isolation)
 .worktrees/
+
+# Local secrets — DDEV web-container env file (Anthropic API key, etc.)
+.ddev/.env.web

@@ -1,0 +1,3 @@
+services:
+  ai_provider_anthropic.native_client:
+    class: Drupal\ai_provider_anthropic\Service\AnthropicNativeClient

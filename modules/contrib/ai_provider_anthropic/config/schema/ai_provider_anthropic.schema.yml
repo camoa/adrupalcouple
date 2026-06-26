@@ -1,0 +1,22 @@
+ai_provider_anthropic.settings:
+  type: config_object
+  label: 'Anthropic Settings'
+  mapping:
+    api_key:
+      type: string
+      label: 'The API key for Anthropic via Key module'
+    version:
+      type: string
+      label: 'The version of Anthropic API to use.'
+    models_cache_ttl:
+      type: integer
+      label: 'Cache TTL for dynamically fetched models (in seconds)'
+    prompt_cache_enabled:
+      type: boolean
+      label: 'Enable prompt caching for all chat requests'
+    prompt_cache_ttl:
+      type: string
+      label: 'Prompt cache TTL (5m | 1h)'
+      constraints:
+        Choice:
+          choices: ['5m', '1h']

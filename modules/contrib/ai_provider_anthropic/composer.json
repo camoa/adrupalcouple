@@ -1,0 +1,12 @@
+{
+  "name": "drupal/ai_provider_anthropic",
+  "description": "Anthropic provider implementation for the AI module for Drupal",
+  "type": "drupal-module",
+  "license": "GPL-2.0-or-later",
+  "require": {
+    "drupal/ai": "^1.4.0",
+    "drupal/key": "^1.18",
+    "anthropic-ai/sdk": "^0.29",
+    "php-http/guzzle7-adapter": "^1.0"
+  }
+}

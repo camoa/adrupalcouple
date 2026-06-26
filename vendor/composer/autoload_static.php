@@ -29,6 +29,7 @@ class ComposerStaticInit5c7f23189dfdbae478d03c4985419aea
         '2f69d3914119f042cca9e44442d5ce95' => __DIR__ . '/../..' . '/core/includes/bootstrap.inc',
         '23c18046f52bef3eea034657bafda50f' => __DIR__ . '/..' . '/symfony/polyfill-php81/bootstrap.php',
         '9b38cf48e83f5d8f60375221cd213eee' => __DIR__ . '/..' . '/phpstan/phpstan/bootstrap.php',
+        '61ba3e92ef91a7a0f1cc260ebd9290e4' => __DIR__ . '/..' . '/openai-php/client/src/OpenAI.php',
         '72243e5536b63e298acb6476f01f1aff' => __DIR__ . '/..' . '/thecodingmachine/safe/lib/special_cases.php',
         '3f648889e687f31c52f949ba8a9d0873' => __DIR__ . '/..' . '/thecodingmachine/safe/generated/apache.php',
         'eeb4581d958421a4244aaa4167c6a575' => __DIR__ . '/..' . '/thecodingmachine/safe/generated/apcu.php',
@@ -112,6 +113,7 @@ class ComposerStaticInit5c7f23189dfdbae478d03c4985419aea
         'b067bc7112e384b61c701452d53a14a8' => __DIR__ . '/..' . '/mtdowling/jmespath.php/src/JmesPath.php',
         '0174385c3be07e86008907d06ee66531' => __DIR__ . '/..' . '/sabberworm/php-css-parser/src/Rule/Rule.php',
         '98aea6e41b9cb79b379b10f37ba1f0b7' => __DIR__ . '/..' . '/sabberworm/php-css-parser/src/RuleSet/RuleContainer.php',
+        '4b3d45d99f6e4eb65ea80c00519736e4' => __DIR__ . '/..' . '/anthropic-ai/sdk/src/Version.php',
         '8a9dc1de0ca7e01f3e08231539562f61' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/functions.php',
         '47e1160838b5e5a10346ac4084b58c23' => __DIR__ . '/..' . '/laravel/prompts/src/helpers.php',
         '801c31d8ed748cfa537fa45402288c95' => __DIR__ . '/..' . '/psy/psysh/src/functions.php',
@@ -135,6 +137,10 @@ class ComposerStaticInit5c7f23189dfdbae478d03c4985419aea
         'c' =>
         array (
             'cweagans\\Composer\\' => 18,
+        ),
+        'Y' =>
+        array (
+            'Yethee\\Tiktoken\\' => 16,
         ),
         'T' =>
         array (
@@ -175,6 +181,7 @@ class ComposerStaticInit5c7f23189dfdbae478d03c4985419aea
             'Symfony\\Component\\DependencyInjection\\' => 38,
             'Symfony\\Component\\Console\\' => 26,
             'Symfony\\Bridge\\PsrHttpMessage\\' => 30,
+            'StandardWebhooks\\' => 17,
             'Shaper\\Tests\\' => 13,
             'Shaper\\' => 7,
             'Sabberworm\\CSS\\' => 15,
@@ -202,6 +209,7 @@ class ComposerStaticInit5c7f23189dfdbae478d03c4985419aea
         ),
         'O' =>
         array (
+            'OpenAI\\' => 7,
             'OomphInc\\ComposerInstallersExtender\\' => 36,
         ),
         'N' =>
@@ -216,6 +224,7 @@ class ComposerStaticInit5c7f23189dfdbae478d03c4985419aea
         ),
         'L' =>
         array (
+            'League\\HTMLToMarkdown\\' => 22,
             'League\\Container\\' => 17,
             'League\\Config\\' => 14,
             'League\\CommonMark\\' => 18,
@@ -228,6 +237,11 @@ class ComposerStaticInit5c7f23189dfdbae478d03c4985419aea
         ),
         'H' =>
         array (
+            'Http\\Promise\\' => 13,
+            'Http\\Message\\MultipartStream\\' => 29,
+            'Http\\Discovery\\' => 15,
+            'Http\\Client\\' => 12,
+            'Http\\Adapter\\Guzzle7\\' => 21,
             'Html2Text\\' => 10,
         ),
         'G' =>
@@ -280,6 +294,7 @@ class ComposerStaticInit5c7f23189dfdbae478d03c4985419aea
         array (
             'Aws\\' => 4,
             'Asm89\\Stack\\' => 12,
+            'Anthropic\\' => 10,
         ),
     );
 
@@ -307,6 +322,10 @@ class ComposerStaticInit5c7f23189dfdbae478d03c4985419aea
         'cweagans\\Composer\\' =>
         array (
             0 => __DIR__ . '/..' . '/cweagans/composer-patches/src',
+        ),
+        'Yethee\\Tiktoken\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/yethee/tiktoken/src',
         ),
         'Twig\\' =>
         array (
@@ -444,6 +463,10 @@ class ComposerStaticInit5c7f23189dfdbae478d03c4985419aea
         array (
             0 => __DIR__ . '/..' . '/symfony/psr-http-message-bridge',
         ),
+        'StandardWebhooks\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/standard-webhooks/standard-webhooks/libraries/php/src',
+        ),
         'Shaper\\Tests\\' =>
         array (
             0 => __DIR__ . '/..' . '/e0ipso/shaper/tests/src',
@@ -517,6 +540,10 @@ class ComposerStaticInit5c7f23189dfdbae478d03c4985419aea
         array (
             0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
         ),
+        'OpenAI\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/openai-php/client/src',
+        ),
         'OomphInc\\ComposerInstallersExtender\\' =>
         array (
             0 => __DIR__ . '/..' . '/oomphinc/composer-installers-extender/src',
@@ -537,6 +564,10 @@ class ComposerStaticInit5c7f23189dfdbae478d03c4985419aea
         'MabeEnum\\' =>
         array (
             0 => __DIR__ . '/..' . '/marc-mabe/php-enum/src',
+        ),
+        'League\\HTMLToMarkdown\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/league/html-to-markdown/src',
         ),
         'League\\Container\\' =>
         array (
@@ -561,6 +592,26 @@ class ComposerStaticInit5c7f23189dfdbae478d03c4985419aea
         'JmesPath\\' =>
         array (
             0 => __DIR__ . '/..' . '/mtdowling/jmespath.php/src',
+        ),
+        'Http\\Promise\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/php-http/promise/src',
+        ),
+        'Http\\Message\\MultipartStream\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/php-http/multipart-stream-builder/src',
+        ),
+        'Http\\Discovery\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/php-http/discovery/src',
+        ),
+        'Http\\Client\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/php-http/httplug/src',
+        ),
+        'Http\\Adapter\\Guzzle7\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/php-http/guzzle7-adapter/src',
         ),
         'Html2Text\\' =>
         array (
@@ -698,6 +749,10 @@ class ComposerStaticInit5c7f23189dfdbae478d03c4985419aea
         'Asm89\\Stack\\' =>
         array (
             0 => __DIR__ . '/..' . '/asm89/stack-cors/src',
+        ),
+        'Anthropic\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/anthropic-ai/sdk/src',
         ),
     );
 

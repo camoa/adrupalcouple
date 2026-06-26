@@ -1,0 +1,25 @@
+_core:
+  default_config_hash: IaNiyCLAJBz5QfQqeZ_MxVRVs4KYTOMlVpf9wFrIVKk
+use_ai_translate: true
+reference_defaults:
+  - block_content
+  - comment
+  - file
+  - media
+  - menu_link_content
+  - node
+  - path_alias
+  - redirect
+  - shortcut
+  - taxonomy_term
+prompt: ai_translate__ai_translate_default
+entity_reference_depth: 1
+language_settings:
+  en:
+    model: anthropic__claude-sonnet-4-6
+    prompt: ai_translate__ai_translate_en
+  es:
+    model: anthropic__claude-sonnet-4-6
+    prompt: ai_translate__ai_translate_es
+translation_status: keep_original
+redirect_after_create: list

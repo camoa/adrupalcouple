@@ -3,13 +3,22 @@
         'name' => 'drupal/recommended-project',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '692c136f2307b4845ff52726f4a5a5464759a902',
+        'reference' => 'f2f3d5617b6ddf78515c0c05dc230dad6769b6e0',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
         'dev' => true,
     ),
     'versions' => array(
+        'anthropic-ai/sdk' => array(
+            'pretty_version' => 'v0.29.2',
+            'version' => '0.29.2.0',
+            'reference' => 'c055ea76f8bfe7aaa536d3aba287f50e3030921f',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../anthropic-ai/sdk',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'asm89/stack-cors' => array(
             'pretty_version' => 'v2.3.0',
             'version' => '2.3.0.0',
@@ -241,6 +250,33 @@
             'reference' => '3.6.3',
             'type' => 'drupal-module',
             'install_path' => __DIR__ . '/../../modules/contrib/admin_toolbar',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'drupal/ai' => array(
+            'pretty_version' => '1.4.3',
+            'version' => '1.4.3.0',
+            'reference' => '1.4.3',
+            'type' => 'drupal-module',
+            'install_path' => __DIR__ . '/../../modules/contrib/ai',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'drupal/ai_provider_anthropic' => array(
+            'pretty_version' => '1.3.0-beta2',
+            'version' => '1.3.0.0-beta2',
+            'reference' => '1.3.0-beta2',
+            'type' => 'drupal-module',
+            'install_path' => __DIR__ . '/../../modules/contrib/ai_provider_anthropic',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'drupal/ai_translate' => array(
+            'pretty_version' => '1.3.1',
+            'version' => '1.3.1.0',
+            'reference' => '1.3.1',
+            'type' => 'drupal-module',
+            'install_path' => __DIR__ . '/../../modules/contrib/ai_translate',
             'aliases' => array(),
             'dev_requirement' => false,
         ),
@@ -725,6 +761,15 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
+        'drupal/key' => array(
+            'pretty_version' => '1.22.0',
+            'version' => '1.22.0.0',
+            'reference' => '8.x-1.22',
+            'type' => 'drupal-module',
+            'install_path' => __DIR__ . '/../../modules/contrib/key',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'drupal/klaro' => array(
             'pretty_version' => '3.1.0',
             'version' => '3.1.0.0',
@@ -883,7 +928,7 @@
         'drupal/recommended-project' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '692c136f2307b4845ff52726f4a5a5464759a902',
+            'reference' => 'f2f3d5617b6ddf78515c0c05dc230dad6769b6e0',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -1280,6 +1325,15 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
+        'league/html-to-markdown' => array(
+            'pretty_version' => '5.1.1',
+            'version' => '5.1.1.0',
+            'reference' => '0b4066eede55c48f38bcee4fb8f0aa85654390fd',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../league/html-to-markdown',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'marc-mabe/php-enum' => array(
             'pretty_version' => 'v4.7.2',
             'version' => '4.7.2.0',
@@ -1370,6 +1424,15 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
+        'openai-php/client' => array(
+            'pretty_version' => 'v0.20.0',
+            'version' => '0.20.0.0',
+            'reference' => 'b5c0e1e0f210e6b9aca5ee048157fcf3039ca91f',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../openai-php/client',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'orno/di' => array(
             'dev_requirement' => false,
             'replaced' => array(
@@ -1430,11 +1493,70 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
+        'php-http/async-client-implementation' => array(
+            'dev_requirement' => false,
+            'provided' => array(
+                0 => '*',
+                1 => '1.0',
+            ),
+        ),
+        'php-http/client-implementation' => array(
+            'dev_requirement' => false,
+            'provided' => array(
+                0 => '*',
+                1 => '1.0',
+            ),
+        ),
+        'php-http/discovery' => array(
+            'pretty_version' => '1.20.0',
+            'version' => '1.20.0.0',
+            'reference' => '82fe4c73ef3363caed49ff8dd1539ba06044910d',
+            'type' => 'composer-plugin',
+            'install_path' => __DIR__ . '/../php-http/discovery',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'php-http/guzzle7-adapter' => array(
+            'pretty_version' => '1.1.0',
+            'version' => '1.1.0.0',
+            'reference' => '03a415fde709c2f25539790fecf4d9a31bc3d0eb',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../php-http/guzzle7-adapter',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'php-http/httplug' => array(
+            'pretty_version' => '2.4.1',
+            'version' => '2.4.1.0',
+            'reference' => '5cad731844891a4c282f3f3e1b582c46839d22f4',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../php-http/httplug',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'php-http/message-factory-implementation' => array(
             'dev_requirement' => false,
             'provided' => array(
                 0 => '1.0',
             ),
+        ),
+        'php-http/multipart-stream-builder' => array(
+            'pretty_version' => '1.4.2',
+            'version' => '1.4.2.0',
+            'reference' => '10086e6de6f53489cca5ecc45b6f468604d3460e',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../php-http/multipart-stream-builder',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'php-http/promise' => array(
+            'pretty_version' => '1.3.1',
+            'version' => '1.3.1.0',
+            'reference' => 'fc85b1fba37c169a69a07ef0d5a8075770cc1f83',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../php-http/promise',
+            'aliases' => array(),
+            'dev_requirement' => false,
         ),
         'php-tuf/composer-stager' => array(
             'pretty_version' => 'v2.0.2',
@@ -1533,7 +1655,8 @@
         'psr/http-client-implementation' => array(
             'dev_requirement' => false,
             'provided' => array(
-                0 => '1.0',
+                0 => '*',
+                1 => '1.0',
             ),
         ),
         'psr/http-factory' => array(
@@ -1548,7 +1671,8 @@
         'psr/http-factory-implementation' => array(
             'dev_requirement' => false,
             'provided' => array(
-                0 => '1.0',
+                0 => '*',
+                1 => '1.0',
             ),
         ),
         'psr/http-message' => array(
@@ -1563,7 +1687,8 @@
         'psr/http-message-implementation' => array(
             'dev_requirement' => false,
             'provided' => array(
-                0 => '1.0',
+                0 => '*',
+                1 => '1.0',
             ),
         ),
         'psr/log' => array(
@@ -1638,6 +1763,15 @@
             'reference' => '7b136768d64f257065e38a804ee6d2f9af6ba6d1',
             'type' => 'library',
             'install_path' => __DIR__ . '/../simshaun/recurr',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'standard-webhooks/standard-webhooks' => array(
+            'pretty_version' => 'v1.0.2',
+            'version' => '1.0.2.0',
+            'reference' => 'a1773d7ffc577d730e2bf4d4bd740a82a42aa904',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../standard-webhooks/standard-webhooks',
             'aliases' => array(),
             'dev_requirement' => false,
         ),
@@ -1983,6 +2117,15 @@
             'reference' => '73045060b0894c77962a10cff047f72872d8810c',
             'type' => 'library',
             'install_path' => __DIR__ . '/../webflo/drupal-finder',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'yethee/tiktoken' => array(
+            'pretty_version' => '0.5.1',
+            'version' => '0.5.1.0',
+            'reference' => '94a4ac18ab505198f5a0955948ab29ce659c1697',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../yethee/tiktoken',
             'aliases' => array(),
             'dev_requirement' => false,
         ),
