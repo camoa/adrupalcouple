@@ -2,23 +2,18 @@ langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_view_mode.node.rss
     - core.entity_view_mode.node.teaser
-    - field.storage.node.field_tags
-    - field.storage.node.schema_abstract
-    - field.storage.node.schema_author
-    - field.storage.node.schema_image
     - node.type.article
-    - taxonomy.vocabulary.tags
   module:
     - node
-    - taxonomy
     - user
-    - views
+  default_config_hash: 6uk-K4LrSyL0WtelgQzOw4iptU0690Kag-HpJaOPu6M
 id: writing_index
 label: 'Writing index'
 module: views
 description: 'Article listing at /writing. Also provides block_1 (Home embed) and feed_1 (Planet Drupal RSS).'
-tag: 'ADrupalCouple'
+tag: ADrupalCouple
 base_table: node_field_data
 base_field: nid
 display:
@@ -33,6 +28,7 @@ display:
         type: full
         options:
           offset: 0
+          pagination_heading_level: h4
           items_per_page: 20
           total_pages: 0
           id: 0
@@ -49,7 +45,6 @@ display:
             items_per_page_options_all_label: '- All -'
             offset: false
             offset_label: Offset
-          pagination_heading_level: h4
       exposed_form:
         type: basic
         options:
@@ -76,6 +71,8 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: node
+          entity_field: created
           plugin_id: date
           order: DESC
           expose:
@@ -83,8 +80,6 @@ display:
             field_identifier: created
           exposed: false
           granularity: second
-          entity_type: node
-          entity_field: created
       arguments: {  }
       filters:
         status:
@@ -192,42 +187,22 @@ display:
       relationships: {  }
       header: {  }
       footer: {  }
+      rendering_language: '***LANGUAGE_language_interface***'
       display_extenders: {  }
     cache_metadata:
       max-age: -1
       contexts:
-        - 'languages:language_content'
         - 'languages:language_interface'
         - url.query_args
         - 'user.node_grants:view'
         - user.permissions
       tags: {  }
-
-  page_1:
-    id: page_1
-    display_title: Page
-    display_plugin: page
-    position: 1
-    display_options:
-      path: writing
-      display_extenders: {  }
-    cache_metadata:
-      max-age: -1
-      contexts:
-        - 'languages:language_content'
-        - 'languages:language_interface'
-        - url.query_args
-        - 'user.node_grants:view'
-        - user.permissions
-      tags: {  }
-
   block_1:
     id: block_1
     display_title: 'Latest writing'
     display_plugin: block
     position: 2
     display_options:
-      block_description: 'Latest writing'
       pager:
         type: some
         options:
@@ -235,23 +210,27 @@ display:
           items_per_page: 4
       defaults:
         pager: false
+      rendering_language: '***LANGUAGE_language_interface***'
       display_extenders: {  }
+      block_description: 'Latest writing'
     cache_metadata:
       max-age: -1
       contexts:
-        - 'languages:language_content'
         - 'languages:language_interface'
         - 'user.node_grants:view'
         - user.permissions
       tags: {  }
-
   feed_1:
     id: feed_1
     display_title: 'Planet Drupal RSS'
     display_plugin: feed
     position: 3
     display_options:
-      path: writing/feed
+      pager:
+        type: some
+        options:
+          offset: 0
+          items_per_page: 20
       style:
         type: rss
         options:
@@ -262,24 +241,38 @@ display:
         options:
           relationship: none
           view_mode: rss
-      pager:
-        type: some
-        options:
-          offset: 0
-          items_per_page: 20
       defaults:
+        pager: false
         style: false
         row: false
-        pager: false
+      rendering_language: '***LANGUAGE_language_interface***'
+      display_extenders: {  }
+      path: writing/feed
       displays:
         page_1: page_1
         default: '0'
-      display_extenders: {  }
     cache_metadata:
       max-age: -1
       contexts:
-        - 'languages:language_content'
         - 'languages:language_interface'
         - 'user.node_grants:view'
         - user.permissions
       tags: {  }
+  page_1:
+    id: page_1
+    display_title: Page
+    display_plugin: page
+    position: 1
+    display_options:
+      rendering_language: '***LANGUAGE_language_interface***'
+      display_extenders: {  }
+      path: writing
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_interface'
+        - url.query_args
+        - 'user.node_grants:view'
+        - user.permissions
+      tags: {  }
+

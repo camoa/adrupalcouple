@@ -1,5 +1,5 @@
 name: 'ADrupalCouple Tier2 Article'
-description: 'Provides field instances on the article node bundle: schema_image, field_illustrative, field_closing_question, plus NEW p7 fields (field_metric compound custom_field, field_disclosure, field_review_date, field_still_valid, field_social_excerpt) and the og:image/twitter:image metatag defaults.'
+description: 'Provides field instances on the article node bundle: schema_image, field_closing_question, plus NEW p7 fields (field_metric compound custom_field, field_disclosure, field_review_date, field_still_valid, field_social_excerpt) and the og:image/twitter:image metatag defaults.'
 type: 'Content type'
 install:
   # twitter:image mapping requires the Twitter Cards metatag submodule (present, was disabled).
@@ -16,9 +16,6 @@ config:
       entity_method:field.field:setLabel: 'Hero image'
       entity_method:field.field:setDescription: 'Used as card thumbnail and og:image. Never displayed on the article page itself.'
       entity_method:field.field:setRequired: false
-    field.field.node.article.field_illustrative:
-      entity_method:field.field:setLabel: 'Illustrative / placeholder'
-      entity_method:field.field:setDescription: 'Marks placeholder/illustrative articles. Excluded from Home, Writing, and Tag listing Views.'
     field.field.node.article.field_closing_question:
       entity_method:field.field:setLabel: 'Closing question'
       entity_method:field.field:setDescription: 'The InvitationClose closing question. Optional; degrades to body prose if empty.'
@@ -156,7 +153,6 @@ config:
           field_closing_question: true
           field_comments: true
           field_disclosure: true
-          field_illustrative: true
           field_metatag: true
           field_metric: true
           field_review_date: true
@@ -224,7 +220,6 @@ config:
           field_closing_question: true
           field_comments: true
           field_disclosure: true
-          field_illustrative: true
           field_metatag: true
           field_metric: true
           field_review_date: true
@@ -323,7 +318,6 @@ config:
           addtoany: true
           content_moderation_control: true
           field_closing_question: true
-          field_illustrative: true
           field_metatag: true
           field_review_date: true
           field_social_excerpt: true
@@ -357,10 +351,8 @@ config:
     # The canonical version is in config/views.view.taxonomy_term.yml (this recipe).
     # These setProperties bring the existing install in sync:
     #   - default display: entity:node teaser row, unformatted style, no pager, no header,
-    #     + field_illustrative filter (exclude illustrative=1), argument title from term label.
     #   - page_1 display: delegate all to defaults (path only override).
     # NOTE: setProperties does a deep-merge per top-level key. The 'filters' merge adds
-    # field_illustrative without touching existing status/type/langcode filters.
     views.view.taxonomy_term:
       setProperties:
         # NOTE: SetProperties does NOT deep-merge — it REPLACES each named property.
@@ -383,46 +375,6 @@ config:
           type: none
           options:
             offset: 0
-        # Add the field_illustrative exclusion filter (leaf path preserves existing
-        # langcode/status/type filters).
-        display.default.display_options.filters.field_illustrative:
-          id: field_illustrative
-          table: node__field_illustrative
-          field: field_illustrative_value
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: boolean
-          operator: '!='
-          value: '1'
-          group: 1
-          exposed: false
-          expose:
-            operator_id: ''
-            label: ''
-            description: ''
-            use_operator: false
-            operator: ''
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: ''
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
         # tid argument already exists (taxonomy_index_tid) — set only the title leaves.
         display.default.display_options.arguments.tid.title_enable: true
         display.default.display_options.arguments.tid.title: ''

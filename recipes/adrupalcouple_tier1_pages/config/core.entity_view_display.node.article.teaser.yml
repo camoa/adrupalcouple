@@ -1,13 +1,24 @@
-uuid: 2f843212-63e4-47f4-b8fd-869d751e5c99
 langcode: en
 status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
+    - field.field.node.article.body
+    - field.field.node.article.field_closing_question
+    - field.field.node.article.field_comments
+    - field.field.node.article.field_disclosure
+    - field.field.node.article.field_metatag
+    - field.field.node.article.field_metric
+    - field.field.node.article.field_review_date
+    - field.field.node.article.field_social_excerpt
+    - field.field.node.article.field_still_valid
     - field.field.node.article.field_tags
+    - field.field.node.article.schema_about
     - field.field.node.article.schema_abstract
+    - field.field.node.article.schema_article_subtype
     - field.field.node.article.schema_author
     - field.field.node.article.schema_image
+    - field.field.node.article.schema_subject_of
     - node.type.article
   module:
     - manage_display
@@ -16,35 +27,77 @@ targetEntityType: node
 bundle: article
 mode: teaser
 content:
+  created:
+    type: timestamp
+    label: hidden
+    settings:
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  field_tags:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  schema_abstract:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  schema_author:
+    type: entity_reference_entity_view
+    label: hidden
+    settings:
+      view_mode: author_byline
+      link: false
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  schema_image:
+    type: entity_reference_entity_view
+    label: hidden
+    settings:
+      view_mode: adc_card_thumbnail
+      link: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
   title:
     type: title
     label: hidden
     settings:
       link_to_entity: true
-      tag: h3
-    third_party_settings: {}
-    weight: -49
+      tag: h2
+    third_party_settings: {  }
+    weight: 1
     region: content
 hidden:
+  addtoany: true
   body: true
   content_moderation_control: true
-  created: true
   field_closing_question: true
   field_comments: true
   field_disclosure: true
-  field_illustrative: true
+  field_metatag: true
   field_metric: true
   field_review_date: true
   field_social_excerpt: true
   field_still_valid: true
-  field_tags: true
   langcode: true
   links: true
   node_read_time: true
+  reading_time: true
   schema_about: true
-  schema_abstract: true
   schema_article_subtype: true
-  schema_author: true
-  schema_image: true
   schema_subject_of: true
   uid: true
+

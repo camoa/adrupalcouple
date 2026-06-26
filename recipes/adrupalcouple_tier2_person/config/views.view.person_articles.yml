@@ -1,15 +1,13 @@
-uuid: a7c3e5f2-1b4d-4a8e-9c6f-3d2e7f0b1a5c
 langcode: en
 status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
-    - field.storage.node.field_illustrative
-    - field.storage.node.schema_author
     - node.type.article
   module:
     - node
     - user
+  default_config_hash: M5zcrtHNcpOv4X9YnWYJcmn0ijfKBOCYVxs8X-HeLpg
 id: person_articles
 label: 'Person Articles'
 module: views
@@ -45,8 +43,8 @@ display:
           perm: 'access content'
       cache:
         type: tag
-        options: {}
-      empty: {}
+        options: {  }
+      empty: {  }
       sorts:
         created:
           id: created
@@ -96,7 +94,7 @@ display:
           validate:
             type: none
             fail: 'not found'
-          validate_options: {}
+          validate_options: {  }
           break_phrase: false
           not: false
           allow_multiple: false
@@ -134,7 +132,7 @@ display:
             use_operator: false
             operator: ''
             operator_limit_selection: false
-            operator_list: {}
+            operator_list: {  }
             identifier: ''
             required: false
             remember: false
@@ -152,58 +150,20 @@ display:
             multiple: false
             remember: false
             default_group: All
-            default_group_multiple: {}
-            group_items: {}
-        field_illustrative_value:
-          id: field_illustrative_value
-          table: node__field_illustrative
-          field: field_illustrative_value
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: boolean
-          operator: '='
-          value: '0'
-          group: 1
-          exposed: false
-          expose:
-            operator_id: ''
-            label: ''
-            description: ''
-            use_operator: false
-            operator: ''
-            operator_limit_selection: false
-            operator_list: {}
-            identifier: ''
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {}
-            group_items: {}
+            default_group_multiple: {  }
+            group_items: {  }
       style:
         type: default
         options:
-          grouping: {}
+          grouping: {  }
           row_class: ''
           default_row_class: true
           uses_fields: false
       row:
         type: 'entity:node'
         options:
-          view_mode: teaser
           relationship: none
+          view_mode: teaser
       query:
         type: views_query
         options:
@@ -211,43 +171,43 @@ display:
           disable_sql_rewrite: false
           distinct: false
           replica: false
-          query_tags: {}
-      relationships: {}
-      header: {}
-      footer: {}
-      display_extenders: {}
+          query_tags: {  }
+      relationships: {  }
+      header: {  }
+      footer: {  }
+      rendering_language: '***LANGUAGE_language_interface***'
+      display_extenders: {  }
     cache_metadata:
       max-age: -1
       contexts:
-        - 'languages:language_content'
         - 'languages:language_interface'
-        - url.query_args
+        - url
         - 'user.node_grants:view'
         - user.permissions
-      tags: []
-
+      tags: {  }
   block_1:
     id: block_1
     display_title: 'Person Articles Block'
     display_plugin: block
     position: 1
     display_options:
-      defaults:
-        title: false
-        cache: false
       title: ''
       cache:
         type: tag
-        options: {}
+        options: {  }
+      defaults:
+        cache: false
+        title: false
+      rendering_language: '***LANGUAGE_language_interface***'
+      display_extenders: {  }
       block_description: 'Person Articles (S3 profile stream)'
-      block_category: 'ADrupalCouple'
-      display_extenders: {}
+      block_category: ADrupalCouple
     cache_metadata:
       max-age: -1
       contexts:
-        - 'languages:language_content'
         - 'languages:language_interface'
-        - url.query_args
+        - url
         - 'user.node_grants:view'
         - user.permissions
-      tags: []
+      tags: {  }
+
