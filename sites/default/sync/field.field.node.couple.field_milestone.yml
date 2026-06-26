@@ -20,6 +20,7 @@ translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:
+  add_more_label: ''
   field_settings:
     year:
       type: text
@@ -55,5 +56,4 @@ settings:
           prefix: ''
           suffix: ''
           required: false
-  add_more_label: ''
 field_type: custom

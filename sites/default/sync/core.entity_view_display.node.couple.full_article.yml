@@ -66,6 +66,7 @@ content:
 hidden:
   created: true
   field_community_story: true
+  field_founding: true
   langcode: true
   links: true
   node_read_time: true

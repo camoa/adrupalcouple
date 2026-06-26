@@ -40,7 +40,9 @@ display:
           expose:
             label: por
   recent_dismissals:
+    display_title: 'Recent Dismissals block'
     display_options:
+      title: 'Recent dismissals'
       fields:
         page_title:
           label: Página

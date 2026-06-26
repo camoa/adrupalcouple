@@ -14,15 +14,15 @@ mode: default
 content:
   field_couple:
     type: entity_reference_autocomplete
-    label: above
+    weight: 0
+    region: content
     settings:
       match_operator: CONTAINS
       match_limit: 10
       size: 60
       placeholder: ''
     third_party_settings: {  }
-    weight: 0
-    region: content
+    label: above
   info:
     type: string_textfield
     weight: -5

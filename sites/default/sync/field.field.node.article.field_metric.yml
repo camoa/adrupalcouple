@@ -20,6 +20,7 @@ translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:
+  add_more_label: ''
   field_settings:
     value:
       type: text
@@ -82,5 +83,4 @@ settings:
           widget_default_open: expandIfValuesSet
           placeholder_url: ''
           placeholder_title: ''
-  add_more_label: ''
 field_type: custom
