@@ -1,0 +1,19 @@
+site_uuid: 6b905249-4230-4c8c-aba3-aafbe2493b6d
+uuid: 89b4f210-5c4f-4df2-9c10-406dd2f45e8b
+entity_type: menu_link_content
+bundle: menu_link_content
+base_fields:
+  title: 'Browse by Topic'
+  enabled: true
+  expanded: false
+  langcode: en
+  menu_name: footer-writing
+  description: null
+  link:
+    -
+      uri: 'internal:/writing'
+      title: null
+      options: {  }
+  weight: 1
+  parent: ''
+custom_fields: {  }

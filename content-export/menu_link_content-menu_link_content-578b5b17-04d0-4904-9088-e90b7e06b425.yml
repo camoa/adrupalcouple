@@ -1,0 +1,19 @@
+site_uuid: 6b905249-4230-4c8c-aba3-aafbe2493b6d
+uuid: 578b5b17-04d0-4904-9088-e90b7e06b425
+entity_type: menu_link_content
+bundle: menu_link_content
+base_fields:
+  title: 'All Writing'
+  enabled: true
+  expanded: false
+  langcode: en
+  menu_name: footer-writing
+  description: null
+  link:
+    -
+      uri: 'internal:/writing'
+      title: null
+      options: {  }
+  weight: 0
+  parent: ''
+custom_fields: {  }

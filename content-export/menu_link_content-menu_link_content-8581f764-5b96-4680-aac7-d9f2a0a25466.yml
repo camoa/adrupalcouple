@@ -1,0 +1,19 @@
+site_uuid: 6b905249-4230-4c8c-aba3-aafbe2493b6d
+uuid: 8581f764-5b96-4680-aac7-d9f2a0a25466
+entity_type: menu_link_content
+bundle: menu_link_content
+base_fields:
+  title: Writing
+  enabled: true
+  expanded: false
+  langcode: en
+  menu_name: main
+  description: null
+  link:
+    -
+      uri: 'internal:/writing'
+      title: null
+      options: {  }
+  weight: -51
+  parent: ''
+custom_fields: {  }

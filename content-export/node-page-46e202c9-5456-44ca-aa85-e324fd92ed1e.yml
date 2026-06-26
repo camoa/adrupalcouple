@@ -1,0 +1,52 @@
+site_uuid: 6b905249-4230-4c8c-aba3-aafbe2493b6d
+uuid: 46e202c9-5456-44ca-aa85-e324fd92ed1e
+entity_type: node
+bundle: page
+base_fields:
+  title: Accessibility
+  status: true
+  langcode: en
+  created: '1782424912'
+  author: null
+  revision_log_message: null
+  revision_uid: '0'
+  moderation_state: published
+  url: /accessibility
+custom_fields:
+  body:
+    -
+      value: |-
+        <p>We want this site to be usable by everyone, regardless of ability or assistive technology. Our target is WCAG 2.2 Level AA conformance. This page describes what we have done, what we are still working on, and how to reach us if something is not working for you.</p>
+
+        <h2>What we have in place</h2>
+        <p>A skip-to-content link at the top of every page so keyboard users can bypass the navigation.</p>
+        <p>Full keyboard navigation, including the language and theme toggles.</p>
+        <p>Atkinson Hyperlegible as the body font, designed specifically for readers with low vision.</p>
+        <p>Reduced motion: all animations collapse to near-instant when the operating system requests it.</p>
+        <p>Semantic HTML with landmark roles, headings in logical order, and labelled navigation regions.</p>
+        <p>All images have descriptive alt text or are marked decorative. No alt text is generated or fabricated.</p>
+        <p>Colour contrast for body text meets WCAG 2.2 AA (4.5:1 minimum) across both light and dark themes.</p>
+        <p>The site respects the operating system colour scheme preference and honours high contrast mode.</p>
+
+        <h2>What we are still working on</h2>
+        <p>A formal third-party accessibility audit has not yet been completed. We cannot claim full WCAG 2.2 AA conformance until that work is done.</p>
+        <p>Touch target sizing: some inline topic chips are at the WCAG 2.5.8 AA floor (24px) rather than our preferred 48px. We are resolving this as part of an ongoing design review.</p>
+        <p>The comment area is a placeholder that will be replaced by Drupal core comments in the production build. The final implementation will be tested separately.</p>
+
+        <h2>Report an issue</h2>
+        <p>If you encounter a barrier on this site, please email us. Describe the page, the assistive technology you use, and what you expected to happen. We aim to respond within five business days.</p>
+        <p><a class="link link-primary" href="mailto:hello@adrupalcouple.com?subject=Accessibility%20issue">hello@adrupalcouple.com</a></p>
+
+        <p class="rounded-box border border-warning bg-warning/10 px-4 py-3 text-sm text-muted"><strong>Note:</strong> Draft. This statement has not been formally reviewed. Client sign-off required before publication.</p>
+      summary: null
+      format: full_html
+      embed_entities: {  }
+  field_subtitle: null
+  field_tags: null
+  layout_builder__layout: null
+  schema_about: null
+  schema_primary_image: null
+  schema_related_link: null
+  schema_significant_link: null
+  schema_subject_of: null
+  schema_web_page_subtype: null

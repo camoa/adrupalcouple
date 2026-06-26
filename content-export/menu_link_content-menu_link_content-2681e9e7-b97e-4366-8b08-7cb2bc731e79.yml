@@ -1,0 +1,33 @@
+site_uuid: 6b905249-4230-4c8c-aba3-aafbe2493b6d
+uuid: 2681e9e7-b97e-4366-8b08-7cb2bc731e79
+entity_type: menu_link_content
+bundle: menu_link_content
+base_fields:
+  title: About
+  enabled: true
+  expanded: false
+  langcode: en
+  menu_name: footer-about
+  description: null
+  link:
+    -
+      uri: 'entity:node/feebc38a-eb9b-443f-bcff-e5c67b6afdde'
+      title: null
+      options: {  }
+      entity:
+        uuid: feebc38a-eb9b-443f-bcff-e5c67b6afdde
+        entity_type: node
+        base_fields:
+          title: 'About Us'
+          status: true
+          langcode: en
+          created: '1686609019'
+          author: info@adrupalcouple.com
+          revision_log_message: null
+          revision_uid: '1'
+          moderation_state: published
+          url: /about-us
+        bundle: page
+  weight: 0
+  parent: ''
+custom_fields: {  }

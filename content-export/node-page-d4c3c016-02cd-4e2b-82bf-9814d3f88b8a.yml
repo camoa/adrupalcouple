@@ -1,0 +1,32 @@
+site_uuid: 6b905249-4230-4c8c-aba3-aafbe2493b6d
+uuid: d4c3c016-02cd-4e2b-82bf-9814d3f88b8a
+entity_type: node
+bundle: page
+base_fields:
+  title: 'We write the honest version.'
+  status: true
+  langcode: en
+  created: '1782424912'
+  author: null
+  revision_log_message: null
+  revision_uid: '0'
+  moderation_state: published
+  url: /we-write-honest-version
+custom_fields:
+  body:
+    -
+      value: '<p>This is a quiet place to read the honest version of what survives production, for the developers and technical leads who are tired of the hype.</p>'
+      summary: null
+      format: full_html
+      embed_entities: {  }
+  field_subtitle:
+    -
+      value: 'What worked, what broke, and what it cost. From both worlds.'
+  field_tags: null
+  layout_builder__layout: null
+  schema_about: null
+  schema_primary_image: null
+  schema_related_link: null
+  schema_significant_link: null
+  schema_subject_of: null
+  schema_web_page_subtype: null

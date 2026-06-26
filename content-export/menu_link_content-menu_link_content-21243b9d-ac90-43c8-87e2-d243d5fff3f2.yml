@@ -1,0 +1,120 @@
+site_uuid: 6b905249-4230-4c8c-aba3-aafbe2493b6d
+uuid: 21243b9d-ac90-43c8-87e2-d243d5fff3f2
+entity_type: menu_link_content
+bundle: menu_link_content
+base_fields:
+  title: About
+  enabled: true
+  expanded: false
+  langcode: en
+  menu_name: main
+  description: null
+  link:
+    -
+      uri: 'entity:node/feebc38a-eb9b-443f-bcff-e5c67b6afdde'
+      title: null
+      options: {  }
+      entity:
+        uuid: feebc38a-eb9b-443f-bcff-e5c67b6afdde
+        entity_type: node
+        bundle: page
+        base_fields:
+          title: 'About Us'
+          status: true
+          langcode: en
+          created: '1686609019'
+          author: info@adrupalcouple.com
+          revision_log_message: null
+          revision_uid: '1'
+          moderation_state: published
+          url: /about-us
+        custom_fields:
+          body:
+            -
+              value: "<p>About ADrupalCouple</p><p>Welcome to ADrupalCouple, a space where partners who live, love, and work together in the Drupal ecosystem share their unique perspectives and experiences.</p><h2>Our Vision</h2><p>We believe that couples who work together in Drupal bring something special to our community - the ability to see challenges and opportunities from complementary perspectives. Whether it's tackling technical problems, contributing to the community, or navigating work-life balance, each partner brings their own viewpoint while sharing a common passion for Drupal.</p><h2>What We Share</h2><p>Here you'll find stories, insights, and experiences from partners who:</p><ul><li>Collaborate on Drupal projects while maintaining healthy relationships</li><li>Navigate the challenges and joys of sharing both personal and professional spaces</li><li>Bring different skills and perspectives to their work</li><li>Contribute to the Drupal community as individuals and couples</li></ul><h2>Join Us</h2><p>Are you part of a couple working together in Drupal? We welcome your voices and stories. This platform is a space for sharing experiences, whether through individual perspectives or joint narratives. Your stories can help others understand the unique dynamics of partnering in both life and Drupal.</p><h2>About the Founders</h2><p>ADrupalCouple was created by Carlos (Camoa) and Ana Laura (Anilu), who experienced firsthand the value of sharing both individual and coupled perspectives in the Drupal community. From different technical backgrounds and approaches, we found that our complementary viewpoints enriched both our work and the community.</p>"
+              summary: 'We met while working in Drupal and found a common interest in the community. ... Eventually we fell in love. '
+              format: basic_html
+              embed_entities: {  }
+          field_subtitle: null
+          field_tags:
+            -
+              uuid: cc0d6a60-c789-4a34-b85a-7e1b861dcaa0
+              entity_type: taxonomy_term
+              bundle: tags
+              base_fields:
+                name: Drupal
+                weight: 0
+                langcode: en
+                description: null
+                parent: 0
+                url: /drupal
+              custom_fields: {  }
+            -
+              uuid: 79fcb52e-f048-4834-9a00-c3122dffaaaf
+              entity_type: taxonomy_term
+              bundle: tags
+              base_fields:
+                name: Drupalcon
+                weight: 1
+                langcode: en
+                description: null
+                parent: 0
+                url: /drupalcon
+              custom_fields: {  }
+            -
+              uuid: 87a9daa7-aac0-457c-92cb-393f25972a29
+              entity_type: taxonomy_term
+              bundle: tags
+              base_fields:
+                name: Community
+                weight: 0
+                langcode: en
+                description: null
+                parent: 0
+                url: /community
+              custom_fields: {  }
+          layout_builder__layout: null
+          schema_about: null
+          schema_primary_image:
+            -
+              uuid: b5cd322e-84c7-41cd-bfa9-905b961051fe
+              entity_type: media
+              bundle: image
+              base_fields:
+                name: 'An adorable and cute anime couple working on Drupal web development, with intense dramatic lighting, high contrast, charming facial features, and a prominently displayed Drupal logo creating tension.jpg'
+                created: '1741282128'
+                status: true
+                langcode: en
+                url: null
+              custom_fields:
+                field_media_image:
+                  -
+                    alt: 'A couple working on a Drupal laptop'
+                    title: ''
+                    target_entity:
+                      uuid: 30f4341b-bd31-4593-9917-ded98aac9753
+                      entity_type: file
+                      bundle: file
+                      base_fields:
+                        name: 'An adorable and cute anime couple working on Drupal web development, with intense dramatic lighting, high contrast, charming facial features, and a prominently displayed Drupal logo creating tension.jpg'
+                        uri: 'public://2025-03/An adorable and cute anime couple working on Drupal web development, with intense dramatic lighting, high contrast, charming facial features, and a prominently displayed Drupal logo creating tension.jpg'
+                        url: 'https://adrupalcouple.ddev.site/sites/default/files/2025-03/An%20adorable%20and%20cute%20anime%20couple%20working%20on%20Drupal%20web%20development%2C%20with%20intense%20dramatic%20lighting%2C%20high%20contrast%2C%20charming%20facial%20features%2C%20and%20a%20prominently%20displayed%20Drupal%20logo%20creating%20tension.jpg'
+                        status: '1'
+                        created: 1741282128
+                        changed: 1741282146
+                        mimetype: image/jpeg
+                        crop:
+                          width: 0
+                          height: 0
+                          x: '688'
+                          'y': '384'
+                      custom_fields: {  }
+          schema_related_link: null
+          schema_significant_link: null
+          schema_subject_of: null
+          schema_web_page_subtype:
+            -
+              value: AboutPage
+  weight: -47
+  parent: ''
+custom_fields: {  }
