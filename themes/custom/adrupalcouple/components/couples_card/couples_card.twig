@@ -27,39 +27,10 @@
   <div class="card-body">
 
     {# ── Avatar pair — overlapping via -space-x-2 ────────────────────────── #}
+    {# `avatars` slot: the caller (node--couple--teaser) renders the two person
+       avatars natively via the media couple_faces view mode. #}
     <div class="flex -space-x-2">
-      {% for person in couple_persons %}
-        {% if person.avatar_url %}
-          {# Image branch: pre-built URL from adc_couple_faces_1x1_128 (128×128px WebP). #}
-          <div class="avatar">
-            <div class="rounded-full w-16">
-              <img
-                src="{{ person.avatar_url }}"
-                alt="{{ person.name }}"
-                width="128"
-                height="128"
-                loading="lazy"
-                decoding="async"
-              />
-            </div>
-          </div>
-        {% else %}
-          {# Initials fallback — mirrors Avatar.tsx avatar-placeholder branch. #}
-          {#
-            Compute initials inline (no custom Twig filter needed):
-            first letter of each word, max 2 chars, uppercase.
-            person.initials is pre-computed by preprocess (PHP is safer for mb_substr).
-            If for any reason it is empty, fall back to first char of the name.
-          #}
-          {%- set _initials = person.initials is not empty ? person.initials : (person.name[0:1]|upper) -%}
-          <div class="avatar avatar-placeholder">
-            <div class="rounded-full bg-primary text-primary-content w-16">
-              <span aria-hidden="true">{{ _initials }}</span>
-              <span class="sr-only">{{ person.name }}</span>
-            </div>
-          </div>
-        {% endif %}
-      {% endfor %}
+      {{ avatars }}
     </div>
 
     {# ── Couple name + optional founding badge ───────────────────────────── #}

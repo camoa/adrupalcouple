@@ -21,13 +21,28 @@
  * @see components/couples_card/couples_card.twig
  */
 #}
-{# couple_name: node.label (string) — `label` is a render array that yields an
-   empty SDC prop, leaving the card-title link blank. (parity fix 2026-06-25) #}
+{# Avatars rendered NATIVELY (media couple_faces view mode via drupal_entity),
+   passed to the SDC as the `avatars` slot — no preprocess avatar URL. #}
+{% set avatars %}
+  {% for item in node.field_couple %}
+    {% set person = item.entity %}
+    {% if person %}
+      {% set media = person.schema_image.entity %}
+      {% if media %}
+        <div class="avatar"><div class="rounded-full w-16 overflow-hidden">{{ drupal_entity('media', media.id, 'couple_faces') }}</div></div>
+      {% else %}
+        <div class="avatar avatar-placeholder"><div class="rounded-full bg-primary text-primary-content w-16"><span aria-hidden="true">{{ person.label|first|upper }}</span><span class="sr-only">{{ person.label }}</span></div></div>
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+{% endset %}
+
+{# couple_name: node.label (string) — `label` is a render array → empty SDC prop. #}
 {{ include('adrupalcouple:couples_card', {
   couple_name: node.label,
   couple_url: url,
   story_excerpt: story_excerpt,
   founding: founding,
   founding_label: founding_label,
-  couple_persons: couple_persons,
+  avatars: avatars,
 }) }}

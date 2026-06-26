@@ -26,25 +26,29 @@
 <div{{ attributes.addClass('couple-hero-entity') }}>
   {# ── Overlapping faces ───────────────────────────────────────────────────── #}
   {# React CoupleHero: two uncaptioned avatars (w-24) overlapping (-space-x-3),
-     rendered BEFORE the name. couple_persons comes from
-     adrupalcouple_preprocess_node__couple() (couple_hero view mode). #}
-  {% if couple_persons %}
+     before the name. NATIVE render: each person's schema_image media is rendered
+     via the media `couple_faces` view mode (drupal_entity, twig_tweak) — no
+     preprocess avatar URL. #}
+  {% if node.field_couple is not empty %}
     <div class="couple-faces flex -space-x-3">
-      {% for person in couple_persons %}
-        {% if person.avatar_url %}
-          <div class="avatar">
-            <div class="w-24 rounded-full ring-2 ring-base-100">
-              <img src="{{ person.avatar_url }}" alt="{{ person.name }}"
-                   width="128" height="128" loading="lazy" decoding="async">
+      {% for item in node.field_couple %}
+        {% set person = item.entity %}
+        {% if person %}
+          {% set media = person.schema_image.entity %}
+          {% if media %}
+            <div class="avatar">
+              <div class="w-24 rounded-full ring-2 ring-base-100 overflow-hidden">
+                {{ drupal_entity('media', media.id, 'couple_faces') }}
+              </div>
             </div>
-          </div>
-        {% else %}
-          <div class="avatar avatar-placeholder">
-            <div class="w-24 rounded-full ring-2 ring-base-100 bg-primary text-primary-content">
-              <span aria-hidden="true" class="text-2xl font-semibold">{{ person.initials }}</span>
-              <span class="sr-only">{{ person.name }}</span>
+          {% else %}
+            <div class="avatar avatar-placeholder">
+              <div class="w-24 rounded-full ring-2 ring-base-100 bg-primary text-primary-content">
+                <span aria-hidden="true" class="text-2xl font-semibold">{{ person.label|first|upper }}</span>
+                <span class="sr-only">{{ person.label }}</span>
+              </div>
             </div>
-          </div>
+          {% endif %}
         {% endif %}
       {% endfor %}
     </div>

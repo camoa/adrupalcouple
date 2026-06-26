@@ -35,29 +35,17 @@ props:
       type: string
       title: 'Founding badge label'
       description: 'Translated label text for the founding badge. EN: "Founding couple", ES: "Pareja fundadora".'
-    couple_persons:
-      type: array
-      title: 'Person face data'
-      description: 'Up to 2 persons from field_couple. Each item has name, avatar_url, initials.'
-      items:
-        type: object
-        properties:
-          name:
-            type: string
-            title: 'Person display name'
-            description: 'Used as img alt text and sr-only text for initials fallback.'
-          avatar_url:
-            type: string
-            title: 'Avatar image URL'
-            description: 'Pre-built URL from adc_couple_faces_1x1_128 image style (128×128px WebP). Empty string triggers initials fallback.'
-          initials:
-            type: string
-            title: 'Initials fallback'
-            description: 'First letter of first and last name, uppercase (e.g. "CO"). Used when avatar_url is empty.'
     modifier_class:
       type: string
       title: 'Extra CSS class'
       description: 'Additional utility classes appended to the article root. Optional.'
+slots:
+  avatars:
+    title: 'Avatar pair'
+    description: >
+      The two person avatars (overlapping). Rendered by the caller
+      (node--couple--teaser) via the media couple_faces view mode — no
+      pre-built URL prop.
 libraryOverrides:
   dependencies:
     - core/drupal

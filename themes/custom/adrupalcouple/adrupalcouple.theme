@@ -224,9 +224,9 @@ function adrupalcouple_preprocess_block(array &$variables): void {
  *   founding_label — t('Founding couple')
  *   story_excerpt  — body.summary or first 160 chars of body.value (strip_tags)
  *
- * Architecture ref: page_couples/architecture.md §7b — preprocess option (b).
- * Uses _adrupalcouple_person_initials() (defined below) for mb_substr-safe initials.
- * Avatar URL from $image_style->buildUrl() — SDC takes a raw URL, not a render array.
+ * Avatars (teaser/couple_hero/couple_story) render NATIVELY in their templates
+ * via the media couple_faces view mode (drupal_entity) — this hook only computes
+ * the founding flag/label + body excerpt (teaser) and the full_article vars.
  */
 function adrupalcouple_preprocess_node__couple(array &$variables): void {
   $view_mode = $variables['view_mode'] ?? '';
@@ -235,43 +235,10 @@ function adrupalcouple_preprocess_node__couple(array &$variables): void {
   $node = $variables['node'];
 
   // ── Teaser view mode: populate variables for the couples_card SDC ──────────
+  // Avatars render NATIVELY in node--couple--teaser.html.twig (media couple_faces
+  // view mode → the SDC `avatars` slot) — no preprocess avatar URL. Only the
+  // founding flag/label and the body excerpt are computed here.
   if ($view_mode === 'teaser') {
-    /** @var \Drupal\image\ImageStyleInterface|null $image_style */
-    $image_style = \Drupal::entityTypeManager()
-      ->getStorage('image_style')
-      ->load('adc_couple_faces_1x1_128');
-
-    $persons = [];
-    if ($node->hasField('field_couple') && !$node->get('field_couple')->isEmpty()) {
-      foreach ($node->get('field_couple')->referencedEntities() as $person) {
-        /** @var \Drupal\node\NodeInterface $person */
-        $avatar_url = '';
-        if ($image_style
-          && $person->hasField('schema_image')
-          && !$person->get('schema_image')->isEmpty()
-        ) {
-          /** @var \Drupal\media\MediaInterface|null $media */
-          $media = $person->get('schema_image')->entity;
-          if ($media !== NULL
-            && $media->hasField('field_media_image')
-            && !$media->get('field_media_image')->isEmpty()
-          ) {
-            /** @var \Drupal\file\FileInterface|null $file */
-            $file = $media->get('field_media_image')->entity;
-            if ($file !== NULL) {
-              $avatar_url = $image_style->buildUrl($file->getFileUri());
-            }
-          }
-        }
-        $persons[] = [
-          'name'       => (string) $person->label(),
-          'avatar_url' => $avatar_url,
-          'initials'   => _adrupalcouple_person_initials((string) $person->label()),
-        ];
-      }
-    }
-    $variables['couple_persons'] = $persons;
-
     $variables['founding'] = FALSE;
     if ($node->hasField('field_founding') && !$node->get('field_founding')->isEmpty()) {
       $variables['founding'] = (bool) $node->get('field_founding')->value;
@@ -306,53 +273,8 @@ function adrupalcouple_preprocess_node__couple(array &$variables): void {
     return;
   }
 
-  // ── couple_hero / couple_story view modes: lightweight person avatars ─────
-  // React CoupleHero (§1) and CoupleStory (§3) both use the Avatar component
-  // (clean image, no stacked figcaption) with different wrappers — the hero
-  // overlaps two uncaptioned avatars BEFORE the name; §3 shows avatar+name+role
-  // inline. Expose couple_persons[{name,avatar_url,initials,role}] so the
-  // templates can render that directly instead of the captioned couple_faces
-  // atom (which matches neither React variant). (parity fix 2026-06-25)
-  if (in_array($view_mode, ['couple_hero', 'couple_story'], TRUE)) {
-    /** @var \Drupal\image\ImageStyleInterface|null $image_style */
-    $image_style = \Drupal::entityTypeManager()
-      ->getStorage('image_style')
-      ->load('adc_couple_faces_1x1_128');
-    $persons = [];
-    if ($node->hasField('field_couple') && !$node->get('field_couple')->isEmpty()) {
-      foreach ($node->get('field_couple')->referencedEntities() as $person) {
-        $avatar_url = '';
-        if ($image_style
-          && $person->hasField('schema_image')
-          && !$person->get('schema_image')->isEmpty()
-        ) {
-          /** @var \Drupal\media\MediaInterface|null $media */
-          $media = $person->get('schema_image')->entity;
-          if ($media !== NULL
-            && $media->hasField('field_media_image')
-            && !$media->get('field_media_image')->isEmpty()
-          ) {
-            $file = $media->get('field_media_image')->entity;
-            if ($file !== NULL) {
-              $avatar_url = $image_style->buildUrl($file->getFileUri());
-            }
-          }
-        }
-        $role = '';
-        if ($person->hasField('field_role') && !$person->get('field_role')->isEmpty()) {
-          $role = (string) $person->get('field_role')->value;
-        }
-        $persons[] = [
-          'name'       => (string) $person->label(),
-          'avatar_url' => $avatar_url,
-          'initials'   => _adrupalcouple_person_initials((string) $person->label()),
-          'role'       => $role,
-        ];
-      }
-    }
-    $variables['couple_persons'] = $persons;
-    return;
-  }
+  // couple_hero / couple_story view modes render their avatars NATIVELY in their
+  // own templates (media couple_faces view mode via drupal_entity) — no preprocess.
 
   // ── Full / full_article view mode: couple profile page six-section layout ──
   // Populates variables consumed by node--couple--full-article.html.twig.

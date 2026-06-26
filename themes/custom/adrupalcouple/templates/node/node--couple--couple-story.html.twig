@@ -33,32 +33,36 @@
 <div{{ attributes.addClass('couple-story-entity mt-6') }}>
 
   {# ── Faces FIRST (React CoupleStory order) — avatar (w-20) + name + role ──── #}
-  {# inline, not the captioned-below couple_faces atom. couple_persons from
-     adrupalcouple_preprocess_node__couple() (couple_story view mode). #}
-  {% if couple_persons %}
+  {# inline. NATIVE render: schema_image media via the media `couple_faces` view
+     mode (drupal_entity, twig_tweak); name/role from native field access — no
+     preprocess avatar URL. #}
+  {% if node.field_couple is not empty %}
     <div class="couple-faces flex flex-wrap items-center gap-4 mb-6">
-      {% for person in couple_persons %}
-        <div class="flex items-center gap-3">
-          {% if person.avatar_url %}
-            <div class="avatar">
-              <div class="w-20 rounded-full">
-                <img src="{{ person.avatar_url }}" alt="{{ person.name }}"
-                     width="128" height="128" loading="lazy" decoding="async">
+      {% for item in node.field_couple %}
+        {% set person = item.entity %}
+        {% if person %}
+          {% set media = person.schema_image.entity %}
+          <div class="flex items-center gap-3">
+            {% if media %}
+              <div class="avatar">
+                <div class="w-20 rounded-full overflow-hidden">
+                  {{ drupal_entity('media', media.id, 'couple_faces') }}
+                </div>
               </div>
-            </div>
-          {% else %}
-            <div class="avatar avatar-placeholder">
-              <div class="w-20 rounded-full bg-primary text-primary-content">
-                <span aria-hidden="true" class="text-xl font-semibold">{{ person.initials }}</span>
-                <span class="sr-only">{{ person.name }}</span>
+            {% else %}
+              <div class="avatar avatar-placeholder">
+                <div class="w-20 rounded-full bg-primary text-primary-content">
+                  <span aria-hidden="true" class="text-xl font-semibold">{{ person.label|first|upper }}</span>
+                  <span class="sr-only">{{ person.label }}</span>
+                </div>
               </div>
+            {% endif %}
+            <div>
+              <p class="font-heading text-lg font-semibold">{{ person.label }}</p>
+              {% if person.field_role.0.value %}<p class="text-sm text-muted">{{ person.field_role.0.value }}</p>{% endif %}
             </div>
-          {% endif %}
-          <div>
-            <p class="font-heading text-lg font-semibold">{{ person.name }}</p>
-            {% if person.role %}<p class="text-sm text-muted">{{ person.role }}</p>{% endif %}
           </div>
-        </div>
+        {% endif %}
       {% endfor %}
     </div>
   {% endif %}
