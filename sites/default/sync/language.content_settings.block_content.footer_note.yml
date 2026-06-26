@@ -1,0 +1,16 @@
+uuid: 5661ef5b-86e0-45f3-ada8-d2dae04d4964
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.footer_note
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: true
+id: block_content.footer_note
+target_entity_type_id: block_content
+target_bundle: footer_note
+default_langcode: site_default
+language_alterable: false

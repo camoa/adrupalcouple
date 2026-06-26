@@ -1,0 +1,23 @@
+uuid: 54ae929d-d45a-4e0b-84d0-7f7261f04485
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:footer_note:d60a4299-c314-4e65-9a00-d5a8ef5b7c84'
+  module:
+    - block_content
+  theme:
+    - adrupalcouple
+id: adrupalcouple_footer_note
+theme: adrupalcouple
+region: footer
+weight: 2
+provider: null
+plugin: 'block_content:d60a4299-c314-4e65-9a00-d5a8ef5b7c84'
+settings:
+  id: 'block_content:d60a4299-c314-4e65-9a00-d5a8ef5b7c84'
+  label: 'Footer note'
+  label_display: '0'
+  provider: block_content
+  view_mode: full
+visibility: {  }

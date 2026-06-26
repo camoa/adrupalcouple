@@ -1,0 +1,36 @@
+site_uuid: 6b905249-4230-4c8c-aba3-aafbe2493b6d
+uuid: d60a4299-c314-4e65-9a00-d5a8ef5b7c84
+entity_type: block_content
+bundle: footer_note
+base_fields:
+  info: 'Footer note'
+  reusable: true
+  langcode: en
+  block_revision_id: '13'
+  enforce_new_revision: true
+custom_fields:
+  body:
+    -
+      value: |-
+        <p>Written by two people, in English and Spanish.</p>
+        <p>Built with Drupal, read on quiet pages.</p>
+      summary: null
+      format: basic_html
+      embed_entities: {  }
+translations:
+  es:
+    base_fields:
+      info: 'Footer note'
+      reusable: true
+      langcode: es
+      block_revision_id: '13'
+      enforce_new_revision: true
+    custom_fields:
+      body:
+        -
+          value: |-
+            <p>Escrito por dos personas, en inglés y español.</p>
+            <p>Construido con Drupal, leído en páginas tranquilas.</p>
+          summary: null
+          format: basic_html
+          embed_entities: {  }

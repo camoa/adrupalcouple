@@ -1,0 +1,25 @@
+uuid: 1b583b81-a09a-4b7f-8a0b-e12b3c404d43
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.footer-writing
+  module:
+    - system
+  theme:
+    - adrupalcouple
+id: adrupalcouple_footer_writing
+theme: adrupalcouple
+region: footer
+weight: 0
+provider: null
+plugin: 'system_menu_block:footer-writing'
+settings:
+  id: 'system_menu_block:footer-writing'
+  label: Writing
+  label_display: ''
+  provider: system
+  level: 1
+  depth: 0
+  expand_all_items: false
+visibility: {  }

@@ -1,0 +1,9 @@
+{#
+  Footer "The couple" menu column. Distinct aria-label per nav (D1); the menu
+  links are styled by templates/system/menu--footer.html.twig. Includes the
+  required /accessibility link (§14.3).
+#}
+<nav aria-label="{{ configuration.label }}">
+  <h2 class="footer-title">{{ configuration.label }}</h2>
+  {{ content }}
+</nav>

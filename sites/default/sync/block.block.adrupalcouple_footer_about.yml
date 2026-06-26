@@ -1,0 +1,25 @@
+uuid: a5d1810f-2f40-425e-a2dc-f0b60038ed06
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.footer-about
+  module:
+    - system
+  theme:
+    - adrupalcouple
+id: adrupalcouple_footer_about
+theme: adrupalcouple
+region: footer
+weight: 1
+provider: null
+plugin: 'system_menu_block:footer-about'
+settings:
+  id: 'system_menu_block:footer-about'
+  label: 'The couple'
+  label_display: ''
+  provider: system
+  level: 1
+  depth: 0
+  expand_all_items: false
+visibility: {  }

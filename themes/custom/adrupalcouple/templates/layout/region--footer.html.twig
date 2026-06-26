@@ -1,0 +1,29 @@
+{#
+  region--footer.html.twig
+
+  Presentation-only DaisyUI footer shell. No PHP, no preprocess.
+  `content` is the rendered string of the three blocks placed in the `footer`
+  region (each themed by its own block-id template):
+    - adrupalcouple_footer_writing  (core menu block: footer-writing)
+    - adrupalcouple_footer_about    (core menu block: footer-about)
+    - adrupalcouple_footer_note     (footer_note block_content; editor copy, EN/ES)
+  Brand / copyright name from config via twig_tweak (no preprocess).
+  D2 contrast: text-muted (4.62:1), do NOT revert to opacity-*.
+#}
+{% set site_name = drupal_config('system.site', 'name') %}
+
+<footer class="mt-16 border-t border-base-300 bg-base-200">
+
+  {# DaisyUI `footer` grid — the three block-id templates render the columns. #}
+  <div class="footer mx-auto max-w-5xl gap-10 px-4 py-12 text-base-content sm:footer-horizontal">
+    {{ content }}
+  </div>
+
+  {# Copyright bar #}
+  <div class="mx-auto max-w-5xl px-4 pb-8 text-xs">
+    <p class="text-muted">
+      &copy; <span data-vrt-mask>{{ "now"|date("Y") }}</span> {{ site_name }}.
+    </p>
+  </div>
+
+</footer>

@@ -1,8 +1,0 @@
-name: 'ADrupalCouple Chrome'
-type: module
-description: 'Global chrome blocks for ADrupalCouple: SDC footer with menu wiring and theme toggle. Provides the SdcFooterBlock plugin that loads footer_writing and footer_about menus and passes rendered link items into the adrupalcouple:footer SDC slots — keeping all business logic in PHP, not in the template.'
-core_version_requirement: ^11
-package: Custom
-dependencies:
-  - drupal:system
-  - drupal:language

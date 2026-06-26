@@ -1,0 +1,8 @@
+{#
+  Footer "Writing" menu column. Distinct aria-label per nav (D1); the menu links
+  themselves are styled by templates/system/menu--footer.html.twig.
+#}
+<nav aria-label="{{ configuration.label }}">
+  <h2 class="footer-title">{{ configuration.label }}</h2>
+  {{ content }}
+</nav>

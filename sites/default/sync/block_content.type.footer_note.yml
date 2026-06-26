@@ -1,0 +1,8 @@
+uuid: d8e287c6-c6fd-4bb7-9037-306dc1310fa6
+langcode: en
+status: true
+dependencies: {  }
+id: footer_note
+label: 'Footer note'
+revision: false
+description: null

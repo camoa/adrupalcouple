@@ -1,0 +1,23 @@
+uuid: 56dca4c3-d7f1-4802-b99c-6b6e2cc1d4f1
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.footer_note
+    - field.field.block_content.footer_note.body
+  module:
+    - text
+id: block_content.footer_note.default
+targetEntityType: block_content
+bundle: footer_note
+mode: default
+content:
+  body:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  langcode: true
