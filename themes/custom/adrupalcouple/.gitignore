@@ -1,6 +1,6 @@
 node_modules/*
-dist/*
 *.css
 !*.pcss.css
+!dist/**
 package-lock.json
 node_modules
