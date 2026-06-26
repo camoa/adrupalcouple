@@ -2,8 +2,12 @@
   Footer "The couple" menu column. Distinct aria-label per nav (D1); the menu
   links are styled by templates/system/menu--footer.html.twig. Includes the
   required /accessibility link (§14.3).
+  {{ attributes }} (data-contextual-id) + title_prefix/title_suffix keep the
+  contextual in-place edit links working.
 #}
-<nav aria-label="{{ configuration.label }}">
+<nav{{ attributes.setAttribute('aria-label', configuration.label) }}>
+  {{ title_prefix }}
   <h2 class="footer-title">{{ configuration.label }}</h2>
+  {{ title_suffix }}
   {{ content }}
 </nav>

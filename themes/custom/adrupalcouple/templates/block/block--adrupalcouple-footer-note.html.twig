@@ -1,8 +1,12 @@
 {#
   Footer brand-note column: site name (config) + the editable footer_note
   block_content body (EN/ES). D2 contrast: text-muted, never opacity-*.
+  {{ attributes }} (data-contextual-id) + title_prefix/title_suffix keep the
+  contextual in-place edit link so the tagline copy is editable from the page.
 #}
-<div class="max-w-xs">
+<div{{ attributes.addClass('max-w-xs') }}>
+  {{ title_prefix }}
+  {{ title_suffix }}
   <p class="font-heading text-base font-semibold">{{ drupal_config('system.site', 'name') }}</p>
   <div class="mt-1 text-sm text-muted">{{ content }}</div>
 </div>
