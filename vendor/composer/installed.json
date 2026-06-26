@@ -3052,63 +3052,6 @@
             "install-path": "../../modules/contrib/devel"
         },
         {
-            "name": "drupal/dropdown_language",
-            "version": "4.1.0",
-            "version_normalized": "4.1.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://git.drupalcode.org/project/dropdown_language.git",
-                "reference": "4.1.0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/dropdown_language-4.1.0.zip",
-                "reference": "4.1.0",
-                "shasum": "078708dc86e3bde53d39c8018f1eef53909acf58"
-            },
-            "require": {
-                "drupal/core": "^11",
-                "php": "^8.3"
-            },
-            "type": "drupal-module",
-            "extra": {
-                "drupal": {
-                    "version": "4.1.0",
-                    "datestamp": "1715865882",
-                    "security-coverage": {
-                        "status": "covered",
-                        "message": "Covered by Drupal's security advisory policy"
-                    }
-                }
-            },
-            "installation-source": "dist",
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "Scott Carpenter",
-                    "homepage": "https://www.drupal.org/user/291091",
-                    "email": "dropdown-language@goodscott.com"
-                },
-                {
-                    "name": "grevil",
-                    "homepage": "https://www.drupal.org/user/3668491"
-                },
-                {
-                    "name": "SKAUGHT",
-                    "homepage": "https://www.drupal.org/user/297907"
-                }
-            ],
-            "description": "Dropdown Language Switcher. https://www.drupal.org/project/dropdown_language",
-            "homepage": "https://www.drupal.org/project/dropdown_language",
-            "support": {
-                "source": "https://git.drupalcode.org/project/dropdown_language"
-            },
-            "install-path": "../../modules/contrib/dropdown_language"
-        },
-        {
             "name": "drupal/easy_breadcrumb",
             "version": "2.0.9",
             "version_normalized": "2.0.9.0",

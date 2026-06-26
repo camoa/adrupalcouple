@@ -63,3 +63,14 @@
     padding-block-start: 0;
   }
 }
+
+/* Language switcher (EN/ES join): the active language fills btn-primary.
+   `is-active` is added at render by set_active_class, so it can't be a
+   template-time utility — this maps that state to the React active fill.
+   UNLAYERED on purpose: DaisyUI `.btn` lives in @layer components and would
+   otherwise out-cascade a same-layer rule (same precedence quirk as a11y.pcss). */
+.language-link.is-active {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--color-primary-content);
+}

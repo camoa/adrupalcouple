@@ -1,5 +1,0 @@
-dropdown-language-admin:
-  version: VERSION
-  css:
-    theme:
-      css/dropdown_language_admin.css: {}

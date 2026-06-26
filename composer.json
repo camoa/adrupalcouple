@@ -30,7 +30,6 @@
         "drupal/core-recommended": "^11",
         "drupal/custom_field": "^3.0@RC",
         "drupal/devel": "^5.1",
-        "drupal/dropdown_language": "^4.0",
         "drupal/easy_breadcrumb": "^2.0",
         "drupal/editor_advanced_link": "^2.2",
         "drupal/editoria11y": "^2.1",

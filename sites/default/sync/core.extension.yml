@@ -31,7 +31,6 @@ module:
   custom_field_jsonapi: 0
   datetime: 0
   dblog: 0
-  dropdown_language: 0
   dynamic_page_cache: 0
   easy_breadcrumb: 0
   editor: 0

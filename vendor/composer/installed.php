@@ -3,7 +3,7 @@
         'name' => 'drupal/recommended-project',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '655b1883014dfe1c302d1e35a005f78b8eca41b0',
+        'reference' => 'ed79b27a7004d85dbd15cbf629cfe221dab43d5c',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -523,15 +523,6 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
-        'drupal/dropdown_language' => array(
-            'pretty_version' => '4.1.0',
-            'version' => '4.1.0.0',
-            'reference' => '4.1.0',
-            'type' => 'drupal-module',
-            'install_path' => __DIR__ . '/../../modules/contrib/dropdown_language',
-            'aliases' => array(),
-            'dev_requirement' => false,
-        ),
         'drupal/easy_breadcrumb' => array(
             'pretty_version' => '2.0.9',
             'version' => '2.0.9.0',
@@ -883,7 +874,7 @@
         'drupal/recommended-project' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '655b1883014dfe1c302d1e35a005f78b8eca41b0',
+            'reference' => 'ed79b27a7004d85dbd15cbf629cfe221dab43d5c',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

@@ -23,7 +23,7 @@ content:
     region: content
     settings:
       rows: 5
-      placeholder: ''
+      placeholder: 'Share what you have seen in production…'
     third_party_settings: {  }
   langcode:
     type: language_select

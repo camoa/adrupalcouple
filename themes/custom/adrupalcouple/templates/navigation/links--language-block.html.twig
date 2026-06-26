@@ -1,0 +1,28 @@
+{#
+/**
+ * @file
+ * Language switcher (core language_block:language_interface) themed as the React
+ * LanguageSwitcher: a DaisyUI `join` of two `btn btn-sm` toggles (EN / ES). No
+ * preprocess. We render the ORIGINAL core link render array (so its language-
+ * prefixed URL and the active-link `is-active` class are preserved) and merely
+ * merge the button classes in + abbreviate the title to its 2-char code
+ * (English→EN, Español→ES). The active language is filled via the
+ * `.language-link.is-active` rule in css/components (set_active_class output).
+ *
+ * @see core/modules/system/templates/links.html.twig (the template this overrides)
+ */
+#}
+{% if links %}
+  <div{{ attributes.addClass('join').setAttribute('role', 'group') }}>
+    {%- for item in links -%}
+      {%- set btn = ['btn', 'btn-sm', 'join-item', 'language-link', 'transition-colors', 'duration-150'] -%}
+      {{ item.link|merge({
+        '#title': item.link['#title']|slice(0, 2)|upper,
+        '#options': (item.link['#options']|default({}))|merge({
+          'attributes': ((item.link['#options']['attributes'])|default({}))|merge({'class': btn}),
+          'set_active_class': true,
+        }),
+      }) }}
+    {%- endfor -%}
+  </div>
+{% endif %}
