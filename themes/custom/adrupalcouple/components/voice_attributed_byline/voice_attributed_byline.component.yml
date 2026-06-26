@@ -17,7 +17,7 @@ props:
   required:
     - author_name
     - author_role
-    - author_slug
+    - author_url
     - date_iso
     - date_formatted
   properties:
@@ -29,9 +29,13 @@ props:
       title: "Author role"
       description: "Role or title of the primary author (e.g. 'Technical Architect')."
       type: string
+    author_url:
+      title: "Author URL"
+      description: "Absolute-path URL to the author's profile (the person's real alias, e.g. /camoa). Computed server-side via $person->toUrl(); do not build from a slug pattern."
+      type: string
     author_slug:
       title: "Author slug"
-      description: "URL slug for the author profile. Used to build /people/{{ author_slug }}."
+      description: "URL slug for the author profile (last alias segment). Retained for parity; the rendered link uses author_url, not a /people/ pattern."
       type: string
     author_initials:
       title: "Author initials"
@@ -70,7 +74,11 @@ props:
       type: string
     second_author_slug:
       title: "Second author slug"
-      description: "URL slug for the second author's profile. Only used when mode is 'we'."
+      description: "URL slug for the second author's profile. Retained for parity; the link uses second_author_url. Only when mode is 'we'."
+      type: string
+    second_author_url:
+      title: "Second author URL"
+      description: "Absolute-path URL to the second author's profile (real alias via $person->toUrl()). Only when mode is 'we'."
       type: string
     second_author_initials:
       title: "Second author initials"

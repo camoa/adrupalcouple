@@ -791,3 +791,18 @@ if (file_exists($app_root . '/' . $site_path . '/settings.prod.php')) {
  if (file_exists($app_root . '/' . $site_path . '/settings.local.php')) {
    include $app_root . '/' . $site_path . '/settings.local.php';
  }
+
+/**
+ * Keep the DB connection alive during slow external API calls.
+ *
+ * AI translation (and any long external request) leaves the MySQL connection
+ * idle while waiting on the provider. On shared hosting MySQL's wait_timeout can
+ * be short enough to drop that idle connection; the next query then fails with
+ * "MySQL server has gone away" (SQLSTATE HY000 2006), which in a Batch API run
+ * surfaces as a 500 on the /batch URL. Raise the session timeout per connection
+ * so the connection survives slow API calls. Placed after the environment
+ * includes so it applies to whatever $databases they define.
+ */
+if (isset($databases['default']['default'])) {
+  $databases['default']['default']['init_commands']['wait_timeout'] = 'SET SESSION wait_timeout=28800';
+}

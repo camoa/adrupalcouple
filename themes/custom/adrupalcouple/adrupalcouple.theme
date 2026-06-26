@@ -467,6 +467,8 @@ function adrupalcouple_preprocess_node__article(array &$variables): void {
 
   $author1_alias = $alias_manager->getAliasByPath('/node/' . $author1->id());
   $author1_slug = _adrupalcouple_slug_from_alias($author1_alias, $author1->id());
+  // Real profile URL (the person's actual alias, e.g. /camoa) — not a /people/ guess.
+  $author1_url = $author1->toUrl()->toString();
 
   // Initials (max 2 chars, upper-case) for avatar placeholder fallback.
   // Cast via (string) ?? '' to satisfy strict_types — label() is string|null.
@@ -479,6 +481,7 @@ function adrupalcouple_preprocess_node__article(array &$variables): void {
       ? (string) $author1->get('field_role')->value
       : '',
     'author_slug' => $author1_slug,
+    'author_url' => $author1_url,
     'author_initials' => $author1_initials,
     'date_iso' => $date_iso,
     'date_formatted' => $date_formatted,
@@ -507,6 +510,7 @@ function adrupalcouple_preprocess_node__article(array &$variables): void {
       ? (string) $author2->get('field_role')->value
       : '';
     $props['second_author_slug'] = $author2_slug;
+    $props['second_author_url'] = $author2->toUrl()->toString();
     $props['second_author_initials'] = _adrupalcouple_person_initials($author2_name);
 
     $avatar2 = _adrupalcouple_person_avatar($author2, $author2_name);

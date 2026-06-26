@@ -64,10 +64,10 @@
   <div class="text-sm leading-tight">
     <p class="font-semibold">
       {{ 'By'|t }}
-      <a href="/people/{{ author_slug }}" class="link link-hover">{{ author_name }}</a>
+      <a href="{{ author_url }}" class="link link-hover">{{ author_name }}</a>
       {% if is_we %}
         {{ 'and'|t }}
-        <a href="/people/{{ second_author_slug }}" class="link link-hover">{{ second_author_name }}</a>
+        <a href="{{ second_author_url }}" class="link link-hover">{{ second_author_name }}</a>
       {% endif %}
     </p>
     <p class="text-muted">
