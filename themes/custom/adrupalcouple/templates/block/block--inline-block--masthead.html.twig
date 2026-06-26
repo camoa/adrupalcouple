@@ -1,0 +1,56 @@
+{#
+/**
+ * @file
+ * Compact Masthead inline block — block_content.masthead, default display.
+ *
+ * Home §1 (LB Section 1, bg-base-100). Reproduces HomePage.tsx Section 1:
+ * brand name, H1 tagline (id="home-claim"), subtitle, TwoPersonCredit SDC,
+ * and the quiet "Read the latest writing" link to /writing.
+ *
+ * The LB section shell (bg-base-100 + py-16 via UI Styles) is applied on the
+ * section itself. This template owns the inner container
+ * (mx-auto max-w-3xl px-4 py-16 sm:py-24) per the React reference.
+ *
+ * Variables injected by adrupalcouple_preprocess_block__inline_block__masthead():
+ * - brand_name    string  field_brand_name value (logotype line).
+ * - tagline       string  field_tagline value (the H1 homeClaim).
+ * - subtitle      string  field_subtitle value (homeClaimSub standfirst).
+ * - couple_credit array   TwoPersonCredit SDC props (derived from node.couple).
+ * - writing_url   string  resolved /writing path (view.writing_index.page_1).
+ *
+ * @see adrupalcouple:two_person_credit (SDC)
+ * @see adrupalcouple_preprocess_block__inline_block__masthead()
+ */
+#}
+<div{{ attributes.addClass('block block--inline-block block--type-masthead') }}>
+  {{ title_prefix }}
+  {{ title_suffix }}
+  <div class="mx-auto max-w-3xl px-4 py-16 sm:py-24">
+
+    {% if brand_name %}
+      <p class="font-heading text-base font-semibold tracking-tight text-primary">{{ brand_name }}</p>
+    {% endif %}
+
+    {% if tagline %}
+      <h1 id="home-claim" class="mt-4 font-heading text-4xl font-semibold leading-tight sm:text-5xl">{{ tagline }}</h1>
+    {% endif %}
+
+    {# D2: full ink color (14.43:1) — do NOT reduce opacity. #}
+    {% if subtitle %}
+      <p class="mt-4 max-w-2xl text-lg sm:text-xl">{{ subtitle }}</p>
+    {% endif %}
+
+    {# Site-level couple-verification credit (both persons). #}
+    {% if couple_credit %}
+      {{ include('adrupalcouple:two_person_credit', couple_credit, with_context: false) }}
+    {% endif %}
+
+    {# Quiet entry link into the latest writing. #}
+    {% if writing_url %}
+      <p class="mt-8">
+        <a href="{{ writing_url }}" class="link link-primary link-hover font-semibold">{{ 'Read the latest writing'|t }}</a>
+      </p>
+    {% endif %}
+
+  </div>
+</div>

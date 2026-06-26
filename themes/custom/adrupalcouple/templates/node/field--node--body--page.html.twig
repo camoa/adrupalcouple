@@ -1,0 +1,18 @@
+{#
+/**
+ * @file
+ * node.page `body` field — Home §1b positioning intro line.
+ *
+ * Placed in Layout Builder as field_block:node:page:body inside Home LB
+ * Section 1 (bg-base-100). Wraps the body in the reading column (~66ch) + prose
+ * with pb-12, reproducing HomePage.tsx Section 2 (<ReadingColumn prose
+ * className="pb-12">). Only node.page body fields use this template; the
+ * Accessibility statement renders its body via preprocessed body_sections, and
+ * About does not place node.page body in its LB layout.
+ */
+#}
+<div{{ attributes.addClass('reading-column', 'prose', 'pb-12') }}>
+  {% for item in items %}
+    {{ item.content }}
+  {% endfor %}
+</div>

@@ -23,7 +23,94 @@ custom_fields:
     -
       value: 'What worked, what broke, and what it cost. From both worlds.'
   field_tags: null
-  layout_builder__layout: null
+  layout_builder__layout:
+    sections:
+      -
+        layout_id: layout_onecol
+        layout_settings:
+          label: ''
+        components:
+          316dbdf1-19ef-4c42-b6b6-e98e0fe67f28:
+            uuid: 316dbdf1-19ef-4c42-b6b6-e98e0fe67f28
+            region: content
+            configuration:
+              id: 'inline_block:masthead'
+              label: Masthead
+              label_display: false
+              provider: layout_builder
+              view_mode: full
+              block_id: '3'
+              block_revision_id: '3'
+              block_serialized: null
+              context_mapping: {  }
+            weight: 0
+            additional: {  }
+          2e1a44c6-95f8-446d-a561-657eba96ccd8:
+            uuid: 2e1a44c6-95f8-446d-a561-657eba96ccd8
+            region: content
+            configuration:
+              id: 'field_block:node:page:body'
+              label: 'Positioning intro'
+              label_display: false
+              provider: layout_builder
+              formatter:
+                type: text_default
+                label: hidden
+                settings: {  }
+                third_party_settings: {  }
+              context_mapping:
+                entity: layout_builder.entity
+            weight: 1
+            additional: {  }
+        third_party_settings:
+          ui_styles:
+            selected:
+              section_background: bg-base-100
+              section_spacing_vertical: py-16
+      -
+        layout_id: layout_onecol
+        layout_settings:
+          label: ''
+        components:
+          c31ccda4-b4c2-41d4-a520-635673e81efc:
+            uuid: c31ccda4-b4c2-41d4-a520-635673e81efc
+            region: content
+            configuration:
+              id: 'views_block:frontpage-block_home'
+              label: 'Latest writing'
+              label_display: false
+              provider: views
+              views_label: ''
+              items_per_page: none
+              context_mapping: {  }
+            weight: 0
+            additional: {  }
+        third_party_settings:
+          ui_styles:
+            selected:
+              section_background: bg-base-200
+              section_spacing_vertical: py-16
+    blocks:
+      -
+        uuid: 83d8690e-1206-4ab0-b48a-a2a88e938f19
+        entity_type: block_content
+        bundle: masthead
+        base_fields:
+          info: 'Home masthead'
+          reusable: false
+          langcode: en
+          block_revision_id: '3'
+          enforce_new_revision: true
+        custom_fields:
+          field_brand_name:
+            -
+              value: 'A Drupal Couple'
+          field_subtitle:
+            -
+              value: 'What worked, what broke, and what it cost. From both worlds.'
+          field_tagline:
+            -
+              value: 'We write the honest version.'
   schema_about: null
   schema_primary_image: null
   schema_related_link: null

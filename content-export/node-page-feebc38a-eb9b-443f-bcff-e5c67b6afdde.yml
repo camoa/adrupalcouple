@@ -1,0 +1,622 @@
+site_uuid: 6b905249-4230-4c8c-aba3-aafbe2493b6d
+uuid: feebc38a-eb9b-443f-bcff-e5c67b6afdde
+entity_type: node
+bundle: page
+base_fields:
+  title: 'About Us'
+  status: true
+  langcode: en
+  created: '1686609019'
+  author: info@adrupalcouple.com
+  revision_log_message: null
+  revision_uid: '1'
+  menu_link:
+    uuid: 21243b9d-ac90-43c8-87e2-d243d5fff3f2
+    entity_type: menu_link_content
+    bundle: menu_link_content
+    base_fields:
+      title: About
+      enabled: true
+      expanded: false
+      langcode: en
+      menu_name: main
+      description: null
+      link:
+        -
+          uri: 'entity:node/feebc38a-eb9b-443f-bcff-e5c67b6afdde'
+          title: null
+          options: {  }
+          entity:
+            uuid: feebc38a-eb9b-443f-bcff-e5c67b6afdde
+            entity_type: node
+            base_fields:
+              title: 'About Us'
+              status: true
+              langcode: en
+              created: '1686609019'
+              author: info@adrupalcouple.com
+              revision_log_message: null
+              revision_uid: '1'
+              moderation_state: published
+              url: /about-us
+            bundle: page
+      weight: -47
+      parent: ''
+    custom_fields: {  }
+  moderation_state: published
+  url: /about-us
+custom_fields:
+  body:
+    -
+      value: "<p>About ADrupalCouple</p><p>Welcome to ADrupalCouple, a space where partners who live, love, and work together in the Drupal ecosystem share their unique perspectives and experiences.</p><h2>Our Vision</h2><p>We believe that couples who work together in Drupal bring something special to our community - the ability to see challenges and opportunities from complementary perspectives. Whether it's tackling technical problems, contributing to the community, or navigating work-life balance, each partner brings their own viewpoint while sharing a common passion for Drupal.</p><h2>What We Share</h2><p>Here you'll find stories, insights, and experiences from partners who:</p><ul><li>Collaborate on Drupal projects while maintaining healthy relationships</li><li>Navigate the challenges and joys of sharing both personal and professional spaces</li><li>Bring different skills and perspectives to their work</li><li>Contribute to the Drupal community as individuals and couples</li></ul><h2>Join Us</h2><p>Are you part of a couple working together in Drupal? We welcome your voices and stories. This platform is a space for sharing experiences, whether through individual perspectives or joint narratives. Your stories can help others understand the unique dynamics of partnering in both life and Drupal.</p><h2>About the Founders</h2><p>ADrupalCouple was created by Carlos (Camoa) and Ana Laura (Anilu), who experienced firsthand the value of sharing both individual and coupled perspectives in the Drupal community. From different technical backgrounds and approaches, we found that our complementary viewpoints enriched both our work and the community.</p>"
+      summary: 'We met while working in Drupal and found a common interest in the community. ... Eventually we fell in love. '
+      format: basic_html
+      embed_entities: {  }
+  field_subtitle: null
+  field_tags:
+    -
+      uuid: cc0d6a60-c789-4a34-b85a-7e1b861dcaa0
+      entity_type: taxonomy_term
+      bundle: tags
+      base_fields:
+        name: Drupal
+        weight: 0
+        langcode: en
+        description: null
+        parent: 0
+        url: /drupal
+      custom_fields: {  }
+    -
+      uuid: 79fcb52e-f048-4834-9a00-c3122dffaaaf
+      entity_type: taxonomy_term
+      bundle: tags
+      base_fields:
+        name: Drupalcon
+        weight: 1
+        langcode: en
+        description: null
+        parent: 0
+        url: /drupalcon
+      custom_fields: {  }
+    -
+      uuid: 87a9daa7-aac0-457c-92cb-393f25972a29
+      entity_type: taxonomy_term
+      bundle: tags
+      base_fields:
+        name: Community
+        weight: 0
+        langcode: en
+        description: null
+        parent: 0
+        url: /community
+      custom_fields: {  }
+  layout_builder__layout:
+    sections:
+      -
+        layout_id: layout_onecol
+        layout_settings:
+          label: ''
+        components:
+          628ffa54-b5b1-40d2-a8cd-9dfd667e763f:
+            uuid: 628ffa54-b5b1-40d2-a8cd-9dfd667e763f
+            region: content
+            configuration:
+              id: 'inline_block:couple_hero'
+              label: 'Couple hero'
+              label_display: false
+              provider: layout_builder
+              view_mode: full
+              block_id: '9'
+              block_revision_id: '9'
+              block_serialized: null
+              context_mapping: {  }
+            weight: 0
+            additional: {  }
+        third_party_settings:
+          ui_styles:
+            selected:
+              section_background: bg-base-100
+              section_spacing_vertical: py-12
+      -
+        layout_id: layout_onecol
+        layout_settings:
+          label: ''
+        components:
+          0140fdab-2c29-4435-8076-fac48d8b4208:
+            uuid: 0140fdab-2c29-4435-8076-fac48d8b4208
+            region: content
+            configuration:
+              id: 'inline_block:basic'
+              label: 'Origin narrative'
+              label_display: false
+              provider: layout_builder
+              view_mode: full
+              block_id: '10'
+              block_revision_id: '10'
+              block_serialized: null
+              context_mapping: {  }
+            weight: 0
+            additional: {  }
+        third_party_settings:
+          ui_styles:
+            selected:
+              section_background: bg-base-200
+              section_spacing_vertical: py-12
+      -
+        layout_id: layout_onecol
+        layout_settings:
+          label: ''
+        components:
+          9d2d5afd-4f58-47a1-96fb-68fb636440a1:
+            uuid: 9d2d5afd-4f58-47a1-96fb-68fb636440a1
+            region: content
+            configuration:
+              id: 'inline_block:basic'
+              label: 'Community heading'
+              label_display: false
+              provider: layout_builder
+              view_mode: full
+              block_id: '11'
+              block_revision_id: '11'
+              block_serialized: null
+              context_mapping: {  }
+            weight: 0
+            additional: {  }
+          b2e10cd2-fe48-4516-bc4e-9133580cbdf9:
+            uuid: b2e10cd2-fe48-4516-bc4e-9133580cbdf9
+            region: content
+            configuration:
+              id: 'inline_block:couple_story_block'
+              label: 'Couple story'
+              label_display: false
+              provider: layout_builder
+              view_mode: full
+              block_id: '12'
+              block_revision_id: '12'
+              block_serialized: null
+              context_mapping: {  }
+            weight: 1
+            additional: {  }
+        third_party_settings:
+          ui_styles:
+            selected:
+              section_background: bg-base-100
+              section_spacing_vertical: py-12
+      -
+        layout_id: layout_onecol
+        layout_settings:
+          label: ''
+        components:
+          0832dcfe-9d2c-47d1-a792-7338d30c5d86:
+            uuid: 0832dcfe-9d2c-47d1-a792-7338d30c5d86
+            region: content
+            configuration:
+              id: 'inline_block:basic'
+              label: 'Contact coda'
+              label_display: false
+              provider: layout_builder
+              view_mode: full
+              block_id: '13'
+              block_revision_id: '13'
+              block_serialized: null
+              context_mapping: {  }
+            weight: 0
+            additional: {  }
+        third_party_settings:
+          ui_styles:
+            selected:
+              section_background: bg-base-200
+              section_spacing_vertical: py-12
+    blocks:
+      -
+        uuid: 7bc8f89c-92d4-4f8a-917a-e5d53ba248d9
+        entity_type: block_content
+        bundle: couple_hero
+        base_fields:
+          info: 'About couple hero'
+          reusable: false
+          langcode: en
+          block_revision_id: '9'
+          enforce_new_revision: true
+        custom_fields:
+          field_couple:
+            -
+              uuid: b0a24900-8dcb-44c6-8cb7-cc7ad6c0ca20
+              entity_type: node
+              bundle: couple
+              base_fields:
+                title: 'Anilu & Camoa'
+                status: true
+                langcode: en
+                created: '1741280937'
+                author: info@adrupalcouple.com
+                revision_log_message: null
+                revision_uid: '1'
+                url: /anilu-camoa
+              custom_fields:
+                body:
+                  -
+                    value: '<h2 style="-webkit-text-stroke-width:0px;background-color:rgb(255, 255, 255);box-sizing:border-box;color:rgb(51, 51, 51);font-family:Figtree, sans-serif;font-size:2rem;font-style:normal;font-variant-caps:normal;font-variant-ligatures:normal;font-weight:500;letter-spacing:normal;line-height:1.2;margin:0px 0px 0.5rem;orphans:2;padding:0px;scroll-behavior:smooth;text-align:start;text-decoration-color:initial;text-decoration-style:initial;text-decoration-thickness:initial;text-indent:0px;text-transform:none;white-space:normal;widows:2;word-spacing:0px;">Who are we</h2><p style="-webkit-text-stroke-width:0px;background-color:rgb(255, 255, 255);box-sizing:border-box;color:rgb(51, 51, 51);font-family:Figtree, sans-serif;font-size:16px;font-style:normal;font-variant-caps:normal;font-variant-ligatures:normal;font-weight:400;letter-spacing:normal;line-height:26px;margin:0px 0px 1rem;orphans:2;padding:0px;scroll-behavior:smooth;text-align:start;text-decoration-color:initial;text-decoration-style:initial;text-decoration-thickness:initial;text-indent:0px;text-transform:none;white-space:break-spaces;widows:2;word-spacing:0px;"><a style="background-color:transparent;box-sizing:border-box;color:rgba(var(--bs-link-color-rgb), var(--bs-link-opacity, 1));margin:0px;padding:0px;scroll-behavior:smooth;text-decoration:none;" href="/anilu" rel="nofollow">Anilu</a> is a senior web developer, and a community advocate and mentor.</p><p style="-webkit-text-stroke-width:0px;background-color:rgb(255, 255, 255);box-sizing:border-box;color:rgb(51, 51, 51);font-family:Figtree, sans-serif;font-size:16px;font-style:normal;font-variant-caps:normal;font-variant-ligatures:normal;font-weight:400;letter-spacing:normal;line-height:26px;margin:0px 0px 1rem;orphans:2;padding:0px;scroll-behavior:smooth;text-align:start;text-decoration-color:initial;text-decoration-style:initial;text-decoration-thickness:initial;text-indent:0px;text-transform:none;white-space:break-spaces;widows:2;word-spacing:0px;">&nbsp;</p><p style="-webkit-text-stroke-width:0px;background-color:rgb(255, 255, 255);box-sizing:border-box;color:rgb(51, 51, 51);font-family:Figtree, sans-serif;font-size:16px;font-style:normal;font-variant-caps:normal;font-variant-ligatures:normal;font-weight:400;letter-spacing:normal;line-height:26px;margin:0px 0px 1rem;orphans:2;padding:0px;scroll-behavior:smooth;text-align:start;text-decoration-color:initial;text-decoration-style:initial;text-decoration-thickness:initial;text-indent:0px;text-transform:none;white-space:break-spaces;widows:2;word-spacing:0px;"><a style="background-color:transparent;box-sizing:border-box;color:rgba(var(--bs-link-color-rgb), var(--bs-link-opacity, 1));margin:0px;padding:0px;scroll-behavior:smooth;text-decoration:none;" href="/camoa" rel="nofollow">Carlos</a> has worked in Drupal for over 10 years, first as a Front-End developer and the last years as a TAM, now a Drupal Advisor.</p><h2 style="-webkit-text-stroke-width:0px;background-color:rgb(255, 255, 255);box-sizing:border-box;color:rgb(51, 51, 51);font-family:Figtree, sans-serif;font-size:2rem;font-style:normal;font-variant-caps:normal;font-variant-ligatures:normal;font-weight:500;letter-spacing:normal;line-height:1.2;margin:0px 0px 0.5rem;orphans:2;padding:0px;scroll-behavior:smooth;text-align:start;text-decoration-color:initial;text-decoration-style:initial;text-decoration-thickness:initial;text-indent:0px;text-transform:none;white-space:normal;widows:2;word-spacing:0px;">Our story</h2><p style="-webkit-text-stroke-width:0px;background-color:rgb(255, 255, 255);box-sizing:border-box;color:rgb(51, 51, 51);font-family:Figtree, sans-serif;font-size:16px;font-style:normal;font-variant-caps:normal;font-variant-ligatures:normal;font-weight:400;letter-spacing:normal;line-height:26px;margin:0px 0px 1rem;orphans:2;padding:0px;scroll-behavior:smooth;text-align:start;text-decoration-color:initial;text-decoration-style:initial;text-decoration-thickness:initial;text-indent:0px;text-transform:none;white-space:break-spaces;widows:2;word-spacing:0px;">We met while working in Drupal and found a common interest in the community. ... Eventually we fell in love. (more to come)&nbsp;</p>'
+                    summary: ''
+                    format: full_html
+                    embed_entities: {  }
+                field_community_story:
+                  -
+                    value: '<p>None of this stayed between the two of us. We took it into the community, because someone made room for us once and we try to do the same. Carlos keeps contributing and mentoring in the core rooms, Ana works alongside first-time contributors, and we keep publishing in the open where anyone can check our work.</p>'
+                    format: full_html
+                    embed_entities: {  }
+                field_couple:
+                  -
+                    uuid: 9b929e86-5bf5-4be3-ba7e-91f63f809c2e
+                    entity_type: node
+                    bundle: person
+                    base_fields:
+                      title: 'Carlos Ospina'
+                      status: true
+                      langcode: en
+                      created: '1686602948'
+                      author: info@adrupalcouple.com
+                      revision_log_message: null
+                      revision_uid: '1'
+                      moderation_state: published
+                      url: /camoa
+                    custom_fields:
+                      body:
+                        -
+                          value: '<h2>Short Bio</h2><p>A friendly guy and adventurous Technical Account Manager who is passionate about traveling and living. If you have met Carlos you know he is a loyal friend and dedicated husband. He always puts family and friends first trying to make everyone feel good. He is fast learner and quick pivoting guy. Two of the qualities that make him a good TAM (connector) advising his clients in Web Development and Drupal best practices. He has been involved in technology since 1987 and the Drupal Community since 2012. A champion of open source since 1996.</p>'
+                          summary: ''
+                          format: full_html
+                          embed_entities: {  }
+                      field_author_focus: null
+                      field_metatag: null
+                      field_role:
+                        -
+                          value: 'Technical Account Manager / Drupal Advisor'
+                      field_tags:
+                        -
+                          uuid: cc0d6a60-c789-4a34-b85a-7e1b861dcaa0
+                          entity_type: taxonomy_term
+                          base_fields:
+                            name: Drupal
+                            weight: 0
+                            langcode: en
+                            description: null
+                            parent: 0
+                            url: /drupal
+                          bundle: tags
+                      schema_additional_name:
+                        -
+                          value: Mario
+                      schema_birth_date:
+                        -
+                          value: '1973-07-23'
+                      schema_email:
+                        -
+                          value: camoa@adrupalcouple.com
+                      schema_family_name:
+                        -
+                          value: Ospina
+                      schema_given_name:
+                        -
+                          value: Carlos
+                      schema_image:
+                        -
+                          uuid: 2e66e3dc-d305-4047-b873-d2747ec1a895
+                          entity_type: media
+                          bundle: image
+                          base_fields:
+                            name: IMG-20231027-WA0001.jpg
+                            created: '1698414288'
+                            status: true
+                            langcode: en
+                            url: null
+                          custom_fields:
+                            field_media_image:
+                              -
+                                alt: 'Camoa sitting with a drink'
+                                title: ''
+                                target_entity:
+                                  uuid: 7440b382-d83e-4122-a7d7-0869d4383210
+                                  entity_type: file
+                                  bundle: file
+                                  base_fields:
+                                    name: IMG-20231027-WA0001.jpg
+                                    uri: 'public://2023-10/IMG-20231027-WA0001.jpg'
+                                    url: 'https://adrupalcouple.ddev.site/sites/default/files/2023-10/IMG-20231027-WA0001.jpg'
+                                    status: '1'
+                                    created: 1698414288
+                                    changed: 1698414381
+                                    mimetype: image/jpeg
+                                    crop:
+                                      width: 0
+                                      height: 0
+                                      x: '756'
+                                      'y': '1008'
+                                  custom_fields: {  }
+                      schema_knows_language:
+                        -
+                          value: English
+                        -
+                          value: Spanish
+                      schema_member_of: null
+                      schema_same_as:
+                        -
+                          uri: 'https://www.linkedin.com/in/camoa/'
+                          title: 'LinkedIn Profile'
+                          options: {  }
+                      schema_subject_of: null
+                      schema_telephone: null
+                      schema_works_for: null
+                  -
+                    uuid: e8b8f49a-1e4f-4322-81d7-7907dee05083
+                    entity_type: node
+                    bundle: person
+                    base_fields:
+                      title: 'Ana Coto'
+                      status: true
+                      langcode: en
+                      created: '1686603512'
+                      author: info@adrupalcouple.com
+                      revision_log_message: null
+                      revision_uid: '1'
+                      moderation_state: published
+                      url: /anilu
+                    custom_fields:
+                      body:
+                        -
+                          value: '<h2>Short Bio</h2><p>She is a sweet Web designer who challenged herself to learn code and succeed. Despite of coming from an art and design world, she has been always interested in web development and best practices. She quickly learned Drupal and fell in love with the community. Today she is determined to collaborate with the community and help others to get involved.</p><p>&nbsp;</p>'
+                          summary: ''
+                          format: full_html
+                          embed_entities: {  }
+                      field_author_focus: null
+                      field_metatag: null
+                      field_role:
+                        -
+                          value: 'Senior Web Developer'
+                      field_tags:
+                        -
+                          uuid: cc0d6a60-c789-4a34-b85a-7e1b861dcaa0
+                          entity_type: taxonomy_term
+                          base_fields:
+                            name: Drupal
+                            weight: 0
+                            langcode: en
+                            description: null
+                            parent: 0
+                            url: /drupal
+                          bundle: tags
+                        -
+                          uuid: 520cdd2d-9559-494b-98e2-c231f9e9e64f
+                          entity_type: taxonomy_term
+                          bundle: tags
+                          base_fields:
+                            name: FrontEnd
+                            weight: 3
+                            langcode: en
+                            description: null
+                            parent: 0
+                            url: /frontend
+                          custom_fields: {  }
+                      schema_additional_name:
+                        -
+                          value: Laura
+                      schema_birth_date:
+                        -
+                          value: '1983-07-12'
+                      schema_email:
+                        -
+                          value: anilu@adrupalcouple.com
+                      schema_family_name:
+                        -
+                          value: Coto
+                      schema_given_name:
+                        -
+                          value: Ana
+                      schema_image:
+                        -
+                          uuid: dfc8226c-f1fa-46af-94e8-f786a6d86547
+                          entity_type: media
+                          bundle: image
+                          base_fields:
+                            name: IMG_1582.jpg
+                            created: '1698325206'
+                            status: true
+                            langcode: en
+                            url: null
+                          custom_fields:
+                            field_media_image:
+                              -
+                                alt: 'Anilu eating breakfast at a restaurant '
+                                title: ''
+                                target_entity:
+                                  uuid: ba16bf08-9dd5-4ed3-a5b0-57b3d9700f6a
+                                  entity_type: file
+                                  bundle: file
+                                  base_fields:
+                                    name: IMG_1582.jpg
+                                    uri: 'public://2023-10/IMG_1582.jpg'
+                                    url: 'https://adrupalcouple.ddev.site/sites/default/files/2023-10/IMG_1582.jpg'
+                                    status: '1'
+                                    created: 1698325206
+                                    changed: 1698325240
+                                    mimetype: image/jpeg
+                                    crop:
+                                      width: 0
+                                      height: 0
+                                      x: '1512'
+                                      'y': '2016'
+                                  custom_fields: {  }
+                      schema_knows_language:
+                        -
+                          value: English
+                        -
+                          value: Spanish
+                      schema_member_of: null
+                      schema_same_as:
+                        -
+                          uri: 'https://www.linkedin.com/in/ana-laura-coto-89741355/'
+                          title: 'LinkedIn Profile'
+                          options: {  }
+                        -
+                          uri: 'https://www.drupal.org/u/anilu'
+                          title: 'Drupal Profile'
+                          options: {  }
+                      schema_subject_of: null
+                      schema_telephone: null
+                      schema_works_for: null
+                field_founding: null
+                field_milestone: null
+                schema_image:
+                  -
+                    uuid: 3a5a30e8-c79e-4677-882d-0ffb5cc4eef1
+                    entity_type: media
+                    bundle: image
+                    base_fields:
+                      name: 20231019_121849.jpg
+                      created: '1698323935'
+                      status: true
+                      langcode: en
+                      url: null
+                    custom_fields:
+                      field_media_image:
+                        -
+                          alt: 'Anilu y camoa in a selfie with the Drupicon behind threm, at DrupalCon Lille 2023'
+                          title: ''
+                          target_entity:
+                            uuid: bb1e0ed4-b888-4d22-aac5-ba0e03896104
+                            entity_type: file
+                            bundle: file
+                            base_fields:
+                              name: 20231019_121849.jpg
+                              uri: 'public://2023-10/20231019_121849.jpg'
+                              url: 'https://adrupalcouple.ddev.site/sites/default/files/2023-10/20231019_121849.jpg'
+                              status: '1'
+                              created: 1698323935
+                              changed: 1698323975
+                              mimetype: image/jpeg
+                              crop:
+                                width: 0
+                                height: 0
+                                x: '2000'
+                                'y': '934'
+                            custom_fields: {  }
+          field_lede:
+            -
+              value: 'We are Ana and Carlos. We met while working in Drupal, found a common interest in the community, and eventually fell in love.'
+      -
+        uuid: 769c2eed-611d-4f48-b0c4-0ac1646e5aab
+        entity_type: block_content
+        bundle: basic
+        base_fields:
+          info: 'About origin narrative'
+          reusable: false
+          langcode: en
+          block_revision_id: '10'
+          enforce_new_revision: true
+        custom_fields:
+          body:
+            -
+              value: '<h2 class="font-heading text-3xl font-semibold">How this started</h2><p>Carlos has been around technology since 1987 and in the Drupal community since 2012, a champion of open source since 1996. He worked for years as a front-end developer, then as a Technical Account Manager, and now as a Drupal Advisor who connects people and advises on web development and Drupal best practices.</p><p>Ana came from the art and design world and challenged herself to learn code. She picked up Drupal quickly and fell in love with the community, and today she works as a senior web developer who is determined to collaborate and help others get involved.</p><p>We met working in Drupal and kept finding the same thing worth writing down: the honest version of what actually survives production. So we started writing it, in two voices, from both worlds. Is that the kind of writing you have been looking for?</p>'
+              summary: null
+              format: full_html
+              embed_entities: {  }
+      -
+        uuid: 02c163e2-f246-42b3-aed6-5915e187868c
+        entity_type: block_content
+        bundle: basic
+        base_fields:
+          info: 'About community heading'
+          reusable: false
+          langcode: en
+          block_revision_id: '11'
+          enforce_new_revision: true
+        custom_fields:
+          body:
+            -
+              value: '<h2 class="font-heading text-3xl font-semibold">Along the way, in the open</h2>'
+              summary: null
+              format: full_html
+              embed_entities: {  }
+      -
+        uuid: 00949f8f-a98f-4ab3-8457-3da88f4c71b0
+        entity_type: block_content
+        bundle: couple_story_block
+        base_fields:
+          info: 'About couple story'
+          reusable: false
+          langcode: en
+          block_revision_id: '12'
+          enforce_new_revision: true
+        custom_fields:
+          field_couple:
+            -
+              uuid: b0a24900-8dcb-44c6-8cb7-cc7ad6c0ca20
+              entity_type: node
+              base_fields:
+                title: 'Anilu & Camoa'
+                status: true
+                langcode: en
+                created: '1741280937'
+                author: info@adrupalcouple.com
+                revision_log_message: null
+                revision_uid: '1'
+                url: /anilu-camoa
+              bundle: couple
+      -
+        uuid: 654dbb83-e6f3-44e8-9dc4-9ca48c9f9611
+        entity_type: block_content
+        bundle: basic
+        base_fields:
+          info: 'About contact coda'
+          reusable: false
+          langcode: en
+          block_revision_id: '13'
+          enforce_new_revision: true
+        custom_fields:
+          body:
+            -
+              value: '<p class="text-lg">Find us on <a href="https://www.linkedin.com/in/camoa/" class="link link-primary" target="_blank" rel="noopener noreferrer">LinkedIn</a> or write to us at <a href="mailto:hello@adrupalcouple.com" class="link link-primary">hello@adrupalcouple.com</a>.</p>'
+              summary: null
+              format: full_html
+              embed_entities: {  }
+  schema_about: null
+  schema_primary_image:
+    -
+      uuid: b5cd322e-84c7-41cd-bfa9-905b961051fe
+      entity_type: media
+      bundle: image
+      base_fields:
+        name: 'An adorable and cute anime couple working on Drupal web development, with intense dramatic lighting, high contrast, charming facial features, and a prominently displayed Drupal logo creating tension.jpg'
+        created: '1741282128'
+        status: true
+        langcode: en
+        url: null
+      custom_fields:
+        field_media_image:
+          -
+            alt: 'A couple working on a Drupal laptop'
+            title: ''
+            target_entity:
+              uuid: 30f4341b-bd31-4593-9917-ded98aac9753
+              entity_type: file
+              bundle: file
+              base_fields:
+                name: 'An adorable and cute anime couple working on Drupal web development, with intense dramatic lighting, high contrast, charming facial features, and a prominently displayed Drupal logo creating tension.jpg'
+                uri: 'public://2025-03/An adorable and cute anime couple working on Drupal web development, with intense dramatic lighting, high contrast, charming facial features, and a prominently displayed Drupal logo creating tension.jpg'
+                url: 'https://adrupalcouple.ddev.site/sites/default/files/2025-03/An%20adorable%20and%20cute%20anime%20couple%20working%20on%20Drupal%20web%20development%2C%20with%20intense%20dramatic%20lighting%2C%20high%20contrast%2C%20charming%20facial%20features%2C%20and%20a%20prominently%20displayed%20Drupal%20logo%20creating%20tension.jpg'
+                status: '1'
+                created: 1741282128
+                changed: 1741282146
+                mimetype: image/jpeg
+                crop:
+                  width: 0
+                  height: 0
+                  x: '688'
+                  'y': '384'
+              custom_fields: {  }
+  schema_related_link: null
+  schema_significant_link: null
+  schema_subject_of: null
+  schema_web_page_subtype:
+    -
+      value: AboutPage

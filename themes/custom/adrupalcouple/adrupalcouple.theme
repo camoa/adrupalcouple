@@ -90,8 +90,24 @@ function adrupalcouple_preprocess_node__page(array &$variables): void {
   $variables['site_name'] = (string) \Drupal::config('system.site')->get('name');
 
   // ── Couple credit (TwoPersonCredit SDC props) ─────────────────────────────
-  $variables['couple_credit'] = NULL;
+  // Retained for backwards-compat; the de-hardcoded LB template no longer reads
+  // this (the masthead inline block owns the TwoPersonCredit now). Harmless.
+  $variables['couple_credit'] = _adrupalcouple_couple_credit('mt-8');
+}
 
+/**
+ * Builds TwoPersonCredit SDC props from the single published node.couple.
+ *
+ * Shared by the Home masthead inline block (the live consumer) and the legacy
+ * node--page preprocess. Returns NULL when no published couple / persons exist.
+ *
+ * @param string $modifier_class
+ *   Utility class(es) appended to the SDC root (e.g. 'mt-8').
+ *
+ * @return array|null
+ *   SDC props for adrupalcouple:two_person_credit, or NULL.
+ */
+function _adrupalcouple_couple_credit(string $modifier_class = 'mt-8'): ?array {
   $couple_nodes = \Drupal::entityTypeManager()
     ->getStorage('node')
     ->loadByProperties(['type' => 'couple', 'status' => 1]);
@@ -102,7 +118,7 @@ function adrupalcouple_preprocess_node__page(array &$variables): void {
     || !$couple->hasField('field_couple')
     || $couple->get('field_couple')->isEmpty()
   ) {
-    return;
+    return NULL;
   }
 
   /** @var \Drupal\node\NodeInterface[] $persons */
@@ -114,7 +130,7 @@ function adrupalcouple_preprocess_node__page(array &$variables): void {
   );
 
   if (count($persons) < 2) {
-    return;
+    return NULL;
   }
 
   [$p1, $p2] = $persons;
@@ -127,7 +143,7 @@ function adrupalcouple_preprocess_node__page(array &$variables): void {
     'person_1_href'  => $p1->toUrl()->toString(),
     'person_2_name'  => $p2_name,
     'person_2_href'  => $p2->toUrl()->toString(),
-    'modifier_class' => 'mt-8',
+    'modifier_class' => $modifier_class,
   ];
 
   // Avatars: adc_couple_faces_1x1_128 (1:1, ≤128px, displays at w-10 / 40px
@@ -142,7 +158,46 @@ function adrupalcouple_preprocess_node__page(array &$variables): void {
     $credit['person_2_avatar'] = $p2_avatar;
   }
 
-  $variables['couple_credit'] = $credit;
+  return $credit;
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for block__inline_block__masthead.
+ *
+ * Injects the Home masthead inline block's render variables:
+ *   brand_name, tagline, subtitle  — raw field values (custom markup in tpl);
+ *   couple_credit                  — TwoPersonCredit SDC props (from node.couple);
+ *   writing_url                    — resolved /writing path.
+ *
+ * @see block--inline-block--masthead.html.twig
+ */
+function adrupalcouple_preprocess_block__inline_block__masthead(array &$variables): void {
+  // Resolve the block_content entity behind this inline block.
+  $block = $variables['content']['#block_content']
+    ?? ($variables['elements']['content']['#block_content'] ?? NULL);
+  if (!$block instanceof \Drupal\Core\Entity\ContentEntityInterface) {
+    $rev = $variables['elements']['#configuration']['block_revision_id'] ?? NULL;
+    if ($rev) {
+      $block = \Drupal::entityTypeManager()
+        ->getStorage('block_content')
+        ->loadRevision($rev);
+    }
+  }
+
+  if ($block instanceof \Drupal\Core\Entity\ContentEntityInterface) {
+    $variables['brand_name'] = $block->hasField('field_brand_name') ? (string) $block->get('field_brand_name')->value : '';
+    $variables['tagline']    = $block->hasField('field_tagline') ? (string) $block->get('field_tagline')->value : '';
+    $variables['subtitle']   = $block->hasField('field_subtitle') ? (string) $block->get('field_subtitle')->value : '';
+  }
+
+  $variables['couple_credit'] = _adrupalcouple_couple_credit('mt-8');
+
+  try {
+    $variables['writing_url'] = \Drupal\Core\Url::fromRoute('view.writing_index.page_1')->toString();
+  }
+  catch (\Exception $e) {
+    $variables['writing_url'] = '/writing';
+  }
 }
 
 /**
@@ -594,7 +649,7 @@ function adrupalcouple_preprocess_page(array &$variables): void {
     '#weight' => -4,
   ];
 
-  // ── Accessibility page: suppress duplicate <h1> from page-title block ─────
+  // ── Suppress duplicate <h1> from the standalone page-title block ──────────
   $node = $variables['node'] ?? NULL;
   if (!$node instanceof NodeInterface || $node->bundle() !== 'page') {
     return;
@@ -603,13 +658,22 @@ function adrupalcouple_preprocess_page(array &$variables): void {
   if (!$nid) {
     return;
   }
+
+  // LB-composed pages (Home, About) own their headings inside the Layout
+  // Builder composition (masthead field_tagline / couple title). Suppress the
+  // standalone page-title block so the node title is not rendered twice.
+  $has_lb_override = $node->hasField('layout_builder__layout')
+    && !$node->get('layout_builder__layout')->isEmpty();
+
   /** @var \Drupal\path_alias\AliasManagerInterface $alias_manager */
   $alias_manager = \Drupal::service('path_alias.manager');
   $alias = $alias_manager->getAliasByPath('/node/' . $nid, 'en');
-  if ($alias !== '/accessibility') {
+
+  // The Accessibility statement template also owns its own <h1>.
+  if (!$has_lb_override && $alias !== '/accessibility') {
     return;
   }
-  // The node template owns the <h1>; suppress the standalone page-title block.
+
   if (isset($variables['page']['content']['adrupalcouple_page_title'])) {
     $variables['page']['content']['adrupalcouple_page_title']['#access'] = FALSE;
   }
