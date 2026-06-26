@@ -62,6 +62,13 @@
   .site-main--front {
     padding-block-start: 0;
   }
+
+  /* Brand logo (site-branding block): constrain to the navbar height — the SVG
+     would otherwise render at its intrinsic ~228×156 and blow up the bar. */
+  #block-adrupalcouple-site-branding img {
+    height: 2.25rem;
+    width: auto;
+  }
 }
 
 /* Language switcher (EN/ES join): the active language fills btn-primary.

@@ -1,0 +1,37 @@
+uuid: 7b34228b-a769-45a5-aeca-ac79601fdf9b
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+    - ui_styles
+  theme:
+    - adrupalcouple
+third_party_settings:
+  ui_styles:
+    block:
+      selected: {  }
+      extra: ''
+    title:
+      selected: {  }
+      extra: ''
+    content:
+      selected: {  }
+      extra: ''
+_core:
+  default_config_hash: fqaJR1uQbAj6gMpaYNHKrwkKC9o_LPJXHR53mbC42wQ
+id: adrupalcouple_site_branding
+theme: adrupalcouple
+region: navbar_start
+weight: -5
+provider: null
+plugin: system_branding_block
+settings:
+  id: system_branding_block
+  label: 'Site branding'
+  label_display: '0'
+  provider: system
+  use_site_logo: true
+  use_site_name: false
+  use_site_slogan: false
+visibility: {  }

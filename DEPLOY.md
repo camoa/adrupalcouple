@@ -156,6 +156,10 @@ After `deploy.sh` + the manual steps, verify on the target (a `Node ≥ 20` buil
 
 - [ ] **Theme/fonts:** home renders with brand fonts (no 404s on `dist/css/files/*.woff2`),
       brand colors (plum/teal), no red/yellow.
+- [ ] **Logo + favicon:** header shows the brand "ac" logo (`logo.svg`), not a text wordmark;
+      browser tab shows the brand favicon (theme `favicon.ico` + the apple-touch / PNG links
+      from `hook_page_attachments_alter`). (Branding block: `use_site_logo=true`,
+      `use_site_name=false` — applied by `cim`.)
 - [ ] **Header:** nav shows **Writing · Couples · About**, **no "Log in"**, the EN/ES **pill
       toggle** (active language filled teal), dark-mode ☾. No breadcrumb.
 - [ ] **One `<h1>` per page** (page-title block is off): check home/writing/about/couples/tag/

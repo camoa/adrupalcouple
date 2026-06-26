@@ -844,3 +844,27 @@ function adrupalcouple_preprocess_node__person(array &$variables): void {
   }
 }
 
+
+/**
+ * Implements hook_page_attachments_alter().
+ *
+ * Adds the modern favicon link tags (apple-touch + retina PNG) that Drupal's
+ * default favicon mechanism (the theme favicon.ico) does not emit. There is no
+ * config/native mechanism for these <link> tags — this hook is the standard way.
+ * The icons are the brand "ac" mark (themes/custom/adrupalcouple/, generated
+ * from the brand logo). favicon.ico is handled natively by the theme default.
+ */
+function adrupalcouple_page_attachments_alter(array &$attachments): void {
+  $base = '/' . \Drupal::theme()->getActiveTheme()->getPath();
+  $links = [
+    ['rel' => 'apple-touch-icon', 'sizes' => '180x180', 'href' => "$base/apple-touch-icon.png"],
+    ['rel' => 'icon', 'type' => 'image/png', 'sizes' => '32x32', 'href' => "$base/favicon-32x32.png"],
+    ['rel' => 'icon', 'type' => 'image/png', 'sizes' => '16x16', 'href' => "$base/favicon-16x16.png"],
+  ];
+  foreach ($links as $i => $attributes) {
+    $attachments['#attached']['html_head'][] = [
+      ['#tag' => 'link', '#attributes' => $attributes],
+      'adrupalcouple_favicon_' . $i,
+    ];
+  }
+}
