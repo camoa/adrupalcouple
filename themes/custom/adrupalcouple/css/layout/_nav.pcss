@@ -69,6 +69,14 @@
     height: 2.25rem;
     width: auto;
   }
+
+  /* Dark mode: the logo is a fixed grayscale mark (dark shape + white "ac"
+     letters). Inverting it flips ONLY light↔dark (no hue, it's grayscale):
+     shape → light, letters → dark — so it stays visible on the dark header and
+     the "ac" is preserved. (An external-SVG <img> can't be recolored by fills.) */
+  [data-theme="adc-dark"] #block-adrupalcouple-site-branding img {
+    filter: invert(1);
+  }
 }
 
 /* Language switcher (EN/ES join): the active language fills btn-primary.
