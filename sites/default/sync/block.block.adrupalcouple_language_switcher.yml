@@ -1,22 +1,20 @@
-uuid: 954f528b-c086-462c-9984-f47918692302
+uuid: 3e952f3a-8438-4a42-a1cf-fd76df11f742
 langcode: en
 status: true
 dependencies:
   module:
-    - language
+    - dropdown_language
   theme:
     - adrupalcouple
-_core:
-  default_config_hash: 3cVPf0_Uxx-WPObkaf8s8KziEZS9K5pIf1yKIW1Ru7U
 id: adrupalcouple_language_switcher
 theme: adrupalcouple
 region: navbar_end
 weight: -5
 provider: null
-plugin: 'language_block:language_interface'
+plugin: 'dropdown_language:language_interface'
 settings:
-  id: 'language_block:language_interface'
-  label: 'Language switcher'
-  label_display: '0'
-  provider: language
+  id: 'dropdown_language:language_interface'
+  label: Language
+  label_display: ''
+  provider: dropdown_language
 visibility: {  }

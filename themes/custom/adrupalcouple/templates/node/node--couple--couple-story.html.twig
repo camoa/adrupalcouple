@@ -42,7 +42,9 @@
   {# ── Dual faces ──────────────────────────────────────────────────────────── #}
   {% if content.field_couple|render|trim %}
     <div class="couple-faces flex flex-wrap items-start gap-8 sm:gap-12 mb-8">
-      {{ content.field_couple }}
+      {% for key, item in content.field_couple %}
+        {% if (key ~ '')|first != '#' %}{{ item }}{% endif %}
+      {% endfor %}
     </div>
   {% endif %}
 
