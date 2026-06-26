@@ -3,7 +3,7 @@ uuid: d4c3c016-02cd-4e2b-82bf-9814d3f88b8a
 entity_type: node
 bundle: page
 base_fields:
-  title: 'We write the honest version.'
+  title: 'Two of us, building with Drupal.'
   status: true
   langcode: en
   created: '1782424912'
@@ -11,17 +11,17 @@ base_fields:
   revision_log_message: null
   revision_uid: '0'
   moderation_state: published
-  url: /we-write-honest-version
+  url: /home
 custom_fields:
   body:
     -
-      value: '<p>This is a quiet place to read the honest version of what survives production, for the developers and technical leads who are tired of the hype.</p>'
+      value: '<p>Two of us write here, in English and Spanish, part of the Drupal community in both Latin America and the US. We show what we shipped, what broke, and what it cost. Tell us where your experience differs.</p>'
       summary: null
       format: full_html
       embed_entities: {  }
   field_subtitle:
     -
-      value: 'What worked, what broke, and what it cost. From both worlds.'
+      value: 'What worked, what broke, and what it cost.'
   field_tags: null
   layout_builder__layout:
     sections:
@@ -39,8 +39,8 @@ custom_fields:
               label_display: false
               provider: layout_builder
               view_mode: full
-              block_id: '3'
-              block_revision_id: '3'
+              block_id: '2'
+              block_revision_id: '2'
               block_serialized: null
               context_mapping: {  }
             weight: 0
@@ -92,14 +92,14 @@ custom_fields:
               section_spacing_vertical: py-16
     blocks:
       -
-        uuid: 83d8690e-1206-4ab0-b48a-a2a88e938f19
+        uuid: 154c35ed-d58f-4b54-90f1-96b3676225f7
         entity_type: block_content
         bundle: masthead
         base_fields:
           info: 'Home masthead'
           reusable: false
           langcode: en
-          block_revision_id: '3'
+          block_revision_id: '2'
           enforce_new_revision: true
         custom_fields:
           field_brand_name:
@@ -107,10 +107,10 @@ custom_fields:
               value: 'A Drupal Couple'
           field_subtitle:
             -
-              value: 'What worked, what broke, and what it cost. From both worlds.'
+              value: 'What worked, what broke, and what it cost.'
           field_tagline:
             -
-              value: 'We write the honest version.'
+              value: 'Two of us, building with Drupal.'
   schema_about: null
   schema_primary_image: null
   schema_related_link: null

@@ -93,8 +93,8 @@ msgstr "Explorar"
 msgid "Accessibility"
 msgstr "Accesibilidad"
 
-msgid "Written by two people, from both worlds."
-msgstr "Escrito por dos personas, desde ambos mundos."
+msgid "Written by two people, in English and Spanish."
+msgstr "Escrito por dos personas, en inglés y español."
 
 msgid "Built with Drupal, read on quiet pages."
 msgstr "Construido con Drupal, leído en páginas tranquilas."
@@ -154,8 +154,3 @@ msgstr "No encontramos esa persona."
 
 msgid "Their writing"
 msgstr "Su escritura"
-
-# --- Brand tagline ---
-
-msgid "Honest, production-grounded writing. From both worlds."
-msgstr "Escritura honesta y de verdad de producción. Desde ambos mundos."

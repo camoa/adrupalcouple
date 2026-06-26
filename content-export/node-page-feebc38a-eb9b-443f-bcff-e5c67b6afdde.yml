@@ -106,8 +106,8 @@ custom_fields:
               label_display: false
               provider: layout_builder
               view_mode: full
-              block_id: '9'
-              block_revision_id: '9'
+              block_id: '8'
+              block_revision_id: '8'
               block_serialized: null
               context_mapping: {  }
             weight: 0
@@ -131,8 +131,8 @@ custom_fields:
               label_display: false
               provider: layout_builder
               view_mode: full
-              block_id: '10'
-              block_revision_id: '10'
+              block_id: '9'
+              block_revision_id: '9'
               block_serialized: null
               context_mapping: {  }
             weight: 0
@@ -156,8 +156,8 @@ custom_fields:
               label_display: false
               provider: layout_builder
               view_mode: full
-              block_id: '11'
-              block_revision_id: '11'
+              block_id: '10'
+              block_revision_id: '10'
               block_serialized: null
               context_mapping: {  }
             weight: 0
@@ -171,8 +171,8 @@ custom_fields:
               label_display: false
               provider: layout_builder
               view_mode: full
-              block_id: '12'
-              block_revision_id: '12'
+              block_id: '11'
+              block_revision_id: '11'
               block_serialized: null
               context_mapping: {  }
             weight: 1
@@ -196,8 +196,8 @@ custom_fields:
               label_display: false
               provider: layout_builder
               view_mode: full
-              block_id: '13'
-              block_revision_id: '14'
+              block_id: '12'
+              block_revision_id: '12'
               block_serialized: null
               context_mapping: {  }
             weight: 0
@@ -209,14 +209,14 @@ custom_fields:
               section_spacing_vertical: py-12
     blocks:
       -
-        uuid: 7bc8f89c-92d4-4f8a-917a-e5d53ba248d9
+        uuid: e1146317-736d-46dc-8fbf-6a6da740f21a
         entity_type: block_content
         bundle: couple_hero
         base_fields:
           info: 'About couple hero'
           reusable: false
           langcode: en
-          block_revision_id: '9'
+          block_revision_id: '8'
           enforce_new_revision: true
         custom_fields:
           field_couple:
@@ -506,31 +506,31 @@ custom_fields:
             -
               value: 'We are Ana and Carlos. We met while working in Drupal, found a common interest in the community, and eventually fell in love.'
       -
-        uuid: 769c2eed-611d-4f48-b0c4-0ac1646e5aab
+        uuid: 3736c4b2-f914-46ae-bf49-883b10b13b73
         entity_type: block_content
         bundle: basic
         base_fields:
           info: 'About origin narrative'
           reusable: false
           langcode: en
-          block_revision_id: '10'
+          block_revision_id: '9'
           enforce_new_revision: true
         custom_fields:
           body:
             -
-              value: '<h2 class="font-heading text-3xl font-semibold">How this started</h2><p>Carlos has been around technology since 1987 and in the Drupal community since 2012, a champion of open source since 1996. He worked for years as a front-end developer, then as a Technical Account Manager, and now as a Drupal Advisor who connects people and advises on web development and Drupal best practices.</p><p>Ana came from the art and design world and challenged herself to learn code. She picked up Drupal quickly and fell in love with the community, and today she works as a senior web developer who is determined to collaborate and help others get involved.</p><p>We met working in Drupal and kept finding the same thing worth writing down: the honest version of what actually survives production. So we started writing it, in two voices, from both worlds. Is that the kind of writing you have been looking for?</p>'
+              value: '<h2 class="font-heading text-3xl font-semibold">How this started</h2><p>Carlos has been around technology since 1987 and in the Drupal community since 2012, a champion of open source since 1996. He worked for years as a front-end developer, then as a Technical Account Manager, and now as a Drupal Advisor who connects people and advises on web development and Drupal best practices.</p><p>Ana came from the art and design world and challenged herself to learn code. She picked up Drupal quickly and fell in love with the community, and today she works as a senior web developer who is determined to collaborate and help others get involved.</p><p>We met working in Drupal and kept finding the same thing worth writing down: what actually survives production. So we started writing it, in two voices, as part of the Drupal community in both Latin America and the US. Is that the kind of writing you have been looking for?</p>'
               summary: null
               format: full_html
               embed_entities: {  }
       -
-        uuid: 02c163e2-f246-42b3-aed6-5915e187868c
+        uuid: a513112a-40ff-4b52-a646-07ab4a4b0618
         entity_type: block_content
         bundle: basic
         base_fields:
           info: 'About community heading'
           reusable: false
           langcode: en
-          block_revision_id: '11'
+          block_revision_id: '10'
           enforce_new_revision: true
         custom_fields:
           body:
@@ -540,14 +540,14 @@ custom_fields:
               format: full_html
               embed_entities: {  }
       -
-        uuid: 00949f8f-a98f-4ab3-8457-3da88f4c71b0
+        uuid: 2e9a0c27-ed51-45af-a9e3-e24a06ac8e33
         entity_type: block_content
         bundle: couple_story_block
         base_fields:
           info: 'About couple story'
           reusable: false
           langcode: en
-          block_revision_id: '12'
+          block_revision_id: '11'
           enforce_new_revision: true
         custom_fields:
           field_couple:
@@ -565,14 +565,14 @@ custom_fields:
                 url: /anilu-camoa
               bundle: couple
       -
-        uuid: 654dbb83-e6f3-44e8-9dc4-9ca48c9f9611
+        uuid: f2fc0815-317e-4461-a265-69898c83fc9a
         entity_type: block_content
         bundle: basic
         base_fields:
           info: 'About contact coda'
           reusable: false
           langcode: en
-          block_revision_id: '14'
+          block_revision_id: '12'
           enforce_new_revision: true
         custom_fields:
           body:
