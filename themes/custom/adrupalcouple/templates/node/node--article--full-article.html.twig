@@ -96,9 +96,10 @@
   {# would wrap in Drupal field markup we do not want here).                 #}
   {# React: <nav aria-label={s.topicsLabel}><Link class="badge ...">...</nav>#}
   {% if node.field_tags is not empty %}
-    <nav class="mt-12 flex flex-wrap items-center gap-2" aria-label="{{ 'Topics'|t }}">
+    <nav class="mt-12 flex flex-wrap items-center gap-2" aria-label="{{ 'Filed under'|t }}">
       {# D2: text-muted = var(--color-muted-content) = 5.62:1 on base-100 #}
-      <span class="text-sm font-semibold text-muted">{{ 'Topics'|t }}</span>
+      {# React articlePage.strings.ts topicsLabel = "Filed under" (ES "Temas"). #}
+      <span class="text-sm font-semibold text-muted">{{ 'Filed under'|t }}</span>
       {% for item in node.field_tags %}
         {% if item.entity %}
           {# D6: topic-chip enforces 24px min-block-size (WCAG 2.5.8 AA) via a11y.pcss #}

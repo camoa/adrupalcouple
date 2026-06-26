@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_view_display.comment.comment.default
     - field.field.node.article.body
     - field.field.node.article.field_closing_question
     - field.field.node.article.field_comments
@@ -21,6 +22,7 @@ dependencies:
     - field.field.node.article.schema_subject_of
     - node.type.article
   module:
+    - comment
     - field_group
     - manage_display
 third_party_settings:
@@ -77,6 +79,15 @@ content:
     third_party_settings: {  }
     weight: 4
     region: content
+  field_comments:
+    type: comment_default
+    label: above
+    settings:
+      view_mode: default
+      pager_id: 0
+    third_party_settings: {  }
+    weight: 100
+    region: content
   field_tags:
     type: entity_reference_label
     label: hidden
@@ -126,7 +137,6 @@ hidden:
   comment: true
   content_moderation_control: true
   field_closing_question: true
-  field_comments: true
   field_disclosure: true
   field_metatag: true
   field_metric: true
