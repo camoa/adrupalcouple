@@ -55,6 +55,11 @@
 @import "./a11y.pcss";
 
 /**
+ * Unlayered batch/AJAX progress-bar override (beats @layer daisyui .progress).
+ */
+@import "./_batch-progress.pcss";
+
+/**
  * Declare all source files to take into account all utility classes used in the theme for the build process.
  */
 @source "../templates/**/*.{twig,js}";

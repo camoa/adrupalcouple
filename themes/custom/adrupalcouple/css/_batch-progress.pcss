@@ -1,0 +1,55 @@
+/**
+ * Batch / AJAX progress bar (Drupal core) — unlayered override.
+ *
+ * Core renders the batch/AJAX progress as:
+ *   <div class="progress">
+ *     <div class="progress__track"><div class="progress__bar" style="width: N%"></div></div>
+ *     <div class="progress__percentage">N%</div> …
+ *
+ * DaisyUI defines `.progress` for the native <progress> ELEMENT (height .5rem,
+ * overflow:hidden, currentColor background). That class hijacks core's wrapper
+ * <div class="progress">, so the inner `.progress__bar` fill never shows and the
+ * bar appears not to fill. The theme ships no styling for `.progress__track` /
+ * `.progress__bar`.
+ *
+ * Fix: style core's track/bar. Unlayered (this file is imported outside @layer,
+ * so it beats DaisyUI's layered `.progress`). Scoped with :has(.progress__track)
+ * so genuine DaisyUI <progress> elements (which cannot contain a div) are NOT
+ * affected.
+ */
+.progress:has(.progress__track) {
+  appearance: none;
+  width: 100%;
+  height: auto;
+  background-color: transparent;
+  border-radius: 0;
+  overflow: visible;
+}
+
+.progress__track {
+  height: 0.75rem;
+  overflow: hidden;
+  border-radius: var(--radius-box, 0.5rem);
+  background-color: color-mix(in oklab, var(--color-base-content) 15%, transparent);
+}
+
+.progress__bar {
+  height: 100%;
+  border-radius: inherit;
+  background-color: var(--color-primary);
+  transition: width 0.25s ease;
+}
+
+.progress__percentage {
+  margin-top: 0.25rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-base-content);
+}
+
+.progress__label,
+.progress__description {
+  margin-top: 0.25rem;
+  font-size: 0.875rem;
+  color: color-mix(in oklab, var(--color-base-content) 70%, transparent);
+}
