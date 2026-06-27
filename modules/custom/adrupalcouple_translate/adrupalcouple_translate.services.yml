@@ -1,0 +1,6 @@
+services:
+  adrupalcouple_translate.untranslated_admin_theme_negotiator:
+    class: Drupal\adrupalcouple_translate\Theme\UntranslatedAdminThemeNegotiator
+    arguments: ['@config.factory']
+    tags:
+      - { name: theme_negotiator, priority: 1000 }
