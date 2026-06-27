@@ -41,7 +41,7 @@ display:
           empty_zero: false
           hide_alter_empty: true
           batch: true
-          batch_size: 5
+          batch_size: 1
           form_step: true
           buttons: true
           action_title: Action
