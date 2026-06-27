@@ -25,7 +25,6 @@ function adrupalcouple_translate_views_query_alter(ViewExecutable $view, $query)
   $map = [
     'untranslated_content' => ['node_field_data', 'nid'],
     'untranslated_terms' => ['taxonomy_term_field_data', 'tid'],
-    'untranslated_blocks' => ['block_content_field_data', 'id'],
   ];
   if (!isset($map[$view->id()]) || !$query instanceof Sql) {
     return;
