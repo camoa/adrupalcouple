@@ -154,3 +154,104 @@ msgstr "No encontramos esa persona."
 
 msgid "Their writing"
 msgstr "Su escritura"
+
+# --- Home + couples/person/article UI strings (added 2026-06) ---
+
+msgid "Read the latest writing"
+msgstr "Lee lo más reciente"
+
+msgid "A place built around Drupal couples, starting with the founders."
+msgstr "Un lugar construido en torno a parejas Drupal, empezando por las fundadoras."
+
+msgid "A real, browsable body of work. Production truth about Drupal, AI, and open source."
+msgstr "Un cuerpo de trabajo real y navegable. Verdad de producción sobre Drupal, IA y código abierto."
+
+msgid "Browse couples"
+msgstr "Ver parejas"
+
+msgid "Comments"
+msgstr "Comentarios"
+
+msgid "Comments are open. Add yours below."
+msgstr "Los comentarios están abiertos. Agrega el tuyo abajo."
+
+msgid "contact form"
+msgstr "formulario de contacto"
+
+msgid "Filed under"
+msgstr "Temas"
+
+msgid "honest write-ups published"
+msgstr "artículos honestos publicados"
+
+msgid "Jump to writing"
+msgstr "Ir a la escritura"
+
+msgid "Links:"
+msgstr "Enlaces:"
+
+msgid "Milestones"
+msgstr "Hitos"
+
+msgid "min read"
+msgstr "min de lectura"
+
+msgid "Nothing published yet — check back soon."
+msgstr "Nada publicado todavía, vuelve pronto."
+
+msgid "Nothing tagged this topic yet."
+msgstr "Todavía no hay nada etiquetado con este tema."
+
+msgid "Open navigation menu"
+msgstr "Abrir menú de navegación"
+
+msgid "Our shared story"
+msgstr "Nuestra historia compartida"
+
+msgid "tagged"
+msgstr "etiquetados"
+
+msgid "Tags: @tags"
+msgstr "Temas: @tags"
+
+msgid "The body of work this couple has published together, browsable and attributable to the person who wrote each piece."
+msgstr "El cuerpo de trabajo que esta pareja ha publicado en conjunto, navegable y atribuible a la persona que escribió cada pieza."
+
+msgid "The two people"
+msgstr "Las dos personas"
+
+msgid "Topic"
+msgstr "Tema"
+
+msgid "topics in rotation"
+msgstr "temas en circulación"
+
+msgid "Two voices write under this name, and each one stays its own voice. Here is who writes what, so you can follow either of us."
+msgstr "Dos voces escriben bajo este nombre, y cada una sigue siendo su propia voz. Aquí está quién escribe qué, para que puedas seguir a cualquiera de las dos."
+
+msgid "View @name's profile"
+msgstr "Ver el perfil de @name"
+
+msgid "Want to talk Drupal? Find @name below."
+msgstr "¿Quieres hablar de Drupal? Encuentra a @name más abajo."
+
+msgid "We are a couple, and we are also two individuals with our own track records. Open either profile to read that person on their own terms."
+msgstr "Somos una pareja, y también somos dos personas con nuestra propia trayectoria. Abre cualquiera de los perfiles para leer a esa persona en sus propios términos."
+
+msgid "We built this around couples because two voices tell a more honest story than one. This is the directory, and it starts with ours. Who else belongs here?"
+msgstr "Construimos esto en torno a las parejas porque dos voces cuentan una historia más honesta que una sola. Este es el directorio, y empieza con la nuestra. ¿Quién más pertenece aquí?"
+
+msgid "What lives here so far"
+msgstr "Qué hay aquí hasta ahora"
+
+msgid "What @name writes about"
+msgstr "Sobre qué escribe @name"
+
+msgid "Who speaks here"
+msgstr "Quién escribe aquí"
+
+msgid "write-up"
+msgstr "artículo"
+
+msgid "write-ups"
+msgstr "artículos"
