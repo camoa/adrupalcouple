@@ -8,13 +8,13 @@ use Drupal\Core\Action\Attribute\Action;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 
 /**
- * Translates a node to Spanish using AI Translate.
+ * Translates a taxonomy term to Spanish using AI Translate.
  */
 #[Action(
-  id: 'adrupalcouple_translate_to_spanish',
+  id: 'adrupalcouple_translate_term_to_spanish',
   label: new TranslatableMarkup('Translate to Spanish (AI)'),
-  type: 'node',
+  type: 'taxonomy_term',
 )]
-final class TranslateNodeToSpanish extends TranslateToSpanishBase {
+final class TranslateTermToSpanish extends TranslateToSpanishBase {
 
 }

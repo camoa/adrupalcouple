@@ -8,13 +8,13 @@ use Drupal\Core\Action\Attribute\Action;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 
 /**
- * Translates a node to Spanish using AI Translate.
+ * Translates a custom block (block_content) to Spanish using AI Translate.
  */
 #[Action(
-  id: 'adrupalcouple_translate_to_spanish',
+  id: 'adrupalcouple_translate_block_to_spanish',
   label: new TranslatableMarkup('Translate to Spanish (AI)'),
-  type: 'node',
+  type: 'block_content',
 )]
-final class TranslateNodeToSpanish extends TranslateToSpanishBase {
+final class TranslateBlockContentToSpanish extends TranslateToSpanishBase {
 
 }

@@ -13,24 +13,26 @@ use Drupal\views\ViewExecutable;
 /**
  * Implements hook_views_query_alter().
  *
- * Restricts the `untranslated_content` view to source nodes that do NOT yet have
- * a Spanish translation. Views has no native "missing translation" filter, so we
- * add a NOT EXISTS anti-join against the es row. The view itself filters to the
- * default-translation originals (default_langcode = 1); this removes the ones
- * already translated, leaving a true "needs Spanish" worklist that shrinks as
- * content is translated.
+ * Restricts each "untranslated_*" worklist view to source entities that do NOT
+ * yet have a Spanish translation. Views has no native "missing translation"
+ * filter, so we add a NOT EXISTS anti-join against the es row. Each view filters
+ * to the default-translation originals (default_langcode = 1); this removes the
+ * ones already translated, leaving true "needs Spanish" worklists that shrink as
+ * content is translated. The view's base-table alias equals the base-table name.
  */
 function adrupalcouple_translate_views_query_alter(ViewExecutable $view, $query): void {
-  if ($view->id() !== 'untranslated_content') {
+  // view id => [base table, id column].
+  $map = [
+    'untranslated_content' => ['node_field_data', 'nid'],
+    'untranslated_terms' => ['taxonomy_term_field_data', 'tid'],
+    'untranslated_blocks' => ['block_content_field_data', 'id'],
+  ];
+  if (!isset($map[$view->id()]) || !$query instanceof Sql) {
     return;
   }
-  if (!$query instanceof Sql) {
-    return;
-  }
-  // Base table alias for a node view is node_field_data; exclude any node that
-  // already has an 'es' translation row.
+  [$table, $id] = $map[$view->id()];
   $query->addWhereExpression(0,
-    "NOT EXISTS (SELECT 1 FROM {node_field_data} adc_es WHERE adc_es.nid = node_field_data.nid AND adc_es.langcode = :adc_tlang)",
+    "NOT EXISTS (SELECT 1 FROM {{$table}} adc_es WHERE adc_es.{$id} = {$table}.{$id} AND adc_es.langcode = :adc_tlang)",
     [':adc_tlang' => 'es'],
   );
 }
