@@ -86,6 +86,7 @@
         "drupal/twig_tweak": "^3.4",
         "drupal/ui_suite_daisyui": "^5.0@alpha",
         "drupal/upgrade_status": "^4.3",
+        "drupal/views_bulk_operations": "^4.3",
         "drupal/views_infinite_scroll": "^2.0",
         "drupal/yoast_seo": "^2",
         "drush/drush": "^13",

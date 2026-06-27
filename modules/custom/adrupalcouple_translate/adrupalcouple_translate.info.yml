@@ -1,0 +1,10 @@
+name: 'A Drupal Couple Translate'
+type: module
+description: 'AI bulk-translation: a VBO action to translate nodes to Spanish, plus the untranslated-content view''s missing-translation query.'
+package: 'A Drupal Couple'
+core_version_requirement: ^10 || ^11
+dependencies:
+  - drupal:node
+  - drupal:views
+  - ai_translate:ai_translate
+  - views_bulk_operations:views_bulk_operations
