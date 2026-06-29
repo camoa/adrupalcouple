@@ -16,14 +16,16 @@
  *       ├── topic chips  — badge badge-outline badge-sm (hover:border-primary hover:text-primary)
  *       ├── card-title H3 — linked to canonical URL (link-hover underline)
  *       ├── dek text-sm text-muted (schema_abstract, no line-clamp on listing)
- *       └── byline: avatar w-6 + author name · read time
+ *       └── byline: overlapping w-6 author avatars + "Name & Name" · read time
  *
  * Preprocess variables from adrupalcouple_preprocess_node__article():
- *   read_time             — int minutes (body word count / 238 wpm)
- *   card_thumbnail        — render array (image_style adc_card_thumbnail_16x9_640) or NULL
- *   card_author_name      — string (first schema_author node label)
- *   card_author_initial   — single uppercase char for initials fallback
- *   card_author_avatar_64 — render array (image_style adc_author_avatar_1x1_64) or NULL
+ *   read_time              — int minutes (body word count / 238 wpm)
+ *   card_thumbnail         — render array (image_style adc_card_thumbnail_16x9_640) or NULL
+ *   card_author_name       — string (first schema_author node label)
+ *   card_author_initial    — single uppercase char for initials fallback
+ *   card_author_avatar_64  — render array (image_style adc_author_avatar_1x1_64) or NULL
+ *   card_author_url        — string author profile URL
+ *   card_author2_*         — same set for an optional second co-author ('' when single)
  *
  * Motion: transition-colors duration-150 on card border and topic chips.
  *         No entrance animation. Reduced-motion: a11y.pcss collapses to 0.01ms.
@@ -86,27 +88,36 @@
       <div class="mt-2 flex items-center gap-2 text-xs text-muted">
 
         {% if card_author_name %}
-          <div class="avatar shrink-0">
-            {% if card_author_avatar_64 %}
-              {# With-image: author photo at 64px source → 24px (w-6) display. #}
-              <div class="w-6 rounded-full overflow-hidden">
-                {{ card_author_avatar_64 }}
-              </div>
-            {% else %}
-              {# Placeholder: bg-primary initials circle (avatar-placeholder DaisyUI). #}
-              <div class="avatar avatar-placeholder">
-                <div class="bg-primary text-primary-content w-6 rounded-full">
-                  <span class="text-xs" aria-hidden="true">{{ card_author_initial }}</span>
-                  <span class="sr-only">{{ card_author_name }}</span>
+          {# Overlapping avatar group (couple parity with the full article byline). #}
+          <div class="flex -space-x-1 shrink-0">
+            {% for a in [
+              { name: card_author_name,  initial: card_author_initial,  avatar: card_author_avatar_64 },
+              { name: card_author2_name, initial: card_author2_initial, avatar: card_author2_avatar_64 }
+            ] %}
+              {% if a.name %}
+                <div class="avatar shrink-0">
+                  {% if a.avatar %}
+                    {# With-image: author photo at 64px source → 24px (w-6) display. #}
+                    <div class="w-6 rounded-full overflow-hidden ring-2 ring-base-100">{{ a.avatar }}</div>
+                  {% else %}
+                    {# Placeholder: bg-primary initials circle (avatar-placeholder DaisyUI). #}
+                    <div class="avatar avatar-placeholder">
+                      <div class="bg-primary text-primary-content w-6 rounded-full ring-2 ring-base-100">
+                        <span class="text-xs" aria-hidden="true">{{ a.initial }}</span>
+                        <span class="sr-only">{{ a.name }}</span>
+                      </div>
+                    </div>
+                  {% endif %}
                 </div>
-              </div>
-            {% endif %}
+              {% endif %}
+            {% endfor %}
           </div>
-          {% if card_author_url %}
-            <a href="{{ card_author_url }}" class="link link-hover">{{ card_author_name }}</a>
-          {% else %}
-            <span>{{ card_author_name }}</span>
-          {% endif %}
+
+          {# Names — "Carlos & Ana", each linking to their profile. #}
+          <span>
+            {% if card_author_url %}<a href="{{ card_author_url }}" class="link link-hover">{{ card_author_name }}</a>{% else %}{{ card_author_name }}{% endif %}
+            {%- if card_author2_name %} &amp; {% if card_author2_url %}<a href="{{ card_author2_url }}" class="link link-hover">{{ card_author2_name }}</a>{% else %}{{ card_author2_name }}{% endif %}{% endif %}
+          </span>
         {% endif %}
 
         {% if card_author_name and read_time %}

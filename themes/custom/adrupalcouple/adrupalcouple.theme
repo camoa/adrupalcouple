@@ -408,30 +408,44 @@ function adrupalcouple_preprocess_node__article(array &$variables): void {
   // schema_image (card thumbnail) renders NATIVELY via the media `adc_card_thumbnail`
   // view mode on the node.article.teaser display (responsive_image_wiring recipe) —
   // no preprocess thumbnail. Only the author byline is computed here.
+  // Card byline supports up to two co-authors (couple parity with the full
+  // article byline — a single-author card was a design error). The card_author{,2}_*
+  // pairs feed the overlapping avatar group + "Name & Name" in the teaser template.
   $variables['card_author_name'] = '';
   $variables['card_author_initial'] = '';
   $variables['card_author_avatar_64'] = NULL;
   $variables['card_author_url'] = '';
-  if (($variables['elements']['#view_mode'] ?? '') === 'teaser') {
-    // Card author: first schema_author — name, initial, 64px avatar.
-    if ($node->hasField('schema_author') && !$node->get('schema_author')->isEmpty()) {
-      /** @var \Drupal\node\NodeInterface|null $card_author */
-      $card_author = $node->get('schema_author')->first()?->entity;
-      if ($card_author instanceof NodeInterface) {
-        $card_author_name = (string) ($card_author->label() ?? '');
-        $variables['card_author_name'] = $card_author_name;
-        $variables['card_author_initial'] = mb_strtoupper(mb_substr($card_author_name, 0, 1));
-        // Author profile URL so the card byline can link to the person (Carlos
-        // 2026-06-25: card must navigate to the author, not only the article).
-        $variables['card_author_url'] = $card_author->toUrl()->toString();
-        $avatar_64 = _adrupalcouple_person_avatar($card_author, $card_author_name, 'adc_author_avatar_1x1_64');
-        if ($avatar_64 !== NULL) {
-          $variables['card_author_avatar_64'] = $avatar_64;
-          // card_author_avatar (no suffix) is the name expected by the Twig template
-          // node--article--teaser.html.twig. Both point to the same render array.
-          $variables['card_author_avatar'] = $avatar_64;
-        }
+  $variables['card_author2_name'] = '';
+  $variables['card_author2_initial'] = '';
+  $variables['card_author2_avatar_64'] = NULL;
+  $variables['card_author2_url'] = '';
+  if (($variables['elements']['#view_mode'] ?? '') === 'teaser'
+    && $node->hasField('schema_author') && !$node->get('schema_author')->isEmpty()) {
+    /** @var \Drupal\node\NodeInterface[] $card_authors */
+    $card_authors = array_values(array_filter(
+      $node->get('schema_author')->referencedEntities(),
+      static fn($e) => $e instanceof NodeInterface
+    ));
+    // Suffix map: first author → '', second author → '2'.
+    foreach ([0 => '', 1 => '2'] as $i => $sfx) {
+      $a = $card_authors[$i] ?? NULL;
+      if (!$a instanceof NodeInterface) {
+        continue;
       }
+      $name = (string) ($a->label() ?? '');
+      $variables["card_author{$sfx}_name"] = $name;
+      $variables["card_author{$sfx}_initial"] = mb_strtoupper(mb_substr($name, 0, 1));
+      // Author profile URL so the card byline can link to the person.
+      $variables["card_author{$sfx}_url"] = $a->toUrl()->toString();
+      $avatar_64 = _adrupalcouple_person_avatar($a, $name, 'adc_author_avatar_1x1_64');
+      if ($avatar_64 !== NULL) {
+        $variables["card_author{$sfx}_avatar_64"] = $avatar_64;
+      }
+    }
+    // card_author_avatar (no suffix) is read by card.twig — keep it pointing at
+    // the primary author's avatar render array for back-compat.
+    if ($variables['card_author_avatar_64'] !== NULL) {
+      $variables['card_author_avatar'] = $variables['card_author_avatar_64'];
     }
   }
 
