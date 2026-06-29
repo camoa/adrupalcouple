@@ -1,0 +1,22 @@
+{#
+/**
+ * @file
+ * node.article `body` field — CKEditor prose inside the article reading column.
+ *
+ * The article template (node--article--full-article) already provides
+ * `.reading-column .reading-prose` on the <article> wrapper. Drupal's default
+ * body field markup is an unclassed <div>, so the `.reading-prose > * + *`
+ * direct-child rhythm stops at that wrapper and never reaches the CKEditor <p>
+ * children (they sit one level too deep). This template adds `.article-body`
+ * as the stable hook the reading rhythm + in-body link styling scope to.
+ * Mirrors React ArticleBody (reading-block space-y-5).
+ *
+ * @see css/utilities/reading.pcss (.reading-prose .article-body)
+ * @see templates/node/field--node--body--page.html.twig (sibling pattern)
+ */
+#}
+<div{{ attributes.addClass('article-body') }}>
+  {% for item in items %}
+    {{ item.content }}
+  {% endfor %}
+</div>

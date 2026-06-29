@@ -31,6 +31,49 @@
     margin-block-start: 1.75rem;
   }
 
+  /* ── Article body field (CKEditor prose) ───────────────────────────────────
+   * The body field renders as a wrapper <div class="article-body"> (see
+   * field--node--body--article.html.twig). The `.reading-prose > * + *` owl
+   * above only spaces DIRECT children of .reading-prose, so it stops at this
+   * wrapper and never reaches the CKEditor <p> children. Re-apply the same
+   * 1.25rem reading rhythm to the flow elements inside the body. (h2/h3/
+   * blockquote/pre/figure are descendant-scoped above and already reach here.)
+   * Value = density rhythm token (design-system-tokens.yml §density); matches
+   * React ArticleBody `space-y-5`.
+   * ──────────────────────────────────────────────────────────────────────── */
+  .reading-prose .article-body > * + * {
+    margin-block-start: 1.25rem;
+  }
+
+  /* In-body content links — clearly clickable: brand accent teal + underline.
+   * Scoped to .article-body so the byline (.link link-hover) and topic chips
+   * (.badge), which also live inside .reading-prose, keep their own treatment.
+   * token: light.accent / dark.accent → --color-accent (teal.600 / teal.500). */
+  .reading-prose .article-body a {
+    color: var(--color-accent);
+    text-decoration-line: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.15em;
+    transition: text-decoration-thickness var(--duration-quick) var(--ease-standard);
+  }
+
+  .reading-prose .article-body a:hover {
+    text-decoration-thickness: 2px;
+  }
+
+  .reading-prose .article-body a:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+    border-radius: var(--radius-field);
+  }
+
+  /* Tailwind Typography (.prose) contexts — page / about / couple rich text.
+   * Prose already underlines links; align the colour to the same brand accent
+   * teal so in-body links read consistently across prose systems. */
+  .prose a {
+    color: var(--color-accent);
+  }
+
   /* ── CKEditor 5 body field output ──────────────────────────────────────────
    * These selectors scope to .reading-prose so they only apply on the article
    * reading template. code-highlight.css (attached per-article via

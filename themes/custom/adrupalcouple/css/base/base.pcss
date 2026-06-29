@@ -35,4 +35,18 @@
   samp {
     font-family: var(--font-mono);
   }
+
+  /* extlink (contrib) appends an inline SVG icon after external links. Tailwind
+   * Preflight sets `svg { display:block }`, which drops that icon onto its own
+   * line. Restore inline flow so it hugs the end of the link text. Scoped
+   * STRICTLY to extlink's own icon classes (extlink_class ext / mailto / tel) —
+   * never bare `svg`, so no other icon is affected. Pairs with
+   * extlink_prevent_orphan (config), which keeps the last word + icon together
+   * via .extlink-nobreak. Overridden in the theme, never in contrib CSS. */
+  svg.ext,
+  svg.mailto,
+  svg.tel {
+    display: inline-block;
+    vertical-align: baseline;
+  }
 }
