@@ -6,6 +6,7 @@ dependencies:
     - filter.format.full_html
   module:
     - ckeditor5
+    - media
 _core:
   default_config_hash: qtbIKnf_F-jhwZ-rl2ajm3BfFNPj8INYFVd2_5k6UFA
 format: full_html
@@ -30,6 +31,7 @@ settings:
       - '|'
       - blockQuote
       - drupalInsertImage
+      - drupalMedia
       - insertTable
       - horizontalLine
       - '|'
@@ -110,6 +112,8 @@ settings:
         - aria-label
         - class
         - target
+    media_media:
+      allow_view_mode_override: false
 image_upload:
   status: true
   scheme: public

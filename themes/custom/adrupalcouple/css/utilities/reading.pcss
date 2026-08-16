@@ -141,4 +141,14 @@
     font-size: 0.875rem;
     color: var(--color-muted-content);
   }
+
+  /* Evidence callout stat value — match React EvidenceCallout.tsx
+     (`stat-value font-heading text-primary`). The article renders field_metric via
+     ui_patterns → daisyui stat_item, which omits those utility classes (the /writing
+     partial hand-applies them). Apply here so BOTH renders read teal + Fraunces.
+     Theme-aware via --color-primary (adc-warm teal.700 / adc-dark teal.400). */
+  [data-component="evidence-callout"] .stat-value {
+    font-family: var(--font-heading);
+    color: var(--color-primary);
+  }
 }
