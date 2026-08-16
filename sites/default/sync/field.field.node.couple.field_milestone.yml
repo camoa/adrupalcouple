@@ -23,37 +23,21 @@ settings:
   add_more_label: ''
   field_settings:
     year:
-      type: text
-      weight: 0
+      label: Year
       check_empty: false
-      widget_settings:
-        label: Year
-        translatable: false
-        settings:
-          description: 'Year or year-range (e.g. "2018", "2018–2020").'
-          description_display: after
-          size: 16
-          placeholder: ''
-          maxlength: 16
-          maxlength_js: false
-          prefix: ''
-          suffix: ''
-          required: false
+      required: false
+      translatable: false
+      description: 'Year or year-range (e.g. "2018", "2018–2020").'
+      description_display: after
+      prefix: ''
+      suffix: ''
     label:
-      type: text
-      weight: 1
+      label: Milestone
       check_empty: true
-      widget_settings:
-        label: Milestone
-        translatable: true
-        settings:
-          description: 'Human-readable milestone description.'
-          description_display: after
-          size: 60
-          placeholder: ''
-          maxlength: 255
-          maxlength_js: false
-          prefix: ''
-          suffix: ''
-          required: false
+      required: false
+      translatable: true
+      description: 'Human-readable milestone description.'
+      description_display: after
+      prefix: ''
+      suffix: ''
 field_type: custom

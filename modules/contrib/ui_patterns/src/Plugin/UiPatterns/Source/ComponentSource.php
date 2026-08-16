@@ -92,13 +92,13 @@ class ComponentSource extends SourcePluginBase implements SourceWithChoicesInter
    * {@inheritdoc}
    */
   public function getPropValue(): mixed {
-    $component_settings = $this->getSetting("component") ?? [];
-    if (!isset($component_settings["component_id"])) {
+    $component_settings = $this->getSetting('component') ?? [];
+    if (!isset($component_settings['component_id'])) {
       return [];
     }
     return [
       '#type' => 'component',
-      '#component' => $component_settings["component_id"],
+      '#component' => $component_settings['component_id'],
       '#ui_patterns' => $component_settings,
       '#source_contexts' => $this->context,
     ];
@@ -109,13 +109,13 @@ class ComponentSource extends SourcePluginBase implements SourceWithChoicesInter
    */
   public function settingsForm(array $form, FormStateInterface $form_state): array {
     $form = parent::settingsForm($form, $form_state);
-    $component_settings = $this->getSetting("component") ?? [];
-    $form["component"] = [
+    $component_settings = $this->getSetting('component') ?? [];
+    $form['component'] = [
       '#type' => 'component_form',
       '#default_value' => $component_settings,
       '#source_contexts' => $this->context,
     ];
-    $this->moduleHandler->alter('ui_patterns_form', $form["component"], $form_state);
+    $this->moduleHandler->alter('ui_patterns_form', $form['component'], $form_state);
     return $form;
   }
 
@@ -140,16 +140,15 @@ class ComponentSource extends SourcePluginBase implements SourceWithChoicesInter
    * {@inheritdoc}
    */
   public function getChoices(): array {
-
     $definitions = $this->componentManager->getNegotiatedGroupedDefinitions();
     $choices = [];
     foreach ($definitions as $group_id => $group) {
       foreach ($group as $component_id => $definition) {
         $choice = [
-          "label" => $definition['annotated_name'] ?? $definition['label'] ?? $component_id,
-          "original_id" => $component_id,
-          "group" => $group_id,
-          "provider" => $definition['provider'] ?? NULL,
+          'label' => $definition['annotated_name'] ?? $definition['label'] ?? $component_id,
+          'original_id' => $component_id,
+          'group' => $group_id,
+          'provider' => $definition['provider'] ?? NULL,
         ];
         if ($choice['label'] instanceof MarkupInterface) {
           $choice['label'] = (string) $choice['label'];
@@ -181,15 +180,20 @@ class ComponentSource extends SourcePluginBase implements SourceWithChoicesInter
   /**
    * {@inheritdoc}
    */
-  public function calculateDependencies() : array {
+  public function calculateDependencies(): array {
     $dependencies = parent::calculateDependencies();
-    $component_settings = $this->getSetting("component") ?? [];
-    if (!isset($component_settings["component_id"])) {
+    $component_settings = $this->getSetting('component') ?? [];
+    if (!isset($component_settings['component_id'])) {
       return $dependencies;
     }
-    SourcePluginBase::mergeConfigDependencies($dependencies,
-    $this->componentElementBuilder->calculateComponentDependencies(
-    $component_settings["component_id"], $component_settings, $this->context));
+    SourcePluginBase::mergeConfigDependencies(
+      $dependencies,
+      $this->componentElementBuilder->calculateComponentDependencies(
+        $component_settings['component_id'],
+        $component_settings,
+        $this->context
+      )
+    );
     return $dependencies;
   }
 

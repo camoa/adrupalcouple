@@ -5,16 +5,22 @@ declare(strict_types=1);
 namespace Drupal\Tests\ui_patterns\Kernel;
 
 use Drupal\Core\Plugin\Context\EntityContext;
-use Drupal\KernelTests\KernelTestBase;
 use Drupal\entity_test\Entity\EntityTest;
+use Drupal\KernelTests\KernelTestBase;
 use Drupal\ui_patterns\SourcePluginBase;
 use Drupal\ui_patterns\SourcePluginManager;
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
  * Test SourcePluginManager.
  *
- * @group ui_patterns
+ * @internal
+ *
+ * @coversNothing
  */
+#[Group('ui_patterns')]
+#[RunTestsInSeparateProcesses]
 final class SourcePluginManagerTest extends KernelTestBase {
 
   /**
@@ -49,17 +55,6 @@ final class SourcePluginManagerTest extends KernelTestBase {
   }
 
   /**
-   * Returns defined contexts by context id.
-   */
-  private function getContextsByIds($context_keys): array {
-    $contexts = [];
-    foreach ($context_keys as $context_key) {
-      $contexts[$context_key] = $this->definedContexts[$context_key];
-    }
-    return $contexts;
-  }
-
-  /**
    * Provides generic test data.
    *
    * The test data returns:
@@ -72,55 +67,70 @@ final class SourcePluginManagerTest extends KernelTestBase {
     $data = [];
     $data[] = ['string', [], ['textfield', 'foo'], ['context_foo']];
     $data[] = ['string', ['entity'], ['textfield', 'foo', 'context_foo'], []];
+
     return $data;
   }
 
   /**
    * Test create source plugins.
-   *
-   * @dataProvider providerPropTypeDefinitions
    */
-  public function testCreateSourcePluginsForPropType($prop_type_id, $context_keys = [], $should_contains = [], $not_contains = []): void {
-    $contexts = $this->getContextsByIds($context_keys);
-    $source_plugin_manager = $this->sourcePluginManager;
-    $source_ids = array_keys($source_plugin_manager->getDefinitionsForPropType($prop_type_id, $contexts));
-    $configuration = SourcePluginBase::buildConfiguration($prop_type_id, ['title' => 'test title'], [], $contexts, NULL);
-    $source_ids = array_combine($source_ids, $source_ids);
-    $sources = $source_plugin_manager->createInstances($source_ids, $configuration);
-    $sources_key = array_keys($sources);
-    $should_exists = array_intersect($sources_key, $should_contains);
-    $should_not_exists = array_intersect($sources_key, $not_contains);
-    $this->assertCount(count($should_contains), $should_exists, implode($should_exists));
-    $this->assertCount(0, $should_not_exists, implode(' ', $should_not_exists));
+  public function testCreateSourcePluginsForPropType(): void {
+    foreach (self::providerPropTypeDefinitions() as $case) {
+      [$prop_type_id, $context_keys, $should_contains, $not_contains] = $case;
+      $contexts = $this->getContextsByIds($context_keys);
+      $source_plugin_manager = $this->sourcePluginManager;
+      $source_ids = \array_keys($source_plugin_manager->getDefinitionsForPropType($prop_type_id, $contexts));
+      $configuration = SourcePluginBase::buildConfiguration($prop_type_id, ['title' => 'test title'], [], $contexts, NULL);
+      $source_ids = \array_combine($source_ids, $source_ids);
+      $sources = $source_plugin_manager->createInstances($source_ids, $configuration);
+      $sources_key = \array_keys($sources);
+      $should_exists = \array_intersect($sources_key, $should_contains);
+      $should_not_exists = \array_intersect($sources_key, $not_contains);
+      self::assertCount(\count($should_contains), $should_exists, \implode('', $should_exists));
+      self::assertCount(0, $should_not_exists, \implode(' ', $should_not_exists));
+    }
   }
 
   /**
    * Test getDefinitionsForPropType.
-   *
-   * @dataProvider providerPropTypeDefinitions
    */
-  public function testGetDefinitionsForPropType($prop_type_id, $context_keys = [], $should_contains = [], $not_contains = []): void {
-    $contexts = $this->getContextsByIds($context_keys);
-    $definitions = $this->sourcePluginManager->getDefinitionsForPropType($prop_type_id, $contexts);
-    $definition_keys = array_keys($definitions);
-    $should_exists = array_intersect($definition_keys, $should_contains);
-    $should_not_exists = array_intersect($definition_keys, $not_contains);
-    $this->assertCount(count($should_contains), $should_exists, implode($should_exists));
-    $this->assertCount(0, $should_not_exists, implode(' ', $should_not_exists));
+  public function testGetDefinitionsForPropType(): void {
+    foreach (self::providerPropTypeDefinitions() as $case) {
+      [$prop_type_id, $context_keys, $should_contains, $not_contains] = $case;
+      $contexts = $this->getContextsByIds($context_keys);
+      $definitions = $this->sourcePluginManager->getDefinitionsForPropType($prop_type_id, $contexts);
+      $definition_keys = \array_keys($definitions);
+      $should_exists = \array_intersect($definition_keys, $should_contains);
+      $should_not_exists = \array_intersect($definition_keys, $not_contains);
+      self::assertCount(\count($should_contains), $should_exists, \implode('', $should_exists));
+      self::assertCount(0, $should_not_exists, \implode(' ', $should_not_exists));
+    }
   }
 
   /**
    * Test getDefinitionsForPropType.
-   *
-   * @dataProvider providerPropTypeDefinitions
-   *
-   * @SuppressWarnings("PHPMD.UnusedFormalParameter")
    */
-  public function testGetPropTypeDefault($prop_type_id, $context_keys = [], $should_contains = [], $not_contains = []): void {
-    $contexts = $this->getContextsByIds($context_keys);
-    $definition_id = $this->sourcePluginManager->getPropTypeDefault($prop_type_id, $contexts);
-    $this->assertNotNull($definition_id);
-    $this->assertNull($not_contains[$definition_id] ?? NULL);
+  public function testGetPropTypeDefault(): void {
+    foreach (self::providerPropTypeDefinitions() as $case) {
+      [$prop_type_id, $context_keys, , $not_contains] = $case;
+      $contexts = $this->getContextsByIds($context_keys);
+      $definition_id = $this->sourcePluginManager->getPropTypeDefault($prop_type_id, $contexts);
+      self::assertNotNull($definition_id);
+      self::assertNull($not_contains[$definition_id] ?? NULL);
+    }
+  }
+
+  /**
+   * Returns defined contexts by context id.
+   */
+  private function getContextsByIds($context_keys): array {
+    $contexts = [];
+
+    foreach ($context_keys as $context_key) {
+      $contexts[$context_key] = $this->definedContexts[$context_key];
+    }
+
+    return $contexts;
   }
 
 }

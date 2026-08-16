@@ -6,12 +6,18 @@ namespace Drupal\Tests\ui_patterns\Kernel;
 
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\ui_patterns\Plugin\UiPatterns\PropType\StringPropType;
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
- * Test description.
+ * Test PropTypePluginManager.
  *
- * @group ui_patterns
+ * @internal
+ *
+ * @coversNothing
  */
+#[Group('ui_patterns')]
+#[RunTestsInSeparateProcesses]
 final class PropTypePluginManagerTest extends KernelTestBase {
 
   /**

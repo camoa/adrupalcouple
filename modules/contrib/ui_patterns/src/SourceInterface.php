@@ -36,10 +36,10 @@ interface SourceInterface extends ConfigurableInterface, PluginInspectionInterfa
    * @param \Drupal\ui_patterns\PropTypeInterface|null $prop_type
    *   The expected prop type of the value or NULL to get default value.
    *
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   *
    * @return mixed
    *   The converted value.
-   *
-   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
   public function getValue(?PropTypeInterface $prop_type = NULL): mixed;
 

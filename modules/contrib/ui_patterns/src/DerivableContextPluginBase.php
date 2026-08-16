@@ -89,7 +89,7 @@ abstract class DerivableContextPluginBase extends PluginBase implements
   public function label(): string {
     $plugin_definition = $this->getPluginDefinition();
     // Cast the label to a string since it is a TranslatableMarkup object.
-    return ($plugin_definition instanceof PluginDefinitionInterface) ? $plugin_definition->id() : (string) ($plugin_definition["label"] ?? "");
+    return ($plugin_definition instanceof PluginDefinitionInterface) ? $plugin_definition->id() : (string) ($plugin_definition['label'] ?? '');
   }
 
   /**
@@ -114,7 +114,7 @@ abstract class DerivableContextPluginBase extends PluginBase implements
   /**
    * {@inheritdoc}
    */
-  public function setConfiguration(array $configuration) : void {
+  public function setConfiguration(array $configuration): void {
     if (isset($configuration['contexts'])) {
       $this->context = $configuration['contexts'];
     }
@@ -163,12 +163,12 @@ abstract class DerivableContextPluginBase extends PluginBase implements
   /**
    * {@inheritDoc}
    */
-  public function calculateDependencies() : array {
+  public function calculateDependencies(): array {
     $plugin_definition = $this->getPluginDefinition();
     if ($plugin_definition instanceof PluginDefinitionInterface) {
       return ($plugin_definition instanceof DependentPluginDefinitionInterface) ? $plugin_definition->getConfigDependencies() : [];
     }
-    return $plugin_definition["config_dependencies"] ?? [];
+    return $plugin_definition['config_dependencies'] ?? [];
   }
 
 }

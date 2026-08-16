@@ -119,7 +119,7 @@ class SchemaDotOrgReferenceSelectionKernelTest extends SchemaDotOrgEntityKernelT
   /**
    * Test selection target bundles behavior.
    *
-   * @covers schemadotorg_schemadotorg_mapping_insert()
+   * @covers \schemadotorg_schemadotorg_mapping_insert
    */
   public function testSelectionTargetBundles(): void {
     // Set up the memberOf to member entity reference relationship.

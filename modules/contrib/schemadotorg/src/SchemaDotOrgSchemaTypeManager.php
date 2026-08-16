@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\schemadotorg;
 
+use Drupal\Component\Utility\DeprecationHelper;
 use Drupal\Core\Database\Connection;
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
@@ -459,12 +460,18 @@ class SchemaDotOrgSchemaTypeManager implements SchemaDotOrgSchemaTypeManagerInte
     }
 
     $properties = $this->parseIds($type_definition['properties']);
-    $items = $this->database->select('schemadotorg_properties', 'properties')
+    $statement = $this->database->select('schemadotorg_properties', 'properties')
       ->fields('properties', $fields)
       ->condition('label', $properties, 'IN')
       ->orderBy('label')
-      ->execute()
-      ->fetchAllAssoc('label', \PDO::FETCH_ASSOC);
+      ->execute();
+    DeprecationHelper::backwardsCompatibleCall(
+      currentVersion: \Drupal::VERSION,
+      deprecatedVersion: '11.2.0',
+      currentCallable: fn() => $statement->setFetchMode($this->getAssociativeFetchMode()),
+      deprecatedCallable: fn() => call_user_func([$statement, 'setFetchMode'], \PDO::FETCH_ASSOC),
+    );
+    $items = $statement->fetchAllAssoc('label');
     foreach ($items as $index => $item) {
       $items[$index] = $this->setItemDrupalFields('properties', $item);
     }
@@ -721,12 +728,18 @@ class SchemaDotOrgSchemaTypeManager implements SchemaDotOrgSchemaTypeManagerInte
   protected function getTypesChildrenRecursive(array $types, array $fields = [], array $ignored_types = []): array {
     $fields = $fields ?: ['label', 'sub_types', 'sub_type_of'];
 
-    $items = $this->database->select('schemadotorg_types', 'types')
+    $statement = $this->database->select('schemadotorg_types', 'types')
       ->fields('types', $fields)
       ->condition('label', $types, 'IN')
       ->orderBy('label')
-      ->execute()
-      ->fetchAllAssoc('label', \PDO::FETCH_ASSOC);
+      ->execute();
+    DeprecationHelper::backwardsCompatibleCall(
+      currentVersion: \Drupal::VERSION,
+      deprecatedVersion: '11.2.0',
+      currentCallable: fn() => $statement->setFetchMode($this->getAssociativeFetchMode()),
+      deprecatedCallable: fn() => call_user_func([$statement, 'setFetchMode'], \PDO::FETCH_ASSOC),
+    );
+    $items = $statement->fetchAllAssoc('label');
     foreach ($items as $id => $item) {
       // Get children.
       $children = $this->getTypeChildren($id);
@@ -965,6 +978,16 @@ class SchemaDotOrgSchemaTypeManager implements SchemaDotOrgSchemaTypeManagerInte
       $breadcrumbs[$parent_type] = $current_breadcrumb;
       $this->getTypeBreadcrumbsRecursive($breadcrumbs, $parent_type, $parent_type);
     }
+  }
+
+  /**
+   * Gets the associative database fetch mode for the current Drupal version.
+   *
+   * @return mixed
+   *   The associative database fetch mode.
+   */
+  protected function getAssociativeFetchMode(): mixed {
+    return constant('Drupal\Core\Database\Statement\FetchAs::Associative');
   }
 
   /**

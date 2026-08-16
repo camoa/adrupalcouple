@@ -38,7 +38,7 @@ class ChainContextEntityResolver implements ChainContextEntityResolverInterface 
   /**
    * {@inheritdoc}
    */
-  public function getResolvers():array {
+  public function getResolvers(): array {
     return $this->resolvers;
   }
 

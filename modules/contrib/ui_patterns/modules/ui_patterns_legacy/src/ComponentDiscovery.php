@@ -12,8 +12,6 @@ use Drupal\Core\File\FileSystemInterface;
 
 /**
  * Plugin deriver for UI Patterns library.
- *
- * @package Drupal\ui_patterns_library\Deriver
  */
 class ComponentDiscovery {
 
@@ -22,10 +20,10 @@ class ComponentDiscovery {
    *
    * @var array
    */
-  const FILE_EXTENSIONS = [
-    ".ui_patterns.yml",
-    ".patterns.yml",
-    ".pattern.yml",
+  public const FILE_EXTENSIONS = [
+    '.ui_patterns.yml',
+    '.patterns.yml',
+    '.pattern.yml',
   ];
 
   /**
@@ -36,8 +34,7 @@ class ComponentDiscovery {
     protected ModuleHandlerInterface $moduleHandler,
     protected ThemeHandlerInterface $themeHandler,
     protected FileSystemInterface $filesystem,
-  ) {
-  }
+  ) {}
 
   /**
    * Discover components.
@@ -46,7 +43,7 @@ class ComponentDiscovery {
     $components = [];
     $path = $this->getExtensionPath($extension);
     foreach (array_keys($this->fileScanDirectory($path)) as $file_path) {
-      $content = file_get_contents($file_path) ?: "";
+      $content = file_get_contents($file_path) ?: '';
       foreach (Yaml::decode($content) as $id => $definition) {
         $definition['id'] = $id;
         $definition['base path'] = dirname($file_path);
@@ -71,8 +68,8 @@ class ComponentDiscovery {
   public function extensionExists(string $extension): bool {
     $type = $this->getExtensionType($extension);
     return match ($type) {
-      "module" => $this->moduleHandler->moduleExists($extension),
-      "theme" => $this->themeHandler->themeExists($extension),
+      'module' => $this->moduleHandler->moduleExists($extension),
+      'theme' => $this->themeHandler->themeExists($extension),
       default => FALSE
     };
   }
@@ -115,7 +112,7 @@ class ComponentDiscovery {
     $ignore = [];
     // We add 'tests' directory to the ones found in settings.
     $ignore[] = 'tests';
-    array_walk($ignore, function (&$value) {
+    array_walk($ignore, static function (&$value) {
       $value = preg_quote($value, '/');
     });
     return '/^' . implode('|', $ignore) . '$/';

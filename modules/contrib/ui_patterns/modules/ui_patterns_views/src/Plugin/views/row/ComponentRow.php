@@ -24,11 +24,11 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * @ingroup views_row_plugins
  */
 #[ViewsRow(
-  id: "ui_patterns",
-  title: new TranslatableMarkup("Component (UI Patterns)"),
-  help: new TranslatableMarkup("Displays fields using an UI component."),
+  id: 'ui_patterns',
+  title: new TranslatableMarkup('Component (UI Patterns)'),
+  help: new TranslatableMarkup('Displays fields using an UI component.'),
   display_types: ['normal'],
-  theme: "pattern_views_row",
+  theme: 'pattern_views_row',
   register_theme: FALSE,
 )]
 class ComponentRow extends Fields {
@@ -83,7 +83,7 @@ class ComponentRow extends Fields {
   /**
    * {@inheritdoc}
    */
-  public function buildOptionsForm(&$form, FormStateInterface $form_state) : void {
+  public function buildOptionsForm(&$form, FormStateInterface $form_state): void {
     parent::buildOptionsForm($form, $form_state);
     // Supported options.
     $keep_element_form = ['hide_empty'];
@@ -95,13 +95,13 @@ class ComponentRow extends Fields {
     }
     // Build ui patterns component form.
     $form['ui_patterns'] = $this->componentSettingsForm($form, $form_state, $this->getFullContext());
-    $form['ui_patterns']["#component_validation"] = FALSE;
+    $form['ui_patterns']['#component_validation'] = FALSE;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function submitOptionsForm(&$form, FormStateInterface $form_state) : void {}
+  public function submitOptionsForm(&$form, FormStateInterface $form_state): void {}
 
   /**
    * {@inheritdoc}
@@ -127,15 +127,15 @@ class ComponentRow extends Fields {
     if ($row === NULL) {
       $base_entity_type = $view->getBaseEntityType();
       if ($base_entity_type instanceof EntityTypeInterface) {
-        $base_entity_type_id = "" . $base_entity_type->id();
+        $base_entity_type_id = '' . $base_entity_type->id();
         $entity = $this->sampleEntityGenerator->get($base_entity_type_id, $this->findEntityBundle($base_entity_type_id));
-        $bundle = "";
+        $bundle = '';
       }
     }
     else {
       $context['ui_patterns_views:row:index'] = new Context(new ContextDefinition('integer'), $row->index ?? 0);
       $entity = $row->_entity;
-      $bundle = ($row->_entity instanceof EntityInterface) ? $row->_entity->bundle() : "";
+      $bundle = ($row->_entity instanceof EntityInterface) ? $row->_entity->bundle() : '';
     }
     if ($entity instanceof EntityInterface) {
       $context['entity'] = EntityContext::fromEntity($entity);

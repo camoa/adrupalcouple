@@ -28,7 +28,7 @@ class FormLayoutBuilderConfigureSectionAlter {
     /** @var \Drupal\layout_builder\Form\ConfigureSectionForm $formObject */
     $formObject = $formState->getFormObject();
     $section = $formObject->getCurrentSection();
-    $isUiPatterns2 = str_starts_with($section->getLayoutId(), 'ui_patterns:');
+    $isUiPatterns2 = \str_starts_with($section->getLayoutId(), 'ui_patterns:');
 
     // Section.
     $form['ui_styles'] = [

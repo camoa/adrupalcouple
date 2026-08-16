@@ -6,6 +6,8 @@ namespace Drupal\Tests\ui_styles_page\Functional;
 
 use Drupal\Core\Extension\ModuleInstallerInterface;
 use Drupal\ui_styles_page\UiStylesPageInterface;
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
  * Test uninstall ui_styles_page module.
@@ -13,6 +15,9 @@ use Drupal\ui_styles_page\UiStylesPageInterface;
  * @group ui_styles
  * @group ui_styles_page
  */
+#[Group('ui_styles')]
+#[Group('ui_styles_page')]
+#[RunTestsInSeparateProcesses]
 class UiStylesPageUninstallTest extends UiStylesPageFunctionalTestBase {
 
   /**

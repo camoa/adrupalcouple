@@ -18,7 +18,6 @@ use Drupal\views\ViewExecutable;
   label: new TranslatableMarkup('[View row] Field'),
   description: new TranslatableMarkup('View field.'),
   prop_types: ['slot'],
-  tags: ['views'],
   context_requirements: ['views:row'],
   context_definitions: [
     'ui_patterns_views:view_entity' => new EntityContextDefinition('entity:view', label: new TranslatableMarkup('View')),
@@ -31,11 +30,11 @@ class ViewFieldSource extends ViewsSourceBase {
    */
   public function getPropValue(): mixed {
     // Get field name inside the configuration.
-    $field_name = $this->getSetting('ui_patterns_views_field') ?? "";
+    $field_name = $this->getSetting('ui_patterns_views_field') ?? '';
     $view = $this->getView();
     $options = self::getViewsFieldOptions($view);
     // Get row index inside the configuration.
-    $row_index = isset($this->context["ui_patterns_views:row:index"]) ? $this->getContextValue("ui_patterns_views:row:index") : 0;
+    $row_index = isset($this->context['ui_patterns_views:row:index']) ? $this->getContextValue('ui_patterns_views:row:index') : 0;
     if (empty($field_name) || !($view instanceof ViewExecutable) || !is_array($options) || !array_key_exists($field_name, $options)) {
       return ['#markup' => ''];
     }
@@ -63,7 +62,7 @@ class ViewFieldSource extends ViewsSourceBase {
       '#title' => $this->t('Field'),
       '#description' => $this->t('Select view field to insert in this slot.'),
       '#options' => $options,
-      '#default_value' => $this->getSetting('ui_patterns_views_field') ?? "",
+      '#default_value' => $this->getSetting('ui_patterns_views_field') ?? '',
       '#required' => TRUE,
     ];
     return $form;

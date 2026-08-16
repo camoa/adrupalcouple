@@ -106,7 +106,7 @@ class ContentImportForm extends FormBase {
       ],
     ];
     $form['actions'] = ['#type' => 'actions'];
-    $form['actions']['import'] = [
+    $form['actions']['submit'] = [
       '#type' => 'submit',
       '#value' => $this->t('Import'),
       '#button_type' => 'primary',

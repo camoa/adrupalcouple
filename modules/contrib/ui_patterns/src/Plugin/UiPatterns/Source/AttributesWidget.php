@@ -12,6 +12,7 @@ use Drupal\Core\Template\Attribute;
 use Drupal\ui_patterns\Attribute\Source;
 use Drupal\ui_patterns\AttributesTrait;
 use Drupal\ui_patterns\SourcePluginPropValueWidget;
+use Drupal\ui_patterns\SourceTags;
 use Drupal\ui_patterns\UnicodePatternValidatorTrait;
 
 /**
@@ -22,7 +23,7 @@ use Drupal\ui_patterns\UnicodePatternValidatorTrait;
   label: new TranslatableMarkup('Attributes'),
   description: new TranslatableMarkup('Textfield with double-quoted values or a space-separated list of HTML classes.'),
   prop_types: ['attributes'],
-  tags: ['widget', 'widget:dismissible'],
+  tags: [SourceTags::Widget->value, SourceTags::WidgetDismissible->value],
   context_definitions: [
     'entity' => new ContextDefinition('entity', label: new TranslatableMarkup('Entity'), required: FALSE),
   ]
@@ -96,12 +97,12 @@ class AttributesWidget extends SourcePluginPropValueWidget implements TrustedCal
     // To allow form errors to be displayed correctly.
     $this->addRequired($form['value']);
     $form['value']['#placeholder'] = 'class="hidden" title="Lorem ipsum"';
-    $form['value']['#description'] = $this->t("HTML attributes with double-quoted values or a space-separated list of HTML classes.");
+    $form['value']['#description'] = $this->t('HTML attributes with double-quoted values or a space-separated list of HTML classes.');
 
     $form['value']['#element_validate'][] = [static::class, 'validateUnicodePattern'];
 
     // Add token tree link if token module is enabled.
-    $this->addTokenTreeLink($form, "help");
+    $this->addTokenTreeLink($form, 'help');
     return $form;
   }
 

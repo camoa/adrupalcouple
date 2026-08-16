@@ -7,32 +7,37 @@ namespace Drupal\Tests\ui_patterns\Kernel\PropTypeNormalization;
 use Drupal\Core\Template\Attribute;
 use Drupal\Tests\ui_patterns\Kernel\PropTypeNormalizationTestBase;
 use Drupal\ui_patterns\Plugin\UiPatterns\PropType\AttributesPropType;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
  * Test AttributesPropType normalization.
  *
- * @coversDefaultClass \Drupal\ui_patterns\Plugin\UiPatterns\PropType\AttributesPropType
- * @group ui_patterns
+ * @internal
  */
-class AttributesPropTypeTest extends PropTypeNormalizationTestBase {
+#[CoversClass(AttributesPropType::class)]
+#[Group('ui_patterns')]
+#[RunTestsInSeparateProcesses]
+final class AttributesPropTypeTest extends PropTypeNormalizationTestBase {
 
   /**
    * Test normalize static method.
-   *
-   * @dataProvider normalizationTests
    */
-  public function testNormalization(mixed $value, mixed $expected) : void {
-    $normalized = AttributesPropType::normalize($value, $this->testComponentProps['attributes']);
-    $this->assertEquals($normalized, $expected);
+  public function testNormalization(): void {
+    foreach (self::normalizationTests() as $name => [$value, $expected]) {
+      $normalized = AttributesPropType::normalize($value, $this->testComponentProps['attributes']);
+      self::assertEquals($normalized, $expected, (string) $name);
+    }
   }
 
   /**
    * Test rendered component with prop.
-   *
-   * @dataProvider renderingTests
    */
-  public function testRendering(mixed $value, mixed $rendered_value) : void {
-    $this->runRenderPropTest('attributes', ["value" => $value, "rendered_value" => $rendered_value]);
+  public function testRendering(): void {
+    foreach (self::renderingTests() as $name => [$value, $rendered_value]) {
+      $this->runRenderPropTest('attributes', ['value' => $value, 'rendered_value' => $rendered_value], (string) $name);
+    }
   }
 
   /**
@@ -49,11 +54,11 @@ class AttributesPropTypeTest extends PropTypeNormalizationTestBase {
       ['data-pattern' => '^<.*>$'],
       $this->testComponentProps['attributes']
     );
-    $this->assertSame('^<.*>$', $normalized['data-pattern']);
+    self::assertSame('^<.*>$', $normalized['data-pattern']);
     // And the rendered output entity-encodes for HTML attribute context.
     $this->runRenderPropTest('attributes', [
-      "value" => ['data-pattern' => '^<.*>$'],
-      "rendered_value" => ' data-pattern="^&lt;.*&gt;$"',
+      'value' => ['data-pattern' => '^<.*>$'],
+      'rendered_value' => ' data-pattern="^&lt;.*&gt;$"',
     ]);
   }
 
@@ -105,7 +110,7 @@ class AttributesPropTypeTest extends PropTypeNormalizationTestBase {
           '#component' => 'ui_patterns_test:test-component',
           '#props' => ['attributes' => ['data-foo' => $case['value']]],
         ],
-        sprintf('Case "%s" failed: ui_patterns attributes prop does not match Drupal native create_attribute output.', $name)
+        \sprintf('Case "%s" failed: ui_patterns attributes prop does not match Drupal native create_attribute output.', $name)
       );
     }
   }
@@ -113,42 +118,42 @@ class AttributesPropTypeTest extends PropTypeNormalizationTestBase {
   /**
    * Provides data for testNormalization.
    */
-  public static function normalizationTests() : array {
+  public static function normalizationTests(): array {
     return [
-      "Empty value" => [[], []],
-      "Standardized primitives, so already OK" => self::standardizedPrimitives(),
-      "Type transformations" => self::typeTransformation(),
-      "List array" => self::listArray(),
+      'Empty value' => [[], []],
+      'Standardized primitives, so already OK' => self::standardizedPrimitives(),
+      'Type transformations' => self::typeTransformation(),
+      'List array' => self::listArray(),
     ];
   }
 
   /**
    * Provides data for testNormalization.
    */
-  public static function renderingTests() : array {
+  public static function renderingTests(): array {
     return [
-      "Empty Value" => [
+      'Empty Value' => [
         [],
         '<div data-component-id="ui_patterns_test:test-component"></div>',
       ],
-      "attribute_object" => [
-        new Attribute(["data-foo" => "bar"]),
+      'attribute_object' => [
+        new Attribute(['data-foo' => 'bar']),
         ' data-foo="bar"',
       ],
-      "integer" => [
-        ["data-foo" => 1],
+      'integer' => [
+        ['data-foo' => 1],
         ' data-foo="1"',
       ],
-      "array" => [
-        ["key" => ["1", "2"]],
+      'array' => [
+        ['key' => ['1', '2']],
         ' key="1 2"',
       ],
-      "escaping" => [
-        ["key" => '"'],
+      'escaping' => [
+        ['key' => '"'],
         ' key="&quot;"',
       ],
-      "rendered value" => [
-        ["key" => ["#markup" => "value"]],
+      'rendered value' => [
+        ['key' => ['#markup' => 'value']],
         ' key="value"',
       ],
     ];
@@ -159,16 +164,17 @@ class AttributesPropTypeTest extends PropTypeNormalizationTestBase {
    */
   protected static function standardizedPrimitives() {
     $value = [
-      "foo" => "bar",
-      "string" => "Lorem ipsum",
-      "array" => [
-        "One",
-        "Two",
+      'foo' => 'bar',
+      'string' => 'Lorem ipsum',
+      'array' => [
+        'One',
+        'Two',
         3,
       ],
-      "integer" => 4,
-      "float" => 1.4,
+      'integer' => 4,
+      'float' => 1.4,
     ];
+
     return [$value, $value];
   }
 
@@ -177,49 +183,50 @@ class AttributesPropTypeTest extends PropTypeNormalizationTestBase {
    */
   protected static function typeTransformation() {
     $value = [
-      "true_boolean" => TRUE,
-      "false_boolean" => FALSE,
-      "null_boolean" => NULL,
-      "markup" => "Hello <b>World</b>",
-      "associative_array" => [
-        "Un" => "One",
-        "Deux" => "Two",
-        "Trois" => 3,
+      'true_boolean' => TRUE,
+      'false_boolean' => FALSE,
+      'null_boolean' => NULL,
+      'markup' => 'Hello <b>World</b>',
+      'associative_array' => [
+        'Un' => 'One',
+        'Deux' => 'Two',
+        'Trois' => 3,
       ],
-      "nested_array" => [
-        "One",
+      'nested_array' => [
+        'One',
         [
-          "Two",
-          "Three",
+          'Two',
+          'Three',
         ],
         [
-          "deep" => [
-            "very deep" => ["foo", "bar"],
+          'deep' => [
+            'very deep' => ['foo', 'bar'],
           ],
         ],
       ],
     ];
     $expected = [
-      "true_boolean" => "1",
-      "false_boolean" => "",
-      "null_boolean" => "",
+      'true_boolean' => '1',
+      'false_boolean' => '',
+      'null_boolean' => '',
       // Angle brackets in attribute values are no longer stripped by
       // normalize(). Attribute::__toString() handles HTML-context
       // escaping at render time (see rendering tests below for the
       // escaped on-the-wire form).
-      "markup" => "Hello <b>World</b>",
-      "associative_array" => [
-        "One",
-        "Two",
+      'markup' => 'Hello <b>World</b>',
+      'associative_array' => [
+        'One',
+        'Two',
         3,
       ],
-      "nested_array" => [
-        "One",
+      'nested_array' => [
+        'One',
         // JSON encoding because we don't know how deep is the nesting.
         '["Two","Three"]',
         '{"deep":{"very deep":["foo","bar"]}}',
       ],
     ];
+
     return [$value, $expected];
   }
 
@@ -228,17 +235,18 @@ class AttributesPropTypeTest extends PropTypeNormalizationTestBase {
    */
   protected static function listArray() {
     $value = [
-      "One",
-      "Two",
+      'One',
+      'Two',
       3,
     ];
     // This doesn't look like a valid HTML attribute structure, but we rely on
     // Drupal Attribute object normalization here.
     $expected = [
-      "0" => "One",
-      "1" => "Two",
-      "2" => 3,
+      '0' => 'One',
+      '1' => 'Two',
+      '2' => 3,
     ];
+
     return [$value, $expected];
   }
 

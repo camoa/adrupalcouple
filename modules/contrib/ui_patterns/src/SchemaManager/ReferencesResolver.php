@@ -18,15 +18,14 @@ use Psr\Log\LoggerInterface;
  */
 class ReferencesResolver {
 
-  const MAXIMUM_RECURSIVITY_LEVEL = 10;
+  public const MAXIMUM_RECURSIVITY_LEVEL = 10;
 
   /**
    * Constructs a ComponentElementBuilder.
    */
   public function __construct(
     protected LoggerInterface $logger,
-  ) {
-  }
+  ) {}
 
   /**
    * Resolve schema references recursively.
@@ -36,7 +35,7 @@ class ReferencesResolver {
       return $schema;
     }
 
-    $depth++;
+    ++$depth;
     $storage = new SchemaStorage();
 
     try {

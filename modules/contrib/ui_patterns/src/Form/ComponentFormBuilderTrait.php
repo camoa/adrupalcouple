@@ -31,9 +31,9 @@ trait ComponentFormBuilderTrait {
    *   The adjusted element.
    */
   protected function componentsAdjustContextEntitySelection(array $element, string $context_mapping_value): array {
-    if (is_array($element) && isset($element['entity']) && isset($element['entity']['#options'][$context_mapping_value])) {
-      $element["entity"]['#access'] = FALSE;
-      $element["entity"]['#value'] = $context_mapping_value;
+    if (is_array($element) && isset($element['entity'], $element['entity']['#options'][$context_mapping_value])) {
+      $element['entity']['#access'] = FALSE;
+      $element['entity']['#value'] = $context_mapping_value;
     }
     return $element;
   }
@@ -81,13 +81,13 @@ trait ComponentFormBuilderTrait {
    * @return array<string, array<string, mixed> >
    *   The default settings.
    */
-  public static function getComponentFormDefault() : array {
+  public static function getComponentFormDefault(): array {
     return [
-      "ui_patterns" => [
-        "component_id" => NULL,
-        "variant_id" => NULL,
-        "slots" => [],
-        "props" => [],
+      'ui_patterns' => [
+        'component_id' => NULL,
+        'variant_id' => NULL,
+        'slots' => [],
+        'props' => [],
       ],
     ];
   }
@@ -200,7 +200,7 @@ trait ComponentFormBuilderTrait {
    *   The component element builder.
    */
   protected function componentElementBuilder() {
-    return \Drupal::service("ui_patterns.component_element_builder");
+    return \Drupal::service('ui_patterns.component_element_builder');
   }
 
   /**

@@ -5,3 +5,15 @@
 .mermaid[data-processed="true"] {
   opacity: 100;
 }
+
+.schemadotorg-mermaid,
+.language-mermaid {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.schemadotorg-mermaid svg,
+.language-mermaid svg {
+  height: 400px;
+}

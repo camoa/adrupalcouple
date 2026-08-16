@@ -249,7 +249,7 @@ class ContentSyncHelper implements ContentSyncHelperInterface {
   /**
    * {@inheritdoc}
    */
-  public function getSiteUuid(): string {
+  public function getSiteUuid(): ?string {
     return $this->configFactory->get('system.site')->get('uuid');
   }
 

@@ -21,7 +21,7 @@ final class ComponentController extends ControllerBase {
   /**
    * Redirects to the default route of a specified component.
    */
-  public function forward(string $component_id):RedirectResponse {
+  public function forward(string $component_id): RedirectResponse {
     $component_plugin_manager = self::getComponentPluginManager();
     $component = $component_plugin_manager->find($component_id);
     return (new TrustedRedirectResponse($this->getDefaultRoute($component)
@@ -39,7 +39,6 @@ final class ComponentController extends ControllerBase {
       '#title' => $this->t('Component List'),
       '#rows' => [],
       '#empty' => $this->t('There are no @label yet.', ['@label' => '']),
-
     ];
     foreach ($this->load() as $component) {
       if ($row = $this->buildComponentRow($component)) {
@@ -66,7 +65,7 @@ final class ComponentController extends ControllerBase {
    */
   public function load(): array {
     $component_plugin_manager = self::getComponentPluginManager();
-    /* @phpstan-ignore method.notFound */
+    // @phpstan-ignore method.notFound
     $definitions = $component_plugin_manager->getNegotiatedSortedDefinitions();
     $plugin_ids = array_keys($definitions);
     // @phpstan-ignore-next-line
@@ -118,18 +117,16 @@ final class ComponentController extends ControllerBase {
    *   The URL object representing the default route for the component.
    */
   private function getDefaultRoute(Component $component) {
-
     $default_display = ComponentFormDisplay::loadDefault($component->getPluginId());
 
     if ($default_display !== NULL) {
       return $default_display->toUrl();
     }
-    else {
-      $route = 'entity.component_form_display.' . $component->getPluginId() . '.add_form';
-      return Url::fromRoute($route, [
-        'component_id' => $component->getPluginId(),
-      ]);
-    }
+
+    $route = 'entity.component_form_display.' . $component->getPluginId() . '.add_form';
+    return Url::fromRoute($route, [
+      'component_id' => $component->getPluginId(),
+    ]);
   }
 
   /**

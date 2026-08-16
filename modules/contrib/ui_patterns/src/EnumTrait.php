@@ -17,7 +17,8 @@ trait EnumTrait {
       $definition['enum'],
       array_map(static function ($value) {
         return is_string($value) ? ucwords($value) : $value;
-      }, $definition['enum']));
+      }, $definition['enum'])
+    );
     if (!isset($definition['meta:enum'])) {
       return $values;
     }

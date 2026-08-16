@@ -39,8 +39,8 @@ final class ComponentFormDisplayForm extends EntityForm {
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container):ComponentFormDisplayForm {
-    return new static(
+  public static function create(ContainerInterface $container): ComponentFormDisplayForm {
+    return new self(
       $container->get('plugin.manager.sdc'),
       $container->get('plugin.manager.ui_patterns_source'),
       $container->get('module_handler'),
@@ -56,9 +56,8 @@ final class ComponentFormDisplayForm extends EntityForm {
     if ($component_id !== NULL && $form_mode !== NULL) {
       return ComponentFormDisplay::loadByFormMode($component_id, $form_mode);
     }
-    else {
-      return $this->entityTypeManager->getStorage($entity_type_id)->create(['component_id' => $component_id]);
-    }
+
+    return $this->entityTypeManager->getStorage($entity_type_id)->create(['component_id' => $component_id]);
   }
 
   /**
@@ -116,7 +115,7 @@ final class ComponentFormDisplayForm extends EntityForm {
   /**
    * {@inheritdoc}
    */
-  protected function getTableHeader():array {
+  protected function getTableHeader(): array {
     return [
       $this->t('Prop/Slot'),
       $this->t('Weight'),
@@ -155,7 +154,7 @@ final class ComponentFormDisplayForm extends EntityForm {
       '#title' => $this->t('Enabled'),
       '#default_value' => $entity->status(),
     ];
-    /* @phpstan-ignore method.notFound */
+    // @phpstan-ignore method.notFound
     $components = $this->componentPluginManager->getNegotiatedSortedDefinitions();
     $component_id = $entity->getComponentId();
     $component = $components[$component_id];
@@ -338,11 +337,11 @@ final class ComponentFormDisplayForm extends EntityForm {
       '#prop_id' => $prop_slot_id,
     ];
     $plugin = $entity->getSelectedSourcePlugin($prop_slot_id);
-    if ($form_state->get('plugin_settings_edit') == $prop_slot_id) {
+    if ($form_state->get('plugin_settings_edit') === $prop_slot_id) {
       $slot_prop_row['plugin']['settings_edit_form'] = [];
       $settings_form = NULL;
-      if (isset($display_options['region']) &&
-        $display_options['region'] === 'configure') {
+      if (isset($display_options['region'])
+        && $display_options['region'] === 'configure') {
         $settings_form = $plugin->settingsForm([], $form_state);
       }
       elseif ($plugin instanceof PluginWidgetSettingsInterface) {
@@ -383,8 +382,8 @@ final class ComponentFormDisplayForm extends EntityForm {
 
     $slot_prop_row['settings_summary'] = [];
     $slot_prop_row['settings_edit'] = [];
-    if (isset($display_options['region']) &&
-      $display_options['region'] === 'configure') {
+    if (isset($display_options['region'])
+      && $display_options['region'] === 'configure') {
       $slot_prop_row['settings_edit'] = $base_button + [
         '#type' => 'image_button',
         '#name' => $prop_slot_id . '_settings_edit',
@@ -457,7 +456,7 @@ final class ComponentFormDisplayForm extends EntityForm {
       case 'refresh_table':
         $updated_rows = explode(' ', $form_state->getValue('refresh_rows'));
         $plugin_settings_edit = $form_state->get('plugin_settings_edit');
-        if ($plugin_settings_edit && in_array($plugin_settings_edit, $updated_rows)) {
+        if ($plugin_settings_edit && in_array($plugin_settings_edit, $updated_rows, TRUE)) {
           $form_state->set('plugin_settings_edit', NULL);
         }
         break;
@@ -484,7 +483,7 @@ final class ComponentFormDisplayForm extends EntityForm {
       foreach ($form['#extra_groups'] as $prop_id) {
         $values = $form_values['fields'][$prop_id];
 
-        if ($values['region'] == 'hidden') {
+        if ($values['region'] === 'hidden') {
           $entity->removePropSlotOption($prop_id);
         }
         else {
@@ -506,7 +505,7 @@ final class ComponentFormDisplayForm extends EntityForm {
     foreach ($form['#props'] as $prop_id) {
       $values = $form_values['fields'][$prop_id];
 
-      if ($values['region'] == 'hidden') {
+      if ($values['region'] === 'hidden') {
         $entity->removePropSlotOption($prop_id);
       }
       else {
@@ -529,18 +528,16 @@ final class ComponentFormDisplayForm extends EntityForm {
           $options['label'] = $values['label'];
         }
         if (!empty($values['settings_edit_form']['settings'])) {
-          if ($values['region'] == 'configure') {
+          if ($values['region'] === 'configure') {
             $options['source'] = $values['settings_edit_form']['settings'] ?? [];
           }
           else {
             $options['widget_settings'] = $values['settings_edit_form']['settings'] ?? [];
           }
-
         }
         $entity->setPropSlotOptions($prop_id, $options);
       }
     }
-
   }
 
   /**
@@ -562,7 +559,7 @@ final class ComponentFormDisplayForm extends EntityForm {
     $updated_columns = match ($op) {
       'edit' => ['plugin'],
       'update', 'cancel' => ['plugin', 'settings_summary', 'settings_edit'],
-      /* @phpstan-ignore match.alwaysTrue */
+      // @phpstan-ignore match.alwaysTrue
       'refresh_table' => ['settings_summary', 'settings_edit'],
       default => throw new \UnhandledMatchError($op),
     };
@@ -579,7 +576,7 @@ final class ComponentFormDisplayForm extends EntityForm {
     $response->addCommand(new ReplaceCommand('#field-display-overview-wrapper', $form['fields']));
 
     // Add "row updated" warning after the table has been replaced.
-    if (!in_array($op, ['cancel', 'edit'])) {
+    if (!in_array($op, ['cancel', 'edit'], TRUE)) {
       foreach ($updated_rows as $name) {
         $response->addCommand(new TabledragWarningCommand(Html::getClass($name), 'field-display-overview'));
       }
@@ -591,7 +588,7 @@ final class ComponentFormDisplayForm extends EntityForm {
   /**
    * Builds the table row structure for a generic group.
    */
-  protected function buildGroup(string $prop_slot_id, array $display_options, array $groups):array {
+  protected function buildGroup(string $prop_slot_id, array $display_options, array $groups): array {
     $label = $display_options['label'] ?? $prop_slot_id;
 
     return [

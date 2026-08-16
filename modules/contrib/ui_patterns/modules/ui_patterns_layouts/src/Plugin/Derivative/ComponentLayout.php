@@ -36,8 +36,7 @@ class ComponentLayout extends DeriverBase implements ContainerDeriverInterface {
    * @param \Drupal\Core\Extension\ThemeHandlerInterface $themeHandler
    *   The theme handler.
    */
-  public function __construct(protected ComponentPluginManager $pluginManager, protected ModuleHandlerInterface $moduleHandler, protected ThemeHandlerInterface $themeHandler) {
-  }
+  public function __construct(protected ComponentPluginManager $pluginManager, protected ModuleHandlerInterface $moduleHandler, protected ThemeHandlerInterface $themeHandler) {}
 
   /**
    * {@inheritdoc}
@@ -62,8 +61,8 @@ class ComponentLayout extends DeriverBase implements ContainerDeriverInterface {
       $component = $manager->find($definition['id']);
       /** @var \Drupal\Core\Layout\LayoutDefinition $base_plugin_definition */
       $layout_definition_definition = array_merge([
-        "deriver" => $base_plugin_definition->getDeriver(),
-        "class" => $base_plugin_definition->getClass(),
+        'deriver' => $base_plugin_definition->getDeriver(),
+        'class' => $base_plugin_definition->getClass(),
       ], [
         'label' => $definition['annotated_name'] ?? $definition['name'] ?? $definition['id'],
         'category' => $definition['group'] ?? $this->t('Others'),
@@ -74,7 +73,7 @@ class ComponentLayout extends DeriverBase implements ContainerDeriverInterface {
         ],
         'admin_label' => $definition['annotated_name'] ?? $definition['name'] ?? $definition['id'],
         // "context_mapping" => ["entity" => "layout_builder.entity"],
-        "regions" => [],
+        'regions' => [],
       ]);
 
       $id = str_replace('-', '_', (string) $definition['id']);
@@ -133,8 +132,7 @@ class ComponentLayout extends DeriverBase implements ContainerDeriverInterface {
     }
 
     $path = $definition->getPath();
-    $path = !empty($path) ? $base_path . '/' . $path : $base_path;
-    return $path;
+    return !empty($path) ? $base_path . '/' . $path : $base_path;
   }
 
   /**
@@ -148,11 +146,11 @@ class ComponentLayout extends DeriverBase implements ContainerDeriverInterface {
    * @return string
    *   Path of the icon, relative to the layout path.
    */
-  protected function getIconPath(string $icon_path, string $layout_path) : string {
+  protected function getIconPath(string $icon_path, string $layout_path): string {
     $base_path = base_path();
     $layout_path = Path::makeAbsolute($layout_path, $base_path);
     $path = (new SymfonyFilesystem())->makePathRelative(Path::makeAbsolute($icon_path, $base_path), $layout_path);
-    return str_ends_with($path, "/") ? substr($path, 0, strlen($path) - 1) : $path;
+    return str_ends_with($path, '/') ? substr($path, 0, strlen($path) - 1) : $path;
   }
 
 }

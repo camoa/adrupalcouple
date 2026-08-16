@@ -22,6 +22,9 @@ services:
   ai.vdb_provider:
     class: Drupal\ai\AiVdbProviderPluginManager
     parent: default_plugin_manager
+    calls:
+      - [ setConfigFactory, [ '@config.factory' ] ]
+      - [ setLoggerChannelFactory, [ '@logger.factory']]
   ai.tokenizer:
     class: Drupal\ai\Utility\Tokenizer
     arguments: ['@ai.provider']
@@ -99,3 +102,7 @@ services:
   ai.file_manager:
     class: Drupal\ai\Service\AiFileManager
     autowire: true
+  ai.validator:
+    class: Drupal\ai\Service\AiValidator
+  Drupal\ai\Service\AiValidator: "@ai.validator"
+  Drupal\ai\Service\AiValidatorInterface: "@ai.validator"

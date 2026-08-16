@@ -37,8 +37,7 @@ class ComponentElementBuilder implements TrustedCallbackInterface {
     protected ComponentPluginManager $componentPluginManager,
     protected ModuleHandlerInterface $moduleHandler,
     protected LoggerInterface $logger,
-  ) {
-  }
+  ) {}
 
   /**
    * Build component data provided to the SDC element.
@@ -113,7 +112,7 @@ class ComponentElementBuilder implements TrustedCallbackInterface {
    * @return mixed
    *   Cleaned render array.
    */
-  protected function cleanPotentialRenderArray(mixed $data) : mixed {
+  protected function cleanPotentialRenderArray(mixed $data): mixed {
     if (!is_array($data)) {
       return $data;
     }
@@ -188,7 +187,7 @@ class ComponentElementBuilder implements TrustedCallbackInterface {
    * @return mixed
    *   The updated build array.
    */
-  public function buildSource(array $build, string $prop_or_slot_id, array $definition, array $configuration, array $contexts) : mixed {
+  public function buildSource(array $build, string $prop_or_slot_id, array $definition, array $configuration, array $contexts): mixed {
     try {
       if (empty($configuration['source_id'])) {
         return $build;
@@ -259,8 +258,8 @@ class ComponentElementBuilder implements TrustedCallbackInterface {
 
     // Simplify single-element arrays.
     // Weird hack, we take care of sequences injected in single sub value.
-    if ($this->isSingletonRenderArray($build['#slots'][$slot_id]) &&
-      count(Element::children($build['#slots'][$slot_id][0])) !== 0
+    if ($this->isSingletonRenderArray($build['#slots'][$slot_id])
+      && count(Element::children($build['#slots'][$slot_id][0])) !== 0
     ) {
       $build['#slots'][$slot_id] = $build['#slots'][$slot_id][0];
     }
@@ -282,7 +281,7 @@ class ComponentElementBuilder implements TrustedCallbackInterface {
       return FALSE;
     }
     $key = array_key_first($candidate);
-    return (is_int($key) || ($key === '') || $key[0] !== '#');
+    return is_int($key) || ($key === '') || $key[0] !== '#';
   }
 
   /**
@@ -300,7 +299,7 @@ class ComponentElementBuilder implements TrustedCallbackInterface {
    *
    * @see \Drupal\Core\Config\Entity\ConfigDependencyManager
    */
-  public function calculateComponentDependencies(?string $component_id = NULL, array $configuration = [], array $contexts = []) : array {
+  public function calculateComponentDependencies(?string $component_id = NULL, array $configuration = [], array $contexts = []): array {
     $dependencies = [];
     try {
       $component = $this->componentPluginManager->find($component_id ?? $configuration['component_id']);
@@ -330,7 +329,7 @@ class ComponentElementBuilder implements TrustedCallbackInterface {
    * @return array
    *   An array of dependencies keyed by the type of dependency.
    */
-  protected function calculateComponentDependenciesProps(Component $component, array $configuration = [], array $contexts = []) : array {
+  protected function calculateComponentDependenciesProps(Component $component, array $configuration = [], array $contexts = []): array {
     $dependencies = [];
     $props = $component->metadata->schema['properties'] ?? [];
     foreach ($props as $prop_id => $definition) {
@@ -357,7 +356,7 @@ class ComponentElementBuilder implements TrustedCallbackInterface {
    * @return array
    *   An array of dependencies keyed by the type of dependency.
    */
-  protected function calculateComponentDependenciesSlots(Component $component, array $configuration = [], array $contexts = []) : array {
+  protected function calculateComponentDependenciesSlots(Component $component, array $configuration = [], array $contexts = []): array {
     $dependencies = [];
     $slots = $component->metadata->slots ?? [];
     foreach ($slots as $slot_id => $definition) {

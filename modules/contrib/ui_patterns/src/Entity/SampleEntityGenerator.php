@@ -46,7 +46,7 @@ class SampleEntityGenerator implements SampleEntityGeneratorInterface {
    */
   public function get(string $entity_type_id, string $bundle_id): EntityInterface {
     $tempstore = $this->tempStoreFactory->get('ui_patterns.sample_entity');
-    if ($entity = $tempstore->get("$entity_type_id.$bundle_id")) {
+    if ($entity = $tempstore->get("{$entity_type_id}.{$bundle_id}")) {
       return $entity;
     }
 
@@ -56,7 +56,7 @@ class SampleEntityGenerator implements SampleEntityGeneratorInterface {
     }
 
     $entity = $entity_storage->createWithSampleValues($bundle_id);
-    $tempstore->set("$entity_type_id.$bundle_id", $entity);
+    $tempstore->set("{$entity_type_id}.{$bundle_id}", $entity);
     return $entity;
   }
 
@@ -65,7 +65,7 @@ class SampleEntityGenerator implements SampleEntityGeneratorInterface {
    */
   public function delete(string $entity_type_id, string $bundle_id): SampleEntityGeneratorInterface {
     $tempstore = $this->tempStoreFactory->get('ui_patterns.sample_entity');
-    $tempstore->delete("$entity_type_id.$bundle_id");
+    $tempstore->delete("{$entity_type_id}.{$bundle_id}");
     return $this;
   }
 

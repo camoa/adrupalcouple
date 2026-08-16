@@ -20,15 +20,14 @@ class ComponentConverter {
   protected string $extension;
 
   /**
-   * {@inheritdoc}
+   * Construct component converter.
    */
   public function __construct(
     private readonly RendererInterface $renderer,
-  ) {
-  }
+  ) {}
 
   /**
-   * {@inheritdoc}
+   * Create with service container.
    */
   public static function create(ContainerInterface $container): static {
     return new static(
@@ -63,8 +62,8 @@ class ComponentConverter {
     }
     if (\array_key_exists('settings', $source)) {
       $target['props'] = [
-        "type" => 'object',
-        "properties" => $this->getPropsFromSettings($source['settings']),
+        'type' => 'object',
+        'properties' => $this->getPropsFromSettings($source['settings']),
       ];
       $required_props = $this->getRequiredPropsFromSettings($source['settings']);
       if (!empty($required_props)) {
@@ -82,8 +81,7 @@ class ComponentConverter {
    */
   private function processLibraryProperties(array $source, array $target): array {
     $target = $this->addProperty('links', $source, 'links', $target);
-    $target = $this->addProperty('tags', $source, 'tags', $target);
-    return $target;
+    return $this->addProperty('tags', $source, 'tags', $target);
   }
 
   /**
@@ -97,8 +95,7 @@ class ComponentConverter {
     // template.
     $target = $this->addProperty('path', $source, 'path', $target);
     // The path to the preview image (relative to the 'path' given).
-    $target = $this->addProperty('icon', $source, 'icon', $target);
-    return $target;
+    return $this->addProperty('icon', $source, 'icon', $target);
   }
 
   /**
@@ -164,7 +161,7 @@ class ComponentConverter {
   private function getRequiredPropsFromSettings(array $settings): array {
     $props = [];
     foreach ($settings as $setting_id => $setting) {
-      if (\array_key_exists('required', $setting) && $setting["required"]) {
+      if (\array_key_exists('required', $setting) && $setting['required']) {
         $props[] = $setting_id;
       }
     }
@@ -178,7 +175,7 @@ class ComponentConverter {
     if (!\array_key_exists($source_key, $source)) {
       return $target;
     }
-    if (is_null($source[$source_key])) {
+    if ($source[$source_key] === NULL) {
       return $target;
     }
     $value = $source[$source_key];
@@ -216,10 +213,10 @@ class ComponentConverter {
       return $consolidated_library;
     }
     $consolidated_library = array_merge(
-       [
-         'dependencies' => $dependencies,
-       ],
-       $consolidated_library,
+      [
+        'dependencies' => $dependencies,
+      ],
+      $consolidated_library,
     );
     // For each component, SDC adds a library with the name
     // "sdc/{extension}--{machine_name_with_dashes}.
@@ -230,7 +227,7 @@ class ComponentConverter {
       if (str_starts_with($dependency, 'ui_patterns/') && str_contains($dependency, '.')) {
         $component_id = (preg_split('/(\/|\.)/', $dependency) ?: [$dependency])[1];
         $component_id = str_replace('_', '-', $component_id);
-        $consolidated_library['dependencies'][$index] = 'sdc/' . $this->extension . "--" . $component_id;
+        $consolidated_library['dependencies'][$index] = 'sdc/' . $this->extension . '--' . $component_id;
       }
     }
     return $consolidated_library;
@@ -251,9 +248,9 @@ class ComponentConverter {
     }
     foreach (array_keys($definition['stories']) as $story_id) {
       $renderable = [
-        "#type" => "component_story",
-        "#component" => $definition['id'],
-        "#story" => $story_id,
+        '#type' => 'component_story',
+        '#component' => $definition['id'],
+        '#story' => $story_id,
       ];
       try {
         $this->renderer->renderInIsolation($renderable);

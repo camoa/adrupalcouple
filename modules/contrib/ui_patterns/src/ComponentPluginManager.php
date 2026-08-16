@@ -25,6 +25,8 @@ use Drupal\ui_patterns\SchemaManager\ReferencesResolver;
  */
 class ComponentPluginManager extends SdcPluginManager {
 
+  // @todo Remove when Core 11.2.0 will be the minimum version supported.
+  // As it will be managed by Core component plugin manager.
   use CategorizingPluginManagerTrait;
 
   /**
@@ -102,7 +104,8 @@ class ComponentPluginManager extends SdcPluginManager {
       $fileSystem,
       $compatibilityChecker,
       $componentValidator,
-      $appRoot);
+      $appRoot
+    );
     $this->alterInfo('component_info');
   }
 
@@ -244,18 +247,17 @@ class ComponentPluginManager extends SdcPluginManager {
     // Overriding SDC alterDefinition method.
     $definition = parent::alterDefinition($definition);
     // Adding custom UI Patterns logic.
-    $fallback_prop_type_id = $this->propTypePluginManager->getFallbackPluginId("");
+    $fallback_prop_type_id = $this->propTypePluginManager->getFallbackPluginId('');
     $definition = $this->alterLinks($definition);
     $definition = $this->alterSlots($definition);
     $definition = $this->annotateSlots($definition);
-    $definition = $this->annotateProps($definition, $fallback_prop_type_id);
-    return $definition;
+    return $this->annotateProps($definition, $fallback_prop_type_id);
   }
 
   /**
    * Alter links.
    */
-  protected function alterLinks(array $definition): array {
+  private function alterLinks(array $definition): array {
     if (!isset($definition['links'])) {
       return $definition;
     }
@@ -265,7 +267,7 @@ class ComponentPluginManager extends SdcPluginManager {
         continue;
       }
       $definition['links'][$delta] = [
-        "url" => (string) $link,
+        'url' => (string) $link,
       ];
     }
     return $definition;
@@ -274,13 +276,13 @@ class ComponentPluginManager extends SdcPluginManager {
   /**
    * Alter slots.
    */
-  protected function alterSlots(array $definition): array {
+  private function alterSlots(array $definition): array {
     if (!isset($definition['slots'])) {
       return $definition;
     }
     // Prevent slots without title from breaking.
     foreach ($definition['slots'] as $slot_id => $slot) {
-      $definition['slots'][$slot_id]["title"] = $slot["title"] ?? $slot_id;
+      $definition['slots'][$slot_id]['title'] = $slot['title'] ?? $slot_id;
     }
     return $definition;
   }
@@ -288,7 +290,7 @@ class ComponentPluginManager extends SdcPluginManager {
   /**
    * Annotate each slot in a component definition.
    */
-  protected function annotateSlots(array $definition): array {
+  private function annotateSlots(array $definition): array {
     if (empty($definition['slots'])) {
       return $definition;
     }
@@ -306,14 +308,14 @@ class ComponentPluginManager extends SdcPluginManager {
    * This is the main purpose of overriding SDC component plugin manager.
    * We add a 'ui_patterns' object in each prop schema of the definition.
    */
-  protected function annotateProps(array $definition, string $fallback_prop_type_id): array {
+  private function annotateProps(array $definition, string $fallback_prop_type_id): array {
     // In JSON schema, 'required' is out of the prop definition.
     if (isset($definition['props']['required'])) {
       foreach ($definition['props']['required'] as $prop_id) {
         $definition['props']['properties'][$prop_id]['ui_patterns']['required'] = TRUE;
       }
     }
-    if (isset($definition["variants"])) {
+    if (isset($definition['variants'])) {
       $definition['props']['properties']['variant'] = $this->buildVariantProp($definition);
     }
     $definition['props']['properties'] = $this->addAttributesProp($definition);
@@ -326,8 +328,8 @@ class ComponentPluginManager extends SdcPluginManager {
   /**
    * Annotate a single prop.
    */
-  protected function annotateProp(string $prop_id, array $prop, string $fallback_prop_type_id): array {
-    $prop["title"] = $prop["title"] ?? $prop_id;
+  private function annotateProp(string $prop_id, array $prop, string $fallback_prop_type_id): array {
+    $prop['title'] = $prop['title'] ?? $prop_id;
     $prop = $this->referencesSolver->resolve($prop);
     /** @var \Drupal\ui_patterns\PropTypeInterface $prop_type */
     $prop_type = $this->propTypePluginManager->guessFromSchema($prop);
@@ -344,7 +346,7 @@ class ComponentPluginManager extends SdcPluginManager {
       }
     }
     $prop['ui_patterns']['type_definition'] = $prop_type;
-    $prop['ui_patterns']["summary"] = ($prop_type instanceof PropTypeInterface) ? $prop_type->getSummary($prop) : "";
+    $prop['ui_patterns']['summary'] = ($prop_type instanceof PropTypeInterface) ? $prop_type->getSummary($prop) : '';
     return $prop;
   }
 
@@ -358,12 +360,12 @@ class ComponentPluginManager extends SdcPluginManager {
   private function addAttributesProp(array $definition): array {
     // Let's put it at the beginning (for forms).
     return array_merge(
-     [
-       'attributes' => [
-         'title' => 'Attributes',
-         '$ref' => "ui-patterns://attributes",
-       ],
-     ],
+      [
+        'attributes' => [
+          'title' => 'Attributes',
+          '$ref' => 'ui-patterns://attributes',
+        ],
+      ],
       $definition['props']['properties'] ?? [],
     );
   }
@@ -377,13 +379,13 @@ class ComponentPluginManager extends SdcPluginManager {
   private function buildVariantProp(array $definition): array {
     $enums = [];
     $meta_enums = [];
-    foreach ($definition["variants"] as $variant_id => $variant) {
+    foreach ($definition['variants'] as $variant_id => $variant) {
       $enums[] = $variant_id;
       $meta_enums[$variant_id] = $variant['title'] ?? $variant_id;
     }
     return [
       'title' => 'Variant',
-      '$ref' => "ui-patterns://variant",
+      '$ref' => 'ui-patterns://variant',
       'enum' => $enums,
       'meta:enum' => $meta_enums,
     ];
@@ -396,10 +398,10 @@ class ComponentPluginManager extends SdcPluginManager {
     // Currently not working to call the decorated service.
     $definitions = parent::findDefinitions();
     // Add annotated_name property to distinct components with the same name.
-    $labels = array_column($definitions, "name");
+    $labels = array_column($definitions, 'name');
     $duplicate_labels = array_unique(array_intersect($labels, array_unique(array_diff_key($labels, array_unique($labels)))));
     foreach ($definitions as $id => $definition) {
-      $definitions[$id]["annotated_name"] = $this->getAnnotatedLabel($definition, $duplicate_labels);
+      $definitions[$id]['annotated_name'] = $this->getAnnotatedLabel($definition, $duplicate_labels);
     }
     return $definitions;
   }
@@ -407,21 +409,21 @@ class ComponentPluginManager extends SdcPluginManager {
   /**
    * Add annotation to label when many components share the same name.
    */
-  protected function getAnnotatedLabel(array $definition, array $duplicate_labels): string {
+  private function getAnnotatedLabel(array $definition, array $duplicate_labels): string {
     $label = $definition['name'] ?? $definition['machineName'];
-    if (!in_array($label, $duplicate_labels)) {
+    if (!in_array($label, $duplicate_labels, TRUE)) {
       return $label;
     }
     if (!isset($definition['provider'])) {
       return $label;
     }
-    return $label . " (" . $this->getExtensionLabel($definition['provider']) . ")";
+    return $label . ' (' . $this->getExtensionLabel($definition['provider']) . ')';
   }
 
   /**
    * Get the extension (module or theme) label.
    */
-  protected function getExtensionLabel(string $extension): string {
+  private function getExtensionLabel(string $extension): string {
     if ($this->moduleHandler->moduleExists($extension)) {
       return $this->moduleExtensionList->getName($extension);
     }
@@ -440,9 +442,9 @@ class ComponentPluginManager extends SdcPluginManager {
    * @return array
    *   Config Dependencies.
    */
-  public function calculateDependencies(Component $component) : array {
+  public function calculateDependencies(Component $component): array {
     $definition = $component->getPluginDefinition();
-    $provider = ($definition instanceof PluginDefinitionInterface) ? $definition->getProvider() : (string) ($definition["provider"] ?? '');
+    $provider = ($definition instanceof PluginDefinitionInterface) ? $definition->getProvider() : (string) ($definition['provider'] ?? '');
     $extension_type = $this->getExtensionType($provider);
     return (empty($provider) || empty($extension_type)) ? [] : [$extension_type => [$provider]];
   }
@@ -481,7 +483,7 @@ class ComponentPluginManager extends SdcPluginManager {
    * @return bool
    *   TRUE if the definition is hidden, FALSE otherwise.
    */
-  protected function isHiddenDefinition(array $definition, bool $include_replaces = FALSE): bool {
+  private function isHiddenDefinition(array $definition, bool $include_replaces = FALSE): bool {
     if (!empty($definition['replaces']) && $include_replaces === FALSE) {
       return TRUE;
     }
@@ -526,7 +528,7 @@ class ComponentPluginManager extends SdcPluginManager {
   /**
    * Get extension type (theme or module).
    */
-  protected function getExtensionType(string $extension): string {
+  private function getExtensionType(string $extension): string {
     if ($this->moduleHandler->moduleExists($extension)) {
       return 'module';
     }

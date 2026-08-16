@@ -12,7 +12,7 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\Url;
 use Drupal\custom_field\Attribute\CustomFieldWidget;
-use Drupal\custom_field\Plugin\CustomField\EntityReferenceWidgetBase;
+use Drupal\custom_field\Plugin\CustomField\FieldWidget\EntityReferenceWidgetBase;
 use Drupal\custom_field\Plugin\CustomFieldTypeInterface;
 use Drupal\entity_browser\Element\EntityBrowserElement;
 use Drupal\entity_browser\FieldWidgetDisplayInterface;
@@ -73,38 +73,25 @@ class EntityReferenceBrowserWidget extends EntityReferenceWidgetBase {
    * {@inheritdoc}
    */
   public static function defaultSettings(): array {
-    $settings = parent::defaultSettings();
-    $settings['settings'] = [
-      'entity_browser' => [
-        'entity_browser' => NULL,
-        'open' => FALSE,
-        'field_widget_display' => 'label',
-        'field_widget_edit' => TRUE,
-        'field_widget_remove' => TRUE,
-        'field_widget_replace' => FALSE,
-        'field_widget_display_settings' => [],
-      ],
-    ] + $settings['settings'];
-
-    return $settings;
+    return [
+      'entity_browser' => NULL,
+      'open' => FALSE,
+      'field_widget_display' => 'label',
+      'field_widget_edit' => TRUE,
+      'field_widget_remove' => TRUE,
+      'field_widget_replace' => FALSE,
+      'field_widget_display_settings' => [],
+    ] + parent::defaultSettings();
   }
 
   /**
    * {@inheritdoc}
    */
   public function widgetSettingsForm(FormStateInterface $form_state, CustomFieldTypeInterface $field): array {
-    $form = parent::widgetSettingsForm($form_state, $field);
-
-    $settings = $field->getWidgetSetting('settings')['entity_browser'] ?? [];
-    $settings = $settings + self::defaultSettings()['settings']['entity_browser'];
+    $element = parent::widgetSettingsForm($form_state, $field);
+    $settings = $this->getSettings() + self::defaultSettings();
     $target_type = $field->getTargetType();
     $entity_type = $this->entityTypeManager->getStorage($target_type)->getEntityType();
-    $handler_settings = $form['settings']['handler']['handler_settings'] ?? [];
-    if (isset($handler_settings['auto_create'])) {
-      // Unset irrelevant settings.
-      $form['settings']['handler']['handler_settings']['auto_create']['#access'] = FALSE;
-      $form['settings']['handler']['handler_settings']['auto_create_bundle']['#access'] = FALSE;
-    }
 
     $browsers = [];
     try {
@@ -116,14 +103,6 @@ class EntityReferenceBrowserWidget extends EntityReferenceWidgetBase {
       // Silent fail, for now.
     }
 
-    $form['settings']['entity_browser'] = [
-      '#type' => 'details',
-      '#title' => $this->t('Entity browser'),
-      '#open' => TRUE,
-      '#tree' => TRUE,
-    ];
-
-    $element = &$form['settings']['entity_browser'];
     $element['entity_browser'] = [
       '#title' => $this->t('Entity browser'),
       '#type' => 'select',
@@ -173,26 +152,29 @@ class EntityReferenceBrowserWidget extends EntityReferenceWidgetBase {
       ];
 
       try {
+        $value_keys = [
+          'fields',
+          $this->fieldName,
+          'settings_edit_form',
+          'settings',
+          'fields',
+          $field->getName(),
+        ];
+
         $field_widget_display = $this->fieldDisplayManager->createInstance(
           $form_state->getValue(
-            [
-              'settings',
-              'field_widget_display',
-            ],
+            [...$value_keys, 'field_widget_display'],
             $settings['field_widget_display']
           ),
           $form_state->getValue(
-            [
-              'settings',
-              'field_widget_display_settings',
-            ],
+            [...$value_keys, 'field_widget_display_settings'],
             $settings['field_widget_display_settings']
           ) + [
             'entity_type' => $target_type,
           ]
         );
         assert($field_widget_display instanceof FieldWidgetDisplayInterface);
-        $element['field_widget_display_settings'] += $field_widget_display->settingsForm($form, $form_state);
+        $element['field_widget_display_settings'] += $field_widget_display->settingsForm($element, $form_state);
       }
       catch (\Exception $exception) {
         // Silent fail, for now.
@@ -225,11 +207,11 @@ class EntityReferenceBrowserWidget extends EntityReferenceWidgetBase {
       '#default_value' => $settings['open'],
     ];
 
-    return $form;
+    return $element;
   }
 
   /**
-   * Ajax callback that updates field widget display settings fieldset.
+   * Ajax callback that updates the field widget display settings fieldset.
    *
    * @param array<string, mixed> $form
    *   The form definition for the widget settings.
@@ -240,6 +222,7 @@ class EntityReferenceBrowserWidget extends EntityReferenceWidgetBase {
     $array_parents = $form_state->getTriggeringElement()['#array_parents'];
     $up_two_levels = array_slice($array_parents, 0, count($array_parents) - 2);
     $settings_path = array_merge($up_two_levels, ['field_widget_display_settings']);
+
     return NestedArray::getValue($form, $settings_path);
   }
 
@@ -248,7 +231,8 @@ class EntityReferenceBrowserWidget extends EntityReferenceWidgetBase {
    */
   public function widget(FieldItemListInterface $items, int $delta, array $element, array &$form, FormStateInterface $form_state, CustomFieldTypeInterface $field): array {
     $element = parent::widget($items, $delta, $element, $form, $form_state, $field);
-    $settings = $field->getWidgetSetting('settings') + self::defaultSettings()['settings'];
+    $field_settings = $field->getFieldSettings();
+    $settings = $this->getSettings() + self::defaultSettings();
     $field_name = $items->getFieldDefinition()->getName();
     $parents = is_array($form['#parents']) ? $form['#parents'] : [];
     $entity = $this->formElementEntity($parents, $items, $delta, $form_state, $field);
@@ -294,10 +278,10 @@ class EntityReferenceBrowserWidget extends EntityReferenceWidgetBase {
     $element += [
       '#id' => $id_string,
       '#type' => 'details',
-      '#open' => (!is_null($entity) || $settings['entity_browser']['open']),
-      '#required' => $settings['required'],
+      '#open' => (!is_null($entity) || $settings['open']),
+      '#required' => $field_settings['required'],
       // We are not using Entity browser's hidden element since we maintain
-      // selected entities in it during entire process.
+      // selected entities in it during the entire process.
       'target_id' => [
         '#type' => 'hidden',
         '#id' => $hidden_id,
@@ -306,8 +290,8 @@ class EntityReferenceBrowserWidget extends EntityReferenceWidgetBase {
           'id' => $hidden_id,
         ],
         '#default_value' => is_null($entity) ? '' : "{$entity->getEntityTypeId()}:{$entity->id()}",
-        // #ajax is officially not supported for hidden elements but if we
-        // specify event manually it works.
+        // #ajax is officially not supported for hidden elements, but if we
+        // specify event manually, it works.
         '#ajax' => [
           'callback' => [static::class, 'updateWidgetCallback'],
           'wrapper' => $id_string,
@@ -326,7 +310,7 @@ class EntityReferenceBrowserWidget extends EntityReferenceWidgetBase {
 
       $element['entity_browser'] = [
         '#type' => 'entity_browser',
-        '#entity_browser' => $settings['entity_browser']['entity_browser'],
+        '#entity_browser' => $settings['entity_browser'],
         '#cardinality' => $cardinality,
         '#selection_mode' => $selection_mode,
         '#default_value' => $entity,
@@ -472,16 +456,15 @@ class EntityReferenceBrowserWidget extends EntityReferenceWidgetBase {
    *   The render array for the current selection.
    */
   protected function displayCurrentSelection(string $id, array $field_parents, EntityInterface $entity, int $delta, CustomFieldTypeInterface $field): array {
-    $settings = $field->getWidgetSetting('settings') + self::defaultSettings()['settings'];
-    $browser_settings = $settings['entity_browser'];
+    $settings = $this->getSettings() + self::defaultSettings();
     $name_key = str_replace('-', '_', $id);
 
     $target_entity_type = $field->getTargetType();
-    $field_widget_display_settings = $browser_settings['field_widget_display_settings'] ?? [];
+    $field_widget_display_settings = $settings['field_widget_display_settings'] ?? [];
 
     try {
       $field_widget_display = $this->fieldDisplayManager->createInstance(
-        $browser_settings['field_widget_display'],
+        $settings['field_widget_display'],
         $field_widget_display_settings + ['entity_type' => $target_entity_type]
       );
       assert($field_widget_display instanceof FieldWidgetDisplayInterface);
@@ -495,7 +478,7 @@ class EntityReferenceBrowserWidget extends EntityReferenceWidgetBase {
       Html::cleanCssIdentifier("entity-type--$target_entity_type"),
     ];
 
-    $edit_button_access = $browser_settings['field_widget_edit'] && $entity->access('update', $this->currentUser);
+    $edit_button_access = $settings['field_widget_edit'] && $entity->access('update', $this->currentUser);
     if ($entity->getEntityTypeId() === 'file') {
       // On file entities, the "edit" button shouldn't be visible unless
       // the module "file_entity" is present, which will allow them to be
@@ -538,7 +521,7 @@ class EntityReferenceBrowserWidget extends EntityReferenceWidgetBase {
               'data-row-id' => $delta,
               'class' => ['remove-button'],
             ],
-            '#access' => (bool) $browser_settings['field_widget_remove'],
+            '#access' => (bool) $settings['field_widget_remove'],
           ],
           'replace_button' => [
             '#type' => 'submit',
@@ -555,7 +538,7 @@ class EntityReferenceBrowserWidget extends EntityReferenceWidgetBase {
               'data-row-id' => $delta,
               'class' => ['replace-button'],
             ],
-            '#access' => $browser_settings['field_widget_replace'],
+            '#access' => $settings['field_widget_replace'],
           ],
           'edit_button' => [
             '#type' => 'submit',
@@ -620,12 +603,12 @@ class EntityReferenceBrowserWidget extends EntityReferenceWidgetBase {
     $is_relevant_submit = FALSE;
     if ($trigger = $form_state->getTriggeringElement()) {
 
-      // Can be triggered by hidden target_id element or "Remove" button.
+      // Can be triggered by the hidden target_id element or "Remove" button.
       $last_parent = end($trigger['#parents']);
       if (in_array($last_parent, ['target_id', 'remove_button', 'replace_button'])) {
 
-        // In case there are more instances of this widget on the same page we
-        // need to check if submit came from this instance.
+        // In case there are more instances of this widget on the same page, we
+        // need to check if the submission came from this instance.
         $field_name_key = count($trigger['#parents']) - (static::DELETE_DEPTH + 1);
 
         $is_relevant_submit =
@@ -643,7 +626,7 @@ class EntityReferenceBrowserWidget extends EntityReferenceWidgetBase {
         $parents = $trigger['#parents'];
       }
       // Submit was triggered by one of the "Remove" buttons. We need to walk
-      // few levels up to read value of "target_id" element.
+      // a few levels up to read the value of the "target_id" element.
       elseif ($trigger['#type'] === 'submit' && str_ends_with($trigger['#name'], '_entity_browser_remove')) {
         $parents = array_merge(array_slice($trigger['#parents'], 0, -static::DELETE_DEPTH), ['target_id']);
       }
@@ -668,13 +651,13 @@ class EntityReferenceBrowserWidget extends EntityReferenceWidgetBase {
       }
     }
 
-    // We are loading for the first time so we need to load any existing values
+    // We are loading for the first time, so we need to load any existing values
     // that might already exist on the entity.
     return $items[$delta]->{$field->getName() . '__entity'};
   }
 
   /**
-   * Get selected element from target_id element on form.
+   * Get the selected element from the target_id element on form.
    *
    * @param string[] $parents
    *   The field parents.
@@ -731,8 +714,8 @@ class EntityReferenceBrowserWidget extends EntityReferenceWidgetBase {
    *   Data that should persist after the Entity Browser is rendered.
    */
   protected function getPersistentData(CustomFieldTypeInterface $field): array {
-    $settings = $field->getWidgetSetting('settings') + self::defaultSettings()['settings'];
-    $handler = $settings['handler_settings'];
+    $field_settings = $field->getFieldSettings();
+    $handler = $field_settings['handler_settings'];
     return [
       'validators' => [
         'entity_type' => ['type' => $field->getTargetType()],
@@ -794,6 +777,46 @@ class EntityReferenceBrowserWidget extends EntityReferenceWidgetBase {
       $delta,
     ];
     return ['entity_browser_widget', implode(':', $parts)];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function calculateWidgetDependencies(): array {
+    $dependencies = parent::calculateWidgetDependencies();
+    $browser = $this->getSetting('entity_browser') ?? NULL;
+    if ($browser) {
+      /** @var \Drupal\entity_browser\Entity\EntityBrowser $entity_browser */
+      $entity_browser = $this->entityTypeManager->getStorage('entity_browser')->load($browser);
+      if ($entity_browser) {
+        $dependencies[$entity_browser->getConfigDependencyKey()][] = $entity_browser->getConfigDependencyName();
+      }
+    }
+
+    return $dependencies;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function onWidgetDependencyRemoval(array $dependencies): array {
+    $settings = $this->getSettings();
+    $changed = FALSE;
+    $changed_settings = [];
+    $browser = $this->getSetting('entity_browser') ?? NULL;
+    if ($browser) {
+      /** @var \Drupal\entity_browser\Entity\EntityBrowser $entity_browser */
+      $entity_browser = $this->entityTypeManager->getStorage('entity_browser')->load($browser);
+      if ($entity_browser && !empty($dependencies[$entity_browser->getConfigDependencyKey()][$entity_browser->getConfigDependencyName()])) {
+        $settings['entity_browser'] = NULL;
+        $changed = TRUE;
+      }
+    }
+    if ($changed) {
+      $changed_settings = $settings;
+    }
+
+    return $changed_settings;
   }
 
 }

@@ -2,6 +2,7 @@
 
 namespace Drupal\custom_field\Plugin\CustomField\FieldType;
 
+use Drupal\Core\Form\FormStateInterface;
 use Drupal\custom_field\Plugin\CustomFieldTypeBase;
 
 /**
@@ -12,7 +13,64 @@ class NumericTypeBase extends CustomFieldTypeBase {
   /**
    * {@inheritdoc}
    */
-  public function getConstraints(array $settings): array {
+  public static function defaultFieldSettings(): array {
+    return [
+      'min' => '',
+      'max' => '',
+      'prefix' => '',
+      'suffix' => '',
+    ] + parent::defaultFieldSettings();
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function fieldSettingsForm(array &$form, FormStateInterface $form_state): array {
+    $element = parent::fieldSettingsForm($form, $form_state);
+    $settings = $this->getFieldSettings();
+    $unsigned = $this->getSetting('unsigned');
+
+    $element['min'] = [
+      '#type' => 'number',
+      '#title' => $this->t('Minimum'),
+      '#default_value' => $settings['min'],
+      '#min' => $unsigned ? 0 : NULL,
+      '#description' => $this->t('The minimum value that should be allowed in this field. Leave blank for no minimum.'),
+    ];
+
+    $element['max'] = [
+      '#type' => 'number',
+      '#title' => $this->t('Maximum'),
+      '#default_value' => $settings['max'],
+      '#min' => $unsigned ? 0 : NULL,
+      '#description' => $this->t('The maximum value that should be allowed in this field. Leave blank for no maximum.'),
+    ];
+
+    $element['prefix'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Prefix'),
+      '#default_value' => $settings['prefix'],
+      '#size' => 60,
+      '#description' => $this->t("Define a string that should be prefixed to the value, like '$ ' or '&euro; '. Leave blank for none. Separate singular and plural values with a pipe ('pound|pounds')."),
+    ];
+
+    $element['suffix'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Suffix'),
+      '#default_value' => $settings['suffix'],
+      '#size' => 60,
+      '#description' => $this->t("Define a string that should be suffixed to the value, like ' m', ' kb/s'. Leave blank for none. Separate singular and plural values with a pipe ('pound|pounds')."),
+    ];
+
+    return $element;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getConstraints(): array {
+    $settings = $this->getSettings();
+    $field_settings = $this->getFieldSettings();
     $constraints = [];
     // To prevent a PDO exception from occurring, restrict values in the range
     // allowed by databases.
@@ -21,14 +79,14 @@ class NumericTypeBase extends CustomFieldTypeBase {
     $max = $type !== 'float' ? $this->getDefaultMaxValue($settings) : NULL;
 
     // Handle range constraints.
-    $min_set = isset($settings['min']) && $settings['min'] !== '';
-    $max_set = isset($settings['max']) && $settings['max'] !== '';
+    $min_set = isset($field_settings['min']) && $field_settings['min'] !== '';
+    $max_set = isset($field_settings['max']) && $field_settings['max'] !== '';
 
     if ($min_set) {
-      $min = $settings['min'];
+      $min = $field_settings['min'];
     }
     if ($max_set) {
-      $max = $settings['max'];
+      $max = $field_settings['max'];
     }
 
     if ($min) {
@@ -38,7 +96,7 @@ class NumericTypeBase extends CustomFieldTypeBase {
       $constraints['Range']['max'] = $max;
     }
 
-    // Determine and add appropriate message.
+    // Determine appropriate message.
     $params = [
       '%name' => $settings['name'],
       '%min' => $min,
@@ -75,10 +133,10 @@ class NumericTypeBase extends CustomFieldTypeBase {
    *   An array of field settings.
    *
    * @return int|float
-   *   The minimum value allowed by database.
+   *   The minimum value allowed by the database.
    */
   protected static function getDefaultMinValue(array $settings): int|float {
-    if ($settings['unsigned']) {
+    if (!empty($settings['unsigned'])) {
       return 0;
     }
 
@@ -92,7 +150,7 @@ class NumericTypeBase extends CustomFieldTypeBase {
     ];
     $size = $settings['size'] ?? 'normal';
 
-    return $size_map[$size];
+    return $size_map[(string) $size];
   }
 
   /**
@@ -102,10 +160,10 @@ class NumericTypeBase extends CustomFieldTypeBase {
    *   An array of field settings.
    *
    * @return int
-   *   The maximum value allowed by database.
+   *   The maximum value allowed by the database.
    */
   protected static function getDefaultMaxValue(array $settings): int {
-    if ($settings['unsigned']) {
+    if (!empty($settings['unsigned'])) {
       // Each value is (2 ^ (8 * bytes) - 1).
       $size_map = [
         'normal' => 4294967295,

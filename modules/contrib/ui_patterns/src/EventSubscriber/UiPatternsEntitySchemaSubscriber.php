@@ -32,8 +32,7 @@ class UiPatternsEntitySchemaSubscriber implements EntityTypeListenerInterface, E
    * @param \Drupal\ui_patterns\DerivableContextPluginManager $derivableContextPluginManager
    *   The derivable context plugin manager.
    */
-  public function __construct(protected CachedDiscoveryInterface $sourceManager, protected DerivableContextPluginManager $derivableContextPluginManager) {
-  }
+  public function __construct(protected CachedDiscoveryInterface $sourceManager, protected DerivableContextPluginManager $derivableContextPluginManager) {}
 
   /**
    * {@inheritdoc}

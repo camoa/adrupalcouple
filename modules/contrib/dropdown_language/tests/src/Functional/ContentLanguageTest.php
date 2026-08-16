@@ -41,7 +41,7 @@ class ContentLanguageTest extends DropdownLanguageTestBase {
   /**
    * See if the interface block exists on the front page.
    */
-  public function testblockExists() {
+  public function testBlockExists() {
     $session = $this->assertSession();
 
     $this->drupalGet('<front>');
@@ -97,10 +97,10 @@ class ContentLanguageTest extends DropdownLanguageTestBase {
   /**
    * Check if the block doesn't exist on a not existing page.
    */
-  public function testBlockNotExistsOnNonExistant() {
+  public function testBlockNotExistsOnNonExistent() {
     $session = $this->assertSession();
 
-    $this->drupalGet('/non-existant page');
+    $this->drupalGet('/non-existent-page');
     $session->statusCodeEquals(404);
     $session->elementNotExists('css', '#block-test-language-content-block');
   }
@@ -210,6 +210,117 @@ class ContentLanguageTest extends DropdownLanguageTestBase {
     $session->elementTextEquals('css', '#block-test-language-content-block ul.dropdown-language-item > li:nth-child(2) > a', 'French');
     $session->elementTextEquals('css', '#block-test-language-content-block ul.dropdown-language-item > li:nth-child(3) > a', 'German');
     $session->elementTextEquals('css', '#block-test-language-content-block ul.dropdown-language-item > li:nth-child(4) > a', 'Italian');
+  }
+
+  /**
+   * Test that the language switching block does not expose restricted paths.
+   */
+  public function testRestrictedPaths(): void {
+    $this->drupalLogout();
+
+    $entity_type_manager = \Drupal::entityTypeManager();
+
+    // Add the French language.
+    ConfigurableLanguage::createFromLangcode('fr')->save();
+
+    // Enable URL language detection and selection.
+    $this->config('language.types')
+      ->set('negotiation.language_interface.enabled.language-url', 1)
+      ->save();
+
+    // Enable the language switching block.
+    $this->drupalPlaceBlock('dropdown_language:' . LanguageInterface::TYPE_CONTENT);
+
+    // Create a node type and make it translatable.
+    $entity_type_manager->getStorage('node_type')
+      ->create([
+        'type' => 'page',
+        'name' => 'Page',
+      ])
+      ->save();
+
+    // Create a published node with an unpublished translation.
+    $node = $entity_type_manager->getStorage('node')
+      ->create([
+        'type' => 'page',
+        'title' => $this->randomMachineName(),
+        'status' => 1,
+      ]);
+    $node->save();
+    $node->addTranslation('fr', ['title' => 'Unpublished report', 'status' => 0]);
+    $node->save();
+
+    // Create path aliases.
+    $alias_storage = $entity_type_manager->getStorage('path_alias');
+    $alias_storage->create([
+      'path' => '/user/1',
+      'alias' => '/secret-identity/peter-parker',
+    ])->save();
+    $alias_storage->create([
+      'path' => '/node/1',
+      'langcode' => 'en',
+      'alias' => '/press-release/published-report',
+    ])->save();
+    $alias_storage->create([
+      'path' => '/node/1',
+      'langcode' => 'fr',
+      'alias' => '/press-release/unpublished-report-fr',
+    ])->save();
+
+    // Visit a restricted user page.
+    // Assert that the language switching block is displayed on the
+    // access-denied page, but it does not contain the path alias.
+    $this->assertLinkMarkup('/user/1', 403, 'peter-parker');
+
+    // Visit the node and its translation using internal paths and aliases.
+    $this->assertLinkMarkup('/node/1', 200, 'unpublished-report-fr');
+    $this->assertLinkMarkup('/press-release/published-report', 200, 'unpublished-report-fr');
+    $this->assertLinkMarkup('/fr/node/1', 403, 'unpublished-report-fr');
+    $this->assertLinkMarkup('/fr/press-release/unpublished-report-fr', 403, 'unpublished-report-fr');
+
+    // Test as a user with access to other users and unpublished content.
+    $privileged_user = $this->drupalCreateUser([
+      'access user profiles',
+      'bypass node access',
+    ]);
+    $this->drupalLogin($privileged_user);
+    $this->assertLinkMarkup('/user/1', 200, 'peter-parker', TRUE);
+    $this->assertLinkMarkup('/node/1', 200, 'unpublished-report-fr', TRUE);
+    $this->assertLinkMarkup('/press-release/published-report', 200, 'unpublished-report-fr', TRUE);
+    $this->assertLinkMarkup('/fr/node/1', 200, 'unpublished-report-fr', TRUE);
+    $this->assertLinkMarkup('/fr/press-release/unpublished-report-fr', 200, 'unpublished-report-fr', TRUE);
+
+    // Test as an anonymous user.
+    $this->drupalLogout();
+    $this->assertLinkMarkup('/user/1', 403, 'peter-parker');
+    $this->assertLinkMarkup('/node/1', 200, 'unpublished-report-fr');
+    $this->assertLinkMarkup('/press-release/published-report', 200, 'unpublished-report-fr');
+    $this->assertLinkMarkup('/fr/node/1', 403, 'unpublished-report-fr');
+    $this->assertLinkMarkup('/fr/press-release/unpublished-report-fr', 403, 'unpublished-report-fr');
+  }
+
+  /**
+   * Asserts that restricted text is or is not present in the page response.
+   *
+   * @param string $path
+   *   The path to test.
+   * @param int $status
+   *   The HTTP status code, such as 200 or 403.
+   * @param string $restricted
+   *   Text that should be tested.
+   * @param bool $found
+   *   (optional) If TRUE, then the restricted text is present. Defaults to
+   *   FALSE.
+   */
+  protected function assertLinkMarkup(string $path, int $status, string $restricted, bool $found = FALSE): void {
+    $this->drupalGet($path);
+    $this->assertSession()->statusCodeEquals($status);
+    if ($found) {
+      $this->assertSession()->responseContains($restricted);
+    }
+    else {
+      $this->assertSession()->responseNotContains($restricted);
+    }
   }
 
 }

@@ -62,15 +62,14 @@ class CustomFieldStringLong extends CustomFieldDataTypeBase implements Cacheable
   }
 
   /**
-   * A helper function to return the format type from widget setting.
+   * A helper function to return the format type from field settings.
    *
    * @return mixed|null
    *   The specified format from widget setting, otherwise NULL.
    */
   protected function getFormat(): mixed {
     $parent = $this->getParent();
-    $field_settings = $parent->getFieldDefinition()->getSetting('field_settings')[$this->name] ?? [];
-    $settings = $field_settings ? $field_settings['widget_settings']['settings'] : [];
+    $settings = $parent->getFieldDefinition()->getSetting('field_settings')[$this->name] ?? [];
 
     return ($settings['formatted'] ?? FALSE) ? $settings['default_format'] : NULL;
   }

@@ -39,7 +39,7 @@ trait ConfigImporterTrait {
    * @return array
    *   The fixture.
    */
-  public function loadConfigFixture(string $path):array {
+  public function loadConfigFixture(string $path): array {
     $yaml = file_get_contents($path);
     if ($yaml === FALSE) {
       throw new \InvalidArgumentException($path . ' not found.');
@@ -56,7 +56,7 @@ trait ConfigImporterTrait {
    * @return array
    *   The builded configuration.
    */
-  protected function buildUiPatternsConfig(array $test_set):array {
+  protected function buildUiPatternsConfig(array $test_set): array {
     if (!isset($test_set['component']['slots'])) {
       $test_set['component']['slots'] = [];
     }
@@ -97,14 +97,14 @@ trait ConfigImporterTrait {
       $message = 'Error: No schema exists.';
     }
     elseif ($check !== TRUE) {
-      $this->assertIsArray($check, "The config schema check errors should be in the form of an array.");
+      $this->assertIsArray($check, 'The config schema check errors should be in the form of an array.');
       $message = "Errors:\n";
       foreach ($check as $key => $error) {
-        $message .= "Schema key $key failed with: $error\n";
+        $message .= "Schema key {$key} failed with: {$error}\n";
       }
       $message .= print_r($config_data, TRUE);
     }
-    $this->assertTrue($check, "There should be no errors in configuration '$config_name'. $message");
+    $this->assertTrue($check, "There should be no errors in configuration '{$config_name}'. {$message}");
   }
 
 }

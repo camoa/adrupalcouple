@@ -20,15 +20,21 @@ class EntityReferenceRevisions extends EntityReference {
    */
   public function exportFieldValue(FieldItemListInterface $field): array {
     $value = [];
-    $ids = array_column($field->getValue(), 'target_id');
+    $fieldDefinition = $field->getFieldDefinition();
 
-    // @todo Check if the target entity type is a paragraph.
-    // @todo Otherwise, fall back to the parent implementation.
-    $paragraph_storage = $this->entityTypeManager->getStorage('paragraph');
-    $paragraphs = $paragraph_storage->loadMultiple($ids);
+    if ($fieldDefinition->getSetting('target_type') == 'paragraph') {
+      $ids = array_column($field->getValue(), 'target_id');
+      $paragraph_storage = $this->entityTypeManager->getStorage('paragraph');
 
-    foreach ($paragraphs as $paragraph) {
-      $value[] = $this->exporter->doExportToArray($paragraph);
+      /** @var \Drupal\paragraphs\ParagraphInterface[] $paragraphs */
+      $paragraphs = $paragraph_storage->loadMultiple($ids);
+
+      foreach ($paragraphs as $paragraph) {
+        $value[] = $this->exporter->doExportToArray($paragraph);
+      }
+    }
+    else {
+      $value = parent::exportFieldValue($field);
     }
 
     return $value;

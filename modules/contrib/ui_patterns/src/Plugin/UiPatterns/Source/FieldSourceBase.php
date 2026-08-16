@@ -53,8 +53,8 @@ abstract class FieldSourceBase extends SourcePluginBase implements SourceInterfa
   public function settingsForm(array $form, FormStateInterface $form_state): array {
     $form = parent::settingsForm($form, $form_state);
     $form['label_map'] = [
-      "#type" => "label",
-      "#title" => $this->propDefinition['title'] ?? '' . ": " . $this->label(),
+      '#type' => 'label',
+      '#title' => $this->propDefinition['title'] ?? ': ' . $this->label(),
     ];
     return $form;
   }
@@ -62,10 +62,10 @@ abstract class FieldSourceBase extends SourcePluginBase implements SourceInterfa
   /**
    * Returns the field name.
    *
+   * @throws \Drupal\Component\Plugin\Exception\ContextException
+   *
    * @return string
    *   The field name.
-   *
-   * @throws \Drupal\Component\Plugin\Exception\ContextException
    */
   protected function getFieldName(): string {
     return $this->getContextValue('field_name');
@@ -74,10 +74,10 @@ abstract class FieldSourceBase extends SourcePluginBase implements SourceInterfa
   /**
    * Returns the bundle.
    *
+   * @throws \Drupal\Component\Plugin\Exception\ContextException
+   *
    * @return string
    *   The bundle.
-   *
-   * @throws \Drupal\Component\Plugin\Exception\ContextException
    */
   protected function getBundle(): string {
     return $this->getContextValue('bundle');
@@ -86,25 +86,25 @@ abstract class FieldSourceBase extends SourcePluginBase implements SourceInterfa
   /**
    * Returns the entity type id.
    *
+   * @throws \Drupal\Component\Plugin\Exception\ContextException
+   *
    * @return string|null
    *   The entity type id.
-   *
-   * @throws \Drupal\Component\Plugin\Exception\ContextException
    */
   protected function getEntityTypeId(): ?string {
     if ($entity = $this->getEntity()) {
       return $entity->getEntityTypeId();
     }
-    throw new ContextException("Entity not found");
+    throw new ContextException('Entity not found');
   }
 
   /**
    * Returns the entity from context.
    *
+   * @throws \Drupal\Component\Plugin\Exception\ContextException
+   *
    * @return \Drupal\Core\Entity\EntityInterface|null
    *   The entity
-   *
-   * @throws \Drupal\Component\Plugin\Exception\ContextException
    */
   protected function getEntity(): ?EntityInterface {
     return $this->getContextValue('entity');

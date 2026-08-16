@@ -279,7 +279,7 @@ class SchemaDotOrgAdditionalTypeFieldAccessHandler implements SchemaDotOrgAdditi
 
       // Check entity access condition.
       case 'entity_access':
-        if (!$entity || !method_exists($entity, 'access')) {
+        if (!$entity) {
           return TRUE;
         }
 

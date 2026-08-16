@@ -1,0 +1,6 @@
+name: 'Schema.org Blueprints schema data test'
+type: module
+description: 'Support module for Schema.org Blueprints schema data testing.'
+package: Testing
+dependencies:
+  - 'schemadotorg:schemadotorg'

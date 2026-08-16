@@ -104,7 +104,7 @@ abstract class SchemaDotOrgEntityReferenceSelection extends SelectionPluginBase 
   /**
    * {@inheritdoc}
    */
-  public function setConfiguration(array $configuration): void {
+  public function setConfiguration(array $configuration): static {
     // Convert 'schema_types' that are passed as a string to an array.
     // The 'schema_types' will be a string when this handler is validated
     // via form submit.
@@ -121,6 +121,8 @@ abstract class SchemaDotOrgEntityReferenceSelection extends SelectionPluginBase 
     // field config presave.
     // @see schemadotorg_field_config_presave()
     $this->configuration['target_bundles'] = static::getTargetBundles($this->configuration);
+
+    return $this;
   }
 
   /**

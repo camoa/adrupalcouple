@@ -39,7 +39,7 @@ class InterfaceLanguageTest extends DropdownLanguageTestBase {
   /**
    * See if the interface block exists on the front page.
    */
-  public function testblockExists() {
+  public function testBlockExists() {
     $session = $this->assertSession();
 
     $this->drupalGet('<front>');
@@ -95,10 +95,10 @@ class InterfaceLanguageTest extends DropdownLanguageTestBase {
   /**
    * Check if the block doesn't exist on a not existing page.
    */
-  public function testBlockNotExistsOnNonExistant() {
+  public function testBlockNotExistsOnNonExistent() {
     $session = $this->assertSession();
 
-    $this->drupalGet('/non-existant page');
+    $this->drupalGet('/non-existent-page');
     $session->statusCodeEquals(404);
     $session->elementNotExists('css', '#block-test-language-interface-block');
   }

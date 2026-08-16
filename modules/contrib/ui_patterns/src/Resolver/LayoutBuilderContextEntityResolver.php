@@ -28,8 +28,7 @@ class LayoutBuilderContextEntityResolver implements ContextEntityResolverInterfa
     protected RouteMatchInterface $routeMatch,
     protected EntityTypeManagerInterface $entityTypeManager,
     protected SampleEntityGeneratorInterface $sampleEntityGenerator,
-  ) {
-  }
+  ) {}
 
   /**
    * {@inheritdoc}
@@ -52,14 +51,14 @@ class LayoutBuilderContextEntityResolver implements ContextEntityResolverInterfa
    * @return \Drupal\layout_builder\SectionStorageInterface|null
    *   The section storage or null.
    */
-  protected function getLayoutBuilderSectionStorage(?FormStateInterface $form_state = NULL) : ?SectionStorageInterface {
+  protected function getLayoutBuilderSectionStorage(?FormStateInterface $form_state = NULL): ?SectionStorageInterface {
     if ($form_state !== NULL) {
       $form_object = $form_state->getFormObject();
       if ($form_object instanceof ConfigureSectionForm) {
         return $form_object->getSectionStorage();
       }
     }
-    $section_storage = $this->routeMatch->getParameter("section_storage");
+    $section_storage = $this->routeMatch->getParameter('section_storage');
     if ($section_storage instanceof SectionStorageInterface) {
       return $section_storage;
     }
@@ -75,7 +74,7 @@ class LayoutBuilderContextEntityResolver implements ContextEntityResolverInterfa
    * @return \Drupal\Core\Entity\EntityInterface|null
    *   The entity if found or null.
    */
-  protected function guessLayoutBuilderEntity(SectionStorageInterface $section_storage) : ?EntityInterface {
+  protected function guessLayoutBuilderEntity(SectionStorageInterface $section_storage): ?EntityInterface {
     if ($entity = $this->guessLayoutBuilderEntityFromContexts($section_storage->getContexts())) {
       return $entity;
     }
@@ -104,8 +103,8 @@ class LayoutBuilderContextEntityResolver implements ContextEntityResolverInterfa
    * @return \Drupal\Core\Entity\EntityInterface|null
    *   The entity if found or null.
    */
-  protected function guessLayoutBuilderEntityFromContexts(array $section_storage_contexts) : ?EntityInterface {
-    if (array_key_exists("entity", $section_storage_contexts) && ($entity = $section_storage_contexts["entity"]->getContextValue())) {
+  protected function guessLayoutBuilderEntityFromContexts(array $section_storage_contexts): ?EntityInterface {
+    if (array_key_exists('entity', $section_storage_contexts) && ($entity = $section_storage_contexts['entity']->getContextValue())) {
       return $entity;
     }
     // Search for the entity in the context (no matter the name).

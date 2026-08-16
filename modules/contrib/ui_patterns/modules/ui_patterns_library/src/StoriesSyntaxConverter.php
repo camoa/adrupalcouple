@@ -253,7 +253,7 @@ class StoriesSyntaxConverter {
     // An array needs one, and only one, of those properties to be a render
     // array.
     $intersect = \array_intersect(\array_keys($array), self::RENDER_KEYS);
-    if (\count($intersect) != 1) {
+    if (\count($intersect) !== 1) {
       return FALSE;
     }
     // This property has to be a string value.

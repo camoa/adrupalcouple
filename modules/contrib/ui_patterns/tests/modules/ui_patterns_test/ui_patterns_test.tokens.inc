@@ -5,6 +5,8 @@
  * Builds placeholder replacement tokens for entity-related data.
  */
 
+declare(strict_types=1);
+
 use Drupal\Core\Render\BubbleableMetadata;
 
 /**
@@ -19,7 +21,7 @@ function ui_patterns_test_token_info(): array {
 
   // Core tokens for nodes.
   $entity['id'] = [
-    'name' => t("Entity ID"),
+    'name' => t('Entity ID'),
     'description' => t('The unique ID of the content item, or "entity_test".'),
   ];
 
@@ -37,7 +39,7 @@ function ui_patterns_test_token_info(): array {
 function ui_patterns_test_tokens(string $type, array $tokens, array $data, array $options, BubbleableMetadata $bubbleable_metadata): array {
   $replacements = [];
 
-  if ($type == 'node' && !empty($data['node'])) {
+  if ($type === 'node' && !empty($data['node'])) {
     $entity = $data['node'];
     foreach ($tokens as $name => $original) {
       switch ($name) {
@@ -49,7 +51,6 @@ function ui_patterns_test_tokens(string $type, array $tokens, array $data, array
         case 'name':
           $replacements[$original] = $entity->name();
           break;
-
       }
     }
   }

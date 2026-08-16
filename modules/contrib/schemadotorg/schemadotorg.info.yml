@@ -13,5 +13,4 @@ dependencies:
   - 'drupal:image'
   - 'drupal:link'
   - 'drupal:options'
-  - 'drupal:telephone'
   - 'drupal:text'

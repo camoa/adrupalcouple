@@ -122,7 +122,7 @@ final class ComponentFormDisplay extends ConfigEntityBase implements ComponentFo
   /**
    * {@inheritdoc}
    */
-  public function getComponentId():string {
+  public function getComponentId(): string {
     return $this->component_id;
   }
 
@@ -136,8 +136,8 @@ final class ComponentFormDisplay extends ConfigEntityBase implements ComponentFo
   /**
    * Returns the prop definition.
    */
-  public function getPropDefinition(string $prop_id): array | NULL {
-    /* @phpstan-ignore method.notFound */
+  public function getPropDefinition(string $prop_id): ?array {
+    // @phpstan-ignore method.notFound
     $component_definition = self::getComponentPluginManager()->negotiateDefinition($this->component_id);
     if (isset($component_definition['props']['properties'][$prop_id])) {
       return $component_definition['props']['properties'][$prop_id];
@@ -181,7 +181,7 @@ final class ComponentFormDisplay extends ConfigEntityBase implements ComponentFo
   /**
    * Sets the form mode name.
    */
-  public function setFormModeName(string $form_mode_name):void {
+  public function setFormModeName(string $form_mode_name): void {
     $this->form_mode_name = $form_mode_name;
   }
 
@@ -234,7 +234,7 @@ final class ComponentFormDisplay extends ConfigEntityBase implements ComponentFo
   public function getSelectedSourcePlugin(string $prop_id): ?SourcePluginBase {
     $display_options = $this->getPropSlotOption($prop_id);
     $selected_source_id = $display_options['source_id'] ?? NULL;
-    assert(is_string($selected_source_id) || is_null($selected_source_id));
+    assert(is_string($selected_source_id) || $selected_source_id === NULL);
     if ($selected_source_id === '') {
       return NULL;
     }
@@ -252,7 +252,7 @@ final class ComponentFormDisplay extends ConfigEntityBase implements ComponentFo
    */
   public function getPropSlotOptions(): array {
     $content = $this->content;
-    uasort($content, function ($a, $b) {
+    uasort($content, static function ($a, $b) {
       return $a['weight'] <=> $b['weight'];
     });
     return $content;
@@ -292,8 +292,8 @@ final class ComponentFormDisplay extends ConfigEntityBase implements ComponentFo
     // Ensure we always have an empty settings and array.
     $options += ['widget_settings' => [], 'third_party_settings' => []];
     $this->content[$name] = $options;
-    unset($this->hidden[$name]);
-    unset($this->plugins[$name]);
+    unset($this->hidden[$name], $this->plugins[$name]);
+
     return $this;
   }
 
@@ -302,8 +302,7 @@ final class ComponentFormDisplay extends ConfigEntityBase implements ComponentFo
    */
   public function removePropSlotOption($name) {
     $this->hidden[$name] = TRUE;
-    unset($this->content[$name]);
-    unset($this->plugins[$name]);
+    unset($this->content[$name], $this->plugins[$name]);
 
     return $this;
   }

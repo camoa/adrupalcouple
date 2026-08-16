@@ -26,6 +26,6 @@ interface LayoutBuilderUpdaterInterface {
    * @return \Drupal\layout_builder\Section|false
    *   A section if the section had been updated.
    */
-  public function updateLayout(Section $section): FALSE|Section;
+  public function updateLayout(Section $section): false|Section;
 
 }

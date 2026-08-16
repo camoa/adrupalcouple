@@ -8,14 +8,15 @@ use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\Theme\ComponentPluginManager;
 use Drupal\ui_patterns\Plugin\UiPatterns\PropType\SlotPropType;
 use Drupal\ui_patterns\PropTypeAdapterPluginManager;
+use Twig\Environment;
 use Twig\Extension\AbstractExtension;
+use Twig\Extension\CoreExtension;
+use Twig\Markup;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
 
 /**
  * Twig extension providing UI Patterns-specific functionalities.
- *
- * @package Drupal\ui_patterns\Template
  */
 class TwigExtension extends AbstractExtension {
 
@@ -63,6 +64,13 @@ class TwigExtension extends AbstractExtension {
       new TwigFunction('_ui_patterns_normalize_props', [$this, 'normalizeProps'], ['needs_context' => TRUE]),
       // For ComponentNodeVisitorAfterSdc.
       new TwigFunction('_ui_patterns_preprocess_props', [$this, 'preprocessProps'], ['needs_context' => TRUE]),
+      // Overrides Twig's core include() — see ::include(). Options match
+      // CoreExtension's registration so direct printing is unaffected.
+      new TwigFunction('include', [self::class, 'include'], [
+        'needs_environment' => TRUE,
+        'needs_context' => TRUE,
+        'is_safe' => ['all'],
+      ]),
     ];
   }
 
@@ -152,6 +160,43 @@ class TwigExtension extends AbstractExtension {
       $prop_type = $props[$variable]['ui_patterns']['type_definition'];
       $context[$variable] = $prop_type->preprocess($value, $props[$variable]);
     }
+  }
+
+  /**
+   * Drop-in replacement for Twig's include() that returns a Markup object.
+   *
+   * Twig core's include() returns a plain string. The assignment form
+   * `{% set x = include('comp') %}` then yields an untrusted string while the
+   * capture form `{% set x %}{{ include('comp') }}{% endset %}` yields a
+   * Twig\Markup object. The slot trust boundary keys off type, so the two
+   * forms render a nested component inconsistently. Returning Markup makes
+   * them equivalent: both carry the rendered, already-autoescaped output of a
+   * developer-authored template and are trusted. Mirrors the fix proposed in
+   * twigphp/Twig#4802.
+   *
+   * @param \Twig\Environment $env
+   *   The Twig environment.
+   * @param array $context
+   *   The current template context.
+   * @param string|array|\Twig\TemplateWrapper $template
+   *   The template to render, or an array of templates to try consecutively.
+   * @param array $variables
+   *   The variables to pass to the template.
+   * @param bool $withContext
+   *   Whether to merge the current context into the variables.
+   * @param bool $ignoreMissing
+   *   Whether to ignore missing templates.
+   * @param bool $sandboxed
+   *   Whether to sandbox the template.
+   *
+   * @return \Twig\Markup
+   *   The rendered template output, wrapped as safe markup.
+   *
+   * @todo Remove once twigphp/Twig#4802 ships and include() returns Markup.
+   */
+  public static function include(Environment $env, $context, $template, $variables = [], $withContext = TRUE, $ignoreMissing = FALSE, $sandboxed = FALSE): Markup {
+    $result = CoreExtension::include($env, $context, $template, $variables, $withContext, $ignoreMissing, $sandboxed);
+    return new Markup($result, $env->getCharset());
   }
 
 }

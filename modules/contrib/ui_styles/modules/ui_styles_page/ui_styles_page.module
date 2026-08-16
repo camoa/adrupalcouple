@@ -7,14 +7,13 @@
 
 declare(strict_types=1);
 
-use Drupal\ui_styles_page\HookHandler\PreprocessRegion;
+use Drupal\Core\Hook\Attribute\LegacyHook;
+use Drupal\ui_styles_page\Hook\UiStylesPageHooks;
 
 /**
  * Implements hook_preprocess_region().
  */
+#[LegacyHook]
 function ui_styles_page_preprocess_region(array &$variables): void {
-  /** @var \Drupal\ui_styles_page\HookHandler\PreprocessRegion $instance */
-  $instance = \Drupal::service('class_resolver')
-    ->getInstanceFromDefinition(PreprocessRegion::class);
-  $instance->preprocess($variables);
+  \Drupal::service(UiStylesPageHooks::class)->preprocessRegion($variables);
 }

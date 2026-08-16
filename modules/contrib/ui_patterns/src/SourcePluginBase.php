@@ -37,7 +37,6 @@ abstract class SourcePluginBase extends PluginBase implements
   use DependencySerializationTrait;
   use PluginDependencyTrait;
 
-
   /**
    * Definition of the targeted prop.
    */
@@ -76,13 +75,12 @@ abstract class SourcePluginBase extends PluginBase implements
    */
   protected $defaultSettingsMerged = FALSE;
 
-
   /**
-   * Use for settings form, to know where the form is used exactly (Optional)
+   * Use for settings form, to know where the form is used exactly (Optional).
    *
    * @var array<string>|null
    */
-  protected $formArrayParents = NULL;
+  protected $formArrayParents;
 
   /**
    * {@inheritdoc}
@@ -177,7 +175,7 @@ abstract class SourcePluginBase extends PluginBase implements
   /**
    * Merges default settings values into $settings.
    */
-  protected function mergeDefaults() : void {
+  protected function mergeDefaults(): void {
     $this->settings += $this->defaultSettings();
     $this->defaultSettingsMerged = TRUE;
   }
@@ -206,14 +204,14 @@ abstract class SourcePluginBase extends PluginBase implements
       $choice_id = $this->getChoice($this->settings);
       if ($choice_id) {
         $choices = $this->getChoices();
-        if (isset($choices[$choice_id]) && isset($choices[$choice_id]['label'])) {
+        if (isset($choices[$choice_id], $choices[$choice_id]['label'])) {
           // Return the label of the selected choice.
           return (string) $choices[$choice_id]['label'];
         }
       }
     }
     // Cast the label to a string since it is a TranslatableMarkup object.
-    return ($this->pluginDefinition instanceof PluginDefinitionInterface) ? $this->pluginDefinition->id() : (string) ($this->pluginDefinition["label"] ?? '');
+    return ($this->pluginDefinition instanceof PluginDefinitionInterface) ? $this->pluginDefinition->id() : (string) ($this->pluginDefinition['label'] ?? '');
   }
 
   /**
@@ -232,7 +230,7 @@ abstract class SourcePluginBase extends PluginBase implements
     $source_plugin_definition = $this->getPluginDefinition();
     $prop_type_id = $prop_type->getPluginId();
     $source_prop_types = ($source_plugin_definition instanceof PluginDefinitionInterface) ? NULL : $source_plugin_definition['prop_types'];
-    if (!is_array($source_prop_types) || in_array($prop_type_id, $source_prop_types)) {
+    if (!is_array($source_prop_types) || in_array($prop_type_id, $source_prop_types, TRUE)) {
       return $data;
     }
     $convertible_props = $this->propTypeManager->getConvertibleProps($prop_type_id);
@@ -249,9 +247,9 @@ abstract class SourcePluginBase extends PluginBase implements
       $conversion_path = $convertible_props[$convertible_prop_type];
       $conversion_path = array_reverse($conversion_path);
       $conversion_path_size = count($conversion_path);
-      for ($conversion_iter = 0; $conversion_iter < $conversion_path_size - 1; $conversion_iter++) {
+      for ($conversion_iter = 0; $conversion_iter < $conversion_path_size - 1; ++$conversion_iter) {
         try {
-          $to_prop_class = $this->propTypeManager->getDefinition($conversion_path[$conversion_iter + 1])["class"];
+          $to_prop_class = $this->propTypeManager->getDefinition($conversion_path[$conversion_iter + 1])['class'];
           $data = $to_prop_class::convertFrom($conversion_path[$conversion_iter], $data);
         }
         catch (\UnhandledMatchError $e) {
@@ -275,7 +273,7 @@ abstract class SourcePluginBase extends PluginBase implements
   /**
    * {@inheritdoc}
    */
-  public function setConfiguration(array $configuration) : void {
+  public function setConfiguration(array $configuration): void {
     if (isset($configuration['prop_definition'])) {
       $this->propDefinition = $configuration['prop_definition'];
     }
@@ -317,7 +315,7 @@ abstract class SourcePluginBase extends PluginBase implements
         'title' => $prop_definition['title'] ?? '',
         'description_display' => 'invisible',
         'description' => $prop_definition['description'] ?? '',
-        'required' => ($prop_definition["ui_patterns"]["required"] ?? FALSE) == TRUE,
+        'required' => ($prop_definition['ui_patterns']['required'] ?? FALSE) === TRUE,
       ], $widget_settings),
       'context_mapping' => $context_mapping,
       'form_array_parents' => $form_array_parents,
@@ -348,7 +346,7 @@ abstract class SourcePluginBase extends PluginBase implements
   /**
    * Set values for the defined contexts of this plugin.
    */
-  private function setDefinedContextValues() : void {
+  private function setDefinedContextValues(): void {
     $configuration = $this->getConfiguration();
     // Fetch the available contexts.
     $available_contexts = $this->contextRepository->getAvailableContexts();
@@ -371,7 +369,7 @@ abstract class SourcePluginBase extends PluginBase implements
         );
       $matching_context = NULL;
       $context_mapping = $configuration['context_mapping'] ?? [];
-      if (isset($context_mapping[$name]) && isset($matches[$context_mapping[$name]])) {
+      if (isset($context_mapping[$name], $matches[$context_mapping[$name]])) {
         $matching_context = $matches[$context_mapping[$name]];
       }
       if ($matching_context) {
@@ -392,10 +390,10 @@ abstract class SourcePluginBase extends PluginBase implements
    */
   public function getCustomPluginMetadata(string $key): mixed {
     $plugin_definition = $this->getPluginDefinition();
-    if (empty($plugin_definition) ||
-      !is_array($plugin_definition) ||
-      !is_array($plugin_definition['metadata']) ||
-      !array_key_exists($key, $plugin_definition['metadata'])) {
+    if (empty($plugin_definition)
+      || !is_array($plugin_definition)
+      || !is_array($plugin_definition['metadata'])
+      || !array_key_exists($key, $plugin_definition['metadata'])) {
       return NULL;
     }
     return $plugin_definition['metadata'][$key];
@@ -404,7 +402,7 @@ abstract class SourcePluginBase extends PluginBase implements
   /**
    * {@inheritDoc}
    */
-  public function calculateDependencies() : array {
+  public function calculateDependencies(): array {
     // This will get data from 'config_dependencies' inside plugin definition.
     // return $this->getPluginDependencies($this);
     $plugin_definition = $this->getPluginDefinition();
@@ -413,9 +411,9 @@ abstract class SourcePluginBase extends PluginBase implements
       $dependencies = ($plugin_definition instanceof DependentPluginDefinitionInterface) ? $plugin_definition->getConfigDependencies() : [];
     }
     else {
-      $dependencies = $plugin_definition["config_dependencies"] ?? [];
+      $dependencies = $plugin_definition['config_dependencies'] ?? [];
     }
-    static::mergeConfigDependencies($dependencies, ["module" => ['ui_patterns']]);
+    static::mergeConfigDependencies($dependencies, ['module' => ['ui_patterns']]);
     return $dependencies;
   }
 
@@ -429,7 +427,7 @@ abstract class SourcePluginBase extends PluginBase implements
    * @param array<string, array<string> > $new_dependencies
    *   Dependencies to merge.
    */
-  public static function mergeConfigDependencies(array &$dependencies, array $new_dependencies) : void {
+  public static function mergeConfigDependencies(array &$dependencies, array $new_dependencies): void {
     foreach ($new_dependencies as $type => $list) {
       foreach ($list as $name) {
         if (empty($dependencies[$type])) {
@@ -439,10 +437,10 @@ abstract class SourcePluginBase extends PluginBase implements
             ksort($dependencies);
           }
         }
-        elseif (!in_array($name, $dependencies[$type])) {
+        elseif (!in_array($name, $dependencies[$type], TRUE)) {
           $dependencies[$type][] = $name;
           // Ensure a consistent order of dependency names.
-          sort($dependencies[$type], SORT_FLAG_CASE);
+          sort($dependencies[$type], \SORT_FLAG_CASE);
         }
       }
     }
@@ -512,7 +510,7 @@ abstract class SourcePluginBase extends PluginBase implements
    * @param string $form_key
    *   The form key to use.
    */
-  protected function addTokenTreeLink(array &$form, string $form_key = "help"): void {
+  protected function addTokenTreeLink(array &$form, string $form_key = 'help'): void {
     if ($this->moduleHandler->moduleExists('token')) {
       $form[$form_key] = [
         '#theme' => 'token_tree_link',
@@ -540,14 +538,14 @@ abstract class SourcePluginBase extends PluginBase implements
     }
     $this->normalizer->convertToScalar($value);
     if (empty($value)) {
-      return "";
+      return '';
     }
     // If the entity is new, we are probably in a preview system and there can
     // be side effects. Determine if we need to skip rendering?
     $tokenData = $this->getTokenData();
-    return $markup ?
-        $this->token->replace($value, $tokenData, ['clear' => TRUE], $bubbleable_metadata) :
-        $this->token->replacePlain($value, $tokenData, ['clear' => TRUE], $bubbleable_metadata);
+    return $markup
+        ? $this->token->replace($value, $tokenData, ['clear' => TRUE], $bubbleable_metadata)
+        : $this->token->replacePlain($value, $tokenData, ['clear' => TRUE], $bubbleable_metadata);
   }
 
   /**
@@ -559,8 +557,8 @@ abstract class SourcePluginBase extends PluginBase implements
    * @return bool
    *   TRUE if the value is naturally convertible to string.
    */
-  protected static function isConvertibleToString(mixed $value) : bool {
-    return (is_string($value) || is_object($value) || is_array($value));
+  protected static function isConvertibleToString(mixed $value): bool {
+    return is_string($value) || is_object($value) || is_array($value);
   }
 
 }

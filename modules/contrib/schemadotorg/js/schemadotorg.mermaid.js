@@ -5,7 +5,7 @@
  * Schema.org mermaid behaviors.
  */
 
-((Drupal, mermaid, once) => {
+((Drupal, once, mermaid) => {
   /**
    * Schema.org mermaid behaviors.
    *
@@ -43,7 +43,7 @@
         }
       });
 
-      // Via post render close opened details and svg-pan-zoom
+      // Via post render close opened details and initialize Panzoom.
       mermaid.run({
         querySelector: '.mermaid, .language-mermaid',
         postRenderCallback: () => {
@@ -58,14 +58,7 @@
             closedDetails = null;
           });
 
-          // @see https://github.com/ariutta/svg-pan-zoom
-          if (window.svgPanZoom) {
-            document
-              .querySelectorAll('.mermaid svg, .language-mermaid svg')
-              .forEach(function svgPanZoom(svg) {
-                svgPanZoom(svg, { controlIconsEnabled: true });
-              });
-          }
+          Drupal.behaviors.schemaDotOrgMermaidPanzoom.attach(document);
         },
       });
     },
@@ -84,11 +77,11 @@
   Drupal.schemaDotOrgMermaidDownloadSvg = (element) => {
     const svg = element.querySelector('svg').cloneNode(true);
 
-    // Remove svg-pan-zoom widget.
-    const svgPanZoomControls = svg.getElementById('svg-pan-zoom-controls');
-    if (svgPanZoomControls) {
-      svgPanZoomControls.remove();
-    }
+    // Remove Panzoom's inline transform state.
+    svg.style.removeProperty('cursor');
+    svg.style.removeProperty('transform');
+    svg.style.removeProperty('transform-origin');
+    svg.style.removeProperty('transition');
 
     // Remove all hrefs.
     const links = [...svg.getElementsByTagName('a')];
@@ -107,4 +100,4 @@
     document.body.removeChild(link);
     URL.revokeObjectURL(url);
   };
-})(Drupal, mermaid, once);
+})(Drupal, once, mermaid);

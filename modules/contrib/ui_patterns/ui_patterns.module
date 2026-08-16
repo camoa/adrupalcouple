@@ -33,17 +33,17 @@ function ui_patterns_element_info_alter(array &$types): void {
 function ui_patterns_plugin_filter_block__ui_patterns_alter(array &$definitions, array $extra): void {
   // We are not allowing 'inline_block' blocks to avoid dependencies from config
   // entities to content entities.
-  $definitions = array_filter($definitions, function ($definition) {
+  $definitions = array_filter($definitions, static function ($definition) {
     return $definition['id'] !== 'inline_block';
   });
   // Those blocks are not allowed in layout builder. Let's do the same.
-  unset($definitions['system_main_block']);
-  unset($definitions['page_title_block']);
+  unset($definitions['system_main_block'], $definitions['page_title_block']);
+
   // Add a boolean marker '_ui_patterns_compatible' to all remaining definitions
   // Other modules can use the same hook to modify this value.
   // This allows to add or remove blocks.
   $forbidden_blocks = [
-    "provider" => ["layout_builder", "ui_patterns_blocks"],
+    'provider' => ['layout_builder', 'ui_patterns_blocks'],
   ];
   foreach ($definitions as $id => &$definition) {
     if (isset($definitions[$id]['_ui_patterns_compatible'])) {
@@ -53,7 +53,7 @@ function ui_patterns_plugin_filter_block__ui_patterns_alter(array &$definitions,
       continue;
     }
     $compatibilityFlag = TRUE;
-    if (in_array($definition['provider'], $forbidden_blocks["provider"])) {
+    if (in_array($definition['provider'], $forbidden_blocks['provider'], TRUE)) {
       $compatibilityFlag = FALSE;
     }
     // Filter out blocks with _block_ui_hidden ?
@@ -65,11 +65,11 @@ function ui_patterns_plugin_filter_block__ui_patterns_alter(array &$definitions,
  * Implements hook_ENTITY_TYPE_delete().
  */
 function ui_patterns_field_config_delete(FieldConfigInterface $field_config): void {
-  $sample_entity_generator = \Drupal::service('ui_patterns.sample_entity_generator');
+  $sample_entity_generator = Drupal::service('ui_patterns.sample_entity_generator');
   $entity_type = $field_config->getTargetEntityTypeId();
   $bundle = $field_config->getTargetBundle();
   $sample_entity_generator->delete($entity_type, $bundle);
   // @todo trigger an event and do this logic in UiPatternsEntitySchemaSubscriber
-  \Drupal::service('plugin.manager.ui_patterns_source')->clearCachedDefinitions();
-  \Drupal::service('plugin.manager.ui_patterns_derivable_context')->clearCachedDefinitions();
+  Drupal::service('plugin.manager.ui_patterns_source')->clearCachedDefinitions();
+  Drupal::service('plugin.manager.ui_patterns_derivable_context')->clearCachedDefinitions();
 }

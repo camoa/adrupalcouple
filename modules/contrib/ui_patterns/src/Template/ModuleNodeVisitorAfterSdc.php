@@ -32,8 +32,7 @@ class ModuleNodeVisitorAfterSdc extends ModuleNodeVisitorBase {
     }
     $line = $node->getTemplateLine();
     $function = $this->buildPreprocessPropsFunction($line, $component, $env);
-    $node = $this->injectFunction($node, $function);
-    return $node;
+    return $this->injectFunction($node, $function);
   }
 
   /**

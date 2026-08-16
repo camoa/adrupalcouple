@@ -40,20 +40,12 @@ class SourceFormatter extends FormatterBase {
   /**
    * {@inheritdoc}
    */
-  public static function defaultSettings() {
-    $settings = parent::defaultSettings();
-    return $settings;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function viewElements(FieldItemListInterface $items, $langcode) {
     $fake_build = [];
     $contexts = $this->getComponentSourceContexts($items);
     $contexts['ui_patterns:lang_code'] = new Context(new ContextDefinition('any'), $langcode);
     $contexts['ui_patterns:field:items'] = new Context(new ContextDefinition('any'), $items);
-    for ($field_item_index = 0; $field_item_index < $items->count(); $field_item_index++) {
+    for ($field_item_index = 0; $field_item_index < $items->count(); ++$field_item_index) {
       $contexts['ui_patterns:field:index'] = new Context(new ContextDefinition('integer'), $field_item_index);
       $source_with_configuration = $items->get($field_item_index)->getValue();
       $fake_build = $this->componentElementBuilder->buildSource($fake_build, 'content', [], $source_with_configuration, $contexts);

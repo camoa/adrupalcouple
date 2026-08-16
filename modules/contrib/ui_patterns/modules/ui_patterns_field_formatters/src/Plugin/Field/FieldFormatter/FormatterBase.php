@@ -52,7 +52,7 @@ abstract class FormatterBase extends FieldFormatterBase {
    *
    * @var array|null
    */
-  protected $context = NULL;
+  protected $context;
 
   /**
    * {@inheritdoc}
@@ -82,10 +82,10 @@ abstract class FormatterBase extends FieldFormatterBase {
   /**
    * {@inheritdoc}
    */
-  protected function checkEntityHasField(EntityInterface $entity, string $entity_type_id, string $field_name) : bool {
+  protected function checkEntityHasField(EntityInterface $entity, string $entity_type_id, string $field_name): bool {
     $field_definitions = $this->entityFieldManager->getFieldDefinitions($entity->getEntityTypeId(), $entity->bundle());
-    return ($entity->getEntityTypeId() === $entity_type_id &&
-      array_key_exists($field_name, $field_definitions));
+    return $entity->getEntityTypeId() === $entity_type_id
+      && array_key_exists($field_name, $field_definitions);
   }
 
   /**
@@ -99,11 +99,11 @@ abstract class FormatterBase extends FieldFormatterBase {
    * @return string
    *   The bundle.
    */
-  protected function findEntityBundleWithField(string $entity_type_id, string $field_name) : string {
+  protected function findEntityBundleWithField(string $entity_type_id, string $field_name): string {
     // @todo better implementation with service 'entity_type.bundle.info'
     $bundle = $entity_type_id;
     $bundle_entity_type = $this->entityTypeManager->getDefinition($entity_type_id)->getBundleEntityType();
-    if (NULL !== $bundle_entity_type) {
+    if ($bundle_entity_type !== NULL) {
       $bundle_list = $this->entityTypeManager->getStorage($bundle_entity_type)->loadMultiple();
       if (count($bundle_list) > 0) {
         foreach ($bundle_list as $bundle_entity) {
@@ -131,10 +131,10 @@ abstract class FormatterBase extends FieldFormatterBase {
   protected function getComponentSourceContexts(?FieldItemListInterface $items = NULL): array {
     $contexts = array_merge($this->context ?? [], $this->getThirdPartySetting('ui_patterns', 'context') ?? []);
     $field_definition = $this->fieldDefinition;
-    $field_name = $field_definition->getName() ?? "";
+    $field_name = $field_definition->getName() ?? '';
     $contexts['field_name'] = new Context(ContextDefinition::create('string'), $field_name);
     $bundle = $field_definition->getTargetBundle();
-    $contexts['bundle'] = new Context(ContextDefinition::create('string'), $bundle ?? "");
+    $contexts['bundle'] = new Context(ContextDefinition::create('string'), $bundle ?? '');
     // Get the entity.
     $entity_type_id = $field_definition->getTargetEntityTypeId();
     // When field items are available, we can get the entity directly.
@@ -149,9 +149,8 @@ abstract class FormatterBase extends FieldFormatterBase {
       // Generate a default bundle when it is missing,
       // this covers contexts like the display of a field in a view.
       // the bundle selected should have the field in definition...
-      $entity = !empty($bundle) ? $this->sampleEntityGenerator->get($entity_type_id, $bundle) :
-        $this->sampleEntityGenerator->get($entity_type_id, $this->findEntityBundleWithField($entity_type_id, $field_name));
-
+      $entity = !empty($bundle) ? $this->sampleEntityGenerator->get($entity_type_id, $bundle)
+        : $this->sampleEntityGenerator->get($entity_type_id, $this->findEntityBundleWithField($entity_type_id, $field_name));
     }
     $contexts['entity'] = EntityContext::fromEntity($entity);
     return $contexts;
@@ -169,7 +168,7 @@ abstract class FormatterBase extends FieldFormatterBase {
    */
   public function calculateDependencies() {
     $dependencies = parent::calculateDependencies();
-    SourcePluginBase::mergeConfigDependencies($dependencies, ["module" => ["ui_patterns_field_formatters"]]);
+    SourcePluginBase::mergeConfigDependencies($dependencies, ['module' => ['ui_patterns_field_formatters']]);
     return $dependencies;
   }
 

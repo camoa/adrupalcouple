@@ -23,10 +23,10 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * Field widget for a predefined component display form.
  */
 #[FieldWidget(
-  id: "ui_patterns_ui_component_form_display",
-  label: new TranslatableMarkup("Component Display Form (UI Patterns UI)"),
-  description: new TranslatableMarkup("Displays a predefined Component Form Display."),
-  field_types: ["ui_patterns_source"],
+  id: 'ui_patterns_ui_component_form_display',
+  label: new TranslatableMarkup('Component Display Form (UI Patterns UI)'),
+  description: new TranslatableMarkup('Displays a predefined Component Form Display.'),
+  field_types: ['ui_patterns_source'],
 )]
 class ComponentFormDisplayWidget extends WidgetBase {
 
@@ -34,15 +34,11 @@ class ComponentFormDisplayWidget extends WidgetBase {
 
   /**
    * The entity type manager.
-   *
-   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
    */
   protected EntityTypeManagerInterface $entityTypeManager;
 
   /**
    * The component plugin manager.
-   *
-   * @var \Drupal\Core\Theme\ComponentPluginManager
    */
   protected ComponentPluginManager $componentPluginManager;
 
@@ -214,9 +210,9 @@ class ComponentFormDisplayWidget extends WidgetBase {
       return $element;
     }
 
-    $source_data = $item_delta_value["source"] ?? [];
-    $component_default_value = $source_data['component'] ??
-      [
+    $source_data = $item_delta_value['source'] ?? [];
+    $component_default_value = $source_data['component']
+      ?? [
         '#component_id' => $component_id,
         '#display_id' => $display_id,
       ];
@@ -251,10 +247,9 @@ class ComponentFormDisplayWidget extends WidgetBase {
     $contexts = [];
     if ($entity = $items?->getEntity()) {
       $contexts['entity'] = EntityContext::fromEntity($entity);
-      $contexts['bundle'] = new Context(ContextDefinition::create('string'), $contexts["entity"]->getContextValue()->bundle() ?? "");
+      $contexts['bundle'] = new Context(ContextDefinition::create('string'), $contexts['entity']->getContextValue()->bundle() ?? '');
     }
-    $contexts = RequirementsContext::addToContext(["field_granularity:item"], $contexts);
-    return $contexts;
+    return RequirementsContext::addToContext(['field_granularity:item'], $contexts);
   }
 
 }

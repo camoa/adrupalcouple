@@ -321,6 +321,10 @@ class ContentExporter implements ContentExporterInterface {
       $base_fields['moderation_state'] = $entity->get('moderation_state')->value;
     }
 
+    if ($entity->hasField('changed') && !array_key_exists('changed', $base_fields)) {
+      $base_fields['changed'] = $entity->get('changed')->value;
+    }
+
     // Support path field for multiple entity types.
     // Exclude file entity. It may have a path if the file_entity module or
     // similar is installed. We want the URL to be the file absolute URL.

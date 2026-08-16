@@ -8,6 +8,7 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\ui_patterns\Attribute\Source;
 use Drupal\ui_patterns\SourcePluginBase;
+use Drupal\ui_patterns\SourceTags;
 
 /**
  * Plugin implementation of the source.
@@ -17,7 +18,7 @@ use Drupal\ui_patterns\SourcePluginBase;
   label: new TranslatableMarkup('Textarea for list'),
   description: new TranslatableMarkup('One item by line.'),
   prop_types: ['list'],
-  tags: ['widget', 'widget:dismissible']
+  tags: [SourceTags::Widget->value, SourceTags::WidgetDismissible->value]
 )]
 class ListTextareaWidget extends SourcePluginBase {
 
@@ -56,7 +57,7 @@ class ListTextareaWidget extends SourcePluginBase {
     $casted_values = [];
     foreach ($values as $value) {
       $converted = NULL;
-      if ($value === "" && in_array("string", $types, TRUE)) {
+      if ($value === '' && in_array('string', $types, TRUE)) {
         $casted_values[] = $value;
         continue;
       }
@@ -88,7 +89,7 @@ class ListTextareaWidget extends SourcePluginBase {
         $value = $this->replaceTokens($value, FALSE);
       }
       return match ($type) {
-        'integer' => (is_int($value) || is_numeric($value) || ($value === "")) ? (int) $value : NULL,
+        'integer' => (is_int($value) || is_numeric($value) || ($value === '')) ? (int) $value : NULL,
         'float', 'decimal' => is_float($value) ? $value : (float) $value,
         'boolean' => is_bool($value) ? $value : (bool) $value,
         'string' => $value,
@@ -112,7 +113,7 @@ class ListTextareaWidget extends SourcePluginBase {
     $form['value'] = [
       '#type' => 'textarea',
       '#default_value' => $items,
-      "#description" => $this->t("One item by line"),
+      '#description' => $this->t('One item by line'),
     ];
     $this->addRequired($form['value']);
     return $form;

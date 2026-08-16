@@ -48,7 +48,7 @@ class BlockSource extends SourcePluginBase implements SourceWithChoicesInterface
    *
    * @var \Drupal\Core\Block\BlockPluginInterface|null
    */
-  protected $block = NULL;
+  protected $block;
 
   /**
    * {@inheritdoc}
@@ -111,7 +111,7 @@ class BlockSource extends SourcePluginBase implements SourceWithChoicesInterface
    *
    * @SuppressWarnings("PHPMD.UnusedFormalParameter")
    */
-  public static function afterBuildBlockForm(array $element, FormStateInterface $form_state) : array {
+  public static function afterBuildBlockForm(array $element, FormStateInterface $form_state): array {
     $element_settings = $form_state->getValue($element['#parents']);
     $plugin_id = $element_settings['plugin_id'];
     if (!$plugin_id) {
@@ -122,10 +122,10 @@ class BlockSource extends SourcePluginBase implements SourceWithChoicesInterface
     $block = \Drupal::service('plugin.manager.block')->createInstance($plugin_id, []);
     if ($block instanceof BlockPluginInterface) {
       $block->submitConfigurationForm($element, $subform_state);
-      $config = new Config("block.block.ui_patterns", new NullStorage(), \Drupal::service('event_dispatcher'), \Drupal::service('config.typed'));
+      $config = new Config('block.block.ui_patterns', new NullStorage(), \Drupal::service('event_dispatcher'), \Drupal::service('config.typed'));
       $config->setData([
-        "plugin" => $plugin_id,
-        "settings" => $block->getConfiguration(),
+        'plugin' => $plugin_id,
+        'settings' => $block->getConfiguration(),
       ])->save();
       $form_state->setValue(array_merge($element['#parents'], [$plugin_id]), $config->getRawData()['settings']);
     }
@@ -180,21 +180,21 @@ class BlockSource extends SourcePluginBase implements SourceWithChoicesInterface
   /**
    * Build the form to create a block.
    */
-  protected function buildBlockCreateForm(array &$form, FormStateInterface $form_state) : void {
+  protected function buildBlockCreateForm(array &$form, FormStateInterface $form_state): void {
     $options = $this->getBlockOptions();
-    $wrapper_id = Html::getId(implode("_", $this->formArrayParents ?? []) . "_block-create-form-ajax");
+    $wrapper_id = Html::getId(implode('_', $this->formArrayParents ?? []) . '_block-create-form-ajax');
     $plugin_id = $this->getSetting('plugin_id') ?? '';
-    $form["plugin_id"] = [
-      "#type" => "select",
-      "#title" => $this->t("Block"),
-      "#options" => $options,
+    $form['plugin_id'] = [
+      '#type' => 'select',
+      '#title' => $this->t('Block'),
+      '#options' => $options,
       '#default_value' => $plugin_id,
 
       '#ajax' => [
         'callback' => [__CLASS__, 'onBlockPluginIdChange'],
         'wrapper' => $wrapper_id,
         'method' => 'replaceWith',
-      // 'callback' => [static::class, 'onBlockPluginIdChange'],
+        // 'callback' => [static::class, 'onBlockPluginIdChange'],
       ],
       '#executes_submit_callback' => FALSE,
       '#empty_value' => '',
@@ -203,8 +203,8 @@ class BlockSource extends SourcePluginBase implements SourceWithChoicesInterface
     ];
     $form[$plugin_id] = [
       '#type' => 'container',
-      '#attributes' => ["id" => $wrapper_id],
-      "#tree" => TRUE,
+      '#attributes' => ['id' => $wrapper_id],
+      '#tree' => TRUE,
     ];
     $block = $this->getBlock($plugin_id);
     if ($block) {
@@ -268,9 +268,9 @@ class BlockSource extends SourcePluginBase implements SourceWithChoicesInterface
       $plugin_contexts = $plugin->getContexts();
       $plugin_definition = $plugin->getPluginDefinition();
       $provider = ($plugin_definition instanceof PluginDefinitionInterface) ? $plugin_definition->getProvider() : ($plugin_definition['provider'] ?? '');
-      if ($provider === "layout_builder") {
-        if (array_key_exists("view_mode", $plugin_contexts)) {
-          $plugin->setContextValue("view_mode", EntityDisplayBase::CUSTOM_MODE);
+      if ($provider === 'layout_builder') {
+        if (array_key_exists('view_mode', $plugin_contexts)) {
+          $plugin->setContextValue('view_mode', EntityDisplayBase::CUSTOM_MODE);
         }
       }
       foreach ($contexts as $context_name => $context) {
@@ -330,34 +330,33 @@ class BlockSource extends SourcePluginBase implements SourceWithChoicesInterface
    *
    * @SuppressWarnings("PHPMD.UnusedFormalParameter")
    */
-  protected function listBlockDefinitions() : array {
+  protected function listBlockDefinitions(): array {
     $context_for_block_discovery = $this->context;
     $definitions = $this->blockManager->getFilteredDefinitions('ui_patterns', $context_for_block_discovery, []);
     // Filter plugins based on the flag 'ui_patterns_compatibility'.
     // @see function ui_patterns_plugin_filter_block__ui_patterns_alter
     // from ui_patterns.module file
-    $definitions = array_filter($definitions, function ($definition, $plugin_id) {
+    $definitions = array_filter($definitions, static function ($definition, $plugin_id) {
       return is_array($definition) && (!isset($definition['_ui_patterns_compatible']) || $definition['_ui_patterns_compatible']);
-    }, ARRAY_FILTER_USE_BOTH);
+    }, \ARRAY_FILTER_USE_BOTH);
     // Filter based on contexts.
     $definitions = $this->contextHandler->filterPluginDefinitionsByContexts($context_for_block_discovery, $definitions);
     // Order by category, and then by admin label.
-    $definitions = $this->blockManager->getSortedDefinitions($definitions);
-    return $definitions;
+    return $this->blockManager->getSortedDefinitions($definitions);
   }
 
   /**
    * Get options for block select.
    */
-  protected function getBlockOptions() : array {
+  protected function getBlockOptions(): array {
     $choices = $this->getChoices();
     $options = [];
     foreach ($choices as $choice_id => $choice) {
-      $category = $choice["group"] ?? 'Other';
+      $category = $choice['group'] ?? 'Other';
       if (!array_key_exists($category, $options)) {
         $options[$category] = [];
       }
-      $options[$category][$choice_id] = $choice["label"];
+      $options[$category][$choice_id] = $choice['label'];
     }
     return $options;
   }
@@ -417,7 +416,7 @@ class BlockSource extends SourcePluginBase implements SourceWithChoicesInterface
   /**
    * {@inheritdoc}
    */
-  public function calculateDependencies() : array {
+  public function calculateDependencies(): array {
     $dependencies = parent::calculateDependencies();
     if (!$this->block) {
       $this->block = $this->getBlock($this->getSetting('plugin_id') ?? '');

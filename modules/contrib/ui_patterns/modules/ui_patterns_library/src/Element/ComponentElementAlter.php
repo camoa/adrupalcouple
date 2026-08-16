@@ -28,8 +28,7 @@ class ComponentElementAlter implements TrustedCallbackInterface {
     protected ComponentPluginManager $componentPluginManager,
     protected StoryPluginManager $storyPluginManager,
     protected StoriesSyntaxConverter $storiesConverter,
-  ) {
-  }
+  ) {}
 
   /**
    * {@inheritdoc}
@@ -42,30 +41,29 @@ class ComponentElementAlter implements TrustedCallbackInterface {
    * Alter SDC component element.
    */
   public function alter(array $element): array {
-    $element = $this->loadStory($element);
-    return $element;
+    return $this->loadStory($element);
   }
 
   /**
    * Load story from component definition.
    */
   protected function loadStory(array $element): array {
-    if (!isset($element["#story"])) {
+    if (!isset($element['#story'])) {
       return $element;
     }
-    $story_id = $element["#story"];
-    $component = $this->componentPluginManager->getDefinition($element["#component"]);
-    $component["stories"] = $this->storyPluginManager->getComponentStories($element["#component"]);
-    if (!isset($component["stories"])) {
+    $story_id = $element['#story'];
+    $component = $this->componentPluginManager->getDefinition($element['#component']);
+    $component['stories'] = $this->storyPluginManager->getComponentStories($element['#component']);
+    if (!isset($component['stories'])) {
       return $element;
     }
-    if (!isset($component["stories"][$story_id])) {
+    if (!isset($component['stories'][$story_id])) {
       return $element;
     }
-    $story = $component["stories"][$story_id];
-    $slots = array_merge($story["slots"] ?? [], $element["#slots"] ?? []);
-    $element["#slots"] = $this->storiesConverter->convertSlots($slots);
-    $element["#props"] = array_merge($story["props"] ?? [], $element["#props"] ?? []);
+    $story = $component['stories'][$story_id];
+    $slots = array_merge($story['slots'] ?? [], $element['#slots'] ?? []);
+    $element['#slots'] = $this->storiesConverter->convertSlots($slots);
+    $element['#props'] = array_merge($story['props'] ?? [], $element['#props'] ?? []);
     return $element;
   }
 

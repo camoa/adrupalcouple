@@ -80,7 +80,7 @@ class CustomFieldViewfield extends CustomFieldDataTypeBase {
       $this->setArguments($arguments);
     }
     if (!empty($items_to_display)) {
-      $this->setItemsToDisplay($items_to_display);
+      $this->setItemsToDisplay((int) $items_to_display);
     }
     $entity = $value['entity'] ?? NULL;
     if ($entity instanceof EntityInterface) {

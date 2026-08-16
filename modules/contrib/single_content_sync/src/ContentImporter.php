@@ -14,9 +14,9 @@ use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\StreamWrapper\StreamWrapperManagerInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\TypedData\TranslatableInterface;
-use Drupal\file\FileInterface;
 use Drupal\single_content_sync\Event\ImportEvent;
 use Drupal\single_content_sync\Event\ImportFieldEvent;
+use Drupal\user\UserStorageInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
@@ -153,6 +153,13 @@ class ContentImporter implements ContentImporterInterface {
 
     // Check if there is an existing entity with the identical uuid.
     $entity = $this->entityRepository->loadEntityByUuid($content['entity_type'], $content['uuid']);
+    if ($storage instanceof UserStorageInterface && isset($content['base_fields']['name'], $content['base_fields']['mail'])) {
+      $possible_entities = $storage->loadByProperties([
+        'name' => $content['base_fields']['name'],
+        'mail' => $content['base_fields']['mail'],
+      ]);
+      $entity = reset($possible_entities);
+    }
 
     // If not, create a new instance of the entity.
     if (!$entity) {
@@ -215,8 +222,15 @@ class ContentImporter implements ContentImporterInterface {
     $entity = $importEvent->getEntity();
     $content = $importEvent->getContent();
 
-    // Import values from base fields.
-    $this->importBaseValues($entity, $content['base_fields']);
+    // Strip the revision id (the generic base-fields processor exports it) so
+    // re-import autoincrements it instead of colliding with an existing
+    // revision, e.g. a duplicate-key error on canvas_page__revision_id.
+    $revision_key = $entity->getEntityType()->getKey('revision');
+    $base_fields = $content['base_fields'];
+    if ($revision_key) {
+      unset($base_fields[$revision_key]);
+    }
+    $this->importBaseValues($entity, $base_fields);
 
     // Alter importing entity by using hook_content_import_entity_alter().
     $this->moduleHandler->alterDeprecated(
@@ -240,7 +254,11 @@ class ContentImporter implements ContentImporterInterface {
       foreach ($content['translations'] as $langcode => $translation_content) {
         $translated_entity = !$entity->hasTranslation($langcode) ? $entity->addTranslation($langcode) : $entity->getTranslation($langcode);
 
-        $this->importBaseValues($translated_entity, $translation_content['base_fields']);
+        $translation_base_fields = $translation_content['base_fields'];
+        if ($revision_key) {
+          unset($translation_base_fields[$revision_key]);
+        }
+        $this->importBaseValues($translated_entity, $translation_base_fields);
         $this->importCustomValues($translated_entity, $translation_content['custom_fields']);
 
         $translated_entity->set('content_translation_source', $entity->language()->getId());
@@ -299,6 +317,10 @@ class ContentImporter implements ContentImporterInterface {
       $values['moderation_state'] = $fields['moderation_state'];
     }
 
+    if (isset($fields['changed'])) {
+      $values['changed'] = $fields['changed'];
+    }
+
     // Handle url alias if entity type supports it.
     if ($entity->hasField('path')) {
       $values['path'] = [
@@ -344,6 +366,16 @@ class ContentImporter implements ContentImporterInterface {
         $entity->bundle(),
         $field_name
       );
+
+    // Ensure the field value is array.
+    if (!is_array($field_value)) {
+      $definition = $entity->getFieldDefinition($field_name);
+      $column = $definition->getFieldStorageDefinition()->getMainPropertyName();
+
+      $field_value = [
+        [$column => $field_value],
+      ];
+    }
 
     // If field type is not supported, it will simply set value as it is.
     $fieldProcessor->importFieldValue($entity, $field_name, $field_value);

@@ -98,8 +98,7 @@ class ContentBulkExportLocalAction extends LocalActionDefault {
 
     $bundle = $this->getBundle($this->routeMatch);
     if ($bundle) {
-      $bundles = $this->entityTypeBundleInfo->getBundleInfo($entity_type_id);
-      $label = $bundles[$bundle]['label'] ?? $bundle;
+      $label = $this->getBundleLabel($entity_type_id, $bundle);
       return new TranslatableMarkup('Export all @label', [
         '@label' => mb_strtolower((string) $label),
       ]);
@@ -149,6 +148,27 @@ class ContentBulkExportLocalAction extends LocalActionDefault {
     return $bundle instanceof EntityInterface
       ? $bundle->id()
       : (string) $bundle;
+  }
+
+  /**
+   * Gets the label for a bundle-like export filter.
+   *
+   * @param string $entity_type_id
+   *   The entity type ID.
+   * @param string $bundle
+   *   The bundle or menu ID.
+   *
+   * @return string
+   *   The label.
+   */
+  protected function getBundleLabel(string $entity_type_id, string $bundle): string {
+    if ($entity_type_id === 'menu_link_content') {
+      $menu = $this->entityTypeManager->getStorage('menu')->load($bundle);
+      return $menu ? $menu->label() : $bundle;
+    }
+
+    $bundles = $this->entityTypeBundleInfo->getBundleInfo($entity_type_id);
+    return $bundles[$bundle]['label'] ?? $bundle;
   }
 
 }

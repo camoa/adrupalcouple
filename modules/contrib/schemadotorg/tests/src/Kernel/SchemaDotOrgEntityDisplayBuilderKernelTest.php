@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\schemadotorg\Kernel;
 
+use Drupal\Component\Utility\DeprecationHelper;
 use Drupal\Core\Entity\Entity\EntityFormDisplay;
 use Drupal\Core\Entity\Entity\EntityViewDisplay;
 use Drupal\schemadotorg\SchemaDotOrgEntityDisplayBuilderInterface;
@@ -169,8 +170,22 @@ class SchemaDotOrgEntityDisplayBuilderKernelTest extends SchemaDotOrgEntityKerne
     // Check Schema.org types default view display properties for Event.
     /** @var \Drupal\Core\Entity\Display\EntityFormDisplayInterface $entity_form_display */
     $entity_form_display = EntityFormDisplay::load('node.event.default');
-    if (version_compare(\Drupal::VERSION, '11.1', '<')) {
-      $expected_components = [
+    $expected_components = DeprecationHelper::backwardsCompatibleCall(
+      currentVersion: \Drupal::VERSION,
+      deprecatedVersion: '11.1',
+      currentCallable: fn() => [
+        'body',
+        'created',
+        'schema_duration',
+        'schema_end_date',
+        'schema_start_date',
+        'status',
+        'title',
+        'uid',
+        'langcode',
+        'revision_log',
+      ],
+      deprecatedCallable: fn() => [
         'body',
         'created',
         'promote',
@@ -183,46 +198,32 @@ class SchemaDotOrgEntityDisplayBuilderKernelTest extends SchemaDotOrgEntityKerne
         'uid',
         'langcode',
         'revision_log',
-      ];
-    }
-    else {
-      $expected_components = [
-        'created',
-        'schema_description',
-        'schema_duration',
-        'schema_end_date',
-        'schema_start_date',
-        'status',
-        'title',
-        'uid',
-        'langcode',
-        'revision_log',
-      ];
-    }
+      ],
+    );
     $this->assertEquals($expected_components, array_keys($entity_form_display->getComponents()));
 
     /** @var \Drupal\Core\Entity\Display\EntityViewDisplayInterface $entity_view_display */
     $entity_view_display = EntityViewDisplay::load('node.event.teaser');
-    if (version_compare(\Drupal::VERSION, '11.1', '<')) {
-      $expected_components = [
+    $expected_components = DeprecationHelper::backwardsCompatibleCall(
+      currentVersion: \Drupal::VERSION,
+      deprecatedVersion: '11.1',
+      currentCallable: fn() => [
         'body',
         'links',
         'schema_start_date',
         'uid',
         'title',
         'created',
-      ];
-    }
-    else {
-      $expected_components = [
+      ],
+      deprecatedCallable: fn() => [
+        'body',
         'links',
-        'schema_description',
         'schema_start_date',
         'uid',
         'title',
         'created',
-      ];
-    }
+      ],
+    );
     $this->assertEquals($expected_components, array_keys($entity_view_display->getComponents()));
   }
 

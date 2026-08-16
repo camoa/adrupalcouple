@@ -50,9 +50,9 @@ class DropdownLanguage extends BlockBase implements ContainerFactoryPluginInterf
   protected $routeMatch;
 
   /**
-   * Request stack.
+   * The request stack.
    *
-   * @var RequestStack
+   * @var \Symfony\Component\HttpFoundation\RequestStack
    */
   public $request;
 
@@ -122,7 +122,8 @@ class DropdownLanguage extends BlockBase implements ContainerFactoryPluginInterf
     $block = [];
     $links = [];
 
-    // Do not output anything if is 404 or 403. #3119474
+    // Do not output anything if is 404 or 403.
+    // See https://www.drupal.org/i/3119474.
     $exception = $this->request->getCurrentRequest()->attributes->get('exception');
     if ($exception && $exception instanceof HttpException && in_array($exception->getStatusCode(), [403, 404])) {
       return $block;
@@ -133,10 +134,16 @@ class DropdownLanguage extends BlockBase implements ContainerFactoryPluginInterf
     if (count($languages) > 1) {
       $derivative_id = $this->getDerivativeId();
       $current_language = $this->languageManager->getCurrentLanguage($derivative_id)->getId();
-      $languageSwitchLinksObject = $this->languageManager->getLanguageSwitchLinks($derivative_id, Url::fromRouteMatch($this->routeMatch));
+
+      $route_match = $this->routeMatch;
+      // If there is no route match, for example when creating blocks on
+      // 404 pages for logged-in users with big_pipe enabled using the
+      // front page instead.
+      $url = $this->routeMatch->getRouteObject() ? Url::fromRouteMatch($this->routeMatch) : Url::fromRoute('<front>');
+      $languageSwitchLinksObject = $this->languageManager->getLanguageSwitchLinks($derivative_id, $url);
       $links = ($languageSwitchLinksObject !== NULL) ? $languageSwitchLinksObject->links : [];
 
-      // Place active language ontop of list.
+      // Place active language on top of list.
       if (isset($links[$current_language])) {
         $links = [$current_language => $links[$current_language]] + $links;
         // Set an active class for styling.
@@ -159,10 +166,8 @@ class DropdownLanguage extends BlockBase implements ContainerFactoryPluginInterf
         $native_names = $this->languageManager->getStandardLanguageList();
       }
 
-      /**
-       * Discover the entity we are currently viewing.
-       * note:  page manager (and other) entities need routines. @v3 plugin.
-      */
+      // Discover the entity we are currently viewing.
+      // note:  page manager (and other) entities need routines. @v3 plugin.
       $entity = [];
       if ($filter_untranslated == '1') {
         $routedItems = $this->routeMatch;
@@ -190,7 +195,7 @@ class DropdownLanguage extends BlockBase implements ContainerFactoryPluginInterf
             break;
 
           case '3':
-            $links[$lid]['title'] = isset($block_config['labels'][$lid]) ? $block_config['labels'][$lid] : $name;
+            $links[$lid]['title'] = $block_config['labels'][$lid] ?? $name;
             break;
         }
 
@@ -225,7 +230,7 @@ class DropdownLanguage extends BlockBase implements ContainerFactoryPluginInterf
       }
     }
 
-    if ( (\is_array($links) && \count($links) > 1) || $always_show_block) {
+    if ((\is_array($links) && \count($links) > 1) || $always_show_block) {
       $build['dropdown-language'] = $block;
     }
     return $build;
@@ -269,7 +274,7 @@ class DropdownLanguage extends BlockBase implements ContainerFactoryPluginInterf
           '#type' => 'textfield',
           '#required' => TRUE,
           '#title' => $this->t('Label for <q>@lng</q>', ['@lng' => $item->getName()]),
-          '#default_value' => isset($block_config['labels'][$lid]) ? $block_config['labels'][$lid] : $item->getName(),
+          '#default_value' => $block_config['labels'][$lid] ?? $item->getName(),
         ];
       }
       $form['labels']['translation-note'] = [

@@ -84,24 +84,24 @@ class UIPatternsSourceFieldPropertySource extends FieldPropertySource {
    * @return mixed
    *   The prop value.
    */
-  protected function extractComponentPropValue(array $source_configuration) : mixed {
+  protected function extractComponentPropValue(array $source_configuration): mixed {
     $component_configuration = $source_configuration['component'] ?? [];
     // $component_id = $component_configuration['component_id'] ?? NULL;
     $propDefinition = $this->getPropDefinition();
     $propId = $this->getPropId();
     /** @var \Drupal\ui_patterns\PropTypeInterface $propType */
-    $propType = $propDefinition["ui_patterns"]["type_definition"];
+    $propType = $propDefinition['ui_patterns']['type_definition'];
     $contexts = $this->getContexts();
     $build = [];
-    if ($propType->getPluginId() === "slot") {
-      $sources = $component_configuration['slots'][$propId]["sources"] ?? [];
+    if ($propType->getPluginId() === 'slot') {
+      $sources = $component_configuration['slots'][$propId]['sources'] ?? [];
       foreach ($sources as $source) {
         $build = $this->componentElementBuilder->buildSource($build, $propId, $propDefinition, $source, $contexts);
       }
       return $build['#slots'][$propId] ?? [];
     }
     $build = [];
-    $prop_source_config = (($propId === "variant") && !empty($component_configuration["variant_id"])) ? $component_configuration["variant_id"] : ($component_configuration['props'][$propId] ?? []);
+    $prop_source_config = (($propId === 'variant') && !empty($component_configuration['variant_id'])) ? $component_configuration['variant_id'] : ($component_configuration['props'][$propId] ?? []);
     if (empty($prop_source_config)) {
       return NULL;
     }

@@ -122,10 +122,10 @@ interface ContentSyncHelperInterface {
   /**
    * Get site UUID value.
    *
-   * @return string
+   * @return string|null
    *   Site UUID value.
    */
-  public function getSiteUuid(): string;
+  public function getSiteUuid(): ?string;
 
   /**
    * Get export directory file schema.

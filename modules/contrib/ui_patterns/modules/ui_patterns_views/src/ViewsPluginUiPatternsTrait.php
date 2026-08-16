@@ -42,7 +42,7 @@ trait ViewsPluginUiPatternsTrait {
    * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
    *   The container.
    */
-  public function initialize(ContainerInterface $container) : void {
+  public function initialize(ContainerInterface $container): void {
     $this->entityTypeManager = $container->get('entity_type.manager');
     $this->moduleHandler = $container->get('module_handler');
   }
@@ -50,13 +50,13 @@ trait ViewsPluginUiPatternsTrait {
   /**
    * Get the source contexts for the component.
    *
-   * @return array
-   *   Source contexts.
-   *
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   *
+   * @return array
+   *   Source contexts.
    */
-  protected function getComponentSourceContexts() : array {
+  protected function getComponentSourceContexts(): array {
     $context = [];
     $plugin_definition = $this->getPluginDefinition();
     if (is_array($plugin_definition) && isset($plugin_definition['plugin_type'])) {
@@ -83,21 +83,21 @@ trait ViewsPluginUiPatternsTrait {
    * @param array<string, mixed> $dependencies
    *   Initial dependencies.
    *
-   * @return array<string, mixed>
-   *   The dependencies.
-   *
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   *
+   * @return array<string, mixed>
+   *   The dependencies.
    */
   protected function addDependencies(array $dependencies) {
     $component_settings = $this->getComponentSettings();
-    $component_id = $component_settings["ui_patterns"]["component_id"] ?? NULL;
+    $component_id = $component_settings['ui_patterns']['component_id'] ?? NULL;
     if (!$component_id) {
       return $dependencies;
     }
     $component_dependencies = $this->calculateComponentDependencies($component_id, $this->getFullContext());
     SourcePluginBase::mergeConfigDependencies($dependencies, $component_dependencies);
-    SourcePluginBase::mergeConfigDependencies($dependencies, ["module" => ["ui_patterns_views"]]);
+    SourcePluginBase::mergeConfigDependencies($dependencies, ['module' => ['ui_patterns_views']]);
     return $dependencies;
   }
 
@@ -123,13 +123,13 @@ trait ViewsPluginUiPatternsTrait {
    * @param string $entity_type_id
    *   The entity type id.
    *
-   * @return string
-   *   The bundle.
-   *
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   *
+   * @return string
+   *   The bundle.
    */
-  protected function findEntityBundle(string $entity_type_id) : string {
+  protected function findEntityBundle(string $entity_type_id): string {
     // @todo better implementation with service 'entity_type.bundle.info'
     $bundle = $entity_type_id;
     $entity_type_definition = $this->entityTypeManager->getDefinition($entity_type_id);
@@ -137,11 +137,11 @@ trait ViewsPluginUiPatternsTrait {
       return $bundle;
     }
     $bundle_entity_type = $entity_type_definition->getBundleEntityType();
-    if (NULL !== $bundle_entity_type) {
+    if ($bundle_entity_type !== NULL) {
       $bundle_list = $this->entityTypeManager->getStorage($bundle_entity_type)->loadMultiple();
       if (count($bundle_list) > 0) {
         foreach ($bundle_list as $bundle_entity) {
-          $bundle_to_test = "" . $bundle_entity->id();
+          $bundle_to_test = '' . $bundle_entity->id();
           if ($bundle_to_test) {
             $bundle = $bundle_to_test;
             break;

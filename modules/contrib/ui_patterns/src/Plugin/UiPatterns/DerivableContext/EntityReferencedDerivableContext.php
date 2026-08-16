@@ -29,7 +29,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 )]
 class EntityReferencedDerivableContext extends DerivableContextPluginBase {
 
-
   /**
    * The entity type manager.
    *
@@ -88,9 +87,9 @@ class EntityReferencedDerivableContext extends DerivableContextPluginBase {
     if (empty($referenced_entities)) {
       return [];
     }
-    $removed_context_keys = ["entity", "ui_patterns:field:", "bundle"];
-    $base_context = array_filter($this->context, function ($one_context, $one_context_id) use (&$removed_context_keys) {
-      if (in_array($one_context_id, $removed_context_keys)) {
+    $removed_context_keys = ['entity', 'ui_patterns:field:', 'bundle'];
+    $base_context = array_filter($this->context, static function ($one_context, $one_context_id) use (&$removed_context_keys) {
+      if (in_array($one_context_id, $removed_context_keys, TRUE)) {
         return FALSE;
       }
       foreach ($removed_context_keys as $removed_context_key) {
@@ -99,13 +98,13 @@ class EntityReferencedDerivableContext extends DerivableContextPluginBase {
         }
       }
       return TRUE;
-    }, ARRAY_FILTER_USE_BOTH);
-    $base_context = RequirementsContext::removeFromContext(["field_granularity:item"], $base_context);
+    }, \ARRAY_FILTER_USE_BOTH);
+    $base_context = RequirementsContext::removeFromContext(['field_granularity:item'], $base_context);
     $metadata = $this->getMetadata();
-    $entity_type_id = $metadata["entity_type_id"];
-    $bundle = $metadata["bundle"];
+    $entity_type_id = $metadata['entity_type_id'];
+    $bundle = $metadata['bundle'];
     // Bundle context definition.
-    $bundle_context_definition = new ContextDefinition("string", "Bundle");
+    $bundle_context_definition = new ContextDefinition('string', 'Bundle');
     $base_context['bundle'] = new Context($bundle_context_definition, $bundle);
     // Entity context definition.
     $entity_context_definition = new EntityContextDefinition($entity_type_id);
@@ -117,7 +116,7 @@ class EntityReferencedDerivableContext extends DerivableContextPluginBase {
     $returned_contexts = [];
     foreach ($referenced_entities as $referenced_entity) {
       $returned_contexts[] = array_merge($base_context, [
-        "entity" => new Context($entity_context_definition, $referenced_entity),
+        'entity' => new Context($entity_context_definition, $referenced_entity),
       ]);
     }
     return $returned_contexts;
@@ -135,10 +134,10 @@ class EntityReferencedDerivableContext extends DerivableContextPluginBase {
     [$bundle, $entity_type_id, $ref_field_name] = array_slice(array_reverse($split_plugin_id), 0, 3);
     // Bundle context definition.
     return [
-      "entity_type_id" => $entity_type_id,
-      "bundle" => $bundle,
-      "field_name" => $ref_field_name,
-      "parent_entity_type_id" => $split_plugin_id[1],
+      'entity_type_id' => $entity_type_id,
+      'bundle' => $bundle,
+      'field_name' => $ref_field_name,
+      'parent_entity_type_id' => $split_plugin_id[1],
     ];
   }
 
@@ -148,24 +147,24 @@ class EntityReferencedDerivableContext extends DerivableContextPluginBase {
    * @return \Drupal\Core\Entity\EntityInterface|null
    *   The entity.
    */
-  protected function getEntityFromContext() : ?EntityInterface {
-    if (!isset($this->context["entity"])) {
+  protected function getEntityFromContext(): ?EntityInterface {
+    if (!isset($this->context['entity'])) {
       // This case is not supposed to happen,
       // unless context guessing is not working,
       // like when, for example, using Display Suite without
       // the correct module installed to guess the entity...etc.
-      $this->logger->error(t("Missing entity from context for @entity_type_id", [
-        "@entity_type_id" => $this->getMetadata()["parent_entity_type_id"],
+      $this->logger->error(t('Missing entity from context for @entity_type_id', [
+        '@entity_type_id' => $this->getMetadata()['parent_entity_type_id'],
       ]));
       return NULL;
     }
     try {
-      return $this->context["entity"]->getContextValue();
+      return $this->context['entity']->getContextValue();
     }
     catch (\Exception $e) {
-      $this->logger->error(t("Missing entity from context for @entity_type_id: @error", [
-        "@entity_type_id" => $this->getMetadata()["parent_entity_type_id"],
-        "@error" => $e->getMessage(),
+      $this->logger->error(t('Missing entity from context for @entity_type_id: @error', [
+        '@entity_type_id' => $this->getMetadata()['parent_entity_type_id'],
+        '@error' => $e->getMessage(),
       ]));
       return NULL;
     }
@@ -177,16 +176,16 @@ class EntityReferencedDerivableContext extends DerivableContextPluginBase {
    * @return array
    *   The references entities.
    */
-  protected function getEntities() : array {
+  protected function getEntities(): array {
     $entity = $this->getEntityFromContext();
     if (!($entity instanceof EntityInterface)) {
       return [];
     }
     $metadata = $this->getMetadata();
-    $entity_type_id = $metadata["entity_type_id"];
-    $bundle = $metadata["bundle"];
+    $entity_type_id = $metadata['entity_type_id'];
+    $bundle = $metadata['bundle'];
     // Get referenced entities.
-    $referenced_entities = $this->getReferencedEntities($entity, $metadata["field_name"], $bundle);
+    $referenced_entities = $this->getReferencedEntities($entity, $metadata['field_name'], $bundle);
     if ((count($referenced_entities) === 0) && !$entity->id()) {
       // Case when the entity is a sample (we are probably in a form)
       // we generate a sample referenced entity.
@@ -194,8 +193,8 @@ class EntityReferencedDerivableContext extends DerivableContextPluginBase {
     }
     else {
       // Check ui_patterns:field:index.
-      if (isset($this->context["ui_patterns:field:index"])) {
-        $field_index = $this->context["ui_patterns:field:index"]->getContextValue();
+      if (isset($this->context['ui_patterns:field:index'])) {
+        $field_index = $this->context['ui_patterns:field:index']->getContextValue();
         if (isset($referenced_entities[$field_index])) {
           $referenced_entities = [$referenced_entities[$field_index]];
         }
@@ -217,7 +216,7 @@ class EntityReferencedDerivableContext extends DerivableContextPluginBase {
    * @return array
    *   The referenced entities.
    */
-  protected function getReferencedEntities(?EntityInterface $entity, string $ref_field_name, string $bundle = "") : array {
+  protected function getReferencedEntities(?EntityInterface $entity, string $ref_field_name, string $bundle = ''): array {
     if (!($entity instanceof ContentEntityInterface)) {
       return [];
     }
@@ -225,7 +224,7 @@ class EntityReferencedDerivableContext extends DerivableContextPluginBase {
     if ($entity->hasField($ref_field_name)) {
       $field_reference = $entity->get($ref_field_name);
       if (!$field_reference->isEmpty()) {
-        for ($i = 0; $i < $field_reference->count(); $i++) {
+        for ($i = 0; $i < $field_reference->count(); ++$i) {
           $field_item = $field_reference->get($i);
           $referenced_entity = NULL;
           $typed_data_item = $field_item->get('entity');
@@ -252,11 +251,11 @@ class EntityReferencedDerivableContext extends DerivableContextPluginBase {
    * @return string
    *   The bundle.
    */
-  protected function findEntityBundleWithField(string $entity_type_id, ?string $field_name = NULL) : string {
+  protected function findEntityBundleWithField(string $entity_type_id, ?string $field_name = NULL): string {
     // @todo better implementation with service 'entity_type.bundle.info'
     $bundle = $entity_type_id;
     $bundle_entity_type = $this->entityTypeManager->getDefinition($entity_type_id)->getBundleEntityType();
-    if (NULL !== $bundle_entity_type) {
+    if ($bundle_entity_type !== NULL) {
       $bundle_list = $this->entityTypeManager->getStorage($bundle_entity_type)->loadMultiple();
       if (count($bundle_list) > 0) {
         foreach ($bundle_list as $bundle_entity) {

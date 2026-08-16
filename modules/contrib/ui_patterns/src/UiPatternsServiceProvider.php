@@ -34,7 +34,6 @@ class UiPatternsServiceProvider extends ServiceProviderBase {
       $service->addArgument(new Reference('ui_patterns.sample_entity_generator'));
       $service->addTag('ui_patterns.context_entity_resolver', ['priority' => 20]);
     }
-
   }
 
 }

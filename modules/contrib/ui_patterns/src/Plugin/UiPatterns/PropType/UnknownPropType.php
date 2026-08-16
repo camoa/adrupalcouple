@@ -49,7 +49,7 @@ class UnknownPropType extends PropTypePluginBase implements ContainerFactoryPlug
   public function getSummary(array $definition): array {
     $canon = $this->canonicalizer->canonicalize($definition);
     return [
-      "⚠️ " . json_encode($canon),
+      '⚠️ ' . json_encode($canon),
     ];
   }
 

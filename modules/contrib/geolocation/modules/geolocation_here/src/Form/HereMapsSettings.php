@@ -16,7 +16,7 @@ class HereMapsSettings extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $config = $this->configFactory->get('here_maps.settings');
+    $config = $this->config('here_maps.settings');
 
     $form['app_id'] = [
       '#type' => 'textfield',

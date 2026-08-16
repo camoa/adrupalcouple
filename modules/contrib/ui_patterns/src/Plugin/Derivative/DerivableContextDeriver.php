@@ -20,10 +20,11 @@ class DerivableContextDeriver extends EntityFieldSourceDeriverBase {
       $bundle,
       $field_name,
     ]);
-    unset($base_plugin_derivative["context_definitions"]["field_name"]);
+    unset($base_plugin_derivative['context_definitions']['field_name']);
     $this->derivatives[$id] = array_merge(
       $base_plugin_derivative,
-      ["id" => $id]);
+      ['id' => $id]
+    );
   }
 
   /**
@@ -32,13 +33,14 @@ class DerivableContextDeriver extends EntityFieldSourceDeriverBase {
   protected function getDerivativeDefinitionsForEntityStorageField(string $entity_type_id, string $field_name, array $base_plugin_derivative): void {
     $id = implode(PluginBase::DERIVATIVE_SEPARATOR, [
       $entity_type_id,
-      "",
+      '',
       $field_name,
     ]);
-    unset($base_plugin_derivative["context_definitions"]["field_name"]);
+    unset($base_plugin_derivative['context_definitions']['field_name']);
     $this->derivatives[$id] = array_merge(
       $base_plugin_derivative,
-      ["id" => $id]);
+      ['id' => $id]
+    );
   }
 
 }

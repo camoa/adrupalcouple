@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 $ruleset = new TwigCsFixer\Ruleset\Ruleset();
 
 // Add a default standard.

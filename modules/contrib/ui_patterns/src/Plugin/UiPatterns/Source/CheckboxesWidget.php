@@ -9,6 +9,7 @@ use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\ui_patterns\Attribute\Source;
 use Drupal\ui_patterns\EnumTrait;
 use Drupal\ui_patterns\SourcePluginPropValueWidget;
+use Drupal\ui_patterns\SourceTags;
 
 /**
  * Plugin implementation of the source.
@@ -18,7 +19,7 @@ use Drupal\ui_patterns\SourcePluginPropValueWidget;
   label: new TranslatableMarkup('Checkboxes'),
   description: new TranslatableMarkup('A set of checkboxes.'),
   prop_types: ['enum_set'],
-  tags: ['widget']
+  tags: [SourceTags::Widget->value]
 )]
 class CheckboxesWidget extends SourcePluginPropValueWidget {
 
@@ -45,7 +46,7 @@ class CheckboxesWidget extends SourcePluginPropValueWidget {
     $form['value'] = [
       '#type' => 'checkboxes',
       '#default_value' => $defaultValue,
-      "#options" => static::getEnumOptions($this->propDefinition['items']),
+      '#options' => static::getEnumOptions($this->propDefinition['items']),
     ];
     $this->addRequired($form['value']);
     return $form;

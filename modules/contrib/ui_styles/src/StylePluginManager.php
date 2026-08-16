@@ -6,6 +6,7 @@ namespace Drupal\ui_styles;
 
 use Drupal\Component\Plugin\Exception\PluginException;
 use Drupal\Component\Transliteration\TransliterationInterface;
+use Drupal\Component\Utility\DeprecationHelper;
 use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Extension\ThemeHandlerInterface;
@@ -414,7 +415,12 @@ class StylePluginManager extends DefaultPluginManager implements StylePluginMana
       // @phpstan-ignore-next-line
       && \in_array($element['#theme'], $this::THEME_WITH_ITEM_ATTRIBUTES, TRUE)
     ) {
-      return '#item_attributes';
+      return DeprecationHelper::backwardsCompatibleCall(
+        currentVersion: \Drupal::VERSION,
+        deprecatedVersion: '11.4',
+        currentCallable: static fn (): string => '#attributes',
+        deprecatedCallable: static fn (): string => '#item_attributes',
+      );
     }
     return '#attributes';
   }

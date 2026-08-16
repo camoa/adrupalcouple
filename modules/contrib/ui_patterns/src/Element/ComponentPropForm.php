@@ -21,12 +21,14 @@ use Drupal\Core\Form\FormStateInterface;
  *     'source_id' => 'textfield'
  *   ],
  * ];
+ *
  * @endcode
  *
  * Value example:
  *
  * @code
  * '#default_value' => ['source_id' => 'id', 'source' => []]
+ *
  * @endcode
  *
  *  Configuration:
@@ -53,7 +55,7 @@ class ComponentPropForm extends ComponentFormBase {
       '#tag_filter' => [],
       '#component_id' => NULL,
       '#slot_id' => NULL,
-    // Wrapped (into details/summary) or not.
+      // Wrapped (into details/summary) or not.
       '#wrap' => FALSE,
       '#render_sources' => TRUE,
       '#process' => [
@@ -107,6 +109,10 @@ class ComponentPropForm extends ComponentFormBase {
         '#value' => $selected_source->getPluginId(),
       ];
     }
+    $element['node_id'] = [
+      '#type' => 'hidden',
+      '#value' => $configuration['node_id'] ?? NULL,
+    ];
     $element = static::addRequired($element, $prop_id);
     // This allows "widgets" to have a title when #wrap is unset.
     if (!($element['#wrap'] ?? TRUE)) {

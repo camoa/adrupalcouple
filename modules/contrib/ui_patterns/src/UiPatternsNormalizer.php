@@ -19,13 +19,12 @@ class UiPatternsNormalizer implements UiPatternsNormalizerInterface {
    */
   public function __construct(
     protected RendererInterface $renderer,
-  ) {
-  }
+  ) {}
 
   /**
    * {@inheritdoc}
    */
-  public function convertToScalar(mixed &$value, bool $strip_tags_from_render_arrays = TRUE) : void {
+  public function convertToScalar(mixed &$value, bool $strip_tags_from_render_arrays = TRUE): void {
     if ($value instanceof RenderableInterface) {
       $value = $value->toRenderable();
     }
@@ -51,7 +50,7 @@ class UiPatternsNormalizer implements UiPatternsNormalizerInterface {
    * @return mixed
    *   The converted array.
    */
-  protected function convertArrayToScalar(array $array, bool $strip_tags_from_render_arrays = TRUE) : mixed {
+  protected function convertArrayToScalar(array $array, bool $strip_tags_from_render_arrays = TRUE): mixed {
     if (empty($array)) {
       return NULL;
     }
@@ -75,13 +74,13 @@ class UiPatternsNormalizer implements UiPatternsNormalizerInterface {
   /**
    * {@inheritdoc}
    */
-  public function convertToString(mixed $value) : string {
+  public function convertToString(mixed $value): string {
     if ($value === NULL) {
       return '';
     }
     $this->convertToScalar($value, FALSE);
     if (is_array($value)) {
-      return json_encode($value, 0, 3) ?: "";
+      return json_encode($value, 0, 3) ?: '';
     }
     return is_string($value) ? $value : (string) $value;
   }
@@ -99,10 +98,9 @@ class UiPatternsNormalizer implements UiPatternsNormalizerInterface {
     $values = array_map(function ($item) use ($enum) {
       return $this->normalizeEnumValue($item, $enum);
     }, $values);
-    $values = array_filter($values, function ($item) {
-          return $item !== NULL;
+    return array_filter($values, static function ($item) {
+      return $item !== NULL;
     });
-    return $values;
   }
 
   /**
@@ -136,10 +134,10 @@ class UiPatternsNormalizer implements UiPatternsNormalizerInterface {
     }
     return match (TRUE) {
       in_array($value, $enum, TRUE) => $value,
-        in_array((string) $value, $enum, TRUE) => (string) $value,
-        in_array((int) $value, $enum, TRUE)  => (int) $value,
-        in_array((float) $value, $enum, TRUE) => (float) $value,
-        default => $value,
+      in_array((string) $value, $enum, TRUE) => (string) $value,
+      in_array((int) $value, $enum, TRUE) => (int) $value,
+      in_array((float) $value, $enum, TRUE) => (float) $value,
+      default => $value,
     };
   }
 

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\ui_styles_page\Form;
 
+use Drupal\Component\Utility\DeprecationHelper;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\ui_styles\StylePluginManagerInterface;
@@ -82,7 +83,7 @@ class RegionsThemeSettingsForm extends ConfigFormBase {
     $this->editableConfig = [
       $theme . '.settings',
     ];
-    $system_regions = \system_region_list($theme);
+    $system_regions = DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.4.0', static fn () => \Drupal::service('theme_handler')->getTheme($theme)->listAllRegions(), static fn () => \system_region_list($theme));
     /** @var array $settings */
     $settings = $this->config($theme . '.settings')->get(UiStylesPageInterface::REGION_STYLES_KEY_THEME_SETTINGS) ?? [];
 

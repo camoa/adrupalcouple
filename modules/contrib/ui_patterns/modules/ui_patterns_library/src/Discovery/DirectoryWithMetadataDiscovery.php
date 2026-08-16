@@ -62,12 +62,12 @@ class DirectoryWithMetadataDiscovery extends YamlDirectoryDiscovery {
    */
   protected function getIdentifier($file, array $data): string {
     $full_id = \basename($file, '.story.yml');
-    [$component_id, $story_id] = explode(".", $full_id);
+    [$component_id, $story_id] = explode('.', $full_id);
     // A story author can explicitly target a component in the definition if
     // the story is in an other provider (theme or module) than the target
     // component.
-    if (isset($data["component"]) && is_string($data["component"]) && !empty($data["component"])) {
-      return sprintf('%s:%s', $data["component"], $story_id);
+    if (isset($data['component']) && is_string($data['component']) && !empty($data['component'])) {
+      return sprintf('%s:%s', $data['component'], $story_id);
     }
     $provider_paths = array_flip($this->directories);
     $provider = $this->findProvider($file, $provider_paths);
@@ -90,14 +90,14 @@ class DirectoryWithMetadataDiscovery extends YamlDirectoryDiscovery {
    *   The provider
    */
   private function findProvider(string $file, array $provider_paths): string {
-    $parts = explode(DIRECTORY_SEPARATOR, $file);
+    $parts = explode(\DIRECTORY_SEPARATOR, $file);
     array_pop($parts);
     if (empty($parts)) {
       return '';
     }
-    $provider = $provider_paths[implode(DIRECTORY_SEPARATOR, $parts)] ?? '';
+    $provider = $provider_paths[implode(\DIRECTORY_SEPARATOR, $parts)] ?? '';
     return empty($provider)
-      ? $this->findProvider(implode(DIRECTORY_SEPARATOR, $parts), $provider_paths)
+      ? $this->findProvider(implode(\DIRECTORY_SEPARATOR, $parts), $provider_paths)
       : $provider;
   }
 

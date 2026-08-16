@@ -13,7 +13,7 @@ class PropConverter {
    * Convert prop.
    */
   public function convert(array $setting): array {
-    return match ($setting["type"]) {
+    return match ($setting['type']) {
       'attributes' => [
         '$ref' => 'ui-patterns://attributes',
       ],
@@ -86,17 +86,17 @@ class PropConverter {
     $types = [];
     foreach ($values as $value) {
       if (is_int($value)) {
-        $types[] = "integer";
+        $types[] = 'integer';
         continue;
       }
       if (is_float($value)) {
-        $types[] = "number";
+        $types[] = 'number';
         continue;
       }
-      $types[] = "string";
+      $types[] = 'string';
     }
     $types = array_unique($types);
-    if (count($types) == 1) {
+    if (count($types) === 1) {
       return $types[0];
     }
     return $types;

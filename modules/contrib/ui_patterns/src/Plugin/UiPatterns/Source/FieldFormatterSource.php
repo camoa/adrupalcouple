@@ -21,8 +21,8 @@ use Drupal\Core\Security\TrustedCallbackInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\TypedData\Exception\MissingDataException;
 use Drupal\ui_patterns\Attribute\Source;
-use Drupal\ui_patterns\SourcePluginBase;
 use Drupal\ui_patterns\Plugin\Derivative\FieldFormatterSourceDeriver;
+use Drupal\ui_patterns\SourcePluginBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -44,20 +44,15 @@ class FieldFormatterSource extends FieldValueSourceBase implements TrustedCallba
   }
 
   use LoggerChannelTrait;
-
   use FieldFormatterFormTrait;
 
   /**
    * The formatter plugin manager.
-   *
-   * @var \Drupal\Core\Field\FormatterPluginManager|null
    */
   protected ?FormatterPluginManager $formatterPluginManager;
 
   /**
    * The field type plugin manager.
-   *
-   * @var \Drupal\Core\Field\FieldTypePluginManagerInterface|null
    */
   protected ?FieldTypePluginManagerInterface $fieldTypePluginManager;
 
@@ -100,11 +95,11 @@ class FieldFormatterSource extends FieldValueSourceBase implements TrustedCallba
    * @param \Drupal\Core\Form\FormStateInterface $form_state
    *   Form state.
    *
-   * @return bool
-   *   True if the form was generated.
-   *
    * @throws \Drupal\Component\Plugin\Exception\PluginException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   *
+   * @return bool
+   *   True if the form was generated.
    */
   private function buildFieldFormatterForm(array &$form, FormStateInterface $form_state) {
     $field_definition = $this->getFieldDefinition();
@@ -128,11 +123,11 @@ class FieldFormatterSource extends FieldValueSourceBase implements TrustedCallba
    * @param \Drupal\Core\Field\FieldStorageDefinitionInterface $field_storage
    *   Field storage.
    *
-   * @return bool
-   *   False if can't generate.
-   *
    * @throws \Drupal\Component\Plugin\Exception\PluginException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   *
+   * @return bool
+   *   False if can't generate.
    */
   private function generateFieldFormatterForm(array &$form, FormStateInterface $form_state, FieldDefinitionInterface $field_definition, FieldStorageDefinitionInterface $field_storage): bool {
     $formatter_options = $this->getAvailableFormatterOptions($field_storage, $field_definition);
@@ -141,8 +136,8 @@ class FieldFormatterSource extends FieldValueSourceBase implements TrustedCallba
     }
     // @todo remove ui patterns formatters from the list of options ?
     // Get the formatter type from configuration.
-    $formatter_type = $this->getSettingsFromConfiguration(["settings", "type"]);
-    $uniqueID = Html::getId(implode("_", $this->formArrayParents ?? []) . "_field-formatter-settings-ajax");
+    $formatter_type = $this->getSettingsFromConfiguration(['settings', 'type']);
+    $uniqueID = Html::getId(implode('_', $this->formArrayParents ?? []) . '_field-formatter-settings-ajax');
     // Get the formatter settings from configuration.
     $form['type'] = [
       '#type' => 'select',
@@ -164,7 +159,6 @@ class FieldFormatterSource extends FieldValueSourceBase implements TrustedCallba
     $form['settings_wrapper'] = [
       '#prefix' => '<div id="' . $uniqueID . '">',
       '#suffix' => '</div>',
-
     ];
     $options = [
       'field_definition' => $field_definition,
@@ -175,7 +169,7 @@ class FieldFormatterSource extends FieldValueSourceBase implements TrustedCallba
 
     if ($formatter = $this->formatterPluginManager->getInstance($options)) {
       // This probably needs a better way (interface?)
-      if (method_exists($formatter, "setContext")) {
+      if (method_exists($formatter, 'setContext')) {
         // The Source is giving its context to the field formatter.
         $formatter->setContext($this->context);
       }
@@ -183,7 +177,7 @@ class FieldFormatterSource extends FieldValueSourceBase implements TrustedCallba
       // see the preRenderFormatterSettingsForm() method.
       // but they are created in the form array at the root level.
       // to ensure configuration structure does not add settings_wrapper.
-      $settings_subform_state = SubformState::createForSubform($form["settings"], $form, $form_state);
+      $settings_subform_state = SubformState::createForSubform($form['settings'], $form, $form_state);
       $form['settings'] = $formatter->settingsForm($form, $settings_subform_state);
       $form['third_party_settings'] = $this->thirdPartySettingsForm($formatter, $field_definition, $form, $form_state);
       // Should we use FormHelper::rewriteStatesSelector() ?
@@ -202,11 +196,11 @@ class FieldFormatterSource extends FieldValueSourceBase implements TrustedCallba
    * @return array
    *   Processed element
    */
-  public static function preRenderFormatterSettingsForm(array $element) : array {
+  public static function preRenderFormatterSettingsForm(array $element): array {
     $element['settings_wrapper']['settings'] = $element['settings'];
-    $element['settings']["#printed"] = TRUE;
+    $element['settings']['#printed'] = TRUE;
     $element['settings_wrapper']['third_party_settings'] = $element['third_party_settings'];
-    $element['third_party_settings']["#printed"] = TRUE;
+    $element['third_party_settings']['#printed'] = TRUE;
     return $element;
   }
 
@@ -216,8 +210,8 @@ class FieldFormatterSource extends FieldValueSourceBase implements TrustedCallba
    * @return array
    *   The settings.
    */
-  private function getFormatterBaseSettingsFromConfiguration() : array {
-    $base_container = $this->getSettingsFromConfiguration(["settings"]) ?? [];
+  private function getFormatterBaseSettingsFromConfiguration(): array {
+    $base_container = $this->getSettingsFromConfiguration(['settings']) ?? [];
     if (isset($base_container['settings'])) {
       // Backward compatibility.
       return [
@@ -246,15 +240,15 @@ class FieldFormatterSource extends FieldValueSourceBase implements TrustedCallba
     $third_party_settings = [];
     if (!empty($formatter_type)) {
       $formatter_configuration = $this->getFormatterBaseSettingsFromConfiguration();
-      $settings = $formatter_configuration["settings"] ?? [];
-      $third_party_settings = $formatter_configuration["third_party_settings"] ?? [];
+      $settings = $formatter_configuration['settings'] ?? [];
+      $third_party_settings = $formatter_configuration['third_party_settings'] ?? [];
     }
 
     // Get default formatter type.
     if (empty($formatter_type) || !isset($formatter_options[$formatter_type])) {
       $default_settings = $this->defaultSettings();
-      $formatter_type = $default_settings["type"] ?? key($formatter_options);
-      $settings = $default_settings["settings"];
+      $formatter_type = $default_settings['type'] ?? key($formatter_options);
+      $settings = $default_settings['settings'];
       $third_party_settings = [];
     }
     // Reset settings if we change the formatter.
@@ -317,7 +311,7 @@ class FieldFormatterSource extends FieldValueSourceBase implements TrustedCallba
     // subforms by module name.
     $this->moduleHandler->invokeAllWith(
       'field_formatter_third_party_settings_form',
-      function (callable $hook, string $module) use (&$settings_form, $plugin, $field_definition, $form, $form_state) {
+      static function (callable $hook, string $module) use (&$settings_form, $plugin, $field_definition, $form, $form_state) {
         $settings_form[$module] = $hook(
           $plugin,
           $field_definition,
@@ -338,10 +332,10 @@ class FieldFormatterSource extends FieldValueSourceBase implements TrustedCallba
    * @param \Drupal\Core\Field\FieldDefinitionInterface $field_definition
    *   The field definition of field to apply formatter.
    *
+   * @throws \Drupal\Component\Plugin\Exception\PluginException
+   *
    * @return \Drupal\Core\Field\FormatterInterface
    *   The field formatter plugin.
-   *
-   * @throws \Drupal\Component\Plugin\Exception\PluginException
    */
   private function createInstanceFormatter(string $formatter_id, FieldDefinitionInterface $field_definition) {
     // @todo Ensure it is right to empty all values here, see:
@@ -366,10 +360,10 @@ class FieldFormatterSource extends FieldValueSourceBase implements TrustedCallba
    * @param \Drupal\Core\Field\FieldDefinitionInterface $field_definition
    *   Field definition.
    *
+   * @throws \Drupal\Component\Plugin\Exception\PluginException
+   *
    * @return string[]
    *   The field formatter labels keys by plugin ID.
-   *
-   * @throws \Drupal\Component\Plugin\Exception\PluginException
    */
   protected function getAvailableFormatterOptions(FieldStorageDefinitionInterface $field_storage_definition, FieldDefinitionInterface $field_definition): array {
     $formatters = $this->formatterPluginManager->getOptions($field_storage_definition->getType());
@@ -382,8 +376,10 @@ class FieldFormatterSource extends FieldValueSourceBase implements TrustedCallba
     $options = array_map(
       static function (FormatterInterface $formatter) {
         $plugin_definition = $formatter->getPluginDefinition();
-        return ($plugin_definition instanceof PluginDefinitionInterface) ? $plugin_definition->id() : $plugin_definition["label"];
-      }, $filtered_formatter_instances);
+        return ($plugin_definition instanceof PluginDefinitionInterface) ? $plugin_definition->id() : $plugin_definition['label'];
+      },
+      $filtered_formatter_instances
+    );
 
     // Remove field_link itself.
     if (array_key_exists('field_link', $options)) {
@@ -426,7 +422,7 @@ class FieldFormatterSource extends FieldValueSourceBase implements TrustedCallba
     ];
     if ($field_delta === NULL) {
       $rendered_field = $items->view($formatter_config);
-      for ($field_index = 0; $field_index < $items->count(); $field_index++) {
+      for ($field_index = 0; $field_index < $items->count(); ++$field_index) {
         if (!isset($rendered_field[$field_index])) {
           continue;
         }
@@ -459,7 +455,7 @@ class FieldFormatterSource extends FieldValueSourceBase implements TrustedCallba
   /**
    * {@inheritdoc}
    */
-  public function calculateDependencies() : array {
+  public function calculateDependencies(): array {
     $dependencies = parent::calculateDependencies();
     $configuration = $this->getConfiguration();
     $fieldDefinition = $this->getFieldDefinition();
@@ -479,7 +475,7 @@ class FieldFormatterSource extends FieldValueSourceBase implements TrustedCallba
       return $dependencies;
     }
     SourcePluginBase::mergeConfigDependencies($dependencies, $this->getPluginDependencies($formatter));
-    SourcePluginBase::mergeConfigDependencies($dependencies, ["module" => ["ui_patterns_field_formatters"]]);
+    SourcePluginBase::mergeConfigDependencies($dependencies, ['module' => ['ui_patterns_field_formatters']]);
     return $dependencies;
   }
 

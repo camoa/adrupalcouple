@@ -6,6 +6,8 @@ namespace Drupal\Tests\ui_styles_entity_status\Functional;
 
 use Drupal\Core\Url;
 use Drupal\ui_styles_entity_status\UiStylesEntityStatusInterface;
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
  * Theme settings functional tests.
@@ -13,6 +15,9 @@ use Drupal\ui_styles_entity_status\UiStylesEntityStatusInterface;
  * @group ui_styles
  * @group ui_styles_entity_status
  */
+#[Group('ui_styles')]
+#[Group('ui_styles_entity_status')]
+#[RunTestsInSeparateProcesses]
 class ThemeSettingsTest extends UiStylesEntityStatusFunctionalTestBase {
 
   /**

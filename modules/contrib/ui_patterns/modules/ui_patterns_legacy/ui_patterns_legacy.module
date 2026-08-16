@@ -12,8 +12,8 @@ declare(strict_types=1);
  */
 function ui_patterns_legacy_element_info_alter(array &$types): void {
   if (isset($types['component'])) {
-    $types = _ui_patterns_legacy_clone_component_element($types, "pattern");
-    $types = _ui_patterns_legacy_clone_component_element($types, "pattern_preview");
+    $types = _ui_patterns_legacy_clone_component_element($types, 'pattern');
+    $types = _ui_patterns_legacy_clone_component_element($types, 'pattern_preview');
   }
 }
 
@@ -23,8 +23,8 @@ function ui_patterns_legacy_element_info_alter(array &$types): void {
 function _ui_patterns_legacy_clone_component_element(array $types, string $element_id): array {
   $types[$element_id] = $types['component'];
   array_unshift($types[$element_id]['#pre_render'], 'ui_patterns.component_element_alter:alter');
-  $moduleHandler = \Drupal::service('module_handler');
-  if ($moduleHandler->moduleExists('ui_patterns_library') && $element_id === "pattern_preview") {
+  $moduleHandler = Drupal::service('module_handler');
+  if ($moduleHandler->moduleExists('ui_patterns_library') && $element_id === 'pattern_preview') {
     array_unshift($types[$element_id]['#pre_render'], 'ui_patterns_library.component_element_alter:alter');
   }
   array_unshift($types[$element_id]['#pre_render'], 'ui_patterns_legacy.component_element_alter:convert');

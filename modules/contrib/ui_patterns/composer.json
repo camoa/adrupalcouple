@@ -5,5 +5,8 @@
   "type": "drupal-module",
   "require": {
     "justinrainbow/json-schema": "^5.2 || ^6.3"
+  },
+  "require-dev": {
+    "drush/drush": "^12 || ^13"
   }
 }

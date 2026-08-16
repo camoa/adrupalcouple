@@ -7,7 +7,7 @@ dependencies:
   - ui_patterns:ui_patterns
   - drupal:block
 
-# Information added by Drupal.org packaging script on 2026-06-18
-version: '2.0.16'
+# Information added by Drupal.org packaging script on 2026-08-06
+version: '2.0.19'
 project: 'ui_patterns'
-datestamp: 1781787976
+datestamp: 1786034889

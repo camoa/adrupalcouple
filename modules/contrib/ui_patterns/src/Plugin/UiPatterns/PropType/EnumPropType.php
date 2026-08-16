@@ -20,7 +20,6 @@ use Drupal\ui_patterns\PropTypePluginBase;
   schema: ['type' => ['string', 'number', 'integer'], 'enum' => []],
   priority: 10,
   typed_data: ['float', 'integer', 'string'],
-
 )]
 class EnumPropType extends PropTypePluginBase {
 
@@ -32,8 +31,8 @@ class EnumPropType extends PropTypePluginBase {
   public function getSummary(array $definition): array {
     $summary = parent::getSummary($definition);
     if (isset($definition['enum'])) {
-      $values = implode(", ", static::getAllowedValues($definition));
-      $summary[] = $this->t("Allowed values: @values", ["@values" => $values]);
+      $values = implode(', ', static::getAllowedValues($definition));
+      $summary[] = $this->t('Allowed values: @values', ['@values' => $values]);
     }
     return $summary;
   }

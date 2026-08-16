@@ -67,7 +67,7 @@
 
   expected:
     type: "array"
-    id: "ui-patterns://enum_list"
+    id: "ui-patterns://enum-list"
     items:
       enum:
         - A
@@ -97,7 +97,7 @@
     type: array
     uniqueItems: true
     maxItems: 3
-    id: "ui-patterns://enum_set"
+    id: "ui-patterns://enum-set"
     items:
       type: integer
       enum: [1, 2, 3, 4, 5, 6]

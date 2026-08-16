@@ -17,6 +17,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * Provides local task definitions for all component forms.
  */
 class UiPatternsUiLocalTask extends DeriverBase implements ContainerDeriverInterface {
+
   use StringTranslationTrait;
 
   public function __construct(protected RouteProviderInterface $routeProvider, protected ComponentPluginManager $componentPluginManager, protected EntityTypeManagerInterface $entityTypeManager, TranslationInterface $stringTranslation) {

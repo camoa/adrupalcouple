@@ -12,10 +12,8 @@ use Drupal\Tests\ui_patterns\Traits\TestContentCreationTrait;
 
 /**
  * Base class to test source plugins.
- *
- * @group ui_patterns
  */
-class SourcePluginsTestBase extends KernelTestBase {
+abstract class SourcePluginsTestBase extends KernelTestBase {
 
   use RunSourcePluginTestTrait;
   use TestContentCreationTrait;
@@ -55,18 +53,6 @@ class SourcePluginsTestBase extends KernelTestBase {
   }
 
   /**
-   * {@inheritdoc}
-   */
-  protected function getSourceContexts(array $test_set = []): array {
-    $context = [];
-    if (isset($test_set['entity'])) {
-      $entity = $this->createTestContentNode('page', is_array($test_set['entity']) ? $test_set['entity'] : []);
-      $context['entity'] = EntityContext::fromEntity($entity);
-    }
-    return $context;
-  }
-
-  /**
    * Run source plugin tests against a test set.
    *
    * @param string|null $test_starts_with
@@ -75,15 +61,30 @@ class SourcePluginsTestBase extends KernelTestBase {
    *   The path to the test data fixture.
    */
   public function runSourcePluginTests(?string $test_starts_with = NULL, ?string $tests_path = NULL): void {
-    $testData = self::loadTestDataFixture($tests_path ?? __DIR__ . "/../../fixtures/TestDataSet.yml");
+    $testData = self::loadTestDataFixture($tests_path ?? __DIR__ . '/../../fixtures/TestDataSet.yml');
     $testSets = $testData->getTestSets();
-    $this->assertNotCount(0, $testSets, "Test sets should not be empty");
+    $this->assertNotCount(0, $testSets, 'Test sets should not be empty');
+
     foreach ($testSets as $test_set_name => $test_set) {
-      if ($test_starts_with && !str_starts_with($test_set_name, $test_starts_with)) {
+      if ($test_starts_with && !\str_starts_with($test_set_name, $test_starts_with)) {
         continue;
       }
       $this->runSourcePluginTest($test_set);
     }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function getSourceContexts(array $test_set = []): array {
+    $context = [];
+
+    if (isset($test_set['entity'])) {
+      $entity = $this->createTestContentNode('page', \is_array($test_set['entity']) ? $test_set['entity'] : []);
+      $context['entity'] = EntityContext::fromEntity($entity);
+    }
+
+    return $context;
   }
 
 }

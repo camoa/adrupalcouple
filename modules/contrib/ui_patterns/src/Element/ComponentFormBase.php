@@ -13,6 +13,7 @@ use Drupal\Core\Render\Element\FormElementBase;
 use Drupal\Core\Security\TrustedCallbackInterface;
 use Drupal\ui_patterns\SourceInterface;
 use Drupal\ui_patterns\SourcePluginBase;
+use Drupal\ui_patterns\SourceTags;
 
 /**
  * Base class for components forms.
@@ -35,19 +36,19 @@ abstract class ComponentFormBase extends FormElementBase implements TrustedCallb
    * @return string|null
    *   Prop or slot id if the form element needs a details.
    */
-  protected static function checkDetailsElement(array &$element) : ?string {
-    if (!isset($element["#wrap"]) || !$element["#wrap"]) {
+  protected static function checkDetailsElement(array &$element): ?string {
+    if (!isset($element['#wrap']) || !$element['#wrap']) {
       return NULL;
     }
-    $prop_or_slot_id = $element["#prop_id"] ?? self::getSlotId($element);
-    $title_in_component = $element["#title_in_component"] ?? $prop_or_slot_id;
+    $prop_or_slot_id = $element['#prop_id'] ?? self::getSlotId($element);
+    $title_in_component = $element['#title_in_component'] ?? $prop_or_slot_id;
     $title = !empty($element['#title']) ? $element['#title'] : $title_in_component;
     if (!array_key_exists($prop_or_slot_id, $element)) {
       $element[$prop_or_slot_id] = [
-        "#type" => "details",
-        "#title" => $title,
-        "#description" => $element["#description"] ?? NULL,
-        "#open" => FALSE,
+        '#type' => 'details',
+        '#title' => $title,
+        '#description' => $element['#description'] ?? NULL,
+        '#open' => FALSE,
       ];
     }
     return $prop_or_slot_id;
@@ -62,7 +63,7 @@ abstract class ComponentFormBase extends FormElementBase implements TrustedCallb
    * @return array
    *   Processed element
    */
-  public static function preRenderPropOrSlot(array $element) : array {
+  public static function preRenderPropOrSlot(array $element): array {
     if ($prop_or_slot_id = static::checkDetailsElement($element)) {
       $children_keys = Element::children($element);
       foreach ($children_keys as $child_key) {
@@ -70,7 +71,7 @@ abstract class ComponentFormBase extends FormElementBase implements TrustedCallb
           continue;
         }
         $element[$prop_or_slot_id][] = $element[$child_key];
-        $element[$child_key]["#printed"] = TRUE;
+        $element[$child_key]['#printed'] = TRUE;
       }
     }
     return $element;
@@ -90,12 +91,12 @@ abstract class ComponentFormBase extends FormElementBase implements TrustedCallb
   public static function processPropOrSlot(array &$element, FormStateInterface $form_state) {
     $triggering_element = $form_state->getTriggeringElement();
     if ($prop_or_slot_id = static::checkDetailsElement($element)) {
-      if (is_array($triggering_element) && isset($triggering_element["#array_parents"]) && is_array($triggering_element["#array_parents"])) {
-        $element_array_parents = $element["#array_parents"];
-        $trigger_array_parents = $triggering_element["#array_parents"];
+      if (is_array($triggering_element) && isset($triggering_element['#array_parents']) && is_array($triggering_element['#array_parents'])) {
+        $element_array_parents = $element['#array_parents'];
+        $trigger_array_parents = $triggering_element['#array_parents'];
         $start_of_trigger_parents = array_slice($trigger_array_parents, 0, count($element_array_parents));
         if ($start_of_trigger_parents === $element_array_parents) {
-          $element[$prop_or_slot_id]["#open"] = TRUE;
+          $element[$prop_or_slot_id]['#open'] = TRUE;
         }
       }
     }
@@ -106,12 +107,11 @@ abstract class ComponentFormBase extends FormElementBase implements TrustedCallb
    * Get a unique element id based on the parents and a parameter.
    */
   protected static function getElementId(array $element, string $base_id): string {
-    $parents = (array_key_exists("#array_parents", $element) && is_array($element["#array_parents"])) ?
-      $element["#array_parents"] : [];
-    $returned = (count($parents) > 0) ?
-      Html::getId(implode("_", $parents) . "_" . $base_id)
+    $parents = (array_key_exists('#array_parents', $element) && is_array($element['#array_parents']))
+      ? $element['#array_parents'] : [];
+    return (count($parents) > 0)
+      ? Html::getId(implode('_', $parents) . '_' . $base_id)
       : Html::getId($base_id);
-    return $returned;
   }
 
   /**
@@ -147,10 +147,10 @@ abstract class ComponentFormBase extends FormElementBase implements TrustedCallb
   /**
    * Helper function to return the component.
    */
-  protected static function getComponent(array $element): Component | NULL {
+  protected static function getComponent(array $element): ?Component {
     $component_id = self::getSelectedComponentId($element);
     /** @var \Drupal\Core\Theme\ComponentPluginManager $component_plugin_manager */
-    $component_plugin_manager = \Drupal::service("plugin.manager.sdc");
+    $component_plugin_manager = \Drupal::service('plugin.manager.sdc');
     return $component_id ? $component_plugin_manager->find($component_id) : NULL;
   }
 
@@ -173,11 +173,11 @@ abstract class ComponentFormBase extends FormElementBase implements TrustedCallb
     $form_array_parents = $element['#array_parents'] ?? [];
     $tag_filter = $element['#tag_filter'] ?? [];
     /** @var \Drupal\ui_patterns\SourcePluginManager $source_plugin_manager */
-    $source_plugin_manager = \Drupal::service("plugin.manager.ui_patterns_source");
+    $source_plugin_manager = \Drupal::service('plugin.manager.ui_patterns_source');
     /** @var \Drupal\ui_patterns\PropTypeInterface $prop_type */
     $prop_type = empty($definition) ? $source_plugin_manager->getSlotPropType() : $definition['ui_patterns']['type_definition'];
     $prop_plugin_definition = $prop_type->getPluginDefinition();
-    $default_source_id = (is_array($prop_plugin_definition) && isset($prop_plugin_definition["default_source"])) ? $prop_plugin_definition["default_source"] : NULL;
+    $default_source_id = (is_array($prop_plugin_definition) && isset($prop_plugin_definition['default_source'])) ? $prop_plugin_definition['default_source'] : NULL;
     $sources = $source_plugin_manager->getDefinitionsForPropType($prop_type->getPluginId(), $source_contexts, $tag_filter);
     $source_ids = array_keys($sources);
     $source_ids = array_combine($source_ids, $source_ids);
@@ -186,12 +186,12 @@ abstract class ComponentFormBase extends FormElementBase implements TrustedCallb
     }
     $valid_sources = $source_plugin_manager->createInstances($source_ids, SourcePluginBase::buildConfiguration($prop_or_slot_id, $definition, $configuration, $source_contexts, $form_array_parents));
     foreach ($valid_sources as &$source) {
-      /** @var \Drupal\ui_patterns\SourcePluginBase $source  */
+      /** @var \Drupal\ui_patterns\SourcePluginBase $source */
       $source_id = $source->getPluginId();
       $source->setConfiguration(array_merge($source->getConfiguration(), [
-        "selection" => [
-          "default" => ($source_id === $default_source_id),
-          "tags" => $sources[$source_id]["tags"] ?? [],
+        'selection' => [
+          'default' => ($source_id === $default_source_id),
+          'tags' => $sources[$source_id]['tags'] ?? [],
         ],
       ]));
     }
@@ -209,7 +209,7 @@ abstract class ComponentFormBase extends FormElementBase implements TrustedCallb
    *   The prop ID or empty string if not set.
    */
   protected static function getSlotId(array $element): string {
-    return (string) ($element['#slot_id'] ?? "");
+    return (string) ($element['#slot_id'] ?? '');
   }
 
   /**
@@ -218,8 +218,8 @@ abstract class ComponentFormBase extends FormElementBase implements TrustedCallb
   protected static function getSourcePluginForm(FormStateInterface $form_state, ?SourceInterface $source, string $wrapper_id): array {
     if (!$source) {
       return [
-        "#type" => 'container',
-        "#attributes" => [
+        '#type' => 'container',
+        '#attributes' => [
           'id' => $wrapper_id,
         ],
       ];
@@ -227,7 +227,7 @@ abstract class ComponentFormBase extends FormElementBase implements TrustedCallb
     $form = $source->settingsForm([], $form_state);
     // @phpstan-ignore-next-line
     $form['#prefix'] = "<div id='" . $wrapper_id . "'>" . ($form['#prefix'] ?? '');
-    $form['#suffix'] = ($form['#suffix'] ?? '') . "</div>";
+    $form['#suffix'] = ($form['#suffix'] ?? '') . '</div>';
     // Weird, but :switchSourceForm() AJAX handler doesn't work without that.
     foreach (Element::children($form) as $child) {
       if (isset($form[$child]['#description']) && !isset($form[$child]['#description_display'])) {
@@ -241,22 +241,22 @@ abstract class ComponentFormBase extends FormElementBase implements TrustedCallb
    * Ajax handler: Switch source plugin form.
    */
   public static function switchSourceForm(array $form, FormStateInterface $form_state): array {
-    $parents = $form_state->getTriggeringElement()["#array_parents"];
+    $parents = $form_state->getTriggeringElement()['#array_parents'];
     $subform = NestedArray::getValue($form, array_slice($parents, 0, -1));
-    return $subform["source"];
+    return $subform['source'];
   }
 
   /**
    * Get selected source plugin.
    */
-  protected static function getSelectedSource(array $configuration, array $sources): ?SourceInterface {
+  protected static function getSelectedSource(array $configuration, array $sources, bool $select_default = TRUE): ?SourceInterface {
     $source_id = $configuration['source_id'] ?? NULL;
     foreach ($sources as $source) {
       if ($source->getPluginId() === $source_id) {
         return $source;
       }
     }
-    return static::selectDefaultSource($sources);
+    return $select_default ? static::selectDefaultSource($sources) : NULL;
   }
 
   /**
@@ -273,8 +273,8 @@ abstract class ComponentFormBase extends FormElementBase implements TrustedCallb
     foreach ($sources as $source) {
       /** @var \Drupal\ui_patterns\SourceInterface $source */
       $plugin_definition = $source->getPluginDefinition() ?? [];
-      $tags = is_array($plugin_definition) ? ($plugin_definition["tags"] ?? []) : [];
-      if (in_array("widget", $tags)) {
+      $tags = is_array($plugin_definition) ? ($plugin_definition['tags'] ?? []) : [];
+      if (in_array(SourceTags::Widget->value, $tags, TRUE)) {
         return $source;
       }
     }
@@ -290,14 +290,14 @@ abstract class ComponentFormBase extends FormElementBase implements TrustedCallb
    */
   protected static function addRequired(array $element, string $prop_id): array {
     $component = static::getComponent($element);
-    if (!$component || !isset($component->metadata->schema["required"])) {
+    if (!$component || !isset($component->metadata->schema['required'])) {
       return $element;
     }
-    $required_props = $component->metadata->schema["required"];
-    if (!in_array($prop_id, $required_props)) {
+    $required_props = $component->metadata->schema['required'];
+    if (!in_array($prop_id, $required_props, TRUE)) {
       return $element;
     }
-    $element["#required"] = TRUE;
+    $element['#required'] = TRUE;
     return $element;
   }
 
@@ -311,13 +311,13 @@ abstract class ComponentFormBase extends FormElementBase implements TrustedCallb
    *   The element with title and description.
    */
   protected static function addTitleAndDescription(array $element): array {
-    if (isset($element["source"]["value"])) {
-      $element["source"]["value"]["#title_display"] = 'before';
-      if (empty($element["source"]["value"]["#title"])) {
-        $element["source"]["value"]["#title"] = $element["#title"];
+    if (isset($element['source']['value'])) {
+      $element['source']['value']['#title_display'] = 'before';
+      if (empty($element['source']['value']['#title'])) {
+        $element['source']['value']['#title'] = $element['#title'];
       }
-      if (empty($element["source"]["value"]["#description"])) {
-        $element["source"]["value"]["#description"] = $element['#description'] ?? NULL;
+      if (empty($element['source']['value']['#description'])) {
+        $element['source']['value']['#description'] = $element['#description'] ?? NULL;
       }
     }
     return $element;
@@ -334,7 +334,7 @@ abstract class ComponentFormBase extends FormElementBase implements TrustedCallb
    * @return array
    *   The altered element.
    */
-  public static function afterBuild(array $element, FormStateInterface $form_state) : array {
+  public static function afterBuild(array $element, FormStateInterface $form_state): array {
     if ($form_state->isProcessingInput()) {
       static::elementValidate($element, $form_state);
     }
@@ -349,7 +349,7 @@ abstract class ComponentFormBase extends FormElementBase implements TrustedCallb
    * @param \Drupal\Core\Form\FormStateInterface $form_state
    *   The form state.
    */
-  public static function elementValidate(array &$element, FormStateInterface $form_state) : void {
+  public static function elementValidate(array &$element, FormStateInterface $form_state): void {
     // For browser-submitted forms, the submitted values do not contain
     // values for certain elements (empty multiple select, unchecked
     // checkbox). Child elements are processed after the parent element,
@@ -371,9 +371,7 @@ abstract class ComponentFormBase extends FormElementBase implements TrustedCallb
    *
    * @SuppressWarnings("PHPMD.UnusedFormalParameter")
    */
-  protected static function cleanValues(array &$value) : void {
-
-  }
+  protected static function cleanValues(array &$value): void {}
 
   /**
    * Build sources selector widget.
@@ -382,7 +380,7 @@ abstract class ComponentFormBase extends FormElementBase implements TrustedCallb
     if (empty($sources)) {
       return [];
     }
-    if ($selected_source && (count($sources) == 1)) {
+    if ($selected_source && (count($sources) === 1)) {
       return [
         '#type' => 'hidden',
         '#value' => array_keys($sources)[0],
@@ -394,14 +392,14 @@ abstract class ComponentFormBase extends FormElementBase implements TrustedCallb
         ],
       ];
     }
-    $options = static::sourcesToOptions($sources);
+    $options = static::sourcesToOptions($sources, TRUE, $selected_source);
     return [
       '#type' => 'select',
-      "#options" => $options,
+      '#options' => $options,
       '#title' => t('Source'),
       '#default_value' => $selected_source?->getPluginId(),
       '#attributes' => [
-        'class' => ["uip-source-selector"],
+        'class' => ['uip-source-selector'],
       ],
       '#empty_option' => t('- Select -'),
       '#ajax' => [
@@ -423,23 +421,23 @@ abstract class ComponentFormBase extends FormElementBase implements TrustedCallb
    * @return array<string, \Drupal\ui_patterns\SourceInterface>
    *   The ordered sources.
    */
-  protected static function orderSources(array $sources, string $default_source_id) : array {
+  protected static function orderSources(array $sources, string $default_source_id): array {
     $returned = [];
     if ($default_source_id && isset($sources[$default_source_id])) {
       $returned[$default_source_id] = $sources[$default_source_id];
     }
-    $native_sources = array_filter($sources, function ($source) use ($default_source_id) {
+    $native_sources = array_filter($sources, static function ($source) use ($default_source_id) {
       /** @var \Drupal\ui_patterns\SourcePluginBase $source */
-      return ($source->getPluginId() !== $default_source_id) && in_array("prop_type_compatibility:native", $source->getConfiguration()["selection"]["tags"] ?? []);
+      return ($source->getPluginId() !== $default_source_id) && in_array('prop_type_compatibility:native', $source->getConfiguration()['selection']['tags'] ?? [], TRUE);
     });
-    $converted_sources = array_filter($sources, function ($source) use ($default_source_id) {
+    $converted_sources = array_filter($sources, static function ($source) use ($default_source_id) {
       /** @var \Drupal\ui_patterns\SourcePluginBase $source */
-      return ($source->getPluginId() !== $default_source_id) && !in_array("prop_type_compatibility:native", $source->getConfiguration()["selection"]["tags"] ?? []);
+      return ($source->getPluginId() !== $default_source_id) && !in_array('prop_type_compatibility:native', $source->getConfiguration()['selection']['tags'] ?? [], TRUE);
     });
-    uasort($native_sources, function ($a, $b) {
+    uasort($native_sources, static function ($a, $b) {
       return strcasecmp($a->label(), $b->label());
     });
-    uasort($converted_sources, function ($a, $b) {
+    uasort($converted_sources, static function ($a, $b) {
       return strcasecmp($a->label(), $b->label());
     });
     foreach ($native_sources as $source) {
@@ -454,20 +452,27 @@ abstract class ComponentFormBase extends FormElementBase implements TrustedCallb
   /**
    * Get selected source plugin.
    */
-  protected static function sourcesToOptions(array $sources, bool $use_group = TRUE): array {
+  protected static function sourcesToOptions(array $sources, bool $use_group = TRUE, ?SourceInterface $selected = NULL): array {
     $options = [];
     $context_switchers = [];
     foreach ($sources as $valid_source_plugin) {
       $plugin_configuration = $valid_source_plugin->getConfiguration();
-      $label = (string) $valid_source_plugin->getPluginDefinition()["label"];
-      if ($use_group && isset($plugin_configuration['selection']) && isset($plugin_configuration['selection']["tags"]) && in_array("context_switcher", $plugin_configuration['selection']["tags"])) {
+
+      $definition = $valid_source_plugin->getPluginDefinition();
+      $label = (string) $definition['label'];
+      if ($use_group && isset($plugin_configuration['selection'], $plugin_configuration['selection']['tags']) && in_array(SourceTags::ContextSwitcher->value, $plugin_configuration['selection']['tags'], TRUE)) {
         $context_switchers[$valid_source_plugin->getPluginId()] = $label;
         continue;
       }
-      $options[$valid_source_plugin->getPluginId()] = $label;
+      $source_id = $valid_source_plugin->getPluginId();
+      if (($definition['no_ui'] ?? FALSE) && ($source_id !== $selected?->getPluginId())) {
+        // We don't hide no_ui sources if they are already selected.
+        continue;
+      }
+      $options[$source_id] = $label;
     }
     if ($context_switchers) {
-      $label = (string) t("More data");
+      $label = (string) t('More data');
       $options[$label] = $context_switchers;
     }
     return $options;

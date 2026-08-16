@@ -67,6 +67,22 @@ class FlippedTableFormatter extends BaseFormatter {
   /**
    * {@inheritdoc}
    */
+  public function processFields(array $element, FormStateInterface $form_state, array $form): array {
+    $element = parent::processFields($element, $form_state, $form);
+    foreach ($this->getCustomFieldItems() as $name => $custom_item) {
+      // Remove non-applicable settings.
+      $label_options = $element[$name]['content']['formatter_settings']['label_display']['#options'];
+      unset($label_options['inline']);
+      $label_options['above'] = $this->t('Default');
+      $element[$name]['content']['formatter_settings']['label_display']['#options'] = $label_options;
+    }
+
+    return $element;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function viewElements(FieldItemListInterface $items, $langcode): array {
     $elements = [];
 
@@ -134,7 +150,7 @@ class FlippedTableFormatter extends BaseFormatter {
               '#theme' => 'custom_field_item',
               '#field_name' => $name,
               '#name' => $value['name'],
-              '#value' => $value['value']['#markup'],
+              '#value' => $value['value'],
               '#label' => $value['label'],
               '#label_display' => 'hidden',
               '#type' => $value['type'],

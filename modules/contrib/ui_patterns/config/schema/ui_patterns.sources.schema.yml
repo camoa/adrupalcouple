@@ -35,7 +35,7 @@ ui_patterns_source.textfield:
   label: 'Source: Textfield'
   mapping:
     value:
-      type: string
+      type: label
       label: 'String value'
 
 ui_patterns_source.select:
@@ -62,7 +62,7 @@ ui_patterns_source.attributes:
   label: 'Source: Attributes'
   mapping:
     value:
-      type: string
+      type: label
       label: 'Attribute value'
 
 ui_patterns_source.attributes_class:
@@ -141,7 +141,7 @@ ui_patterns_source.token:
   label: 'Source: Token'
   mapping:
     value:
-      type: string
+      type: label
       label: 'Token value'
 
 ui_patterns_source.field_property:*:*:*:
@@ -151,6 +151,25 @@ ui_patterns_source.field_property:*:*:*:
     type:
       type: string
       label: 'Field Property type'
+
+ui_patterns_source.field_formatter:*:*:*:
+  type: mapping
+  label: 'Source: field_formatter'
+  mapping:
+    type:
+      type: string
+      label: 'Field formatter type'
+    settings:
+      type: field.formatter.settings.[%parent.type]
+      label: 'Field formatter settings'
+    third_party_settings:
+      # Third party settings are always optional: they're an optional extension
+      # point.
+      requiredKey: false
+      type: sequence
+      label: 'Third party settings'
+      sequence:
+        type: field.formatter.third_party.[%key]
 
 # block uses dynamic subkeys not under a specific key.
 # The configuration looks like:

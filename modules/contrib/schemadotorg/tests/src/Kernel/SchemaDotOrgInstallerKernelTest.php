@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Drupal\Tests\schemadotorg\Kernel;
 
 use Drupal\schemadotorg\SchemaDotOrgInstallerInterface;
-use Drupal\schemadotorg\SchemaDotOrgMappingTypeStorageInterface;
 
 /**
  * Tests the Schema.org installer service.
@@ -18,17 +17,12 @@ class SchemaDotOrgInstallerKernelTest extends SchemaDotOrgKernelTestBase {
   /**
    * {@inheritdoc}
    */
-  protected static $modules = ['media'];
+  protected static $modules = ['media', 'schemadotorg_schema_data_test'];
 
   /**
    * The Schema.org installer service.
    */
   protected SchemaDotOrgInstallerInterface $installer;
-
-  /**
-   * The Schema.org mapping type storage.
-   */
-  protected SchemaDotOrgMappingTypeStorageInterface $mappingTypeStorage;
 
   /**
    * {@inheritdoc}
@@ -39,7 +33,6 @@ class SchemaDotOrgInstallerKernelTest extends SchemaDotOrgKernelTestBase {
     $this->installSchemaDotOrg();
 
     $this->installer = $this->container->get('schemadotorg.installer');
-    $this->mappingTypeStorage = $this->container->get('entity_type.manager')->getStorage('schemadotorg_mapping_type');
   }
 
   /**
@@ -86,6 +79,36 @@ class SchemaDotOrgInstallerKernelTest extends SchemaDotOrgKernelTestBase {
     $this->uninstallModule('media');
     $requirements = $this->installer->requirements('runtime');
     $this->assertArrayNotHasKey('schemadotorg_integration_modules', $requirements);
+  }
+
+  /**
+   * Tests Schema.org data alteration during import.
+   *
+   * @covers ::importTable
+   */
+  public function testSchemaDataAlter(): void {
+    // Apply Schema.org type and property alterations.
+    \Drupal::state()->set('schemadotorg_schema_data_test.mode', 'valid');
+    $this->installer->importTables();
+
+    $schema_type_manager = $this->container->get('schemadotorg.schema_type_manager');
+
+    // Check that Schema.org types can be changed, removed, and added.
+    $this->assertSame('An altered Thing.', $schema_type_manager->getType('Thing')['comment']);
+    $this->assertFalse($schema_type_manager->getType('LearningResource'));
+    $this->assertSame('https://schema.org/CustomLearningResource', $schema_type_manager->getType('CustomLearningResource')['id']);
+
+    // Check that Schema.org properties can be changed, removed, and added.
+    $this->assertSame('An altered name.', $schema_type_manager->getProperty('name')['comment']);
+    $this->assertFalse($schema_type_manager->getProperty('assesses'));
+    $this->assertSame('https://schema.org/customProperty', $schema_type_manager->getProperty('customProperty')['id']);
+
+    // Check that missing references do not prevent schema data from being read.
+    $this->assertSame(
+      ['customProperty'],
+      array_keys($schema_type_manager->getTypeProperties('CustomLearningResource')),
+    );
+    $this->assertNotEmpty($schema_type_manager->getTypeBreadcrumbs('CustomLearningResource'));
   }
 
 }

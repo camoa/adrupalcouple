@@ -14,12 +14,14 @@ use Symfony\Component\Yaml\Yaml;
 
 /**
  * Test configuration upgrade from UI Patterns 1 to UI Patterns 2.
+ *
+ * @internal
  */
 #[CoversClass(ConfigurationConverter::class)]
 #[Group('ui_patterns')]
 #[Group('ui_patterns_legacy')]
 #[RunTestsInSeparateProcesses]
-class ConfigurationConverterTest extends KernelTestBase {
+final class ConfigurationConverterTest extends KernelTestBase {
 
   /**
    * {@inheritdoc}
@@ -80,6 +82,7 @@ class ConfigurationConverterTest extends KernelTestBase {
       'views.view.views_row',
       'views.view.views_style',
     ];
+
     foreach ($configNames as $configName) {
       $uip1DataPath = $fixtureModulePath . '/tests/fixtures/uip1/' . $configName . '.yml';
       /** @var array $uip1Data */
@@ -89,10 +92,10 @@ class ConfigurationConverterTest extends KernelTestBase {
       /** @var array $uip2Data */
       $uip2Data = Yaml::parseFile($uip2DataPath);
 
-      $this->assertEquals($uip2Data, $this->configurationConverter->convert($uip1Data));
+      self::assertEquals($uip2Data, $this->configurationConverter->convert($uip1Data));
       // Ensure the converted config is unchanged if the update is
       // re-executed.
-      $this->assertEquals($uip2Data, $this->configurationConverter->convert($uip2Data));
+      self::assertEquals($uip2Data, $this->configurationConverter->convert($uip2Data));
     }
   }
 

@@ -22,13 +22,6 @@ use Drupal\custom_field\TypedData\CustomFieldDataDefinition;
 class CustomFieldLink extends CustomFieldDataTypeBase {
 
   /**
-   * The uri value.
-   *
-   * @var mixed
-   */
-  protected mixed $uri;
-
-  /**
    * The link title value.
    *
    * @var string|null
@@ -49,10 +42,10 @@ class CustomFieldLink extends CustomFieldDataTypeBase {
    */
   public function __construct(DataDefinitionInterface $definition, $name = NULL, ?FieldItemInterface $parent = NULL) {
     parent::__construct($definition, $name, $parent);
-    $this->uri = $parent->{$this->getName()};
     $field_type = $definition->getSetting('field_type');
-    if ($field_type === 'link') {
+    if ($parent && $field_type === 'link') {
       $this->title = $parent->get($this->getName() . CustomItem::SEPARATOR . 'title')->getValue();
+      $this->options = $parent->get($this->getName() . CustomItem::SEPARATOR . 'options')->getValue() ?? [];
     }
   }
 
@@ -65,19 +58,21 @@ class CustomFieldLink extends CustomFieldDataTypeBase {
     // Treat the values as property value of the main property, if no array is
     // given.
     $parent = $this->getParent();
-    if (isset($value) && !is_array($value)) {
-      $value = ['uri' => $value];
+    if ($value && !is_array($value)) {
+      $value = [
+        'uri' => $value,
+      ];
     }
-    $this->uri = !empty($value['uri']) ? $value['uri'] : NULL;
     if (isset($value['title'])) {
-      $parent->set($this->getName() . CustomItem::SEPARATOR . 'title', $value['title']);
       $this->title = $value['title'];
+      $parent->set($this->getName() . CustomItem::SEPARATOR . 'title', $value['title']);
     }
     if (isset($value['options']) && is_array($value['options'])) {
-      $parent->set($this->getName() . CustomItem::SEPARATOR . 'options', $value['options']);
       $this->options = $value['options'];
+      $parent->set($this->getName() . CustomItem::SEPARATOR . 'options', $value['options']);
     }
-    parent::setValue($value, $notify);
+
+    $this->value = $value['uri'] ?? NULL;
   }
 
   /**
@@ -109,16 +104,8 @@ class CustomFieldLink extends CustomFieldDataTypeBase {
   /**
    * {@inheritdoc}
    */
-  public function getValue() {
-    return $this->uri;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function getCastedValue() {
-    $value = $this->getValue();
-    return (string) $value;
+    return $this->value;
   }
 
 }

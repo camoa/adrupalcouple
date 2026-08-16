@@ -9,8 +9,6 @@ use Twig\TwigFunction;
 
 /**
  * Twig extension providing UI Patterns-specific functionalities.
- *
- * @package Drupal\ui_patterns_legacy\Template
  */
 class TwigExtension extends AbstractExtension {
 
@@ -52,7 +50,7 @@ class TwigExtension extends AbstractExtension {
    *
    * @see \Drupal\ui_patterns_legacy\Element\Pattern
    */
-  public function renderPattern(string $id, array $fields = [], $variant = ""): array {
+  public function renderPattern(string $id, array $fields = [], $variant = ''): array {
     $element = [
       '#type' => 'pattern',
       '#id' => $id,
@@ -87,7 +85,7 @@ class TwigExtension extends AbstractExtension {
    *
    * @see \Drupal\ui_patterns_legacy\Element\PatternPreview
    */
-  public function renderPatternPreview(string $id, string $variant = ""): array {
+  public function renderPatternPreview(string $id, string $variant = ''): array {
     return [
       '#type' => 'pattern_preview',
       '#id' => $id,

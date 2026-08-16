@@ -6,12 +6,12 @@ namespace Drupal\Tests\ui_patterns\Traits;
 
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
 use Drupal\Core\Field\FieldTypePluginManager;
-use Drupal\Tests\node\Traits\NodeCreationTrait;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\field\FieldConfigInterface;
 use Drupal\node\Entity\NodeType;
 use Drupal\node\NodeInterface;
+use Drupal\Tests\node\Traits\NodeCreationTrait;
 
 /**
  * Entity test data trait.
@@ -82,12 +82,17 @@ trait TestContentCreationTrait {
       if ($field_type_id === 'uuid') {
         continue;
       }
-      $field_name = sprintf("field_%s_%s", $field_type_id, 1);
+      $field_name = sprintf('field_%s_%s', $field_type_id, 1);
       $bundle = (string) $type->id();
       $this->createEntityField($type->getEntityType()->getBundleOf(), $bundle, $field_name, $field_type_id, 1);
-      $field_name = sprintf("field_%s", $field_type_id);
-      $this->createEntityField($type->getEntityType()->getBundleOf(), $bundle, $field_name, $field_type_id,
-          FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED);
+      $field_name = sprintf('field_%s', $field_type_id);
+      $this->createEntityField(
+        $type->getEntityType()->getBundleOf(),
+        $bundle,
+        $field_name,
+        $field_type_id,
+        FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED
+      );
     }
     return $type;
   }
@@ -101,8 +106,7 @@ trait TestContentCreationTrait {
     string $field_name,
     string $field_type_id,
     int $cardinality = FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED,
-  ) : FieldConfigInterface {
-    $field_type_definition = $this->getFieldTypePluginManager()->getDefinition($field_type_id);
+  ): FieldConfigInterface {
     // Create a field storage.
     $existing_field_storage = FieldStorageConfig::loadByName($entity_type, $field_name);
     if ($existing_field_storage === NULL) {
@@ -120,11 +124,15 @@ trait TestContentCreationTrait {
     }
 
     // Create a field instance on the content type.
+    // The label is built from the field type ID, not from the field type's
+    // own label: core's labels change between versions and are not unique
+    // ("text" and "string" are both "Short text" since Drupal 11.4), which
+    // makes them unusable to identify a field in test expectations.
     $field = [
       'field_name' => $field_storage['field_name'],
       'entity_type' => $entity_type,
       'bundle' => $bundle,
-      'label' => sprintf("%s %s", $field_type_definition['label'], (string) $cardinality),
+      'label' => sprintf('%s %s', $field_type_id, (string) $cardinality),
       'settings' => [],
     ];
     $field_config = FieldConfig::create($field);

@@ -141,7 +141,7 @@ class LayoutSection extends SingleContentSyncFieldProcessorPluginBase implements
 
           if (isset($configuration['block_serialized'])) {
             $block = unserialize($configuration['block_serialized'], [
-              'allowed_classes' => [BlockContent::class],
+              'allowed_classes' => [BlockContent::class, 'Drupal\paragraphs\Entity\Paragraph'],
             ]);
           }
           elseif (isset($configuration['block_revision_id'])) {
@@ -225,7 +225,7 @@ class LayoutSection extends SingleContentSyncFieldProcessorPluginBase implements
     } else {
       // If sections are missing or invalid, throw an exception.
       throw new \Exception('Invalid or missing section data format.');
-    }   
+    }
 
     foreach ($sections as $section) {
       $section_components = $section->getComponents();

@@ -31,24 +31,24 @@ trait TestDataTrait {
         }
         foreach ($list_of_method_arguments as $method_arguments) {
           if (is_array($method_arguments)) {
-            if ($method === "elementExists") {
+            if ($method === 'elementExists') {
               // @phpstan-ignore-next-line
-              $elements = call_user_func_array([$page, "findAll"], $method_arguments);
-              $this->assertTrue(count($elements) > 0, sprintf("Element %s=%s not found from %s", $method_arguments[0], $method_arguments[1], $pageContent));
+              $elements = call_user_func_array([$page, 'findAll'], $method_arguments);
+              $this->assertTrue(count($elements) > 0, sprintf('Element %s=%s not found from %s', $method_arguments[0], $method_arguments[1], $pageContent));
             }
-            elseif ($method === "elementsCount" && count($method_arguments) === 3) {
+            elseif ($method === 'elementsCount' && count($method_arguments) === 3) {
               $selectorType = $method_arguments[0];
               $selector = $method_arguments[1];
               $nodes = $page->findAll($selectorType, $selector);
               $count = (int) $method_arguments[2];
               $message = sprintf(
-                      '%d %s %s found on the page, but should be %d. %s',
-                      count($nodes),
-                      $selectorType,
-                      $selector,
-                      $count,
-                      $pageContent
-                  );
+                '%d %s %s found on the page, but should be %d. %s',
+                count($nodes),
+                $selectorType,
+                $selector,
+                $count,
+                $pageContent
+              );
               $this->assertTrue($count === count($nodes), $message);
             }
             else {
@@ -80,7 +80,7 @@ trait TestDataTrait {
   protected function assertExpectedOutput(array $expected_result, mixed $result, string $message = ''): void {
     $assert_done = FALSE;
     if (isset($expected_result['value'])) {
-      $this->assertTrue(str_contains((string) $result, "" . $expected_result['value']), sprintf("%s: '%s'", $message, print_r($result, TRUE)));
+      $this->assertTrue(str_contains((string) $result, '' . $expected_result['value']), sprintf("%s: '%s'", $message, print_r($result, TRUE)));
       $assert_done = TRUE;
     }
     if (isset($expected_result['normalized_value'])) {
@@ -89,15 +89,23 @@ trait TestDataTrait {
       $assert_done = TRUE;
     }
     if (isset($expected_result['same'])) {
-      $this->assertSame($expected_result['same'], $result, $message);
+      // MarkupInterface compared against a string expected value is a
+      // trust-signal pattern (source escaped its output then wrapped in
+      // Markup::create so downstream prop-type normalize sees "already
+      // safe"). Compare the rendered string so fixtures can stay
+      // YAML-friendly while still using strict assertSame on content.
+      $assert_actual = ($result instanceof MarkupInterface && is_string($expected_result['same']))
+        ? (string) $result
+        : $result;
+      $this->assertSame($expected_result['same'], $assert_actual, $message);
       $assert_done = TRUE;
     }
     if (isset($expected_result['regEx'])) {
       if (is_array($result)) {
-        throw new \Exception("invalid result to test for regEx: " . print_r($result, TRUE));
+        throw new \Exception('invalid result to test for regEx: ' . print_r($result, TRUE));
       }
       if (!is_string($result)) {
-        $result = "" . $result;
+        $result = '' . $result;
       }
       $this->assertTrue(preg_match($expected_result['regEx'], $result) === 1, $message);
       $assert_done = TRUE;
@@ -105,7 +113,7 @@ trait TestDataTrait {
     if (isset($expected_result['rendered_value']) || isset($expected_result['rendered_value_plain'])) {
       $rendered = is_array($result) ? \Drupal::service('renderer')->renderInIsolation($result) : $result;
       if ($rendered instanceof MarkupInterface) {
-        $rendered = "" . $rendered;
+        $rendered = '' . $rendered;
       }
       $normalized_rendered = self::normalizeMarkupString($rendered);
       if (isset($expected_result['rendered_value'])) {
@@ -142,13 +150,13 @@ trait TestDataTrait {
    */
   protected function assertExpectedOutputGeneric(mixed $expected_argument, mixed $computed_data, array $expected_result_metadata, string $message = ''): void {
     $haystack = $computed_data;
-    if (!isset($expected_result_metadata["assert"])) {
-      $expected_result_metadata["assert"] = "assertContains";
+    if (!isset($expected_result_metadata['assert'])) {
+      $expected_result_metadata['assert'] = 'assertContains';
     }
-    if ($expected_result_metadata["assert"] === "assertContains") {
+    if ($expected_result_metadata['assert'] === 'assertContains') {
       $haystack = [$computed_data];
     }
-    $this->{$expected_result_metadata["assert"]}($expected_argument, $haystack, $message);
+    $this->{$expected_result_metadata['assert']}($expected_argument, $haystack, $message);
   }
 
   /**
@@ -156,20 +164,17 @@ trait TestDataTrait {
    */
   protected static function normalizeMarkupString(string $markup): string {
     $markup = preg_replace('/\s*(<|>)\s*/', '$1', $markup);
-    $markup = trim($markup);
-    return $markup;
+    return trim($markup);
   }
 
   /**
    * Loads test dataset fixture.
    */
-  protected static function loadTestDataFixture($path = __DIR__ . "/../../fixtures/TestDataSet.yml") {
+  protected static function loadTestDataFixture($path = __DIR__ . '/../../fixtures/TestDataSet.yml') {
     return new class($path) {
 
       /**
        * The loaded fixture.
-       *
-       * @var array
        */
       private array $fixture;
 
@@ -182,7 +187,7 @@ trait TestDataTrait {
       public function __construct(string $path) {
         $yaml = file_get_contents($path);
         if ($yaml === FALSE) {
-          throw new \InvalidArgumentException(sprintf("fixture: %s not found.", $path));
+          throw new \InvalidArgumentException(sprintf('fixture: %s not found.', $path));
         }
         $this->fixture = Yaml::decode($yaml);
       }
@@ -193,13 +198,13 @@ trait TestDataTrait {
        * @return array<string, array<string, mixed> >
        *   The test data sets.
        */
-      public function getTestSets() : array {
+      public function getTestSets(): array {
         if (!is_array($this->fixture)) {
           return [];
         }
         $test_sets = $this->fixture;
         foreach ($test_sets as $set_name => &$test_set) {
-          $test_set = array_merge(["name" => $set_name], $test_set);
+          $test_set = array_merge(['name' => $set_name], $test_set);
         }
         unset($test_set);
         return $test_sets;
@@ -217,7 +222,7 @@ trait TestDataTrait {
       public function getTestSet(string $set_name): array {
         $test_sets = $this->getTestSets();
         if (is_array($test_sets[$set_name])) {
-          return array_merge(["name" => $set_name], $test_sets[$set_name]);
+          return array_merge(['name' => $set_name], $test_sets[$set_name]);
         }
         throw new \Exception(sprintf('Test set "%s" not found.', $set_name));
       }

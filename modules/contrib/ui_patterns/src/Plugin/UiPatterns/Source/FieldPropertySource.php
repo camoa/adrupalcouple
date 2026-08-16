@@ -34,13 +34,16 @@ class FieldPropertySource extends FieldValueSourceBase {
     if (!$field_item_at_delta) {
       return NULL;
     }
-    $property_value = $field_item_at_delta->get($property)->getValue();
     $prop_typ_types = [];
     if (isset($this->propDefinition['type'])) {
       // Type can be an array of types or a single type.
       $prop_typ_types = is_array($this->propDefinition['type']) ? $this->propDefinition['type'] : [$this->propDefinition['type']];
     }
-    return $this->transTypeProp($property_value, $prop_typ_types);
+    // Return the raw property value: trust is carried by its type. A
+    // processed property (TextProcessed) is FilteredMarkup, which the prop
+    // type keeps as safe HTML; a raw string property (StringInterface) is
+    // a plain string, which Twig autoescapes at render.
+    return $this->transTypeProp($field_item_at_delta->get($property)->getValue(), $prop_typ_types);
   }
 
   /**
@@ -51,7 +54,7 @@ class FieldPropertySource extends FieldValueSourceBase {
    * @param array<string> $prop_types
    *   The prop types.
    *
-   * @return bool|float|int
+   * @return bool|float|int|mixed
    *   The value converted.
    */
   protected function transTypeProp(mixed $value, array $prop_types): mixed {

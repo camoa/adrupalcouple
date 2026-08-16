@@ -6,13 +6,20 @@ namespace Drupal\Tests\ui_patterns_layouts\Kernel;
 
 use Drupal\Tests\ui_patterns\Kernel\SourcePluginsTestBase;
 use Drupal\ui_patterns_layouts\Plugin\Layout\ComponentLayout;
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
  * Tests UI patterns layouts plugin deriver.
  *
- * @group ui_patterns_layouts
+ * @internal
+ *
+ * @coversNothing
  */
-class SourcesDeriverTest extends SourcePluginsTestBase {
+#[Group('ui_patterns')]
+#[Group('ui_patterns_layouts')]
+#[RunTestsInSeparateProcesses]
+final class SourcesDeriverTest extends SourcePluginsTestBase {
 
   /**
    * {@inheritdoc}
@@ -51,21 +58,23 @@ class SourcesDeriverTest extends SourcePluginsTestBase {
    * Tests creating fields of all types on a content type.
    */
   public function testDerivedPluginPerComponent() {
-    /* @phpstan-ignore method.notFound */
+    // @phpstan-ignore method.notFound
     $components = $this->componentManager->getNegotiatedSortedDefinitions();
+
     foreach ($components as $component) {
       $component_instance = $this->componentManager->find($component['id']);
-      $id = str_replace('-', '_', (string) $component['id']);
-      $layout_plugin_id = sprintf('ui_patterns:%s', $id);
+      $id = \str_replace('-', '_', (string) $component['id']);
+      $layout_plugin_id = \sprintf('ui_patterns:%s', $id);
       $layout = $this->layoutManager->createInstance($layout_plugin_id);
-      $this->assertNotNull($layout, "Layout for component {$component['id']} is missing");
-      $this->assertInstanceOf(ComponentLayout::class, $layout);
+      self::assertNotNull($layout, "Layout for component {$component['id']} is missing");
+      self::assertInstanceOf(ComponentLayout::class, $layout);
       /** @var \Drupal\Core\Layout\LayoutDefinition $layout_definition */
       $layout_definition = $layout->getPluginDefinition();
-      $regions = array_keys($layout_definition->getRegions());
+      $regions = \array_keys($layout_definition->getRegions());
       $slots = $component_instance->metadata->slots ?? [];
-      foreach (array_keys($slots) as $slot_id) {
-        $this->assertContains($slot_id, $regions, "Slot {$slot_id} is missing in layout for component {$component['id']}");
+
+      foreach (\array_keys($slots) as $slot_id) {
+        self::assertContains($slot_id, $regions, "Slot {$slot_id} is missing in layout for component {$component['id']}");
       }
     }
   }

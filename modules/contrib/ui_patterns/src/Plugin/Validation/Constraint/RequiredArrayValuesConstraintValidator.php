@@ -23,7 +23,7 @@ class RequiredArrayValuesConstraintValidator extends ConstraintValidator {
     }
     $values = array_values($value);
     foreach ($constraint->requiredValues as $requiredValue) {
-      if (!in_array($requiredValue, $values)) {
+      if (!in_array($requiredValue, $values, TRUE)) {
         $this->context->buildViolation($constraint->requiredValueMessage)->setParameter('@value', $requiredValue)
           ->atPath((string) $requiredValue)->setInvalidValue($requiredValue)
           ->addViolation();

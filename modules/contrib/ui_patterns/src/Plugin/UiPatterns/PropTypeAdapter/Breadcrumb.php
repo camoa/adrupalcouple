@@ -39,8 +39,8 @@ final class Breadcrumb extends PropTypeAdapterPluginBase {
       return $data;
     }
     foreach ($data as $index => $item) {
-      $item["text"] = $item["title"];
-      unset($item["title"]);
+      $item['text'] = $item['title'];
+      unset($item['title']);
       $data[$index] = $item;
     }
     return $data;

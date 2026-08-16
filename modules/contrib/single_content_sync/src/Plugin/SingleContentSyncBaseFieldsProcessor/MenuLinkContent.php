@@ -101,14 +101,23 @@ class MenuLinkContent extends SingleContentSyncBaseFieldsProcessorPluginBase imp
 
     // Export parent menu link.
     if ($entity->getParentId()) {
-      [, $parent_uuid] = explode(':', $entity->getParentId());
-      $parent = $this->entityRepository->loadEntityByUuid($entity->getEntityTypeId(), $parent_uuid);
+      // Check if parent is a not a config menu link.
+      if (strpos($entity->getParentId(), ':') !== FALSE) {
+        [, $parent_uuid] = explode(':', $entity->getParentId());
+        $parent = $this->entityRepository->loadEntityByUuid($entity->getEntityTypeId(), $parent_uuid);
 
-      if ($parent instanceof MenuLinkContentInterface) {
-        if ($is_stub) {
-          $parent->setSyncing(TRUE);
+        if ($parent instanceof MenuLinkContentInterface) {
+          if ($is_stub) {
+            $parent->setSyncing(TRUE);
+          }
+          $base_fields['parent'] = $this->exporter->doExportToArray($parent);
         }
-        $base_fields['parent'] = $this->exporter->doExportToArray($parent);
+      }
+      else {
+        $base_fields['parent'] = [
+          'type' => 'config',
+          'value' => $entity->getParentId(),
+        ];
       }
     }
 
@@ -170,8 +179,13 @@ class MenuLinkContent extends SingleContentSyncBaseFieldsProcessorPluginBase imp
 
     // Import parent menu link first.
     if (!empty($values['parent'])) {
-      $parent = $this->importer->doImport($values['parent']);
-      $baseFields['parent'] = implode(':', ['menu_link_content', $parent->uuid()]);
+      if (isset($values['parent']['type']) && $values['parent']['type'] === 'config') {
+        $baseFields['parent'] = $values['parent']['value'];
+      }
+      else {
+        $parent = $this->importer->doImport($values['parent']);
+        $baseFields['parent'] = implode(':', ['menu_link_content', $parent->uuid()]);
+      }
     }
 
     // Import linked entity.

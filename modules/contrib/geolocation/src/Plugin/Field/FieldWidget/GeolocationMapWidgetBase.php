@@ -284,8 +284,9 @@ abstract class GeolocationMapWidgetBase extends WidgetBase implements ContainerF
       $element['map_provider_settings']['#title'] .= ' - ' . $this->t('Override Map Default Preset');
     }
 
-    $element['map']['#settings'] = array_merge($element['map']['#settings'], [
-      'map_features' => [
+    $element['map']['#settings']['map_features'] = array_merge(
+      $element['map']['#settings']['map_features'] ?? [],
+      [
         $this->getWidgetFeatureId() => [
           'enabled' => TRUE,
           'settings' => [
@@ -294,8 +295,8 @@ abstract class GeolocationMapWidgetBase extends WidgetBase implements ContainerF
             'cardinality' => $this->fieldDefinition->getFieldStorageDefinition()->getCardinality(),
           ],
         ],
-      ],
-    ]);
+      ]
+    );
 
     $element['map'] = $this->mapCenterManager->alterMap($element['map'], $settings['centre']);
 

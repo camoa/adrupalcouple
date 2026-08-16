@@ -31,8 +31,8 @@ use Drupal\ui_patterns\PropTypePluginBase;
             'type' => 'array',
             'items' => [
               'anyOf' => [
-              ['type' => 'number'],
-              ['type' => 'string'],
+                ['type' => 'number'],
+                ['type' => 'string'],
               ],
             ],
           ],
@@ -102,7 +102,7 @@ class AttributesPropType extends PropTypePluginBase {
     }
     if (is_array($value) && array_is_list($value)) {
       // We encode to JSON because we don't know how deep is the nesting.
-      return json_encode($value, 0, 3) ?: "";
+      return json_encode($value, 0, 3) ?: '';
     }
     if (is_array($value) && !array_is_list($value)) {
       return static::normalizeRenderArray($value);
@@ -162,11 +162,11 @@ class AttributesPropType extends PropTypePluginBase {
    */
   protected static function normalizeRenderArray(array $value): string {
     if (!empty(Element::properties($value))) {
-      // Attribute::__toString() will escape this  at render time.
+      // Attribute::__toString() will escape this at render time.
       return (string) \Drupal::service('renderer')->render($value);
     }
     // We encode to JSON because we don't know how deep is the nesting.
-    return json_encode($value, 0, 3) ?: "";
+    return json_encode($value, 0, 3) ?: '';
   }
 
   /**

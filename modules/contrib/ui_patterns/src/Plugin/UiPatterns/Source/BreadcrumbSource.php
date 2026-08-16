@@ -48,12 +48,11 @@ class BreadcrumbSource extends SourcePluginBase {
     $links = [];
     foreach ($breadcrumb->getLinks() as $link) {
       $links[] = [
-        "title" => $link->getText(),
-        "url" => $link->getUrl()->toString(),
+        'title' => $link->getText(),
+        'url' => $link->getUrl()->toString(),
       ];
     }
     return $links;
-
   }
 
   /**

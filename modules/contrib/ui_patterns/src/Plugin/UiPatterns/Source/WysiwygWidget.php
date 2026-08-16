@@ -10,6 +10,7 @@ use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\filter\Entity\FilterFormat;
 use Drupal\ui_patterns\Attribute\Source;
 use Drupal\ui_patterns\SourcePluginBase;
+use Drupal\ui_patterns\SourceTags;
 
 /**
  * Plugin implementation of the source.
@@ -19,7 +20,7 @@ use Drupal\ui_patterns\SourcePluginBase;
   label: new TranslatableMarkup('Wysiwyg'),
   description: new TranslatableMarkup('Wysiwyg editor'),
   prop_types: ['slot'],
-  tags: ['widget']
+  tags: [SourceTags::Widget->value]
 )]
 class WysiwygWidget extends SourcePluginBase implements TrustedCallbackInterface {
 
@@ -39,12 +40,12 @@ class WysiwygWidget extends SourcePluginBase implements TrustedCallbackInterface
    * @return array
    *   Processed element
    */
-  public static function textFormat(array $element) : array {
+  public static function textFormat(array $element): array {
     if (!isset($element['#ui_patterns']) || !$element['#ui_patterns']) {
       return $element;
     }
-    if (isset($element['format']['format']['#access']) &&
-      !$element['format']['format']['#access']) {
+    if (isset($element['format']['format']['#access'])
+      && !$element['format']['format']['#access']) {
       // See code at Drupal\filter\Element\TextFormat::processTextFormat()
       // when the format is not accessible, we need to make it accessible.
       $element['format']['format']['#access'] = TRUE;
@@ -66,8 +67,8 @@ class WysiwygWidget extends SourcePluginBase implements TrustedCallbackInterface
   public function defaultSettings(): array {
     return [
       'value' => [
-        "value" => '',
-        "format" => '',
+        'value' => '',
+        'format' => '',
       ],
     ];
   }
@@ -77,9 +78,9 @@ class WysiwygWidget extends SourcePluginBase implements TrustedCallbackInterface
    */
   public function getPropValue(): mixed {
     return [
-      "#type" => "processed_text",
-      "#text" => $this->getSetting('value')['value'],
-      "#format" => $this->getSetting('value')['format'],
+      '#type' => 'processed_text',
+      '#text' => $this->getSetting('value')['value'],
+      '#format' => $this->getSetting('value')['format'],
     ];
   }
 
@@ -93,10 +94,10 @@ class WysiwygWidget extends SourcePluginBase implements TrustedCallbackInterface
       '#type' => 'text_format',
       '#ui_patterns' => TRUE,
     ];
-    if (is_array($value) && array_key_exists("value", $value)) {
+    if (is_array($value) && array_key_exists('value', $value)) {
       $element['#default_value'] = $value['value'];
     }
-    if (is_array($value) && array_key_exists("format", $value) && !empty($value['format'])) {
+    if (is_array($value) && array_key_exists('format', $value) && !empty($value['format'])) {
       $element['#format'] = $value['format'];
     }
     else {
@@ -120,13 +121,13 @@ class WysiwygWidget extends SourcePluginBase implements TrustedCallbackInterface
   /**
    * {@inheritdoc}
    */
-  public function calculateDependencies() : array {
+  public function calculateDependencies(): array {
     $dependencies = parent::calculateDependencies();
     $value = $this->getSetting('value');
-    if (!is_array($value) || !array_key_exists("format", $value)) {
+    if (!is_array($value) || !array_key_exists('format', $value)) {
       return $dependencies;
     }
-    $format = FilterFormat::load($value["format"]);
+    $format = FilterFormat::load($value['format']);
     if ($format) {
       SourcePluginBase::mergeConfigDependencies($dependencies, [$format->getConfigDependencyKey() => [$format->getConfigDependencyName()]]);
     }

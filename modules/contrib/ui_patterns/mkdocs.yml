@@ -44,6 +44,7 @@ nav:
       - Field formatters: "1-users/3-in-field-formatter.md"
       - Using a component with Views: "1-users/4-with-views.md"
       - Presenter templates: "1-users/5-presenter-templates.md"
+      - Storing sources in a field: "1-users/6-as-field.md"
   - Authoring a component:
       - Authoring a component: 2-authors/0-authoring-a-component.md
       - Library pages and stories: 2-authors/1-stories-and-library.md

@@ -77,7 +77,7 @@ class PropTypePluginManager extends DefaultPluginManager implements FallbackPlug
    */
   protected function getSortedDefinitions(): array {
     $definitions = $this->getDefinitions();
-    usort($definitions, function ($a, $b) {
+    usort($definitions, static function ($a, $b) {
       return ($b['priority'] ?? 1) - ($a['priority'] ?? 1);
     });
     return $definitions;
@@ -86,14 +86,14 @@ class PropTypePluginManager extends DefaultPluginManager implements FallbackPlug
   /**
    * Returns a prop type definition from a JSON schema.
    */
-  protected function getDefinitionFromSchema(array $prop_schema): ?array {
+  private function getDefinitionFromSchema(array $prop_schema): ?array {
     // Reference resolver has added an 'id' property with the value from the
     // resolved and removed '$ref'. Let's use it.
-    if (isset($prop_schema['id']) && str_starts_with($prop_schema['id'], "ui-patterns://")) {
+    if (isset($prop_schema['id']) && str_starts_with($prop_schema['id'], 'ui-patterns://')) {
       // No need to guess the prop type if we already know it.
       // Prop types with an underscore, like enum_list, have been renamed by
       // ReferencesResolver::resolve(). Let's cancel that.
-      $prop_type_id = str_replace(["ui-patterns://", "-"], ["", "_"], $prop_schema['id']);
+      $prop_type_id = str_replace(['ui-patterns://', '-'], ['', '_'], $prop_schema['id']);
       return $this->getDefinition($prop_type_id);
     }
     $definitions = $this->getSortedDefinitions();
@@ -122,7 +122,7 @@ class PropTypePluginManager extends DefaultPluginManager implements FallbackPlug
    *   A list of prop type IDs.
    */
   public function getAllPropTypeByTypedData(string $data_type): array {
-    $cache_id = "ui_patterns_typed_data_prop_types_" . $data_type;
+    $cache_id = 'ui_patterns_typed_data_prop_types_' . $data_type;
     $prop_types = &drupal_static($cache_id);
     if (is_array($prop_types)) {
       return $prop_types;
@@ -154,7 +154,7 @@ class PropTypePluginManager extends DefaultPluginManager implements FallbackPlug
    *
    * @SuppressWarnings("PHPMD.UnusedFormalParameter")
    */
-  protected function getTypedDataCompatibilityMap() : array {
+  private function getTypedDataCompatibilityMap(): array {
     $compatibility_map = &drupal_static(__METHOD__);
     if (is_array($compatibility_map)) {
       return $compatibility_map;
@@ -164,8 +164,8 @@ class PropTypePluginManager extends DefaultPluginManager implements FallbackPlug
     $keys = array_keys($typed_data_definitions);
     $classMap = array_combine(
       $keys,
-      array_map(function ($v, $key) {
-        return $v["class"];
+      array_map(static function ($v, $key) {
+        return $v['class'];
       }, $typed_data_definitions, $keys)
     );
     $skipped_parent_classes = [TypedData::class, PrimitiveBase::class];
@@ -193,7 +193,7 @@ class PropTypePluginManager extends DefaultPluginManager implements FallbackPlug
    * @return array<string, array<string>>
    *   Reachable identifiers with paths.
    */
-  public function getConvertibleProps(string $propId) : array {
+  public function getConvertibleProps(string $propId): array {
     $convertibility = $this->getPropConvertibilityGraph();
     $reachable = [];
     $visited = [];
@@ -227,12 +227,12 @@ class PropTypePluginManager extends DefaultPluginManager implements FallbackPlug
   /**
    * Get prop convertibility graph (with caching).
    *
-   * @return array<string, array<string>>|null
-   *   Prop convertibility graph.
-   *
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   *
+   * @return array<string, array<string>>
+   *   Prop convertibility graph.
    */
-  public function getPropConvertibilityGraph() {
+  private function getPropConvertibilityGraph(): array {
     if (isset($this->convertibility) && is_array($this->convertibility)) {
       return $this->convertibility;
     }
@@ -268,7 +268,7 @@ class PropTypePluginManager extends DefaultPluginManager implements FallbackPlug
    * @return string
    *   Cache key name.
    */
-  protected function getCachedKeyPropConvertibilityGraph() : string {
+  private function getCachedKeyPropConvertibilityGraph(): string {
     return $this->cacheKey . ':prop_convertibility_graph';
   }
 
@@ -280,12 +280,12 @@ class PropTypePluginManager extends DefaultPluginManager implements FallbackPlug
    * @param array<string, mixed>|null $prop_type_definition
    *   Prop type definition.
    *
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   *
    * @return array<string>
    *   Convertible prop identifiers.
-   *
-   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
-  protected function getDirectlyConvertibleProps(string $propId, ?array $prop_type_definition = NULL) : array {
+  private function getDirectlyConvertibleProps(string $propId, ?array $prop_type_definition = NULL): array {
     if (!$prop_type_definition) {
       $prop_type_definition = $this->getDefinition($propId);
     }

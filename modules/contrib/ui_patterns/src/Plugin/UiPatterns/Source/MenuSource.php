@@ -4,13 +4,9 @@ declare(strict_types=1);
 
 namespace Drupal\ui_patterns\Plugin\UiPatterns\Source;
 
-use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Menu\MenuTreeParameters;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
-use Drupal\system\Entity\Menu;
 use Drupal\ui_patterns\Attribute\Source;
-use Drupal\ui_patterns\Plugin\UiPatterns\PropType\LinksPropType;
 use Drupal\ui_patterns\SourcePluginBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -25,26 +21,14 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 )]
 class MenuSource extends SourcePluginBase {
 
+  use MenuTreeSourceTrait;
+
   /**
    * The menu ID.
    *
    * @var string
    */
   protected $menuId;
-
-  /**
-   * The menu link tree service.
-   *
-   * @var \Drupal\Core\Menu\MenuLinkTreeInterface
-   */
-  protected $menuLinkTree;
-
-  /**
-   * The entity type manager.
-   *
-   * @var \Drupal\Core\Entity\EntityTypeManager
-   */
-  protected $entityTypeManager;
 
   /**
    * {@inheritdoc}
@@ -86,7 +70,7 @@ class MenuSource extends SourcePluginBase {
       return [];
     }
     $this->menuId = $menu_id;
-    return $this->getMenuItems();
+    return $this->buildMenuTree($menu_id, (int) $this->getSetting('level'), (int) $this->getSetting('depth'));
   }
 
   /**
@@ -94,13 +78,13 @@ class MenuSource extends SourcePluginBase {
    */
   public function settingsForm(array $form, FormStateInterface $form_state): array {
     $form = parent::settingsForm($form, $form_state);
-    $form["menu"] = [
+    $form['menu'] = [
       '#type' => 'select',
-      '#title' => $this->t("Menu"),
-      '#options' => $this->getMenuList(),
+      '#title' => $this->t('Menu'),
+      '#options' => ['' => '(None)'] + $this->getMenuList(),
       '#default_value' => $this->getSetting('menu'),
     ];
-    $options = range(0, $this->menuLinkTree->maxDepth());
+    $options = range(0, $this->menuLinkTree()->maxDepth());
     unset($options[0]);
     $form['level'] = [
       '#type' => 'select',
@@ -122,93 +106,25 @@ class MenuSource extends SourcePluginBase {
   }
 
   /**
-   * Get menus list.
-   *
-   * @return array
-   *   List of menus.
-   */
-  private function getMenuList(): array {
-    $all_menus = $this->entityTypeManager->getStorage('menu')->loadMultiple();
-    $menus = [
-      "" => "(None)",
-    ];
-    foreach ($all_menus as $id => $menu) {
-      $menus[$id] = $menu->label();
-    }
-    asort($menus);
-    return $menus;
-  }
-
-  /**
-   * Get menu items.
-   *
-   * @return array
-   *   List of items.
-   */
-  private function getMenuItems(): array {
-    $menuLinkTree = $this->menuLinkTree;
-    $level = (int) $this->getSetting('level');
-    $depth = (int) $this->getSetting('depth');
-    $parameters = new MenuTreeParameters();
-    $parameters->setMinDepth($level);
-
-    // When the depth is configured to zero, there is no depth limit. When depth
-    // is non-zero, it indicates the number of levels that must be displayed.
-    // Hence this is a relative depth that we must convert to an actual
-    // (absolute) depth, that may never exceed the maximum depth.
-    if ($depth > 0) {
-      $parameters->setMaxDepth(
-        min($level + $depth - 1, $menuLinkTree->maxDepth())
-      );
-    }
-
-    $tree = $menuLinkTree->load($this->menuId, $parameters);
-    $manipulators = [
-      ['callable' => 'menu.default_tree_manipulators:checkAccess'],
-      ['callable' => 'menu.default_tree_manipulators:generateIndexAndSort'],
-    ];
-
-    $tree = $menuLinkTree->transform($tree, $manipulators);
-    $tree = $menuLinkTree->build($tree);
-    if (\array_key_exists("#items", $tree)) {
-      $variables = [
-        "items" => $tree["#items"],
-      ];
-      $this->moduleHandler->invokeAll("preprocess_menu", [&$variables]);
-      $variables["items"] = LinksPropType::normalize($variables["items"], $this->getPropDefinition());
-      return $variables["items"];
-    }
-    return [];
-  }
-
-  /**
    * {@inheritdoc}
    */
   public function alterComponent(array $element): array {
     if (!$this->menuId) {
       return $element;
     }
-
-    $cache = CacheableMetadata::createFromRenderArray($element);
-    $cache->addCacheTags(['config:system.menu.' . $this->menuId]);
-    $cache->applyTo($element);
-    return $element;
+    return $this->addMenuCacheTags($element, [$this->menuId]);
   }
 
   /**
    * {@inheritdoc}
    */
-  public function calculateDependencies() : array {
+  public function calculateDependencies(): array {
     $dependencies = parent::calculateDependencies();
     $menu_id = $this->getSetting('menu');
     if (!$menu_id) {
       return $dependencies;
     }
-    $menu = Menu::load($menu_id);
-    if (!$menu) {
-      return $dependencies;
-    }
-    SourcePluginBase::mergeConfigDependencies($dependencies, [$menu->getConfigDependencyKey() => [$menu->getConfigDependencyName()]]);
+    $this->menuConfigDependencies($dependencies, [$menu_id]);
     return $dependencies;
   }
 

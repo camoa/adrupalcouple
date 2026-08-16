@@ -16,7 +16,7 @@ class ComponentWriter {
    * Write component definition to YML file.
    */
   public function writeDefinition(string $component_id, array $definition, string $component_path): void {
-    $path = realpath(".") . '/' . $component_path . '/';
+    $path = realpath('.') . '/' . $component_path . '/';
     if (!is_dir($path)) {
       mkdir($path, 0775, TRUE);
     }
@@ -36,7 +36,7 @@ class ComponentWriter {
    * Write component story to YML file.
    */
   public function writeStory(string $component_id, array $story, string $component_path): void {
-    $path = realpath(".") . '/' . $component_path . '/';
+    $path = realpath('.') . '/' . $component_path . '/';
     if (!is_dir($path)) {
       mkdir($path, 0775, TRUE);
     }
@@ -49,8 +49,8 @@ class ComponentWriter {
    * Copy component assets to the new folder.
    */
   public function copyAssets(string $component_path, array $legacy_definition): void {
-    $source = realpath(".") . '/' . $legacy_definition['base path'];
-    $target = realpath(".") . '/' . $component_path . '/';
+    $source = realpath('.') . '/' . $legacy_definition['base path'];
+    $target = realpath('.') . '/' . $component_path . '/';
     $finder = new Finder();
     $finder->files()->notName('*.patterns.yml')->notName('*.pattern.yml')->notName('*.ui_patterns.yml')->notName('*.html.twig')->in($source);
     foreach ($finder as $file) {
@@ -70,14 +70,14 @@ class ComponentWriter {
   public function copyTemplates(string $component_path, array $legacy_definition): void {
     $component_id = $legacy_definition['id'];
     // Copy pattern template to component folder.
-    $source = realpath(".") . '/' . $legacy_definition['base path'] . '/pattern-' . $component_id . '.html.twig';
-    $target = realpath(".") . '/' . $component_path . '/' . $component_id . '.twig';
+    $source = realpath('.') . '/' . $legacy_definition['base path'] . '/pattern-' . $component_id . '.html.twig';
+    $target = realpath('.') . '/' . $component_path . '/' . $component_id . '.twig';
     if (file_exists($source)) {
       copy($source, $target);
       return;
     }
     // Try with dash instead of underscores.
-    $source = realpath(".") . '/' . $legacy_definition['base path'] . '/pattern-' . str_replace('_', '-', $component_id) . '.html.twig';
+    $source = realpath('.') . '/' . $legacy_definition['base path'] . '/pattern-' . str_replace('_', '-', $component_id) . '.html.twig';
     if (file_exists($source)) {
       copy($source, $target);
     }
@@ -88,13 +88,13 @@ class ComponentWriter {
    */
   public function checkOtherTemplates(string $component_path, array $legacy_definition): void {
     $component_id = $legacy_definition['id'];
-    $target = realpath(".") . '/' . $component_path . '/' . $component_id . '.twig';
-    $path = realpath(".") . '/' . $legacy_definition['base path'] . '/pattern-' . $component_id . '--preview.html.twig';
+    $target = realpath('.') . '/' . $component_path . '/' . $component_id . '.twig';
+    $path = realpath('.') . '/' . $legacy_definition['base path'] . '/pattern-' . $component_id . '--preview.html.twig';
     if (file_exists($path)) {
-      print("⚠️ " . $component_id . " has a preview template which will not be converted. Use the new stories system instead.\n");
+      print '⚠️ ' . $component_id . " has a preview template which will not be converted. Use the new stories system instead.\n";
     }
     // Example: pattern-button--variant-danger.html.twig.
-    if (!isset($legacy_definition["variants"]) || !is_array($legacy_definition["variants"])) {
+    if (!isset($legacy_definition['variants']) || !is_array($legacy_definition['variants'])) {
       return;
     }
 
@@ -103,11 +103,11 @@ class ComponentWriter {
     // a case in our main template and the content of the main template will
     // be kept in the `else` case.
     $new_template = '{% if variant == "';
-    foreach (array_keys($legacy_definition["variants"]) as $variant_id) {
-      $path = realpath(".") . '/' . $legacy_definition['base path'] . '/pattern-' . $component_id . '--variant-' . $variant_id . '.html.twig';
+    foreach (array_keys($legacy_definition['variants']) as $variant_id) {
+      $path = realpath('.') . '/' . $legacy_definition['base path'] . '/pattern-' . $component_id . '--variant-' . $variant_id . '.html.twig';
       if (!file_exists($path)) {
         // Try with dash instead of underscores.
-        $path = realpath(".") . '/' . $legacy_definition['base path'] . '/pattern-' . str_replace('_', '-', $component_id) . '--variant-' . $variant_id . '.html.twig';
+        $path = realpath('.') . '/' . $legacy_definition['base path'] . '/pattern-' . str_replace('_', '-', $component_id) . '--variant-' . $variant_id . '.html.twig';
       }
       if (!file_exists($path)) {
         continue;

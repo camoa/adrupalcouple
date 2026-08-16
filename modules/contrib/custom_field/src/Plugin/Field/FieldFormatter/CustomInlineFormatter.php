@@ -65,13 +65,22 @@ class CustomInlineFormatter extends BaseFormatter {
       '#title' => $this->t('Item separator'),
       '#default_value' => $this->getSetting('item_separator'),
     ];
-    foreach ($this->getCustomFieldItems() as $name => $item) {
-      // Remove non-applicable settings.
-      unset($form['fields'][$name]['content']['formatter_settings']['label_display']);
-      unset($form['fields'][$name]['content']['wrappers']);
-    }
 
     return $form;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function processFields(array $element, FormStateInterface $form_state, array $form): array {
+    $element = parent::processFields($element, $form_state, $form);
+    foreach ($this->getCustomFieldItems() as $name => $item) {
+      // Remove non-applicable settings.
+      unset($element[$name]['content']['formatter_settings']['label_display']);
+      unset($element[$name]['content']['wrappers']);
+    }
+
+    return $element;
   }
 
   /**
@@ -118,7 +127,7 @@ class CustomInlineFormatter extends BaseFormatter {
         '#theme' => 'custom_field_item',
         '#field_name' => $field_name,
         '#name' => $value['name'],
-        '#value' => $value['value']['#markup'],
+        '#value' => $value['value'],
         '#label' => $value['label'],
         '#label_display' => 'hidden',
         '#type' => $value['type'],

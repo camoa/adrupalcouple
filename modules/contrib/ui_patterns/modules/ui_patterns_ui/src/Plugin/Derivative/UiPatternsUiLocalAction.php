@@ -22,8 +22,7 @@ class UiPatternsUiLocalAction extends DeriverBase implements ContainerDeriverInt
   /**
    * Constructs a UiPatternsUiLocalAction object.
    */
-  public function __construct(protected RouteProviderInterface $routeProvider, protected ComponentPluginManager $componentPluginManager, protected EntityTypeManagerInterface $entityTypeManager) {
-  }
+  public function __construct(protected RouteProviderInterface $routeProvider, protected ComponentPluginManager $componentPluginManager, protected EntityTypeManagerInterface $entityTypeManager) {}
 
   /**
    * {@inheritdoc}

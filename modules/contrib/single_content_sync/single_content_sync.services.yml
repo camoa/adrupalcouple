@@ -77,3 +77,8 @@ services:
     class: Drupal\single_content_sync\EventSubscriber\TaxonomyBulkExportRoutesSubscriber
     tags:
       - { name: event_subscriber }
+
+  single_content_sync.menu_bulk_export_routes_subscriber:
+    class: Drupal\single_content_sync\EventSubscriber\MenuBulkExportRoutesSubscriber
+    tags:
+      - { name: event_subscriber }

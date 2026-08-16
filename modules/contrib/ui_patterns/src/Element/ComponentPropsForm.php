@@ -21,6 +21,7 @@ use Drupal\Core\Render\Element;
  *     'props' => [],
  *   ],
  * ];
+ *
  * @endcode
  *
  * Value example:
@@ -33,6 +34,7 @@ use Drupal\Core\Render\Element;
  *       ]
  *     ],
  *   ]
+ *
  * @endcode
  *
  * Configuration:
@@ -87,7 +89,7 @@ class ComponentPropsForm extends ComponentFormBase {
     }
     $configuration = $element['#default_value']['props'] ?? [];
     if ($element['#render_headings']) {
-      $prop_heading = new FormattableMarkup("<p><strong>@title</strong></p>", ["@title" => t("Props")]);
+      $prop_heading = new FormattableMarkup('<p><strong>@title</strong></p>', ['@title' => t('Props')]);
       $element[] = [
         '#markup' => $prop_heading,
       ];
@@ -100,8 +102,8 @@ class ComponentPropsForm extends ComponentFormBase {
       $prop_type = $prop['ui_patterns']['type_definition'];
       $element[$prop_id] = [
         '#type' => 'component_prop_form',
-        '#title' => $prop["title"] ?? $prop_type->label(),
-        '#description' => $prop["description"] ?? $prop_type->getPluginDefinition()['description'] ?? NULL,
+        '#title' => $prop['title'] ?? $prop_type->label(),
+        '#description' => $prop['description'] ?? $prop_type->getPluginDefinition()['description'] ?? NULL,
         '#default_value' => $configuration[$prop_id] ?? [],
         '#source_contexts' => $contexts,
         '#tag_filter' => $element['#tag_filter'],
@@ -110,7 +112,7 @@ class ComponentPropsForm extends ComponentFormBase {
         '#wrap' => $element['#wrap'] ?? TRUE,
         '#render_sources' => $element['#render_sources'] ?? TRUE,
       ];
-      if (is_array($prop_filter) && !in_array($prop_id, $prop_filter)) {
+      if (is_array($prop_filter) && !in_array($prop_id, $prop_filter, TRUE)) {
         $element[$prop_id]['#access'] = FALSE;
       }
     }

@@ -23,64 +23,42 @@ settings:
   add_more_label: ''
   field_settings:
     value:
-      type: text
-      weight: 0
+      label: Value
       check_empty: true
-      widget_settings:
-        label: Value
-        translatable: false
-        settings:
-          description: 'The metric number/value (e.g. "42%", "3 months").'
-          description_display: after
-          size: 16
-          placeholder: ''
-          maxlength: 64
-          maxlength_js: false
-          prefix: ''
-          suffix: ''
-          required: false
+      required: false
+      translatable: false
+      description: 'The metric number/value (e.g. "42%", "3 months").'
+      description_display: after
+      prefix: ''
+      suffix: ''
     label:
-      type: text
-      weight: 1
+      label: Label
       check_empty: false
-      widget_settings:
-        label: Label
-        translatable: false
-        settings:
-          description: 'The metric description (e.g. "reduction in deployment time").'
-          description_display: after
-          size: 60
-          placeholder: ''
-          maxlength: 255
-          maxlength_js: false
-          prefix: ''
-          suffix: ''
-          required: false
+      required: false
+      translatable: false
+      description: 'The metric description (e.g. "reduction in deployment time").'
+      description_display: after
+      prefix: ''
+      suffix: ''
     source:
-      type: link_default
-      weight: 2
+      label: Source
       check_empty: false
-      widget_settings:
-        label: Source
-        translatable: false
-        settings:
-          description: 'Citation/source URL for the metric. Omitted when empty.'
-          description_display: after
-          required: false
-          link_type: 16
-          field_prefix: default
-          field_prefix_custom: ''
-          title: 1
-          enabled_attributes:
-            target: false
-            class: false
-            rel: false
-            title: false
-            aria-label: false
-            id: false
-            name: false
-            accesskey: false
-          widget_default_open: expandIfValuesSet
-          placeholder_url: ''
-          placeholder_title: ''
+      required: false
+      translatable: false
+      description: 'Citation/source URL for the metric. Omitted when empty.'
+      description_display: after
+      link_type: 16
+      field_prefix: default
+      field_prefix_custom: ''
+      title: 1
+      enabled_attributes:
+        target: false
+        class: false
+        rel: false
+        title: false
+        aria-label: false
+        id: false
+        name: false
+        accesskey: false
+      widget_default_open: expandIfValuesSet
 field_type: custom

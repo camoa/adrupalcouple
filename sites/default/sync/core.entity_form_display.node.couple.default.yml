@@ -112,9 +112,29 @@ content:
     weight: 10
     region: content
     settings:
-      label: true
       wrapper: div
+      label_value: ''
+      label_limit: 60
+      label_prefix: Item
+      auto_collapse: false
       open: true
+      fields:
+        year:
+          weight: 0
+          type: text
+          label: Year
+          size: 16
+          placeholder: ''
+          maxlength: 16
+          maxlength_js: false
+        label:
+          weight: 1
+          type: text
+          label: Milestone
+          size: 60
+          placeholder: ''
+          maxlength: 255
+          maxlength_js: false
     third_party_settings: {  }
   langcode:
     type: language_select

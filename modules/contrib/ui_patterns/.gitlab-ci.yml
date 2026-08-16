@@ -2,6 +2,9 @@
 variables:
   OPT_IN_TEST_PREVIOUS_MAJOR: '1'
   OPT_IN_TEST_PREVIOUS_MINOR: '1'
+  _PHPUNIT_CONCURRENT: '1'
+  _PHPUNIT_TESTGROUPS: 'ui_patterns'
+
 include:
   - project: $_GITLAB_TEMPLATES_REPO
     ref: $_GITLAB_TEMPLATES_REF
@@ -32,7 +35,7 @@ include:
       BASELINE_FILE="${_WEB_ROOT}/modules/custom/${CI_PROJECT_NAME}/.phpmd.baseline.xml"
       PHPMD_CONFIG="${_WEB_ROOT}/modules/custom/${CI_PROJECT_NAME}/.phpmd.xml"
       if [ -f "$BASELINE_FILE" ]; then
-        sed -i "s#/builds/project/display_builder#${CI_PROJECT_DIR}#g" "$BASELINE_FILE"
+        sed -i "s#/builds/project/ui_patterns#${CI_PROJECT_DIR}#g" "$BASELINE_FILE"
       fi
       if [ -f "$PHPMD_CONFIG" ]; then
         BASELINE_ARG=""

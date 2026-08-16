@@ -11,7 +11,7 @@ use Drupal\Tests\schemadotorg\Kernel\SchemaDotOrgEntityKernelTestBase;
 /**
  * Tests the functionality of the Schema.org pathauto.
  *
- * @covers schemadotorg_pathauto_schemadotorg_mapping_insert()
+ * @covers \schemadotorg_pathauto_schemadotorg_mapping_insert
  * @group schemadotorg
  */
 class SchemaDotOrgPathautoKernelTest extends SchemaDotOrgEntityKernelTestBase {

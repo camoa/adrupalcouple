@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\ui_patterns\Plugin\UiPatterns\PropType;
 
+use Drupal\Component\Render\MarkupInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\ui_patterns\Attribute\PropType;
 use Drupal\ui_patterns\PropTypePluginBase;
@@ -27,14 +28,14 @@ class NumberPropType extends PropTypePluginBase {
    */
   public function getSummary(array $definition): array {
     $summary = parent::getSummary($definition);
-    if (isset($definition['type']) && $definition['type'] === "integer") {
-      $summary[] = $this->t("Integers only");
+    if (isset($definition['type']) && $definition['type'] === 'integer') {
+      $summary[] = $this->t('Integers only');
     }
     if (isset($definition['minimum'])) {
-      $summary[] = $this->t("Minimum: @length", ["@length" => $definition['minimum']]);
+      $summary[] = $this->t('Minimum: @length', ['@length' => $definition['minimum']]);
     }
     if (isset($definition['maximum'])) {
-      $summary[] = $this->t("Maximum: @length", ["@length" => $definition['minimum']]);
+      $summary[] = $this->t('Maximum: @length', ['@length' => $definition['minimum']]);
     }
     return $summary;
   }
@@ -43,8 +44,12 @@ class NumberPropType extends PropTypePluginBase {
    * {@inheritdoc}
    */
   public static function normalize(mixed $value, ?array $definition = NULL): mixed {
-    if (NULL === $value) {
+    if ($value === NULL) {
       return NULL;
+    }
+
+    if ($value instanceof MarkupInterface) {
+      $value = $value->__toString();
     }
 
     if (isset($definition['minimum']) && ($value < $definition['minimum'])) {

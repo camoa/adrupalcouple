@@ -130,7 +130,7 @@ class CommandHelper implements CommandHelperInterface {
   /**
    * {@inheritdoc}
    */
-  public function getEntitiesToExport(string $entity_type = 'node', string $bundle = '', bool $all_allowed_content = FALSE, string $entity_ids_to_export = NULL): array {
+  public function getEntitiesToExport(string $entity_type = 'node', string $bundle = '', bool $all_allowed_content = FALSE, ?string $entity_ids_to_export = NULL): array {
     $allowed_entity_types = $this->configFactory->get('single_content_sync.settings')->get('allowed_entity_types');
 
     if ($entity_ids_to_export) {
@@ -147,10 +147,15 @@ class CommandHelper implements CommandHelperInterface {
 
         // Check if specific bundle of specific entity type is allowed.
         if ($bundle) {
-          $is_bundle_allowed = !$allowed_bundles || in_array($bundle, $allowed_bundles, TRUE);
-          $allowed_entity_types = $is_bundle_allowed
-            ? [$entity_type => [$bundle]]
-            : [];
+          if ($entity_type === 'menu_link_content') {
+            $allowed_entity_types = [$entity_type => []];
+          }
+          else {
+            $is_bundle_allowed = !$allowed_bundles || in_array($bundle, $allowed_bundles, TRUE);
+            $allowed_entity_types = $is_bundle_allowed
+              ? [$entity_type => [$bundle]]
+              : [];
+          }
         }
 
       }
@@ -158,6 +163,10 @@ class CommandHelper implements CommandHelperInterface {
         // Specific entity type is not allowed, nothing to export.
         $allowed_entity_types = [];
       }
+    }
+
+    if (isset($allowed_entity_types['menu_link_content'])) {
+      $allowed_entity_types['menu_link_content'] = [];
     }
 
     $entities = [];
@@ -177,6 +186,10 @@ class CommandHelper implements CommandHelperInterface {
         }
 
         $properties[$definition->getKey('bundle')] = $bundles;
+      }
+
+      if ($entity_type_id === 'menu_link_content' && $entity_type === 'menu_link_content' && $bundle) {
+        $properties['menu_name'] = $bundle;
       }
 
       $entities = array_merge(

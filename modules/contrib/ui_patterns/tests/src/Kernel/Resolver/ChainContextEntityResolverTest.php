@@ -9,14 +9,18 @@ use Drupal\Core\Plugin\Context\ContextDefinition;
 use Drupal\KernelTests\Core\Entity\EntityKernelTestBase;
 use Drupal\ui_patterns\Resolver\ChainContextEntityResolver;
 use Drupal\ui_patterns_test\Resolver\TestContextEntityResolver;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
  * Test the ChainContextEntityResolver service.
  *
- * @coversDefaultClass \Drupal\ui_patterns\Resolver\ChainContextEntityResolver
- *
- * @group ui_patterns
+ * @internal
  */
+#[CoversClass(ChainContextEntityResolver::class)]
+#[Group('ui_patterns')]
+#[RunTestsInSeparateProcesses]
 final class ChainContextEntityResolverTest extends EntityKernelTestBase {
 
   /**
@@ -40,24 +44,25 @@ final class ChainContextEntityResolverTest extends EntityKernelTestBase {
   /**
    * Test the method ::getResolvers().
    */
-  public function testGetResolvers() : void {
+  public function testGetResolvers(): void {
     $resolvers = $this->chainContextEntityResolver->getResolvers();
     $test_resolver = NULL;
+
     foreach ($resolvers as $resolver) {
       if ($resolver instanceof TestContextEntityResolver) {
         $test_resolver = $resolver;
       }
     }
-    $this->assertNotNull($test_resolver);
+    self::assertNotNull($test_resolver);
   }
 
   /**
    * Test the method ::guessEntity().
    */
-  public function testGuessEntity() : void {
+  public function testGuessEntity(): void {
     $contexts['ui_patterns:test'] = new Context(ContextDefinition::create('any'), TRUE);
     $entity = $this->chainContextEntityResolver->guessEntity($contexts);
-    $this->assertNotNull($entity);
+    self::assertNotNull($entity);
   }
 
 }

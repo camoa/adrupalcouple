@@ -146,9 +146,35 @@ content:
     weight: 20
     region: content
     settings:
-      label: true
       wrapper: div
+      label_value: ''
+      label_limit: 60
+      label_prefix: Item
+      auto_collapse: false
       open: true
+      fields:
+        value:
+          weight: 0
+          type: text
+          label: Value
+          size: 16
+          placeholder: ''
+          maxlength: 64
+          maxlength_js: false
+        label:
+          weight: 1
+          type: text
+          label: Label
+          size: 60
+          placeholder: ''
+          maxlength: 255
+          maxlength_js: false
+        source:
+          weight: 2
+          type: link_default
+          label: Source
+          placeholder_url: ''
+          placeholder_title: ''
     third_party_settings: {  }
   field_review_date:
     type: datetime_default

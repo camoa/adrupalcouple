@@ -11,7 +11,7 @@ use Drupal\Tests\schemadotorg\Functional\SchemaDotOrgBrowserTestBase;
 /**
  * Tests the functionality of the Schema.org Entity Prepopulate node links.
  *
- * @covers schemadotorg_epp_node_links_alter()
+ * @covers \schemadotorg_epp_node_links_alter
  * @group schemadotorg
  */
 class SchemaDotOrgEntityPrepopulateNodeLinksTest extends SchemaDotOrgBrowserTestBase {

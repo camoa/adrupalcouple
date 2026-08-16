@@ -6,12 +6,18 @@ namespace Drupal\Tests\ui_patterns\Kernel;
 
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\ui_patterns\Plugin\UiPatterns\PropTypeAdapter\NamespacedAttributes;
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
  * Test the PropTypeAdapterPluginManager service.
  *
- * @group ui_patterns
+ * @internal
+ *
+ * @coversNothing
  */
+#[Group('ui_patterns')]
+#[RunTestsInSeparateProcesses]
 final class PropTypeAdapterPluginManagerTest extends KernelTestBase {
 
   /**

@@ -8,8 +8,10 @@ use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityTypeBundleInfoInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Entity\SynchronizableInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\single_content_sync\ContentFileGeneratorInterface;
 use Drupal\single_content_sync\Utility\CommandHelperInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -138,7 +140,7 @@ class ContentBulkExportForm extends FormBase {
 
     $form['bundle_wrapper']['bundle'] = [
       '#type' => 'select',
-      '#title' => $this->t('Bundle'),
+      '#title' => $this->getBundleElementTitle($selected_entity_type),
       '#options' => $bundle_options,
       '#default_value' => $selected_bundle,
     ];
@@ -155,6 +157,19 @@ class ContentBulkExportForm extends FormBase {
       '#title' => $this->t('Include all assets'),
       '#description' => $this->t('Whether to export all file assets such as images, documents, videos and etc.'),
       '#default_value' => FALSE,
+    ];
+
+    $form['menu_link_content_export_mode'] = [
+      '#type' => 'select',
+      '#title' => $this->t('Export mode'),
+      '#options' => $this->getMenuLinkContentExportModeOptions(),
+      '#description' => $this->t('How to deal with exporting of content that a menu link references to.<br><strong>Stub</strong> - export only base fields of entity referenced to the menu link.<br><strong>Full</strong> - export full entity referenced to the menu link.'),
+      '#default_value' => 'full',
+      '#states' => [
+        'visible' => [
+          ':input[name="entity_type"]' => ['value' => 'menu_link_content'],
+        ],
+      ],
     ];
 
     $form['actions'] = [
@@ -206,6 +221,12 @@ class ContentBulkExportForm extends FormBase {
     if (!$this->commandHelper->getEntitiesToExport($entity_type_id, $bundle)) {
       $form_state->setErrorByName('entity_type', $this->t('Nothing to export. Please check if content exists and is allowed to be exported in the module configuration.'));
     }
+
+    $export_mode = $form_state->getValue('menu_link_content_export_mode', 'full');
+    if ($entity_type_id === 'menu_link_content'
+      && !isset($this->getMenuLinkContentExportModeOptions()[$export_mode])) {
+      $form_state->setErrorByName('menu_link_content_export_mode', $this->t('Select a valid export mode.'));
+    }
   }
 
   /**
@@ -217,6 +238,16 @@ class ContentBulkExportForm extends FormBase {
     $include_translations = (bool) $form_state->getValue('translation', FALSE);
     $include_assets = (bool) $form_state->getValue('assets', FALSE);
     $entities = $this->commandHelper->getEntitiesToExport($entity_type_id, $bundle);
+
+    if ($entity_type_id === 'menu_link_content'
+      && $form_state->getValue('menu_link_content_export_mode') === 'stub') {
+      foreach ($entities as $entity) {
+        if ($entity instanceof SynchronizableInterface) {
+          $entity->setSyncing(TRUE);
+        }
+      }
+    }
+
     $file = $this->fileGenerator->generateBulkZipFile($entities, $include_translations, $include_assets);
 
     $response = new StreamedResponse(static function() use ($file) {
@@ -310,10 +341,19 @@ class ContentBulkExportForm extends FormBase {
    */
   protected function getBundleOptions(?string $entity_type_id): array {
     $options = [
-      '' => $this->t('- All bundles -'),
+      '' => $this->getEmptyBundleOptionLabel($entity_type_id),
     ];
 
     if (!$entity_type_id) {
+      return $options;
+    }
+
+    if ($entity_type_id === 'menu_link_content') {
+      $menus = $this->entityTypeManager->getStorage('menu')->loadMultiple();
+      foreach ($menus as $menu_id => $menu) {
+        $options[$menu_id] = $menu->label();
+      }
+
       return $options;
     }
 
@@ -331,6 +371,49 @@ class ContentBulkExportForm extends FormBase {
     }
 
     return $options;
+  }
+
+  /**
+   * Gets the title for the bundle selector.
+   *
+   * @param string|null $entity_type_id
+   *   The entity type ID.
+   *
+   * @return \Drupal\Core\StringTranslation\TranslatableMarkup
+   *   The selector title.
+   */
+  protected function getBundleElementTitle(?string $entity_type_id): TranslatableMarkup {
+    return $entity_type_id === 'menu_link_content'
+      ? $this->t('Menu')
+      : $this->t('Bundle');
+  }
+
+  /**
+   * Gets the empty option label for the bundle selector.
+   *
+   * @param string|null $entity_type_id
+   *   The entity type ID.
+   *
+   * @return \Drupal\Core\StringTranslation\TranslatableMarkup
+   *   The empty option label.
+   */
+  protected function getEmptyBundleOptionLabel(?string $entity_type_id): TranslatableMarkup {
+    return $entity_type_id === 'menu_link_content'
+      ? $this->t('- All menus -')
+      : $this->t('- All bundles -');
+  }
+
+  /**
+   * Gets menu link content export mode options.
+   *
+   * @return array
+   *   Export mode labels keyed by mode.
+   */
+  protected function getMenuLinkContentExportModeOptions(): array {
+    return [
+      'stub' => $this->t('Stub export of referenced content'),
+      'full' => $this->t('Full export of referenced content'),
+    ];
   }
 
   /**

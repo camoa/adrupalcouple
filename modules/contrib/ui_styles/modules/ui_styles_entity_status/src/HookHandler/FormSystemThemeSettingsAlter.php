@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Drupal\ui_styles_entity_status\HookHandler;
 
+use Drupal\Component\Utility\DeprecationHelper;
+use Drupal\Core\Extension\ThemeSettingsProvider;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\ui_styles_entity_status\UiStylesEntityStatusInterface;
@@ -32,7 +34,7 @@ class FormSystemThemeSettingsAlter {
     }
 
     /** @var array $settings */
-    $settings = \theme_get_setting(UiStylesEntityStatusInterface::UNPUBLISHED_CLASSES_THEME_SETTING_KEY, $theme) ?? [];
+    $settings = DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.3.0', static fn () => \Drupal::service(ThemeSettingsProvider::class)->getSetting(UiStylesEntityStatusInterface::UNPUBLISHED_CLASSES_THEME_SETTING_KEY, $theme), static fn () => \theme_get_setting(UiStylesEntityStatusInterface::UNPUBLISHED_CLASSES_THEME_SETTING_KEY, $theme)) ?? [];
     // #config_target is not usable because using #tree.
     $form['third_party_settings_ui_styles_entity_status_unpublished'] = [
       '#type' => 'ui_styles_styles',

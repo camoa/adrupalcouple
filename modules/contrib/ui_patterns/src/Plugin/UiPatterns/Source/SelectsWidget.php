@@ -9,6 +9,7 @@ use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\ui_patterns\Attribute\Source;
 use Drupal\ui_patterns\EnumTrait;
 use Drupal\ui_patterns\SourcePluginPropValueWidget;
+use Drupal\ui_patterns\SourceTags;
 
 /**
  * Plugin implementation of the source.
@@ -18,7 +19,7 @@ use Drupal\ui_patterns\SourcePluginPropValueWidget;
   label: new TranslatableMarkup('Selects'),
   description: new TranslatableMarkup('A set of select.'),
   prop_types: ['enum_list'],
-  tags: ['widget']
+  tags: [SourceTags::Widget->value]
 )]
 class SelectsWidget extends SourcePluginPropValueWidget {
 
@@ -53,7 +54,7 @@ class SelectsWidget extends SourcePluginPropValueWidget {
         '#options' => static::getEnumOptions($this->propDefinition['items']),
         '#title' => '#' . ($index + 1),
         '#required' => ($index < $min),
-        '#empty_value' => "",
+        '#empty_value' => '',
       ];
     }
     return $form;

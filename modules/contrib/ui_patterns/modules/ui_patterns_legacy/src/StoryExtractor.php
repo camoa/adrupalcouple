@@ -75,13 +75,13 @@ class StoryExtractor {
    */
   private function getPropsFromSettings(array $settings, array $story): array {
     foreach ($settings as $setting_id => $setting) {
-      $value = $this->getPropFromSetting($setting, "preview");
-      if (is_null($value)) {
+      $value = $this->getPropFromSetting($setting, 'preview');
+      if ($value === NULL) {
         // 'default_value' is used as a fallback for 'preview' in
         // ui_patterns_settings 2.x
-        $value = $this->getPropFromSetting($setting, "default_value");
+        $value = $this->getPropFromSetting($setting, 'default_value');
       }
-      if (is_null($value)) {
+      if ($value === NULL) {
         continue;
       }
       $story['props'][$setting_id] = $value;
@@ -92,7 +92,7 @@ class StoryExtractor {
   /**
    * Process a specific setting.
    */
-  private function getPropFromSetting(array $setting, string $key = "preview"): mixed {
+  private function getPropFromSetting(array $setting, string $key = 'preview'): mixed {
     if (!\array_key_exists($key, $setting)) {
       return NULL;
     }
@@ -101,13 +101,13 @@ class StoryExtractor {
     if (is_array($setting[$key]) && empty($setting[$key])) {
       return NULL;
     }
-    if ('select' === $setting['type']) {
+    if ($setting['type'] === 'select') {
       return $this->getPropFromSelectSetting($setting, $key);
     }
-    if ('checkboxes' === $setting['type']) {
+    if ($setting['type'] === 'checkboxes') {
       return $this->getPropFromCheckboxesSetting($setting, $key);
     }
-    if ('attributes' === $setting['type'] && \is_string($setting[$key])) {
+    if ($setting['type'] === 'attributes' && \is_string($setting[$key])) {
       return $this->convertAttributes($setting, $key);
     }
     return $setting[$key];
@@ -116,11 +116,11 @@ class StoryExtractor {
   /**
    * Process select setting.
    */
-  private function getPropFromSelectSetting(array $setting, string $key = "preview"): mixed {
+  private function getPropFromSelectSetting(array $setting, string $key = 'preview'): mixed {
     if (!\array_key_exists('options', $setting)) {
       return NULL;
     }
-    if (!in_array($setting[$key], array_keys($setting['options']))) {
+    if (!in_array($setting[$key], array_keys($setting['options']), TRUE)) {
       // Don't add value not compliant with the definition.
       return NULL;
     }
@@ -130,7 +130,7 @@ class StoryExtractor {
   /**
    * Process checkboxes setting.
    */
-  private function getPropFromCheckboxesSetting(array $setting, string $key = "preview"): mixed {
+  private function getPropFromCheckboxesSetting(array $setting, string $key = 'preview'): mixed {
     if (!\array_key_exists('options', $setting)) {
       return NULL;
     }
@@ -148,7 +148,7 @@ class StoryExtractor {
    */
   private function switchEnumValueType(mixed $value, array $enum): mixed {
     // Has value the same type as the one from enum ?
-    if (in_array($value, $enum) && !in_array($value, $enum, TRUE)) {
+    if (in_array($value, $enum, TRUE) && !in_array($value, $enum, TRUE)) {
       // Value is a PHP array key, so only string or integer.
       $value = is_int($value) ? (string) $value : (int) $value;
     }
@@ -158,11 +158,11 @@ class StoryExtractor {
   /**
    * In UI Patterns 2, attributes values are not stored as strings anymore.
    */
-  private function convertAttributes(array $setting, string $key = "preview"): array {
+  private function convertAttributes(array $setting, string $key = 'preview'): array {
     $preview = [];
     $dom = new \DOMDocument();
-    $dom->loadHTML("<span " . $setting[$key] . ">");
-    $attributes = $dom->getElementsByTagName("span")->item(0)->attributes;
+    $dom->loadHTML('<span ' . $setting[$key] . '>');
+    $attributes = $dom->getElementsByTagName('span')->item(0)->attributes;
     foreach ($attributes as $attribute) {
       $preview[$attribute->name] = $attribute->value;
     }

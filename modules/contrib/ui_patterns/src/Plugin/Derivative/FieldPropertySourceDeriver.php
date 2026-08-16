@@ -12,10 +12,9 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * Provides derivable context for every field property.
  */
 class FieldPropertySourceDeriver extends EntityFieldSourceDeriverBase {
+
   /**
    * The ui patterns prop type plugin manager.
-   *
-   * @var \Drupal\ui_patterns\PropTypePluginManager
    */
   protected ?PropTypePluginManager $propTypePluginManager = NULL;
 
@@ -38,17 +37,18 @@ class FieldPropertySourceDeriver extends EntityFieldSourceDeriverBase {
       $property,
     ]);
     $prop_types = $this->propTypePluginManager->getAllPropTypeByTypedData(
-      $this->entityFieldsMetadata[$entity_type_id]["field_storages"][$field_name]["properties"][$property]["data_type"]);
+      $this->entityFieldsMetadata[$entity_type_id]['field_storages'][$field_name]['properties'][$property]['data_type']
+    );
     if (count($prop_types) > 0) {
       $this->derivatives[$id] = array_merge(
         $base_plugin_derivative,
         [
-          "id" => $id,
-          "prop_types" => $prop_types,
-          "context_requirements" => array_merge($base_plugin_derivative["context_requirements"], ["field_granularity:item"]),
-        ]);
+          'id' => $id,
+          'prop_types' => $prop_types,
+          'context_requirements' => array_merge($base_plugin_derivative['context_requirements'], ['field_granularity:item']),
+        ]
+      );
     }
-
   }
 
 }

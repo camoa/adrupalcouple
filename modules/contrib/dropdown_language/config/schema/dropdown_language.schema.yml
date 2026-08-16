@@ -5,6 +5,7 @@ block.settings.dropdown_language:*:
     labels:
       type: sequence
       label: 'Languages labels for display in dropdown block'
+      nullable: true
       sequence:
         type: label
         label: 'Dropdown language label'
@@ -23,5 +24,5 @@ dropdown_language.setting:
       type: integer
       label: 'Remove untranslated nodes'
     always_show_block:
-        type: integer
-        label: 'Always shows block'
+      type: integer
+      label: 'Always shows block'

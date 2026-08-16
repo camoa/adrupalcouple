@@ -28,8 +28,7 @@ class ColorBoxesWidget extends ColorWidget {
    * {@inheritdoc}
    */
   public static function defaultSettings(): array {
-    $settings = parent::defaultSettings();
-    $settings['settings'] = [
+    return [
       'default_colors' => [
         '#ac725e',
         '#d06b64',
@@ -55,9 +54,7 @@ class ColorBoxesWidget extends ColorWidget {
         '#cd74e6',
         '#a47ae2',
       ],
-    ] + $settings['settings'];
-
-    return $settings;
+    ] + parent::defaultSettings();
   }
 
   /**
@@ -65,10 +62,10 @@ class ColorBoxesWidget extends ColorWidget {
    */
   public function widgetSettingsForm(FormStateInterface $form_state, CustomFieldTypeInterface $field): array {
     $element = parent::widgetSettingsForm($form_state, $field);
-    $settings = $field->getWidgetSetting('settings') + static::defaultSettings()['settings'];
+    $settings = $this->getSettings() + static::defaultSettings();
     $colors = is_array($settings['default_colors']) ? implode(',', $settings['default_colors']) : $settings['default_colors'];
 
-    $element['settings']['default_colors'] = [
+    $element['default_colors'] = [
       '#type' => 'textarea',
       '#title' => $this->t('Default colors'),
       '#default_value' => $colors,
@@ -87,7 +84,7 @@ class ColorBoxesWidget extends ColorWidget {
    */
   public function widget(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state, CustomFieldTypeInterface $field): array {
     $element = parent::widget($items, $delta, $element, $form, $form_state, $field);
-    $settings = $field->getWidgetSetting('settings') + static::defaultSettings()['settings'];
+    $settings = $this->getSettings() + static::defaultSettings();
     $element['#uid'] = Html::getUniqueId('color-field-' . $field->getName());
 
     // Ensure the default value is the required format.
@@ -109,7 +106,7 @@ class ColorBoxesWidget extends ColorWidget {
 
     // Set Drupal settings.
     $settings[$element['#uid']] = [
-      'required' => $settings['required'],
+      'required' => $field->getFieldSetting('required'),
     ];
 
     $default_colors = is_array($settings['default_colors']) ? implode(',', $settings['default_colors']) : $settings['default_colors'];

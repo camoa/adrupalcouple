@@ -13,7 +13,7 @@ require_once __DIR__ . '/../../../schemadotorg_geolocation.install';
 /**
  * Tests the functionality of the Schema.org Geolocation.
  *
- * @covers schemadotorg_geolocation_schemadotorg_property_field_alter()
+ * @covers \schemadotorg_geolocation_schemadotorg_property_field_alter
  * @group schemadotorg
  */
 class SchemaDotOrgGeolocationKernelTest extends SchemaDotOrgEntityKernelTestBase {

@@ -59,6 +59,18 @@ parameters:
     - '#Method Drupal\\Tests\\ui_patterns[a-zA-Z0-9:\\_]+\(\) has parameter \$[a-zA-Z0-9\\_]+ with no type specified.#'
     - '#Method Drupal\\Tests\\ui_patterns[a-zA-Z0-9:\\_]+\(\) has no return type specified.#'
     - '#Method Drupal\\ui_patterns\\ComponentPluginManager::processDefinitionCategory\(\) has parameter \$definition with no type specified.#'
+    # Deprecated in Drupal 11.4, removed in Drupal 13. The replacement,
+    # \Drupal\filter\FilterFormatRepositoryInterface, only exists since 11.4
+    # while this module supports ^10.3.4. Drop these once the Drupal 10 floor
+    # is raised to 11.4.
+    -
+      message: '#^Call to deprecated function filter_(formats|fallback_format)\(\)#'
+      paths:
+        - */src/Plugin/UiPatterns/Source/WysiwygWidget.php
+    -
+      message: '#^Call to deprecated method trustData\(\) of interface Drupal\\Core\\Config\\Entity\\ConfigEntityInterface#'
+      paths:
+        - */modules/ui_patterns_library/ui_patterns_library.install
   treatPhpDocTypesAsCertain: false
   inferPrivatePropertyTypeFromConstructor: true
   level: 7

@@ -81,11 +81,18 @@ class TaxonomyTerm extends SingleContentSyncBaseFieldsProcessorPluginBase implem
       }
     }
 
+    $description = $entity->getDescription();
+
     return [
       'name' => $entity->getName(),
       'weight' => $entity->getWeight(),
       'langcode' => $entity->language()->getId(),
-      'description' => $entity->getDescription(),
+      'description' => empty($description)
+        ? NULL
+        : [
+          'value' => $description,
+          'format' => $entity->getFormat(),
+        ],
       'parent' => $parent,
     ];
   }

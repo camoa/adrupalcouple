@@ -32,18 +32,18 @@ class UrlPropType extends PropTypePluginBase {
       $value = self::convertObject($value);
     }
     if (!is_string($value)) {
-      return "";
+      return '';
     }
 
-    if ($value == "<front>") {
-      $value = "internal:/";
+    if ($value === '<front>') {
+      $value = 'internal:/';
     }
-    elseif ($value == "<none>") {
-      $value = "internal:";
+    elseif ($value === '<none>') {
+      $value = 'internal:';
     }
     // We don't use filter_var($value, FILTER_VALIDATE_URL) because too
     // restrictive: catch only "scheme://foo".
-    if (preg_match("/^[a-z]+\:/", $value)) {
+    if (preg_match('/^[a-z]+\:/', $value)) {
       return self::resolveUrl($value);
     }
     // Any other string is considered as a valid path.
@@ -56,14 +56,14 @@ class UrlPropType extends PropTypePluginBase {
    */
   protected static function resolveUrl(string $value): string {
     // PHP_URL_SCHEME works with "scheme://foo" and "scheme:foo".
-    $scheme = parse_url($value, PHP_URL_SCHEME);
-    if (in_array($scheme, ['public', 'private', 'temp'])) {
+    $scheme = parse_url($value, \PHP_URL_SCHEME);
+    if (in_array($scheme, ['public', 'private', 'temp'], TRUE)) {
       /** @var \Drupal\Core\File\FileUrlGeneratorInterface $generator */
       $generator = \Drupal::service('file_url_generator');
       $value = $generator->generateAbsoluteString($value);
       return Url::fromUri($value)->toString();
     }
-    if (in_array($scheme, ['internal', 'entity', 'route'])) {
+    if (in_array($scheme, ['internal', 'entity', 'route'], TRUE)) {
       return Url::fromUri($value)->toString();
     }
     return $value;

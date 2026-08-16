@@ -17,7 +17,7 @@ abstract class PropTypeAdapterPluginBase extends PluginBase implements PropTypeA
    */
   public function label(): string {
     // Cast the label to a string since it is a TranslatableMarkup object.
-    return ($this->pluginDefinition instanceof PluginDefinitionInterface) ? $this->pluginDefinition->id() : (string) ($this->pluginDefinition["label"] ?? '');
+    return ($this->pluginDefinition instanceof PluginDefinitionInterface) ? $this->pluginDefinition->id() : (string) ($this->pluginDefinition['label'] ?? '');
   }
 
   /**

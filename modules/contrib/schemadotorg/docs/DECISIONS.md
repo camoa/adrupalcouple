@@ -28,7 +28,7 @@ non-function decisions behind the Schema.org Blueprints module.
 - Structured data (Schema.org) fields are prefixed with schema_*
 - General (custom) fields are prefixed with field_*
 
-##### Use config snapshot test to confirm an expected configuration for starter kits
+##### Use config snapshot tests to confirm expected configuration
 - @see \Drupal\Tests\schemadotorg\Functional\SchemaDotOrgConfigSnapshotTestBase
 
 ##### Form elements should include a title and description that states the element's intent and usage
@@ -187,7 +187,7 @@ non-function decisions behind the Schema.org Blueprints module.
 
 ##### Use external JavasScript libraries as needed to improve UI/UX
 - [JsTree](https://www.jstree.com) to display hierarchical relationships
-- [MermaidJS](https://github.com/mermaid-js/mermaid) and [Svg-Pan-Zoom](https://github.com/ariutta/svg-pan-zoom) for diagrams
+- [MermaidJS](https://github.com/mermaid-js/mermaid) and [Panzoom](https://github.com/timmywil/panzoom) for diagrams
 - [CodeMirror](http://codemirror.net) for editing YAML and JSON \
 
 ##### Use a page builder (i.e., Layout Paragraphs) and an HTML editor (i.e., CKEditor5) depending on the use case.
@@ -237,7 +237,7 @@ for managing optional dependencies and patches.
 - This aligns with Drupal's naming conventions
 
 
-# 7000 - StarterKit and Demo
+# 7000 - Retired Starter Kit and Demo
 
 ##### Provide starter kits for common sets of Schema.org types with additional functionality.
 
