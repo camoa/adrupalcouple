@@ -87,18 +87,28 @@
   {% endif %}
 
   {# ──────────────────────────────────────────────────────────────────────── #}
-  {# Section 3 — Close                                                       #}
-  {# React: topic chips nav + ReadingAids + InvitationClose                  #}
+  {# Section 3 — Close: closing question -> topic chips -> comments            #}
+  {# Reordered per owner request 2026-08-15: the closing question now sits     #}
+  {# ABOVE the topic chips. The bottom reading-time was removed — read-time    #}
+  {# already appears in the byline (via read_time_minutes on the byline SDC),  #}
+  {# so a second copy here was redundant. Reordered in SOURCE (not CSS order)  #}
+  {# so tab + screen-reader order match the visual order.                      #}
   {# ──────────────────────────────────────────────────────────────────────── #}
 
-  {# 3a. Topic chips nav — conditional; iterates node.field_tags directly   #}
+  {# 3a. InvitationClose — the closing question, above the tags. #}
+  {% if closing_question %}
+    <section data-component="invitation-close" class="mt-12">
+      {# Full ink (14.43:1 on base-100) — no opacity reduction, no text-muted #}
+      <p class="font-heading text-lg">{{ closing_question }}</p>
+    </section>
+  {% endif %}
+
+  {# 3b. Topic chips nav — conditional; iterates node.field_tags directly   #}
   {# for precise badge class control (entity_reference_label formatter       #}
   {# would wrap in Drupal field markup we do not want here).                 #}
-  {# React: <nav aria-label={s.topicsLabel}><Link class="badge ...">...</nav>#}
   {% if node.field_tags is not empty %}
     <nav class="mt-12 flex flex-wrap items-center gap-2" aria-label="{{ 'Filed under'|t }}">
       {# D2: text-muted = var(--color-muted-content) = 5.62:1 on base-100 #}
-      {# React articlePage.strings.ts topicsLabel = "Filed under" (ES "Temas"). #}
       <span class="text-sm font-semibold text-muted">{{ 'Filed under'|t }}</span>
       {% for item in node.field_tags %}
         {% if item.entity %}
@@ -114,27 +124,9 @@
     </nav>
   {% endif %}
 
-  {# 3b. ReadingAids — computed read-time (Q-10: no stored field)           #}
-  {# React: <ReadingAids className="mt-12" readTimeMinutes={minutes} />     #}
-  {# Footnote section omitted: CKEditor footnote plugin not confirmed in    #}
-  {# this install; add when CKEditor footnote plugin is verified.           #}
-  {% if read_time %}
-    <div data-component="reading-aids" class="text-sm mt-12">
-      <p class="text-muted">{{ '@minutes min read'|t({'@minutes': read_time}) }}</p>
-    </div>
-  {% endif %}
-
-  {# 3c. InvitationClose — closing question + Drupal core comment thread    #}
-  {# React: <InvitationClose question={s.invitationQuestion} ... />         #}
-  {# closing_question: field_closing_question value from preprocess;        #}
-  {# falls back gracefully when empty (section still renders for comments). #}
-  <section data-component="invitation-close" class="my-10">
-    {% if closing_question %}
-      {# Full ink (14.43:1 on base-100) — no opacity reduction, no text-muted #}
-      <p class="font-heading text-lg">{{ closing_question }}</p>
-    {% endif %}
-
-    <div class="mt-8 border-t border-base-300 pt-6">
+  {# 3c. Comments — Drupal core comment thread. #}
+  <section data-component="comments" class="mt-10">
+    <div class="border-t border-base-300 pt-6">
       {# <h2> is a semantic heading in the page outline per accessibility spec #}
       <h2 class="font-heading text-base font-semibold text-muted">{{ 'Comments'|t }}</h2>
       <p class="mt-1 text-sm text-muted">{{ 'Comments are open. Add yours below.'|t }}</p>
