@@ -1,0 +1,56 @@
+Issue #3541883: Custom fields without field_ prefix are not extracted for translation
+https://git.drupalcode.org/project/ai_translate/-/work_items/3541883
+
+Adapted from upstream MR !19 (target 1.3.x):
+https://git.drupalcode.org/project/ai_translate/-/merge_requests/19
+
+Adaptation note: the upstream diff also removes a 'description' entry from
+$supportedFieldNames. That entry does not exist in the 1.3.1 tag, so the hunk was
+re-cut against the released file. Logic is otherwise identical to MR !19.
+
+Select fields by their field definition (the translatable flag configured in content
+language settings) instead of by hardcoded field-name patterns, so fields not prefixed
+with field_ (e.g. schema_abstract) are translated, and non-translatable fields
+(e.g. entity references left untranslatable) are not.
+
+Remove when the fix lands in a tagged ai_translate release.
+
+--- a/src/TextExtractor.php
++++ b/src/TextExtractor.php
+@@ -5,6 +5,7 @@
+ use Drupal\Component\Utility\NestedArray;
+ use Drupal\Core\Entity\ContentEntityInterface;
+ use Drupal\Core\Entity\EntityTypeManagerInterface;
++use Drupal\Core\Field\FieldConfigInterface;
+ use Drupal\Core\Field\FieldDefinitionInterface;
+ 
+ /**
+@@ -125,22 +126,16 @@
+     || $fieldDefinition->isReadOnly()) {
+       return FALSE;
+     }
+-    $fieldName = $fieldDefinition->getName();
++    // Respect the translatable flag configured in content language settings.
++    if ($fieldDefinition instanceof FieldConfigInterface && !$fieldDefinition->isTranslatable()) {
++      return FALSE;
++    }
+     $fieldType = $fieldDefinition->getType();
+     if ($fieldDefinition->getName() === $entity->getEntityType()->getKey('label')) {
+       return $fieldDefinition->isTranslatable();
+     }
+-    // @todo better way to find fields that should be translatable?
+-    static $supportedFieldNames = [
+-      'body',
+-      'info',
+-      '^field_',
+-      '^layout_builder_',
+-    ];
+-    foreach ($supportedFieldNames as $pattern) {
+-      if (preg_match("/$pattern/", $fieldName)) {
+-        return $this->plugins[$fieldType]->shouldExtract($entity, $fieldDefinition);
+-      }
++    if ($fieldDefinition instanceof FieldConfigInterface) {
++      return $this->plugins[$fieldType]->shouldExtract($entity, $fieldDefinition);
+     }
+     return FALSE;
+   }

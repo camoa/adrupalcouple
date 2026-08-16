@@ -5,6 +5,7 @@ namespace Drupal\ai_translate;
 use Drupal\Component\Utility\NestedArray;
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Field\FieldConfigInterface;
 use Drupal\Core\Field\FieldDefinitionInterface;
 
 /**
@@ -125,22 +126,16 @@ class TextExtractor implements TextExtractorInterface {
     || $fieldDefinition->isReadOnly()) {
       return FALSE;
     }
-    $fieldName = $fieldDefinition->getName();
+    // Respect the translatable flag configured in content language settings.
+    if ($fieldDefinition instanceof FieldConfigInterface && !$fieldDefinition->isTranslatable()) {
+      return FALSE;
+    }
     $fieldType = $fieldDefinition->getType();
     if ($fieldDefinition->getName() === $entity->getEntityType()->getKey('label')) {
       return $fieldDefinition->isTranslatable();
     }
-    // @todo better way to find fields that should be translatable?
-    static $supportedFieldNames = [
-      'body',
-      'info',
-      '^field_',
-      '^layout_builder_',
-    ];
-    foreach ($supportedFieldNames as $pattern) {
-      if (preg_match("/$pattern/", $fieldName)) {
-        return $this->plugins[$fieldType]->shouldExtract($entity, $fieldDefinition);
-      }
+    if ($fieldDefinition instanceof FieldConfigInterface) {
+      return $this->plugins[$fieldType]->shouldExtract($entity, $fieldDefinition);
     }
     return FALSE;
   }

@@ -31,6 +31,7 @@ module:
   crop: 0
   ctools: 0
   custom_field: 0
+  custom_field_ai: 0
   custom_field_jsonapi: 0
   datetime: 0
   dblog: 0

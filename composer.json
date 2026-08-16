@@ -151,6 +151,9 @@
             ]
         },
         "patches": {
+            "drupal/ai_translate": {
+                "Issue #3541883: select fields by definition, not by field-name allowlist (adapted from MR !19)": "patches/ai_translate-3541883-field-definition-not-name.patch"
+            }
         }
     }
 }

@@ -16,7 +16,7 @@ bundle: article
 label: 'Evidence metric'
 description: 'OPTIONAL evidence callout. Static figures only (anti-vanity-counter). Source rendered as a citation link when present.'
 required: false
-translatable: false
+translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:
@@ -31,7 +31,6 @@ settings:
       description_display: after
       prefix: ''
       suffix: ''
-      allowed_values: {  }
     label:
       label: Label
       check_empty: false
@@ -41,12 +40,11 @@ settings:
       description_display: after
       prefix: ''
       suffix: ''
-      allowed_values: {  }
     source:
       label: Source
       check_empty: false
       required: false
-      translatable: true
+      translatable: false
       description: 'Citation/source URL for the metric. Omitted when empty.'
       description_display: after
       link_type: 16
@@ -54,13 +52,13 @@ settings:
       field_prefix_custom: ''
       title: 1
       enabled_attributes:
-        title: false
-        aria-label: false
         target: false
         class: false
+        rel: false
+        title: false
+        aria-label: false
         id: false
         name: false
-        rel: false
         accesskey: false
       widget_default_open: expandIfValuesSet
 field_type: custom
