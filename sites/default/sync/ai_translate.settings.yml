@@ -12,7 +12,7 @@ reference_defaults:
   - redirect
   - shortcut
   - taxonomy_term
-prompt: ai_translate__ai_translate_es
+prompt: ai_translate__ai_translate_default
 entity_reference_depth: 1
 language_settings:
   en:
