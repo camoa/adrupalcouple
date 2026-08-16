@@ -57,7 +57,7 @@ abstract class FormatterJavascriptTestBase extends WebDriverTestBase {
    *   The path to the manage display form.
    */
   protected function getManageDisplayPath(): string {
-    return '/admin/structure/types/manage/custom_field_entity_test/display';
+    return '/admin/structure/types/manage/custom_field_entity_test/display/default';
   }
 
 }

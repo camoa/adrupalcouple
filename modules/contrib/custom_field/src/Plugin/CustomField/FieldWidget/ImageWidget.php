@@ -13,6 +13,7 @@ use Drupal\custom_field\Attribute\CustomFieldWidget;
 use Drupal\custom_field\Plugin\CustomFieldTypeInterface;
 use Drupal\file\Element\ManagedFile;
 use Drupal\image\Entity\ImageStyle;
+use Drupal\image\ImageDerivativeUtilities;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -43,12 +44,20 @@ class ImageWidget extends FileWidget {
   protected EntityTypeManagerInterface $entityTypeManager;
 
   /**
+   * The image derivative utilities service.
+   *
+   * @var \Drupal\image\ImageDerivativeUtilities
+   */
+  protected ImageDerivativeUtilities $imageDerivativeUtilities;
+
+  /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): static {
     $instance = parent::create($container, $configuration, $plugin_id, $plugin_definition);
     $instance->imageFactory = $container->get('image.factory');
     $instance->entityTypeManager = $container->get('entity_type.manager');
+    $instance->imageDerivativeUtilities = $container->get(ImageDerivativeUtilities::class);
 
     return $instance;
   }
@@ -72,7 +81,7 @@ class ImageWidget extends FileWidget {
     $element['preview_image_style'] = [
       '#title' => $this->t('Preview image style'),
       '#type' => 'select',
-      '#options' => image_style_options(FALSE),
+      '#options' => $this->imageDerivativeUtilities->styleOptions(FALSE),
       '#empty_option' => '<' . $this->t('no preview') . '>',
       '#default_value' => $settings['preview_image_style'],
       '#description' => $this->t('The preview image will be shown while editing the content.'),
@@ -264,9 +273,6 @@ class ImageWidget extends FileWidget {
     $triggering_element = $form_state->getTriggeringElement();
     if (!empty($triggering_element['#submit'])) {
       $needle = [ManagedFile::class, 'submit'];
-      if (version_compare(\Drupal::VERSION, '11.3', '<')) {
-        $needle = 'file_managed_file_submit';
-      }
       if (in_array($needle, $triggering_element['#submit'], TRUE)) {
         $form_state->setLimitValidationErrors([]);
       }

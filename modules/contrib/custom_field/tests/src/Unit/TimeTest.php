@@ -5,14 +5,15 @@ declare(strict_types=1);
 namespace Drupal\Tests\custom_field\Unit;
 
 use Drupal\custom_field\Time;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 
 /**
  * Tests the Time class.
- *
- * @coversDefaultClass \Drupal\custom_field\Time
- * @group custom_field
  */
+#[Group('custom_field')]
+#[CoversClass(Time::class)]
 class TimeTest extends TestCase {
 
   /**

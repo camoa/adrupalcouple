@@ -13,6 +13,7 @@ use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\Url;
 use Drupal\file\FileInterface;
+use Drupal\image\ImageDerivativeUtilities;
 use Drupal\image\ImageStyleStorageInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -50,6 +51,13 @@ class ImageUrlFormatter extends EntityReferenceFormatterBase {
   protected FileUrlGeneratorInterface $fileUrlGenerator;
 
   /**
+   * The image derivative utilities service.
+   *
+   * @var \Drupal\image\ImageDerivativeUtilities
+   */
+  protected ImageDerivativeUtilities $imageDerivativeUtilities;
+
+  /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): static {
@@ -57,6 +65,7 @@ class ImageUrlFormatter extends EntityReferenceFormatterBase {
     $instance->imageStyleStorage = $container->get('entity_type.manager')->getStorage('image_style');
     $instance->currentUser = $container->get('current_user');
     $instance->fileUrlGenerator = $container->get('file_url_generator');
+    $instance->imageDerivativeUtilities = $container->get(ImageDerivativeUtilities::class);
 
     return $instance;
   }
@@ -75,7 +84,7 @@ class ImageUrlFormatter extends EntityReferenceFormatterBase {
    */
   public function settingsForm(array $form, FormStateInterface $form_state): array {
     $element = parent::settingsForm($form, $form_state);
-    $image_styles = image_style_options(FALSE);
+    $image_styles = $this->imageDerivativeUtilities->styleOptions(FALSE);
     $description_link = Link::fromTextAndUrl(
       $this->t('Configure Image Styles'),
       Url::fromRoute('entity.image_style.collection')

@@ -14,6 +14,7 @@ use Drupal\Core\Plugin\Discovery\YamlDiscovery;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\ui_skins\Definition\CssVariableDefinition;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
 /**
  * Provides the default variable plugin manager.
@@ -25,32 +26,15 @@ class CssVariablePluginManager extends DefaultPluginManager implements CssVariab
 
   use StringTranslationTrait;
 
-  /**
-   * The theme handler.
-   *
-   * @var \Drupal\Core\Extension\ThemeHandlerInterface
-   */
-  protected ThemeHandlerInterface $themeHandler;
-
-  /**
-   * Constructor.
-   *
-   * @param \Drupal\Core\Cache\CacheBackendInterface $cache_backend
-   *   Cache backend instance to use.
-   * @param \Drupal\Core\Extension\ModuleHandlerInterface $module_handler
-   *   The module handler.
-   * @param \Drupal\Core\Extension\ThemeHandlerInterface $theme_handler
-   *   The theme handler.
-   */
   public function __construct(
+    #[Autowire(service: 'cache.discovery')]
     CacheBackendInterface $cache_backend,
     ModuleHandlerInterface $module_handler,
-    ThemeHandlerInterface $theme_handler,
+    protected ThemeHandlerInterface $themeHandler,
   ) {
     $this->setCacheBackend($cache_backend, 'ui_skins_css_variables', ['ui_skins_css_variables']);
     $this->alterInfo('ui_skins_css_variables');
     $this->moduleHandler = $module_handler;
-    $this->themeHandler = $theme_handler;
 
     // Set defaults in the constructor to be able to use string translation.
     $this->defaults = [

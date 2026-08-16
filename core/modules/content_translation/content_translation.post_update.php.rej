@@ -1,0 +1,13 @@
+--- modules/content_translation/content_translation.post_update.php
++++ modules/content_translation/content_translation.post_update.php
+@@ -16,9 +16,6 @@ function content_translation_post_update_resave_base_field_overrides(array &$san
+   $config_updater = \Drupal::classResolver(ConfigEntityUpdater::class);
+   $config_updater->update($sandbox, 'base_field_override', function (FieldConfigInterface $field) {
+     // Resave base field overrides that have content translation enabled.
+-    if ($field->getThirdPartySettings('content_translation')) {
+-      $field->save();
+-    }
+-    return FALSE;
++    return (bool) $field->getThirdPartySettings('content_translation');
+   }, TRUE);
+ }

@@ -8,12 +8,14 @@ use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\node\Entity\Node;
 use Drupal\node\Entity\NodeType;
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
  * Tests that HTML in allowed_values labels renders correctly.
- *
- * @group custom_field
  */
+#[Group('custom_field')]
+#[RunTestsInSeparateProcesses]
 class HtmlLabelTest extends KernelTestBase {
 
   /**
@@ -27,6 +29,7 @@ class HtmlLabelTest extends KernelTestBase {
     'user',
     'text',
     'filter',
+    'image',
   ];
 
   /**

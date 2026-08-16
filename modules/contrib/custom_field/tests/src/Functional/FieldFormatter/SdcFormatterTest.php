@@ -11,9 +11,6 @@ use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
  * Tests the 'custom_field_sdc' formatter.
- *
- * @group custom_field
- * @runTestsInSeparateProcesses
  */
 #[Group('custom_field')]
 #[RunTestsInSeparateProcesses]

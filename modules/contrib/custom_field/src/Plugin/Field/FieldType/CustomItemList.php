@@ -134,7 +134,7 @@ class CustomItemList extends FieldItemList implements CustomFieldItemListInterfa
 
       // On new revisions, all files are considered to be a new usage and no
       // deletion of previous file usages are necessary.
-      if ($entity instanceof RevisionableInterface && !empty($entity->original) && $entity->getRevisionId() != $entity->original->getRevisionId()) {
+      if ($entity instanceof RevisionableInterface && !empty($entity->getOriginal()) && $entity->getRevisionId() != $entity->getOriginal()->getRevisionId()) {
         foreach ($files as $file) {
           \Drupal::service('file.usage')->add($file, 'custom_field', $entity->getEntityTypeId(), (string) $entity->id());
         }
@@ -144,10 +144,10 @@ class CustomItemList extends FieldItemList implements CustomFieldItemListInterfa
       // Get the file IDs attached to the field before this update.
       $field_name = $this->getFieldDefinition()->getName();
       $original_ids = [];
-      if (!empty($entity->original)) {
-        $original = $entity->original;
+      if (!empty($entity->getOriginal())) {
+        $original = $entity->getOriginal();
         $langcode = $this->getLangcode();
-        if ($original->hasTranslation($langcode)) {
+        if ($original instanceof TranslatableInterface && $original->hasTranslation($langcode)) {
           $original_items = $original->getTranslation($langcode)->{$field_name};
           $settings = $this->getSettings();
           $custom_fields = $this->getCustomFieldManager()

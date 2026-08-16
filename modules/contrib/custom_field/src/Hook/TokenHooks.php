@@ -28,6 +28,7 @@ use Drupal\Core\Url;
 use Drupal\Core\Utility\Token;
 use Drupal\custom_field\Plugin\CustomField\FieldType\LinkTypeInterface;
 use Drupal\custom_field\Plugin\CustomFieldTypeManagerInterface;
+use Drupal\image\ImageDerivativeUtilities;
 use Drupal\token\TokenEntityMapperInterface;
 use Drupal\token\TokenModuleProvider;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
@@ -57,6 +58,7 @@ class TokenHooks {
     protected ?TokenModuleProvider $tokenModuleProvider,
     #[Autowire(service: 'token.entity_mapper')]
     protected ?TokenEntityMapperInterface $tokenEntityMapper,
+    protected ImageDerivativeUtilities $imageDerivativeUtilities,
   ) {}
 
   /**
@@ -201,7 +203,7 @@ class TokenHooks {
               'type' => 'file',
               'nested' => TRUE,
             ];
-            $image_styles = image_style_options(FALSE);
+            $image_styles = $this->imageDerivativeUtilities->styleOptions(FALSE);
             foreach ($image_styles as $style => $description) {
               $info['tokens'][$subfield_token_name][$style] = [
                 'name' => $description,

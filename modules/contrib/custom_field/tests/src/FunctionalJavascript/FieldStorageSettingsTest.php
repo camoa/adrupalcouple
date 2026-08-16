@@ -11,9 +11,6 @@ use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
  * Field storage settings form tests for custom field.
- *
- * @group custom_field
- * @runTestsInSeparateProcesses
  */
 #[Group('custom_field')]
 #[RunTestsInSeparateProcesses]

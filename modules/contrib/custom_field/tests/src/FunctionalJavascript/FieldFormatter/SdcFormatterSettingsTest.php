@@ -10,9 +10,6 @@ use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
  * Tests the SingleDirectoryComponentFormatter settings form.
- *
- * @group custom_field
- * @runTestsInSeparateProcesses
  */
 #[Group('custom_field')]
 #[RunTestsInSeparateProcesses]

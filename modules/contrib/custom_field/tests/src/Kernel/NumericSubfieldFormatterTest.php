@@ -10,12 +10,14 @@ use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\node\Entity\Node;
 use Drupal\node\Entity\NodeType;
 use Drupal\Tests\field\Kernel\FieldKernelTestBase;
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
  * Tests formatting custom fields with numeric subfield names.
- *
- * @group custom_field
  */
+#[Group('custom_field')]
+#[RunTestsInSeparateProcesses]
 class NumericSubfieldFormatterTest extends FieldKernelTestBase {
 
   /**
@@ -24,6 +26,8 @@ class NumericSubfieldFormatterTest extends FieldKernelTestBase {
   protected static $modules = [
     'custom_field',
     'field',
+    'image',
+    'filter',
     'node',
     'system',
     'user',

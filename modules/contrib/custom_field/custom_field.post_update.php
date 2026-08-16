@@ -5,6 +5,8 @@
  * Post update functions for Custom Field.
  */
 
+use Drupal\Core\Database\Statement\FetchAs;
+
 /**
  * Populates taxonomy_index with term references from custom fields.
  */
@@ -92,7 +94,7 @@ function custom_field_post_update_bulk_populate_taxonomy_index(array &$sandbox):
       // limited to batch).
       $query->fields('nfd', ['created', 'sticky']);
 
-      $results = $query->execute()->fetchAll(\PDO::FETCH_ASSOC);
+      $results = $query->execute()->fetchAll(FetchAs::Associative);
 
       foreach ($results as $row) {
         $nid = (int) $row['nid'];

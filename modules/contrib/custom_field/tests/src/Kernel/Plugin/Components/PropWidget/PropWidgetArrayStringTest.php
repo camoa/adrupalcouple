@@ -14,13 +14,9 @@ use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
  * Tests token resolution in the 'array_string' PropWidget plugin.
- *
- * @group custom_field
- * @covers \Drupal\custom_field\Plugin\Components\PropWidget\PropWidgetArrayString
- * @runTestsInSeparateProcesses
  */
-#[CoversClass(PropWidgetArrayString::class)]
 #[Group('custom_field')]
+#[CoversClass(PropWidgetArrayString::class)]
 #[RunTestsInSeparateProcesses]
 class PropWidgetArrayStringTest extends KernelTestBase {
 
@@ -36,6 +32,7 @@ class PropWidgetArrayStringTest extends KernelTestBase {
     'field',
     'text',
     'filter',
+    'image',
   ];
 
   /**

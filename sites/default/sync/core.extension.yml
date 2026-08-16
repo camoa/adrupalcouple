@@ -110,6 +110,8 @@ module:
   schemadotorg_taxonomy: 0
   search: 0
   search404: 0
+  search_help: 0
+  search_node: 0
   seckit: 0
   security_review: 0
   seo_checklist: 0

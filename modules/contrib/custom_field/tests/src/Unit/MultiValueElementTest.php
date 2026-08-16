@@ -7,13 +7,14 @@ namespace Drupal\Tests\custom_field\Unit;
 use Drupal\Core\Form\FormState;
 use Drupal\custom_field\Element\MultiValue;
 use Drupal\Tests\UnitTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Group;
 
 /**
  * Unit test for the MultiValue element class.
- *
- * @group custom_field
- * @coversDefaultClass \Drupal\custom_field\Element\MultiValue
  */
+#[Group('custom_field')]
+#[CoversClass(MultiValue::class)]
 class MultiValueElementTest extends UnitTestCase {
 
   /**

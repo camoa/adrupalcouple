@@ -115,8 +115,8 @@ class EntityHooks {
   /**
    * Implements hook_node_update().
    *
-   * The Order::Last ensures this runs after taxonomy's implementation on 11.2+.
-   * The hook_module_implements_alter handles the same ordering on older Drupal.
+   * Runs after taxonomy's implementation so the index isn't deleted before we
+   * rebuild it.
    */
   #[Hook('node_update', order: Order::Last)]
   public function nodeUpdate(EntityInterface $node): void {

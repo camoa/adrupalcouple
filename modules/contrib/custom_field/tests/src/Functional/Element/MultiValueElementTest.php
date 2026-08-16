@@ -10,9 +10,6 @@ use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
  * Tests the multi-value form element behavior.
- *
- * @group custom_field
- * @runTestsInSeparateProcesses
  */
 #[Group('custom_field')]
 #[RunTestsInSeparateProcesses]

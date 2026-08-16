@@ -15,6 +15,7 @@ use Drupal\custom_field\Plugin\CustomField\FieldType\DateTimeTypeInterface;
 use Drupal\views\Attribute\ViewsFilter;
 use Drupal\views\Plugin\views\filter\Date as NumericDate;
 use Drupal\views\Plugin\views\query\Sql;
+use Drupal\views\ViewsFormHelperTrait;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -27,6 +28,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 #[ViewsFilter("custom_field_datetime")]
 class CustomFieldDate extends NumericDate implements ContainerFactoryPluginInterface {
+
+  use ViewsFormHelperTrait;
 
   /**
    * The entity type manager service.
@@ -152,8 +155,7 @@ class CustomFieldDate extends NumericDate implements ContainerFactoryPluginInter
       if (!$this->isAGroup()) {
         $form['value']['type']['#options']['date'] = $this->t('Date');
         $form['value']['type']['#ajax'] = [
-          // @phpstan-ignore-next-line
-          'url' => views_ui_build_form_url($form_state),
+          'url' => $this->buildFormUrl($form_state),
         ];
       }
     }

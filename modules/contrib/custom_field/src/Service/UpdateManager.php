@@ -4,6 +4,7 @@ namespace Drupal\custom_field\Service;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Database\Connection;
+use Drupal\Core\Database\Statement\FetchAs;
 use Drupal\Core\DependencyInjection\DependencySerializationTrait;
 use Drupal\Core\Entity\EntityDefinitionUpdateManagerInterface;
 use Drupal\Core\Entity\EntityLastInstalledSchemaRepositoryInterface;
@@ -264,7 +265,7 @@ class UpdateManager implements UpdateManagerInterface {
         $rows = $this->database->select($table_name)
           ->fields($table_name)
           ->execute()
-          ->fetchAll(\PDO::FETCH_ASSOC);
+          ->fetchAll(FetchAs::Associative);
         if (!empty($rows)) {
           // Truncate the table.
           $existing_data[$table_name] = $rows;
@@ -414,7 +415,7 @@ class UpdateManager implements UpdateManagerInterface {
           foreach ($columns_to_fetch as $col) {
             $query->addField($table_name, $col);
           }
-          $rows = $query->execute()->fetchAll(\PDO::FETCH_ASSOC);
+          $rows = $query->execute()->fetchAll(FetchAs::Associative);
           if (!empty($rows)) {
             // Truncate the table.
             $existing_data[$table_name] = $rows;
@@ -604,7 +605,7 @@ class UpdateManager implements UpdateManagerInterface {
       $rows = $this->database->select($table_name)
         ->fields($table_name)
         ->execute()
-        ->fetchAll(\PDO::FETCH_ASSOC);
+        ->fetchAll(FetchAs::Associative);
 
       if (!empty($rows)) {
         // Truncate the table.

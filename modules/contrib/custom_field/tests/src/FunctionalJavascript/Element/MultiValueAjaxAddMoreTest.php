@@ -10,9 +10,6 @@ use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
  * Tests the "Add more" functionality for multi-value elements.
- *
- * @group custom_field
- * @runTestsInSeparateProcesses
  */
 #[Group('custom_field')]
 #[RunTestsInSeparateProcesses]

@@ -6,12 +6,14 @@ namespace Drupal\Tests\ui_skins\Functional;
 
 use Drupal\Core\Extension\ModuleInstallerInterface;
 use Drupal\ui_skins\UiSkinsInterface;
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
  * Test uninstall ui_skins module.
- *
- * @group ui_skins
  */
+#[Group('ui_skins')]
+#[RunTestsInSeparateProcesses]
 class UiSkinsUninstallTest extends UiSkinsFunctionalTestBase {
 
   /**
@@ -26,7 +28,7 @@ class UiSkinsUninstallTest extends UiSkinsFunctionalTestBase {
    */
   protected function setUp(): void {
     parent::setUp();
-    $this->moduleInstaller = $this->container->get('module_installer');
+    $this->moduleInstaller = $this->container->get(ModuleInstallerInterface::class);
   }
 
   /**

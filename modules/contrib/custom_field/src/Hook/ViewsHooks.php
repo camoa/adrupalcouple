@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Drupal\custom_field\Hook;
 
-use Drupal\Component\Utility\DeprecationHelper;
 use Drupal\Core\Entity\ContentEntityTypeInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Entity\Sql\DefaultTableMapping;
@@ -39,12 +38,7 @@ class ViewsHooks {
    */
   #[Hook('field_views_data')]
   public function fieldViewsData(FieldStorageConfigInterface $field_storage): array {
-    $data = DeprecationHelper::backwardsCompatibleCall(
-      currentVersion: \Drupal::VERSION,
-      deprecatedVersion: '11.2.0',
-      currentCallable: fn() => $this->fieldViewsDataProvider->defaultFieldImplementation($field_storage),
-      deprecatedCallable: fn() => views_field_default_views_data($field_storage),
-    );
+    $data = $this->fieldViewsDataProvider->defaultFieldImplementation($field_storage);
 
     $entity_type_id = $field_storage->getTargetEntityTypeId();
     $entity_type = $this->entityTypeManager->getDefinition($entity_type_id);

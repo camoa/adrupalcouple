@@ -13,9 +13,6 @@ use PHPUnit\Framework\Attributes\Group;
 
 /**
  * Tests the 'uri' PropWidget plugin.
- *
- * @group custom_field
- * @covers \Drupal\custom_field\Plugin\Components\PropWidget\PropWidgetUri
  */
 #[Group('custom_field')]
 #[CoversClass(PropWidgetUri::class)]

@@ -7,12 +7,14 @@ namespace Drupal\Tests\ui_skins\Functional;
 use Drupal\Core\Extension\ThemeExtensionList;
 use Drupal\Core\Url;
 use Drupal\ui_skins\UiSkinsInterface;
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
  * Theme mode tests.
- *
- * @group ui_skins
  */
+#[Group('ui_skins')]
+#[RunTestsInSeparateProcesses]
 class ThemeTest extends UiSkinsFunctionalTestBase {
 
   /**

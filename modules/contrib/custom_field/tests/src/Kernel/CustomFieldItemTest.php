@@ -9,12 +9,14 @@ use Drupal\file\Entity\File;
 use Drupal\Tests\field\Kernel\FieldKernelTestBase;
 use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\node\Entity\Node;
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
  * Tests the custom field type.
- *
- * @group custom_field
  */
+#[Group('custom_field')]
+#[RunTestsInSeparateProcesses]
 class CustomFieldItemTest extends FieldKernelTestBase {
 
   /**
@@ -31,6 +33,7 @@ class CustomFieldItemTest extends FieldKernelTestBase {
     'system',
     'user',
     'file',
+    'filter',
     'image',
     'views',
   ];

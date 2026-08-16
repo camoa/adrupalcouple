@@ -13,13 +13,9 @@ use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
  * Tests the 'image' PropWidget plugin.
- *
- * @group custom_field
- * @covers \Drupal\custom_field\Plugin\Components\PropWidget\PropWidgetImage
- * @runTestsInSeparateProcesses
  */
-#[CoversClass(PropWidgetImage::class)]
 #[Group('custom_field')]
+#[CoversClass(PropWidgetImage::class)]
 #[RunTestsInSeparateProcesses]
 class PropWidgetImageTest extends KernelTestBase {
 
@@ -31,6 +27,8 @@ class PropWidgetImageTest extends KernelTestBase {
     'file',
     'system',
     'user',
+    'image',
+    'filter',
   ];
 
   /**

@@ -6,6 +6,9 @@ namespace Drupal\ui_skins\Form;
 
 use Drupal\Component\Transliteration\TransliterationInterface;
 use Drupal\Component\Utility\Html;
+use Drupal\Core\Config\ConfigFactoryInterface;
+use Drupal\Core\Config\TypedConfigManagerInterface;
+use Drupal\Core\Extension\ThemeSettingsProvider;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Language\LanguageInterface;
@@ -13,7 +16,7 @@ use Drupal\ui_skins\CssVariable\CssVariablePluginManagerInterface;
 use Drupal\ui_skins\Definition\CssVariableDefinition;
 use Drupal\ui_skins\UiSkinsInterface;
 use Drupal\ui_skins\UiSkinsUtility;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
 /**
  * UI skins CSS variables theme settings.
@@ -36,35 +39,21 @@ class CssVariablesThemeSettingsForm extends ConfigFormBase {
   public const string TREE_KEY = 'ui_skins_css_variables';
 
   /**
-   * The CSS variables plugin manager.
-   *
-   * @var \Drupal\ui_skins\CssVariable\CssVariablePluginManagerInterface
-   */
-  protected CssVariablePluginManagerInterface $cssVariablePluginManager;
-
-  /**
-   * The transliteration service.
-   *
-   * @var \Drupal\Component\Transliteration\TransliterationInterface
-   */
-  protected TransliterationInterface $transliteration;
-
-  /**
    * An array of configuration names that should be editable.
    *
    * @var array
    */
   protected array $editableConfig = [];
 
-  /**
-   * {@inheritdoc}
-   */
-  public static function create(ContainerInterface $container): static {
-    /** @var static $instance */
-    $instance = parent::create($container);
-    $instance->cssVariablePluginManager = $container->get('plugin.manager.ui_skins.css_variable');
-    $instance->transliteration = $container->get('transliteration');
-    return $instance;
+  public function __construct(
+    ConfigFactoryInterface $config_factory,
+    TypedConfigManagerInterface $typedConfigManager,
+    protected CssVariablePluginManagerInterface $cssVariablePluginManager,
+    #[Autowire(service: 'transliteration')]
+    protected TransliterationInterface $transliteration,
+    protected ThemeSettingsProvider $themeSettings,
+  ) {
+    parent::__construct($config_factory, $typedConfigManager);
   }
 
   /**
@@ -104,7 +93,7 @@ class CssVariablesThemeSettingsForm extends ConfigFormBase {
     }
 
     /** @var array $ui_skins_css_variables_settings */
-    $ui_skins_css_variables_settings = \theme_get_setting(UiSkinsInterface::CSS_VARIABLES_THEME_SETTING_KEY, $theme) ?? [];
+    $ui_skins_css_variables_settings = $this->themeSettings->getSetting(UiSkinsInterface::CSS_VARIABLES_THEME_SETTING_KEY, $theme) ?? [];
 
     $form[$this::TREE_KEY] = [
       '#type' => $form_state->get(static::MULTIPLE_GROUPS_KEY) ? 'vertical_tabs' : 'container',

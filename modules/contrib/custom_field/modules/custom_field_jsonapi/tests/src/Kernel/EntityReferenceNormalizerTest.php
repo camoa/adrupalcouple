@@ -7,14 +7,17 @@ namespace Drupal\Tests\custom_field_jsonapi\Kernel;
 use Drupal\custom_field\Plugin\DataType\CustomFieldEntityReference;
 use Drupal\node\Entity\Node;
 use Drupal\Tests\field\Kernel\FieldKernelTestBase;
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
  * Tests the JSON:API entity reference custom field normalizer.
  *
- * @group custom_field
- *
  * @see \Drupal\custom_field_jsonapi\Normalizer\EntityReferenceNormalizer
  */
+#[Group('custom_field')]
+#[Group('custom_field_jsonapi')]
+#[RunTestsInSeparateProcesses]
 class EntityReferenceNormalizerTest extends FieldKernelTestBase {
 
   /**
@@ -27,6 +30,7 @@ class EntityReferenceNormalizerTest extends FieldKernelTestBase {
     'custom_field_viewfield',
     'field',
     'file',
+    'filter',
     'image',
     'jsonapi',
     'node',

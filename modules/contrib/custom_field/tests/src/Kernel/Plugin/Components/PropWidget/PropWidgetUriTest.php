@@ -12,13 +12,9 @@ use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
  * Tests the 'uri' PropWidget plugin.
- *
- * @group custom_field
- * @covers \Drupal\custom_field\Plugin\Components\PropWidget\PropWidgetUri
- * @runTestsInSeparateProcesses
  */
-#[CoversClass(PropWidgetUri::class)]
 #[Group('custom_field')]
+#[CoversClass(PropWidgetUri::class)]
 #[RunTestsInSeparateProcesses]
 class PropWidgetUriTest extends KernelTestBase {
 
@@ -28,6 +24,8 @@ class PropWidgetUriTest extends KernelTestBase {
   protected static $modules = [
     'custom_field',
     'system',
+    'image',
+    'filter',
   ];
 
   /**

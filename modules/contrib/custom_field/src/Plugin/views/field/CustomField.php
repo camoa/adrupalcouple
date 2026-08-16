@@ -30,6 +30,7 @@ use Drupal\views\Plugin\views\field\MultiItemsFieldHandlerInterface;
 use Drupal\views\Plugin\views\query\Sql;
 use Drupal\views\ResultRow;
 use Drupal\views\ViewExecutable;
+use Drupal\views\ViewsFormHelperTrait;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -41,6 +42,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 final class CustomField extends FieldPluginBase implements MultiItemsFieldHandlerInterface {
 
   use FieldAPIHandlerTrait;
+  use ViewsFormHelperTrait;
 
   /**
    * Does the rendered fields get limited.
@@ -378,9 +380,7 @@ final class CustomField extends FieldPluginBase implements MultiItemsFieldHandle
       '#options' => $formatter_options,
       '#default_value' => $this->options['type'],
       '#ajax' => [
-        // @todo How to make PHPStan find this function?
-        // @phpstan-ignore-next-line
-        'url' => views_ui_build_form_url($form_state),
+        'url' => $this->buildFormUrl($form_state),
       ],
       '#submit' => [[$this, 'submitTemporaryForm']],
       '#executes_submit_callback' => TRUE,

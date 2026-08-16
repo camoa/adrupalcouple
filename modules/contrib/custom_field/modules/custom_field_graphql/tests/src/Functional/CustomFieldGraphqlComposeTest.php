@@ -11,12 +11,13 @@ use Drupal\Tests\graphql_compose\Functional\GraphQLComposeBrowserTestBase;
 use Drupal\custom_field\Service\GenerateDataInterface;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\node\NodeInterface;
+use PHPUnit\Framework\Attributes\Group;
 
 /**
  * Test the Custom Field integration.
- *
- * @group legacy
  */
+#[Group('custom_field')]
+#[Group('custom_field_graphql')]
 class CustomFieldGraphqlComposeTest extends GraphQLComposeBrowserTestBase {
 
   /**

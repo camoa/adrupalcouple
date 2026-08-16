@@ -12,9 +12,6 @@ use PHPUnit\Framework\Attributes\Group;
 
 /**
  * Tests the 'array_number' PropWidget plugin.
- *
- * @group custom_field
- * @covers \Drupal\custom_field\Plugin\Components\PropWidget\PropWidgetArrayNumber
  */
 #[Group('custom_field')]
 #[CoversClass(PropWidgetArrayNumber::class)]

@@ -7,11 +7,6 @@ use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
  * Test cases for the 'custom_stacked' widget plugin.
- *
- * Any tests specific to the stacked widget should go in here.
- *
- * @group custom_field
- * @runTestsInSeparateProcesses
  */
 #[Group('custom_field')]
 #[RunTestsInSeparateProcesses]

@@ -11,6 +11,8 @@ use Drupal\custom_field\Attribute\CustomFieldType;
 use Drupal\custom_field\Plugin\CustomFieldTypeBase;
 use Drupal\custom_field\Plugin\CustomFieldTypeInterface;
 use Drupal\custom_field\TypedData\CustomFieldDataDefinition;
+use Drupal\filter\FilterFormatRepositoryInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Plugin implementation of the 'string_long' field type.
@@ -24,6 +26,22 @@ use Drupal\custom_field\TypedData\CustomFieldDataDefinition;
   default_formatter: 'text_default',
 )]
 class StringLongType extends CustomFieldTypeBase {
+
+  /**
+   * The filter format repository service.
+   *
+   * @var \Drupal\filter\FilterFormatRepositoryInterface
+   */
+  protected FilterFormatRepositoryInterface $filterFormatRepository;
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): static {
+    $instance = parent::create($container, $configuration, $plugin_id, $plugin_definition);
+    $instance->filterFormatRepository = $container->get(FilterFormatRepositoryInterface::class);
+    return $instance;
+  }
 
   /**
    * {@inheritdoc}
@@ -73,7 +91,7 @@ class StringLongType extends CustomFieldTypeBase {
     $element = parent::fieldSettingsForm($form, $form_state);
     $settings = $this->getFieldSettings();
     $name = $this->getName();
-    $formats = filter_formats();
+    $formats = $this->filterFormatRepository->getAllFormats();
     $format_options = array_map(function ($format) {
       return $format->get('name');
     }, $formats);
