@@ -142,13 +142,39 @@
     color: var(--color-muted-content);
   }
 
-  /* Evidence callout stat value — match React EvidenceCallout.tsx
-     (`stat-value font-heading text-primary`). The article renders field_metric via
-     ui_patterns → daisyui stat_item, which omits those utility classes (the /writing
-     partial hand-applies them). Apply here so BOTH renders read teal + Fraunces.
-     Theme-aware via --color-primary (adc-warm teal.700 / adc-dark teal.400). */
-  [data-component="evidence-callout"] .stat-value {
-    font-family: var(--font-heading);
-    color: var(--color-primary);
+}
+
+/* ── Evidence callout (field_metric → ui_patterns → daisyui stat_item) ──────────
+   UNLAYERED (outside @layer components) so it reliably wins DaisyUI's .stats/.stat
+   layout in the Tailwind-4 cascade. Match the React EvidenceCallout.tsx exactly:
+   - teal + Fraunces VALUE on top → label → source. The stat_item DOM order is
+     title→value→desc, so `order` promotes the value to the top (grid auto-flow row).
+   - horizontal (side-by-side, with DaisyUI's built-in divider) from the lg breakpoint;
+     the wrapper's `lg:stats-horizontal` was being overridden by `stats-vertical`. */
+/* The ui_patterns per-item formatter wraps the stat items in an intermediate <div>,
+   which breaks DaisyUI's `.stats > .stat` grid relationship (the items stack instead of
+   flowing). display:contents dissolves that wrapper so the .stat items become real grid
+   children of .stats. */
+[data-component="evidence-callout"] > * { display: contents; }
+
+[data-component="evidence-callout"] .stat-value {
+  font-family: var(--font-heading);
+  color: var(--color-primary);
+  order: 1;
+}
+[data-component="evidence-callout"] .stat-title { order: 2; white-space: normal; }
+[data-component="evidence-callout"] .stat-desc  { order: 3; white-space: normal; }
+
+/* Horizontal, equal-width columns from lg (matches React lg:stats-horizontal). */
+@media (min-width: 64rem) {
+  [data-component="evidence-callout"].stats {
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
+  }
+  /* Divider between horizontal stats. The formatter nests two wrapper levels
+     (.stats > outer-wrapper[display:contents] > per-item-wrapper > .stat); the per-item
+     wrappers are the grid columns, so the divider goes on the non-last item-wrapper. */
+  [data-component="evidence-callout"] > * > *:not(:last-child) {
+    border-inline-end: 1px solid var(--color-base-300);
   }
 }
