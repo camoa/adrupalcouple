@@ -1,0 +1,15 @@
+{
+  "name": "editoria11y",
+  "version": "3.0.5",
+  "description": "Dev-only JS unit tests for the Editoria11y Drupal module. Not shipped to browsers — editoria11yOptions.js is delivered as ESM with no build step; this toolchain only runs Vitest against it.",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test:unit": "vitest run",
+    "test:unit:watch": "vitest"
+  },
+  "devDependencies": {
+    "jsdom": "^26.0.0",
+    "vitest": "^4.1.8"
+  }
+}

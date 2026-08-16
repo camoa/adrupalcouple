@@ -1,3 +1,5 @@
 Anello
 ~commonmark
 ~ultimike
+~autolinks
+~markdownsmorgasbord

@@ -60,8 +60,7 @@ class AddEditInsecureFormatTest extends BrowserTestBase {
     $this->submitForm($edit, 'Save configuration');
     $session->statusCodeEquals(200);
     $session->pageTextContainsOnce('Added text format Markdown Easy format page test.');
-    $session->pageTextContainsOnce('The text format Markdown Easy format page test is potentially configured insecurely. The "Limit allowed HTML tags and correct faulty HTML" filter is strongly recommended and should be configured to run after the Markdown Easy filter.');
-    $session->pageTextContainsOnce('The text format Markdown Easy format page test is potentially configured incorrectly. The "Convert line breaks into HTML" filter is recommended and should be configured to run after the Markdown Easy filter.');
+    $session->pageTextContainsOnce('The text format Markdown Easy format page test is potentially configured insecurely. The "Limit allowed HTML tags and correct faulty HTML" filter is required and should be configured to run after the Markdown Easy filter.');
 
     // Navigate back to the edit text format page.
     $this->drupalGet('/admin/config/content/formats/manage/markdown_easy_format_page_test');
@@ -69,8 +68,7 @@ class AddEditInsecureFormatTest extends BrowserTestBase {
     $this->submitForm($edit, 'Save configuration');
     $session->statusCodeEquals(200);
     $session->pageTextContainsOnce('The text format Markdown Easy format page test has been updated.');
-    $session->pageTextContainsOnce('The text format Markdown Easy format page test is potentially configured insecurely. The "Limit allowed HTML tags and correct faulty HTML" filter is strongly recommended and should be configured to run after the Markdown Easy filter.');
-    $session->pageTextContainsOnce('The text format Markdown Easy format page test is potentially configured incorrectly. The "Convert line breaks into HTML" filter is recommended and should be configured to run after the Markdown Easy filter.');
+    $session->pageTextContainsOnce('The text format Markdown Easy format page test is potentially configured insecurely. The "Limit allowed HTML tags and correct faulty HTML" filter is required and should be configured to run after the Markdown Easy filter.');
 
     // Navigate back to the edit text format page.
     $this->drupalGet('/admin/config/content/formats/manage/markdown_easy_format_page_test');
@@ -89,8 +87,7 @@ class AddEditInsecureFormatTest extends BrowserTestBase {
     $this->submitForm($edit, 'Save configuration');
     $session->statusCodeEquals(200);
     $session->pageTextContainsOnce('The text format Markdown Easy format page test has been updated.');
-    $session->pageTextNotContains('The text format Markdown Easy format page test is potentially configured insecurely. The "Limit allowed HTML tags and correct faulty HTML" filter is strongly recommended and should be configured to run after the Markdown Easy filter.');
-    $session->pageTextNotContains('The text format Markdown Easy format page test is potentially configured incorrectly. The "Convert line breaks into HTML" filter is recommended and should be configured to run after the Markdown Easy filter.');
+    $session->pageTextNotContains('The text format Markdown Easy format page test is potentially configured insecurely. The "Limit allowed HTML tags and correct faulty HTML" filter is required and should be configured to run after the Markdown Easy filter.');
   }
 
 }

@@ -1,0 +1,154 @@
+# Canadian English dialect overlay for Editoria11y.
+#
+# This file is a minimal overlay over the American-English source strings
+# in template/general.pot. Only entries whose Canadian spelling differs
+# from the American source appear here; all other strings fall back to
+# the msgid via Drupal's locale layer (empty/absent msgstr = use source).
+#
+# Canadian English keeps American -ize/-yze verb endings (organize,
+# analyze, recognize) and -er spellings (center, theater). It diverges
+# from American on -our nouns (colour, behaviour, favour, labour,
+# neighbour) and on noun/verb licence/license, practice/practise,
+# defence/offence. That's a much smaller set than en-gb.
+#
+# Add a new entry only when general.pot gains a string that contains a
+# dialect-sensitive word. scripts/scan-dialect-strings.sh flags candidates.
+# This file is NOT updated by scripts/sync-translations.sh.
+msgid ""
+msgstr ""
+"Project-Id-Version: editoria11y 3.0.0\n"
+"POT-Creation-Date: 2026-04-15 22:19-0400\n"
+"PO-Revision-Date: 2026-04-21 12:00+0000\n"
+"Language-Team: Editoria11y\n"
+"Language: en-ca\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Color scheme for panel and tooltips"
+msgstr "Colour scheme for panel and tooltips"
+
+msgid "Your Editoria11y CSA trial has @days days remaining. <a href=\"@url\">Activate a license</a> to continue using CSA features after the trial ends."
+msgstr "Your Editoria11y CSA trial has @days days remaining. <a href=\"@url\">Activate a licence</a> to continue using CSA features after the trial ends."
+
+msgid "Your Editoria11y CSA trial has expired. CSA features have been disabled. <a href=\"@url\">Activate a license</a> to continue using them."
+msgstr "Your Editoria11y CSA trial has expired. CSA features have been disabled. <a href=\"@url\">Activate a licence</a> to continue using them."
+
+msgid "Your Editoria11y CSA license has expired. <a href=\"@url\">Renew or deactivate your license</a>."
+msgstr "Your Editoria11y CSA licence has expired. <a href=\"@url\">Renew or deactivate your licence</a>."
+
+msgid "Your Editoria11y CSA license has expired. Please renew to reactivate CSA add-ons."
+msgstr "Your Editoria11y CSA licence has expired. Please renew to reactivate CSA add-ons."
+
+msgid "Cron license check failed: @msg"
+msgstr "Cron licence check failed: @msg"
+
+msgid "Editoria11y CSA features are active on a @days-day trial. <a href=\"@url\">Activate a license</a> to continue using them after the trial ends."
+msgstr "Editoria11y CSA features are active on a @days-day trial. <a href=\"@url\">Activate a licence</a> to continue using them after the trial ends."
+
+msgid "An <a href=\"@settings\">active license must be deactivated</a> before uninstalling."
+msgstr "An <a href=\"@settings\">active licence must be deactivated</a> before uninstalling."
+
+msgid "License key stored. Use editoria11y-csa:activate to activate."
+msgstr "Licence key stored. Use editoria11y-csa:activate to activate."
+
+msgid "License activated."
+msgstr "Licence activated."
+
+msgid "License deactivated."
+msgstr "Licence deactivated."
+
+msgid "License active. Expires: @date"
+msgstr "Licence active. Expires: @date"
+
+msgid "License active. No expiration date."
+msgstr "Licence active. No expiration date."
+
+msgid "License management locked. Use editoria11y-csa:unlock to re-enable UI changes."
+msgstr "Licence management locked. Use editoria11y-csa:unlock to re-enable UI changes."
+
+msgid "License management unlocked. UI changes are now allowed."
+msgstr "Licence management unlocked. UI changes are now allowed."
+
+msgid "License expired or cancelled."
+msgstr "Licence expired or cancelled."
+
+msgid "License key cannot be empty."
+msgstr "Licence key cannot be empty."
+
+msgid "No stored license key found. Run editoria11y-csa:set-key first."
+msgstr "No stored licence key found. Run editoria11y-csa:set-key first."
+
+msgid "License check failed: {msg}"
+msgstr "Licence check failed: {msg}"
+
+msgid "This site appears to be a development or testing environment with an active license."
+msgstr "This site appears to be a development or testing environment with an active licence."
+
+msgid "<strong>Disconnect this copy</strong>; leave the production license active"
+msgstr "<strong>Disconnect this copy</strong>; leave the production licence active"
+
+msgid "License management on this site has been locked via Drush. Use <code>drush ed11y-unlock</code> to re-enable changes from this form."
+msgstr "Licence management on this site has been locked via Drush. Use <code>drush ed11y-unlock</code> to re-enable changes from this form."
+
+msgid "Separate license activations from a development environment consume an additional key."
+msgstr "Separate licence activations from a development environment consume an additional key."
+
+msgid "License expired"
+msgstr "Licence expired"
+
+msgid "Activate using stored license key"
+msgstr "Activate using stored licence key"
+
+msgid "Activate with a different license key"
+msgstr "Activate with a different licence key"
+
+msgid "Activate (enter license key below)"
+msgstr "Activate (enter licence key below)"
+
+msgid "<strong>License expired.</strong> Expired on: @date"
+msgstr "<strong>Licence expired.</strong> Expired on: @date"
+
+msgid "<strong>License has expired.</strong>"
+msgstr "<strong>Licence has expired.</strong>"
+
+msgid "<strong>Trial license active.</strong> Trial ends: @date"
+msgstr "<strong>Trial licence active.</strong> Trial ends: @date"
+
+msgid "<strong>License active.</strong> Expires: @date"
+msgstr "<strong>Licence active.</strong> Expires: @date"
+
+msgid "<strong>Lifetime license active.</strong>"
+msgstr "<strong>Lifetime licence active.</strong>"
+
+msgid "Check for license renewal"
+msgstr "Check for licence renewal"
+
+msgid "Deactivate license"
+msgstr "Deactivate licence"
+
+msgid "CSA license key"
+msgstr "CSA licence key"
+
+msgid "Saved license key not found. Please activate with a new key."
+msgstr "Saved licence key not found. Please activate with a new key."
+
+msgid "Enter a license key."
+msgstr "Enter a licence key."
+
+msgid "License renewed and active."
+msgstr "Licence renewed and active."
+
+msgid "License is still expired."
+msgstr "Licence is still expired."
+
+msgid "Unexpected license status: @status"
+msgstr "Unexpected licence status: @status"
+
+msgid "A license key is stored but not active"
+msgstr "A licence key is stored but not active"
+
+msgid "Add a license key to enable CSA features"
+msgstr "Add a licence key to enable CSA features"
+

@@ -1,0 +1,2988 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: editoria11y 3.0.0\n"
+"POT-Creation-Date: 2026-08-01 21:46-0400\n"
+"PO-Revision-Date: 2026-05-11 00:00+0000\n"
+"Language-Team: Editoria11y\n"
+"Language: sl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || "
+"n%100==4 ? 2 : 3);\n"
+
+msgid ""
+"editoria11y_post_update_0004: scanned @scanned mismatched page(s), "
+"backfilled @fixed to the referenced entity language."
+msgstr ""
+"editoria11y_post_update_0004: scanned @scanned mismatched page(s), "
+"backfilled @fixed to the referenced entity language."
+
+msgid "Editoria11y"
+msgstr "Editoria11y"
+
+msgid "Editoria11y - Pages with issues"
+msgstr "Editoria11y – Strani s težavami"
+
+msgctxt "problems"
+msgid "Provides relationship for issues and dismissals"
+msgstr "Zagotavlja razmerje med težavami in zavrnitvami"
+
+msgid "EID"
+msgstr "EID"
+
+msgid "Editoria11y's internal page ID"
+msgstr "Notranja ID strani Editoria11y"
+
+msgid "Entity ID"
+msgstr "ID entitete"
+
+msgid "The NID/TID/UID of the page with an issue."
+msgstr "NID/TID/UID strani s težavo."
+
+msgid "Entity type"
+msgstr "Vrsta entitete"
+
+msgid "The entity type; \"route\" if no type found."
+msgstr "Vrsta entitete; \"route\", če vrsta ni najdena."
+
+msgid "Route name"
+msgstr "Ime poti"
+
+msgid "Route name for page."
+msgstr "Ime poti za stran."
+
+msgid "Page path"
+msgstr "Pot strani"
+
+msgid "Internal, relative page path."
+msgstr "Notranja, relativna pot strani."
+
+msgid "Page language"
+msgstr "Jezik strani"
+
+msgid "Active translation."
+msgstr "Aktivni prevod."
+
+msgid "Page title"
+msgstr "Naslov strani"
+
+msgid "The name of the route where this was last seen."
+msgstr "Ime poti, kjer je bilo to nazadnje zaznano."
+
+msgid "Content alerts"
+msgstr "Opozorila vsebine"
+
+msgid "Number of alerts shown to content editors."
+msgstr "Število opozoril, prikazanih urednikov vsebine."
+
+msgid "Dev alerts"
+msgstr "Razvijalska opozorila"
+
+msgid "Number of alerts shown to developers."
+msgstr "Število opozoril, prikazanih razvijalcem."
+
+msgid "Updated"
+msgstr "Posodobljeno"
+
+msgid "When this page was last checked."
+msgstr "Ko je bila ta stran nazadnje preverjena."
+
+msgid "Editoria11y - Test results"
+msgstr "Editoria11y – Rezultati testov"
+
+msgctxt "problems"
+msgid "Stores Editoria11y issue list"
+msgstr "Shranjuje seznam težav Editoria11y"
+
+msgid "Result row"
+msgstr "Vrstica rezultata"
+
+msgid "Internal identifier"
+msgstr "Notranji identifikator"
+
+msgid "Created"
+msgstr "Ustvarjeno"
+
+msgid "When this page was flagged."
+msgstr "Ko je bila ta stran označena."
+
+msgid "Alert type"
+msgstr "Vrsta opozorila"
+
+msgid "The name of the test as reported by Editoria11y JS"
+msgstr "Ime testa, kakor ga sporoča Editoria11y JS"
+
+msgid "Alert type, linked"
+msgstr "Vrsta opozorila (s povezavo)"
+
+msgid "Linked to report of all alerts of this type."
+msgstr "Povezava na poročilo vseh opozoril te vrste."
+
+msgid "Content alert count"
+msgstr "Število opozoril vsebine"
+
+msgid "The number of hits for this test type on this page"
+msgstr "Število zadetkov tega tipa testa na tej strani"
+
+msgid "Dev alert count"
+msgstr "Število razvijalskih opozoril"
+
+msgid "Editoria11y - Dismissals"
+msgstr "Editoria11y – Zavrnitve"
+
+msgid "Stores Editoria11y warnings and dismissals"
+msgstr "Shranjuje opozorila in zavrnitve Editoria11y"
+
+msgid "Dismissal internal reference ID"
+msgstr "Notranja referenčna ID zavrnitve"
+
+msgid "Page with dismissal"
+msgstr "Stran z zavrnitvijo"
+
+msgid "Dismissed by"
+msgstr "Zavrnil/a"
+
+msgid "The user linked to this dismissal."
+msgstr "Uporabnik, povezan s to zavrnitvijo."
+
+msgid "Linked Drupal user"
+msgstr "Povezan uporabnik Drupal"
+
+msgid "Dismissed element id"
+msgstr "ID zavrnjenega elementa"
+
+msgid "Code sample to identify the flagged element."
+msgstr "Vzorec kode za identifikacijo označenega elementa."
+
+msgid "Dismissed on"
+msgstr "Zavrnjeno dne"
+
+msgid "The Unix timestamp of the first time this record was flagged."
+msgstr "Unix-časovni žig prvega označevanja tega zapisa."
+
+msgid "Dismissal stale since"
+msgstr "Zavrnitev zastarela od"
+
+msgid "The element has not been seen since this date."
+msgstr "Element od tega datuma ni bil zaznan."
+
+msgid "Dismissed result name"
+msgstr "Ime zavrnjenega rezultata"
+
+msgid "Dismissed result name, linked"
+msgstr "Ime zavrnjenega rezultata (s povezavo)"
+
+msgid "Links to report of all alerts of this type."
+msgstr "Povezava na poročilo vseh opozoril te vrste."
+
+msgid "Dismissal status"
+msgstr "Stanje zavrnitve"
+
+msgid "The type of dismissal (e.g., OK, Ignore)"
+msgstr "Vrsta zavrnitve (npr. V redu, Prezri)"
+
+msgid "Relate from Editoria11y page to referenced node"
+msgstr "Razmerje med stranjo Editoria11y in referenciranim vozliščem"
+
+msgid "Issues were found on this node"
+msgstr "Na tem vozlišču so bile najdene težave"
+
+msgid "Relate from node data to Editoria11y page"
+msgstr "Razmerje med podatki vozlišča in stranjo Editoria11y"
+
+msgid "Relate from Editoria11y page to referenced taxonomy term"
+msgstr ""
+"Razmerje med stranjo Editoria11y in referenciranim taksonomskim izrazom"
+
+msgid "Issues were found on this term page"
+msgstr "Na tej strani taksonomskega izraza so bile najdene težave"
+
+msgid "Relate from taxonomy term data to Editoria11y page"
+msgstr "Razmerje med podatki taksonomskega izraza in stranjo Editoria11y"
+
+msgid "Relate from Editoria11y page list to user bio page data"
+msgstr "Razmerje med seznamom strani Editoria11y in podatki biografske strani"
+
+msgid "Issues were found on this user bio page"
+msgstr "Na tej biografski strani so bile najdene težave"
+
+msgid "Relate from Editoria11y page to user bio page with issues"
+msgstr "Razmerje med stranjo Editoria11y in biografsko stranjo s težavami"
+
+msgid "Relate from user bio page to Editoria11y results"
+msgstr "Razmerje med biografsko stranjo in rezultati Editoria11y"
+
+msgid "Relate from users list to Editoria11y results on bio page"
+msgstr ""
+"Razmerje med seznamom uporabnikov in rezultati Editoria11y na biografski "
+"strani"
+
+msgid "Relate from Editoria11y page to issues on page"
+msgstr "Razmerje med stranjo Editoria11y in težavami na strani"
+
+msgid "Issues found on this node"
+msgstr "Težave, najdene na tem vozlišču"
+
+msgid "Relate from Editoria11y result to page"
+msgstr "Razmerje med rezultatom Editoria11y in stranjo"
+
+msgid "Relate from Editoria11y page to dismissals on page"
+msgstr "Razmerje med stranjo Editoria11y in zavrnitvami na strani"
+
+msgid "Relate from Editoria11y dismissal to page"
+msgstr "Razmerje med zavrnitvijo Editoria11y in stranjo"
+
+msgid "Group relationship for node with Editoria11y issues"
+msgstr "Razmerje Group za vozlišče s težavami Editoria11y"
+
+msgid ""
+"Bridge to the Group module. Add the Group module Group relationship on top "
+"of this one to filter or sort issues by group."
+msgstr ""
+"Premostitev do modula Group. Nad tem razmerjem dodajte razmerje Group iz "
+"modula Group, da boste lahko filtrirali ali razvrščali težave po skupini."
+
+msgid "Group relationship for node"
+msgstr "Razmerje Group za vozlišče"
+
+msgid "Group relationship for user bio with Editoria11y issues"
+msgstr "Razmerje Group za biografsko stran uporabnika s težavami Editoria11y"
+
+msgid "Group relationship for user"
+msgstr "Razmerje Group za uporabnika"
+
+msgid "Group relationship for taxonomy term with Editoria11y issues"
+msgstr "Razmerje Group za taksonomski izraz s težavami Editoria11y"
+
+msgid ""
+"Bridge to the Group module. Add the Group module Group relationship on top "
+"of this one to filter or sort issues by group. Requires a contrib module "
+"that exposes terms as group content."
+msgstr ""
+"Premostitev do modula Group. Nad tem razmerjem dodajte razmerje Group iz "
+"modula Group, da boste lahko filtrirali ali razvrščali težave po skupini. "
+"Zahteva dodaten modul, ki izraze izpostavi kot vsebino skupine."
+
+msgid "Group relationship for taxonomy term"
+msgstr "Razmerje Group za taksonomski izraz"
+
+msgid "Warning: possible out of date path. This content may have moved to"
+msgstr ""
+"Opozorilo: pot je morda zastarela. Ta vsebina je morda bila prenesena na"
+
+msgid "Export CSV"
+msgstr "Izvozi CSV"
+
+msgid "Predelete failed: @error_message"
+msgstr "Predhodna izbris ni uspela: @error_message"
+
+msgid "Page attachment failed: @error_message"
+msgstr "Priložitev strani ni uspela: @error_message"
+
+msgid ""
+"editoria11y_update_9019: scanned @total rows, repaired @updated, deleted "
+"@deleted corrupted group rows, left @skipped untouched."
+msgstr ""
+"editoria11y_update_9019: scanned @total rows, repaired @updated, deleted "
+"@deleted corrupted group rows, left @skipped untouched."
+
+msgid ""
+"editoria11y_update_9020: hashed @hashed page rows, removed @deduped "
+"duplicate rows, added unique keys."
+msgstr "editoria11y_update_9020: hashed @hashed page rows, removed @deduped duplicate rows, added unique keys."
+
+msgid "Editoria11y Accessibility Checker"
+msgstr "Editoria11y – preverjevalnik dostopnosti"
+
+msgid ""
+"Checks page content for accessibility and provides a site-wide dashboard."
+msgstr ""
+"Preverja dostopnost vsebine strani in zagotavlja nadzorno ploščo za celotno "
+"spletišče."
+
+msgid "Content Accessibility"
+msgstr "Dostopnost vsebine"
+
+msgid "Accessibility checker notifications and exclusions."
+msgstr "Obvestila in izjeme preverjevalnika dostopnosti."
+
+msgid "Results from the Editoria11y checker."
+msgstr "Rezultati preverjevalnika Editoria11y."
+
+msgid "Dashboard"
+msgstr "Nadzorna plošča"
+
+msgid "Core settings"
+msgstr "Osnovne nastavitve"
+
+msgid "Demo"
+msgstr "Demo"
+
+msgid "View Editoria11y checker"
+msgstr "Prikaz preverjevalnika Editoria11y"
+
+msgid "Assign to all content editors."
+msgstr "Dodeli vsem urednikom vsebine."
+
+msgid "Administer Editoria11y checker"
+msgstr "Upravljanje preverjevalnika Editoria11y"
+
+msgid "Allows user to purge results and change configuration."
+msgstr "Dovoljuje čiščenje rezultatov in spremembo konfiguracije."
+
+msgid "Mark as hidden in Editoria11y"
+msgstr "Označi kot skrito v Editoria11y"
+
+msgid "Adds button to suppress a manual check for the current user."
+msgstr "Doda gumb za skrivanje ročnega opozorila za trenutnega uporabnika."
+
+msgid "Mark as OK in Editoria11y"
+msgstr "Označi kot V redu v Editoria11y"
+
+msgid ""
+"Adds button to suppress a manual check for all users, if sync is enabled."
+msgstr ""
+"Doda gumb za skrivanje opozorila za vse uporabnike, če je sinhronizacija "
+"omogočena."
+
+msgid "Manage Editoria11y results"
+msgstr "Upravljanje rezultatov Editoria11y"
+
+msgid "View the site-wide dashboard and reset dismissals."
+msgstr "Prikaz nadzorne plošče za celotno spletišče in ponastavitev zavrnitev."
+
+msgid "Editoria11y core settings"
+msgstr "Osnovne nastavitve Editoria11y"
+
+msgid "Content Accessibility Issues"
+msgstr "Težave z dostopnostjo vsebine"
+
+msgid "Editoria11y Settings"
+msgstr "Nastavitve Editoria11y"
+
+msgid "Check elements in these containers"
+msgstr "Preveri elemente v teh vsebnikih"
+
+msgid "Alert panel assertiveness"
+msgstr "Asertivnost plošče opozoril"
+
+msgid "Do not run if these elements are on the page"
+msgstr "Ne zaženi, če so ti elementi na strani"
+
+msgid "Suppress all alerts if none of these elements are present"
+msgstr "Skrij vsa opozorila, če noben od teh elementov ni prisoten"
+
+msgid "Do not run tests on these containers"
+msgstr "Ne izvajaj testov na teh vsebnikih"
+
+msgid "Move toggle to avoid colliding with these widgets"
+msgstr "Prestavi preklopnik, da ne pride do trka s temi gradniki"
+
+msgid ""
+"Full check should warn on these elements with embedded uncheckable content"
+msgstr ""
+"Celotno preverjanje naj opozori na te elemente z vgrajeno nepreverljivo "
+"vsebino"
+
+msgid "These links download a document or image and need a manual review"
+msgstr "Te povezave prenesejo dokument ali sliko in zahtevajo ročni pregled"
+
+msgid "Strings that indicate a link opens in a new window"
+msgstr "Besedilni nizi, ki nakazujejo, da se povezava odpre v novem oknu"
+
+msgid "Remove these strings from link text before checking for bad link text"
+msgstr ""
+"Odstrani te nize iz besedila povezave pred preverjanjem slabega besedila"
+
+msgid "Remove strings in this selector before checking for bad link text"
+msgstr ""
+"Odstrani nize v tem selektorju pred preverjanjem slabega besedila povezave"
+
+msgid ""
+"Hidden elements in these containers will be revealed by theme JS on request "
+"via a dispatched event"
+msgstr ""
+"Skrite elemente v teh vsebnikih razkrije JS teme na zahtevo prek razposlane "
+"події"
+
+msgid "Elements that truncate overflow, partially hiding buttons"
+msgstr "Elementi, ki odsekajo prekoračitev in delno skrivajo gumbe"
+
+msgid "Color scheme for panel and tooltips"
+msgstr "Barvna shema za ploščo in namige"
+
+msgid "Pin toolbar to left or right"
+msgstr "Pripni orodno vrstico levo ali desno"
+
+msgid "Web components the checker should check"
+msgstr "Spletne komponente, ki jih preverjevalnik naj preveri"
+
+msgid "Auto-detects for additional shadow components"
+msgstr "Samodejno zazna dodatne shadow DOM komponente"
+
+msgid "Auto-detects and checks new content"
+msgstr "Samodejno zazna in preveri novo vsebino"
+
+msgid "Disables dashboard and synchronized marking of elements as OK"
+msgstr ""
+"Onemogoči nadzorno ploščo in sinhronizirano označevanje elementov kot V redu"
+
+msgid "URL query parameters that should be recorded as separate pages"
+msgstr "Parametri URL poizvedbe, ki naj se beležijo kot ločene strani"
+
+msgid "Remove string from URL for dashboard page links"
+msgstr "Odstrani niz iz URL v povezavah na nadzorni plošči"
+
+msgid "Number of custom test finished events the checker should wait for"
+msgstr ""
+"Število událkov zaključenih prilagojenih testov, na katere preverjevalnik "
+"naj počaka"
+
+msgid "Disables live editor checking"
+msgstr "Onemogoči preverjanje v živem urejevalniku"
+
+msgid ""
+"Selector for frontend-context editors that should inherit the document "
+"outline"
+msgstr ""
+"Selektor urejevalnikov v kontekstu ospredja, ki naj podedujejo oris dokumenta"
+
+msgid "Selector for editors where their first heading should be h2"
+msgstr "Selektor urejevalnikov, kjer mora biti prva naslovnica h2"
+
+msgid "Selector for editors where their first heading should be h3"
+msgstr "Selektor urejevalnikov, kjer mora biti prva naslovnica h3"
+
+msgid "Selector for editors where their first heading should be h4"
+msgstr "Selektor urejevalnikov, kjer mora biti prva naslovnica h4"
+
+msgid "Selectors for components where edit links are meaningless on tips"
+msgstr ""
+"Selektorji komponent, kjer so povezave za urejanje v namigih brezpomenske"
+
+msgid "Tell CK5 to have a header rows or columns by default."
+msgstr "Naroči CKEditor 5, naj ima privzeto vrstice ali stolpce glave."
+
+msgid "Tests not shown to content authors."
+msgstr "Testi, ki se ne prikažejo avtorjem vsebine."
+
+msgid "Disable the tests you are not ready for"
+msgstr "Onemogoči teste, na katere niste pripravljeni"
+
+msgid "linkNewWindow"
+msgstr "linkNewWindow"
+
+msgid "linkNoText"
+msgstr "linkNoText"
+
+msgid "altEmptyLinked"
+msgstr "altEmptyLinked"
+
+msgid "linkDocument"
+msgstr "linkDocument"
+
+msgid "linkTextIsURL"
+msgstr "linkTextIsURL"
+
+msgid "linkTextIsGeneric"
+msgstr "linkTextIsGeneric"
+
+msgid "textPossibleList"
+msgstr "textPossibleList"
+
+msgid "textPossibleHeading"
+msgstr "textPossibleHeading"
+
+msgid "textUppercase"
+msgstr "textUppercase"
+
+msgid "tableNoHeaderCells"
+msgstr "tableNoHeaderCells"
+
+msgid "tableEmptyHeaderCell"
+msgstr "tableEmptyHeaderCell"
+
+msgid "tableContainsContentHeading"
+msgstr "tableContainsContentHeading"
+
+msgid "embedVideo"
+msgstr "embedVideo"
+
+msgid "embedAudio"
+msgstr "embedAudio"
+
+msgid "embedVisualization"
+msgstr "embedVisualization"
+
+msgid "embedTwitter"
+msgstr "embedTwitter"
+
+msgid "embedCustom"
+msgstr "embedCustom"
+
+msgid "headingEmpty"
+msgstr "headingEmpty"
+
+msgid "headingIsLong"
+msgstr "headingIsLong"
+
+msgid "headingLevelSkipped"
+msgstr "headingLevelSkipped"
+
+msgid "blockquoteIsShort"
+msgstr "blockquoteIsShort"
+
+msgid "altMissing"
+msgstr "altMissing"
+
+msgid "altNull"
+msgstr "altNull"
+
+msgid "altMeaningless"
+msgstr "altMeaningless"
+
+msgid "altURL"
+msgstr "altURL"
+
+msgid "altImageOf"
+msgstr "altImageOf"
+
+msgid "altDeadspace"
+msgstr "altDeadspace"
+
+msgid "altLong"
+msgstr "altLong"
+
+msgid "altPartOfLinkWithText"
+msgstr "altPartOfLinkWithText"
+
+msgid "2-letter code (en, fr, de)"
+msgstr "Dvočrkovna koda (en, fr, de)"
+
+msgid "Alert"
+msgstr "Opozorilo"
+
+msgid "Alert types"
+msgstr "Vrste opozoril"
+
+msgid "Alerts"
+msgstr "Opozorila"
+
+msgid "All dismissals"
+msgstr "Vse zavrnitve"
+
+msgid "All issues"
+msgstr "Vse težave"
+
+msgid "All pages"
+msgstr "Vse strani"
+
+msgid "Apply"
+msgstr "Uporabi"
+
+msgid "Author"
+msgstr "Avtor"
+
+msgid "Authored after"
+msgstr "Ustvarjeno po"
+
+msgid "Authored before"
+msgstr "Ustvarjeno pred"
+
+msgid "Authored"
+msgstr "Ustvarjeno"
+
+msgid "Content type"
+msgstr "Vrsta vsebine"
+
+msgid "Detected"
+msgstr "Zaznano"
+
+msgid "Dismissals"
+msgstr "Zavrnitve"
+
+msgid "Dismissed accessibility alerts"
+msgstr "Zavrnjene opozorila dostopnosti"
+
+msgid "Edited"
+msgstr "Urejeno"
+
+msgid "Editor"
+msgstr "Urednik"
+
+msgid "Items per page"
+msgstr "Elementov na stran"
+
+msgid "Filter"
+msgstr "Filtriraj"
+
+msgid "Language"
+msgstr "Jezik"
+
+msgid "Last editor"
+msgstr "Zadnji urednik"
+
+msgid "Marked"
+msgstr "Označeno"
+
+msgid "No dismissals found."
+msgstr "Nobene zavrnitve ni bila najdena."
+
+msgid "Page"
+msgstr "Stran"
+
+msgid "Pages"
+msgstr "Strani"
+
+msgid "Pages with alerts"
+msgstr "Strani z opozorili"
+
+msgid "Panel"
+msgstr "Plošča"
+
+msgid "Path"
+msgstr "Pot"
+
+msgid "Published"
+msgstr "Objavljeno"
+
+msgid "Recent"
+msgstr "Nedavno"
+
+msgid "Recent accessibility alerts"
+msgstr "Nedavna opozorila dostopnosti"
+
+msgid "Recent alerts"
+msgstr "Nedavna opozorila"
+
+msgctxt "problems"
+msgid "Recent alerts"
+msgstr "Nedavna opozorila"
+
+msgid "Sort by"
+msgstr "Razvrsti po"
+
+msgid "Title"
+msgstr "Naslov"
+
+msgid "Type"
+msgstr "Vrsta"
+
+msgid "Filter and sort"
+msgstr "Filtriraj in razvrsti"
+
+msgid "Deleted."
+msgstr "Izbrisano."
+
+msgid "Delete failed."
+msgstr "Brisanje ni uspelo."
+
+msgid "<p>The Editoria11y <strong><em>@type</em></strong> view is missing.</p>"
+msgstr ""
+"<p>The Editoria11y <strong><em>@type</em></strong> view is missing.</p>"
+
+msgid ""
+"<p>There are three view configurations this module installs, found in its /"
+"config/install folder. Each must be installed for this dashboard to display "
+"results.</p>"
+msgstr ""
+"<p>There are three view configurations this module installs, found in its /"
+"config/install folder. Each must be installed for this dashboard to display "
+"results.</p>"
+
+msgid ""
+"<p>To fix: copy and paste the contents of <strong>/editoria11y/config/"
+"install/views.view.ed11y_@type.yml</strong> into a \"View\" type import at "
+"<a href=\"/admin/config/development/configuration/single/import\">/admin/"
+"config/development/configuration/single/import</a>. If you sync your "
+"configuration to the filesystem, be sure to include these Views in your "
+"repository.</p>"
+msgstr ""
+"<p>To fix: copy and paste the contents of <strong>/editoria11y/config/"
+"install/views.view.ed11y_@type.yml</strong> into a \"View\" type import at "
+"<a href=\"/admin/config/development/configuration/single/import\">/admin/"
+"config/development/configuration/single/import</a>. If you sync your "
+"configuration to the filesystem, be sure to include these Views in your "
+"repository.</p>"
+
+msgid "link is external"
+msgstr "povezava je zunanja"
+
+msgid "link sends email"
+msgstr "povezava odpre e-pošto"
+
+msgid "No results found"
+msgstr "Ni najdenih rezultatov"
+
+msgid ""
+"Your Editoria11y CSA trial has @days days remaining. <a "
+"href=\"@url\">Activate a license</a> to continue using CSA features after "
+"the trial ends."
+msgstr ""
+"Vaše preskusno obdobje Editoria11y CSA ima še @days dni. <a "
+"href=\"@url\">Aktivirajte licenco</a>, da po koncu preskusa nadaljujete z "
+"uporabo funkcij CSA."
+
+msgid ""
+"Your Editoria11y CSA trial has expired. CSA features have been disabled. <a "
+"href=\"@url\">Activate a license</a> to continue using them."
+msgstr ""
+"Vaše preskusno obdobje Editoria11y CSA je poteklo. Funkcije CSA so bile "
+"onemogočene. <a href=\"@url\">Aktivirajte licenco</a>, da jih nadaljujete z "
+"uporabo."
+
+msgid ""
+"Your Editoria11y CSA license has expired. <a href=\"@url\">Renew or "
+"deactivate your license</a>."
+msgstr ""
+"Vaša licenca Editoria11y CSA je potekla. <a href=\"@url\">Obnovite ali "
+"deaktivirajte licenco</a>."
+
+msgid ""
+"Your Editoria11y CSA license has expired. Please renew to reactivate CSA add-"
+"ons."
+msgstr ""
+"Vaša licenca Editoria11y CSA je potekla. Prosimo, obnovite jo, da znova "
+"aktivirate dodatke CSA."
+
+msgid "Cron license check failed: @msg"
+msgstr "Preveritev licence prek cron ni uspela: @msg"
+
+msgid ""
+"Editoria11y CSA features are active on a @days-day trial. <a "
+"href=\"@url\">Activate a license</a> to continue using them after the trial "
+"ends."
+msgstr ""
+"Funkcije Editoria11y CSA so aktivne v @days-dnevnem preskusnem obdobju. <a "
+"href=\"@url\">Aktivirajte licenco</a>, da jih po koncu preskusa nadaljujete "
+"z uporabo."
+
+msgid "Editoria11y Custom Test"
+msgstr "Prilagojen test Editoria11y"
+
+msgid "Editoria11y Custom Tests"
+msgstr "Prilagojeni testi Editoria11y"
+
+msgid "editoria11y custom test"
+msgstr "prilagojen test editoria11y"
+
+msgid "editoria11y custom tests"
+msgstr "prilagojeni testi editoria11y"
+
+msgid "Editoria11y CSA: Advanced Tools"
+msgstr "Editoria11y CSA: napredna orodja"
+
+msgid ""
+"Community-Supported Addons include code and contrast checks, custom checks, "
+"a site crawler and report maintenance tools."
+msgstr "Dodatki, ki jih podpira skupnost, vključujejo preverjanja kode in kontrasta, prilagojena preverjanja, pajka za spletišče in orodja za vzdrževanje poročil."
+
+msgid "Add custom test"
+msgstr "Dodaj prilagojen test"
+
+msgid "Recheck"
+msgstr "Znova preveri"
+
+msgid "CSA membership"
+msgstr "Članstvo CSA"
+
+msgid "Custom tests"
+msgstr "Prilagojeni testi"
+
+msgid "Dashboard Actions"
+msgstr "Dejanja nadzorne plošče"
+
+msgid "Editoria11y CSA membership"
+msgstr "Članstvo Editoria11y CSA"
+
+msgid "Editoria11y custom tests"
+msgstr "Prilagojeni testi Editoria11y"
+
+msgid "Add a custom test"
+msgstr "Dodaj prilagojen test"
+
+msgid "Edit custom test"
+msgstr "Uredi prilagojen test"
+
+msgid "Delete custom test"
+msgstr "Izbriši prilagojen test"
+
+msgid "Editoria11y CSA Settings"
+msgstr "Nastavitve Editoria11y CSA"
+
+msgid "Developer roles"
+msgstr "Razvijalske vloge"
+
+msgid "Developer assertiveness"
+msgstr "Asertivnost razvijalskih opozoril"
+
+msgid "Tests overridden to show to content editors"
+msgstr "Testi, prisiljeni v prikaz urednikov vsebine"
+
+msgid "Tests overridden to turn off"
+msgstr "Testi, prisiljeni v izklopitev"
+
+msgid "Tests overridden to only to show to developers"
+msgstr "Testi, prisiljeni v prikaz samo razvijalcem"
+
+msgid "Elements to ignore for contrast test"
+msgstr "Elementi, ki se prezrejo pri testu kontrasta"
+
+msgid "Turn on contrast checks"
+msgstr "Vklopi preveritev kontrasta"
+
+msgid "Developer check root: body or specify"
+msgstr "Koren razvijalske preveritve: body ali določi"
+
+msgid "Developer check root selector"
+msgstr "Selektor korena razvijalske preveritve"
+
+msgid "Selector for elements to ignore for developers"
+msgstr "Selektor elementov, ki se prezrejo za razvijalce"
+
+msgid "Enabled"
+msgstr "Omogočeno"
+
+msgid "Custom development domain patterns"
+msgstr "Prilagojeni vzorci razvijalskih domen"
+
+msgid "ID"
+msgstr "ID"
+
+msgid "Label"
+msgstr "Oznaka"
+
+msgid "Test key"
+msgstr "Ključ testa"
+
+msgid "Tooltip title"
+msgstr "Naslov namiga"
+
+msgid "Tip content HTML"
+msgstr "HTML vsebina namiga"
+
+msgid "Element set to check"
+msgstr "Nabor elementov za preveritev"
+
+msgid "Dismiss key type"
+msgstr "Vrsta ključa zavrnitve"
+
+msgid "CSS filter selector"
+msgstr "CSS selektor filtra"
+
+msgid "Text strings to include"
+msgstr "Besedilni nizi za vključitev"
+
+msgid "Text string"
+msgstr "Besedilni niz"
+
+msgid "Text strings to exclude"
+msgstr "Besedilni nizi za izključitev"
+
+msgid "Case sensitive text matching"
+msgstr "Ujemanje besedila z razlikovanjem velikih in malih črk"
+
+msgid "Filter which pages will be crawled"
+msgstr "Filtriraj, katere strani bodo pregledane"
+
+msgid "Cancel"
+msgstr "Prekliči"
+
+msgid "Millisecond pause between page requests"
+msgstr "Pavza v milisekundah med zahtevami strani"
+
+msgid "This tab needs to remain open and in the foreground during the crawl."
+msgstr "Ta zavihek mora med pregledovanjem ostati odprt in v ospredju."
+
+msgid "Estimated time:"
+msgstr "Ocenjeni čas:"
+
+msgid "hours"
+msgstr "hours"
+
+msgid "minutes"
+msgstr "minutes"
+
+msgid "minute"
+msgstr "minute"
+
+msgid "Start crawling"
+msgstr "Začni pregledovanje"
+
+msgid "Checked:"
+msgstr "Preverjeno:"
+
+msgid "pages"
+msgstr "pages"
+
+msgid "Back to dashboard"
+msgstr "Nazaj na nadzorno ploščo"
+
+msgid "Test"
+msgstr "Test"
+
+msgid "Elements"
+msgstr "Elementi"
+
+msgid "Status"
+msgstr "Stanje"
+
+msgid "Text"
+msgstr "Besedilo"
+
+msgid "On"
+msgstr "Vklopljeno"
+
+msgid "Off"
+msgstr "Izklopljeno"
+
+msgid "Freemius deactivation API call failed: @msg"
+msgstr "Klic API za deaktivacijo Freemius ni uspel: @msg"
+
+msgid "Cannot cancel subscription: API token not found."
+msgstr "Naročnine ni mogoče preklicati: žeton API ni bil najden."
+
+msgid "Freemius subscription cancellation API call failed: @msg"
+msgstr "Klic API za preklic naročnine Freemius ni uspel: @msg"
+
+msgid "Key module lookup for @id failed: @msg"
+msgstr "Key module lookup for @id failed: @msg"
+
+msgid "Failed to update Freemius install properties: @msg"
+msgstr "Posodobitev lastnosti namestitve Freemius ni uspela: @msg"
+
+msgid ""
+"An <a href=\"@settings\">active license must be deactivated</a> before "
+"uninstalling."
+msgstr ""
+"<a href=\"@settings\">Aktivno licenco je treba deaktivirati</a> pred "
+"odstranitvijo."
+
+msgid "License key stored. Use editoria11y-csa:activate to activate."
+msgstr ""
+"Ključ licence shranjen. Uporabite editoria11y-csa:activate za aktivacijo."
+
+msgid "License activated."
+msgstr "Licenca aktivirana."
+
+msgid "License deactivated."
+msgstr "Licenca deaktivirana."
+
+msgid "License active. Expires: @date"
+msgstr "Licenca aktivna. Poteče: @date"
+
+msgid "License active. No expiration date."
+msgstr "Licenca aktivna. Brez datuma poteka."
+
+msgid ""
+"License management locked. Use editoria11y-csa:unlock to re-enable UI "
+"changes."
+msgstr ""
+"Upravljanje licence je zaklenjeno. Uporabite editoria11y-csa:unlock za "
+"ponoven vnos sprememb UI."
+
+msgid "License management unlocked. UI changes are now allowed."
+msgstr "Upravljanje licence odklenjenjo. Spremembe UI so zdaj dovoljene."
+
+msgid "License expired or cancelled."
+msgstr "Licenca je potekla ali je bila preklicana."
+
+msgid "License key cannot be empty."
+msgstr "Ključ licence ne sme biti prazen."
+
+msgid "Failed to store key: {msg}"
+msgstr "Shranjevanje ključa ni uspelo: {msg}"
+
+msgid "No stored license key found. Run editoria11y-csa:set-key first."
+msgstr ""
+"Shranjenega ključa licence ni bilo najden. Najprej zaženite editoria11y-"
+"csa:set-key."
+
+msgid "Activation failed: {msg}"
+msgstr "Aktivacija ni uspela: {msg}"
+
+msgid "Deactivation failed: {msg}"
+msgstr "Deaktivacija ni uspela: {msg}"
+
+msgid "License check failed: {msg}"
+msgstr "Preveritev licence ni uspela: {msg}"
+
+msgid "Export"
+msgstr "Izvozi"
+
+msgid "Export pages"
+msgstr "Izvozi strani"
+
+msgid "Export dismissals"
+msgstr "Izvozi zavrnitve"
+
+msgid "Export alerts"
+msgstr "Izvozi opozorila"
+
+msgid "Paths with parameters"
+msgstr "Poti s parametri"
+
+msgid "Drop records for deleted or moved pages"
+msgstr "Izbriši zapise za izbrisane ali premaknjene strani"
+
+msgid "Deletes results that no longer have valid paths or entity references."
+msgstr "Izbriše rezultate, ki nimajo več veljavnih poti ali referenc entitet."
+
+msgid "Update page titles"
+msgstr "Posodobi naslove strani"
+
+msgid ""
+"Replaces recorded titles for Nodes, Terms and Users with the current value "
+"on their edit page."
+msgstr ""
+"Zamenja shranjene naslove vozlišč, izrazov in uporabnikov z aktualnimi "
+"vrednostmi na njihovih straneh za urejanje."
+
+msgid "Update page paths"
+msgstr "Posodobi poti strani"
+
+msgid ""
+"Replaces recorded URLs for Nodes, Terms and Users with their current "
+"canonical path. <br>@ReviewPaths (node/1?node=2) will not be updated."
+msgstr ""
+"Zamenja shranjene URL naslove vozlišč, izrazov in uporabnikov z njihovo "
+"trenutno kanonično potjo. <br>@ReviewPaths (node/1?node=2) ne bo "
+"posodobljeno."
+
+msgid "Risky deletions"
+msgstr "Tvegane izbrise"
+
+msgid "Delete records for paths with parameters (e.g., ?page=2)"
+msgstr "Izbriši zapise za poti s parametri (npr. ?page=2)"
+
+msgid "None"
+msgstr "Brez"
+
+msgid "Only for nodes, terms & users"
+msgstr "Samo za vozlišča, izraze in uporabnike"
+
+msgid "All, including search and views"
+msgstr "Vse, vključno z iskanjem in pogledi"
+
+msgid ""
+"Used to remove duplicate records when previously recorded parameters like "
+"page numbers or search keys were not meaningful. Parameters that are not "
+"meaningful should be removed from the list of parameters to save under "
+"\"Syncing results to reports\" in the module configuration.<br>@ReviewPaths "
+"should be reviewed before proceeding. <strong>There is no undo</strong>."
+msgstr ""
+"Uporablja se za odstranjevanje podvojenih zapisov, kadar predhodno "
+"zabeleženi parametri (npr. številke strani ali iskalni ključi) niso bili "
+"smiselni. Nesmiselne parametre je treba odstraniti s seznama parametrov, ki "
+"se shranjujejo v razdelku »Sinhronizacija rezultatov v poročila«."
+"<br>@ReviewPaths je treba pregledati pred nadaljevanjem. <strong>Operacije "
+"ni mogoče razveljaviti</strong>."
+
+msgid "Start"
+msgstr "Začni"
+
+msgid "Recheck nodes"
+msgstr "Znova preveri vozlišča"
+
+msgid "Set up a crawl"
+msgstr "Nastavi pregledovanje"
+
+msgid "Processing batch #@batch_id of @count."
+msgstr "Obdelava serije #@batch_id od @count."
+
+msgid "@process processed @count, deleted @deleted, updated @updated."
+msgstr "@process je obdelal @count, izbrisal @deleted, posodobil @updated."
+
+msgid ""
+"An error occurred while processing %error_operation with arguments: "
+"@arguments"
+msgstr ""
+"Pri obdelavi %error_operation z argumenti @arguments je prišlo do napake"
+
+msgid "No records to process."
+msgstr "Ni zapisov za obdelavo."
+
+msgid ""
+"@process processed @count, deleted @deleted, updated @updated in @elapsed."
+msgstr ""
+"@process je obdelal @count, izbrisal @deleted, posodobil @updated v @elapsed."
+
+msgid "Admin label for the configuration page"
+msgstr "Administrativna oznaka za konfiguracijska stran"
+
+msgid "Test grouping ID"
+msgstr "ID skupinjavanja testov"
+
+msgid ""
+"Letters, numbers and underscores only.<br>Rules that share an ID will be "
+"grouped on dashboard reports."
+msgstr ""
+"Samo črke, številke in podčrtaji.<br>Pravila z istim ID bodo združena v "
+"poročilih nadzorne plošče."
+
+msgid "Active"
+msgstr "Aktivno"
+
+msgid "Alert content"
+msgstr "Vsebina opozorila"
+
+msgid "Tip title"
+msgstr "Naslov namiga"
+
+msgid "Tip details"
+msgstr "Podrobnosti namiga"
+
+msgid ""
+"HTML displayed in the tooltip. The provided template is optional.<br>\n"
+"        Allowed tags: @tags."
+msgstr ""
+"HTML, prikazan v namign. Predloga je neobvezna.<br>\n"
+"        Dovoljene oznake: @tags."
+
+msgid "To fix"
+msgstr "Za popravek"
+
+msgid "Error"
+msgstr "Napaka"
+
+msgid "Manual check"
+msgstr "Ročno preverjanje"
+
+msgid "Dismiss key"
+msgstr "Ključ zavrnitve"
+
+msgid ""
+"How dismissals are tracked. 'Text' uses its text content, 'Attributes' uses "
+"its attributes (href, id, class, src)."
+msgstr ""
+"Kako se sledijo zavrnitve. 'Text' uporablja besedilno vsebino, 'Attributes' "
+"uporablja atribute (href, id, class, src)."
+
+msgid "Text content"
+msgstr "Besedilna vsebina"
+
+msgid "Attributes on tag (e.g. href and src)"
+msgstr "Atributi na oznaki (npr. href in src)"
+
+msgid "Elements to check"
+msgstr "Elementi za preveritev"
+
+msgid ""
+"These sets contain elements that match your check area and skip over "
+"configuration."
+msgstr ""
+"Ti nabori vsebujejo elemente, ki ustrezajo območju preverjanja, in "
+"preskočijo konfiguracijo."
+
+msgid "Common choices"
+msgstr "Pogosta izbira"
+
+msgid "All text elements: Headings, Paragraphs, Blockquotes and Lists"
+msgstr "Vsi besedilni elementi: Naslovi, Odstavki, Blokirani citati in Seznami"
+
+msgid "Links"
+msgstr "Povezave"
+
+msgid "Paragraphs"
+msgstr "Odstavki"
+
+msgid "Headings"
+msgstr "Naslovi"
+
+msgid "Images"
+msgstr "Slike"
+
+msgid "All elements"
+msgstr "Vsi elementi"
+
+msgid "...other..."
+msgstr "...drugo..."
+
+msgid "Specific elements and combinations"
+msgstr "Določeni elementi in kombinacije"
+
+msgid "Lists"
+msgstr "Seznami"
+
+msgid "Blockquotes"
+msgstr "Blokirani citati"
+
+msgid "Tables"
+msgstr "Tabele"
+
+msgid "Buttons"
+msgstr "Gumbi"
+
+msgid "Inputs"
+msgstr "Vnosna polja"
+
+msgid "Labels"
+msgstr "Oznake"
+
+msgid "Iframes"
+msgstr "Iframes"
+
+msgid "Videos"
+msgstr "Videoposnetki"
+
+msgid "Audio"
+msgstr "Zvok"
+
+msgid ""
+"Note: combining Links with Paragraphs and other text containers can lead to "
+"duplicate alerts."
+msgstr ""
+"Opomba: združevanje Povezav z Odstavki in drugimi besedilnimi vsebniki lahko "
+"povzroči podvojena opozorila."
+
+msgid "When tip should appear"
+msgstr "Kdaj naj se namig prikaže"
+
+msgid ""
+"This test builder allows for simple text and attribute tests.<br>Check the "
+"module readme for <a href=\"@url\">tips on writing more complex tests</a>."
+msgstr ""
+"Ta graditelj testov omogoča preproste teste besedila in atributov.<br>Glejte "
+"readme modula za <a href=\"@url\">nasvete o pisanju zahtevnejših testov</a>."
+
+msgid "Select by attributes"
+msgstr "Izberi po atributih"
+
+msgid ""
+"Match using CSS selectors.<br>Use :not() to skip elements, e.g. "
+"<code>:is(.check1, .check2):not(.ignore, .ignore *)</code>.<br>Use attribute "
+"selectors for URLs, e.g. <code>[href*=\".dev/\"]</code>."
+msgstr ""
+"Ujemanje z uporabo CSS selektorjev.<br>Uporabite :not() za preskok "
+"elementov, npr. <code>:is(.check1, .check2):not(.ignore, .ignore *)</code>."
+"<br>Uporabite selektorje atributov za URL, npr. <code>[href*=\".dev/\"]</"
+"code>."
+
+msgid "Select by text"
+msgstr "Izberi po besedilu"
+
+msgid "Flag elements containing any of these text strings. One per line."
+msgstr ""
+"Označi elemente, ki vsebujejo katerega koli od teh besedilnih nizov. En na "
+"vrstico."
+
+msgid "Case sensitive"
+msgstr "Razlikovanje velikih in malih črk"
+
+msgid "Exclude elements that match this text"
+msgstr "Izključi elemente, ki ustrezajo temu besedilu"
+
+msgid ""
+"Don't flag elements if they contain any of these words or phrases. E.g., a "
+"link to a development server is ok if it contains \"dev.\" One per line."
+msgstr ""
+"Ne označi elementov, če vsebujejo katero koli od teh besed ali fraz. Npr. "
+"povezava do razvojnega strežnika je v redu, če vsebuje \"dev.\" En na "
+"vrstico."
+
+msgid "Test key must contain only letters, numbers, and underscores."
+msgstr "Ključ testa sme vsebovati samo črke, številke in podčrtaje."
+
+msgid "Tip content must contain visible text."
+msgstr "Vsebina namiga mora vsebovati vidno besedilo."
+
+msgid "Select at least one rule."
+msgstr "Izberite vsaj eno pravilo."
+
+msgid "Select at least one element type."
+msgstr "Izberite vsaj eno vrsto elementa."
+
+msgid "The filter selector should be a CSS selector, not a CSS rule block."
+msgstr "Selektor filtra naj bo CSS selektor, ne blok CSS pravil."
+
+msgid "Created new custom test %label."
+msgstr "Ustvarjen nov prilagojen test %label."
+
+msgid "Updated custom test %label."
+msgstr "Posodobljen prilagojen test %label."
+
+msgid "Are you deactivating this site or cancelling altogether?"
+msgstr "Ali deaktivirate to spletišče ali v celoti prekličete naročnino?"
+
+msgid "You can manage your subscriptions at any time in your Freemius account."
+msgstr "Naročnine lahko kadarkoli upravljate v svojem računu Freemius."
+
+msgid "Choose an action"
+msgstr "Izberite dejanje"
+
+msgid ""
+"<strong>Deactivate this site</strong>, but keep my subscription active and "
+"renewing for use on another site"
+msgstr ""
+"<strong>Deaktiviraj to spletišče</strong>, a pusti naročnino aktivno in "
+"obnovljivo za uporabo na drugem spletišču"
+
+msgid ""
+"<strong>Cancel my subscription</strong> to the Editoria11y CSA altogether"
+msgstr "<strong>Prekliči mojo naročnino</strong> na Editoria11y CSA v celoti"
+
+msgid "Confirm deactivation"
+msgstr "Potrdite deaktivacijo"
+
+msgid "Never mind; keep site active"
+msgstr "Nič za to; ohrani spletišče aktivno"
+
+msgid ""
+"This site appears to be a development or testing environment with an active "
+"license."
+msgstr "To spletišče je verjetno razvojno ali testno okolje z aktivno licenco."
+
+msgid "How would you like to proceed?"
+msgstr "Kako bi radi nadaljevali?"
+
+msgid ""
+"<strong>Cancel deactivation</strong>; I will manage this from the production "
+"site"
+msgstr ""
+"<strong>Prekliči deaktivacijo</strong>; to bom upravljal/a iz produkcijskega "
+"spletišča"
+
+msgid ""
+"<strong>Disconnect this copy</strong>; leave the production license active"
+msgstr "<strong>Odklopi to kopijo</strong>; pusti produkcijsko licenco aktivno"
+
+msgid ""
+"<strong>Deactivate all copies of this site</strong> (production, dev, and QA)"
+msgstr ""
+"<strong>Deaktiviraj vse kopije tega spletišča</strong> (produkcija, dev in "
+"QA)"
+
+msgid "Confirm"
+msgstr "Potrdi"
+
+msgid ""
+"Editoria11y promotes accessibility in a unique way. Its tools are highly "
+"effective at helping non-technical authors prepare content that can be "
+"enjoyed equally by disabled Web users. We consider this a public good, so "
+"Editoria11y will always be free to use."
+msgstr ""
+"Editoria11y promovira dostopnost na edinstven način. Njegova orodja so zelo "
+"učinkovita pri pomoči netehniškim avtorjem pri pripravi vsebine, ki jo "
+"spletni uporabniki z invalidnostmi enako uživajo. To štejemo za javno dobro, "
+"zato bo Editoria11y vedno brezplačen za uporabo."
+
+msgid "Editoria11y is not, however, free to develop or support."
+msgstr "Razvoj in podpora Editoria11y pa nista brezplačna."
+
+msgid ""
+"The \"Community Supported Add-ons\" (CSA) project fills the gap: project "
+"membership subscriptions fund the development of the Editoria11y library, "
+"its CMS plugins, and the CSA suite."
+msgstr ""
+"Projekt \"Community Supported Add-ons\" (CSA) zapolnjuje vrzel: naročnine za "
+"članstvo v projektu financirajo razvoj knjižnice Editoria11y, njenih "
+"vtičnikov CMS in nabora CSA."
+
+msgid ""
+"<a href=\"@url\"><strong>Join the CSA</strong></a> to support this project"
+msgstr ""
+"<a href=\"@url\"><strong>Pridružite se CSA</strong></a>, da podprete ta "
+"projekt"
+
+msgid ""
+"Existing members: <a href=\"@url\"><strong>Manage your subscription</"
+"strong></a> or <a href=\"@support_url\"><strong>contact support</strong></a>"
+msgstr ""
+"Obstoječi člani: <a href=\"@url\"><strong>Upravljajte naročnino</strong></a> "
+"ali <a href=\"@support_url\"><strong>kontaktirajte podporo</strong></a>"
+
+msgid ""
+"License management on this site has been locked via Drush. Use <code>drush "
+"ed11y-unlock</code> to re-enable changes from this form."
+msgstr ""
+"Upravljanje licence na tem spletišču je zaklenjeno prek Drush. Uporabite "
+"<code>drush ed11y-unlock</code> za ponoven vnos sprememb iz tega obrazca."
+
+msgid "Warning: this site matches a dev or QA URL pattern"
+msgstr "Opozorilo: to spletišče se ujema z vzorcem URL za dev ali QA"
+
+msgid "Shared activations should be managed in the production copy."
+msgstr "Skupne aktivacije je treba upravljati v produkcijski kopiji."
+
+msgid ""
+"Use <code>drush ed11y-lock</code> to prevent changing shared activations."
+msgstr ""
+"Uporabite <code>drush ed11y-lock</code> za preprečitev sprememb skupnih "
+"aktivacij."
+
+msgid ""
+"Deactivating a shared key deactivates all copies of a site, including "
+"production."
+msgstr ""
+"Deaktivacija skupnega ključa deaktivira vse kopije spletišča, vključno s "
+"produkcijo."
+
+msgid ""
+"Separate license activations from a development environment consume an "
+"additional key."
+msgstr "Ločene aktivacije licence iz razvojnega okolja porabijo dodaten ključ."
+
+msgid "Trial (@days days remaining)"
+msgstr "Preskusno obdobje (ostane @days dni)"
+
+msgid "Trial (expired)"
+msgstr "Preskusno obdobje (poteklo)"
+
+msgid "License expired"
+msgstr "Licenca potekla"
+
+msgid "Active membership"
+msgstr "Aktivno članstvo"
+
+msgid "Activate using stored license key"
+msgstr "Aktiviraj s shranjenim ključem licence"
+
+msgid "Activate with a different license key"
+msgstr "Aktiviraj z drugim ključem licence"
+
+msgid "Activate (enter license key below)"
+msgstr "Aktiviraj (vnesite ključ licence spodaj)"
+
+msgid "<strong>License expired.</strong> Expired on: @date"
+msgstr "<strong>Licenca potekla.</strong> Pretekla dne: @date"
+
+msgid "<strong>License has expired.</strong>"
+msgstr "<strong>License has expired.</strong>"
+
+msgid "<strong>Trial license active.</strong> Trial ends: @date"
+msgstr "<strong>Preskusna licenca aktivna.</strong> Preskus se konča: @date"
+
+msgid "<strong>License active.</strong> Expires: @date"
+msgstr "<strong>Licenca aktivna.</strong> Poteče: @date"
+
+msgid "<strong>Lifetime license active.</strong>"
+msgstr "<strong>Lifetime license active.</strong>"
+
+msgid "Check for license renewal"
+msgstr "Preveri obnovitev licence"
+
+msgid "Deactivate license"
+msgstr "Deaktiviraj licenco"
+
+msgid "A license key is stored but not active"
+msgstr "Ključ licence je shranjen, vendar ni aktiven"
+
+msgid "Add a license key to enable CSA features"
+msgstr "Dodajte ključ licence za omogočitev funkcij CSA"
+
+msgid "Enable CSA features"
+msgstr "Omogoči funkcije CSA"
+
+msgid "CSA license key"
+msgstr "Ključ licence CSA"
+
+msgid ""
+"<a href=\"@url\">Join the CSA</a> to enable CSA features. Visit the Freemius "
+"dashboard to <a href=\"@freemius\">manage your subscription</a> or recover a "
+"lost key."
+msgstr ""
+"<a href=\"@url\">Pridružite se CSA</a>, da omogočite funkcije CSA. Obiščite "
+"nadzorno ploščo Freemius za <a href=\"@freemius\">upravljanje naročnine</a> "
+"ali obnovitev izgubljenega ključa."
+
+msgid "Local, Dev and QA site URL patterns"
+msgstr "Vzorci URL za lokalna, razvojna in QA spletišča"
+
+msgid ""
+"One pattern per line, up to 5 patterns. Wildcards are supported (e.g. "
+"<code>*.test.example.com</code>).<br>Local, dev and QA sites can share an "
+"activation with production site, but only production sites check for "
+"renewals."
+msgstr ""
+"En vzorec na vrstico, največ 5 vzorcev. Podprti so nadomestni znaki (npr. "
+"<code>*.test.example.com</code>).<br>Lokalna, razvojna in QA spletišča lahko "
+"delijo aktivacijo s produkcijskim spletom, a samo produkcijska spletišča "
+"preverjajo obnovitve."
+
+msgid ""
+"Additionally, any hostname consisting only of digits and dots (raw IPv4 "
+"address) is treated as a development environment."
+msgstr ""
+"Poleg tega se vsako ime gostitelja, ki je sestavljeno samo iz številk in pik "
+"(surovi naslov IPv4), obravnava kot razvojno okolje."
+
+msgid "Built-in development URL patterns"
+msgstr "Vgrajeni vzorci URL za razvoj"
+
+msgid "Enter no more than 5 custom domain patterns."
+msgstr "Vnesite največ 5 prilagojenih vzorcev domen."
+
+msgid "Saved license key not found. Please activate with a new key."
+msgstr ""
+"Shranjeni ključ licence ni bil najden. Prosimo, aktivirajte z novim ključem."
+
+msgid "Enter a license key."
+msgstr "Vnesite ključ licence."
+
+msgid "Activation failed: @msg"
+msgstr "Aktivacija ni uspela: @msg"
+
+msgid "License renewed and active."
+msgstr "Licenca obnovljena in aktivna."
+
+msgid "License is still expired."
+msgstr "Licenca je še vedno potekla."
+
+msgid "Unexpected license status: @status"
+msgstr "Nepričakovano stanje licence: @status"
+
+msgid "Could not reach licensing server: @msg"
+msgstr "Strežnika za licenciranje ni bilo mogoče doseči: @msg"
+
+msgid "Deactivation failed: @msg"
+msgstr "Deaktivacija ni uspela: @msg"
+
+msgid "Editoria11y Export Batch Processor"
+msgstr "Editoria11y – paketna obdelava izvozov"
+
+msgid ""
+"Batching is only needed for very large or heavily customized CSV exports."
+msgstr "Paketna obdelava je potrebna samo za zelo velike ali močno prilagojene izvoze CSV."
+
+msgid "hide"
+msgstr "hide"
+
+msgid "ok"
+msgstr "ok"
+
+msgid "Yes"
+msgstr "Da"
+
+msgid "No"
+msgstr "Ne"
+
+msgid "This alt text is a filename, not a description"
+msgstr "Besedilo alt je ime datoteke, ne opis"
+
+msgid "Is this a clear and concise description of the image?"
+msgstr "Ali je to jasen in jedrnat opis slike?"
+
+msgid "This alt text may be a placeholder"
+msgstr "To nadomestno besedilo je morda označba mesta"
+
+msgid "This alt text is unpronounceable"
+msgstr "Besedilo alt ni izgovorljivo"
+
+msgid "This custom input field is missing a label"
+msgstr "Temu polju po meri manjka oznaka"
+
+msgid "Button is missing an accessible label"
+msgstr "Gumb nima dostopne oznake"
+
+msgid "Button has an invalid ARIA label"
+msgstr "Gumb ima neveljavno ARIA-oznako"
+
+msgid "Button name repeats the word \"button\""
+msgstr "Ime gumba ponavlja besedo \"button\""
+
+msgid "This button is unpronounceable"
+msgstr "Ta gumb ni izgovorljiv"
+
+msgid "Text does not have enough contrast to be easily legible"
+msgstr "Besedilo nima zadostnega kontrasta za dobro berljivost"
+
+msgid "Graphic or icon does not have enough contrast"
+msgstr "Grafika ali ikona nima zadostnega kontrasta"
+
+msgid "Input does not provide enough contrast to be easily legible"
+msgstr "Polje nima zadostnega kontrasta za dobro berljivost"
+
+msgid "Placeholder text does not have enough contrast to be easily legible"
+msgstr "Nadomestno besedilo nima zadostnega kontrasta za dobro berljivost"
+
+msgid "Does this placeholder text have enough contrast?"
+msgstr "Ali ima to nadomestno besedilo zadosten kontrast?"
+
+msgid "Does this text have enough contrast?"
+msgstr "Ali ima to besedilo zadosten kontrast?"
+
+msgid "Does this graphic or icon have enough contrast?"
+msgstr "Ali ima ta grafika ali ikona zadosten kontrast?"
+
+msgid "Duplicate ID attribute"
+msgstr "Podvojen atribut ID"
+
+msgid "This link has a tooltip with the same text as the link"
+msgstr "Ta povezava ima namig z enakim besedilom kot sama povezava"
+
+msgid "Does this audio have a transcript?"
+msgstr "Ali ima ta zvočni zapis transkript?"
+
+msgid "Is this visualization accessible?"
+msgstr "Ali je ta vizualizacija dostopna?"
+
+msgid "Embedded iframes need manual checks"
+msgstr "Vgrajeni okvirji iframe zahtevajo ročno preverjanje"
+
+msgid "Frame missing \"title\" attribute"
+msgstr "Okvirju manjka atribut \"title\""
+
+msgid "Frame with tabindex=\"-1\" will not be keyboard accessible."
+msgstr "Okvir s tabindex=\"-1\" ne bo dostopen prek tipkovnice."
+
+msgid "Is this video accurately captioned?"
+msgstr "Ali ima ta videoposnetek točne podnapise?"
+
+msgid "This heading has no text"
+msgstr "Ta naslov nima besedila"
+
+msgid "This image is used as a heading, so it needs alt text"
+msgstr "Ta slika se uporablja kot naslov in potrebuje besedilo alt"
+
+msgid "The first heading on this page is a subheading"
+msgstr "Prvi naslov na tej strani je podnaslov"
+
+msgid "Can this heading be shorter?"
+msgstr "Ali je ta naslov lahko krajši?"
+
+msgid "This page is missing a Heading 1"
+msgstr "Na tej strani manjka Naslov 1"
+
+msgid "This heading is tagged at the wrong level"
+msgstr "Ta naslov je označen na napačni ravni"
+
+msgid "This heading is unpronounceable"
+msgstr "Ta naslov ni izgovorljiv"
+
+msgid "This element cannot be described by screen readers"
+msgstr "Tega elementa bralniki zaslona ne morejo opisati"
+
+msgid "Can this alt text be shorter?"
+msgstr "Ali je to besedilo alt lahko krajše?"
+
+msgid "Is this image actually meaningless?"
+msgstr "Ali je ta slika res brez pomena?"
+
+msgid "Image in a carousel or gallery marked as decorative"
+msgstr ""
+"Slika v diapozitivni predstavitvi ali galeriji je označena kot dekorativna"
+
+msgid "This captioned image has no alt text"
+msgstr "Slika s podnapisom nima nadomestnega besedila"
+
+msgid "Alt text should not be the same as caption text"
+msgstr "Besedilo alt ne sme biti enako besedilu podpisa"
+
+msgid "Is there a visible label for this field?"
+msgstr "Ali ima to polje vidno oznako?"
+
+msgid "Prefer visible labels to placeholders"
+msgstr "Dajte prednost vidnim oznakam pred označbami mesta"
+
+msgid "Is this reset button needed?"
+msgstr "Ali je ta gumb za ponastavitev potreben?"
+
+msgid "This input has an empty label"
+msgstr "To vnosno polje ima prazno oznako"
+
+msgid "Visible label does not match invisible label"
+msgstr "Vidna oznaka se ne ujema z nevidno oznako"
+
+msgid "This image input is missing alt text"
+msgstr "Temu slikovnemu vnosnemu polju manjka besedilo alt"
+
+msgid "This input is not connected to a label"
+msgstr "To vnosno polje ni povezano z oznako"
+
+msgid "Language tag does not match the content"
+msgstr "Jezikovni atribut se ne ujema z vsebino"
+
+msgid "This content appears to be in a different language"
+msgstr "Ta vsebina je morda v drugem jeziku"
+
+msgid "This alt text appears to be in a different language"
+msgstr "To besedilo alt je morda v drugem jeziku"
+
+msgid "Alt text used as a link should not be a URL"
+msgstr "Besedilo alt, ki se uporablja kot povezava, ne sme biti URL"
+
+msgid "This linked alt might not be clear and concise"
+msgstr "Besedilo alt te povezane slike morda ni jasno in jedrnato"
+
+msgid "Linked images need pronounceable alt text"
+msgstr "Povezane slike potrebujejo izgovorljivo besedilo alt"
+
+msgid "Manual check: link contains \"click here\""
+msgstr "Ročna preveritev: povezava vsebuje \"kliknite tukaj\""
+
+msgid "Link article titles, not DOI numbers"
+msgstr "Povežite naslove člankov, ne številk DOI"
+
+msgid "This link contains no words"
+msgstr "Ta povezava ne vsebuje besedila"
+
+msgid "Link with invalid \"aria-labelledby\" attribute"
+msgstr "Povezava z neveljavnim atributom \"aria-labelledby\""
+
+msgid "This link needs a label"
+msgstr "Ta povezava potrebuje oznako"
+
+msgid "Link points to a file without warning"
+msgstr "Povezava kaže na datoteko brez opozorila"
+
+msgid "Links with the same text link to different pages"
+msgstr "Povezave z enakim besedilom vodijo na različne strani"
+
+msgid "Does this alt text describe the link or the image?"
+msgstr "Ali to besedilo alt opisuje povezavo ali sliko?"
+
+msgid "Does this alt text make sense as part of this link?"
+msgstr "Ali je to besedilo alt smiselno kot del te povezave?"
+
+msgid "Can this linked alt text be shorter?"
+msgstr "Ali je lahko besedilo alt te povezane slike krajše?"
+
+msgid "This linked image needs alt text"
+msgstr "Ta povezana slika potrebuje besedilo alt"
+
+msgid "Does this linked image need a description?"
+msgstr "Ali ta povezana slika potrebuje opis?"
+
+msgid "Is this link actually a button?"
+msgstr "Ali je ta povezava pravzaprav gumb?"
+
+msgid "Does this link open a new tab without warning?"
+msgstr "Ali ta povezava odpre nov zavihek brez opozorila?"
+
+msgid "This linked alt text may be a placeholder"
+msgstr "Besedilo alt te povezane slike je morda označba mesta"
+
+msgid "This link only contains generic words"
+msgstr "Ta povezava vsebuje le splošne besede"
+
+msgid "The purpose of this link is visually hidden"
+msgstr "Namen te povezave je vizualno skrit"
+
+msgid "Does this image's alt describe the image or the link?"
+msgstr "Ali besedilo alt te slike opisuje sliko ali povezavo?"
+
+msgid "Are the symbols or emoji in this link meaningful?"
+msgstr "Ali so simboli ali emodžiji v tej povezavi smiselni?"
+
+msgid "This link is unpronounceable"
+msgstr "Ta povezava ni izgovorljiva"
+
+msgid "Link text should not be a URL"
+msgstr "Besedilo povezave ne sme biti URL"
+
+msgid "Meta tag for page language missing"
+msgstr "Manjka meta-atribut za jezik strani"
+
+msgid "Did you mean a different language code?"
+msgstr "Ste mislili drugo jezikovno kodo?"
+
+msgid "Invalid language code"
+msgstr "Neveljavna jezikovna koda"
+
+msgid "Page language may not match the content"
+msgstr "Jezik strani morda ne ustreza vsebini"
+
+msgid "Meta tag limits how much users can enlarge text"
+msgstr "Meta-atribut omejuje povečavo besedila"
+
+msgid "Meta tag automatically refreshes page"
+msgstr "Meta-atribut samodejno osveži stran"
+
+msgid "Meta tag prevents users from enlarging text"
+msgstr "Meta-atribut preprečuje povečavo besedila"
+
+msgid "Meta tag for page title missing"
+msgstr "Manjka meta-atribut za naslov strani"
+
+msgid "Invalid HTML: image has no alt attribute"
+msgstr "Neveljaven HTML: slika nima atributa alt"
+
+msgid "Invalid HTML: linked image missing alt attribute"
+msgstr "Neveljaven HTML: povezana slika nima atributa alt"
+
+msgid "Invalid HTML: image in link missing alt attribute"
+msgstr "Neveljaven HTML: sliki v povezavi manjka atribut alt"
+
+msgid "This link target may be invalid"
+msgstr "Cilj povezave je morda neveljaven"
+
+msgid "Should this quote be a heading?"
+msgstr "Ali bi moral biti ta citat naslov?"
+
+msgid "Has this document been tagged for screen readers?"
+msgstr "Ali je ta dokument ustrezno označen za bralnike zaslona?"
+
+msgid "Should this bold text be a heading?"
+msgstr "Ali bi moralo biti to krepko besedilo naslov?"
+
+msgid "Should this have list formatting?"
+msgstr "Ali naj bi to bilo oblikovano kot seznam?"
+
+msgid "Broken same-page link"
+msgstr "Pokvarjena notranja povezava"
+
+msgid "Do not justify text"
+msgstr "Ne poravnavajte besedila obojestransko"
+
+msgid "Nested interactive layout components"
+msgstr "Gnezdene interaktivne komponente postavitve"
+
+msgid "Is there an alternative for this PDF?"
+msgstr "Ali obstaja alternativa za ta PDF?"
+
+msgid "Text is too small"
+msgstr "Besedilo je premajhno"
+
+msgid "Large blocks of emphasized text are harder to read"
+msgstr "Veliki bloki poudarjenega besedila so težje berljivi"
+
+msgid "Do not use sub/superscript as visual formatting"
+msgstr "Ne uporabljajte indeksa/eksponenta zgolj za vizualno oblikovanje"
+
+msgid "Only links should be underlined"
+msgstr "Podčrtano naj bo samo besedilo povezav"
+
+msgid "Is this uppercase text needed?"
+msgstr "Ali je to besedilo z VELIKIMI ČRKAMI potrebno?"
+
+msgid "Are there redundant words in this alt text?"
+msgstr "Ali so v tem besedilu alt odvečne besede?"
+
+msgid "Tabindex overrides interrupt the focus order"
+msgstr "Preglasitve tabindex prekinjajo vrstni red fokusa"
+
+msgid "This header cell needs text"
+msgstr "Ta celica glave tabele potrebuje besedilo"
+
+msgid "This table has an invalid headers attribute"
+msgstr "Ta tabela ima neveljaven atribut \"headers\""
+
+msgid "This table needs a header row and/or column"
+msgstr "Ta tabela potrebuje glavo vrstice in/ali stolpca"
+
+msgid "Content headings should not be used inside tables"
+msgstr "Vsebinskih naslovov ne uporabljajte znotraj tabel"
+
+msgid "Invalid HTML list"
+msgstr "Neveljaven seznam HTML"
+
+msgid "Linked images"
+msgstr "Slike v povezavah"
+
+msgid "Text formatting"
+msgstr "Oblikovanje besedila"
+
+msgid "Video, audio, frames"
+msgstr "Video, zvok, okviri"
+
+msgid "Contrast"
+msgstr "Kontrast"
+
+msgid "Forms"
+msgstr "Obrazci"
+
+msgid "ARIA and focus"
+msgstr "ARIA in fokus"
+
+msgid "Page metadata"
+msgstr "Metapodatki strani"
+
+msgid "The request could not be processed. Details have been logged."
+msgstr "Zahteve ni bilo mogoče obdelati. Podrobnosti so zabeležene v dnevniku."
+
+msgid "API request rejected: @message"
+msgstr "Zahteva API je bila zavrnjena: @message"
+
+msgid "API request failed: @message"
+msgstr "Zahteva API ni uspela: @message"
+
+msgid "Export pages with alerts"
+msgstr "Izvozi strani z opozorili"
+
+msgid ""
+"Install the Editoria11y Export Batch Processor module to download these "
+"reports."
+msgstr "Namestite modul Editoria11y Export Batch Processor za prenos teh poročil."
+
+msgid "Export results"
+msgstr "Izvozi rezultate"
+
+msgctxt "problems"
+msgid "Top alerts"
+msgstr "Najpogostejše težave"
+
+msgctxt "problems"
+msgid "Pages with the most alerts"
+msgstr "Strani z največ opozorili"
+
+msgid "Recent dismissals"
+msgstr "Nedavne zavrnitve"
+
+msgid ""
+"Activate the <a href=\"@csa\">Editoria11y CSA submodule</a> to see developer "
+"tests."
+msgstr ""
+"Aktivirajte <a href=\"@csa\">podmodul Editoria11y CSA</a>, da si ogledate "
+"razvijalske teste."
+
+msgid "Include all parts of the page that contain your theme and content."
+msgstr "Vključite vse dele strani, ki vsebujejo vašo temo in vsebino."
+
+msgid "Include all parts of the page that contain your editable content."
+msgstr "Vključite vse dele strani, ki vsebujejo vašo urejljivo vsebino."
+
+msgid "Exclude elements that show unhelpful, repetitive, or inaccurate alerts."
+msgstr ""
+"Izključite elemente, ki prikazujejo nekoristna, ponavljajoča se ali netočna "
+"opozorila."
+
+msgid ""
+"<a href=\"@permissions\">Add permissions</a>, especially \"View Editoria11y "
+"checker\" and \"Mark OK.\"</a>"
+msgstr ""
+"<a href=\"@permissions\">Add permissions</a>, especially \"View Editoria11y "
+"checker\" and \"Mark OK.\"</a>"
+
+msgid ""
+"If you need help: <a href=\"@config_guide\">Configuration Guide</a> | <a "
+"href=\"@issue_queue\">Issue Queue</a> | <a href=\"@help\">Support contacts</"
+"a>"
+msgstr ""
+"Če potrebujete pomoč: <a href=\"@config_guide\">Vodič za konfiguracijo</a> | "
+"<a href=\"@issue_queue\">Vrsta težav</a> | <a href=\"@help\">Kontakti za "
+"podporo</a>"
+
+msgid "Autodetect"
+msgstr "Samodejno zaznaj"
+
+msgid "Only user-editable content"
+msgstr "Samo vsebina, ki jo urednik ureja"
+
+msgid "Other"
+msgstr "Drugo"
+
+msgid "Parts of the page to test"
+msgstr "Deli strani za testiranje"
+
+msgid "\"Autodetect\" selects:"
+msgstr "»Samodejno zaznaj« izbere:"
+
+msgid "Other: specify regions to check for developer and content problems"
+msgstr ""
+"Drugo: določite območja za preverjanje razvijalskih in vsebinskih težav"
+
+msgid ""
+"Provide CSS selectors. For many sites, the site theme is wrapped in "
+"<code>.dialog-off-canvas-main-canvas</code> while editing."
+msgstr ""
+"Navedite CSS selektorje. Za številna spletišča je tema spletišča med "
+"urejanjem ovita v <code>.dialog-off-canvas-main-canvas</code>."
+
+msgid "Do not check for any errors inside these elements"
+msgstr "Ne preveri napak znotraj teh elementov"
+
+msgid "These parts of the page will be ignored entirely."
+msgstr "Ti deli strani bodo v celoti prezrti."
+
+msgid "match content settings"
+msgstr "ujemi z nastavitvami vsebine"
+
+msgid "Page regions with user-editable content"
+msgstr "Območja strani z vsebino, ki jo urednik ureja"
+
+msgid ""
+"Default: <code><em>main</em></code><br>Provide <a target=\"_blank\" "
+"href=\"https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/"
+"Selectors\">CSS selectors</a>. Content authors will only see the alerts "
+"within these parts of the page. Do not provide selectors that nest within "
+"each other, or the inner content will be checked twice."
+msgstr ""
+"Privzeto: <code><em>main</em></code><br>Navedite <a target=\"_blank\" "
+"href=\"https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/"
+"Selectors\">CSS selektorje</a>. Avtorji vsebine bodo videli opozorila samo v "
+"teh delih strani. Ne navajajte selektorjev, ki so gnezdeni eden v drugem, "
+"sicer bo notranja vsebina preverjena dvakrat."
+
+msgid ""
+"Default: <code><em>main</em></code><br>Provide <a target=\"_blank\" "
+"href=\"https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/"
+"Selectors\">CSS selectors</a>. Do not provide selectors that nest within "
+"each other, or the inner content will be checked twice."
+msgstr ""
+"Privzeto: <code><em>main</em></code><br>Navedite <a target=\"_blank\" "
+"href=\"https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/"
+"Selectors\">CSS selektorje</a>. Ne navajajte selektorjev, ki so gnezdeni "
+"eden v drugem, sicer bo notranja vsebina preverjena dvakrat."
+
+msgid "Errors in these elements should only be shown to developers"
+msgstr "Napake v teh elementih se prikazujejo samo razvijalcem"
+
+msgid "Do not check for content errors inside these elements"
+msgstr "Ne preveri vsebinskih napak znotraj teh elementov"
+
+msgid ""
+"Content editors are not responsible for errors in these elements. <br>E.g.: "
+"<code><em>#sidebar-menu a, .slide [aria-hidden=\"true\"]</em></code>."
+msgstr ""
+"Uredniki vsebine niso odgovorni za napake v teh elementih. <br>Npr.: "
+"<code><em>#sidebar-menu a, .slide [aria-hidden=\"true\"]</em></code>."
+
+msgid "Roles that will see developer alerts"
+msgstr "Vloge, ki bodo videle razvijalska opozorila"
+
+msgid ""
+"All roles with the <a href=\":url\">View editoria11y checker</a> permission "
+"see content alerts."
+msgstr ""
+"Vse vloge z dovoljenjem <a href=\":url\">Prikaz preverjevalnika editoria11y</"
+"a> vidijo opozorila vsebine."
+
+msgid "Advanced settings"
+msgstr "Napredne nastavitve"
+
+msgid "Assertiveness"
+msgstr "Asertivnost"
+
+msgid "Checker mode for content roles"
+msgstr "Način preverjevalnika za vsebinske vloge"
+
+msgid "Start open if there are any alerts"
+msgstr "Odpri ob vsakem opozorilu"
+
+msgid "Start open if there are new alerts"
+msgstr "Odpri ob novih opozorih"
+
+msgid "Start minimized"
+msgstr "Začni pomanjšano"
+
+msgid ""
+"Choose when the control panel should open and show inline tips. \"Start open "
+"if there are any alerts\" is recommended, as it helps tips get noticed over "
+"time."
+msgstr ""
+"Izberite, kdaj naj se nadzorna plošča odpre in prikaže vgrajene namige. "
+"Priporočamo »Odpri ob vsakem opozorilu«, saj pomaga, da so namigi opaženi "
+"sčasoma."
+
+msgid "Checker mode for developer roles"
+msgstr "Način preverjevalnika za razvijalske vloge"
+
+msgid "Do not check any content while it is being edited"
+msgstr "Ne preveri vsebine med urejanjem"
+
+msgid ""
+"Use the \"Do not check on pages with these elements\" setting to prevent "
+"checking only on specific pages. E.g., exclude: <code><em>form[id^=\"node-"
+"article\"]</em></code>."
+msgstr ""
+"Uporabite nastavitev »Ne preverjaj na straneh s temi elementi« za "
+"preprečitev preverjanja samo na določenih straneh. Npr. izključi: "
+"<code><em>form[id^=\"node-article\"]</em></code>."
+
+msgid "Assign headers to CKEditor tables on insert"
+msgstr "Dodeli glave tabelam CKEditor ob vstavljanju"
+
+msgid "First row"
+msgstr "Prva vrstica"
+
+msgid "First column"
+msgstr "Prvi stolpec"
+
+msgid "Both"
+msgstr "Obe"
+
+msgid ""
+"You will need to clear cache for changes to this setting to appear in "
+"CKEditor."
+msgstr ""
+"Za uveljavitev sprememb te nastavitve v CKEditor boste morali počistiti "
+"predpomnilnik."
+
+msgid "Theme compatibility"
+msgstr "Združljivost s temo"
+
+msgid "Configuration tips"
+msgstr "Nasveti za konfiguracijo"
+
+msgid ""
+"If the checker <strong>toggle</strong> does not appear: make sure a z-"
+"indexed or overflow-hidden element in your front-end theme is not hiding or "
+"covering the <code><em>ed11y-element-panel</em></code> container, make sure "
+"that any custom selectors in the \"Disable the scanner if these elements are "
+"detected\" field are not present, and make sure that no JavaScript errors "
+"are appearing in your <a href=\"https://developer.mozilla.org/en-US/docs/"
+"Tools/Browser_Console\"> browser console</a>"
+msgstr ""
+"Če se <strong>preklopnik</strong> preverjevalnika ne prikaže: preverite, da "
+"element z-indexed ali overflow-hidden v vaši temi ospredja ne skriva ali "
+"pokriva vsebnika <code><em>ed11y-element-panel</em></code>, preverite, da "
+"noben prilagojen selektor v polju »Onemogoči preiskovalnik, če so zaznani ti "
+"elementi« ni prisoten, in preverite, da v <a href=\"https://"
+"developer.mozilla.org/en-US/docs/Tools/Browser_Console\"> konzoli "
+"brskalnika</a> ni napak JavaScript"
+
+msgid ""
+"If the checker toggle is present but <strong>not detecting</strong> errors, "
+"or missing errors that should be flagged: check that your inclusions & "
+"exclusion settings below are not missing or ignoring the elements. It is not "
+"uncommon for homepages or views to insert editable content outside the "
+"<code><em>main</em></code> element."
+msgstr ""
+"Če je preklopnik preverjevalnika prisoten, a <strong>ne zaznava</strong> "
+"napak ali zamudi napake, ki bi morale biti označene: preverite, da "
+"nastavitve vključitev in izključitev spodaj ne manjkajo ali prezirajo "
+"elementov. Ni nenavadno, da domače strani ali pogledi vstavljajo urejljivo "
+"vsebino zunaj elementa <code><em>main</em></code>."
+
+msgid "Theme"
+msgstr "Tema"
+
+msgid "Sleek"
+msgstr "Elegantna"
+
+msgid "Classic"
+msgstr "Klasična"
+
+msgid "Dark"
+msgstr "Temna"
+
+msgid "Do not check on pages with these elements"
+msgstr "Ne preverjaj na straneh s temi elementi"
+
+msgid ""
+"Used to block checking on site sections or admin pages.<br>E.g. "
+"<code><em>.content-type-example, .tabs__link[href=*\"edit\"]</em></code>."
+msgstr ""
+"Uporablja se za blokiranje preverjanja na delih spletišča ali "
+"administrativnih straneh.<br>Npr. <code><em>.content-type-"
+"example, .tabs__link[href=*\"edit\"]</em></code>."
+
+msgid "Hide all alerts on pages where these elements are not present"
+msgstr "Skrij vsa opozorila na straneh, kjer ti elementi niso prisotni"
+
+msgid ""
+"Used to limit alerting to nodes where the user can edit something. Suggested "
+"selectors:<br> <code><em>.contextual-region a[href*=\"/edit\"], .contextual-"
+"region a[href*=\"/manage\"]</em></code>."
+msgstr ""
+"Uporablja se za omejitev opozarjanja na vozlišča, kjer uporabnik lahko "
+"ureja. Predlagani selektorji:<br> <code><em>.contextual-region a[href*=\"/"
+"edit\"], .contextual-region a[href*=\"/manage\"]</em></code>."
+
+msgid ""
+"Set to the number of other themes or modules that will be <a href=\"https://"
+"editoria11y.princeton.edu/configuration/#customtests\">injecting custom "
+"result JS events</a>."
+msgstr ""
+"Nastavite na število drugih tem ali modulov, ki bodo <a href=\"https://"
+"editoria11y.princeton.edu/configuration/#customtests\">injicirali "
+"prilagojene rezultatne JS događke</a>."
+
+msgid "Positioning"
+msgstr "Pozicioniranje"
+
+msgid "Don't show edit links on tips in these containers"
+msgstr "Ne prikazuj povezave za urejanje v namigih v teh vsebnikih"
+
+msgid ""
+"Tips show copies of the \"Edit\" and \"Layout\" links for nodes, users and "
+"taxonomy terms. These links are not helpful on lists of content from remote "
+"nodes.<br>Provide a comma-separated list of page sections of where these "
+"links should not show, E.g.: <code><em>#sidebar-menu, .news-feed</em></code>."
+"<br>To hide the links <strong>everywhere</strong>, set this field to an "
+"asterisk (<code><em>*</em></code>).<br>To modify the links, <a "
+"href=\"https://editoria11y.princeton.edu/configuration/#modify-tips\" "
+"target=\"_blank\">use the ed11yPop event</a> in your theme JS."
+msgstr ""
+"Namigi prikazujejo kopije povezav »Uredi« in »Postavitev« za vozlišča, "
+"uporabnike in taksonomske izraze. Te povezave niso koristne na seznamih "
+"vsebine iz oddaljenih vozlišč.<br>Navedite seznam delov strani, ločenih z "
+"vejico, kjer te povezave ne smejo biti prikazane, npr.: <code><em>#sidebar-"
+"menu, .news-feed</em></code>.<br>Za skrivanje povezav <strong>povsod</"
+"strong> nastavite to polje na zvezdico (<code><em>*</em></code>).<br>Za "
+"spremembo povezav <a href=\"https://editoria11y.princeton.edu/configuration/"
+"#modify-tips\" target=\"_blank\">uporabite dogodek ed11yPop</a> v JS vaše "
+"teme."
+
+msgid "Pin panel to..."
+msgstr "Pripni ploščo na..."
+
+msgid "Right"
+msgstr "Desno"
+
+msgid "Left"
+msgstr "Levo"
+
+msgid "Don't cover these other widgets"
+msgstr "Ne pokrivaj teh drugih gradnikov"
+
+msgid ""
+"Provide a comma-separated list of selectors for other things that appear in "
+"the bottom right of the page. <br>If nothing is set, Editoria11y will "
+"automatically slide left to accommodate <code><em>#klaro_toggle_dialog, "
+"#klaro-cookie-notice .same-page-preview-dialog.ui-dialog-position-side</em></"
+"code>."
+msgstr ""
+"Navedite seznam selektorjev, ločenih z vejico, za druge stvari, ki se "
+"pojavijo v spodnjem desnem kotu strani. <br>Če ni nič nastavljeno, se bo "
+"Editoria11y samodejno premaknil levo, da prilagodi "
+"<code><em>#klaro_toggle_dialog, #klaro-cookie-notice .same-page-preview-"
+"dialog.ui-dialog-position-side</em></code>."
+
+msgid "Elements with overflow hidden"
+msgstr "Elementi s skritim prekoračenjem"
+
+msgid ""
+"Sometimes buttons get drawn and visually truncated outside the bounds of a "
+"positioned element. Provide a selector list."
+msgstr ""
+"Včasih so gumbi narisani in vizualno odsekani zunaj meja pozicioniranega "
+"elementa. Navedite seznam selektorjev."
+
+msgid "Theme JS will handle revealing hidden tooltips inside these containers"
+msgstr ""
+"JS teme bo poskrbel za razkrivanje skritih namigov znotraj teh vsebnikov"
+
+msgid ""
+"Editoria11y detects hidden tooltips and warns the user when they try to jump "
+"to them from the panel. For elements on this list, Editoria11y will <a "
+"href=\"https://itmaybejj.github.io/editoria11y/#dealing-with-alerts-on-"
+"hidden-or-size-constrained-content\">dispatch a JS event</a> instead of a "
+"warning, so custom JS in your theme can first reveal the hidden tip (e.g., "
+"open an accordion or tab panel)."
+msgstr ""
+"Editoria11y zaznava skrite namige in opozori uporabnika, ko skuša nanje "
+"skočiti s plošče. Za elemente na tem seznamu bo Editoria11y <a "
+"href=\"https://itmaybejj.github.io/editoria11y/#dealing-with-alerts-on-"
+"hidden-or-size-constrained-content\">razposlal JS dogodek</a> namesto "
+"opozorila, tako da prilagojeni JS vaše teme najprej razkrije skrit namig "
+"(npr. odpre harmoniko ali tabelo)."
+
+msgid "Detecting dynamic and shadow content"
+msgstr "Zaznavanje dinamične in shadow DOM vsebine"
+
+msgid "Dynamically refresh if new content appears"
+msgstr "Dinamično osveži, če se pojavi nova vsebina"
+
+msgid "Watch for changes anywhere on the page"
+msgstr "Opazuj spremembe kjerkoli na strani"
+
+msgid "Only watch for changes to content containers present on load"
+msgstr "Opazuj samo spremembe vsebinskih vsebnikov, prisotnih ob nalaganju"
+
+msgid "Do not watch for changes"
+msgstr "Ne opazuj sprememb"
+
+msgid ""
+"Set to \"anywhere\" if changes are being missed, set to \"ignore\" if you "
+"notice performance issues. Themes and modules can also call "
+"<code>Drupal.Ed11y.refresh()</code> to refresh results."
+msgstr ""
+"Nastavite na »kjerkoli«, če zamujate spremembe, nastavite na »prezri«, če "
+"opazite težave z zmogljivostjo. Teme in moduli lahko prav tako pokličejo "
+"<code>Drupal.Ed11y.refresh()</code> za osvežitev rezultatov."
+
+msgid "Check inside these specific Web components"
+msgstr "Preveri znotraj teh specifičnih spletnih komponent"
+
+msgid ""
+"Provide selectors for elements with <a href='https://developer.mozilla.org/"
+"en-US/docs/Web/Web_Components'>shadow DOM</a> you want tested. E.g.: "
+"<code><em>my-fancy-accordion-widget, my-magical-slideshow</em></code>."
+msgstr ""
+"Navedite selektorje za elemente s <a href='https://developer.mozilla.org/en-"
+"US/docs/Web/Web_Components'>shadow DOM</a>, ki jih želite testirati. Npr.: "
+"<code><em>my-fancy-accordion-widget, my-magical-slideshow</em></code>."
+
+msgid "Auto-detect any Web components"
+msgstr "Samodejno zaznaj kakršnekoli spletne komponente"
+
+msgid ""
+"This is easier to configure than specifying components, but may slow test "
+"runs on very complicated pages."
+msgstr ""
+"To je lažje konfigurirati kakor navajanje komponent, a lahko upočasni "
+"izvajanje testov na zelo zapletenih straneh."
+
+msgid "Syncing results to reports"
+msgstr "Sinhronizacija rezultatov v poročila"
+
+msgid ""
+"Remember that results only sync to the dashboard when viewing nodes. Results "
+"shown while editing or viewing previews or revisions will not sync."
+msgstr ""
+"Upoštevajte, da se rezultati sinhronizirajo z nadzorno ploščo samo pri "
+"ogledu vozlišč. Rezultati, prikazani med urejanjem ali ogledom predogledov "
+"ali revizij, se ne bodo sinhronizirali."
+
+msgid "Remove redundant base url from URLs"
+msgstr "Odstrani odvečni osnovni URL iz URL naslovov"
+
+msgid ""
+"Provide base URL (\"/mysite\") if your site is installed in a subdirectory. "
+"Subdirectories tend to get duplicated (/mysite/mysite/mypage) and throw "
+"errors from the API."
+msgstr ""
+"Navedite osnovni URL (\"/mysite\"), če je vaše spletišče nameščeno v "
+"podimenik. Podimeniki se nagibajo k podvajanju (/mysite/mysite/mypage) in "
+"povzročajo napake iz API."
+
+msgid "Preserve query parameters"
+msgstr "Ohrani parametre poizvedbe"
+
+msgid ""
+"The dashboard ignores most parameters: results for both /news?f=1 and /news?"
+"f=2 will show up as just /news. Provide a comma separated list of parameters "
+"that are meaningful, and should appear as separate pages in results."
+msgstr ""
+"Nadzorna plošča prezre večino parametrov: rezultati za /news?f=1 in /news?"
+"f=2 se bodo prikazali samo kot /news. Navedite seznam parametrov, ločenih z "
+"vejico, ki so smiselni in naj se prikazujejo kot ločene strani v rezultatih."
+
+msgid "Disable sync altogether"
+msgstr "V celoti onemogoči sinhronizacijo"
+
+msgid ""
+"Syncing test results back to Drupal is required for the <a target=\"_blank\" "
+"href=\"/admin/reports/editoria11y\">issue</a> and <a target=\"_blank\" "
+"href=\"/admin/reports/editoria11y/dismissals\">dismissal</a> dashboards and "
+"\"mark OK\" buttons."
+msgstr ""
+"Sinhronizacija rezultatov testov nazaj v Drupal je potrebna za nadzorni "
+"plošči <a target=\"_blank\" href=\"/admin/reports/editoria11y\">težav</a> in "
+"<a target=\"_blank\" href=\"/admin/reports/editoria11y/"
+"dismissals\">zavrnitev</a> ter gumbe »označi kot V redu«."
+
+msgid "Heading outline position of editable content"
+msgstr "Položaj obrisa naslovov urejljive vsebine"
+
+msgid ""
+"To check headings in CKEditor, Editoria11y needs to know what the first "
+"heading level should be in this field. Body fields should generally be at "
+"the h2 level."
+msgstr ""
+"Za preverjanje naslovov v CKEditor mora Editoria11y vedeti, katera je prva "
+"raven naslova v tem polju. Polja telesa so navadno na ravni h2."
+
+msgid "H2 level fields (body content)"
+msgstr "Polja ravni h2 (vsebina telesa)"
+
+msgid ""
+"Body fields on nodes are preceded by an h1, and their heading outline should "
+"start with an h2. Ideally set this for top-level body fields for each of "
+"your content types, and set blocks and embedded nodes to h3 or h4.\n"
+"        <br>Set all content types: <code><em>form[id^=\"node-\"] #edit-body-"
+"wrapper .ck-content</em></code>\n"
+"        <br>Set specific content types: <code><em>form[id^=\"node-\"] #edit-"
+"body-wrapper .ck-content</em></code>\n"
+"        <br>Set up for Gutenberg: <code><em>form[id^=\"node-\"] #edit-body-"
+"wrapper .is-root-container</em></code>"
+msgstr ""
+"Poljem telesa na vozliščih predhodi h1, in njihov obris naslovov naj se "
+"začne z h2. V idealnem primeru to nastavite za polja telesa na najvišji "
+"ravni za vsako vrsto vsebine, bloke in vdelana vozlišča pa nastavite na h3 "
+"ali h4.\n"
+"        <br>Nastavi vse vrste vsebine: <code><em>form[id^=\"node-\"] #edit-"
+"body-wrapper .ck-content</em></code>\n"
+"        <br>Nastavi določene vrste vsebine: <code><em>form[id^=\"node-\"] "
+"#edit-body-wrapper .ck-content</em></code>\n"
+"        <br>Nastavi za Gutenberg: <code><em>form[id^=\"node-\"] #edit-body-"
+"wrapper .is-root-container</em></code>"
+
+msgid "H3 level fields (blocks or paragraphs with separate titles)"
+msgstr "Polja ravni h3 (bloki ali odstavki z ločenimi naslovi)"
+
+msgid ""
+"Sometimes inline and layout builder blocks are grouped under an h2 from a "
+"separate field, so their highest heading level should be h3."
+msgstr ""
+"Včasih so bloki vgrajenih in graditeljev postavitve združeni pod h2 iz "
+"ločenega polja, zato naj bo njihova najvišja raven naslova h3."
+
+msgid "H4 level fields (deeply nested blocks or paragraphs)"
+msgstr "Polja ravni h4 (globoko gnezdeni bloki ali odstavki)"
+
+msgid ""
+"Sometimes inline and layout builder blocks are grouped under an h3 from a "
+"separate field, so their highest heading level should be h4."
+msgstr ""
+"Včasih so bloki vgrajenih in graditeljev postavitve združeni pod h3 iz "
+"ločenega polja, zato naj bo njihova najvišja raven naslova h4."
+
+msgid "Modify tests that usually detect content issues"
+msgstr "Spremeni teste, ki navadno zaznajo vsebinske težave"
+
+msgid "Modify tests that usually detect template or configuration issues"
+msgstr ""
+"Spremeni teste, ki navadno zaznajo težave s predlogami ali konfiguracijo"
+
+msgid "Do not check contrast for these elements"
+msgstr "Ne preverjaj kontrasta za te elemente"
+
+msgid ""
+"Provide a comma-separated list of selectors for elements to ignore for all "
+"users."
+msgstr ""
+"Navedite seznam selektorjev, ločenih z vejico, za elemente, ki se prezrejo "
+"za vse uporabnike."
+
+msgid "Remind editor that content in these embeds needs manual review"
+msgstr "Opomni urednika, da vsebina v teh vdelavah zahteva ročni pregled"
+
+msgid ""
+"Provide a comma-separated list of selectors you wish to flag for the editor, "
+"e.g.: <code><em>.my-embedded-feed, #my-social-link-block</em></code>."
+msgstr ""
+"Navedite seznam selektorjev, ločenih z vejico, ki jih želite označiti za "
+"urednika, npr.: <code><em>.my-embedded-feed, #my-social-link-block</em></"
+"code>."
+
+msgid ""
+"Default settings should work with both <a href=\"https://www.drupal.org/"
+"project/linkpurpose\" target=\"_blank\">Link Purpose Icons</a> and <a "
+"target=\"_blank\" href=\"https://www.drupal.org/project/extlink\">External "
+"Links</a>."
+msgstr ""
+"Privzete nastavitve delujejo z <a href=\"https://www.drupal.org/project/"
+"linkpurpose\" target=\"_blank\">Link Purpose Icons</a> in <a "
+"target=\"_blank\" href=\"https://www.drupal.org/project/extlink\">External "
+"Links</a>."
+
+msgid "Remind the editor that these linked documents need a manual check"
+msgstr "Opomni urednika, da ti povezani dokumenti zahtevajo ročno preveritev"
+
+msgid ""
+"Add or remove filetypes. Set to \"false\" to disable the test altogether. "
+"Providing any value will override the default, which is "
+"<code><em>a[href$='.pdf'], a[href*='.pdf?']</em></code>."
+msgstr ""
+"Dodajte ali odstranite vrste datotek. Nastavite na \"false\", da v celoti "
+"onemogočite test. Vsaka vrednost bo prepisala privzeto: "
+"<code><em>a[href$='.pdf'], a[href*='.pdf?']</em></code>."
+
+msgid "Remove elements that match these selectors before testing link text"
+msgstr ""
+"Odstrani elemente, ki ustrezajo tem selektorjem, pred testiranjem besedila "
+"povezave"
+
+msgid ""
+"Provide a CSS selector of elements your modules programmatically add to "
+"links (usually external or open-in-new-window links), so they can be ignored "
+"when the link text is checked for the \"link has no text\" and \"link text "
+"is not meaningful\" tests.<br>E.g.: <code><em>.this, .that</em></code>"
+msgstr ""
+"Navedite CSS selektor elementov, ki jih vaši moduli programsko dodajajo k "
+"povezavam (navadno zunanje ali povezave za odpiranje v novem oknu), da se "
+"prezrejo pri preverjanju besedila za testa »povezava nima besedila« in "
+"»besedilo povezave ni smiselno«.<br>Npr.: <code><em>.this, .that</em></code>"
+
+msgid "Remove these strings before testing link text"
+msgstr "Odstrani te nize pred testiranjem besedila povezave"
+
+msgid ""
+"Provide a pipe-separated (\"|\") list of phrases your modules "
+"programmatically add to links to hint a purpose (external, mail, phone, open-"
+"in-new-window), so they can be ignored when the link text is checked for the "
+"\"link has no text\" and \"link text is not meaningful\" tests; e.g.:  "
+"<pre><code><em>(link is external)|(link sends email)</em></code></pre>"
+msgstr ""
+"Navedite seznam fraz, ločenih z \"|\", ki jih vaši moduli programsko "
+"dodajajo k povezavam za nakazovanje namena (zunanja, pošta, telefon, "
+"odpiranje v novem oknu), da se prezrejo pri preverjanju besedila za testa "
+"»povezava nima besedila« in »besedilo povezave ni smiselno«; npr.:  "
+"<pre><code><em>(link is external)|(link sends email)</em></code></pre>"
+
+msgid "Strings in links that indicate new tabs"
+msgstr "Nizi v povezavah, ki nakazujejo nove zavihke"
+
+msgid ""
+"Provide a pipe-separated list of phrases your site uses to warn users a link "
+"opens in a new tab; e.g.:  <pre><code><em>new&nbsp;tab|new&nbsp;window|"
+"external</em></code></pre>"
+msgstr ""
+"Navedite seznam fraz, ločenih z \"|\", ki jih vaše spletišče uporablja za "
+"opozarjanje uporabnikov, da se povezava odpre v novem zavihku; npr.:  "
+"<pre><code><em>new&nbsp;tab|new&nbsp;window|external</em></code></pre>"
+
+msgid ""
+"Modules like Link Purpose or External Links can mark links automatically."
+msgstr ""
+"Moduli, kot sta Link Purpose ali External Links, lahko samodejno označijo "
+"povezave."
+
+msgid "CSA/developer test"
+msgstr "Test CSA/razvijalski"
+
+msgid "Show to developers"
+msgstr "Prikaži razvijalcem"
+
+msgid "Show to everybody"
+msgstr "Prikaži vsem"
+
+msgid "Dashboard sync is disabled in Editoria11y configuration."
+msgstr ""
+"Sinhronizacija nadzorne plošče je onemogočena v konfiguraciji Editoria11y."
+
+msgid "(invalid URL)"
+msgstr "(neveljaven URL)"
+
+msgid "Editoria11y: Dismissals"
+msgstr "Editoria11y: Zavrnitve"
+
+msgid "Default"
+msgstr "Privzeto"
+
+msgid "Node path"
+msgstr "Pot vozlišča"
+
+msgid "view"
+msgstr "view"
+
+msgid "Term path"
+msgstr "Pot izraza"
+
+msgid "User bio path"
+msgstr "Pot biografije uporabnika"
+
+msgid "Term title"
+msgstr "Naslov izraza"
+
+msgid ", "
+msgstr ", "
+
+msgid "Node title"
+msgstr "Naslov vozlišča"
+
+msgid "User name"
+msgstr "Uporabniško ime"
+
+msgid "Recorded path"
+msgstr "Zabeležena pot"
+
+msgid "Computed"
+msgstr "Izračunano"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty %}{% set dynamic_path = page_path %}{% endif %}\r\n"
+"{% set dynamic_title = title ~ name_2 ~ name_1 %}{% if dynamic_title is "
+"empty %}{% set dynamic_title = page_title %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ dynamic_title }}</"
+"a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty %}{% set dynamic_path = page_path %}{% endif %}\\r\n"
+"{% set dynamic_title = title ~ name_2 ~ name_1 %}{% if dynamic_title is "
+"empty %}{% set dynamic_title = page_title %}{% endif %}\\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ dynamic_title }}</"
+"a>"
+
+msgid "Dismissed alert"
+msgstr "Zavrnjeno opozorilo"
+
+msgid "By"
+msgstr "Avtor"
+
+msgid "1"
+msgid_plural "@count"
+msgstr[0] "1"
+msgstr[1] "2"
+msgstr[2] "@count"
+msgstr[3] "@count"
+
+msgid "Reset"
+msgstr "Ponastavi"
+
+msgid ""
+"<span class=\"ed11y-reset-dismissal\"><span class=\"ed11y-page-id\">{{ pid }}"
+"</span><span class=\"ed11y-dismissal-id\">{{id}}</span></span>"
+msgstr ""
+"<span class=\"ed11y-reset-dismissal\"><span class=\"ed11y-page-id\">{{ pid }}"
+"</span><span class=\"ed11y-dismissal-id\">{{id}}</span></span>"
+
+msgid "››"
+msgstr "››"
+
+msgid "‹‹"
+msgstr "‹‹"
+
+msgid "- All -"
+msgstr "- Vse -"
+
+msgid "Offset"
+msgstr "Odmik"
+
+msgid "« First"
+msgstr "« Prva"
+
+msgid "Last »"
+msgstr "Zadnja »"
+
+msgid "Asc"
+msgstr "Naraščajoče"
+
+msgid "Desc"
+msgstr "Padajoče"
+
+msgid "User who dismissed alert"
+msgstr "Uporabnik, ki je zavrnil opozorilo"
+
+msgid "pid"
+msgstr "pid"
+
+msgid "Node"
+msgstr "Vozlišče"
+
+msgid "Term"
+msgstr "Izraz"
+
+msgid "User bio"
+msgstr "Biografija uporabnika"
+
+msgid "Dismissals page"
+msgstr "Stran zavrnitev"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty %}{% set dynamic_path = page_path %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title }}</a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty %}{% set dynamic_path = page_path %}{% endif %}\\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title }}</a>"
+
+msgid "Still on page"
+msgstr "Še na strani"
+
+msgid "Reset filters"
+msgstr "Ponastavi filtre"
+
+msgid "Issues marked as hidden or OK in Editoria11y."
+msgstr "Težave, označene kot skrite ali V redu v Editoria11y."
+
+msgid "Dismissals filtered by issue"
+msgstr "Zavrnitve, filtrirane po težavi"
+
+msgid "No dismissals match these filters."
+msgstr "Nobena zavrnitev ne ustreza tem filtrom."
+
+msgid "All"
+msgstr "Vse"
+
+msgid "Dismissed alerts of type \"{{result_name}}\""
+msgstr "Dismissed alerts of type \"{{result_name}}\""
+
+msgid ""
+"<a href=\"/admin/reports/editoria11y/dismissals/\" class=\"button button--"
+"primary\">Show all dismissals</a>"
+msgstr ""
+"<a href=\"/admin/reports/editoria11y/dismissals/\" class=\"button button--"
+"primary\">Show all dismissals</a>"
+
+msgid "Recent Editoria11y Dismissals"
+msgstr "Nedavne zavrnitve Editoria11y"
+
+msgid "Editoria11y - Recent dismissals"
+msgstr "Editoria11y – Nedavne zavrnitve"
+
+msgid "Editoria11y: Alerts"
+msgstr "Editoria11y: Opozorila"
+
+msgid "Top results"
+msgstr "Najpogostejši rezultati"
+
+msgid "Computed title"
+msgstr "Izračunan naslov"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path|render %}{% set dynamic_path = "
+"page_path %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{  page_title_1 }}</"
+"a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path|render %}{% set dynamic_path = "
+"page_path %}{% endif %}\\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{  page_title_1 }}</"
+"a>"
+
+msgid "<a href=\"{{page_path_1}}\" data-ed1ref=\"{{pid}}\">{{page_path_1}}</a>"
+msgstr ""
+"<a href=\"{{page_path_1}}\" data-ed1ref=\"{{pid}}\">{{page_path_1}}</a>"
+
+msgid "No alerts found."
+msgstr "Nobeno opozorilo ni bilo najdeno."
+
+msgid "YYYY-MM-DD"
+msgstr "LLLL-MM-DD"
+
+msgid "User bio page"
+msgstr "Biografska stran uporabnika"
+
+msgid "Node author"
+msgstr "Avtor vozlišča"
+
+msgid "All pages with issues"
+msgstr "Vse strani s težavami"
+
+msgid "Block: Pages with the most"
+msgstr "Blok: Strani z največ"
+
+msgid "Block: Recent alerts"
+msgstr "Blok: Nedavna opozorila"
+
+msgid "Recent Editoria11y Alerts"
+msgstr "Nedavna opozorila Editoria11y"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path|render %}{% set dynamic_path = "
+"page_path %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title_1 }}</a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path|render %}{% set dynamic_path = "
+"page_path %}{% endif %}\\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title_1 }}</a>"
+
+msgid "Issue"
+msgstr "Težava"
+
+msgid "Editoria11y - Recent alerts"
+msgstr "Editoria11y – Nedavna opozorila"
+
+msgid "Block: Most frequent alerts"
+msgstr "Blok: Najpogostejša opozorila"
+
+msgid "Most Frequent Editoria11y Alerts"
+msgstr "Najpogostejša opozorila Editoria11y"
+
+msgid "Editoria11y - Most frequent alerts"
+msgstr "Editoria11y – Najpogostejša opozorila"
+
+msgid "Alerts on specified page"
+msgstr "Opozorila na določeni strani"
+
+msgid ""
+"<a href=\"{{ page_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title_1 }}</a>"
+msgstr ""
+"<a href=\"{{ page_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title_1 }}</a>"
+
+msgid "<p><strong>Author:</strong> {{ uid }}</p>"
+msgstr "<p><strong>Author:</strong> {{ uid }}</p>"
+
+msgid "<p><strong>Last editor:</strong> {{ uid_1 }}</p>"
+msgstr "<p><strong>Last editor:</strong> {{ uid_1 }}</p>"
+
+msgid ""
+"<h1>Accessibility issues on: {{page_title_1}}</h1>\r\n"
+"<p>{{uid}}{{uid_1}}</p>"
+msgstr ""
+"<h1>Accessibility issues on: {{page_title_1}}</h1>\\r\n"
+"<p>{{uid}}{{uid_1}}</p>"
+
+msgid ""
+"<p><a href=\"../editoria11y/pages\" class=\"button button--primary\">All "
+"pages with alerts</a></p>"
+msgstr ""
+"<p><a href=\"../editoria11y/pages\" class=\"button button--primary\">All "
+"pages with alerts</a></p>"
+
+msgid ""
+"<span class=\"ed11y-reset-this-path\" hidden><p class=\"more-link\"><a "
+"role=\"button\" class=\"action-link action-link--icon-trash action-link--"
+"danger\"><span hidden class=\"ed11y-api-path\">{{ page_path }}</span>Reset "
+"results for this page</a></p></span>"
+msgstr ""
+"<span class=\"ed11y-reset-this-path\" hidden><p class=\"more-link\"><a "
+"role=\"button\" class=\"action-link action-link--icon-trash action-link--"
+"danger\"><span hidden class=\"ed11y-api-path\">{{ page_path }}</span>Reset "
+"results for this page</a></p></span>"
+
+msgid "Issue types"
+msgstr "Vrste težav"
+
+msgid "Pages with specified alert"
+msgstr "Strani z določenim opozorilom"
+
+msgid "Published status"
+msgstr "Stanje objave"
+
+msgid "Created by"
+msgstr "Ustvaril/a"
+
+msgid "Created after"
+msgstr "Ustvarjeno po"
+
+msgid "Created before"
+msgstr "Ustvarjeno pred"
+
+msgid "<h1>Pages with alert \"{{ result_name }}\"</h1>"
+msgstr "<h1>Strani z opozorilom \"{{ result_name }}\"</h1>"
+
+msgid ""
+"<a href=\"../editoria11y/alerts\" class=\"button button--primary\">All "
+"alerts</a>"
+msgstr ""
+"<a href=\"../editoria11y/alerts\" class=\"button button--primary\">All "
+"alerts</a>"
+
+msgid "Pages with issues"
+msgstr "Strani s težavami"
+
+msgid "Next ›"
+msgstr "Naslednja ›"
+
+msgid "‹ Previous"
+msgstr "‹ Prejšnja"
+
+msgid "Authored on"
+msgstr "Ustvarjeno dne"
+
+msgid "Changed"
+msgstr "Spremenjeno"
+
+msgid "Editoria11y: Crawler"
+msgstr "Editoria11y: Pregledovalnik"
+
+msgid "Editoria11y: Crawl Nodes"
+msgstr "Editoria11y: Pregledovanje vozlišč"
+
+msgid "Authored by"
+msgstr "Avtor"
+
+msgid "Has results"
+msgstr "Ima rezultate"
+
+msgid "Has no alerts"
+msgstr "Nima opozoril"
+
+msgid "Has alerts"
+msgstr "Ima opozorila"
+
+msgid "nid"
+msgstr "nid"
+
+msgid "Editoria11y: Export"
+msgstr "Editoria11y: Izvoz"
+
+msgid "Export page with alerts"
+msgstr "Izvozi stran z opozorili"
+
+msgid "Link to Taxonomy term"
+msgstr "Povezava do taksonomskega izraza"
+
+msgid "Link to User"
+msgstr "Povezava do uporabnika"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path_1|render %}{% set dynamic_path = "
+"page_path_1 %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title }}</a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path_1|render %}{% set dynamic_path = "
+"page_path_1 %}{% endif %}\\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title }}</a>"
+
+msgid "Path when checked"
+msgstr "Pot ob preverjanju"
+
+msgid "<a href=\"{{page_path_1}}\" data-ed1ref=\"{{pid}}\">{{page_path_1}}"
+msgstr "<a href=\"{{page_path_1}}\" data-ed1ref=\"{{pid}}\">{{page_path_1}}"
+
+msgid "Current URL"
+msgstr "Trenutni URL"
+
+msgid "{{ view_taxonomy_term }}{{ view_user }}{{ view_node }}"
+msgstr "{{ view_taxonomy_term }}{{ view_user }}{{ view_node }}"
+
+msgid "{% if type is empty %}{{entity_type}}{%else%}{{type}}{% endif %}"
+msgstr "{% if type is empty %}{{entity_type}}{%else%}{{type}}{% endif %}"
+
+msgid "Entity Type"
+msgstr "Vrsta entitete"
+
+msgid "Langcode (en, fr, de)"
+msgstr "Koda jezika (en, fr, de)"
+
+msgid "Referenced node"
+msgstr "Referencirano vozlišče"
+
+msgid "Referenced term"
+msgstr "Referencirani izraz"
+
+msgid "Referenced user bio"
+msgstr "Referencirana biografija uporabnika"
+
+msgid "<p>Records chosen for export can be filtered and previewed below.</p>"
+msgstr "<p>Records chosen for export can be filtered and previewed below.</p>"
+
+msgid "<a href=\"/admin/reports/editoria11y/export\">Back to dashboard</a>"
+msgstr "<a href=\"/admin/reports/editoria11y/export\">Back to dashboard</a>"
+
+msgid "Dismissals export"
+msgstr "Izvoz zavrnitev"
+
+msgid "Link to Content"
+msgstr "Povezava do vsebine"
+
+msgid "Page raw path"
+msgstr "Surova pot strani"
+
+msgid "Name"
+msgstr "Ime"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path_1|render %}{% set dynamic_path = "
+"page_path_1 %}{% endif %}\r\n"
+"{% set dynamic_title = title_1 ~ name ~ name_1 %}{% if dynamic_title is "
+"empty %}{% set dynamic_title = page_title %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ dynamic_title }}</"
+"a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path_1|render %}{% set dynamic_path = "
+"page_path_1 %}{% endif %}\\r\n"
+"{% set dynamic_title = title_1 ~ name ~ name_1 %}{% if dynamic_title is "
+"empty %}{% set dynamic_title = page_title %}{% endif %}\\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ dynamic_title }}</"
+"a>"
+
+msgid "dismissal"
+msgstr "dismissal"
+
+msgid "Page export"
+msgstr "Izvoz strani"
+
+msgid "Alerts export"
+msgstr "Izvoz opozoril"
+
+msgid "Editoria11y alerts on pages"
+msgstr "Opozorila Editoria11y na straneh"
+
+msgid "{{ view_taxonomy_term }}{{ view_user }}{{ view_node }} "
+msgstr "{{ view_taxonomy_term }}{{ view_user }}{{ view_node }} "
+
+msgid "Results for page"
+msgstr "Rezultati za stran"
+
+msgid "<a href=\"./export/pages\">Export pages with alerts</a>"
+msgstr "<a href=\"./export/pages\">Export pages with alerts</a>"
+
+msgid "<a href=\"./export/dismissals\">Export dismissals</a>"
+msgstr "<a href=\"./export/dismissals\">Export dismissals</a>"
+
+msgid "<a href=\"./export/alerts\">Export alert list</a>"
+msgstr "<a href=\"./export/alerts\">Export alert list</a>"
+
+msgid "Export alerts on pages"
+msgstr "Izvozi opozorila na straneh"
+
+msgid "Result name"
+msgstr "Ime rezultata"

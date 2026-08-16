@@ -1,0 +1,3059 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: editoria11y 3.0.0\n"
+"POT-Creation-Date: 2026-08-01 21:46-0400\n"
+"PO-Revision-Date: 2026-2-12 10:00+0000\n"
+"Language-Team: Editoria11y\n"
+"Language: el\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid ""
+"editoria11y_post_update_0004: scanned @scanned mismatched page(s), "
+"backfilled @fixed to the referenced entity language."
+msgstr ""
+"editoria11y_post_update_0004: scanned @scanned mismatched page(s), "
+"backfilled @fixed to the referenced entity language."
+
+msgid "Editoria11y"
+msgstr "Editoria11y"
+
+msgid "Editoria11y - Pages with issues"
+msgstr "Editoria11y - Σελίδες με προβλήματα"
+
+msgctxt "problems"
+msgid "Provides relationship for issues and dismissals"
+msgstr "Παρέχει συσχέτιση για προβλήματα και απορρίψεις"
+
+msgid "EID"
+msgstr "EID"
+
+msgid "Editoria11y's internal page ID"
+msgstr "Εσωτερικό αναγνωριστικό σελίδας του Editoria11y"
+
+msgid "Entity ID"
+msgstr "ID οντότητας"
+
+msgid "The NID/TID/UID of the page with an issue."
+msgstr "Το NID/TID/UID της σελίδας με το πρόβλημα."
+
+msgid "Entity type"
+msgstr "Τύπος οντότητας"
+
+msgid "The entity type; \"route\" if no type found."
+msgstr "Ο τύπος οντότητας· «route» αν δεν βρεθεί τύπος."
+
+msgid "Route name"
+msgstr "Όνομα διαδρομής"
+
+msgid "Route name for page."
+msgstr "Το όνομα διαδρομής για τη σελίδα."
+
+msgid "Page path"
+msgstr "Διαδρομή σελίδας"
+
+msgid "Internal, relative page path."
+msgstr "Εσωτερική, σχετική διαδρομή σελίδας."
+
+msgid "Page language"
+msgstr "Γλώσσα σελίδας"
+
+msgid "Active translation."
+msgstr "Ενεργή μετάφραση."
+
+msgid "Page title"
+msgstr "Τίτλος σελίδας"
+
+msgid "The name of the route where this was last seen."
+msgstr "Το όνομα της διαδρομής όπου εμφανίστηκε τελευταία φορά."
+
+msgid "Content alerts"
+msgstr "Ειδοποιήσεις περιεχομένου"
+
+msgid "Number of alerts shown to content editors."
+msgstr "Αριθμός ειδοποιήσεων που εμφανίζονται στους συντάκτες περιεχομένου."
+
+msgid "Dev alerts"
+msgstr "Ειδοποιήσεις ανάπτυξης"
+
+msgid "Number of alerts shown to developers."
+msgstr "Αριθμός ειδοποιήσεων που εμφανίζονται στους προγραμματιστές."
+
+msgid "Updated"
+msgstr "Ενημερώθηκε"
+
+msgid "When this page was last checked."
+msgstr "Πότε ελέγχθηκε τελευταία φορά αυτή η σελίδα."
+
+msgid "Editoria11y - Test results"
+msgstr "Editoria11y - Αποτελέσματα ελέγχων"
+
+msgctxt "problems"
+msgid "Stores Editoria11y issue list"
+msgstr "Αποθηκεύει τη λίστα προβλημάτων του Editoria11y"
+
+msgid "Result row"
+msgstr "Γραμμή αποτελέσματος"
+
+msgid "Internal identifier"
+msgstr "Εσωτερικό αναγνωριστικό"
+
+msgid "Created"
+msgstr "Δημιουργήθηκε"
+
+msgid "When this page was flagged."
+msgstr "Πότε επισημάνθηκε αυτή η σελίδα."
+
+msgid "Alert type"
+msgstr "Τύπος ειδοποίησης"
+
+msgid "The name of the test as reported by Editoria11y JS"
+msgstr "Το όνομα του τεστ όπως αναφέρεται από το Editoria11y JS"
+
+msgid "Alert type, linked"
+msgstr "Τύπος ειδοποίησης, με σύνδεσμο"
+
+msgid "Linked to report of all alerts of this type."
+msgstr "Συνδέεται με αναφορά όλων των ειδοποιήσεων αυτού του τύπου."
+
+msgid "Content alert count"
+msgstr "Αριθμός ειδοποιήσεων περιεχομένου"
+
+msgid "The number of hits for this test type on this page"
+msgstr "Ο αριθμός εμφανίσεων για αυτόν τον τύπο δοκιμής σε αυτή τη σελίδα"
+
+msgid "Dev alert count"
+msgstr "Αριθμός ειδοποιήσεων ανάπτυξης"
+
+msgid "Editoria11y - Dismissals"
+msgstr "Editoria11y - Απορρίψεις"
+
+msgid "Stores Editoria11y warnings and dismissals"
+msgstr "Αποθηκεύει προειδοποιήσεις και απορρίψεις του Editoria11y"
+
+msgid "Dismissal internal reference ID"
+msgstr "Εσωτερικό αναγνωριστικό αναφοράς απόρριψης"
+
+msgid "Page with dismissal"
+msgstr "Σελίδα με απόρριψη"
+
+msgid "Dismissed by"
+msgstr "Απορρίφθηκε από"
+
+msgid "The user linked to this dismissal."
+msgstr "Ο χρήστης που συνδέεται με αυτή την απόρριψη."
+
+msgid "Linked Drupal user"
+msgstr "Συνδεδεμένος χρήστης Drupal"
+
+msgid "Dismissed element id"
+msgstr "ID στοιχείου που απορρίφθηκε"
+
+msgid "Code sample to identify the flagged element."
+msgstr "Δείγμα κώδικα για την αναγνώριση του επισημασμένου στοιχείου."
+
+msgid "Dismissed on"
+msgstr "Απορρίφθηκε στις"
+
+msgid "The Unix timestamp of the first time this record was flagged."
+msgstr "Η Unix χρονοσφραγίδα της πρώτης φοράς που επισημάνθηκε αυτή η εγγραφή."
+
+msgid "Dismissal stale since"
+msgstr "Η απόρριψη θεωρείται παρωχημένη από"
+
+msgid "The element has not been seen since this date."
+msgstr "Το στοιχείο δεν έχει εμφανιστεί από αυτή την ημερομηνία."
+
+msgid "Dismissed result name"
+msgstr "Όνομα απορριφθέντος αποτελέσματος"
+
+msgid "Dismissed result name, linked"
+msgstr "Όνομα απορριφθέντος αποτελέσματος, με σύνδεσμο"
+
+msgid "Links to report of all alerts of this type."
+msgstr "Οδηγεί σε αναφορά όλων των ειδοποιήσεων αυτού του τύπου."
+
+msgid "Dismissal status"
+msgstr "Κατάσταση απόρριψης"
+
+msgid "The type of dismissal (e.g., OK, Ignore)"
+msgstr "Ο τύπος απόρριψης (π.χ. OK, Αγνόηση)"
+
+msgid "Relate from Editoria11y page to referenced node"
+msgstr "Συσχέτιση από τη σελίδα Editoria11y προς τον αναφερόμενο κόμβο"
+
+msgid "Issues were found on this node"
+msgstr "Βρέθηκαν προβλήματα σε αυτόν τον κόμβο"
+
+msgid "Relate from node data to Editoria11y page"
+msgstr "Συσχέτιση από δεδομένα κόμβου προς τη σελίδα Editoria11y"
+
+msgid "Relate from Editoria11y page to referenced taxonomy term"
+msgstr ""
+"Συσχέτιση από τη σελίδα Editoria11y προς τον αναφερόμενο όρο ταξινομίας"
+
+msgid "Issues were found on this term page"
+msgstr "Βρέθηκαν προβλήματα σε αυτή τη σελίδα όρου"
+
+msgid "Relate from taxonomy term data to Editoria11y page"
+msgstr "Συσχέτιση από δεδομένα όρου ταξινομίας προς τη σελίδα Editoria11y"
+
+msgid "Relate from Editoria11y page list to user bio page data"
+msgstr ""
+"Συσχέτιση από τη λίστα σελίδων Editoria11y προς δεδομένα σελίδας βιογραφικού "
+"χρήστη"
+
+msgid "Issues were found on this user bio page"
+msgstr "Βρέθηκαν προβλήματα στη σελίδα βιογραφικού αυτού του χρήστη"
+
+msgid "Relate from Editoria11y page to user bio page with issues"
+msgstr ""
+"Συσχέτιση από τη σελίδα Editoria11y προς σελίδα βιογραφικού χρήστη με "
+"προβλήματα"
+
+msgid "Relate from user bio page to Editoria11y results"
+msgstr ""
+"Συσχέτιση από σελίδα βιογραφικού χρήστη προς τα αποτελέσματα Editoria11y"
+
+msgid "Relate from users list to Editoria11y results on bio page"
+msgstr ""
+"Συσχέτιση από λίστα χρηστών προς τα αποτελέσματα Editoria11y σε σελίδα "
+"βιογραφικού"
+
+msgid "Relate from Editoria11y page to issues on page"
+msgstr "Συσχέτιση από τη σελίδα Editoria11y προς τα προβλήματα στη σελίδα"
+
+msgid "Issues found on this node"
+msgstr "Βρέθηκαν προβλήματα σε αυτόν τον κόμβο"
+
+msgid "Relate from Editoria11y result to page"
+msgstr "Συσχέτιση από το αποτέλεσμα Editoria11y προς τη σελίδα"
+
+msgid "Relate from Editoria11y page to dismissals on page"
+msgstr "Συσχέτιση από τη σελίδα Editoria11y προς τις απορρίψεις στη σελίδα"
+
+msgid "Relate from Editoria11y dismissal to page"
+msgstr "Συσχέτιση από απόρριψη Editoria11y προς τη σελίδα"
+
+msgid "Group relationship for node with Editoria11y issues"
+msgstr "Συσχέτιση Group για κόμβο με προβλήματα Editoria11y"
+
+msgid ""
+"Bridge to the Group module. Add the Group module Group relationship on top "
+"of this one to filter or sort issues by group."
+msgstr ""
+"Γέφυρα προς τη μονάδα Group. Προσθέστε πάνω από αυτήν τη Συσχέτιση Group της "
+"μονάδας Group για να φιλτράρετε ή να ταξινομήσετε τα προβλήματα ανά ομάδα."
+
+msgid "Group relationship for node"
+msgstr "Συσχέτιση Group για κόμβο"
+
+msgid "Group relationship for user bio with Editoria11y issues"
+msgstr "Συσχέτιση Group για βιογραφικό χρήστη με προβλήματα Editoria11y"
+
+msgid "Group relationship for user"
+msgstr "Συσχέτιση Group για χρήστη"
+
+msgid "Group relationship for taxonomy term with Editoria11y issues"
+msgstr "Συσχέτιση Group για όρο ταξινομίας με προβλήματα Editoria11y"
+
+msgid ""
+"Bridge to the Group module. Add the Group module Group relationship on top "
+"of this one to filter or sort issues by group. Requires a contrib module "
+"that exposes terms as group content."
+msgstr ""
+"Γέφυρα προς τη μονάδα Group. Προσθέστε πάνω από αυτήν τη Συσχέτιση Group της "
+"μονάδας Group για να φιλτράρετε ή να ταξινομήσετε τα προβλήματα ανά ομάδα. "
+"Απαιτεί μια μονάδα contrib που εκθέτει τους όρους ως περιεχόμενο ομάδας."
+
+msgid "Group relationship for taxonomy term"
+msgstr "Συσχέτιση Group για όρο ταξινομίας"
+
+msgid "Warning: possible out of date path. This content may have moved to"
+msgstr ""
+"Προειδοποίηση: πιθανώς παρωχημένη διαδρομή. Το περιεχόμενο μπορεί να έχει "
+"μετακινηθεί σε"
+
+msgid "Export CSV"
+msgstr "Εξαγωγή CSV"
+
+msgid "Predelete failed: @error_message"
+msgstr "Η προδιαγραφή διαγραφής απέτυχε: @error_message"
+
+msgid "Page attachment failed: @error_message"
+msgstr "Η επισύναψη σελίδας απέτυχε: @error_message"
+
+msgid ""
+"editoria11y_update_9019: scanned @total rows, repaired @updated, deleted "
+"@deleted corrupted group rows, left @skipped untouched."
+msgstr ""
+"editoria11y_update_9019: scanned @total rows, repaired @updated, deleted "
+"@deleted corrupted group rows, left @skipped untouched."
+
+msgid ""
+"editoria11y_update_9020: hashed @hashed page rows, removed @deduped "
+"duplicate rows, added unique keys."
+msgstr "editoria11y_update_9020: hashed @hashed page rows, removed @deduped duplicate rows, added unique keys."
+
+msgid "Editoria11y Accessibility Checker"
+msgstr "Editoria11y – έλεγχος προσβασιμότητας"
+
+msgid ""
+"Checks page content for accessibility and provides a site-wide dashboard."
+msgstr ""
+"Ελέγχει το περιεχόμενο της σελίδας για προσβασιμότητα και παρέχει έναν "
+"κεντρικό πίνακα ελέγχου."
+
+msgid "Content Accessibility"
+msgstr "Προσβασιμότητα περιεχομένου"
+
+msgid "Accessibility checker notifications and exclusions."
+msgstr "Ειδοποιήσεις και εξαιρέσεις του ελεγκτή προσβασιμότητας."
+
+msgid "Results from the Editoria11y checker."
+msgstr "Αποτελέσματα του ελεγκτή Editoria11y."
+
+msgid "Dashboard"
+msgstr "Πίνακας ελέγχου"
+
+msgid "Core settings"
+msgstr "Βασικές ρυθμίσεις"
+
+msgid "Demo"
+msgstr "Demo"
+
+msgid "View Editoria11y checker"
+msgstr "Προβολή του Editoria11y checker"
+
+msgid "Assign to all content editors."
+msgstr "Ανάθεση σε όλους τους συντάκτες περιεχομένου."
+
+msgid "Administer Editoria11y checker"
+msgstr "Διαχείριση του Editoria11y checker"
+
+msgid "Allows user to purge results and change configuration."
+msgstr ""
+"Επιτρέπει στον χρήστη να καθαρίζει αποτελέσματα και να αλλάζει ρυθμίσεις."
+
+msgid "Mark as hidden in Editoria11y"
+msgstr "Σήμανση ως κρυφό στο Editoria11y"
+
+msgid "Adds button to suppress a manual check for the current user."
+msgstr ""
+"Προσθέτει κουμπί για να παρακάμπτεται ένας χειροκίνητος έλεγχος για τον "
+"τρέχοντα χρήστη."
+
+msgid "Mark as OK in Editoria11y"
+msgstr "Σήμανση ως OK στο Editoria11y"
+
+msgid ""
+"Adds button to suppress a manual check for all users, if sync is enabled."
+msgstr ""
+"Προσθέτει κουμπί για να παρακάμπτεται ένας χειροκίνητος έλεγχος για όλους "
+"τους χρήστες, εφόσον είναι ενεργοποιημένος ο συγχρονισμός."
+
+msgid "Manage Editoria11y results"
+msgstr "Διαχείριση αποτελεσμάτων Editoria11y"
+
+msgid "View the site-wide dashboard and reset dismissals."
+msgstr "Προβολή του γενικού πίνακα και επαναφορά απορρίψεων."
+
+msgid "Editoria11y core settings"
+msgstr "Βασικές ρυθμίσεις Editoria11y"
+
+msgid "Content Accessibility Issues"
+msgstr "Ζητήματα προσβασιμότητας περιεχομένου"
+
+msgid "Editoria11y Settings"
+msgstr "Ρυθμίσεις Editoria11y"
+
+msgid "Check elements in these containers"
+msgstr "Έλεγχος στοιχείων σε αυτά τα containers"
+
+msgid "Alert panel assertiveness"
+msgstr "Επιθετικότητα πίνακα ειδοποιήσεων"
+
+msgid "Do not run if these elements are on the page"
+msgstr "Να μην εκτελείται εάν αυτά τα στοιχεία υπάρχουν στη σελίδα"
+
+msgid "Suppress all alerts if none of these elements are present"
+msgstr ""
+"Απόκρυψη όλων των ειδοποιήσεων αν κανένα από αυτά τα στοιχεία δεν υπάρχει"
+
+msgid "Do not run tests on these containers"
+msgstr "Να μην εκτελούνται έλεγχοι σε αυτά τα containers"
+
+msgid "Move toggle to avoid colliding with these widgets"
+msgstr "Μετακίνηση του toggle για αποφυγή σύγκρουσης με αυτά τα widgets"
+
+msgid ""
+"Full check should warn on these elements with embedded uncheckable content"
+msgstr ""
+"Ο πλήρης έλεγχος πρέπει να προειδοποιεί για αυτά τα στοιχεία με ενσωματωμένο "
+"περιεχόμενο που δεν μπορεί να ελεγχθεί"
+
+msgid "These links download a document or image and need a manual review"
+msgstr ""
+"Αυτοί οι σύνδεσμοι κατεβάζουν ένα έγγραφο ή εικόνα και χρειάζονται "
+"χειροκίνητη ανασκόπηση"
+
+msgid "Strings that indicate a link opens in a new window"
+msgstr "Φράσεις που υποδεικνύουν ότι ένας σύνδεσμος ανοίγει σε νέο παράθυρο"
+
+msgid "Remove these strings from link text before checking for bad link text"
+msgstr "Αφαίρεση αυτών των φράσεων από το κείμενο συνδέσμου πριν τον έλεγχο"
+
+msgid "Remove strings in this selector before checking for bad link text"
+msgstr ""
+"Αφαίρεση φράσεων στον συγκεκριμένο selector πριν τον έλεγχο κειμένου "
+"συνδέσμου"
+
+msgid ""
+"Hidden elements in these containers will be revealed by theme JS on request "
+"via a dispatched event"
+msgstr ""
+"Τα κρυφά στοιχεία σε αυτά τα containers θα αποκαλυφθούν από το theme JS "
+"κατόπιν αιτήματος μέσω γεγονότος (event)"
+
+msgid "Elements that truncate overflow, partially hiding buttons"
+msgstr "Στοιχεία που περικόπτουν overflow και κρύβουν εν μέρει κουμπιά"
+
+msgid "Color scheme for panel and tooltips"
+msgstr "Χρωματικό θέμα για τον πίνακα και τα tooltips"
+
+msgid "Pin toolbar to left or right"
+msgstr "Καρφίτσωμα της γραμμής εργαλείων αριστερά ή δεξιά"
+
+msgid "Web components the checker should check"
+msgstr "Web components που πρέπει να ελέγξει το εργαλείο"
+
+msgid "Auto-detects for additional shadow components"
+msgstr "Αυτόματη ανίχνευση πρόσθετων shadow components"
+
+msgid "Auto-detects and checks new content"
+msgstr "Αυτόματη ανίχνευση και έλεγχος νέου περιεχομένου"
+
+msgid "Disables dashboard and synchronized marking of elements as OK"
+msgstr ""
+"Απενεργοποιεί τον πίνακα και τον συγχρονισμένο χαρακτηρισμό στοιχείων ως OK"
+
+msgid "URL query parameters that should be recorded as separate pages"
+msgstr "Παράμετροι URL που πρέπει να καταγράφονται ως ξεχωριστές σελίδες"
+
+msgid "Remove string from URL for dashboard page links"
+msgstr ""
+"Αφαίρεση συμβολοσειράς από το URL για τους συνδέσμους του πίνακα ελέγχου"
+
+msgid "Number of custom test finished events the checker should wait for"
+msgstr "Αριθμός custom test finished events που πρέπει να περιμένει ο ελεγκτής"
+
+msgid "Disables live editor checking"
+msgstr "Απενεργοποιεί τον έλεγχο ενώ γίνεται επεξεργασία"
+
+msgid ""
+"Selector for frontend-context editors that should inherit the document "
+"outline"
+msgstr ""
+"Selector για editors στο frontend που πρέπει να κληρονομούν τη δομή "
+"επικεφαλίδων"
+
+msgid "Selector for editors where their first heading should be h2"
+msgstr "Selector για editors όπου η πρώτη επικεφαλίδα πρέπει να είναι h2"
+
+msgid "Selector for editors where their first heading should be h3"
+msgstr "Selector για editors όπου η πρώτη επικεφαλίδα πρέπει να είναι h3"
+
+msgid "Selector for editors where their first heading should be h4"
+msgstr "Selector για editors όπου η πρώτη επικεφαλίδα πρέπει να είναι h4"
+
+msgid "Selectors for components where edit links are meaningless on tips"
+msgstr ""
+"Selectors για components όπου οι συνδέσεις επεξεργασίας δεν έχουν νόημα στα "
+"tooltips"
+
+msgid "Tell CK5 to have a header rows or columns by default."
+msgstr "Ορισμός προεπιλεγμένων γραμμών ή στηλών επικεφαλίδας για το CK5."
+
+msgid "Tests not shown to content authors."
+msgstr "Δοκιμές που δεν εμφανίζονται στους συντάκτες περιεχομένου."
+
+msgid "Disable the tests you are not ready for"
+msgstr "Απενεργοποίηση των δοκιμών για τις οποίες δεν είστε έτοιμοι"
+
+msgid "linkNewWindow"
+msgstr "linkNewWindow"
+
+msgid "linkNoText"
+msgstr "linkNoText"
+
+msgid "altEmptyLinked"
+msgstr "altEmptyLinked"
+
+msgid "linkDocument"
+msgstr "linkDocument"
+
+msgid "linkTextIsURL"
+msgstr "linkTextIsURL"
+
+msgid "linkTextIsGeneric"
+msgstr "linkTextIsGeneric"
+
+msgid "textPossibleList"
+msgstr "textPossibleList"
+
+msgid "textPossibleHeading"
+msgstr "textPossibleHeading"
+
+msgid "textUppercase"
+msgstr "textUppercase"
+
+msgid "tableNoHeaderCells"
+msgstr "tableNoHeaderCells"
+
+msgid "tableEmptyHeaderCell"
+msgstr "tableEmptyHeaderCell"
+
+msgid "tableContainsContentHeading"
+msgstr "tableContainsContentHeading"
+
+msgid "embedVideo"
+msgstr "embedVideo"
+
+msgid "embedAudio"
+msgstr "embedAudio"
+
+msgid "embedVisualization"
+msgstr "embedVisualization"
+
+msgid "embedTwitter"
+msgstr "embedTwitter"
+
+msgid "embedCustom"
+msgstr "embedCustom"
+
+msgid "headingEmpty"
+msgstr "headingEmpty"
+
+msgid "headingIsLong"
+msgstr "headingIsLong"
+
+msgid "headingLevelSkipped"
+msgstr "headingLevelSkipped"
+
+msgid "blockquoteIsShort"
+msgstr "blockquoteIsShort"
+
+msgid "altMissing"
+msgstr "altMissing"
+
+msgid "altNull"
+msgstr "altNull"
+
+msgid "altMeaningless"
+msgstr "altMeaningless"
+
+msgid "altURL"
+msgstr "altURL"
+
+msgid "altImageOf"
+msgstr "altImageOf"
+
+msgid "altDeadspace"
+msgstr "altDeadspace"
+
+msgid "altLong"
+msgstr "altLong"
+
+msgid "altPartOfLinkWithText"
+msgstr "altPartOfLinkWithText"
+
+msgid "2-letter code (en, fr, de)"
+msgstr "Κωδικός 2 γραμμάτων (en, fr, de)"
+
+msgid "Alert"
+msgstr "Ειδοποίηση"
+
+msgid "Alert types"
+msgstr "Τύποι ειδοποιήσεων"
+
+msgid "Alerts"
+msgstr "Ειδοποιήσεις"
+
+msgid "All dismissals"
+msgstr "Όλες οι απορρίψεις"
+
+msgid "All issues"
+msgstr "Όλα τα ζητήματα"
+
+msgid "All pages"
+msgstr "Όλες οι σελίδες"
+
+msgid "Apply"
+msgstr "Εφαρμογή"
+
+msgid "Author"
+msgstr "Συντάκτης"
+
+msgid "Authored after"
+msgstr "Συντάχθηκε μετά"
+
+msgid "Authored before"
+msgstr "Συντάχθηκε πριν"
+
+msgid "Authored"
+msgstr "Συντάχθηκε"
+
+msgid "Content type"
+msgstr "Τύπος περιεχομένου"
+
+msgid "Detected"
+msgstr "Εντοπίστηκε"
+
+msgid "Dismissals"
+msgstr "Απορρίψεις"
+
+msgid "Dismissed accessibility alerts"
+msgstr "Απορριφθείσες ειδοποιήσεις προσβασιμότητας"
+
+msgid "Edited"
+msgstr "Επεξεργάστηκε"
+
+msgid "Editor"
+msgstr "Επεξεργαστής"
+
+msgid "Items per page"
+msgstr "Στοιχεία ανά σελίδα"
+
+msgid "Filter"
+msgstr "Φίλτρο"
+
+msgid "Language"
+msgstr "Γλώσσα"
+
+msgid "Last editor"
+msgstr "Τελευταίος συντάκτης"
+
+msgid "Marked"
+msgstr "Σημειώθηκε"
+
+msgid "No dismissals found."
+msgstr "Δεν βρέθηκαν απορρίψεις."
+
+msgid "Page"
+msgstr "Σελίδα"
+
+msgid "Pages"
+msgstr "Σελίδες"
+
+msgid "Pages with alerts"
+msgstr "Σελίδες με ειδοποιήσεις"
+
+msgid "Panel"
+msgstr "Πίνακας"
+
+msgid "Path"
+msgstr "Διαδρομή"
+
+msgid "Published"
+msgstr "Δημοσιευμένο"
+
+msgid "Recent"
+msgstr "Πρόσφατα"
+
+msgid "Recent accessibility alerts"
+msgstr "Πρόσφατες ειδοποιήσεις προσβασιμότητας"
+
+msgid "Recent alerts"
+msgstr "Πρόσφατα προβλήματα"
+
+msgctxt "problems"
+msgid "Recent alerts"
+msgstr "Πρόσφατα προβλήματα"
+
+msgid "Sort by"
+msgstr "Ταξινόμηση κατά"
+
+msgid "Title"
+msgstr "Τίτλος"
+
+msgid "Type"
+msgstr "Τύπος"
+
+msgid "Filter and sort"
+msgstr "Φιλτράρισμα και ταξινόμηση"
+
+msgid "Deleted."
+msgstr "Διαγράφηκε."
+
+msgid "Delete failed."
+msgstr "Η διαγραφή απέτυχε."
+
+msgid "<p>The Editoria11y <strong><em>@type</em></strong> view is missing.</p>"
+msgstr "<p>Λείπει η προβολή Editoria11y <strong><em>@type</em></strong>.</p>"
+
+msgid ""
+"<p>There are three view configurations this module installs, found in its /"
+"config/install folder. Each must be installed for this dashboard to display "
+"results.</p>"
+msgstr ""
+"<p>Υπάρχουν τρεις διαμορφώσεις προβολής που εγκαθιστά αυτό το module, στον "
+"φάκελο /config/install. Πρέπει να εγκατασταθούν όλες για να εμφανιστούν "
+"αποτελέσματα στον πίνακα.</p>"
+
+msgid ""
+"<p>To fix: copy and paste the contents of <strong>/editoria11y/config/"
+"install/views.view.ed11y_@type.yml</strong> into a \"View\" type import at "
+"<a href=\"/admin/config/development/configuration/single/import\">/admin/"
+"config/development/configuration/single/import</a>. If you sync your "
+"configuration to the filesystem, be sure to include these Views in your "
+"repository.</p>"
+msgstr ""
+"<p>Για διόρθωση: αντιγράψτε και επικολλήστε τα περιεχόμενα του <strong>/"
+"editoria11y/config/install/views.view.ed11y_@type.yml</strong> σε εισαγωγή "
+"τύπου «View» στο <a href=\"/admin/config/development/configuration/single/"
+"import\">/admin/config/development/configuration/single/import</a>. Αν "
+"συγχρονίζετε τη διαμόρφωση στο filesystem, συμπεριλάβετε αυτές τις Views στο "
+"repository σας.</p>"
+
+msgid "link is external"
+msgstr "ο σύνδεσμος είναι εξωτερικός"
+
+msgid "link sends email"
+msgstr "ο σύνδεσμος στέλνει email"
+
+msgid "No results found"
+msgstr "Δεν βρέθηκαν αποτελέσματα"
+
+msgid ""
+"Your Editoria11y CSA trial has @days days remaining. <a "
+"href=\"@url\">Activate a license</a> to continue using CSA features after "
+"the trial ends."
+msgstr ""
+"Απομένουν @days ημέρες στη δοκιμαστική περίοδο Editoria11y CSA. <a "
+"href=\"@url\">Ενεργοποιήστε μια άδεια</a> για να συνεχίσετε να "
+"χρησιμοποιείτε τις λειτουργίες CSA μετά τη λήξη της δοκιμαστικής περιόδου."
+
+msgid ""
+"Your Editoria11y CSA trial has expired. CSA features have been disabled. <a "
+"href=\"@url\">Activate a license</a> to continue using them."
+msgstr ""
+"Η δοκιμαστική περίοδος Editoria11y CSA έληξε. Οι λειτουργίες CSA έχουν "
+"απενεργοποιηθεί. <a href=\"@url\">Ενεργοποιήστε μια άδεια</a> για να "
+"συνεχίσετε να τις χρησιμοποιείτε."
+
+msgid ""
+"Your Editoria11y CSA license has expired. <a href=\"@url\">Renew or "
+"deactivate your license</a>."
+msgstr ""
+"Η άδεια Editoria11y CSA σας έχει λήξει. <a href=\"@url\">Ανανεώστε ή "
+"απενεργοποιήστε την άδειά σας</a>."
+
+msgid ""
+"Your Editoria11y CSA license has expired. Please renew to reactivate CSA add-"
+"ons."
+msgstr ""
+"Η άδεια Editoria11y CSA σας έχει λήξει. Ανανεώστε την για να "
+"επανενεργοποιηθούν τα CSA add-ons."
+
+msgid "Cron license check failed: @msg"
+msgstr "Ο έλεγχος άδειας από το cron απέτυχε: @msg"
+
+msgid ""
+"Editoria11y CSA features are active on a @days-day trial. <a "
+"href=\"@url\">Activate a license</a> to continue using them after the trial "
+"ends."
+msgstr ""
+"Οι λειτουργίες Editoria11y CSA είναι ενεργές σε δοκιμαστική περίοδο @days "
+"ημερών. <a href=\"@url\">Ενεργοποιήστε μια άδεια</a> για να συνεχίσετε να "
+"τις χρησιμοποιείτε μετά τη λήξη της δοκιμαστικής περιόδου."
+
+msgid "Editoria11y Custom Test"
+msgstr "Editoria11y Προσαρμοσμένη Δοκιμή"
+
+msgid "Editoria11y Custom Tests"
+msgstr "Editoria11y Προσαρμοσμένες Δοκιμές"
+
+msgid "editoria11y custom test"
+msgstr "editoria11y προσαρμοσμένη δοκιμή"
+
+msgid "editoria11y custom tests"
+msgstr "editoria11y προσαρμοσμένες δοκιμές"
+
+msgid "Editoria11y CSA: Advanced Tools"
+msgstr "Editoria11y CSA: προηγμένα εργαλεία"
+
+msgid ""
+"Community-Supported Addons include code and contrast checks, custom checks, "
+"a site crawler and report maintenance tools."
+msgstr "Τα πρόσθετα που υποστηρίζονται από την κοινότητα περιλαμβάνουν ελέγχους κώδικα και αντίθεσης, προσαρμοσμένους ελέγχους, έναν ανιχνευτή ιστοτόπου και εργαλεία συντήρησης αναφορών."
+
+msgid "Add custom test"
+msgstr "Προσθήκη προσαρμοσμένης δοκιμής"
+
+msgid "Recheck"
+msgstr "Επανέλεγχος"
+
+msgid "CSA membership"
+msgstr "Συνδρομή CSA"
+
+msgid "Custom tests"
+msgstr "Προσαρμοσμένες δοκιμές"
+
+msgid "Dashboard Actions"
+msgstr "Ενέργειες πίνακα ελέγχου"
+
+msgid "Editoria11y CSA membership"
+msgstr "Συνδρομή Editoria11y CSA"
+
+msgid "Editoria11y custom tests"
+msgstr "Editoria11y προσαρμοσμένες δοκιμές"
+
+msgid "Add a custom test"
+msgstr "Προσθήκη προσαρμοσμένης δοκιμής"
+
+msgid "Edit custom test"
+msgstr "Επεξεργασία προσαρμοσμένης δοκιμής"
+
+msgid "Delete custom test"
+msgstr "Διαγραφή προσαρμοσμένης δοκιμής"
+
+msgid "Editoria11y CSA Settings"
+msgstr "Ρυθμίσεις Editoria11y CSA"
+
+msgid "Developer roles"
+msgstr "Ρόλοι προγραμματιστών"
+
+msgid "Developer assertiveness"
+msgstr "Επιθετικότητα προγραμματιστή"
+
+msgid "Tests overridden to show to content editors"
+msgstr ""
+"Δοκιμές που παρακάμπτονται ώστε να εμφανίζονται στους συντάκτες περιεχομένου"
+
+msgid "Tests overridden to turn off"
+msgstr "Δοκιμές που παρακάμπτονται προς απενεργοποίηση"
+
+msgid "Tests overridden to only to show to developers"
+msgstr ""
+"Δοκιμές που παρακάμπτονται ώστε να εμφανίζονται μόνο στους προγραμματιστές"
+
+msgid "Elements to ignore for contrast test"
+msgstr "Στοιχεία που πρέπει να αγνοούνται στον έλεγχο αντίθεσης"
+
+msgid "Turn on contrast checks"
+msgstr "Ενεργοποίηση ελέγχων αντίθεσης"
+
+msgid "Developer check root: body or specify"
+msgstr "Ρίζα ελέγχου προγραμματιστή: body ή καθορισμός"
+
+msgid "Developer check root selector"
+msgstr "Selector ρίζας ελέγχου προγραμματιστή"
+
+msgid "Selector for elements to ignore for developers"
+msgstr "Selector για στοιχεία που πρέπει να αγνοούν οι προγραμματιστές"
+
+msgid "Enabled"
+msgstr "Ενεργό"
+
+msgid "Custom development domain patterns"
+msgstr "Προσαρμοσμένα μοτίβα domain ανάπτυξης"
+
+msgid "ID"
+msgstr "ID"
+
+msgid "Label"
+msgstr "Ετικέτα"
+
+msgid "Test key"
+msgstr "Κλειδί δοκιμής"
+
+msgid "Tooltip title"
+msgstr "Τίτλος tooltip"
+
+msgid "Tip content HTML"
+msgstr "HTML περιεχόμενο συμβουλής"
+
+msgid "Element set to check"
+msgstr "Σύνολο στοιχείων προς έλεγχο"
+
+msgid "Dismiss key type"
+msgstr "Τύπος κλειδιού απόρριψης"
+
+msgid "CSS filter selector"
+msgstr "CSS filter selector"
+
+msgid "Text strings to include"
+msgstr "Συμβολοσειρές κειμένου προς συμπερίληψη"
+
+msgid "Text string"
+msgstr "Συμβολοσειρά κειμένου"
+
+msgid "Text strings to exclude"
+msgstr "Συμβολοσειρές κειμένου προς εξαίρεση"
+
+msgid "Case sensitive text matching"
+msgstr "Αντιστοίχιση κειμένου με διάκριση πεζών-κεφαλαίων"
+
+msgid "Filter which pages will be crawled"
+msgstr "Φιλτράρισμα των σελίδων που θα ανιχνευθούν"
+
+msgid "Cancel"
+msgstr "Ακύρωση"
+
+msgid "Millisecond pause between page requests"
+msgstr "Παύση σε χιλιοστά του δευτερολέπτου μεταξύ των αιτημάτων σελίδων"
+
+msgid "This tab needs to remain open and in the foreground during the crawl."
+msgstr ""
+"Αυτή η καρτέλα πρέπει να παραμείνει ανοιχτή και στο προσκήνιο κατά την "
+"ανίχνευση."
+
+msgid "Estimated time:"
+msgstr "Εκτιμώμενος χρόνος:"
+
+msgid "hours"
+msgstr "ώρες"
+
+msgid "minutes"
+msgstr "λεπτά"
+
+msgid "minute"
+msgstr "λεπτό"
+
+msgid "Start crawling"
+msgstr "Έναρξη ανίχνευσης"
+
+msgid "Checked:"
+msgstr "Ελέγχθηκαν:"
+
+msgid "pages"
+msgstr "σελίδες"
+
+msgid "Back to dashboard"
+msgstr "Επιστροφή στον πίνακα ελέγχου"
+
+msgid "Test"
+msgstr "Δοκιμή"
+
+msgid "Elements"
+msgstr "Στοιχεία"
+
+msgid "Status"
+msgstr "Κατάσταση"
+
+msgid "Text"
+msgstr "Κείμενο"
+
+msgid "On"
+msgstr "Στις"
+
+msgid "Off"
+msgstr "Ανενεργό"
+
+msgid "Freemius deactivation API call failed: @msg"
+msgstr "Η κλήση API απενεργοποίησης Freemius απέτυχε: @msg"
+
+msgid "Cannot cancel subscription: API token not found."
+msgstr "Δεν είναι δυνατή η ακύρωση της συνδρομής: δεν βρέθηκε API token."
+
+msgid "Freemius subscription cancellation API call failed: @msg"
+msgstr "Η κλήση API ακύρωσης συνδρομής Freemius απέτυχε: @msg"
+
+msgid "Key module lookup for @id failed: @msg"
+msgstr "Key module lookup for @id failed: @msg"
+
+msgid "Failed to update Freemius install properties: @msg"
+msgstr "Η ενημέρωση ιδιοτήτων εγκατάστασης Freemius απέτυχε: @msg"
+
+msgid ""
+"An <a href=\"@settings\">active license must be deactivated</a> before "
+"uninstalling."
+msgstr ""
+"Μια <a href=\"@settings\">ενεργή άδεια πρέπει να απενεργοποιηθεί</a> πριν "
+"την απεγκατάσταση."
+
+msgid "License key stored. Use editoria11y-csa:activate to activate."
+msgstr ""
+"Το κλειδί άδειας αποθηκεύτηκε. Χρησιμοποιήστε το editoria11y-csa:activate "
+"για ενεργοποίηση."
+
+msgid "License activated."
+msgstr "Η άδεια ενεργοποιήθηκε."
+
+msgid "License deactivated."
+msgstr "Η άδεια απενεργοποιήθηκε."
+
+msgid "License active. Expires: @date"
+msgstr "Η άδεια είναι ενεργή. Λήγει: @date"
+
+msgid "License active. No expiration date."
+msgstr "Η άδεια είναι ενεργή. Χωρίς ημερομηνία λήξης."
+
+msgid ""
+"License management locked. Use editoria11y-csa:unlock to re-enable UI "
+"changes."
+msgstr ""
+"Η διαχείριση άδειας κλειδώθηκε. Χρησιμοποιήστε το editoria11y-csa:unlock για "
+"να ενεργοποιήσετε ξανά τις αλλαγές από το UI."
+
+msgid "License management unlocked. UI changes are now allowed."
+msgstr ""
+"Η διαχείριση άδειας ξεκλειδώθηκε. Οι αλλαγές από το UI επιτρέπονται πλέον."
+
+msgid "License expired or cancelled."
+msgstr "Η άδεια έχει λήξει ή ακυρωθεί."
+
+msgid "License key cannot be empty."
+msgstr "Το κλειδί άδειας δεν μπορεί να είναι κενό."
+
+msgid "Failed to store key: {msg}"
+msgstr "Η αποθήκευση του κλειδιού απέτυχε: {msg}"
+
+msgid "No stored license key found. Run editoria11y-csa:set-key first."
+msgstr ""
+"Δεν βρέθηκε αποθηκευμένο κλειδί άδειας. Εκτελέστε πρώτα το editoria11y-"
+"csa:set-key."
+
+msgid "Activation failed: {msg}"
+msgstr "Η ενεργοποίηση απέτυχε: {msg}"
+
+msgid "Deactivation failed: {msg}"
+msgstr "Η απενεργοποίηση απέτυχε: {msg}"
+
+msgid "License check failed: {msg}"
+msgstr "Ο έλεγχος άδειας απέτυχε: {msg}"
+
+msgid "Export"
+msgstr "Εξαγωγή"
+
+msgid "Export pages"
+msgstr "Εξαγωγή σελίδων"
+
+msgid "Export dismissals"
+msgstr "Εξαγωγή απορρίψεων"
+
+msgid "Export alerts"
+msgstr "Εξαγωγή ειδοποιήσεων"
+
+msgid "Paths with parameters"
+msgstr "Διαδρομές με παραμέτρους"
+
+msgid "Drop records for deleted or moved pages"
+msgstr "Διαγραφή εγγραφών για σελίδες που έχουν διαγραφεί ή μετακινηθεί"
+
+msgid "Deletes results that no longer have valid paths or entity references."
+msgstr ""
+"Διαγράφει αποτελέσματα που δεν έχουν πλέον έγκυρες διαδρομές ή αναφορές "
+"οντοτήτων."
+
+msgid "Update page titles"
+msgstr "Ενημέρωση τίτλων σελίδων"
+
+msgid ""
+"Replaces recorded titles for Nodes, Terms and Users with the current value "
+"on their edit page."
+msgstr ""
+"Αντικαθιστά τους καταγεγραμμένους τίτλους Κόμβων, Όρων και Χρηστών με τις "
+"τρέχουσες τιμές από τη σελίδα επεξεργασίας."
+
+msgid "Update page paths"
+msgstr "Ενημέρωση διαδρομών σελίδων"
+
+msgid ""
+"Replaces recorded URLs for Nodes, Terms and Users with their current "
+"canonical path. <br>@ReviewPaths (node/1?node=2) will not be updated."
+msgstr ""
+"Αντικαθιστά τα καταγεγραμμένα URLs για Κόμβους, Όρους και Χρήστες με την "
+"τρέχουσα κανονική διαδρομή τους. <br>@ReviewPaths (node/1?node=2) δεν θα "
+"ενημερωθούν."
+
+msgid "Risky deletions"
+msgstr "Επικίνδυνες διαγραφές"
+
+msgid "Delete records for paths with parameters (e.g., ?page=2)"
+msgstr "Διαγραφή εγγραφών για διαδρομές με παραμέτρους (π.χ. ?page=2)"
+
+msgid "None"
+msgstr "Καμία"
+
+msgid "Only for nodes, terms & users"
+msgstr "Μόνο για κόμβους, όρους και χρήστες"
+
+msgid "All, including search and views"
+msgstr "Όλες, συμπεριλαμβανομένων των σελίδων αναζήτησης και προβολών"
+
+msgid ""
+"Used to remove duplicate records when previously recorded parameters like "
+"page numbers or search keys were not meaningful. Parameters that are not "
+"meaningful should be removed from the list of parameters to save under "
+"\"Syncing results to reports\" in the module configuration.<br>@ReviewPaths "
+"should be reviewed before proceeding. <strong>There is no undo</strong>."
+msgstr ""
+"Χρησιμοποιείται για την αφαίρεση διπλών εγγραφών όταν προηγουμένως "
+"αποθηκευμένες παράμετροι, όπως αριθμοί σελίδων ή κλειδιά αναζήτησης, δεν "
+"είχαν νόημα. Παράμετροι που δεν είναι σημαντικοί πρέπει να αφαιρεθούν από τη "
+"λίστα στις ρυθμίσεις του module στην ενότητα «Συγχρονισμός αποτελεσμάτων με "
+"αναφορές».<br>@ReviewPaths πρέπει να ελεγχθούν πριν συνεχίσετε. <strong>Δεν "
+"υπάρχει αναίρεση</strong>."
+
+msgid "Start"
+msgstr "Έναρξη"
+
+msgid "Recheck nodes"
+msgstr "Επανέλεγχος κόμβων"
+
+msgid "Set up a crawl"
+msgstr "Ρύθμιση ανίχνευσης"
+
+msgid "Processing batch #@batch_id of @count."
+msgstr "Επεξεργασία batch #@batch_id από @count."
+
+msgid "@process processed @count, deleted @deleted, updated @updated."
+msgstr ""
+"Η διαδικασία @process επεξεργάστηκε @count, διέγραψε @deleted, ενημέρωσε "
+"@updated."
+
+msgid ""
+"An error occurred while processing %error_operation with arguments: "
+"@arguments"
+msgstr ""
+"Παρουσιάστηκε σφάλμα κατά την επεξεργασία του %error_operation με ορίσματα: "
+"@arguments"
+
+msgid "No records to process."
+msgstr "Δεν υπάρχουν εγγραφές προς επεξεργασία."
+
+msgid ""
+"@process processed @count, deleted @deleted, updated @updated in @elapsed."
+msgstr ""
+"Η διαδικασία @process επεξεργάστηκε @count, διέγραψε @deleted, ενημέρωσε "
+"@updated σε @elapsed."
+
+msgid "Admin label for the configuration page"
+msgstr "Ετικέτα διαχειριστή για τη σελίδα διαμόρφωσης"
+
+msgid "Test grouping ID"
+msgstr "ID ομαδοποίησης δοκιμής"
+
+msgid ""
+"Letters, numbers and underscores only.<br>Rules that share an ID will be "
+"grouped on dashboard reports."
+msgstr ""
+"Μόνο γράμματα, αριθμοί και κάτω παύλες.<br>Οι κανόνες που μοιράζονται ένα ID "
+"θα ομαδοποιηθούν στις αναφορές πίνακα ελέγχου."
+
+msgid "Active"
+msgstr "Ενεργό"
+
+msgid "Alert content"
+msgstr "Περιεχόμενο ειδοποίησης"
+
+msgid "Tip title"
+msgstr "Τίτλος συμβουλής"
+
+msgid "Tip details"
+msgstr "Λεπτομέρειες συμβουλής"
+
+msgid ""
+"HTML displayed in the tooltip. The provided template is optional.<br>\n"
+"        Allowed tags: @tags."
+msgstr ""
+"HTML που εμφανίζεται στη συμβουλή εργαλείου. Το παρεχόμενο πρότυπο είναι "
+"προαιρετικό.<br>\n"
+"        Επιτρεπόμενες ετικέτες: @tags."
+
+msgid "To fix"
+msgstr "Για διόρθωση"
+
+msgid "Error"
+msgstr "Σφάλμα"
+
+msgid "Manual check"
+msgstr "Χειροκίνητος έλεγχος"
+
+msgid "Dismiss key"
+msgstr "Κλειδί απόρριψης"
+
+msgid ""
+"How dismissals are tracked. 'Text' uses its text content, 'Attributes' uses "
+"its attributes (href, id, class, src)."
+msgstr ""
+"Πώς παρακολουθούνται οι απορρίψεις. Το 'Text' χρησιμοποιεί το περιεχόμενο "
+"κειμένου, το 'Attributes' τα χαρακτηριστικά (href, id, class, src)."
+
+msgid "Text content"
+msgstr "Περιεχόμενο κειμένου"
+
+msgid "Attributes on tag (e.g. href and src)"
+msgstr "Χαρακτηριστικά ετικέτας (π.χ. href και src)"
+
+msgid "Elements to check"
+msgstr "Στοιχεία προς έλεγχο"
+
+msgid ""
+"These sets contain elements that match your check area and skip over "
+"configuration."
+msgstr ""
+"Αυτά τα σύνολα περιέχουν στοιχεία που αντιστοιχούν στην περιοχή ελέγχου σας "
+"και παραλείπουν τη διαμόρφωση."
+
+msgid "Common choices"
+msgstr "Συνήθεις επιλογές"
+
+msgid "All text elements: Headings, Paragraphs, Blockquotes and Lists"
+msgstr ""
+"Όλα τα στοιχεία κειμένου: Επικεφαλίδες, Παράγραφοι, Αποσπάσματα και Λίστες"
+
+msgid "Links"
+msgstr "Σύνδεσμοι"
+
+msgid "Paragraphs"
+msgstr "Παράγραφοι"
+
+msgid "Headings"
+msgstr "Επικεφαλίδες"
+
+msgid "Images"
+msgstr "Εικόνες"
+
+msgid "All elements"
+msgstr "Όλα τα στοιχεία"
+
+msgid "...other..."
+msgstr "...άλλο..."
+
+msgid "Specific elements and combinations"
+msgstr "Συγκεκριμένα στοιχεία και συνδυασμοί"
+
+msgid "Lists"
+msgstr "Λίστες"
+
+msgid "Blockquotes"
+msgstr "Αποσπάσματα"
+
+msgid "Tables"
+msgstr "Πίνακες"
+
+msgid "Buttons"
+msgstr "Κουμπιά"
+
+msgid "Inputs"
+msgstr "Πεδία εισόδου"
+
+msgid "Labels"
+msgstr "Ετικέτες"
+
+msgid "Iframes"
+msgstr "Iframes"
+
+msgid "Videos"
+msgstr "Βίντεο"
+
+msgid "Audio"
+msgstr "Ήχος"
+
+msgid ""
+"Note: combining Links with Paragraphs and other text containers can lead to "
+"duplicate alerts."
+msgstr ""
+"Σημείωση: ο συνδυασμός Συνδέσμων με Παραγράφους και άλλα κοντέινερ κειμένου "
+"μπορεί να οδηγήσει σε διπλές ειδοποιήσεις."
+
+msgid "When tip should appear"
+msgstr "Πότε θα εμφανίζεται η συμβουλή"
+
+msgid ""
+"This test builder allows for simple text and attribute tests.<br>Check the "
+"module readme for <a href=\"@url\">tips on writing more complex tests</a>."
+msgstr ""
+"Αυτός ο δημιουργός δοκιμών επιτρέπει απλές δοκιμές κειμένου και "
+"χαρακτηριστικών.<br>Ελέγξτε το readme της ενότητας για <a "
+"href=\"@url\">συμβουλές σχετικά με τη σύνταξη πιο σύνθετων δοκιμών</a>."
+
+msgid "Select by attributes"
+msgstr "Επιλογή βάσει χαρακτηριστικών"
+
+msgid ""
+"Match using CSS selectors.<br>Use :not() to skip elements, e.g. "
+"<code>:is(.check1, .check2):not(.ignore, .ignore *)</code>.<br>Use attribute "
+"selectors for URLs, e.g. <code>[href*=\".dev/\"]</code>."
+msgstr ""
+"Αντιστοίχιση με χρήση επιλογέων CSS.<br>Χρησιμοποιήστε :not() για να "
+"παραλείψετε στοιχεία, π.χ. <code>:is(.check1, .check2):not(.ignore, .ignore "
+"*)</code>.<br>Χρησιμοποιήστε επιλογείς χαρακτηριστικών για URL, π.χ. "
+"<code>[href*=\".dev/\"]</code>."
+
+msgid "Select by text"
+msgstr "Επιλογή βάσει κειμένου"
+
+msgid "Flag elements containing any of these text strings. One per line."
+msgstr ""
+"Επισήμανση στοιχείων που περιέχουν οποιαδήποτε από αυτές τις συμβολοσειρές "
+"κειμένου. Μία ανά γραμμή."
+
+msgid "Case sensitive"
+msgstr "Διάκριση πεζών-κεφαλαίων"
+
+msgid "Exclude elements that match this text"
+msgstr "Εξαίρεση στοιχείων που αντιστοιχούν σε αυτό το κείμενο"
+
+msgid ""
+"Don't flag elements if they contain any of these words or phrases. E.g., a "
+"link to a development server is ok if it contains \"dev.\" One per line."
+msgstr ""
+"Μην επισημαίνετε στοιχεία αν περιέχουν οποιαδήποτε από αυτές τις λέξεις ή "
+"φράσεις. Π.χ., ένας σύνδεσμος σε διακομιστή ανάπτυξης είναι εντάξει αν "
+"περιέχει \"dev.\" Μία ανά γραμμή."
+
+msgid "Test key must contain only letters, numbers, and underscores."
+msgstr ""
+"Το κλειδί δοκιμής πρέπει να περιέχει μόνο γράμματα, αριθμούς και κάτω παύλες."
+
+msgid "Tip content must contain visible text."
+msgstr "Το περιεχόμενο της συμβουλής πρέπει να περιέχει ορατό κείμενο."
+
+msgid "Select at least one rule."
+msgstr "Επιλέξτε τουλάχιστον έναν κανόνα."
+
+msgid "Select at least one element type."
+msgstr "Επιλέξτε τουλάχιστον έναν τύπο στοιχείου."
+
+msgid "The filter selector should be a CSS selector, not a CSS rule block."
+msgstr ""
+"Ο επιλογέας φίλτρου πρέπει να είναι επιλογέας CSS, όχι μπλοκ κανόνα CSS."
+
+msgid "Created new custom test %label."
+msgstr "Δημιουργήθηκε νέα προσαρμοσμένη δοκιμή %label."
+
+msgid "Updated custom test %label."
+msgstr "Ενημερώθηκε η προσαρμοσμένη δοκιμή %label."
+
+msgid "Are you deactivating this site or cancelling altogether?"
+msgstr ""
+"Απενεργοποιείτε αυτόν τον ιστότοπο ή ακυρώνετε εντελώς τη συνδρομή σας;"
+
+msgid "You can manage your subscriptions at any time in your Freemius account."
+msgstr ""
+"Μπορείτε να διαχειρίζεστε τις συνδρομές σας ανά πάσα στιγμή από τον "
+"λογαριασμό σας στο Freemius."
+
+msgid "Choose an action"
+msgstr "Επιλέξτε ενέργεια"
+
+msgid ""
+"<strong>Deactivate this site</strong>, but keep my subscription active and "
+"renewing for use on another site"
+msgstr ""
+"<strong>Απενεργοποίηση αυτού του ιστότοπου</strong>, αλλά διατήρηση της "
+"συνδρομής μου ενεργής και ανανεούμενης για χρήση σε άλλον ιστότοπο"
+
+msgid ""
+"<strong>Cancel my subscription</strong> to the Editoria11y CSA altogether"
+msgstr "<strong>Ακύρωση της συνδρομής μου</strong> στο Editoria11y CSA εντελώς"
+
+msgid "Confirm deactivation"
+msgstr "Επιβεβαίωση απενεργοποίησης"
+
+msgid "Never mind; keep site active"
+msgstr "Ακύρωση· διατήρηση του ιστότοπου ενεργού"
+
+msgid ""
+"This site appears to be a development or testing environment with an active "
+"license."
+msgstr ""
+"Αυτός ο ιστότοπος φαίνεται να είναι περιβάλλον ανάπτυξης ή δοκιμών με ενεργή "
+"άδεια."
+
+msgid "How would you like to proceed?"
+msgstr "Πώς θέλετε να προχωρήσετε;"
+
+msgid ""
+"<strong>Cancel deactivation</strong>; I will manage this from the production "
+"site"
+msgstr ""
+"<strong>Ακύρωση απενεργοποίησης</strong>· θα το διαχειριστώ από τον ιστότοπο "
+"production"
+
+msgid ""
+"<strong>Disconnect this copy</strong>; leave the production license active"
+msgstr ""
+"<strong>Αποσύνδεση αυτού του αντιγράφου</strong>· διατήρηση της άδειας "
+"production ενεργής"
+
+msgid ""
+"<strong>Deactivate all copies of this site</strong> (production, dev, and QA)"
+msgstr ""
+"<strong>Απενεργοποίηση όλων των αντιγράφων αυτού του ιστότοπου</strong> "
+"(production, dev και QA)"
+
+msgid "Confirm"
+msgstr "Επιβεβαίωση"
+
+msgid ""
+"Editoria11y promotes accessibility in a unique way. Its tools are highly "
+"effective at helping non-technical authors prepare content that can be "
+"enjoyed equally by disabled Web users. We consider this a public good, so "
+"Editoria11y will always be free to use."
+msgstr ""
+"Το Editoria11y προάγει την προσβασιμότητα με μοναδικό τρόπο. Τα εργαλεία του "
+"είναι εξαιρετικά αποτελεσματικά στο να βοηθούν μη τεχνικούς συντάκτες να "
+"ετοιμάζουν περιεχόμενο που μπορεί να απολαμβάνεται εξίσου από άτομα με "
+"αναπηρία. Το θεωρούμε δημόσιο αγαθό, γι\" αυτό και το Editoria11y θα είναι "
+"πάντα δωρεάν στη χρήση."
+
+msgid "Editoria11y is not, however, free to develop or support."
+msgstr "Ωστόσο, η ανάπτυξη και η υποστήριξη του Editoria11y δεν είναι δωρεάν."
+
+msgid ""
+"The \"Community Supported Add-ons\" (CSA) project fills the gap: project "
+"membership subscriptions fund the development of the Editoria11y library, "
+"its CMS plugins, and the CSA suite."
+msgstr ""
+"Το έργο «Community Supported Add-ons» (CSA) καλύπτει αυτό το κενό: οι "
+"συνδρομές μελών του έργου χρηματοδοτούν την ανάπτυξη της βιβλιοθήκης "
+"Editoria11y, των CMS plugins της και της σουίτας CSA."
+
+msgid ""
+"<a href=\"@url\"><strong>Join the CSA</strong></a> to support this project"
+msgstr ""
+"<a href=\"@url\"><strong>Γίνετε μέλος του CSA</strong></a> για να "
+"υποστηρίξετε αυτό το έργο"
+
+msgid ""
+"Existing members: <a href=\"@url\"><strong>Manage your subscription</"
+"strong></a> or <a href=\"@support_url\"><strong>contact support</strong></a>"
+msgstr ""
+"Υπάρχοντα μέλη: <a href=\"@url\"><strong>Διαχείριση της συνδρομής σας</"
+"strong></a> ή <a href=\"@support_url\"><strong>επικοινωνήστε με την "
+"υποστήριξη</strong></a>"
+
+msgid ""
+"License management on this site has been locked via Drush. Use <code>drush "
+"ed11y-unlock</code> to re-enable changes from this form."
+msgstr ""
+"Η διαχείριση άδειας σε αυτόν τον ιστότοπο έχει κλειδωθεί μέσω Drush. "
+"Χρησιμοποιήστε <code>drush ed11y-unlock</code> για να ενεργοποιήσετε ξανά "
+"τις αλλαγές από αυτήν τη φόρμα."
+
+msgid "Warning: this site matches a dev or QA URL pattern"
+msgstr "Προειδοποίηση: αυτός ο ιστότοπος αντιστοιχεί σε μοτίβο URL dev ή QA"
+
+msgid "Shared activations should be managed in the production copy."
+msgstr ""
+"Οι κοινόχρηστες ενεργοποιήσεις πρέπει να διαχειρίζονται από το αντίγραφο "
+"production."
+
+msgid ""
+"Use <code>drush ed11y-lock</code> to prevent changing shared activations."
+msgstr ""
+"Χρησιμοποιήστε <code>drush ed11y-lock</code> για να αποτρέψετε αλλαγές σε "
+"κοινόχρηστες ενεργοποιήσεις."
+
+msgid ""
+"Deactivating a shared key deactivates all copies of a site, including "
+"production."
+msgstr ""
+"Η απενεργοποίηση ενός κοινόχρηστου κλειδιού απενεργοποιεί όλα τα αντίγραφα "
+"του ιστότοπου, συμπεριλαμβανομένου του production."
+
+msgid ""
+"Separate license activations from a development environment consume an "
+"additional key."
+msgstr ""
+"Οι ξεχωριστές ενεργοποιήσεις άδειας από περιβάλλον ανάπτυξης καταναλώνουν "
+"επιπλέον κλειδί."
+
+msgid "Trial (@days days remaining)"
+msgstr "Δοκιμαστική περίοδος (απομένουν @days ημέρες)"
+
+msgid "Trial (expired)"
+msgstr "Δοκιμαστική περίοδος (έληξε)"
+
+msgid "License expired"
+msgstr "Η άδεια έχει λήξει"
+
+msgid "Active membership"
+msgstr "Ενεργή συνδρομή"
+
+msgid "Activate using stored license key"
+msgstr "Ενεργοποίηση με χρήση αποθηκευμένου κλειδιού άδειας"
+
+msgid "Activate with a different license key"
+msgstr "Ενεργοποίηση με διαφορετικό κλειδί άδειας"
+
+msgid "Activate (enter license key below)"
+msgstr "Ενεργοποίηση (εισαγάγετε το κλειδί άδειας παρακάτω)"
+
+msgid "<strong>License expired.</strong> Expired on: @date"
+msgstr "<strong>Η άδεια έχει λήξει.</strong> Έληξε στις: @date"
+
+msgid "<strong>License has expired.</strong>"
+msgstr "<strong>Η άδεια έχει λήξει.</strong>"
+
+msgid "<strong>Trial license active.</strong> Trial ends: @date"
+msgstr ""
+"<strong>Η δοκιμαστική άδεια είναι ενεργή.</strong> Η δοκιμαστική περίοδος "
+"λήγει: @date"
+
+msgid "<strong>License active.</strong> Expires: @date"
+msgstr "<strong>Η άδεια είναι ενεργή.</strong> Λήγει: @date"
+
+msgid "<strong>Lifetime license active.</strong>"
+msgstr "<strong>Άδεια εφ' όρου ζωής ενεργή.</strong>"
+
+msgid "Check for license renewal"
+msgstr "Έλεγχος για ανανέωση άδειας"
+
+msgid "Deactivate license"
+msgstr "Απενεργοποίηση άδειας"
+
+msgid "A license key is stored but not active"
+msgstr "Υπάρχει αποθηκευμένο κλειδί άδειας, αλλά δεν είναι ενεργό"
+
+msgid "Add a license key to enable CSA features"
+msgstr "Προσθέστε ένα κλειδί άδειας για να ενεργοποιηθούν οι λειτουργίες CSA"
+
+msgid "Enable CSA features"
+msgstr "Ενεργοποίηση λειτουργιών CSA"
+
+msgid "CSA license key"
+msgstr "Κλειδί άδειας CSA"
+
+msgid ""
+"<a href=\"@url\">Join the CSA</a> to enable CSA features. Visit the Freemius "
+"dashboard to <a href=\"@freemius\">manage your subscription</a> or recover a "
+"lost key."
+msgstr ""
+"<a href=\"@url\">Γίνετε μέλος του CSA</a> για να ενεργοποιήσετε τις "
+"λειτουργίες CSA. Επισκεφθείτε τον πίνακα ελέγχου Freemius για να <a "
+"href=\"@freemius\">διαχειριστείτε τη συνδρομή σας</a> ή να ανακτήσετε ένα "
+"χαμένο κλειδί."
+
+msgid "Local, Dev and QA site URL patterns"
+msgstr "Μοτίβα URL για τοπικούς ιστότοπους, Dev και QA"
+
+msgid ""
+"One pattern per line, up to 5 patterns. Wildcards are supported (e.g. "
+"<code>*.test.example.com</code>).<br>Local, dev and QA sites can share an "
+"activation with production site, but only production sites check for "
+"renewals."
+msgstr ""
+"Ένα μοτίβο ανά γραμμή, έως 5 μοτίβα. Υποστηρίζονται wildcards (π.χ. "
+"<code>*.test.example.com</code>).<br>Οι τοπικοί, dev και QA ιστότοποι "
+"μπορούν να μοιράζονται μια ενεργοποίηση με τον ιστότοπο production, αλλά "
+"μόνο οι ιστότοποι production ελέγχουν για ανανεώσεις."
+
+msgid ""
+"Additionally, any hostname consisting only of digits and dots (raw IPv4 "
+"address) is treated as a development environment."
+msgstr ""
+"Επιπλέον, κάθε hostname που αποτελείται μόνο από ψηφία και τελείες (raw "
+"διεύθυνση IPv4) θεωρείται περιβάλλον ανάπτυξης."
+
+msgid "Built-in development URL patterns"
+msgstr "Ενσωματωμένα μοτίβα URL ανάπτυξης"
+
+msgid "Enter no more than 5 custom domain patterns."
+msgstr "Εισαγάγετε όχι περισσότερα από 5 προσαρμοσμένα μοτίβα domain."
+
+msgid "Saved license key not found. Please activate with a new key."
+msgstr "Δεν βρέθηκε αποθηκευμένο κλειδί άδειας. Ενεργοποιήστε με νέο κλειδί."
+
+msgid "Enter a license key."
+msgstr "Εισαγάγετε ένα κλειδί άδειας."
+
+msgid "Activation failed: @msg"
+msgstr "Η ενεργοποίηση απέτυχε: @msg"
+
+msgid "License renewed and active."
+msgstr "Η άδεια ανανεώθηκε και είναι ενεργή."
+
+msgid "License is still expired."
+msgstr "Η άδεια εξακολουθεί να είναι ληγμένη."
+
+msgid "Unexpected license status: @status"
+msgstr "Μη αναμενόμενη κατάσταση άδειας: @status"
+
+msgid "Could not reach licensing server: @msg"
+msgstr "Δεν ήταν δυνατή η επικοινωνία με τον διακομιστή αδειοδότησης: @msg"
+
+msgid "Deactivation failed: @msg"
+msgstr "Η απενεργοποίηση απέτυχε: @msg"
+
+msgid "Editoria11y Export Batch Processor"
+msgstr "Editoria11y – μαζική επεξεργασία εξαγωγών"
+
+msgid ""
+"Batching is only needed for very large or heavily customized CSV exports."
+msgstr "Η μαζική επεξεργασία χρειάζεται μόνο για πολύ μεγάλες ή έντονα προσαρμοσμένες εξαγωγές CSV."
+
+msgid "hide"
+msgstr "απόκρυψη"
+
+msgid "ok"
+msgstr "ok"
+
+msgid "Yes"
+msgstr "Ναι"
+
+msgid "No"
+msgstr "Όχι"
+
+msgid "This alt text is a filename, not a description"
+msgstr "Αυτό το alt κείμενο είναι όνομα αρχείου, όχι περιγραφή"
+
+msgid "Is this a clear and concise description of the image?"
+msgstr "Είναι αυτή μια σαφής και περιεκτική περιγραφή της εικόνας;"
+
+msgid "This alt text may be a placeholder"
+msgstr "Αυτό το alt κείμενο μπορεί να είναι ένα placeholder"
+
+msgid "This alt text is unpronounceable"
+msgstr "Αυτό το alt κείμενο δεν μπορεί να προφερθεί"
+
+msgid "This custom input field is missing a label"
+msgstr "Αυτό το προσαρμοσμένο πεδίο δεν έχει ετικέτα"
+
+msgid "Button is missing an accessible label"
+msgstr "Το κουμπί δεν έχει προσβάσιμη ετικέτα"
+
+msgid "Button has an invalid ARIA label"
+msgstr "Το κουμπί έχει μη έγκυρη ετικέτα ARIA"
+
+msgid "Button name repeats the word \"button\""
+msgstr "Το όνομα του κουμπιού επαναλαμβάνει τη λέξη «κουμπί»"
+
+msgid "This button is unpronounceable"
+msgstr "Αυτό το κουμπί δεν μπορεί να προφερθεί"
+
+msgid "Text does not have enough contrast to be easily legible"
+msgstr "Το κείμενο δεν έχει αρκετή αντίθεση ώστε να διαβάζεται εύκολα"
+
+msgid "Graphic or icon does not have enough contrast"
+msgstr "Το γραφικό ή το εικονίδιο δεν έχει αρκετή αντίθεση"
+
+msgid "Input does not provide enough contrast to be easily legible"
+msgstr "Το πεδίο εισαγωγής δεν έχει αρκετή αντίθεση ώστε να διαβάζεται εύκολα"
+
+msgid "Placeholder text does not have enough contrast to be easily legible"
+msgstr ""
+"Το κείμενο placeholder δεν έχει αρκετή αντίθεση ώστε να διαβάζεται εύκολα"
+
+msgid "Does this placeholder text have enough contrast?"
+msgstr "Έχει το κείμενο placeholder αρκετή αντίθεση;"
+
+msgid "Does this text have enough contrast?"
+msgstr "Έχει αυτό το κείμενο αρκετή αντίθεση;"
+
+msgid "Does this graphic or icon have enough contrast?"
+msgstr "Έχει αυτό το γραφικό ή εικονίδιο αρκετή αντίθεση;"
+
+msgid "Duplicate ID attribute"
+msgstr "Διπλότυπο χαρακτηριστικό ID"
+
+msgid "This link has a tooltip with the same text as the link"
+msgstr "Αυτός ο σύνδεσμος έχει tooltip με το ίδιο κείμενο"
+
+msgid "Does this audio have a transcript?"
+msgstr "Έχει αυτό το ηχητικό αρχείο απομαγνητοφώνηση;"
+
+msgid "Is this visualization accessible?"
+msgstr "Είναι αυτή η οπτικοποίηση προσβάσιμη;"
+
+msgid "Embedded iframes need manual checks"
+msgstr "Τα ενσωματωμένα iframes χρειάζονται χειροκίνητους ελέγχους"
+
+msgid "Frame missing \"title\" attribute"
+msgstr "Το iframe δεν έχει το χαρακτηριστικό «title»"
+
+msgid "Frame with tabindex=\"-1\" will not be keyboard accessible."
+msgstr ""
+"Τα iframe με tabindex=\"-1\" δεν θα είναι προσβάσιμα μέσω πληκτρολογίου."
+
+msgid "Is this video accurately captioned?"
+msgstr "Έχει αυτό το βίντεο ακριβείς υπότιτλους;"
+
+msgid "This heading has no text"
+msgstr "Αυτή η επικεφαλίδα δεν έχει κείμενο"
+
+msgid "This image is used as a heading, so it needs alt text"
+msgstr ""
+"Αυτή η εικόνα χρησιμοποιείται ως επικεφαλίδα, επομένως χρειάζεται alt κείμενο"
+
+msgid "The first heading on this page is a subheading"
+msgstr "Η πρώτη επικεφαλίδα στη σελίδα είναι υπο-επικεφαλίδα"
+
+msgid "Can this heading be shorter?"
+msgstr "Μπορεί αυτή η επικεφαλίδα να είναι πιο σύντομη;"
+
+msgid "This page is missing a Heading 1"
+msgstr "Λείπει επικεφαλίδα επιπέδου 1 (H1) από αυτή τη σελίδα"
+
+msgid "This heading is tagged at the wrong level"
+msgstr "Αυτή η επικεφαλίδα έχει δοθεί σε λάθος επίπεδο"
+
+msgid "This heading is unpronounceable"
+msgstr "Αυτή η επικεφαλίδα δεν μπορεί να προφερθεί"
+
+msgid "This element cannot be described by screen readers"
+msgstr "Αυτό το στοιχείο δεν μπορεί να περιγραφεί από αναγνώστες οθόνης"
+
+msgid "Can this alt text be shorter?"
+msgstr "Μπορεί αυτό το alt κείμενο να είναι πιο σύντομο;"
+
+msgid "Is this image actually meaningless?"
+msgstr "Είναι πραγματικά διακοσμητική αυτή η εικόνα;"
+
+msgid "Image in a carousel or gallery marked as decorative"
+msgstr "Η εικόνα σε carousel ή συλλογή έχει σημειωθεί ως διακοσμητική"
+
+msgid "This captioned image has no alt text"
+msgstr "Αυτή η εικόνα με λεζάντα δεν έχει alt κείμενο"
+
+msgid "Alt text should not be the same as caption text"
+msgstr "Το alt κείμενο δεν πρέπει να είναι ίδιο με τη λεζάντα"
+
+msgid "Is there a visible label for this field?"
+msgstr "Υπάρχει ορατή ετικέτα για αυτό το πεδίο;"
+
+msgid "Prefer visible labels to placeholders"
+msgstr "Προτιμήστε ορατές ετικέτες αντί για placeholders"
+
+msgid "Is this reset button needed?"
+msgstr "Χρειάζεται αυτό το κουμπί επαναφοράς;"
+
+msgid "This input has an empty label"
+msgstr "Αυτό το πεδίο έχει κενή ετικέτα"
+
+msgid "Visible label does not match invisible label"
+msgstr "Η ορατή ετικέτα δεν ταιριάζει με την αόρατη ετικέτα"
+
+msgid "This image input is missing alt text"
+msgstr "Αυτό το πεδίο εικόνας δεν έχει alt κείμενο"
+
+msgid "This input is not connected to a label"
+msgstr "Αυτό το πεδίο δεν είναι συνδεδεμένο με ετικέτα"
+
+msgid "Language tag does not match the content"
+msgstr "Η ετικέτα γλώσσας δεν αντιστοιχεί στο περιεχόμενο"
+
+msgid "This content appears to be in a different language"
+msgstr "Αυτό το περιεχόμενο φαίνεται να είναι σε διαφορετική γλώσσα"
+
+msgid "This alt text appears to be in a different language"
+msgstr "Αυτό το alt κείμενο φαίνεται να είναι σε διαφορετική γλώσσα"
+
+msgid "Alt text used as a link should not be a URL"
+msgstr "Alt κείμενο που χρησιμοποιείται ως σύνδεσμος δεν πρέπει να είναι URL"
+
+msgid "This linked alt might not be clear and concise"
+msgstr ""
+"Αυτό το εναλλακτικό κείμενο συνδέσμου μπορεί να μην είναι σαφές και "
+"περιεκτικό"
+
+msgid "Linked images need pronounceable alt text"
+msgstr ""
+"Οι εικόνες μέσα σε συνδέσμους χρειάζονται alt κείμενο που μπορεί να προφερθεί"
+
+msgid "Manual check: link contains \"click here\""
+msgstr "Χειροκίνητος έλεγχος: ο σύνδεσμος περιέχει τη φράση «κάντε κλικ εδώ»"
+
+msgid "Link article titles, not DOI numbers"
+msgstr "Συνδέετε τίτλους άρθρων, όχι DOI αριθμούς"
+
+msgid "This link contains no words"
+msgstr "Αυτός ο σύνδεσμος δεν έχει κείμενο"
+
+msgid "Link with invalid \"aria-labelledby\" attribute"
+msgstr "Σύνδεσμος με μη έγκυρο χαρακτηριστικό «aria-labelledby»"
+
+msgid "This link needs a label"
+msgstr "Αυτός ο σύνδεσμος χρειάζεται ετικέτα"
+
+msgid "Link points to a file without warning"
+msgstr "Ο σύνδεσμος οδηγεί σε αρχείο χωρίς προειδοποίηση"
+
+msgid "Links with the same text link to different pages"
+msgstr "Σύνδεσμοι με το ίδιο κείμενο οδηγούν σε διαφορετικές σελίδες"
+
+msgid "Does this alt text describe the link or the image?"
+msgstr "Περιγράφει αυτό το alt κείμενο τον σύνδεσμο ή την εικόνα;"
+
+msgid "Does this alt text make sense as part of this link?"
+msgstr "Βγάζει νόημα αυτό το alt κείμενο ως μέρος αυτού του συνδέσμου;"
+
+msgid "Can this linked alt text be shorter?"
+msgstr "Μπορεί αυτό το alt κείμενο του συνδέσμου να είναι πιο σύντομο;"
+
+msgid "This linked image needs alt text"
+msgstr "Αυτή η εικόνα μέσα σε σύνδεσμο χρειάζεται alt κείμενο"
+
+msgid "Does this linked image need a description?"
+msgstr "Χρειάζεται αυτή η εικόνα μέσα σε σύνδεσμο περιγραφή;"
+
+msgid "Is this link actually a button?"
+msgstr "Είναι αυτός ο σύνδεσμος στην πραγματικότητα κουμπί;"
+
+msgid "Does this link open a new tab without warning?"
+msgstr "Ανοίγει αυτός ο σύνδεσμος νέα καρτέλα χωρίς προειδοποίηση;"
+
+msgid "This linked alt text may be a placeholder"
+msgstr "Αυτό το alt κείμενο του συνδέσμου μπορεί να είναι ένα placeholder"
+
+msgid "This link only contains generic words"
+msgstr "Αυτός ο σύνδεσμος περιέχει μόνο γενικές λέξεις"
+
+msgid "The purpose of this link is visually hidden"
+msgstr "Ο σκοπός αυτού του συνδέσμου είναι οπτικά κρυφός"
+
+msgid "Does this image's alt describe the image or the link?"
+msgstr "Το alt της εικόνας περιγράφει την εικόνα ή τον σύνδεσμο;"
+
+msgid "Are the symbols or emoji in this link meaningful?"
+msgstr "Έχουν νόημα τα σύμβολα ή emoji σε αυτόν τον σύνδεσμο;"
+
+msgid "This link is unpronounceable"
+msgstr "Αυτός ο σύνδεσμος δεν μπορεί να προφερθεί"
+
+msgid "Link text should not be a URL"
+msgstr "Το κείμενο του συνδέσμου δεν πρέπει να είναι URL"
+
+msgid "Meta tag for page language missing"
+msgstr "Λείπει η meta ετικέτα για τη γλώσσα της σελίδας"
+
+msgid "Did you mean a different language code?"
+msgstr "Μήπως εννοούσατε διαφορετικό κωδικό γλώσσας;"
+
+msgid "Invalid language code"
+msgstr "Μη έγκυρος κωδικός γλώσσας"
+
+msgid "Page language may not match the content"
+msgstr "Η γλώσσα της σελίδας ίσως δεν αντιστοιχεί στο περιεχόμενο"
+
+msgid "Meta tag limits how much users can enlarge text"
+msgstr ""
+"Η meta ετικέτα περιορίζει το πόσο μπορούν οι χρήστες να μεγεθύνουν το κείμενο"
+
+msgid "Meta tag automatically refreshes page"
+msgstr "Η meta ετικέτα ανανεώνει αυτόματα τη σελίδα"
+
+msgid "Meta tag prevents users from enlarging text"
+msgstr "Η meta ετικέτα δεν επιτρέπει στους χρήστες να μεγεθύνουν το κείμενο"
+
+msgid "Meta tag for page title missing"
+msgstr "Λείπει η meta ετικέτα για τον τίτλο της σελίδας"
+
+msgid "Invalid HTML: image has no alt attribute"
+msgstr "Μη έγκυρο HTML: η εικόνα δεν έχει χαρακτηριστικό alt"
+
+msgid "Invalid HTML: linked image missing alt attribute"
+msgstr "Μη έγκυρο HTML: η εικόνα σε σύνδεσμο δεν έχει alt χαρακτηριστικό"
+
+msgid "Invalid HTML: image in link missing alt attribute"
+msgstr "Μη έγκυρο HTML: η εικόνα μέσα σε σύνδεσμο δεν έχει alt χαρακτηριστικό"
+
+msgid "This link target may be invalid"
+msgstr "Ο προορισμός αυτού του συνδέσμου μπορεί να είναι μη έγκυρος"
+
+msgid "Should this quote be a heading?"
+msgstr "Πρέπει αυτό το απόσπασμα να είναι επικεφαλίδα;"
+
+msgid "Has this document been tagged for screen readers?"
+msgstr "Έχει σημανθεί αυτό το έγγραφο για αναγνώστες οθόνης;"
+
+msgid "Should this bold text be a heading?"
+msgstr "Πρέπει αυτό το έντονο κείμενο να είναι επικεφαλίδα;"
+
+msgid "Should this have list formatting?"
+msgstr "Πρέπει αυτό να έχει μορφοποίηση λίστας;"
+
+msgid "Broken same-page link"
+msgstr "Εσωτερικός σύνδεσμος εντός της ίδιας σελίδας δεν λειτουργεί"
+
+msgid "Do not justify text"
+msgstr "Να μην γίνεται πλήρης στοίχιση κειμένου"
+
+msgid "Nested interactive layout components"
+msgstr "Εμφωλευμένα διαδραστικά στοιχεία διάταξης"
+
+msgid "Is there an alternative for this PDF?"
+msgstr "Υπάρχει εναλλακτική για αυτό το PDF;"
+
+msgid "Text is too small"
+msgstr "Το κείμενο είναι υπερβολικά μικρό"
+
+msgid "Large blocks of emphasized text are harder to read"
+msgstr "Μεγάλα τμήματα τονισμένου κειμένου είναι δυσανάγνωστα"
+
+msgid "Do not use sub/superscript as visual formatting"
+msgstr "Να μην χρησιμοποιούνται δείκτες/εκθέτες ως μορφοποίηση"
+
+msgid "Only links should be underlined"
+msgstr "Μόνο οι σύνδεσμοι πρέπει να είναι υπογραμμισμένοι"
+
+msgid "Is this uppercase text needed?"
+msgstr "Είναι απαραίτητο αυτό το κεφαλαίο κείμενο;"
+
+msgid "Are there redundant words in this alt text?"
+msgstr "Υπάρχουν περιττές λέξεις σε αυτό το alt κείμενο;"
+
+msgid "Tabindex overrides interrupt the focus order"
+msgstr "Οι παρακάμψεις tabindex διακόπτουν τη σειρά εστίασης"
+
+msgid "This header cell needs text"
+msgstr "Αυτό το κελί επικεφαλίδας χρειάζεται κείμενο"
+
+msgid "This table has an invalid headers attribute"
+msgstr "Αυτός ο πίνακας έχει μη έγκυρο χαρακτηριστικό headers"
+
+msgid "This table needs a header row and/or column"
+msgstr "Αυτός ο πίνακας χρειάζεται σειρά και/ή στήλη επικεφαλίδας"
+
+msgid "Content headings should not be used inside tables"
+msgstr ""
+"Οι επικεφαλίδες περιεχομένου δεν πρέπει να χρησιμοποιούνται μέσα σε πίνακες"
+
+msgid "Invalid HTML list"
+msgstr "Μη έγκυρη HTML λίστα"
+
+msgid "Linked images"
+msgstr "Εικόνες σε συνδέσμους"
+
+msgid "Text formatting"
+msgstr "Μορφοποίηση κειμένου"
+
+msgid "Video, audio, frames"
+msgstr "Βίντεο, ήχος, πλαίσια"
+
+msgid "Contrast"
+msgstr "Αντίθεση"
+
+msgid "Forms"
+msgstr "Φόρμες"
+
+msgid "ARIA and focus"
+msgstr "ARIA και εστίαση"
+
+msgid "Page metadata"
+msgstr "Μεταδεδομένα σελίδας"
+
+msgid "The request could not be processed. Details have been logged."
+msgstr "Δεν ήταν δυνατή η επεξεργασία του αιτήματος. Οι λεπτομέρειες έχουν καταγραφεί."
+
+msgid "API request rejected: @message"
+msgstr "Το αίτημα API απορρίφθηκε: @message"
+
+msgid "API request failed: @message"
+msgstr "Το αίτημα API απέτυχε: @message"
+
+msgid "Export pages with alerts"
+msgstr "Εξαγωγή σελίδων με ειδοποιήσεις"
+
+msgid ""
+"Install the Editoria11y Export Batch Processor module to download these "
+"reports."
+msgstr "Εγκαταστήστε το άρθρωμα Editoria11y Export Batch Processor για να κατεβάσετε αυτές τις αναφορές."
+
+msgid "Export results"
+msgstr "Εξαγωγή αποτελεσμάτων"
+
+msgctxt "problems"
+msgid "Top alerts"
+msgstr "Κορυφαία προβλήματα"
+
+msgctxt "problems"
+msgid "Pages with the most alerts"
+msgstr "Σελίδες με τα περισσότερα προβλήματα"
+
+msgid "Recent dismissals"
+msgstr "Πρόσφατες απορρίψεις"
+
+msgid ""
+"Activate the <a href=\"@csa\">Editoria11y CSA submodule</a> to see developer "
+"tests."
+msgstr ""
+"Ενεργοποιήστε την <a href=\"@csa\">υπομονάδα Editoria11y CSA</a> για να "
+"δείτε δοκιμές προγραμματιστών."
+
+msgid "Include all parts of the page that contain your theme and content."
+msgstr ""
+"Συμπεριλάβετε όλα τα τμήματα της σελίδας που περιέχουν το theme και το "
+"περιεχόμενό σας."
+
+msgid "Include all parts of the page that contain your editable content."
+msgstr ""
+"Συμπεριλάβετε όλα τα τμήματα της σελίδας που περιέχουν το επεξεργάσιμο "
+"περιεχόμενό σας."
+
+msgid "Exclude elements that show unhelpful, repetitive, or inaccurate alerts."
+msgstr ""
+"Εξαιρέστε στοιχεία που εμφανίζουν άχρηστες, επαναλαμβανόμενες ή ανακριβείς "
+"ειδοποιήσεις."
+
+msgid ""
+"<a href=\"@permissions\">Add permissions</a>, especially \"View Editoria11y "
+"checker\" and \"Mark OK.\"</a>"
+msgstr ""
+"<a href=\"@permissions\">Προσθέστε δικαιώματα</a>, ιδίως «View Editoria11y "
+"checker» και «Mark OK».</a>"
+
+msgid ""
+"If you need help: <a href=\"@config_guide\">Configuration Guide</a> | <a "
+"href=\"@issue_queue\">Issue Queue</a> | <a href=\"@help\">Support contacts</"
+"a>"
+msgstr ""
+"Αν χρειάζεστε βοήθεια: <a href=\"@config_guide\">Οδηγός διαμόρφωσης</a> | <a "
+"href=\"@issue_queue\">Λίστα ζητημάτων</a> | <a href=\"@help\">Επαφές "
+"υποστήριξης</a>"
+
+msgid "Autodetect"
+msgstr "Αυτόματος εντοπισμός"
+
+msgid "Only user-editable content"
+msgstr "Μόνο περιεχόμενο επεξεργάσιμο από χρήστες"
+
+msgid "Other"
+msgstr "Άλλο"
+
+msgid "Parts of the page to test"
+msgstr "Τμήματα της σελίδας προς έλεγχο"
+
+msgid "\"Autodetect\" selects:"
+msgstr "Ο «Αυτόματος εντοπισμός» επιλέγει:"
+
+msgid "Other: specify regions to check for developer and content problems"
+msgstr ""
+"Άλλο: καθορίστε περιοχές προς έλεγχο για προβλήματα προγραμματιστή και "
+"περιεχομένου"
+
+msgid ""
+"Provide CSS selectors. For many sites, the site theme is wrapped in "
+"<code>.dialog-off-canvas-main-canvas</code> while editing."
+msgstr ""
+"Δώστε CSS selectors. Σε πολλούς ιστότοπους, το theme τυλίγεται μέσα σε "
+"<code>.dialog-off-canvas-main-canvas</code> κατά την επεξεργασία."
+
+msgid "Do not check for any errors inside these elements"
+msgstr "Να μην ελέγχονται σφάλματα μέσα σε αυτά τα στοιχεία"
+
+msgid "These parts of the page will be ignored entirely."
+msgstr "Αυτά τα μέρη της σελίδας θα αγνοηθούν εντελώς."
+
+msgid "match content settings"
+msgstr "match content settings"
+
+msgid "Page regions with user-editable content"
+msgstr "Περιοχές σελίδας με περιεχόμενο επεξεργάσιμο από χρήστες"
+
+msgid ""
+"Default: <code><em>main</em></code><br>Provide <a target=\"_blank\" "
+"href=\"https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/"
+"Selectors\">CSS selectors</a>. Content authors will only see the alerts "
+"within these parts of the page. Do not provide selectors that nest within "
+"each other, or the inner content will be checked twice."
+msgstr ""
+"Προεπιλογή: <code><em>main</em></code><br>Δώστε <a target=\"_blank\" "
+"href=\"https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/"
+"Selectors\">CSS selectors</a>. Οι συντάκτες περιεχομένου θα βλέπουν τις "
+"ειδοποιήσεις μόνο εντός αυτών των τμημάτων της σελίδας. Μην παρέχετε "
+"selectors που φωλιάζουν μεταξύ τους, αλλιώς το εσωτερικό περιεχόμενο θα "
+"ελεγχθεί διπλά."
+
+msgid ""
+"Default: <code><em>main</em></code><br>Provide <a target=\"_blank\" "
+"href=\"https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/"
+"Selectors\">CSS selectors</a>. Do not provide selectors that nest within "
+"each other, or the inner content will be checked twice."
+msgstr ""
+"Προεπιλογή: <code><em>main</em></code><br>Δώστε <a target=\"_blank\" "
+"href=\"https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/"
+"Selectors\">CSS selectors</a>. Μην παρέχετε selectors που φωλιάζουν μεταξύ "
+"τους, αλλιώς το εσωτερικό περιεχόμενο θα ελεγχθεί διπλά."
+
+msgid "Errors in these elements should only be shown to developers"
+msgstr ""
+"Τα σφάλματα σε αυτά τα στοιχεία πρέπει να εμφανίζονται μόνο στους "
+"προγραμματιστές"
+
+msgid "Do not check for content errors inside these elements"
+msgstr "Να μην ελέγχονται σφάλματα περιεχομένου μέσα σε αυτά τα στοιχεία"
+
+msgid ""
+"Content editors are not responsible for errors in these elements. <br>E.g.: "
+"<code><em>#sidebar-menu a, .slide [aria-hidden=\"true\"]</em></code>."
+msgstr ""
+"Οι συντάκτες περιεχομένου δεν είναι υπεύθυνοι για σφάλματα σε αυτά τα "
+"στοιχεία. <br>Π.χ.: <code><em>#sidebar-menu a, .slide [aria-"
+"hidden=\"true\"]</em></code>."
+
+msgid "Roles that will see developer alerts"
+msgstr "Ρόλοι που θα βλέπουν ειδοποιήσεις προγραμματιστών"
+
+msgid ""
+"All roles with the <a href=\":url\">View editoria11y checker</a> permission "
+"see content alerts."
+msgstr ""
+"Όλοι οι ρόλοι με την άδεια <a href=\":url\">View editoria11y checker</a> "
+"βλέπουν ειδοποιήσεις περιεχομένου."
+
+msgid "Advanced settings"
+msgstr "Προηγμένες ρυθμίσεις"
+
+msgid "Assertiveness"
+msgstr "Επιθετικότητα"
+
+msgid "Checker mode for content roles"
+msgstr "Λειτουργία ελεγκτή για ρόλους περιεχομένου"
+
+msgid "Start open if there are any alerts"
+msgstr "Έναρξη ανοικτής λειτουργίας εάν υπάρχουν ειδοποιήσεις"
+
+msgid "Start open if there are new alerts"
+msgstr "Έναρξη ανοικτής λειτουργίας εάν υπάρχουν νέες ειδοποιήσεις"
+
+msgid "Start minimized"
+msgstr "Έναρξη σε ελαχιστοποιημένη μορφή"
+
+msgid ""
+"Choose when the control panel should open and show inline tips. \"Start open "
+"if there are any alerts\" is recommended, as it helps tips get noticed over "
+"time."
+msgstr ""
+"Επιλέξτε πότε πρέπει να ανοίγει ο πίνακας ελέγχου και να εμφανίζει "
+"συμβουλές. Συνιστάται το «Άνοιγμα αν υπάρχουν ειδοποιήσεις», ώστε οι "
+"συμβουλές να γίνονται αντιληπτές με την πάροδο του χρόνου."
+
+msgid "Checker mode for developer roles"
+msgstr "Λειτουργία ελεγκτή για ρόλους προγραμματιστών"
+
+msgid "Do not check any content while it is being edited"
+msgstr "Να μην ελέγχεται περιεχόμενο όσο βρίσκεται υπό επεξεργασία"
+
+msgid ""
+"Use the \"Do not check on pages with these elements\" setting to prevent "
+"checking only on specific pages. E.g., exclude: <code><em>form[id^=\"node-"
+"article\"]</em></code>."
+msgstr ""
+"Χρησιμοποιήστε τη ρύθμιση «Να μην γίνεται έλεγχος σε σελίδες με αυτά τα "
+"στοιχεία» για να αποτρέψετε τον έλεγχο μόνο σε συγκεκριμένες σελίδες. Π.χ. "
+"εξαιρέστε: <code><em>form[id^=\"node-article\"]</em></code>."
+
+msgid "Assign headers to CKEditor tables on insert"
+msgstr "Ανάθεση επικεφαλίδων σε πίνακες CKEditor κατά την εισαγωγή"
+
+msgid "First row"
+msgstr "Πρώτη γραμμή"
+
+msgid "First column"
+msgstr "Πρώτη στήλη"
+
+msgid "Both"
+msgstr "Και τα δύο"
+
+msgid ""
+"You will need to clear cache for changes to this setting to appear in "
+"CKEditor."
+msgstr ""
+"Θα χρειαστεί να καθαρίσετε την cache για να εμφανιστούν οι αλλαγές στο "
+"CKEditor."
+
+msgid "Theme compatibility"
+msgstr "Συμβατότητα θέματος"
+
+msgid "Configuration tips"
+msgstr "Συμβουλές ρύθμισης"
+
+msgid ""
+"If the checker <strong>toggle</strong> does not appear: make sure a z-"
+"indexed or overflow-hidden element in your front-end theme is not hiding or "
+"covering the <code><em>ed11y-element-panel</em></code> container, make sure "
+"that any custom selectors in the \"Disable the scanner if these elements are "
+"detected\" field are not present, and make sure that no JavaScript errors "
+"are appearing in your <a href=\"https://developer.mozilla.org/en-US/docs/"
+"Tools/Browser_Console\"> browser console</a>"
+msgstr ""
+"Αν το <strong>toggle</strong> του ελεγκτή δεν εμφανίζεται: βεβαιωθείτε ότι "
+"κάποιο στοιχείο με z-index ή overflow-hidden στο θέμα σας δεν κρύβει το "
+"container <code><em>ed11y-element-panel</em></code>, ότι δεν υπάρχουν custom "
+"selectors στο πεδίο «Disable the scanner if these elements are detected», "
+"και ότι δεν εμφανίζονται σφάλματα JavaScript στην <a href=\"https://"
+"developer.mozilla.org/en-US/docs/Tools/Browser_Console\">κονσόλα του "
+"προγράμματος περιήγησης</a>"
+
+msgid ""
+"If the checker toggle is present but <strong>not detecting</strong> errors, "
+"or missing errors that should be flagged: check that your inclusions & "
+"exclusion settings below are not missing or ignoring the elements. It is not "
+"uncommon for homepages or views to insert editable content outside the "
+"<code><em>main</em></code> element."
+msgstr ""
+"Αν το toggle είναι ορατό αλλά <strong>δεν εντοπίζει</strong> σφάλματα ή "
+"παραλείπει σφάλματα: ελέγξτε ότι οι ρυθμίσεις ένταξης και εξαίρεσης δεν "
+"αγνοούν στοιχεία κατά λάθος. Συχνά σελίδες ή views προσθέτουν επεξεργάσιμο "
+"περιεχόμενο εκτός του στοιχείου <code><em>main</em></code>."
+
+msgid "Theme"
+msgstr "Θέμα"
+
+msgid "Sleek"
+msgstr "Sleek"
+
+msgid "Classic"
+msgstr "Classic"
+
+msgid "Dark"
+msgstr "Dark"
+
+msgid "Do not check on pages with these elements"
+msgstr "Να μην γίνεται έλεγχος σε σελίδες με αυτά τα στοιχεία"
+
+msgid ""
+"Used to block checking on site sections or admin pages.<br>E.g. "
+"<code><em>.content-type-example, .tabs__link[href=*\"edit\"]</em></code>."
+msgstr ""
+"Χρησιμοποιείται για την αποτροπή ελέγχων σε συγκεκριμένες ενότητες ή admin "
+"σελίδες.<br>Π.χ. <code><em>.content-type-"
+"example, .tabs__link[href=*\"edit\"]</em></code>."
+
+msgid "Hide all alerts on pages where these elements are not present"
+msgstr ""
+"Απόκρυψη όλων των ειδοποιήσεων σε σελίδες όπου αυτά τα στοιχεία δεν υπάρχουν"
+
+msgid ""
+"Used to limit alerting to nodes where the user can edit something. Suggested "
+"selectors:<br> <code><em>.contextual-region a[href*=\"/edit\"], .contextual-"
+"region a[href*=\"/manage\"]</em></code>."
+msgstr ""
+"Χρησιμοποιείται για τον περιορισμό ειδοποιήσεων σε κόμβους όπου ο χρήστης "
+"μπορεί να επεξεργαστεί περιεχόμενο. Προτεινόμενοι selectors:"
+"<br><code><em>.contextual-region a[href*=\"/edit\"], .contextual-region "
+"a[href*=\"/manage\"]</em></code>."
+
+msgid ""
+"Set to the number of other themes or modules that will be <a href=\"https://"
+"editoria11y.princeton.edu/configuration/#customtests\">injecting custom "
+"result JS events</a>."
+msgstr ""
+"Ορίστε τον αριθμό θεμάτων ή modules που θα <a href=\"https://"
+"editoria11y.princeton.edu/configuration/#customtests\">εισάγουν "
+"προσαρμοσμένα JS events αποτελεσμάτων</a>."
+
+msgid "Positioning"
+msgstr "Τοποθέτηση"
+
+msgid "Don't show edit links on tips in these containers"
+msgstr ""
+"Να μην εμφανίζονται σύνδεσμοι επεξεργασίας σε tooltips σε αυτά τα containers"
+
+msgid ""
+"Tips show copies of the \"Edit\" and \"Layout\" links for nodes, users and "
+"taxonomy terms. These links are not helpful on lists of content from remote "
+"nodes.<br>Provide a comma-separated list of page sections of where these "
+"links should not show, E.g.: <code><em>#sidebar-menu, .news-feed</em></code>."
+"<br>To hide the links <strong>everywhere</strong>, set this field to an "
+"asterisk (<code><em>*</em></code>).<br>To modify the links, <a "
+"href=\"https://editoria11y.princeton.edu/configuration/#modify-tips\" "
+"target=\"_blank\">use the ed11yPop event</a> in your theme JS."
+msgstr ""
+"Τα tooltips εμφανίζουν αντίγραφα των συνδέσμων «Edit» και «Layout» για "
+"κόμβους, χρήστες και όρους ταξινομίας. Αυτοί οι σύνδεσμοι δεν είναι χρήσιμοι "
+"σε λίστες περιεχομένου από απομακρυσμένους κόμβους.<br>Παρέχετε μια λίστα "
+"τμημάτων σελίδας, χωρισμένων με κόμμα, όπου αυτοί οι σύνδεσμοι δεν πρέπει να "
+"εμφανίζονται. Π.χ.: <code><em>#sidebar-menu, .news-feed</em></code>.<br>Για "
+"να κρύψετε τους συνδέσμους <strong>παντού</strong>, ορίστε αυτό το πεδίο σε "
+"αστερίσκο (<code><em>*</em></code>).<br>Για να τροποποιήσετε τους "
+"συνδέσμους, <a href=\"https://editoria11y.princeton.edu/configuration/"
+"#modify-tips\" target=\"_blank\">χρησιμοποιήστε το event ed11yPop</a> στο "
+"theme JS σας."
+
+msgid "Pin panel to..."
+msgstr "Καρφίτσωμα πίνακα σε..."
+
+msgid "Right"
+msgstr "Δεξιά"
+
+msgid "Left"
+msgstr "Αριστερά"
+
+msgid "Don't cover these other widgets"
+msgstr "Μη κάλυψη άλλων γραφικών στοιχείων"
+
+msgid ""
+"Provide a comma-separated list of selectors for other things that appear in "
+"the bottom right of the page. <br>If nothing is set, Editoria11y will "
+"automatically slide left to accommodate <code><em>#klaro_toggle_dialog, "
+"#klaro-cookie-notice .same-page-preview-dialog.ui-dialog-position-side</em></"
+"code>."
+msgstr ""
+"Παρέχετε comma-separated selectors για άλλα στοιχεία που εμφανίζονται κάτω "
+"δεξιά στη σελίδα.<br>Αν δεν οριστεί τίποτα, το Editoria11y θα μετακινηθεί "
+"αυτόματα αριστερά για να αποφύγει την επικάλυψη των "
+"<code><em>#klaro_toggle_dialog, #klaro-cookie-notice .same-page-preview-"
+"dialog.ui-dialog-position-side</em></code>."
+
+msgid "Elements with overflow hidden"
+msgstr "Στοιχεία με overflow hidden"
+
+msgid ""
+"Sometimes buttons get drawn and visually truncated outside the bounds of a "
+"positioned element. Provide a selector list."
+msgstr ""
+"Μερικές φορές κουμπιά σχεδιάζονται και κόβονται οπτικά έξω από τα όρια ενός "
+"positioned element. Παρέχετε λίστα selectors."
+
+msgid "Theme JS will handle revealing hidden tooltips inside these containers"
+msgstr "Το theme JS θα αποκαλύψει κρυφά tooltips μέσα σε αυτά τα containers"
+
+msgid ""
+"Editoria11y detects hidden tooltips and warns the user when they try to jump "
+"to them from the panel. For elements on this list, Editoria11y will <a "
+"href=\"https://itmaybejj.github.io/editoria11y/#dealing-with-alerts-on-"
+"hidden-or-size-constrained-content\">dispatch a JS event</a> instead of a "
+"warning, so custom JS in your theme can first reveal the hidden tip (e.g., "
+"open an accordion or tab panel)."
+msgstr ""
+"Το Editoria11y εντοπίζει κρυφά tooltips και προειδοποιεί τον χρήστη όταν "
+"προσπαθήσει να μεταβεί σε αυτά από τον πίνακα. Για τα στοιχεία αυτής της "
+"λίστας, θα <a href=\"https://itmaybejj.github.io/editoria11y/#dealing-with-"
+"alerts-on-hidden-or-size-constrained-content\">εκπέμψει ένα JS event</a> "
+"αντί για προειδοποίηση, ώστε το custom JS του θέματος να αποκαλύψει πρώτα το "
+"tooltip (π.χ. άνοιγμα accordion ή tab panel)."
+
+msgid "Detecting dynamic and shadow content"
+msgstr "Ανίχνευση δυναμικού και shadow περιεχομένου"
+
+msgid "Dynamically refresh if new content appears"
+msgstr "Δυναμική ανανέωση όταν εμφανίζεται νέο περιεχόμενο"
+
+msgid "Watch for changes anywhere on the page"
+msgstr "Παρακολούθηση αλλαγών οπουδήποτε στη σελίδα"
+
+msgid "Only watch for changes to content containers present on load"
+msgstr "Παρακολούθηση αλλαγών μόνο στα containers που υπάρχουν κατά το φόρτωμα"
+
+msgid "Do not watch for changes"
+msgstr "Να μην γίνεται παρακολούθηση αλλαγών"
+
+msgid ""
+"Set to \"anywhere\" if changes are being missed, set to \"ignore\" if you "
+"notice performance issues. Themes and modules can also call "
+"<code>Drupal.Ed11y.refresh()</code> to refresh results."
+msgstr ""
+"Ορίστε «anywhere» εάν χάνονται αλλαγές, ή «ignore» εάν παρατηρούνται "
+"προβλήματα απόδοσης. Θέματα και modules μπορούν επίσης να καλέσουν "
+"<code>Drupal.Ed11y.refresh()</code> για ανανέωση αποτελεσμάτων."
+
+msgid "Check inside these specific Web components"
+msgstr "Έλεγχος μέσα σε αυτά τα συγκεκριμένα Web components"
+
+msgid ""
+"Provide selectors for elements with <a href='https://developer.mozilla.org/"
+"en-US/docs/Web/Web_Components'>shadow DOM</a> you want tested. E.g.: "
+"<code><em>my-fancy-accordion-widget, my-magical-slideshow</em></code>."
+msgstr ""
+"Παρέχετε selectors για στοιχεία με <a href='https://developer.mozilla.org/en-"
+"US/docs/Web/Web_Components'>shadow DOM</a> που θέλετε να ελεγχθούν. Π.χ.: "
+"<code><em>my-fancy-accordion-widget, my-magical-slideshow</em></code>."
+
+msgid "Auto-detect any Web components"
+msgstr "Αυτόματη ανίχνευση οποιωνδήποτε Web components"
+
+msgid ""
+"This is easier to configure than specifying components, but may slow test "
+"runs on very complicated pages."
+msgstr ""
+"Αυτό είναι πιο εύκολο στη ρύθμιση από τον καθορισμό συγκεκριμένων "
+"components, αλλά μπορεί να επιβραδύνει τους ελέγχους σε πολύπλοκες σελίδες."
+
+msgid "Syncing results to reports"
+msgstr "Συγχρονισμός αποτελεσμάτων με τις αναφορές"
+
+msgid ""
+"Remember that results only sync to the dashboard when viewing nodes. Results "
+"shown while editing or viewing previews or revisions will not sync."
+msgstr ""
+"Θυμηθείτε ότι τα αποτελέσματα συγχρονίζονται στον πίνακα μόνο όταν "
+"προβάλλονται κόμβοι. Αποτελέσματα κατά την επεξεργασία, την προεπισκόπηση ή "
+"την προβολή αναθεωρήσεων δεν συγχρονίζονται."
+
+msgid "Remove redundant base url from URLs"
+msgstr "Αφαίρεση περιττού base URL από τα URLs"
+
+msgid ""
+"Provide base URL (\"/mysite\") if your site is installed in a subdirectory. "
+"Subdirectories tend to get duplicated (/mysite/mysite/mypage) and throw "
+"errors from the API."
+msgstr ""
+"Παρέχετε το base URL (\"/mysite\") αν ο ιστότοπος είναι εγκατεστημένος σε "
+"υποκατάλογο. Οι υποκατάλογοι συχνά διπλασιάζονται (/mysite/mysite/mypage) "
+"και προκαλούν σφάλματα στο API."
+
+msgid "Preserve query parameters"
+msgstr "Διατήρηση παραμέτρων query"
+
+msgid ""
+"The dashboard ignores most parameters: results for both /news?f=1 and /news?"
+"f=2 will show up as just /news. Provide a comma separated list of parameters "
+"that are meaningful, and should appear as separate pages in results."
+msgstr ""
+"Ο πίνακας αγνοεί τις περισσότερες παραμέτρους: τα αποτελέσματα για /news?f=1 "
+"και /news?f=2 θα εμφανιστούν ως /news. Παρέχετε μια λίστα χρήσιμων "
+"παραμέτρων, χωρισμένη με κόμμα, που πρέπει να εμφανίζονται ως ξεχωριστές "
+"σελίδες."
+
+msgid "Disable sync altogether"
+msgstr "Πλήρης απενεργοποίηση συγχρονισμού"
+
+msgid ""
+"Syncing test results back to Drupal is required for the <a target=\"_blank\" "
+"href=\"/admin/reports/editoria11y\">issue</a> and <a target=\"_blank\" "
+"href=\"/admin/reports/editoria11y/dismissals\">dismissal</a> dashboards and "
+"\"mark OK\" buttons."
+msgstr ""
+"Ο συγχρονισμός των αποτελεσμάτων πίσω στο Drupal απαιτείται για τις αναφορές "
+"<a target=\"_blank\" href=\"/admin/reports/editoria11y\">προβλημάτων</a> και "
+"<a target=\"_blank\" href=\"/admin/reports/editoria11y/"
+"dismissals\">απορρίψεων</a> καθώς και για τα κουμπιά «mark OK»."
+
+msgid "Heading outline position of editable content"
+msgstr "Θέση δομής επικεφαλίδων για επεξεργάσιμο περιεχόμενο"
+
+msgid ""
+"To check headings in CKEditor, Editoria11y needs to know what the first "
+"heading level should be in this field. Body fields should generally be at "
+"the h2 level."
+msgstr ""
+"Για να ελέγξει επικεφαλίδες στο CKEditor, το Editoria11y πρέπει να γνωρίζει "
+"ποιο πρέπει να είναι το πρώτο επίπεδο επικεφαλίδας. Τα πεδία body πρέπει "
+"συνήθως να ξεκινούν από h2."
+
+msgid "H2 level fields (body content)"
+msgstr "Πεδία επιπέδου H2 (περιεχόμενο body)"
+
+msgid ""
+"Body fields on nodes are preceded by an h1, and their heading outline should "
+"start with an h2. Ideally set this for top-level body fields for each of "
+"your content types, and set blocks and embedded nodes to h3 or h4.\n"
+"        <br>Set all content types: <code><em>form[id^=\"node-\"] #edit-body-"
+"wrapper .ck-content</em></code>\n"
+"        <br>Set specific content types: <code><em>form[id^=\"node-\"] #edit-"
+"body-wrapper .ck-content</em></code>\n"
+"        <br>Set up for Gutenberg: <code><em>form[id^=\"node-\"] #edit-body-"
+"wrapper .is-root-container</em></code>"
+msgstr ""
+"Τα πεδία body των κόμβων προηγούνται από h1, επομένως η δομή επικεφαλίδων "
+"τους πρέπει να ξεκινά από h2. Ιδανικά ορίστε το αυτό για τα κύρια body πεδία "
+"κάθε τύπου περιεχομένου και ορίστε blocks και embedded nodes στο h3 ή h4.\n"
+"        <br>Για όλους τους τύπους περιεχομένου: <code><em>form[id^=\"node-"
+"\"] #edit-body-wrapper .ck-content</em></code>\n"
+"        <br>Για συγκεκριμένους τύπους περιεχομένου: "
+"<code><em>form[id^=\"node-\"] #edit-body-wrapper .ck-content</em></code>\n"
+"        <br>Για Gutenberg: <code><em>form[id^=\"node-\"] #edit-body-"
+"wrapper .is-root-container</em></code>"
+
+msgid "H3 level fields (blocks or paragraphs with separate titles)"
+msgstr "Πεδία επιπέδου H3 (blocks ή παράγραφοι με ξεχωριστούς τίτλους)"
+
+msgid ""
+"Sometimes inline and layout builder blocks are grouped under an h2 from a "
+"separate field, so their highest heading level should be h3."
+msgstr ""
+"Μερικές φορές τα inline και layout builder blocks ομαδοποιούνται κάτω από "
+"ένα h2 που προέρχεται από άλλο πεδίο, επομένως το υψηλότερο επίπεδο "
+"επικεφαλίδας τους πρέπει να είναι h3."
+
+msgid "H4 level fields (deeply nested blocks or paragraphs)"
+msgstr "Πεδία επιπέδου H4 (βαθιά φωλιασμένα blocks ή παράγραφοι)"
+
+msgid ""
+"Sometimes inline and layout builder blocks are grouped under an h3 from a "
+"separate field, so their highest heading level should be h4."
+msgstr ""
+"Μερικές φορές inline blocks και builder blocks ομαδοποιούνται κάτω από ένα "
+"h3 από άλλο πεδίο, επομένως η υψηλότερη επικεφαλίδα τους πρέπει να είναι h4."
+
+msgid "Modify tests that usually detect content issues"
+msgstr "Τροποποίηση ελέγχων που συνήθως εντοπίζουν προβλήματα περιεχομένου"
+
+msgid "Modify tests that usually detect template or configuration issues"
+msgstr ""
+"Τροποποίηση ελέγχων που συνήθως εντοπίζουν προβλήματα template ή διαμόρφωσης"
+
+msgid "Do not check contrast for these elements"
+msgstr "Να μην γίνεται έλεγχος αντίθεσης για αυτά τα στοιχεία"
+
+msgid ""
+"Provide a comma-separated list of selectors for elements to ignore for all "
+"users."
+msgstr ""
+"Παρέχετε μια λίστα selectors, χωρισμένων με κόμμα, για στοιχεία που πρέπει "
+"να αγνοούνται για όλους τους χρήστες."
+
+msgid "Remind editor that content in these embeds needs manual review"
+msgstr ""
+"Υπενθύμιση στον συντάκτη ότι το περιεχόμενο σε αυτές τις ενσωματώσεις "
+"χρειάζεται χειροκίνητο έλεγχο"
+
+msgid ""
+"Provide a comma-separated list of selectors you wish to flag for the editor, "
+"e.g.: <code><em>.my-embedded-feed, #my-social-link-block</em></code>."
+msgstr ""
+"Παρέχετε μια λίστα selectors με κόμμα για στοιχεία που θέλετε να "
+"επισημαίνονται στον συντάκτη, π.χ.: <code><em>.my-embedded-feed, #my-social-"
+"link-block</em></code>."
+
+msgid ""
+"Default settings should work with both <a href=\"https://www.drupal.org/"
+"project/linkpurpose\" target=\"_blank\">Link Purpose Icons</a> and <a "
+"target=\"_blank\" href=\"https://www.drupal.org/project/extlink\">External "
+"Links</a>."
+msgstr ""
+"Οι προεπιλεγμένες ρυθμίσεις λειτουργούν με τα modules <a href=\"https://"
+"www.drupal.org/project/linkpurpose\" target=\"_blank\">Link Purpose Icons</"
+"a> και <a target=\"_blank\" href=\"https://www.drupal.org/project/"
+"extlink\">External Links</a>."
+
+msgid "Remind the editor that these linked documents need a manual check"
+msgstr ""
+"Υπενθύμιση στον συντάκτη ότι αυτά τα συνδεδεμένα έγγραφα χρειάζονται "
+"χειροκίνητο έλεγχο"
+
+msgid ""
+"Add or remove filetypes. Set to \"false\" to disable the test altogether. "
+"Providing any value will override the default, which is "
+"<code><em>a[href$='.pdf'], a[href*='.pdf?']</em></code>."
+msgstr ""
+"Προσθέστε ή αφαιρέστε τύπους αρχείων. Ορίστε «false» για πλήρη "
+"απενεργοποίηση του ελέγχου. Κάθε τιμή αντικαθιστά την προεπιλογή, που είναι "
+"<code><em>a[href$='.pdf'], a[href*='.pdf?']</em></code>."
+
+msgid "Remove elements that match these selectors before testing link text"
+msgstr ""
+"Αφαίρεση στοιχείων που αντιστοιχούν σε αυτούς τους selectors πριν τον έλεγχο "
+"κειμένου συνδέσμου"
+
+msgid ""
+"Provide a CSS selector of elements your modules programmatically add to "
+"links (usually external or open-in-new-window links), so they can be ignored "
+"when the link text is checked for the \"link has no text\" and \"link text "
+"is not meaningful\" tests.<br>E.g.: <code><em>.this, .that</em></code>"
+msgstr ""
+"Παρέχετε έναν CSS selector για στοιχεία που τα modules σας προσθέτουν "
+"προγραμματισμένα στους συνδέσμους (συνήθως εξωτερικοί σύνδεσμοι ή σύνδεσμοι "
+"που ανοίγουν σε νέο παράθυρο), ώστε να αγνοούνται όταν ελέγχεται το κείμενο "
+"για «ο σύνδεσμος δεν έχει κείμενο» ή «το κείμενο του συνδέσμου δεν είναι "
+"ουσιαστικό».<br>Π.χ.: <code><em>.this, .that</em></code>"
+
+msgid "Remove these strings before testing link text"
+msgstr "Αφαίρεση αυτών των φράσεων πριν τον έλεγχο κειμένου συνδέσμου"
+
+msgid ""
+"Provide a pipe-separated (\"|\") list of phrases your modules "
+"programmatically add to links to hint a purpose (external, mail, phone, open-"
+"in-new-window), so they can be ignored when the link text is checked for the "
+"\"link has no text\" and \"link text is not meaningful\" tests; e.g.:  "
+"<pre><code><em>(link is external)|(link sends email)</em></code></pre>"
+msgstr ""
+"Παρέχετε μια λίστα φράσεων χωρισμένη με κάθετο (\"|\") που τα modules σας "
+"προσθέτουν στους συνδέσμους για να δηλώνουν σκοπό (εξωτερικός, email, "
+"τηλέφωνο, άνοιγμα σε νέο παράθυρο), ώστε να αγνοούνται κατά τον έλεγχο του "
+"κειμένου για «δεν έχει κείμενο» ή «δεν είναι ουσιαστικό». Π.χ.: "
+"<pre><code><em>(link is external)|(link sends email)</em></code></pre>"
+
+msgid "Strings in links that indicate new tabs"
+msgstr "Φράσεις μέσα σε συνδέσμους που δηλώνουν νέο παράθυρο"
+
+msgid ""
+"Provide a pipe-separated list of phrases your site uses to warn users a link "
+"opens in a new tab; e.g.:  <pre><code><em>new&nbsp;tab|new&nbsp;window|"
+"external</em></code></pre>"
+msgstr ""
+"Παρέχετε μια λίστα φράσεων χωρισμένη με κάθετο, που ο ιστότοπός σας "
+"χρησιμοποιεί για να προειδοποιεί ότι ένας σύνδεσμος ανοίγει σε νέα καρτέλα. "
+"Π.χ.: <pre><code><em>new&nbsp;tab|new&nbsp;window|external</em></code></pre>"
+
+msgid ""
+"Modules like Link Purpose or External Links can mark links automatically."
+msgstr ""
+"Μονάδες όπως οι Link Purpose ή External Links μπορούν να επισημαίνουν "
+"αυτόματα τους συνδέσμους."
+
+msgid "CSA/developer test"
+msgstr "Δοκιμή CSA/προγραμματιστή"
+
+msgid "Show to developers"
+msgstr "Εμφάνιση σε προγραμματιστές"
+
+msgid "Show to everybody"
+msgstr "Εμφάνιση σε όλους"
+
+msgid "Dashboard sync is disabled in Editoria11y configuration."
+msgstr ""
+"Ο συγχρονισμός του πίνακα είναι απενεργοποιημένος στις ρυθμίσεις του "
+"Editoria11y."
+
+msgid "(invalid URL)"
+msgstr "(μη έγκυρο URL)"
+
+msgid "Editoria11y: Dismissals"
+msgstr "Editoria11y: Απορρίψεις"
+
+msgid "Default"
+msgstr "Προεπιλογή"
+
+msgid "Node path"
+msgstr "Διαδρομή κόμβου"
+
+msgid "view"
+msgstr "προβολή"
+
+msgid "Term path"
+msgstr "Διαδρομή όρου"
+
+msgid "User bio path"
+msgstr "Διαδρομή βιογραφικού χρήστη"
+
+msgid "Term title"
+msgstr "Τίτλος όρου"
+
+msgid ", "
+msgstr ", "
+
+msgid "Node title"
+msgstr "Τίτλος κόμβου"
+
+msgid "User name"
+msgstr "Όνομα χρήστη"
+
+msgid "Recorded path"
+msgstr "Καταγεγραμμένη διαδρομή"
+
+msgid "Computed"
+msgstr "Υπολογισμένο"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty %}{% set dynamic_path = page_path %}{% endif %}\r\n"
+"{% set dynamic_title = title ~ name_2 ~ name_1 %}{% if dynamic_title is "
+"empty %}{% set dynamic_title = page_title %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ dynamic_title }}</"
+"a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty %}{% set dynamic_path = page_path %}{% endif %}\r\n"
+"{% set dynamic_title = title ~ name_2 ~ name_1 %}{% if dynamic_title is "
+"empty %}{% set dynamic_title = page_title %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ dynamic_title }}</"
+"a>"
+
+msgid "Dismissed alert"
+msgstr "Απορριφθείσα ειδοποίηση"
+
+msgid "By"
+msgstr "Από"
+
+msgid "1"
+msgid_plural "@count"
+msgstr[0] "1"
+msgstr[1] "@count"
+
+msgid "Reset"
+msgstr "Επαναφορά"
+
+msgid ""
+"<span class=\"ed11y-reset-dismissal\"><span class=\"ed11y-page-id\">{{ pid }}"
+"</span><span class=\"ed11y-dismissal-id\">{{id}}</span></span>"
+msgstr ""
+"<span class=\"ed11y-reset-dismissal\"><span class=\"ed11y-page-id\">{{ pid }}"
+"</span><span class=\"ed11y-dismissal-id\">{{id}}</span></span>"
+
+msgid "››"
+msgstr "››"
+
+msgid "‹‹"
+msgstr "‹‹"
+
+msgid "- All -"
+msgstr "- Όλα -"
+
+msgid "Offset"
+msgstr "Μετατόπιση"
+
+msgid "« First"
+msgstr "« Πρώτη"
+
+msgid "Last »"
+msgstr "Τελευταία »"
+
+msgid "Asc"
+msgstr "Αύξουσα"
+
+msgid "Desc"
+msgstr "Φθίνουσα"
+
+msgid "User who dismissed alert"
+msgstr "Χρήστης που απέρριψε τη ειδοποίηση"
+
+msgid "pid"
+msgstr "pid"
+
+msgid "Node"
+msgstr "Κόμβος"
+
+msgid "Term"
+msgstr "Όρος"
+
+msgid "User bio"
+msgstr "Βιογραφικό χρήστη"
+
+msgid "Dismissals page"
+msgstr "Σελίδα απορρίψεων"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty %}{% set dynamic_path = page_path %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title }}</a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty %}{% set dynamic_path = page_path %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title }}</a>"
+
+msgid "Still on page"
+msgstr "Εξακολουθεί να υπάρχει στη σελίδα"
+
+msgid "Reset filters"
+msgstr "Επαναφορά φίλτρων"
+
+msgid "Issues marked as hidden or OK in Editoria11y."
+msgstr "Ζητήματα που έχουν σημανθεί ως κρυφά ή OK στο Editoria11y."
+
+msgid "Dismissals filtered by issue"
+msgstr "Απορρίψεις φιλτραρισμένες κατά ζήτημα"
+
+msgid "No dismissals match these filters."
+msgstr "Καμία απόρριψη δεν ταιριάζει με αυτά τα φίλτρα."
+
+msgid "All"
+msgstr "Όλα"
+
+msgid "Dismissed alerts of type \"{{result_name}}\""
+msgstr "Απορριφθείσες ειδοποιήσεις τύπου \"{{result_name}}\""
+
+msgid ""
+"<a href=\"/admin/reports/editoria11y/dismissals/\" class=\"button button--"
+"primary\">Show all dismissals</a>"
+msgstr ""
+"<a href=\"/admin/reports/editoria11y/dismissals/\" class=\"button button--"
+"primary\">Προβολή όλων των απορρίψεων</a>"
+
+msgid "Recent Editoria11y Dismissals"
+msgstr "Πρόσφατες απορρίψεις Editoria11y"
+
+msgid "Editoria11y - Recent dismissals"
+msgstr "Editoria11y - Πρόσφατες απορρίψεις"
+
+msgid "Editoria11y: Alerts"
+msgstr "Editoria11y: Ειδοποιήσεις"
+
+msgid "Top results"
+msgstr "Κορυφαία αποτελέσματα"
+
+msgid "Computed title"
+msgstr "Υπολογισμένος τίτλος"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path|render %}{% set dynamic_path = "
+"page_path %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{  page_title_1 }}</"
+"a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path|render %}{% set dynamic_path = "
+"page_path %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{  page_title_1 }}</"
+"a>"
+
+msgid "<a href=\"{{page_path_1}}\" data-ed1ref=\"{{pid}}\">{{page_path_1}}</a>"
+msgstr ""
+"<a href=\"{{page_path_1}}\" data-ed1ref=\"{{pid}}\">{{page_path_1}}</a>"
+
+msgid "No alerts found."
+msgstr "Δεν βρέθηκαν ειδοποιήσεις."
+
+msgid "YYYY-MM-DD"
+msgstr "YYYY-MM-DD"
+
+msgid "User bio page"
+msgstr "Σελίδα βιογραφικού χρήστη"
+
+msgid "Node author"
+msgstr "Συντάκτης κόμβου"
+
+msgid "All pages with issues"
+msgstr "Όλες οι σελίδες με προβλήματα"
+
+msgid "Block: Pages with the most"
+msgstr "Μπλοκ: Σελίδες με τα περισσότερα"
+
+msgid "Block: Recent alerts"
+msgstr "Μπλοκ: Πρόσφατες ειδοποιήσεις"
+
+msgid "Recent Editoria11y Alerts"
+msgstr "Πρόσφατες ειδοποιήσεις Editoria11y"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path|render %}{% set dynamic_path = "
+"page_path %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title_1 }}</a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path|render %}{% set dynamic_path = "
+"page_path %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title_1 }}</a>"
+
+msgid "Issue"
+msgstr "Πρόβλημα"
+
+msgid "Editoria11y - Recent alerts"
+msgstr "Editoria11y - Πρόσφατες ειδοποιήσεις"
+
+msgid "Block: Most frequent alerts"
+msgstr "Μπλοκ: Συχνότερες ειδοποιήσεις"
+
+msgid "Most Frequent Editoria11y Alerts"
+msgstr "Πιο συχνές ειδοποιήσεις Editoria11y"
+
+msgid "Editoria11y - Most frequent alerts"
+msgstr "Editoria11y - Συχνότερες ειδοποιήσεις"
+
+msgid "Alerts on specified page"
+msgstr "Ειδοποιήσεις στη συγκεκριμένη σελίδα"
+
+msgid ""
+"<a href=\"{{ page_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title_1 }}</a>"
+msgstr ""
+"<a href=\"{{ page_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title_1 }}</a>"
+
+msgid "<p><strong>Author:</strong> {{ uid }}</p>"
+msgstr "<p><strong>Συντάκτης:</strong> {{ uid }}</p>"
+
+msgid "<p><strong>Last editor:</strong> {{ uid_1 }}</p>"
+msgstr "<p><strong>Τελευταίος συντάκτης:</strong> {{ uid_1 }}</p>"
+
+msgid ""
+"<h1>Accessibility issues on: {{page_title_1}}</h1>\r\n"
+"<p>{{uid}}{{uid_1}}</p>"
+msgstr ""
+"<h1>Ζητήματα προσβασιμότητας σε: {{page_title_1}}</h1>\r\n"
+"<p>{{uid}}{{uid_1}}</p>"
+
+msgid ""
+"<p><a href=\"../editoria11y/pages\" class=\"button button--primary\">All "
+"pages with alerts</a></p>"
+msgstr ""
+"<p><a href=\"../editoria11y/pages\" class=\"button button--primary\">Όλες οι "
+"σελίδες με ειδοποιήσεις</a></p>"
+
+msgid ""
+"<span class=\"ed11y-reset-this-path\" hidden><p class=\"more-link\"><a "
+"role=\"button\" class=\"action-link action-link--icon-trash action-link--"
+"danger\"><span hidden class=\"ed11y-api-path\">{{ page_path }}</span>Reset "
+"results for this page</a></p></span>"
+msgstr ""
+"<span class=\"ed11y-reset-this-path\" hidden><p class=\"more-link\"><a "
+"role=\"button\" class=\"action-link action-link--icon-trash action-link--"
+"danger\"><span hidden class=\"ed11y-api-path\">{{ page_path }}</"
+"span>Επαναφορά αποτελεσμάτων για αυτή τη σελίδα</a></p></span>"
+
+msgid "Issue types"
+msgstr "Τύποι ζητημάτων"
+
+msgid "Pages with specified alert"
+msgstr "Σελίδες με συγκεκριμένη ειδοποίηση"
+
+msgid "Published status"
+msgstr "Κατάσταση δημοσίευσης"
+
+msgid "Created by"
+msgstr "Δημιουργήθηκε από"
+
+msgid "Created after"
+msgstr "Δημιουργήθηκε μετά"
+
+msgid "Created before"
+msgstr "Δημιουργήθηκε πριν"
+
+msgid "<h1>Pages with alert \"{{ result_name }}\"</h1>"
+msgstr "<h1>Σελίδες με ειδοποίηση \"{{ result_name }}\"</h1>"
+
+msgid ""
+"<a href=\"../editoria11y/alerts\" class=\"button button--primary\">All "
+"alerts</a>"
+msgstr ""
+"<a href=\"../editoria11y/alerts\" class=\"button button--primary\">Όλες οι "
+"ειδοποιήσεις</a>"
+
+msgid "Pages with issues"
+msgstr "Σελίδες με προβλήματα"
+
+msgid "Next ›"
+msgstr "Επόμενη ›"
+
+msgid "‹ Previous"
+msgstr "‹ Προηγούμενη"
+
+msgid "Authored on"
+msgstr "Συντάχθηκε στις"
+
+msgid "Changed"
+msgstr "Αλλάχθηκε"
+
+msgid "Editoria11y: Crawler"
+msgstr "Editoria11y: Ανιχνευτής"
+
+msgid "Editoria11y: Crawl Nodes"
+msgstr "Editoria11y: Ανίχνευση κόμβων"
+
+msgid "Authored by"
+msgstr "Συντάχθηκε από"
+
+msgid "Has results"
+msgstr "Έχει αποτελέσματα"
+
+msgid "Has no alerts"
+msgstr "Δεν έχει ειδοποιήσεις"
+
+msgid "Has alerts"
+msgstr "Έχει ειδοποιήσεις"
+
+msgid "nid"
+msgstr "nid"
+
+msgid "Editoria11y: Export"
+msgstr "Editoria11y: Εξαγωγή"
+
+msgid "Export page with alerts"
+msgstr "Εξαγωγή σελίδας με ειδοποιήσεις"
+
+msgid "Link to Taxonomy term"
+msgstr "Σύνδεσμος προς όρο ταξινομίας"
+
+msgid "Link to User"
+msgstr "Σύνδεσμος προς χρήστη"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path_1|render %}{% set dynamic_path = "
+"page_path_1 %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title }}</a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path_1|render %}{% set dynamic_path = "
+"page_path_1 %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title }}</a>"
+
+msgid "Path when checked"
+msgstr "Διαδρομή κατά τον έλεγχο"
+
+msgid "<a href=\"{{page_path_1}}\" data-ed1ref=\"{{pid}}\">{{page_path_1}}"
+msgstr "<a href=\"{{page_path_1}}\" data-ed1ref=\"{{pid}}\">{{page_path_1}}"
+
+msgid "Current URL"
+msgstr "Τρέχον URL"
+
+msgid "{{ view_taxonomy_term }}{{ view_user }}{{ view_node }}"
+msgstr "{{ view_taxonomy_term }}{{ view_user }}{{ view_node }}"
+
+msgid "{% if type is empty %}{{entity_type}}{%else%}{{type}}{% endif %}"
+msgstr "{% if type is empty %}{{entity_type}}{%else%}{{type}}{% endif %}"
+
+msgid "Entity Type"
+msgstr "Τύπος οντότητας"
+
+msgid "Langcode (en, fr, de)"
+msgstr "Κωδικός γλώσσας (en, fr, de)"
+
+msgid "Referenced node"
+msgstr "Αναφερόμενος κόμβος"
+
+msgid "Referenced term"
+msgstr "Αναφερόμενος όρος"
+
+msgid "Referenced user bio"
+msgstr "Αναφερόμενο βιογραφικό χρήστη"
+
+msgid "<p>Records chosen for export can be filtered and previewed below.</p>"
+msgstr ""
+"<p>Οι εγγραφές που επιλέχθηκαν για εξαγωγή μπορούν να φιλτραριστούν και να "
+"προεπισκοπηθούν παρακάτω.</p>"
+
+msgid "<a href=\"/admin/reports/editoria11y/export\">Back to dashboard</a>"
+msgstr ""
+"<a href=\"/admin/reports/editoria11y/export\">Επιστροφή στον πίνακα</a>"
+
+msgid "Dismissals export"
+msgstr "Εξαγωγή απορρίψεων"
+
+msgid "Link to Content"
+msgstr "Σύνδεσμος προς περιεχόμενο"
+
+msgid "Page raw path"
+msgstr "Ακατέργαστη διαδρομή σελίδας"
+
+msgid "Name"
+msgstr "Όνομα"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path_1|render %}{% set dynamic_path = "
+"page_path_1 %}{% endif %}\r\n"
+"{% set dynamic_title = title_1 ~ name ~ name_1 %}{% if dynamic_title is "
+"empty %}{% set dynamic_title = page_title %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ dynamic_title }}</"
+"a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path_1|render %}{% set dynamic_path = "
+"page_path_1 %}{% endif %}\r\n"
+"{% set dynamic_title = title_1 ~ name ~ name_1 %}{% if dynamic_title is "
+"empty %}{% set dynamic_title = page_title %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ dynamic_title }}</"
+"a>"
+
+msgid "dismissal"
+msgstr "απόρριψη"
+
+msgid "Page export"
+msgstr "Εξαγωγή σελίδας"
+
+msgid "Alerts export"
+msgstr "Εξαγωγή ειδοποιήσεων"
+
+msgid "Editoria11y alerts on pages"
+msgstr "Ειδοποιήσεις Editoria11y σε σελίδες"
+
+msgid "{{ view_taxonomy_term }}{{ view_user }}{{ view_node }} "
+msgstr "{{ view_taxonomy_term }}{{ view_user }}{{ view_node }} "
+
+msgid "Results for page"
+msgstr "Αποτελέσματα για τη σελίδα"
+
+msgid "<a href=\"./export/pages\">Export pages with alerts</a>"
+msgstr "<a href=\"./export/pages\">Εξαγωγή σελίδων με ειδοποιήσεις</a>"
+
+msgid "<a href=\"./export/dismissals\">Export dismissals</a>"
+msgstr "<a href=\"./export/dismissals\">Εξαγωγή απορρίψεων</a>"
+
+msgid "<a href=\"./export/alerts\">Export alert list</a>"
+msgstr "<a href=\"./export/alerts\">Εξαγωγή λίστας ειδοποιήσεων</a>"
+
+msgid "Export alerts on pages"
+msgstr "Εξαγωγή ειδοποιήσεων σε σελίδες"
+
+msgid "Result name"
+msgstr "Όνομα αποτελέσματος"

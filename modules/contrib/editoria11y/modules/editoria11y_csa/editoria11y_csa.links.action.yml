@@ -1,0 +1,5 @@
+entity.ed11y_custom_test.add_form:
+  route_name: 'entity.ed11y_custom_test.add_form'
+  title: 'Add custom test'
+  appears_on:
+    - entity.ed11y_custom_test.collection

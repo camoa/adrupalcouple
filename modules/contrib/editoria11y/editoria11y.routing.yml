@@ -2,7 +2,7 @@ editoria11y.settings:
   path: '/admin/config/content/editoria11y'
   defaults:
     _form: '\Drupal\editoria11y\Form\Editoria11ySettings'
-    _title: 'Editoria11y Settings'
+    _title: 'Editoria11y core settings'
   requirements:
     _permission: 'administer editoria11y checker'
 
@@ -22,26 +22,25 @@ editoria11y.reports_dashboard:
   requirements:
     _permission: 'manage editoria11y results'
 
-editoria11y.exports_summary:
- path: '/admin/reports/editoria11y/export/summary'
- defaults:
-   _controller: '\Drupal\editoria11y\Controller\ExportCSVController::pages'
- requirements:
-   _permission: 'manage editoria11y results'
+editoria11y.csv_export:
+  path: '/admin/reports/editoria11y/export-csv/{view_id}/{display_id}'
+  defaults:
+    _controller: '\Drupal\editoria11y\Controller\CsvExportController::export'
+    _title: 'Export CSV'
+  methods: [GET]
+  requirements:
+    _permission: 'manage editoria11y results'
+    view_id: '[a-z0-9_]+'
+    display_id: '[a-z0-9_]+'
+  options:
+    no_cache: true
 
-editoria11y.exports_issues:
- path: '/admin/reports/editoria11y/export/issues'
- defaults:
-   _controller: '\Drupal\editoria11y\Controller\ExportCSVController::issues'
- requirements:
-   _permission: 'manage editoria11y results'
-
-editoria11y.exports_dismissals:
- path: '/admin/reports/editoria11y/export/dismissals'
- defaults:
-   _controller: '\Drupal\editoria11y\Controller\ExportCSVController::dismissals'
- requirements:
-   _permission: 'manage editoria11y results'
+editoria11y.api_config:
+  path: '/editoria11y/api/config'
+  defaults:
+    _controller: '\Drupal\editoria11y\Controller\Ed11yConfigController::getConfig'
+  requirements:
+    _permission: 'view editoria11y checker'
 
 editoria11y.api_report:
   path: '/editoria11y/api/results/report'
@@ -56,26 +55,13 @@ editoria11y.api_report:
   options:
     no_cache: true
 
-editoria11y.api_ok:
-  path: '/editoria11y/api/dismiss/ok'
+editoria11y.api_dismiss:
+  path: '/editoria11y/api/dismiss'
   defaults:
-    _controller: '\Drupal\editoria11y\Controller\ApiController::ok'
+    _controller: '\Drupal\editoria11y\Controller\ApiController::dismiss'
   methods: [POST]
   requirements:
-    _permission: 'mark as ok in editoria11y'
-    _user_is_logged_in: 'TRUE'
-    _content_type_format: 'json'
-    _csrf_request_header_token: 'TRUE'
-  options:
-    no_cache: true
-
-editoria11y.api_hide:
-  path: '/editoria11y/api/dismiss/hide'
-  methods: [POST]
-  defaults:
-    _controller: '\Drupal\editoria11y\Controller\ApiController::hide'
-  requirements:
-    _permission: 'mark as hidden in editoria11y'
+    _permission: 'view editoria11y checker'
     _user_is_logged_in: 'TRUE'
     _content_type_format: 'json'
     _csrf_request_header_token: 'TRUE'
@@ -102,19 +88,6 @@ editoria11y.api_purge_dismissals:
     _controller: '\Drupal\editoria11y\Controller\ApiController::purgeDismissals'
   requirements:
     _permission: 'manage editoria11y results'
-    _user_is_logged_in: 'TRUE'
-    _content_type_format: 'json'
-    _csrf_request_header_token: 'TRUE'
-  options:
-    no_cache: true
-
-editoria11y.api_reset:
-  path: '/editoria11y/api/dismiss/reset'
-  methods: [POST]
-  defaults:
-    _controller: '\Drupal\editoria11y\Controller\ApiController::reset'
-  requirements:
-    _permission: 'view editoria11y checker'
     _user_is_logged_in: 'TRUE'
     _content_type_format: 'json'
     _csrf_request_header_token: 'TRUE'

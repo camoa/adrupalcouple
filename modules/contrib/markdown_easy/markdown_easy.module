@@ -13,8 +13,12 @@ use Drupal\Core\Form\FormStateInterface;
  * Implements hook_form_FORM_ID_alter().
  */
 function markdown_easy_form_filter_format_add_form_alter(array &$form, FormStateInterface $form_state): void {
-  $form['#validate'][] = '_markdown_easy_filter_format_edit_form_validate';
-  $form['actions']['submit']['#submit'][] = '_markdown_easy_filter_format_form_submit';
+  $config = \Drupal::config('markdown_easy.settings');
+  $skip_filter_enforcement = $config->get('skip_filter_enforcement');
+  if (!$skip_filter_enforcement) {
+    $form['#validate'][] = '_markdown_easy_filter_format_edit_form_validate';
+    $form['actions']['submit']['#submit'][] = '_markdown_easy_filter_format_form_submit';
+  }
 
   // Fixes issue related to https://www.drupal.org/project/markdown_easy/issues/3378216#comment-15209538
   // Remove if/when https://www.drupal.org/project/drupal/issues/3383891 is
@@ -72,18 +76,17 @@ function _markdown_easy_filter_format_edit_form_validate(array $form, FormStateI
   $filters = $form_state->getValue('filters');
 
   // The "markdown_easy" filter must run before the following filters.
-  $subsequent = [
+  $must_run_before = [
     'filter_html',
-    'filter_autop',
   ];
 
   $error_filters = [];
-  foreach ($subsequent as $filter_name) {
+  foreach ($must_run_before as $filter_name) {
     // A filter that should run after the markdown_easy filter.
     $subsequent = $filters[$filter_name];
 
     if (!isset($subsequent['status']) || !((bool) $subsequent['status']) || !isset($subsequent['weight']) || ($subsequent['weight'] <= $filters['markdown_easy']['weight'])) {
-      $error_filters[$filter_name] = $get_filter_label($filter_name);
+      $error_filters[$filter_name] = strip_tags(htmlspecialchars_decode($get_filter_label($filter_name)), '<p><br>');
     }
   }
 
@@ -97,17 +100,19 @@ function _markdown_easy_filter_format_edit_form_validate(array $form, FormStateI
         '%filter' => reset($error_filters),
         '%filters' => implode(', ', $error_filters),
       ]
-    )->render();
+    );
 
-    $form_state->setErrorByName('filters', $error_message);
+    $form_state->setErrorByName('filters][markdown_easy', $error_message);
   }
 
-  // Check that "Convert line breaks" filter runs after "Limit HTML".
-  if ((bool) $filters['filter_html']['status'] && (bool) $filters['filter_autop']['status']) {
-    if ($filters['filter_html']['weight'] >= $filters['filter_autop']['weight']) {
-      $error_message = t('The "Convert line breaks into HTML (i.e. &lt;br&gt; and &lt;p&gt;)" filter must run after the "Limit allowed HTML tags and correct faulty HTML" filter in order for the Markdown Easy filter to work properly.')->render();
-      $form_state->setErrorByName('filters', $error_message);
-    }
+  /** @var Drupal\markdown_easy\MarkdownUtility $markdown_easy_utility_service */
+  $markdown_easy_utility_service = \Drupal::service('markdown_easy.utility');
+  $response = $markdown_easy_utility_service->findMissingTags($filters['markdown_easy']['settings']['flavor'], $filters['filter_html']['settings']['allowed_html']);
+  if (count($response)) {
+    $warning_message = t('For full compatibility with the selected Markdown flavor, add the following tags and attributes to the "Limit allowed HTML tags and correct faulty HTML" filter: %tags', ['%tags' => $markdown_easy_utility_service->formatHtmlTags($response)]);
+    /** @var Drupal\Core\Messenger\Messenger $messenger_service */
+    $messenger_service = \Drupal::service('messenger');
+    $messenger_service->addWarning($warning_message);
   }
 }
 
@@ -116,7 +121,7 @@ function _markdown_easy_filter_format_edit_form_validate(array $form, FormStateI
  *
  * @param array<mixed> $form
  *   The form.
- * @param Drupal\Core\Form\FormStateInterface $form_state
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
  *   The form state.
  */
 function _markdown_easy_filter_format_form_submit(array $form, FormStateInterface &$form_state): void {
@@ -130,10 +135,11 @@ function _markdown_easy_filter_format_form_submit(array $form, FormStateInterfac
   $messenger_service = \Drupal::service('messenger');
   if (isset($weights['markdown_easy'])) {
     if (!isset($weights['filter_html']) || ($weights['filter_html'] < $weights['markdown_easy'])) {
-      $messenger_service->addWarning(t('The text format %format is potentially configured insecurely. The "Limit allowed HTML tags and correct faulty HTML" filter is strongly recommended and should be configured to run after the Markdown Easy filter.', ['%format' => $form_state->getValue('name')]));
+      $messenger_service->addWarning(t('The text format %format is potentially configured insecurely. The "Limit allowed HTML tags and correct faulty HTML" filter is required and should be configured to run after the Markdown Easy filter.', ['%format' => $form_state->getValue('name')]));
     }
-    if (!isset($weights['filter_autop']) || ($weights['filter_autop'] < $weights['markdown_easy'])) {
-      $messenger_service->addWarning(t('The text format %format is potentially configured incorrectly. The "Convert line breaks into HTML" filter is recommended and should be configured to run after the Markdown Easy filter.', ['%format' => $form_state->getValue('name')]));
+    // If "convert line breaks" filter enabled, give a warning.
+    if (isset($weights['filter_autop'])) {
+      $messenger_service->addWarning(t('The text format %format is potentially configured incorrectly. The "Convert line breaks into HTML" filter is no longer recommended and should be disabled.', ['%format' => $form_state->getValue('name')]));
     }
   }
 

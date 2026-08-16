@@ -1,0 +1,55 @@
+{#
+/**
+ * @file
+ * Template override for the ed11y_crawler view.
+ *
+ * Provides the JS mount point (#crawl-controls), the progress element, and
+ * the exit link directly in markup. Previously these lived in the view's
+ * header/footer area_text_custom content, which Drupal's locale HTML safety
+ * filter rejects on translation import.
+ *
+ * Additional variables (provided by editoria11y_csa_preprocess_views_view__ed11y_crawler):
+ * - crawl_current_page: 1-indexed current page number.
+ * - crawl_total_pages: Total pages in the view (at least 1).
+ * - crawl_exit_url: URL of the view page (used as the cancel/exit href).
+ *
+ * @see template_preprocess_views_view()
+ */
+#}
+{%
+  set classes = [
+    dom_id ? 'js-view-dom-id-' ~ dom_id,
+    'editoria11y-crawl',
+  ]
+%}
+<div{{ attributes.addClass(classes) }}>
+  {{ title_prefix }}
+  {{ title }}
+  {{ title_suffix }}
+
+  <header>
+    <div id="crawl-controls"></div>
+  </header>
+
+  <div class="view-content">
+    <div id="crawl-filters">{{ exposed }}</div>
+    <h2>{{ 'Nodes to be crawled'|t }}</h2>
+    {{ attachment_before }}
+    {% if rows -%}
+    {{ rows }}
+    {% elseif empty -%}
+      {{ empty }}
+    {% endif %}
+    {{ pager }}
+  </div>
+
+  {{ attachment_after }}
+  {{ more }}
+
+  <footer>
+    <progress value="{{ crawl_current_page }}" max="{{ crawl_total_pages }}"></progress>
+    <a id="crawl-done" href="{{ crawl_exit_url }}">{{ 'Cancel'|t }}</a>
+  </footer>
+
+  {{ feed_icons }}
+</div>

@@ -1,0 +1,68 @@
+form {
+  max-width: 60em;
+}
+
+#edit-ignore-tests {
+  .form-item__label {
+    padding: 2px 0;
+    float: left;
+    clear: left;
+  }
+
+  input {
+    float: left;
+    clear: left;
+  }
+
+  input::after {
+    content: attr(value);
+    display: block;
+    width: max-content;
+    margin-left: 26px;
+    line-height: 1;
+    cursor: pointer;
+  }
+}
+
+.ed11y-test-group {
+  container-type: inline-size;
+}
+
+.form-element[disabled] {
+  cursor: not-allowed;
+  font-style: italic;
+}
+
+@container (min-width: 30em) {
+  .ed11y-select-grid {
+    display: grid;
+    grid-template-columns: min-content 1fr;
+    grid-template-areas: "select label"
+      "select description";
+    grid-column-gap: 1em;
+
+    label {
+      grid-area: label;
+      min-width: min(25em, 55cqw);
+      margin: .125em 0;
+    }
+
+    label~div {
+      grid-area: description;
+    }
+
+    select {
+      grid-area: select;
+      min-width: min(16em, 35cqw);
+      height: 2em;
+    }
+  }
+
+  select:has(> option[value$="everybody"]:checked) {
+    font-weight: bold;
+  }
+
+  select:has(> option[value$="developers"]:checked) {
+    font-style: italic;
+  }
+}

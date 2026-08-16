@@ -1,15 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\entity_usage;
 
 use Drupal\Core\Batch\BatchBuilder;
-use Drupal\Core\Config\Config;
-use Drupal\Core\Config\ConfigFactoryInterface;
+use Drupal\Core\Database\Statement\FetchAs;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
-use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Entity\RevisionableStorageInterface;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
+use Drupal\Core\StringTranslation\PluralTranslatableMarkup;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\Core\Utility\Error;
@@ -32,37 +33,56 @@ class EntityUsageBatchManager implements LoggerAwareInterface {
   /**
    * Table name to bulk entity usage data to.
    */
-  const BULK_TABLE_NAME = 'entity_usage_bulk';
+  const string BULK_TABLE_NAME = 'entity_usage_bulk';
+
+  /**
+   * Table name to backup new entity usage data to.
+   */
+  const string BACKUP_TABLE_NAME = 'entity_usage_backup';
 
   /**
    * The size of the batch for the revision queries.
    */
-  const REVISION_BATCH_SIZE = 15;
+  const int REVISION_BATCH_SIZE = 15;
 
   /**
    * The number of revisions to load when in bulk mode.
    */
-  const BULK_BATCH_SIZE = 200;
+  const int BULK_BATCH_SIZE = 200;
 
   /**
    * The number of IDs to load when in bulk mode.
    */
-  const BULK_ID_LOAD = 100000;
+  const int BULK_ID_LOAD = 100000;
+
+  /**
+   * The entity_usage table's fields not including the usage_id field.
+   *
+   * @var string[]
+   */
+  private const array FIELD_LIST = [
+    'target_id',
+    'target_id_string',
+    'target_type',
+    'source_id',
+    'source_id_string',
+    'source_type',
+    'source_langcode',
+    'source_vid',
+    'method',
+    'field_name',
+    'count',
+  ];
 
   /**
    * Creates a EntityUsageBatchManager object.
    */
   final public function __construct(
-    private EntityTypeManagerInterface $entityTypeManager,
     TranslationInterface $stringTranslation,
-    private ConfigFactoryInterface $configFactory,
-    private ?EntityUsageInterface $entityUsage = NULL,
+    readonly private EntityUsageTrackManager $trackManager,
+    readonly private EntityUsageInterface $entityUsage,
   ) {
     $this->setStringTranslation($stringTranslation);
-    if ($entityUsage === NULL) {
-      // @phpstan-ignore-next-line
-      $this->entityUsage = \Drupal::service('entity_usage.usage');
-    }
   }
 
   /**
@@ -78,7 +98,7 @@ class EntityUsageBatchManager implements LoggerAwareInterface {
    *   (optional) If TRUE, existing usage records won't be deleted. Defaults to
    *   FALSE.
    */
-  public function recreate($keep_existing_records = FALSE): void {
+  public function recreate(bool $keep_existing_records = FALSE): void {
     $batch = $this->generateBatch($keep_existing_records);
     batch_set($batch);
   }
@@ -93,7 +113,7 @@ class EntityUsageBatchManager implements LoggerAwareInterface {
    * @return array
    *   The batch array.
    */
-  public function generateBatch($keep_existing_records = FALSE): array {
+  public function generateBatch(bool $keep_existing_records = FALSE): array {
     $batch = new BatchBuilder();
     $batch
       ->setTitle($this->t('Updating entity usage statistics.'))
@@ -111,7 +131,7 @@ class EntityUsageBatchManager implements LoggerAwareInterface {
       $batch->addOperation('\Drupal\entity_usage\EntityUsageBatchManager::createBulkTable');
     }
 
-    foreach (self::getEntityTypesToTrack($this->configFactory->get('entity_usage.settings'), $this->entityTypeManager) as $entity_type_id) {
+    foreach ($this->trackManager->getSourceEntityTypeIds() as $entity_type_id) {
       $batch->addOperation(
         '\Drupal\entity_usage\EntityUsageBatchManager::updateSourcesBatchWorker',
         [$entity_type_id, $keep_existing_records],
@@ -120,6 +140,7 @@ class EntityUsageBatchManager implements LoggerAwareInterface {
 
     if ($bulk_mode) {
       $batch->addOperation('\Drupal\entity_usage\EntityUsageBatchManager::copyBulkTable');
+      $batch->addOperation('\Drupal\entity_usage\EntityUsageBatchManager::restoreNewData');
       $batch->addOperation('\Drupal\entity_usage\EntityUsageBatchManager::triggerEvents');
       $batch->addOperation('\Drupal\entity_usage\EntityUsageBatchManager::dropBulkTable');
     }
@@ -131,11 +152,20 @@ class EntityUsageBatchManager implements LoggerAwareInterface {
    * Batch operation worker to create the bulk loading table.
    */
   public static function createBulkTable(array &$context): void {
+    $db_schema = \Drupal::database()->schema();
     \Drupal::moduleHandler()->loadInclude('entity_usage', 'install');
     $entity_usage_schema = entity_usage_schema();
+
+    // Create the backup table.
+    $entity_usage_schema['entity_usage']['description'] = 'Backup of the entity_usage table used to preserve new data while bulk loading';
+    if ($db_schema->tableExists(static::BACKUP_TABLE_NAME)) {
+      $db_schema->dropTable(static::BACKUP_TABLE_NAME);
+    }
+    $db_schema->createTable(static::BACKUP_TABLE_NAME, $entity_usage_schema['entity_usage']);
+
+    // Create the bulk table.
     $entity_usage_schema['entity_usage']['description'] = 'Copy of the entity_usage table for bulk loading';
     unset($entity_usage_schema['entity_usage']['indexes']);
-    $db_schema = \Drupal::database()->schema();
     if ($db_schema->tableExists(static::BULK_TABLE_NAME)) {
       $db_schema->dropTable(static::BULK_TABLE_NAME);
     }
@@ -147,16 +177,57 @@ class EntityUsageBatchManager implements LoggerAwareInterface {
    * Batch operation worker to copy the bulk loading table.
    */
   public static function copyBulkTable(array &$context): void {
-    \Drupal::moduleHandler()->loadInclude('entity_usage', 'install');
     $database = \Drupal::database();
-    $query = match ($database->databaseType()) {
-      'sqlite' => 'INSERT OR IGNORE INTO {entity_usage} SELECT * FROM {' . static::BULK_TABLE_NAME . '};',
-      'pgsql' => 'INSERT INTO {entity_usage} SELECT * FROM {' . static::BULK_TABLE_NAME . '} ON CONFLICT DO NOTHING;',
-      'mysql' => 'INSERT IGNORE INTO {entity_usage} SELECT * FROM {' . static::BULK_TABLE_NAME . '};',
-      default => 'INSERT INTO {entity_usage} SELECT * FROM {' . static::BULK_TABLE_NAME . '};',
-    };
-    $database->query($query)->execute();
+    $transaction = $database->startTransaction();
+
+    // Back up any now entity usage rows.
+    $database->insert(static::BACKUP_TABLE_NAME)->from(
+      $database->select('entity_usage')->fields('entity_usage')
+    )->execute();
+    $database->delete('entity_usage')->execute();
+
+    // Copy the data from the bulk table to the entity_usage table.
+    $database->insert('entity_usage')->from(
+      $database->select(static::BULK_TABLE_NAME)->fields(static::BULK_TABLE_NAME, self::FIELD_LIST)
+    )->execute();
+    if (isset($transaction)) {
+      $transaction = NULL;
+    }
     $context['message'] = t('Loaded the entity usage table from the bulk table');
+  }
+
+  /**
+   * Copies the data from the backup table to the entity_usage table.
+   */
+  public static function restoreNewData(array &$context): void {
+    $database = \Drupal::database();
+    $transaction = $database->startTransaction();
+    $result = $database->select(static::BACKUP_TABLE_NAME, 'eu')
+      ->fields('eu', self::FIELD_LIST)
+      ->execute();
+    $count = 0;
+    while ($record = $result->fetchAssoc()) {
+      $count++;
+      $target_id_column = (int) $record['target_id'] > 0 ? 'target_id' : 'target_id_string';
+      $source_id_column = (int) $record['source_id'] > 0 ? 'source_id' : 'source_id_string';
+      $database->merge('entity_usage')
+        ->keys([
+          $target_id_column => $record[$target_id_column],
+          'target_type' => $record['target_type'],
+          $source_id_column => $record[$source_id_column],
+          'source_type' => $record['source_type'],
+          'source_langcode' => $record['source_langcode'],
+          'source_vid' => $record['source_vid'],
+          'method' => $record['method'],
+          'field_name' => $record['field_name'],
+        ])
+        ->fields(['count' => $record['count']])
+        ->execute();
+    }
+    if (isset($transaction)) {
+      $transaction = NULL;
+    }
+    $context['message'] = new PluralTranslatableMarkup($count, 'Merged @count row from the backup table to the entity usage table', 'Merged @count rows from the backup table to the entity usage table');
   }
 
   /**
@@ -176,24 +247,14 @@ class EntityUsageBatchManager implements LoggerAwareInterface {
         ->select(static::BULK_TABLE_NAME)
         ->fields(static::BULK_TABLE_NAME)
         ->range($context['sandbox']['progress'], 200)
-        ->orderBy('target_id')
-        ->orderBy('target_id_string')
-        ->orderBy('target_type')
-        ->orderBy('source_id')
-        ->orderBy('source_id_string')
-        ->orderBy('source_type')
-        ->orderBy('source_type')
-        ->orderBy('source_langcode')
-        ->orderBy('source_vid')
-        ->orderBy('method')
-        ->orderBy('field_name')
+        ->orderBy('usage_id')
         ->execute()
-        ->fetchAll(\PDO::FETCH_ASSOC);
+        ->fetchAll(FetchAs::Associative);
       foreach ($results as $insert) {
         $context['sandbox']['progress']++;
         $target_id_column = (int) $insert['target_id'] > 0 ? 'target_id' : 'target_id_string';
         $source_id_column = (int) $insert['source_id'] > 0 ? 'source_id' : 'source_id_string';
-        $event = new EntityUsageEvent($insert[$target_id_column], $insert['target_type'], $insert[$source_id_column], $insert['source_type'], $insert['source_langcode'], $insert['source_vid'], $insert['method'], $insert['field_name'], $insert['count']);
+        $event = new EntityUsageEvent($insert[$target_id_column], $insert['target_type'], $insert[$source_id_column], $insert['source_type'], $insert['source_langcode'], (int) $insert['source_vid'], $insert['method'], $insert['field_name'], (int) $insert['count']);
         $dispatcher->dispatch($event, Events::USAGE_REGISTER);
       }
 
@@ -219,7 +280,10 @@ class EntityUsageBatchManager implements LoggerAwareInterface {
     if ($db_schema->tableExists(static::BULK_TABLE_NAME)) {
       $db_schema->dropTable(static::BULK_TABLE_NAME);
     }
-    $context['message'] = t('Dropped the entity usage bulk table');
+    if ($db_schema->tableExists(static::BACKUP_TABLE_NAME)) {
+      $db_schema->dropTable(static::BACKUP_TABLE_NAME);
+    }
+    $context['message'] = t('Dropped the entity usage bulk and backup tables');
   }
 
   /**
@@ -243,7 +307,7 @@ class EntityUsageBatchManager implements LoggerAwareInterface {
    * @param BatchContext $context
    *   Batch context.
    */
-  public static function updateSourcesBatchWorker($entity_type_id, $keep_existing_records, &$context): void {
+  public static function updateSourcesBatchWorker(string $entity_type_id, bool $keep_existing_records, array &$context): void {
     $entity_type = \Drupal::entityTypeManager()->getDefinition($entity_type_id);
     $entity_storage = \Drupal::entityTypeManager()->getStorage($entity_type->id());
     $entity_usage = \Drupal::service('entity_usage.usage');
@@ -303,13 +367,13 @@ class EntityUsageBatchManager implements LoggerAwareInterface {
       $context['sandbox']['revision_ids'] = array_keys(
         $entity_storage->getQuery()->allRevisions()
           ->accessCheck(FALSE)
-          ->sort($entity_type->getKey('revision'), 'ASC')
+          ->sort($entity_type->getKey('revision'))
           ->range(0, static::BULK_ID_LOAD)
           ->execute()
       );
       $context['sandbox']['total'] = $entity_storage->getQuery()->allRevisions()
         ->accessCheck(FALSE)
-        ->sort($entity_type->getKey('revision'), 'ASC')
+        ->sort($entity_type->getKey('revision'))
         ->count()
         ->execute();
     }
@@ -322,7 +386,7 @@ class EntityUsageBatchManager implements LoggerAwareInterface {
 
       try {
         foreach ($entity_storage->loadMultipleRevisions($revision_ids) as $entity_revision) {
-          $revision_id = $entity_revision->getRevisionId();
+          $revision_id = (int) $entity_revision->getRevisionId();
           \Drupal::service('entity_usage.entity_update_manager')->trackUpdateOnCreation($entity_revision);
           $context['sandbox']['current_id'] = $revision_id;
         }
@@ -341,7 +405,7 @@ class EntityUsageBatchManager implements LoggerAwareInterface {
         $entity_storage->getQuery()->allRevisions()
           ->condition($entity_type_key, $context['sandbox']['current_id'], '>')
           ->accessCheck(FALSE)
-          ->sort($entity_type->getKey('revision'), 'ASC')
+          ->sort($entity_type->getKey('revision'))
           ->range(0, static::BULK_BATCH_SIZE)
           ->execute()
       );
@@ -352,13 +416,13 @@ class EntityUsageBatchManager implements LoggerAwareInterface {
         $entity_storage->getQuery()->allRevisions()
           ->condition($entity_type_key, $context['sandbox']['current_id'], '>')
           ->accessCheck(FALSE)
-          ->sort($entity_type->getKey('revision'), 'ASC')
+          ->sort($entity_type->getKey('revision'))
           ->range(0, static::BULK_ID_LOAD)
           ->execute()
       );
       $context['sandbox']['total'] = $entity_storage->getQuery()->allRevisions()
         ->accessCheck(FALSE)
-        ->sort($entity_type->getKey('revision'), 'ASC')
+        ->sort($entity_type->getKey('revision'))
         ->count()
         ->execute();
     }
@@ -535,40 +599,6 @@ class EntityUsageBatchManager implements LoggerAwareInterface {
       }
       $context['sandbox']['current_id'] = $entity_id;
     }
-  }
-
-  /**
-   * Gets the list of entity type IDs to track.
-   *
-   * @param \Drupal\Core\Config\Config $entity_usage_config
-   *   The entity usage config.
-   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
-   *   The entity type manager.
-   *
-   * @return string[]
-   *   The list of entity type IDs to track.
-   */
-  private static function getEntityTypesToTrack(Config $entity_usage_config, EntityTypeManagerInterface $entity_type_manager): array {
-    $entity_types = [];
-    $to_track = $entity_usage_config->get('track_enabled_source_entity_types');
-    foreach (\Drupal::entityTypeManager()->getDefinitions() as $entity_type_id => $entity_type) {
-      // Only look for entities enabled for tracking on the settings form.
-      if (
-        !is_array($to_track) &&
-        $entity_type->hasKey('id') &&
-        $entity_type->entityClassImplements('\Drupal\Core\Entity\ContentEntityInterface')
-      ) {
-        // When no settings are defined, track all content entities by default,
-        // except for Files and Users.
-        if (!in_array($entity_type_id, ['file', 'user'])) {
-          $entity_types[] = $entity_type_id;
-        }
-      }
-      elseif (is_array($to_track) && in_array($entity_type_id, $to_track, TRUE)) {
-        $entity_types[] = $entity_type_id;
-      }
-    }
-    return $entity_types;
   }
 
   /**

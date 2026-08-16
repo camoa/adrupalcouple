@@ -1,0 +1,2992 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: editoria11y 3.0.0\n"
+"POT-Creation-Date: 2026-08-01 21:46-0400\n"
+"PO-Revision-Date: 2026-2-12 10:00+0000\n"
+"Language-Team: Editoria11y\n"
+"Language: sv\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid ""
+"editoria11y_post_update_0004: scanned @scanned mismatched page(s), "
+"backfilled @fixed to the referenced entity language."
+msgstr ""
+"editoria11y_post_update_0004: scanned @scanned mismatched page(s), "
+"backfilled @fixed to the referenced entity language."
+
+msgid "Editoria11y"
+msgstr "Editoria11y"
+
+msgid "Editoria11y - Pages with issues"
+msgstr "Editoria11y – Sidor med problem"
+
+msgctxt "problems"
+msgid "Provides relationship for issues and dismissals"
+msgstr "Anger relationen mellan problem och avfärdanden"
+
+msgid "EID"
+msgstr "EID"
+
+msgid "Editoria11y's internal page ID"
+msgstr "Editoria11ys interna sid-ID"
+
+msgid "Entity ID"
+msgstr "Entitets-ID"
+
+msgid "The NID/TID/UID of the page with an issue."
+msgstr "Sidans NID/TID/UID med ett problem."
+
+msgid "Entity type"
+msgstr "Entitetstyp"
+
+msgid "The entity type; \"route\" if no type found."
+msgstr "Entitetstypen; \"route\" om ingen typ hittas."
+
+msgid "Route name"
+msgstr "Routenamn"
+
+msgid "Route name for page."
+msgstr "Routenamn för sidan."
+
+msgid "Page path"
+msgstr "Sidsökväg"
+
+msgid "Internal, relative page path."
+msgstr "Intern, relativ sidsökväg."
+
+msgid "Page language"
+msgstr "Sidspråk"
+
+msgid "Active translation."
+msgstr "Aktiv översättning."
+
+msgid "Page title"
+msgstr "Sidtitel"
+
+msgid "The name of the route where this was last seen."
+msgstr "Namnet på routen där detta senast sågs."
+
+msgid "Content alerts"
+msgstr "Innehållsvarningar"
+
+msgid "Number of alerts shown to content editors."
+msgstr "Antal varningar som visas för innehållsredaktörer."
+
+msgid "Dev alerts"
+msgstr "Utvecklarvarningar"
+
+msgid "Number of alerts shown to developers."
+msgstr "Antal varningar som visas för utvecklare."
+
+msgid "Updated"
+msgstr "Uppdaterad"
+
+msgid "When this page was last checked."
+msgstr "När sidan senast kontrollerades."
+
+msgid "Editoria11y - Test results"
+msgstr "Editoria11y – Testresultat"
+
+msgctxt "problems"
+msgid "Stores Editoria11y issue list"
+msgstr "Lagrar Editoria11y-problemlistan"
+
+msgid "Result row"
+msgstr "Resultatrad"
+
+msgid "Internal identifier"
+msgstr "Intern identifierare"
+
+msgid "Created"
+msgstr "Skapad"
+
+msgid "When this page was flagged."
+msgstr "När sidan markerades."
+
+msgid "Alert type"
+msgstr "Varningstyp"
+
+msgid "The name of the test as reported by Editoria11y JS"
+msgstr "Testnamnet som rapporteras av Editoria11y JS"
+
+msgid "Alert type, linked"
+msgstr "Varningstyp, länkad"
+
+msgid "Linked to report of all alerts of this type."
+msgstr "Länkad till rapport över alla varningar av denna typ."
+
+msgid "Content alert count"
+msgstr "Antal innehållsvarningar"
+
+msgid "The number of hits for this test type on this page"
+msgstr "Antal träffar för denna testtyp på sidan"
+
+msgid "Dev alert count"
+msgstr "Antal utvecklarvarningar"
+
+msgid "Editoria11y - Dismissals"
+msgstr "Editoria11y – avfärdanden"
+
+msgid "Stores Editoria11y warnings and dismissals"
+msgstr "Lagrar Editoria11y-varningar och avfärdanden"
+
+msgid "Dismissal internal reference ID"
+msgstr "Internt referens-ID för avfärdande"
+
+msgid "Page with dismissal"
+msgstr "Sida med avfärdande"
+
+msgid "Dismissed by"
+msgstr "Avfärdad av"
+
+msgid "The user linked to this dismissal."
+msgstr "Användaren som är kopplad till detta avfärdande."
+
+msgid "Linked Drupal user"
+msgstr "Kopplad Drupal-användare"
+
+msgid "Dismissed element id"
+msgstr "ID för avfärdat element"
+
+msgid "Code sample to identify the flagged element."
+msgstr "Kodexempel för att identifiera det markerade elementet."
+
+msgid "Dismissed on"
+msgstr "Avfärdad den"
+
+msgid "The Unix timestamp of the first time this record was flagged."
+msgstr "Unix-tidsstämpel för första gången posten markerades."
+
+msgid "Dismissal stale since"
+msgstr "Avfärdande inaktuellt sedan"
+
+msgid "The element has not been seen since this date."
+msgstr "Elementet har inte setts sedan detta datum."
+
+msgid "Dismissed result name"
+msgstr "Namn på avfärdat resultat"
+
+msgid "Dismissed result name, linked"
+msgstr "Namn på avfärdat resultat, länkat"
+
+msgid "Links to report of all alerts of this type."
+msgstr "Länkar till rapporten över alla varningar av denna typ."
+
+msgid "Dismissal status"
+msgstr "Avfärdandestatus"
+
+msgid "The type of dismissal (e.g., OK, Ignore)"
+msgstr "Typ av avfärdande (t.ex. OK, Ignorera)"
+
+msgid "Relate from Editoria11y page to referenced node"
+msgstr "Länka från Editoria11y‑sida till refererad nod"
+
+msgid "Issues were found on this node"
+msgstr "Problem hittades på denna nod"
+
+msgid "Relate from node data to Editoria11y page"
+msgstr "Länka noderna till Editoria11y‑sidan"
+
+msgid "Relate from Editoria11y page to referenced taxonomy term"
+msgstr "Länka från Editoria11y‑sida till refererat taxonomibegrepp"
+
+msgid "Issues were found on this term page"
+msgstr "Problem hittades på denna termsida"
+
+msgid "Relate from taxonomy term data to Editoria11y page"
+msgstr "Länka taxonomidata till Editoria11y‑sidan"
+
+msgid "Relate from Editoria11y page list to user bio page data"
+msgstr "Länka Editoria11y‑sidlistan till användarens biosida"
+
+msgid "Issues were found on this user bio page"
+msgstr "Problem hittades på denna användarbiosida"
+
+msgid "Relate from Editoria11y page to user bio page with issues"
+msgstr "Länka Editoria11y‑sida till användarbiosida med problem"
+
+msgid "Relate from user bio page to Editoria11y results"
+msgstr "Länka användarbiosida till Editoria11y‑resultat"
+
+msgid "Relate from users list to Editoria11y results on bio page"
+msgstr "Länka användarlista till Editoria11y‑resultat på biosida"
+
+msgid "Relate from Editoria11y page to issues on page"
+msgstr "Länka Editoria11y‑sida till problem på sidan"
+
+msgid "Issues found on this node"
+msgstr "Problem hittades på denna nod"
+
+msgid "Relate from Editoria11y result to page"
+msgstr "Länka Editoria11y‑resultat till sidan"
+
+msgid "Relate from Editoria11y page to dismissals on page"
+msgstr "Länka Editoria11y‑sida till avfärdanden på sidan"
+
+msgid "Relate from Editoria11y dismissal to page"
+msgstr "Länka Editoria11y‑avfärdande till sidan"
+
+msgid "Group relationship for node with Editoria11y issues"
+msgstr "Grupprelation för nod med Editoria11y‑problem"
+
+msgid ""
+"Bridge to the Group module. Add the Group module Group relationship on top "
+"of this one to filter or sort issues by group."
+msgstr ""
+"Bro till Group-modulen. Lägg till Group-modulens grupprelation ovanpå den "
+"här för att filtrera eller sortera problem efter grupp."
+
+msgid "Group relationship for node"
+msgstr "Grupprelation för nod"
+
+msgid "Group relationship for user bio with Editoria11y issues"
+msgstr "Grupprelation för användarbio med Editoria11y‑problem"
+
+msgid "Group relationship for user"
+msgstr "Grupprelation för användare"
+
+msgid "Group relationship for taxonomy term with Editoria11y issues"
+msgstr "Grupprelation för taxonomiterm med Editoria11y‑problem"
+
+msgid ""
+"Bridge to the Group module. Add the Group module Group relationship on top "
+"of this one to filter or sort issues by group. Requires a contrib module "
+"that exposes terms as group content."
+msgstr ""
+"Bro till Group-modulen. Lägg till Group-modulens grupprelation ovanpå den "
+"här för att filtrera eller sortera problem efter grupp. Kräver en contrib-"
+"modul som exponerar termer som gruppinnehåll."
+
+msgid "Group relationship for taxonomy term"
+msgstr "Grupprelation för taxonomiterm"
+
+msgid "Warning: possible out of date path. This content may have moved to"
+msgstr "Varning: sökvägen kan vara föråldrad. Innehållet kan ha flyttats till"
+
+msgid "Export CSV"
+msgstr "Exportera CSV"
+
+msgid "Predelete failed: @error_message"
+msgstr "Förborttagning misslyckades: @error_message"
+
+msgid "Page attachment failed: @error_message"
+msgstr "Sidoanslutning misslyckades: @error_message"
+
+msgid ""
+"editoria11y_update_9019: scanned @total rows, repaired @updated, deleted "
+"@deleted corrupted group rows, left @skipped untouched."
+msgstr ""
+"editoria11y_update_9019: scanned @total rows, repaired @updated, deleted "
+"@deleted corrupted group rows, left @skipped untouched."
+
+msgid ""
+"editoria11y_update_9020: hashed @hashed page rows, removed @deduped "
+"duplicate rows, added unique keys."
+msgstr "editoria11y_update_9020: hashed @hashed page rows, removed @deduped duplicate rows, added unique keys."
+
+msgid "Editoria11y Accessibility Checker"
+msgstr "Editoria11y tillgänglighetskontroll"
+
+msgid ""
+"Checks page content for accessibility and provides a site-wide dashboard."
+msgstr ""
+"Kontrollerar sidinnehåll för tillgänglighet och tillhandahåller ett "
+"övergripande dashboard."
+
+msgid "Content Accessibility"
+msgstr "Innehållstillgänglighet"
+
+msgid "Accessibility checker notifications and exclusions."
+msgstr "Notifieringar och undantag i tillgänglighetskontrollen."
+
+msgid "Results from the Editoria11y checker."
+msgstr "Resultat från Editoria11y‑kontrollen."
+
+msgid "Dashboard"
+msgstr "Dashboard"
+
+msgid "Core settings"
+msgstr "Kärninställningar"
+
+msgid "Demo"
+msgstr "Demo"
+
+msgid "View Editoria11y checker"
+msgstr "Visa Editoria11y‑kontrollen"
+
+msgid "Assign to all content editors."
+msgstr "Tilldela till alla innehållsredaktörer."
+
+msgid "Administer Editoria11y checker"
+msgstr "Administrera Editoria11y‑kontrollen"
+
+msgid "Allows user to purge results and change configuration."
+msgstr "Tillåter användare att rensa resultat och ändra konfiguration."
+
+msgid "Mark as hidden in Editoria11y"
+msgstr "Markera som dold i Editoria11y"
+
+msgid "Adds button to suppress a manual check for the current user."
+msgstr ""
+"Lägger till en knapp för att dölja en manuell kontroll för den aktuella "
+"användaren."
+
+msgid "Mark as OK in Editoria11y"
+msgstr "Markera som OK i Editoria11y"
+
+msgid ""
+"Adds button to suppress a manual check for all users, if sync is enabled."
+msgstr ""
+"Lägger till en knapp för att dölja en manuell kontroll för alla användare om "
+"synkronisering är aktiverad."
+
+msgid "Manage Editoria11y results"
+msgstr "Hantera Editoria11y‑resultat"
+
+msgid "View the site-wide dashboard and reset dismissals."
+msgstr "Visa det övergripande dashboardet och återställ avfärdanden."
+
+msgid "Editoria11y core settings"
+msgstr "Editoria11y kärninställningar"
+
+msgid "Content Accessibility Issues"
+msgstr "Tillgänglighetsproblem i innehåll"
+
+msgid "Editoria11y Settings"
+msgstr "Inställningar för Editoria11y"
+
+msgid "Check elements in these containers"
+msgstr "Kontrollera element i dessa behållare"
+
+msgid "Alert panel assertiveness"
+msgstr "Varningspanelens tydlighetsnivå"
+
+msgid "Do not run if these elements are on the page"
+msgstr "Kör inte om dessa element finns på sidan"
+
+msgid "Suppress all alerts if none of these elements are present"
+msgstr "Undertryck alla varningar om inga av dessa element finns på sidan"
+
+msgid "Do not run tests on these containers"
+msgstr "Kör inte tester på dessa behållare"
+
+msgid "Move toggle to avoid colliding with these widgets"
+msgstr "Flytta växlaren för att undvika krock med dessa widgets"
+
+msgid ""
+"Full check should warn on these elements with embedded uncheckable content"
+msgstr ""
+"Fullständig kontroll bör varna för element med inbäddat, okontrollerbart "
+"innehåll"
+
+msgid "These links download a document or image and need a manual review"
+msgstr ""
+"Dessa länkar laddar ned ett dokument eller en bild och kräver manuell "
+"granskning"
+
+msgid "Strings that indicate a link opens in a new window"
+msgstr "Strängar som indikerar att en länk öppnas i ett nytt fönster"
+
+msgid "Remove these strings from link text before checking for bad link text"
+msgstr ""
+"Ta bort dessa strängar från länktexten innan kontroll av olämplig länktext"
+
+msgid "Remove strings in this selector before checking for bad link text"
+msgstr "Ta bort strängar i denna selektor innan kontroll av länktext"
+
+msgid ""
+"Hidden elements in these containers will be revealed by theme JS on request "
+"via a dispatched event"
+msgstr ""
+"Dolda element i dessa behållare visas av temats JS efter ett utlöst event"
+
+msgid "Elements that truncate overflow, partially hiding buttons"
+msgstr "Element som döljer överskjutande innehåll och delvis gömmer knappar"
+
+msgid "Color scheme for panel and tooltips"
+msgstr "Färgschema för paneler och tooltips"
+
+msgid "Pin toolbar to left or right"
+msgstr "Fäst verktygsfältet till vänster eller höger"
+
+msgid "Web components the checker should check"
+msgstr "Webbkomponenter som kontrollen ska granska"
+
+msgid "Auto-detects for additional shadow components"
+msgstr "Upptäcker automatiskt ytterligare shadow‑komponenter"
+
+msgid "Auto-detects and checks new content"
+msgstr "Upptäcker och kontrollerar nytt innehåll automatiskt"
+
+msgid "Disables dashboard and synchronized marking of elements as OK"
+msgstr "Inaktiverar dashboard och synkroniserad markering av element som OK"
+
+msgid "URL query parameters that should be recorded as separate pages"
+msgstr "URL‑parametrar som ska betraktas som separata sidor"
+
+msgid "Remove string from URL for dashboard page links"
+msgstr "Ta bort sträng från URL för dashboard‑länkar"
+
+msgid "Number of custom test finished events the checker should wait for"
+msgstr "Antal ”custom test finished”‑händelser som kontrollen ska vänta på"
+
+msgid "Disables live editor checking"
+msgstr "Inaktiverar kontroll i live‑typredigerare"
+
+msgid ""
+"Selector for frontend-context editors that should inherit the document "
+"outline"
+msgstr "Selektor för frontend‑editorer som ska ärva dokumentstrukturen"
+
+msgid "Selector for editors where their first heading should be h2"
+msgstr "Selektor för editorer där första rubriken ska vara h2"
+
+msgid "Selector for editors where their first heading should be h3"
+msgstr "Selektor för editorer där första rubriken ska vara h3"
+
+msgid "Selector for editors where their first heading should be h4"
+msgstr "Selektor för editorer där första rubriken ska vara h4"
+
+msgid "Selectors for components where edit links are meaningless on tips"
+msgstr ""
+"Selektorer för komponenter där redigeringslänkar i tips saknar relevans"
+
+msgid "Tell CK5 to have a header rows or columns by default."
+msgstr ""
+"Instruktion för CK5 att använda rubrikrader eller rubrikkolumner som "
+"standard."
+
+msgid "Tests not shown to content authors."
+msgstr "Tester som inte visas för innehållsredaktörer."
+
+msgid "Disable the tests you are not ready for"
+msgstr "Inaktivera tester som inte ska användas ännu"
+
+msgid "linkNewWindow"
+msgstr "linkNewWindow"
+
+msgid "linkNoText"
+msgstr "linkNoText"
+
+msgid "altEmptyLinked"
+msgstr "altEmptyLinked"
+
+msgid "linkDocument"
+msgstr "linkDocument"
+
+msgid "linkTextIsURL"
+msgstr "linkTextIsURL"
+
+msgid "linkTextIsGeneric"
+msgstr "linkTextIsGeneric"
+
+msgid "textPossibleList"
+msgstr "textPossibleList"
+
+msgid "textPossibleHeading"
+msgstr "textPossibleHeading"
+
+msgid "textUppercase"
+msgstr "textUppercase"
+
+msgid "tableNoHeaderCells"
+msgstr "tableNoHeaderCells"
+
+msgid "tableEmptyHeaderCell"
+msgstr "tableEmptyHeaderCell"
+
+msgid "tableContainsContentHeading"
+msgstr "tableContainsContentHeading"
+
+msgid "embedVideo"
+msgstr "embedVideo"
+
+msgid "embedAudio"
+msgstr "embedAudio"
+
+msgid "embedVisualization"
+msgstr "embedVisualization"
+
+msgid "embedTwitter"
+msgstr "embedTwitter"
+
+msgid "embedCustom"
+msgstr "embedCustom"
+
+msgid "headingEmpty"
+msgstr "headingEmpty"
+
+msgid "headingIsLong"
+msgstr "headingIsLong"
+
+msgid "headingLevelSkipped"
+msgstr "headingLevelSkipped"
+
+msgid "blockquoteIsShort"
+msgstr "blockquoteIsShort"
+
+msgid "altMissing"
+msgstr "altMissing"
+
+msgid "altNull"
+msgstr "altNull"
+
+msgid "altMeaningless"
+msgstr "altMeaningless"
+
+msgid "altURL"
+msgstr "altURL"
+
+msgid "altImageOf"
+msgstr "altImageOf"
+
+msgid "altDeadspace"
+msgstr "altDeadspace"
+
+msgid "altLong"
+msgstr "altLong"
+
+msgid "altPartOfLinkWithText"
+msgstr "altPartOfLinkWithText"
+
+msgid "2-letter code (en, fr, de)"
+msgstr "2‑bokstavskod (en, fr, de)"
+
+msgid "Alert"
+msgstr "Varning"
+
+msgid "Alert types"
+msgstr "Varningstyper"
+
+msgid "Alerts"
+msgstr "Varningar"
+
+msgid "All dismissals"
+msgstr "Alla avfärdanden"
+
+msgid "All issues"
+msgstr "Alla problem"
+
+msgid "All pages"
+msgstr "Alla sidor"
+
+msgid "Apply"
+msgstr "Tillämpa"
+
+msgid "Author"
+msgstr "Författare"
+
+msgid "Authored after"
+msgstr "Skapad efter"
+
+msgid "Authored before"
+msgstr "Skapad före"
+
+msgid "Authored"
+msgstr "Skapad"
+
+msgid "Content type"
+msgstr "Innehållstyp"
+
+msgid "Detected"
+msgstr "Upptäckt"
+
+msgid "Dismissals"
+msgstr "Avfärdanden"
+
+msgid "Dismissed accessibility alerts"
+msgstr "Avfärdade tillgänglighetsvarningar"
+
+msgid "Edited"
+msgstr "Redigerad"
+
+msgid "Editor"
+msgstr "Redaktör"
+
+msgid "Items per page"
+msgstr "Objekt per sida"
+
+msgid "Filter"
+msgstr "Filtrera"
+
+msgid "Language"
+msgstr "Språk"
+
+msgid "Last editor"
+msgstr "Senaste redaktör"
+
+msgid "Marked"
+msgstr "Markerad"
+
+msgid "No dismissals found."
+msgstr "Inga avfärdanden hittades."
+
+msgid "Page"
+msgstr "Sida"
+
+msgid "Pages"
+msgstr "Sidor"
+
+msgid "Pages with alerts"
+msgstr "Sidor med varningar"
+
+msgid "Panel"
+msgstr "Panel"
+
+msgid "Path"
+msgstr "Sökväg"
+
+msgid "Published"
+msgstr "Publicerad"
+
+msgid "Recent"
+msgstr "Senaste"
+
+msgid "Recent accessibility alerts"
+msgstr "Senaste tillgänglighetsvarningar"
+
+msgid "Recent alerts"
+msgstr "Senaste problemen"
+
+msgctxt "problems"
+msgid "Recent alerts"
+msgstr "Senaste varningar"
+
+msgid "Sort by"
+msgstr "Sortera efter"
+
+msgid "Title"
+msgstr "Titel"
+
+msgid "Type"
+msgstr "Typ"
+
+msgid "Filter and sort"
+msgstr "Filtrera och sortera"
+
+msgid "Deleted."
+msgstr "Borttagen."
+
+msgid "Delete failed."
+msgstr "Borttagning misslyckades."
+
+msgid "<p>The Editoria11y <strong><em>@type</em></strong> view is missing.</p>"
+msgstr ""
+"<p>The Editoria11y <strong><em>@type</em></strong> view is missing.</"
+"p><p>Visningen <strong><em>@type</em></strong> för Editoria11y saknas.</p>"
+
+msgid ""
+"<p>There are three view configurations this module installs, found in its /"
+"config/install folder. Each must be installed for this dashboard to display "
+"results.</p>"
+msgstr ""
+"<p>There are three view configurations this module installs, found in its /"
+"config/install folder. Each must be installed for this dashboard to display "
+"results.</p><p>Modulen installerar tre visningskonfigurationer i katalogen /"
+"config/install. Alla måste installeras för att dashboardet ska kunna visa "
+"resultat.</p>"
+
+msgid ""
+"<p>To fix: copy and paste the contents of <strong>/editoria11y/config/"
+"install/views.view.ed11y_@type.yml</strong> into a \"View\" type import at "
+"<a href=\"/admin/config/development/configuration/single/import\">/admin/"
+"config/development/configuration/single/import</a>. If you sync your "
+"configuration to the filesystem, be sure to include these Views in your "
+"repository.</p>"
+msgstr ""
+"<p>To fix: copy and paste the contents of <strong>/editoria11y/config/"
+"install/views.view.ed11y_@type.yml</strong> into a \"View\" type import at "
+"<a href=\"/admin/config/development/configuration/single/import\">/admin/"
+"config/development/configuration/single/import</a>. If you sync your "
+"configuration to the filesystem, be sure to include these Views in your "
+"repository.</p><p>För att åtgärda: kopiera innehållet i <strong>/editoria11y/"
+"config/install/views.view.ed11y_@type.yml</strong> och klistra in det i en "
+"import av typen ”View” på <a href=\"/admin/config/development/configuration/"
+"single/import\">/admin/config/development/configuration/single/import</a>. "
+"Om du synkroniserar konfigurationen till filsystemet, se till att dessa "
+"visningar finns med i ditt repository.</p>"
+
+msgid "link is external"
+msgstr "länk är extern"
+
+msgid "link sends email"
+msgstr "länk skickar e‑post"
+
+msgid "No results found"
+msgstr "Inga resultat hittades"
+
+msgid ""
+"Your Editoria11y CSA trial has @days days remaining. <a "
+"href=\"@url\">Activate a license</a> to continue using CSA features after "
+"the trial ends."
+msgstr ""
+"Din Editoria11y CSA-testperiod har @days dagar kvar. <a "
+"href=\"@url\">Aktivera en licens</a> för att fortsätta använda CSA-"
+"funktioner efter att testperioden är slut."
+
+msgid ""
+"Your Editoria11y CSA trial has expired. CSA features have been disabled. <a "
+"href=\"@url\">Activate a license</a> to continue using them."
+msgstr ""
+"Din Editoria11y CSA-testperiod har gått ut. CSA-funktioner har inaktiverats. "
+"<a href=\"@url\">Aktivera en licens</a> för att fortsätta använda dem."
+
+msgid ""
+"Your Editoria11y CSA license has expired. <a href=\"@url\">Renew or "
+"deactivate your license</a>."
+msgstr ""
+"Din Editoria11y CSA-licens har gått ut. <a href=\"@url\">Förnya eller "
+"avaktivera din licens</a>."
+
+msgid ""
+"Your Editoria11y CSA license has expired. Please renew to reactivate CSA add-"
+"ons."
+msgstr ""
+"Din Editoria11y CSA-licens har gått ut. Förnya för att återaktivera CSA-"
+"tillägg."
+
+msgid "Cron license check failed: @msg"
+msgstr "Licenskontroll via cron misslyckades: @msg"
+
+msgid ""
+"Editoria11y CSA features are active on a @days-day trial. <a "
+"href=\"@url\">Activate a license</a> to continue using them after the trial "
+"ends."
+msgstr ""
+"Editoria11y CSA-funktioner är aktiva på en @days dagars testperiod. <a "
+"href=\"@url\">Aktivera en licens</a> för att fortsätta använda dem efter att "
+"testperioden är slut."
+
+msgid "Editoria11y Custom Test"
+msgstr "Editoria11y Anpassat Test"
+
+msgid "Editoria11y Custom Tests"
+msgstr "Editoria11y Anpassade Tester"
+
+msgid "editoria11y custom test"
+msgstr "editoria11y anpassat test"
+
+msgid "editoria11y custom tests"
+msgstr "editoria11y anpassade tester"
+
+msgid "Editoria11y CSA: Advanced Tools"
+msgstr "Editoria11y CSA: avancerade verktyg"
+
+msgid ""
+"Community-Supported Addons include code and contrast checks, custom checks, "
+"a site crawler and report maintenance tools."
+msgstr "Community-stödda tillägg innehåller kod- och kontrastkontroller, anpassade kontroller, en webbplatsrobot och verktyg för underhåll av rapporter."
+
+msgid "Add custom test"
+msgstr "Lägg till anpassat test"
+
+msgid "Recheck"
+msgstr "Kontrollera igen"
+
+msgid "CSA membership"
+msgstr "CSA-medlemskap"
+
+msgid "Custom tests"
+msgstr "Anpassade tester"
+
+msgid "Dashboard Actions"
+msgstr "Dashboard‑åtgärder"
+
+msgid "Editoria11y CSA membership"
+msgstr "Editoria11y CSA-medlemskap"
+
+msgid "Editoria11y custom tests"
+msgstr "Editoria11y anpassade tester"
+
+msgid "Add a custom test"
+msgstr "Lägg till ett anpassat test"
+
+msgid "Edit custom test"
+msgstr "Redigera anpassat test"
+
+msgid "Delete custom test"
+msgstr "Ta bort anpassat test"
+
+msgid "Editoria11y CSA Settings"
+msgstr "Editoria11y CSA‑inställningar"
+
+msgid "Developer roles"
+msgstr "Utvecklarroller"
+
+msgid "Developer assertiveness"
+msgstr "Tydlighetsnivå för utvecklarvarningar"
+
+msgid "Tests overridden to show to content editors"
+msgstr "Tester som tvingas visas för innehållsredaktörer"
+
+msgid "Tests overridden to turn off"
+msgstr "Tester som tvingas inaktiveras"
+
+msgid "Tests overridden to only to show to developers"
+msgstr "Tester som tvingas visas endast för utvecklare"
+
+msgid "Elements to ignore for contrast test"
+msgstr "Element att ignorera vid kontrastkontroll"
+
+msgid "Turn on contrast checks"
+msgstr "Aktivera kontrastkontroller"
+
+msgid "Developer check root: body or specify"
+msgstr "Rot för utvecklarkontroll: body eller angiven selektor"
+
+msgid "Developer check root selector"
+msgstr "Rotselektor för utvecklarkontroll"
+
+msgid "Selector for elements to ignore for developers"
+msgstr "Selektor för element som utvecklare ska ignorera"
+
+msgid "Enabled"
+msgstr "Aktiverad"
+
+msgid "Custom development domain patterns"
+msgstr "Anpassade mönster för utvecklingsdomäner"
+
+msgid "ID"
+msgstr "ID"
+
+msgid "Label"
+msgstr "Etikett"
+
+msgid "Test key"
+msgstr "Testnyckel"
+
+msgid "Tooltip title"
+msgstr "Tooltip-titel"
+
+msgid "Tip content HTML"
+msgstr "HTML för tipsets innehåll"
+
+msgid "Element set to check"
+msgstr "Elementuppsättning att kontrollera"
+
+msgid "Dismiss key type"
+msgstr "Typ av avfärdningsnyckel"
+
+msgid "CSS filter selector"
+msgstr "CSS-filterselektor"
+
+msgid "Text strings to include"
+msgstr "Textsträngar att inkludera"
+
+msgid "Text string"
+msgstr "Textsträng"
+
+msgid "Text strings to exclude"
+msgstr "Textsträngar att exkludera"
+
+msgid "Case sensitive text matching"
+msgstr "Textmatchning med skiftlägeskänslighet"
+
+msgid "Filter which pages will be crawled"
+msgstr "Filtrera vilka sidor som ska genomsökas"
+
+msgid "Cancel"
+msgstr "Avbryt"
+
+msgid "Millisecond pause between page requests"
+msgstr "Paus i millisekunder mellan sidförfrågningar"
+
+msgid "This tab needs to remain open and in the foreground during the crawl."
+msgstr "Denna flik måste vara öppen och i förgrunden under genomsökningen."
+
+msgid "Estimated time:"
+msgstr "Beräknad tid:"
+
+msgid "hours"
+msgstr "timmar"
+
+msgid "minutes"
+msgstr "minuter"
+
+msgid "minute"
+msgstr "minut"
+
+msgid "Start crawling"
+msgstr "Starta genomsökning"
+
+msgid "Checked:"
+msgstr "Kontrollerade:"
+
+msgid "pages"
+msgstr "sidor"
+
+msgid "Back to dashboard"
+msgstr "Tillbaka till dashboardet"
+
+msgid "Test"
+msgstr "Test"
+
+msgid "Elements"
+msgstr "Element"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Text"
+msgstr "Text"
+
+msgid "On"
+msgstr "Den"
+
+msgid "Off"
+msgstr "Av"
+
+msgid "Freemius deactivation API call failed: @msg"
+msgstr "Freemius API-anrop för inaktivering misslyckades: @msg"
+
+msgid "Cannot cancel subscription: API token not found."
+msgstr "Kan inte avsluta prenumerationen: API-token hittades inte."
+
+msgid "Freemius subscription cancellation API call failed: @msg"
+msgstr "Freemius API-anrop för avslutande av prenumeration misslyckades: @msg"
+
+msgid "Key module lookup for @id failed: @msg"
+msgstr "Key module lookup for @id failed: @msg"
+
+msgid "Failed to update Freemius install properties: @msg"
+msgstr "Kunde inte uppdatera Freemius installationsegenskaper: @msg"
+
+msgid ""
+"An <a href=\"@settings\">active license must be deactivated</a> before "
+"uninstalling."
+msgstr ""
+"En <a href=\"@settings\">aktiv licens måste avaktiveras</a> innan "
+"avinstallation."
+
+msgid "License key stored. Use editoria11y-csa:activate to activate."
+msgstr "Licensnyckel sparad. Använd editoria11y-csa:activate för att aktivera."
+
+msgid "License activated."
+msgstr "Licens aktiverad."
+
+msgid "License deactivated."
+msgstr "Licens inaktiverad."
+
+msgid "License active. Expires: @date"
+msgstr "Licens aktiv. Löper ut: @date"
+
+msgid "License active. No expiration date."
+msgstr "Licens aktiv. Inget utgångsdatum."
+
+msgid ""
+"License management locked. Use editoria11y-csa:unlock to re-enable UI "
+"changes."
+msgstr ""
+"Licenshantering låst. Använd editoria11y-csa:unlock för att återaktivera UI-"
+"ändringar."
+
+msgid "License management unlocked. UI changes are now allowed."
+msgstr ""
+"Licenshantering upplåst. Ändringar i användargränssnittet är nu tillåtna."
+
+msgid "License expired or cancelled."
+msgstr "Licens utgången eller avslutad."
+
+msgid "License key cannot be empty."
+msgstr "Licensnyckel får inte vara tom."
+
+msgid "Failed to store key: {msg}"
+msgstr "Kunde inte spara nyckel: {msg}"
+
+msgid "No stored license key found. Run editoria11y-csa:set-key first."
+msgstr "Ingen sparad licensnyckel hittades. Kör editoria11y-csa:set-key först."
+
+msgid "Activation failed: {msg}"
+msgstr "Aktivering misslyckades: {msg}"
+
+msgid "Deactivation failed: {msg}"
+msgstr "Inaktivering misslyckades: {msg}"
+
+msgid "License check failed: {msg}"
+msgstr "Licenskontroll misslyckades: {msg}"
+
+msgid "Export"
+msgstr "Exportera"
+
+msgid "Export pages"
+msgstr "Exportera sidor"
+
+msgid "Export dismissals"
+msgstr "Exportera avfärdanden"
+
+msgid "Export alerts"
+msgstr "Exportera varningar"
+
+msgid "Paths with parameters"
+msgstr "Sökvägar med parametrar"
+
+msgid "Drop records for deleted or moved pages"
+msgstr "Ta bort poster för borttagna eller flyttade sidor"
+
+msgid "Deletes results that no longer have valid paths or entity references."
+msgstr ""
+"Raderar resultat som inte längre har giltiga sökvägar eller referenser."
+
+msgid "Update page titles"
+msgstr "Uppdatera sidtitlar"
+
+msgid ""
+"Replaces recorded titles for Nodes, Terms and Users with the current value "
+"on their edit page."
+msgstr ""
+"Ersätter sparade titlar för noder, termer och användare med det aktuella "
+"värdet i respektive redigeringssida."
+
+msgid "Update page paths"
+msgstr "Uppdatera sidors sökvägar"
+
+msgid ""
+"Replaces recorded URLs for Nodes, Terms and Users with their current "
+"canonical path. <br>@ReviewPaths (node/1?node=2) will not be updated."
+msgstr ""
+"Ersätter sparade URL:er för noder, termer och användare med deras aktuella "
+"kanoniska sökväg. <br>@ReviewPaths (node/1?node=2) uppdateras inte."
+
+msgid "Risky deletions"
+msgstr "Riskabla borttagningar"
+
+msgid "Delete records for paths with parameters (e.g., ?page=2)"
+msgstr "Ta bort poster för sökvägar med parametrar (t.ex. ?page=2)"
+
+msgid "None"
+msgstr "Ingen"
+
+msgid "Only for nodes, terms & users"
+msgstr "Endast för noder, termer och användare"
+
+msgid "All, including search and views"
+msgstr "Alla, inklusive sökningar och vyer"
+
+msgid ""
+"Used to remove duplicate records when previously recorded parameters like "
+"page numbers or search keys were not meaningful. Parameters that are not "
+"meaningful should be removed from the list of parameters to save under "
+"\"Syncing results to reports\" in the module configuration.<br>@ReviewPaths "
+"should be reviewed before proceeding. <strong>There is no undo</strong>."
+msgstr ""
+"Används för att ta bort dubblettposter när tidigare sparade parametrar (som "
+"sidnummer eller sökord) saknade betydelse. Parametrar som saknar betydelse "
+"bör tas bort under ”Syncing results to reports”.<br>@ReviewPaths bör "
+"kontrolleras innan åtgärden fortsätter. <strong>Detta kan inte ångras</"
+"strong>."
+
+msgid "Start"
+msgstr "Starta"
+
+msgid "Recheck nodes"
+msgstr "Kontrollera noder igen"
+
+msgid "Set up a crawl"
+msgstr "Konfigurera genomsökning"
+
+msgid "Processing batch #@batch_id of @count."
+msgstr "Bearbetar batch #@batch_id av @count."
+
+msgid "@process processed @count, deleted @deleted, updated @updated."
+msgstr "@process bearbetade @count, tog bort @deleted, uppdaterade @updated."
+
+msgid ""
+"An error occurred while processing %error_operation with arguments: "
+"@arguments"
+msgstr ""
+"Ett fel uppstod vid bearbetningen av %error_operation med argumenten: "
+"@arguments"
+
+msgid "No records to process."
+msgstr "Inga poster att bearbeta."
+
+msgid ""
+"@process processed @count, deleted @deleted, updated @updated in @elapsed."
+msgstr ""
+"@process bearbetade @count, tog bort @deleted, uppdaterade @updated på "
+"@elapsed."
+
+msgid "Admin label for the configuration page"
+msgstr "Administratörsetikett för konfigurationssidan"
+
+msgid "Test grouping ID"
+msgstr "Testgrupp-ID"
+
+msgid ""
+"Letters, numbers and underscores only.<br>Rules that share an ID will be "
+"grouped on dashboard reports."
+msgstr ""
+"Endast bokstäver, siffror och understreck.<br>Regler som delar ett ID "
+"grupperas i instrumentpanelsrapporter."
+
+msgid "Active"
+msgstr "Aktiv"
+
+msgid "Alert content"
+msgstr "Aviseringsinnehåll"
+
+msgid "Tip title"
+msgstr "Tipptitel"
+
+msgid "Tip details"
+msgstr "Tippdetaljer"
+
+msgid ""
+"HTML displayed in the tooltip. The provided template is optional.<br>\n"
+"        Allowed tags: @tags."
+msgstr ""
+"HTML som visas i verktygstipset. Den angivna mallen är valfri.<br>\n"
+"        Tillåtna taggar: @tags."
+
+msgid "To fix"
+msgstr "Att åtgärda"
+
+msgid "Error"
+msgstr "Fel"
+
+msgid "Manual check"
+msgstr "Manuell kontroll"
+
+msgid "Dismiss key"
+msgstr "Avfärdningsnyckel"
+
+msgid ""
+"How dismissals are tracked. 'Text' uses its text content, 'Attributes' uses "
+"its attributes (href, id, class, src)."
+msgstr ""
+"Hur avfärdningar spåras. 'Text' använder dess textinnehåll, 'Attributes' "
+"använder dess attribut (href, id, class, src)."
+
+msgid "Text content"
+msgstr "Textinnehåll"
+
+msgid "Attributes on tag (e.g. href and src)"
+msgstr "Attribut på tagg (t.ex. href och src)"
+
+msgid "Elements to check"
+msgstr "Element att kontrollera"
+
+msgid ""
+"These sets contain elements that match your check area and skip over "
+"configuration."
+msgstr ""
+"Dessa uppsättningar innehåller element som matchar ditt kontrollområde och "
+"hoppar över konfigurationen."
+
+msgid "Common choices"
+msgstr "Vanliga val"
+
+msgid "All text elements: Headings, Paragraphs, Blockquotes and Lists"
+msgstr "Alla textelement: Rubriker, Stycken, Blockcitat och Listor"
+
+msgid "Links"
+msgstr "Länkar"
+
+msgid "Paragraphs"
+msgstr "Stycken"
+
+msgid "Headings"
+msgstr "Rubriker"
+
+msgid "Images"
+msgstr "Bilder"
+
+msgid "All elements"
+msgstr "Alla element"
+
+msgid "...other..."
+msgstr "...annat..."
+
+msgid "Specific elements and combinations"
+msgstr "Specifika element och kombinationer"
+
+msgid "Lists"
+msgstr "Listor"
+
+msgid "Blockquotes"
+msgstr "Blockcitat"
+
+msgid "Tables"
+msgstr "Tabeller"
+
+msgid "Buttons"
+msgstr "Knappar"
+
+msgid "Inputs"
+msgstr "Inmatningsfält"
+
+msgid "Labels"
+msgstr "Etiketter"
+
+msgid "Iframes"
+msgstr "Iframes"
+
+msgid "Videos"
+msgstr "Videor"
+
+msgid "Audio"
+msgstr "Ljud"
+
+msgid ""
+"Note: combining Links with Paragraphs and other text containers can lead to "
+"duplicate alerts."
+msgstr ""
+"Obs: att kombinera Länkar med Stycken och andra textbehållare kan leda till "
+"duplicerade aviseringar."
+
+msgid "When tip should appear"
+msgstr "När tipset ska visas"
+
+msgid ""
+"This test builder allows for simple text and attribute tests.<br>Check the "
+"module readme for <a href=\"@url\">tips on writing more complex tests</a>."
+msgstr ""
+"Denna testbyggare möjliggör enkla text- och attributtester.<br>Se modulens "
+"readme för <a href=\"@url\">tips om att skriva mer komplexa tester</a>."
+
+msgid "Select by attributes"
+msgstr "Välj efter attribut"
+
+msgid ""
+"Match using CSS selectors.<br>Use :not() to skip elements, e.g. "
+"<code>:is(.check1, .check2):not(.ignore, .ignore *)</code>.<br>Use attribute "
+"selectors for URLs, e.g. <code>[href*=\".dev/\"]</code>."
+msgstr ""
+"Matchning med CSS-selektorer.<br>Använd :not() för att hoppa över element, "
+"t.ex. <code>:is(.check1, .check2):not(.ignore, .ignore *)</code>.<br>Använd "
+"attributselektorer för URL:er, t.ex. <code>[href*=\".dev/\"]</code>."
+
+msgid "Select by text"
+msgstr "Välj efter text"
+
+msgid "Flag elements containing any of these text strings. One per line."
+msgstr "Flagga element som innehåller någon av dessa textsträngar. En per rad."
+
+msgid "Case sensitive"
+msgstr "Skiftlägeskänslig"
+
+msgid "Exclude elements that match this text"
+msgstr "Uteslut element som matchar denna text"
+
+msgid ""
+"Don't flag elements if they contain any of these words or phrases. E.g., a "
+"link to a development server is ok if it contains \"dev.\" One per line."
+msgstr ""
+"Flagga inte element om de innehåller något av dessa ord eller fraser. T.ex. "
+"är en länk till en utvecklingsserver ok om den innehåller \"dev.\" En per "
+"rad."
+
+msgid "Test key must contain only letters, numbers, and underscores."
+msgstr "Testnyckeln får bara innehålla bokstäver, siffror och understreck."
+
+msgid "Tip content must contain visible text."
+msgstr "Tippinnehållet måste innehålla synlig text."
+
+msgid "Select at least one rule."
+msgstr "Välj minst en regel."
+
+msgid "Select at least one element type."
+msgstr "Välj minst en elementtyp."
+
+msgid "The filter selector should be a CSS selector, not a CSS rule block."
+msgstr "Filterselektorn ska vara en CSS-selektor, inte ett CSS-regelblock."
+
+msgid "Created new custom test %label."
+msgstr "Nytt anpassat test %label skapat."
+
+msgid "Updated custom test %label."
+msgstr "Anpassat test %label uppdaterat."
+
+msgid "Are you deactivating this site or cancelling altogether?"
+msgstr "Inaktiverar du denna webbplats eller avslutar du helt?"
+
+msgid "You can manage your subscriptions at any time in your Freemius account."
+msgstr ""
+"Du kan hantera dina prenumerationer när som helst i ditt Freemius-konto."
+
+msgid "Choose an action"
+msgstr "Välj en åtgärd"
+
+msgid ""
+"<strong>Deactivate this site</strong>, but keep my subscription active and "
+"renewing for use on another site"
+msgstr ""
+"<strong>Inaktivera den här webbplatsen</strong>, men håll min prenumeration "
+"aktiv och förnyad för användning på en annan webbplats"
+
+msgid ""
+"<strong>Cancel my subscription</strong> to the Editoria11y CSA altogether"
+msgstr "<strong>Avbryt mitt abonnemang</strong> på Editoria11y CSA helt"
+
+msgid "Confirm deactivation"
+msgstr "Bekräfta inaktivering"
+
+msgid "Never mind; keep site active"
+msgstr "Glöm det; behåll webbplatsen aktiv"
+
+msgid ""
+"This site appears to be a development or testing environment with an active "
+"license."
+msgstr ""
+"Den här webbplatsen verkar vara en utvecklings- eller testmiljö med en aktiv "
+"licens."
+
+msgid "How would you like to proceed?"
+msgstr "Hur vill du fortsätta?"
+
+msgid ""
+"<strong>Cancel deactivation</strong>; I will manage this from the production "
+"site"
+msgstr ""
+"<strong>Avbryt avaktivering</strong>; jag hanterar detta från "
+"produktionswebbplatsen"
+
+msgid ""
+"<strong>Disconnect this copy</strong>; leave the production license active"
+msgstr ""
+"<strong>Koppla bort den här kopian</strong>; lämna produktionslicensen aktiv"
+
+msgid ""
+"<strong>Deactivate all copies of this site</strong> (production, dev, and QA)"
+msgstr ""
+"<strong>Inaktivera alla kopior av den här webbplatsen</strong> (produktion, "
+"dev och QA)"
+
+msgid "Confirm"
+msgstr "Bekräfta"
+
+msgid ""
+"Editoria11y promotes accessibility in a unique way. Its tools are highly "
+"effective at helping non-technical authors prepare content that can be "
+"enjoyed equally by disabled Web users. We consider this a public good, so "
+"Editoria11y will always be free to use."
+msgstr ""
+"Editoria11y främjar tillgänglighet på ett unikt sätt. Verktygen är mycket "
+"effektiva för att hjälpa icke-tekniska författare att förbereda innehåll som "
+"kan avnjutas lika av webbanvändare med funktionsnedsättning. Vi betraktar "
+"detta som ett allmänt bästa, så Editoria11y kommer alltid att vara gratis "
+"att använda."
+
+msgid "Editoria11y is not, however, free to develop or support."
+msgstr "Editoria11y är dock inte gratis att utveckla eller ge support till."
+
+msgid ""
+"The \"Community Supported Add-ons\" (CSA) project fills the gap: project "
+"membership subscriptions fund the development of the Editoria11y library, "
+"its CMS plugins, and the CSA suite."
+msgstr ""
+"Projektet \"Community Supported Add-ons\" (CSA) fyller luckan: "
+"projektmedlemsabonnemang finansierar utvecklingen av Editoria11y-"
+"biblioteket, dess CMS-plugins och CSA-paketet."
+
+msgid ""
+"<a href=\"@url\"><strong>Join the CSA</strong></a> to support this project"
+msgstr ""
+"<a href=\"@url\"><strong>Gå med i CSA</strong></a> för att stödja detta "
+"projekt"
+
+msgid ""
+"Existing members: <a href=\"@url\"><strong>Manage your subscription</"
+"strong></a> or <a href=\"@support_url\"><strong>contact support</strong></a>"
+msgstr ""
+"Befintliga medlemmar: <a href=\"@url\"><strong>Hantera ditt abonnemang</"
+"strong></a> eller <a href=\"@support_url\"><strong>kontakta support</"
+"strong></a>"
+
+msgid ""
+"License management on this site has been locked via Drush. Use <code>drush "
+"ed11y-unlock</code> to re-enable changes from this form."
+msgstr ""
+"Licenshantering på den här webbplatsen har låsts via Drush. Använd "
+"<code>drush ed11y-unlock</code> för att återaktivera ändringar från detta "
+"formulär."
+
+msgid "Warning: this site matches a dev or QA URL pattern"
+msgstr "Varning: denna webbplats matchar ett dev- eller QA-URL-mönster"
+
+msgid "Shared activations should be managed in the production copy."
+msgstr "Delade aktiveringar bör hanteras i produktionskopian."
+
+msgid ""
+"Use <code>drush ed11y-lock</code> to prevent changing shared activations."
+msgstr ""
+"Använd <code>drush ed11y-lock</code> för att förhindra ändring av delade "
+"aktiveningar."
+
+msgid ""
+"Deactivating a shared key deactivates all copies of a site, including "
+"production."
+msgstr ""
+"Att inaktivera en delad nyckel inaktiverar alla kopior av en webbplats, "
+"inklusive produktion."
+
+msgid ""
+"Separate license activations from a development environment consume an "
+"additional key."
+msgstr ""
+"Separata licensaktiveringar från en utvecklingsmiljö förbrukar en extra "
+"nyckel."
+
+msgid "Trial (@days days remaining)"
+msgstr "Provperiod (@days dagar kvar)"
+
+msgid "Trial (expired)"
+msgstr "Provperiod (utgången)"
+
+msgid "License expired"
+msgstr "Licens utgången"
+
+msgid "Active membership"
+msgstr "Aktivt medlemskap"
+
+msgid "Activate using stored license key"
+msgstr "Aktivera med sparad licensnyckel"
+
+msgid "Activate with a different license key"
+msgstr "Aktivera med en annan licensnyckel"
+
+msgid "Activate (enter license key below)"
+msgstr "Aktivera (ange licensnyckel nedan)"
+
+msgid "<strong>License expired.</strong> Expired on: @date"
+msgstr "<strong>Licens utgången.</strong> Utgick: @date"
+
+msgid "<strong>License has expired.</strong>"
+msgstr "<strong>License has expired.</strong>"
+
+msgid "<strong>Trial license active.</strong> Trial ends: @date"
+msgstr "<strong>Provlicens aktiv.</strong> Provperioden slutar: @date"
+
+msgid "<strong>License active.</strong> Expires: @date"
+msgstr "<strong>Licens aktiv.</strong> Löper ut: @date"
+
+msgid "<strong>Lifetime license active.</strong>"
+msgstr "<strong>Lifetime license active.</strong>"
+
+msgid "Check for license renewal"
+msgstr "Sök efter licensförnyelse"
+
+msgid "Deactivate license"
+msgstr "Inaktivera licens"
+
+msgid "A license key is stored but not active"
+msgstr "En licensnyckel är sparad, men inte aktiv"
+
+msgid "Add a license key to enable CSA features"
+msgstr "Lägg till en licensnyckel för att slå på CSA-funktioner"
+
+msgid "Enable CSA features"
+msgstr "Slå på CSA-funktioner"
+
+msgid "CSA license key"
+msgstr "CSA-licensnyckel"
+
+msgid ""
+"<a href=\"@url\">Join the CSA</a> to enable CSA features. Visit the Freemius "
+"dashboard to <a href=\"@freemius\">manage your subscription</a> or recover a "
+"lost key."
+msgstr ""
+"<a href=\"@url\">Gå med i CSA</a> för att aktivera CSA-funktioner. Besök "
+"Freemius-instrumentpanelen för att <a href=\"@freemius\">hantera ditt "
+"abonnemang</a> eller återställa en förlorad nyckel."
+
+msgid "Local, Dev and QA site URL patterns"
+msgstr "URL-mönster för lokala, dev- och QA-webbplatser"
+
+msgid ""
+"One pattern per line, up to 5 patterns. Wildcards are supported (e.g. "
+"<code>*.test.example.com</code>).<br>Local, dev and QA sites can share an "
+"activation with production site, but only production sites check for "
+"renewals."
+msgstr ""
+"Ett mönster per rad, upp till 5 mönster. Jokertecken stöds (t.ex. "
+"<code>*.test.example.com</code>).<br>Lokala, dev- och QA-webbplatser kan "
+"dela en aktivering med produktionswebbplatsen, men det är bara "
+"produktionswebbplatser som kontrollerar om prenumerationerna förnyas."
+
+msgid ""
+"Additionally, any hostname consisting only of digits and dots (raw IPv4 "
+"address) is treated as a development environment."
+msgstr ""
+"Dessutom behandlas alla värdnamn som enbart består av siffror och punkter "
+"(råa IPv4-adresser) som en utvecklingsmiljö."
+
+msgid "Built-in development URL patterns"
+msgstr "Inbyggda URL-mönster för utveckling"
+
+msgid "Enter no more than 5 custom domain patterns."
+msgstr "Ange högst 5 anpassade domänmönster."
+
+msgid "Saved license key not found. Please activate with a new key."
+msgstr "Sparad licensnyckel hittades inte. Aktivera med en ny nyckel."
+
+msgid "Enter a license key."
+msgstr "Ange en licensnyckel."
+
+msgid "Activation failed: @msg"
+msgstr "Aktivering misslyckades: @msg"
+
+msgid "License renewed and active."
+msgstr "Licens förnyad och aktiv."
+
+msgid "License is still expired."
+msgstr "Licensen är fortfarande utgången."
+
+msgid "Unexpected license status: @status"
+msgstr "Oväntad licensstatus: @status"
+
+msgid "Could not reach licensing server: @msg"
+msgstr "Kunde inte nå licensservern: @msg"
+
+msgid "Deactivation failed: @msg"
+msgstr "Inaktivering misslyckades: @msg"
+
+msgid "Editoria11y Export Batch Processor"
+msgstr "Editoria11y satsvis exportbearbetning"
+
+msgid ""
+"Batching is only needed for very large or heavily customized CSV exports."
+msgstr "Satsvis bearbetning behövs bara för mycket stora eller kraftigt anpassade CSV-exporter."
+
+msgid "hide"
+msgstr "dölj"
+
+msgid "ok"
+msgstr "ok"
+
+msgid "Yes"
+msgstr "Ja"
+
+msgid "No"
+msgstr "Nej"
+
+msgid "This alt text is a filename, not a description"
+msgstr "Denna alt‑text är ett filnamn, inte en beskrivning"
+
+msgid "Is this a clear and concise description of the image?"
+msgstr "Är detta en tydlig och koncis beskrivning av bilden?"
+
+msgid "This alt text may be a placeholder"
+msgstr "Denna alt-text kan vara en platshållare"
+
+msgid "This alt text is unpronounceable"
+msgstr "Denna alt‑text går inte att uttala"
+
+msgid "This custom input field is missing a label"
+msgstr "Detta anpassade inmatningsfält saknar en etikett"
+
+msgid "Button is missing an accessible label"
+msgstr "Knappen saknar ett tillgängligt namn"
+
+msgid "Button has an invalid ARIA label"
+msgstr "Knappen har en ogiltig ARIA‑etikett"
+
+msgid "Button name repeats the word \"button\""
+msgstr "Knappnamnet upprepar ordet ”button”"
+
+msgid "This button is unpronounceable"
+msgstr "Den här knappen går inte att uttala"
+
+msgid "Text does not have enough contrast to be easily legible"
+msgstr "Texten har för låg kontrast och är svår att läsa"
+
+msgid "Graphic or icon does not have enough contrast"
+msgstr "Grafiken eller ikonen har otillräcklig kontrast"
+
+msgid "Input does not provide enough contrast to be easily legible"
+msgstr "Inmatningsfältet har otillräcklig kontrast och är svårt att läsa"
+
+msgid "Placeholder text does not have enough contrast to be easily legible"
+msgstr "Platshållartexten har otillräcklig kontrast"
+
+msgid "Does this placeholder text have enough contrast?"
+msgstr "Har denna platshållartext tillräcklig kontrast?"
+
+msgid "Does this text have enough contrast?"
+msgstr "Har denna text tillräcklig kontrast?"
+
+msgid "Does this graphic or icon have enough contrast?"
+msgstr "Har denna grafik eller ikon tillräcklig kontrast?"
+
+msgid "Duplicate ID attribute"
+msgstr "Duplicerat ID‑attribut"
+
+msgid "This link has a tooltip with the same text as the link"
+msgstr "Denna länk har en tooltip som är identisk med länktexten"
+
+msgid "Does this audio have a transcript?"
+msgstr "Har detta ljudmaterial en transkription?"
+
+msgid "Is this visualization accessible?"
+msgstr "Är denna visualisering tillgänglig?"
+
+msgid "Embedded iframes need manual checks"
+msgstr "Inbäddade iframes kräver manuell granskning"
+
+msgid "Frame missing \"title\" attribute"
+msgstr "Iframe saknar ”title”‑attribut"
+
+msgid "Frame with tabindex=\"-1\" will not be keyboard accessible."
+msgstr "En iframe med tabindex=\"‑1\" kan inte fokuseras med tangentbord"
+
+msgid "Is this video accurately captioned?"
+msgstr "Har denna video korrekta undertexter?"
+
+msgid "This heading has no text"
+msgstr "Denna rubrik saknar text"
+
+msgid "This image is used as a heading, so it needs alt text"
+msgstr "Denna bild används som rubrik och behöver alt‑text"
+
+msgid "The first heading on this page is a subheading"
+msgstr "Sidans första rubrik är en underrubrik"
+
+msgid "Can this heading be shorter?"
+msgstr "Kan denna rubrik vara kortare?"
+
+msgid "This page is missing a Heading 1"
+msgstr "Denna sida saknar en rubrik på nivå 1"
+
+msgid "This heading is tagged at the wrong level"
+msgstr "Denna rubrik är på fel nivå i hierarkin"
+
+msgid "This heading is unpronounceable"
+msgstr "Den här rubriken går inte att uttala"
+
+msgid "This element cannot be described by screen readers"
+msgstr "Detta element kan inte beskrivas korrekt av skärmläsare"
+
+msgid "Can this alt text be shorter?"
+msgstr "Kan denna alt‑text vara kortare?"
+
+msgid "Is this image actually meaningless?"
+msgstr "Är denna bild verkligen endast dekorativ?"
+
+msgid "Image in a carousel or gallery marked as decorative"
+msgstr "Bild i bildspel/galleri är markerad som dekorativ"
+
+msgid "This captioned image has no alt text"
+msgstr "Denna bild med bildtext saknar alt-text"
+
+msgid "Alt text should not be the same as caption text"
+msgstr "Alt‑text ska inte vara identisk med bildtext"
+
+msgid "Is there a visible label for this field?"
+msgstr "Finns det en synlig etikett för detta fält?"
+
+msgid "Prefer visible labels to placeholders"
+msgstr "Föredra synliga etiketter framför platshållare"
+
+msgid "Is this reset button needed?"
+msgstr "Behövs denna återställningsknapp?"
+
+msgid "This input has an empty label"
+msgstr "Detta fält har en tom etikett"
+
+msgid "Visible label does not match invisible label"
+msgstr "Den synliga etiketten matchar inte det tillgängliga namnet"
+
+msgid "This image input is missing alt text"
+msgstr "Denna bildinmatning saknar alt-text"
+
+msgid "This input is not connected to a label"
+msgstr "Detta formulärfält är inte kopplat till en etikett"
+
+msgid "Language tag does not match the content"
+msgstr "Språktaggen stämmer inte överens med innehållet"
+
+msgid "This content appears to be in a different language"
+msgstr "Innehållet verkar vara på ett annat språk"
+
+msgid "This alt text appears to be in a different language"
+msgstr "Denna alt-text verkar vara på ett annat språk"
+
+msgid "Alt text used as a link should not be a URL"
+msgstr "Alt‑text i länk ska inte vara en URL"
+
+msgid "This linked alt might not be clear and concise"
+msgstr "Denna länkade alt-text är kanske inte tydlig och koncis"
+
+msgid "Linked images need pronounceable alt text"
+msgstr "Länkade bilder måste ha uttalbar alt‑text"
+
+msgid "Manual check: link contains \"click here\""
+msgstr "Manuell kontroll: länk innehåller \"klicka här\""
+
+msgid "Link article titles, not DOI numbers"
+msgstr "Länka artikelrubriker, inte DOI‑nummer"
+
+msgid "This link contains no words"
+msgstr "Denna länk saknar text"
+
+msgid "Link with invalid \"aria-labelledby\" attribute"
+msgstr "Länk med ogiltigt attribut aria‑labelledby"
+
+msgid "This link needs a label"
+msgstr "Denna länk behöver en etikett"
+
+msgid "Link points to a file without warning"
+msgstr "Länken leder till en fil utan förvarning"
+
+msgid "Links with the same text link to different pages"
+msgstr "Länkar med samma text leder till olika sidor"
+
+msgid "Does this alt text describe the link or the image?"
+msgstr "Beskriver denna alt‑text länken eller bilden?"
+
+msgid "Does this alt text make sense as part of this link?"
+msgstr "Är denna alt‑text meningsfull i länksammanhang?"
+
+msgid "Can this linked alt text be shorter?"
+msgstr "Kan alt‑texten för den länkade bilden vara kortare?"
+
+msgid "This linked image needs alt text"
+msgstr "Länkad bild behöver alt‑text"
+
+msgid "Does this linked image need a description?"
+msgstr "Behöver denna länkade bild en beskrivning?"
+
+msgid "Is this link actually a button?"
+msgstr "Är denna länk egentligen en knapp?"
+
+msgid "Does this link open a new tab without warning?"
+msgstr "Öppnar denna länk en ny flik utan varning?"
+
+msgid "This linked alt text may be a placeholder"
+msgstr "Denna länkade alt-text kan vara en platshållare"
+
+msgid "This link only contains generic words"
+msgstr "Denna länk innehåller bara generiska ord"
+
+msgid "The purpose of this link is visually hidden"
+msgstr "Länkens syfte är visuellt dolt"
+
+msgid "Does this image's alt describe the image or the link?"
+msgstr "Beskriver denna alt‑text bilden eller länken?"
+
+msgid "Are the symbols or emoji in this link meaningful?"
+msgstr "Är symbolerna eller emojierna i denna länk meningsfulla?"
+
+msgid "This link is unpronounceable"
+msgstr "Den här länken går inte att uttala"
+
+msgid "Link text should not be a URL"
+msgstr "Länktext ska inte vara en URL"
+
+msgid "Meta tag for page language missing"
+msgstr "Meta-tagg för sidspråk saknas"
+
+msgid "Did you mean a different language code?"
+msgstr "Menade du en annan språkkod?"
+
+msgid "Invalid language code"
+msgstr "Ogiltig språkkod"
+
+msgid "Page language may not match the content"
+msgstr "Sidans språk stämmer kanske inte överens med innehållet"
+
+msgid "Meta tag limits how much users can enlarge text"
+msgstr "Meta-tagg begränsar hur mycket användaren kan förstora text"
+
+msgid "Meta tag automatically refreshes page"
+msgstr "Meta-tagg uppdaterar sidan automatiskt"
+
+msgid "Meta tag prevents users from enlarging text"
+msgstr "Meta-tagg hindrar användaren från att förstora text"
+
+msgid "Meta tag for page title missing"
+msgstr "Meta-tagg för sidtitel saknas"
+
+msgid "Invalid HTML: image has no alt attribute"
+msgstr "Ogiltig HTML: bilden saknar alt-attribut"
+
+msgid "Invalid HTML: linked image missing alt attribute"
+msgstr "Ogiltig HTML: länkad bild saknar alt-attribut"
+
+msgid "Invalid HTML: image in link missing alt attribute"
+msgstr "Ogiltig HTML: bild i länk saknar alt-attribut"
+
+msgid "This link target may be invalid"
+msgstr "Länkens mål kan vara ogiltigt"
+
+msgid "Should this quote be a heading?"
+msgstr "Ska detta citat vara en rubrik?"
+
+msgid "Has this document been tagged for screen readers?"
+msgstr "Har detta dokument taggats för skärmläsare?"
+
+msgid "Should this bold text be a heading?"
+msgstr "Ska denna fetstilta text vara en rubrik?"
+
+msgid "Should this have list formatting?"
+msgstr "Ska detta formateras som en lista?"
+
+msgid "Broken same-page link"
+msgstr "Trasig intern länk"
+
+msgid "Do not justify text"
+msgstr "Använd inte marginaljusterad text"
+
+msgid "Nested interactive layout components"
+msgstr "Nästlade interaktiva layoutkomponenter"
+
+msgid "Is there an alternative for this PDF?"
+msgstr "Finns det ett alternativ till denna PDF?"
+
+msgid "Text is too small"
+msgstr "Texten är för liten"
+
+msgid "Large blocks of emphasized text are harder to read"
+msgstr "Stora textblock med framhävd text är svårare att läsa"
+
+msgid "Do not use sub/superscript as visual formatting"
+msgstr "Använd inte sub/superscript som visuell formatering"
+
+msgid "Only links should be underlined"
+msgstr "Endast länkar bör vara understrukna"
+
+msgid "Is this uppercase text needed?"
+msgstr "Behövs denna text med VERSALER?"
+
+msgid "Are there redundant words in this alt text?"
+msgstr "Finns det överflödiga ord i denna alt-text?"
+
+msgid "Tabindex overrides interrupt the focus order"
+msgstr "Tabindex-åsidosättanden stör fokusordningen"
+
+msgid "This header cell needs text"
+msgstr "Denna rubrikcell behöver text"
+
+msgid "This table has an invalid headers attribute"
+msgstr "Denna tabell har ett ogiltigt headers-attribut"
+
+msgid "This table needs a header row and/or column"
+msgstr "Denna tabell saknar rad- och/eller kolumnrubriker"
+
+msgid "Content headings should not be used inside tables"
+msgstr "Innehållsrubriker bör inte användas inuti tabeller"
+
+msgid "Invalid HTML list"
+msgstr "Ogiltig HTML-lista"
+
+msgid "Linked images"
+msgstr "Länkade bilder"
+
+msgid "Text formatting"
+msgstr "Textformatering"
+
+msgid "Video, audio, frames"
+msgstr "Video, ljud, ramar"
+
+msgid "Contrast"
+msgstr "Kontrast"
+
+msgid "Forms"
+msgstr "Formulär"
+
+msgid "ARIA and focus"
+msgstr "ARIA och fokus"
+
+msgid "Page metadata"
+msgstr "Sidmetadata"
+
+msgid "The request could not be processed. Details have been logged."
+msgstr "Begäran kunde inte behandlas. Detaljerna har loggats."
+
+msgid "API request rejected: @message"
+msgstr "API-begäran avvisades: @message"
+
+msgid "API request failed: @message"
+msgstr "API-begäran misslyckades: @message"
+
+msgid "Export pages with alerts"
+msgstr "Exportera sidor med varningar"
+
+msgid ""
+"Install the Editoria11y Export Batch Processor module to download these "
+"reports."
+msgstr "Installera Editoria11y Export Batch Processor-modulen för att ladda ner dessa rapporter."
+
+msgid "Export results"
+msgstr "Exportera resultat"
+
+msgctxt "problems"
+msgid "Top alerts"
+msgstr "Viktigaste problemen"
+
+msgctxt "problems"
+msgid "Pages with the most alerts"
+msgstr "Sidor med flest problem"
+
+msgid "Recent dismissals"
+msgstr "Senaste avfärdandena"
+
+msgid ""
+"Activate the <a href=\"@csa\">Editoria11y CSA submodule</a> to see developer "
+"tests."
+msgstr ""
+"Aktivera <a href=\"@csa\">undermodulen Editoria11y CSA</a> för att se "
+"utvecklartester."
+
+msgid "Include all parts of the page that contain your theme and content."
+msgstr "Inkludera alla delar av sidan som innehåller ditt tema och innehåll."
+
+msgid "Include all parts of the page that contain your editable content."
+msgstr ""
+"Inkludera alla delar av sidan som innehåller ditt redigerbara innehåll."
+
+msgid "Exclude elements that show unhelpful, repetitive, or inaccurate alerts."
+msgstr ""
+"Uteslut element som visar oanvändbara, upprepande eller felaktiga varningar."
+
+msgid ""
+"<a href=\"@permissions\">Add permissions</a>, especially \"View Editoria11y "
+"checker\" and \"Mark OK.\"</a>"
+msgstr ""
+"<a href=\"@permissions\">Lägg till behörigheter</a>, särskilt \"View "
+"Editoria11y checker\" och \"Mark OK\".</a>"
+
+msgid ""
+"If you need help: <a href=\"@config_guide\">Configuration Guide</a> | <a "
+"href=\"@issue_queue\">Issue Queue</a> | <a href=\"@help\">Support contacts</"
+"a>"
+msgstr ""
+"Om du behöver hjälp: <a href=\"@config_guide\">Konfigurationsguide</a> | <a "
+"href=\"@issue_queue\">Ärendekö</a> | <a href=\"@help\">Supportkontakter</a>"
+
+msgid "Autodetect"
+msgstr "Autodetektera"
+
+msgid "Only user-editable content"
+msgstr "Endast användarredigerbart innehåll"
+
+msgid "Other"
+msgstr "Övrigt"
+
+msgid "Parts of the page to test"
+msgstr "Delar av sidan att testa"
+
+msgid "\"Autodetect\" selects:"
+msgstr "\"Autodetektera\" väljer:"
+
+msgid "Other: specify regions to check for developer and content problems"
+msgstr ""
+"Övrigt: ange områden som ska kontrolleras för utvecklar- och innehållsproblem"
+
+msgid ""
+"Provide CSS selectors. For many sites, the site theme is wrapped in "
+"<code>.dialog-off-canvas-main-canvas</code> while editing."
+msgstr ""
+"Ange CSS-selektorer. För många webbplatser är webbplatsens tema inpackat i "
+"<code>.dialog-off-canvas-main-canvas</code> vid redigering."
+
+msgid "Do not check for any errors inside these elements"
+msgstr "Kontrollera inte några fel inuti dessa element"
+
+msgid "These parts of the page will be ignored entirely."
+msgstr "Dessa delar av sidan kommer att ignoreras helt."
+
+msgid "match content settings"
+msgstr "match content settings"
+
+msgid "Page regions with user-editable content"
+msgstr "Sidområden med användarredigerbart innehåll"
+
+msgid ""
+"Default: <code><em>main</em></code><br>Provide <a target=\"_blank\" "
+"href=\"https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/"
+"Selectors\">CSS selectors</a>. Content authors will only see the alerts "
+"within these parts of the page. Do not provide selectors that nest within "
+"each other, or the inner content will be checked twice."
+msgstr ""
+"Standard: <code><em>main</em></code><br>Ange <a target=\"_blank\" "
+"href=\"https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/"
+"Selectors\">CSS-selektorer</a>. Innehållsredaktörer ser endast varningar "
+"inom dessa delar av sidan. Ange inte selektorer som ligger inuti varandra, "
+"annars kontrolleras det inre innehållet två gånger."
+
+msgid ""
+"Default: <code><em>main</em></code><br>Provide <a target=\"_blank\" "
+"href=\"https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/"
+"Selectors\">CSS selectors</a>. Do not provide selectors that nest within "
+"each other, or the inner content will be checked twice."
+msgstr ""
+"Standard: <code><em>main</em></code><br>Ange <a target=\"_blank\" "
+"href=\"https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/"
+"Selectors\">CSS-selektorer</a>. Ange inte selektorer som ligger inuti "
+"varandra, annars kontrolleras det inre innehållet två gånger."
+
+msgid "Errors in these elements should only be shown to developers"
+msgstr "Fel i dessa element ska endast visas för utvecklare"
+
+msgid "Do not check for content errors inside these elements"
+msgstr "Kontrollera inte innehållsfel inuti dessa element"
+
+msgid ""
+"Content editors are not responsible for errors in these elements. <br>E.g.: "
+"<code><em>#sidebar-menu a, .slide [aria-hidden=\"true\"]</em></code>."
+msgstr ""
+"Innehållsredaktörer ansvarar inte för fel i dessa element. <br>T.ex.: "
+"<code><em>#sidebar-menu a, .slide [aria-hidden=\"true\"]</em></code>."
+
+msgid "Roles that will see developer alerts"
+msgstr "Roller som ska se utvecklarvarningar"
+
+msgid ""
+"All roles with the <a href=\":url\">View editoria11y checker</a> permission "
+"see content alerts."
+msgstr ""
+"Alla roller med behörigheten <a href=\":url\">View editoria11y checker</a> "
+"ser innehållsvarningar."
+
+msgid "Advanced settings"
+msgstr "Avancerade inställningar"
+
+msgid "Assertiveness"
+msgstr "Påträngande nivå"
+
+msgid "Checker mode for content roles"
+msgstr "Kontrolläge för innehållsroller"
+
+msgid "Start open if there are any alerts"
+msgstr "Starta öppet om det finns varningar"
+
+msgid "Start open if there are new alerts"
+msgstr "Starta öppet om nya varningar finns"
+
+msgid "Start minimized"
+msgstr "Starta minimerat"
+
+msgid ""
+"Choose when the control panel should open and show inline tips. \"Start open "
+"if there are any alerts\" is recommended, as it helps tips get noticed over "
+"time."
+msgstr ""
+"Välj när kontrollpanelen ska öppnas och visa tips. ”Starta öppet om det "
+"finns varningar” rekommenderas för bättre synlighet."
+
+msgid "Checker mode for developer roles"
+msgstr "Kontrolläge för utvecklarroller"
+
+msgid "Do not check any content while it is being edited"
+msgstr "Kontrollera inte innehåll medan det redigeras"
+
+msgid ""
+"Use the \"Do not check on pages with these elements\" setting to prevent "
+"checking only on specific pages. E.g., exclude: <code><em>form[id^=\"node-"
+"article\"]</em></code>."
+msgstr ""
+"Använd inställningen ”Kontrollera inte på sidor med dessa element” för att "
+"blockera kontroller på specifika sidor. Ex.: <code><em>form[id^=\"node-"
+"article\"]</em></code>."
+
+msgid "Assign headers to CKEditor tables on insert"
+msgstr "Tilldela rubriker till CKEditor‑tabeller vid infogning"
+
+msgid "First row"
+msgstr "Första raden"
+
+msgid "First column"
+msgstr "Första kolumnen"
+
+msgid "Both"
+msgstr "Båda"
+
+msgid ""
+"You will need to clear cache for changes to this setting to appear in "
+"CKEditor."
+msgstr "Du måste tömma cache för att ändringen ska synas i CKEditor."
+
+msgid "Theme compatibility"
+msgstr "Temakompatibilitet"
+
+msgid "Configuration tips"
+msgstr "Konfigurationstips"
+
+msgid ""
+"If the checker <strong>toggle</strong> does not appear: make sure a z-"
+"indexed or overflow-hidden element in your front-end theme is not hiding or "
+"covering the <code><em>ed11y-element-panel</em></code> container, make sure "
+"that any custom selectors in the \"Disable the scanner if these elements are "
+"detected\" field are not present, and make sure that no JavaScript errors "
+"are appearing in your <a href=\"https://developer.mozilla.org/en-US/docs/"
+"Tools/Browser_Console\"> browser console</a>"
+msgstr ""
+"Om kontrollens <strong>växlingsknapp</strong> inte visas: kontrollera att "
+"inget element med z-index eller overflow:hidden i ditt frontend-tema döljer "
+"eller täcker <code><em>ed11y-element-panel</em></code>, kontrollera att inga "
+"anpassade selektorer i fältet \"Disable the scanner if these elements are "
+"detected\" är närvarande, och kontrollera att inga JavaScript-fel visas i "
+"din <a href=\"https://developer.mozilla.org/en-US/docs/Tools/"
+"Browser_Console\">webbläsarkonsol</a>"
+
+msgid ""
+"If the checker toggle is present but <strong>not detecting</strong> errors, "
+"or missing errors that should be flagged: check that your inclusions & "
+"exclusion settings below are not missing or ignoring the elements. It is not "
+"uncommon for homepages or views to insert editable content outside the "
+"<code><em>main</em></code> element."
+msgstr ""
+"Om kontrollens växlingsknapp visas men <strong>inte upptäcker</strong> fel, "
+"eller missar fel som borde markeras: kontrollera dina inkluderings- och "
+"exkluderingsinställningar nedan så att element inte utelämnas. Det är "
+"vanligt att startsidor eller views placerar redigerbart innehåll utanför "
+"<code><em>main</em></code>-elementet."
+
+msgid "Theme"
+msgstr "Tema"
+
+msgid "Sleek"
+msgstr "Snyggt"
+
+msgid "Classic"
+msgstr "Klassiskt"
+
+msgid "Dark"
+msgstr "Mörkt"
+
+msgid "Do not check on pages with these elements"
+msgstr "Kontrollera inte sidor som innehåller dessa element"
+
+msgid ""
+"Used to block checking on site sections or admin pages.<br>E.g. "
+"<code><em>.content-type-example, .tabs__link[href=*\"edit\"]</em></code>."
+msgstr ""
+"Används för att blockera kontroll av vissa sektioner eller "
+"administratörssidor.<br>Ex.: <code><em>.content-type-"
+"example, .tabs__link[href=*\"edit\"]</em></code>."
+
+msgid "Hide all alerts on pages where these elements are not present"
+msgstr "Dölj alla varningar på sidor där dessa element saknas"
+
+msgid ""
+"Used to limit alerting to nodes where the user can edit something. Suggested "
+"selectors:<br> <code><em>.contextual-region a[href*=\"/edit\"], .contextual-"
+"region a[href*=\"/manage\"]</em></code>."
+msgstr ""
+"Används för att begränsa varningar till noder där användaren kan redigera. "
+"Rekommenderade selektorer:<br><code><em>.contextual-region a[href*=\"/"
+"edit\"], .contextual-region a[href*=\"/manage\"]</em></code>."
+
+msgid ""
+"Set to the number of other themes or modules that will be <a href=\"https://"
+"editoria11y.princeton.edu/configuration/#customtests\">injecting custom "
+"result JS events</a>."
+msgstr ""
+"Ange antalet teman eller moduler som kommer att <a href=\"https://"
+"editoria11y.princeton.edu/configuration/#customtests\">injicera anpassade "
+"JS‑resultathändelser</a>."
+
+msgid "Positioning"
+msgstr "Positionering"
+
+msgid "Don't show edit links on tips in these containers"
+msgstr "Visa inte redigeringslänkar i tips inom dessa behållare"
+
+msgid ""
+"Tips show copies of the \"Edit\" and \"Layout\" links for nodes, users and "
+"taxonomy terms. These links are not helpful on lists of content from remote "
+"nodes.<br>Provide a comma-separated list of page sections of where these "
+"links should not show, E.g.: <code><em>#sidebar-menu, .news-feed</em></code>."
+"<br>To hide the links <strong>everywhere</strong>, set this field to an "
+"asterisk (<code><em>*</em></code>).<br>To modify the links, <a "
+"href=\"https://editoria11y.princeton.edu/configuration/#modify-tips\" "
+"target=\"_blank\">use the ed11yPop event</a> in your theme JS."
+msgstr ""
+"Tips visar kopior av länkarna ”Redigera” och ”Layout” för noder, användare "
+"och taxonomitermer. Dessa länkar är inte relevanta i listor med innehåll "
+"från andra noder.<br>Ange en kommaseparerad lista över sidsektioner där "
+"länkarna inte ska visas, ex.: <code><em>#sidebar-menu, .news-feed</em></"
+"code>.<br>För att dölja dem <strong>överallt</strong>, använd en asterisk "
+"(<code><em>*</em></code>).<br>För att anpassa länkarna, använd <a "
+"href=\"https://editoria11y.princeton.edu/configuration/#modify-tips\" "
+"target=\"_blank\">ed11yPop‑händelsen</a> i temats JS."
+
+msgid "Pin panel to..."
+msgstr "Fäst panelen vid…"
+
+msgid "Right"
+msgstr "Höger"
+
+msgid "Left"
+msgstr "Vänster"
+
+msgid "Don't cover these other widgets"
+msgstr "Täck inte över dessa andra widgets"
+
+msgid ""
+"Provide a comma-separated list of selectors for other things that appear in "
+"the bottom right of the page. <br>If nothing is set, Editoria11y will "
+"automatically slide left to accommodate <code><em>#klaro_toggle_dialog, "
+"#klaro-cookie-notice .same-page-preview-dialog.ui-dialog-position-side</em></"
+"code>."
+msgstr ""
+"Ange en kommaseparerad lista med selektorer för andra element som visas nere "
+"till höger på sidan.<br>Om inget anges, flyttas Editoria11y automatiskt åt "
+"vänster för att ge plats åt:<br><code><em>#klaro_toggle_dialog, #klaro-"
+"cookie-notice .same-page-preview-dialog.ui-dialog-position-side</em></code>."
+
+msgid "Elements with overflow hidden"
+msgstr "Element med overflow:hidden"
+
+msgid ""
+"Sometimes buttons get drawn and visually truncated outside the bounds of a "
+"positioned element. Provide a selector list."
+msgstr ""
+"Ibland ritas knappar utanför ett positionerat element och beskärs. Ange "
+"selektorer för sådana fall."
+
+msgid "Theme JS will handle revealing hidden tooltips inside these containers"
+msgstr "Temats JS hanterar att visa dolda tooltips i dessa behållare"
+
+msgid ""
+"Editoria11y detects hidden tooltips and warns the user when they try to jump "
+"to them from the panel. For elements on this list, Editoria11y will <a "
+"href=\"https://itmaybejj.github.io/editoria11y/#dealing-with-alerts-on-"
+"hidden-or-size-constrained-content\">dispatch a JS event</a> instead of a "
+"warning, so custom JS in your theme can first reveal the hidden tip (e.g., "
+"open an accordion or tab panel)."
+msgstr ""
+"Editoria11y upptäcker dolda tooltips och varnar när användaren försöker "
+"hoppa till dem via panelen. För element i denna lista skickar Editoria11y "
+"istället ett <a href=\"https://itmaybejj.github.io/editoria11y/#dealing-with-"
+"alerts-on-hidden-or-size-constrained-content\">JS‑event</a> så att temats "
+"anpassade JS kan visa tipset först (t.ex. genom att öppna en flik eller en "
+"dragspelssektion)."
+
+msgid "Detecting dynamic and shadow content"
+msgstr "Identifiering av dynamiskt innehåll och shadow DOM"
+
+msgid "Dynamically refresh if new content appears"
+msgstr "Uppdatera dynamiskt när nytt innehåll dyker upp"
+
+msgid "Watch for changes anywhere on the page"
+msgstr "Bevaka ändringar var som helst på sidan"
+
+msgid "Only watch for changes to content containers present on load"
+msgstr "Bevaka endast ändringar i innehållsbehållare som finns vid sidladdning"
+
+msgid "Do not watch for changes"
+msgstr "Bevaka inte ändringar"
+
+msgid ""
+"Set to \"anywhere\" if changes are being missed, set to \"ignore\" if you "
+"notice performance issues. Themes and modules can also call "
+"<code>Drupal.Ed11y.refresh()</code> to refresh results."
+msgstr ""
+"Ange ”anywhere” om ändringar missas, använd ”ignore” vid prestandaproblem. "
+"Teman och moduler kan även anropa <code>Drupal.Ed11y.refresh()</code> för "
+"att uppdatera resultat."
+
+msgid "Check inside these specific Web components"
+msgstr "Kontrollera inuti dessa specifika webbkomponenter"
+
+msgid ""
+"Provide selectors for elements with <a href='https://developer.mozilla.org/"
+"en-US/docs/Web/Web_Components'>shadow DOM</a> you want tested. E.g.: "
+"<code><em>my-fancy-accordion-widget, my-magical-slideshow</em></code>."
+msgstr ""
+"Ange selektorer för element med <a href='https://developer.mozilla.org/en-US/"
+"docs/Web/Web_Components'>shadow DOM</a> som ska testas. Ex.: <code><em>my-"
+"fancy-accordion-widget, my-magical-slideshow</em></code>."
+
+msgid "Auto-detect any Web components"
+msgstr "Identifiera webbkomponenter automatiskt"
+
+msgid ""
+"This is easier to configure than specifying components, but may slow test "
+"runs on very complicated pages."
+msgstr ""
+"Detta är enklare än att ange komponenter manuellt, men kan göra tester "
+"långsammare på mycket komplexa sidor."
+
+msgid "Syncing results to reports"
+msgstr "Synkronisering av resultat till rapporter"
+
+msgid ""
+"Remember that results only sync to the dashboard when viewing nodes. Results "
+"shown while editing or viewing previews or revisions will not sync."
+msgstr ""
+"Kom ihåg att resultat endast synkroniseras till översikten när noder visas. "
+"Resultat som visas vid redigering, förhandsvisningar eller revisioner "
+"synkroniseras inte."
+
+msgid "Remove redundant base url from URLs"
+msgstr "Ta bort redundant bas‑URL från URL:er"
+
+msgid ""
+"Provide base URL (\"/mysite\") if your site is installed in a subdirectory. "
+"Subdirectories tend to get duplicated (/mysite/mysite/mypage) and throw "
+"errors from the API."
+msgstr ""
+"Ange bas‑URL (”/mysite”) om webbplatsen ligger i en underkatalog. "
+"Underkataloger kan dupliceras (/mysite/mysite/mypage) och orsaka API‑fel."
+
+msgid "Preserve query parameters"
+msgstr "Bevara queryparametrar"
+
+msgid ""
+"The dashboard ignores most parameters: results for both /news?f=1 and /news?"
+"f=2 will show up as just /news. Provide a comma separated list of parameters "
+"that are meaningful, and should appear as separate pages in results."
+msgstr ""
+"Dashboardet ignorerar de flesta parametrar: både /news?f=1 och /news?f=2 "
+"visas som /news. Ange en kommaseparerad lista för parametrar som har "
+"betydelse och ska behandlas som separata sidor."
+
+msgid "Disable sync altogether"
+msgstr "Inaktivera synkronisering helt"
+
+msgid ""
+"Syncing test results back to Drupal is required for the <a target=\"_blank\" "
+"href=\"/admin/reports/editoria11y\">issue</a> and <a target=\"_blank\" "
+"href=\"/admin/reports/editoria11y/dismissals\">dismissal</a> dashboards and "
+"\"mark OK\" buttons."
+msgstr ""
+"Synkronisering tillbaka till Drupal krävs för dashboards över <a "
+"target=\"_blank\" href=\"/admin/reports/editoria11y\">problem</a> och <a "
+"target=\"_blank\" href=\"/admin/reports/editoria11y/"
+"dismissals\">avfärdanden</a>, samt för knapparna ”markera OK”."
+
+msgid "Heading outline position of editable content"
+msgstr "Rubriknivå för redigerbart innehåll"
+
+msgid ""
+"To check headings in CKEditor, Editoria11y needs to know what the first "
+"heading level should be in this field. Body fields should generally be at "
+"the h2 level."
+msgstr ""
+"För att kontrollera rubriker i CKEditor måste Editoria11y veta vilken första "
+"rubriknivå som gäller. Innehållsfält börjar normalt på nivå h2."
+
+msgid "H2 level fields (body content)"
+msgstr "H2‑nivåfält (huvudinnehåll)"
+
+msgid ""
+"Body fields on nodes are preceded by an h1, and their heading outline should "
+"start with an h2. Ideally set this for top-level body fields for each of "
+"your content types, and set blocks and embedded nodes to h3 or h4.\n"
+"        <br>Set all content types: <code><em>form[id^=\"node-\"] #edit-body-"
+"wrapper .ck-content</em></code>\n"
+"        <br>Set specific content types: <code><em>form[id^=\"node-\"] #edit-"
+"body-wrapper .ck-content</em></code>\n"
+"        <br>Set up for Gutenberg: <code><em>form[id^=\"node-\"] #edit-body-"
+"wrapper .is-root-container</em></code>"
+msgstr ""
+"Body‑fält i noder föregås av en h1 och deras rubrikstruktur bör börja på h2. "
+"Ange detta för huvudfält i alla innehållstyper, och använd h3 eller h4 för "
+"block och inbäddade noder.<br>Alla innehållstyper: <code><em>form[id^=\"node-"
+"\"] #edit-body-wrapper .ck-content</em></code><br>Specifika innehållstyper: "
+"<code><em>form[id^=\"node-\"] #edit-body-wrapper .ck-content</em></"
+"code><br>För Gutenberg: <code><em>form[id^=\"node-\"] #edit-body-wrapper .is-"
+"root-container</em></code>"
+
+msgid "H3 level fields (blocks or paragraphs with separate titles)"
+msgstr "H3‑nivåfält (block eller stycken med egna rubriker)"
+
+msgid ""
+"Sometimes inline and layout builder blocks are grouped under an h2 from a "
+"separate field, so their highest heading level should be h3."
+msgstr ""
+"Ibland grupperas inlineblock eller layout‑builderblock under en h2 från ett "
+"annat fält; då ska deras högsta nivå vara h3."
+
+msgid "H4 level fields (deeply nested blocks or paragraphs)"
+msgstr "H4‑nivåfält (djupt nästlade block eller stycken)"
+
+msgid ""
+"Sometimes inline and layout builder blocks are grouped under an h3 from a "
+"separate field, so their highest heading level should be h4."
+msgstr ""
+"Ibland grupperas block under en h3 från ett annat fält; då ska deras högsta "
+"nivå vara h4."
+
+msgid "Modify tests that usually detect content issues"
+msgstr "Anpassa tester som vanligtvis upptäcker innehållsproblem"
+
+msgid "Modify tests that usually detect template or configuration issues"
+msgstr ""
+"Anpassa tester som vanligtvis upptäcker mall- eller konfigurationsproblem"
+
+msgid "Do not check contrast for these elements"
+msgstr "Kontrollera inte kontrast för dessa element"
+
+msgid ""
+"Provide a comma-separated list of selectors for elements to ignore for all "
+"users."
+msgstr ""
+"Ange en kommaseparerad lista med selektorer för element som ska ignoreras "
+"för alla användare."
+
+msgid "Remind editor that content in these embeds needs manual review"
+msgstr ""
+"Påminn innehållsredaktören att detta inbäddade innehåll kräver manuell "
+"granskning"
+
+msgid ""
+"Provide a comma-separated list of selectors you wish to flag for the editor, "
+"e.g.: <code><em>.my-embedded-feed, #my-social-link-block</em></code>."
+msgstr ""
+"Ange en kommaseparerad lista med selektorer som ska flaggas för redaktören;"
+"<br>ex.: <code><em>.my-embedded-feed, #my-social-link-block</em></code>."
+
+msgid ""
+"Default settings should work with both <a href=\"https://www.drupal.org/"
+"project/linkpurpose\" target=\"_blank\">Link Purpose Icons</a> and <a "
+"target=\"_blank\" href=\"https://www.drupal.org/project/extlink\">External "
+"Links</a>."
+msgstr ""
+"Standardinställningarna fungerar både med <a href=\"https://www.drupal.org/"
+"project/linkpurpose\" target=\"_blank\">Link Purpose Icons</a> och <a "
+"target=\"_blank\" href=\"https://www.drupal.org/project/extlink\">External "
+"Links</a>."
+
+msgid "Remind the editor that these linked documents need a manual check"
+msgstr ""
+"Påminn innehållsredaktören om att dessa länkade dokument kräver manuell "
+"granskning"
+
+msgid ""
+"Add or remove filetypes. Set to \"false\" to disable the test altogether. "
+"Providing any value will override the default, which is "
+"<code><em>a[href$='.pdf'], a[href*='.pdf?']</em></code>."
+msgstr ""
+"Lägg till eller ta bort filtyper. Ange ”false” för att helt inaktivera "
+"testet. Alla värden åsidosätter standarden:<br><code><em>a[href$='.pdf'], "
+"a[href*='.pdf?']</em></code>."
+
+msgid "Remove elements that match these selectors before testing link text"
+msgstr ""
+"Ta bort element som matchar dessa selektorer innan länktexten kontrolleras"
+
+msgid ""
+"Provide a CSS selector of elements your modules programmatically add to "
+"links (usually external or open-in-new-window links), so they can be ignored "
+"when the link text is checked for the \"link has no text\" and \"link text "
+"is not meaningful\" tests.<br>E.g.: <code><em>.this, .that</em></code>"
+msgstr ""
+"Ange en CSS‑selektor för element som moduler lägger till i länkar "
+"(vanligtvis externa länkar eller länkar som öppnas i nytt fönster), så att "
+"de ignoreras vid testerna ”länken saknar text” och ”länktexten är inte "
+"meningsfull”.<br>Ex.: <code><em>.this, .that</em></code>"
+
+msgid "Remove these strings before testing link text"
+msgstr "Ta bort dessa strängar innan länktexten kontrolleras"
+
+msgid ""
+"Provide a pipe-separated (\"|\") list of phrases your modules "
+"programmatically add to links to hint a purpose (external, mail, phone, open-"
+"in-new-window), so they can be ignored when the link text is checked for the "
+"\"link has no text\" and \"link text is not meaningful\" tests; e.g.:  "
+"<pre><code><em>(link is external)|(link sends email)</em></code></pre>"
+msgstr ""
+"Ange en ”|”‑separerad lista över fraser som moduler lägger till i länkar "
+"(t.ex. extern, e‑post, telefon, nytt fönster) så att de ignoreras vid "
+"testerna ”länken saknar text” och ”länktexten är inte meningsfull”.<br>Ex.:"
+"<pre><code><em>(länk är extern)|(länk skickar e‑post)</em></code></pre>"
+
+msgid "Strings in links that indicate new tabs"
+msgstr "Strängar i länkar som indikerar öppning i ny flik"
+
+msgid ""
+"Provide a pipe-separated list of phrases your site uses to warn users a link "
+"opens in a new tab; e.g.:  <pre><code><em>new&nbsp;tab|new&nbsp;window|"
+"external</em></code></pre>"
+msgstr ""
+"Ange en \"|\"-separerad lista med fraser som webbplatsen använder för att "
+"varna användare om att en länk öppnas i en ny flik; t.ex.: "
+"<pre><code><em>new&nbsp;tab|new&nbsp;window|external</em></code></pre>"
+
+msgid ""
+"Modules like Link Purpose or External Links can mark links automatically."
+msgstr ""
+"Moduler som Link Purpose eller External Links kan markera länkar automatiskt."
+
+msgid "CSA/developer test"
+msgstr "CSA-/utvecklartest"
+
+msgid "Show to developers"
+msgstr "Visa för utvecklare"
+
+msgid "Show to everybody"
+msgstr "Visa för alla"
+
+msgid "Dashboard sync is disabled in Editoria11y configuration."
+msgstr ""
+"Synkronisering av dashboardet är inaktiverad i Editoria11y‑konfigurationen."
+
+msgid "(invalid URL)"
+msgstr "(ogiltig URL)"
+
+msgid "Editoria11y: Dismissals"
+msgstr "Editoria11y: Avfärdanden"
+
+msgid "Default"
+msgstr "Standard"
+
+msgid "Node path"
+msgstr "Nodväg"
+
+msgid "view"
+msgstr "visa"
+
+msgid "Term path"
+msgstr "Termväg"
+
+msgid "User bio path"
+msgstr "Väg till användarens bio"
+
+msgid "Term title"
+msgstr "Termtitel"
+
+msgid ", "
+msgstr ", "
+
+msgid "Node title"
+msgstr "Nodtitel"
+
+msgid "User name"
+msgstr "Användarnamn"
+
+msgid "Recorded path"
+msgstr "Registrerad sökväg"
+
+msgid "Computed"
+msgstr "Beräknad"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty %}{% set dynamic_path = page_path %}{% endif %}\r\n"
+"{% set dynamic_title = title ~ name_2 ~ name_1 %}{% if dynamic_title is "
+"empty %}{% set dynamic_title = page_title %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ dynamic_title }}</"
+"a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty %}{% set dynamic_path = page_path %}{% endif %}\r\n"
+"{% set dynamic_title = title ~ name_2 ~ name_1 %}{% if dynamic_title is "
+"empty %}{% set dynamic_title = page_title %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ dynamic_title }}</"
+"a>"
+
+msgid "Dismissed alert"
+msgstr "Avfärdad varning"
+
+msgid "By"
+msgstr "Av"
+
+msgid "1"
+msgid_plural "@count"
+msgstr[0] "1"
+msgstr[1] "@count"
+
+msgid "Reset"
+msgstr "Återställ"
+
+msgid ""
+"<span class=\"ed11y-reset-dismissal\"><span class=\"ed11y-page-id\">{{ pid }}"
+"</span><span class=\"ed11y-dismissal-id\">{{id}}</span></span>"
+msgstr ""
+"<span class=\"ed11y-reset-dismissal\"><span class=\"ed11y-page-id\">{{ pid }}"
+"</span><span class=\"ed11y-dismissal-id\">{{id}}</span></span>"
+
+msgid "››"
+msgstr "››"
+
+msgid "‹‹"
+msgstr "‹‹"
+
+msgid "- All -"
+msgstr "- Alla -"
+
+msgid "Offset"
+msgstr "Offset"
+
+msgid "« First"
+msgstr "« Första"
+
+msgid "Last »"
+msgstr "Sista »"
+
+msgid "Asc"
+msgstr "Stigande"
+
+msgid "Desc"
+msgstr "Fallande"
+
+msgid "User who dismissed alert"
+msgstr "Användaren som avfärdade varningen"
+
+msgid "pid"
+msgstr "pid"
+
+msgid "Node"
+msgstr "Nod"
+
+msgid "Term"
+msgstr "Term"
+
+msgid "User bio"
+msgstr "Användarbio"
+
+msgid "Dismissals page"
+msgstr "Sida för avfärdanden"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty %}{% set dynamic_path = page_path %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title }}</a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty %}{% set dynamic_path = page_path %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title }}</a>"
+
+msgid "Still on page"
+msgstr "Fortfarande på sidan"
+
+msgid "Reset filters"
+msgstr "Återställ filter"
+
+msgid "Issues marked as hidden or OK in Editoria11y."
+msgstr "Problem markerade som dolda eller OK i Editoria11y."
+
+msgid "Dismissals filtered by issue"
+msgstr "Avfärdanden filtrerade efter problem"
+
+msgid "No dismissals match these filters."
+msgstr "Inga avfärdanden matchar dessa filter."
+
+msgid "All"
+msgstr "Alla"
+
+msgid "Dismissed alerts of type \"{{result_name}}\""
+msgstr "Avfärdade varningar av typen ”{{result_name}}”"
+
+msgid ""
+"<a href=\"/admin/reports/editoria11y/dismissals/\" class=\"button button--"
+"primary\">Show all dismissals</a>"
+msgstr ""
+"<a href=\"/admin/reports/editoria11y/dismissals/\" class=\"button button--"
+"primary\">Show all dismissals</a><a href=\"/admin/reports/editoria11y/"
+"dismissals/\" class=\"button button--primary\">Visa alla avfärdanden</a>"
+
+msgid "Recent Editoria11y Dismissals"
+msgstr "Senaste Editoria11y‑avfärdandena"
+
+msgid "Editoria11y - Recent dismissals"
+msgstr "Editoria11y – Senaste avfärdandena"
+
+msgid "Editoria11y: Alerts"
+msgstr "Editoria11y: Varningar"
+
+msgid "Top results"
+msgstr "Toppresultat"
+
+msgid "Computed title"
+msgstr "Beräknad titel"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path|render %}{% set dynamic_path = "
+"page_path %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{  page_title_1 }}</"
+"a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path|render %}{% set dynamic_path = "
+"page_path %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{  page_title_1 }}</"
+"a>"
+
+msgid "<a href=\"{{page_path_1}}\" data-ed1ref=\"{{pid}}\">{{page_path_1}}</a>"
+msgstr ""
+"<a href=\"{{page_path_1}}\" data-ed1ref=\"{{pid}}\">{{page_path_1}}</a>"
+
+msgid "No alerts found."
+msgstr "Inga varningar hittades."
+
+msgid "YYYY-MM-DD"
+msgstr "ÅÅÅÅ-MM-DD"
+
+msgid "User bio page"
+msgstr "Användarens biosida"
+
+msgid "Node author"
+msgstr "Nodens författare"
+
+msgid "All pages with issues"
+msgstr "Alla sidor med problem"
+
+msgid "Block: Pages with the most"
+msgstr "Block: Sidor med flest"
+
+msgid "Block: Recent alerts"
+msgstr "Block: Senaste varningar"
+
+msgid "Recent Editoria11y Alerts"
+msgstr "Senaste Editoria11y‑varningarna"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path|render %}{% set dynamic_path = "
+"page_path %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title_1 }}</a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path|render %}{% set dynamic_path = "
+"page_path %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title_1 }}</a>"
+
+msgid "Issue"
+msgstr "Problem"
+
+msgid "Editoria11y - Recent alerts"
+msgstr "Editoria11y – Senaste varningarna"
+
+msgid "Block: Most frequent alerts"
+msgstr "Block: Mest förekommande varningar"
+
+msgid "Most Frequent Editoria11y Alerts"
+msgstr "Mest förekommande Editoria11y‑varningarna"
+
+msgid "Editoria11y - Most frequent alerts"
+msgstr "Editoria11y – Mest förekommande varningar"
+
+msgid "Alerts on specified page"
+msgstr "Varningar på angiven sida"
+
+msgid ""
+"<a href=\"{{ page_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title_1 }}</a>"
+msgstr ""
+"<a href=\"{{ page_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title_1 }}</a>"
+
+msgid "<p><strong>Author:</strong> {{ uid }}</p>"
+msgstr "<p><strong>Författare:</strong> {{ uid }}</p>"
+
+msgid "<p><strong>Last editor:</strong> {{ uid_1 }}</p>"
+msgstr "<p><strong>Senaste redaktör:</strong> {{ uid_1 }}</p>"
+
+msgid ""
+"<h1>Accessibility issues on: {{page_title_1}}</h1>\r\n"
+"<p>{{uid}}{{uid_1}}</p>"
+msgstr ""
+"<h1>Accessibility issues on: {{page_title_1}}</h1>\r\n"
+"<p>{{uid}}{{uid_1}}</p><h1>Tillgänglighetsproblem på: {{page_title_1}}</"
+"h1>\r\n"
+"<p>{{uid}}{{uid_1}}</p>"
+
+msgid ""
+"<p><a href=\"../editoria11y/pages\" class=\"button button--primary\">All "
+"pages with alerts</a></p>"
+msgstr ""
+"<p><a href=\"../editoria11y/pages\" class=\"button button--primary\">All "
+"pages with alerts</a></p><p><a href=\"../editoria11y/pages\" class=\"button "
+"button--primary\">Alla sidor med varningar</a></p>"
+
+msgid ""
+"<span class=\"ed11y-reset-this-path\" hidden><p class=\"more-link\"><a "
+"role=\"button\" class=\"action-link action-link--icon-trash action-link--"
+"danger\"><span hidden class=\"ed11y-api-path\">{{ page_path }}</span>Reset "
+"results for this page</a></p></span>"
+msgstr ""
+"<span class=\"ed11y-reset-this-path\" hidden><p class=\"more-link\"><a "
+"role=\"button\" class=\"action-link action-link--icon-trash action-link--"
+"danger\"><span hidden class=\"ed11y-api-path\">{{ page_path }}</span>Reset "
+"results for this page</a></p></span><span class=\"ed11y-reset-this-path\" "
+"hidden><p class=\"more-link\"><a role=\"button\" class=\"action-link action-"
+"link--icon-trash action-link--danger\"><span hidden class=\"ed11y-api-"
+"path\">{{ page_path }}</span>Återställ resultat för denna sida</a></p></span>"
+
+msgid "Issue types"
+msgstr "Problemtyper"
+
+msgid "Pages with specified alert"
+msgstr "Sidor med angiven varning"
+
+msgid "Published status"
+msgstr "Publiceringsstatus"
+
+msgid "Created by"
+msgstr "Skapad av"
+
+msgid "Created after"
+msgstr "Skapad efter"
+
+msgid "Created before"
+msgstr "Skapad före"
+
+msgid "<h1>Pages with alert \"{{ result_name }}\"</h1>"
+msgstr "<h1>Sidor med varning ”{{ result_name }}”</h1>"
+
+msgid ""
+"<a href=\"../editoria11y/alerts\" class=\"button button--primary\">All "
+"alerts</a>"
+msgstr ""
+"<a href=\"../editoria11y/alerts\" class=\"button button--primary\">All "
+"alerts</a><a href=\"../editoria11y/alerts\" class=\"button button--"
+"primary\">Alla varningar</a>"
+
+msgid "Pages with issues"
+msgstr "Sidor med problem"
+
+msgid "Next ›"
+msgstr "Nästa ›"
+
+msgid "‹ Previous"
+msgstr "‹ Föregående"
+
+msgid "Authored on"
+msgstr "Skapad den"
+
+msgid "Changed"
+msgstr "Ändrad"
+
+msgid "Editoria11y: Crawler"
+msgstr "Editoria11y: Crawler"
+
+msgid "Editoria11y: Crawl Nodes"
+msgstr "Editoria11y: Genomsök noder"
+
+msgid "Authored by"
+msgstr "Skapad av"
+
+msgid "Has results"
+msgstr "Har resultat"
+
+msgid "Has no alerts"
+msgstr "Har inga varningar"
+
+msgid "Has alerts"
+msgstr "Har varningar"
+
+msgid "nid"
+msgstr "nid"
+
+msgid "Editoria11y: Export"
+msgstr "Editoria11y: Export"
+
+msgid "Export page with alerts"
+msgstr "Exportera sida med varningar"
+
+msgid "Link to Taxonomy term"
+msgstr "Länk till taxonomiterm"
+
+msgid "Link to User"
+msgstr "Länk till användare"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path_1|render %}{% set dynamic_path = "
+"page_path_1 %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title }}</a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path_1|render %}{% set dynamic_path = "
+"page_path_1 %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title }}</a>"
+
+msgid "Path when checked"
+msgstr "Sökväg vid kontrolltillfället"
+
+msgid "<a href=\"{{page_path_1}}\" data-ed1ref=\"{{pid}}\">{{page_path_1}}"
+msgstr "<a href=\"{{page_path_1}}\" data-ed1ref=\"{{pid}}\">{{page_path_1}}"
+
+msgid "Current URL"
+msgstr "Aktuell URL"
+
+msgid "{{ view_taxonomy_term }}{{ view_user }}{{ view_node }}"
+msgstr "{{ view_taxonomy_term }}{{ view_user }}{{ view_node }}"
+
+msgid "{% if type is empty %}{{entity_type}}{%else%}{{type}}{% endif %}"
+msgstr "{% if type is empty %}{{entity_type}}{%else%}{{type}}{% endif %}"
+
+msgid "Entity Type"
+msgstr "Objekttyp"
+
+msgid "Langcode (en, fr, de)"
+msgstr "Språkkod (en, fr, de)"
+
+msgid "Referenced node"
+msgstr "Refererad nod"
+
+msgid "Referenced term"
+msgstr "Refererad term"
+
+msgid "Referenced user bio"
+msgstr "Refererad användarbio"
+
+msgid "<p>Records chosen for export can be filtered and previewed below.</p>"
+msgstr ""
+"<p>Records chosen for export can be filtered and previewed below.</"
+"p><p>Poster som valts för export kan filtreras och förhandsgranskas nedan.</"
+"p>"
+
+msgid "<a href=\"/admin/reports/editoria11y/export\">Back to dashboard</a>"
+msgstr ""
+"<a href=\"/admin/reports/editoria11y/export\">Tillbaka till panelen</a>"
+
+msgid "Dismissals export"
+msgstr "Export av avfärdanden"
+
+msgid "Link to Content"
+msgstr "Länk till innehåll"
+
+msgid "Page raw path"
+msgstr "Rå sidväg"
+
+msgid "Name"
+msgstr "Namn"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path_1|render %}{% set dynamic_path = "
+"page_path_1 %}{% endif %}\r\n"
+"{% set dynamic_title = title_1 ~ name ~ name_1 %}{% if dynamic_title is "
+"empty %}{% set dynamic_title = page_title %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ dynamic_title }}</"
+"a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path_1|render %}{% set dynamic_path = "
+"page_path_1 %}{% endif %}\r\n"
+"{% set dynamic_title = title_1 ~ name ~ name_1 %}{% if dynamic_title is "
+"empty %}{% set dynamic_title = page_title %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ dynamic_title }}</"
+"a>"
+
+msgid "dismissal"
+msgstr "avfärdande"
+
+msgid "Page export"
+msgstr "Sidexport"
+
+msgid "Alerts export"
+msgstr "Export av varningar"
+
+msgid "Editoria11y alerts on pages"
+msgstr "Editoria11y‑varningar på sidor"
+
+msgid "{{ view_taxonomy_term }}{{ view_user }}{{ view_node }} "
+msgstr "{{ view_taxonomy_term }}{{ view_user }}{{ view_node }} "
+
+msgid "Results for page"
+msgstr "Resultat för sida"
+
+msgid "<a href=\"./export/pages\">Export pages with alerts</a>"
+msgstr "<a href=\"./export/pages\">Exportera sidor med varningar</a>"
+
+msgid "<a href=\"./export/dismissals\">Export dismissals</a>"
+msgstr "<a href=\"./export/dismissals\">Exportera avfärdanden</a>"
+
+msgid "<a href=\"./export/alerts\">Export alert list</a>"
+msgstr "<a href=\"./export/alerts\">Exportera varningslista</a>"
+
+msgid "Export alerts on pages"
+msgstr "Exportera varningar på sidor"
+
+msgid "Result name"
+msgstr "Resultatnamn"

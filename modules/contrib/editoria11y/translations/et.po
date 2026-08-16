@@ -1,0 +1,2974 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: editoria11y 3.0.0\n"
+"POT-Creation-Date: 2026-08-01 21:46-0400\n"
+"PO-Revision-Date: 2026-05-11 00:00+0000\n"
+"Language-Team: Editoria11y\n"
+"Language: et\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid ""
+"editoria11y_post_update_0004: scanned @scanned mismatched page(s), "
+"backfilled @fixed to the referenced entity language."
+msgstr ""
+"editoria11y_post_update_0004: scanned @scanned mismatched page(s), "
+"backfilled @fixed to the referenced entity language."
+
+msgid "Editoria11y"
+msgstr "Editoria11y"
+
+msgid "Editoria11y - Pages with issues"
+msgstr "Editoria11y – Probleemidega lehed"
+
+msgctxt "problems"
+msgid "Provides relationship for issues and dismissals"
+msgstr "Loob seose probleemide ja tühistamiste vahel"
+
+msgid "EID"
+msgstr "EID"
+
+msgid "Editoria11y's internal page ID"
+msgstr "Editoria11y sisemine lehekülje ID"
+
+msgid "Entity ID"
+msgstr "Olemi ID"
+
+msgid "The NID/TID/UID of the page with an issue."
+msgstr "Probleemiga lehekülje NID/TID/UID."
+
+msgid "Entity type"
+msgstr "Olemi tüüp"
+
+msgid "The entity type; \"route\" if no type found."
+msgstr "Olemi tüüp; \"route\", kui tüüpi ei leita."
+
+msgid "Route name"
+msgstr "Marsruudi nimi"
+
+msgid "Route name for page."
+msgstr "Lehekülje marsruudi nimi."
+
+msgid "Page path"
+msgstr "Lehekülje tee"
+
+msgid "Internal, relative page path."
+msgstr "Sisemine, suhteline lehekülje tee."
+
+msgid "Page language"
+msgstr "Lehekülje keel"
+
+msgid "Active translation."
+msgstr "Aktiivne tõlge."
+
+msgid "Page title"
+msgstr "Lehe pealkiri"
+
+msgid "The name of the route where this was last seen."
+msgstr "Marsruudi nimi, kus seda viimati nähti."
+
+msgid "Content alerts"
+msgstr "Sisu hoiatused"
+
+msgid "Number of alerts shown to content editors."
+msgstr "Sisuhalduritele kuvatavate hoiatuste arv."
+
+msgid "Dev alerts"
+msgstr "Arendaja hoiatused"
+
+msgid "Number of alerts shown to developers."
+msgstr "Arendajatele kuvatavate hoiatuste arv."
+
+msgid "Updated"
+msgstr "Uuendatud"
+
+msgid "When this page was last checked."
+msgstr "Millal seda lehekülge viimati kontrolliti."
+
+msgid "Editoria11y - Test results"
+msgstr "Editoria11y – Testitulemused"
+
+msgctxt "problems"
+msgid "Stores Editoria11y issue list"
+msgstr "Salvestab Editoria11y probleemide loendi"
+
+msgid "Result row"
+msgstr "Tulemuse rida"
+
+msgid "Internal identifier"
+msgstr "Sisemine identifikaator"
+
+msgid "Created"
+msgstr "Loodud"
+
+msgid "When this page was flagged."
+msgstr "Millal see lehekülg märgistati."
+
+msgid "Alert type"
+msgstr "Hoiatuse tüüp"
+
+msgid "The name of the test as reported by Editoria11y JS"
+msgstr "Testi nimi, mille Editoria11y JS teatas"
+
+msgid "Alert type, linked"
+msgstr "Hoiatuse tüüp, lingitud"
+
+msgid "Linked to report of all alerts of this type."
+msgstr "Lingitud kõigi seda tüüpi hoiatuste aruandele."
+
+msgid "Content alert count"
+msgstr "Sisu hoiatuste arv"
+
+msgid "The number of hits for this test type on this page"
+msgstr "Seda tüüpi testi tabamuste arv sellel lehel"
+
+msgid "Dev alert count"
+msgstr "Arendaja hoiatuste arv"
+
+msgid "Editoria11y - Dismissals"
+msgstr "Editoria11y – Tühistamised"
+
+msgid "Stores Editoria11y warnings and dismissals"
+msgstr "Salvestab Editoria11y hoiatused ja tühistamised"
+
+msgid "Dismissal internal reference ID"
+msgstr "Tühistamise sisemine viite-ID"
+
+msgid "Page with dismissal"
+msgstr "Leht koos tühistamisega"
+
+msgid "Dismissed by"
+msgstr "Tühistaja"
+
+msgid "The user linked to this dismissal."
+msgstr "Selle tühistamisega seotud kasutaja."
+
+msgid "Linked Drupal user"
+msgstr "Seotud Drupal-kasutaja"
+
+msgid "Dismissed element id"
+msgstr "Tühistatud elemendi id"
+
+msgid "Code sample to identify the flagged element."
+msgstr "Koodinäide märgistatud elemendi tuvastamiseks."
+
+msgid "Dismissed on"
+msgstr "Tühistatud"
+
+msgid "The Unix timestamp of the first time this record was flagged."
+msgstr "Unixi ajatempel, mil seda kirjet esimest korda märgistati."
+
+msgid "Dismissal stale since"
+msgstr "Tühistamine aegunud alates"
+
+msgid "The element has not been seen since this date."
+msgstr "Elementi ei ole selle kuupäeva järel nähtud."
+
+msgid "Dismissed result name"
+msgstr "Tühistatud tulemuse nimi"
+
+msgid "Dismissed result name, linked"
+msgstr "Tühistatud tulemuse nimi, lingitud"
+
+msgid "Links to report of all alerts of this type."
+msgstr "Lingid kõigi seda tüüpi hoiatuste aruandele."
+
+msgid "Dismissal status"
+msgstr "Tühistamise olek"
+
+msgid "The type of dismissal (e.g., OK, Ignore)"
+msgstr "Tühistamise tüüp (nt OK, Ignoreeri)"
+
+msgid "Relate from Editoria11y page to referenced node"
+msgstr "Seo Editoria11y leht viidatud sõlmega"
+
+msgid "Issues were found on this node"
+msgstr "Sellest sõlmest leiti probleeme"
+
+msgid "Relate from node data to Editoria11y page"
+msgstr "Seo sõlme andmed Editoria11y lehega"
+
+msgid "Relate from Editoria11y page to referenced taxonomy term"
+msgstr "Seo Editoria11y leht viidatud taksonoomia terminiga"
+
+msgid "Issues were found on this term page"
+msgstr "Selle termini lehel leiti probleeme"
+
+msgid "Relate from taxonomy term data to Editoria11y page"
+msgstr "Seo taksonoomia termini andmed Editoria11y lehega"
+
+msgid "Relate from Editoria11y page list to user bio page data"
+msgstr "Seo Editoria11y lehtede loend kasutaja profiililehekülje andmetega"
+
+msgid "Issues were found on this user bio page"
+msgstr "Selle kasutaja profiililehel leiti probleeme"
+
+msgid "Relate from Editoria11y page to user bio page with issues"
+msgstr "Seo Editoria11y leht probleemidega kasutaja profiililehega"
+
+msgid "Relate from user bio page to Editoria11y results"
+msgstr "Seo kasutaja profiilileht Editoria11y tulemustega"
+
+msgid "Relate from users list to Editoria11y results on bio page"
+msgstr "Seo kasutajate loend Editoria11y tulemustega profiililehel"
+
+msgid "Relate from Editoria11y page to issues on page"
+msgstr "Seo Editoria11y leht lehe probleemidega"
+
+msgid "Issues found on this node"
+msgstr "Sellest sõlmest leitud probleemid"
+
+msgid "Relate from Editoria11y result to page"
+msgstr "Seo Editoria11y tulemus lehega"
+
+msgid "Relate from Editoria11y page to dismissals on page"
+msgstr "Seo Editoria11y leht lehe tühistamistega"
+
+msgid "Relate from Editoria11y dismissal to page"
+msgstr "Seo Editoria11y tühistamine lehega"
+
+msgid "Group relationship for node with Editoria11y issues"
+msgstr "Group seos Editoria11y probleemidega sõlmele"
+
+msgid ""
+"Bridge to the Group module. Add the Group module Group relationship on top "
+"of this one to filter or sort issues by group."
+msgstr ""
+"Sild Group mooduli juurde. Lisa selle peale Group mooduli Group seos, et "
+"probleeme grupi järgi filtreerida või sortida."
+
+msgid "Group relationship for node"
+msgstr "Group seos sõlmele"
+
+msgid "Group relationship for user bio with Editoria11y issues"
+msgstr "Group seos Editoria11y probleemidega kasutaja profiilile"
+
+msgid "Group relationship for user"
+msgstr "Group seos kasutajale"
+
+msgid "Group relationship for taxonomy term with Editoria11y issues"
+msgstr "Group seos Editoria11y probleemidega taksonoomia terminile"
+
+msgid ""
+"Bridge to the Group module. Add the Group module Group relationship on top "
+"of this one to filter or sort issues by group. Requires a contrib module "
+"that exposes terms as group content."
+msgstr ""
+"Sild Group mooduli juurde. Lisa selle peale Group mooduli Group seos, et "
+"probleeme grupi järgi filtreerida või sortida. Nõuab lisamoodulit, mis teeb "
+"terminid grupi sisuks kättesaadavaks."
+
+msgid "Group relationship for taxonomy term"
+msgstr "Group seos taksonoomia terminile"
+
+msgid "Warning: possible out of date path. This content may have moved to"
+msgstr ""
+"Hoiatus: tee võib olla aegunud. See sisu on võib-olla kolinud aadressile"
+
+msgid "Export CSV"
+msgstr "Ekspordi CSV"
+
+msgid "Predelete failed: @error_message"
+msgstr "Eelkustutamine ebaõnnestus: @error_message"
+
+msgid "Page attachment failed: @error_message"
+msgstr "Lehekülje lisamine ebaõnnestus: @error_message"
+
+msgid ""
+"editoria11y_update_9019: scanned @total rows, repaired @updated, deleted "
+"@deleted corrupted group rows, left @skipped untouched."
+msgstr ""
+"editoria11y_update_9019: scanned @total rows, repaired @updated, deleted "
+"@deleted corrupted group rows, left @skipped untouched."
+
+msgid ""
+"editoria11y_update_9020: hashed @hashed page rows, removed @deduped "
+"duplicate rows, added unique keys."
+msgstr "editoria11y_update_9020: hashed @hashed page rows, removed @deduped duplicate rows, added unique keys."
+
+msgid "Editoria11y Accessibility Checker"
+msgstr "Editoria11y ligipääsetavuse kontrollija"
+
+msgid ""
+"Checks page content for accessibility and provides a site-wide dashboard."
+msgstr ""
+"Kontrollib lehekülje sisu ligipääsetavuse osas ja pakub üle kogu saidi "
+"ulatuvat töölaudu."
+
+msgid "Content Accessibility"
+msgstr "Sisu ligipääsetavus"
+
+msgid "Accessibility checker notifications and exclusions."
+msgstr "Ligipääsetavuse kontrollija teated ja välistused."
+
+msgid "Results from the Editoria11y checker."
+msgstr "Editoria11y kontrollija tulemused."
+
+msgid "Dashboard"
+msgstr "Töölaud"
+
+msgid "Core settings"
+msgstr "Põhiseaded"
+
+msgid "Demo"
+msgstr "Demo"
+
+msgid "View Editoria11y checker"
+msgstr "Vaata Editoria11y kontrollijat"
+
+msgid "Assign to all content editors."
+msgstr "Määra kõigile sisuhalduritele."
+
+msgid "Administer Editoria11y checker"
+msgstr "Halda Editoria11y kontrollijat"
+
+msgid "Allows user to purge results and change configuration."
+msgstr "Võimaldab kasutajal tulemusi kustutada ja seadeid muuta."
+
+msgid "Mark as hidden in Editoria11y"
+msgstr "Märgi peiduks Editoria11ys"
+
+msgid "Adds button to suppress a manual check for the current user."
+msgstr "Lisab nupu käsitsi kontrollimise peitmiseks praeguse kasutaja jaoks."
+
+msgid "Mark as OK in Editoria11y"
+msgstr "Märgi OK-ks Editoria11ys"
+
+msgid ""
+"Adds button to suppress a manual check for all users, if sync is enabled."
+msgstr ""
+"Lisab nupu käsitsi kontrollimise peitmiseks kõigi kasutajate jaoks, kui "
+"sünkroonimine on lubatud."
+
+msgid "Manage Editoria11y results"
+msgstr "Halda Editoria11y tulemusi"
+
+msgid "View the site-wide dashboard and reset dismissals."
+msgstr "Vaata üle kogu saidi töölaudu ja lähtesta tühistamised."
+
+msgid "Editoria11y core settings"
+msgstr "Editoria11y põhiseaded"
+
+msgid "Content Accessibility Issues"
+msgstr "Sisu ligipääsetavuse probleemid"
+
+msgid "Editoria11y Settings"
+msgstr "Editoria11y seaded"
+
+msgid "Check elements in these containers"
+msgstr "Kontrolli elemente nendes konteinerites"
+
+msgid "Alert panel assertiveness"
+msgstr "Hoiatuspaneeli tähtsustase"
+
+msgid "Do not run if these elements are on the page"
+msgstr "Ära käivita, kui need elemendid on lehel"
+
+msgid "Suppress all alerts if none of these elements are present"
+msgstr "Peida kõik hoiatused, kui ükski neist elementidest ei ole olemas"
+
+msgid "Do not run tests on these containers"
+msgstr "Ära käivita teste nendes konteinerites"
+
+msgid "Move toggle to avoid colliding with these widgets"
+msgstr "Liiguta lülitit kokkupõrke vältimiseks nende vidinate juures"
+
+msgid ""
+"Full check should warn on these elements with embedded uncheckable content"
+msgstr ""
+"Täielik kontroll peaks hoiatama nende elementide puhul, millel on manustatud "
+"kontrollimatu sisu"
+
+msgid "These links download a document or image and need a manual review"
+msgstr ""
+"Need lingid laadivad alla dokumendi või pildi ja vajavad käsitsi ülevaatamist"
+
+msgid "Strings that indicate a link opens in a new window"
+msgstr "Stringid, mis näitavad, et link avaneb uues aknas"
+
+msgid "Remove these strings from link text before checking for bad link text"
+msgstr ""
+"Eemalda need stringid lingi tekstist enne halva lingi teksti kontrollimist"
+
+msgid "Remove strings in this selector before checking for bad link text"
+msgstr "Eemalda selle valija stringid enne lingi teksti kontrollimist"
+
+msgid ""
+"Hidden elements in these containers will be revealed by theme JS on request "
+"via a dispatched event"
+msgstr ""
+"Nendes konteinerites olevad peidetud elemendid avab teema JS päringu korral "
+"edastatud sündmuse kaudu"
+
+msgid "Elements that truncate overflow, partially hiding buttons"
+msgstr "Elemendid, mis kärpivad ületäitmist, peites osaliselt nuppe"
+
+msgid "Color scheme for panel and tooltips"
+msgstr "Värviskeema paneeli ja tööriistanäpunäidete jaoks"
+
+msgid "Pin toolbar to left or right"
+msgstr "Kinnita tööriistariba vasakule või paremale"
+
+msgid "Web components the checker should check"
+msgstr "Veebikomponendid, mida kontrollija peaks kontrollima"
+
+msgid "Auto-detects for additional shadow components"
+msgstr "Tuvastab automaatselt täiendavad vari-komponendid"
+
+msgid "Auto-detects and checks new content"
+msgstr "Tuvastab ja kontrollib automaatselt uut sisu"
+
+msgid "Disables dashboard and synchronized marking of elements as OK"
+msgstr "Keelab töölaua ja elementide sünkroonitud märkimise OK-ks"
+
+msgid "URL query parameters that should be recorded as separate pages"
+msgstr "URL-i päringuparameetrid, mis tuleks salvestada eraldi lehtedena"
+
+msgid "Remove string from URL for dashboard page links"
+msgstr "Eemalda string URL-ist töölaua lingiviidete jaoks"
+
+msgid "Number of custom test finished events the checker should wait for"
+msgstr ""
+"Kohandatud testide lõpetamissündmuste arv, mida kontrollija peaks ootama"
+
+msgid "Disables live editor checking"
+msgstr "Keelab otsetoimetaja kontrollimise"
+
+msgid ""
+"Selector for frontend-context editors that should inherit the document "
+"outline"
+msgstr ""
+"Valija esikülg-konteksti toimetajatele, mis peaksid pärima dokumendi "
+"struktuuri"
+
+msgid "Selector for editors where their first heading should be h2"
+msgstr "Valija toimetajatele, kus esimene pealkiri peaks olema h2"
+
+msgid "Selector for editors where their first heading should be h3"
+msgstr "Valija toimetajatele, kus esimene pealkiri peaks olema h3"
+
+msgid "Selector for editors where their first heading should be h4"
+msgstr "Valija toimetajatele, kus esimene pealkiri peaks olema h4"
+
+msgid "Selectors for components where edit links are meaningless on tips"
+msgstr ""
+"Valijad komponentide jaoks, kus redigeerimislingid on näpunäidetes mõttetud"
+
+msgid "Tell CK5 to have a header rows or columns by default."
+msgstr "Käsi CK5-l kasutada vaikimisi päiseridu või -veerge."
+
+msgid "Tests not shown to content authors."
+msgstr "Testid, mida sisuautoritele ei näidata."
+
+msgid "Disable the tests you are not ready for"
+msgstr "Keela testid, milleks sa valmis ei ole"
+
+msgid "linkNewWindow"
+msgstr "linkNewWindow"
+
+msgid "linkNoText"
+msgstr "linkNoText"
+
+msgid "altEmptyLinked"
+msgstr "altEmptyLinked"
+
+msgid "linkDocument"
+msgstr "linkDocument"
+
+msgid "linkTextIsURL"
+msgstr "linkTextIsURL"
+
+msgid "linkTextIsGeneric"
+msgstr "linkTextIsGeneric"
+
+msgid "textPossibleList"
+msgstr "textPossibleList"
+
+msgid "textPossibleHeading"
+msgstr "textPossibleHeading"
+
+msgid "textUppercase"
+msgstr "textUppercase"
+
+msgid "tableNoHeaderCells"
+msgstr "tableNoHeaderCells"
+
+msgid "tableEmptyHeaderCell"
+msgstr "tableEmptyHeaderCell"
+
+msgid "tableContainsContentHeading"
+msgstr "tableContainsContentHeading"
+
+msgid "embedVideo"
+msgstr "embedVideo"
+
+msgid "embedAudio"
+msgstr "embedAudio"
+
+msgid "embedVisualization"
+msgstr "embedVisualization"
+
+msgid "embedTwitter"
+msgstr "embedTwitter"
+
+msgid "embedCustom"
+msgstr "embedCustom"
+
+msgid "headingEmpty"
+msgstr "headingEmpty"
+
+msgid "headingIsLong"
+msgstr "headingIsLong"
+
+msgid "headingLevelSkipped"
+msgstr "headingLevelSkipped"
+
+msgid "blockquoteIsShort"
+msgstr "blockquoteIsShort"
+
+msgid "altMissing"
+msgstr "altMissing"
+
+msgid "altNull"
+msgstr "altNull"
+
+msgid "altMeaningless"
+msgstr "altMeaningless"
+
+msgid "altURL"
+msgstr "altURL"
+
+msgid "altImageOf"
+msgstr "altImageOf"
+
+msgid "altDeadspace"
+msgstr "altDeadspace"
+
+msgid "altLong"
+msgstr "altLong"
+
+msgid "altPartOfLinkWithText"
+msgstr "altPartOfLinkWithText"
+
+msgid "2-letter code (en, fr, de)"
+msgstr "2-tähtne kood (en, fr, de)"
+
+msgid "Alert"
+msgstr "Hoiatus"
+
+msgid "Alert types"
+msgstr "Hoiatuste tüübid"
+
+msgid "Alerts"
+msgstr "Hoiatused"
+
+msgid "All dismissals"
+msgstr "Kõik tühistamised"
+
+msgid "All issues"
+msgstr "Kõik probleemid"
+
+msgid "All pages"
+msgstr "Kõik lehed"
+
+msgid "Apply"
+msgstr "Rakenda"
+
+msgid "Author"
+msgstr "Autor"
+
+msgid "Authored after"
+msgstr "Loodud pärast"
+
+msgid "Authored before"
+msgstr "Loodud enne"
+
+msgid "Authored"
+msgstr "Loodud"
+
+msgid "Content type"
+msgstr "Sisuliik"
+
+msgid "Detected"
+msgstr "Tuvastatud"
+
+msgid "Dismissals"
+msgstr "Tühistamised"
+
+msgid "Dismissed accessibility alerts"
+msgstr "Tühistatud ligipääsetavuse hoiatused"
+
+msgid "Edited"
+msgstr "Muudetud"
+
+msgid "Editor"
+msgstr "Toimetaja"
+
+msgid "Items per page"
+msgstr "Üksusi lehel"
+
+msgid "Filter"
+msgstr "Filtreeri"
+
+msgid "Language"
+msgstr "Keel"
+
+msgid "Last editor"
+msgstr "Viimane toimetaja"
+
+msgid "Marked"
+msgstr "Märgistatud"
+
+msgid "No dismissals found."
+msgstr "Tühistamisi ei leitud."
+
+msgid "Page"
+msgstr "Lehekülg"
+
+msgid "Pages"
+msgstr "Leheküljed"
+
+msgid "Pages with alerts"
+msgstr "Hoiatustega leheküljed"
+
+msgid "Panel"
+msgstr "Paneel"
+
+msgid "Path"
+msgstr "Rada"
+
+msgid "Published"
+msgstr "Avaldatud"
+
+msgid "Recent"
+msgstr "Hiljutised"
+
+msgid "Recent accessibility alerts"
+msgstr "Hiljutised ligipääsetavuse hoiatused"
+
+msgid "Recent alerts"
+msgstr "Hiljutised hoiatused"
+
+msgctxt "problems"
+msgid "Recent alerts"
+msgstr "Hiljutised hoiatused"
+
+msgid "Sort by"
+msgstr "Sordi"
+
+msgid "Title"
+msgstr "Pealkiri"
+
+msgid "Type"
+msgstr "Tüüp"
+
+msgid "Filter and sort"
+msgstr "Filtreeri ja sordi"
+
+msgid "Deleted."
+msgstr "Kustutatud."
+
+msgid "Delete failed."
+msgstr "Kustutamine ebaõnnestus."
+
+msgid "<p>The Editoria11y <strong><em>@type</em></strong> view is missing.</p>"
+msgstr ""
+"<p>The Editoria11y <strong><em>@type</em></strong> view is missing.</p>"
+
+msgid ""
+"<p>There are three view configurations this module installs, found in its /"
+"config/install folder. Each must be installed for this dashboard to display "
+"results.</p>"
+msgstr ""
+"<p>There are three view configurations this module installs, found in its /"
+"config/install folder. Each must be installed for this dashboard to display "
+"results.</p>"
+
+msgid ""
+"<p>To fix: copy and paste the contents of <strong>/editoria11y/config/"
+"install/views.view.ed11y_@type.yml</strong> into a \"View\" type import at "
+"<a href=\"/admin/config/development/configuration/single/import\">/admin/"
+"config/development/configuration/single/import</a>. If you sync your "
+"configuration to the filesystem, be sure to include these Views in your "
+"repository.</p>"
+msgstr ""
+"<p>To fix: copy and paste the contents of <strong>/editoria11y/config/"
+"install/views.view.ed11y_@type.yml</strong> into a \"View\" type import at "
+"<a href=\"/admin/config/development/configuration/single/import\">/admin/"
+"config/development/configuration/single/import</a>. If you sync your "
+"configuration to the filesystem, be sure to include these Views in your "
+"repository.</p>"
+
+msgid "link is external"
+msgstr "link on väline"
+
+msgid "link sends email"
+msgstr "link saadab e-kirja"
+
+msgid "No results found"
+msgstr "Tulemusi ei leitud"
+
+msgid ""
+"Your Editoria11y CSA trial has @days days remaining. <a "
+"href=\"@url\">Activate a license</a> to continue using CSA features after "
+"the trial ends."
+msgstr ""
+"Teie Editoria11y CSA prooviperioodil on @days päeva jäänud. <a "
+"href=\"@url\">Aktiveerige litsents</a>, et jätkata CSA funktsioonide "
+"kasutamist pärast prooviperioodi lõppu."
+
+msgid ""
+"Your Editoria11y CSA trial has expired. CSA features have been disabled. <a "
+"href=\"@url\">Activate a license</a> to continue using them."
+msgstr ""
+"Teie Editoria11y CSA prooviperiood on lõppenud. CSA funktsioonid on "
+"keelatud. <a href=\"@url\">Aktiveerige litsents</a>, et jätkata nende "
+"kasutamist."
+
+msgid ""
+"Your Editoria11y CSA license has expired. <a href=\"@url\">Renew or "
+"deactivate your license</a>."
+msgstr ""
+"Teie Editoria11y CSA litsents on aegunud. <a href=\"@url\">Uuendage või "
+"deaktiveerige oma litsents</a>."
+
+msgid ""
+"Your Editoria11y CSA license has expired. Please renew to reactivate CSA add-"
+"ons."
+msgstr ""
+"Teie Editoria11y CSA litsents on aegunud. Palun uuendage, et CSA "
+"lisandmoodulid uuesti aktiveerida."
+
+msgid "Cron license check failed: @msg"
+msgstr "Croni litsentsi kontroll ebaõnnestus: @msg"
+
+msgid ""
+"Editoria11y CSA features are active on a @days-day trial. <a "
+"href=\"@url\">Activate a license</a> to continue using them after the trial "
+"ends."
+msgstr ""
+"Editoria11y CSA funktsioonid on aktiivsed @days-päevasel prooviperioodil. <a "
+"href=\"@url\">Aktiveerige litsents</a>, et jätkata nende kasutamist pärast "
+"prooviperioodi lõppu."
+
+msgid "Editoria11y Custom Test"
+msgstr "Editoria11y kohandatud test"
+
+msgid "Editoria11y Custom Tests"
+msgstr "Editoria11y kohandatud testid"
+
+msgid "editoria11y custom test"
+msgstr "editoria11y kohandatud test"
+
+msgid "editoria11y custom tests"
+msgstr "editoria11y kohandatud testid"
+
+msgid "Editoria11y CSA: Advanced Tools"
+msgstr "Editoria11y CSA: täiustatud tööriistad"
+
+msgid ""
+"Community-Supported Addons include code and contrast checks, custom checks, "
+"a site crawler and report maintenance tools."
+msgstr "Kogukonna toetatavad lisandmoodulid sisaldavad koodi- ja kontrastikontrolle, kohandatud kontrolle, saidi roomajat ning aruannete hooldustööriistu."
+
+msgid "Add custom test"
+msgstr "Lisa kohandatud test"
+
+msgid "Recheck"
+msgstr "Kontrolli uuesti"
+
+msgid "CSA membership"
+msgstr "CSA liikmelisus"
+
+msgid "Custom tests"
+msgstr "Kohandatud testid"
+
+msgid "Dashboard Actions"
+msgstr "Töölaua toimingud"
+
+msgid "Editoria11y CSA membership"
+msgstr "Editoria11y CSA liikmelisus"
+
+msgid "Editoria11y custom tests"
+msgstr "Editoria11y kohandatud testid"
+
+msgid "Add a custom test"
+msgstr "Lisa kohandatud test"
+
+msgid "Edit custom test"
+msgstr "Muuda kohandatud testi"
+
+msgid "Delete custom test"
+msgstr "Kustuta kohandatud test"
+
+msgid "Editoria11y CSA Settings"
+msgstr "Editoria11y CSA seaded"
+
+msgid "Developer roles"
+msgstr "Arendaja rollid"
+
+msgid "Developer assertiveness"
+msgstr "Arendaja hoiatuste tähtsustase"
+
+msgid "Tests overridden to show to content editors"
+msgstr "Testid, mis on alistatud sisuhalduri vaatamiseks"
+
+msgid "Tests overridden to turn off"
+msgstr "Testid, mis on alistatud keelamiseks"
+
+msgid "Tests overridden to only to show to developers"
+msgstr "Testid, mis on alistatud ainult arendajatele näitamiseks"
+
+msgid "Elements to ignore for contrast test"
+msgstr "Kontrasttestil eiratavad elemendid"
+
+msgid "Turn on contrast checks"
+msgstr "Lülita kontrastkontrollid sisse"
+
+msgid "Developer check root: body or specify"
+msgstr "Arendaja kontrolli juur: body või täpsusta"
+
+msgid "Developer check root selector"
+msgstr "Arendaja kontrolli juure valija"
+
+msgid "Selector for elements to ignore for developers"
+msgstr "Valija arendajate jaoks eiratavate elementide jaoks"
+
+msgid "Enabled"
+msgstr "Lubatud"
+
+msgid "Custom development domain patterns"
+msgstr "Kohandatud arendusdomeeninite mustrid"
+
+msgid "ID"
+msgstr "ID"
+
+msgid "Label"
+msgstr "Silt"
+
+msgid "Test key"
+msgstr "Testi võti"
+
+msgid "Tooltip title"
+msgstr "Tööriistanäpunäide pealkiri"
+
+msgid "Tip content HTML"
+msgstr "Näpunäide sisu HTML"
+
+msgid "Element set to check"
+msgstr "Kontrollitav elementide kogum"
+
+msgid "Dismiss key type"
+msgstr "Tühistamisvõtme tüüp"
+
+msgid "CSS filter selector"
+msgstr "CSS-filtri valija"
+
+msgid "Text strings to include"
+msgstr "Kaasatavad tekstistringid"
+
+msgid "Text string"
+msgstr "Tekstistring"
+
+msgid "Text strings to exclude"
+msgstr "Välistatavad tekstistringid"
+
+msgid "Case sensitive text matching"
+msgstr "Tõstutundlik tekstivaste"
+
+msgid "Filter which pages will be crawled"
+msgstr "Filtreeri, milliseid lehti indekseeritakse"
+
+msgid "Cancel"
+msgstr "Tühista"
+
+msgid "Millisecond pause between page requests"
+msgstr "Millisekundiline paus lehepäringute vahel"
+
+msgid "This tab needs to remain open and in the foreground during the crawl."
+msgstr "See vahekaart peab indekseerimise ajal olema avatud ja esiplanil."
+
+msgid "Estimated time:"
+msgstr "Hinnanguline aeg:"
+
+msgid "hours"
+msgstr "hours"
+
+msgid "minutes"
+msgstr "minutes"
+
+msgid "minute"
+msgstr "minute"
+
+msgid "Start crawling"
+msgstr "Alusta indekseerimist"
+
+msgid "Checked:"
+msgstr "Kontrollitud:"
+
+msgid "pages"
+msgstr "pages"
+
+msgid "Back to dashboard"
+msgstr "Tagasi töölaua juurde"
+
+msgid "Test"
+msgstr "Test"
+
+msgid "Elements"
+msgstr "Elemendid"
+
+msgid "Status"
+msgstr "Olek"
+
+msgid "Text"
+msgstr "Tekst"
+
+msgid "On"
+msgstr "Veebilehel"
+
+msgid "Off"
+msgstr "Väljaspool"
+
+msgid "Freemius deactivation API call failed: @msg"
+msgstr "Freemiuse deaktiveerimise API kutse ebaõnnestus: @msg"
+
+msgid "Cannot cancel subscription: API token not found."
+msgstr "Ei saa tellimust tühistada: API tokenit ei leitud."
+
+msgid "Freemius subscription cancellation API call failed: @msg"
+msgstr "Freemiuse tellimuse tühistamise API kutse ebaõnnestus: @msg"
+
+msgid "Key module lookup for @id failed: @msg"
+msgstr "Key module lookup for @id failed: @msg"
+
+msgid "Failed to update Freemius install properties: @msg"
+msgstr "Freemiuse installi omaduste uuendamine ebaõnnestus: @msg"
+
+msgid ""
+"An <a href=\"@settings\">active license must be deactivated</a> before "
+"uninstalling."
+msgstr ""
+"<a href=\"@settings\">Aktiivne litsents tuleb deaktiveerida</a> enne "
+"desinstallimist."
+
+msgid "License key stored. Use editoria11y-csa:activate to activate."
+msgstr ""
+"Litsentsivõti salvestatud. Kasuta aktiveerimiseks editoria11y-csa:activate."
+
+msgid "License activated."
+msgstr "Litsents aktiveeritud."
+
+msgid "License deactivated."
+msgstr "Litsents deaktiveeritud."
+
+msgid "License active. Expires: @date"
+msgstr "Litsents aktiivne. Aegub: @date"
+
+msgid "License active. No expiration date."
+msgstr "Litsents aktiivne. Aegumiskuupäeva pole."
+
+msgid ""
+"License management locked. Use editoria11y-csa:unlock to re-enable UI "
+"changes."
+msgstr ""
+"Litsentside haldamine on lukustatud. Kasuta kasutajaliidese muudatuste "
+"taasaktiveerimiseks editoria11y-csa:unlock."
+
+msgid "License management unlocked. UI changes are now allowed."
+msgstr ""
+"Litsentside haldamine avatud. Kasutajaliidese muudatused on nüüd lubatud."
+
+msgid "License expired or cancelled."
+msgstr "Litsents aegunud või tühistatud."
+
+msgid "License key cannot be empty."
+msgstr "Litsentsivõti ei tohi olla tühi."
+
+msgid "Failed to store key: {msg}"
+msgstr "Võtme salvestamine ebaõnnestus: {msg}"
+
+msgid "No stored license key found. Run editoria11y-csa:set-key first."
+msgstr ""
+"Salvestatud litsentsivõtit ei leitud. Käivita esmalt editoria11y-csa:set-key."
+
+msgid "Activation failed: {msg}"
+msgstr "Aktiveerimine ebaõnnestus: {msg}"
+
+msgid "Deactivation failed: {msg}"
+msgstr "Deaktiveerimine ebaõnnestus: {msg}"
+
+msgid "License check failed: {msg}"
+msgstr "Litsentsi kontroll ebaõnnestus: {msg}"
+
+msgid "Export"
+msgstr "Ekspordi"
+
+msgid "Export pages"
+msgstr "Ekspordi leheküljed"
+
+msgid "Export dismissals"
+msgstr "Ekspordi tühistamised"
+
+msgid "Export alerts"
+msgstr "Ekspordi hoiatused"
+
+msgid "Paths with parameters"
+msgstr "Teed parameetritega"
+
+msgid "Drop records for deleted or moved pages"
+msgstr "Kustuta kirjed kustutatud või teisaldatud lehtede kohta"
+
+msgid "Deletes results that no longer have valid paths or entity references."
+msgstr "Kustutab tulemused, millel pole enam kehtivaid teid ega olemiviiteid."
+
+msgid "Update page titles"
+msgstr "Uuenda lehepealkirju"
+
+msgid ""
+"Replaces recorded titles for Nodes, Terms and Users with the current value "
+"on their edit page."
+msgstr ""
+"Asendab salvestatud sõlmede, terminite ja kasutajate pealkirjad nende "
+"redigeerimislehel oleva praeguse väärtusega."
+
+msgid "Update page paths"
+msgstr "Uuenda leheteid"
+
+msgid ""
+"Replaces recorded URLs for Nodes, Terms and Users with their current "
+"canonical path. <br>@ReviewPaths (node/1?node=2) will not be updated."
+msgstr ""
+"Asendab salvestatud URL-id sõlmede, terminite ja kasutajate jaoks nende "
+"praeguse kanoonilise teega. <br>@ReviewPaths (node/1?node=2) ei uuendata."
+
+msgid "Risky deletions"
+msgstr "Riskantsed kustutamised"
+
+msgid "Delete records for paths with parameters (e.g., ?page=2)"
+msgstr "Kustuta kirjed parameetritega teede kohta (nt ?page=2)"
+
+msgid "None"
+msgstr "Puudub"
+
+msgid "Only for nodes, terms & users"
+msgstr "Ainult sõlmede, terminite ja kasutajate jaoks"
+
+msgid "All, including search and views"
+msgstr "Kõik, sh otsing ja vaated"
+
+msgid ""
+"Used to remove duplicate records when previously recorded parameters like "
+"page numbers or search keys were not meaningful. Parameters that are not "
+"meaningful should be removed from the list of parameters to save under "
+"\"Syncing results to reports\" in the module configuration.<br>@ReviewPaths "
+"should be reviewed before proceeding. <strong>There is no undo</strong>."
+msgstr ""
+"Kasutatakse duplikaatkirjete eemaldamiseks, kui varem salvestatud "
+"parameetrid (nt lehenumbrid või otsivõtmed) polnud tähendusrikkad. "
+"Mittetähendusrikkad parameetrid tuleks eemaldada mooduli seadistuses "
+"jaotisest \"Syncing results to reports\".<br>@ReviewPaths tuleks enne "
+"jätkamist üle vaadata. <strong>Toimingut ei saa tagasi võtta</strong>."
+
+msgid "Start"
+msgstr "Alusta"
+
+msgid "Recheck nodes"
+msgstr "Kontrolli sõlmi uuesti"
+
+msgid "Set up a crawl"
+msgstr "Seadista indekseerimine"
+
+msgid "Processing batch #@batch_id of @count."
+msgstr "Töötletakse paketti #@batch_id / @count."
+
+msgid "@process processed @count, deleted @deleted, updated @updated."
+msgstr "@process töötas läbi @count, kustutab @deleted, uuendas @updated."
+
+msgid ""
+"An error occurred while processing %error_operation with arguments: "
+"@arguments"
+msgstr "Viga toimingu %error_operation töötlemisel argumentidega: @arguments"
+
+msgid "No records to process."
+msgstr "Töötlemiseks pole kirjeid."
+
+msgid ""
+"@process processed @count, deleted @deleted, updated @updated in @elapsed."
+msgstr ""
+"@process töötas läbi @count, kustutab @deleted, uuendas @updated ajaga "
+"@elapsed."
+
+msgid "Admin label for the configuration page"
+msgstr "Administraatori silt seadistuste lehekülje jaoks"
+
+msgid "Test grouping ID"
+msgstr "Testide grupi ID"
+
+msgid ""
+"Letters, numbers and underscores only.<br>Rules that share an ID will be "
+"grouped on dashboard reports."
+msgstr ""
+"Ainult tähed, numbrid ja allkriipsud.<br>Reeglid, millel on sama ID, "
+"grupeeritakse töölaua aruannetes."
+
+msgid "Active"
+msgstr "Aktiivne"
+
+msgid "Alert content"
+msgstr "Hoiatuse sisu"
+
+msgid "Tip title"
+msgstr "Näpunäide pealkiri"
+
+msgid "Tip details"
+msgstr "Näpunäide üksikasjad"
+
+msgid ""
+"HTML displayed in the tooltip. The provided template is optional.<br>\n"
+"        Allowed tags: @tags."
+msgstr ""
+"HTML, mida kuvatakse tööriistanäpunäides. Esitatud mall on valikuline.<br>\n"
+"        Lubatud sildid: @tags."
+
+msgid "To fix"
+msgstr "Parandamiseks"
+
+msgid "Error"
+msgstr "Viga"
+
+msgid "Manual check"
+msgstr "Käsitsi kontroll"
+
+msgid "Dismiss key"
+msgstr "Tühistamisvõti"
+
+msgid ""
+"How dismissals are tracked. 'Text' uses its text content, 'Attributes' uses "
+"its attributes (href, id, class, src)."
+msgstr ""
+"Kuidas tühistamisi jälgitakse. 'Text' kasutab tekstisisu, 'Attributes' "
+"kasutab atribuute (href, id, class, src)."
+
+msgid "Text content"
+msgstr "Tekstisisu"
+
+msgid "Attributes on tag (e.g. href and src)"
+msgstr "Sildi atribuudid (nt href ja src)"
+
+msgid "Elements to check"
+msgstr "Kontrollitavad elemendid"
+
+msgid ""
+"These sets contain elements that match your check area and skip over "
+"configuration."
+msgstr ""
+"Need kogumid sisaldavad elemente, mis vastavad teie kontrollialale ja "
+"mööduvad seadistusest."
+
+msgid "Common choices"
+msgstr "Tavalised valikud"
+
+msgid "All text elements: Headings, Paragraphs, Blockquotes and Lists"
+msgstr "Kõik tekstielemendid: pealkirjad, lõigud, tsitaadiplokid ja loendid"
+
+msgid "Links"
+msgstr "Lingid"
+
+msgid "Paragraphs"
+msgstr "Lõigud"
+
+msgid "Headings"
+msgstr "Pealkirjad"
+
+msgid "Images"
+msgstr "Pildid"
+
+msgid "All elements"
+msgstr "Kõik elemendid"
+
+msgid "...other..."
+msgstr "...muu..."
+
+msgid "Specific elements and combinations"
+msgstr "Konkreetsed elemendid ja kombinatsioonid"
+
+msgid "Lists"
+msgstr "Loendid"
+
+msgid "Blockquotes"
+msgstr "Tsitaadiplokid"
+
+msgid "Tables"
+msgstr "Tabelid"
+
+msgid "Buttons"
+msgstr "Nupud"
+
+msgid "Inputs"
+msgstr "Sisestusväljad"
+
+msgid "Labels"
+msgstr "Sildid"
+
+msgid "Iframes"
+msgstr "Iframeid"
+
+msgid "Videos"
+msgstr "Videod"
+
+msgid "Audio"
+msgstr "Heli"
+
+msgid ""
+"Note: combining Links with Paragraphs and other text containers can lead to "
+"duplicate alerts."
+msgstr ""
+"Märkus: linkide ühendamine lõikude ja teiste tekstikonteineritega võib "
+"põhjustada korduvaid hoiatusi."
+
+msgid "When tip should appear"
+msgstr "Millal näpunäide peaks ilmuma"
+
+msgid ""
+"This test builder allows for simple text and attribute tests.<br>Check the "
+"module readme for <a href=\"@url\">tips on writing more complex tests</a>."
+msgstr ""
+"See testikoostaja võimaldab lihtsaid teksti- ja atribuutteste.<br>Vaata "
+"mooduli readme-faili, et leida <a href=\"@url\">näpunäiteid keerukampate "
+"testide kirjutamiseks</a>."
+
+msgid "Select by attributes"
+msgstr "Vali atribuutide järgi"
+
+msgid ""
+"Match using CSS selectors.<br>Use :not() to skip elements, e.g. "
+"<code>:is(.check1, .check2):not(.ignore, .ignore *)</code>.<br>Use attribute "
+"selectors for URLs, e.g. <code>[href*=\".dev/\"]</code>."
+msgstr ""
+"Sobita CSS-valijate abil.<br>Kasuta :not() elementide vahelejätmiseks, nt "
+"<code>:is(.check1, .check2):not(.ignore, .ignore *)</code>.<br>Kasuta "
+"atribuudi valijaid URL-ide jaoks, nt <code>[href*=\".dev/\"]</code>."
+
+msgid "Select by text"
+msgstr "Vali teksti järgi"
+
+msgid "Flag elements containing any of these text strings. One per line."
+msgstr ""
+"Märgi elemendid, mis sisaldavad mõnda neist tekstistringidest. Üks real."
+
+msgid "Case sensitive"
+msgstr "Tõstutundlik"
+
+msgid "Exclude elements that match this text"
+msgstr "Välista elemendid, mis vastavad sellele tekstile"
+
+msgid ""
+"Don't flag elements if they contain any of these words or phrases. E.g., a "
+"link to a development server is ok if it contains \"dev.\" One per line."
+msgstr ""
+"Ära märgi elemente, kui need sisaldavad mõnda neist sõnadest või fraasidest. "
+"Nt arendusserveri link on OK, kui see sisaldab \"dev.\" Üks real."
+
+msgid "Test key must contain only letters, numbers, and underscores."
+msgstr "Testi võti võib sisaldada ainult tähti, numbreid ja allkriipse."
+
+msgid "Tip content must contain visible text."
+msgstr "Näpunäide sisu peab sisaldama nähtavat teksti."
+
+msgid "Select at least one rule."
+msgstr "Vali vähemalt üks reegel."
+
+msgid "Select at least one element type."
+msgstr "Vali vähemalt üks elemendi tüüp."
+
+msgid "The filter selector should be a CSS selector, not a CSS rule block."
+msgstr "Filtri valija peab olema CSS-valija, mitte CSS-reegliplokk."
+
+msgid "Created new custom test %label."
+msgstr "Loodud uus kohandatud test %label."
+
+msgid "Updated custom test %label."
+msgstr "Kohandatud test %label uuendatud."
+
+msgid "Are you deactivating this site or cancelling altogether?"
+msgstr "Kas deaktiveerite selle saidi või tühistate täielikult?"
+
+msgid "You can manage your subscriptions at any time in your Freemius account."
+msgstr "Saate oma tellimusi igal ajal hallata oma Freemiuse kontol."
+
+msgid "Choose an action"
+msgstr "Vali toiming"
+
+msgid ""
+"<strong>Deactivate this site</strong>, but keep my subscription active and "
+"renewing for use on another site"
+msgstr ""
+"<strong>Deaktiveeri see sait</strong>, kuid hoia minu tellimus aktiivsena ja "
+"uuenda seda kasutamiseks teisel saidil"
+
+msgid ""
+"<strong>Cancel my subscription</strong> to the Editoria11y CSA altogether"
+msgstr "<strong>Tühista minu tellimus</strong> Editoria11y CSA-le täielikult"
+
+msgid "Confirm deactivation"
+msgstr "Kinnita deaktiveerimine"
+
+msgid "Never mind; keep site active"
+msgstr "Pole midagi; hoia sait aktiivsena"
+
+msgid ""
+"This site appears to be a development or testing environment with an active "
+"license."
+msgstr "See sait näib olevat arendus- või testkeskkond aktiivse litsentsiga."
+
+msgid "How would you like to proceed?"
+msgstr "Kuidas soovite jätkata?"
+
+msgid ""
+"<strong>Cancel deactivation</strong>; I will manage this from the production "
+"site"
+msgstr "<strong>Tühista deaktiveerimine</strong>; haldan seda tootmissaidilt"
+
+msgid ""
+"<strong>Disconnect this copy</strong>; leave the production license active"
+msgstr "<strong>Lahuta see koopia</strong>; jäta tootmislitsents aktiivseks"
+
+msgid ""
+"<strong>Deactivate all copies of this site</strong> (production, dev, and QA)"
+msgstr ""
+"<strong>Deaktiveeri kõik selle saidi koopiad</strong> (tootmine, arendus ja "
+"QA)"
+
+msgid "Confirm"
+msgstr "Kinnita"
+
+msgid ""
+"Editoria11y promotes accessibility in a unique way. Its tools are highly "
+"effective at helping non-technical authors prepare content that can be "
+"enjoyed equally by disabled Web users. We consider this a public good, so "
+"Editoria11y will always be free to use."
+msgstr ""
+"Editoria11y edendab ligipääsetavust ainulaadsel viisil. Selle tööriistad "
+"aitavad tõhusalt mittetehnilistel autoritel koostada sisu, mida puudega "
+"veebitarbijad saavad võrdselt kasutada. Peame seda ühiseks hüveks, nii et "
+"Editoria11y kasutamine on alati tasuta."
+
+msgid "Editoria11y is not, however, free to develop or support."
+msgstr "Editoria11y arendamine ja toetamine ei ole siiski tasuta."
+
+msgid ""
+"The \"Community Supported Add-ons\" (CSA) project fills the gap: project "
+"membership subscriptions fund the development of the Editoria11y library, "
+"its CMS plugins, and the CSA suite."
+msgstr ""
+"\"Community Supported Add-ons\" (CSA) projekt täidab lünga: projekti "
+"liikmelisuse tellimused rahastavad Editoria11y teegi, selle CMS-pluginate ja "
+"CSA-komplekti arendamist."
+
+msgid ""
+"<a href=\"@url\"><strong>Join the CSA</strong></a> to support this project"
+msgstr ""
+"<a href=\"@url\"><strong>Liitu CSA-ga</strong></a>, et seda projekti toetada"
+
+msgid ""
+"Existing members: <a href=\"@url\"><strong>Manage your subscription</"
+"strong></a> or <a href=\"@support_url\"><strong>contact support</strong></a>"
+msgstr ""
+"Olemasolevad liikmed: <a href=\"@url\"><strong>Halda oma tellimust</strong></"
+"a> või <a href=\"@support_url\"><strong>võta ühendust toega</strong></a>"
+
+msgid ""
+"License management on this site has been locked via Drush. Use <code>drush "
+"ed11y-unlock</code> to re-enable changes from this form."
+msgstr ""
+"Selle saidi litsentside haldamine on Drushi kaudu lukustatud. Kasuta selle "
+"vormi kaudu muudatuste taasaktiveerimiseks <code>drush ed11y-unlock</code>."
+
+msgid "Warning: this site matches a dev or QA URL pattern"
+msgstr "Hoiatus: see sait vastab arendus- või QA URL-i mustrile"
+
+msgid "Shared activations should be managed in the production copy."
+msgstr "Ühiseid aktiveerimisi tuleks hallata tootmiskopias."
+
+msgid ""
+"Use <code>drush ed11y-lock</code> to prevent changing shared activations."
+msgstr ""
+"Kasuta <code>drush ed11y-lock</code>, et vältida ühiste aktiveerimiste "
+"muutmist."
+
+msgid ""
+"Deactivating a shared key deactivates all copies of a site, including "
+"production."
+msgstr ""
+"Jagatud võtme deaktiveerimine deaktiveerib kõik saidi koopiad, sealhulgas "
+"tootmise."
+
+msgid ""
+"Separate license activations from a development environment consume an "
+"additional key."
+msgstr ""
+"Eraldi litsentsi aktiveerimine arenduskeskkonnast tarbib täiendava võtme."
+
+msgid "Trial (@days days remaining)"
+msgstr "Prooviperiood (@days päeva jäänud)"
+
+msgid "Trial (expired)"
+msgstr "Prooviperiood (aegunud)"
+
+msgid "License expired"
+msgstr "Litsents aegunud"
+
+msgid "Active membership"
+msgstr "Aktiivne liikmelisus"
+
+msgid "Activate using stored license key"
+msgstr "Aktiveeri salvestatud litsentsivõtmega"
+
+msgid "Activate with a different license key"
+msgstr "Aktiveeri erineva litsentsivõtmega"
+
+msgid "Activate (enter license key below)"
+msgstr "Aktiveeri (sisesta litsentsivõti allpool)"
+
+msgid "<strong>License expired.</strong> Expired on: @date"
+msgstr "<strong>Litsents aegunud.</strong> Aegus: @date"
+
+msgid "<strong>License has expired.</strong>"
+msgstr "<strong>License has expired.</strong>"
+
+msgid "<strong>Trial license active.</strong> Trial ends: @date"
+msgstr "<strong>Proovilitsents aktiivne.</strong> Prooviperiood lõpeb: @date"
+
+msgid "<strong>License active.</strong> Expires: @date"
+msgstr "<strong>Litsents aktiivne.</strong> Aegub: @date"
+
+msgid "<strong>Lifetime license active.</strong>"
+msgstr "<strong>Lifetime license active.</strong>"
+
+msgid "Check for license renewal"
+msgstr "Kontrolli litsentsi uuendamist"
+
+msgid "Deactivate license"
+msgstr "Deaktiveeri litsents"
+
+msgid "A license key is stored but not active"
+msgstr "Litsentsivõti on salvestatud, kuid pole aktiivne"
+
+msgid "Add a license key to enable CSA features"
+msgstr "Lisa litsentsivõti CSA funktsioonide lubamiseks"
+
+msgid "Enable CSA features"
+msgstr "Luba CSA funktsioonid"
+
+msgid "CSA license key"
+msgstr "CSA litsentsivõti"
+
+msgid ""
+"<a href=\"@url\">Join the CSA</a> to enable CSA features. Visit the Freemius "
+"dashboard to <a href=\"@freemius\">manage your subscription</a> or recover a "
+"lost key."
+msgstr ""
+"<a href=\"@url\">Liitu CSA-ga</a>, et lubada CSA funktsioonid. Külasta "
+"Freemiuse töölaudu, et <a href=\"@freemius\">hallata oma tellimust</a> või "
+"taastada kadunud võti."
+
+msgid "Local, Dev and QA site URL patterns"
+msgstr "Kohalike, arendus- ja QA-saitide URL-mustrid"
+
+msgid ""
+"One pattern per line, up to 5 patterns. Wildcards are supported (e.g. "
+"<code>*.test.example.com</code>).<br>Local, dev and QA sites can share an "
+"activation with production site, but only production sites check for "
+"renewals."
+msgstr ""
+"Üks muster real, kuni 5 mustrit. Metamärgid on toetatud (nt "
+"<code>*.test.example.com</code>).<br>Kohalikud, arendus- ja QA-saidid võivad "
+"jagada aktiveerimist tootmissaidiga, kuid ainult tootmissaidid kontrollivad "
+"uuendusi."
+
+msgid ""
+"Additionally, any hostname consisting only of digits and dots (raw IPv4 "
+"address) is treated as a development environment."
+msgstr ""
+"Lisaks käsitletakse mis tahes hostinime, mis koosneb ainult numbritest ja "
+"punktidest (toores IPv4-aadress), arenduskeskkonnana."
+
+msgid "Built-in development URL patterns"
+msgstr "Sisseehitatud arendus-URL-mustrid"
+
+msgid "Enter no more than 5 custom domain patterns."
+msgstr "Sisesta mitte rohkem kui 5 kohandatud domeeninimemustrit."
+
+msgid "Saved license key not found. Please activate with a new key."
+msgstr "Salvestatud litsentsivõtit ei leitud. Palun aktiveeri uue võtmega."
+
+msgid "Enter a license key."
+msgstr "Sisesta litsentsivõti."
+
+msgid "Activation failed: @msg"
+msgstr "Aktiveerimine ebaõnnestus: @msg"
+
+msgid "License renewed and active."
+msgstr "Litsents uuendatud ja aktiivne."
+
+msgid "License is still expired."
+msgstr "Litsents on endiselt aegunud."
+
+msgid "Unexpected license status: @status"
+msgstr "Ootamatu litsentsi olek: @status"
+
+msgid "Could not reach licensing server: @msg"
+msgstr "Ei saanud litsentsimisserveriga ühendust: @msg"
+
+msgid "Deactivation failed: @msg"
+msgstr "Deaktiveerimine ebaõnnestus: @msg"
+
+msgid "Editoria11y Export Batch Processor"
+msgstr "Editoria11y ekspordi partiitöötlus"
+
+msgid ""
+"Batching is only needed for very large or heavily customized CSV exports."
+msgstr "Partiitöötlust on vaja ainult väga suurte või tugevalt kohandatud CSV-ekspordite puhul."
+
+msgid "hide"
+msgstr "hide"
+
+msgid "ok"
+msgstr "ok"
+
+msgid "Yes"
+msgstr "Jah"
+
+msgid "No"
+msgstr "Ei"
+
+msgid "This alt text is a filename, not a description"
+msgstr "Alternatiivtekst on failinimi, mitte kirjeldus"
+
+msgid "Is this a clear and concise description of the image?"
+msgstr "Kas see on pildi selge ja kokkuvõtlik kirjeldus?"
+
+msgid "This alt text may be a placeholder"
+msgstr "See alt-tekst võib olla kohatäide"
+
+msgid "This alt text is unpronounceable"
+msgstr "Alternatiivteksti ei saa hääldada"
+
+msgid "This custom input field is missing a label"
+msgstr "Kohandatud sisestusväljal puudub silt"
+
+msgid "Button is missing an accessible label"
+msgstr "Nupul puudub ligipääsetav silt"
+
+msgid "Button has an invalid ARIA label"
+msgstr "Nupul on vigane ARIA-silt"
+
+msgid "Button name repeats the word \"button\""
+msgstr "Nupu nimi kordab sõna „nupp“"
+
+msgid "This button is unpronounceable"
+msgstr "Seda nuppu ei saa hääldada"
+
+msgid "Text does not have enough contrast to be easily legible"
+msgstr "Teksti kontrast ei ole piisav, et seda oleks lihtne lugeda"
+
+msgid "Graphic or icon does not have enough contrast"
+msgstr "Graafikal või ikoonil ei ole piisavat kontrasti"
+
+msgid "Input does not provide enough contrast to be easily legible"
+msgstr "Sisestusvälja kontrast ei ole piisav, et seda oleks lihtne lugeda"
+
+msgid "Placeholder text does not have enough contrast to be easily legible"
+msgstr "Kohatäite teksti kontrast ei ole piisav, et seda oleks lihtne lugeda"
+
+msgid "Does this placeholder text have enough contrast?"
+msgstr "Kas kohatäite tekstil on piisav kontrast?"
+
+msgid "Does this text have enough contrast?"
+msgstr "Kas sellel tekstil on piisav kontrast?"
+
+msgid "Does this graphic or icon have enough contrast?"
+msgstr "Kas sellel graafikal või ikoonil on piisav kontrast?"
+
+msgid "Duplicate ID attribute"
+msgstr "Korduv ID-atribuut"
+
+msgid "This link has a tooltip with the same text as the link"
+msgstr "Sellel lingil on tööriistavihje, mis kordab lingi teksti"
+
+msgid "Does this audio have a transcript?"
+msgstr "Kas sellel helil on transkriptsioon?"
+
+msgid "Is this visualization accessible?"
+msgstr "Kas see visualiseering on ligipääsetav?"
+
+msgid "Embedded iframes need manual checks"
+msgstr "Manustatud iframe-elemendid vajavad käsitsi kontrollimist"
+
+msgid "Frame missing \"title\" attribute"
+msgstr "Raamil puudub atribuut „title“"
+
+msgid "Frame with tabindex=\"-1\" will not be keyboard accessible."
+msgstr "Raam, millel on tabindex=\"-1\", ei ole klaviatuuriga ligipääsetav."
+
+msgid "Is this video accurately captioned?"
+msgstr "Kas sellel videol on täpsed subtiitrid?"
+
+msgid "This heading has no text"
+msgstr "See pealkiri ei sisalda teksti"
+
+msgid "This image is used as a heading, so it needs alt text"
+msgstr "Seda pilti kasutatakse pealkirjana, seega vajab see alternatiivteksti"
+
+msgid "The first heading on this page is a subheading"
+msgstr "Selle lehe esimene pealkiri on alampealkiri"
+
+msgid "Can this heading be shorter?"
+msgstr "Kas seda pealkirja saab lühemaks teha?"
+
+msgid "This page is missing a Heading 1"
+msgstr "Sellel lehel puudub 1. taseme pealkiri"
+
+msgid "This heading is tagged at the wrong level"
+msgstr "See pealkiri on märgistatud vale tasemega"
+
+msgid "This heading is unpronounceable"
+msgstr "Seda pealkirja ei saa hääldada"
+
+msgid "This element cannot be described by screen readers"
+msgstr "Ekraanilugejad ei saa seda elementi kirjeldada"
+
+msgid "Can this alt text be shorter?"
+msgstr "Kas seda alternatiivteksti saab lühemaks teha?"
+
+msgid "Is this image actually meaningless?"
+msgstr "Kas see pilt on tegelikult tähendusetu?"
+
+msgid "Image in a carousel or gallery marked as decorative"
+msgstr "Karussellis või galeriis olev pilt on märgitud dekoratiivseks"
+
+msgid "This captioned image has no alt text"
+msgstr "Sellel pealkirjaga pildil puudub alt-tekst"
+
+msgid "Alt text should not be the same as caption text"
+msgstr "Alternatiivtekst ei tohiks olla sama kui pildiallkiri"
+
+msgid "Is there a visible label for this field?"
+msgstr "Kas sellel väljal on nähtav silt?"
+
+msgid "Prefer visible labels to placeholders"
+msgstr "Eelista nähtavaid silte kohatäidetele"
+
+msgid "Is this reset button needed?"
+msgstr "Kas see lähtestamisnupp on vajalik?"
+
+msgid "This input has an empty label"
+msgstr "Sellel sisestusväljal on tühi silt"
+
+msgid "Visible label does not match invisible label"
+msgstr "Nähtav silt ei ühti peidetud sildiga"
+
+msgid "This image input is missing alt text"
+msgstr "Sellel pildi-sisendil puudub alternatiivtekst"
+
+msgid "This input is not connected to a label"
+msgstr "See sisestusväli ei ole sildiga seotud"
+
+msgid "Language tag does not match the content"
+msgstr "Keelemärgend ei vasta sisule"
+
+msgid "This content appears to be in a different language"
+msgstr "See sisu näib olevat teises keeles"
+
+msgid "This alt text appears to be in a different language"
+msgstr "See alternatiivtekst näib olevat teises keeles"
+
+msgid "Alt text used as a link should not be a URL"
+msgstr "Lingina kasutatav alternatiivtekst ei tohiks olla URL"
+
+msgid "This linked alt might not be clear and concise"
+msgstr "See lingi alternatiivtekst ei pruugi olla selge ja kokkuvõtlik"
+
+msgid "Linked images need pronounceable alt text"
+msgstr "Lingitud piltidel peab olema hääldatav alternatiivtekst"
+
+msgid "Manual check: link contains \"click here\""
+msgstr "Käsitsi kontroll: link sisaldab \"klõpsi siin\""
+
+msgid "Link article titles, not DOI numbers"
+msgstr "Lingi artikli pealkirjad, mitte DOI-numbrid"
+
+msgid "This link contains no words"
+msgstr "See link ei sisalda sõnu"
+
+msgid "Link with invalid \"aria-labelledby\" attribute"
+msgstr "Lingil on vigane atribuut „aria-labelledby“"
+
+msgid "This link needs a label"
+msgstr "See link vajab silti"
+
+msgid "Link points to a file without warning"
+msgstr "Link viitab failile ilma hoiatuseta"
+
+msgid "Links with the same text link to different pages"
+msgstr "Sama tekstiga lingid viitavad erinevatele lehtedele"
+
+msgid "Does this alt text describe the link or the image?"
+msgstr "Kas see alternatiivtekst kirjeldab linki või pilti?"
+
+msgid "Does this alt text make sense as part of this link?"
+msgstr "Kas see alternatiivtekst on selle lingi osana mõistetav?"
+
+msgid "Can this linked alt text be shorter?"
+msgstr "Kas seda lingitud alternatiivteksti saab lühemaks teha?"
+
+msgid "This linked image needs alt text"
+msgstr "See lingitud pilt vajab alternatiivteksti"
+
+msgid "Does this linked image need a description?"
+msgstr "Kas see lingitud pilt vajab kirjeldust?"
+
+msgid "Is this link actually a button?"
+msgstr "Kas see link on tegelikult nupp?"
+
+msgid "Does this link open a new tab without warning?"
+msgstr "Kas see link avab uue vahekaardi ilma hoiatuseta?"
+
+msgid "This linked alt text may be a placeholder"
+msgstr "See lingitud alt-tekst võib olla kohatäide"
+
+msgid "This link only contains generic words"
+msgstr "See link sisaldab ainult üldsõnu"
+
+msgid "The purpose of this link is visually hidden"
+msgstr "Selle lingi eesmärk on visuaalselt peidetud"
+
+msgid "Does this image's alt describe the image or the link?"
+msgstr "Kas see pildi alternatiivtekst kirjeldab pilti või linki?"
+
+msgid "Are the symbols or emoji in this link meaningful?"
+msgstr "Kas sümbolid või emojid selles lingis on tähendusrikkad?"
+
+msgid "This link is unpronounceable"
+msgstr "Seda linki ei saa hääldada"
+
+msgid "Link text should not be a URL"
+msgstr "Lingi tekst ei tohiks olla URL"
+
+msgid "Meta tag for page language missing"
+msgstr "Lehe keele metasilt puudub"
+
+msgid "Did you mean a different language code?"
+msgstr "Kas mõtlesid mõnda teist keelekoodi?"
+
+msgid "Invalid language code"
+msgstr "Vigane keelekood"
+
+msgid "Page language may not match the content"
+msgstr "Lehe keel ei pruugi vastata sisule"
+
+msgid "Meta tag limits how much users can enlarge text"
+msgstr "Metasilt piirab teksti suurendamise võimalust"
+
+msgid "Meta tag automatically refreshes page"
+msgstr "Metasilt värskendab lehte automaatselt"
+
+msgid "Meta tag prevents users from enlarging text"
+msgstr "Metasilt takistab teksti suurendamist"
+
+msgid "Meta tag for page title missing"
+msgstr "Lehe pealkirja metasilt puudub"
+
+msgid "Invalid HTML: image has no alt attribute"
+msgstr "Vigane HTML: pildil puudub alt-atribuut"
+
+msgid "Invalid HTML: linked image missing alt attribute"
+msgstr "Vigane HTML: lingitud pildil puudub alt-atribuut"
+
+msgid "Invalid HTML: image in link missing alt attribute"
+msgstr "Vigane HTML: lingis oleval pildil puudub alt-atribuut"
+
+msgid "This link target may be invalid"
+msgstr "Selle lingi sihtkoht võib olla kehtetu"
+
+msgid "Should this quote be a heading?"
+msgstr "Kas see tsitaat peaks olema pealkiri?"
+
+msgid "Has this document been tagged for screen readers?"
+msgstr "Kas see dokument on ekraanilugejate jaoks märgendatud?"
+
+msgid "Should this bold text be a heading?"
+msgstr "Kas see paks tekst peaks olema pealkiri?"
+
+msgid "Should this have list formatting?"
+msgstr "Kas siin peaks olema loendivormindus?"
+
+msgid "Broken same-page link"
+msgstr "Katkine lehesisene link"
+
+msgid "Do not justify text"
+msgstr "Ära kasuta rööpjoondust"
+
+msgid "Nested interactive layout components"
+msgstr "Pesastatud interaktiivsed paigutuskomponendid"
+
+msgid "Is there an alternative for this PDF?"
+msgstr "Kas sellele PDF-ile on olemas alternatiiv?"
+
+msgid "Text is too small"
+msgstr "Tekst on liiga väike"
+
+msgid "Large blocks of emphasized text are harder to read"
+msgstr "Suuri rõhutatud tekstiplokke on raskem lugeda"
+
+msgid "Do not use sub/superscript as visual formatting"
+msgstr "Ära kasuta ala- ega ülaindeksit visuaalse vorminduse vahendina"
+
+msgid "Only links should be underlined"
+msgstr "Allajoonitud peaksid olema ainult lingid"
+
+msgid "Is this uppercase text needed?"
+msgstr "Kas see suurtähtedega tekst on vajalik?"
+
+msgid "Are there redundant words in this alt text?"
+msgstr "Kas selles alternatiivtekstis on üleliigseid sõnu?"
+
+msgid "Tabindex overrides interrupt the focus order"
+msgstr "Tabindexi ülekirjutused katkestavad fookuse järjekorra"
+
+msgid "This header cell needs text"
+msgstr "See päiserakk vajab teksti"
+
+msgid "This table has an invalid headers attribute"
+msgstr "Sellel tabelil on kehtetu päiste atribuut"
+
+msgid "This table needs a header row and/or column"
+msgstr "See tabel vajab päiserida ja/või -veergu"
+
+msgid "Content headings should not be used inside tables"
+msgstr "Sisupealkirju ei tohiks kasutada tabelite sees"
+
+msgid "Invalid HTML list"
+msgstr "Vigane HTML-loend"
+
+msgid "Linked images"
+msgstr "Lingitud pildid"
+
+msgid "Text formatting"
+msgstr "Teksti vormindus"
+
+msgid "Video, audio, frames"
+msgstr "Video, heli, raamid"
+
+msgid "Contrast"
+msgstr "Kontrastsus"
+
+msgid "Forms"
+msgstr "Vormid"
+
+msgid "ARIA and focus"
+msgstr "ARIA ja fookus"
+
+msgid "Page metadata"
+msgstr "Lehekülje metaandmed"
+
+msgid "The request could not be processed. Details have been logged."
+msgstr "Päringut ei õnnestunud töödelda. Üksikasjad on logitud."
+
+msgid "API request rejected: @message"
+msgstr "API päring lükati tagasi: @message"
+
+msgid "API request failed: @message"
+msgstr "API päring ebaõnnestus: @message"
+
+msgid "Export pages with alerts"
+msgstr "Ekspordi hoiatustega leheküljed"
+
+msgid ""
+"Install the Editoria11y Export Batch Processor module to download these "
+"reports."
+msgstr "Nende aruannete allalaadimiseks installi Editoria11y Export Batch Processor moodul."
+
+msgid "Export results"
+msgstr "Ekspordi tulemused"
+
+msgctxt "problems"
+msgid "Top alerts"
+msgstr "Peamised hoiatused"
+
+msgctxt "problems"
+msgid "Pages with the most alerts"
+msgstr "Leheküljed enim hoiatustega"
+
+msgid "Recent dismissals"
+msgstr "Hiljutised tühistamised"
+
+msgid ""
+"Activate the <a href=\"@csa\">Editoria11y CSA submodule</a> to see developer "
+"tests."
+msgstr ""
+"Arendajatestide nägemiseks aktiveeri <a href=\"@csa\">Editoria11y CSA "
+"alammoodul</a>."
+
+msgid "Include all parts of the page that contain your theme and content."
+msgstr "Kaasa kõik lehekülje osad, mis sisaldavad teie teemat ja sisu."
+
+msgid "Include all parts of the page that contain your editable content."
+msgstr "Kaasa kõik lehekülje osad, mis sisaldavad teie muudetavat sisu."
+
+msgid "Exclude elements that show unhelpful, repetitive, or inaccurate alerts."
+msgstr "Välista elemendid, mis kuvavad kasutu, korduva või ebatäpse hoiatused."
+
+msgid ""
+"<a href=\"@permissions\">Add permissions</a>, especially \"View Editoria11y "
+"checker\" and \"Mark OK.\"</a>"
+msgstr ""
+"<a href=\"@permissions\">Add permissions</a>, especially \"View Editoria11y "
+"checker\" and \"Mark OK.\"</a>"
+
+msgid ""
+"If you need help: <a href=\"@config_guide\">Configuration Guide</a> | <a "
+"href=\"@issue_queue\">Issue Queue</a> | <a href=\"@help\">Support contacts</"
+"a>"
+msgstr ""
+"Kui vajate abi: <a href=\"@config_guide\">Seadistamise juhend</a> | <a "
+"href=\"@issue_queue\">Probleemide järjekord</a> | <a "
+"href=\"@help\">Toeühendused</a>"
+
+msgid "Autodetect"
+msgstr "Tuvasta automaatselt"
+
+msgid "Only user-editable content"
+msgstr "Ainult kasutaja muudetav sisu"
+
+msgid "Other"
+msgstr "Muu"
+
+msgid "Parts of the page to test"
+msgstr "Testitavad lehekülje osad"
+
+msgid "\"Autodetect\" selects:"
+msgstr "\"Tuvasta automaatselt\" valib:"
+
+msgid "Other: specify regions to check for developer and content problems"
+msgstr "Muu: täpsusta piirkonnad arendaja ja sisuproblemide kontrollimiseks"
+
+msgid ""
+"Provide CSS selectors. For many sites, the site theme is wrapped in "
+"<code>.dialog-off-canvas-main-canvas</code> while editing."
+msgstr ""
+"Sisesta CSS-valijad. Paljude saitide puhul on saidi teema redigeerimisel "
+"mähitud elementi <code>.dialog-off-canvas-main-canvas</code>."
+
+msgid "Do not check for any errors inside these elements"
+msgstr "Ära kontrolli ühtegi viga nende elementide sees"
+
+msgid "These parts of the page will be ignored entirely."
+msgstr "Need lehekülje osad jäetakse täielikult tähelepanuta."
+
+msgid "match content settings"
+msgstr "match content settings"
+
+msgid "Page regions with user-editable content"
+msgstr "Lehekülje piirkonnad kasutaja muudetava sisuga"
+
+msgid ""
+"Default: <code><em>main</em></code><br>Provide <a target=\"_blank\" "
+"href=\"https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/"
+"Selectors\">CSS selectors</a>. Content authors will only see the alerts "
+"within these parts of the page. Do not provide selectors that nest within "
+"each other, or the inner content will be checked twice."
+msgstr ""
+"Vaikimisi: <code><em>main</em></code><br>Sisesta <a target=\"_blank\" "
+"href=\"https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/"
+"Selectors\">CSS-valijad</a>. Sisuautorid näevad hoiatusi ainult nende "
+"lehekülje osade piires. Ära sisesta pesastuvaid valijaid, muidu "
+"kontrollitakse sisemine sisu kaks korda."
+
+msgid ""
+"Default: <code><em>main</em></code><br>Provide <a target=\"_blank\" "
+"href=\"https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/"
+"Selectors\">CSS selectors</a>. Do not provide selectors that nest within "
+"each other, or the inner content will be checked twice."
+msgstr ""
+"Vaikimisi: <code><em>main</em></code><br>Sisesta <a target=\"_blank\" "
+"href=\"https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/"
+"Selectors\">CSS-valijad</a>. Ära sisesta pesastuvaid valijaid, muidu "
+"kontrollitakse sisemine sisu kaks korda."
+
+msgid "Errors in these elements should only be shown to developers"
+msgstr "Nende elementide vead tuleks näidata ainult arendajatele"
+
+msgid "Do not check for content errors inside these elements"
+msgstr "Ära kontrolli sisu vigu nende elementide sees"
+
+msgid ""
+"Content editors are not responsible for errors in these elements. <br>E.g.: "
+"<code><em>#sidebar-menu a, .slide [aria-hidden=\"true\"]</em></code>."
+msgstr ""
+"Sisuhaldrid ei vastuta nende elementide vigade eest. <br>Nt: "
+"<code><em>#sidebar-menu a, .slide [aria-hidden=\"true\"]</em></code>."
+
+msgid "Roles that will see developer alerts"
+msgstr "Rollid, kes näevad arendaja hoiatusi"
+
+msgid ""
+"All roles with the <a href=\":url\">View editoria11y checker</a> permission "
+"see content alerts."
+msgstr ""
+"Kõik rollid, kellel on <a href=\":url\">Vaata Editoria11y kontrollijat</a> "
+"õigus, näevad sisu hoiatusi."
+
+msgid "Advanced settings"
+msgstr "Täpsemad seaded"
+
+msgid "Assertiveness"
+msgstr "Tähtsustase"
+
+msgid "Checker mode for content roles"
+msgstr "Kontrollija režiim sisu rollide jaoks"
+
+msgid "Start open if there are any alerts"
+msgstr "Ava automaatselt, kui hoiatusi on"
+
+msgid "Start open if there are new alerts"
+msgstr "Ava automaatselt, kui uusi hoiatusi on"
+
+msgid "Start minimized"
+msgstr "Käivitu minimeerituna"
+
+msgid ""
+"Choose when the control panel should open and show inline tips. \"Start open "
+"if there are any alerts\" is recommended, as it helps tips get noticed over "
+"time."
+msgstr ""
+"Vali, millal juhtimispaneel peaks avanema ja näitama siseseid näpunäiteid. "
+"\"Ava automaatselt, kui hoiatusi on\" on soovitatav, kuna see aitab "
+"näpunäidetel aja jooksul märgata."
+
+msgid "Checker mode for developer roles"
+msgstr "Kontrollija režiim arendaja rollide jaoks"
+
+msgid "Do not check any content while it is being edited"
+msgstr "Ära kontrolli ühtegi sisu redigeerimise ajal"
+
+msgid ""
+"Use the \"Do not check on pages with these elements\" setting to prevent "
+"checking only on specific pages. E.g., exclude: <code><em>form[id^=\"node-"
+"article\"]</em></code>."
+msgstr ""
+"Kasuta seadet \"Ära kontrolli lehtedel, millel on need elemendid\", et "
+"takistada kontrollimist ainult konkreetsetel lehtedel. Nt välista: "
+"<code><em>form[id^=\"node-article\"]</em></code>."
+
+msgid "Assign headers to CKEditor tables on insert"
+msgstr "Määra päised CKEditori tabelitele lisamisel"
+
+msgid "First row"
+msgstr "Esimene rida"
+
+msgid "First column"
+msgstr "Esimene veerg"
+
+msgid "Both"
+msgstr "Mõlemad"
+
+msgid ""
+"You will need to clear cache for changes to this setting to appear in "
+"CKEditor."
+msgstr ""
+"Peate vahemälu tühjendama, et selle seade muudatused CKEditoris ilmuksid."
+
+msgid "Theme compatibility"
+msgstr "Teema ühilduvus"
+
+msgid "Configuration tips"
+msgstr "Seadistusvihjed"
+
+msgid ""
+"If the checker <strong>toggle</strong> does not appear: make sure a z-"
+"indexed or overflow-hidden element in your front-end theme is not hiding or "
+"covering the <code><em>ed11y-element-panel</em></code> container, make sure "
+"that any custom selectors in the \"Disable the scanner if these elements are "
+"detected\" field are not present, and make sure that no JavaScript errors "
+"are appearing in your <a href=\"https://developer.mozilla.org/en-US/docs/"
+"Tools/Browser_Console\"> browser console</a>"
+msgstr ""
+"Kui kontrollija <strong>lüliti</strong> ei ilmu: veenduge, et z-"
+"indekseeritud või overflow:hidden-element teie esikülg-teemas ei peida ega "
+"kata <code><em>ed11y-element-panel</em></code> konteinerit, veenduge, et "
+"\"Keela skanner, kui need elemendid tuvastatakse\" välja kohandatud valijad "
+"ei esineks, ja veenduge, et teie <a href=\"https://developer.mozilla.org/en-"
+"US/docs/Tools/Browser_Console\">brauseri konsoolis</a> ei esineks "
+"JavaScripti vigu"
+
+msgid ""
+"If the checker toggle is present but <strong>not detecting</strong> errors, "
+"or missing errors that should be flagged: check that your inclusions & "
+"exclusion settings below are not missing or ignoring the elements. It is not "
+"uncommon for homepages or views to insert editable content outside the "
+"<code><em>main</em></code> element."
+msgstr ""
+"Kui kontrollija lüliti on olemas, kuid <strong>ei tuvasta</strong> vigu või "
+"jätab märgistamisele kuuluvaid vigu märkamata: kontrollige, et teie allpool "
+"olevad kaasamine- ja välustamisseaded ei jätaks elemente vahele. Kodulehtede "
+"või vaadete puhul ei ole harvaesinev, et muudetav sisu on paigutatud "
+"<code><em>main</em></code>-elemendi välisküljele."
+
+msgid "Theme"
+msgstr "Teema"
+
+msgid "Sleek"
+msgstr "Sleek"
+
+msgid "Classic"
+msgstr "Classic"
+
+msgid "Dark"
+msgstr "Dark"
+
+msgid "Do not check on pages with these elements"
+msgstr "Ära kontrolli lehtedel, millel on need elemendid"
+
+msgid ""
+"Used to block checking on site sections or admin pages.<br>E.g. "
+"<code><em>.content-type-example, .tabs__link[href=*\"edit\"]</em></code>."
+msgstr ""
+"Kasutatakse kontrollimise blokeerimiseks saidi osades või adminlehtedel."
+"<br>Nt <code><em>.content-type-example, .tabs__link[href=*\"edit\"]</em></"
+"code>."
+
+msgid "Hide all alerts on pages where these elements are not present"
+msgstr "Peida kõik hoiatused lehtedel, kus need elemendid puuduvad"
+
+msgid ""
+"Used to limit alerting to nodes where the user can edit something. Suggested "
+"selectors:<br> <code><em>.contextual-region a[href*=\"/edit\"], .contextual-"
+"region a[href*=\"/manage\"]</em></code>."
+msgstr ""
+"Kasutatakse hoiatuste piiramiseks sõlmedele, kus kasutaja saab midagi muuta. "
+"Soovitatud valijad:<br> <code><em>.contextual-region a[href*=\"/"
+"edit\"], .contextual-region a[href*=\"/manage\"]</em></code>."
+
+msgid ""
+"Set to the number of other themes or modules that will be <a href=\"https://"
+"editoria11y.princeton.edu/configuration/#customtests\">injecting custom "
+"result JS events</a>."
+msgstr ""
+"Määra teiste teemade või moodulite arvuks, mis <a href=\"https://"
+"editoria11y.princeton.edu/configuration/#customtests\">süstivad kohandatud "
+"tulemuste JS-sündmusi</a>."
+
+msgid "Positioning"
+msgstr "Paigutus"
+
+msgid "Don't show edit links on tips in these containers"
+msgstr "Ära näita redigeerimislinke näpunäidetes nendes konteinerites"
+
+msgid ""
+"Tips show copies of the \"Edit\" and \"Layout\" links for nodes, users and "
+"taxonomy terms. These links are not helpful on lists of content from remote "
+"nodes.<br>Provide a comma-separated list of page sections of where these "
+"links should not show, E.g.: <code><em>#sidebar-menu, .news-feed</em></code>."
+"<br>To hide the links <strong>everywhere</strong>, set this field to an "
+"asterisk (<code><em>*</em></code>).<br>To modify the links, <a "
+"href=\"https://editoria11y.princeton.edu/configuration/#modify-tips\" "
+"target=\"_blank\">use the ed11yPop event</a> in your theme JS."
+msgstr ""
+"Näpunäited näitavad koopiaid \"Muuda\" ja \"Paigutus\" linkidest sõlmede, "
+"kasutajate ja taksonoomia terminite jaoks. Need lingid ei ole kasulikud "
+"kaugete sõlmede sisuloendites.<br>Sisesta komaga eraldatud lehekülje "
+"sektsioonide loend, kus need lingid ei tohiks ilmuda, nt: <code><em>#sidebar-"
+"menu, .news-feed</em></code>.<br>Linkide peitmiseks <strong>kõikjal</strong> "
+"seadista see väli tähekeseks (<code><em>*</em></code>).<br>Linkide "
+"muutmiseks <a href=\"https://editoria11y.princeton.edu/configuration/#modify-"
+"tips\" target=\"_blank\">kasuta ed11yPop sündmust</a> oma teema JS-is."
+
+msgid "Pin panel to..."
+msgstr "Kinnita paneel..."
+
+msgid "Right"
+msgstr "Paremale"
+
+msgid "Left"
+msgstr "Vasakule"
+
+msgid "Don't cover these other widgets"
+msgstr "Ära kata neid teisi vidinaid"
+
+msgid ""
+"Provide a comma-separated list of selectors for other things that appear in "
+"the bottom right of the page. <br>If nothing is set, Editoria11y will "
+"automatically slide left to accommodate <code><em>#klaro_toggle_dialog, "
+"#klaro-cookie-notice .same-page-preview-dialog.ui-dialog-position-side</em></"
+"code>."
+msgstr ""
+"Sisesta komaga eraldatud valijate loend teiste elementide jaoks, mis ilmuvad "
+"lehekülje paremas alanurgas. <br>Kui midagi pole seadistatud, libiseb "
+"Editoria11y automaatselt vasakule, et teha ruumi: "
+"<code><em>#klaro_toggle_dialog, #klaro-cookie-notice .same-page-preview-"
+"dialog.ui-dialog-position-side</em></code>."
+
+msgid "Elements with overflow hidden"
+msgstr "Elemendid overflow:hidden-iga"
+
+msgid ""
+"Sometimes buttons get drawn and visually truncated outside the bounds of a "
+"positioned element. Provide a selector list."
+msgstr ""
+"Mõnikord joonistatakse nupud ja kärbitakse visuaalselt positsioneeritud "
+"elemendi piiridest välja. Sisesta valijate loend."
+
+msgid "Theme JS will handle revealing hidden tooltips inside these containers"
+msgstr ""
+"Teema JS hoolitseb peidetud tööriistanäpunäidete paljastamise eest nendes "
+"konteinerites"
+
+msgid ""
+"Editoria11y detects hidden tooltips and warns the user when they try to jump "
+"to them from the panel. For elements on this list, Editoria11y will <a "
+"href=\"https://itmaybejj.github.io/editoria11y/#dealing-with-alerts-on-"
+"hidden-or-size-constrained-content\">dispatch a JS event</a> instead of a "
+"warning, so custom JS in your theme can first reveal the hidden tip (e.g., "
+"open an accordion or tab panel)."
+msgstr ""
+"Editoria11y tuvastab peidetud tööriistanäpunäited ja hoiatab kasutajat, kui "
+"nad üritavad paneelilt neile hüpata. Selles loendis olevate elementide puhul "
+"saadab Editoria11y <a href='https://itmaybejj.github.io/editoria11y/#dealing-"
+"with-alerts-on-hidden-or-size-constrained-content'>JS-sündmuse</a> hoiatuse "
+"asemel, nii et teie teema kohandatud JS saab esmalt peidetud näpunäide avada "
+"(nt avada akordioni või vahekaardipaneeli)."
+
+msgid "Detecting dynamic and shadow content"
+msgstr "Dünaamilise ja vari-sisu tuvastamine"
+
+msgid "Dynamically refresh if new content appears"
+msgstr "Uuenda dünaamiliselt, kui uus sisu ilmub"
+
+msgid "Watch for changes anywhere on the page"
+msgstr "Jälgi muutusi kõikjal lehel"
+
+msgid "Only watch for changes to content containers present on load"
+msgstr "Jälgi ainult laadimisel olemasolevate sisukonteinerite muutusi"
+
+msgid "Do not watch for changes"
+msgstr "Ära jälgi muutusi"
+
+msgid ""
+"Set to \"anywhere\" if changes are being missed, set to \"ignore\" if you "
+"notice performance issues. Themes and modules can also call "
+"<code>Drupal.Ed11y.refresh()</code> to refresh results."
+msgstr ""
+"Seadista \"anywhere\", kui muudatused jäävad märkamata, seadista \"ignore\", "
+"kui märkad jõudlusprobleeme. Teemad ja moodulid saavad ka kutsuda "
+"<code>Drupal.Ed11y.refresh()</code> tulemuste värskendamiseks."
+
+msgid "Check inside these specific Web components"
+msgstr "Kontrolli nende konkreetsete veebikomponentide sees"
+
+msgid ""
+"Provide selectors for elements with <a href='https://developer.mozilla.org/"
+"en-US/docs/Web/Web_Components'>shadow DOM</a> you want tested. E.g.: "
+"<code><em>my-fancy-accordion-widget, my-magical-slideshow</em></code>."
+msgstr ""
+"Sisesta valijad elementide jaoks, millel on <a href='https://"
+"developer.mozilla.org/en-US/docs/Web/Web_Components'>shadow DOM</a> ja mida "
+"soovid testida. Nt: <code><em>my-fancy-accordion-widget, my-magical-"
+"slideshow</em></code>."
+
+msgid "Auto-detect any Web components"
+msgstr "Tuvasta automaatselt kõik veebikomponendid"
+
+msgid ""
+"This is easier to configure than specifying components, but may slow test "
+"runs on very complicated pages."
+msgstr ""
+"Seda on lihtsam seadistada kui komponentide täpsustamist, kuid see võib "
+"aeglustada testide käivitamist väga keerukatel lehtedel."
+
+msgid "Syncing results to reports"
+msgstr "Tulemuste sünkroonimine aruannetega"
+
+msgid ""
+"Remember that results only sync to the dashboard when viewing nodes. Results "
+"shown while editing or viewing previews or revisions will not sync."
+msgstr ""
+"Pea meeles, et tulemused sünkroonitakse töölauaga ainult sõlmede vaatamisel. "
+"Tulemused, mis kuvatakse redigeerimisel või eelvaadete või redaktsioonide "
+"vaatamisel, ei sünkroonita."
+
+msgid "Remove redundant base url from URLs"
+msgstr "Eemalda URL-idest üleliigne alus-URL"
+
+msgid ""
+"Provide base URL (\"/mysite\") if your site is installed in a subdirectory. "
+"Subdirectories tend to get duplicated (/mysite/mysite/mypage) and throw "
+"errors from the API."
+msgstr ""
+"Sisesta alus-URL (\"/mysite\"), kui teie sait on installitud alamkataloogi. "
+"Alamkataloogid kipuvad dubleeruma (/mysite/mysite/mypage) ja põhjustama API "
+"vigu."
+
+msgid "Preserve query parameters"
+msgstr "Säilita päringuparameetrid"
+
+msgid ""
+"The dashboard ignores most parameters: results for both /news?f=1 and /news?"
+"f=2 will show up as just /news. Provide a comma separated list of parameters "
+"that are meaningful, and should appear as separate pages in results."
+msgstr ""
+"Töölaud eirab enamikku parameetreid: /news?f=1 ja /news?f=2 tulemused "
+"kuvatakse lihtsalt /news-ina. Sisesta komaga eraldatud loend parameetritest, "
+"mis on tähendusrikkad ja peaksid tulemuste eraldi lehtedena ilmuma."
+
+msgid "Disable sync altogether"
+msgstr "Keela sünkroonimine täielikult"
+
+msgid ""
+"Syncing test results back to Drupal is required for the <a target=\"_blank\" "
+"href=\"/admin/reports/editoria11y\">issue</a> and <a target=\"_blank\" "
+"href=\"/admin/reports/editoria11y/dismissals\">dismissal</a> dashboards and "
+"\"mark OK\" buttons."
+msgstr ""
+"Testitulemuste sünkroonimine Drupalisse on vajalik <a target=\"_blank\" "
+"href=\"/admin/reports/editoria11y\">probleemide</a> ja <a target=\"_blank\" "
+"href=\"/admin/reports/editoria11y/dismissals\">tühistamiste</a> töölaudade "
+"ning \"märgi OK\" nuppude jaoks."
+
+msgid "Heading outline position of editable content"
+msgstr "Pealkirja struktuuri positsioon muudetavas sisus"
+
+msgid ""
+"To check headings in CKEditor, Editoria11y needs to know what the first "
+"heading level should be in this field. Body fields should generally be at "
+"the h2 level."
+msgstr ""
+"CKEditori pealkirjade kontrollimiseks peab Editoria11y teadma, milline peaks "
+"olema esimene pealkirja tase selles väljas. Keha väljad peaksid üldiselt "
+"olema h2 tasemel."
+
+msgid "H2 level fields (body content)"
+msgstr "H2 taseme väljad (keha sisu)"
+
+msgid ""
+"Body fields on nodes are preceded by an h1, and their heading outline should "
+"start with an h2. Ideally set this for top-level body fields for each of "
+"your content types, and set blocks and embedded nodes to h3 or h4.\n"
+"        <br>Set all content types: <code><em>form[id^=\"node-\"] #edit-body-"
+"wrapper .ck-content</em></code>\n"
+"        <br>Set specific content types: <code><em>form[id^=\"node-\"] #edit-"
+"body-wrapper .ck-content</em></code>\n"
+"        <br>Set up for Gutenberg: <code><em>form[id^=\"node-\"] #edit-body-"
+"wrapper .is-root-container</em></code>"
+msgstr ""
+"Sõlmede keha väljadele eelneb h1 ja nende pealkirja struktuur peaks algama "
+"h2-ga. Ideaaljuhul seadista see iga sisuliigi tipptaseme keha väljadele ning "
+"seadista plokid ja manustatud sõlmed h3 või h4 tasemele.\n"
+"        <br>Seadista kõik sisuliigid: <code><em>form[id^=\"node-\"] #edit-"
+"body-wrapper .ck-content</em></code>\n"
+"        <br>Seadista konkreetsed sisuliigid: <code><em>form[id^=\"node-\"] "
+"#edit-body-wrapper .ck-content</em></code>\n"
+"        <br>Gutenbergi jaoks seadistamine: <code><em>form[id^=\"node-\"] "
+"#edit-body-wrapper .is-root-container</em></code>"
+
+msgid "H3 level fields (blocks or paragraphs with separate titles)"
+msgstr "H3 taseme väljad (plokid või lõigud eraldi pealkirjadega)"
+
+msgid ""
+"Sometimes inline and layout builder blocks are grouped under an h2 from a "
+"separate field, so their highest heading level should be h3."
+msgstr ""
+"Mõnikord on sisesed ja paigutusehitaja plokid grupeeritud eraldi välja h2 "
+"alla, nii et nende kõrgeim pealkirja tase peaks olema h3."
+
+msgid "H4 level fields (deeply nested blocks or paragraphs)"
+msgstr "H4 taseme väljad (sügavalt pesastunud plokid või lõigud)"
+
+msgid ""
+"Sometimes inline and layout builder blocks are grouped under an h3 from a "
+"separate field, so their highest heading level should be h4."
+msgstr ""
+"Mõnikord on sisesed ja paigutusehitaja plokid grupeeritud eraldi välja h3 "
+"alla, nii et nende kõrgeim pealkirja tase peaks olema h4."
+
+msgid "Modify tests that usually detect content issues"
+msgstr "Muuda teste, mis tavaliselt tuvastavad sisu probleeme"
+
+msgid "Modify tests that usually detect template or configuration issues"
+msgstr "Muuda teste, mis tavaliselt tuvastavad malli või seadistuse probleeme"
+
+msgid "Do not check contrast for these elements"
+msgstr "Ära kontrolli nende elementide kontrasti"
+
+msgid ""
+"Provide a comma-separated list of selectors for elements to ignore for all "
+"users."
+msgstr ""
+"Sisesta komaga eraldatud valijate loend kõigi kasutajate jaoks eiratavate "
+"elementide jaoks."
+
+msgid "Remind editor that content in these embeds needs manual review"
+msgstr ""
+"Tuleta toimetajale meelde, et nendes manustes olev sisu vajab käsitsi "
+"ülevaatamist"
+
+msgid ""
+"Provide a comma-separated list of selectors you wish to flag for the editor, "
+"e.g.: <code><em>.my-embedded-feed, #my-social-link-block</em></code>."
+msgstr ""
+"Sisesta komaga eraldatud valijate loend, mida soovid toimetaja jaoks "
+"märgistada, nt: <code><em>.my-embedded-feed, #my-social-link-block</em></"
+"code>."
+
+msgid ""
+"Default settings should work with both <a href=\"https://www.drupal.org/"
+"project/linkpurpose\" target=\"_blank\">Link Purpose Icons</a> and <a "
+"target=\"_blank\" href=\"https://www.drupal.org/project/extlink\">External "
+"Links</a>."
+msgstr ""
+"Vaikimisi seaded peaksid töötama nii <a href=\"https://www.drupal.org/"
+"project/linkpurpose\" target=\"_blank\">Link Purpose Icons</a> kui ka <a "
+"target=\"_blank\" href=\"https://www.drupal.org/project/extlink\">External "
+"Links</a>-iga."
+
+msgid "Remind the editor that these linked documents need a manual check"
+msgstr ""
+"Tuleta toimetajale meelde, et need lingitud dokumendid vajavad käsitsi "
+"kontrollimist"
+
+msgid ""
+"Add or remove filetypes. Set to \"false\" to disable the test altogether. "
+"Providing any value will override the default, which is "
+"<code><em>a[href$='.pdf'], a[href*='.pdf?']</em></code>."
+msgstr ""
+"Lisa või eemalda failitüübid. Seadista \"false\", et test täielikult "
+"keelata. Mis tahes väärtuse esitamine alistab vaikimisi seade, milleks on "
+"<code><em>a[href$='.pdf'], a[href*='.pdf?']</em></code>."
+
+msgid "Remove elements that match these selectors before testing link text"
+msgstr ""
+"Eemalda elemendid, mis vastavad nendele valijatele enne lingi teksti "
+"testimist"
+
+msgid ""
+"Provide a CSS selector of elements your modules programmatically add to "
+"links (usually external or open-in-new-window links), so they can be ignored "
+"when the link text is checked for the \"link has no text\" and \"link text "
+"is not meaningful\" tests.<br>E.g.: <code><em>.this, .that</em></code>"
+msgstr ""
+"Sisesta CSS-valija elementide jaoks, mida teie moodulid programmaatiliselt "
+"linkidele lisavad (tavaliselt välised või uues aknas avanevad lingid), et "
+"neid saaks ignoreerida, kui lingi teksti kontrollitakse \"lingil pole "
+"teksti\" ja \"lingi tekst pole tähendusrikas\" testidega.<br>Nt: "
+"<code><em>.this, .that</em></code>"
+
+msgid "Remove these strings before testing link text"
+msgstr "Eemalda need stringid enne lingi teksti testimist"
+
+msgid ""
+"Provide a pipe-separated (\"|\") list of phrases your modules "
+"programmatically add to links to hint a purpose (external, mail, phone, open-"
+"in-new-window), so they can be ignored when the link text is checked for the "
+"\"link has no text\" and \"link text is not meaningful\" tests; e.g.:  "
+"<pre><code><em>(link is external)|(link sends email)</em></code></pre>"
+msgstr ""
+"Sisesta vertikaalkriipsuga (\"|\") eraldatud fraasidest koosnev loend, mida "
+"teie moodulid programmaatiliselt linkidele lisavad eesmärgi vihjamiseks "
+"(väline, post, telefon, avab uues aknas), et neid saaks ignoreerida, kui "
+"lingi teksti kontrollitakse \"lingil pole teksti\" ja \"lingi tekst pole "
+"tähendusrikas\" testidega; nt:  <pre><code><em>(link is external)|(link "
+"sends email)</em></code></pre>"
+
+msgid "Strings in links that indicate new tabs"
+msgstr "Stringid linkides, mis näitavad uusi vahekaarte"
+
+msgid ""
+"Provide a pipe-separated list of phrases your site uses to warn users a link "
+"opens in a new tab; e.g.:  <pre><code><em>new&nbsp;tab|new&nbsp;window|"
+"external</em></code></pre>"
+msgstr ""
+"Sisesta vertikaalkriipsuga eraldatud fraasidest koosnev loend, mida teie "
+"sait kasutab kasutajate hoiatamiseks, et link avaneb uuel vahekaardil; nt:  "
+"<pre><code><em>new&nbsp;tab|new&nbsp;window|external</em></code></pre>"
+
+msgid ""
+"Modules like Link Purpose or External Links can mark links automatically."
+msgstr ""
+"Sellised moodulid nagu Link Purpose või External Links võivad linke "
+"automaatselt märgistada."
+
+msgid "CSA/developer test"
+msgstr "CSA/arendaja test"
+
+msgid "Show to developers"
+msgstr "Näita arendajatele"
+
+msgid "Show to everybody"
+msgstr "Näita kõigile"
+
+msgid "Dashboard sync is disabled in Editoria11y configuration."
+msgstr "Töölaua sünkroonimine on Editoria11y seadistuses keelatud."
+
+msgid "(invalid URL)"
+msgstr "(kehtetu URL)"
+
+msgid "Editoria11y: Dismissals"
+msgstr "Editoria11y: tühistamised"
+
+msgid "Default"
+msgstr "Vaikimisi"
+
+msgid "Node path"
+msgstr "Sõlme tee"
+
+msgid "view"
+msgstr "view"
+
+msgid "Term path"
+msgstr "Termini tee"
+
+msgid "User bio path"
+msgstr "Kasutaja profiili tee"
+
+msgid "Term title"
+msgstr "Termini pealkiri"
+
+msgid ", "
+msgstr ", "
+
+msgid "Node title"
+msgstr "Sõlme pealkiri"
+
+msgid "User name"
+msgstr "Kasutajanimi"
+
+msgid "Recorded path"
+msgstr "Salvestatud tee"
+
+msgid "Computed"
+msgstr "Arvutatud"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty %}{% set dynamic_path = page_path %}{% endif %}\r\n"
+"{% set dynamic_title = title ~ name_2 ~ name_1 %}{% if dynamic_title is "
+"empty %}{% set dynamic_title = page_title %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ dynamic_title }}</"
+"a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty %}{% set dynamic_path = page_path %}{% endif %}\\r\n"
+"{% set dynamic_title = title ~ name_2 ~ name_1 %}{% if dynamic_title is "
+"empty %}{% set dynamic_title = page_title %}{% endif %}\\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ dynamic_title }}</"
+"a>"
+
+msgid "Dismissed alert"
+msgstr "Tühistatud hoiatus"
+
+msgid "By"
+msgstr "Autor"
+
+msgid "1"
+msgid_plural "@count"
+msgstr[0] "1"
+msgstr[1] "@count"
+
+msgid "Reset"
+msgstr "Lähtesta"
+
+msgid ""
+"<span class=\"ed11y-reset-dismissal\"><span class=\"ed11y-page-id\">{{ pid }}"
+"</span><span class=\"ed11y-dismissal-id\">{{id}}</span></span>"
+msgstr ""
+"<span class=\"ed11y-reset-dismissal\"><span class=\"ed11y-page-id\">{{ pid }}"
+"</span><span class=\"ed11y-dismissal-id\">{{id}}</span></span>"
+
+msgid "››"
+msgstr "››"
+
+msgid "‹‹"
+msgstr "‹‹"
+
+msgid "- All -"
+msgstr "- Kõik -"
+
+msgid "Offset"
+msgstr "Nihe"
+
+msgid "« First"
+msgstr "« Esimene"
+
+msgid "Last »"
+msgstr "Viimane »"
+
+msgid "Asc"
+msgstr "Kasv"
+
+msgid "Desc"
+msgstr "Langev"
+
+msgid "User who dismissed alert"
+msgstr "Kasutaja, kes tühistas hoiatuse"
+
+msgid "pid"
+msgstr "pid"
+
+msgid "Node"
+msgstr "Sõlm"
+
+msgid "Term"
+msgstr "Termin"
+
+msgid "User bio"
+msgstr "Kasutaja profiil"
+
+msgid "Dismissals page"
+msgstr "Tühistamiste leht"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty %}{% set dynamic_path = page_path %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title }}</a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty %}{% set dynamic_path = page_path %}{% endif %}\\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title }}</a>"
+
+msgid "Still on page"
+msgstr "Endiselt lehel"
+
+msgid "Reset filters"
+msgstr "Lähtesta filtrid"
+
+msgid "Issues marked as hidden or OK in Editoria11y."
+msgstr "Editoria11ys peidetud või OK-ks märgitud probleemid."
+
+msgid "Dismissals filtered by issue"
+msgstr "Probleemi järgi filtreeritud tühistamised"
+
+msgid "No dismissals match these filters."
+msgstr "Ükski tühistamine ei vasta nendele filtritele."
+
+msgid "All"
+msgstr "Kõik"
+
+msgid "Dismissed alerts of type \"{{result_name}}\""
+msgstr "Dismissed alerts of type \"{{result_name}}\""
+
+msgid ""
+"<a href=\"/admin/reports/editoria11y/dismissals/\" class=\"button button--"
+"primary\">Show all dismissals</a>"
+msgstr ""
+"<a href=\"/admin/reports/editoria11y/dismissals/\" class=\"button button--"
+"primary\">Show all dismissals</a>"
+
+msgid "Recent Editoria11y Dismissals"
+msgstr "Hiljutised Editoria11y tühistamised"
+
+msgid "Editoria11y - Recent dismissals"
+msgstr "Editoria11y – Hiljutised tühistamised"
+
+msgid "Editoria11y: Alerts"
+msgstr "Editoria11y: hoiatused"
+
+msgid "Top results"
+msgstr "Parimad tulemused"
+
+msgid "Computed title"
+msgstr "Arvutatud pealkiri"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path|render %}{% set dynamic_path = "
+"page_path %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{  page_title_1 }}</"
+"a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path|render %}{% set dynamic_path = "
+"page_path %}{% endif %}\\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{  page_title_1 }}</"
+"a>"
+
+msgid "<a href=\"{{page_path_1}}\" data-ed1ref=\"{{pid}}\">{{page_path_1}}</a>"
+msgstr ""
+"<a href=\"{{page_path_1}}\" data-ed1ref=\"{{pid}}\">{{page_path_1}}</a>"
+
+msgid "No alerts found."
+msgstr "Hoiatusi ei leitud."
+
+msgid "YYYY-MM-DD"
+msgstr "AAAA-KK-PP"
+
+msgid "User bio page"
+msgstr "Kasutaja profiilileht"
+
+msgid "Node author"
+msgstr "Sõlme autor"
+
+msgid "All pages with issues"
+msgstr "Kõik probleemidega leheküljed"
+
+msgid "Block: Pages with the most"
+msgstr "Plokk: enim hoiatustega leheküljed"
+
+msgid "Block: Recent alerts"
+msgstr "Plokk: hiljutised hoiatused"
+
+msgid "Recent Editoria11y Alerts"
+msgstr "Hiljutised Editoria11y hoiatused"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path|render %}{% set dynamic_path = "
+"page_path %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title_1 }}</a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path|render %}{% set dynamic_path = "
+"page_path %}{% endif %}\\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title_1 }}</a>"
+
+msgid "Issue"
+msgstr "Probleem"
+
+msgid "Editoria11y - Recent alerts"
+msgstr "Editoria11y – Hiljutised hoiatused"
+
+msgid "Block: Most frequent alerts"
+msgstr "Plokk: sagedaseimad hoiatused"
+
+msgid "Most Frequent Editoria11y Alerts"
+msgstr "Sagedaseimad Editoria11y hoiatused"
+
+msgid "Editoria11y - Most frequent alerts"
+msgstr "Editoria11y – Sagedaseimad hoiatused"
+
+msgid "Alerts on specified page"
+msgstr "Hoiatused määratud lehel"
+
+msgid ""
+"<a href=\"{{ page_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title_1 }}</a>"
+msgstr ""
+"<a href=\"{{ page_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title_1 }}</a>"
+
+msgid "<p><strong>Author:</strong> {{ uid }}</p>"
+msgstr "<p><strong>Author:</strong> {{ uid }}</p>"
+
+msgid "<p><strong>Last editor:</strong> {{ uid_1 }}</p>"
+msgstr "<p><strong>Last editor:</strong> {{ uid_1 }}</p>"
+
+msgid ""
+"<h1>Accessibility issues on: {{page_title_1}}</h1>\r\n"
+"<p>{{uid}}{{uid_1}}</p>"
+msgstr ""
+"<h1>Accessibility issues on: {{page_title_1}}</h1>\\r\n"
+"<p>{{uid}}{{uid_1}}</p>"
+
+msgid ""
+"<p><a href=\"../editoria11y/pages\" class=\"button button--primary\">All "
+"pages with alerts</a></p>"
+msgstr ""
+"<p><a href=\"../editoria11y/pages\" class=\"button button--primary\">All "
+"pages with alerts</a></p>"
+
+msgid ""
+"<span class=\"ed11y-reset-this-path\" hidden><p class=\"more-link\"><a "
+"role=\"button\" class=\"action-link action-link--icon-trash action-link--"
+"danger\"><span hidden class=\"ed11y-api-path\">{{ page_path }}</span>Reset "
+"results for this page</a></p></span>"
+msgstr ""
+"<span class=\"ed11y-reset-this-path\" hidden><p class=\"more-link\"><a "
+"role=\"button\" class=\"action-link action-link--icon-trash action-link--"
+"danger\"><span hidden class=\"ed11y-api-path\">{{ page_path }}</span>Reset "
+"results for this page</a></p></span>"
+
+msgid "Issue types"
+msgstr "Probleemide tüübid"
+
+msgid "Pages with specified alert"
+msgstr "Leheküljed määratud hoiatusega"
+
+msgid "Published status"
+msgstr "Avaldamise olek"
+
+msgid "Created by"
+msgstr "Loodud kasutaja"
+
+msgid "Created after"
+msgstr "Loodud pärast"
+
+msgid "Created before"
+msgstr "Loodud enne"
+
+msgid "<h1>Pages with alert \"{{ result_name }}\"</h1>"
+msgstr "<h1>Leheküljed hoiatusega „{{ result_name }}“</h1>"
+
+msgid ""
+"<a href=\"../editoria11y/alerts\" class=\"button button--primary\">All "
+"alerts</a>"
+msgstr ""
+"<a href=\"../editoria11y/alerts\" class=\"button button--primary\">All "
+"alerts</a>"
+
+msgid "Pages with issues"
+msgstr "Probleemidega leheküljed"
+
+msgid "Next ›"
+msgstr "Järgmine ›"
+
+msgid "‹ Previous"
+msgstr "‹ Eelmine"
+
+msgid "Authored on"
+msgstr "Loodud kuupäev"
+
+msgid "Changed"
+msgstr "Muudetud"
+
+msgid "Editoria11y: Crawler"
+msgstr "Editoria11y: indekseerija"
+
+msgid "Editoria11y: Crawl Nodes"
+msgstr "Editoria11y: indekseeri sõlmed"
+
+msgid "Authored by"
+msgstr "Autor"
+
+msgid "Has results"
+msgstr "On tulemusi"
+
+msgid "Has no alerts"
+msgstr "Hoiatusi pole"
+
+msgid "Has alerts"
+msgstr "On hoiatusi"
+
+msgid "nid"
+msgstr "nid"
+
+msgid "Editoria11y: Export"
+msgstr "Editoria11y: eksport"
+
+msgid "Export page with alerts"
+msgstr "Ekspordi hoiatustega leht"
+
+msgid "Link to Taxonomy term"
+msgstr "Link taksonoomia terminile"
+
+msgid "Link to User"
+msgstr "Link kasutajale"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path_1|render %}{% set dynamic_path = "
+"page_path_1 %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title }}</a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path_1|render %}{% set dynamic_path = "
+"page_path_1 %}{% endif %}\\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title }}</a>"
+
+msgid "Path when checked"
+msgstr "Tee kontrollimisel"
+
+msgid "<a href=\"{{page_path_1}}\" data-ed1ref=\"{{pid}}\">{{page_path_1}}"
+msgstr "<a href=\"{{page_path_1}}\" data-ed1ref=\"{{pid}}\">{{page_path_1}}"
+
+msgid "Current URL"
+msgstr "Praegune URL"
+
+msgid "{{ view_taxonomy_term }}{{ view_user }}{{ view_node }}"
+msgstr "{{ view_taxonomy_term }}{{ view_user }}{{ view_node }}"
+
+msgid "{% if type is empty %}{{entity_type}}{%else%}{{type}}{% endif %}"
+msgstr "{% if type is empty %}{{entity_type}}{%else%}{{type}}{% endif %}"
+
+msgid "Entity Type"
+msgstr "Olemi tüüp"
+
+msgid "Langcode (en, fr, de)"
+msgstr "Keelekood (en, fr, de)"
+
+msgid "Referenced node"
+msgstr "Viidatud sõlm"
+
+msgid "Referenced term"
+msgstr "Viidatud termin"
+
+msgid "Referenced user bio"
+msgstr "Viidatud kasutaja profiil"
+
+msgid "<p>Records chosen for export can be filtered and previewed below.</p>"
+msgstr "<p>Records chosen for export can be filtered and previewed below.</p>"
+
+msgid "<a href=\"/admin/reports/editoria11y/export\">Back to dashboard</a>"
+msgstr "<a href=\"/admin/reports/editoria11y/export\">Back to dashboard</a>"
+
+msgid "Dismissals export"
+msgstr "Tühistamiste eksport"
+
+msgid "Link to Content"
+msgstr "Link sisule"
+
+msgid "Page raw path"
+msgstr "Lehekülje toortee"
+
+msgid "Name"
+msgstr "Nimi"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path_1|render %}{% set dynamic_path = "
+"page_path_1 %}{% endif %}\r\n"
+"{% set dynamic_title = title_1 ~ name ~ name_1 %}{% if dynamic_title is "
+"empty %}{% set dynamic_title = page_title %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ dynamic_title }}</"
+"a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path_1|render %}{% set dynamic_path = "
+"page_path_1 %}{% endif %}\\r\n"
+"{% set dynamic_title = title_1 ~ name ~ name_1 %}{% if dynamic_title is "
+"empty %}{% set dynamic_title = page_title %}{% endif %}\\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ dynamic_title }}</"
+"a>"
+
+msgid "dismissal"
+msgstr "dismissal"
+
+msgid "Page export"
+msgstr "Lehekülje eksport"
+
+msgid "Alerts export"
+msgstr "Hoiatuste eksport"
+
+msgid "Editoria11y alerts on pages"
+msgstr "Editoria11y hoiatused lehtedel"
+
+msgid "{{ view_taxonomy_term }}{{ view_user }}{{ view_node }} "
+msgstr "{{ view_taxonomy_term }}{{ view_user }}{{ view_node }} "
+
+msgid "Results for page"
+msgstr "Tulemused lehekülje jaoks"
+
+msgid "<a href=\"./export/pages\">Export pages with alerts</a>"
+msgstr "<a href=\"./export/pages\">Export pages with alerts</a>"
+
+msgid "<a href=\"./export/dismissals\">Export dismissals</a>"
+msgstr "<a href=\"./export/dismissals\">Export dismissals</a>"
+
+msgid "<a href=\"./export/alerts\">Export alert list</a>"
+msgstr "<a href=\"./export/alerts\">Export alert list</a>"
+
+msgid "Export alerts on pages"
+msgstr "Ekspordi hoiatused lehtedel"
+
+msgid "Result name"
+msgstr "Tulemuse nimi"

@@ -1,0 +1,47 @@
+editoria11y_csa.dashboard_actions:
+  path: '/admin/reports/editoria11y/actions'
+  defaults:
+    _title: 'Dashboard Actions'
+    _form: 'Drupal\editoria11y_csa\Form\DashboardActions'
+  requirements:
+    _permission: 'administer editoria11y checker'
+
+editoria11y_csa.settings:
+  path: '/admin/config/content/editoria11y/csa'
+  defaults:
+    _form: '\Drupal\editoria11y_csa\Form\Editoria11yCSASettings'
+    _title: 'Editoria11y CSA membership'
+  requirements:
+    _permission: 'administer editoria11y checker'
+
+entity.ed11y_custom_test.collection:
+  path: '/admin/config/content/editoria11y/custom-tests'
+  defaults:
+    _entity_list: 'ed11y_custom_test'
+    _title: 'Editoria11y custom tests'
+  requirements:
+    _permission: 'administer editoria11y checker'
+
+entity.ed11y_custom_test.add_form:
+  path: '/admin/config/content/editoria11y/custom-tests/add'
+  defaults:
+    _entity_form: 'ed11y_custom_test.add'
+    _title: 'Add a custom test'
+  requirements:
+    _permission: 'administer editoria11y checker'
+
+entity.ed11y_custom_test.edit_form:
+  path: '/admin/config/content/editoria11y/custom-tests/{ed11y_custom_test}'
+  defaults:
+    _entity_form: 'ed11y_custom_test.edit'
+    _title: 'Edit custom test'
+  requirements:
+    _permission: 'administer editoria11y checker'
+
+entity.ed11y_custom_test.delete_form:
+  path: '/admin/config/content/editoria11y/custom-tests/{ed11y_custom_test}/delete'
+  defaults:
+    _entity_form: 'ed11y_custom_test.delete'
+    _title: 'Delete custom test'
+  requirements:
+    _permission: 'administer editoria11y checker'

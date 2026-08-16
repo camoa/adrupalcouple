@@ -4,9 +4,11 @@ namespace Drupal\extlink\Form;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Config\TypedConfigManagerInterface;
+use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\RendererInterface;
+use Drupal\Core\Theme\Icon\IconDefinitionInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -23,8 +25,10 @@ class ExtlinkAdminSettingsForm extends ConfigFormBase {
    *   The typed config manager.
    * @param \Drupal\Core\Render\RendererInterface $renderer
    *   The renderer.
+   * @param \Drupal\Core\Extension\ModuleHandlerInterface $moduleHandler
+   *   The module Handler.
    */
-  public function __construct(ConfigFactoryInterface $config_factory, TypedConfigManagerInterface $typedConfigManager, protected RendererInterface $renderer) {
+  public function __construct(ConfigFactoryInterface $config_factory, TypedConfigManagerInterface $typedConfigManager, protected RendererInterface $renderer, protected ModuleHandlerInterface $moduleHandler) {
     parent::__construct($config_factory, $typedConfigManager);
   }
 
@@ -35,7 +39,8 @@ class ExtlinkAdminSettingsForm extends ConfigFormBase {
     return new static(
       $container->get('config.factory'),
       $container->get('config.typed'),
-      $container->get('renderer')
+      $container->get('renderer'),
+      $container->get('module_handler')
     );
   }
 
@@ -187,6 +192,64 @@ class ExtlinkAdminSettingsForm extends ConfigFormBase {
       ],
     ];
 
+    if ($this->moduleHandler->moduleExists('ui_icons')) {
+      $form['extlink_use_icon'] = [
+        '#type' => 'checkbox',
+        '#title' => $this->t('Use icons instead of images.'),
+        '#default_value' => $config->get('extlink_use_icon'),
+      ];
+
+      $form['extlink_icons'] = [
+        '#type' => 'details',
+        '#title' => $this->t('Icons'),
+        '#tree' => TRUE,
+        '#states' => [
+          'visible' => [
+            ':input[name="extlink_use_icon"]' => ['checked' => TRUE],
+          ],
+        ],
+      ];
+
+      $form['extlink_icons']['links'] = [
+        '#type' => 'icon_autocomplete',
+        '#title' => $this->t('External Links icon'),
+        '#default_value' => $config->get('extlink_icons.links.icon') ?: NULL,
+        '#default_settings' => $config->get('extlink_icons.links.settings') ?? [],
+        '#show_settings' => TRUE,
+        '#states' => [
+          'visible' => [
+            ':input[name="extlink_class"]' => ['checked' => TRUE],
+          ],
+        ],
+      ];
+
+      $form['extlink_icons']['mailto'] = [
+        '#type' => 'icon_autocomplete',
+        '#title' => $this->t('Mailto Links icon'),
+        '#default_value' => $config->get('extlink_icons.mailto.icon') ?: NULL,
+        '#default_settings' => $config->get('extlink_icons.mailto.settings') ?? [],
+        '#show_settings' => TRUE,
+        '#states' => [
+          'visible' => [
+            ':input[name="extlink_mailto_class"]' => ['checked' => TRUE],
+          ],
+        ],
+      ];
+
+      $form['extlink_icons']['tel'] = [
+        '#type' => 'icon_autocomplete',
+        '#title' => $this->t('Tel icon'),
+        '#default_value' => $config->get('extlink_icons.tel.icon') ?: NULL,
+        '#default_settings' => $config->get('extlink_icons.tel.settings') ?? [],
+        '#show_settings' => TRUE,
+        '#states' => [
+          'visible' => [
+            ':input[name="extlink_tel_class"]' => ['checked' => TRUE],
+          ],
+        ],
+      ];
+    }
+
     $form['extlink_icon_placement'] = [
       '#type' => 'select',
       '#title' => $this->t('Where to place icon in reference to link.'),
@@ -208,6 +271,19 @@ class ExtlinkAdminSettingsForm extends ConfigFormBase {
       '#description' => $this->t('This is done by wrapping the last word and the symbol into a non-breaking span. Note: This can have unwanted side effects, depending on your CSS.'),
       '#states' => [
         'visible' => [
+          ':input[name="extlink_icon_placement"]' => ['value' => 'append'],
+        ],
+      ],
+    ];
+
+    $form['extlink_prevent_orphan_text_like'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Wrap only text-like links.'),
+      '#default_value' => $config->get('extlink_prevent_orphan_text_like'),
+      '#description' => $this->t('Enable this option to apply text wrapping only to links that start and end with plain text. Links may contain simple HTML elements (such as bold or italic tags) between the text, provided these elements contain no nested children.'),
+      '#states' => [
+        'visible' => [
+          ':input[name="extlink_prevent_orphan"]' => ['checked' => TRUE],
           ':input[name="extlink_icon_placement"]' => ['value' => 'append'],
         ],
       ],
@@ -458,6 +534,22 @@ class ExtlinkAdminSettingsForm extends ConfigFormBase {
       return !empty($value);
     });
 
+    if ($this->moduleHandler->moduleExists('ui_icons')) {
+      $icon_types = [
+        'links',
+        'mailto',
+        'tel',
+      ];
+      foreach ($icon_types as $type) {
+        if (empty($values['extlink_icons'][$type]['icon']) || !$values['extlink_icons'][$type]['icon'] instanceof IconDefinitionInterface) {
+          unset($values['extlink_icons'][$type]);
+          continue;
+        }
+        $icon = $values['extlink_icons'][$type]['icon'];
+        $values['extlink_icons'][$type]['icon'] = $icon->getId();
+      }
+    }
+
     $this->config('extlink.settings')
       ->set('extlink_use_external_js_file', $values['extlink_use_external_js_file'])
       ->set('extlink_exclude_admin_routes', $values['extlink_exclude_admin_routes'])
@@ -491,10 +583,13 @@ class ExtlinkAdminSettingsForm extends ConfigFormBase {
       ->set('extlink_use_font_awesome', $values['extlink_use_font_awesome'])
       ->set('extlink_icon_placement', $values['extlink_icon_placement'])
       ->set('extlink_prevent_orphan', $values['extlink_prevent_orphan'])
+      ->set('extlink_prevent_orphan_text_like', $values['extlink_prevent_orphan_text_like'])
       ->set('extlink_use_font_awesome', $values['extlink_use_font_awesome'])
       ->set('extlink_font_awesome_classes.links', $values['extlink_font_awesome_classes']['links'])
       ->set('extlink_font_awesome_classes.mailto', $values['extlink_font_awesome_classes']['mailto'])
       ->set('extlink_font_awesome_classes.tel', $values['extlink_font_awesome_classes']['tel'])
+      ->set('extlink_use_icon', $values['extlink_use_icon'] ?? FALSE)
+      ->set('extlink_icons', $values['extlink_icons'] ?? [])
       ->set('allowed_domains', $allowed_domains)
       ->set('extlink_exclude_noreferrer', $values['extlink_exclude_noreferrer'])
       ->save();

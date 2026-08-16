@@ -1,0 +1,5 @@
+{
+  "_comment": "Tracks the git commit at which each translation template was last fully merged into all 16 .po files. When template/general.pot changes after this commit, the translations are stale and need resynchronizing via scripts/sync-translations.sh.",
+  "_git_root": "web/modules/custom/editoria11y",
+  "template/general.pot": "e224f608ea1f802d5d20aa5621efe14d985e9c63"
+}

@@ -45,6 +45,79 @@ checker that addresses three critical needs for content authors:
 * If you are installing from the command line, do note the "eleventy" when
   spelling the module's name!
 
+### Adding CSA Features
+
+The [Community Supported Add-ons project](https://editoria11y.com) funds Editoria11y development through a contribute-what-you-can model.
+
+The editoria11y_csa submodule adds many features for project members, such as developer tests, tools and reports; a custom test builder; dashboard report maintenance tools and a site crawler.
+
+Note that all **independent** activations use one site from your license. Development sites should sync down a copy of the activated production database. Teams with multiple developers should run `drush ed11y-lock` after activation to prevent modifications to shared activations from affecting the production copy.
+
+Activation:
+Note that all **independent** activations use one site from your license. Development sites should sync down a copy of the activated production database. Teams with multiple developers should run `drush ed11y-lock` after activation to prevent modifications to shared activations from affecting the production copy.
+
+Activation:
+* Install the submodule
+* [Become a project member](https://editoria11y.com/license)
+* Add your license key on the CSA features tab of the Editoria11y settings page, then activate it.
+
+Keys can also be managed via Drush:
+* Assign a key via `drush ed11y-set-key MY-LICENSE-KEY`
+* Activate a key via `drush ed11y-activate`
+* Prevent modifying the license in the GUI via `drush ed11y-lock`
+* Production sites check for renewals regularly, but if a license expires before renewal and the site enters an expired state, run `drush ed11y-check-renewal` to force a refresh after renewing in the [Freemius customer portal](https://customers.freemius.com/login)
+* Add your license key on the CSA features tab of the Editoria11y settings page, then activate it.
+
+Keys can also be managed via Drush:
+* Assign a key via `drush ed11y-set-key MY-LICENSE-KEY`
+* Activate a key via `drush ed11y-activate`
+* Prevent modifying the license in the GUI via `drush ed11y-lock`
+* Production sites check for renewals regularly, but if a license expires before renewal and the site enters an expired state, run `drush ed11y-check-renewal` to force a refresh after renewing in the [Freemius customer portal](https://customers.freemius.com/login)
+
+Keys can also be managed by themes and modules in update hooks:
+
+```php
+/**
+ * Assign and activate the Editoria11y CSA license.
+ */
+function MYMODULE_update_10001(): void {
+  /** @var \Drupal\editoria11y_csa\LicenseManager $license_manager */
+  $license_manager = \Drupal::service('editoria11y_csa.license_manager');
+
+  // Only activate in production.
+  // Sync the activated database to local/dev/qa.
+  if ($license_manager->isDevEnvironment()) {
+    return;
+  }
+
+  try {
+    // Call the Freemius API and activate a license for this site.
+    $license_manager->activateLicense('MY-LICENSE-KEY');
+
+    // Or to store an inactive key to use in the GUI:
+    // $license_manager->saveLicenseKey('MY-LICENSE-KEY')
+
+  }
+  catch (\Drupal\editoria11y_csa\Exception\LicenseManagerException $e) {
+    throw new \Drupal\Core\Utility\UpdateException('Editoria11y license activation failed: ' . $e->getMessage());
+  }
+}
+``` 
+
+### Keeping keys out of the codebase
+
+To avoid committing a license key to Git or having it travel in database dumps synced to developer workstations, install the [Key module](https://www.drupal.org/project/key) and create a key with the machine name `editoria11y_license`. When no license key is present in the DB, Editoria11y CSA automatically checks for a key with this name.
+
+The Key module key can be locally overridden from the module settings page or `drush ed11y-set-key`.
+
+Key's providers let you source the secret from wherever fits your workflow:
+
+* **File outside the web root** — a File provider pointing at e.g. `/etc/drupal-secrets/editoria11y_license` keeps the value off the repo and out of the database.
+* **Environment variable** — an Environment provider reading something like `ED11Y_LICENSE_KEY` works with Platform.sh/Upsun variables, Pantheon secrets, Acquia Cloud environment variables, DDEV's `web_environment`, and CI secret stores (GitHub Actions, GitLab CI).
+* **Encrypted-in-repo file** — commit a file encrypted with git-crypt, SOPS, or age, decrypt it during deploy, and point a File provider at the decrypted path. The repo stays safe to share publicly; only production has the plaintext.
+
+See the [Key module guide](https://www.drupal.org/docs/contributed-modules/key) for details.
+
 ## Configuration
 
 * Configure user permissions: on install, Editoria11y assigns the "View
@@ -83,6 +156,7 @@ checker that addresses three critical needs for content authors:
       page under "Disable the scanner if these elements are detected." And do
       tell us about the conflict! If it is a common module we will add it to the
       default ignore list.
+* If you hit a white screen of death when setting up Views filters, check that you don't temporarily need to patch [core's bundle bug](https://www.drupal.org/project/drupal/issues/2988983#comment-14971083) to finish creating the View.
 
 ## Extending and modifying Editorially
 
@@ -112,7 +186,11 @@ function MYMODULE_page_attachments(array &$page) {
 
 ```
 
-### Programmatically modifying the options array
+### Modifying options at runtime in PHP
+
+To make changes in Drupal, use modify the computed page attachments using hook_editoria11y_alter_config.
+
+### Modifying options at runtime in JS
 
 Before initiating the Editoria11y library, the module checks at the JavaScript
 level to see if a module or theme has requested to modify the options generated
@@ -203,22 +281,23 @@ document.addEventListener("ed11yPanelOpened", function (event) {
 });
 ```
 
-#### A tooltip has opened
+#### Postprocess a tooltip
 
-This event also returns the unique ID of the tip, in case you want to react to
-the event by modifying the tooltip or your content..
+Use this to modify the content of the tooltip. It provides access to the tip itself, the test name, and the marked element.
 
 If you want to react by switching to a tab/slide/accordion containing the error,
 use the next event instead.
 
 ```js
-document.addEventListener("ed11yPop", function (event) {
-  let myID = '#' + event.detail.id;
-  // jQuery(myID).parents('.example').addClass('has-open-tip');
-});
+document.addEventListener('ed11yPop', (e) => {
+  const tipContent = e.detail.tip.shadowRoot.querySelector('.content');
+  const test = wrapper.getAttribute('data-test');
+  const markedElement = e.detail.result.element;
+  // Modify as needed.
+})
  ```
 
-#### A tooltip is about to open in a container you asked to be alerted about
+#### Preprocess a tooltip in a container you asked to be alerted about
 
 Thrown for elements listed in the "Theme JS will handle revealing hidden
 tooltips" configuration option, when the panel's "jump to the next issue" link
@@ -229,13 +308,17 @@ theme a moment to open an accordion or tab panel (etc.) before Editoria11y tries
 to transfer focus to the hidden tip:
 
 ```js
-document.addEventListener("ed11yHiddenHandler", function (event) {
-  let myID = '#' + event.detail.id;
-  // Some action to take, e.g., look for an accordion button and click it.
-  // if (jQuery(myID).parents('.example').length > 0) {
-  //   jQuery(myID).parents('.example').prev('button').click();
-  // }
-});
+document.addEventListener('ed11yShowHidden', function(e) {
+  if (!e.detail.viaJump) {
+    // Filter out tips opened via hover.
+    return;
+  }
+  const toggle = Drupal.Ed11y.State.results[e.detail.result].toggle;
+  const result = Drupal.Ed11y.State.results[e.detail.result].element;
+  if (result.closest('.my-example-widget')) {
+    // Open the accordion or tab.
+  }
+}
 ```
 
 ## Troubleshooting
@@ -283,62 +366,13 @@ document.addEventListener("ed11yHiddenHandler", function (event) {
 
 ### You don't like the default error messages
 
-If you only want to override a few, overwrite the strings at runtime using the JS events system:
-```
-// Listen for event
-const overrideEd11y = function() {
-  Ed11y.M.linkNewWindow = {
-      title: 'Manual check: is opening a new window expected?',
-      tip: () =>
-        `<p>Readers can always choose to open a link a new window. When a link forces open a new window, it can be confusing and annoying, especially for assistive device users who may wonder why their browser's "back" button is suddenly disabled.</p>
-                <p>There are two general exceptions:</p>
-                <ul>
-                    <li>When the user is filling out a form, and opening a link in the same window would cause them to lose their work.</li>
-                    <li>When the user is clearly warned a link will open a new window.</li>
-                </ul>
-                <p><strong>To fix:</strong> set this link back its default target, or add a screen-reader accessible warning (text or an icon with alt text).</p>
-                `,
-    },
-  document.removeEventListener('ed11yResults', overrideEd11y);
-}
+Tip test names and contents can be overridden at runtime by overriding the test ID in `Drupal.Ed11y.Lang.testNames` and `Drupal.Ed11y.Lang.langStrings`, respectively. 
 
-document.addEventListener('ed11yResults', overrideEd11y);
-
-```
-
-If you want to write your own localization file (...not recommended...), you can swap out the library file using Drupal's [libraries-override YML](https://www.drupal.org/node/2497313) in your module or theme.
-
-For English language sites, you will also need to switch to the "unpacked" library to override the localization file, as it is otherwise packaged in the min file. In theory this should work:
-```
-libraries-override:
-  'editoria11y/editoria11y-unpacked':
-    js:
-      library/js/ed11y-localization.js: js/MY-LOCAL-THEME-VERSION-OF-THE-SAME.js
-      
-  editoria11y/editoria11y: editoria11y/editoria11y-unpacked
-```
-
-For non-English language sites, you only need to override the Drupal translation file, which is not part of the library -dist:
-
-```
-libraries-override:
-  'editoria11y/localization':
-    js:
-      js/editoria11y-localization.js: js/MY-LOCAL-THEME-VERSION-OF-THE-SAME.js
-```
+The `Lang` object is populated by the active language. This will be the content language, not the interface language. If that matters for your override, check `Drupal.Ed11y.Lang.langStrings.LANG_CODE`.
 
 ### The checker slowed down after configuration
 
-* Editoria11y should finish scanning and painting tooltips in less than half a
-  second, even on very long pages. If you find it is taking longer, the most
-  common culprit is a long "skip over these elements" selector list on the
-  configuration page. Selectors on this list get called twice against almost
-  every element on the page, once alone (`.example`) and once as a
-  parent (`.example *`). Even worse, attribute selectors (`[aria-hidden]`) are
-  much, much slower than element type, class or ID selectors. So if you added
-  more than a dozen elements to skip and included several attribute
-  selectors...see if you can shorten the list and/or switch to different
-  selector types.
+* Editoria11y should finish scanning and painting tooltips in less than 100ms, even on very long pages. If you find it is taking longer, try constraining the checked area a but more, or turning off watching for changes.
 
 ## Maintainers
 
@@ -348,7 +382,6 @@ Princeton
 University's [Office of Web Development Services](https://wds.princeton.edu/).
 - [John Jameson](https://www.drupal.org/u/itmaybejj), Digital Accessibility Developer
 - [Brian Osborne](https://www.drupal.org/u/bkosborne), Web Solutions Architect
-- [Jason Partyka](https://www.drupal.org/u/partyka), Lead Application Developer
 
 
 ### Acknowledgements

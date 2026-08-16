@@ -1,0 +1,17 @@
+editoria11y_csa.dashboard_actions:
+  title: 'Recheck'
+  route_name: editoria11y_csa.dashboard_actions
+  base_route: editoria11y.reports_dashboard
+  weight: 500
+
+editoria11y_csa.settings:
+  title: 'CSA membership'
+  route_name: editoria11y_csa.settings
+  base_route: editoria11y.settings
+  weight: 15
+
+entity.ed11y_custom_test.collection:
+  title: 'Custom tests'
+  route_name: entity.ed11y_custom_test.collection
+  base_route: editoria11y.settings
+  weight: 10

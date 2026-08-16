@@ -1,0 +1,10 @@
+editoria11y-csa-crawler:
+  js:
+    js/crawler.js: {}
+  css:
+    theme:
+      css/crawler.css: {}
+  dependencies:
+    - core/drupal
+    - core/progress
+    - editoria11y/editoria11y-dashboard

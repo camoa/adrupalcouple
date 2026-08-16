@@ -1,0 +1,3005 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: editoria11y 3.0.0\n"
+"POT-Creation-Date: 2026-08-01 21:46-0400\n"
+"PO-Revision-Date: 2026-05-11 00:00+0000\n"
+"Language-Team: Editoria11y\n"
+"Language: lt\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"(n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+msgid ""
+"editoria11y_post_update_0004: scanned @scanned mismatched page(s), "
+"backfilled @fixed to the referenced entity language."
+msgstr ""
+"editoria11y_post_update_0004: scanned @scanned mismatched page(s), "
+"backfilled @fixed to the referenced entity language."
+
+msgid "Editoria11y"
+msgstr "Editoria11y"
+
+msgid "Editoria11y - Pages with issues"
+msgstr "Editoria11y – Puslapiai su problemomis"
+
+msgctxt "problems"
+msgid "Provides relationship for issues and dismissals"
+msgstr "Nustato ryšį tarp problemų ir atmetimų"
+
+msgid "EID"
+msgstr "EID"
+
+msgid "Editoria11y's internal page ID"
+msgstr "Vidinis Editoria11y puslapio ID"
+
+msgid "Entity ID"
+msgstr "Objekto ID"
+
+msgid "The NID/TID/UID of the page with an issue."
+msgstr "Puslapio su problema NID/TID/UID."
+
+msgid "Entity type"
+msgstr "Objekto tipas"
+
+msgid "The entity type; \"route\" if no type found."
+msgstr "Objekto tipas; „route\", jei tipas nenustatytas."
+
+msgid "Route name"
+msgstr "Maršruto pavadinimas"
+
+msgid "Route name for page."
+msgstr "Puslapio maršruto pavadinimas."
+
+msgid "Page path"
+msgstr "Puslapio kelias"
+
+msgid "Internal, relative page path."
+msgstr "Vidinis, santykinis puslapio kelias."
+
+msgid "Page language"
+msgstr "Puslapio kalba"
+
+msgid "Active translation."
+msgstr "Aktyvi vertimas."
+
+msgid "Page title"
+msgstr "Puslapio pavadinimas"
+
+msgid "The name of the route where this was last seen."
+msgstr "Maršruto, kuriame tai paskutinį kartą matyta, pavadinimas."
+
+msgid "Content alerts"
+msgstr "Turinio įspėjimai"
+
+msgid "Number of alerts shown to content editors."
+msgstr "Turinio redaktoriams rodomų įspėjimų skaičius."
+
+msgid "Dev alerts"
+msgstr "Kūrėjų įspėjimai"
+
+msgid "Number of alerts shown to developers."
+msgstr "Kūrėjams rodomų įspėjimų skaičius."
+
+msgid "Updated"
+msgstr "Atnaujinta"
+
+msgid "When this page was last checked."
+msgstr "Kada šis puslapis buvo paskutinį kartą patikrintas."
+
+msgid "Editoria11y - Test results"
+msgstr "Editoria11y – Tikrinimo rezultatai"
+
+msgctxt "problems"
+msgid "Stores Editoria11y issue list"
+msgstr "Saugo Editoria11y problemų sąrašą"
+
+msgid "Result row"
+msgstr "Rezultato eilutė"
+
+msgid "Internal identifier"
+msgstr "Vidinis identifikatorius"
+
+msgid "Created"
+msgstr "Sukurta"
+
+msgid "When this page was flagged."
+msgstr "Kada šis puslapis buvo pažymėtas."
+
+msgid "Alert type"
+msgstr "Įspėjimo tipas"
+
+msgid "The name of the test as reported by Editoria11y JS"
+msgstr "Testo pavadinimas, kurį pranešė Editoria11y JS"
+
+msgid "Alert type, linked"
+msgstr "Įspėjimo tipas (su nuoroda)"
+
+msgid "Linked to report of all alerts of this type."
+msgstr "Nuoroda į visų šio tipo įspėjimų ataskaitą."
+
+msgid "Content alert count"
+msgstr "Turinio įspėjimų skaičius"
+
+msgid "The number of hits for this test type on this page"
+msgstr "Šio testo tipo atitikmenų skaičius šiame puslapyje"
+
+msgid "Dev alert count"
+msgstr "Kūrėjų įspėjimų skaičius"
+
+msgid "Editoria11y - Dismissals"
+msgstr "Editoria11y – Atmetimai"
+
+msgid "Stores Editoria11y warnings and dismissals"
+msgstr "Saugo Editoria11y įspėjimus ir atmetimus"
+
+msgid "Dismissal internal reference ID"
+msgstr "Atmetimo vidinis nuorodos ID"
+
+msgid "Page with dismissal"
+msgstr "Puslapis su atmetimu"
+
+msgid "Dismissed by"
+msgstr "Atmetė"
+
+msgid "The user linked to this dismissal."
+msgstr "Vartotojas, susietas su šiuo atmetimu."
+
+msgid "Linked Drupal user"
+msgstr "Susietas Drupal vartotojas"
+
+msgid "Dismissed element id"
+msgstr "Atmesto elemento id"
+
+msgid "Code sample to identify the flagged element."
+msgstr "Kodo pavyzdys pažymėtam elementui identifikuoti."
+
+msgid "Dismissed on"
+msgstr "Atmesta"
+
+msgid "The Unix timestamp of the first time this record was flagged."
+msgstr "Unix laiko žyma, kai šis įrašas buvo pirmą kartą pažymėtas."
+
+msgid "Dismissal stale since"
+msgstr "Atmetimas pasenęs nuo"
+
+msgid "The element has not been seen since this date."
+msgstr "Elementas nematytas nuo šios datos."
+
+msgid "Dismissed result name"
+msgstr "Atmesto rezultato pavadinimas"
+
+msgid "Dismissed result name, linked"
+msgstr "Atmesto rezultato pavadinimas (su nuoroda)"
+
+msgid "Links to report of all alerts of this type."
+msgstr "Nuoroda į visų šio tipo įspėjimų ataskaitą."
+
+msgid "Dismissal status"
+msgstr "Atmetimo būsena"
+
+msgid "The type of dismissal (e.g., OK, Ignore)"
+msgstr "Atmetimo tipas (pvz., OK, Nepaisyti)"
+
+msgid "Relate from Editoria11y page to referenced node"
+msgstr "Susieti Editoria11y puslapį su nurodytu mazgu"
+
+msgid "Issues were found on this node"
+msgstr "Šiame mazge rastos problemos"
+
+msgid "Relate from node data to Editoria11y page"
+msgstr "Susieti mazgo duomenis su Editoria11y puslapiu"
+
+msgid "Relate from Editoria11y page to referenced taxonomy term"
+msgstr "Susieti Editoria11y puslapį su nurodytu taksonomijos terminu"
+
+msgid "Issues were found on this term page"
+msgstr "Šio termino puslapyje rastos problemos"
+
+msgid "Relate from taxonomy term data to Editoria11y page"
+msgstr "Susieti taksonomijos termino duomenis su Editoria11y puslapiu"
+
+msgid "Relate from Editoria11y page list to user bio page data"
+msgstr ""
+"Susieti Editoria11y puslapių sąrašą su vartotojo biografijos puslapio "
+"duomenimis"
+
+msgid "Issues were found on this user bio page"
+msgstr "Šiame vartotojo biografijos puslapyje rastos problemos"
+
+msgid "Relate from Editoria11y page to user bio page with issues"
+msgstr ""
+"Susieti Editoria11y puslapį su vartotojo biografijos puslapiu, kuriame yra "
+"problemų"
+
+msgid "Relate from user bio page to Editoria11y results"
+msgstr "Susieti vartotojo biografijos puslapį su Editoria11y rezultatais"
+
+msgid "Relate from users list to Editoria11y results on bio page"
+msgstr ""
+"Susieti vartotojų sąrašą su Editoria11y rezultatais biografijos puslapyje"
+
+msgid "Relate from Editoria11y page to issues on page"
+msgstr "Susieti Editoria11y puslapį su puslapio problemomis"
+
+msgid "Issues found on this node"
+msgstr "Šiame mazge rastos problemos"
+
+msgid "Relate from Editoria11y result to page"
+msgstr "Susieti Editoria11y rezultatą su puslapiu"
+
+msgid "Relate from Editoria11y page to dismissals on page"
+msgstr "Susieti Editoria11y puslapį su puslapio atmetimais"
+
+msgid "Relate from Editoria11y dismissal to page"
+msgstr "Susieti Editoria11y atmetimą su puslapiu"
+
+msgid "Group relationship for node with Editoria11y issues"
+msgstr "Group ryšys mazgui su Editoria11y problemomis"
+
+msgid ""
+"Bridge to the Group module. Add the Group module Group relationship on top "
+"of this one to filter or sort issues by group."
+msgstr ""
+"Sujungia su Group moduliu. Norėdami filtruoti arba rikiuoti problemas pagal "
+"grupę, papildomai pridėkite Group modulio Group ryšį."
+
+msgid "Group relationship for node"
+msgstr "Group ryšys mazgui"
+
+msgid "Group relationship for user bio with Editoria11y issues"
+msgstr "Group ryšys vartotojo biografijai su Editoria11y problemomis"
+
+msgid "Group relationship for user"
+msgstr "Group ryšys vartotojui"
+
+msgid "Group relationship for taxonomy term with Editoria11y issues"
+msgstr "Group ryšys taksonomijos terminui su Editoria11y problemomis"
+
+msgid ""
+"Bridge to the Group module. Add the Group module Group relationship on top "
+"of this one to filter or sort issues by group. Requires a contrib module "
+"that exposes terms as group content."
+msgstr ""
+"Sujungia su Group moduliu. Norėdami filtruoti arba rikiuoti problemas pagal "
+"grupę, papildomai pridėkite Group modulio Group ryšį. Reikalingas "
+"kontribucinis modulis, kuris terminus pateikia kaip grupės turinį."
+
+msgid "Group relationship for taxonomy term"
+msgstr "Group ryšys taksonomijos terminui"
+
+msgid "Warning: possible out of date path. This content may have moved to"
+msgstr ""
+"Įspėjimas: kelias gali būti pasenęs. Šis turinys galėjo būti perkeltas į"
+
+msgid "Export CSV"
+msgstr "Eksportuoti CSV"
+
+msgid "Predelete failed: @error_message"
+msgstr "Išankstinis trynimas nepavyko: @error_message"
+
+msgid "Page attachment failed: @error_message"
+msgstr "Puslapio prijungimas nepavyko: @error_message"
+
+msgid ""
+"editoria11y_update_9019: scanned @total rows, repaired @updated, deleted "
+"@deleted corrupted group rows, left @skipped untouched."
+msgstr ""
+"editoria11y_update_9019: scanned @total rows, repaired @updated, deleted "
+"@deleted corrupted group rows, left @skipped untouched."
+
+msgid ""
+"editoria11y_update_9020: hashed @hashed page rows, removed @deduped "
+"duplicate rows, added unique keys."
+msgstr "editoria11y_update_9020: hashed @hashed page rows, removed @deduped duplicate rows, added unique keys."
+
+msgid "Editoria11y Accessibility Checker"
+msgstr "Editoria11y prieinamumo tikrintuvas"
+
+msgid ""
+"Checks page content for accessibility and provides a site-wide dashboard."
+msgstr ""
+"Tikrina puslapio turinio prieinamumą ir teikia visos svetainės suvestinę."
+
+msgid "Content Accessibility"
+msgstr "Turinio prieinamumas"
+
+msgid "Accessibility checker notifications and exclusions."
+msgstr "Prieinamumo tikrintuvo pranešimai ir išimtys."
+
+msgid "Results from the Editoria11y checker."
+msgstr "Editoria11y tikrintuvo rezultatai."
+
+msgid "Dashboard"
+msgstr "Suvestinė"
+
+msgid "Core settings"
+msgstr "Pagrindiniai nustatymai"
+
+msgid "Demo"
+msgstr "Demo"
+
+msgid "View Editoria11y checker"
+msgstr "Peržiūrėti Editoria11y tikrintuvą"
+
+msgid "Assign to all content editors."
+msgstr "Priskirti visiems turinio redaktoriams."
+
+msgid "Administer Editoria11y checker"
+msgstr "Administruoti Editoria11y tikrintuvą"
+
+msgid "Allows user to purge results and change configuration."
+msgstr "Leidžia vartotojui išvalyti rezultatus ir keisti konfigūraciją."
+
+msgid "Mark as hidden in Editoria11y"
+msgstr "Žymėti kaip paslėptą Editoria11y"
+
+msgid "Adds button to suppress a manual check for the current user."
+msgstr ""
+"Prideda mygtuką, leidžiantį paslėpti rankinį patikrinimą esamam vartotojui."
+
+msgid "Mark as OK in Editoria11y"
+msgstr "Žymėti kaip gerai Editoria11y"
+
+msgid ""
+"Adds button to suppress a manual check for all users, if sync is enabled."
+msgstr ""
+"Prideda mygtuką, leidžiantį paslėpti rankinį patikrinimą visiems "
+"vartotojams, jei sinchronizacija įjungta."
+
+msgid "Manage Editoria11y results"
+msgstr "Tvarkyti Editoria11y rezultatus"
+
+msgid "View the site-wide dashboard and reset dismissals."
+msgstr "Peržiūrėti visos svetainės suvestinę ir atstatyti atmetimus."
+
+msgid "Editoria11y core settings"
+msgstr "Pagrindiniai Editoria11y nustatymai"
+
+msgid "Content Accessibility Issues"
+msgstr "Turinio prieinamumo problemos"
+
+msgid "Editoria11y Settings"
+msgstr "Editoria11y nustatymai"
+
+msgid "Check elements in these containers"
+msgstr "Tikrinti elementus šiuose konteineriuose"
+
+msgid "Alert panel assertiveness"
+msgstr "Įspėjimų skydelio aktyvumas"
+
+msgid "Do not run if these elements are on the page"
+msgstr "Nevykdyti, jei šie elementai yra puslapyje"
+
+msgid "Suppress all alerts if none of these elements are present"
+msgstr "Slėpti visus įspėjimus, jei nė vieno iš šių elementų nėra"
+
+msgid "Do not run tests on these containers"
+msgstr "Nevykdyti testų šiuose konteineriuose"
+
+msgid "Move toggle to avoid colliding with these widgets"
+msgstr "Perkelti jungiklį, kad nesutaptų su šiais valdikliais"
+
+msgid ""
+"Full check should warn on these elements with embedded uncheckable content"
+msgstr ""
+"Pilnas tikrinimas turėtų įspėti apie šiuos elementus su įterptąja "
+"netikrinamuoju turiniu"
+
+msgid "These links download a document or image and need a manual review"
+msgstr ""
+"Šios nuorodos parsisiunčia dokumentą arba vaizdą ir reikalauja rankinio "
+"peržiūrėjimo"
+
+msgid "Strings that indicate a link opens in a new window"
+msgstr "Frazės, nurodančios, kad nuoroda atidaroma naujame lange"
+
+msgid "Remove these strings from link text before checking for bad link text"
+msgstr ""
+"Prieš tikrinant blogas nuorodų tekstus, pašalinti šias frazes iš nuorodos "
+"teksto"
+
+msgid "Remove strings in this selector before checking for bad link text"
+msgstr "Prieš tikrinant nuorodos tekstą, pašalinti frazes šiame selektoriuje"
+
+msgid ""
+"Hidden elements in these containers will be revealed by theme JS on request "
+"via a dispatched event"
+msgstr ""
+"Paslėpti elementai šiuose konteineriuose bus atskleisti temos JS gavus įvykį"
+
+msgid "Elements that truncate overflow, partially hiding buttons"
+msgstr "Elementai, kurie apkarpomi dėl perpildos, iš dalies slepdami mygtukus"
+
+msgid "Color scheme for panel and tooltips"
+msgstr "Skydelio ir užuominų spalvų schema"
+
+msgid "Pin toolbar to left or right"
+msgstr "Prisegti įrankių juostą kairėje arba dešinėje"
+
+msgid "Web components the checker should check"
+msgstr "Žiniatinklio komponentai, kuriuos tikrintuvas turėtų tikrinti"
+
+msgid "Auto-detects for additional shadow components"
+msgstr "Automatiškai aptinka papildomus šešėlinės DOM komponentus"
+
+msgid "Auto-detects and checks new content"
+msgstr "Automatiškai aptinka ir tikrina naują turinį"
+
+msgid "Disables dashboard and synchronized marking of elements as OK"
+msgstr "Išjungia suvestinę ir sinchronizuotą elementų žymėjimą kaip gerai"
+
+msgid "URL query parameters that should be recorded as separate pages"
+msgstr ""
+"URL užklausos parametrai, kurie turėtų būti registruojami kaip atskiri "
+"puslapiai"
+
+msgid "Remove string from URL for dashboard page links"
+msgstr "Pašalinti eilutę iš URL suvestinės puslapių nuorodose"
+
+msgid "Number of custom test finished events the checker should wait for"
+msgstr ""
+"Pasirinktinių testų užbaigimo įvykių skaičius, kurio tikrintuvas turėtų "
+"laukti"
+
+msgid "Disables live editor checking"
+msgstr "Išjungia tikrinimą redaguojant"
+
+msgid ""
+"Selector for frontend-context editors that should inherit the document "
+"outline"
+msgstr ""
+"Priekinės dalies redaktorių selektorius, kurie turėtų paveldėti dokumento "
+"struktūrą"
+
+msgid "Selector for editors where their first heading should be h2"
+msgstr "Redaktorių selektorius, kuriuose pirmoji antraštė turėtų būti h2"
+
+msgid "Selector for editors where their first heading should be h3"
+msgstr "Redaktorių selektorius, kuriuose pirmoji antraštė turėtų būti h3"
+
+msgid "Selector for editors where their first heading should be h4"
+msgstr "Redaktorių selektorius, kuriuose pirmoji antraštė turėtų būti h4"
+
+msgid "Selectors for components where edit links are meaningless on tips"
+msgstr ""
+"Komponentų selektoriai, kuriuose redagavimo nuorodos yra beprasmės užuominose"
+
+msgid "Tell CK5 to have a header rows or columns by default."
+msgstr ""
+"Nurodyti CKEditor 5, kad pagal numatytuosius nustatymus naudotų antraštės "
+"eilutes arba stulpelius."
+
+msgid "Tests not shown to content authors."
+msgstr "Testai, nerodomi turinio autoriams."
+
+msgid "Disable the tests you are not ready for"
+msgstr "Išjungti testus, kurių dar nesate pasiruošę"
+
+msgid "linkNewWindow"
+msgstr "linkNewWindow"
+
+msgid "linkNoText"
+msgstr "linkNoText"
+
+msgid "altEmptyLinked"
+msgstr "altEmptyLinked"
+
+msgid "linkDocument"
+msgstr "linkDocument"
+
+msgid "linkTextIsURL"
+msgstr "linkTextIsURL"
+
+msgid "linkTextIsGeneric"
+msgstr "linkTextIsGeneric"
+
+msgid "textPossibleList"
+msgstr "textPossibleList"
+
+msgid "textPossibleHeading"
+msgstr "textPossibleHeading"
+
+msgid "textUppercase"
+msgstr "textUppercase"
+
+msgid "tableNoHeaderCells"
+msgstr "tableNoHeaderCells"
+
+msgid "tableEmptyHeaderCell"
+msgstr "tableEmptyHeaderCell"
+
+msgid "tableContainsContentHeading"
+msgstr "tableContainsContentHeading"
+
+msgid "embedVideo"
+msgstr "embedVideo"
+
+msgid "embedAudio"
+msgstr "embedAudio"
+
+msgid "embedVisualization"
+msgstr "embedVisualization"
+
+msgid "embedTwitter"
+msgstr "embedTwitter"
+
+msgid "embedCustom"
+msgstr "embedCustom"
+
+msgid "headingEmpty"
+msgstr "headingEmpty"
+
+msgid "headingIsLong"
+msgstr "headingIsLong"
+
+msgid "headingLevelSkipped"
+msgstr "headingLevelSkipped"
+
+msgid "blockquoteIsShort"
+msgstr "blockquoteIsShort"
+
+msgid "altMissing"
+msgstr "altMissing"
+
+msgid "altNull"
+msgstr "altNull"
+
+msgid "altMeaningless"
+msgstr "altMeaningless"
+
+msgid "altURL"
+msgstr "altURL"
+
+msgid "altImageOf"
+msgstr "altImageOf"
+
+msgid "altDeadspace"
+msgstr "altDeadspace"
+
+msgid "altLong"
+msgstr "altLong"
+
+msgid "altPartOfLinkWithText"
+msgstr "altPartOfLinkWithText"
+
+msgid "2-letter code (en, fr, de)"
+msgstr "2 raidžių kodas (en, fr, de)"
+
+msgid "Alert"
+msgstr "Įspėjimas"
+
+msgid "Alert types"
+msgstr "Įspėjimų tipai"
+
+msgid "Alerts"
+msgstr "Įspėjimai"
+
+msgid "All dismissals"
+msgstr "Visi atmetimai"
+
+msgid "All issues"
+msgstr "Visos problemos"
+
+msgid "All pages"
+msgstr "Visi puslapiai"
+
+msgid "Apply"
+msgstr "Taikyti"
+
+msgid "Author"
+msgstr "Autorius"
+
+msgid "Authored after"
+msgstr "Sukurta po"
+
+msgid "Authored before"
+msgstr "Sukurta prieš"
+
+msgid "Authored"
+msgstr "Sukurta"
+
+msgid "Content type"
+msgstr "Turinio tipas"
+
+msgid "Detected"
+msgstr "Aptikta"
+
+msgid "Dismissals"
+msgstr "Atmetimai"
+
+msgid "Dismissed accessibility alerts"
+msgstr "Atmesti prieinamumo įspėjimai"
+
+msgid "Edited"
+msgstr "Redaguota"
+
+msgid "Editor"
+msgstr "Redaktorius"
+
+msgid "Items per page"
+msgstr "Elementų puslapyje"
+
+msgid "Filter"
+msgstr "Filtruoti"
+
+msgid "Language"
+msgstr "Kalba"
+
+msgid "Last editor"
+msgstr "Paskutinis redaktorius"
+
+msgid "Marked"
+msgstr "Pažymėta"
+
+msgid "No dismissals found."
+msgstr "Atmetimų nerasta."
+
+msgid "Page"
+msgstr "Puslapis"
+
+msgid "Pages"
+msgstr "Puslapiai"
+
+msgid "Pages with alerts"
+msgstr "Puslapiai su įspėjimais"
+
+msgid "Panel"
+msgstr "Skydelis"
+
+msgid "Path"
+msgstr "Kelias"
+
+msgid "Published"
+msgstr "Paskelbta"
+
+msgid "Recent"
+msgstr "Naujausi"
+
+msgid "Recent accessibility alerts"
+msgstr "Naujausi prieinamumo įspėjimai"
+
+msgid "Recent alerts"
+msgstr "Naujausi įspėjimai"
+
+msgctxt "problems"
+msgid "Recent alerts"
+msgstr "Naujausi įspėjimai"
+
+msgid "Sort by"
+msgstr "Rikiuoti pagal"
+
+msgid "Title"
+msgstr "Pavadinimas"
+
+msgid "Type"
+msgstr "Tipas"
+
+msgid "Filter and sort"
+msgstr "Filtruoti ir rikiuoti"
+
+msgid "Deleted."
+msgstr "Ištrinta."
+
+msgid "Delete failed."
+msgstr "Ištrinti nepavyko."
+
+msgid "<p>The Editoria11y <strong><em>@type</em></strong> view is missing.</p>"
+msgstr ""
+"<p>The Editoria11y <strong><em>@type</em></strong> view is missing.</p>"
+
+msgid ""
+"<p>There are three view configurations this module installs, found in its /"
+"config/install folder. Each must be installed for this dashboard to display "
+"results.</p>"
+msgstr ""
+"<p>There are three view configurations this module installs, found in its /"
+"config/install folder. Each must be installed for this dashboard to display "
+"results.</p>"
+
+msgid ""
+"<p>To fix: copy and paste the contents of <strong>/editoria11y/config/"
+"install/views.view.ed11y_@type.yml</strong> into a \"View\" type import at "
+"<a href=\"/admin/config/development/configuration/single/import\">/admin/"
+"config/development/configuration/single/import</a>. If you sync your "
+"configuration to the filesystem, be sure to include these Views in your "
+"repository.</p>"
+msgstr ""
+"<p>To fix: copy and paste the contents of <strong>/editoria11y/config/"
+"install/views.view.ed11y_@type.yml</strong> into a \"View\" type import at "
+"<a href=\"/admin/config/development/configuration/single/import\">/admin/"
+"config/development/configuration/single/import</a>. If you sync your "
+"configuration to the filesystem, be sure to include these Views in your "
+"repository.</p>"
+
+msgid "link is external"
+msgstr "nuoroda yra išorinė"
+
+msgid "link sends email"
+msgstr "nuoroda siunčia el. laišką"
+
+msgid "No results found"
+msgstr "Rezultatų nerasta"
+
+msgid ""
+"Your Editoria11y CSA trial has @days days remaining. <a "
+"href=\"@url\">Activate a license</a> to continue using CSA features after "
+"the trial ends."
+msgstr ""
+"Jūsų Editoria11y CSA bandomajam laikotarpiui liko @days dienų. <a "
+"href=\"@url\">Aktyvuokite licenciją</a>, kad galėtumėte naudotis CSA "
+"funkcijomis pasibaigus bandomajam laikotarpiui."
+
+msgid ""
+"Your Editoria11y CSA trial has expired. CSA features have been disabled. <a "
+"href=\"@url\">Activate a license</a> to continue using them."
+msgstr ""
+"Jūsų Editoria11y CSA bandomasis laikotarpis baigėsi. CSA funkcijos buvo "
+"išjungtos. <a href=\"@url\">Aktyvuokite licenciją</a>, kad galėtumėte toliau "
+"jas naudoti."
+
+msgid ""
+"Your Editoria11y CSA license has expired. <a href=\"@url\">Renew or "
+"deactivate your license</a>."
+msgstr ""
+"Jūsų Editoria11y CSA licencija pasibaigė. <a href=\"@url\">Atnaujinkite arba "
+"deaktyvuokite licenciją</a>."
+
+msgid ""
+"Your Editoria11y CSA license has expired. Please renew to reactivate CSA add-"
+"ons."
+msgstr ""
+"Jūsų Editoria11y CSA licencija pasibaigė. Atnaujinkite ją, kad vėl "
+"aktyvuotumėte CSA priedus."
+
+msgid "Cron license check failed: @msg"
+msgstr "Cron licencijos patikrinimas nepavyko: @msg"
+
+msgid ""
+"Editoria11y CSA features are active on a @days-day trial. <a "
+"href=\"@url\">Activate a license</a> to continue using them after the trial "
+"ends."
+msgstr ""
+"Editoria11y CSA funkcijos aktyvios per @days dienų bandomąjį laikotarpį. <a "
+"href=\"@url\">Aktyvuokite licenciją</a>, kad toliau jas naudotumėte "
+"pasibaigus bandomajam laikotarpiui."
+
+msgid "Editoria11y Custom Test"
+msgstr "Editoria11y pasirinktinis testas"
+
+msgid "Editoria11y Custom Tests"
+msgstr "Editoria11y pasirinktiniai testai"
+
+msgid "editoria11y custom test"
+msgstr "editoria11y pasirinktinis testas"
+
+msgid "editoria11y custom tests"
+msgstr "editoria11y pasirinktiniai testai"
+
+msgid "Editoria11y CSA: Advanced Tools"
+msgstr "Editoria11y CSA: išplėstiniai įrankiai"
+
+msgid ""
+"Community-Supported Addons include code and contrast checks, custom checks, "
+"a site crawler and report maintenance tools."
+msgstr "Bendruomenės palaikomi priedai apima kodo ir kontrasto patikras, pasirinktines patikras, svetainės robotą ir ataskaitų priežiūros įrankius."
+
+msgid "Add custom test"
+msgstr "Pridėti pasirinktinį testą"
+
+msgid "Recheck"
+msgstr "Patikrinti iš naujo"
+
+msgid "CSA membership"
+msgstr "CSA narystė"
+
+msgid "Custom tests"
+msgstr "Pasirinktiniai testai"
+
+msgid "Dashboard Actions"
+msgstr "Suvestinės veiksmai"
+
+msgid "Editoria11y CSA membership"
+msgstr "Editoria11y CSA narystė"
+
+msgid "Editoria11y custom tests"
+msgstr "Editoria11y pasirinktiniai testai"
+
+msgid "Add a custom test"
+msgstr "Pridėti pasirinktinį testą"
+
+msgid "Edit custom test"
+msgstr "Redaguoti pasirinktinį testą"
+
+msgid "Delete custom test"
+msgstr "Ištrinti pasirinktinį testą"
+
+msgid "Editoria11y CSA Settings"
+msgstr "Editoria11y CSA nustatymai"
+
+msgid "Developer roles"
+msgstr "Kūrėjų vaidmenys"
+
+msgid "Developer assertiveness"
+msgstr "Kūrėjų įspėjimų aktyvumas"
+
+msgid "Tests overridden to show to content editors"
+msgstr "Testai, priversti rodyti turinio redaktoriams"
+
+msgid "Tests overridden to turn off"
+msgstr "Testai, priversti išsijungti"
+
+msgid "Tests overridden to only to show to developers"
+msgstr "Testai, priversti rodyti tik kūrėjams"
+
+msgid "Elements to ignore for contrast test"
+msgstr "Elementai, kuriuos reikia nepaisyti tikrinant kontrastą"
+
+msgid "Turn on contrast checks"
+msgstr "Įjungti kontrasto tikrinimą"
+
+msgid "Developer check root: body or specify"
+msgstr "Kūrėjo tikrinimo šaknis: body arba nurodytas selektorius"
+
+msgid "Developer check root selector"
+msgstr "Kūrėjo tikrinimo šaknies selektorius"
+
+msgid "Selector for elements to ignore for developers"
+msgstr "Elementų, kuriuos kūrėjai turėtų nepaisyti, selektorius"
+
+msgid "Enabled"
+msgstr "Įjungta"
+
+msgid "Custom development domain patterns"
+msgstr "Pasirinktiniai kūrimo domenų šablonai"
+
+msgid "ID"
+msgstr "ID"
+
+msgid "Label"
+msgstr "Etiketė"
+
+msgid "Test key"
+msgstr "Testo raktas"
+
+msgid "Tooltip title"
+msgstr "Užuominos pavadinimas"
+
+msgid "Tip content HTML"
+msgstr "Užuominos turinio HTML"
+
+msgid "Element set to check"
+msgstr "Tikrintinų elementų rinkinys"
+
+msgid "Dismiss key type"
+msgstr "Atmetimo rakto tipas"
+
+msgid "CSS filter selector"
+msgstr "CSS filtro selektorius"
+
+msgid "Text strings to include"
+msgstr "Teksto eilutės, kurias reikia įtraukti"
+
+msgid "Text string"
+msgstr "Teksto eilutė"
+
+msgid "Text strings to exclude"
+msgstr "Teksto eilutės, kurias reikia pašalinti"
+
+msgid "Case sensitive text matching"
+msgstr "Teksto atitikimas atsižvelgiant į didžiąsias ir mažąsias raides"
+
+msgid "Filter which pages will be crawled"
+msgstr "Filtruoti, kurie puslapiai bus nuskaityti"
+
+msgid "Cancel"
+msgstr "Atšaukti"
+
+msgid "Millisecond pause between page requests"
+msgstr "Pauzė milisekundėmis tarp puslapių užklausų"
+
+msgid "This tab needs to remain open and in the foreground during the crawl."
+msgstr ""
+"Šis skirtukas turi likti atidarytas ir priekiniame plane vykstant "
+"nuskaitymui."
+
+msgid "Estimated time:"
+msgstr "Apytikslis laikas:"
+
+msgid "hours"
+msgstr "hours"
+
+msgid "minutes"
+msgstr "minutes"
+
+msgid "minute"
+msgstr "minute"
+
+msgid "Start crawling"
+msgstr "Pradėti nuskaitymą"
+
+msgid "Checked:"
+msgstr "Patikrinta:"
+
+msgid "pages"
+msgstr "pages"
+
+msgid "Back to dashboard"
+msgstr "Grįžti į suvestinę"
+
+msgid "Test"
+msgstr "Testas"
+
+msgid "Elements"
+msgstr "Elementai"
+
+msgid "Status"
+msgstr "Būsena"
+
+msgid "Text"
+msgstr "Tekstas"
+
+msgid "On"
+msgstr "įjungta"
+
+msgid "Off"
+msgstr "Išjungta"
+
+msgid "Freemius deactivation API call failed: @msg"
+msgstr "Freemius deaktyvavimo API iškvietimas nepavyko: @msg"
+
+msgid "Cannot cancel subscription: API token not found."
+msgstr "Negalima atšaukti prenumeratos: API žetonas nerastas."
+
+msgid "Freemius subscription cancellation API call failed: @msg"
+msgstr "Freemius prenumeratos atšaukimo API iškvietimas nepavyko: @msg"
+
+msgid "Key module lookup for @id failed: @msg"
+msgstr "Key module lookup for @id failed: @msg"
+
+msgid "Failed to update Freemius install properties: @msg"
+msgstr "Nepavyko atnaujinti Freemius diegimo savybių: @msg"
+
+msgid ""
+"An <a href=\"@settings\">active license must be deactivated</a> before "
+"uninstalling."
+msgstr ""
+"Prieš pašalinant reikia <a href=\"@settings\">deaktyvuoti aktyvią licenciją</"
+"a>."
+
+msgid "License key stored. Use editoria11y-csa:activate to activate."
+msgstr ""
+"Licencijos raktas išsaugotas. Naudokite editoria11y-csa:activate aktyvavimui."
+
+msgid "License activated."
+msgstr "Licencija aktyvuota."
+
+msgid "License deactivated."
+msgstr "Licencija deaktyvuota."
+
+msgid "License active. Expires: @date"
+msgstr "Licencija aktyvi. Galioja iki: @date"
+
+msgid "License active. No expiration date."
+msgstr "Licencija aktyvi. Galiojimo data nenustatyta."
+
+msgid ""
+"License management locked. Use editoria11y-csa:unlock to re-enable UI "
+"changes."
+msgstr ""
+"Licencijų valdymas užrakintas. Naudokite editoria11y-csa:unlock, kad vėl "
+"įjungtumėte sąsajos keitimus."
+
+msgid "License management unlocked. UI changes are now allowed."
+msgstr "Licencijų valdymas atrakintas. Sąsajos keitimai dabar leidžiami."
+
+msgid "License expired or cancelled."
+msgstr "Licencija pasibaigė arba buvo atšaukta."
+
+msgid "License key cannot be empty."
+msgstr "Licencijos raktas negali būti tuščias."
+
+msgid "Failed to store key: {msg}"
+msgstr "Nepavyko išsaugoti rakto: {msg}"
+
+msgid "No stored license key found. Run editoria11y-csa:set-key first."
+msgstr ""
+"Išsaugoto licencijos rakto nerasta. Pirmiausia paleiskite editoria11y-"
+"csa:set-key."
+
+msgid "Activation failed: {msg}"
+msgstr "Aktyvavimas nepavyko: {msg}"
+
+msgid "Deactivation failed: {msg}"
+msgstr "Deaktyvavimas nepavyko: {msg}"
+
+msgid "License check failed: {msg}"
+msgstr "Licencijos patikrinimas nepavyko: {msg}"
+
+msgid "Export"
+msgstr "Eksportuoti"
+
+msgid "Export pages"
+msgstr "Eksportuoti puslapius"
+
+msgid "Export dismissals"
+msgstr "Eksportuoti atmetimus"
+
+msgid "Export alerts"
+msgstr "Eksportuoti įspėjimus"
+
+msgid "Paths with parameters"
+msgstr "Keliai su parametrais"
+
+msgid "Drop records for deleted or moved pages"
+msgstr "Šalinti įrašus ištrintų arba perkeltų puslapių"
+
+msgid "Deletes results that no longer have valid paths or entity references."
+msgstr ""
+"Ištrina rezultatus, kurie nebturi galiojančių kelių ar objektų nuorodų."
+
+msgid "Update page titles"
+msgstr "Atnaujinti puslapių pavadinimus"
+
+msgid ""
+"Replaces recorded titles for Nodes, Terms and Users with the current value "
+"on their edit page."
+msgstr ""
+"Pakeičia įrašytus mazgų, terminų ir vartotojų pavadinimus dabartinėmis "
+"reikšmėmis iš jų redagavimo puslapių."
+
+msgid "Update page paths"
+msgstr "Atnaujinti puslapių kelius"
+
+msgid ""
+"Replaces recorded URLs for Nodes, Terms and Users with their current "
+"canonical path. <br>@ReviewPaths (node/1?node=2) will not be updated."
+msgstr ""
+"Pakeičia įrašytus mazgų, terminų ir vartotojų URL jų dabartiniais "
+"kanoniniais keliais. <br>@ReviewPaths (node/1?node=2) nebus atnaujinti."
+
+msgid "Risky deletions"
+msgstr "Rizikingi trinimai"
+
+msgid "Delete records for paths with parameters (e.g., ?page=2)"
+msgstr "Ištrinti įrašus kelių su parametrais (pvz., ?page=2)"
+
+msgid "None"
+msgstr "Nėra"
+
+msgid "Only for nodes, terms & users"
+msgstr "Tik mazgams, terminams ir vartotojams"
+
+msgid "All, including search and views"
+msgstr "Visi, įskaitant paiešką ir rodiniais"
+
+msgid ""
+"Used to remove duplicate records when previously recorded parameters like "
+"page numbers or search keys were not meaningful. Parameters that are not "
+"meaningful should be removed from the list of parameters to save under "
+"\"Syncing results to reports\" in the module configuration.<br>@ReviewPaths "
+"should be reviewed before proceeding. <strong>There is no undo</strong>."
+msgstr ""
+"Naudojama šalinti pasikartojančius įrašus, kai anksčiau įrašyti parametrai, "
+"pvz., puslapių numeriai ar paieškos raktai, buvo nereikšmingi. Nereikšmingi "
+"parametrai turėtų būti pašalinti iš parametrų, saugomų modulio "
+"konfigūracijos dalyje „Rezultatų sinchronizavimas su ataskaitomis\"."
+"<br>Prieš tęsiant reikia peržiūrėti @ReviewPaths. <strong>Veiksmo atšaukti "
+"negalima</strong>."
+
+msgid "Start"
+msgstr "Pradėti"
+
+msgid "Recheck nodes"
+msgstr "Iš naujo tikrinti mazgus"
+
+msgid "Set up a crawl"
+msgstr "Nustatyti nuskaitymą"
+
+msgid "Processing batch #@batch_id of @count."
+msgstr "Apdorojama partija Nr. @batch_id iš @count."
+
+msgid "@process processed @count, deleted @deleted, updated @updated."
+msgstr "@process apdorota @count, ištrinta @deleted, atnaujinta @updated."
+
+msgid ""
+"An error occurred while processing %error_operation with arguments: "
+"@arguments"
+msgstr "Apdorojant %error_operation su argumentais @arguments įvyko klaida"
+
+msgid "No records to process."
+msgstr "Nėra apdorotinų įrašų."
+
+msgid ""
+"@process processed @count, deleted @deleted, updated @updated in @elapsed."
+msgstr ""
+"@process apdorota @count, ištrinta @deleted, atnaujinta @updated per "
+"@elapsed."
+
+msgid "Admin label for the configuration page"
+msgstr "Administratoriaus etiketė konfigūracijos puslapiui"
+
+msgid "Test grouping ID"
+msgstr "Testų grupavimo ID"
+
+msgid ""
+"Letters, numbers and underscores only.<br>Rules that share an ID will be "
+"grouped on dashboard reports."
+msgstr ""
+"Tik raidės, skaičiai ir pabraukimai.<br>Taisyklės, turinčios tą patį ID, bus "
+"sugrupuotos suvestinės ataskaitose."
+
+msgid "Active"
+msgstr "Aktyvus"
+
+msgid "Alert content"
+msgstr "Įspėjimo turinys"
+
+msgid "Tip title"
+msgstr "Užuominos pavadinimas"
+
+msgid "Tip details"
+msgstr "Užuominos išsamesnė informacija"
+
+msgid ""
+"HTML displayed in the tooltip. The provided template is optional.<br>\n"
+"        Allowed tags: @tags."
+msgstr ""
+"HTML, rodomas užuominoje. Pateiktas šablonas yra neprivalomas.<br>\n"
+"        Leidžiami žymekliai: @tags."
+
+msgid "To fix"
+msgstr "Kaip ištaisyti"
+
+msgid "Error"
+msgstr "Klaida"
+
+msgid "Manual check"
+msgstr "Rankinis patikrinimas"
+
+msgid "Dismiss key"
+msgstr "Atmetimo raktas"
+
+msgid ""
+"How dismissals are tracked. 'Text' uses its text content, 'Attributes' uses "
+"its attributes (href, id, class, src)."
+msgstr ""
+"Kaip sekami atmetimai. „Text\" naudoja teksto turinį, „Attributes\" naudoja "
+"atributus (href, id, class, src)."
+
+msgid "Text content"
+msgstr "Teksto turinys"
+
+msgid "Attributes on tag (e.g. href and src)"
+msgstr "Žymeklio atributai (pvz., href ir src)"
+
+msgid "Elements to check"
+msgstr "Tikrintini elementai"
+
+msgid ""
+"These sets contain elements that match your check area and skip over "
+"configuration."
+msgstr ""
+"Šiuose rinkiniuose yra elementų, atitinkančių jūsų tikrinimo sritį ir "
+"praleidžiančių konfigūraciją."
+
+msgid "Common choices"
+msgstr "Dažni pasirinkimai"
+
+msgid "All text elements: Headings, Paragraphs, Blockquotes and Lists"
+msgstr ""
+"Visi teksto elementai: antraštės, pastraipos, blokuotos citatos ir sąrašai"
+
+msgid "Links"
+msgstr "Nuorodos"
+
+msgid "Paragraphs"
+msgstr "Pastraipos"
+
+msgid "Headings"
+msgstr "Antraštės"
+
+msgid "Images"
+msgstr "Vaizdai"
+
+msgid "All elements"
+msgstr "Visi elementai"
+
+msgid "...other..."
+msgstr "...kita..."
+
+msgid "Specific elements and combinations"
+msgstr "Konkretūs elementai ir deriniai"
+
+msgid "Lists"
+msgstr "Sąrašai"
+
+msgid "Blockquotes"
+msgstr "Blokuotos citatos"
+
+msgid "Tables"
+msgstr "Lentelės"
+
+msgid "Buttons"
+msgstr "Mygtukai"
+
+msgid "Inputs"
+msgstr "Įvesties laukai"
+
+msgid "Labels"
+msgstr "Etiketės"
+
+msgid "Iframes"
+msgstr "Iframes"
+
+msgid "Videos"
+msgstr "Vaizdo įrašai"
+
+msgid "Audio"
+msgstr "Garsas"
+
+msgid ""
+"Note: combining Links with Paragraphs and other text containers can lead to "
+"duplicate alerts."
+msgstr ""
+"Pastaba: derinant nuorodas su pastraipomis ir kitais teksto konteineriais "
+"gali atsirasti pasikartojančių įspėjimų."
+
+msgid "When tip should appear"
+msgstr "Kada turėtų pasirodyti užuomina"
+
+msgid ""
+"This test builder allows for simple text and attribute tests.<br>Check the "
+"module readme for <a href=\"@url\">tips on writing more complex tests</a>."
+msgstr ""
+"Šis testų kūrėjas leidžia atlikti paprastus teksto ir atributų testus."
+"<br>Modulio readme žr. <a href=\"@url\">patarimus, kaip rašyti "
+"sudėtingesnius testus</a>."
+
+msgid "Select by attributes"
+msgstr "Pasirinkti pagal atributus"
+
+msgid ""
+"Match using CSS selectors.<br>Use :not() to skip elements, e.g. "
+"<code>:is(.check1, .check2):not(.ignore, .ignore *)</code>.<br>Use attribute "
+"selectors for URLs, e.g. <code>[href*=\".dev/\"]</code>."
+msgstr ""
+"Taikyti naudojant CSS selektorius.<br>Naudokite :not() elementams praleisti, "
+"pvz. <code>:is(.check1, .check2):not(.ignore, .ignore *)</code>."
+"<br>Naudokite atributų selektorius URL, pvz. <code>[href*=\".dev/\"]</code>."
+
+msgid "Select by text"
+msgstr "Pasirinkti pagal tekstą"
+
+msgid "Flag elements containing any of these text strings. One per line."
+msgstr ""
+"Žymėti elementus, kuriuose yra bet kuri iš šių teksto eilučių. Po vieną "
+"eilutėje."
+
+msgid "Case sensitive"
+msgstr "Atsižvelgiant į didžiąsias ir mažąsias raides"
+
+msgid "Exclude elements that match this text"
+msgstr "Pašalinti elementus, atitinkančius šį tekstą"
+
+msgid ""
+"Don't flag elements if they contain any of these words or phrases. E.g., a "
+"link to a development server is ok if it contains \"dev.\" One per line."
+msgstr ""
+"Nežymėti elementų, jei juose yra bet kuris iš šių žodžių ar frazių. Pvz., "
+"nuoroda į kūrimo serverį tinkama, jei joje yra „dev.\" Po vieną eilutėje."
+
+msgid "Test key must contain only letters, numbers, and underscores."
+msgstr ""
+"Testo raktas turi būti sudarytas tik iš raidžių, skaičių ir pabraukimų."
+
+msgid "Tip content must contain visible text."
+msgstr "Užuominos turinys turi turėti matomą tekstą."
+
+msgid "Select at least one rule."
+msgstr "Pasirinkite bent vieną taisyklę."
+
+msgid "Select at least one element type."
+msgstr "Pasirinkite bent vieną elemento tipą."
+
+msgid "The filter selector should be a CSS selector, not a CSS rule block."
+msgstr ""
+"Filtro selektorius turėtų būti CSS selektorius, o ne CSS taisyklių blokas."
+
+msgid "Created new custom test %label."
+msgstr "Sukurtas naujas pasirinktinis testas %label."
+
+msgid "Updated custom test %label."
+msgstr "Atnaujintas pasirinktinis testas %label."
+
+msgid "Are you deactivating this site or cancelling altogether?"
+msgstr "Ar deaktyvuojate šią svetainę, ar atšaukiate prenumeratą visiškai?"
+
+msgid "You can manage your subscriptions at any time in your Freemius account."
+msgstr "Savo prenumeratas galite tvarkyti bet kada Freemius paskyroje."
+
+msgid "Choose an action"
+msgstr "Pasirinkite veiksmą"
+
+msgid ""
+"<strong>Deactivate this site</strong>, but keep my subscription active and "
+"renewing for use on another site"
+msgstr ""
+"<strong>Deaktyvuoti šią svetainę</strong>, bet palikti prenumeratą aktyvią "
+"ir atsinaujinančią kitoje svetainėje"
+
+msgid ""
+"<strong>Cancel my subscription</strong> to the Editoria11y CSA altogether"
+msgstr "<strong>Atšaukti prenumeratą</strong> į Editoria11y CSA visiškai"
+
+msgid "Confirm deactivation"
+msgstr "Patvirtinti deaktyvavimą"
+
+msgid "Never mind; keep site active"
+msgstr "Nieko, palikti svetainę aktyvią"
+
+msgid ""
+"This site appears to be a development or testing environment with an active "
+"license."
+msgstr ""
+"Atrodo, kad ši svetainė yra kūrimo arba testavimo aplinka su aktyvia "
+"licencija."
+
+msgid "How would you like to proceed?"
+msgstr "Kaip norėtumėte tęsti?"
+
+msgid ""
+"<strong>Cancel deactivation</strong>; I will manage this from the production "
+"site"
+msgstr ""
+"<strong>Atšaukti deaktyvavimą</strong>; tai tvarkysiu iš gamybinės svetainės"
+
+msgid ""
+"<strong>Disconnect this copy</strong>; leave the production license active"
+msgstr ""
+"<strong>Atjungti šią kopiją</strong>; palikti gamybinę licenciją aktyvią"
+
+msgid ""
+"<strong>Deactivate all copies of this site</strong> (production, dev, and QA)"
+msgstr ""
+"<strong>Deaktyvuoti visas šios svetainės kopijas</strong> (gamybinę, kūrimo "
+"ir QA)"
+
+msgid "Confirm"
+msgstr "Patvirtinti"
+
+msgid ""
+"Editoria11y promotes accessibility in a unique way. Its tools are highly "
+"effective at helping non-technical authors prepare content that can be "
+"enjoyed equally by disabled Web users. We consider this a public good, so "
+"Editoria11y will always be free to use."
+msgstr ""
+"Editoria11y skatina prieinamumą unikaliu būdu. Jo įrankiai labai efektyviai "
+"padeda netechniškiems autoriams parengti turinį, kuriuo neįgalieji "
+"žiniatinklio vartotojai gali naudotis lygiai taip pat kaip kiti. Tai laikome "
+"viešuoju gėriu, todėl Editoria11y visada bus nemokamas."
+
+msgid "Editoria11y is not, however, free to develop or support."
+msgstr "Tačiau Editoria11y kūrimas ir palaikymas nėra nemokamas."
+
+msgid ""
+"The \"Community Supported Add-ons\" (CSA) project fills the gap: project "
+"membership subscriptions fund the development of the Editoria11y library, "
+"its CMS plugins, and the CSA suite."
+msgstr ""
+"„Bendruomenės palaikomų priedų\" (CSA) projektas užpildo šią spragą: "
+"projekto narystės prenumeratos finansuoja Editoria11y bibliotekos, jos CMS "
+"įskiepių ir CSA rinkinio kūrimą."
+
+msgid ""
+"<a href=\"@url\"><strong>Join the CSA</strong></a> to support this project"
+msgstr ""
+"<a href=\"@url\"><strong>Prisijunkite prie CSA</strong></a>, kad "
+"palaikytumėte šį projektą"
+
+msgid ""
+"Existing members: <a href=\"@url\"><strong>Manage your subscription</"
+"strong></a> or <a href=\"@support_url\"><strong>contact support</strong></a>"
+msgstr ""
+"Esami nariai: <a href=\"@url\"><strong>Tvarkykite prenumeratą</strong></a> "
+"arba <a href=\"@support_url\"><strong>susisiekite su palaikymu</strong></a>"
+
+msgid ""
+"License management on this site has been locked via Drush. Use <code>drush "
+"ed11y-unlock</code> to re-enable changes from this form."
+msgstr ""
+"Licencijų valdymas šioje svetainėje buvo užrakintas per Drush. Naudokite "
+"<code>drush ed11y-unlock</code>, kad vėl įjungtumėte keitimus iš šios formos."
+
+msgid "Warning: this site matches a dev or QA URL pattern"
+msgstr "Įspėjimas: ši svetainė atitinka kūrimo arba QA URL šabloną"
+
+msgid "Shared activations should be managed in the production copy."
+msgstr "Bendrais aktyvavimais turėtų būti valdoma gamybinėje kopijoje."
+
+msgid ""
+"Use <code>drush ed11y-lock</code> to prevent changing shared activations."
+msgstr ""
+"Naudokite <code>drush ed11y-lock</code>, kad neleistumėte keisti bendrų "
+"aktyvavimų."
+
+msgid ""
+"Deactivating a shared key deactivates all copies of a site, including "
+"production."
+msgstr ""
+"Deaktyvavus bendrą raktą, deaktyvuojamos visos svetainės kopijos, įskaitant "
+"gamybinę."
+
+msgid ""
+"Separate license activations from a development environment consume an "
+"additional key."
+msgstr ""
+"Atskiri licencijų aktyvavimo iš kūrimo aplinkos sunaudoja papildomą raktą."
+
+msgid "Trial (@days days remaining)"
+msgstr "Bandomasis (@days dienų liko)"
+
+msgid "Trial (expired)"
+msgstr "Bandomasis (pasibaigė)"
+
+msgid "License expired"
+msgstr "Licencija pasibaigė"
+
+msgid "Active membership"
+msgstr "Aktyvi narystė"
+
+msgid "Activate using stored license key"
+msgstr "Aktyvuoti naudojant išsaugotą licencijos raktą"
+
+msgid "Activate with a different license key"
+msgstr "Aktyvuoti su kitu licencijos raktu"
+
+msgid "Activate (enter license key below)"
+msgstr "Aktyvuoti (įveskite licencijos raktą žemiau)"
+
+msgid "<strong>License expired.</strong> Expired on: @date"
+msgstr "<strong>Licencija pasibaigė.</strong> Pasibaigė: @date"
+
+msgid "<strong>License has expired.</strong>"
+msgstr "<strong>License has expired.</strong>"
+
+msgid "<strong>Trial license active.</strong> Trial ends: @date"
+msgstr ""
+"<strong>Bandomoji licencija aktyvi.</strong> Bandomasis laikotarpis "
+"baigiasi: @date"
+
+msgid "<strong>License active.</strong> Expires: @date"
+msgstr "<strong>Licencija aktyvi.</strong> Galioja iki: @date"
+
+msgid "<strong>Lifetime license active.</strong>"
+msgstr "<strong>Lifetime license active.</strong>"
+
+msgid "Check for license renewal"
+msgstr "Tikrinti licencijos atnaujinimą"
+
+msgid "Deactivate license"
+msgstr "Deaktyvuoti licenciją"
+
+msgid "A license key is stored but not active"
+msgstr "Licencijos raktas išsaugotas, bet neaktyvuotas"
+
+msgid "Add a license key to enable CSA features"
+msgstr "Pridėkite licencijos raktą, kad įjungtumėte CSA funkcijas"
+
+msgid "Enable CSA features"
+msgstr "Įjungti CSA funkcijas"
+
+msgid "CSA license key"
+msgstr "CSA licencijos raktas"
+
+msgid ""
+"<a href=\"@url\">Join the CSA</a> to enable CSA features. Visit the Freemius "
+"dashboard to <a href=\"@freemius\">manage your subscription</a> or recover a "
+"lost key."
+msgstr ""
+"<a href=\"@url\">Prisijunkite prie CSA</a>, kad įjungtumėte CSA funkcijas. "
+"Apsilankykite Freemius suvestinėje, kad <a href=\"@freemius\">tvarkytumėte "
+"prenumeratą</a> arba susigrąžintumėte prarastą raktą."
+
+msgid "Local, Dev and QA site URL patterns"
+msgstr "Vietinių, kūrimo ir QA svetainių URL šablonai"
+
+msgid ""
+"One pattern per line, up to 5 patterns. Wildcards are supported (e.g. "
+"<code>*.test.example.com</code>).<br>Local, dev and QA sites can share an "
+"activation with production site, but only production sites check for "
+"renewals."
+msgstr ""
+"Po vieną šabloną eilutėje, iki 5 šablonų. Palaikomi pakaitos simboliai (pvz. "
+"<code>*.test.example.com</code>).<br>Vietinės, kūrimo ir QA svetainės gali "
+"dalintis aktyvavimo su gamybine svetaine, tačiau tik gamybinės svetainės "
+"tikrina atnaujinimus."
+
+msgid ""
+"Additionally, any hostname consisting only of digits and dots (raw IPv4 "
+"address) is treated as a development environment."
+msgstr ""
+"Be to, bet koks pagrindinis kompiuterio vardas, sudarytas tik iš skaitmenų "
+"ir taškų (neapdorotas IPv4 adresas), laikomas kūrimo aplinka."
+
+msgid "Built-in development URL patterns"
+msgstr "Įtaisytieji kūrimo URL šablonai"
+
+msgid "Enter no more than 5 custom domain patterns."
+msgstr "Įveskite ne daugiau kaip 5 pasirinktinių domenų šablonus."
+
+msgid "Saved license key not found. Please activate with a new key."
+msgstr "Išsaugoto licencijos rakto nerasta. Aktyvuokite nauju raktu."
+
+msgid "Enter a license key."
+msgstr "Įveskite licencijos raktą."
+
+msgid "Activation failed: @msg"
+msgstr "Aktyvavimas nepavyko: @msg"
+
+msgid "License renewed and active."
+msgstr "Licencija atnaujinta ir aktyvi."
+
+msgid "License is still expired."
+msgstr "Licencija vis dar pasibaigusi."
+
+msgid "Unexpected license status: @status"
+msgstr "Netikėta licencijos būsena: @status"
+
+msgid "Could not reach licensing server: @msg"
+msgstr "Nepavyko pasiekti licencijavimo serverio: @msg"
+
+msgid "Deactivation failed: @msg"
+msgstr "Deaktyvavimas nepavyko: @msg"
+
+msgid "Editoria11y Export Batch Processor"
+msgstr "Editoria11y eksporto paketinis apdorojimas"
+
+msgid ""
+"Batching is only needed for very large or heavily customized CSV exports."
+msgstr "Paketinis apdorojimas reikalingas tik labai dideliems arba stipriai pritaikytiems CSV eksportams."
+
+msgid "hide"
+msgstr "hide"
+
+msgid "ok"
+msgstr "ok"
+
+msgid "Yes"
+msgstr "Taip"
+
+msgid "No"
+msgstr "Ne"
+
+msgid "This alt text is a filename, not a description"
+msgstr "Šis alternatyvusis tekstas yra failo pavadinimas, o ne aprašymas"
+
+msgid "Is this a clear and concise description of the image?"
+msgstr "Ar tai aiškus ir glaustas vaizdo aprašymas?"
+
+msgid "This alt text may be a placeholder"
+msgstr "Šis alternatyvusis tekstas gali būti užpildas"
+
+msgid "This alt text is unpronounceable"
+msgstr "Šio alternatyvaus teksto neįmanoma perskaityti"
+
+msgid "This custom input field is missing a label"
+msgstr "Šiam pasirinktiniam įvesties laukui trūksta žymės"
+
+msgid "Button is missing an accessible label"
+msgstr "Mygtukui trūksta prieinamo pavadinimo"
+
+msgid "Button has an invalid ARIA label"
+msgstr "Mygtukas turi netinkamą ARIA žymę"
+
+msgid "Button name repeats the word \"button\""
+msgstr "Mygtuko pavadinime kartojamas žodis „button\""
+
+msgid "This button is unpronounceable"
+msgstr "Šio mygtuko neįmanoma ištarti"
+
+msgid "Text does not have enough contrast to be easily legible"
+msgstr "Teksto kontrastas per mažas, kad būtų lengva skaityti"
+
+msgid "Graphic or icon does not have enough contrast"
+msgstr "Grafikos arba piktogramos kontrastas per mažas"
+
+msgid "Input does not provide enough contrast to be easily legible"
+msgstr "Įvesties lauko kontrastas per mažas, kad būtų lengva skaityti"
+
+msgid "Placeholder text does not have enough contrast to be easily legible"
+msgstr "Vietaženklio teksto kontrastas per mažas, kad būtų lengva skaityti"
+
+msgid "Does this placeholder text have enough contrast?"
+msgstr "Ar šio vietaženklio teksto kontrastas pakankamas?"
+
+msgid "Does this text have enough contrast?"
+msgstr "Ar šio teksto kontrastas pakankamas?"
+
+msgid "Does this graphic or icon have enough contrast?"
+msgstr "Ar šios grafikos arba piktogramos kontrastas pakankamas?"
+
+msgid "Duplicate ID attribute"
+msgstr "Pasikartojantis ID atributas"
+
+msgid "This link has a tooltip with the same text as the link"
+msgstr "Šioje nuorodoje yra patarimas su tokiu pačiu tekstu kaip nuorodoje"
+
+msgid "Does this audio have a transcript?"
+msgstr "Ar šis garsas turi transkripciją?"
+
+msgid "Is this visualization accessible?"
+msgstr "Ar ši vizualizacija prieinama?"
+
+msgid "Embedded iframes need manual checks"
+msgstr "Įterptieji rėmeliai reikalauja patikrinimo rankiniu būdu"
+
+msgid "Frame missing \"title\" attribute"
+msgstr "Rėmeliui trūksta atributo „title\""
+
+msgid "Frame with tabindex=\"-1\" will not be keyboard accessible."
+msgstr "Rėmelis su tabindex=\"-1\" nebus pasiekiamas klaviatūra."
+
+msgid "Is this video accurately captioned?"
+msgstr "Ar šis vaizdo įrašas tiksliai subtitruotas?"
+
+msgid "This heading has no text"
+msgstr "Ši antraštė neturi teksto"
+
+msgid "This image is used as a heading, so it needs alt text"
+msgstr ""
+"Šis vaizdas naudojamas kaip antraštė, todėl jam reikia alternatyvaus teksto"
+
+msgid "The first heading on this page is a subheading"
+msgstr "Pirmoji šio puslapio antraštė yra žemesnio lygio"
+
+msgid "Can this heading be shorter?"
+msgstr "Ar ši antraštė galėtų būti trumpesnė?"
+
+msgid "This page is missing a Heading 1"
+msgstr "Šiame puslapyje trūksta 1 lygio antraštės"
+
+msgid "This heading is tagged at the wrong level"
+msgstr "Ši antraštė pažymėta neteisingu lygiu"
+
+msgid "This heading is unpronounceable"
+msgstr "Šios antraštės neįmanoma ištarti"
+
+msgid "This element cannot be described by screen readers"
+msgstr "Ekrano skaitytuvai negali aprašyti šio elemento"
+
+msgid "Can this alt text be shorter?"
+msgstr "Ar šis alternatyvusis tekstas galėtų būti trumpesnis?"
+
+msgid "Is this image actually meaningless?"
+msgstr "Ar šis vaizdas iš tikrųjų neprasmingas?"
+
+msgid "Image in a carousel or gallery marked as decorative"
+msgstr "Karuselės arba galerijos vaizdas pažymėtas kaip dekoratyvinis"
+
+msgid "This captioned image has no alt text"
+msgstr "Šis paveikslas su antrašte neturi alternatyviojo teksto"
+
+msgid "Alt text should not be the same as caption text"
+msgstr "Alternatyvusis tekstas neturėtų sutapti su antraštės tekstu"
+
+msgid "Is there a visible label for this field?"
+msgstr "Ar šis laukas turi matomą žymenį?"
+
+msgid "Prefer visible labels to placeholders"
+msgstr "Rinkitės matomus žymenis, o ne vietaženklius"
+
+msgid "Is this reset button needed?"
+msgstr "Ar šis atstatymo mygtukas reikalingas?"
+
+msgid "This input has an empty label"
+msgstr "Šis įvesties laukas turi tuščią žymenį"
+
+msgid "Visible label does not match invisible label"
+msgstr "Matomas žymuo nesutampa su nematomu žymeniu"
+
+msgid "This image input is missing alt text"
+msgstr "Šiam vaizdo įvesties laukui trūksta alternatyvaus teksto"
+
+msgid "This input is not connected to a label"
+msgstr "Šis įvesties laukas nesusietas su žymeniu"
+
+msgid "Language tag does not match the content"
+msgstr "Kalbos žyma neatitinka turinio"
+
+msgid "This content appears to be in a different language"
+msgstr "Atrodo, kad šis turinys yra kita kalba"
+
+msgid "This alt text appears to be in a different language"
+msgstr "Atrodo, kad šis alternatyvusis tekstas yra kita kalba"
+
+msgid "Alt text used as a link should not be a URL"
+msgstr "Kaip nuoroda naudojamas alternatyvusis tekstas neturėtų būti URL"
+
+msgid "This linked alt might not be clear and concise"
+msgstr ""
+"Šis susieto vaizdo alternatyvusis tekstas gali būti neaiškus ir neglaustas"
+
+msgid "Linked images need pronounceable alt text"
+msgstr "Susietiems vaizdams reikia ištariamo alternatyvaus teksto"
+
+msgid "Manual check: link contains \"click here\""
+msgstr "Rankinis patikrinimas: nuoroda turi tekstą „click here\""
+
+msgid "Link article titles, not DOI numbers"
+msgstr "Nurodykite straipsnių pavadinimus, o ne DOI numerius"
+
+msgid "This link contains no words"
+msgstr "Šioje nuorodoje nėra žodžių"
+
+msgid "Link with invalid \"aria-labelledby\" attribute"
+msgstr "Nuoroda su netinkamu atributu „aria-labelledby\""
+
+msgid "This link needs a label"
+msgstr "Šiai nuorodai reikia žymens"
+
+msgid "Link points to a file without warning"
+msgstr "Nuoroda veda į failą be perspėjimo"
+
+msgid "Links with the same text link to different pages"
+msgstr "Vienodo teksto nuorodos veda į skirtingus puslapius"
+
+msgid "Does this alt text describe the link or the image?"
+msgstr "Ar šis alternatyvusis tekstas aprašo nuorodą, ar vaizdą?"
+
+msgid "Does this alt text make sense as part of this link?"
+msgstr "Ar šis alternatyvusis tekstas prasmingai papildo nuorodą?"
+
+msgid "Can this linked alt text be shorter?"
+msgstr "Ar šis susieto vaizdo alternatyvusis tekstas galėtų būti trumpesnis?"
+
+msgid "This linked image needs alt text"
+msgstr "Šiam susietam vaizdui reikia alternatyvaus teksto"
+
+msgid "Does this linked image need a description?"
+msgstr "Ar šiam susietam vaizdui reikia aprašymo?"
+
+msgid "Is this link actually a button?"
+msgstr "Ar ši nuoroda iš tikrųjų yra mygtukas?"
+
+msgid "Does this link open a new tab without warning?"
+msgstr "Ar ši nuoroda atsidaro naujame skirtuke be perspėjimo?"
+
+msgid "This linked alt text may be a placeholder"
+msgstr "Šis susieto vaizdo alternatyvusis tekstas gali būti užpildas"
+
+msgid "This link only contains generic words"
+msgstr "Šioje nuorodoje yra tik bendriniai žodžiai"
+
+msgid "The purpose of this link is visually hidden"
+msgstr "Šios nuorodos paskirtis yra paslėpta vizualiai"
+
+msgid "Does this image's alt describe the image or the link?"
+msgstr "Ar šio vaizdo alternatyvusis tekstas aprašo vaizdą, ar nuorodą?"
+
+msgid "Are the symbols or emoji in this link meaningful?"
+msgstr "Ar šioje nuorodoje esantys simboliai arba jaustukai yra prasmingi?"
+
+msgid "This link is unpronounceable"
+msgstr "Šios nuorodos neįmanoma ištarti"
+
+msgid "Link text should not be a URL"
+msgstr "Nuorodos tekstas neturėtų būti URL"
+
+msgid "Meta tag for page language missing"
+msgstr "Trūksta puslapio kalbos meta žymos"
+
+msgid "Did you mean a different language code?"
+msgstr "Ar turėjote omenyje kitą kalbos kodą?"
+
+msgid "Invalid language code"
+msgstr "Negaliojantis kalbos kodas"
+
+msgid "Page language may not match the content"
+msgstr "Puslapio kalba gali neatitikti turinio"
+
+msgid "Meta tag limits how much users can enlarge text"
+msgstr "Meta žyma riboja, kiek vartotojai gali padidinti tekstą"
+
+msgid "Meta tag automatically refreshes page"
+msgstr "Meta žyma automatiškai atnaujina puslapį"
+
+msgid "Meta tag prevents users from enlarging text"
+msgstr "Meta žyma neleidžia vartotojams padidinti teksto"
+
+msgid "Meta tag for page title missing"
+msgstr "Trūksta puslapio pavadinimo meta žymos"
+
+msgid "Invalid HTML: image has no alt attribute"
+msgstr "Netinkamas HTML: vaizdas neturi atributo alt"
+
+msgid "Invalid HTML: linked image missing alt attribute"
+msgstr "Netinkamas HTML: susietam vaizdui trūksta atributo alt"
+
+msgid "Invalid HTML: image in link missing alt attribute"
+msgstr "Netinkamas HTML: nuorodoje esančiam vaizdui trūksta atributo alt"
+
+msgid "This link target may be invalid"
+msgstr "Šios nuorodos taikinys gali būti negaliojantis"
+
+msgid "Should this quote be a heading?"
+msgstr "Ar ši citata turėtų būti antraštė?"
+
+msgid "Has this document been tagged for screen readers?"
+msgstr "Ar šis dokumentas pažymėtas ekrano skaitytuvams?"
+
+msgid "Should this bold text be a heading?"
+msgstr "Ar šis paryškintas tekstas turėtų būti antraštė?"
+
+msgid "Should this have list formatting?"
+msgstr "Ar tam reikia sąrašo formatavimo?"
+
+msgid "Broken same-page link"
+msgstr "Neveikianti to paties puslapio nuoroda"
+
+msgid "Do not justify text"
+msgstr "Nelygiuokite teksto iš abiejų pusių"
+
+msgid "Nested interactive layout components"
+msgstr "Vienas į kitą įterpti interaktyvūs išdėstymo komponentai"
+
+msgid "Is there an alternative for this PDF?"
+msgstr "Ar yra šio PDF alternatyva?"
+
+msgid "Text is too small"
+msgstr "Tekstas per mažas"
+
+msgid "Large blocks of emphasized text are harder to read"
+msgstr "Dideli išryškinto teksto blokai yra sunkiau skaitomi"
+
+msgid "Do not use sub/superscript as visual formatting"
+msgstr "Nenaudokite apatinio/viršutinio indekso vizualiniam formatavimui"
+
+msgid "Only links should be underlined"
+msgstr "Pabraukimas turėtų būti naudojamas tik nuorodoms"
+
+msgid "Is this uppercase text needed?"
+msgstr "Ar šis didžiosiomis raidėmis rašytas tekstas reikalingas?"
+
+msgid "Are there redundant words in this alt text?"
+msgstr "Ar alternatyviame tekste yra nereikalingų žodžių?"
+
+msgid "Tabindex overrides interrupt the focus order"
+msgstr "Tabindex perrašymai trikdo fokusavimo tvarką"
+
+msgid "This header cell needs text"
+msgstr "Šiame antraštės langelyje reikia teksto"
+
+msgid "This table has an invalid headers attribute"
+msgstr "Šioje lentelėje yra netinkamas atributas „headers\""
+
+msgid "This table needs a header row and/or column"
+msgstr "Šiai lentelei reikia antraštės eilutės ir (arba) stulpelio"
+
+msgid "Content headings should not be used inside tables"
+msgstr "Turinio antraštės neturėtų būti naudojamos lentelėse"
+
+msgid "Invalid HTML list"
+msgstr "Netinkamas HTML sąrašas"
+
+msgid "Linked images"
+msgstr "Susieti vaizdai"
+
+msgid "Text formatting"
+msgstr "Teksto formatavimas"
+
+msgid "Video, audio, frames"
+msgstr "Vaizdo įrašai, garsas, rėmeliai"
+
+msgid "Contrast"
+msgstr "Kontrastas"
+
+msgid "Forms"
+msgstr "Formos"
+
+msgid "ARIA and focus"
+msgstr "ARIA ir fokusas"
+
+msgid "Page metadata"
+msgstr "Puslapio metaduomenys"
+
+msgid "The request could not be processed. Details have been logged."
+msgstr "Užklausos apdoroti nepavyko. Išsami informacija įrašyta į žurnalą."
+
+msgid "API request rejected: @message"
+msgstr "API užklausa atmesta: @message"
+
+msgid "API request failed: @message"
+msgstr "API užklausa nepavyko: @message"
+
+msgid "Export pages with alerts"
+msgstr "Eksportuoti puslapius su įspėjimais"
+
+msgid ""
+"Install the Editoria11y Export Batch Processor module to download these "
+"reports."
+msgstr "Įdiekite Editoria11y Export Batch Processor modulį, kad galėtumėte atsisiųsti šias ataskaitas."
+
+msgid "Export results"
+msgstr "Eksportuoti rezultatus"
+
+msgctxt "problems"
+msgid "Top alerts"
+msgstr "Populiariausi įspėjimai"
+
+msgctxt "problems"
+msgid "Pages with the most alerts"
+msgstr "Puslapiai su daugiausiai įspėjimų"
+
+msgid "Recent dismissals"
+msgstr "Naujausi atmetimai"
+
+msgid ""
+"Activate the <a href=\"@csa\">Editoria11y CSA submodule</a> to see developer "
+"tests."
+msgstr ""
+"Aktyvuokite <a href=\"@csa\">Editoria11y CSA submodulį</a>, kad matytumėte "
+"kūrėjų testus."
+
+msgid "Include all parts of the page that contain your theme and content."
+msgstr "Įtraukite visas puslapio dalis, kuriose yra jūsų tema ir turinys."
+
+msgid "Include all parts of the page that contain your editable content."
+msgstr "Įtraukite visas puslapio dalis, kuriose yra jūsų redaguojamas turinys."
+
+msgid "Exclude elements that show unhelpful, repetitive, or inaccurate alerts."
+msgstr ""
+"Pašalinti elementus, rodančius nenaudingus, pasikartojančius arba netikslius "
+"įspėjimus."
+
+msgid ""
+"<a href=\"@permissions\">Add permissions</a>, especially \"View Editoria11y "
+"checker\" and \"Mark OK.\"</a>"
+msgstr ""
+"<a href=\"@permissions\">Add permissions</a>, especially \"View Editoria11y "
+"checker\" and \"Mark OK.\"</a>"
+
+msgid ""
+"If you need help: <a href=\"@config_guide\">Configuration Guide</a> | <a "
+"href=\"@issue_queue\">Issue Queue</a> | <a href=\"@help\">Support contacts</"
+"a>"
+msgstr ""
+"Jei reikia pagalbos: <a href=\"@config_guide\">Konfigūracijos vadovas</a> | "
+"<a href=\"@issue_queue\">Problemų eilė</a> | <a href=\"@help\">Palaikymo "
+"kontaktai</a>"
+
+msgid "Autodetect"
+msgstr "Automatinis nustatymas"
+
+msgid "Only user-editable content"
+msgstr "Tik vartotojo redaguojamas turinys"
+
+msgid "Other"
+msgstr "Kita"
+
+msgid "Parts of the page to test"
+msgstr "Puslapio dalys, kurias reikia tikrinti"
+
+msgid "\"Autodetect\" selects:"
+msgstr "„Automatinis nustatymas\" pasirenka:"
+
+msgid "Other: specify regions to check for developer and content problems"
+msgstr "Kita: nurodykite sritis, kuriose tikrinti kūrėjų ir turinio problemas"
+
+msgid ""
+"Provide CSS selectors. For many sites, the site theme is wrapped in "
+"<code>.dialog-off-canvas-main-canvas</code> while editing."
+msgstr ""
+"Pateikite CSS selektorius. Daugelyje svetainių redaguojant svetainės tema "
+"yra įdėta į <code>.dialog-off-canvas-main-canvas</code>."
+
+msgid "Do not check for any errors inside these elements"
+msgstr "Netikrinti jokių klaidų šiuose elementuose"
+
+msgid "These parts of the page will be ignored entirely."
+msgstr "Šios puslapio dalys bus visiškai ignoruotos."
+
+msgid "match content settings"
+msgstr "match content settings"
+
+msgid "Page regions with user-editable content"
+msgstr "Puslapio sritys su vartotojo redaguojamu turiniu"
+
+msgid ""
+"Default: <code><em>main</em></code><br>Provide <a target=\"_blank\" "
+"href=\"https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/"
+"Selectors\">CSS selectors</a>. Content authors will only see the alerts "
+"within these parts of the page. Do not provide selectors that nest within "
+"each other, or the inner content will be checked twice."
+msgstr ""
+"Numatytasis: <code><em>main</em></code><br>Pateikite <a target=\"_blank\" "
+"href=\"https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/"
+"Selectors\">CSS selektorius</a>. Turinio autoriai matys įspėjimus tik šiose "
+"puslapio dalyse. Nepateikite įdėtų selektorių, nes priešingu atveju vidinis "
+"turinys bus tikrinamas du kartus."
+
+msgid ""
+"Default: <code><em>main</em></code><br>Provide <a target=\"_blank\" "
+"href=\"https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/"
+"Selectors\">CSS selectors</a>. Do not provide selectors that nest within "
+"each other, or the inner content will be checked twice."
+msgstr ""
+"Numatytasis: <code><em>main</em></code><br>Pateikite <a target=\"_blank\" "
+"href=\"https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/"
+"Selectors\">CSS selektorius</a>. Nepateikite įdėtų selektorių, nes priešingu "
+"atveju vidinis turinys bus tikrinamas du kartus."
+
+msgid "Errors in these elements should only be shown to developers"
+msgstr "Klaidos šiuose elementuose turėtų būti rodomos tik kūrėjams"
+
+msgid "Do not check for content errors inside these elements"
+msgstr "Netikrinti turinio klaidų šiuose elementuose"
+
+msgid ""
+"Content editors are not responsible for errors in these elements. <br>E.g.: "
+"<code><em>#sidebar-menu a, .slide [aria-hidden=\"true\"]</em></code>."
+msgstr ""
+"Turinio redaktoriai nėra atsakingi už klaidas šiuose elementuose. <br>Pvz.: "
+"<code><em>#sidebar-menu a, .slide [aria-hidden=\"true\"]</em></code>."
+
+msgid "Roles that will see developer alerts"
+msgstr "Vaidmenys, kurie matys kūrėjų įspėjimus"
+
+msgid ""
+"All roles with the <a href=\":url\">View editoria11y checker</a> permission "
+"see content alerts."
+msgstr ""
+"Visi vaidmenys su <a href=\":url\">Peržiūrėti Editoria11y tikrintuvą</a> "
+"leidimu mato turinio įspėjimus."
+
+msgid "Advanced settings"
+msgstr "Išplėstiniai nustatymai"
+
+msgid "Assertiveness"
+msgstr "Aktyvumas"
+
+msgid "Checker mode for content roles"
+msgstr "Tikrintuvo režimas turinio vaidmenims"
+
+msgid "Start open if there are any alerts"
+msgstr "Atidaryti, jei yra įspėjimų"
+
+msgid "Start open if there are new alerts"
+msgstr "Atidaryti, jei yra naujų įspėjimų"
+
+msgid "Start minimized"
+msgstr "Paleisti sumažintą"
+
+msgid ""
+"Choose when the control panel should open and show inline tips. \"Start open "
+"if there are any alerts\" is recommended, as it helps tips get noticed over "
+"time."
+msgstr ""
+"Pasirinkite, kada turėtų atidaryti valdymo skydelį ir rodyti eilutines "
+"užuominas. Rekomenduojama „Atidaryti, jei yra įspėjimų\", nes tai padeda "
+"laikui bėgant pastebėti užuominas."
+
+msgid "Checker mode for developer roles"
+msgstr "Tikrintuvo režimas kūrėjų vaidmenims"
+
+msgid "Do not check any content while it is being edited"
+msgstr "Netikrinti jokio turinio redaguojant"
+
+msgid ""
+"Use the \"Do not check on pages with these elements\" setting to prevent "
+"checking only on specific pages. E.g., exclude: <code><em>form[id^=\"node-"
+"article\"]</em></code>."
+msgstr ""
+"Naudokite nustatymą „Netikrinti puslapiuose su šiais elementais\", kad "
+"uždraudžia tikrinti tik tam tikruose puslapiuose. Pvz., pašalinkite: "
+"<code><em>form[id^=\"node-article\"]</em></code>."
+
+msgid "Assign headers to CKEditor tables on insert"
+msgstr "Priskirti antraštes CKEditor lentelėms įterpiant"
+
+msgid "First row"
+msgstr "Pirmoji eilutė"
+
+msgid "First column"
+msgstr "Pirmasis stulpelis"
+
+msgid "Both"
+msgstr "Abu"
+
+msgid ""
+"You will need to clear cache for changes to this setting to appear in "
+"CKEditor."
+msgstr ""
+"Reikia išvalyti talpyklą, kad šio nustatymo pakeitimai būtų matomi CKEditor."
+
+msgid "Theme compatibility"
+msgstr "Temos suderinamumas"
+
+msgid "Configuration tips"
+msgstr "Konfigūracijos patarimai"
+
+msgid ""
+"If the checker <strong>toggle</strong> does not appear: make sure a z-"
+"indexed or overflow-hidden element in your front-end theme is not hiding or "
+"covering the <code><em>ed11y-element-panel</em></code> container, make sure "
+"that any custom selectors in the \"Disable the scanner if these elements are "
+"detected\" field are not present, and make sure that no JavaScript errors "
+"are appearing in your <a href=\"https://developer.mozilla.org/en-US/docs/"
+"Tools/Browser_Console\"> browser console</a>"
+msgstr ""
+"Jei tikrintuvo <strong>jungiklis</strong> neatsiranda: įsitikinkite, kad z-"
+"indexed arba overflow-hidden elementas jūsų priekinės dalies temoje neslepia "
+"ir nedengia <code><em>ed11y-element-panel</em></code> konteinerio; "
+"įsitikinkite, kad pasirinktinių selektorių lauke „Išjungti skenerį, jei "
+"aptinkami šie elementai\" nėra tokių selektorių; ir įsitikinkite, kad <a "
+"href=\"https://developer.mozilla.org/en-US/docs/Tools/Browser_Console\"> "
+"naršyklės konsolėje</a> nėra JavaScript klaidų"
+
+msgid ""
+"If the checker toggle is present but <strong>not detecting</strong> errors, "
+"or missing errors that should be flagged: check that your inclusions & "
+"exclusion settings below are not missing or ignoring the elements. It is not "
+"uncommon for homepages or views to insert editable content outside the "
+"<code><em>main</em></code> element."
+msgstr ""
+"Jei tikrintuvo jungiklis yra, bet <strong>nenustato</strong> klaidų arba "
+"praleidžia klaidas, kurios turėtų būti pažymėtos: patikrinkite, ar žemiau "
+"esantys įtraukimo ir pašalinimo nustatymai nepraleidžia ir neignoruoja "
+"elementų. Dažnai pagrindiniame puslapyje ar rodiniuose redaguojamas turinys "
+"įterpiamas ne <code><em>main</em></code> elemente."
+
+msgid "Theme"
+msgstr "Tema"
+
+msgid "Sleek"
+msgstr "Elegantiškas"
+
+msgid "Classic"
+msgstr "Klasikinis"
+
+msgid "Dark"
+msgstr "Tamsus"
+
+msgid "Do not check on pages with these elements"
+msgstr "Netikrinti puslapiuose su šiais elementais"
+
+msgid ""
+"Used to block checking on site sections or admin pages.<br>E.g. "
+"<code><em>.content-type-example, .tabs__link[href=*\"edit\"]</em></code>."
+msgstr ""
+"Naudojama tikrinimui blokuoti svetainės sekcijose ar administratoriaus "
+"puslapiuose.<br>Pvz. <code><em>.content-type-"
+"example, .tabs__link[href=*\"edit\"]</em></code>."
+
+msgid "Hide all alerts on pages where these elements are not present"
+msgstr "Slėpti visus įspėjimus puslapiuose, kuriuose šių elementų nėra"
+
+msgid ""
+"Used to limit alerting to nodes where the user can edit something. Suggested "
+"selectors:<br> <code><em>.contextual-region a[href*=\"/edit\"], .contextual-"
+"region a[href*=\"/manage\"]</em></code>."
+msgstr ""
+"Naudojama apriboti įspėjimus iki mazgų, kuriuose vartotojas gali ką nors "
+"redaguoti. Siūlomi selektoriai:<br> <code><em>.contextual-region a[href*=\"/"
+"edit\"], .contextual-region a[href*=\"/manage\"]</em></code>."
+
+msgid ""
+"Set to the number of other themes or modules that will be <a href=\"https://"
+"editoria11y.princeton.edu/configuration/#customtests\">injecting custom "
+"result JS events</a>."
+msgstr ""
+"Nustatyti į kitų temų ar modulių, kurie <a href=\"https://"
+"editoria11y.princeton.edu/configuration/#customtests\">injektuos "
+"pasirinktinių rezultatų JS įvykius</a>, skaičių."
+
+msgid "Positioning"
+msgstr "Padėtis"
+
+msgid "Don't show edit links on tips in these containers"
+msgstr "Nerodyti redagavimo nuorodų užuominose šiuose konteineriuose"
+
+msgid ""
+"Tips show copies of the \"Edit\" and \"Layout\" links for nodes, users and "
+"taxonomy terms. These links are not helpful on lists of content from remote "
+"nodes.<br>Provide a comma-separated list of page sections of where these "
+"links should not show, E.g.: <code><em>#sidebar-menu, .news-feed</em></code>."
+"<br>To hide the links <strong>everywhere</strong>, set this field to an "
+"asterisk (<code><em>*</em></code>).<br>To modify the links, <a "
+"href=\"https://editoria11y.princeton.edu/configuration/#modify-tips\" "
+"target=\"_blank\">use the ed11yPop event</a> in your theme JS."
+msgstr ""
+"Užuominose rodomos „Redaguoti\" ir „Maketas\" nuorodų kopijos mazgams, "
+"vartotojams ir taksonomijos terminams. Šios nuorodos nenaudingos turinio iš "
+"nuotolinių mazgų sąrašuose.<br>Pateikite kableliais atskirtą puslapio "
+"sekcijų, kuriose šių nuorodų neturėtų būti, sąrašą, pvz.: <code><em>#sidebar-"
+"menu, .news-feed</em></code>.<br>Norėdami paslėpti nuorodas <strong>visur</"
+"strong>, nustatykite šį lauką kaip žvaigždelę (<code><em>*</em></code>)."
+"<br>Norėdami keisti nuorodas, naudokite <a href=\"https://"
+"editoria11y.princeton.edu/configuration/#modify-tips\" "
+"target=\"_blank\">ed11yPop įvykį</a> savo temos JS."
+
+msgid "Pin panel to..."
+msgstr "Prisegti skydelį..."
+
+msgid "Right"
+msgstr "Dešinėje"
+
+msgid "Left"
+msgstr "Kairėje"
+
+msgid "Don't cover these other widgets"
+msgstr "Nedengti šių kitų valdiklių"
+
+msgid ""
+"Provide a comma-separated list of selectors for other things that appear in "
+"the bottom right of the page. <br>If nothing is set, Editoria11y will "
+"automatically slide left to accommodate <code><em>#klaro_toggle_dialog, "
+"#klaro-cookie-notice .same-page-preview-dialog.ui-dialog-position-side</em></"
+"code>."
+msgstr ""
+"Pateikite kableliais atskirtą kitų dalykų, atsirandančių puslapio apačioje "
+"dešinėje, selektorių sąrašą. <br>Jei nieko nenustatyta, Editoria11y "
+"automatiškai pajudės kairėn, kad tilptų <code><em>#klaro_toggle_dialog, "
+"#klaro-cookie-notice .same-page-preview-dialog.ui-dialog-position-side</em></"
+"code>."
+
+msgid "Elements with overflow hidden"
+msgstr "Elementai su paslėpta perpildo peržiūra"
+
+msgid ""
+"Sometimes buttons get drawn and visually truncated outside the bounds of a "
+"positioned element. Provide a selector list."
+msgstr ""
+"Kartais mygtukai nupiešiami ir vizualiai apkarpomi už pozicionuoto elemento "
+"ribų. Pateikite selektorių sąrašą."
+
+msgid "Theme JS will handle revealing hidden tooltips inside these containers"
+msgstr "Temos JS tvarkys paslėptų užuominų atskleidimą šiuose konteineriuose"
+
+msgid ""
+"Editoria11y detects hidden tooltips and warns the user when they try to jump "
+"to them from the panel. For elements on this list, Editoria11y will <a "
+"href=\"https://itmaybejj.github.io/editoria11y/#dealing-with-alerts-on-"
+"hidden-or-size-constrained-content\">dispatch a JS event</a> instead of a "
+"warning, so custom JS in your theme can first reveal the hidden tip (e.g., "
+"open an accordion or tab panel)."
+msgstr ""
+"Editoria11y aptinka paslėptas užuominas ir įspėja vartotoją, kai jis bando "
+"prie jų prašokti iš skydelio. Šiame sąraše esantiems elementams Editoria11y "
+"<a href=\"https://itmaybejj.github.io/editoria11y/#dealing-with-alerts-on-"
+"hidden-or-size-constrained-content\">išsiųs JS įvykį</a> vietoj įspėjimo, "
+"todėl jūsų temos pasirinktinis JS gali pirmiausia atskleisti paslėptą "
+"užuominą (pvz., atidaryti akordeoną arba skirtukų skydelį)."
+
+msgid "Detecting dynamic and shadow content"
+msgstr "Dinaminio ir šešėlinio turinio aptikimas"
+
+msgid "Dynamically refresh if new content appears"
+msgstr "Dinamiškai atnaujinti, jei atsiranda naujas turinys"
+
+msgid "Watch for changes anywhere on the page"
+msgstr "Stebėti keitimus bet kurioje puslapio vietoje"
+
+msgid "Only watch for changes to content containers present on load"
+msgstr "Stebėti tik turinio konteinerių, esančių įkrovos metu, keitimus"
+
+msgid "Do not watch for changes"
+msgstr "Nestebėti keitimų"
+
+msgid ""
+"Set to \"anywhere\" if changes are being missed, set to \"ignore\" if you "
+"notice performance issues. Themes and modules can also call "
+"<code>Drupal.Ed11y.refresh()</code> to refresh results."
+msgstr ""
+"Nustatykite „anywhere\" jei keitimai praleidžiami, nustatykite „ignore\" jei "
+"pastebite našumo problemų. Temos ir moduliai taip pat gali kviesti "
+"<code>Drupal.Ed11y.refresh()</code> rezultatams atnaujinti."
+
+msgid "Check inside these specific Web components"
+msgstr "Tikrinti šiuose konkrečiuose žiniatinklio komponentuose"
+
+msgid ""
+"Provide selectors for elements with <a href='https://developer.mozilla.org/"
+"en-US/docs/Web/Web_Components'>shadow DOM</a> you want tested. E.g.: "
+"<code><em>my-fancy-accordion-widget, my-magical-slideshow</em></code>."
+msgstr ""
+"Pateikite elementų su <a href='https://developer.mozilla.org/en-US/docs/Web/"
+"Web_Components'>šešėline DOM</a>, kuriuos norite tikrinti, selektorius. "
+"Pvz.: <code><em>my-fancy-accordion-widget, my-magical-slideshow</em></code>."
+
+msgid "Auto-detect any Web components"
+msgstr "Automatiškai aptikti bet kokius žiniatinklio komponentus"
+
+msgid ""
+"This is easier to configure than specifying components, but may slow test "
+"runs on very complicated pages."
+msgstr ""
+"Tai lengviau konfigūruoti nei nurodyti komponentus, tačiau gali sulėtinti "
+"testų vykdymą labai sudėtinguose puslapiuose."
+
+msgid "Syncing results to reports"
+msgstr "Rezultatų sinchronizavimas su ataskaitomis"
+
+msgid ""
+"Remember that results only sync to the dashboard when viewing nodes. Results "
+"shown while editing or viewing previews or revisions will not sync."
+msgstr ""
+"Atminkite, kad rezultatai sinchronizuojami su suvestine tik peržiūrint "
+"mazgus. Redaguojant arba peržiūrint peržiūras ar pataisas rodomi rezultatai "
+"nebus sinchronizuoti."
+
+msgid "Remove redundant base url from URLs"
+msgstr "Pašalinti perteklinį pagrindinį URL iš URL adresų"
+
+msgid ""
+"Provide base URL (\"/mysite\") if your site is installed in a subdirectory. "
+"Subdirectories tend to get duplicated (/mysite/mysite/mypage) and throw "
+"errors from the API."
+msgstr ""
+"Pateikite pagrindinį URL (\"/mysite\"), jei jūsų svetainė įdiegta "
+"pakatalogėje. Pakatalogiai linkę dublikuotis (/mysite/mysite/mypage) ir "
+"sukelti API klaidas."
+
+msgid "Preserve query parameters"
+msgstr "Išsaugoti užklausos parametrus"
+
+msgid ""
+"The dashboard ignores most parameters: results for both /news?f=1 and /news?"
+"f=2 will show up as just /news. Provide a comma separated list of parameters "
+"that are meaningful, and should appear as separate pages in results."
+msgstr ""
+"Suvestinė ignoruoja daugelį parametrų: ir /news?f=1, ir /news?f=2 rezultatai "
+"bus rodomi kaip /news. Pateikite kableliais atskirtą prasmingų parametrų, "
+"kurie rezultatuose turėtų rodytis kaip atskiri puslapiai, sąrašą."
+
+msgid "Disable sync altogether"
+msgstr "Išjungti sinchronizavimą visiškai"
+
+msgid ""
+"Syncing test results back to Drupal is required for the <a target=\"_blank\" "
+"href=\"/admin/reports/editoria11y\">issue</a> and <a target=\"_blank\" "
+"href=\"/admin/reports/editoria11y/dismissals\">dismissal</a> dashboards and "
+"\"mark OK\" buttons."
+msgstr ""
+"Testų rezultatų sinchronizavimas su Drupal reikalingas <a target=\"_blank\" "
+"href=\"/admin/reports/editoria11y\">problemų</a> ir <a target=\"_blank\" "
+"href=\"/admin/reports/editoria11y/dismissals\">atmetimų</a> suvestinėms bei "
+"„žymėti kaip gerai\" mygtukams."
+
+msgid "Heading outline position of editable content"
+msgstr "Redaguojamo turinio antraščių struktūros padėtis"
+
+msgid ""
+"To check headings in CKEditor, Editoria11y needs to know what the first "
+"heading level should be in this field. Body fields should generally be at "
+"the h2 level."
+msgstr ""
+"Norint tikrinti antraštes CKEditor, Editoria11y turi žinoti, koks turėtų "
+"būti pirmasis antraštės lygis šiame lauke. Turinio laukai paprastai turėtų "
+"būti h2 lygio."
+
+msgid "H2 level fields (body content)"
+msgstr "H2 lygio laukai (pagrindinis turinys)"
+
+msgid ""
+"Body fields on nodes are preceded by an h1, and their heading outline should "
+"start with an h2. Ideally set this for top-level body fields for each of "
+"your content types, and set blocks and embedded nodes to h3 or h4.\n"
+"        <br>Set all content types: <code><em>form[id^=\"node-\"] #edit-body-"
+"wrapper .ck-content</em></code>\n"
+"        <br>Set specific content types: <code><em>form[id^=\"node-\"] #edit-"
+"body-wrapper .ck-content</em></code>\n"
+"        <br>Set up for Gutenberg: <code><em>form[id^=\"node-\"] #edit-body-"
+"wrapper .is-root-container</em></code>"
+msgstr ""
+"Mazgų turinio laukams prieš tai yra h1, o jų antraščių struktūra turėtų "
+"prasidėti h2. Idealiu atveju nustatykite tai aukščiausio lygio turinio "
+"laukams kiekvienam turinio tipui ir nustatykite blokus bei įterptus mazgus į "
+"h3 arba h4.\n"
+"        <br>Nustatyti visus turinio tipus: <code><em>form[id^=\"node-\"] "
+"#edit-body-wrapper .ck-content</em></code>\n"
+"        <br>Nustatyti konkrečius turinio tipus: <code><em>form[id^=\"node-"
+"\"] #edit-body-wrapper .ck-content</em></code>\n"
+"        <br>Nustatyti Gutenberg: <code><em>form[id^=\"node-\"] #edit-body-"
+"wrapper .is-root-container</em></code>"
+
+msgid "H3 level fields (blocks or paragraphs with separate titles)"
+msgstr "H3 lygio laukai (blokai arba pastraipos su atskirais pavadinimais)"
+
+msgid ""
+"Sometimes inline and layout builder blocks are grouped under an h2 from a "
+"separate field, so their highest heading level should be h3."
+msgstr ""
+"Kartais eilutiniai ir maketo kūrimo blokai sugrupuoti pagal h2 iš atskiro "
+"lauko, todėl jų aukščiausias antraštės lygis turėtų būti h3."
+
+msgid "H4 level fields (deeply nested blocks or paragraphs)"
+msgstr "H4 lygio laukai (giliai įdėti blokai arba pastraipos)"
+
+msgid ""
+"Sometimes inline and layout builder blocks are grouped under an h3 from a "
+"separate field, so their highest heading level should be h4."
+msgstr ""
+"Kartais eilutiniai ir maketo kūrimo blokai sugrupuoti pagal h3 iš atskiro "
+"lauko, todėl jų aukščiausias antraštės lygis turėtų būti h4."
+
+msgid "Modify tests that usually detect content issues"
+msgstr "Keisti testus, kurie paprastai nustato turinio problemas"
+
+msgid "Modify tests that usually detect template or configuration issues"
+msgstr ""
+"Keisti testus, kurie paprastai nustato šablono arba konfigūracijos problemas"
+
+msgid "Do not check contrast for these elements"
+msgstr "Netikrinti kontrasto šiems elementams"
+
+msgid ""
+"Provide a comma-separated list of selectors for elements to ignore for all "
+"users."
+msgstr ""
+"Pateikite kableliais atskirtą elementų, kuriuos reikia ignoruoti visiems "
+"vartotojams, selektorių sąrašą."
+
+msgid "Remind editor that content in these embeds needs manual review"
+msgstr ""
+"Priminti redaktoriui, kad turinį šiuose įterpiniuose reikia rankiniu būdu "
+"peržiūrėti"
+
+msgid ""
+"Provide a comma-separated list of selectors you wish to flag for the editor, "
+"e.g.: <code><em>.my-embedded-feed, #my-social-link-block</em></code>."
+msgstr ""
+"Pateikite kableliais atskirtą selektorių, kuriuos norite pažymėti "
+"redaktoriui, sąrašą, pvz.: <code><em>.my-embedded-feed, #my-social-link-"
+"block</em></code>."
+
+msgid ""
+"Default settings should work with both <a href=\"https://www.drupal.org/"
+"project/linkpurpose\" target=\"_blank\">Link Purpose Icons</a> and <a "
+"target=\"_blank\" href=\"https://www.drupal.org/project/extlink\">External "
+"Links</a>."
+msgstr ""
+"Numatytieji nustatymai turėtų veikti su tiek <a href=\"https://"
+"www.drupal.org/project/linkpurpose\" target=\"_blank\">Nuorodų paskirties "
+"piktogramomis</a>, tiek <a target=\"_blank\" href=\"https://www.drupal.org/"
+"project/extlink\">Išorinėmis nuorodomis</a>."
+
+msgid "Remind the editor that these linked documents need a manual check"
+msgstr ""
+"Priminti redaktoriui, kad šiuos susijusius dokumentus reikia rankiniu būdu "
+"patikrinti"
+
+msgid ""
+"Add or remove filetypes. Set to \"false\" to disable the test altogether. "
+"Providing any value will override the default, which is "
+"<code><em>a[href$='.pdf'], a[href*='.pdf?']</em></code>."
+msgstr ""
+"Pridėti arba pašalinti failų tipus. Nustatykite į „false\", kad visiškai "
+"išjungtumėte testą. Bet kokia reikšmė panaikins numatytąją: "
+"<code><em>a[href$='.pdf'], a[href*='.pdf?']</em></code>."
+
+msgid "Remove elements that match these selectors before testing link text"
+msgstr ""
+"Prieš tikrinant nuorodos tekstą, pašalinti elementus, atitinkančius šiuos "
+"selektorius"
+
+msgid ""
+"Provide a CSS selector of elements your modules programmatically add to "
+"links (usually external or open-in-new-window links), so they can be ignored "
+"when the link text is checked for the \"link has no text\" and \"link text "
+"is not meaningful\" tests.<br>E.g.: <code><em>.this, .that</em></code>"
+msgstr ""
+"Pateikite CSS selektorių elementų, kuriuos jūsų moduliai programiškai "
+"prideda prie nuorodų (dažniausiai išorinės arba atsidariusiose naujame lange "
+"nuorodos), kad jie būtų ignoruojami tikrinant nuorodos tekstą „nuoroda "
+"neturi teksto\" ir „nuorodos tekstas nėra prasmingas\" testais.<br>Pvz.: "
+"<code><em>.this, .that</em></code>"
+
+msgid "Remove these strings before testing link text"
+msgstr "Prieš tikrinant nuorodos tekstą, pašalinti šias eilutes"
+
+msgid ""
+"Provide a pipe-separated (\"|\") list of phrases your modules "
+"programmatically add to links to hint a purpose (external, mail, phone, open-"
+"in-new-window), so they can be ignored when the link text is checked for the "
+"\"link has no text\" and \"link text is not meaningful\" tests; e.g.:  "
+"<pre><code><em>(link is external)|(link sends email)</em></code></pre>"
+msgstr ""
+"Pateikite vertikalia juosta (\"|\") atskirtą frazių, kurias jūsų moduliai "
+"programiškai prideda prie nuorodų, nurodančių paskirtį (išorinė, el. paštas, "
+"telefonas, atidaryti naujame lange), sąrašą, kad jie būtų ignoruojami "
+"tikrinant nuorodos tekstą; pvz.:  <pre><code><em>(link is external)|(link "
+"sends email)</em></code></pre>"
+
+msgid "Strings in links that indicate new tabs"
+msgstr "Nuorodų eilutės, nurodančios naujus skirtukus"
+
+msgid ""
+"Provide a pipe-separated list of phrases your site uses to warn users a link "
+"opens in a new tab; e.g.:  <pre><code><em>new&nbsp;tab|new&nbsp;window|"
+"external</em></code></pre>"
+msgstr ""
+"Pateikite vertikalia juosta atskirtą frazių, kurias jūsų svetainė naudoja "
+"vartotojams įspėti, kad nuoroda atsidaro naujame skirtuke, sąrašą; pvz.:  "
+"<pre><code><em>new&nbsp;tab|new&nbsp;window|external</em></code></pre>"
+
+msgid ""
+"Modules like Link Purpose or External Links can mark links automatically."
+msgstr ""
+"Tokie moduliai kaip Link Purpose arba External Links gali automatiškai "
+"pažymėti nuorodas."
+
+msgid "CSA/developer test"
+msgstr "CSA / kūrėjų testas"
+
+msgid "Show to developers"
+msgstr "Rodyti kūrėjams"
+
+msgid "Show to everybody"
+msgstr "Rodyti visiems"
+
+msgid "Dashboard sync is disabled in Editoria11y configuration."
+msgstr "Suvestinės sinchronizavimas išjungtas Editoria11y konfigūracijoje."
+
+msgid "(invalid URL)"
+msgstr "(negaliojantis URL)"
+
+msgid "Editoria11y: Dismissals"
+msgstr "Editoria11y: atmetimai"
+
+msgid "Default"
+msgstr "Numatytasis"
+
+msgid "Node path"
+msgstr "Mazgo kelias"
+
+msgid "view"
+msgstr "view"
+
+msgid "Term path"
+msgstr "Termino kelias"
+
+msgid "User bio path"
+msgstr "Vartotojo biografijos kelias"
+
+msgid "Term title"
+msgstr "Termino pavadinimas"
+
+msgid ", "
+msgstr ", "
+
+msgid "Node title"
+msgstr "Mazgo pavadinimas"
+
+msgid "User name"
+msgstr "Vartotojo vardas"
+
+msgid "Recorded path"
+msgstr "Įrašytas kelias"
+
+msgid "Computed"
+msgstr "Apskaičiuota"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty %}{% set dynamic_path = page_path %}{% endif %}\r\n"
+"{% set dynamic_title = title ~ name_2 ~ name_1 %}{% if dynamic_title is "
+"empty %}{% set dynamic_title = page_title %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ dynamic_title }}</"
+"a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty %}{% set dynamic_path = page_path %}{% endif %}\\r\n"
+"{% set dynamic_title = title ~ name_2 ~ name_1 %}{% if dynamic_title is "
+"empty %}{% set dynamic_title = page_title %}{% endif %}\\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ dynamic_title }}</"
+"a>"
+
+msgid "Dismissed alert"
+msgstr "Atmestas įspėjimas"
+
+msgid "By"
+msgstr "Naudotojas"
+
+msgid "1"
+msgid_plural "@count"
+msgstr[0] "1"
+msgstr[1] "@count"
+msgstr[2] "@count"
+
+msgid "Reset"
+msgstr "Atstatyti"
+
+msgid ""
+"<span class=\"ed11y-reset-dismissal\"><span class=\"ed11y-page-id\">{{ pid }}"
+"</span><span class=\"ed11y-dismissal-id\">{{id}}</span></span>"
+msgstr ""
+"<span class=\"ed11y-reset-dismissal\"><span class=\"ed11y-page-id\">{{ pid }}"
+"</span><span class=\"ed11y-dismissal-id\">{{id}}</span></span>"
+
+msgid "››"
+msgstr "››"
+
+msgid "‹‹"
+msgstr "‹‹"
+
+msgid "- All -"
+msgstr "– Visi –"
+
+msgid "Offset"
+msgstr "Poslinkis"
+
+msgid "« First"
+msgstr "« Pirmas"
+
+msgid "Last »"
+msgstr "Paskutinis »"
+
+msgid "Asc"
+msgstr "Did."
+
+msgid "Desc"
+msgstr "Maž."
+
+msgid "User who dismissed alert"
+msgstr "Vartotojas, atmetęs įspėjimą"
+
+msgid "pid"
+msgstr "pid"
+
+msgid "Node"
+msgstr "Mazgas"
+
+msgid "Term"
+msgstr "Terminas"
+
+msgid "User bio"
+msgstr "Vartotojo biografija"
+
+msgid "Dismissals page"
+msgstr "Atmetimų puslapis"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty %}{% set dynamic_path = page_path %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title }}</a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty %}{% set dynamic_path = page_path %}{% endif %}\\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title }}</a>"
+
+msgid "Still on page"
+msgstr "Vis dar puslapyje"
+
+msgid "Reset filters"
+msgstr "Atstatyti filtrus"
+
+msgid "Issues marked as hidden or OK in Editoria11y."
+msgstr "Problemos, pažymėtos kaip paslėptos arba gerai Editoria11y."
+
+msgid "Dismissals filtered by issue"
+msgstr "Atmetimai, filtruoti pagal problemą"
+
+msgid "No dismissals match these filters."
+msgstr "Jokių atmetimų neatitinka šių filtrų."
+
+msgid "All"
+msgstr "Visi"
+
+msgid "Dismissed alerts of type \"{{result_name}}\""
+msgstr "Dismissed alerts of type \"{{result_name}}\""
+
+msgid ""
+"<a href=\"/admin/reports/editoria11y/dismissals/\" class=\"button button--"
+"primary\">Show all dismissals</a>"
+msgstr ""
+"<a href=\"/admin/reports/editoria11y/dismissals/\" class=\"button button--"
+"primary\">Show all dismissals</a>"
+
+msgid "Recent Editoria11y Dismissals"
+msgstr "Naujausi Editoria11y atmetimai"
+
+msgid "Editoria11y - Recent dismissals"
+msgstr "Editoria11y – naujausi atmetimai"
+
+msgid "Editoria11y: Alerts"
+msgstr "Editoria11y: įspėjimai"
+
+msgid "Top results"
+msgstr "Geriausi rezultatai"
+
+msgid "Computed title"
+msgstr "Apskaičiuotas pavadinimas"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path|render %}{% set dynamic_path = "
+"page_path %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{  page_title_1 }}</"
+"a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path|render %}{% set dynamic_path = "
+"page_path %}{% endif %}\\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{  page_title_1 }}</"
+"a>"
+
+msgid "<a href=\"{{page_path_1}}\" data-ed1ref=\"{{pid}}\">{{page_path_1}}</a>"
+msgstr ""
+"<a href=\"{{page_path_1}}\" data-ed1ref=\"{{pid}}\">{{page_path_1}}</a>"
+
+msgid "No alerts found."
+msgstr "Įspėjimų nerasta."
+
+msgid "YYYY-MM-DD"
+msgstr "MMMM-MM-DD"
+
+msgid "User bio page"
+msgstr "Vartotojo biografijos puslapis"
+
+msgid "Node author"
+msgstr "Mazgo autorius"
+
+msgid "All pages with issues"
+msgstr "Visi puslapiai su problemomis"
+
+msgid "Block: Pages with the most"
+msgstr "Blokas: puslapiai su daugiausiai"
+
+msgid "Block: Recent alerts"
+msgstr "Blokas: naujausi įspėjimai"
+
+msgid "Recent Editoria11y Alerts"
+msgstr "Naujausi Editoria11y įspėjimai"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path|render %}{% set dynamic_path = "
+"page_path %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title_1 }}</a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path|render %}{% set dynamic_path = "
+"page_path %}{% endif %}\\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title_1 }}</a>"
+
+msgid "Issue"
+msgstr "Problema"
+
+msgid "Editoria11y - Recent alerts"
+msgstr "Editoria11y – naujausi įspėjimai"
+
+msgid "Block: Most frequent alerts"
+msgstr "Blokas: dažniausi įspėjimai"
+
+msgid "Most Frequent Editoria11y Alerts"
+msgstr "Dažniausi Editoria11y įspėjimai"
+
+msgid "Editoria11y - Most frequent alerts"
+msgstr "Editoria11y – dažniausi įspėjimai"
+
+msgid "Alerts on specified page"
+msgstr "Įspėjimai nurodyto puslapio"
+
+msgid ""
+"<a href=\"{{ page_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title_1 }}</a>"
+msgstr ""
+"<a href=\"{{ page_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title_1 }}</a>"
+
+msgid "<p><strong>Author:</strong> {{ uid }}</p>"
+msgstr "<p><strong>Author:</strong> {{ uid }}</p>"
+
+msgid "<p><strong>Last editor:</strong> {{ uid_1 }}</p>"
+msgstr "<p><strong>Last editor:</strong> {{ uid_1 }}</p>"
+
+msgid ""
+"<h1>Accessibility issues on: {{page_title_1}}</h1>\r\n"
+"<p>{{uid}}{{uid_1}}</p>"
+msgstr ""
+"<h1>Accessibility issues on: {{page_title_1}}</h1>\\r\n"
+"<p>{{uid}}{{uid_1}}</p>"
+
+msgid ""
+"<p><a href=\"../editoria11y/pages\" class=\"button button--primary\">All "
+"pages with alerts</a></p>"
+msgstr ""
+"<p><a href=\"../editoria11y/pages\" class=\"button button--primary\">All "
+"pages with alerts</a></p>"
+
+msgid ""
+"<span class=\"ed11y-reset-this-path\" hidden><p class=\"more-link\"><a "
+"role=\"button\" class=\"action-link action-link--icon-trash action-link--"
+"danger\"><span hidden class=\"ed11y-api-path\">{{ page_path }}</span>Reset "
+"results for this page</a></p></span>"
+msgstr ""
+"<span class=\"ed11y-reset-this-path\" hidden><p class=\"more-link\"><a "
+"role=\"button\" class=\"action-link action-link--icon-trash action-link--"
+"danger\"><span hidden class=\"ed11y-api-path\">{{ page_path }}</span>Reset "
+"results for this page</a></p></span>"
+
+msgid "Issue types"
+msgstr "Problemų tipai"
+
+msgid "Pages with specified alert"
+msgstr "Puslapiai su nurodytu įspėjimu"
+
+msgid "Published status"
+msgstr "Paskelbimo būsena"
+
+msgid "Created by"
+msgstr "Sukūrė"
+
+msgid "Created after"
+msgstr "Sukurta po"
+
+msgid "Created before"
+msgstr "Sukurta prieš"
+
+msgid "<h1>Pages with alert \"{{ result_name }}\"</h1>"
+msgstr "<h1>Puslapiai su įspėjimu „{{ result_name }}\"</h1>"
+
+msgid ""
+"<a href=\"../editoria11y/alerts\" class=\"button button--primary\">All "
+"alerts</a>"
+msgstr ""
+"<a href=\"../editoria11y/alerts\" class=\"button button--primary\">All "
+"alerts</a>"
+
+msgid "Pages with issues"
+msgstr "Puslapiai su problemomis"
+
+msgid "Next ›"
+msgstr "Kitas ›"
+
+msgid "‹ Previous"
+msgstr "‹ Ankstesnis"
+
+msgid "Authored on"
+msgstr "Sukurta"
+
+msgid "Changed"
+msgstr "Pakeista"
+
+msgid "Editoria11y: Crawler"
+msgstr "Editoria11y: nuskaitytuvas"
+
+msgid "Editoria11y: Crawl Nodes"
+msgstr "Editoria11y: nuskaityti mazgus"
+
+msgid "Authored by"
+msgstr "Autorius"
+
+msgid "Has results"
+msgstr "Turi rezultatų"
+
+msgid "Has no alerts"
+msgstr "Neturi įspėjimų"
+
+msgid "Has alerts"
+msgstr "Turi įspėjimų"
+
+msgid "nid"
+msgstr "nid"
+
+msgid "Editoria11y: Export"
+msgstr "Editoria11y: eksportavimas"
+
+msgid "Export page with alerts"
+msgstr "Eksportuoti puslapį su įspėjimais"
+
+msgid "Link to Taxonomy term"
+msgstr "Nuoroda į taksonomijos terminą"
+
+msgid "Link to User"
+msgstr "Nuoroda į vartotoją"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path_1|render %}{% set dynamic_path = "
+"page_path_1 %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title }}</a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path_1|render %}{% set dynamic_path = "
+"page_path_1 %}{% endif %}\\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title }}</a>"
+
+msgid "Path when checked"
+msgstr "Kelias tikrinimo metu"
+
+msgid "<a href=\"{{page_path_1}}\" data-ed1ref=\"{{pid}}\">{{page_path_1}}"
+msgstr "<a href=\"{{page_path_1}}\" data-ed1ref=\"{{pid}}\">{{page_path_1}}"
+
+msgid "Current URL"
+msgstr "Dabartinis URL"
+
+msgid "{{ view_taxonomy_term }}{{ view_user }}{{ view_node }}"
+msgstr "{{ view_taxonomy_term }}{{ view_user }}{{ view_node }}"
+
+msgid "{% if type is empty %}{{entity_type}}{%else%}{{type}}{% endif %}"
+msgstr "{% if type is empty %}{{entity_type}}{%else%}{{type}}{% endif %}"
+
+msgid "Entity Type"
+msgstr "Objekto tipas"
+
+msgid "Langcode (en, fr, de)"
+msgstr "Kalbos kodas (en, fr, de)"
+
+msgid "Referenced node"
+msgstr "Nurodytas mazgas"
+
+msgid "Referenced term"
+msgstr "Nurodytas terminas"
+
+msgid "Referenced user bio"
+msgstr "Nurodyta vartotojo biografija"
+
+msgid "<p>Records chosen for export can be filtered and previewed below.</p>"
+msgstr "<p>Records chosen for export can be filtered and previewed below.</p>"
+
+msgid "<a href=\"/admin/reports/editoria11y/export\">Back to dashboard</a>"
+msgstr "<a href=\"/admin/reports/editoria11y/export\">Back to dashboard</a>"
+
+msgid "Dismissals export"
+msgstr "Atmetimų eksportas"
+
+msgid "Link to Content"
+msgstr "Nuoroda į turinį"
+
+msgid "Page raw path"
+msgstr "Neapdorotas puslapio kelias"
+
+msgid "Name"
+msgstr "Pavadinimas"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path_1|render %}{% set dynamic_path = "
+"page_path_1 %}{% endif %}\r\n"
+"{% set dynamic_title = title_1 ~ name ~ name_1 %}{% if dynamic_title is "
+"empty %}{% set dynamic_title = page_title %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ dynamic_title }}</"
+"a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path_1|render %}{% set dynamic_path = "
+"page_path_1 %}{% endif %}\\r\n"
+"{% set dynamic_title = title_1 ~ name ~ name_1 %}{% if dynamic_title is "
+"empty %}{% set dynamic_title = page_title %}{% endif %}\\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ dynamic_title }}</"
+"a>"
+
+msgid "dismissal"
+msgstr "dismissal"
+
+msgid "Page export"
+msgstr "Puslapių eksportas"
+
+msgid "Alerts export"
+msgstr "Įspėjimų eksportas"
+
+msgid "Editoria11y alerts on pages"
+msgstr "Editoria11y įspėjimai puslapiuose"
+
+msgid "{{ view_taxonomy_term }}{{ view_user }}{{ view_node }} "
+msgstr "{{ view_taxonomy_term }}{{ view_user }}{{ view_node }} "
+
+msgid "Results for page"
+msgstr "Puslapio rezultatai"
+
+msgid "<a href=\"./export/pages\">Export pages with alerts</a>"
+msgstr "<a href=\"./export/pages\">Export pages with alerts</a>"
+
+msgid "<a href=\"./export/dismissals\">Export dismissals</a>"
+msgstr "<a href=\"./export/dismissals\">Export dismissals</a>"
+
+msgid "<a href=\"./export/alerts\">Export alert list</a>"
+msgstr "<a href=\"./export/alerts\">Export alert list</a>"
+
+msgid "Export alerts on pages"
+msgstr "Eksportuoti puslapių įspėjimus"
+
+msgid "Result name"
+msgstr "Rezultato pavadinimas"

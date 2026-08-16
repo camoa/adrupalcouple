@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\Tests\entity_usage\FunctionalJavascript;
 
 use Drupal\Tests\contextual\FunctionalJavascript\ContextualLinkClickTrait;
@@ -8,6 +10,8 @@ use Drupal\layout_builder\Entity\LayoutBuilderEntityViewDisplay;
 use Drupal\node\Entity\Node;
 use Drupal\node\Entity\NodeType;
 use Drupal\user\Entity\Role;
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
  * Tests usage tracking in Layout Builder through Entity Browser Blocks.
@@ -16,6 +20,9 @@ use Drupal\user\Entity\Role;
  * @group layout_builder
  * @coversDefaultClass \Drupal\entity_usage\Plugin\EntityUsage\Track\LayoutBuilder
  */
+#[Group('entity_usage')]
+#[Group('layout_builder')]
+#[RunTestsInSeparateProcesses]
 class EntityUsageLayoutBuilderEntityBrowserBlockTest extends EntityUsageJavascriptTestBase {
 
   use ContextualLinkClickTrait;
@@ -204,9 +211,8 @@ class EntityUsageLayoutBuilderEntityBrowserBlockTest extends EntityUsageJavascri
     $this->assertStringContainsString($host_node->toUrl()->toString(), $first_row_title_link->getAttribute('href'));
     $first_row_field_label = $this->xpath('//table/tbody/tr[1]/td[4]')[0];
     $this->assertEquals('Layout', $first_row_field_label->getText());
-    $assert_session->pageTextNotContains('Old revision(s)');
-    $assert_session->pageTextNotContains('Pending revision(s) / Draft(s)');
-    $assert_session->pageTextNotContains('Default:');
+    $assert_session->pageTextNotContains('Old revisions');
+    $assert_session->pageTextNotContains('Draft revision');
 
     // Verify we can edit the layout and add another item to the same region.
     $page->clickLink($host_node->getTitle());
@@ -296,8 +302,8 @@ class EntityUsageLayoutBuilderEntityBrowserBlockTest extends EntityUsageJavascri
     $this->assertStringContainsString($host_node->toUrl()->toString(), $first_row_title_link->getAttribute('href'));
     $first_row_field_label = $this->xpath('//table/tbody/tr[1]/td[4]')[0];
     $this->assertEquals('Layout', $first_row_field_label->getText());
-    $first_row_used_in = $this->xpath('//table/tbody/tr[1]/td[6]')[0];
-    $this->assertEquals('Old revision(s)', $first_row_used_in->getText());
+    $first_row_used_in = $this->xpath('//table/tbody/tr[1]/td[5]')[0];
+    $this->assertEquals('2 old revisions', $first_row_used_in->getText());
   }
 
 }

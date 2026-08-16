@@ -1,7 +1,7 @@
 services:
   editoria11y.api:
     class: Drupal\editoria11y\Api
-    arguments: ['@current_user', '@database', '@entity_type.manager', '@config.factory', '@path.validator']
+    arguments: ['@current_user', '@database', '@config.factory', '@path.validator', '@state']
 
   editoria11y.dashboard:
     class: Drupal\editoria11y\Dashboard
@@ -10,3 +10,18 @@ services:
   editoria11y.dismissals_on_page:
     class: Drupal\editoria11y\DismissalsOnPage
     arguments: ['@database']
+
+  editoria11y.views_csv_exporter:
+    class: Drupal\editoria11y\ViewsCsvExporter
+    arguments: ['@entity_type.manager', '@module_handler', '@entity.memory_cache', '@request_stack']
+
+  editoria11y.config_cache_control_subscriber:
+    class: Drupal\editoria11y\EventSubscriber\ConfigCacheControlSubscriber
+    tags:
+      - { name: event_subscriber }
+
+  editoria11y.config_import_subscriber:
+    class: Drupal\editoria11y\EventSubscriber\ConfigImportSubscriber
+    arguments: ['@state']
+    tags:
+      - { name: event_subscriber }

@@ -1,0 +1,11 @@
+roles: 'administrator,admin'
+assertiveness: 'assertive'
+tests_content: ''
+tests_off: 'CONTRAST_WARNING_GRAPHIC,LINK_CLICK_HERE,LINK_IMAGE_ALT'
+tests_dev: ''
+contrast_ignore: '.sr-only'
+contrast_check: TRUE
+dev_check_root: 'automatic'
+specify_root: '.dialog-off-canvas-main-canvas'
+always_ignore: ''
+dev_domains: ''

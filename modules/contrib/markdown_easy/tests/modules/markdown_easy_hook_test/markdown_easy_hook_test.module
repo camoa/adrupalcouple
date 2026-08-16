@@ -7,16 +7,20 @@
 
 declare(strict_types=1);
 
-use League\CommonMark\CommonMarkConverter;
-use League\CommonMark\MarkdownConverter;
+use League\CommonMark\Environment\Environment;
+use League\CommonMark\Extension\Strikethrough\StrikethroughExtension;
 
 /**
  * Implements hook_markdown_easy_config_modify().
  */
-function markdown_easy_hook_test_markdown_easy_config_modify(MarkdownConverter &$converter): void {
-  $converter = new CommonMarkConverter([
-    // Configure the Markdown processor to be not-so-secure.
-    'html_input' => 'allow',
-    'allow_unsafe_links' => TRUE,
-  ]);
+function markdown_easy_hook_test_markdown_easy_config_modify(array &$config): void {
+  $config['html_input'] = 'allow';
+  $config['allow_unsafe_links'] = TRUE;
+}
+
+/**
+ * Implements hook_markdown_easy_environment_modify().
+ */
+function markdown_easy_hook_test_markdown_easy_environment_modify(Environment &$environment): void {
+  $environment->addExtension(new StrikethroughExtension());
 }

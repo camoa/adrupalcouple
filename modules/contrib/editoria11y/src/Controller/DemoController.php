@@ -16,6 +16,11 @@ final class DemoController extends ControllerBase {
    *   A simple renderable array.
    */
   public function demo(): array {
+    // @phpstan-ignore-next-line
+    if (!\Drupal::service('module_handler')->moduleExists('editoria11y_csa')) {
+      // @phpstan-ignore-next-line
+      \Drupal::service('messenger')->addWarning('Activate the Editoria11y_CSA submodule to see developer tests.');
+    }
     return [
       '#type' => 'container',
       '#attached' => [

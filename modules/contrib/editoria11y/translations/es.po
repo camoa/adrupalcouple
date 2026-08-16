@@ -1,0 +1,3005 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: editoria11y 3.0.0\n"
+"POT-Creation-Date: 2026-08-01 21:46-0400\n"
+"PO-Revision-Date: 2026-2-12 10:00+0000\n"
+"Language-Team: Editoria11y\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid ""
+"editoria11y_post_update_0004: scanned @scanned mismatched page(s), "
+"backfilled @fixed to the referenced entity language."
+msgstr ""
+"editoria11y_post_update_0004: scanned @scanned mismatched page(s), "
+"backfilled @fixed to the referenced entity language."
+
+msgid "Editoria11y"
+msgstr "Editoria11y"
+
+msgid "Editoria11y - Pages with issues"
+msgstr "Editoria11y: páginas con problemas"
+
+msgctxt "problems"
+msgid "Provides relationship for issues and dismissals"
+msgstr "Proporciona relaciones para problemas y descartes"
+
+msgid "EID"
+msgstr "EID"
+
+msgid "Editoria11y's internal page ID"
+msgstr "ID interno de página de Editoria11y"
+
+msgid "Entity ID"
+msgstr "ID de entidad"
+
+msgid "The NID/TID/UID of the page with an issue."
+msgstr "El NID/TID/UID de la página con un problema."
+
+msgid "Entity type"
+msgstr "Tipo de entidad"
+
+msgid "The entity type; \"route\" if no type found."
+msgstr "El tipo de entidad; «route» si no se encuentra tipo."
+
+msgid "Route name"
+msgstr "Nombre de ruta"
+
+msgid "Route name for page."
+msgstr "Nombre de ruta de la página."
+
+msgid "Page path"
+msgstr "Ruta de la página"
+
+msgid "Internal, relative page path."
+msgstr "Ruta interna y relativa de la página."
+
+msgid "Page language"
+msgstr "Idioma de la página"
+
+msgid "Active translation."
+msgstr "Traducción activa."
+
+msgid "Page title"
+msgstr "Título de la página"
+
+msgid "The name of the route where this was last seen."
+msgstr "Nombre de la ruta donde se vio por última vez."
+
+msgid "Content alerts"
+msgstr "Alertas de contenido"
+
+msgid "Number of alerts shown to content editors."
+msgstr "Número de alertas mostradas a editores de contenido."
+
+msgid "Dev alerts"
+msgstr "Alertas de desarrollo"
+
+msgid "Number of alerts shown to developers."
+msgstr "Número de alertas mostradas a desarrolladores."
+
+msgid "Updated"
+msgstr "Actualizado"
+
+msgid "When this page was last checked."
+msgstr "Fecha de la última revisión de esta página."
+
+msgid "Editoria11y - Test results"
+msgstr "Editoria11y: resultados de pruebas"
+
+msgctxt "problems"
+msgid "Stores Editoria11y issue list"
+msgstr "Almacena la lista de problemas de Editoria11y"
+
+msgid "Result row"
+msgstr "Fila de resultado"
+
+msgid "Internal identifier"
+msgstr "Identificador interno"
+
+msgid "Created"
+msgstr "Creado"
+
+msgid "When this page was flagged."
+msgstr "Cuándo se marcó esta página."
+
+msgid "Alert type"
+msgstr "Tipo de alerta"
+
+msgid "The name of the test as reported by Editoria11y JS"
+msgstr "Nombre de la prueba según Editoria11y JS"
+
+msgid "Alert type, linked"
+msgstr "Tipo de alerta, con enlace"
+
+msgid "Linked to report of all alerts of this type."
+msgstr "Enlace al informe de todas las alertas de este tipo."
+
+msgid "Content alert count"
+msgstr "Cantidad de alertas de contenido"
+
+msgid "The number of hits for this test type on this page"
+msgstr "Número de incidencias de este tipo de prueba en esta página"
+
+msgid "Dev alert count"
+msgstr "Cantidad de alertas de desarrollo"
+
+msgid "Editoria11y - Dismissals"
+msgstr "Editoria11y: descartes"
+
+msgid "Stores Editoria11y warnings and dismissals"
+msgstr "Almacena advertencias y descartes de Editoria11y"
+
+msgid "Dismissal internal reference ID"
+msgstr "ID interno de referencia del descarte"
+
+msgid "Page with dismissal"
+msgstr "Página con descarte"
+
+msgid "Dismissed by"
+msgstr "Descartado por"
+
+msgid "The user linked to this dismissal."
+msgstr "Usuario asociado a este descarte."
+
+msgid "Linked Drupal user"
+msgstr "Usuario de Drupal vinculado"
+
+msgid "Dismissed element id"
+msgstr "ID del elemento descartado"
+
+msgid "Code sample to identify the flagged element."
+msgstr "Fragmento de código para identificar el elemento marcado."
+
+msgid "Dismissed on"
+msgstr "Descartado el"
+
+msgid "The Unix timestamp of the first time this record was flagged."
+msgstr "La marca de tiempo Unix de la primera vez que se registró."
+
+msgid "Dismissal stale since"
+msgstr "Desactualizado desde"
+
+msgid "The element has not been seen since this date."
+msgstr "El elemento no se ha detectado desde esta fecha."
+
+msgid "Dismissed result name"
+msgstr "Nombre del resultado descartado"
+
+msgid "Dismissed result name, linked"
+msgstr "Nombre del resultado descartado, con enlace"
+
+msgid "Links to report of all alerts of this type."
+msgstr "Enlace al informe de todas las alertas de este tipo."
+
+msgid "Dismissal status"
+msgstr "Estado del descarte"
+
+msgid "The type of dismissal (e.g., OK, Ignore)"
+msgstr "Tipo de descarte (p. ej., OK, Ignorar)"
+
+msgid "Relate from Editoria11y page to referenced node"
+msgstr "Relacionar desde la página de Editoria11y al nodo referenciado"
+
+msgid "Issues were found on this node"
+msgstr "Se encontraron problemas en este nodo"
+
+msgid "Relate from node data to Editoria11y page"
+msgstr "Relacionar datos del nodo con la página de Editoria11y"
+
+msgid "Relate from Editoria11y page to referenced taxonomy term"
+msgstr ""
+"Relacionar desde la página de Editoria11y al término de taxonomía "
+"referenciado"
+
+msgid "Issues were found on this term page"
+msgstr "Se encontraron problemas en esta página de término"
+
+msgid "Relate from taxonomy term data to Editoria11y page"
+msgstr "Relacionar datos del término de taxonomía con la página de Editoria11y"
+
+msgid "Relate from Editoria11y page list to user bio page data"
+msgstr ""
+"Relacionar lista de páginas de Editoria11y con datos de biografía de usuario"
+
+msgid "Issues were found on this user bio page"
+msgstr "Se encontraron problemas en esta biografía de usuario"
+
+msgid "Relate from Editoria11y page to user bio page with issues"
+msgstr ""
+"Relacionar desde la página de Editoria11y a biografía de usuario con "
+"problemas"
+
+msgid "Relate from user bio page to Editoria11y results"
+msgstr "Relacionar desde la biografía de usuario a resultados de Editoria11y"
+
+msgid "Relate from users list to Editoria11y results on bio page"
+msgstr "Relacionar lista de usuarios con los resultados en la biografía"
+
+msgid "Relate from Editoria11y page to issues on page"
+msgstr "Relacionar desde la página de Editoria11y a los problemas"
+
+msgid "Issues found on this node"
+msgstr "Problemas encontrados en este nodo"
+
+msgid "Relate from Editoria11y result to page"
+msgstr "Relacionar resultado de Editoria11y con la página"
+
+msgid "Relate from Editoria11y page to dismissals on page"
+msgstr "Relacionar página de Editoria11y con los descartes"
+
+msgid "Relate from Editoria11y dismissal to page"
+msgstr "Relacionar descarte de Editoria11y con la página"
+
+msgid "Group relationship for node with Editoria11y issues"
+msgstr "Relación de grupo para nodo con problemas de Editoria11y"
+
+msgid ""
+"Bridge to the Group module. Add the Group module Group relationship on top "
+"of this one to filter or sort issues by group."
+msgstr ""
+"Puente hacia el módulo Group. Añada la relación de grupo del módulo Group "
+"sobre esta para filtrar u ordenar los problemas por grupo."
+
+msgid "Group relationship for node"
+msgstr "Relación de grupo para nodo"
+
+msgid "Group relationship for user bio with Editoria11y issues"
+msgstr ""
+"Relación de grupo para biografía de usuario con problemas de Editoria11y"
+
+msgid "Group relationship for user"
+msgstr "Relación de grupo para usuario"
+
+msgid "Group relationship for taxonomy term with Editoria11y issues"
+msgstr ""
+"Relación de grupo para término de taxonomía con problemas de Editoria11y"
+
+msgid ""
+"Bridge to the Group module. Add the Group module Group relationship on top "
+"of this one to filter or sort issues by group. Requires a contrib module "
+"that exposes terms as group content."
+msgstr ""
+"Puente hacia el módulo Group. Añada la relación de grupo del módulo Group "
+"sobre esta para filtrar u ordenar los problemas por grupo. Requiere un "
+"módulo contribuido que exponga los términos como contenido de grupo."
+
+msgid "Group relationship for taxonomy term"
+msgstr "Relación de grupo para término de taxonomía"
+
+msgid "Warning: possible out of date path. This content may have moved to"
+msgstr ""
+"Advertencia: posible ruta desactualizada. El contenido podría haberse movido "
+"a"
+
+msgid "Export CSV"
+msgstr "Exportar CSV"
+
+msgid "Predelete failed: @error_message"
+msgstr "Error al preeliminar: @error_message"
+
+msgid "Page attachment failed: @error_message"
+msgstr "Error al adjuntar página: @error_message"
+
+msgid ""
+"editoria11y_update_9019: scanned @total rows, repaired @updated, deleted "
+"@deleted corrupted group rows, left @skipped untouched."
+msgstr ""
+"editoria11y_update_9019: scanned @total rows, repaired @updated, deleted "
+"@deleted corrupted group rows, left @skipped untouched."
+
+msgid ""
+"editoria11y_update_9020: hashed @hashed page rows, removed @deduped "
+"duplicate rows, added unique keys."
+msgstr "editoria11y_update_9020: hashed @hashed page rows, removed @deduped duplicate rows, added unique keys."
+
+msgid "Editoria11y Accessibility Checker"
+msgstr "Editoria11y – comprobador de accesibilidad"
+
+msgid ""
+"Checks page content for accessibility and provides a site-wide dashboard."
+msgstr ""
+"Revisa el contenido en busca de accesibilidad y ofrece un panel general del "
+"sitio."
+
+msgid "Content Accessibility"
+msgstr "Accesibilidad del contenido"
+
+msgid "Accessibility checker notifications and exclusions."
+msgstr "Notificaciones y exclusiones del comprobador de accesibilidad."
+
+msgid "Results from the Editoria11y checker."
+msgstr "Resultados del comprobador Editoria11y."
+
+msgid "Dashboard"
+msgstr "Panel"
+
+msgid "Core settings"
+msgstr "Ajustes principales"
+
+msgid "Demo"
+msgstr "Demostración"
+
+msgid "View Editoria11y checker"
+msgstr "Ver comprobador Editoria11y"
+
+msgid "Assign to all content editors."
+msgstr "Asignar a todos los editores de contenido."
+
+msgid "Administer Editoria11y checker"
+msgstr "Administrar el comprobador Editoria11y"
+
+msgid "Allows user to purge results and change configuration."
+msgstr "Permite al usuario limpiar resultados y modificar la configuración."
+
+msgid "Mark as hidden in Editoria11y"
+msgstr "Marcar como oculto en Editoria11y"
+
+msgid "Adds button to suppress a manual check for the current user."
+msgstr ""
+"Agrega un botón para omitir una revisión manual para el usuario actual."
+
+msgid "Mark as OK in Editoria11y"
+msgstr "Marcar como OK en Editoria11y"
+
+msgid ""
+"Adds button to suppress a manual check for all users, if sync is enabled."
+msgstr ""
+"Permite omitir una revisión manual para todos los usuarios si la "
+"sincronización está activada."
+
+msgid "Manage Editoria11y results"
+msgstr "Gestionar resultados de Editoria11y"
+
+msgid "View the site-wide dashboard and reset dismissals."
+msgstr "Ver el panel general y restablecer descartes."
+
+msgid "Editoria11y core settings"
+msgstr "Ajustes principales de Editoria11y"
+
+msgid "Content Accessibility Issues"
+msgstr "Problemas de accesibilidad del contenido"
+
+msgid "Editoria11y Settings"
+msgstr "Configuración de Editoria11y"
+
+msgid "Check elements in these containers"
+msgstr "Revisar elementos en estos contenedores"
+
+msgid "Alert panel assertiveness"
+msgstr "Intensidad del panel de alertas"
+
+msgid "Do not run if these elements are on the page"
+msgstr "No ejecutar si estos elementos están en la página"
+
+msgid "Suppress all alerts if none of these elements are present"
+msgstr "Ocultar todas las alertas si estos elementos no están presentes"
+
+msgid "Do not run tests on these containers"
+msgstr "No ejecutar pruebas en estos contenedores"
+
+msgid "Move toggle to avoid colliding with these widgets"
+msgstr "Mover el interruptor para evitar colisión con estos elementos"
+
+msgid ""
+"Full check should warn on these elements with embedded uncheckable content"
+msgstr ""
+"La revisión completa debe advertir sobre elementos con contenido incrustado "
+"no verificable"
+
+msgid "These links download a document or image and need a manual review"
+msgstr ""
+"Estos enlaces descargan documentos o imágenes y requieren revisión manual"
+
+msgid "Strings that indicate a link opens in a new window"
+msgstr "Textos que indican que un enlace abre una nueva ventana"
+
+msgid "Remove these strings from link text before checking for bad link text"
+msgstr ""
+"Eliminar estos textos antes de evaluar si el enlace es poco descriptivo"
+
+msgid "Remove strings in this selector before checking for bad link text"
+msgstr "Eliminar textos de este selector antes de evaluar el texto del enlace"
+
+msgid ""
+"Hidden elements in these containers will be revealed by theme JS on request "
+"via a dispatched event"
+msgstr ""
+"El JS del tema revelará elementos ocultos en estos contenedores cuando se "
+"solicite mediante un evento"
+
+msgid "Elements that truncate overflow, partially hiding buttons"
+msgstr "Elementos que recortan el contenido, ocultando botones parcialmente"
+
+msgid "Color scheme for panel and tooltips"
+msgstr "Esquema de colores del panel y los avisos"
+
+msgid "Pin toolbar to left or right"
+msgstr "Anclar la barra a la izquierda o derecha"
+
+msgid "Web components the checker should check"
+msgstr "Componentes web que deben verificarse"
+
+msgid "Auto-detects for additional shadow components"
+msgstr "Detecta automáticamente componentes shadow adicionales"
+
+msgid "Auto-detects and checks new content"
+msgstr "Detecta y revisa contenido nuevo automáticamente"
+
+msgid "Disables dashboard and synchronized marking of elements as OK"
+msgstr "Desactiva el panel y el marcado sincronizado de elementos como OK"
+
+msgid "URL query parameters that should be recorded as separate pages"
+msgstr "Parámetros de URL que deben registrarse como páginas separadas"
+
+msgid "Remove string from URL for dashboard page links"
+msgstr "Eliminar cadenas de la URL en los enlaces del panel"
+
+msgid "Number of custom test finished events the checker should wait for"
+msgstr "Número de eventos de prueba personalizados que deben esperarse"
+
+msgid "Disables live editor checking"
+msgstr "Desactiva la revisión mientras se edita"
+
+msgid ""
+"Selector for frontend-context editors that should inherit the document "
+"outline"
+msgstr ""
+"Selector para editores en contexto frontend que deben heredar el esquema del "
+"documento"
+
+msgid "Selector for editors where their first heading should be h2"
+msgstr "Selector para editores donde el primer encabezado debe ser h2"
+
+msgid "Selector for editors where their first heading should be h3"
+msgstr "Selector para editores donde el primer encabezado debe ser h3"
+
+msgid "Selector for editors where their first heading should be h4"
+msgstr "Selector para editores donde el primer encabezado debe ser h4"
+
+msgid "Selectors for components where edit links are meaningless on tips"
+msgstr "Selectores donde los enlaces de edición no son útiles en los avisos"
+
+msgid "Tell CK5 to have a header rows or columns by default."
+msgstr "Indicar a CK5 que use filas o columnas de encabezado por defecto."
+
+msgid "Tests not shown to content authors."
+msgstr "Pruebas no mostradas a autores de contenido."
+
+msgid "Disable the tests you are not ready for"
+msgstr "Desactivar las pruebas que aún no desea usar"
+
+msgid "linkNewWindow"
+msgstr "linkNewWindow"
+
+msgid "linkNoText"
+msgstr "linkNoText"
+
+msgid "altEmptyLinked"
+msgstr "altEmptyLinked"
+
+msgid "linkDocument"
+msgstr "linkDocument"
+
+msgid "linkTextIsURL"
+msgstr "linkTextIsURL"
+
+msgid "linkTextIsGeneric"
+msgstr "linkTextIsGeneric"
+
+msgid "textPossibleList"
+msgstr "textPossibleList"
+
+msgid "textPossibleHeading"
+msgstr "textPossibleHeading"
+
+msgid "textUppercase"
+msgstr "textUppercase"
+
+msgid "tableNoHeaderCells"
+msgstr "tableNoHeaderCells"
+
+msgid "tableEmptyHeaderCell"
+msgstr "tableEmptyHeaderCell"
+
+msgid "tableContainsContentHeading"
+msgstr "tableContainsContentHeading"
+
+msgid "embedVideo"
+msgstr "embedVideo"
+
+msgid "embedAudio"
+msgstr "embedAudio"
+
+msgid "embedVisualization"
+msgstr "embedVisualization"
+
+msgid "embedTwitter"
+msgstr "embedTwitter"
+
+msgid "embedCustom"
+msgstr "embedCustom"
+
+msgid "headingEmpty"
+msgstr "headingEmpty"
+
+msgid "headingIsLong"
+msgstr "headingIsLong"
+
+msgid "headingLevelSkipped"
+msgstr "headingLevelSkipped"
+
+msgid "blockquoteIsShort"
+msgstr "blockquoteIsShort"
+
+msgid "altMissing"
+msgstr "altMissing"
+
+msgid "altNull"
+msgstr "altNull"
+
+msgid "altMeaningless"
+msgstr "altMeaningless"
+
+msgid "altURL"
+msgstr "altURL"
+
+msgid "altImageOf"
+msgstr "altImageOf"
+
+msgid "altDeadspace"
+msgstr "altDeadspace"
+
+msgid "altLong"
+msgstr "altLong"
+
+msgid "altPartOfLinkWithText"
+msgstr "altPartOfLinkWithText"
+
+msgid "2-letter code (en, fr, de)"
+msgstr "Código de 2 letras (en, fr, de)"
+
+msgid "Alert"
+msgstr "Alerta"
+
+msgid "Alert types"
+msgstr "Tipos de alerta"
+
+msgid "Alerts"
+msgstr "Alertas"
+
+msgid "All dismissals"
+msgstr "Todos los descartes"
+
+msgid "All issues"
+msgstr "Todos los problemas"
+
+msgid "All pages"
+msgstr "Todas las páginas"
+
+msgid "Apply"
+msgstr "Aplicar"
+
+msgid "Author"
+msgstr "Autor"
+
+msgid "Authored after"
+msgstr "Creado después de"
+
+msgid "Authored before"
+msgstr "Creado antes de"
+
+msgid "Authored"
+msgstr "Creado"
+
+msgid "Content type"
+msgstr "Tipo de contenido"
+
+msgid "Detected"
+msgstr "Detectado"
+
+msgid "Dismissals"
+msgstr "Descartes"
+
+msgid "Dismissed accessibility alerts"
+msgstr "Alertas de accesibilidad descartadas"
+
+msgid "Edited"
+msgstr "Editado"
+
+msgid "Editor"
+msgstr "Editor"
+
+msgid "Items per page"
+msgstr "Elementos por página"
+
+msgid "Filter"
+msgstr "Filtrar"
+
+msgid "Language"
+msgstr "Idioma"
+
+msgid "Last editor"
+msgstr "Último editor"
+
+msgid "Marked"
+msgstr "Marcado"
+
+msgid "No dismissals found."
+msgstr "No se encontraron descartes."
+
+msgid "Page"
+msgstr "Página"
+
+msgid "Pages"
+msgstr "Páginas"
+
+msgid "Pages with alerts"
+msgstr "Páginas con alertas"
+
+msgid "Panel"
+msgstr "Panel"
+
+msgid "Path"
+msgstr "Ruta"
+
+msgid "Published"
+msgstr "Publicado"
+
+msgid "Recent"
+msgstr "Reciente"
+
+msgid "Recent accessibility alerts"
+msgstr "Alertas de accesibilidad recientes"
+
+msgid "Recent alerts"
+msgstr "Problemas recientes"
+
+msgctxt "problems"
+msgid "Recent alerts"
+msgstr "Alertas recientes"
+
+msgid "Sort by"
+msgstr "Ordenar por"
+
+msgid "Title"
+msgstr "Título"
+
+msgid "Type"
+msgstr "Tipo"
+
+msgid "Filter and sort"
+msgstr "Filtrar y ordenar"
+
+msgid "Deleted."
+msgstr "Eliminado."
+
+msgid "Delete failed."
+msgstr "La eliminación ha fallado."
+
+msgid "<p>The Editoria11y <strong><em>@type</em></strong> view is missing.</p>"
+msgstr "<p>Falta la vista <strong><em>@type</em></strong> de Editoria11y.</p>"
+
+msgid ""
+"<p>There are three view configurations this module installs, found in its /"
+"config/install folder. Each must be installed for this dashboard to display "
+"results.</p>"
+msgstr ""
+"<p>Este módulo incluye tres configuraciones de vistas en /config/install. "
+"Deben instalarse para que el panel muestre resultados.</p>"
+
+msgid ""
+"<p>To fix: copy and paste the contents of <strong>/editoria11y/config/"
+"install/views.view.ed11y_@type.yml</strong> into a \"View\" type import at "
+"<a href=\"/admin/config/development/configuration/single/import\">/admin/"
+"config/development/configuration/single/import</a>. If you sync your "
+"configuration to the filesystem, be sure to include these Views in your "
+"repository.</p>"
+msgstr ""
+"<p>Para corregir: copie el contenido de <strong>/editoria11y/config/install/"
+"views.view.ed11y_@type.yml</strong> y péguelo en una importación de tipo "
+"«Vista» en <a href=\"/admin/config/development/configuration/single/"
+"import\">/admin/config/development/configuration/single/import</a>. Si "
+"sincroniza configuraciones con el sistema de archivos, incluya estas Vistas "
+"en su repositorio.</p>"
+
+msgid "link is external"
+msgstr "el enlace es externo"
+
+msgid "link sends email"
+msgstr "el enlace envía correo electrónico"
+
+msgid "No results found"
+msgstr "No se encontraron resultados"
+
+msgid ""
+"Your Editoria11y CSA trial has @days days remaining. <a "
+"href=\"@url\">Activate a license</a> to continue using CSA features after "
+"the trial ends."
+msgstr ""
+"A su periodo de prueba de Editoria11y CSA le quedan @days días. <a "
+"href=\"@url\">Active una licencia</a> para continuar usando las funciones de "
+"CSA cuando termine el periodo de prueba."
+
+msgid ""
+"Your Editoria11y CSA trial has expired. CSA features have been disabled. <a "
+"href=\"@url\">Activate a license</a> to continue using them."
+msgstr ""
+"Su periodo de prueba de Editoria11y CSA ha caducado. Las funciones de CSA se "
+"han desactivado. <a href=\"@url\">Active una licencia</a> para continuar "
+"usándolas."
+
+msgid ""
+"Your Editoria11y CSA license has expired. <a href=\"@url\">Renew or "
+"deactivate your license</a>."
+msgstr ""
+"Su licencia de Editoria11y CSA ha caducado. <a href=\"@url\">Renueve o "
+"desactive su licencia</a>."
+
+msgid ""
+"Your Editoria11y CSA license has expired. Please renew to reactivate CSA add-"
+"ons."
+msgstr ""
+"Su licencia de Editoria11y CSA ha caducado. Renuévela para reactivar los "
+"complementos de CSA."
+
+msgid "Cron license check failed: @msg"
+msgstr "La comprobación de licencia por cron ha fallado: @msg"
+
+msgid ""
+"Editoria11y CSA features are active on a @days-day trial. <a "
+"href=\"@url\">Activate a license</a> to continue using them after the trial "
+"ends."
+msgstr ""
+"Las funciones de Editoria11y CSA están activas en un periodo de prueba de "
+"@days días. <a href=\"@url\">Active una licencia</a> para continuar "
+"usándolas cuando termine el periodo de prueba."
+
+msgid "Editoria11y Custom Test"
+msgstr "Prueba Personalizada de Editoria11y"
+
+msgid "Editoria11y Custom Tests"
+msgstr "Pruebas Personalizadas de Editoria11y"
+
+msgid "editoria11y custom test"
+msgstr "prueba personalizada de editoria11y"
+
+msgid "editoria11y custom tests"
+msgstr "pruebas personalizadas de editoria11y"
+
+msgid "Editoria11y CSA: Advanced Tools"
+msgstr "Editoria11y CSA: herramientas avanzadas"
+
+msgid ""
+"Community-Supported Addons include code and contrast checks, custom checks, "
+"a site crawler and report maintenance tools."
+msgstr "Los complementos comunitarios incluyen comprobaciones de código y de contraste, comprobaciones personalizadas, un rastreador del sitio y herramientas de mantenimiento de informes."
+
+msgid "Add custom test"
+msgstr "Añadir prueba personalizada"
+
+msgid "Recheck"
+msgstr "Revisar de nuevo"
+
+msgid "CSA membership"
+msgstr "Membresía de CSA"
+
+msgid "Custom tests"
+msgstr "Pruebas personalizadas"
+
+msgid "Dashboard Actions"
+msgstr "Acciones del panel"
+
+msgid "Editoria11y CSA membership"
+msgstr "Membresía de Editoria11y CSA"
+
+msgid "Editoria11y custom tests"
+msgstr "Pruebas personalizadas de Editoria11y"
+
+msgid "Add a custom test"
+msgstr "Añadir una prueba personalizada"
+
+msgid "Edit custom test"
+msgstr "Editar prueba personalizada"
+
+msgid "Delete custom test"
+msgstr "Eliminar prueba personalizada"
+
+msgid "Editoria11y CSA Settings"
+msgstr "Configuración de Editoria11y CSA"
+
+msgid "Developer roles"
+msgstr "Roles de desarrollador"
+
+msgid "Developer assertiveness"
+msgstr "Intensidad para desarrolladores"
+
+msgid "Tests overridden to show to content editors"
+msgstr "Pruebas forzadas a mostrarse a editores de contenido"
+
+msgid "Tests overridden to turn off"
+msgstr "Pruebas forzadas a desactivarse"
+
+msgid "Tests overridden to only to show to developers"
+msgstr "Pruebas forzadas a mostrarse solo a desarrolladores"
+
+msgid "Elements to ignore for contrast test"
+msgstr "Elementos a ignorar en la prueba de contraste"
+
+msgid "Turn on contrast checks"
+msgstr "Activar pruebas de contraste"
+
+msgid "Developer check root: body or specify"
+msgstr "Raíz de revisión para desarrolladores: body u otra"
+
+msgid "Developer check root selector"
+msgstr "Selector raíz para revisión de desarrolladores"
+
+msgid "Selector for elements to ignore for developers"
+msgstr "Selector de elementos que los desarrolladores deben ignorar"
+
+msgid "Enabled"
+msgstr "Activado"
+
+msgid "Custom development domain patterns"
+msgstr "Patrones personalizados de dominios de desarrollo"
+
+msgid "ID"
+msgstr "ID"
+
+msgid "Label"
+msgstr "Etiqueta"
+
+msgid "Test key"
+msgstr "Clave de prueba"
+
+msgid "Tooltip title"
+msgstr "Título del aviso"
+
+msgid "Tip content HTML"
+msgstr "HTML del contenido del aviso"
+
+msgid "Element set to check"
+msgstr "Conjunto de elementos a comprobar"
+
+msgid "Dismiss key type"
+msgstr "Tipo de clave de descarte"
+
+msgid "CSS filter selector"
+msgstr "Selector de filtro CSS"
+
+msgid "Text strings to include"
+msgstr "Cadenas de texto a incluir"
+
+msgid "Text string"
+msgstr "Cadena de texto"
+
+msgid "Text strings to exclude"
+msgstr "Cadenas de texto a excluir"
+
+msgid "Case sensitive text matching"
+msgstr "Coincidencia de texto distinguiendo mayúsculas y minúsculas"
+
+msgid "Filter which pages will be crawled"
+msgstr "Filtrar qué páginas se rastrearán"
+
+msgid "Cancel"
+msgstr "Cancelar"
+
+msgid "Millisecond pause between page requests"
+msgstr "Pausa en milisegundos entre solicitudes de página"
+
+msgid "This tab needs to remain open and in the foreground during the crawl."
+msgstr ""
+"Esta pestaña debe permanecer abierta y en primer plano durante el rastreo."
+
+msgid "Estimated time:"
+msgstr "Tiempo estimado:"
+
+msgid "hours"
+msgstr "horas"
+
+msgid "minutes"
+msgstr "minutos"
+
+msgid "minute"
+msgstr "minuto"
+
+msgid "Start crawling"
+msgstr "Iniciar rastreo"
+
+msgid "Checked:"
+msgstr "Revisadas:"
+
+msgid "pages"
+msgstr "páginas"
+
+msgid "Back to dashboard"
+msgstr "Volver al panel"
+
+msgid "Test"
+msgstr "Prueba"
+
+msgid "Elements"
+msgstr "Elementos"
+
+msgid "Status"
+msgstr "Estado"
+
+msgid "Text"
+msgstr "Texto"
+
+msgid "On"
+msgstr "En"
+
+msgid "Off"
+msgstr "Desactivado"
+
+msgid "Freemius deactivation API call failed: @msg"
+msgstr "La llamada a la API de desactivación de Freemius ha fallado: @msg"
+
+msgid "Cannot cancel subscription: API token not found."
+msgstr ""
+"No se puede cancelar la suscripción: no se ha encontrado el token de la API."
+
+msgid "Freemius subscription cancellation API call failed: @msg"
+msgstr ""
+"La llamada a la API de cancelación de suscripción de Freemius ha fallado: "
+"@msg"
+
+msgid "Key module lookup for @id failed: @msg"
+msgstr "Key module lookup for @id failed: @msg"
+
+msgid "Failed to update Freemius install properties: @msg"
+msgstr ""
+"No se han podido actualizar las propiedades de instalación de Freemius: @msg"
+
+msgid ""
+"An <a href=\"@settings\">active license must be deactivated</a> before "
+"uninstalling."
+msgstr ""
+"<a href=\"@settings\">Debe desactivarse una licencia activa</a> antes de "
+"desinstalar."
+
+msgid "License key stored. Use editoria11y-csa:activate to activate."
+msgstr ""
+"Clave de licencia guardada. Use editoria11y-csa:activate para activarla."
+
+msgid "License activated."
+msgstr "Licencia activada."
+
+msgid "License deactivated."
+msgstr "Licencia desactivada."
+
+msgid "License active. Expires: @date"
+msgstr "Licencia activa. Caduca: @date"
+
+msgid "License active. No expiration date."
+msgstr "Licencia activa. Sin fecha de caducidad."
+
+msgid ""
+"License management locked. Use editoria11y-csa:unlock to re-enable UI "
+"changes."
+msgstr ""
+"Gestión de licencias bloqueada. Use editoria11y-csa:unlock para volver a "
+"habilitar los cambios desde la interfaz."
+
+msgid "License management unlocked. UI changes are now allowed."
+msgstr ""
+"Gestión de licencias desbloqueada. Ahora se permiten cambios desde la "
+"interfaz."
+
+msgid "License expired or cancelled."
+msgstr "Licencia caducada o cancelada."
+
+msgid "License key cannot be empty."
+msgstr "La clave de licencia no puede estar vacía."
+
+msgid "Failed to store key: {msg}"
+msgstr "No se ha podido guardar la clave: {msg}"
+
+msgid "No stored license key found. Run editoria11y-csa:set-key first."
+msgstr ""
+"No se ha encontrado ninguna clave de licencia guardada. Ejecute primero "
+"editoria11y-csa:set-key."
+
+msgid "Activation failed: {msg}"
+msgstr "La activación ha fallado: {msg}"
+
+msgid "Deactivation failed: {msg}"
+msgstr "La desactivación ha fallado: {msg}"
+
+msgid "License check failed: {msg}"
+msgstr "La comprobación de la licencia ha fallado: {msg}"
+
+msgid "Export"
+msgstr "Exportar"
+
+msgid "Export pages"
+msgstr "Exportar páginas"
+
+msgid "Export dismissals"
+msgstr "Exportar descartes"
+
+msgid "Export alerts"
+msgstr "Exportar alertas"
+
+msgid "Paths with parameters"
+msgstr "Rutas con parámetros"
+
+msgid "Drop records for deleted or moved pages"
+msgstr "Eliminar registros de páginas eliminadas o movidas"
+
+msgid "Deletes results that no longer have valid paths or entity references."
+msgstr "Elimina resultados sin rutas o referencias válidas."
+
+msgid "Update page titles"
+msgstr "Actualizar títulos de páginas"
+
+msgid ""
+"Replaces recorded titles for Nodes, Terms and Users with the current value "
+"on their edit page."
+msgstr ""
+"Reemplaza los títulos guardados de nodos, términos y usuarios por los "
+"actuales."
+
+msgid "Update page paths"
+msgstr "Actualizar rutas de páginas"
+
+msgid ""
+"Replaces recorded URLs for Nodes, Terms and Users with their current "
+"canonical path. <br>@ReviewPaths (node/1?node=2) will not be updated."
+msgstr ""
+"Reemplaza URLs guardadas por la ruta canónica actual. <br>@ReviewPaths (node/"
+"1?node=2) no se actualizarán."
+
+msgid "Risky deletions"
+msgstr "Eliminaciones riesgosas"
+
+msgid "Delete records for paths with parameters (e.g., ?page=2)"
+msgstr "Eliminar registros con parámetros en la ruta (p. ej., ?page=2)"
+
+msgid "None"
+msgstr "Ninguno"
+
+msgid "Only for nodes, terms & users"
+msgstr "Solo para nodos, términos y usuarios"
+
+msgid "All, including search and views"
+msgstr "Todos, incluyendo búsquedas y vistas"
+
+msgid ""
+"Used to remove duplicate records when previously recorded parameters like "
+"page numbers or search keys were not meaningful. Parameters that are not "
+"meaningful should be removed from the list of parameters to save under "
+"\"Syncing results to reports\" in the module configuration.<br>@ReviewPaths "
+"should be reviewed before proceeding. <strong>There is no undo</strong>."
+msgstr ""
+"Sirve para eliminar duplicados cuando parámetros guardados (como números de "
+"página o filtros) no eran relevantes. Deben retirarse de la lista en "
+"«Sincronización con informes».<br>@ReviewPaths debe revisarse antes. "
+"<strong>No hay deshacer</strong>."
+
+msgid "Start"
+msgstr "Iniciar"
+
+msgid "Recheck nodes"
+msgstr "Revisar nodos nuevamente"
+
+msgid "Set up a crawl"
+msgstr "Configurar un rastreo"
+
+msgid "Processing batch #@batch_id of @count."
+msgstr "Procesando lote #@batch_id de @count."
+
+msgid "@process processed @count, deleted @deleted, updated @updated."
+msgstr "@process procesó @count, eliminó @deleted, actualizó @updated."
+
+msgid ""
+"An error occurred while processing %error_operation with arguments: "
+"@arguments"
+msgstr ""
+"Ocurrió un error al procesar %error_operation con argumentos: @arguments"
+
+msgid "No records to process."
+msgstr "No hay registros que procesar."
+
+msgid ""
+"@process processed @count, deleted @deleted, updated @updated in @elapsed."
+msgstr ""
+"@process procesó @count, eliminó @deleted, actualizó @updated en @elapsed."
+
+msgid "Admin label for the configuration page"
+msgstr "Etiqueta de administración para la página de configuración"
+
+msgid "Test grouping ID"
+msgstr "ID de agrupación de prueba"
+
+msgid ""
+"Letters, numbers and underscores only.<br>Rules that share an ID will be "
+"grouped on dashboard reports."
+msgstr ""
+"Solo letras, números y guiones bajos.<br>Las reglas que comparten un ID se "
+"agruparán en los informes del panel."
+
+msgid "Active"
+msgstr "Activo"
+
+msgid "Alert content"
+msgstr "Contenido de alerta"
+
+msgid "Tip title"
+msgstr "Título del consejo"
+
+msgid "Tip details"
+msgstr "Detalles del consejo"
+
+msgid ""
+"HTML displayed in the tooltip. The provided template is optional.<br>\n"
+"        Allowed tags: @tags."
+msgstr ""
+"HTML mostrado en el tooltip. La plantilla proporcionada es opcional.<br>\n"
+"        Etiquetas permitidas: @tags."
+
+msgid "To fix"
+msgstr "Para corregir"
+
+msgid "Error"
+msgstr "Error"
+
+msgid "Manual check"
+msgstr "Verificación manual"
+
+msgid "Dismiss key"
+msgstr "Clave de descarte"
+
+msgid ""
+"How dismissals are tracked. 'Text' uses its text content, 'Attributes' uses "
+"its attributes (href, id, class, src)."
+msgstr ""
+"Cómo se rastrean los descartes. 'Text' usa su contenido de texto, "
+"'Attributes' usa sus atributos (href, id, class, src)."
+
+msgid "Text content"
+msgstr "Contenido de texto"
+
+msgid "Attributes on tag (e.g. href and src)"
+msgstr "Atributos en la etiqueta (p. ej. href y src)"
+
+msgid "Elements to check"
+msgstr "Elementos a comprobar"
+
+msgid ""
+"These sets contain elements that match your check area and skip over "
+"configuration."
+msgstr ""
+"Estos conjuntos contienen elementos que coinciden con su área de "
+"verificación y omiten la configuración."
+
+msgid "Common choices"
+msgstr "Opciones comunes"
+
+msgid "All text elements: Headings, Paragraphs, Blockquotes and Lists"
+msgstr ""
+"Todos los elementos de texto: Encabezados, Párrafos, Citas en bloque y Listas"
+
+msgid "Links"
+msgstr "Enlace"
+
+msgid "Paragraphs"
+msgstr "Párrafos"
+
+msgid "Headings"
+msgstr "Encabezados"
+
+msgid "Images"
+msgstr "Imágenes"
+
+msgid "All elements"
+msgstr "Todos los elementos"
+
+msgid "...other..."
+msgstr "...otro..."
+
+msgid "Specific elements and combinations"
+msgstr "Elementos específicos y combinaciones"
+
+msgid "Lists"
+msgstr "Listas"
+
+msgid "Blockquotes"
+msgstr "Citas en bloque"
+
+msgid "Tables"
+msgstr "Tablas"
+
+msgid "Buttons"
+msgstr "Botones"
+
+msgid "Inputs"
+msgstr "Entradas"
+
+msgid "Labels"
+msgstr "Etiquetas"
+
+msgid "Iframes"
+msgstr "Iframes"
+
+msgid "Videos"
+msgstr "Videos"
+
+msgid "Audio"
+msgstr "Audio"
+
+msgid ""
+"Note: combining Links with Paragraphs and other text containers can lead to "
+"duplicate alerts."
+msgstr ""
+"Nota: combinar Enlace con Párrafos y otros contenedores de texto puede "
+"generar alertas duplicadas."
+
+msgid "When tip should appear"
+msgstr "Cuándo debe aparecer el consejo"
+
+msgid ""
+"This test builder allows for simple text and attribute tests.<br>Check the "
+"module readme for <a href=\"@url\">tips on writing more complex tests</a>."
+msgstr ""
+"Este constructor de pruebas permite pruebas simples de texto y atributos."
+"<br>Consulte el archivo readme del módulo para <a href=\"@url\">consejos "
+"sobre cómo escribir pruebas más complejas</a>."
+
+msgid "Select by attributes"
+msgstr "Seleccionar por atributos"
+
+msgid ""
+"Match using CSS selectors.<br>Use :not() to skip elements, e.g. "
+"<code>:is(.check1, .check2):not(.ignore, .ignore *)</code>.<br>Use attribute "
+"selectors for URLs, e.g. <code>[href*=\".dev/\"]</code>."
+msgstr ""
+"Coincidencia mediante selectores CSS.<br>Use :not() para omitir elementos, "
+"p. ej. <code>:is(.check1, .check2):not(.ignore, .ignore *)</code>.<br>Use "
+"selectores de atributos para URLs, p. ej. <code>[href*=\".dev/\"]</code>."
+
+msgid "Select by text"
+msgstr "Seleccionar por texto"
+
+msgid "Flag elements containing any of these text strings. One per line."
+msgstr ""
+"Marcar elementos que contengan alguna de estas cadenas de texto. Una por "
+"línea."
+
+msgid "Case sensitive"
+msgstr "Distinguir mayúsculas y minúsculas"
+
+msgid "Exclude elements that match this text"
+msgstr "Excluir elementos que coincidan con este texto"
+
+msgid ""
+"Don't flag elements if they contain any of these words or phrases. E.g., a "
+"link to a development server is ok if it contains \"dev.\" One per line."
+msgstr ""
+"No marcar elementos si contienen alguna de estas palabras o frases. P. ej., "
+"un enlace a un servidor de desarrollo está bien si contiene \"dev.\" Una por "
+"línea."
+
+msgid "Test key must contain only letters, numbers, and underscores."
+msgstr "La clave de prueba debe contener solo letras, números y guiones bajos."
+
+msgid "Tip content must contain visible text."
+msgstr "El contenido del consejo debe contener texto visible."
+
+msgid "Select at least one rule."
+msgstr "Seleccione al menos una regla."
+
+msgid "Select at least one element type."
+msgstr "Seleccione al menos un tipo de elemento."
+
+msgid "The filter selector should be a CSS selector, not a CSS rule block."
+msgstr ""
+"El selector de filtro debe ser un selector CSS, no un bloque de regla CSS."
+
+msgid "Created new custom test %label."
+msgstr "Se creó la nueva prueba personalizada %label."
+
+msgid "Updated custom test %label."
+msgstr "Se actualizó la prueba personalizada %label."
+
+msgid "Are you deactivating this site or cancelling altogether?"
+msgstr "¿Está desactivando este sitio o cancelando por completo?"
+
+msgid "You can manage your subscriptions at any time in your Freemius account."
+msgstr ""
+"Puede gestionar sus suscripciones en cualquier momento desde su cuenta de "
+"Freemius."
+
+msgid "Choose an action"
+msgstr "Elija una acción"
+
+msgid ""
+"<strong>Deactivate this site</strong>, but keep my subscription active and "
+"renewing for use on another site"
+msgstr ""
+"<strong>Desactivar este sitio</strong>, pero mantener mi suscripción activa "
+"y con renovación para usarla en otro sitio"
+
+msgid ""
+"<strong>Cancel my subscription</strong> to the Editoria11y CSA altogether"
+msgstr ""
+"<strong>Cancelar por completo mi suscripción</strong> a Editoria11y CSA"
+
+msgid "Confirm deactivation"
+msgstr "Confirmar desactivación"
+
+msgid "Never mind; keep site active"
+msgstr "No importa; mantener el sitio activo"
+
+msgid ""
+"This site appears to be a development or testing environment with an active "
+"license."
+msgstr ""
+"Este sitio parece ser un entorno de desarrollo o de pruebas con una licencia "
+"activa."
+
+msgid "How would you like to proceed?"
+msgstr "¿Cómo desea continuar?"
+
+msgid ""
+"<strong>Cancel deactivation</strong>; I will manage this from the production "
+"site"
+msgstr ""
+"<strong>Cancelar la desactivación</strong>; gestionaré esto desde el sitio "
+"de producción"
+
+msgid ""
+"<strong>Disconnect this copy</strong>; leave the production license active"
+msgstr ""
+"<strong>Desconectar esta copia</strong>; dejar activa la licencia de "
+"producción"
+
+msgid ""
+"<strong>Deactivate all copies of this site</strong> (production, dev, and QA)"
+msgstr ""
+"<strong>Desactivar todas las copias de este sitio</strong> (producción, "
+"desarrollo y QA)"
+
+msgid "Confirm"
+msgstr "Confirmar"
+
+msgid ""
+"Editoria11y promotes accessibility in a unique way. Its tools are highly "
+"effective at helping non-technical authors prepare content that can be "
+"enjoyed equally by disabled Web users. We consider this a public good, so "
+"Editoria11y will always be free to use."
+msgstr ""
+"Editoria11y promueve la accesibilidad de una manera única. Sus herramientas "
+"son muy eficaces para ayudar a autores no técnicos a preparar contenido que "
+"puedan disfrutar por igual los usuarios web con discapacidad. Lo "
+"consideramos un bien público, por lo que Editoria11y siempre será de uso "
+"gratuito."
+
+msgid "Editoria11y is not, however, free to develop or support."
+msgstr "Sin embargo, desarrollar y mantener Editoria11y no es gratis."
+
+msgid ""
+"The \"Community Supported Add-ons\" (CSA) project fills the gap: project "
+"membership subscriptions fund the development of the Editoria11y library, "
+"its CMS plugins, and the CSA suite."
+msgstr ""
+"El proyecto «Community Supported Add-ons» (CSA) cubre esa necesidad: las "
+"suscripciones de membresía al proyecto financian el desarrollo de la "
+"biblioteca Editoria11y, sus complementos para CMS y la suite CSA."
+
+msgid ""
+"<a href=\"@url\"><strong>Join the CSA</strong></a> to support this project"
+msgstr ""
+"<a href=\"@url\"><strong>Únase a CSA</strong></a> para apoyar este proyecto"
+
+msgid ""
+"Existing members: <a href=\"@url\"><strong>Manage your subscription</"
+"strong></a> or <a href=\"@support_url\"><strong>contact support</strong></a>"
+msgstr ""
+"Miembros existentes: <a href=\"@url\"><strong>gestione su suscripción</"
+"strong></a> o <a href=\"@support_url\"><strong>contacte con soporte</"
+"strong></a>"
+
+msgid ""
+"License management on this site has been locked via Drush. Use <code>drush "
+"ed11y-unlock</code> to re-enable changes from this form."
+msgstr ""
+"La gestión de licencias en este sitio se ha bloqueado mediante Drush. Use "
+"<code>drush ed11y-unlock</code> para volver a permitir cambios desde este "
+"formulario."
+
+msgid "Warning: this site matches a dev or QA URL pattern"
+msgstr ""
+"Advertencia: este sitio coincide con un patrón de URL de desarrollo o QA"
+
+msgid "Shared activations should be managed in the production copy."
+msgstr ""
+"Las activaciones compartidas deben gestionarse desde la copia de producción."
+
+msgid ""
+"Use <code>drush ed11y-lock</code> to prevent changing shared activations."
+msgstr ""
+"Use <code>drush ed11y-lock</code> para evitar cambios en las activaciones "
+"compartidas."
+
+msgid ""
+"Deactivating a shared key deactivates all copies of a site, including "
+"production."
+msgstr ""
+"Al desactivar una clave compartida, se desactivan todas las copias del "
+"sitio, incluida la de producción."
+
+msgid ""
+"Separate license activations from a development environment consume an "
+"additional key."
+msgstr ""
+"Las activaciones de licencia independientes desde un entorno de desarrollo "
+"consumen una clave adicional."
+
+msgid "Trial (@days days remaining)"
+msgstr "Periodo de prueba (quedan @days días)"
+
+msgid "Trial (expired)"
+msgstr "Periodo de prueba (caducado)"
+
+msgid "License expired"
+msgstr "Licencia caducada"
+
+msgid "Active membership"
+msgstr "Membresía activa"
+
+msgid "Activate using stored license key"
+msgstr "Activar usando la clave de licencia guardada"
+
+msgid "Activate with a different license key"
+msgstr "Activar con una clave de licencia distinta"
+
+msgid "Activate (enter license key below)"
+msgstr "Activar (introduzca la clave de licencia a continuación)"
+
+msgid "<strong>License expired.</strong> Expired on: @date"
+msgstr "<strong>Licencia caducada.</strong> Caducó el: @date"
+
+msgid "<strong>License has expired.</strong>"
+msgstr "<strong>La licencia ha caducado.</strong>"
+
+msgid "<strong>Trial license active.</strong> Trial ends: @date"
+msgstr ""
+"<strong>Licencia de prueba activa.</strong> El periodo de prueba termina: "
+"@date"
+
+msgid "<strong>License active.</strong> Expires: @date"
+msgstr "<strong>Licencia activa.</strong> Caduca: @date"
+
+msgid "<strong>Lifetime license active.</strong>"
+msgstr "<strong>Licencia vitalicia activa.</strong>"
+
+msgid "Check for license renewal"
+msgstr "Comprobar renovación de la licencia"
+
+msgid "Deactivate license"
+msgstr "Desactivar licencia"
+
+msgid "A license key is stored but not active"
+msgstr "Hay una clave de licencia guardada, pero no está activa"
+
+msgid "Add a license key to enable CSA features"
+msgstr "Añada una clave de licencia para habilitar las funciones de CSA"
+
+msgid "Enable CSA features"
+msgstr "Habilitar funciones de CSA"
+
+msgid "CSA license key"
+msgstr "Clave de licencia de CSA"
+
+msgid ""
+"<a href=\"@url\">Join the CSA</a> to enable CSA features. Visit the Freemius "
+"dashboard to <a href=\"@freemius\">manage your subscription</a> or recover a "
+"lost key."
+msgstr ""
+"<a href=\"@url\">Únase a CSA</a> para habilitar las funciones de CSA. Visite "
+"el dashboard de Freemius para <a href=\"@freemius\">gestionar su "
+"suscripción</a> o recuperar una clave perdida."
+
+msgid "Local, Dev and QA site URL patterns"
+msgstr "Patrones de URL para sitios locales, de desarrollo y de QA"
+
+msgid ""
+"One pattern per line, up to 5 patterns. Wildcards are supported (e.g. "
+"<code>*.test.example.com</code>).<br>Local, dev and QA sites can share an "
+"activation with production site, but only production sites check for "
+"renewals."
+msgstr ""
+"Un patrón por línea, hasta 5 patrones. Se admiten comodines (por ejemplo, "
+"<code>*.test.example.com</code>).<br>Los sitios locales, de desarrollo y de "
+"QA pueden compartir una activación con el sitio de producción, pero solo los "
+"sitios de producción comprueban renovaciones."
+
+msgid ""
+"Additionally, any hostname consisting only of digits and dots (raw IPv4 "
+"address) is treated as a development environment."
+msgstr ""
+"Además, cualquier nombre de host compuesto solo por dígitos y puntos "
+"(dirección IPv4 simple) se trata como un entorno de desarrollo."
+
+msgid "Built-in development URL patterns"
+msgstr "Patrones de URL de desarrollo integrados"
+
+msgid "Enter no more than 5 custom domain patterns."
+msgstr "No introduzca más de 5 patrones de dominio personalizados."
+
+msgid "Saved license key not found. Please activate with a new key."
+msgstr ""
+"No se ha encontrado la clave de licencia guardada. Active con una nueva "
+"clave."
+
+msgid "Enter a license key."
+msgstr "Introduzca una clave de licencia."
+
+msgid "Activation failed: @msg"
+msgstr "La activación ha fallado: @msg"
+
+msgid "License renewed and active."
+msgstr "Licencia renovada y activa."
+
+msgid "License is still expired."
+msgstr "La licencia sigue caducada."
+
+msgid "Unexpected license status: @status"
+msgstr "Estado de licencia inesperado: @status"
+
+msgid "Could not reach licensing server: @msg"
+msgstr "No se ha podido contactar con el servidor de licencias: @msg"
+
+msgid "Deactivation failed: @msg"
+msgstr "La desactivación ha fallado: @msg"
+
+msgid "Editoria11y Export Batch Processor"
+msgstr "Editoria11y – procesador por lotes de exportaciones"
+
+msgid ""
+"Batching is only needed for very large or heavily customized CSV exports."
+msgstr "El procesamiento por lotes solo es necesario para exportaciones CSV muy grandes o muy personalizadas."
+
+msgid "hide"
+msgstr "ocultar"
+
+msgid "ok"
+msgstr "ok"
+
+msgid "Yes"
+msgstr "Sí"
+
+msgid "No"
+msgstr "No"
+
+msgid "This alt text is a filename, not a description"
+msgstr "Este texto alternativo es un nombre de archivo, no una descripción"
+
+msgid "Is this a clear and concise description of the image?"
+msgstr "¿Es esta una descripción clara y concisa de la imagen?"
+
+msgid "This alt text may be a placeholder"
+msgstr "Este texto alternativo puede ser un marcador de posición"
+
+msgid "This alt text is unpronounceable"
+msgstr "Este texto alternativo es impronunciable"
+
+msgid "This custom input field is missing a label"
+msgstr "A este campo personalizado le falta una etiqueta"
+
+msgid "Button is missing an accessible label"
+msgstr "El botón no tiene una etiqueta accesible"
+
+msgid "Button has an invalid ARIA label"
+msgstr "El botón tiene una etiqueta ARIA no válida"
+
+msgid "Button name repeats the word \"button\""
+msgstr "El nombre del botón repite la palabra «botón»"
+
+msgid "This button is unpronounceable"
+msgstr "Este botón no se puede pronunciar"
+
+msgid "Text does not have enough contrast to be easily legible"
+msgstr "El texto no tiene suficiente contraste para ser fácilmente legible"
+
+msgid "Graphic or icon does not have enough contrast"
+msgstr "El gráfico o ícono no tiene suficiente contraste"
+
+msgid "Input does not provide enough contrast to be easily legible"
+msgstr ""
+"El campo de entrada no proporciona suficiente contraste para ser legible"
+
+msgid "Placeholder text does not have enough contrast to be easily legible"
+msgstr ""
+"El texto de marcador de posición no tiene suficiente contraste para ser "
+"fácilmente legible"
+
+msgid "Does this placeholder text have enough contrast?"
+msgstr "¿Este texto de marcador de posición tiene suficiente contraste?"
+
+msgid "Does this text have enough contrast?"
+msgstr "¿Este texto tiene suficiente contraste?"
+
+msgid "Does this graphic or icon have enough contrast?"
+msgstr "¿Este gráfico o ícono tiene suficiente contraste?"
+
+msgid "Duplicate ID attribute"
+msgstr "Atributo ID duplicado"
+
+msgid "This link has a tooltip with the same text as the link"
+msgstr "Este enlace tiene un texto emergente con el mismo texto que el enlace"
+
+msgid "Does this audio have a transcript?"
+msgstr "¿Este audio tiene una transcripción?"
+
+msgid "Is this visualization accessible?"
+msgstr "¿Esta visualización es accesible?"
+
+msgid "Embedded iframes need manual checks"
+msgstr "Los iframes incrustados requieren revisiones manuales"
+
+msgid "Frame missing \"title\" attribute"
+msgstr "El frame no tiene un atributo «title»"
+
+msgid "Frame with tabindex=\"-1\" will not be keyboard accessible."
+msgstr "Un frame con tabindex=\"‑1\" no será accesible por teclado."
+
+msgid "Is this video accurately captioned?"
+msgstr "¿Este video está correctamente subtitulado?"
+
+msgid "This heading has no text"
+msgstr "Este encabezado no tiene texto"
+
+msgid "This image is used as a heading, so it needs alt text"
+msgstr ""
+"Esta imagen se usa como encabezado, por lo que necesita texto alternativo"
+
+msgid "The first heading on this page is a subheading"
+msgstr "El primer encabezado en esta página es un subtítulo"
+
+msgid "Can this heading be shorter?"
+msgstr "¿Puede este encabezado ser más corto?"
+
+msgid "This page is missing a Heading 1"
+msgstr "A esta página le falta un Encabezado 1"
+
+msgid "This heading is tagged at the wrong level"
+msgstr "Este encabezado está etiquetado con un nivel incorrecto"
+
+msgid "This heading is unpronounceable"
+msgstr "Este encabezado no se puede pronunciar"
+
+msgid "This element cannot be described by screen readers"
+msgstr "Este elemento no puede ser descrito por lectores de pantalla"
+
+msgid "Can this alt text be shorter?"
+msgstr "¿Puede ser más breve este texto alternativo?"
+
+msgid "Is this image actually meaningless?"
+msgstr "¿Esta imagen realmente no tiene significado?"
+
+msgid "Image in a carousel or gallery marked as decorative"
+msgstr "Imagen en un carrusel o galería marcada como decorativa"
+
+msgid "This captioned image has no alt text"
+msgstr "Esta imagen con pie de foto no tiene texto alternativo"
+
+msgid "Alt text should not be the same as caption text"
+msgstr "El texto alternativo no debe ser igual al del pie de foto"
+
+msgid "Is there a visible label for this field?"
+msgstr "¿Hay una etiqueta visible para este campo?"
+
+msgid "Prefer visible labels to placeholders"
+msgstr "Prefiera etiquetas visibles a los marcadores de posición"
+
+msgid "Is this reset button needed?"
+msgstr "¿Es necesario este botón de restablecer?"
+
+msgid "This input has an empty label"
+msgstr "Este campo tiene una etiqueta vacía"
+
+msgid "Visible label does not match invisible label"
+msgstr "La etiqueta visible no coincide con la etiqueta invisible"
+
+msgid "This image input is missing alt text"
+msgstr "A este campo de imagen le falta texto alternativo"
+
+msgid "This input is not connected to a label"
+msgstr "Este campo no está conectado a una etiqueta"
+
+msgid "Language tag does not match the content"
+msgstr "La etiqueta de idioma no coincide con el contenido"
+
+msgid "This content appears to be in a different language"
+msgstr "Este contenido parece estar en un idioma diferente"
+
+msgid "This alt text appears to be in a different language"
+msgstr "Este texto alternativo parece estar en un idioma diferente"
+
+msgid "Alt text used as a link should not be a URL"
+msgstr "El texto alternativo usado como vínculo no debe ser una URL"
+
+msgid "This linked alt might not be clear and concise"
+msgstr "Este texto alternativo del enlace puede no ser claro y conciso"
+
+msgid "Linked images need pronounceable alt text"
+msgstr "Las imágenes vinculadas necesitan texto alternativo pronunciable"
+
+msgid "Manual check: link contains \"click here\""
+msgstr "Revisión manual: el enlace contiene «haga clic aquí»"
+
+msgid "Link article titles, not DOI numbers"
+msgstr "Vincula los títulos de artículos, no los números DOI"
+
+msgid "This link contains no words"
+msgstr "Este enlace no tiene texto"
+
+msgid "Link with invalid \"aria-labelledby\" attribute"
+msgstr "Enlace con atributo «aria‑labelledby» no válido"
+
+msgid "This link needs a label"
+msgstr "Este enlace necesita una etiqueta"
+
+msgid "Link points to a file without warning"
+msgstr "El enlace apunta a un archivo sin advertencia"
+
+msgid "Links with the same text link to different pages"
+msgstr "Enlaces con el mismo texto llevan a páginas diferentes"
+
+msgid "Does this alt text describe the link or the image?"
+msgstr "¿El texto alternativo describe el enlace o la imagen?"
+
+msgid "Does this alt text make sense as part of this link?"
+msgstr "¿Este texto alternativo tiene sentido como parte del enlace?"
+
+msgid "Can this linked alt text be shorter?"
+msgstr "¿Puede este texto alternativo vinculado ser más corto?"
+
+msgid "This linked image needs alt text"
+msgstr "Esta imagen vinculada necesita texto alternativo"
+
+msgid "Does this linked image need a description?"
+msgstr "¿Esta imagen vinculada necesita una descripción?"
+
+msgid "Is this link actually a button?"
+msgstr "¿Este enlace es en realidad un botón?"
+
+msgid "Does this link open a new tab without warning?"
+msgstr "¿Este enlace abre una pestaña nueva sin advertencia?"
+
+msgid "This linked alt text may be a placeholder"
+msgstr "Este texto alternativo del enlace puede ser un marcador de posición"
+
+msgid "This link only contains generic words"
+msgstr "Este enlace solo contiene palabras genéricas"
+
+msgid "The purpose of this link is visually hidden"
+msgstr "El propósito de este enlace está oculto visualmente"
+
+msgid "Does this image's alt describe the image or the link?"
+msgstr "¿El texto alternativo describe el enlace o la imagen?"
+
+msgid "Are the symbols or emoji in this link meaningful?"
+msgstr "¿Los símbolos o emojis de este enlace son significativos?"
+
+msgid "This link is unpronounceable"
+msgstr "Este enlace no se puede pronunciar"
+
+msgid "Link text should not be a URL"
+msgstr "El texto del enlace no debe ser una URL"
+
+msgid "Meta tag for page language missing"
+msgstr "Falta la metaetiqueta para el idioma de la página"
+
+msgid "Did you mean a different language code?"
+msgstr "¿Quiso decir un código de idioma diferente?"
+
+msgid "Invalid language code"
+msgstr "Código de idioma no válido"
+
+msgid "Page language may not match the content"
+msgstr "El idioma de la página puede no coincidir con el contenido"
+
+msgid "Meta tag limits how much users can enlarge text"
+msgstr "La metaetiqueta limita cuánto pueden ampliar el texto los usuarios"
+
+msgid "Meta tag automatically refreshes page"
+msgstr "La metaetiqueta actualiza la página automáticamente"
+
+msgid "Meta tag prevents users from enlarging text"
+msgstr "La metaetiqueta impide que los usuarios amplíen el texto"
+
+msgid "Meta tag for page title missing"
+msgstr "Falta la metaetiqueta para el título de la página"
+
+msgid "Invalid HTML: image has no alt attribute"
+msgstr "HTML no válido: la imagen no tiene atributo alt"
+
+msgid "Invalid HTML: linked image missing alt attribute"
+msgstr "HTML no válido: la imagen vinculada no tiene atributo alt"
+
+msgid "Invalid HTML: image in link missing alt attribute"
+msgstr "HTML no válido: la imagen dentro de un enlace no tiene atributo alt"
+
+msgid "This link target may be invalid"
+msgstr "El destino de este enlace puede no ser válido"
+
+msgid "Should this quote be a heading?"
+msgstr "¿Debería esta cita ser un encabezado?"
+
+msgid "Has this document been tagged for screen readers?"
+msgstr "¿Este documento ha sido etiquetado para lectores de pantalla?"
+
+msgid "Should this bold text be a heading?"
+msgstr "¿Este texto en negrita debería ser un encabezado?"
+
+msgid "Should this have list formatting?"
+msgstr "¿Esto debería tener formato de lista?"
+
+msgid "Broken same-page link"
+msgstr "Enlace interno roto"
+
+msgid "Do not justify text"
+msgstr "No justificar el texto"
+
+msgid "Nested interactive layout components"
+msgstr "Componentes interactivos anidados"
+
+msgid "Is there an alternative for this PDF?"
+msgstr "¿Existe una alternativa para este PDF?"
+
+msgid "Text is too small"
+msgstr "El texto es demasiado pequeño"
+
+msgid "Large blocks of emphasized text are harder to read"
+msgstr "Los bloques largos de texto enfatizado son difíciles de leer"
+
+msgid "Do not use sub/superscript as visual formatting"
+msgstr "No usar superíndices o subíndices como formato visual"
+
+msgid "Only links should be underlined"
+msgstr "Solo los enlaces deben subrayarse"
+
+msgid "Is this uppercase text needed?"
+msgstr "¿Este texto en mayúsculas es necesario?"
+
+msgid "Are there redundant words in this alt text?"
+msgstr "¿Hay palabras redundantes en este texto alternativo?"
+
+msgid "Tabindex overrides interrupt the focus order"
+msgstr "Las anulaciones de tabindex interrumpen el orden de tabulación"
+
+msgid "This header cell needs text"
+msgstr "Esta celda de encabezado necesita texto"
+
+msgid "This table has an invalid headers attribute"
+msgstr "Esta tabla tiene un atributo headers no válido"
+
+msgid "This table needs a header row and/or column"
+msgstr "A esta tabla le falta una fila o columna de encabezados"
+
+msgid "Content headings should not be used inside tables"
+msgstr "Los encabezados de contenido no deben usarse dentro de tablas"
+
+msgid "Invalid HTML list"
+msgstr "Lista HTML no válida"
+
+msgid "Linked images"
+msgstr "Imágenes vinculadas"
+
+msgid "Text formatting"
+msgstr "Formato de texto"
+
+msgid "Video, audio, frames"
+msgstr "Video, audio, marcos"
+
+msgid "Contrast"
+msgstr "Contraste"
+
+msgid "Forms"
+msgstr "Formularios"
+
+msgid "ARIA and focus"
+msgstr "ARIA y foco"
+
+msgid "Page metadata"
+msgstr "Metadatos de la página"
+
+msgid "The request could not be processed. Details have been logged."
+msgstr "No se ha podido procesar la solicitud. Los detalles se han registrado."
+
+msgid "API request rejected: @message"
+msgstr "Solicitud de API rechazada: @message"
+
+msgid "API request failed: @message"
+msgstr "La solicitud de API ha fallado: @message"
+
+msgid "Export pages with alerts"
+msgstr "Exportar páginas con alertas"
+
+msgid ""
+"Install the Editoria11y Export Batch Processor module to download these "
+"reports."
+msgstr "Instale el módulo Editoria11y Export Batch Processor para descargar estos informes."
+
+msgid "Export results"
+msgstr "Exportar resultados"
+
+msgctxt "problems"
+msgid "Top alerts"
+msgstr "Principales problemas"
+
+msgctxt "problems"
+msgid "Pages with the most alerts"
+msgstr "Páginas con más problemas"
+
+msgid "Recent dismissals"
+msgstr "Descartes recientes"
+
+msgid ""
+"Activate the <a href=\"@csa\">Editoria11y CSA submodule</a> to see developer "
+"tests."
+msgstr ""
+"Active el <a href=\"@csa\">submódulo Editoria11y CSA</a> para ver las "
+"pruebas de desarrollo."
+
+msgid "Include all parts of the page that contain your theme and content."
+msgstr ""
+"Incluya todas las partes de la página que contengan su tema y su contenido."
+
+msgid "Include all parts of the page that contain your editable content."
+msgstr ""
+"Incluya todas las partes de la página que contengan su contenido editable."
+
+msgid "Exclude elements that show unhelpful, repetitive, or inaccurate alerts."
+msgstr ""
+"Excluya los elementos que muestran alertas poco útiles, repetitivas o "
+"imprecisas."
+
+msgid ""
+"<a href=\"@permissions\">Add permissions</a>, especially \"View Editoria11y "
+"checker\" and \"Mark OK.\"</a>"
+msgstr ""
+"<a href=\"@permissions\">Añada permisos</a>, especialmente «View Editoria11y "
+"checker» y «Mark OK».</a>"
+
+msgid ""
+"If you need help: <a href=\"@config_guide\">Configuration Guide</a> | <a "
+"href=\"@issue_queue\">Issue Queue</a> | <a href=\"@help\">Support contacts</"
+"a>"
+msgstr ""
+"Si necesita ayuda: <a href=\"@config_guide\">Guía de configuración</a> | <a "
+"href=\"@issue_queue\">Cola de incidencias</a> | <a href=\"@help\">Contactos "
+"de soporte</a>"
+
+msgid "Autodetect"
+msgstr "Autodetectar"
+
+msgid "Only user-editable content"
+msgstr "Solo contenido editable por el usuario"
+
+msgid "Other"
+msgstr "Otra"
+
+msgid "Parts of the page to test"
+msgstr "Partes de la página que se comprobarán"
+
+msgid "\"Autodetect\" selects:"
+msgstr "«Autodetect» selecciona:"
+
+msgid "Other: specify regions to check for developer and content problems"
+msgstr ""
+"Otra: especifique las regiones que comprobar para problemas de desarrollador "
+"y de contenido"
+
+msgid ""
+"Provide CSS selectors. For many sites, the site theme is wrapped in "
+"<code>.dialog-off-canvas-main-canvas</code> while editing."
+msgstr ""
+"Proporcione selectores CSS. En muchos sitios, el tema del sitio se envuelve "
+"en <code>.dialog-off-canvas-main-canvas</code> durante la edición."
+
+msgid "Do not check for any errors inside these elements"
+msgstr "No comprobar ningún error dentro de estos elementos"
+
+msgid "These parts of the page will be ignored entirely."
+msgstr "Estas partes de la página se ignorarán por completo."
+
+msgid "match content settings"
+msgstr "match content settings"
+
+msgid "Page regions with user-editable content"
+msgstr "Regiones de la página con contenido editable por el usuario"
+
+msgid ""
+"Default: <code><em>main</em></code><br>Provide <a target=\"_blank\" "
+"href=\"https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/"
+"Selectors\">CSS selectors</a>. Content authors will only see the alerts "
+"within these parts of the page. Do not provide selectors that nest within "
+"each other, or the inner content will be checked twice."
+msgstr ""
+"Predeterminado: <code><em>main</em></code><br>Proporcione <a "
+"target=\"_blank\" href=\"https://developer.mozilla.org/en-US/docs/Learn/CSS/"
+"Building_blocks/Selectors\">selectores CSS</a>. Los autores de contenido "
+"solo verán las alertas dentro de estas partes de la página. No use "
+"selectores anidados, o el contenido interno se revisará dos veces."
+
+msgid ""
+"Default: <code><em>main</em></code><br>Provide <a target=\"_blank\" "
+"href=\"https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/"
+"Selectors\">CSS selectors</a>. Do not provide selectors that nest within "
+"each other, or the inner content will be checked twice."
+msgstr ""
+"Predeterminado: <code><em>main</em></code><br>Proporcione <a "
+"target=\"_blank\" href=\"https://developer.mozilla.org/en-US/docs/Learn/CSS/"
+"Building_blocks/Selectors\">selectores CSS</a>. No use selectores anidados, "
+"o el contenido interno se revisará dos veces."
+
+msgid "Errors in these elements should only be shown to developers"
+msgstr ""
+"Los errores en estos elementos solo deben mostrarse a los desarrolladores"
+
+msgid "Do not check for content errors inside these elements"
+msgstr "No comprobar errores de contenido dentro de estos elementos"
+
+msgid ""
+"Content editors are not responsible for errors in these elements. <br>E.g.: "
+"<code><em>#sidebar-menu a, .slide [aria-hidden=\"true\"]</em></code>."
+msgstr ""
+"Los editores de contenido no son responsables de los errores en estos "
+"elementos. <br>P. ej.: <code><em>#sidebar-menu a, .slide [aria-"
+"hidden=\"true\"]</em></code>."
+
+msgid "Roles that will see developer alerts"
+msgstr "Roles que verán alertas de desarrollador"
+
+msgid ""
+"All roles with the <a href=\":url\">View editoria11y checker</a> permission "
+"see content alerts."
+msgstr ""
+"Todos los roles con el permiso <a href=\":url\">View editoria11y checker</a> "
+"ven alertas de contenido."
+
+msgid "Advanced settings"
+msgstr "Ajustes avanzados"
+
+msgid "Assertiveness"
+msgstr "Intensidad"
+
+msgid "Checker mode for content roles"
+msgstr "Modo del comprobador para roles de contenido"
+
+msgid "Start open if there are any alerts"
+msgstr "Abrir si hay alertas"
+
+msgid "Start open if there are new alerts"
+msgstr "Abrir si hay alertas nuevas"
+
+msgid "Start minimized"
+msgstr "Iniciar minimizado"
+
+msgid ""
+"Choose when the control panel should open and show inline tips. \"Start open "
+"if there are any alerts\" is recommended, as it helps tips get noticed over "
+"time."
+msgstr ""
+"Elija cuándo abrir el panel y mostrar avisos. Se recomienda «Abrir si hay "
+"alertas» para mejorar su visibilidad."
+
+msgid "Checker mode for developer roles"
+msgstr "Modo del comprobador para desarrolladores"
+
+msgid "Do not check any content while it is being edited"
+msgstr "No revisar contenido mientras se está editando"
+
+msgid ""
+"Use the \"Do not check on pages with these elements\" setting to prevent "
+"checking only on specific pages. E.g., exclude: <code><em>form[id^=\"node-"
+"article\"]</em></code>."
+msgstr ""
+"Use la opción «No revisar páginas con estos elementos» para excluir páginas "
+"específicas. Ej.: <code><em>form[id^=\"node-article\"]</em></code>."
+
+msgid "Assign headers to CKEditor tables on insert"
+msgstr "Asignar encabezados a tablas de CKEditor al insertarlas"
+
+msgid "First row"
+msgstr "Primera fila"
+
+msgid "First column"
+msgstr "Primera columna"
+
+msgid "Both"
+msgstr "Ambos"
+
+msgid ""
+"You will need to clear cache for changes to this setting to appear in "
+"CKEditor."
+msgstr "Debe limpiar caché para que los cambios aparezcan en CKEditor."
+
+msgid "Theme compatibility"
+msgstr "Compatibilidad con el tema"
+
+msgid "Configuration tips"
+msgstr "Consejos de configuración"
+
+msgid ""
+"If the checker <strong>toggle</strong> does not appear: make sure a z-"
+"indexed or overflow-hidden element in your front-end theme is not hiding or "
+"covering the <code><em>ed11y-element-panel</em></code> container, make sure "
+"that any custom selectors in the \"Disable the scanner if these elements are "
+"detected\" field are not present, and make sure that no JavaScript errors "
+"are appearing in your <a href=\"https://developer.mozilla.org/en-US/docs/"
+"Tools/Browser_Console\"> browser console</a>"
+msgstr ""
+"Si no aparece el <strong>interruptor</strong> del comprobador: asegúrese de "
+"que ningún elemento con z-index o overflow-hidden lo esté cubriendo; "
+"verifique que los selectores personalizados en “Desactivar el escáner si se "
+"detectan estos elementos” no estén presentes; y revise que no haya errores "
+"de JavaScript en la <a href=\"https://developer.mozilla.org/en-US/docs/Tools/"
+"Browser_Console\">consola del navegador</a>."
+
+msgid ""
+"If the checker toggle is present but <strong>not detecting</strong> errors, "
+"or missing errors that should be flagged: check that your inclusions & "
+"exclusion settings below are not missing or ignoring the elements. It is not "
+"uncommon for homepages or views to insert editable content outside the "
+"<code><em>main</em></code> element."
+msgstr ""
+"Si el interruptor aparece pero <strong>no detecta</strong> errores, revise "
+"sus configuraciones de inclusión y exclusión. Algunas páginas o vistas "
+"colocan contenido editable fuera del elemento <code><em>main</em></code>."
+
+msgid "Theme"
+msgstr "Tema"
+
+msgid "Sleek"
+msgstr "Sleek"
+
+msgid "Classic"
+msgstr "Clásico"
+
+msgid "Dark"
+msgstr "Oscuro"
+
+msgid "Do not check on pages with these elements"
+msgstr "No revisar páginas con estos elementos"
+
+msgid ""
+"Used to block checking on site sections or admin pages.<br>E.g. "
+"<code><em>.content-type-example, .tabs__link[href=*\"edit\"]</em></code>."
+msgstr ""
+"Para evitar revisiones en secciones del sitio o páginas administrativas."
+"<br>Ej.: <code><em>.content-type-example, .tabs__link[href=*\"edit\"]</em></"
+"code>."
+
+msgid "Hide all alerts on pages where these elements are not present"
+msgstr "Ocultar alertas si estos elementos no están presentes"
+
+msgid ""
+"Used to limit alerting to nodes where the user can edit something. Suggested "
+"selectors:<br> <code><em>.contextual-region a[href*=\"/edit\"], .contextual-"
+"region a[href*=\"/manage\"]</em></code>."
+msgstr ""
+"Limita alertas a nodos donde el usuario puede editar.<br>Sugerencia: "
+"<code><em>.contextual-region a[href*=\"/edit\"], .contextual-region "
+"a[href*=\"/manage\"]</em></code>."
+
+msgid ""
+"Set to the number of other themes or modules that will be <a href=\"https://"
+"editoria11y.princeton.edu/configuration/#customtests\">injecting custom "
+"result JS events</a>."
+msgstr ""
+"Indique cuántos temas o módulos <a href=\"https://editoria11y.princeton.edu/"
+"configuration/#customtests\">inyectarán eventos JS personalizados</a>."
+
+msgid "Positioning"
+msgstr "Posicionamiento"
+
+msgid "Don't show edit links on tips in these containers"
+msgstr "No mostrar enlaces de edición en avisos dentro de estos contenedores"
+
+msgid ""
+"Tips show copies of the \"Edit\" and \"Layout\" links for nodes, users and "
+"taxonomy terms. These links are not helpful on lists of content from remote "
+"nodes.<br>Provide a comma-separated list of page sections of where these "
+"links should not show, E.g.: <code><em>#sidebar-menu, .news-feed</em></code>."
+"<br>To hide the links <strong>everywhere</strong>, set this field to an "
+"asterisk (<code><em>*</em></code>).<br>To modify the links, <a "
+"href=\"https://editoria11y.princeton.edu/configuration/#modify-tips\" "
+"target=\"_blank\">use the ed11yPop event</a> in your theme JS."
+msgstr ""
+"Los avisos muestran copias de los enlaces «Editar» y «Diseño». No son útiles "
+"en listas de contenido remoto.<br>Proporcione una lista separada por comas "
+"de áreas donde no deben mostrarse; ej.: <code><em>#sidebar-menu, .news-feed</"
+"em></code>.<br>Use <code>*</code> para ocultarlos en todas partes.<br>Para "
+"modificarlos, <a href=\"https://editoria11y.princeton.edu/configuration/"
+"#modify-tips\" target=\"_blank\">use el evento ed11yPop</a>."
+
+msgid "Pin panel to..."
+msgstr "Anclar panel a…"
+
+msgid "Right"
+msgstr "Derecha"
+
+msgid "Left"
+msgstr "Izquierda"
+
+msgid "Don't cover these other widgets"
+msgstr "No cubrir estos elementos"
+
+msgid ""
+"Provide a comma-separated list of selectors for other things that appear in "
+"the bottom right of the page. <br>If nothing is set, Editoria11y will "
+"automatically slide left to accommodate <code><em>#klaro_toggle_dialog, "
+"#klaro-cookie-notice .same-page-preview-dialog.ui-dialog-position-side</em></"
+"code>."
+msgstr ""
+"Proporcione una lista de selectores de elementos que aparezcan en la esquina "
+"inferior derecha.<br>Si no se especifica nada, Editoria11y se desplazará "
+"automáticamente para evitar <code><em>#klaro_toggle_dialog, #klaro-cookie-"
+"notice .same-page-preview-dialog.ui-dialog-position-side</em></code>."
+
+msgid "Elements with overflow hidden"
+msgstr "Elementos con overflow:hidden"
+
+msgid ""
+"Sometimes buttons get drawn and visually truncated outside the bounds of a "
+"positioned element. Provide a selector list."
+msgstr ""
+"A veces los botones quedan truncados fuera de su contenedor. Proporcione una "
+"lista de selectores."
+
+msgid "Theme JS will handle revealing hidden tooltips inside these containers"
+msgstr ""
+"El JS del tema revelará los avisos ocultos dentro de estos contenedores"
+
+msgid ""
+"Editoria11y detects hidden tooltips and warns the user when they try to jump "
+"to them from the panel. For elements on this list, Editoria11y will <a "
+"href=\"https://itmaybejj.github.io/editoria11y/#dealing-with-alerts-on-"
+"hidden-or-size-constrained-content\">dispatch a JS event</a> instead of a "
+"warning, so custom JS in your theme can first reveal the hidden tip (e.g., "
+"open an accordion or tab panel)."
+msgstr ""
+"Editoria11y detecta avisos ocultos y muestra advertencias. Para los "
+"elementos de esta lista, enviará un <a href=\"https://itmaybejj.github.io/"
+"editoria11y/#dealing-with-alerts-on-hidden-or-size-constrained-"
+"content\">evento JS</a> para que el tema los revele (p. ej., abrir un "
+"acordeón o pestaña)."
+
+msgid "Detecting dynamic and shadow content"
+msgstr "Detección de contenido dinámico y shadow"
+
+msgid "Dynamically refresh if new content appears"
+msgstr "Actualizar dinámicamente si aparece contenido nuevo"
+
+msgid "Watch for changes anywhere on the page"
+msgstr "Vigilar cambios en toda la página"
+
+msgid "Only watch for changes to content containers present on load"
+msgstr "Vigilar solo contenedores presentes al cargar la página"
+
+msgid "Do not watch for changes"
+msgstr "No vigilar cambios"
+
+msgid ""
+"Set to \"anywhere\" if changes are being missed, set to \"ignore\" if you "
+"notice performance issues. Themes and modules can also call "
+"<code>Drupal.Ed11y.refresh()</code> to refresh results."
+msgstr ""
+"Use «anywhere» si algunos cambios no se detectan; use «ignore» si nota "
+"problemas de rendimiento. También puede llamar <code>Drupal.Ed11y.refresh()</"
+"code>."
+
+msgid "Check inside these specific Web components"
+msgstr "Revisar dentro de estos componentes Web específicos"
+
+msgid ""
+"Provide selectors for elements with <a href='https://developer.mozilla.org/"
+"en-US/docs/Web/Web_Components'>shadow DOM</a> you want tested. E.g.: "
+"<code><em>my-fancy-accordion-widget, my-magical-slideshow</em></code>."
+msgstr ""
+"Proporcione selectores para elementos con <a href='https://"
+"developer.mozilla.org/en-US/docs/Web/Web_Components'>shadow DOM</a> que "
+"desee revisar. Ej.: <code><em>my-fancy-accordion-widget, my-magical-"
+"slideshow</em></code>."
+
+msgid "Auto-detect any Web components"
+msgstr "Detectar automáticamente componentes Web"
+
+msgid ""
+"This is easier to configure than specifying components, but may slow test "
+"runs on very complicated pages."
+msgstr ""
+"Es más fácil que especificar componentes, pero puede ralentizar pruebas en "
+"páginas complejas."
+
+msgid "Syncing results to reports"
+msgstr "Sincronizando resultados con informes"
+
+msgid ""
+"Remember that results only sync to the dashboard when viewing nodes. Results "
+"shown while editing or viewing previews or revisions will not sync."
+msgstr ""
+"Recuerde que los resultados solo se sincronizan al panel al ver nodos. Las "
+"vistas en edición, vista previa o revisiones no se sincronizan."
+
+msgid "Remove redundant base url from URLs"
+msgstr "Eliminar URL base redundante de las rutas"
+
+msgid ""
+"Provide base URL (\"/mysite\") if your site is installed in a subdirectory. "
+"Subdirectories tend to get duplicated (/mysite/mysite/mypage) and throw "
+"errors from the API."
+msgstr ""
+"Indique la URL base (\"/mysite\") si el sitio está en un subdirectorio. Los "
+"subdirectorios pueden duplicarse y causar errores."
+
+msgid "Preserve query parameters"
+msgstr "Conservar parámetros de consulta"
+
+msgid ""
+"The dashboard ignores most parameters: results for both /news?f=1 and /news?"
+"f=2 will show up as just /news. Provide a comma separated list of parameters "
+"that are meaningful, and should appear as separate pages in results."
+msgstr ""
+"El panel ignora la mayoría de parámetros: /news?f=1 y /news?f=2 se registran "
+"como /news. Proporcione parámetros relevantes para mantenerlos como páginas "
+"separadas."
+
+msgid "Disable sync altogether"
+msgstr "Desactivar sincronización completamente"
+
+msgid ""
+"Syncing test results back to Drupal is required for the <a target=\"_blank\" "
+"href=\"/admin/reports/editoria11y\">issue</a> and <a target=\"_blank\" "
+"href=\"/admin/reports/editoria11y/dismissals\">dismissal</a> dashboards and "
+"\"mark OK\" buttons."
+msgstr ""
+"La sincronización es necesaria para los paneles de <a target=\"_blank\" "
+"href=\"/admin/reports/editoria11y\">problemas</a> y <a target=\"_blank\" "
+"href=\"/admin/reports/editoria11y/dismissals\">descartes</a> y para los "
+"botones «marcar OK»."
+
+msgid "Heading outline position of editable content"
+msgstr "Nivel de encabezado para contenido editable"
+
+msgid ""
+"To check headings in CKEditor, Editoria11y needs to know what the first "
+"heading level should be in this field. Body fields should generally be at "
+"the h2 level."
+msgstr ""
+"Para revisar encabezados en CKEditor, Editoria11y debe saber el nivel "
+"inicial. Los campos de cuerpo suelen comenzar en h2."
+
+msgid "H2 level fields (body content)"
+msgstr "Campos nivel H2 (cuerpo del contenido)"
+
+msgid ""
+"Body fields on nodes are preceded by an h1, and their heading outline should "
+"start with an h2. Ideally set this for top-level body fields for each of "
+"your content types, and set blocks and embedded nodes to h3 or h4.\n"
+"        <br>Set all content types: <code><em>form[id^=\"node-\"] #edit-body-"
+"wrapper .ck-content</em></code>\n"
+"        <br>Set specific content types: <code><em>form[id^=\"node-\"] #edit-"
+"body-wrapper .ck-content</em></code>\n"
+"        <br>Set up for Gutenberg: <code><em>form[id^=\"node-\"] #edit-body-"
+"wrapper .is-root-container</em></code>"
+msgstr ""
+"Los campos de cuerpo van después de un h1, así que deben iniciar en h2. "
+"Configure esto para los campos principales de cada tipo de contenido. Los "
+"bloques y elementos incrustados deberían usar h3 o h4.\n"
+"<br>Todos los tipos: <code><em>form[id^=\"node-\"] #edit-body-wrapper .ck-"
+"content</em></code>\n"
+"<br>Tipos específicos: <code><em>form[id^=\"node-\"] #edit-body-wrapper .ck-"
+"content</em></code>\n"
+"<br>Gutenberg: <code><em>form[id^=\"node-\"] #edit-body-wrapper .is-root-"
+"container</em></code>"
+
+msgid "H3 level fields (blocks or paragraphs with separate titles)"
+msgstr "Campos nivel H3 (bloques o párrafos con títulos separados)"
+
+msgid ""
+"Sometimes inline and layout builder blocks are grouped under an h2 from a "
+"separate field, so their highest heading level should be h3."
+msgstr ""
+"A veces los bloques están bajo un h2 proveniente de otro campo, por lo que "
+"deben empezar en h3."
+
+msgid "H4 level fields (deeply nested blocks or paragraphs)"
+msgstr "Campos nivel H4 (bloques o párrafos muy anidados)"
+
+msgid ""
+"Sometimes inline and layout builder blocks are grouped under an h3 from a "
+"separate field, so their highest heading level should be h4."
+msgstr ""
+"A veces los bloques están bajo un h3 de otro campo, por lo que deben iniciar "
+"en h4."
+
+msgid "Modify tests that usually detect content issues"
+msgstr "Modificar las pruebas que normalmente detectan problemas de contenido"
+
+msgid "Modify tests that usually detect template or configuration issues"
+msgstr ""
+"Modificar las pruebas que normalmente detectan problemas de plantilla o "
+"configuración"
+
+msgid "Do not check contrast for these elements"
+msgstr "No revisar contraste en estos elementos"
+
+msgid ""
+"Provide a comma-separated list of selectors for elements to ignore for all "
+"users."
+msgstr ""
+"Proporcione una lista de selectores, separados por comas, de los elementos "
+"que se ignorarán para todos los usuarios."
+
+msgid "Remind editor that content in these embeds needs manual review"
+msgstr ""
+"Recordar que el contenido en estos incrustados requiere revisión manual"
+
+msgid ""
+"Provide a comma-separated list of selectors you wish to flag for the editor, "
+"e.g.: <code><em>.my-embedded-feed, #my-social-link-block</em></code>."
+msgstr ""
+"Proporcione una lista de selectores separados por comas para marcar al "
+"editor; ej.: <code><em>.my-embedded-feed, #my-social-link-block</em></code>."
+
+msgid ""
+"Default settings should work with both <a href=\"https://www.drupal.org/"
+"project/linkpurpose\" target=\"_blank\">Link Purpose Icons</a> and <a "
+"target=\"_blank\" href=\"https://www.drupal.org/project/extlink\">External "
+"Links</a>."
+msgstr ""
+"La configuración predeterminada funciona con <a href=\"https://"
+"www.drupal.org/project/linkpurpose\" target=\"_blank\">Link Purpose Icons</"
+"a> y <a href=\"https://www.drupal.org/project/extlink\" "
+"target=\"_blank\">External Links</a>."
+
+msgid "Remind the editor that these linked documents need a manual check"
+msgstr ""
+"Recordar al editor que estos documentos enlazados requieren revisión manual"
+
+msgid ""
+"Add or remove filetypes. Set to \"false\" to disable the test altogether. "
+"Providing any value will override the default, which is "
+"<code><em>a[href$='.pdf'], a[href*='.pdf?']</em></code>."
+msgstr ""
+"Agregue o elimine tipos de archivo. Escriba «false» para desactivar esta "
+"prueba. Cualquier valor reemplaza el predeterminado: "
+"<code><em>a[href$='.pdf'], a[href*='.pdf?']</em></code>."
+
+msgid "Remove elements that match these selectors before testing link text"
+msgstr ""
+"Eliminar elementos que coincidan con estos selectores antes de revisar el "
+"texto del enlace"
+
+msgid ""
+"Provide a CSS selector of elements your modules programmatically add to "
+"links (usually external or open-in-new-window links), so they can be ignored "
+"when the link text is checked for the \"link has no text\" and \"link text "
+"is not meaningful\" tests.<br>E.g.: <code><em>.this, .that</em></code>"
+msgstr ""
+"Proporcione un selector CSS para elementos que sus módulos agregan a los "
+"enlaces (externos o nueva pestaña) para ignorarlos al comprobar si el enlace "
+"carece de texto o es poco descriptivo.<br>Ej.: <code><em>.this, .that</em></"
+"code>"
+
+msgid "Remove these strings before testing link text"
+msgstr "Eliminar estas cadenas antes de revisar el texto del enlace"
+
+msgid ""
+"Provide a pipe-separated (\"|\") list of phrases your modules "
+"programmatically add to links to hint a purpose (external, mail, phone, open-"
+"in-new-window), so they can be ignored when the link text is checked for the "
+"\"link has no text\" and \"link text is not meaningful\" tests; e.g.:  "
+"<pre><code><em>(link is external)|(link sends email)</em></code></pre>"
+msgstr ""
+"Proporcione una lista separada por «|» con frases añadidas automáticamente a "
+"enlaces (externo, correo, teléfono, nueva ventana) para ignorarlas al "
+"evaluar el texto del enlace; ej.: <pre><code><em>(link is external)|(link "
+"sends email)</em></code></pre>"
+
+msgid "Strings in links that indicate new tabs"
+msgstr "Textos que indican que el enlace abre nueva pestaña"
+
+msgid ""
+"Provide a pipe-separated list of phrases your site uses to warn users a link "
+"opens in a new tab; e.g.:  <pre><code><em>new&nbsp;tab|new&nbsp;window|"
+"external</em></code></pre>"
+msgstr ""
+"Proporcione una lista, separada por «|», de frases que su sitio usa para "
+"avisar a los usuarios de que un enlace abre una pestaña nueva; por ejemplo: "
+"<pre><code><em>new&nbsp;tab|new&nbsp;window|external</em></code></pre>"
+
+msgid ""
+"Modules like Link Purpose or External Links can mark links automatically."
+msgstr ""
+"Módulos como Link Purpose o External Links pueden marcar estos enlaces "
+"automáticamente."
+
+msgid "CSA/developer test"
+msgstr "Prueba de CSA/desarrollador"
+
+msgid "Show to developers"
+msgstr "Mostrar a desarrolladores"
+
+msgid "Show to everybody"
+msgstr "Mostrar a todos"
+
+msgid "Dashboard sync is disabled in Editoria11y configuration."
+msgstr ""
+"La sincronización con el panel está desactivada en la configuración de "
+"Editoria11y."
+
+msgid "(invalid URL)"
+msgstr "(URL no válida)"
+
+msgid "Editoria11y: Dismissals"
+msgstr "Editoria11y: descartes"
+
+msgid "Default"
+msgstr "Predeterminado"
+
+msgid "Node path"
+msgstr "Ruta del nodo"
+
+msgid "view"
+msgstr "ver"
+
+msgid "Term path"
+msgstr "Ruta del término"
+
+msgid "User bio path"
+msgstr "Ruta de biografía de usuario"
+
+msgid "Term title"
+msgstr "Título del término"
+
+msgid ", "
+msgstr ", "
+
+msgid "Node title"
+msgstr "Título del nodo"
+
+msgid "User name"
+msgstr "Nombre del usuario"
+
+msgid "Recorded path"
+msgstr "Ruta registrada"
+
+msgid "Computed"
+msgstr "Calculado"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty %}{% set dynamic_path = page_path %}{% endif %}\r\n"
+"{% set dynamic_title = title ~ name_2 ~ name_1 %}{% if dynamic_title is "
+"empty %}{% set dynamic_title = page_title %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ dynamic_title }}</"
+"a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty %}{% set dynamic_path = page_path %}{% endif %}\r\n"
+"{% set dynamic_title = title ~ name_2 ~ name_1 %}{% if dynamic_title is "
+"empty %}{% set dynamic_title = page_title %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ dynamic_title }}</"
+"a>"
+
+msgid "Dismissed alert"
+msgstr "Alerta descartada"
+
+msgid "By"
+msgstr "Por"
+
+msgid "1"
+msgid_plural "@count"
+msgstr[0] "1"
+msgstr[1] "@count"
+
+msgid "Reset"
+msgstr "Restablecer"
+
+msgid ""
+"<span class=\"ed11y-reset-dismissal\"><span class=\"ed11y-page-id\">{{ pid }}"
+"</span><span class=\"ed11y-dismissal-id\">{{id}}</span></span>"
+msgstr ""
+"<span class=\"ed11y-reset-dismissal\"><span class=\"ed11y-page-id\">{{ pid }}"
+"</span><span class=\"ed11y-dismissal-id\">{{id}}</span></span>"
+
+msgid "››"
+msgstr "››"
+
+msgid "‹‹"
+msgstr "‹‹"
+
+msgid "- All -"
+msgstr "- Todos -"
+
+msgid "Offset"
+msgstr "Desplazamiento"
+
+msgid "« First"
+msgstr "« Primero"
+
+msgid "Last »"
+msgstr "Último »"
+
+msgid "Asc"
+msgstr "Asc"
+
+msgid "Desc"
+msgstr "Desc"
+
+msgid "User who dismissed alert"
+msgstr "Usuario que descartó la alerta"
+
+msgid "pid"
+msgstr "pid"
+
+msgid "Node"
+msgstr "Nodo"
+
+msgid "Term"
+msgstr "Término"
+
+msgid "User bio"
+msgstr "Biografía de usuario"
+
+msgid "Dismissals page"
+msgstr "Página de descartes"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty %}{% set dynamic_path = page_path %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title }}</a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty %}{% set dynamic_path = page_path %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title }}</a>"
+
+msgid "Still on page"
+msgstr "Aún presente en la página"
+
+msgid "Reset filters"
+msgstr "Restablecer filtros"
+
+msgid "Issues marked as hidden or OK in Editoria11y."
+msgstr "Problemas marcados como ocultos u OK en Editoria11y."
+
+msgid "Dismissals filtered by issue"
+msgstr "Descartes filtrados por problema"
+
+msgid "No dismissals match these filters."
+msgstr "No hay descartes que coincidan con estos filtros."
+
+msgid "All"
+msgstr "Todos"
+
+msgid "Dismissed alerts of type \"{{result_name}}\""
+msgstr "Alertas descartadas de tipo \"{{result_name}}\""
+
+msgid ""
+"<a href=\"/admin/reports/editoria11y/dismissals/\" class=\"button button--"
+"primary\">Show all dismissals</a>"
+msgstr ""
+"<a href=\"/admin/reports/editoria11y/dismissals/\" class=\"button button--"
+"primary\">Mostrar todos los descartes</a>"
+
+msgid "Recent Editoria11y Dismissals"
+msgstr "Descartes recientes de Editoria11y"
+
+msgid "Editoria11y - Recent dismissals"
+msgstr "Editoria11y: descartes recientes"
+
+msgid "Editoria11y: Alerts"
+msgstr "Editoria11y: alertas"
+
+msgid "Top results"
+msgstr "Principales resultados"
+
+msgid "Computed title"
+msgstr "Título calculado"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path|render %}{% set dynamic_path = "
+"page_path %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{  page_title_1 }}</"
+"a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path|render %}{% set dynamic_path = "
+"page_path %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{  page_title_1 }}</"
+"a>"
+
+msgid "<a href=\"{{page_path_1}}\" data-ed1ref=\"{{pid}}\">{{page_path_1}}</a>"
+msgstr ""
+"<a href=\"{{page_path_1}}\" data-ed1ref=\"{{pid}}\">{{page_path_1}}</a>"
+
+msgid "No alerts found."
+msgstr "No se encontraron alertas."
+
+msgid "YYYY-MM-DD"
+msgstr "AAAA-MM-DD"
+
+msgid "User bio page"
+msgstr "Página de biografía de usuario"
+
+msgid "Node author"
+msgstr "Autor del nodo"
+
+msgid "All pages with issues"
+msgstr "Todas las páginas con problemas"
+
+msgid "Block: Pages with the most"
+msgstr "Bloque: páginas con más"
+
+msgid "Block: Recent alerts"
+msgstr "Bloque: alertas recientes"
+
+msgid "Recent Editoria11y Alerts"
+msgstr "Alertas recientes de Editoria11y"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path|render %}{% set dynamic_path = "
+"page_path %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title_1 }}</a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path|render %}{% set dynamic_path = "
+"page_path %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title_1 }}</a>"
+
+msgid "Issue"
+msgstr "Problema"
+
+msgid "Editoria11y - Recent alerts"
+msgstr "Editoria11y: alertas recientes"
+
+msgid "Block: Most frequent alerts"
+msgstr "Bloque: alertas más frecuentes"
+
+msgid "Most Frequent Editoria11y Alerts"
+msgstr "Alertas más frecuentes de Editoria11y"
+
+msgid "Editoria11y - Most frequent alerts"
+msgstr "Editoria11y: alertas más frecuentes"
+
+msgid "Alerts on specified page"
+msgstr "Alertas en la página indicada"
+
+msgid ""
+"<a href=\"{{ page_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title_1 }}</a>"
+msgstr ""
+"<a href=\"{{ page_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title_1 }}</a>"
+
+msgid "<p><strong>Author:</strong> {{ uid }}</p>"
+msgstr "<p><strong>Autor:</strong> {{ uid }}</p>"
+
+msgid "<p><strong>Last editor:</strong> {{ uid_1 }}</p>"
+msgstr "<p><strong>Último editor:</strong> {{ uid_1 }}</p>"
+
+msgid ""
+"<h1>Accessibility issues on: {{page_title_1}}</h1>\r\n"
+"<p>{{uid}}{{uid_1}}</p>"
+msgstr ""
+"<h1>Problemas de accesibilidad en: {{page_title_1}}</h1>\r\n"
+"<p>{{uid}}{{uid_1}}</p>"
+
+msgid ""
+"<p><a href=\"../editoria11y/pages\" class=\"button button--primary\">All "
+"pages with alerts</a></p>"
+msgstr ""
+"<p><a href=\"../editoria11y/pages\" class=\"button button--primary\">Todas "
+"las páginas con alertas</a></p>"
+
+msgid ""
+"<span class=\"ed11y-reset-this-path\" hidden><p class=\"more-link\"><a "
+"role=\"button\" class=\"action-link action-link--icon-trash action-link--"
+"danger\"><span hidden class=\"ed11y-api-path\">{{ page_path }}</span>Reset "
+"results for this page</a></p></span>"
+msgstr ""
+"<span class=\"ed11y-reset-this-path\" hidden><p class=\"more-link\"><a "
+"role=\"button\" class=\"action-link action-link--icon-trash action-link--"
+"danger\"><span hidden class=\"ed11y-api-path\">{{ page_path }}</"
+"span>Restablecer resultados de esta página</a></p></span>"
+
+msgid "Issue types"
+msgstr "Tipos de problemas"
+
+msgid "Pages with specified alert"
+msgstr "Páginas con la alerta indicada"
+
+msgid "Published status"
+msgstr "Estado de publicación"
+
+msgid "Created by"
+msgstr "Creado por"
+
+msgid "Created after"
+msgstr "Creado después de"
+
+msgid "Created before"
+msgstr "Creado antes de"
+
+msgid "<h1>Pages with alert \"{{ result_name }}\"</h1>"
+msgstr "<h1>Páginas con la alerta «{{ result_name }}»</h1>"
+
+msgid ""
+"<a href=\"../editoria11y/alerts\" class=\"button button--primary\">All "
+"alerts</a>"
+msgstr ""
+"<a href=\"../editoria11y/alerts\" class=\"button button--primary\">Todas las "
+"alertas</a>"
+
+msgid "Pages with issues"
+msgstr "Páginas con problemas"
+
+msgid "Next ›"
+msgstr "Siguiente ›"
+
+msgid "‹ Previous"
+msgstr "‹ Anterior"
+
+msgid "Authored on"
+msgstr "Creado el"
+
+msgid "Changed"
+msgstr "Modificado"
+
+msgid "Editoria11y: Crawler"
+msgstr "Editoria11y: rastreador"
+
+msgid "Editoria11y: Crawl Nodes"
+msgstr "Editoria11y: rastrear nodos"
+
+msgid "Authored by"
+msgstr "Creado por"
+
+msgid "Has results"
+msgstr "Tiene resultados"
+
+msgid "Has no alerts"
+msgstr "No tiene alertas"
+
+msgid "Has alerts"
+msgstr "Tiene alertas"
+
+msgid "nid"
+msgstr "nid"
+
+msgid "Editoria11y: Export"
+msgstr "Editoria11y: exportar"
+
+msgid "Export page with alerts"
+msgstr "Exportar página con alertas"
+
+msgid "Link to Taxonomy term"
+msgstr "Enlace al término de taxonomía"
+
+msgid "Link to User"
+msgstr "Enlace al usuario"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path_1|render %}{% set dynamic_path = "
+"page_path_1 %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title }}</a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path_1|render %}{% set dynamic_path = "
+"page_path_1 %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title }}</a>"
+
+msgid "Path when checked"
+msgstr "Ruta al revisar"
+
+msgid "<a href=\"{{page_path_1}}\" data-ed1ref=\"{{pid}}\">{{page_path_1}}"
+msgstr "<a href=\"{{page_path_1}}\" data-ed1ref=\"{{pid}}\">{{page_path_1}}"
+
+msgid "Current URL"
+msgstr "URL actual"
+
+msgid "{{ view_taxonomy_term }}{{ view_user }}{{ view_node }}"
+msgstr "{{ view_taxonomy_term }}{{ view_user }}{{ view_node }}"
+
+msgid "{% if type is empty %}{{entity_type}}{%else%}{{type}}{% endif %}"
+msgstr "{% if type is empty %}{{entity_type}}{%else%}{{type}}{% endif %}"
+
+msgid "Entity Type"
+msgstr "Tipo de entidad"
+
+msgid "Langcode (en, fr, de)"
+msgstr "Código de idioma (en, fr, de)"
+
+msgid "Referenced node"
+msgstr "Nodo referenciado"
+
+msgid "Referenced term"
+msgstr "Término referenciado"
+
+msgid "Referenced user bio"
+msgstr "Biografía de usuario referenciada"
+
+msgid "<p>Records chosen for export can be filtered and previewed below.</p>"
+msgstr ""
+"<p>Los registros seleccionados para exportación pueden filtrarse y "
+"previsualizarse a continuación.</p>"
+
+msgid "<a href=\"/admin/reports/editoria11y/export\">Back to dashboard</a>"
+msgstr "<a href=\"/admin/reports/editoria11y/export\">Volver al panel</a>"
+
+msgid "Dismissals export"
+msgstr "Exportación de descartes"
+
+msgid "Link to Content"
+msgstr "Enlace al contenido"
+
+msgid "Page raw path"
+msgstr "Ruta sin procesar de la página"
+
+msgid "Name"
+msgstr "Nombre"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path_1|render %}{% set dynamic_path = "
+"page_path_1 %}{% endif %}\r\n"
+"{% set dynamic_title = title_1 ~ name ~ name_1 %}{% if dynamic_title is "
+"empty %}{% set dynamic_title = page_title %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ dynamic_title }}</"
+"a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path_1|render %}{% set dynamic_path = "
+"page_path_1 %}{% endif %}\r\n"
+"{% set dynamic_title = title_1 ~ name ~ name_1 %}{% if dynamic_title is "
+"empty %}{% set dynamic_title = page_title %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ dynamic_title }}</"
+"a>"
+
+msgid "dismissal"
+msgstr "descarte"
+
+msgid "Page export"
+msgstr "Exportación de páginas"
+
+msgid "Alerts export"
+msgstr "Exportación de alertas"
+
+msgid "Editoria11y alerts on pages"
+msgstr "Alertas de Editoria11y en páginas"
+
+msgid "{{ view_taxonomy_term }}{{ view_user }}{{ view_node }} "
+msgstr "{{ view_taxonomy_term }}{{ view_user }}{{ view_node }} "
+
+msgid "Results for page"
+msgstr "Resultados para la página"
+
+msgid "<a href=\"./export/pages\">Export pages with alerts</a>"
+msgstr "<a href=\"./export/pages\">Exportar páginas con alertas</a>"
+
+msgid "<a href=\"./export/dismissals\">Export dismissals</a>"
+msgstr "<a href=\"./export/dismissals\">Exportar descartes</a>"
+
+msgid "<a href=\"./export/alerts\">Export alert list</a>"
+msgstr "<a href=\"./export/alerts\">Exportar lista de alertas</a>"
+
+msgid "Export alerts on pages"
+msgstr "Exportar alertas en páginas"
+
+msgid "Result name"
+msgstr "Nombre del resultado"

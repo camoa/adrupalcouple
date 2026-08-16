@@ -89,6 +89,9 @@ editoria11y.settings:
     ck5_table_headers:
       type: string
       label: 'Tell CK5 to have a header rows or columns by default.'
+    tests_off:
+      type: string
+      label: 'Tests not shown to content authors.'
     ignore_tests:
       type: mapping
       label: 'Disable the tests you are not ready for'

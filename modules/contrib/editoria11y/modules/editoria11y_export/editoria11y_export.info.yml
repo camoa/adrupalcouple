@@ -1,0 +1,14 @@
+name: 'Editoria11y Export Batch Processor'
+type: module
+description: 'Batching is only needed for very large or heavily customized CSV exports.'
+package: 'Editoria11y'
+core_version_requirement: ^10 || ^11
+dependencies:
+  - drupal:csv_serialization
+  - drupal:views_data_export
+  - drupal:editoria11y
+
+# Information added by Drupal.org packaging script on 2026-08-03
+version: '3.0.8'
+project: 'editoria11y'
+datestamp: 1785783812

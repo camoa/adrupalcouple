@@ -29,6 +29,14 @@
     "issues": "https://drupal.org/project/issues/editoria11y",
     "source": "https://git.drupalcode.org/project/editoria11y"
   },
+  "suggest": {
+    "drupal/key": "Required by the editoria11y_csa submodule for secure license key storage.",
+    "drupal/views_data_export": "Required by the editoria11y_export submodule for filterable bulk CSV exports; pulls in csv_serialization and the league/csv library."
+  },
+  "require-dev": {
+    "drupal/key": "^1.18",
+    "drupal/views_data_export": "^1.9"
+  },
   "conflict": {
     "drupal/csp": "<1.24"
   },

@@ -1,0 +1,2876 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: editoria11y 3.0.0\n"
+"POT-Creation-Date: 2026-08-01 21:46-0400\n"
+"PO-Revision-Date: 2026-2-12 10:00+0000\n"
+"Language-Team: Editoria11y\n"
+"Language: zh\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid ""
+"editoria11y_post_update_0004: scanned @scanned mismatched page(s), "
+"backfilled @fixed to the referenced entity language."
+msgstr ""
+"editoria11y_post_update_0004: scanned @scanned mismatched page(s), "
+"backfilled @fixed to the referenced entity language."
+
+msgid "Editoria11y"
+msgstr "Editoria11y"
+
+msgid "Editoria11y - Pages with issues"
+msgstr "Editoria11y – 存在问题的页面"
+
+msgctxt "problems"
+msgid "Provides relationship for issues and dismissals"
+msgstr "提供问题与驳回之间的关联"
+
+msgid "EID"
+msgstr "EID"
+
+msgid "Editoria11y's internal page ID"
+msgstr "Editoria11y 的内部页面 ID"
+
+msgid "Entity ID"
+msgstr "实体 ID"
+
+msgid "The NID/TID/UID of the page with an issue."
+msgstr "存在问题的页面的 NID/TID/UID。"
+
+msgid "Entity type"
+msgstr "实体类型"
+
+msgid "The entity type; \"route\" if no type found."
+msgstr "实体类型；如果找不到类型，则为 “route”。"
+
+msgid "Route name"
+msgstr "路由名称"
+
+msgid "Route name for page."
+msgstr "页面的路由名称。"
+
+msgid "Page path"
+msgstr "页面路径"
+
+msgid "Internal, relative page path."
+msgstr "内部相对路径。"
+
+msgid "Page language"
+msgstr "页面语言"
+
+msgid "Active translation."
+msgstr "当前使用的翻译。"
+
+msgid "Page title"
+msgstr "页面标题"
+
+msgid "The name of the route where this was last seen."
+msgstr "此问题上次出现时所在的路由名称。"
+
+msgid "Content alerts"
+msgstr "内容警告"
+
+msgid "Number of alerts shown to content editors."
+msgstr "显示给内容编辑者的警告数量。"
+
+msgid "Dev alerts"
+msgstr "开发者警告"
+
+msgid "Number of alerts shown to developers."
+msgstr "显示给开发者的警告数量。"
+
+msgid "Updated"
+msgstr "更新于"
+
+msgid "When this page was last checked."
+msgstr "此页面上次检查的时间。"
+
+msgid "Editoria11y - Test results"
+msgstr "Editoria11y – 测试结果"
+
+msgctxt "problems"
+msgid "Stores Editoria11y issue list"
+msgstr "存储 Editoria11y 问题列表"
+
+msgid "Result row"
+msgstr "结果行"
+
+msgid "Internal identifier"
+msgstr "内部标识符"
+
+msgid "Created"
+msgstr "创建于"
+
+msgid "When this page was flagged."
+msgstr "此页面被标记的时间。"
+
+msgid "Alert type"
+msgstr "警告类型"
+
+msgid "The name of the test as reported by Editoria11y JS"
+msgstr "Editoria11y JS 报告的测试名称"
+
+msgid "Alert type, linked"
+msgstr "警告类型（带链接）"
+
+msgid "Linked to report of all alerts of this type."
+msgstr "链接到此类型所有警告的报告。"
+
+msgid "Content alert count"
+msgstr "内容警告数量"
+
+msgid "The number of hits for this test type on this page"
+msgstr "此测试类型在本页触发的次数"
+
+msgid "Dev alert count"
+msgstr "开发者警告数量"
+
+msgid "Editoria11y - Dismissals"
+msgstr "Editoria11y - 忽略项"
+
+msgid "Stores Editoria11y warnings and dismissals"
+msgstr "存储 Editoria11y 的警告与忽略项"
+
+msgid "Dismissal internal reference ID"
+msgstr "忽略记录的内部引用 ID"
+
+msgid "Page with dismissal"
+msgstr "包含忽略记录的页面"
+
+msgid "Dismissed by"
+msgstr "忽略者"
+
+msgid "The user linked to this dismissal."
+msgstr "与此忽略记录相关的用户。"
+
+msgid "Linked Drupal user"
+msgstr "关联的 Drupal 用户"
+
+msgid "Dismissed element id"
+msgstr "被忽略的元素 ID"
+
+msgid "Code sample to identify the flagged element."
+msgstr "用于识别被标记元素的代码示例。"
+
+msgid "Dismissed on"
+msgstr "忽略于"
+
+msgid "The Unix timestamp of the first time this record was flagged."
+msgstr "此记录首次被标记时的 Unix 时间戳。"
+
+msgid "Dismissal stale since"
+msgstr "自此时间起不再出现"
+
+msgid "The element has not been seen since this date."
+msgstr "该元素自该日期后未再出现。"
+
+msgid "Dismissed result name"
+msgstr "被忽略的结果名称"
+
+msgid "Dismissed result name, linked"
+msgstr "被忽略的结果名称（带链接）"
+
+msgid "Links to report of all alerts of this type."
+msgstr "链接到此类型所有警告的报告。"
+
+msgid "Dismissal status"
+msgstr "忽略状态"
+
+msgid "The type of dismissal (e.g., OK, Ignore)"
+msgstr "忽略的类型（例如 OK、忽略）"
+
+msgid "Relate from Editoria11y page to referenced node"
+msgstr "从 Editoria11y 页面关联到引用的节点"
+
+msgid "Issues were found on this node"
+msgstr "此节点存在问题"
+
+msgid "Relate from node data to Editoria11y page"
+msgstr "从节点数据关联到 Editoria11y 页面"
+
+msgid "Relate from Editoria11y page to referenced taxonomy term"
+msgstr "从 Editoria11y 页面关联到引用的分类术语"
+
+msgid "Issues were found on this term page"
+msgstr "此分类术语页面存在问题"
+
+msgid "Relate from taxonomy term data to Editoria11y page"
+msgstr "从术语数据关联到 Editoria11y 页面"
+
+msgid "Relate from Editoria11y page list to user bio page data"
+msgstr "从 Editoria11y 页面列表关联到用户简介页面数据"
+
+msgid "Issues were found on this user bio page"
+msgstr "该用户简介页面存在问题"
+
+msgid "Relate from Editoria11y page to user bio page with issues"
+msgstr "从 Editoria11y 页面关联到存在问题的用户简介页"
+
+msgid "Relate from user bio page to Editoria11y results"
+msgstr "从用户简介页关联到 Editoria11y 结果"
+
+msgid "Relate from users list to Editoria11y results on bio page"
+msgstr "从用户列表关联到其简介页面上的 Editoria11y 结果"
+
+msgid "Relate from Editoria11y page to issues on page"
+msgstr "从 Editoria11y 页面关联到该页面的问题"
+
+msgid "Issues found on this node"
+msgstr "此节点上的问题"
+
+msgid "Relate from Editoria11y result to page"
+msgstr "将 Editoria11y 结果关联到页面"
+
+msgid "Relate from Editoria11y page to dismissals on page"
+msgstr "从 Editoria11y 页面关联到页面上的忽略记录"
+
+msgid "Relate from Editoria11y dismissal to page"
+msgstr "从 Editoria11y 忽略记录关联到页面"
+
+msgid "Group relationship for node with Editoria11y issues"
+msgstr "含 Editoria11y 问题的节点 Group 关联"
+
+msgid ""
+"Bridge to the Group module. Add the Group module Group relationship on top "
+"of this one to filter or sort issues by group."
+msgstr ""
+"连接到 Group 模块的桥接关联。在此关联之上添加 Group 模块自带的 Group 关联，即"
+"可按群组筛选或排序问题。"
+
+msgid "Group relationship for node"
+msgstr "节点的 Group 关联"
+
+msgid "Group relationship for user bio with Editoria11y issues"
+msgstr "含 Editoria11y 问题的用户简介 Group 关联"
+
+msgid "Group relationship for user"
+msgstr "用户的 Group 关联"
+
+msgid "Group relationship for taxonomy term with Editoria11y issues"
+msgstr "含 Editoria11y 问题的分类术语 Group 关联"
+
+msgid ""
+"Bridge to the Group module. Add the Group module Group relationship on top "
+"of this one to filter or sort issues by group. Requires a contrib module "
+"that exposes terms as group content."
+msgstr ""
+"连接到 Group 模块的桥接关联。在此关联之上添加 Group 模块自带的 Group 关联，即"
+"可按群组筛选或排序问题。需要一个能将术语公开为群组内容的第三方模块。"
+
+msgid "Group relationship for taxonomy term"
+msgstr "分类术语的 Group 关联"
+
+msgid "Warning: possible out of date path. This content may have moved to"
+msgstr "警告：路径可能已过期。内容可能已移动到"
+
+msgid "Export CSV"
+msgstr "导出 CSV"
+
+msgid "Predelete failed: @error_message"
+msgstr "预删除失败：@error_message"
+
+msgid "Page attachment failed: @error_message"
+msgstr "页面附件处理失败：@error_message"
+
+msgid ""
+"editoria11y_update_9019: scanned @total rows, repaired @updated, deleted "
+"@deleted corrupted group rows, left @skipped untouched."
+msgstr ""
+"editoria11y_update_9019: scanned @total rows, repaired @updated, deleted "
+"@deleted corrupted group rows, left @skipped untouched."
+
+msgid ""
+"editoria11y_update_9020: hashed @hashed page rows, removed @deduped "
+"duplicate rows, added unique keys."
+msgstr "editoria11y_update_9020: hashed @hashed page rows, removed @deduped duplicate rows, added unique keys."
+
+msgid "Editoria11y Accessibility Checker"
+msgstr "Editoria11y 可访问性检查器"
+
+msgid ""
+"Checks page content for accessibility and provides a site-wide dashboard."
+msgstr "检查页面内容的可访问性，并提供网站范围内的仪表盘。"
+
+msgid "Content Accessibility"
+msgstr "内容可访问性"
+
+msgid "Accessibility checker notifications and exclusions."
+msgstr "可访问性检查器的通知与排除设置。"
+
+msgid "Results from the Editoria11y checker."
+msgstr "Editoria11y 检查器的结果。"
+
+msgid "Dashboard"
+msgstr "仪表盘"
+
+msgid "Core settings"
+msgstr "核心设置"
+
+msgid "Demo"
+msgstr "演示"
+
+msgid "View Editoria11y checker"
+msgstr "查看 Editoria11y 检查器"
+
+msgid "Assign to all content editors."
+msgstr "分配给所有内容编辑者。"
+
+msgid "Administer Editoria11y checker"
+msgstr "管理 Editoria11y 检查器"
+
+msgid "Allows user to purge results and change configuration."
+msgstr "允许用户清除结果并更改配置。"
+
+msgid "Mark as hidden in Editoria11y"
+msgstr "在 Editoria11y 中标记为隐藏"
+
+msgid "Adds button to suppress a manual check for the current user."
+msgstr "为当前用户添加用于忽略手动检查的按钮。"
+
+msgid "Mark as OK in Editoria11y"
+msgstr "在 Editoria11y 中标记为 OK"
+
+msgid ""
+"Adds button to suppress a manual check for all users, if sync is enabled."
+msgstr "如果启用了同步，为所有用户添加用于忽略手动检查的按钮。"
+
+msgid "Manage Editoria11y results"
+msgstr "管理 Editoria11y 结果"
+
+msgid "View the site-wide dashboard and reset dismissals."
+msgstr "查看全站仪表盘并重置已忽略项目。"
+
+msgid "Editoria11y core settings"
+msgstr "Editoria11y 核心设置"
+
+msgid "Content Accessibility Issues"
+msgstr "内容可访问性问题"
+
+msgid "Editoria11y Settings"
+msgstr "Editoria11y 设置"
+
+msgid "Check elements in these containers"
+msgstr "检查这些容器中的元素"
+
+msgid "Alert panel assertiveness"
+msgstr "警告面板的提示强度"
+
+msgid "Do not run if these elements are on the page"
+msgstr "页面包含以下元素时不运行检查"
+
+msgid "Suppress all alerts if none of these elements are present"
+msgstr "页面不包含这些元素时隐藏所有警告"
+
+msgid "Do not run tests on these containers"
+msgstr "不要在这些容器中运行测试"
+
+msgid "Move toggle to avoid colliding with these widgets"
+msgstr "移动开关按钮以避免与这些小部件重叠"
+
+msgid ""
+"Full check should warn on these elements with embedded uncheckable content"
+msgstr "完整检查时应对这些包含不可检查内容的元素发出警告"
+
+msgid "These links download a document or image and need a manual review"
+msgstr "这些链接会下载文档或图片，需要手动检查"
+
+msgid "Strings that indicate a link opens in a new window"
+msgstr "表示链接会在新窗口打开的关键词"
+
+msgid "Remove these strings from link text before checking for bad link text"
+msgstr "在检查链接文本是否不合适前移除这些关键词"
+
+msgid "Remove strings in this selector before checking for bad link text"
+msgstr "在检查链接文本前移除此选择器内的关键词"
+
+msgid ""
+"Hidden elements in these containers will be revealed by theme JS on request "
+"via a dispatched event"
+msgstr "这些容器中的隐藏元素会由主题的 JS 通过事件触发来显示"
+
+msgid "Elements that truncate overflow, partially hiding buttons"
+msgstr "截断内容导致按钮部分被遮挡的元素"
+
+msgid "Color scheme for panel and tooltips"
+msgstr "面板与工具提示的配色方案"
+
+msgid "Pin toolbar to left or right"
+msgstr "将工具栏固定在左侧或右侧"
+
+msgid "Web components the checker should check"
+msgstr "检查器需要检查的 Web 组件"
+
+msgid "Auto-detects for additional shadow components"
+msgstr "自动检测额外的 Shadow DOM 组件"
+
+msgid "Auto-detects and checks new content"
+msgstr "自动检测并检查新增内容"
+
+msgid "Disables dashboard and synchronized marking of elements as OK"
+msgstr "禁用仪表盘及元素“OK”状态的同步标记功能"
+
+msgid "URL query parameters that should be recorded as separate pages"
+msgstr "应视为不同页面记录的 URL 查询参数"
+
+msgid "Remove string from URL for dashboard page links"
+msgstr "从仪表盘链接的 URL 中移除指定字符串"
+
+msgid "Number of custom test finished events the checker should wait for"
+msgstr "检查器等待的自定义测试完成事件数量"
+
+msgid "Disables live editor checking"
+msgstr "禁用编辑器内实时检查"
+
+msgid ""
+"Selector for frontend-context editors that should inherit the document "
+"outline"
+msgstr "需要继承文档大纲的前端编辑器选择器"
+
+msgid "Selector for editors where their first heading should be h2"
+msgstr "第一层级标题应为 h2 的编辑器选择器"
+
+msgid "Selector for editors where their first heading should be h3"
+msgstr "第一层级标题应为 h3 的编辑器选择器"
+
+msgid "Selector for editors where their first heading should be h4"
+msgstr "第一层级标题应为 h4 的编辑器选择器"
+
+msgid "Selectors for components where edit links are meaningless on tips"
+msgstr "提示中编辑链接无意义的组件的选择器"
+
+msgid "Tell CK5 to have a header rows or columns by default."
+msgstr "为 CKEditor 5 默认启用表头行或表头列。"
+
+msgid "Tests not shown to content authors."
+msgstr "不会显示给内容作者的测试。"
+
+msgid "Disable the tests you are not ready for"
+msgstr "禁用尚未准备启用的测试"
+
+msgid "linkNewWindow"
+msgstr "linkNewWindow"
+
+msgid "linkNoText"
+msgstr "linkNoText"
+
+msgid "altEmptyLinked"
+msgstr "altEmptyLinked"
+
+msgid "linkDocument"
+msgstr "linkDocument"
+
+msgid "linkTextIsURL"
+msgstr "linkTextIsURL"
+
+msgid "linkTextIsGeneric"
+msgstr "linkTextIsGeneric"
+
+msgid "textPossibleList"
+msgstr "textPossibleList"
+
+msgid "textPossibleHeading"
+msgstr "textPossibleHeading"
+
+msgid "textUppercase"
+msgstr "textUppercase"
+
+msgid "tableNoHeaderCells"
+msgstr "tableNoHeaderCells"
+
+msgid "tableEmptyHeaderCell"
+msgstr "tableEmptyHeaderCell"
+
+msgid "tableContainsContentHeading"
+msgstr "tableContainsContentHeading"
+
+msgid "embedVideo"
+msgstr "embedVideo"
+
+msgid "embedAudio"
+msgstr "embedAudio"
+
+msgid "embedVisualization"
+msgstr "embedVisualization"
+
+msgid "embedTwitter"
+msgstr "embedTwitter"
+
+msgid "embedCustom"
+msgstr "embedCustom"
+
+msgid "headingEmpty"
+msgstr "headingEmpty"
+
+msgid "headingIsLong"
+msgstr "headingIsLong"
+
+msgid "headingLevelSkipped"
+msgstr "headingLevelSkipped"
+
+msgid "blockquoteIsShort"
+msgstr "blockquoteIsShort"
+
+msgid "altMissing"
+msgstr "altMissing"
+
+msgid "altNull"
+msgstr "altNull"
+
+msgid "altMeaningless"
+msgstr "altMeaningless"
+
+msgid "altURL"
+msgstr "altURL"
+
+msgid "altImageOf"
+msgstr "altImageOf"
+
+msgid "altDeadspace"
+msgstr "altDeadspace"
+
+msgid "altLong"
+msgstr "altLong"
+
+msgid "altPartOfLinkWithText"
+msgstr "altPartOfLinkWithText"
+
+msgid "2-letter code (en, fr, de)"
+msgstr "两字母语言代码（如 en、fr、de）"
+
+msgid "Alert"
+msgstr "警告"
+
+msgid "Alert types"
+msgstr "警告类型"
+
+msgid "Alerts"
+msgstr "警告"
+
+msgid "All dismissals"
+msgstr "所有忽略项"
+
+msgid "All issues"
+msgstr "所有问题"
+
+msgid "All pages"
+msgstr "所有页面"
+
+msgid "Apply"
+msgstr "应用"
+
+msgid "Author"
+msgstr "作者"
+
+msgid "Authored after"
+msgstr "在此之后创建"
+
+msgid "Authored before"
+msgstr "在此之前创建"
+
+msgid "Authored"
+msgstr "创建时间"
+
+msgid "Content type"
+msgstr "内容类型"
+
+msgid "Detected"
+msgstr "检测时间"
+
+msgid "Dismissals"
+msgstr "忽略项"
+
+msgid "Dismissed accessibility alerts"
+msgstr "被忽略的可访问性警告"
+
+msgid "Edited"
+msgstr "编辑时间"
+
+msgid "Editor"
+msgstr "编辑者"
+
+msgid "Items per page"
+msgstr "每页项目数"
+
+msgid "Filter"
+msgstr "过滤"
+
+msgid "Language"
+msgstr "语言"
+
+msgid "Last editor"
+msgstr "最后编辑者"
+
+msgid "Marked"
+msgstr "已标记"
+
+msgid "No dismissals found."
+msgstr "未找到忽略项。"
+
+msgid "Page"
+msgstr "页面"
+
+msgid "Pages"
+msgstr "页面"
+
+msgid "Pages with alerts"
+msgstr "有警告的页面"
+
+msgid "Panel"
+msgstr "面板"
+
+msgid "Path"
+msgstr "路径"
+
+msgid "Published"
+msgstr "已发布"
+
+msgid "Recent"
+msgstr "最近"
+
+msgid "Recent accessibility alerts"
+msgstr "最近的可访问性警告"
+
+msgid "Recent alerts"
+msgstr "最近的问题"
+
+msgctxt "problems"
+msgid "Recent alerts"
+msgstr "最近的警告"
+
+msgid "Sort by"
+msgstr "排序依据"
+
+msgid "Title"
+msgstr "标题"
+
+msgid "Type"
+msgstr "类型"
+
+msgid "Filter and sort"
+msgstr "过滤与排序"
+
+msgid "Deleted."
+msgstr "已删除。"
+
+msgid "Delete failed."
+msgstr "删除失败。"
+
+msgid "<p>The Editoria11y <strong><em>@type</em></strong> view is missing.</p>"
+msgstr "<p>缺少 Editoria11y 的 <strong><em>@type</em></strong> 视图。</p>"
+
+msgid ""
+"<p>There are three view configurations this module installs, found in its /"
+"config/install folder. Each must be installed for this dashboard to display "
+"results.</p>"
+msgstr ""
+"<p>There are three view configurations this module installs, found in its /"
+"config/install folder. Each must be installed for this dashboard to display "
+"results.</p><p>此模块在 /config/install 中提供三个视图配置。要使仪表盘正常显"
+"示结果，必须安装全部三个视图。</p>"
+
+msgid ""
+"<p>To fix: copy and paste the contents of <strong>/editoria11y/config/"
+"install/views.view.ed11y_@type.yml</strong> into a \"View\" type import at "
+"<a href=\"/admin/config/development/configuration/single/import\">/admin/"
+"config/development/configuration/single/import</a>. If you sync your "
+"configuration to the filesystem, be sure to include these Views in your "
+"repository.</p>"
+msgstr ""
+"<p>To fix: copy and paste the contents of <strong>/editoria11y/config/"
+"install/views.view.ed11y_@type.yml</strong> into a \"View\" type import at "
+"<a href=\"/admin/config/development/configuration/single/import\">/admin/"
+"config/development/configuration/single/import</a>. If you sync your "
+"configuration to the filesystem, be sure to include these Views in your "
+"repository.</p><p>修复方法：将 <strong>/editoria11y/config/install/"
+"views.view.ed11y_@type.yml</strong> 的内容复制并粘贴到 <a href=\"/admin/"
+"config/development/configuration/single/import\">/admin/config/development/"
+"configuration/single/import</a> 的 “View” 类型导入中。如果使用配置同步，请确"
+"保这些视图已包含在仓库中。</p>"
+
+msgid "link is external"
+msgstr "外部链接"
+
+msgid "link sends email"
+msgstr "发送邮件的链接"
+
+msgid "No results found"
+msgstr "未找到结果"
+
+msgid ""
+"Your Editoria11y CSA trial has @days days remaining. <a "
+"href=\"@url\">Activate a license</a> to continue using CSA features after "
+"the trial ends."
+msgstr ""
+"您的 Editoria11y CSA 试用期还剩 @days 天。<a href=\"@url\">激活许可证</a>以在"
+"试用期结束后继续使用 CSA 功能。"
+
+msgid ""
+"Your Editoria11y CSA trial has expired. CSA features have been disabled. <a "
+"href=\"@url\">Activate a license</a> to continue using them."
+msgstr ""
+"您的 Editoria11y CSA 试用期已过期。CSA 功能已被禁用。<a href=\"@url\">激活许"
+"可证</a>以继续使用。"
+
+msgid ""
+"Your Editoria11y CSA license has expired. <a href=\"@url\">Renew or "
+"deactivate your license</a>."
+msgstr ""
+"您的 Editoria11y CSA 许可证已过期。<a href=\"@url\">续订或停用您的许可证</"
+"a>。"
+
+msgid ""
+"Your Editoria11y CSA license has expired. Please renew to reactivate CSA add-"
+"ons."
+msgstr "您的 Editoria11y CSA 许可证已过期。请续订以重新激活 CSA 附加组件。"
+
+msgid "Cron license check failed: @msg"
+msgstr "Cron 许可证检查失败：@msg"
+
+msgid ""
+"Editoria11y CSA features are active on a @days-day trial. <a "
+"href=\"@url\">Activate a license</a> to continue using them after the trial "
+"ends."
+msgstr ""
+"Editoria11y CSA 功能正在 @days 天的试用期内处于活动状态。<a href=\"@url\">激"
+"活许可证</a>以在试用期结束后继续使用。"
+
+msgid "Editoria11y Custom Test"
+msgstr "Editoria11y 自定义测试"
+
+msgid "Editoria11y Custom Tests"
+msgstr "Editoria11y 自定义测试"
+
+msgid "editoria11y custom test"
+msgstr "editoria11y 自定义测试"
+
+msgid "editoria11y custom tests"
+msgstr "editoria11y 自定义测试"
+
+msgid "Editoria11y CSA: Advanced Tools"
+msgstr "Editoria11y CSA：高级工具"
+
+msgid ""
+"Community-Supported Addons include code and contrast checks, custom checks, "
+"a site crawler and report maintenance tools."
+msgstr "社区支持附加组件包含代码检查、对比度检查、自定义检查、站点爬虫以及报告维护工具。"
+
+msgid "Add custom test"
+msgstr "添加自定义测试"
+
+msgid "Recheck"
+msgstr "重新检查"
+
+msgid "CSA membership"
+msgstr "CSA 会员"
+
+msgid "Custom tests"
+msgstr "自定义测试"
+
+msgid "Dashboard Actions"
+msgstr "仪表盘操作"
+
+msgid "Editoria11y CSA membership"
+msgstr "Editoria11y CSA 会员"
+
+msgid "Editoria11y custom tests"
+msgstr "Editoria11y 自定义测试"
+
+msgid "Add a custom test"
+msgstr "添加自定义测试"
+
+msgid "Edit custom test"
+msgstr "编辑自定义测试"
+
+msgid "Delete custom test"
+msgstr "删除自定义测试"
+
+msgid "Editoria11y CSA Settings"
+msgstr "Editoria11y CSA 设置"
+
+msgid "Developer roles"
+msgstr "开发者角色"
+
+msgid "Developer assertiveness"
+msgstr "开发者警告的提示强度"
+
+msgid "Tests overridden to show to content editors"
+msgstr "强制显示给内容编辑者的测试"
+
+msgid "Tests overridden to turn off"
+msgstr "强制禁用的测试"
+
+msgid "Tests overridden to only to show to developers"
+msgstr "强制仅显示给开发者的测试"
+
+msgid "Elements to ignore for contrast test"
+msgstr "对比度测试中要忽略的元素"
+
+msgid "Turn on contrast checks"
+msgstr "启用对比度检查"
+
+msgid "Developer check root: body or specify"
+msgstr "开发者检查的根节点：body 或指定"
+
+msgid "Developer check root selector"
+msgstr "开发者检查根节点选择器"
+
+msgid "Selector for elements to ignore for developers"
+msgstr "开发者检查需忽略的元素选择器"
+
+msgid "Enabled"
+msgstr "已启用"
+
+msgid "Custom development domain patterns"
+msgstr "自定义开发域名模式"
+
+msgid "ID"
+msgstr "ID"
+
+msgid "Label"
+msgstr "标签"
+
+msgid "Test key"
+msgstr "测试键"
+
+msgid "Tooltip title"
+msgstr "工具提示标题"
+
+msgid "Tip content HTML"
+msgstr "提示内容 HTML"
+
+msgid "Element set to check"
+msgstr "要检查的元素集"
+
+msgid "Dismiss key type"
+msgstr "忽略键类型"
+
+msgid "CSS filter selector"
+msgstr "CSS 过滤器选择器"
+
+msgid "Text strings to include"
+msgstr "要包含的文本字符串"
+
+msgid "Text string"
+msgstr "文本字符串"
+
+msgid "Text strings to exclude"
+msgstr "要排除的文本字符串"
+
+msgid "Case sensitive text matching"
+msgstr "区分大小写的文本匹配"
+
+msgid "Filter which pages will be crawled"
+msgstr "过滤将被爬取的页面"
+
+msgid "Cancel"
+msgstr "取消"
+
+msgid "Millisecond pause between page requests"
+msgstr "页面请求之间的暂停时间（毫秒）"
+
+msgid "This tab needs to remain open and in the foreground during the crawl."
+msgstr "爬取期间，此标签页必须保持打开且在前台。"
+
+msgid "Estimated time:"
+msgstr "预计时间："
+
+msgid "hours"
+msgstr "小时"
+
+msgid "minutes"
+msgstr "分钟"
+
+msgid "minute"
+msgstr "分钟"
+
+msgid "Start crawling"
+msgstr "开始爬取"
+
+msgid "Checked:"
+msgstr "已检查："
+
+msgid "pages"
+msgstr "页面"
+
+msgid "Back to dashboard"
+msgstr "返回仪表盘"
+
+msgid "Test"
+msgstr "测试"
+
+msgid "Elements"
+msgstr "元素"
+
+msgid "Status"
+msgstr "状态"
+
+msgid "Text"
+msgstr "文本"
+
+msgid "On"
+msgstr "开启"
+
+msgid "Off"
+msgstr "关闭"
+
+msgid "Freemius deactivation API call failed: @msg"
+msgstr "Freemius 停用 API 调用失败：@msg"
+
+msgid "Cannot cancel subscription: API token not found."
+msgstr "无法取消订阅：未找到 API 令牌。"
+
+msgid "Freemius subscription cancellation API call failed: @msg"
+msgstr "Freemius 订阅取消 API 调用失败：@msg"
+
+msgid "Key module lookup for @id failed: @msg"
+msgstr "Key module lookup for @id failed: @msg"
+
+msgid "Failed to update Freemius install properties: @msg"
+msgstr "更新 Freemius 安装属性失败：@msg"
+
+msgid ""
+"An <a href=\"@settings\">active license must be deactivated</a> before "
+"uninstalling."
+msgstr "在卸载之前，必须<a href=\"@settings\">先停用激活的许可证</a>。"
+
+msgid "License key stored. Use editoria11y-csa:activate to activate."
+msgstr "许可证密钥已保存。请使用 editoria11y-csa:activate 进行激活。"
+
+msgid "License activated."
+msgstr "许可证已激活。"
+
+msgid "License deactivated."
+msgstr "许可证已停用。"
+
+msgid "License active. Expires: @date"
+msgstr "许可证有效。到期时间：@date"
+
+msgid "License active. No expiration date."
+msgstr "许可证有效。无到期日期。"
+
+msgid ""
+"License management locked. Use editoria11y-csa:unlock to re-enable UI "
+"changes."
+msgstr "许可证管理已锁定。使用 editoria11y-csa:unlock 重新启用 UI 更改。"
+
+msgid "License management unlocked. UI changes are now allowed."
+msgstr "许可证管理已解锁。现在允许通过界面进行更改。"
+
+msgid "License expired or cancelled."
+msgstr "许可证已过期或已取消。"
+
+msgid "License key cannot be empty."
+msgstr "许可证密钥不能为空。"
+
+msgid "Failed to store key: {msg}"
+msgstr "保存密钥失败：{msg}"
+
+msgid "No stored license key found. Run editoria11y-csa:set-key first."
+msgstr "未找到已保存的许可证密钥。请先运行 editoria11y-csa:set-key。"
+
+msgid "Activation failed: {msg}"
+msgstr "激活失败：{msg}"
+
+msgid "Deactivation failed: {msg}"
+msgstr "停用失败：{msg}"
+
+msgid "License check failed: {msg}"
+msgstr "许可证检查失败：{msg}"
+
+msgid "Export"
+msgstr "导出"
+
+msgid "Export pages"
+msgstr "导出页面"
+
+msgid "Export dismissals"
+msgstr "导出忽略项"
+
+msgid "Export alerts"
+msgstr "导出警告"
+
+msgid "Paths with parameters"
+msgstr "带参数的路径"
+
+msgid "Drop records for deleted or moved pages"
+msgstr "删除已被移除或移动页面的记录"
+
+msgid "Deletes results that no longer have valid paths or entity references."
+msgstr "删除不再具有有效路径或实体引用的结果。"
+
+msgid "Update page titles"
+msgstr "更新页面标题"
+
+msgid ""
+"Replaces recorded titles for Nodes, Terms and Users with the current value "
+"on their edit page."
+msgstr "将节点、术语和用户的记录标题替换为其编辑页面上的当前标题。"
+
+msgid "Update page paths"
+msgstr "更新页面路径"
+
+msgid ""
+"Replaces recorded URLs for Nodes, Terms and Users with their current "
+"canonical path. <br>@ReviewPaths (node/1?node=2) will not be updated."
+msgstr ""
+"将节点、术语和用户记录的 URL 替换为其当前规范路径。<br>@ReviewPaths（node/1?"
+"node=2）不会更新。"
+
+msgid "Risky deletions"
+msgstr "风险删除"
+
+msgid "Delete records for paths with parameters (e.g., ?page=2)"
+msgstr "删除带参数的路径记录（例如 ?page=2）"
+
+msgid "None"
+msgstr "无"
+
+msgid "Only for nodes, terms & users"
+msgstr "仅用于节点、术语和用户"
+
+msgid "All, including search and views"
+msgstr "全部，包括搜索和视图"
+
+msgid ""
+"Used to remove duplicate records when previously recorded parameters like "
+"page numbers or search keys were not meaningful. Parameters that are not "
+"meaningful should be removed from the list of parameters to save under "
+"\"Syncing results to reports\" in the module configuration.<br>@ReviewPaths "
+"should be reviewed before proceeding. <strong>There is no undo</strong>."
+msgstr ""
+"当记录的参数（如页码或搜索键）无实际意义时，用于删除重复记录。无意义的参数应"
+"从模块配置中“将结果同步到报告”下的参数列表中移除。<br>继续操作前请检查 "
+"@ReviewPaths。<strong>此操作不可撤销</strong>。"
+
+msgid "Start"
+msgstr "开始"
+
+msgid "Recheck nodes"
+msgstr "重新检查节点"
+
+msgid "Set up a crawl"
+msgstr "设置爬取"
+
+msgid "Processing batch #@batch_id of @count."
+msgstr "正在处理批次 #@batch_id / @count。"
+
+msgid "@process processed @count, deleted @deleted, updated @updated."
+msgstr "@process：已处理 @count，删除 @deleted，更新 @updated。"
+
+msgid ""
+"An error occurred while processing %error_operation with arguments: "
+"@arguments"
+msgstr "处理 %error_operation 时发生错误（参数：@arguments）"
+
+msgid "No records to process."
+msgstr "没有需要处理的记录。"
+
+msgid ""
+"@process processed @count, deleted @deleted, updated @updated in @elapsed."
+msgstr ""
+"@process：已处理 @count，删除 @deleted，更新 @updated（耗时 @elapsed）。"
+
+msgid "Admin label for the configuration page"
+msgstr "配置页面的管理员标签"
+
+msgid "Test grouping ID"
+msgstr "测试分组ID"
+
+msgid ""
+"Letters, numbers and underscores only.<br>Rules that share an ID will be "
+"grouped on dashboard reports."
+msgstr "仅限字母、数字和下划线。<br>共享同一ID的规则将在仪表板报告中分组显示。"
+
+msgid "Active"
+msgstr "启用"
+
+msgid "Alert content"
+msgstr "警告内容"
+
+msgid "Tip title"
+msgstr "提示标题"
+
+msgid "Tip details"
+msgstr "提示详情"
+
+msgid ""
+"HTML displayed in the tooltip. The provided template is optional.<br>\n"
+"        Allowed tags: @tags."
+msgstr ""
+"工具提示中显示的HTML。提供的模板是可选的。<br>\n"
+"        允许的标签：@tags。"
+
+msgid "To fix"
+msgstr "如何修复"
+
+msgid "Error"
+msgstr "错误"
+
+msgid "Manual check"
+msgstr "手动检查"
+
+msgid "Dismiss key"
+msgstr "关闭键"
+
+msgid ""
+"How dismissals are tracked. 'Text' uses its text content, 'Attributes' uses "
+"its attributes (href, id, class, src)."
+msgstr ""
+"如何跟踪关闭操作。'Text'使用其文本内容，'Attributes'使用其属性（href、id、"
+"class、src）。"
+
+msgid "Text content"
+msgstr "文本内容"
+
+msgid "Attributes on tag (e.g. href and src)"
+msgstr "标签属性（例如href和src）"
+
+msgid "Elements to check"
+msgstr "要检查的元素"
+
+msgid ""
+"These sets contain elements that match your check area and skip over "
+"configuration."
+msgstr "这些集合包含与您的检查区域匹配的元素，并跳过配置。"
+
+msgid "Common choices"
+msgstr "常用选择"
+
+msgid "All text elements: Headings, Paragraphs, Blockquotes and Lists"
+msgstr "所有文本元素：标题、段落、块引用和列表"
+
+msgid "Links"
+msgstr "链接"
+
+msgid "Paragraphs"
+msgstr "段落"
+
+msgid "Headings"
+msgstr "标题"
+
+msgid "Images"
+msgstr "图片"
+
+msgid "All elements"
+msgstr "所有元素"
+
+msgid "...other..."
+msgstr "...其他..."
+
+msgid "Specific elements and combinations"
+msgstr "特定元素和组合"
+
+msgid "Lists"
+msgstr "列表"
+
+msgid "Blockquotes"
+msgstr "块引用"
+
+msgid "Tables"
+msgstr "表格"
+
+msgid "Buttons"
+msgstr "按钮"
+
+msgid "Inputs"
+msgstr "输入字段"
+
+msgid "Labels"
+msgstr "标签"
+
+msgid "Iframes"
+msgstr "Iframes"
+
+msgid "Videos"
+msgstr "视频"
+
+msgid "Audio"
+msgstr "音频"
+
+msgid ""
+"Note: combining Links with Paragraphs and other text containers can lead to "
+"duplicate alerts."
+msgstr "注意：将链接与段落和其他文本容器组合使用可能会导致重复警告。"
+
+msgid "When tip should appear"
+msgstr "提示出现的时机"
+
+msgid ""
+"This test builder allows for simple text and attribute tests.<br>Check the "
+"module readme for <a href=\"@url\">tips on writing more complex tests</a>."
+msgstr ""
+"此测试构建器支持简单的文本和属性测试。<br>请查阅模块readme文件以获取<a "
+"href=\"@url\">编写更复杂测试的提示</a>。"
+
+msgid "Select by attributes"
+msgstr "按属性选择"
+
+msgid ""
+"Match using CSS selectors.<br>Use :not() to skip elements, e.g. "
+"<code>:is(.check1, .check2):not(.ignore, .ignore *)</code>.<br>Use attribute "
+"selectors for URLs, e.g. <code>[href*=\".dev/\"]</code>."
+msgstr ""
+"使用CSS选择器匹配。<br>使用:not()跳过元素，例如"
+"<code>:is(.check1, .check2):not(.ignore, .ignore *)</code>。<br>对URL使用属性"
+"选择器，例如<code>[href*=\".dev/\"]</code>。"
+
+msgid "Select by text"
+msgstr "按文本选择"
+
+msgid "Flag elements containing any of these text strings. One per line."
+msgstr "标记包含这些文本字符串之一的元素。每行一个。"
+
+msgid "Case sensitive"
+msgstr "区分大小写"
+
+msgid "Exclude elements that match this text"
+msgstr "排除与此文本匹配的元素"
+
+msgid ""
+"Don't flag elements if they contain any of these words or phrases. E.g., a "
+"link to a development server is ok if it contains \"dev.\" One per line."
+msgstr ""
+"如果元素包含这些词或短语，则不标记。例如，如果链接包含\"dev.\"，则指向开发服"
+"务器的链接是可以的。每行一个。"
+
+msgid "Test key must contain only letters, numbers, and underscores."
+msgstr "测试键只能包含字母、数字和下划线。"
+
+msgid "Tip content must contain visible text."
+msgstr "提示内容必须包含可见文本。"
+
+msgid "Select at least one rule."
+msgstr "请至少选择一条规则。"
+
+msgid "Select at least one element type."
+msgstr "请至少选择一种元素类型。"
+
+msgid "The filter selector should be a CSS selector, not a CSS rule block."
+msgstr "过滤选择器应为CSS选择器，而非CSS规则块。"
+
+msgid "Created new custom test %label."
+msgstr "已创建新的自定义测试 %label。"
+
+msgid "Updated custom test %label."
+msgstr "已更新自定义测试 %label。"
+
+msgid "Are you deactivating this site or cancelling altogether?"
+msgstr "您是停用此站点，还是完全取消？"
+
+msgid "You can manage your subscriptions at any time in your Freemius account."
+msgstr "您可以随时在 Freemius 账户中管理您的订阅。"
+
+msgid "Choose an action"
+msgstr "选择操作"
+
+msgid ""
+"<strong>Deactivate this site</strong>, but keep my subscription active and "
+"renewing for use on another site"
+msgstr ""
+"<strong>停用此网站</strong>，但保持我的订阅有效并自动续订，以便在其他网站上使"
+"用"
+
+msgid ""
+"<strong>Cancel my subscription</strong> to the Editoria11y CSA altogether"
+msgstr "完全<strong>取消我的订阅</strong>Editoria11y CSA"
+
+msgid "Confirm deactivation"
+msgstr "确认停用"
+
+msgid "Never mind; keep site active"
+msgstr "算了，保持站点激活"
+
+msgid ""
+"This site appears to be a development or testing environment with an active "
+"license."
+msgstr "此网站似乎是具有活动许可证的开发或测试环境。"
+
+msgid "How would you like to proceed?"
+msgstr "您希望如何继续？"
+
+msgid ""
+"<strong>Cancel deactivation</strong>; I will manage this from the production "
+"site"
+msgstr "<strong>取消停用</strong>；我将从生产站点管理此操作"
+
+msgid ""
+"<strong>Disconnect this copy</strong>; leave the production license active"
+msgstr "<strong>断开此副本的连接</strong>；保持生产许可证处于活动状态"
+
+msgid ""
+"<strong>Deactivate all copies of this site</strong> (production, dev, and QA)"
+msgstr "<strong>停用此网站的所有副本</strong>（生产、开发和 QA）"
+
+msgid "Confirm"
+msgstr "确认"
+
+msgid ""
+"Editoria11y promotes accessibility in a unique way. Its tools are highly "
+"effective at helping non-technical authors prepare content that can be "
+"enjoyed equally by disabled Web users. We consider this a public good, so "
+"Editoria11y will always be free to use."
+msgstr ""
+"Editoria11y 以独特的方式促进无障碍访问。它的工具非常有效地帮助非技术作者准备"
+"残疾网络用户可以同等享受的内容。我们认为这是公共利益，因此 Editoria11y 将永远"
+"免费使用。"
+
+msgid "Editoria11y is not, however, free to develop or support."
+msgstr "但是，Editoria11y 的开发和维护并非免费。"
+
+msgid ""
+"The \"Community Supported Add-ons\" (CSA) project fills the gap: project "
+"membership subscriptions fund the development of the Editoria11y library, "
+"its CMS plugins, and the CSA suite."
+msgstr ""
+"\"社区支持的附加组件\"（CSA）项目填补了这一空白：项目会员订阅为 Editoria11y "
+"库、其 CMS 插件和 CSA 套件的开发提供资金。"
+
+msgid ""
+"<a href=\"@url\"><strong>Join the CSA</strong></a> to support this project"
+msgstr "<a href=\"@url\"><strong>加入 CSA</strong></a> 以支持此项目"
+
+msgid ""
+"Existing members: <a href=\"@url\"><strong>Manage your subscription</"
+"strong></a> or <a href=\"@support_url\"><strong>contact support</strong></a>"
+msgstr ""
+"现有会员：<a href=\"@url\"><strong>管理您的订阅</strong></a>或<a "
+"href=\"@support_url\"><strong>联系支持</strong></a>"
+
+msgid ""
+"License management on this site has been locked via Drush. Use <code>drush "
+"ed11y-unlock</code> to re-enable changes from this form."
+msgstr ""
+"此网站的许可证管理已通过 Drush 锁定。使用 <code>drush ed11y-unlock</code> 重"
+"新启用此表单的更改。"
+
+msgid "Warning: this site matches a dev or QA URL pattern"
+msgstr "警告：此站点匹配开发或 QA 的 URL 模式"
+
+msgid "Shared activations should be managed in the production copy."
+msgstr "共享激活应在生产副本中管理。"
+
+msgid ""
+"Use <code>drush ed11y-lock</code> to prevent changing shared activations."
+msgstr "使用 <code>drush ed11y-lock</code> 防止更改共享激活。"
+
+msgid ""
+"Deactivating a shared key deactivates all copies of a site, including "
+"production."
+msgstr "停用共享密钥会停用网站的所有副本，包括生产副本。"
+
+msgid ""
+"Separate license activations from a development environment consume an "
+"additional key."
+msgstr "来自开发环境的单独许可证激活会消耗额外的密钥。"
+
+msgid "Trial (@days days remaining)"
+msgstr "试用（剩余 @days 天）"
+
+msgid "Trial (expired)"
+msgstr "试用（已过期）"
+
+msgid "License expired"
+msgstr "许可证已过期"
+
+msgid "Active membership"
+msgstr "有效会员"
+
+msgid "Activate using stored license key"
+msgstr "使用已保存的许可证密钥激活"
+
+msgid "Activate with a different license key"
+msgstr "使用其他许可证密钥激活"
+
+msgid "Activate (enter license key below)"
+msgstr "激活（在下方输入许可证密钥）"
+
+msgid "<strong>License expired.</strong> Expired on: @date"
+msgstr "<strong>许可证已过期。</strong>过期时间：@date"
+
+msgid "<strong>License has expired.</strong>"
+msgstr "<strong>License has expired.</strong>"
+
+msgid "<strong>Trial license active.</strong> Trial ends: @date"
+msgstr "<strong>试用许可证有效。</strong>试用结束时间：@date"
+
+msgid "<strong>License active.</strong> Expires: @date"
+msgstr "<strong>许可证有效。</strong>到期时间：@date"
+
+msgid "<strong>Lifetime license active.</strong>"
+msgstr "<strong>Lifetime license active.</strong>"
+
+msgid "Check for license renewal"
+msgstr "检查许可证续订"
+
+msgid "Deactivate license"
+msgstr "停用许可证"
+
+msgid "A license key is stored but not active"
+msgstr "已保存许可证密钥，但尚未激活"
+
+msgid "Add a license key to enable CSA features"
+msgstr "添加许可证密钥以启用 CSA 功能"
+
+msgid "Enable CSA features"
+msgstr "启用 CSA 功能"
+
+msgid "CSA license key"
+msgstr "CSA 许可证密钥"
+
+msgid ""
+"<a href=\"@url\">Join the CSA</a> to enable CSA features. Visit the Freemius "
+"dashboard to <a href=\"@freemius\">manage your subscription</a> or recover a "
+"lost key."
+msgstr ""
+"<a href=\"@url\">加入 CSA</a> 以启用 CSA 功能。访问 Freemius 控制面板以<a "
+"href=\"@freemius\">管理您的订阅</a>或恢复丢失的密钥。"
+
+msgid "Local, Dev and QA site URL patterns"
+msgstr "本地、开发和 QA 站点的 URL 模式"
+
+msgid ""
+"One pattern per line, up to 5 patterns. Wildcards are supported (e.g. "
+"<code>*.test.example.com</code>).<br>Local, dev and QA sites can share an "
+"activation with production site, but only production sites check for "
+"renewals."
+msgstr ""
+"每行一个模式，最多 5 个模式。支持通配符（例如 <code>*.test.example.com</"
+"code>）。<br>本地、开发和 QA 站点可以与生产站点共享激活，但只有生产站点才会检"
+"查续订。"
+
+msgid ""
+"Additionally, any hostname consisting only of digits and dots (raw IPv4 "
+"address) is treated as a development environment."
+msgstr "此外，任何仅由数字和点组成的主机名（原始 IPv4 地址）都被视为开发环境。"
+
+msgid "Built-in development URL patterns"
+msgstr "内置的开发 URL 模式"
+
+msgid "Enter no more than 5 custom domain patterns."
+msgstr "最多可输入 5 个自定义域名模式。"
+
+msgid "Saved license key not found. Please activate with a new key."
+msgstr "未找到已保存的许可证密钥。请使用新密钥激活。"
+
+msgid "Enter a license key."
+msgstr "请输入许可证密钥。"
+
+msgid "Activation failed: @msg"
+msgstr "激活失败：@msg"
+
+msgid "License renewed and active."
+msgstr "许可证已续订并生效。"
+
+msgid "License is still expired."
+msgstr "许可证仍已过期。"
+
+msgid "Unexpected license status: @status"
+msgstr "意外的许可证状态：@status"
+
+msgid "Could not reach licensing server: @msg"
+msgstr "无法连接到许可证服务器：@msg"
+
+msgid "Deactivation failed: @msg"
+msgstr "停用失败：@msg"
+
+msgid "Editoria11y Export Batch Processor"
+msgstr "Editoria11y 导出批处理程序"
+
+msgid ""
+"Batching is only needed for very large or heavily customized CSV exports."
+msgstr "仅在导出的 CSV 非常大或高度自定义时才需要批处理。"
+
+msgid "hide"
+msgstr "隐藏"
+
+msgid "ok"
+msgstr "确定"
+
+msgid "Yes"
+msgstr "是"
+
+msgid "No"
+msgstr "否"
+
+msgid "This alt text is a filename, not a description"
+msgstr "此替代文本是文件名，而不是描述"
+
+msgid "Is this a clear and concise description of the image?"
+msgstr "这是对该图片清晰简洁的描述吗？"
+
+msgid "This alt text may be a placeholder"
+msgstr "此替代文本可能是占位符"
+
+msgid "This alt text is unpronounceable"
+msgstr "此替代文本不可发音"
+
+msgid "This custom input field is missing a label"
+msgstr "此自定义输入字段缺少标签"
+
+msgid "Button is missing an accessible label"
+msgstr "按钮缺少可访问名称"
+
+msgid "Button has an invalid ARIA label"
+msgstr "按钮的 ARIA 标注无效"
+
+msgid "Button name repeats the word \"button\""
+msgstr "按钮名称重复了“button”一词"
+
+msgid "This button is unpronounceable"
+msgstr "此按钮无法发音"
+
+msgid "Text does not have enough contrast to be easily legible"
+msgstr "文本对比度不足，可能难以阅读"
+
+msgid "Graphic or icon does not have enough contrast"
+msgstr "图形或图标的对比度不足"
+
+msgid "Input does not provide enough contrast to be easily legible"
+msgstr "输入框的对比度不足，可能难以阅读"
+
+msgid "Placeholder text does not have enough contrast to be easily legible"
+msgstr "占位符文本的对比度不足，可能难以阅读"
+
+msgid "Does this placeholder text have enough contrast?"
+msgstr "此占位符文本的对比度是否足够？"
+
+msgid "Does this text have enough contrast?"
+msgstr "此文本的对比度是否足够？"
+
+msgid "Does this graphic or icon have enough contrast?"
+msgstr "此图形或图标的对比度是否足够？"
+
+msgid "Duplicate ID attribute"
+msgstr "重复的 ID 属性"
+
+msgid "This link has a tooltip with the same text as the link"
+msgstr "此链接的工具提示与链接文本相同"
+
+msgid "Does this audio have a transcript?"
+msgstr "该音频是否提供文本稿？"
+
+msgid "Is this visualization accessible?"
+msgstr "此数据可视化是否可访问？"
+
+msgid "Embedded iframes need manual checks"
+msgstr "嵌入的 iframe 需要手动检查"
+
+msgid "Frame missing \"title\" attribute"
+msgstr "此框架缺少 \"title\" 属性"
+
+msgid "Frame with tabindex=\"-1\" will not be keyboard accessible."
+msgstr "tabindex=\"‑1\" 的框架将无法通过键盘访问。"
+
+msgid "Is this video accurately captioned?"
+msgstr "此视频是否有准确的字幕？"
+
+msgid "This heading has no text"
+msgstr "该标题没有文本"
+
+msgid "This image is used as a heading, so it needs alt text"
+msgstr "该图片被用作标题，因此需要替代文本"
+
+msgid "The first heading on this page is a subheading"
+msgstr "本页的第一个标题是副标题"
+
+msgid "Can this heading be shorter?"
+msgstr "该标题是否可以更短？"
+
+msgid "This page is missing a Heading 1"
+msgstr "本页缺少一级标题（H1）"
+
+msgid "This heading is tagged at the wrong level"
+msgstr "该标题的层级标注不正确"
+
+msgid "This heading is unpronounceable"
+msgstr "此标题无法发音"
+
+msgid "This element cannot be described by screen readers"
+msgstr "此元素无法被读屏软件描述"
+
+msgid "Can this alt text be shorter?"
+msgstr "此替代文本是否可以更短？"
+
+msgid "Is this image actually meaningless?"
+msgstr "该图片是否确为无意义的装饰？"
+
+msgid "Image in a carousel or gallery marked as decorative"
+msgstr "轮播/相册中的图片被标记为装饰性"
+
+msgid "This captioned image has no alt text"
+msgstr "此带标题的图片缺少替代文本"
+
+msgid "Alt text should not be the same as caption text"
+msgstr "替代文本不应与图片标题相同"
+
+msgid "Is there a visible label for this field?"
+msgstr "此表单字段是否有可见标签？"
+
+msgid "Prefer visible labels to placeholders"
+msgstr "优先使用可见标签，而非占位符"
+
+msgid "Is this reset button needed?"
+msgstr "是否需要此“重置”按钮？"
+
+msgid "This input has an empty label"
+msgstr "此输入字段的标签为空"
+
+msgid "Visible label does not match invisible label"
+msgstr "可见标签与不可见标签不一致"
+
+msgid "This image input is missing alt text"
+msgstr "此图像输入缺少替代文本"
+
+msgid "This input is not connected to a label"
+msgstr "此输入字段未关联到标签"
+
+msgid "Language tag does not match the content"
+msgstr "语言标签与内容不匹配"
+
+msgid "This content appears to be in a different language"
+msgstr "此内容似乎使用了不同的语言"
+
+msgid "This alt text appears to be in a different language"
+msgstr "此替代文本似乎使用了不同的语言"
+
+msgid "Alt text used as a link should not be a URL"
+msgstr "作为链接使用的替代文本不应为 URL"
+
+msgid "This linked alt might not be clear and concise"
+msgstr "此链接的替代文本可能不够清晰简洁"
+
+msgid "Linked images need pronounceable alt text"
+msgstr "链接图片需要可发音的替代文本"
+
+msgid "Manual check: link contains \"click here\""
+msgstr "手动检查：链接包含“点击这里”"
+
+msgid "Link article titles, not DOI numbers"
+msgstr "应链接文章标题，而非 DOI 编号"
+
+msgid "This link contains no words"
+msgstr "该链接没有文本"
+
+msgid "Link with invalid \"aria-labelledby\" attribute"
+msgstr "链接的 aria‑labelledby 属性无效"
+
+msgid "This link needs a label"
+msgstr "该链接需要标签"
+
+msgid "Link points to a file without warning"
+msgstr "链接指向文件但未提前告知"
+
+msgid "Links with the same text link to different pages"
+msgstr "文本相同的链接指向不同页面"
+
+msgid "Does this alt text describe the link or the image?"
+msgstr "此替代文本描述的是链接还是图片？"
+
+msgid "Does this alt text make sense as part of this link?"
+msgstr "此替代文本放在该链接中是否合理？"
+
+msgid "Can this linked alt text be shorter?"
+msgstr "该链接图片的替代文本是否可以更短？"
+
+msgid "This linked image needs alt text"
+msgstr "该链接图片需要替代文本"
+
+msgid "Does this linked image need a description?"
+msgstr "该链接图片是否需要描述？"
+
+msgid "Is this link actually a button?"
+msgstr "此链接实际上是按钮吗？"
+
+msgid "Does this link open a new tab without warning?"
+msgstr "该链接是否在未告知的情况下新开标签页？"
+
+msgid "This linked alt text may be a placeholder"
+msgstr "此链接的替代文本可能是占位符"
+
+msgid "This link only contains generic words"
+msgstr "该链接仅包含笼统词语"
+
+msgid "The purpose of this link is visually hidden"
+msgstr "此链接的用途在视觉上被隐藏"
+
+msgid "Does this image's alt describe the image or the link?"
+msgstr "此替代文本描述的是图片还是链接？"
+
+msgid "Are the symbols or emoji in this link meaningful?"
+msgstr "链接中的符号或 emoji 是否有意义？"
+
+msgid "This link is unpronounceable"
+msgstr "此链接无法发音"
+
+msgid "Link text should not be a URL"
+msgstr "链接文本不应为 URL"
+
+msgid "Meta tag for page language missing"
+msgstr "缺少页面语言的 meta 标签"
+
+msgid "Did you mean a different language code?"
+msgstr "您是否指的是另一个语言代码？"
+
+msgid "Invalid language code"
+msgstr "无效的语言代码"
+
+msgid "Page language may not match the content"
+msgstr "页面语言可能与内容不匹配"
+
+msgid "Meta tag limits how much users can enlarge text"
+msgstr "meta 标签限制了用户放大文本的能力"
+
+msgid "Meta tag automatically refreshes page"
+msgstr "meta 标签会自动刷新页面"
+
+msgid "Meta tag prevents users from enlarging text"
+msgstr "meta 标签阻止用户放大页面"
+
+msgid "Meta tag for page title missing"
+msgstr "缺少页面标题的 meta 标签"
+
+msgid "Invalid HTML: image has no alt attribute"
+msgstr "无效 HTML：图片缺少 alt 属性"
+
+msgid "Invalid HTML: linked image missing alt attribute"
+msgstr "无效 HTML：链接图片缺少 alt 属性"
+
+msgid "Invalid HTML: image in link missing alt attribute"
+msgstr "无效 HTML：链接中的图片缺少 alt 属性"
+
+msgid "This link target may be invalid"
+msgstr "链接目标可能无效"
+
+msgid "Should this quote be a heading?"
+msgstr "这段引用是否应为标题？"
+
+msgid "Has this document been tagged for screen readers?"
+msgstr "该文档是否已为读屏软件适当标注？"
+
+msgid "Should this bold text be a heading?"
+msgstr "这段加粗文字是否应为标题？"
+
+msgid "Should this have list formatting?"
+msgstr "此处是否应使用列表格式？"
+
+msgid "Broken same-page link"
+msgstr "同页锚点链接失效"
+
+msgid "Do not justify text"
+msgstr "不要两端对齐文本"
+
+msgid "Nested interactive layout components"
+msgstr "嵌套的交互式布局组件"
+
+msgid "Is there an alternative for this PDF?"
+msgstr "是否有此 PDF 的可替代内容？"
+
+msgid "Text is too small"
+msgstr "文字过小"
+
+msgid "Large blocks of emphasized text are harder to read"
+msgstr "大段强调文本更难阅读"
+
+msgid "Do not use sub/superscript as visual formatting"
+msgstr "不要将上/下标用于纯视觉排版"
+
+msgid "Only links should be underlined"
+msgstr "只有链接应使用下划线"
+
+msgid "Is this uppercase text needed?"
+msgstr "是否有必要使用全大写文本？"
+
+msgid "Are there redundant words in this alt text?"
+msgstr "该替代文本中是否有冗余词？"
+
+msgid "Tabindex overrides interrupt the focus order"
+msgstr "tabindex 覆盖会打乱焦点顺序"
+
+msgid "This header cell needs text"
+msgstr "此表头单元格需要文本"
+
+msgid "This table has an invalid headers attribute"
+msgstr "此表格的 headers 属性无效"
+
+msgid "This table needs a header row and/or column"
+msgstr "该表格缺少表头行或表头列"
+
+msgid "Content headings should not be used inside tables"
+msgstr "内容标题不应放在表格内使用"
+
+msgid "Invalid HTML list"
+msgstr "无效 HTML 列表"
+
+msgid "Linked images"
+msgstr "链接图片"
+
+msgid "Text formatting"
+msgstr "文本格式"
+
+msgid "Video, audio, frames"
+msgstr "视频、音频、框架"
+
+msgid "Contrast"
+msgstr "对比度"
+
+msgid "Forms"
+msgstr "表单"
+
+msgid "ARIA and focus"
+msgstr "ARIA 和焦点"
+
+msgid "Page metadata"
+msgstr "页面元数据"
+
+msgid "The request could not be processed. Details have been logged."
+msgstr "无法处理该请求。详细信息已记录到日志。"
+
+msgid "API request rejected: @message"
+msgstr "API 请求被拒绝：@message"
+
+msgid "API request failed: @message"
+msgstr "API 请求失败：@message"
+
+msgid "Export pages with alerts"
+msgstr "导出有警告的页面"
+
+msgid ""
+"Install the Editoria11y Export Batch Processor module to download these "
+"reports."
+msgstr "安装 Editoria11y Export Batch Processor 模块以下载这些报告。"
+
+msgid "Export results"
+msgstr "导出结果"
+
+msgctxt "problems"
+msgid "Top alerts"
+msgstr "最常见问题"
+
+msgctxt "problems"
+msgid "Pages with the most alerts"
+msgstr "问题最多的页面"
+
+msgid "Recent dismissals"
+msgstr "最近的忽略项"
+
+msgid ""
+"Activate the <a href=\"@csa\">Editoria11y CSA submodule</a> to see developer "
+"tests."
+msgstr "启用 <a href=\"@csa\">Editoria11y CSA 子模块</a>以查看开发者测试。"
+
+msgid "Include all parts of the page that contain your theme and content."
+msgstr "包含页面中涉及您的主题和内容的所有部分。"
+
+msgid "Include all parts of the page that contain your editable content."
+msgstr "包含页面中包含可编辑内容的所有部分。"
+
+msgid "Exclude elements that show unhelpful, repetitive, or inaccurate alerts."
+msgstr "排除显示无用、重复或不准确提示的元素。"
+
+msgid ""
+"<a href=\"@permissions\">Add permissions</a>, especially \"View Editoria11y "
+"checker\" and \"Mark OK.\"</a>"
+msgstr ""
+"<a href=\"@permissions\">添加权限</a>，尤其是 \"View Editoria11y checker\" "
+"和 \"Mark OK.\"</a>"
+
+msgid ""
+"If you need help: <a href=\"@config_guide\">Configuration Guide</a> | <a "
+"href=\"@issue_queue\">Issue Queue</a> | <a href=\"@help\">Support contacts</"
+"a>"
+msgstr ""
+"如需帮助：<a href=\"@config_guide\">配置指南</a> | <a href=\"@issue_queue\">"
+"问题队列</a> | <a href=\"@help\">支持联系方式</a>"
+
+msgid "Autodetect"
+msgstr "自动检测"
+
+msgid "Only user-editable content"
+msgstr "仅用户可编辑的内容"
+
+msgid "Other"
+msgstr "其他"
+
+msgid "Parts of the page to test"
+msgstr "要测试的页面部分"
+
+msgid "\"Autodetect\" selects:"
+msgstr "“自动检测”选择："
+
+msgid "Other: specify regions to check for developer and content problems"
+msgstr "其他:指定用于检查开发者与内容问题的区域"
+
+msgid ""
+"Provide CSS selectors. For many sites, the site theme is wrapped in "
+"<code>.dialog-off-canvas-main-canvas</code> while editing."
+msgstr ""
+"提供 CSS 选择器。对于许多站点，在编辑时，站点主题被封装在 <code>.dialog-off-"
+"canvas-main-canvas</code> 中。"
+
+msgid "Do not check for any errors inside these elements"
+msgstr "不检查这些元素内的任何错误"
+
+msgid "These parts of the page will be ignored entirely."
+msgstr "页面的这些部分将被完全忽略。"
+
+msgid "match content settings"
+msgstr "match content settings"
+
+msgid "Page regions with user-editable content"
+msgstr "包含用户可编辑内容的页面区域"
+
+msgid ""
+"Default: <code><em>main</em></code><br>Provide <a target=\"_blank\" "
+"href=\"https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/"
+"Selectors\">CSS selectors</a>. Content authors will only see the alerts "
+"within these parts of the page. Do not provide selectors that nest within "
+"each other, or the inner content will be checked twice."
+msgstr ""
+"默认：<code><em>main</em></code><br>请提供 <a target=\"_blank\" "
+"href=\"https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/"
+"Selectors\">CSS 选择器</a>。内容作者只会在这些页面部分内看到警告。请勿使用相"
+"互嵌套的选择器，否则内部内容将被重复检查。"
+
+msgid ""
+"Default: <code><em>main</em></code><br>Provide <a target=\"_blank\" "
+"href=\"https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/"
+"Selectors\">CSS selectors</a>. Do not provide selectors that nest within "
+"each other, or the inner content will be checked twice."
+msgstr ""
+"默认：<code><em>main</em></code><br>请提供 <a target=\"_blank\" "
+"href=\"https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/"
+"Selectors\">CSS 选择器</a>。请勿使用相互嵌套的选择器，否则内部内容将被重复检"
+"查。"
+
+msgid "Errors in these elements should only be shown to developers"
+msgstr "这些元素中的错误仅向开发者显示"
+
+msgid "Do not check for content errors inside these elements"
+msgstr "不检查这些元素内的内容错误"
+
+msgid ""
+"Content editors are not responsible for errors in these elements. <br>E.g.: "
+"<code><em>#sidebar-menu a, .slide [aria-hidden=\"true\"]</em></code>."
+msgstr ""
+"内容编辑者不对这些元素中的错误负责。<br>例如:<code><em>#sidebar-menu "
+"a, .slide [aria-hidden=\"true\"]</em></code>。"
+
+msgid "Roles that will see developer alerts"
+msgstr "可查看开发者警告的角色"
+
+msgid ""
+"All roles with the <a href=\":url\">View editoria11y checker</a> permission "
+"see content alerts."
+msgstr ""
+"所有拥有 <a href=\":url\">View editoria11y checker</a> 权限的角色均可查看内容"
+"警告。"
+
+msgid "Advanced settings"
+msgstr "高级设置"
+
+msgid "Assertiveness"
+msgstr "提示强度"
+
+msgid "Checker mode for content roles"
+msgstr "内容角色的检查器模式"
+
+msgid "Start open if there are any alerts"
+msgstr "若有警告则默认展开"
+
+msgid "Start open if there are new alerts"
+msgstr "若有新警告则默认展开"
+
+msgid "Start minimized"
+msgstr "默认最小化"
+
+msgid ""
+"Choose when the control panel should open and show inline tips. \"Start open "
+"if there are any alerts\" is recommended, as it helps tips get noticed over "
+"time."
+msgstr ""
+"选择控制面板展开及显示提示的逻辑。推荐使用“若有警告则展开”，可更有效地提醒用"
+"户。"
+
+msgid "Checker mode for developer roles"
+msgstr "开发者角色的检查器模式"
+
+msgid "Do not check any content while it is being edited"
+msgstr "编辑过程中不对内容执行检查"
+
+msgid ""
+"Use the \"Do not check on pages with these elements\" setting to prevent "
+"checking only on specific pages. E.g., exclude: <code><em>form[id^=\"node-"
+"article\"]</em></code>."
+msgstr ""
+"如需仅在特定页面禁用检查，请使用“页面包含以下元素时不检查”设置。例如排除："
+"<code><em>form[id^=\"node-article\"]</em></code>。"
+
+msgid "Assign headers to CKEditor tables on insert"
+msgstr "插入 CKEditor 表格时自动分配表头"
+
+msgid "First row"
+msgstr "首行"
+
+msgid "First column"
+msgstr "首列"
+
+msgid "Both"
+msgstr "两者"
+
+msgid ""
+"You will need to clear cache for changes to this setting to appear in "
+"CKEditor."
+msgstr "您需要清除缓存，此设置才会在 CKEditor 中生效。"
+
+msgid "Theme compatibility"
+msgstr "主题兼容性"
+
+msgid "Configuration tips"
+msgstr "配置提示"
+
+msgid ""
+"If the checker <strong>toggle</strong> does not appear: make sure a z-"
+"indexed or overflow-hidden element in your front-end theme is not hiding or "
+"covering the <code><em>ed11y-element-panel</em></code> container, make sure "
+"that any custom selectors in the \"Disable the scanner if these elements are "
+"detected\" field are not present, and make sure that no JavaScript errors "
+"are appearing in your <a href=\"https://developer.mozilla.org/en-US/docs/"
+"Tools/Browser_Console\"> browser console</a>"
+msgstr ""
+"如果检查器的<strong>切换按钮</strong>未出现：请确认前端主题中没有使用 z-"
+"index 或 overflow-hidden 的元素遮挡 <code><em>ed11y-element-panel</em></"
+"code> 容器；确认“如检测到以下元素则禁用扫描器”字段中的任何自定义选择器均不存"
+"在；并确认 <a href=\"https://developer.mozilla.org/en-US/docs/Tools/"
+"Browser_Console\">浏览器控制台</a>中没有 JavaScript 错误。"
+
+msgid ""
+"If the checker toggle is present but <strong>not detecting</strong> errors, "
+"or missing errors that should be flagged: check that your inclusions & "
+"exclusion settings below are not missing or ignoring the elements. It is not "
+"uncommon for homepages or views to insert editable content outside the "
+"<code><em>main</em></code> element."
+msgstr ""
+"如果切换按钮存在，但<strong>未检测</strong>到错误，或漏检：请检查包含/排除设"
+"置是否遗漏或忽略了应检查的元素。某些主页或视图会将可编辑内容放在 "
+"<code><em>main</em></code> 元素之外，这并不少见。"
+
+msgid "Theme"
+msgstr "主题"
+
+msgid "Sleek"
+msgstr "Sleek"
+
+msgid "Classic"
+msgstr "经典"
+
+msgid "Dark"
+msgstr "深色"
+
+msgid "Do not check on pages with these elements"
+msgstr "页面包含以下元素时不执行检查"
+
+msgid ""
+"Used to block checking on site sections or admin pages.<br>E.g. "
+"<code><em>.content-type-example, .tabs__link[href=*\"edit\"]</em></code>."
+msgstr ""
+"用于在站点部分或管理页面上阻止检查。<br>例如：<code><em>.content-type-"
+"example, .tabs__link[href=*\"edit\"]</em></code>。"
+
+msgid "Hide all alerts on pages where these elements are not present"
+msgstr "页面未包含以下元素时隐藏所有警告"
+
+msgid ""
+"Used to limit alerting to nodes where the user can edit something. Suggested "
+"selectors:<br> <code><em>.contextual-region a[href*=\"/edit\"], .contextual-"
+"region a[href*=\"/manage\"]</em></code>."
+msgstr ""
+"用于仅在用户可以编辑的节点上显示警告。建议的选择器："
+"<br><code><em>.contextual-region a[href*=\"/edit\"], .contextual-region "
+"a[href*=\"/manage\"]</em></code>"
+
+msgid ""
+"Set to the number of other themes or modules that will be <a href=\"https://"
+"editoria11y.princeton.edu/configuration/#customtests\">injecting custom "
+"result JS events</a>."
+msgstr ""
+"设置会<a href=\"https://editoria11y.princeton.edu/configuration/"
+"#customtests\">注入自定义结果事件</a>的主题或模块的数量。"
+
+msgid "Positioning"
+msgstr "定位"
+
+msgid "Don't show edit links on tips in these containers"
+msgstr "在这些容器内的提示中不显示编辑链接"
+
+msgid ""
+"Tips show copies of the \"Edit\" and \"Layout\" links for nodes, users and "
+"taxonomy terms. These links are not helpful on lists of content from remote "
+"nodes.<br>Provide a comma-separated list of page sections of where these "
+"links should not show, E.g.: <code><em>#sidebar-menu, .news-feed</em></code>."
+"<br>To hide the links <strong>everywhere</strong>, set this field to an "
+"asterisk (<code><em>*</em></code>).<br>To modify the links, <a "
+"href=\"https://editoria11y.princeton.edu/configuration/#modify-tips\" "
+"target=\"_blank\">use the ed11yPop event</a> in your theme JS."
+msgstr ""
+"提示中会显示节点、用户和术语的“编辑”“布局”链接副本，但它们在远程内容列表中无"
+"意义。<br>以逗号分隔提供不应显示这些链接的区域。例如：<code><em>#sidebar-"
+"menu, .news-feed</em></code><br>要<strong>在所有地方</strong>隐藏这些链接，请"
+"输入星号（<code><em>*</em></code>）。<br>要修改这些链接，请在主题 JS 中使用 "
+"<a href=\"https://editoria11y.princeton.edu/configuration/#modify-tips\" "
+"target=\"_blank\">ed11yPop 事件</a>。"
+
+msgid "Pin panel to..."
+msgstr "固定面板位置…"
+
+msgid "Right"
+msgstr "右"
+
+msgid "Left"
+msgstr "左"
+
+msgid "Don't cover these other widgets"
+msgstr "不要遮挡这些小部件"
+
+msgid ""
+"Provide a comma-separated list of selectors for other things that appear in "
+"the bottom right of the page. <br>If nothing is set, Editoria11y will "
+"automatically slide left to accommodate <code><em>#klaro_toggle_dialog, "
+"#klaro-cookie-notice .same-page-preview-dialog.ui-dialog-position-side</em></"
+"code>."
+msgstr ""
+"提供出现在页面右下角的小部件的选择器（以逗号分隔）。<br>若未指定，"
+"Editoria11y 会自动左移以避开 <code><em>#klaro_toggle_dialog, #klaro-cookie-"
+"notice .same-page-preview-dialog.ui-dialog-position-side</em></code> 等元素。"
+
+msgid "Elements with overflow hidden"
+msgstr "使用 overflow:hidden 的元素"
+
+msgid ""
+"Sometimes buttons get drawn and visually truncated outside the bounds of a "
+"positioned element. Provide a selector list."
+msgstr "某些按钮可能在定位元素外被裁切，请提供相关的选择器列表。"
+
+msgid "Theme JS will handle revealing hidden tooltips inside these containers"
+msgstr "主题 JS 将处理这些容器内隐藏提示的显示"
+
+msgid ""
+"Editoria11y detects hidden tooltips and warns the user when they try to jump "
+"to them from the panel. For elements on this list, Editoria11y will <a "
+"href=\"https://itmaybejj.github.io/editoria11y/#dealing-with-alerts-on-"
+"hidden-or-size-constrained-content\">dispatch a JS event</a> instead of a "
+"warning, so custom JS in your theme can first reveal the hidden tip (e.g., "
+"open an accordion or tab panel)."
+msgstr ""
+"Editoria11y 会在用户尝试从面板跳转到隐藏提示时发出警告。若元素在列表中，则会"
+"改为触发<a href=\"https://itmaybejj.github.io/editoria11y/#dealing-with-"
+"alerts-on-hidden-or-size-constrained-content\">JS 事件</a>，以便主题脚本先展"
+"现隐藏内容（例如打开手风琴、标签页等）。"
+
+msgid "Detecting dynamic and shadow content"
+msgstr "检测动态内容和 Shadow DOM 内容"
+
+msgid "Dynamically refresh if new content appears"
+msgstr "当出现新内容时动态刷新"
+
+msgid "Watch for changes anywhere on the page"
+msgstr "监控页面任意位置的变化"
+
+msgid "Only watch for changes to content containers present on load"
+msgstr "仅监控加载时存在的内容容器的变化"
+
+msgid "Do not watch for changes"
+msgstr "不监控变化"
+
+msgid ""
+"Set to \"anywhere\" if changes are being missed, set to \"ignore\" if you "
+"notice performance issues. Themes and modules can also call "
+"<code>Drupal.Ed11y.refresh()</code> to refresh results."
+msgstr ""
+"若出现遗漏检测，请设置为“anywhere”；若出现性能问题，请设置为“ignore”。主题和"
+"模块也可调用 <code>Drupal.Ed11y.refresh()</code> 来刷新结果。"
+
+msgid "Check inside these specific Web components"
+msgstr "检查这些指定的 Web 组件内部"
+
+msgid ""
+"Provide selectors for elements with <a href='https://developer.mozilla.org/"
+"en-US/docs/Web/Web_Components'>shadow DOM</a> you want tested. E.g.: "
+"<code><em>my-fancy-accordion-widget, my-magical-slideshow</em></code>."
+msgstr ""
+"为希望测试的含有 <a href='https://developer.mozilla.org/en-US/docs/Web/"
+"Web_Components'>shadow DOM</a> 的元素提供选择器。例如：<code><em>my-fancy-"
+"accordion-widget, my-magical-slideshow</em></code>。"
+
+msgid "Auto-detect any Web components"
+msgstr "自动检测所有 Web 组件"
+
+msgid ""
+"This is easier to configure than specifying components, but may slow test "
+"runs on very complicated pages."
+msgstr "比手动指定组件更容易，但在复杂页面上可能导致速度变慢。"
+
+msgid "Syncing results to reports"
+msgstr "将结果同步到报告"
+
+msgid ""
+"Remember that results only sync to the dashboard when viewing nodes. Results "
+"shown while editing or viewing previews or revisions will not sync."
+msgstr ""
+"请注意，结果仅会在“查看节点”时同步到仪表盘；编辑、预览或查看修订时的结果不会"
+"同步。"
+
+msgid "Remove redundant base url from URLs"
+msgstr "从 URL 中移除冗余的基础路径"
+
+msgid ""
+"Provide base URL (\"/mysite\") if your site is installed in a subdirectory. "
+"Subdirectories tend to get duplicated (/mysite/mysite/mypage) and throw "
+"errors from the API."
+msgstr ""
+"如果站点安装在子目录中，请提供基础 URL（如“/mysite”）。子目录可能发生重复（/"
+"mysite/mysite/mypage），从而导致 API 错误。"
+
+msgid "Preserve query parameters"
+msgstr "保留查询参数"
+
+msgid ""
+"The dashboard ignores most parameters: results for both /news?f=1 and /news?"
+"f=2 will show up as just /news. Provide a comma separated list of parameters "
+"that are meaningful, and should appear as separate pages in results."
+msgstr ""
+"仪表盘会忽略大多数参数：/news?f=1 和 /news?f=2 都会被视为 /news。请分别提供应"
+"视为独立页面的、有意义的参数（以逗号分隔）。"
+
+msgid "Disable sync altogether"
+msgstr "完全禁用同步"
+
+msgid ""
+"Syncing test results back to Drupal is required for the <a target=\"_blank\" "
+"href=\"/admin/reports/editoria11y\">issue</a> and <a target=\"_blank\" "
+"href=\"/admin/reports/editoria11y/dismissals\">dismissal</a> dashboards and "
+"\"mark OK\" buttons."
+msgstr ""
+"要使用<a target=\"_blank\" href=\"/admin/reports/editoria11y\">问题报告</a>、"
+"<a target=\"_blank\" href=\"/admin/reports/editoria11y/dismissals\">忽略项报"
+"告</a>以及“标记为 OK”功能，需要将测试结果同步回 Drupal。"
+
+msgid "Heading outline position of editable content"
+msgstr "可编辑内容的标题层级结构起始位置"
+
+msgid ""
+"To check headings in CKEditor, Editoria11y needs to know what the first "
+"heading level should be in this field. Body fields should generally be at "
+"the h2 level."
+msgstr ""
+"要检查 CKEditor 中的标题，Editoria11y 需要知道此字段的起始标题层级。正文字段"
+"通常应从 h2 开始。"
+
+msgid "H2 level fields (body content)"
+msgstr "H2 层级字段（正文内容）"
+
+msgid ""
+"Body fields on nodes are preceded by an h1, and their heading outline should "
+"start with an h2. Ideally set this for top-level body fields for each of "
+"your content types, and set blocks and embedded nodes to h3 or h4.\n"
+"        <br>Set all content types: <code><em>form[id^=\"node-\"] #edit-body-"
+"wrapper .ck-content</em></code>\n"
+"        <br>Set specific content types: <code><em>form[id^=\"node-\"] #edit-"
+"body-wrapper .ck-content</em></code>\n"
+"        <br>Set up for Gutenberg: <code><em>form[id^=\"node-\"] #edit-body-"
+"wrapper .is-root-container</em></code>"
+msgstr ""
+"节点正文字段前已存在 h1，因此正文的标题结构应从 h2 开始。建议为所有内容类型的"
+"正文字段设置为 h2，而区块或嵌入项设置为 h3 或 h4。\n"
+"<br>适用于所有内容类型：<code><em>form[id^=\"node-\"] #edit-body-wrapper .ck-"
+"content</em></code>\n"
+"<br>适用于指定内容类型：<code><em>form[id^=\"node-\"] #edit-body-wrapper .ck-"
+"content</em></code>\n"
+"<br>适用于 Gutenberg：<code><em>form[id^=\"node-\"] #edit-body-wrapper .is-"
+"root-container</em></code>"
+
+msgid "H3 level fields (blocks or paragraphs with separate titles)"
+msgstr "H3 层级字段（带独立标题的区块或段落）"
+
+msgid ""
+"Sometimes inline and layout builder blocks are grouped under an h2 from a "
+"separate field, so their highest heading level should be h3."
+msgstr ""
+"某些内联区块或布局构建器区块被归在另一个字段的 h2 标题下，因此它们的最高标题"
+"层级应为 h3。"
+
+msgid "H4 level fields (deeply nested blocks or paragraphs)"
+msgstr "H4 层级字段（深度嵌套的区块或段落）"
+
+msgid ""
+"Sometimes inline and layout builder blocks are grouped under an h3 from a "
+"separate field, so their highest heading level should be h4."
+msgstr ""
+"一些内联区块和布局构建区块位于来自其他字段的 h3 下，因此其最高标题应为 h4。"
+
+msgid "Modify tests that usually detect content issues"
+msgstr "修改通常用于检测内容问题的测试"
+
+msgid "Modify tests that usually detect template or configuration issues"
+msgstr "修改通常用于检测模板或配置问题的测试"
+
+msgid "Do not check contrast for these elements"
+msgstr "对这些元素不执行对比度检查"
+
+msgid ""
+"Provide a comma-separated list of selectors for elements to ignore for all "
+"users."
+msgstr "提供以逗号分隔的选择器列表，用于指定对所有用户忽略的元素。"
+
+msgid "Remind editor that content in these embeds needs manual review"
+msgstr "提醒编辑者这些嵌入内容需要手动检查"
+
+msgid ""
+"Provide a comma-separated list of selectors you wish to flag for the editor, "
+"e.g.: <code><em>.my-embedded-feed, #my-social-link-block</em></code>."
+msgstr ""
+"提供要提示编辑者注意的嵌入元素选择器，以逗号分隔。例如：<code><em>.my-"
+"embedded-feed, #my-social-link-block</em></code>"
+
+msgid ""
+"Default settings should work with both <a href=\"https://www.drupal.org/"
+"project/linkpurpose\" target=\"_blank\">Link Purpose Icons</a> and <a "
+"target=\"_blank\" href=\"https://www.drupal.org/project/extlink\">External "
+"Links</a>."
+msgstr ""
+"默认设置应与 <a href=\"https://www.drupal.org/project/linkpurpose\" "
+"target=\"_blank\">Link Purpose Icons</a> 和 <a target=\"_blank\" "
+"href=\"https://www.drupal.org/project/extlink\">External Links</a> 模块兼容。"
+
+msgid "Remind the editor that these linked documents need a manual check"
+msgstr "提醒编辑者这些链接的文档需要手动检查"
+
+msgid ""
+"Add or remove filetypes. Set to \"false\" to disable the test altogether. "
+"Providing any value will override the default, which is "
+"<code><em>a[href$='.pdf'], a[href*='.pdf?']</em></code>."
+msgstr ""
+"添加或移除文件类型。设置为 “false” 将完全禁用此测试。输入任何值都会覆盖默认规"
+"则：<code><em>a[href$='.pdf'], a[href*='.pdf?']</em></code>。"
+
+msgid "Remove elements that match these selectors before testing link text"
+msgstr "在检查链接文本前移除匹配这些选择器的元素"
+
+msgid ""
+"Provide a CSS selector of elements your modules programmatically add to "
+"links (usually external or open-in-new-window links), so they can be ignored "
+"when the link text is checked for the \"link has no text\" and \"link text "
+"is not meaningful\" tests.<br>E.g.: <code><em>.this, .that</em></code>"
+msgstr ""
+"提供模块程序化添加在链接上的元素的选择器（如外部链接图标），以便在执行“无文"
+"本”“文本无意义”等测试时忽略这些元素。<br>例如：<code><em>.this, .that</em></"
+"code>"
+
+msgid "Remove these strings before testing link text"
+msgstr "在检查链接文本前移除这些字符串"
+
+msgid ""
+"Provide a pipe-separated (\"|\") list of phrases your modules "
+"programmatically add to links to hint a purpose (external, mail, phone, open-"
+"in-new-window), so they can be ignored when the link text is checked for the "
+"\"link has no text\" and \"link text is not meaningful\" tests; e.g.:  "
+"<pre><code><em>(link is external)|(link sends email)</em></code></pre>"
+msgstr ""
+"提供模块自动添加到链接中的提示用途的短语（外链、邮件、电话、新标签页等），用 "
+"| 分隔。在执行“无文本”“文本无意义”检查时将忽略这些短语。示例："
+"<pre><code><em>(link is external)|(link sends email)</em></code></pre>"
+
+msgid "Strings in links that indicate new tabs"
+msgstr "表示链接将打开新标签页的关键词"
+
+msgid ""
+"Provide a pipe-separated list of phrases your site uses to warn users a link "
+"opens in a new tab; e.g.:  <pre><code><em>new&nbsp;tab|new&nbsp;window|"
+"external</em></code></pre>"
+msgstr ""
+"提供站点用于提示“新标签页打开”的短语，以“|”分隔。例如："
+"<pre><code><em>new&nbsp;tab|new&nbsp;window|external</em></code></pre>"
+
+msgid ""
+"Modules like Link Purpose or External Links can mark links automatically."
+msgstr "Link Purpose 或 External Links 等模块可以自动标记这些链接。"
+
+msgid "CSA/developer test"
+msgstr "CSA/开发者测试"
+
+msgid "Show to developers"
+msgstr "向开发者显示"
+
+msgid "Show to everybody"
+msgstr "向所有人显示"
+
+msgid "Dashboard sync is disabled in Editoria11y configuration."
+msgstr "Editoria11y 配置中已禁用仪表盘同步。"
+
+msgid "(invalid URL)"
+msgstr "（无效 URL）"
+
+msgid "Editoria11y: Dismissals"
+msgstr "Editoria11y：忽略项"
+
+msgid "Default"
+msgstr "默认"
+
+msgid "Node path"
+msgstr "节点路径"
+
+msgid "view"
+msgstr "查看"
+
+msgid "Term path"
+msgstr "术语路径"
+
+msgid "User bio path"
+msgstr "用户简介路径"
+
+msgid "Term title"
+msgstr "术语标题"
+
+msgid ", "
+msgstr "，"
+
+msgid "Node title"
+msgstr "节点标题"
+
+msgid "User name"
+msgstr "用户名"
+
+msgid "Recorded path"
+msgstr "记录的路径"
+
+msgid "Computed"
+msgstr "计算生成"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty %}{% set dynamic_path = page_path %}{% endif %}\r\n"
+"{% set dynamic_title = title ~ name_2 ~ name_1 %}{% if dynamic_title is "
+"empty %}{% set dynamic_title = page_title %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ dynamic_title }}</"
+"a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty %}{% set dynamic_path = page_path %}{% endif %}\r\n"
+"{% set dynamic_title = title ~ name_2 ~ name_1 %}{% if dynamic_title is "
+"empty %}{% set dynamic_title = page_title %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ dynamic_title }}</"
+"a>"
+
+msgid "Dismissed alert"
+msgstr "已忽略的警告"
+
+msgid "By"
+msgstr "操作人"
+
+msgid "1"
+msgid_plural "@count"
+msgstr[0] "@count"
+
+msgid "Reset"
+msgstr "重置"
+
+msgid ""
+"<span class=\"ed11y-reset-dismissal\"><span class=\"ed11y-page-id\">{{ pid }}"
+"</span><span class=\"ed11y-dismissal-id\">{{id}}</span></span>"
+msgstr ""
+"<span class=\"ed11y-reset-dismissal\"><span class=\"ed11y-page-id\">{{ pid }}"
+"</span><span class=\"ed11y-dismissal-id\">{{id}}</span></span>"
+
+msgid "››"
+msgstr "››"
+
+msgid "‹‹"
+msgstr "‹‹"
+
+msgid "- All -"
+msgstr "- 全部 -"
+
+msgid "Offset"
+msgstr "偏移量"
+
+msgid "« First"
+msgstr "« 首页"
+
+msgid "Last »"
+msgstr "末页 »"
+
+msgid "Asc"
+msgstr "升序"
+
+msgid "Desc"
+msgstr "降序"
+
+msgid "User who dismissed alert"
+msgstr "忽略警告的用户"
+
+msgid "pid"
+msgstr "pid"
+
+msgid "Node"
+msgstr "节点"
+
+msgid "Term"
+msgstr "术语"
+
+msgid "User bio"
+msgstr "用户简介"
+
+msgid "Dismissals page"
+msgstr "忽略项页面"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty %}{% set dynamic_path = page_path %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title }}</a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty %}{% set dynamic_path = page_path %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title }}</a>"
+
+msgid "Still on page"
+msgstr "仍存在于页面上"
+
+msgid "Reset filters"
+msgstr "重置过滤器"
+
+msgid "Issues marked as hidden or OK in Editoria11y."
+msgstr "在 Editoria11y 中被标记为隐藏或 OK 的问题。"
+
+msgid "Dismissals filtered by issue"
+msgstr "按问题过滤的忽略项"
+
+msgid "No dismissals match these filters."
+msgstr "没有符合这些过滤条件的忽略项。"
+
+msgid "All"
+msgstr "全部"
+
+msgid "Dismissed alerts of type \"{{result_name}}\""
+msgstr "类型为“{{result_name}}”的已忽略警告"
+
+msgid ""
+"<a href=\"/admin/reports/editoria11y/dismissals/\" class=\"button button--"
+"primary\">Show all dismissals</a>"
+msgstr ""
+"<a href=\"/admin/reports/editoria11y/dismissals/\" class=\"button button--"
+"primary\">Show all dismissals</a><a href=\"/admin/reports/editoria11y/"
+"dismissals/\" class=\"button button--primary\">显示所有忽略项</a>"
+
+msgid "Recent Editoria11y Dismissals"
+msgstr "最近的 Editoria11y 忽略项"
+
+msgid "Editoria11y - Recent dismissals"
+msgstr "Editoria11y - 最近的忽略项"
+
+msgid "Editoria11y: Alerts"
+msgstr "Editoria11y：警告"
+
+msgid "Top results"
+msgstr "主要结果"
+
+msgid "Computed title"
+msgstr "计算生成的标题"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path|render %}{% set dynamic_path = "
+"page_path %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{  page_title_1 }}</"
+"a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path|render %}{% set dynamic_path = "
+"page_path %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{  page_title_1 }}</"
+"a>"
+
+msgid "<a href=\"{{page_path_1}}\" data-ed1ref=\"{{pid}}\">{{page_path_1}}</a>"
+msgstr ""
+"<a href=\"{{page_path_1}}\" data-ed1ref=\"{{pid}}\">{{page_path_1}}</a>"
+
+msgid "No alerts found."
+msgstr "未发现警告。"
+
+msgid "YYYY-MM-DD"
+msgstr "YYYY-MM-DD"
+
+msgid "User bio page"
+msgstr "用户简介页面"
+
+msgid "Node author"
+msgstr "节点作者"
+
+msgid "All pages with issues"
+msgstr "所有存在问题的页面"
+
+msgid "Block: Pages with the most"
+msgstr "区块：问题最多的页面"
+
+msgid "Block: Recent alerts"
+msgstr "区块：最近的警告"
+
+msgid "Recent Editoria11y Alerts"
+msgstr "最近的 Editoria11y 警告"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path|render %}{% set dynamic_path = "
+"page_path %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title_1 }}</a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path|render %}{% set dynamic_path = "
+"page_path %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title_1 }}</a>"
+
+msgid "Issue"
+msgstr "问题"
+
+msgid "Editoria11y - Recent alerts"
+msgstr "Editoria11y - 最近的警告"
+
+msgid "Block: Most frequent alerts"
+msgstr "区块：最常出现的警告"
+
+msgid "Most Frequent Editoria11y Alerts"
+msgstr "最常出现的 Editoria11y 警告"
+
+msgid "Editoria11y - Most frequent alerts"
+msgstr "Editoria11y - 最常出现的警告"
+
+msgid "Alerts on specified page"
+msgstr "指定页面上的警告"
+
+msgid ""
+"<a href=\"{{ page_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title_1 }}</a>"
+msgstr ""
+"<a href=\"{{ page_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title_1 }}</a>"
+
+msgid "<p><strong>Author:</strong> {{ uid }}</p>"
+msgstr "<p><strong>作者：</strong>{{ uid }}</p>"
+
+msgid "<p><strong>Last editor:</strong> {{ uid_1 }}</p>"
+msgstr "<p><strong>最后编辑者：</strong>{{ uid_1 }}</p>"
+
+msgid ""
+"<h1>Accessibility issues on: {{page_title_1}}</h1>\r\n"
+"<p>{{uid}}{{uid_1}}</p>"
+msgstr ""
+"<h1>Accessibility issues on: {{page_title_1}}</h1>\r\n"
+"<p>{{uid}}{{uid_1}}</p><h1>页面存在的可访问性问题：{{page_title_1}}</h1>\r\n"
+"<p>{{uid}}{{uid_1}}</p>"
+
+msgid ""
+"<p><a href=\"../editoria11y/pages\" class=\"button button--primary\">All "
+"pages with alerts</a></p>"
+msgstr ""
+"<p><a href=\"../editoria11y/pages\" class=\"button button--primary\">All "
+"pages with alerts</a></p><p><a href=\"../editoria11y/pages\" class=\"button "
+"button--primary\">查看所有有警告的页面</a></p>"
+
+msgid ""
+"<span class=\"ed11y-reset-this-path\" hidden><p class=\"more-link\"><a "
+"role=\"button\" class=\"action-link action-link--icon-trash action-link--"
+"danger\"><span hidden class=\"ed11y-api-path\">{{ page_path }}</span>Reset "
+"results for this page</a></p></span>"
+msgstr ""
+"<span class=\"ed11y-reset-this-path\" hidden><p class=\"more-link\"><a "
+"role=\"button\" class=\"action-link action-link--icon-trash action-link--"
+"danger\"><span hidden class=\"ed11y-api-path\">{{ page_path }}</span>Reset "
+"results for this page</a></p></span><span class=\"ed11y-reset-this-path\" "
+"hidden><p class=\"more-link\"><a role=\"button\" class=\"action-link action-"
+"link--icon-trash action-link--danger\"><span hidden class=\"ed11y-api-"
+"path\">{{ page_path }}</span>重置此页面的结果</a></p></span>"
+
+msgid "Issue types"
+msgstr "问题类型"
+
+msgid "Pages with specified alert"
+msgstr "具有指定警告的页面"
+
+msgid "Published status"
+msgstr "发布状态"
+
+msgid "Created by"
+msgstr "创建者"
+
+msgid "Created after"
+msgstr "在此日期之后创建"
+
+msgid "Created before"
+msgstr "在此日期之前创建"
+
+msgid "<h1>Pages with alert \"{{ result_name }}\"</h1>"
+msgstr "<h1>含有警告“{{ result_name }}”的页面</h1>"
+
+msgid ""
+"<a href=\"../editoria11y/alerts\" class=\"button button--primary\">All "
+"alerts</a>"
+msgstr ""
+"<a href=\"../editoria11y/alerts\" class=\"button button--primary\">All "
+"alerts</a><a href=\"../editoria11y/alerts\" class=\"button button--primary\">"
+"查看所有警告</a>"
+
+msgid "Pages with issues"
+msgstr "存在问题的页面"
+
+msgid "Next ›"
+msgstr "下一页 ›"
+
+msgid "‹ Previous"
+msgstr "‹ 上一页"
+
+msgid "Authored on"
+msgstr "创建日期"
+
+msgid "Changed"
+msgstr "更改日期"
+
+msgid "Editoria11y: Crawler"
+msgstr "Editoria11y：爬取工具"
+
+msgid "Editoria11y: Crawl Nodes"
+msgstr "Editoria11y：爬取节点"
+
+msgid "Authored by"
+msgstr "作者"
+
+msgid "Has results"
+msgstr "有结果"
+
+msgid "Has no alerts"
+msgstr "无警告"
+
+msgid "Has alerts"
+msgstr "有警告"
+
+msgid "nid"
+msgstr "nid"
+
+msgid "Editoria11y: Export"
+msgstr "Editoria11y：导出"
+
+msgid "Export page with alerts"
+msgstr "导出包含警告的页面"
+
+msgid "Link to Taxonomy term"
+msgstr "链接到分类术语"
+
+msgid "Link to User"
+msgstr "链接到用户"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path_1|render %}{% set dynamic_path = "
+"page_path_1 %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title }}</a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path_1|render %}{% set dynamic_path = "
+"page_path_1 %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title }}</a>"
+
+msgid "Path when checked"
+msgstr "检查时的路径"
+
+msgid "<a href=\"{{page_path_1}}\" data-ed1ref=\"{{pid}}\">{{page_path_1}}"
+msgstr "<a href=\"{{page_path_1}}\" data-ed1ref=\"{{pid}}\">{{page_path_1}}"
+
+msgid "Current URL"
+msgstr "当前 URL"
+
+msgid "{{ view_taxonomy_term }}{{ view_user }}{{ view_node }}"
+msgstr "{{ view_taxonomy_term }}{{ view_user }}{{ view_node }}"
+
+msgid "{% if type is empty %}{{entity_type}}{%else%}{{type}}{% endif %}"
+msgstr "{% if type is empty %}{{entity_type}}{%else%}{{type}}{% endif %}"
+
+msgid "Entity Type"
+msgstr "实体类型"
+
+msgid "Langcode (en, fr, de)"
+msgstr "语言代码（如 en、fr、de）"
+
+msgid "Referenced node"
+msgstr "引用的节点"
+
+msgid "Referenced term"
+msgstr "引用的术语"
+
+msgid "Referenced user bio"
+msgstr "引用的用户简介"
+
+msgid "<p>Records chosen for export can be filtered and previewed below.</p>"
+msgstr "<p>选择导出的记录可在下方过滤和预览。</p>"
+
+msgid "<a href=\"/admin/reports/editoria11y/export\">Back to dashboard</a>"
+msgstr "<a href=\"/admin/reports/editoria11y/export\">返回仪表板</a>"
+
+msgid "Dismissals export"
+msgstr "忽略项导出"
+
+msgid "Link to Content"
+msgstr "链接到内容"
+
+msgid "Page raw path"
+msgstr "页面原始路径"
+
+msgid "Name"
+msgstr "名称"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path_1|render %}{% set dynamic_path = "
+"page_path_1 %}{% endif %}\r\n"
+"{% set dynamic_title = title_1 ~ name ~ name_1 %}{% if dynamic_title is "
+"empty %}{% set dynamic_title = page_title %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ dynamic_title }}</"
+"a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path_1|render %}{% set dynamic_path = "
+"page_path_1 %}{% endif %}\r\n"
+"{% set dynamic_title = title_1 ~ name ~ name_1 %}{% if dynamic_title is "
+"empty %}{% set dynamic_title = page_title %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ dynamic_title }}</"
+"a>"
+
+msgid "dismissal"
+msgstr "忽略项"
+
+msgid "Page export"
+msgstr "页面导出"
+
+msgid "Alerts export"
+msgstr "警告导出"
+
+msgid "Editoria11y alerts on pages"
+msgstr "页面上的 Editoria11y 警告"
+
+msgid "{{ view_taxonomy_term }}{{ view_user }}{{ view_node }} "
+msgstr "{{ view_taxonomy_term }}{{ view_user }}{{ view_node }} "
+
+msgid "Results for page"
+msgstr "页面结果"
+
+msgid "<a href=\"./export/pages\">Export pages with alerts</a>"
+msgstr "<a href=\"./export/pages\">导出包含警告的页面</a>"
+
+msgid "<a href=\"./export/dismissals\">Export dismissals</a>"
+msgstr "<a href=\"./export/dismissals\">导出忽略项</a>"
+
+msgid "<a href=\"./export/alerts\">Export alert list</a>"
+msgstr "<a href=\"./export/alerts\">导出警告列表</a>"
+
+msgid "Export alerts on pages"
+msgstr "导出页面上的警告"
+
+msgid "Result name"
+msgstr "结果名称"

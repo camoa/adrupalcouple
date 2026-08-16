@@ -36,10 +36,10 @@
         "drupal/dropdown_language": "^4.1",
         "drupal/easy_breadcrumb": "^2.0",
         "drupal/editor_advanced_link": "^2.2",
-        "drupal/editoria11y": "^2.1",
+        "drupal/editoria11y": "^3",
         "drupal/entity_browser": "^2.9",
-        "drupal/entity_usage": "^2.0@beta",
-        "drupal/extlink": "^2.0",
+        "drupal/entity_usage": "^5.0@beta",
+        "drupal/extlink": "^3.0",
         "drupal/field_group": "^4",
         "drupal/fivestar": "3.0.x-dev@dev",
         "drupal/focal_point": "^2.0",
@@ -59,7 +59,7 @@
         "drupal/link_attributes": "^2.1",
         "drupal/linkit": "^7.0@alpha",
         "drupal/manage_display": "3.x-dev@dev",
-        "drupal/markdown_easy": "^1.0",
+        "drupal/markdown_easy": "^2.0",
         "drupal/metatag": "^2.0",
         "drupal/metatag_ai": "^1.0",
         "drupal/moderation_dashboard": "^4",
@@ -151,9 +151,6 @@
             ]
         },
         "patches": {
-            "drupal/core": {
-                "Issue 3387100: Missing config schema for core.base_field_override.*.*.* third_party_settings.content_translation": "https://git.drupalcode.org/project/drupal/-/merge_requests/4768.patch"
-            }
         }
     }
 }

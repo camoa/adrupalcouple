@@ -1,0 +1,2929 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: editoria11y 3.0.0\n"
+"POT-Creation-Date: 2026-08-01 21:46-0400\n"
+"PO-Revision-Date: 2026-05-11 00:00+0000\n"
+"Language-Team: Editoria11y\n"
+"Language: ko\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid ""
+"editoria11y_post_update_0004: scanned @scanned mismatched page(s), "
+"backfilled @fixed to the referenced entity language."
+msgstr ""
+"editoria11y_post_update_0004: scanned @scanned mismatched page(s), "
+"backfilled @fixed to the referenced entity language."
+
+msgid "Editoria11y"
+msgstr "Editoria11y"
+
+msgid "Editoria11y - Pages with issues"
+msgstr "Editoria11y - 문제가 있는 페이지"
+
+msgctxt "problems"
+msgid "Provides relationship for issues and dismissals"
+msgstr "문제 및 무시 처리의 관계 정보를 제공합니다"
+
+msgid "EID"
+msgstr "EID"
+
+msgid "Editoria11y's internal page ID"
+msgstr "Editoria11y 내부 페이지 ID"
+
+msgid "Entity ID"
+msgstr "엔티티 ID"
+
+msgid "The NID/TID/UID of the page with an issue."
+msgstr "문제가 있는 페이지의 NID/TID/UID입니다."
+
+msgid "Entity type"
+msgstr "엔티티 유형"
+
+msgid "The entity type; \"route\" if no type found."
+msgstr "엔티티 유형. 유형을 찾을 수 없는 경우 \"route\"입니다."
+
+msgid "Route name"
+msgstr "라우트 이름"
+
+msgid "Route name for page."
+msgstr "페이지의 라우트 이름입니다."
+
+msgid "Page path"
+msgstr "페이지 경로"
+
+msgid "Internal, relative page path."
+msgstr "내부 상대 페이지 경로입니다."
+
+msgid "Page language"
+msgstr "페이지 언어"
+
+msgid "Active translation."
+msgstr "활성 번역입니다."
+
+msgid "Page title"
+msgstr "페이지 제목"
+
+msgid "The name of the route where this was last seen."
+msgstr "마지막으로 감지된 라우트 이름입니다."
+
+msgid "Content alerts"
+msgstr "콘텐츠 알림"
+
+msgid "Number of alerts shown to content editors."
+msgstr "콘텐츠 편집자에게 표시되는 알림 수입니다."
+
+msgid "Dev alerts"
+msgstr "개발자 알림"
+
+msgid "Number of alerts shown to developers."
+msgstr "개발자에게 표시되는 알림 수입니다."
+
+msgid "Updated"
+msgstr "업데이트됨"
+
+msgid "When this page was last checked."
+msgstr "이 페이지를 마지막으로 검사한 날짜입니다."
+
+msgid "Editoria11y - Test results"
+msgstr "Editoria11y - 테스트 결과"
+
+msgctxt "problems"
+msgid "Stores Editoria11y issue list"
+msgstr "Editoria11y 문제 목록을 저장합니다"
+
+msgid "Result row"
+msgstr "결과 행"
+
+msgid "Internal identifier"
+msgstr "내부 식별자"
+
+msgid "Created"
+msgstr "생성됨"
+
+msgid "When this page was flagged."
+msgstr "이 페이지에 플래그가 지정된 날짜입니다."
+
+msgid "Alert type"
+msgstr "알림 유형"
+
+msgid "The name of the test as reported by Editoria11y JS"
+msgstr "Editoria11y JS가 보고하는 테스트 이름"
+
+msgid "Alert type, linked"
+msgstr "알림 유형 (링크)"
+
+msgid "Linked to report of all alerts of this type."
+msgstr "이 유형의 모든 알림 보고서에 연결됩니다."
+
+msgid "Content alert count"
+msgstr "콘텐츠 알림 수"
+
+msgid "The number of hits for this test type on this page"
+msgstr "이 페이지에서 이 테스트 유형이 감지된 횟수"
+
+msgid "Dev alert count"
+msgstr "개발자 알림 수"
+
+msgid "Editoria11y - Dismissals"
+msgstr "Editoria11y - 무시 처리"
+
+msgid "Stores Editoria11y warnings and dismissals"
+msgstr "Editoria11y 경고 및 무시 처리를 저장합니다"
+
+msgid "Dismissal internal reference ID"
+msgstr "무시 처리 내부 참조 ID"
+
+msgid "Page with dismissal"
+msgstr "무시 처리된 페이지"
+
+msgid "Dismissed by"
+msgstr "무시 처리한 사용자"
+
+msgid "The user linked to this dismissal."
+msgstr "이 무시 처리와 연결된 사용자입니다."
+
+msgid "Linked Drupal user"
+msgstr "연결된 Drupal 사용자"
+
+msgid "Dismissed element id"
+msgstr "무시된 요소 id"
+
+msgid "Code sample to identify the flagged element."
+msgstr "플래그된 요소를 식별하는 코드 샘플입니다."
+
+msgid "Dismissed on"
+msgstr "무시 처리 날짜"
+
+msgid "The Unix timestamp of the first time this record was flagged."
+msgstr "이 레코드가 처음 플래그된 유닉스 타임스탬프입니다."
+
+msgid "Dismissal stale since"
+msgstr "무시 처리 만료 시작일"
+
+msgid "The element has not been seen since this date."
+msgstr "이 날짜 이후로 해당 요소가 감지되지 않았습니다."
+
+msgid "Dismissed result name"
+msgstr "무시된 결과 이름"
+
+msgid "Dismissed result name, linked"
+msgstr "무시된 결과 이름 (링크)"
+
+msgid "Links to report of all alerts of this type."
+msgstr "이 유형의 모든 알림 보고서에 연결됩니다."
+
+msgid "Dismissal status"
+msgstr "무시 처리 상태"
+
+msgid "The type of dismissal (e.g., OK, Ignore)"
+msgstr "무시 처리 유형 (예: 확인, 무시)"
+
+msgid "Relate from Editoria11y page to referenced node"
+msgstr "Editoria11y 페이지에서 참조된 노드로 연결"
+
+msgid "Issues were found on this node"
+msgstr "이 노드에서 문제가 발견되었습니다"
+
+msgid "Relate from node data to Editoria11y page"
+msgstr "노드 데이터에서 Editoria11y 페이지로 연결"
+
+msgid "Relate from Editoria11y page to referenced taxonomy term"
+msgstr "Editoria11y 페이지에서 참조된 분류 용어로 연결"
+
+msgid "Issues were found on this term page"
+msgstr "이 분류 용어 페이지에서 문제가 발견되었습니다"
+
+msgid "Relate from taxonomy term data to Editoria11y page"
+msgstr "분류 용어 데이터에서 Editoria11y 페이지로 연결"
+
+msgid "Relate from Editoria11y page list to user bio page data"
+msgstr "Editoria11y 페이지 목록에서 사용자 소개 페이지 데이터로 연결"
+
+msgid "Issues were found on this user bio page"
+msgstr "이 사용자 소개 페이지에서 문제가 발견되었습니다"
+
+msgid "Relate from Editoria11y page to user bio page with issues"
+msgstr "Editoria11y 페이지에서 문제가 있는 사용자 소개 페이지로 연결"
+
+msgid "Relate from user bio page to Editoria11y results"
+msgstr "사용자 소개 페이지에서 Editoria11y 결과로 연결"
+
+msgid "Relate from users list to Editoria11y results on bio page"
+msgstr "사용자 목록에서 소개 페이지의 Editoria11y 결과로 연결"
+
+msgid "Relate from Editoria11y page to issues on page"
+msgstr "Editoria11y 페이지에서 해당 페이지의 문제로 연결"
+
+msgid "Issues found on this node"
+msgstr "이 노드에서 발견된 문제"
+
+msgid "Relate from Editoria11y result to page"
+msgstr "Editoria11y 결과에서 페이지로 연결"
+
+msgid "Relate from Editoria11y page to dismissals on page"
+msgstr "Editoria11y 페이지에서 해당 페이지의 무시 처리로 연결"
+
+msgid "Relate from Editoria11y dismissal to page"
+msgstr "Editoria11y 무시 처리에서 페이지로 연결"
+
+msgid "Group relationship for node with Editoria11y issues"
+msgstr "Editoria11y 문제가 있는 노드용 그룹 관계"
+
+msgid ""
+"Bridge to the Group module. Add the Group module Group relationship on top "
+"of this one to filter or sort issues by group."
+msgstr ""
+"Group 모듈과 연결하는 브리지입니다. 그룹별로 문제를 필터링하거나 정렬하려면 "
+"이 관계 위에 Group 모듈의 그룹 관계를 추가하세요."
+
+msgid "Group relationship for node"
+msgstr "노드용 그룹 관계"
+
+msgid "Group relationship for user bio with Editoria11y issues"
+msgstr "Editoria11y 문제가 있는 사용자 소개용 그룹 관계"
+
+msgid "Group relationship for user"
+msgstr "사용자용 그룹 관계"
+
+msgid "Group relationship for taxonomy term with Editoria11y issues"
+msgstr "Editoria11y 문제가 있는 분류 용어용 그룹 관계"
+
+msgid ""
+"Bridge to the Group module. Add the Group module Group relationship on top "
+"of this one to filter or sort issues by group. Requires a contrib module "
+"that exposes terms as group content."
+msgstr ""
+"Group 모듈과 연결하는 브리지입니다. 그룹별로 문제를 필터링하거나 정렬하려면 "
+"이 관계 위에 Group 모듈의 그룹 관계를 추가하세요. 분류 용어를 그룹 콘텐츠로 "
+"노출하는 기여 모듈이 필요합니다."
+
+msgid "Group relationship for taxonomy term"
+msgstr "분류 용어용 그룹 관계"
+
+msgid "Warning: possible out of date path. This content may have moved to"
+msgstr ""
+"경고: 경로가 최신이 아닐 수 있습니다. 이 콘텐츠가 다음 위치로 이동했을 수 있"
+"습니다"
+
+msgid "Export CSV"
+msgstr "CSV 내보내기"
+
+msgid "Predelete failed: @error_message"
+msgstr "삭제 전처리 실패: @error_message"
+
+msgid "Page attachment failed: @error_message"
+msgstr "페이지 첨부 실패: @error_message"
+
+msgid ""
+"editoria11y_update_9019: scanned @total rows, repaired @updated, deleted "
+"@deleted corrupted group rows, left @skipped untouched."
+msgstr ""
+"editoria11y_update_9019: scanned @total rows, repaired @updated, deleted "
+"@deleted corrupted group rows, left @skipped untouched."
+
+msgid ""
+"editoria11y_update_9020: hashed @hashed page rows, removed @deduped "
+"duplicate rows, added unique keys."
+msgstr "editoria11y_update_9020: hashed @hashed page rows, removed @deduped duplicate rows, added unique keys."
+
+msgid "Editoria11y Accessibility Checker"
+msgstr "Editoria11y 접근성 검사기"
+
+msgid ""
+"Checks page content for accessibility and provides a site-wide dashboard."
+msgstr "페이지 콘텐츠의 접근성을 검사하고 사이트 전체 대시보드를 제공합니다."
+
+msgid "Content Accessibility"
+msgstr "콘텐츠 접근성"
+
+msgid "Accessibility checker notifications and exclusions."
+msgstr "접근성 검사기 알림 및 제외 설정."
+
+msgid "Results from the Editoria11y checker."
+msgstr "Editoria11y 검사기의 결과."
+
+msgid "Dashboard"
+msgstr "대시보드"
+
+msgid "Core settings"
+msgstr "핵심 설정"
+
+msgid "Demo"
+msgstr "데모"
+
+msgid "View Editoria11y checker"
+msgstr "Editoria11y 검사기 보기"
+
+msgid "Assign to all content editors."
+msgstr "모든 콘텐츠 편집자에게 할당합니다."
+
+msgid "Administer Editoria11y checker"
+msgstr "Editoria11y 검사기 관리"
+
+msgid "Allows user to purge results and change configuration."
+msgstr "사용자가 결과를 삭제하고 설정을 변경할 수 있습니다."
+
+msgid "Mark as hidden in Editoria11y"
+msgstr "Editoria11y에서 숨김으로 표시"
+
+msgid "Adds button to suppress a manual check for the current user."
+msgstr "현재 사용자의 수동 검사를 억제하는 버튼을 추가합니다."
+
+msgid "Mark as OK in Editoria11y"
+msgstr "Editoria11y에서 확인으로 표시"
+
+msgid ""
+"Adds button to suppress a manual check for all users, if sync is enabled."
+msgstr ""
+"동기화가 활성화된 경우 모든 사용자의 수동 검사를 억제하는 버튼을 추가합니다."
+
+msgid "Manage Editoria11y results"
+msgstr "Editoria11y 결과 관리"
+
+msgid "View the site-wide dashboard and reset dismissals."
+msgstr "사이트 전체 대시보드를 보고 무시 처리를 초기화합니다."
+
+msgid "Editoria11y core settings"
+msgstr "Editoria11y 핵심 설정"
+
+msgid "Content Accessibility Issues"
+msgstr "콘텐츠 접근성 문제"
+
+msgid "Editoria11y Settings"
+msgstr "Editoria11y 설정"
+
+msgid "Check elements in these containers"
+msgstr "이 컨테이너 내의 요소를 검사합니다"
+
+msgid "Alert panel assertiveness"
+msgstr "알림 패널 강조 수준"
+
+msgid "Do not run if these elements are on the page"
+msgstr "이 요소가 페이지에 있으면 실행하지 않습니다"
+
+msgid "Suppress all alerts if none of these elements are present"
+msgstr "이 요소가 하나도 없으면 모든 알림을 표시하지 않습니다"
+
+msgid "Do not run tests on these containers"
+msgstr "이 컨테이너에는 테스트를 실행하지 않습니다"
+
+msgid "Move toggle to avoid colliding with these widgets"
+msgstr "이 위젯과 겹치지 않도록 토글을 이동합니다"
+
+msgid ""
+"Full check should warn on these elements with embedded uncheckable content"
+msgstr "확인 불가능한 내장 콘텐츠가 있는 이 요소에 경고를 표시합니다"
+
+msgid "These links download a document or image and need a manual review"
+msgstr "이 링크는 문서 또는 이미지를 다운로드하며 수동 검토가 필요합니다"
+
+msgid "Strings that indicate a link opens in a new window"
+msgstr "링크가 새 창에서 열림을 나타내는 문자열"
+
+msgid "Remove these strings from link text before checking for bad link text"
+msgstr "잘못된 링크 텍스트 검사 전에 링크 텍스트에서 이 문자열을 제거합니다"
+
+msgid "Remove strings in this selector before checking for bad link text"
+msgstr "잘못된 링크 텍스트 검사 전에 이 선택자의 문자열을 제거합니다"
+
+msgid ""
+"Hidden elements in these containers will be revealed by theme JS on request "
+"via a dispatched event"
+msgstr ""
+"이 컨테이너의 숨겨진 요소는 이벤트 디스패치를 통해 테마 JS로 표시됩니다"
+
+msgid "Elements that truncate overflow, partially hiding buttons"
+msgstr "오버플로를 잘라내어 버튼을 부분적으로 숨기는 요소"
+
+msgid "Color scheme for panel and tooltips"
+msgstr "패널 및 툴팁의 색 구성표"
+
+msgid "Pin toolbar to left or right"
+msgstr "툴바를 왼쪽 또는 오른쪽에 고정"
+
+msgid "Web components the checker should check"
+msgstr "검사기가 검사해야 할 웹 컴포넌트"
+
+msgid "Auto-detects for additional shadow components"
+msgstr "추가 섀도우 컴포넌트를 자동으로 감지합니다"
+
+msgid "Auto-detects and checks new content"
+msgstr "새 콘텐츠를 자동으로 감지하고 검사합니다"
+
+msgid "Disables dashboard and synchronized marking of elements as OK"
+msgstr "대시보드 및 요소의 동기화된 확인 표시를 비활성화합니다"
+
+msgid "URL query parameters that should be recorded as separate pages"
+msgstr "별도 페이지로 기록해야 할 URL 쿼리 파라미터"
+
+msgid "Remove string from URL for dashboard page links"
+msgstr "대시보드 페이지 링크의 URL에서 문자열을 제거합니다"
+
+msgid "Number of custom test finished events the checker should wait for"
+msgstr "검사기가 대기해야 할 사용자 정의 테스트 완료 이벤트 수"
+
+msgid "Disables live editor checking"
+msgstr "라이브 편집기 검사를 비활성화합니다"
+
+msgid ""
+"Selector for frontend-context editors that should inherit the document "
+"outline"
+msgstr "문서 개요를 상속해야 하는 프런트엔드 컨텍스트 편집기 선택자"
+
+msgid "Selector for editors where their first heading should be h2"
+msgstr "첫 번째 제목이 h2여야 하는 편집기 선택자"
+
+msgid "Selector for editors where their first heading should be h3"
+msgstr "첫 번째 제목이 h3여야 하는 편집기 선택자"
+
+msgid "Selector for editors where their first heading should be h4"
+msgstr "첫 번째 제목이 h4여야 하는 편집기 선택자"
+
+msgid "Selectors for components where edit links are meaningless on tips"
+msgstr "팁에서 편집 링크가 의미 없는 컴포넌트 선택자"
+
+msgid "Tell CK5 to have a header rows or columns by default."
+msgstr "CK5에서 기본적으로 머리글 행 또는 열을 사용하도록 설정합니다."
+
+msgid "Tests not shown to content authors."
+msgstr "콘텐츠 작성자에게 표시되지 않는 테스트입니다."
+
+msgid "Disable the tests you are not ready for"
+msgstr "준비되지 않은 테스트를 비활성화합니다"
+
+msgid "linkNewWindow"
+msgstr "linkNewWindow"
+
+msgid "linkNoText"
+msgstr "linkNoText"
+
+msgid "altEmptyLinked"
+msgstr "altEmptyLinked"
+
+msgid "linkDocument"
+msgstr "linkDocument"
+
+msgid "linkTextIsURL"
+msgstr "linkTextIsURL"
+
+msgid "linkTextIsGeneric"
+msgstr "linkTextIsGeneric"
+
+msgid "textPossibleList"
+msgstr "textPossibleList"
+
+msgid "textPossibleHeading"
+msgstr "textPossibleHeading"
+
+msgid "textUppercase"
+msgstr "textUppercase"
+
+msgid "tableNoHeaderCells"
+msgstr "tableNoHeaderCells"
+
+msgid "tableEmptyHeaderCell"
+msgstr "tableEmptyHeaderCell"
+
+msgid "tableContainsContentHeading"
+msgstr "tableContainsContentHeading"
+
+msgid "embedVideo"
+msgstr "embedVideo"
+
+msgid "embedAudio"
+msgstr "embedAudio"
+
+msgid "embedVisualization"
+msgstr "embedVisualization"
+
+msgid "embedTwitter"
+msgstr "embedTwitter"
+
+msgid "embedCustom"
+msgstr "embedCustom"
+
+msgid "headingEmpty"
+msgstr "headingEmpty"
+
+msgid "headingIsLong"
+msgstr "headingIsLong"
+
+msgid "headingLevelSkipped"
+msgstr "headingLevelSkipped"
+
+msgid "blockquoteIsShort"
+msgstr "blockquoteIsShort"
+
+msgid "altMissing"
+msgstr "altMissing"
+
+msgid "altNull"
+msgstr "altNull"
+
+msgid "altMeaningless"
+msgstr "altMeaningless"
+
+msgid "altURL"
+msgstr "altURL"
+
+msgid "altImageOf"
+msgstr "altImageOf"
+
+msgid "altDeadspace"
+msgstr "altDeadspace"
+
+msgid "altLong"
+msgstr "altLong"
+
+msgid "altPartOfLinkWithText"
+msgstr "altPartOfLinkWithText"
+
+msgid "2-letter code (en, fr, de)"
+msgstr "2자리 언어 코드 (en, fr, de)"
+
+msgid "Alert"
+msgstr "경고"
+
+msgid "Alert types"
+msgstr "알림 유형"
+
+msgid "Alerts"
+msgstr "알림"
+
+msgid "All dismissals"
+msgstr "모든 무시 처리"
+
+msgid "All issues"
+msgstr "모든 문제"
+
+msgid "All pages"
+msgstr "모든 페이지"
+
+msgid "Apply"
+msgstr "적용"
+
+msgid "Author"
+msgstr "작성자"
+
+msgid "Authored after"
+msgstr "이후 작성"
+
+msgid "Authored before"
+msgstr "이전 작성"
+
+msgid "Authored"
+msgstr "작성일"
+
+msgid "Content type"
+msgstr "콘텐츠 유형"
+
+msgid "Detected"
+msgstr "감지됨"
+
+msgid "Dismissals"
+msgstr "무시 처리"
+
+msgid "Dismissed accessibility alerts"
+msgstr "무시된 접근성 알림"
+
+msgid "Edited"
+msgstr "편집됨"
+
+msgid "Editor"
+msgstr "편집기"
+
+msgid "Items per page"
+msgstr "페이지당 항목 수"
+
+msgid "Filter"
+msgstr "필터"
+
+msgid "Language"
+msgstr "언어"
+
+msgid "Last editor"
+msgstr "마지막 편집자"
+
+msgid "Marked"
+msgstr "표시됨"
+
+msgid "No dismissals found."
+msgstr "무시 처리 항목이 없습니다."
+
+msgid "Page"
+msgstr "페이지"
+
+msgid "Pages"
+msgstr "페이지"
+
+msgid "Pages with alerts"
+msgstr "알림이 있는 페이지"
+
+msgid "Panel"
+msgstr "패널"
+
+msgid "Path"
+msgstr "경로"
+
+msgid "Published"
+msgstr "게시됨"
+
+msgid "Recent"
+msgstr "최근"
+
+msgid "Recent accessibility alerts"
+msgstr "최근 접근성 알림"
+
+msgid "Recent alerts"
+msgstr "최근 알림"
+
+msgctxt "problems"
+msgid "Recent alerts"
+msgstr "최근 알림"
+
+msgid "Sort by"
+msgstr "정렬 기준"
+
+msgid "Title"
+msgstr "제목"
+
+msgid "Type"
+msgstr "유형"
+
+msgid "Filter and sort"
+msgstr "필터 및 정렬"
+
+msgid "Deleted."
+msgstr "삭제되었습니다."
+
+msgid "Delete failed."
+msgstr "삭제 실패."
+
+msgid "<p>The Editoria11y <strong><em>@type</em></strong> view is missing.</p>"
+msgstr ""
+"<p>The Editoria11y <strong><em>@type</em></strong> view is missing.</p>"
+
+msgid ""
+"<p>There are three view configurations this module installs, found in its /"
+"config/install folder. Each must be installed for this dashboard to display "
+"results.</p>"
+msgstr ""
+"<p>There are three view configurations this module installs, found in its /"
+"config/install folder. Each must be installed for this dashboard to display "
+"results.</p>"
+
+msgid ""
+"<p>To fix: copy and paste the contents of <strong>/editoria11y/config/"
+"install/views.view.ed11y_@type.yml</strong> into a \"View\" type import at "
+"<a href=\"/admin/config/development/configuration/single/import\">/admin/"
+"config/development/configuration/single/import</a>. If you sync your "
+"configuration to the filesystem, be sure to include these Views in your "
+"repository.</p>"
+msgstr ""
+"<p>To fix: copy and paste the contents of <strong>/editoria11y/config/"
+"install/views.view.ed11y_@type.yml</strong> into a \"View\" type import at "
+"<a href=\"/admin/config/development/configuration/single/import\">/admin/"
+"config/development/configuration/single/import</a>. If you sync your "
+"configuration to the filesystem, be sure to include these Views in your "
+"repository.</p>"
+
+msgid "link is external"
+msgstr "외부 링크"
+
+msgid "link sends email"
+msgstr "이메일 링크"
+
+msgid "No results found"
+msgstr "결과가 없습니다"
+
+msgid ""
+"Your Editoria11y CSA trial has @days days remaining. <a "
+"href=\"@url\">Activate a license</a> to continue using CSA features after "
+"the trial ends."
+msgstr ""
+"Editoria11y CSA 체험판이 @days일 남았습니다. 체험 기간이 종료된 후에도 CSA 기"
+"능을 계속 사용하려면 <a href=\"@url\">라이선스를 활성화</a>하십시오."
+
+msgid ""
+"Your Editoria11y CSA trial has expired. CSA features have been disabled. <a "
+"href=\"@url\">Activate a license</a> to continue using them."
+msgstr ""
+"Editoria11y CSA 체험판이 만료되었습니다. CSA 기능이 비활성화되었습니다. 계속 "
+"사용하려면 <a href=\"@url\">라이선스를 활성화</a>하십시오."
+
+msgid ""
+"Your Editoria11y CSA license has expired. <a href=\"@url\">Renew or "
+"deactivate your license</a>."
+msgstr ""
+"Editoria11y CSA 라이선스가 만료되었습니다. <a href=\"@url\">라이선스를 갱신하"
+"거나 비활성화</a>하십시오."
+
+msgid ""
+"Your Editoria11y CSA license has expired. Please renew to reactivate CSA add-"
+"ons."
+msgstr ""
+"Editoria11y CSA 라이선스가 만료되었습니다. CSA 부가 기능을 다시 활성화하려면 "
+"갱신하십시오."
+
+msgid "Cron license check failed: @msg"
+msgstr "크론 라이선스 확인 실패: @msg"
+
+msgid ""
+"Editoria11y CSA features are active on a @days-day trial. <a "
+"href=\"@url\">Activate a license</a> to continue using them after the trial "
+"ends."
+msgstr ""
+"Editoria11y CSA 기능이 @days일 체험판으로 활성화되어 있습니다. 체험 기간이 종"
+"료된 후에도 계속 사용하려면 <a href=\"@url\">라이선스를 활성화</a>하십시오."
+
+msgid "Editoria11y Custom Test"
+msgstr "Editoria11y 사용자 정의 테스트"
+
+msgid "Editoria11y Custom Tests"
+msgstr "Editoria11y 사용자 정의 테스트"
+
+msgid "editoria11y custom test"
+msgstr "Editoria11y 사용자 정의 테스트"
+
+msgid "editoria11y custom tests"
+msgstr "Editoria11y 사용자 정의 테스트"
+
+msgid "Editoria11y CSA: Advanced Tools"
+msgstr "Editoria11y CSA: 고급 도구"
+
+msgid ""
+"Community-Supported Addons include code and contrast checks, custom checks, "
+"a site crawler and report maintenance tools."
+msgstr "커뮤니티 지원 부가 기능에는 코드 및 색상 대비 검사, 사용자 정의 검사, 사이트 크롤러, 보고서 유지 관리 도구가 포함됩니다."
+
+msgid "Add custom test"
+msgstr "사용자 정의 테스트 추가"
+
+msgid "Recheck"
+msgstr "재검사"
+
+msgid "CSA membership"
+msgstr "CSA 멤버십"
+
+msgid "Custom tests"
+msgstr "사용자 정의 테스트"
+
+msgid "Dashboard Actions"
+msgstr "대시보드 작업"
+
+msgid "Editoria11y CSA membership"
+msgstr "Editoria11y CSA 멤버십"
+
+msgid "Editoria11y custom tests"
+msgstr "Editoria11y 사용자 정의 테스트"
+
+msgid "Add a custom test"
+msgstr "사용자 정의 테스트 추가"
+
+msgid "Edit custom test"
+msgstr "사용자 정의 테스트 편집"
+
+msgid "Delete custom test"
+msgstr "사용자 정의 테스트 삭제"
+
+msgid "Editoria11y CSA Settings"
+msgstr "Editoria11y CSA 설정"
+
+msgid "Developer roles"
+msgstr "개발자 역할"
+
+msgid "Developer assertiveness"
+msgstr "개발자 알림 강조 수준"
+
+msgid "Tests overridden to show to content editors"
+msgstr "콘텐츠 편집자에게 표시하도록 재정의된 테스트"
+
+msgid "Tests overridden to turn off"
+msgstr "비활성화하도록 재정의된 테스트"
+
+msgid "Tests overridden to only to show to developers"
+msgstr "개발자에게만 표시하도록 재정의된 테스트"
+
+msgid "Elements to ignore for contrast test"
+msgstr "색상 대비 테스트에서 무시할 요소"
+
+msgid "Turn on contrast checks"
+msgstr "색상 대비 검사 활성화"
+
+msgid "Developer check root: body or specify"
+msgstr "개발자 검사 루트: body 또는 직접 지정"
+
+msgid "Developer check root selector"
+msgstr "개발자 검사 루트 선택자"
+
+msgid "Selector for elements to ignore for developers"
+msgstr "개발자용으로 무시할 요소 선택자"
+
+msgid "Enabled"
+msgstr "활성화됨"
+
+msgid "Custom development domain patterns"
+msgstr "사용자 정의 개발 도메인 패턴"
+
+msgid "ID"
+msgstr "ID"
+
+msgid "Label"
+msgstr "레이블"
+
+msgid "Test key"
+msgstr "테스트 키"
+
+msgid "Tooltip title"
+msgstr "툴팁 제목"
+
+msgid "Tip content HTML"
+msgstr "팁 콘텐츠 HTML"
+
+msgid "Element set to check"
+msgstr "검사할 요소 집합"
+
+msgid "Dismiss key type"
+msgstr "무시 키 유형"
+
+msgid "CSS filter selector"
+msgstr "CSS 필터 선택자"
+
+msgid "Text strings to include"
+msgstr "포함할 텍스트 문자열"
+
+msgid "Text string"
+msgstr "텍스트 문자열"
+
+msgid "Text strings to exclude"
+msgstr "제외할 텍스트 문자열"
+
+msgid "Case sensitive text matching"
+msgstr "대소문자 구분 텍스트 일치"
+
+msgid "Filter which pages will be crawled"
+msgstr "크롤링할 페이지 필터"
+
+msgid "Cancel"
+msgstr "취소"
+
+msgid "Millisecond pause between page requests"
+msgstr "페이지 요청 사이의 대기 시간 (밀리초)"
+
+msgid "This tab needs to remain open and in the foreground during the crawl."
+msgstr "크롤링 중에는 이 탭이 열린 상태로 전면에 있어야 합니다."
+
+msgid "Estimated time:"
+msgstr "예상 소요 시간:"
+
+msgid "hours"
+msgstr "hours"
+
+msgid "minutes"
+msgstr "minutes"
+
+msgid "minute"
+msgstr "minute"
+
+msgid "Start crawling"
+msgstr "크롤링 시작"
+
+msgid "Checked:"
+msgstr "검사됨:"
+
+msgid "pages"
+msgstr "pages"
+
+msgid "Back to dashboard"
+msgstr "대시보드로 돌아가기"
+
+msgid "Test"
+msgstr "테스트"
+
+msgid "Elements"
+msgstr "요소"
+
+msgid "Status"
+msgstr "상태"
+
+msgid "Text"
+msgstr "텍스트"
+
+msgid "On"
+msgstr "켜짐"
+
+msgid "Off"
+msgstr "꺼짐"
+
+msgid "Freemius deactivation API call failed: @msg"
+msgstr "Freemius 비활성화 API 호출 실패: @msg"
+
+msgid "Cannot cancel subscription: API token not found."
+msgstr "구독을 취소할 수 없습니다: API 토큰을 찾을 수 없습니다."
+
+msgid "Freemius subscription cancellation API call failed: @msg"
+msgstr "Freemius 구독 취소 API 호출 실패: @msg"
+
+msgid "Key module lookup for @id failed: @msg"
+msgstr "Key module lookup for @id failed: @msg"
+
+msgid "Failed to update Freemius install properties: @msg"
+msgstr "Freemius 설치 속성 업데이트 실패: @msg"
+
+msgid ""
+"An <a href=\"@settings\">active license must be deactivated</a> before "
+"uninstalling."
+msgstr ""
+"제거하기 전에 <a href=\"@settings\">활성 라이선스를 비활성화</a>해야 합니다."
+
+msgid "License key stored. Use editoria11y-csa:activate to activate."
+msgstr ""
+"라이선스 키가 저장되었습니다. 활성화하려면 editoria11y-csa:activate를 사용하"
+"십시오."
+
+msgid "License activated."
+msgstr "라이선스가 활성화되었습니다."
+
+msgid "License deactivated."
+msgstr "라이선스가 비활성화되었습니다."
+
+msgid "License active. Expires: @date"
+msgstr "라이선스 활성 상태. 만료일: @date"
+
+msgid "License active. No expiration date."
+msgstr "라이선스 활성 상태. 만료일 없음."
+
+msgid ""
+"License management locked. Use editoria11y-csa:unlock to re-enable UI "
+"changes."
+msgstr ""
+"라이선스 관리가 잠겨 있습니다. UI 변경을 다시 활성화하려면 editoria11y-"
+"csa:unlock을 사용하십시오."
+
+msgid "License management unlocked. UI changes are now allowed."
+msgstr "라이선스 관리 잠금이 해제되었습니다. 이제 UI 변경이 허용됩니다."
+
+msgid "License expired or cancelled."
+msgstr "라이선스가 만료되었거나 취소되었습니다."
+
+msgid "License key cannot be empty."
+msgstr "라이선스 키는 비워 둘 수 없습니다."
+
+msgid "Failed to store key: {msg}"
+msgstr "키 저장 실패: {msg}"
+
+msgid "No stored license key found. Run editoria11y-csa:set-key first."
+msgstr ""
+"저장된 라이선스 키가 없습니다. 먼저 editoria11y-csa:set-key를 실행하십시오."
+
+msgid "Activation failed: {msg}"
+msgstr "활성화 실패: {msg}"
+
+msgid "Deactivation failed: {msg}"
+msgstr "비활성화 실패: {msg}"
+
+msgid "License check failed: {msg}"
+msgstr "라이선스 확인 실패: {msg}"
+
+msgid "Export"
+msgstr "내보내기"
+
+msgid "Export pages"
+msgstr "페이지 내보내기"
+
+msgid "Export dismissals"
+msgstr "무시 처리 내보내기"
+
+msgid "Export alerts"
+msgstr "알림 내보내기"
+
+msgid "Paths with parameters"
+msgstr "파라미터가 있는 경로"
+
+msgid "Drop records for deleted or moved pages"
+msgstr "삭제되거나 이동된 페이지의 레코드 삭제"
+
+msgid "Deletes results that no longer have valid paths or entity references."
+msgstr "더 이상 유효한 경로 또는 엔티티 참조가 없는 결과를 삭제합니다."
+
+msgid "Update page titles"
+msgstr "페이지 제목 업데이트"
+
+msgid ""
+"Replaces recorded titles for Nodes, Terms and Users with the current value "
+"on their edit page."
+msgstr ""
+"노드, 분류 용어 및 사용자의 기록된 제목을 편집 페이지의 현재 값으로 바꿉니다."
+
+msgid "Update page paths"
+msgstr "페이지 경로 업데이트"
+
+msgid ""
+"Replaces recorded URLs for Nodes, Terms and Users with their current "
+"canonical path. <br>@ReviewPaths (node/1?node=2) will not be updated."
+msgstr ""
+"노드, 분류 용어 및 사용자의 기록된 URL을 현재 정규 경로로 바꿉니다. "
+"<br>@ReviewPaths (node/1?node=2)는 업데이트되지 않습니다."
+
+msgid "Risky deletions"
+msgstr "위험한 삭제"
+
+msgid "Delete records for paths with parameters (e.g., ?page=2)"
+msgstr "파라미터가 있는 경로의 레코드를 삭제합니다 (예: ?page=2)"
+
+msgid "None"
+msgstr "없음"
+
+msgid "Only for nodes, terms & users"
+msgstr "노드, 분류 용어 및 사용자에게만"
+
+msgid "All, including search and views"
+msgstr "검색 및 뷰를 포함한 모두"
+
+msgid ""
+"Used to remove duplicate records when previously recorded parameters like "
+"page numbers or search keys were not meaningful. Parameters that are not "
+"meaningful should be removed from the list of parameters to save under "
+"\"Syncing results to reports\" in the module configuration.<br>@ReviewPaths "
+"should be reviewed before proceeding. <strong>There is no undo</strong>."
+msgstr ""
+"페이지 번호나 검색 키 같이 의미 없는 파라미터가 포함된 중복 레코드를 제거할 "
+"때 사용합니다. 의미 없는 파라미터는 모듈 설정의 \"보고서에 결과 동기화\" 항목"
+"에서 파라미터 목록에서 제거해야 합니다.<br>진행하기 전에 @ReviewPaths를 검토"
+"하십시오. <strong>실행 취소할 수 없습니다</strong>."
+
+msgid "Start"
+msgstr "시작"
+
+msgid "Recheck nodes"
+msgstr "노드 재검사"
+
+msgid "Set up a crawl"
+msgstr "크롤링 설정"
+
+msgid "Processing batch #@batch_id of @count."
+msgstr "@count 중 배치 #@batch_id 처리 중입니다."
+
+msgid "@process processed @count, deleted @deleted, updated @updated."
+msgstr "@process: @count 처리, @deleted 삭제, @updated 업데이트."
+
+msgid ""
+"An error occurred while processing %error_operation with arguments: "
+"@arguments"
+msgstr "%error_operation 처리 중 오류가 발생했습니다. 인수: @arguments"
+
+msgid "No records to process."
+msgstr "처리할 레코드가 없습니다."
+
+msgid ""
+"@process processed @count, deleted @deleted, updated @updated in @elapsed."
+msgstr ""
+"@process: @count 처리, @deleted 삭제, @updated 업데이트 (@elapsed 소요)."
+
+msgid "Admin label for the configuration page"
+msgstr "설정 페이지의 관리자 레이블"
+
+msgid "Test grouping ID"
+msgstr "테스트 그룹 ID"
+
+msgid ""
+"Letters, numbers and underscores only.<br>Rules that share an ID will be "
+"grouped on dashboard reports."
+msgstr ""
+"영문자, 숫자, 밑줄만 허용됩니다.<br>동일한 ID를 공유하는 규칙은 대시보드 보고"
+"서에서 그룹화됩니다."
+
+msgid "Active"
+msgstr "활성"
+
+msgid "Alert content"
+msgstr "알림 콘텐츠"
+
+msgid "Tip title"
+msgstr "팁 제목"
+
+msgid "Tip details"
+msgstr "팁 세부 정보"
+
+msgid ""
+"HTML displayed in the tooltip. The provided template is optional.<br>\n"
+"        Allowed tags: @tags."
+msgstr ""
+"툴팁에 표시되는 HTML입니다. 제공된 템플릿은 선택 사항입니다.<br>\n"
+"        허용되는 태그: @tags."
+
+msgid "To fix"
+msgstr "해결 방법"
+
+msgid "Error"
+msgstr "오류"
+
+msgid "Manual check"
+msgstr "수동 확인"
+
+msgid "Dismiss key"
+msgstr "무시 키"
+
+msgid ""
+"How dismissals are tracked. 'Text' uses its text content, 'Attributes' uses "
+"its attributes (href, id, class, src)."
+msgstr ""
+"무시 처리를 추적하는 방법입니다. '텍스트'는 텍스트 내용을 사용하고, '속성'은 "
+"속성 (href, id, class, src)을 사용합니다."
+
+msgid "Text content"
+msgstr "텍스트 내용"
+
+msgid "Attributes on tag (e.g. href and src)"
+msgstr "태그의 속성 (예: href, src)"
+
+msgid "Elements to check"
+msgstr "검사할 요소"
+
+msgid ""
+"These sets contain elements that match your check area and skip over "
+"configuration."
+msgstr "이 집합은 검사 영역에 해당하며 건너뛰기 설정에 맞는 요소를 포함합니다."
+
+msgid "Common choices"
+msgstr "일반적인 선택"
+
+msgid "All text elements: Headings, Paragraphs, Blockquotes and Lists"
+msgstr "모든 텍스트 요소: 제목, 단락, 인용구 및 목록"
+
+msgid "Links"
+msgstr "링크"
+
+msgid "Paragraphs"
+msgstr "단락"
+
+msgid "Headings"
+msgstr "제목"
+
+msgid "Images"
+msgstr "이미지"
+
+msgid "All elements"
+msgstr "모든 요소"
+
+msgid "...other..."
+msgstr "...기타..."
+
+msgid "Specific elements and combinations"
+msgstr "특정 요소 및 조합"
+
+msgid "Lists"
+msgstr "목록"
+
+msgid "Blockquotes"
+msgstr "인용구"
+
+msgid "Tables"
+msgstr "표"
+
+msgid "Buttons"
+msgstr "버튼"
+
+msgid "Inputs"
+msgstr "입력 필드"
+
+msgid "Labels"
+msgstr "레이블"
+
+msgid "Iframes"
+msgstr "Iframe"
+
+msgid "Videos"
+msgstr "동영상"
+
+msgid "Audio"
+msgstr "오디오"
+
+msgid ""
+"Note: combining Links with Paragraphs and other text containers can lead to "
+"duplicate alerts."
+msgstr ""
+"참고: 링크를 단락 및 기타 텍스트 컨테이너와 함께 사용하면 중복 알림이 발생할 "
+"수 있습니다."
+
+msgid "When tip should appear"
+msgstr "팁 표시 조건"
+
+msgid ""
+"This test builder allows for simple text and attribute tests.<br>Check the "
+"module readme for <a href=\"@url\">tips on writing more complex tests</a>."
+msgstr ""
+"이 테스트 빌더는 간단한 텍스트 및 속성 테스트를 지원합니다.<br>더 복잡한 테스"
+"트 작성 방법은 모듈 readme의 <a href=\"@url\">팁</a>을 참조하십시오."
+
+msgid "Select by attributes"
+msgstr "속성으로 선택"
+
+msgid ""
+"Match using CSS selectors.<br>Use :not() to skip elements, e.g. "
+"<code>:is(.check1, .check2):not(.ignore, .ignore *)</code>.<br>Use attribute "
+"selectors for URLs, e.g. <code>[href*=\".dev/\"]</code>."
+msgstr ""
+"CSS 선택자를 사용하여 일치시킵니다.<br>요소를 건너뛰려면 :not()을 사용하십시"
+"오. 예: <code>:is(.check1, .check2):not(.ignore, .ignore *)</code>.<br>URL에"
+"는 속성 선택자를 사용하십시오. 예: <code>[href*=\".dev/\"]</code>."
+
+msgid "Select by text"
+msgstr "텍스트로 선택"
+
+msgid "Flag elements containing any of these text strings. One per line."
+msgstr ""
+"이 텍스트 문자열 중 하나라도 포함하는 요소에 플래그를 지정합니다. 한 줄에 하"
+"나씩 입력하십시오."
+
+msgid "Case sensitive"
+msgstr "대소문자 구분"
+
+msgid "Exclude elements that match this text"
+msgstr "이 텍스트와 일치하는 요소 제외"
+
+msgid ""
+"Don't flag elements if they contain any of these words or phrases. E.g., a "
+"link to a development server is ok if it contains \"dev.\" One per line."
+msgstr ""
+"이 단어나 구문이 포함된 요소는 플래그를 지정하지 않습니다. 예: \"dev.\"를 포"
+"함하는 개발 서버 링크는 제외됩니다. 한 줄에 하나씩 입력하십시오."
+
+msgid "Test key must contain only letters, numbers, and underscores."
+msgstr "테스트 키는 영문자, 숫자, 밑줄만 포함해야 합니다."
+
+msgid "Tip content must contain visible text."
+msgstr "팁 콘텐츠에는 표시되는 텍스트가 있어야 합니다."
+
+msgid "Select at least one rule."
+msgstr "규칙을 하나 이상 선택하십시오."
+
+msgid "Select at least one element type."
+msgstr "요소 유형을 하나 이상 선택하십시오."
+
+msgid "The filter selector should be a CSS selector, not a CSS rule block."
+msgstr "필터 선택자는 CSS 규칙 블록이 아닌 CSS 선택자여야 합니다."
+
+msgid "Created new custom test %label."
+msgstr "새 사용자 정의 테스트 %label이(가) 생성되었습니다."
+
+msgid "Updated custom test %label."
+msgstr "사용자 정의 테스트 %label이(가) 업데이트되었습니다."
+
+msgid "Are you deactivating this site or cancelling altogether?"
+msgstr "이 사이트를 비활성화하시겠습니까, 아니면 완전히 취소하시겠습니까?"
+
+msgid "You can manage your subscriptions at any time in your Freemius account."
+msgstr "Freemius 계정에서 언제든지 구독을 관리할 수 있습니다."
+
+msgid "Choose an action"
+msgstr "작업 선택"
+
+msgid ""
+"<strong>Deactivate this site</strong>, but keep my subscription active and "
+"renewing for use on another site"
+msgstr ""
+"<strong>이 사이트를 비활성화</strong>하고, 다른 사이트에서 사용하기 위해 구독"
+"은 유지 및 갱신합니다"
+
+msgid ""
+"<strong>Cancel my subscription</strong> to the Editoria11y CSA altogether"
+msgstr "Editoria11y CSA <strong>구독을 완전히 취소</strong>합니다"
+
+msgid "Confirm deactivation"
+msgstr "비활성화 확인"
+
+msgid "Never mind; keep site active"
+msgstr "취소; 사이트 활성 상태 유지"
+
+msgid ""
+"This site appears to be a development or testing environment with an active "
+"license."
+msgstr "이 사이트는 활성 라이선스가 있는 개발 또는 테스트 환경으로 보입니다."
+
+msgid "How would you like to proceed?"
+msgstr "어떻게 진행하시겠습니까?"
+
+msgid ""
+"<strong>Cancel deactivation</strong>; I will manage this from the production "
+"site"
+msgstr "<strong>비활성화 취소</strong>; 프로덕션 사이트에서 관리하겠습니다"
+
+msgid ""
+"<strong>Disconnect this copy</strong>; leave the production license active"
+msgstr ""
+"<strong>이 복사본 연결 해제</strong>; 프로덕션 라이선스는 활성 상태로 유지합"
+"니다"
+
+msgid ""
+"<strong>Deactivate all copies of this site</strong> (production, dev, and QA)"
+msgstr "<strong>이 사이트의 모든 복사본 비활성화</strong> (프로덕션, 개발, QA)"
+
+msgid "Confirm"
+msgstr "확인"
+
+msgid ""
+"Editoria11y promotes accessibility in a unique way. Its tools are highly "
+"effective at helping non-technical authors prepare content that can be "
+"enjoyed equally by disabled Web users. We consider this a public good, so "
+"Editoria11y will always be free to use."
+msgstr ""
+"Editoria11y는 독특한 방식으로 접근성을 증진합니다. 이 도구는 비기술적 저자가 "
+"장애를 가진 웹 사용자도 동등하게 즐길 수 있는 콘텐츠를 준비하는 데 매우 효과"
+"적입니다. 이를 공공재로 간주하므로 Editoria11y는 항상 무료로 사용할 수 있습니"
+"다."
+
+msgid "Editoria11y is not, however, free to develop or support."
+msgstr "하지만 Editoria11y의 개발 및 지원은 무료가 아닙니다."
+
+msgid ""
+"The \"Community Supported Add-ons\" (CSA) project fills the gap: project "
+"membership subscriptions fund the development of the Editoria11y library, "
+"its CMS plugins, and the CSA suite."
+msgstr ""
+"\"커뮤니티 지원 부가 기능\" (CSA) 프로젝트가 이 간극을 채웁니다. 프로젝트 멤"
+"버십 구독은 Editoria11y 라이브러리, CMS 플러그인 및 CSA 모음의 개발 자금을 지"
+"원합니다."
+
+msgid ""
+"<a href=\"@url\"><strong>Join the CSA</strong></a> to support this project"
+msgstr ""
+"이 프로젝트를 지원하려면 <a href=\"@url\"><strong>CSA에 참여</strong></a>하십"
+"시오"
+
+msgid ""
+"Existing members: <a href=\"@url\"><strong>Manage your subscription</"
+"strong></a> or <a href=\"@support_url\"><strong>contact support</strong></a>"
+msgstr ""
+"기존 회원: <a href=\"@url\"><strong>구독 관리</strong></a> 또는 <a "
+"href=\"@support_url\"><strong>지원팀에 문의</strong></a>"
+
+msgid ""
+"License management on this site has been locked via Drush. Use <code>drush "
+"ed11y-unlock</code> to re-enable changes from this form."
+msgstr ""
+"이 사이트의 라이선스 관리가 Drush를 통해 잠겨 있습니다. 이 양식에서 변경을 다"
+"시 활성화하려면 <code>drush ed11y-unlock</code>을 사용하십시오."
+
+msgid "Warning: this site matches a dev or QA URL pattern"
+msgstr "경고: 이 사이트가 개발 또는 QA URL 패턴과 일치합니다"
+
+msgid "Shared activations should be managed in the production copy."
+msgstr "공유 활성화는 프로덕션 복사본에서 관리해야 합니다."
+
+msgid ""
+"Use <code>drush ed11y-lock</code> to prevent changing shared activations."
+msgstr ""
+"공유 활성화 변경을 방지하려면 <code>drush ed11y-lock</code>을 사용하십시오."
+
+msgid ""
+"Deactivating a shared key deactivates all copies of a site, including "
+"production."
+msgstr ""
+"공유 키를 비활성화하면 프로덕션을 포함한 사이트의 모든 복사본이 비활성화됩니"
+"다."
+
+msgid ""
+"Separate license activations from a development environment consume an "
+"additional key."
+msgstr "개발 환경에서의 별도 라이선스 활성화는 추가 키를 소비합니다."
+
+msgid "Trial (@days days remaining)"
+msgstr "체험판 (@days일 남음)"
+
+msgid "Trial (expired)"
+msgstr "체험판 (만료됨)"
+
+msgid "License expired"
+msgstr "라이선스 만료됨"
+
+msgid "Active membership"
+msgstr "활성 멤버십"
+
+msgid "Activate using stored license key"
+msgstr "저장된 라이선스 키로 활성화"
+
+msgid "Activate with a different license key"
+msgstr "다른 라이선스 키로 활성화"
+
+msgid "Activate (enter license key below)"
+msgstr "활성화 (아래에 라이선스 키 입력)"
+
+msgid "<strong>License expired.</strong> Expired on: @date"
+msgstr "<strong>라이선스가 만료되었습니다.</strong> 만료일: @date"
+
+msgid "<strong>License has expired.</strong>"
+msgstr "<strong>License has expired.</strong>"
+
+msgid "<strong>Trial license active.</strong> Trial ends: @date"
+msgstr "<strong>체험판 라이선스 활성 상태.</strong> 체험 종료일: @date"
+
+msgid "<strong>License active.</strong> Expires: @date"
+msgstr "<strong>라이선스 활성 상태.</strong> 만료일: @date"
+
+msgid "<strong>Lifetime license active.</strong>"
+msgstr "<strong>Lifetime license active.</strong>"
+
+msgid "Check for license renewal"
+msgstr "라이선스 갱신 확인"
+
+msgid "Deactivate license"
+msgstr "라이선스 비활성화"
+
+msgid "A license key is stored but not active"
+msgstr "라이선스 키가 저장되어 있지만 활성화되지 않았습니다"
+
+msgid "Add a license key to enable CSA features"
+msgstr "CSA 기능을 활성화하려면 라이선스 키를 추가하십시오"
+
+msgid "Enable CSA features"
+msgstr "CSA 기능 활성화"
+
+msgid "CSA license key"
+msgstr "CSA 라이선스 키"
+
+msgid ""
+"<a href=\"@url\">Join the CSA</a> to enable CSA features. Visit the Freemius "
+"dashboard to <a href=\"@freemius\">manage your subscription</a> or recover a "
+"lost key."
+msgstr ""
+"CSA 기능을 활성화하려면 <a href=\"@url\">CSA에 참여</a>하십시오. Freemius 대"
+"시보드에서 <a href=\"@freemius\">구독을 관리</a>하거나 분실한 키를 복구할 수 "
+"있습니다."
+
+msgid "Local, Dev and QA site URL patterns"
+msgstr "로컬, 개발 및 QA 사이트 URL 패턴"
+
+msgid ""
+"One pattern per line, up to 5 patterns. Wildcards are supported (e.g. "
+"<code>*.test.example.com</code>).<br>Local, dev and QA sites can share an "
+"activation with production site, but only production sites check for "
+"renewals."
+msgstr ""
+"패턴을 한 줄에 하나씩, 최대 5개까지 입력합니다. 와일드카드를 지원합니다 (예: "
+"<code>*.test.example.com</code>).<br>로컬, 개발 및 QA 사이트는 프로덕션 사이"
+"트와 활성화를 공유할 수 있지만, 갱신 확인은 프로덕션 사이트에서만 수행합니다."
+
+msgid ""
+"Additionally, any hostname consisting only of digits and dots (raw IPv4 "
+"address) is treated as a development environment."
+msgstr ""
+"또한 숫자와 점으로만 구성된 호스트 이름 (원시 IPv4 주소)은 개발 환경으로 처리"
+"됩니다."
+
+msgid "Built-in development URL patterns"
+msgstr "내장 개발 URL 패턴"
+
+msgid "Enter no more than 5 custom domain patterns."
+msgstr "사용자 정의 도메인 패턴을 5개 이하로 입력하십시오."
+
+msgid "Saved license key not found. Please activate with a new key."
+msgstr "저장된 라이선스 키를 찾을 수 없습니다. 새 키로 활성화하십시오."
+
+msgid "Enter a license key."
+msgstr "라이선스 키를 입력하십시오."
+
+msgid "Activation failed: @msg"
+msgstr "활성화 실패: @msg"
+
+msgid "License renewed and active."
+msgstr "라이선스가 갱신되어 활성 상태입니다."
+
+msgid "License is still expired."
+msgstr "라이선스가 여전히 만료된 상태입니다."
+
+msgid "Unexpected license status: @status"
+msgstr "예상치 못한 라이선스 상태: @status"
+
+msgid "Could not reach licensing server: @msg"
+msgstr "라이선스 서버에 연결할 수 없습니다: @msg"
+
+msgid "Deactivation failed: @msg"
+msgstr "비활성화 실패: @msg"
+
+msgid "Editoria11y Export Batch Processor"
+msgstr "Editoria11y 내보내기 일괄 처리기"
+
+msgid ""
+"Batching is only needed for very large or heavily customized CSV exports."
+msgstr "일괄 처리는 매우 크거나 많이 사용자 정의된 CSV 내보내기에만 필요합니다."
+
+msgid "hide"
+msgstr "hide"
+
+msgid "ok"
+msgstr "ok"
+
+msgid "Yes"
+msgstr "예"
+
+msgid "No"
+msgstr "아니요"
+
+msgid "This alt text is a filename, not a description"
+msgstr "이 대체 텍스트는 설명이 아닌 파일 이름입니다"
+
+msgid "Is this a clear and concise description of the image?"
+msgstr "이 이미지에 대한 명확하고 간결한 설명인가요?"
+
+msgid "This alt text may be a placeholder"
+msgstr "이 대체 텍스트가 자리 표시자일 수 있습니다"
+
+msgid "This alt text is unpronounceable"
+msgstr "이 대체 텍스트는 발음할 수 없습니다"
+
+msgid "This custom input field is missing a label"
+msgstr "이 사용자 정의 입력 필드에 레이블이 없습니다"
+
+msgid "Button is missing an accessible label"
+msgstr "버튼에 접근 가능한 레이블이 없습니다"
+
+msgid "Button has an invalid ARIA label"
+msgstr "버튼에 유효하지 않은 ARIA 레이블이 있습니다"
+
+msgid "Button name repeats the word \"button\""
+msgstr "버튼 이름에 \"버튼\"이라는 단어가 반복됩니다"
+
+msgid "This button is unpronounceable"
+msgstr "이 버튼은 발음할 수 없습니다"
+
+msgid "Text does not have enough contrast to be easily legible"
+msgstr "텍스트의 명암비가 낮아 읽기 어렵습니다"
+
+msgid "Graphic or icon does not have enough contrast"
+msgstr "그래픽 또는 아이콘의 명암비가 충분하지 않습니다"
+
+msgid "Input does not provide enough contrast to be easily legible"
+msgstr "입력 필드의 명암비가 낮아 읽기 어렵습니다"
+
+msgid "Placeholder text does not have enough contrast to be easily legible"
+msgstr "자리 표시자 텍스트의 명암비가 낮아 읽기 어렵습니다"
+
+msgid "Does this placeholder text have enough contrast?"
+msgstr "이 자리 표시자 텍스트의 명암비가 충분한가요?"
+
+msgid "Does this text have enough contrast?"
+msgstr "이 텍스트의 명암비가 충분한가요?"
+
+msgid "Does this graphic or icon have enough contrast?"
+msgstr "이 그래픽 또는 아이콘의 명암비가 충분한가요?"
+
+msgid "Duplicate ID attribute"
+msgstr "ID 속성이 중복되어 있습니다"
+
+msgid "This link has a tooltip with the same text as the link"
+msgstr "이 링크에 링크 텍스트와 동일한 내용의 툴팁이 있습니다"
+
+msgid "Does this audio have a transcript?"
+msgstr "이 오디오에 텍스트 대본이 있나요?"
+
+msgid "Is this visualization accessible?"
+msgstr "이 시각화 자료는 접근 가능한가요?"
+
+msgid "Embedded iframes need manual checks"
+msgstr "삽입된 iframe은 수동 검토가 필요합니다"
+
+msgid "Frame missing \"title\" attribute"
+msgstr "프레임에 \"title\" 속성이 없습니다"
+
+msgid "Frame with tabindex=\"-1\" will not be keyboard accessible."
+msgstr "tabindex=\"-1\"인 프레임은 키보드로 접근할 수 없습니다."
+
+msgid "Is this video accurately captioned?"
+msgstr "이 동영상에 정확한 자막이 있나요?"
+
+msgid "This heading has no text"
+msgstr "이 제목에 텍스트가 없습니다"
+
+msgid "This image is used as a heading, so it needs alt text"
+msgstr "이 이미지가 제목으로 사용되고 있으므로 대체 텍스트가 필요합니다"
+
+msgid "The first heading on this page is a subheading"
+msgstr "이 페이지의 첫 번째 제목이 하위 제목입니다"
+
+msgid "Can this heading be shorter?"
+msgstr "이 제목을 더 짧게 할 수 있나요?"
+
+msgid "This page is missing a Heading 1"
+msgstr "이 페이지에 제목 1이 없습니다"
+
+msgid "This heading is tagged at the wrong level"
+msgstr "이 제목의 수준이 잘못 지정되어 있습니다"
+
+msgid "This heading is unpronounceable"
+msgstr "이 제목은 발음할 수 없습니다"
+
+msgid "This element cannot be described by screen readers"
+msgstr "이 요소는 스크린 리더가 설명할 수 없습니다"
+
+msgid "Can this alt text be shorter?"
+msgstr "이 대체 텍스트를 더 짧게 할 수 있나요?"
+
+msgid "Is this image actually meaningless?"
+msgstr "이 이미지가 실제로 의미 없는 이미지인가요?"
+
+msgid "Image in a carousel or gallery marked as decorative"
+msgstr "캐러셀 또는 갤러리의 이미지가 장식용으로 표시되어 있습니다"
+
+msgid "This captioned image has no alt text"
+msgstr "이 캡션 이미지에 대체 텍스트가 없습니다"
+
+msgid "Alt text should not be the same as caption text"
+msgstr "대체 텍스트와 캡션 텍스트가 동일해서는 안 됩니다"
+
+msgid "Is there a visible label for this field?"
+msgstr "이 필드에 보이는 레이블이 있나요?"
+
+msgid "Prefer visible labels to placeholders"
+msgstr "자리 표시자 대신 보이는 레이블을 사용하세요"
+
+msgid "Is this reset button needed?"
+msgstr "이 초기화 버튼이 필요한가요?"
+
+msgid "This input has an empty label"
+msgstr "이 입력 필드의 레이블이 비어 있습니다"
+
+msgid "Visible label does not match invisible label"
+msgstr "보이는 레이블이 숨겨진 레이블과 일치하지 않습니다"
+
+msgid "This image input is missing alt text"
+msgstr "이 이미지 입력에 대체 텍스트가 없습니다"
+
+msgid "This input is not connected to a label"
+msgstr "이 입력 필드가 레이블과 연결되어 있지 않습니다"
+
+msgid "Language tag does not match the content"
+msgstr "언어 태그가 콘텐츠와 일치하지 않습니다"
+
+msgid "This content appears to be in a different language"
+msgstr "이 콘텐츠는 다른 언어로 작성된 것 같습니다"
+
+msgid "This alt text appears to be in a different language"
+msgstr "이 대체 텍스트는 다른 언어로 작성된 것 같습니다"
+
+msgid "Alt text used as a link should not be a URL"
+msgstr "링크 대체 텍스트로 URL을 사용해서는 안 됩니다"
+
+msgid "This linked alt might not be clear and concise"
+msgstr "이 링크의 대체 텍스트가 명확하고 간결하지 않을 수 있습니다"
+
+msgid "Linked images need pronounceable alt text"
+msgstr "링크 이미지에는 발음 가능한 대체 텍스트가 필요합니다"
+
+msgid "Manual check: link contains \"click here\""
+msgstr "수동 검토: 링크에 \"여기를 클릭\"이 포함되어 있습니다"
+
+msgid "Link article titles, not DOI numbers"
+msgstr "DOI 번호가 아닌 논문 제목에 링크를 연결하세요"
+
+msgid "This link contains no words"
+msgstr "이 링크에 텍스트가 없습니다"
+
+msgid "Link with invalid \"aria-labelledby\" attribute"
+msgstr "\"aria-labelledby\" 속성이 유효하지 않은 링크"
+
+msgid "This link needs a label"
+msgstr "이 링크에 레이블이 필요합니다"
+
+msgid "Link points to a file without warning"
+msgstr "링크가 경고 없이 파일을 가리킵니다"
+
+msgid "Links with the same text link to different pages"
+msgstr "동일한 텍스트의 링크가 서로 다른 페이지로 연결됩니다"
+
+msgid "Does this alt text describe the link or the image?"
+msgstr "이 대체 텍스트가 링크를 설명하나요, 이미지를 설명하나요?"
+
+msgid "Does this alt text make sense as part of this link?"
+msgstr "이 대체 텍스트가 링크의 일부로 적절한가요?"
+
+msgid "Can this linked alt text be shorter?"
+msgstr "이 링크의 대체 텍스트를 더 짧게 할 수 있나요?"
+
+msgid "This linked image needs alt text"
+msgstr "링크로 사용된 이미지에 대체 텍스트가 필요합니다"
+
+msgid "Does this linked image need a description?"
+msgstr "이 링크 이미지에 설명이 필요한가요?"
+
+msgid "Is this link actually a button?"
+msgstr "이 링크가 실제로는 버튼인가요?"
+
+msgid "Does this link open a new tab without warning?"
+msgstr "이 링크가 경고 없이 새 탭을 여나요?"
+
+msgid "This linked alt text may be a placeholder"
+msgstr "이 링크의 대체 텍스트가 자리 표시자일 수 있습니다"
+
+msgid "This link only contains generic words"
+msgstr "이 링크에 일반적인 단어만 포함되어 있습니다"
+
+msgid "The purpose of this link is visually hidden"
+msgstr "이 링크의 목적이 시각적으로 숨겨져 있습니다"
+
+msgid "Does this image's alt describe the image or the link?"
+msgstr "이 이미지의 대체 텍스트가 이미지를 설명하나요, 링크를 설명하나요?"
+
+msgid "Are the symbols or emoji in this link meaningful?"
+msgstr "이 링크의 기호나 이모지가 의미 있나요?"
+
+msgid "This link is unpronounceable"
+msgstr "이 링크는 발음할 수 없습니다"
+
+msgid "Link text should not be a URL"
+msgstr "링크 텍스트가 URL이어서는 안 됩니다"
+
+msgid "Meta tag for page language missing"
+msgstr "페이지 언어 메타 태그가 없습니다"
+
+msgid "Did you mean a different language code?"
+msgstr "다른 언어 코드를 의도하셨나요?"
+
+msgid "Invalid language code"
+msgstr "유효하지 않은 언어 코드입니다"
+
+msgid "Page language may not match the content"
+msgstr "페이지 언어가 콘텐츠와 일치하지 않을 수 있습니다"
+
+msgid "Meta tag limits how much users can enlarge text"
+msgstr "메타 태그가 텍스트 확대를 제한합니다"
+
+msgid "Meta tag automatically refreshes page"
+msgstr "메타 태그가 페이지를 자동으로 새로 고침합니다"
+
+msgid "Meta tag prevents users from enlarging text"
+msgstr "메타 태그가 텍스트 확대를 차단합니다"
+
+msgid "Meta tag for page title missing"
+msgstr "페이지 제목 메타 태그가 없습니다"
+
+msgid "Invalid HTML: image has no alt attribute"
+msgstr "잘못된 HTML: 이미지에 alt 속성이 없습니다"
+
+msgid "Invalid HTML: linked image missing alt attribute"
+msgstr "잘못된 HTML: 링크 이미지에 alt 속성이 없습니다"
+
+msgid "Invalid HTML: image in link missing alt attribute"
+msgstr "잘못된 HTML: 링크 내 이미지에 alt 속성이 없습니다"
+
+msgid "This link target may be invalid"
+msgstr "이 링크 대상이 유효하지 않을 수 있습니다"
+
+msgid "Should this quote be a heading?"
+msgstr "이 인용문이 제목이어야 하나요?"
+
+msgid "Has this document been tagged for screen readers?"
+msgstr "이 문서가 스크린 리더를 위해 태그 처리되었나요?"
+
+msgid "Should this bold text be a heading?"
+msgstr "이 굵은 텍스트가 제목이어야 하나요?"
+
+msgid "Should this have list formatting?"
+msgstr "이 항목에 목록 서식을 사용해야 하나요?"
+
+msgid "Broken same-page link"
+msgstr "끊어진 페이지 내 링크"
+
+msgid "Do not justify text"
+msgstr "양쪽 맞춤 텍스트를 사용하지 마세요"
+
+msgid "Nested interactive layout components"
+msgstr "중첩된 인터랙티브 레이아웃 컴포넌트"
+
+msgid "Is there an alternative for this PDF?"
+msgstr "이 PDF에 대한 대안이 있나요?"
+
+msgid "Text is too small"
+msgstr "텍스트 크기가 너무 작습니다"
+
+msgid "Large blocks of emphasized text are harder to read"
+msgstr "강조 텍스트가 너무 많으면 읽기 어렵습니다"
+
+msgid "Do not use sub/superscript as visual formatting"
+msgstr "위첨자/아래첨자를 시각적 서식으로 사용하지 마세요"
+
+msgid "Only links should be underlined"
+msgstr "링크에만 밑줄을 사용해야 합니다"
+
+msgid "Is this uppercase text needed?"
+msgstr "이 대문자 텍스트가 필요한가요?"
+
+msgid "Are there redundant words in this alt text?"
+msgstr "이 대체 텍스트에 불필요한 단어가 있나요?"
+
+msgid "Tabindex overrides interrupt the focus order"
+msgstr "tabindex 재정의가 포커스 순서를 방해합니다"
+
+msgid "This header cell needs text"
+msgstr "이 머리글 셀에 텍스트가 필요합니다"
+
+msgid "This table has an invalid headers attribute"
+msgstr "이 표에 유효하지 않은 머리글 속성이 있습니다"
+
+msgid "This table needs a header row and/or column"
+msgstr "이 표에 머리글 행 또는 열이 필요합니다"
+
+msgid "Content headings should not be used inside tables"
+msgstr "표 안에 콘텐츠 제목을 사용해서는 안 됩니다"
+
+msgid "Invalid HTML list"
+msgstr "잘못된 HTML 목록"
+
+msgid "Linked images"
+msgstr "링크된 이미지"
+
+msgid "Text formatting"
+msgstr "텍스트 서식"
+
+msgid "Video, audio, frames"
+msgstr "동영상, 오디오, 프레임"
+
+msgid "Contrast"
+msgstr "대비"
+
+msgid "Forms"
+msgstr "양식"
+
+msgid "ARIA and focus"
+msgstr "ARIA 및 포커스"
+
+msgid "Page metadata"
+msgstr "페이지 메타데이터"
+
+msgid "The request could not be processed. Details have been logged."
+msgstr "요청을 처리할 수 없습니다. 세부 정보가 로그에 기록되었습니다."
+
+msgid "API request rejected: @message"
+msgstr "API 요청이 거부되었습니다: @message"
+
+msgid "API request failed: @message"
+msgstr "API 요청 실패: @message"
+
+msgid "Export pages with alerts"
+msgstr "알림이 있는 페이지 내보내기"
+
+msgid ""
+"Install the Editoria11y Export Batch Processor module to download these "
+"reports."
+msgstr "이 보고서를 다운로드하려면 Editoria11y 내보내기 일괄 처리기 모듈을 설치하십시오."
+
+msgid "Export results"
+msgstr "결과 내보내기"
+
+msgctxt "problems"
+msgid "Top alerts"
+msgstr "상위 알림"
+
+msgctxt "problems"
+msgid "Pages with the most alerts"
+msgstr "알림이 가장 많은 페이지"
+
+msgid "Recent dismissals"
+msgstr "최근 무시 처리"
+
+msgid ""
+"Activate the <a href=\"@csa\">Editoria11y CSA submodule</a> to see developer "
+"tests."
+msgstr ""
+"개발자 테스트를 보려면 <a href=\"@csa\">Editoria11y CSA 하위 모듈</a>을 활성"
+"화하십시오."
+
+msgid "Include all parts of the page that contain your theme and content."
+msgstr "테마와 콘텐츠가 포함된 페이지의 모든 부분을 포함합니다."
+
+msgid "Include all parts of the page that contain your editable content."
+msgstr "편집 가능한 콘텐츠가 포함된 페이지의 모든 부분을 포함합니다."
+
+msgid "Exclude elements that show unhelpful, repetitive, or inaccurate alerts."
+msgstr ""
+"도움이 되지 않거나 반복적이거나 부정확한 알림을 표시하는 요소를 제외합니다."
+
+msgid ""
+"<a href=\"@permissions\">Add permissions</a>, especially \"View Editoria11y "
+"checker\" and \"Mark OK.\"</a>"
+msgstr ""
+"<a href=\"@permissions\">Add permissions</a>, especially \"View Editoria11y "
+"checker\" and \"Mark OK.\"</a>"
+
+msgid ""
+"If you need help: <a href=\"@config_guide\">Configuration Guide</a> | <a "
+"href=\"@issue_queue\">Issue Queue</a> | <a href=\"@help\">Support contacts</"
+"a>"
+msgstr ""
+"도움이 필요하시면: <a href=\"@config_guide\">구성 가이드</a> | <a "
+"href=\"@issue_queue\">이슈 큐</a> | <a href=\"@help\">지원 연락처</a>"
+
+msgid "Autodetect"
+msgstr "자동 감지"
+
+msgid "Only user-editable content"
+msgstr "사용자 편집 가능한 콘텐츠만"
+
+msgid "Other"
+msgstr "기타"
+
+msgid "Parts of the page to test"
+msgstr "테스트할 페이지 부분"
+
+msgid "\"Autodetect\" selects:"
+msgstr "\"자동 감지\" 선택 항목:"
+
+msgid "Other: specify regions to check for developer and content problems"
+msgstr "기타: 개발자 및 콘텐츠 문제를 검사할 영역을 지정합니다"
+
+msgid ""
+"Provide CSS selectors. For many sites, the site theme is wrapped in "
+"<code>.dialog-off-canvas-main-canvas</code> while editing."
+msgstr ""
+"CSS 선택자를 제공하십시오. 많은 사이트에서 편집 시 사이트 테마가 "
+"<code>.dialog-off-canvas-main-canvas</code>로 래핑됩니다."
+
+msgid "Do not check for any errors inside these elements"
+msgstr "이 요소 내의 오류를 검사하지 않습니다"
+
+msgid "These parts of the page will be ignored entirely."
+msgstr "페이지의 이 부분은 완전히 무시됩니다."
+
+msgid "match content settings"
+msgstr "콘텐츠 설정에 맞춤"
+
+msgid "Page regions with user-editable content"
+msgstr "사용자 편집 가능한 콘텐츠가 있는 페이지 영역"
+
+msgid ""
+"Default: <code><em>main</em></code><br>Provide <a target=\"_blank\" "
+"href=\"https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/"
+"Selectors\">CSS selectors</a>. Content authors will only see the alerts "
+"within these parts of the page. Do not provide selectors that nest within "
+"each other, or the inner content will be checked twice."
+msgstr ""
+"기본값: <code><em>main</em></code><br><a target=\"_blank\" href=\"https://"
+"developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Selectors\">CSS 선"
+"택자</a>를 제공하십시오. 콘텐츠 작성자는 페이지의 이 부분 내의 알림만 볼 수 "
+"있습니다. 서로 중첩되는 선택자를 제공하지 마십시오. 그렇지 않으면 내부 콘텐츠"
+"가 두 번 검사됩니다."
+
+msgid ""
+"Default: <code><em>main</em></code><br>Provide <a target=\"_blank\" "
+"href=\"https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/"
+"Selectors\">CSS selectors</a>. Do not provide selectors that nest within "
+"each other, or the inner content will be checked twice."
+msgstr ""
+"기본값: <code><em>main</em></code><br><a target=\"_blank\" href=\"https://"
+"developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Selectors\">CSS 선"
+"택자</a>를 제공하십시오. 서로 중첩되는 선택자를 제공하지 마십시오. 그렇지 않"
+"으면 내부 콘텐츠가 두 번 검사됩니다."
+
+msgid "Errors in these elements should only be shown to developers"
+msgstr "이 요소의 오류는 개발자에게만 표시해야 합니다"
+
+msgid "Do not check for content errors inside these elements"
+msgstr "이 요소 내의 콘텐츠 오류를 검사하지 않습니다"
+
+msgid ""
+"Content editors are not responsible for errors in these elements. <br>E.g.: "
+"<code><em>#sidebar-menu a, .slide [aria-hidden=\"true\"]</em></code>."
+msgstr ""
+"콘텐츠 편집자는 이 요소의 오류에 대한 책임이 없습니다. <br>예: "
+"<code><em>#sidebar-menu a, .slide [aria-hidden=\"true\"]</em></code>."
+
+msgid "Roles that will see developer alerts"
+msgstr "개발자 알림을 볼 역할"
+
+msgid ""
+"All roles with the <a href=\":url\">View editoria11y checker</a> permission "
+"see content alerts."
+msgstr ""
+"<a href=\":url\">Editoria11y 검사기 보기</a> 권한이 있는 모든 역할은 콘텐츠 "
+"알림을 볼 수 있습니다."
+
+msgid "Advanced settings"
+msgstr "고급 설정"
+
+msgid "Assertiveness"
+msgstr "강조 수준"
+
+msgid "Checker mode for content roles"
+msgstr "콘텐츠 역할의 검사기 모드"
+
+msgid "Start open if there are any alerts"
+msgstr "알림이 있으면 자동으로 열기"
+
+msgid "Start open if there are new alerts"
+msgstr "새 알림이 있으면 자동으로 열기"
+
+msgid "Start minimized"
+msgstr "최소화 상태로 시작"
+
+msgid ""
+"Choose when the control panel should open and show inline tips. \"Start open "
+"if there are any alerts\" is recommended, as it helps tips get noticed over "
+"time."
+msgstr ""
+"컨트롤 패널이 열리고 인라인 팁을 표시할 시점을 선택합니다. 팁이 시간이 지남"
+"에 따라 주목받도록 \"알림이 있으면 자동으로 열기\"를 권장합니다."
+
+msgid "Checker mode for developer roles"
+msgstr "개발자 역할의 검사기 모드"
+
+msgid "Do not check any content while it is being edited"
+msgstr "편집 중인 콘텐츠는 검사하지 않습니다"
+
+msgid ""
+"Use the \"Do not check on pages with these elements\" setting to prevent "
+"checking only on specific pages. E.g., exclude: <code><em>form[id^=\"node-"
+"article\"]</em></code>."
+msgstr ""
+"\"이 요소가 있는 페이지에서는 검사하지 않음\" 설정을 사용하여 특정 페이지에서"
+"만 검사를 방지합니다. 예: 제외: <code><em>form[id^=\"node-article\"]</em></"
+"code>."
+
+msgid "Assign headers to CKEditor tables on insert"
+msgstr "CKEditor 표 삽입 시 머리글 할당"
+
+msgid "First row"
+msgstr "첫 번째 행"
+
+msgid "First column"
+msgstr "첫 번째 열"
+
+msgid "Both"
+msgstr "모두"
+
+msgid ""
+"You will need to clear cache for changes to this setting to appear in "
+"CKEditor."
+msgstr "이 설정 변경이 CKEditor에 적용되려면 캐시를 지워야 합니다."
+
+msgid "Theme compatibility"
+msgstr "테마 호환성"
+
+msgid "Configuration tips"
+msgstr "구성 팁"
+
+msgid ""
+"If the checker <strong>toggle</strong> does not appear: make sure a z-"
+"indexed or overflow-hidden element in your front-end theme is not hiding or "
+"covering the <code><em>ed11y-element-panel</em></code> container, make sure "
+"that any custom selectors in the \"Disable the scanner if these elements are "
+"detected\" field are not present, and make sure that no JavaScript errors "
+"are appearing in your <a href=\"https://developer.mozilla.org/en-US/docs/"
+"Tools/Browser_Console\"> browser console</a>"
+msgstr ""
+"검사기 <strong>토글</strong>이 표시되지 않는 경우: 프런트엔드 테마의 z-index "
+"또는 overflow-hidden 요소가 <code><em>ed11y-element-panel</em></code> 컨테이"
+"너를 숨기거나 덮지 않는지 확인하고, \"이 요소가 감지되면 스캐너를 비활성화\" "
+"필드의 사용자 정의 선택자가 없는지 확인하며, <a href=\"https://"
+"developer.mozilla.org/en-US/docs/Tools/Browser_Console\">브라우저 콘솔</a>에 "
+"JavaScript 오류가 없는지 확인하십시오"
+
+msgid ""
+"If the checker toggle is present but <strong>not detecting</strong> errors, "
+"or missing errors that should be flagged: check that your inclusions & "
+"exclusion settings below are not missing or ignoring the elements. It is not "
+"uncommon for homepages or views to insert editable content outside the "
+"<code><em>main</em></code> element."
+msgstr ""
+"검사기 토글은 있지만 오류를 <strong>감지하지 못하거나</strong> 플래그되어야 "
+"할 오류가 누락된 경우: 아래 포함 및 제외 설정이 요소를 누락하거나 무시하지 않"
+"는지 확인하십시오. 홈페이지 또는 뷰가 <code><em>main</em></code> 요소 외부에 "
+"편집 가능한 콘텐츠를 삽입하는 경우가 있습니다."
+
+msgid "Theme"
+msgstr "테마"
+
+msgid "Sleek"
+msgstr "슬릭"
+
+msgid "Classic"
+msgstr "클래식"
+
+msgid "Dark"
+msgstr "다크"
+
+msgid "Do not check on pages with these elements"
+msgstr "이 요소가 있는 페이지에서는 검사하지 않습니다"
+
+msgid ""
+"Used to block checking on site sections or admin pages.<br>E.g. "
+"<code><em>.content-type-example, .tabs__link[href=*\"edit\"]</em></code>."
+msgstr ""
+"사이트 섹션 또는 관리자 페이지에서 검사를 차단하는 데 사용합니다.<br>예: "
+"<code><em>.content-type-example, .tabs__link[href=*\"edit\"]</em></code>."
+
+msgid "Hide all alerts on pages where these elements are not present"
+msgstr "이 요소가 없는 페이지에서는 모든 알림을 숨깁니다"
+
+msgid ""
+"Used to limit alerting to nodes where the user can edit something. Suggested "
+"selectors:<br> <code><em>.contextual-region a[href*=\"/edit\"], .contextual-"
+"region a[href*=\"/manage\"]</em></code>."
+msgstr ""
+"사용자가 편집할 수 있는 노드로 알림을 제한하는 데 사용합니다. 권장 선택자:"
+"<br> <code><em>.contextual-region a[href*=\"/edit\"], .contextual-region "
+"a[href*=\"/manage\"]</em></code>."
+
+msgid ""
+"Set to the number of other themes or modules that will be <a href=\"https://"
+"editoria11y.princeton.edu/configuration/#customtests\">injecting custom "
+"result JS events</a>."
+msgstr ""
+"사용자 정의 결과 JS 이벤트를 <a href=\"https://editoria11y.princeton.edu/"
+"configuration/#customtests\">주입할</a> 다른 테마 또는 모듈의 수로 설정합니"
+"다."
+
+msgid "Positioning"
+msgstr "위치 지정"
+
+msgid "Don't show edit links on tips in these containers"
+msgstr "이 컨테이너의 팁에 편집 링크를 표시하지 않습니다"
+
+msgid ""
+"Tips show copies of the \"Edit\" and \"Layout\" links for nodes, users and "
+"taxonomy terms. These links are not helpful on lists of content from remote "
+"nodes.<br>Provide a comma-separated list of page sections of where these "
+"links should not show, E.g.: <code><em>#sidebar-menu, .news-feed</em></code>."
+"<br>To hide the links <strong>everywhere</strong>, set this field to an "
+"asterisk (<code><em>*</em></code>).<br>To modify the links, <a "
+"href=\"https://editoria11y.princeton.edu/configuration/#modify-tips\" "
+"target=\"_blank\">use the ed11yPop event</a> in your theme JS."
+msgstr ""
+"팁은 노드, 사용자 및 분류 용어의 \"편집\" 및 \"레이아웃\" 링크 사본을 표시합"
+"니다. 이 링크는 원격 노드의 콘텐츠 목록에서는 유용하지 않습니다.<br>링크를 표"
+"시하지 않을 페이지 섹션을 쉼표로 구분하여 제공하십시오. 예: "
+"<code><em>#sidebar-menu, .news-feed</em></code>.<br>링크를 <strong>모든 곳</"
+"strong>에서 숨기려면 이 필드에 별표 (<code><em>*</em></code>)를 설정하십시오."
+"<br>링크를 수정하려면 테마 JS에서 <a href=\"https://"
+"editoria11y.princeton.edu/configuration/#modify-tips\" "
+"target=\"_blank\">ed11yPop 이벤트를 사용</a>하십시오."
+
+msgid "Pin panel to..."
+msgstr "패널 고정 위치..."
+
+msgid "Right"
+msgstr "오른쪽"
+
+msgid "Left"
+msgstr "왼쪽"
+
+msgid "Don't cover these other widgets"
+msgstr "다른 위젯을 가리지 않습니다"
+
+msgid ""
+"Provide a comma-separated list of selectors for other things that appear in "
+"the bottom right of the page. <br>If nothing is set, Editoria11y will "
+"automatically slide left to accommodate <code><em>#klaro_toggle_dialog, "
+"#klaro-cookie-notice .same-page-preview-dialog.ui-dialog-position-side</em></"
+"code>."
+msgstr ""
+"페이지 오른쪽 하단에 표시되는 다른 항목의 선택자를 쉼표로 구분하여 제공하십시"
+"오. <br>아무것도 설정하지 않으면 Editoria11y가 "
+"<code><em>#klaro_toggle_dialog, #klaro-cookie-notice .same-page-preview-"
+"dialog.ui-dialog-position-side</em></code>를 수용하기 위해 자동으로 왼쪽으로 "
+"이동합니다."
+
+msgid "Elements with overflow hidden"
+msgstr "overflow hidden 요소"
+
+msgid ""
+"Sometimes buttons get drawn and visually truncated outside the bounds of a "
+"positioned element. Provide a selector list."
+msgstr ""
+"때때로 버튼이 위치가 지정된 요소의 경계 밖에서 그려지고 시각적으로 잘립니다. "
+"선택자 목록을 제공하십시오."
+
+msgid "Theme JS will handle revealing hidden tooltips inside these containers"
+msgstr "이 컨테이너 내의 숨겨진 툴팁 표시는 테마 JS가 처리합니다"
+
+msgid ""
+"Editoria11y detects hidden tooltips and warns the user when they try to jump "
+"to them from the panel. For elements on this list, Editoria11y will <a "
+"href=\"https://itmaybejj.github.io/editoria11y/#dealing-with-alerts-on-"
+"hidden-or-size-constrained-content\">dispatch a JS event</a> instead of a "
+"warning, so custom JS in your theme can first reveal the hidden tip (e.g., "
+"open an accordion or tab panel)."
+msgstr ""
+"Editoria11y는 숨겨진 툴팁을 감지하고 패널에서 이동하려 할 때 사용자에게 경고"
+"합니다. 이 목록의 요소에 대해 Editoria11y는 경고 대신 <a href=\"https://"
+"itmaybejj.github.io/editoria11y/#dealing-with-alerts-on-hidden-or-size-"
+"constrained-content\">JS 이벤트를 디스패치</a>하므로 테마의 사용자 정의 JS가 "
+"먼저 숨겨진 팁을 표시할 수 있습니다 (예: 아코디언 또는 탭 패널 열기)."
+
+msgid "Detecting dynamic and shadow content"
+msgstr "동적 및 섀도우 콘텐츠 감지"
+
+msgid "Dynamically refresh if new content appears"
+msgstr "새 콘텐츠가 나타나면 동적으로 새로 고침"
+
+msgid "Watch for changes anywhere on the page"
+msgstr "페이지 어디서나 변경 사항 감시"
+
+msgid "Only watch for changes to content containers present on load"
+msgstr "로드 시 존재하는 콘텐츠 컨테이너의 변경 사항만 감시"
+
+msgid "Do not watch for changes"
+msgstr "변경 사항을 감시하지 않음"
+
+msgid ""
+"Set to \"anywhere\" if changes are being missed, set to \"ignore\" if you "
+"notice performance issues. Themes and modules can also call "
+"<code>Drupal.Ed11y.refresh()</code> to refresh results."
+msgstr ""
+"변경 사항이 누락되는 경우 \"어디서나\"로 설정하고, 성능 문제가 있는 경우 \"무"
+"시\"로 설정하십시오. 테마와 모듈은 <code>Drupal.Ed11y.refresh()</code>를 호출"
+"하여 결과를 새로 고칠 수도 있습니다."
+
+msgid "Check inside these specific Web components"
+msgstr "이 특정 웹 컴포넌트 내부를 검사합니다"
+
+msgid ""
+"Provide selectors for elements with <a href='https://developer.mozilla.org/"
+"en-US/docs/Web/Web_Components'>shadow DOM</a> you want tested. E.g.: "
+"<code><em>my-fancy-accordion-widget, my-magical-slideshow</em></code>."
+msgstr ""
+"테스트하려는 <a href='https://developer.mozilla.org/en-US/docs/Web/"
+"Web_Components'>섀도우 DOM</a>이 있는 요소의 선택자를 제공하십시오. 예: "
+"<code><em>my-fancy-accordion-widget, my-magical-slideshow</em></code>."
+
+msgid "Auto-detect any Web components"
+msgstr "모든 웹 컴포넌트 자동 감지"
+
+msgid ""
+"This is easier to configure than specifying components, but may slow test "
+"runs on very complicated pages."
+msgstr ""
+"컴포넌트를 지정하는 것보다 구성이 쉽지만 매우 복잡한 페이지에서 테스트 실행"
+"이 느려질 수 있습니다."
+
+msgid "Syncing results to reports"
+msgstr "보고서에 결과 동기화"
+
+msgid ""
+"Remember that results only sync to the dashboard when viewing nodes. Results "
+"shown while editing or viewing previews or revisions will not sync."
+msgstr ""
+"결과는 노드를 볼 때만 대시보드에 동기화됩니다. 편집 중이거나 미리보기 또는 개"
+"정판을 볼 때 표시되는 결과는 동기화되지 않습니다."
+
+msgid "Remove redundant base url from URLs"
+msgstr "URL에서 중복 기본 URL 제거"
+
+msgid ""
+"Provide base URL (\"/mysite\") if your site is installed in a subdirectory. "
+"Subdirectories tend to get duplicated (/mysite/mysite/mypage) and throw "
+"errors from the API."
+msgstr ""
+"사이트가 하위 디렉터리에 설치된 경우 기본 URL (\"/mysite\")을 제공하십시오. "
+"하위 디렉터리는 중복되는 경향이 있어 (/mysite/mysite/mypage) API 오류가 발생"
+"합니다."
+
+msgid "Preserve query parameters"
+msgstr "쿼리 파라미터 유지"
+
+msgid ""
+"The dashboard ignores most parameters: results for both /news?f=1 and /news?"
+"f=2 will show up as just /news. Provide a comma separated list of parameters "
+"that are meaningful, and should appear as separate pages in results."
+msgstr ""
+"대시보드는 대부분의 파라미터를 무시합니다. /news?f=1과 /news?f=2의 결과는 모"
+"두 /news로 표시됩니다. 의미 있고 결과에서 별도 페이지로 표시되어야 하는 파라"
+"미터를 쉼표로 구분하여 제공하십시오."
+
+msgid "Disable sync altogether"
+msgstr "동기화 완전히 비활성화"
+
+msgid ""
+"Syncing test results back to Drupal is required for the <a target=\"_blank\" "
+"href=\"/admin/reports/editoria11y\">issue</a> and <a target=\"_blank\" "
+"href=\"/admin/reports/editoria11y/dismissals\">dismissal</a> dashboards and "
+"\"mark OK\" buttons."
+msgstr ""
+"테스트 결과를 Drupal로 다시 동기화하려면 <a target=\"_blank\" href=\"/admin/"
+"reports/editoria11y\">문제</a> 및 <a target=\"_blank\" href=\"/admin/reports/"
+"editoria11y/dismissals\">무시 처리</a> 대시보드와 \"확인으로 표시\" 버튼이 필"
+"요합니다."
+
+msgid "Heading outline position of editable content"
+msgstr "편집 가능한 콘텐츠의 제목 구조 위치"
+
+msgid ""
+"To check headings in CKEditor, Editoria11y needs to know what the first "
+"heading level should be in this field. Body fields should generally be at "
+"the h2 level."
+msgstr ""
+"CKEditor에서 제목을 검사하려면 Editoria11y가 이 필드에서 첫 번째 제목 수준이 "
+"무엇인지 알아야 합니다. 본문 필드는 일반적으로 h2 수준이어야 합니다."
+
+msgid "H2 level fields (body content)"
+msgstr "h2 수준 필드 (본문 콘텐츠)"
+
+msgid ""
+"Body fields on nodes are preceded by an h1, and their heading outline should "
+"start with an h2. Ideally set this for top-level body fields for each of "
+"your content types, and set blocks and embedded nodes to h3 or h4.\n"
+"        <br>Set all content types: <code><em>form[id^=\"node-\"] #edit-body-"
+"wrapper .ck-content</em></code>\n"
+"        <br>Set specific content types: <code><em>form[id^=\"node-\"] #edit-"
+"body-wrapper .ck-content</em></code>\n"
+"        <br>Set up for Gutenberg: <code><em>form[id^=\"node-\"] #edit-body-"
+"wrapper .is-root-container</em></code>"
+msgstr ""
+"노드의 본문 필드 앞에는 h1이 있으므로 제목 구조는 h2로 시작해야 합니다. 각 콘"
+"텐츠 유형의 최상위 본문 필드에 설정하고 블록 및 임베드된 노드는 h3 또는 h4로 "
+"설정하는 것이 좋습니다.\n"
+"        <br>모든 콘텐츠 유형 설정: <code><em>form[id^=\"node-\"] #edit-body-"
+"wrapper .ck-content</em></code>\n"
+"        <br>특정 콘텐츠 유형 설정: <code><em>form[id^=\"node-\"] #edit-body-"
+"wrapper .ck-content</em></code>\n"
+"        <br>Gutenberg 설정: <code><em>form[id^=\"node-\"] #edit-body-"
+"wrapper .is-root-container</em></code>"
+
+msgid "H3 level fields (blocks or paragraphs with separate titles)"
+msgstr "h3 수준 필드 (별도 제목이 있는 블록 또는 단락)"
+
+msgid ""
+"Sometimes inline and layout builder blocks are grouped under an h2 from a "
+"separate field, so their highest heading level should be h3."
+msgstr ""
+"때로는 인라인 및 레이아웃 빌더 블록이 별도 필드의 h2 아래에 그룹화되므로 가"
+"장 높은 제목 수준이 h3이어야 합니다."
+
+msgid "H4 level fields (deeply nested blocks or paragraphs)"
+msgstr "h4 수준 필드 (깊이 중첩된 블록 또는 단락)"
+
+msgid ""
+"Sometimes inline and layout builder blocks are grouped under an h3 from a "
+"separate field, so their highest heading level should be h4."
+msgstr ""
+"때로는 인라인 및 레이아웃 빌더 블록이 별도 필드의 h3 아래에 그룹화되므로 가"
+"장 높은 제목 수준이 h4이어야 합니다."
+
+msgid "Modify tests that usually detect content issues"
+msgstr "일반적으로 콘텐츠 문제를 감지하는 테스트 수정"
+
+msgid "Modify tests that usually detect template or configuration issues"
+msgstr "일반적으로 템플릿 또는 구성 문제를 감지하는 테스트 수정"
+
+msgid "Do not check contrast for these elements"
+msgstr "이 요소의 색상 대비를 검사하지 않습니다"
+
+msgid ""
+"Provide a comma-separated list of selectors for elements to ignore for all "
+"users."
+msgstr ""
+"모든 사용자에 대해 무시할 요소의 선택자를 쉼표로 구분하여 제공하십시오."
+
+msgid "Remind editor that content in these embeds needs manual review"
+msgstr "이 임베드의 콘텐츠에 수동 검토가 필요함을 편집자에게 상기시킵니다"
+
+msgid ""
+"Provide a comma-separated list of selectors you wish to flag for the editor, "
+"e.g.: <code><em>.my-embedded-feed, #my-social-link-block</em></code>."
+msgstr ""
+"편집자에게 플래그를 지정할 선택자를 쉼표로 구분하여 제공하십시오. 예: "
+"<code><em>.my-embedded-feed, #my-social-link-block</em></code>."
+
+msgid ""
+"Default settings should work with both <a href=\"https://www.drupal.org/"
+"project/linkpurpose\" target=\"_blank\">Link Purpose Icons</a> and <a "
+"target=\"_blank\" href=\"https://www.drupal.org/project/extlink\">External "
+"Links</a>."
+msgstr ""
+"기본 설정은 <a href=\"https://www.drupal.org/project/linkpurpose\" "
+"target=\"_blank\">Link Purpose Icons</a> 및 <a target=\"_blank\" "
+"href=\"https://www.drupal.org/project/extlink\">External Links</a> 모두에서 "
+"작동합니다."
+
+msgid "Remind the editor that these linked documents need a manual check"
+msgstr "이 링크된 문서에 수동 검토가 필요함을 편집자에게 상기시킵니다"
+
+msgid ""
+"Add or remove filetypes. Set to \"false\" to disable the test altogether. "
+"Providing any value will override the default, which is "
+"<code><em>a[href$='.pdf'], a[href*='.pdf?']</em></code>."
+msgstr ""
+"파일 유형을 추가하거나 제거합니다. \"false\"로 설정하면 테스트를 완전히 비활"
+"성화합니다. 값을 제공하면 기본값 <code><em>a[href$='.pdf'], "
+"a[href*='.pdf?']</em></code>를 재정의합니다."
+
+msgid "Remove elements that match these selectors before testing link text"
+msgstr "링크 텍스트를 테스트하기 전에 이 선택자와 일치하는 요소를 제거합니다"
+
+msgid ""
+"Provide a CSS selector of elements your modules programmatically add to "
+"links (usually external or open-in-new-window links), so they can be ignored "
+"when the link text is checked for the \"link has no text\" and \"link text "
+"is not meaningful\" tests.<br>E.g.: <code><em>.this, .that</em></code>"
+msgstr ""
+"모듈이 링크에 프로그래밍 방식으로 추가하는 요소 (일반적으로 외부 링크 또는 "
+"새 창에서 열기 링크)의 CSS 선택자를 제공하여 \"링크에 텍스트가 없음\" 및 \"링"
+"크 텍스트가 의미 없음\" 테스트에서 무시될 수 있습니다.<br>예: "
+"<code><em>.this, .that</em></code>"
+
+msgid "Remove these strings before testing link text"
+msgstr "링크 텍스트를 테스트하기 전에 이 문자열을 제거합니다"
+
+msgid ""
+"Provide a pipe-separated (\"|\") list of phrases your modules "
+"programmatically add to links to hint a purpose (external, mail, phone, open-"
+"in-new-window), so they can be ignored when the link text is checked for the "
+"\"link has no text\" and \"link text is not meaningful\" tests; e.g.:  "
+"<pre><code><em>(link is external)|(link sends email)</em></code></pre>"
+msgstr ""
+"모듈이 링크에 프로그래밍 방식으로 추가하는 용도 힌트 (외부, 메일, 전화, 새 창"
+"에서 열기) 구문을 파이프 (\"|\")로 구분하여 제공하여 \"링크에 텍스트가 없음"
+"\" 및 \"링크 텍스트가 의미 없음\" 테스트에서 무시될 수 있습니다. 예: "
+"<pre><code><em>(link is external)|(link sends email)</em></code></pre>"
+
+msgid "Strings in links that indicate new tabs"
+msgstr "새 탭을 나타내는 링크 내 문자열"
+
+msgid ""
+"Provide a pipe-separated list of phrases your site uses to warn users a link "
+"opens in a new tab; e.g.:  <pre><code><em>new&nbsp;tab|new&nbsp;window|"
+"external</em></code></pre>"
+msgstr ""
+"링크가 새 탭에서 열림을 사용자에게 경고하기 위해 사이트에서 사용하는 구문을 "
+"파이프로 구분하여 제공하십시오. 예: <pre><code><em>new&nbsp;tab|"
+"new&nbsp;window|external</em></code></pre>"
+
+msgid ""
+"Modules like Link Purpose or External Links can mark links automatically."
+msgstr ""
+"Link Purpose 또는 External Links와 같은 모듈은 링크를 자동으로 표시할 수 있습"
+"니다."
+
+msgid "CSA/developer test"
+msgstr "CSA/개발자 테스트"
+
+msgid "Show to developers"
+msgstr "개발자에게 표시"
+
+msgid "Show to everybody"
+msgstr "모두에게 표시"
+
+msgid "Dashboard sync is disabled in Editoria11y configuration."
+msgstr "Editoria11y 구성에서 대시보드 동기화가 비활성화되어 있습니다."
+
+msgid "(invalid URL)"
+msgstr "(유효하지 않은 URL)"
+
+msgid "Editoria11y: Dismissals"
+msgstr "Editoria11y: 무시 처리"
+
+msgid "Default"
+msgstr "기본값"
+
+msgid "Node path"
+msgstr "노드 경로"
+
+msgid "view"
+msgstr "view"
+
+msgid "Term path"
+msgstr "분류 용어 경로"
+
+msgid "User bio path"
+msgstr "사용자 소개 경로"
+
+msgid "Term title"
+msgstr "분류 용어 제목"
+
+msgid ", "
+msgstr ", "
+
+msgid "Node title"
+msgstr "노드 제목"
+
+msgid "User name"
+msgstr "사용자 이름"
+
+msgid "Recorded path"
+msgstr "기록된 경로"
+
+msgid "Computed"
+msgstr "계산됨"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty %}{% set dynamic_path = page_path %}{% endif %}\r\n"
+"{% set dynamic_title = title ~ name_2 ~ name_1 %}{% if dynamic_title is "
+"empty %}{% set dynamic_title = page_title %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ dynamic_title }}</"
+"a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty %}{% set dynamic_path = page_path %}{% endif %}\\r\n"
+"{% set dynamic_title = title ~ name_2 ~ name_1 %}{% if dynamic_title is "
+"empty %}{% set dynamic_title = page_title %}{% endif %}\\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ dynamic_title }}</"
+"a>"
+
+msgid "Dismissed alert"
+msgstr "무시된 알림"
+
+msgid "By"
+msgstr "처리자"
+
+msgid "1"
+msgid_plural "@count"
+msgstr[0] "@count"
+
+msgid "Reset"
+msgstr "초기화"
+
+msgid ""
+"<span class=\"ed11y-reset-dismissal\"><span class=\"ed11y-page-id\">{{ pid }}"
+"</span><span class=\"ed11y-dismissal-id\">{{id}}</span></span>"
+msgstr ""
+"<span class=\"ed11y-reset-dismissal\"><span class=\"ed11y-page-id\">{{ pid }}"
+"</span><span class=\"ed11y-dismissal-id\">{{id}}</span></span>"
+
+msgid "››"
+msgstr "››"
+
+msgid "‹‹"
+msgstr "‹‹"
+
+msgid "- All -"
+msgstr "- 전체 -"
+
+msgid "Offset"
+msgstr "오프셋"
+
+msgid "« First"
+msgstr "« 첫 페이지"
+
+msgid "Last »"
+msgstr "마지막 페이지 »"
+
+msgid "Asc"
+msgstr "오름차순"
+
+msgid "Desc"
+msgstr "내림차순"
+
+msgid "User who dismissed alert"
+msgstr "알림을 무시한 사용자"
+
+msgid "pid"
+msgstr "pid"
+
+msgid "Node"
+msgstr "노드"
+
+msgid "Term"
+msgstr "분류 용어"
+
+msgid "User bio"
+msgstr "사용자 소개"
+
+msgid "Dismissals page"
+msgstr "무시 처리 페이지"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty %}{% set dynamic_path = page_path %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title }}</a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty %}{% set dynamic_path = page_path %}{% endif %}\\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title }}</a>"
+
+msgid "Still on page"
+msgstr "페이지에 남아있음"
+
+msgid "Reset filters"
+msgstr "필터 초기화"
+
+msgid "Issues marked as hidden or OK in Editoria11y."
+msgstr "Editoria11y에서 숨김 또는 확인으로 표시된 문제."
+
+msgid "Dismissals filtered by issue"
+msgstr "문제별로 필터링된 무시 처리"
+
+msgid "No dismissals match these filters."
+msgstr "이 필터와 일치하는 무시 처리가 없습니다."
+
+msgid "All"
+msgstr "전체"
+
+msgid "Dismissed alerts of type \"{{result_name}}\""
+msgstr "Dismissed alerts of type \"{{result_name}}\""
+
+msgid ""
+"<a href=\"/admin/reports/editoria11y/dismissals/\" class=\"button button--"
+"primary\">Show all dismissals</a>"
+msgstr ""
+"<a href=\"/admin/reports/editoria11y/dismissals/\" class=\"button button--"
+"primary\">Show all dismissals</a>"
+
+msgid "Recent Editoria11y Dismissals"
+msgstr "최근 Editoria11y 무시 처리"
+
+msgid "Editoria11y - Recent dismissals"
+msgstr "Editoria11y - 최근 무시 처리"
+
+msgid "Editoria11y: Alerts"
+msgstr "Editoria11y: 알림"
+
+msgid "Top results"
+msgstr "상위 결과"
+
+msgid "Computed title"
+msgstr "계산된 제목"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path|render %}{% set dynamic_path = "
+"page_path %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{  page_title_1 }}</"
+"a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path|render %}{% set dynamic_path = "
+"page_path %}{% endif %}\\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{  page_title_1 }}</"
+"a>"
+
+msgid "<a href=\"{{page_path_1}}\" data-ed1ref=\"{{pid}}\">{{page_path_1}}</a>"
+msgstr ""
+"<a href=\"{{page_path_1}}\" data-ed1ref=\"{{pid}}\">{{page_path_1}}</a>"
+
+msgid "No alerts found."
+msgstr "알림이 없습니다."
+
+msgid "YYYY-MM-DD"
+msgstr "YYYY-MM-DD"
+
+msgid "User bio page"
+msgstr "사용자 소개 페이지"
+
+msgid "Node author"
+msgstr "노드 작성자"
+
+msgid "All pages with issues"
+msgstr "문제가 있는 모든 페이지"
+
+msgid "Block: Pages with the most"
+msgstr "블록: 가장 많은 알림이 있는 페이지"
+
+msgid "Block: Recent alerts"
+msgstr "블록: 최근 알림"
+
+msgid "Recent Editoria11y Alerts"
+msgstr "최근 Editoria11y 알림"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path|render %}{% set dynamic_path = "
+"page_path %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title_1 }}</a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path|render %}{% set dynamic_path = "
+"page_path %}{% endif %}\\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title_1 }}</a>"
+
+msgid "Issue"
+msgstr "문제"
+
+msgid "Editoria11y - Recent alerts"
+msgstr "Editoria11y - 최근 알림"
+
+msgid "Block: Most frequent alerts"
+msgstr "블록: 가장 빈번한 알림"
+
+msgid "Most Frequent Editoria11y Alerts"
+msgstr "가장 빈번한 Editoria11y 알림"
+
+msgid "Editoria11y - Most frequent alerts"
+msgstr "Editoria11y - 가장 빈번한 알림"
+
+msgid "Alerts on specified page"
+msgstr "지정된 페이지의 알림"
+
+msgid ""
+"<a href=\"{{ page_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title_1 }}</a>"
+msgstr ""
+"<a href=\"{{ page_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title_1 }}</a>"
+
+msgid "<p><strong>Author:</strong> {{ uid }}</p>"
+msgstr "<p><strong>Author:</strong> {{ uid }}</p>"
+
+msgid "<p><strong>Last editor:</strong> {{ uid_1 }}</p>"
+msgstr "<p><strong>Last editor:</strong> {{ uid_1 }}</p>"
+
+msgid ""
+"<h1>Accessibility issues on: {{page_title_1}}</h1>\r\n"
+"<p>{{uid}}{{uid_1}}</p>"
+msgstr ""
+"<h1>Accessibility issues on: {{page_title_1}}</h1>\\r\n"
+"<p>{{uid}}{{uid_1}}</p>"
+
+msgid ""
+"<p><a href=\"../editoria11y/pages\" class=\"button button--primary\">All "
+"pages with alerts</a></p>"
+msgstr ""
+"<p><a href=\"../editoria11y/pages\" class=\"button button--primary\">All "
+"pages with alerts</a></p>"
+
+msgid ""
+"<span class=\"ed11y-reset-this-path\" hidden><p class=\"more-link\"><a "
+"role=\"button\" class=\"action-link action-link--icon-trash action-link--"
+"danger\"><span hidden class=\"ed11y-api-path\">{{ page_path }}</span>Reset "
+"results for this page</a></p></span>"
+msgstr ""
+"<span class=\"ed11y-reset-this-path\" hidden><p class=\"more-link\"><a "
+"role=\"button\" class=\"action-link action-link--icon-trash action-link--"
+"danger\"><span hidden class=\"ed11y-api-path\">{{ page_path }}</span>Reset "
+"results for this page</a></p></span>"
+
+msgid "Issue types"
+msgstr "문제 유형"
+
+msgid "Pages with specified alert"
+msgstr "지정된 알림이 있는 페이지"
+
+msgid "Published status"
+msgstr "게시 상태"
+
+msgid "Created by"
+msgstr "작성자"
+
+msgid "Created after"
+msgstr "이후 생성"
+
+msgid "Created before"
+msgstr "이전 생성"
+
+msgid "<h1>Pages with alert \"{{ result_name }}\"</h1>"
+msgstr "<h1>\"{{ result_name }}\" 경고가 있는 페이지</h1>"
+
+msgid ""
+"<a href=\"../editoria11y/alerts\" class=\"button button--primary\">All "
+"alerts</a>"
+msgstr ""
+"<a href=\"../editoria11y/alerts\" class=\"button button--primary\">All "
+"alerts</a>"
+
+msgid "Pages with issues"
+msgstr "문제가 있는 페이지"
+
+msgid "Next ›"
+msgstr "다음 ›"
+
+msgid "‹ Previous"
+msgstr "‹ 이전"
+
+msgid "Authored on"
+msgstr "작성 날짜"
+
+msgid "Changed"
+msgstr "변경됨"
+
+msgid "Editoria11y: Crawler"
+msgstr "Editoria11y: 크롤러"
+
+msgid "Editoria11y: Crawl Nodes"
+msgstr "Editoria11y: 노드 크롤링"
+
+msgid "Authored by"
+msgstr "작성자"
+
+msgid "Has results"
+msgstr "결과 있음"
+
+msgid "Has no alerts"
+msgstr "알림 없음"
+
+msgid "Has alerts"
+msgstr "알림 있음"
+
+msgid "nid"
+msgstr "nid"
+
+msgid "Editoria11y: Export"
+msgstr "Editoria11y: 내보내기"
+
+msgid "Export page with alerts"
+msgstr "알림이 있는 페이지 내보내기"
+
+msgid "Link to Taxonomy term"
+msgstr "분류 용어 링크"
+
+msgid "Link to User"
+msgstr "사용자 링크"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path_1|render %}{% set dynamic_path = "
+"page_path_1 %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title }}</a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path_1|render %}{% set dynamic_path = "
+"page_path_1 %}{% endif %}\\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title }}</a>"
+
+msgid "Path when checked"
+msgstr "검사 당시 경로"
+
+msgid "<a href=\"{{page_path_1}}\" data-ed1ref=\"{{pid}}\">{{page_path_1}}"
+msgstr "<a href=\"{{page_path_1}}\" data-ed1ref=\"{{pid}}\">{{page_path_1}}"
+
+msgid "Current URL"
+msgstr "현재 URL"
+
+msgid "{{ view_taxonomy_term }}{{ view_user }}{{ view_node }}"
+msgstr "{{ view_taxonomy_term }}{{ view_user }}{{ view_node }}"
+
+msgid "{% if type is empty %}{{entity_type}}{%else%}{{type}}{% endif %}"
+msgstr "{% if type is empty %}{{entity_type}}{%else%}{{type}}{% endif %}"
+
+msgid "Entity Type"
+msgstr "엔티티 유형"
+
+msgid "Langcode (en, fr, de)"
+msgstr "언어 코드 (en, fr, de)"
+
+msgid "Referenced node"
+msgstr "참조된 노드"
+
+msgid "Referenced term"
+msgstr "참조된 분류 용어"
+
+msgid "Referenced user bio"
+msgstr "참조된 사용자 소개"
+
+msgid "<p>Records chosen for export can be filtered and previewed below.</p>"
+msgstr "<p>Records chosen for export can be filtered and previewed below.</p>"
+
+msgid "<a href=\"/admin/reports/editoria11y/export\">Back to dashboard</a>"
+msgstr "<a href=\"/admin/reports/editoria11y/export\">Back to dashboard</a>"
+
+msgid "Dismissals export"
+msgstr "무시 처리 내보내기"
+
+msgid "Link to Content"
+msgstr "콘텐츠 링크"
+
+msgid "Page raw path"
+msgstr "페이지 원시 경로"
+
+msgid "Name"
+msgstr "이름"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path_1|render %}{% set dynamic_path = "
+"page_path_1 %}{% endif %}\r\n"
+"{% set dynamic_title = title_1 ~ name ~ name_1 %}{% if dynamic_title is "
+"empty %}{% set dynamic_title = page_title %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ dynamic_title }}</"
+"a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path_1|render %}{% set dynamic_path = "
+"page_path_1 %}{% endif %}\\r\n"
+"{% set dynamic_title = title_1 ~ name ~ name_1 %}{% if dynamic_title is "
+"empty %}{% set dynamic_title = page_title %}{% endif %}\\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ dynamic_title }}</"
+"a>"
+
+msgid "dismissal"
+msgstr "dismissal"
+
+msgid "Page export"
+msgstr "페이지 내보내기"
+
+msgid "Alerts export"
+msgstr "알림 내보내기"
+
+msgid "Editoria11y alerts on pages"
+msgstr "페이지의 Editoria11y 알림"
+
+msgid "{{ view_taxonomy_term }}{{ view_user }}{{ view_node }} "
+msgstr "{{ view_taxonomy_term }}{{ view_user }}{{ view_node }} "
+
+msgid "Results for page"
+msgstr "페이지 결과"
+
+msgid "<a href=\"./export/pages\">Export pages with alerts</a>"
+msgstr "<a href=\"./export/pages\">Export pages with alerts</a>"
+
+msgid "<a href=\"./export/dismissals\">Export dismissals</a>"
+msgstr "<a href=\"./export/dismissals\">Export dismissals</a>"
+
+msgid "<a href=\"./export/alerts\">Export alert list</a>"
+msgstr "<a href=\"./export/alerts\">Export alert list</a>"
+
+msgid "Export alerts on pages"
+msgstr "페이지의 알림 내보내기"
+
+msgid "Result name"
+msgstr "결과 이름"

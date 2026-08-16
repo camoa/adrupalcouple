@@ -1,0 +1,41 @@
+{
+  "version": "0.2",
+  "language": "en",
+  "dictionaryDefinitions": [
+    {
+      "name": "project-words",
+      "path": "./.cspell-project-words.txt",
+      "addWords": true
+    },
+    {
+      "name": "drupal",
+      "path": "../../../core/misc/cspell/drupal-dictionary.txt"
+    },
+    {
+      "name": "dictionary",
+      "path": "../../../core/misc/cspell/dictionary.txt"
+    }
+  ],
+  "dictionaries": [
+    "project-words",
+    "drupal",
+    "dictionary"
+  ],
+  "ignorePaths": [
+    "**/vendor/**",
+    "**/library/**",
+    "**/node_modules/**",
+    "**/translations/**",
+    "**/config/**",
+    "**/*.po",
+    "**/*.pot",
+    "**/*.min.js",
+    "**/js/editoria11y-demo.js",
+    "**/scripts/**"
+  ],
+  "ignoreRegExpList": [
+    "\\$[a-z_]+",
+    "#[0-9a-fA-F]{3,8}",
+    "https?://\\S+"
+  ]
+}

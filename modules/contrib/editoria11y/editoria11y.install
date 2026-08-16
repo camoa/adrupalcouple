@@ -5,17 +5,21 @@
  * Editorially install file.
  */
 
-use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\Core\Config\Config;
+use Drupal\Core\Config\Entity\ConfigEntityStorageInterface;
+use Drupal\Core\Entity\ContentEntityInterface;
+use Drupal\editoria11y\Api;
+use Drupal\editoria11y\TestNames;
+use Drupal\editoria11y\UpdateHelpers;
 use Drupal\user\Entity\Role;
-use Drupal\views\Views;
-use Symfony\Component\Yaml\Yaml;
 
 /**
  * Implements hook_install().
  *
  * @throws \Drupal\Core\Entity\EntityStorageException
+ * @throws \Random\RandomException
  */
-function editoria11y_install() {
+function editoria11y_install(): void {
   // Assign default access to roles likely to have content editing access.
   /** @var \Drupal\user\RoleInterface $role */
   foreach (Role::loadMultiple() as $role) {
@@ -27,286 +31,35 @@ function editoria11y_install() {
     }
   }
 
+  // Set defaults for new config items.
+  $config_factory = Drupal::configFactory();
+  $config = $config_factory->getEditable('editoria11y.settings');
+  $config->save(TRUE);
+
+  // Store the pepper in keyvalue so it travels with the database rather than
+  // with exported configuration. This prevents config imports from breaking
+  // existing action hashes.
+  \Drupal::service('keyvalue')->get('editoria11y')->set('pepper', bin2hex(random_bytes(16)));
+
   // Display a help message once after it is installed:
   \Drupal::state()->set('editoria11y.show_help_message', TRUE);
 
-  $config_factory = Drupal::configFactory();
-  $view_ids = ['editoria11y_dismissals', 'editoria11y_results'];
-  foreach ($view_ids as $view_id) {
-    $view = Views::getView($view_id);
-
-    if (!$view) {
-      // Import the view configuration.
-      $config_path = \Drupal::service('extension.list.module')->getPath('editoria11y') . '/config/optional/views.view.' . $view_id . '.yml';
-      $data = Yaml::parseFile($config_path);
-      $config_factory->getEditable('views.view.' . $view_id)->setData($data)->save(TRUE);
-    }
-  }
-
-}
-
-/**
- * Results table definition.
- */
-function editoria11y_results_table(): array {
-  return [
-    'description' => 'Stores Editoria11y issue list',
-    'fields' => [
-      'id' => [
-        'description' => 'Test result',
-        'type' => 'serial',
-        'size' => 'big',
-        'not null' => TRUE,
-      ],
-      'entity_id' => [
-        'description' => 'The {node}.nid this record affects.',
-        'type' => 'int',
-        'unsigned' => TRUE,
-        'not null' => TRUE,
-        'default' => 0,
-      ],
-      'entity_type' => [
-        'type' => 'varchar',
-        'not null' => TRUE,
-        'default' => 'node',
-        'length' => 32,
-        'description' => 'The entity type; "route" if no type found.',
-      ],
-      'route_name' => [
-        'type' => 'varchar',
-        'not null' => TRUE,
-        'default' => 'unknown',
-        'length' => 255,
-        'description' => 'Route name for page..',
-      ],
-      'page_path' => [
-        'type' => 'varchar',
-        'not null' => TRUE,
-        'default' => 'unknown',
-        'length' => 1024,
-        'description' => 'Internal, relative page path.',
-      ],
-      'page_language' => [
-        'type' => 'varchar',
-        'not null' => TRUE,
-        'default' => 'unknown',
-        'length' => 64,
-        'description' => 'Active translation.',
-      ],
-      'page_url' => [
-        'type' => 'varchar',
-        'not null' => TRUE,
-        'default' => 'unknown',
-        'length' => 1024,
-        'description' => 'Raw URL.',
-      ],
-      'page_title' => [
-        'type' => 'varchar',
-        'not null' => TRUE,
-        'default' => 'unknown',
-        'length' => 1024,
-        'description' => 'The name of the route where this was last seen.',
-      ],
-      'page_result_count' => [
-        'type' => 'int',
-        'not null' => TRUE,
-        'default' => 0,
-        'description' => 'The total number of issues on this page.',
-      ],
-      'created' => [
-        'type' => 'int',
-        'not null' => TRUE,
-        'default' => 0,
-        'description' => 'The Unix timestamp of the first time this record was flagged.',
-      ],
-      'updated' => [
-        'type' => 'int',
-        'not null' => TRUE,
-        'default' => 0,
-        'description' => 'The Unix timestamp of the last update.',
-      ],
-      'result_name' => [
-        'type' => 'varchar',
-        'length' => 255,
-        'not null' => TRUE,
-        'default' => 'unknown',
-        'description' => 'The name of the test as reported by Editoria11y JS',
-      ],
-      'result_name_count' => [
-        'type' => 'int',
-        'not null' => TRUE,
-        'default' => 0,
-        'description' => 'The number of hits for this test type on this page',
-      ],
-    ],
-    'primary key' => [
-      'id',
-    ],
-    'unique_keys' => [
-      'ed11y' => [
-        'page_path',
-        'page_language',
-      ],
-    ],
-    'indexes' => [
-      'entity_type' => ['entity_type'],
-      'result_name' => ['result_name'],
-      'route_name' => ['route_name'],
-      'page_path' => ['page_path'],
-      'page_language' => ['page_language'],
-      'entity_id' => ['entity_id'],
-    ],
-  ];
-}
-
-/**
- * Returns dismissals array.
- */
-function editoria11y_dismissals_table(): array {
-  return [
-    'description' => 'Stores Editoria11y warnings and dismissals',
-    'fields' => [
-      'id' => [
-        'description' => 'Element affected',
-        'type' => 'serial',
-        'size' => 'big',
-        'not null' => TRUE,
-      ],
-      'entity_id' => [
-        'description' => 'The {node}.nid this record affects.',
-        'type' => 'int',
-        'unsigned' => TRUE,
-        'not null' => TRUE,
-        'default' => 0,
-      ],
-      'uid' => [
-        'description' => 'The {users}.uid this record affects.',
-        'type' => 'int',
-        'unsigned' => TRUE,
-        'not null' => TRUE,
-        'default' => 0,
-      ],
-      'element_id' => [
-        'type' => 'varchar',
-        'length' => 2048,
-        'not null' => TRUE,
-        'default' => 'unknown',
-        'description' => 'Code sample to identify the flagged element.',
-      ],
-      'entity_type' => [
-        'type' => 'varchar',
-        'not null' => TRUE,
-        'default' => 'node',
-        'length' => EntityTypeInterface::ID_MAX_LENGTH,
-        'description' => 'The entity type of the route where this was dismissed',
-      ],
-      'page_path' => [
-        'type' => 'varchar',
-        'not null' => TRUE,
-        'default' => 'unknown',
-        'length' => 1024,
-        'description' => 'The name of the route where this was last seen.',
-      ],
-      'page_language' => [
-        'type' => 'varchar',
-        'not null' => TRUE,
-        'default' => 'unknown',
-        'length' => 64,
-        'description' => 'Active translation.',
-      ],
-      'page_title' => [
-        'type' => 'varchar',
-        'not null' => TRUE,
-        'default' => 'unknown',
-        'length' => 1024,
-        'description' => 'The name of the route where this was last seen.',
-      ],
-      'route_name' => [
-        'type' => 'varchar',
-        'not null' => TRUE,
-        'default' => 'unknown',
-        'length' => 256,
-        'description' => 'The entity type of the route where this was dismissed',
-      ],
-      'created' => [
-        'type' => 'int',
-        'not null' => TRUE,
-        'default' => 0,
-        'description' => 'The Unix timestamp of the first time this record was flagged.',
-      ],
-      'updated' => [
-        'type' => 'int',
-        'not null' => TRUE,
-        'default' => 0,
-        'description' => 'The Unix timestamp of the last',
-      ],
-      'result_name' => [
-        'type' => 'varchar',
-        'length' => 255,
-        'not null' => TRUE,
-        'default' => 'unknown',
-        'description' => 'The title of the test as reported by editoria11y JS',
-      ],
-      'result_key' => [
-        'type' => 'varchar',
-        'length' => 255,
-        'not null' => TRUE,
-        'default' => 'unknown',
-        'description' => 'The name of the test as reported by editoria11y JS',
-      ],
-      'dismissal_status' => [
-        'type' => 'varchar_ascii',
-        'length' => 64,
-        'not null' => TRUE,
-        'default' => 'unknown',
-        'description' => 'The type of dismissal (e.g., OK, Ignore)',
-      ],
-      'stale' => [
-        'description' => 'Not seen on most recent page check',
-        'type' => 'int',
-        'size' => 'tiny',
-        'not null' => TRUE,
-        'default' => 0,
-      ],
-    ],
-    'primary key' => [
-      'id',
-    ],
-    'unique_keys' => [
-      'ed11y' => [
-        'page_path',
-        'page_language',
-        'result_name',
-        'element_id',
-        'dismissal_status',
-        'uid',
-      ],
-    ],
-    'indexes' => [
-      'element_id' => ['element_id'],
-      'result_name' => ['result_name'],
-      'page_path' => ['page_path'],
-      'uid' => ['uid'],
-      'page_language' => ['page_language'],
-      'entity_id' => ['entity_id'],
-    ],
-    'foreign keys' => [
-      'data_user' => [
-        'table' => 'users',
-        'columns' => [
-          'uid' => 'uid',
-        ],
-      ],
-    ],
-  ];
+  // Views in config/optional are installed automatically by Drupal's config
+  // installer when their dependencies are met. Do not re-import them via raw
+  // config storage — that path skips UUID generation and dependency
+  // calculation, leaving the views in an invalid state.
+  // Tell the checker the DB schema is ready for use.
+  \Drupal::state()->set('editoria11y.db_version', '3');
 }
 
 /**
  * Implements hook_schema().
  */
 function editoria11y_schema(): array {
-  $schema['editoria11y_results'] = editoria11y_results_table();
-  $schema['editoria11y_dismissals'] = editoria11y_dismissals_table();
+  $helper = new UpdateHelpers();
+  $schema['ed11y_page'] = $helper->schemaCurrent('ed11y_page');
+  $schema['ed11y_result'] = $helper->schemaCurrent('ed11y_result');
+  $schema['ed11y_action'] = $helper->schemaCurrent('ed11y_action');
   return $schema;
 }
 
@@ -336,19 +89,7 @@ function editoria11y_update_9001() {
   $config->set('disable_sync', FALSE);
   $config->save(TRUE);
 
-  // Create new DB tables.
-  /*
-  // ====== Removed; 9003 resets these tables.
-   */
-
 }
-
-/**
- * Store page alias in reports for future dashboard filtering.
- */
-/*function editoria11y_update_9002(&$sandbox) {
-// ====== Removed; 9003 resets these tables.
-}*/
 
 /**
  * Creates tables for dashboard data using new schema.
@@ -375,13 +116,14 @@ function editoria11y_update_9003() {
     $schema->dropTable('editoria11y_dismissals');
   }
 
-  $table_name_results = 'editoria11y_results';
-  $table_schema_results = editoria11y_results_table();
-  $schema->createTable($table_name_results, $table_schema_results);
-
-  $table_name_dismissals = 'editoria11y_dismissals';
-  $table_schema_dismissals = editoria11y_dismissals_table();
-  $schema->createTable($table_name_dismissals, $table_schema_dismissals);
+  // @todo 3.x MVP this needs to be the older snapshot
+  // $table_name_results = 'ed11y_result';
+  // $table_schema_results = ed11y_result_table();
+  // $schema->createTable($table_name_results, $table_schema_results);
+  // @todo 3.x MVP this needs to pull the older snapshot
+  // $table_name_dismissals = 'ed11y_action';
+  // $table_schema_dismissals = ed11y_action_table();
+  // $schema->createTable($table_name_dismissals, $table_schema_dismissals);
 }
 
 /**
@@ -389,29 +131,33 @@ function editoria11y_update_9003() {
  */
 function editoria11y_update_9004() {
   $schema = Drupal::database()->schema();
-
-  // Only needed on sites installed at 2.x versions between 9003 and 9004.
-  if (!$schema->fieldExists('editoria11y_results', 'entity_id')) {
-    // Partial schema for index calculation.
-    $specs = [
-      'fields' => [
-        'entity_id' => [
-          'description' => 'The NID or TID this record affects.',
-          'type' => 'int',
-          'unsigned' => TRUE,
-          'not null' => TRUE,
-          'default' => 0,
+  if ($schema->tableExists('editoria11y_results') && $schema->tableExists('editoria11y_dismissals')) {
+    // 3.x overridden: only applies to sites jumping directly from 9003 to 9010.
+    // All other sites will now go straight to the 9010 schema in 9003.
+    // @todo 3.x test bypassing this.
+    if (!$schema->fieldExists('editoria11y_results', 'entity_id')) {
+      // Partial schema for index calculation.
+      $specs = [
+        'fields' => [
+          'entity_id' => [
+            'description' => 'The NID or TID this record affects.',
+            'type' => 'int',
+            'unsigned' => TRUE,
+            'not null' => TRUE,
+            'default' => 0,
+          ],
         ],
-      ],
-      'indexes' => [
-        'entity_id' => ['entity_id'],
-      ],
-    ];
-    $fields = ['entity_id'];
-    $schema->addField('editoria11y_results', 'entity_id', $specs['fields']['entity_id']);
-    $schema->addIndex('editoria11y_results', 'entity_id', $fields, $specs);
-    $schema->addField('editoria11y_dismissals', 'entity_id', $specs['fields']['entity_id']);
-    $schema->addIndex('editoria11y_dismissals', 'entity_id', $fields, $specs);
+        'indexes' => [
+          'entity_id' => ['entity_id'],
+        ],
+      ];
+      $fields = ['entity_id'];
+      // @todo 3.x test inline spec
+      $schema->addField('editoria11y_results', 'entity_id', $specs['fields']['entity_id']);
+      $schema->addIndex('editoria11y_results', 'entity_id', $fields, $specs);
+      $schema->addField('editoria11y_dismissals', 'entity_id', $specs['fields']['entity_id']);
+      $schema->addIndex('editoria11y_dismissals', 'entity_id', $fields, $specs);
+    }
   }
 }
 
@@ -464,4 +210,1420 @@ function editoria11y_update_9009() {
   $config = $config_factory->getEditable('editoria11y.settings');
   $config->set('ck5_table_headers', 'row');
   $config->save();
+}
+
+/**
+ * Update from 2.x: create 3.x result tables and import results.
+ */
+function editoria11y_update_9010(&$sandbox) {
+  $database = \Drupal::database();
+  $batchSize = 250;
+
+  // First batch; set up sandbox.
+  if (!isset($sandbox['total'])) {
+    $helper = new UpdateHelpers();
+
+    // Setup new tables needed. A previous attempt that died mid-batch
+    // (timeout, OOM, fatal in the migration loop) leaves these tables created
+    // and partially populated, but the batch sandbox is discarded on failure
+    // so the next drush updb re-enters this block from scratch. Drop and
+    // recreate to guarantee a clean slate for the non-idempotent ed11y_result
+    // inserts below.
+    $schema = \Drupal::database()->schema();
+    foreach (['ed11y_page', 'ed11y_result'] as $table) {
+      if ($schema->tableExists($table)) {
+        $schema->dropTable($table);
+      }
+    }
+    $schema->createTable('ed11y_page', $helper->schemaVersion3('ed11y_page'));
+    $schema->createTable('ed11y_result', $helper->schemaVersion3('ed11y_result'));
+
+    // Save name conversions.
+    $sandbox['oldNames'] = $helper->updateVersion3('oldNames');
+    $sandbox['oldKeys'] = $helper->updateVersion3('oldKeys');
+
+    // Total number of rows to migrate.
+    $sandbox['total'] = $database
+      ->select('editoria11y_results')
+      ->countQuery()
+      ->execute()
+      ->fetchField();
+
+    // Tracks the index of rows to migrate for batch processing.
+    $sandbox['current'] = 0;
+  }
+
+  // On each batch pass, get a chunk of results to migrate.
+  $query = $database->select('editoria11y_results');
+  $query->fields('editoria11y_results', [
+    'id',
+    'entity_id',
+    'entity_type',
+    'page_path',
+    'page_language',
+    'page_title',
+    'route_name',
+    'updated',
+    'created',
+    'result_name',
+    'page_result_count',
+    'result_name_count',
+  ]);
+  $query->orderBy('id');
+  $query->range($sandbox['current'], $batchSize);
+  $results = $query->execute();
+
+  foreach ($results as $record) {
+    // Ignore any rows that are missing a page path for whatever reason.
+    // We can't migrate those effectively.
+    if (empty($record->page_path)) {
+      continue;
+    }
+
+    // Add an entry for this result's page. Use upsert in case it already
+    // exists.
+    $upsert = $database->merge('ed11y_page');
+    $upsert->keys([
+      'page_language' => $record->page_language,
+      'page_path' => $record->page_path,
+    ]);
+    $upsert->fields([
+      'entity_id' => $record->entity_id,
+      'entity_type' => $record->entity_type,
+      'page_title' => $record->page_title,
+      'route_name' => $record->route_name,
+      'updated' => $record->updated,
+      'page_language' => $record->page_language,
+      'page_path' => $record->page_path,
+      'content_results' => $record->page_result_count,
+    ]);
+    $upsert->execute();
+
+    // Retrieve the ID of the page entry for this result.
+    $pid = $database->select('ed11y_page', 'p')
+      ->fields('p', ['pid'])
+      ->condition('page_path', $record->page_path)
+      ->condition('page_language', $record->page_language)
+      ->execute()
+      ->fetchField();
+
+    // Find the new result key that corresponds with the result name.
+    $newResultKey = $sandbox['oldNames'][$record->result_name] ?? $record->result_name;
+
+    // Create an entry in the new result table and have it reference the
+    // page entry.
+    $insert = $database->insert('ed11y_result');
+    $insert->fields([
+      'pid' => $pid,
+      'created' => $record->created,
+      'result_key' => $newResultKey,
+      'result_name' => $record->result_name,
+      'content_count' => $record->result_name_count,
+    ]);
+    $insert->execute();
+  }
+
+  $sandbox['current'] += $batchSize;
+
+  if ($sandbox['current'] >= $sandbox['total']) {
+    $sandbox['#finished'] = 1;
+  }
+  else {
+    $sandbox['#finished'] = $sandbox['current'] / $sandbox['total'];
+  }
+}
+
+/**
+ * Update from 2.x: create 3.x dismissal table and import dismissals.
+ */
+function editoria11y_update_9011(&$sandbox) {
+  $database = \Drupal::database();
+  $batchSize = 250;
+
+  if (!isset($sandbox['total'])) {
+    $helper = new UpdateHelpers();
+    $sandbox['oldNames'] = $helper->updateVersion3('oldNames');
+    $sandbox['oldKeys'] = $helper->updateVersion3('oldKeys');
+
+    // Drop ed11y_action if it survives a previous failed attempt: the inserts
+    // below are not idempotent and would duplicate rows on retry. ed11y_page
+    // is preserved because its upserts are keyed on (page_language, page_path)
+    // and may already hold rows from 9010.
+    $schema = \Drupal::database()->schema();
+    if ($schema->tableExists('ed11y_action')) {
+      $schema->dropTable('ed11y_action');
+    }
+    $schema->createTable('ed11y_action', $helper->schemaVersion3('ed11y_action'));
+
+    // Get number of rows to update.
+    $sandbox['total'] = $database
+      ->select('editoria11y_dismissals')
+      ->countQuery()
+      ->execute()
+      ->fetchField();
+    $sandbox['current'] = 0;
+
+    // Create a pepper that's used to vary the element ID hash per-site.
+    // Stored in keyvalue so it travels with the hashed data.
+    $pepper = bin2hex(random_bytes(16));
+    \Drupal::service('keyvalue')->get('editoria11y')->set('pepper', $pepper);
+    $sandbox['pepper'] = $pepper;
+  }
+
+  $query = $database->select('editoria11y_dismissals');
+  $query->fields('editoria11y_dismissals', [
+    'id',
+    'entity_id',
+    'entity_type',
+    'page_path',
+    'page_language',
+    'page_title',
+    'route_name',
+    'updated',
+    'created',
+    'result_name',
+    'uid',
+    'element_id',
+    'result_key',
+    'dismissal_status',
+    'stale',
+  ]);
+  $query->orderBy('id');
+  $query->range($sandbox['current'], $batchSize);
+  $dismissals = $query->execute();
+
+  foreach ($dismissals as $record) {
+    // Ignore any rows that are missing a page path for whatever reason.
+    // We can't migrate those effectively.
+    if (empty($record->page_path)) {
+      continue;
+    }
+
+    // Add a record for the page using upsert in case it already exists.
+    $upsert = $database->merge('ed11y_page');
+    $upsert->keys([
+      'page_language' => $record->page_language,
+      'page_path' => $record->page_path,
+    ]);
+    $upsert->fields([
+      'entity_id' => $record->entity_id,
+      'entity_type' => $record->entity_type,
+      'page_title' => $record->page_title,
+      'route_name' => $record->route_name,
+      'updated' => $record->updated,
+      'page_language' => $record->page_language,
+      'page_path' => $record->page_path,
+    ]);
+    $upsert->execute();
+
+    // Retrieve the ID of the page entry for this result.
+    $pid = $database->select('ed11y_page', 'p')
+      ->fields('p', ['pid'])
+      ->condition('page_path', $record->page_path)
+      ->condition('page_language', $record->page_language)
+      ->execute()
+      ->fetchField();
+
+    if ($record->result_key === 'linkDocument' && str_contains($record->element_id, 'pdf')) {
+      $newKey = 'QA_PDF';
+    }
+    else {
+      $newKey = $sandbox['oldKeys'][$record->result_key] ?? $record->result_key;
+    }
+
+    // Skip over migrating dismissals where we don't have a new key.
+    $dropKey = [
+      // Untranslatable keys.
+      // @todo convert "Manual check: possibly redundant text in linked image"
+      // "LINK_NEW_TAB",
+      // "LINK_URL",
+      // "LINK_STOPWORD",
+      // "QA_FAKE_LIST",
+      // discussing plan with Adam.
+      "TABLES_SEMANTIC_HEADING",
+      "TABLES_EMPTY_HEADING",
+    ];
+    if (in_array($newKey, $dropKey)) {
+      continue;
+    }
+
+    // For some keys, we want to convert the element ID to lowercase.
+    $lowerKeys = [
+      'LINK_NEW_TAB',
+      'LINK_STOPWORD',
+      'LINK_URL',
+    ];
+    $newId = in_array($newKey, $lowerKeys) ? strtolower($record->element_id) : $record->element_id;
+    $idString = $newKey . $newId;
+    $idString = preg_replace('/([^0-9a-zA-Z])/', '', $idString);
+    $idString = substr($idString, 0, 256);
+    $newId = hash('sha256', $sandbox['pepper'] . $idString);
+
+    $actionFields = [
+      'pid' => $pid,
+      'created' => $record->created,
+      'result_name' => $record->result_name,
+      'uid' => $record->uid,
+      'result_key' => $newKey,
+      'element_id' => $newId,
+      'action_type' => $record->dismissal_status,
+    ];
+    if ($record->stale) {
+      $actionFields['stale_date'] = $record->updated;
+    }
+
+    // Create an entry in the new action table.
+    $insert = $database->insert('ed11y_action');
+    $insert->fields($actionFields);
+    $insert->execute();
+  }
+
+  $sandbox['current'] += $batchSize;
+
+  if ($sandbox['current'] >= $sandbox['total']) {
+    $sandbox['#finished'] = 1;
+  }
+  else {
+    $sandbox['#finished'] = $sandbox['current'] / $sandbox['total'];
+  }
+}
+
+/**
+ * Update from 2.x: drop old tables and views, fix config keys.
+ */
+function editoria11y_update_9012(): void {
+
+  // Tell the checker the DB schema is ready for use.
+  \Drupal::state()->set('editoria11y.db_version', '2');
+
+  // Guard: sites that ran this as editoria11y_post_update_new_views_and_cleanup
+  // before this version was released have already completed these steps.
+  $existing = \Drupal::keyValue('post_update')->get('existing_updates', []);
+  if (in_array('editoria11y_post_update_new_views_and_cleanup', $existing)) {
+    return;
+  }
+
+  $views_storage = \Drupal::entityTypeManager()->getStorage('view');
+  assert($views_storage instanceof ConfigEntityStorageInterface);
+
+  // Delete old views.
+  foreach (['editoria11y_dismissals', 'editoria11y_results'] as $view_id) {
+    $view = $views_storage->load($view_id);
+    if ($view) {
+      $view->delete();
+    }
+  }
+
+  // Migrate ignore_tests config key to new name/format.
+  $config = \Drupal::configFactory()->getEditable('editoria11y.settings');
+  $ignore_test_config = $config->get('ignore_tests');
+  if (is_array($ignore_test_config) && !empty($ignore_test_config)) {
+    $helper = new UpdateHelpers();
+    $old_keys = $helper->updateVersion3('oldKeys');
+    $ignore_tests = [];
+    foreach ($ignore_test_config as $ignore_test) {
+      if ($ignore_test && !empty($old_keys[$ignore_test])) {
+        $ignore_tests[] = $old_keys[$ignore_test];
+      }
+    }
+    $config->set('tests_off', implode(',', $ignore_tests));
+    $config->clear('ignore_tests');
+    $config->save(TRUE);
+  }
+
+  // Drop superseded tables now that new ones are in place. Guard against
+  // missing tables so a retry after a partial 9012 failure doesn't error,
+  // and so sites whose 2.x tables were already cleaned up elsewhere still
+  // complete the update.
+  $schema = \Drupal::database()->schema();
+  foreach (['editoria11y_results', 'editoria11y_dismissals'] as $table) {
+    if ($schema->tableExists($table)) {
+      $schema->dropTable($table);
+    }
+  }
+
+  // Tell the checker the DB schema is ready for use.
+  \Drupal::state()->set('editoria11y.db_version', '2');
+
+}
+
+/**
+ * Migrate pepper and db_version to keyValue storage.
+ */
+function editoria11y_update_9013(): void {
+  $config = \Drupal::configFactory()->getEditable('editoria11y.settings');
+
+  // --- pepper ---
+  $pepper = $config->get('pepper');
+  if (!empty($pepper)) {
+    // Preserve the existing pepper so stored hashes remain valid.
+    \Drupal::service('keyvalue')->get('editoria11y')->set('pepper', $pepper);
+    $config->clear('pepper');
+  }
+  elseif (!\Drupal::service('keyvalue')->get('editoria11y')->has('pepper')) {
+    // Defensive fallback: neither location has a pepper (e.g. a fresh install
+    // that somehow skipped editoria11y_install). Generate one now.
+    \Drupal::service('keyvalue')->get('editoria11y')->set('pepper', bin2hex(random_bytes(16)));
+  }
+
+  // Clear any stale db_version from config.
+  if ($config->get('db_version') !== NULL) {
+    $config->clear('db_version');
+  }
+  $config->save(TRUE);
+
+  // Fix missing opening bracket on span tag in ed11y_result view footer.
+  $vConfig = \Drupal::configFactory()->getEditable('views.view.ed11y_result');
+  if ($vConfig->isNew()) {
+    return;
+  }
+
+  $key = 'display.issues_by_page__page.display_options.footer.area_text_custom.content';
+  $broken = 'span class="ed11y-reset-this-path"';
+  $fixed = '<span class="ed11y-reset-this-path"';
+
+  $content = $vConfig->get($key);
+  if (is_string($content) && str_starts_with($content, $broken)) {
+    $vConfig->set($key, $fixed . substr($content, strlen($broken)))->save(TRUE);
+  }
+
+}
+
+/**
+ * Fix broken links in Dashboard Views.
+ */
+function editoria11y_update_9014(): void {
+  $old = 'data-ed1ref="{{page_path}}"';
+  $new = 'data-ed1ref="{{pid}}"';
+
+  foreach (['views.view.ed11y_action', 'views.view.ed11y_result'] as $config_name) {
+    $config = \Drupal::configFactory()->getEditable($config_name);
+    if ($config->isNew()) {
+      continue;
+    }
+    // Used to prepend a pid field when one is missing (copied from default).
+    $pid_field_def = $config->get('display.default.display_options.fields.pid');
+    $displays = $config->get('display') ?? [];
+    $changed = FALSE;
+
+    foreach (array_keys($displays) as $display_id) {
+      // Skip the default display and any display that inherits fields from it.
+      if ($display_id === 'default') {
+        continue;
+      }
+      $uses_default_fields = $config->get("display.{$display_id}.display_options.defaults.fields");
+      if ($uses_default_fields) {
+        continue;
+      }
+
+      // Fix any data-ed1ref="{{page_path}}" alter text.
+      $fields = $config->get("display.{$display_id}.display_options.fields") ?? [];
+      foreach (array_keys($fields) as $field_id) {
+        $key = "display.{$display_id}.display_options.fields.{$field_id}.alter.text";
+        $value = $config->get($key);
+        if (is_string($value) && str_contains($value, $old)) {
+          $config->set($key, str_replace($old, $new, $value));
+          $changed = TRUE;
+        }
+      }
+
+      // Ensure a pid field exists on any display that uses data-ed1ref.
+      // Re-read fields after any replacements above.
+      $fields = $config->get("display.{$display_id}.display_options.fields") ?? [];
+      if (!isset($fields['pid']) && $pid_field_def) {
+        $has_ed1ref = FALSE;
+        foreach ($fields as $field) {
+          if (is_string($field['alter']['text'] ?? NULL) && str_contains($field['alter']['text'], 'data-ed1ref="{{pid}}"')) {
+            $has_ed1ref = TRUE;
+            break;
+          }
+        }
+        if ($has_ed1ref) {
+          $config->set(
+            "display.{$display_id}.display_options.fields",
+            ['pid' => $pid_field_def] + $fields
+          );
+          $changed = TRUE;
+        }
+      }
+    }
+
+    if ($changed) {
+      $config->save(TRUE);
+    }
+  }
+
+  // Replace display_link area plugins with text_custom in the export view.
+  $config = \Drupal::configFactory()->getEditable('views.view.ed11y_export');
+  if (!$config->isNew()) {
+    $displays = $config->get('display') ?? [];
+    $changed = FALSE;
+
+    foreach (array_keys($displays) as $display_id) {
+      $source_path = $config->get("display.{$display_id}.display_options.path") ?? '';
+
+      foreach (['header', 'footer'] as $area_type) {
+        $areas = $config->get("display.{$display_id}.display_options.{$area_type}") ?? [];
+        foreach (array_keys($areas) as $area_id) {
+          if (($areas[$area_id]['plugin_id'] ?? '') !== 'display_link') {
+            continue;
+          }
+          $area = $areas[$area_id];
+          $target_id = $area['display_id'] ?? '';
+          $target_path = $config->get("display.{$target_id}.display_options.path") ?? '';
+
+          // Use a relative URL when the target is a child of the current.
+          if ($source_path && str_starts_with($target_path, $source_path . '/')) {
+            $href = './' . basename($target_path);
+          }
+          else {
+            $href = '/' . $target_path;
+          }
+
+          $label = $area['label'] ?? $target_id;
+          $config->set("display.{$display_id}.display_options.{$area_type}.{$area_id}", [
+            'id' => $area_id,
+            'table' => 'views',
+            'field' => 'area_text_custom',
+            'relationship' => 'none',
+            'group_type' => 'group',
+            'admin_label' => '',
+            'plugin_id' => 'text_custom',
+            'label' => '',
+            'empty' => $area['empty'] ?? TRUE,
+            'content' => '<a href="' . $href . '">' . $label . '</a>',
+            'tokenize' => FALSE,
+          ]);
+          $changed = TRUE;
+        }
+      }
+    }
+
+    if ($changed) {
+      $config->save(TRUE);
+    }
+  }
+}
+
+/**
+ * Disable aggregation on Recent views.
+ */
+function editoria11y_update_9015(): void {
+  $config = \Drupal::configFactory()->getEditable('views.view.ed11y_result');
+  if (!$config->isNew()) {
+    $changed = FALSE;
+    foreach (['block_recent_issues', 'recent__page'] as $display_id) {
+      $base = "display.{$display_id}.display_options";
+      if ($config->get("display.{$display_id}") === NULL) {
+        continue;
+      }
+      if ($config->get("{$base}.group_by") !== FALSE) {
+        $config->set("{$base}.group_by", FALSE);
+        $changed = TRUE;
+      }
+      // Ensure the display overrides group_by rather than inheriting it.
+      if ($config->get("{$base}.defaults.group_by") !== FALSE) {
+        $config->set("{$base}.defaults.group_by", FALSE);
+        $changed = TRUE;
+      }
+    }
+
+    if ($changed) {
+      $config->save(TRUE);
+    }
+  }
+}
+
+/**
+ * Repair views saved by the old install hook and improve labels.
+ */
+function editoria11y_update_9016(): void {
+  $uuid_service = \Drupal::service('uuid');
+  foreach (['views.view.ed11y_action', 'views.view.ed11y_result'] as $name) {
+    $config = \Drupal::configFactory()->getEditable($name);
+    if ($config->isNew()) {
+      continue;
+    }
+    $changed = FALSE;
+    if (empty($config->get('uuid'))) {
+      $config->set('uuid', $uuid_service->generate());
+      $changed = TRUE;
+    }
+    $enforced = $config->get('dependencies.enforced.module') ?? [];
+    if (!in_array('editoria11y', $enforced, TRUE)) {
+      $enforced[] = 'editoria11y';
+      $config->set('dependencies.enforced.module', $enforced);
+      $changed = TRUE;
+    }
+    if ($changed) {
+      $config->save(TRUE);
+    }
+  }
+
+  // Replace the result_key contextual argument with an exposed filter
+  // so that selections are preserved when other filters are applied.
+  $config = \Drupal::configFactory()->getEditable('views.view.ed11y_result');
+  if ($config->isNew()) {
+    return;
+  }
+  $base = 'display.pages_by_issue__page.display_options';
+  if ($config->get($base) === NULL) {
+    // Custom display layout; nothing to migrate.
+    return;
+  }
+
+  $changed = FALSE;
+
+  $arguments = $config->get("{$base}.arguments") ?? [];
+  if (array_key_exists('result_key', $arguments)) {
+    unset($arguments['result_key']);
+    $config->set("{$base}.arguments", $arguments);
+    $changed = TRUE;
+  }
+
+  $filters = $config->get("{$base}.filters") ?? [];
+  if (!array_key_exists('result_key', $filters)) {
+    $filters['result_key'] = [
+      'id' => 'result_key',
+      'table' => 'ed11y_result',
+      'field' => 'result_key',
+      'relationship' => 'none',
+      'group_type' => 'group',
+      'admin_label' => '',
+      'plugin_id' => 'in_operator',
+      'operator' => 'in',
+      'value' => [],
+      'group' => 1,
+      'exposed' => TRUE,
+      'expose' => [
+        'operator_id' => 'result_key_op',
+        'label' => 'Alert type',
+        'description' => '',
+        'use_operator' => FALSE,
+        'operator' => 'result_key_op',
+        'operator_limit_selection' => FALSE,
+        'operator_list' => [],
+        'identifier' => 'alert',
+        'required' => FALSE,
+        'remember' => FALSE,
+        'multiple' => FALSE,
+        'remember_roles' => ['authenticated' => 'authenticated'],
+        'reduce' => FALSE,
+      ],
+      'is_grouped' => FALSE,
+      'group_info' => [
+        'label' => '',
+        'description' => '',
+        'identifier' => '',
+        'optional' => TRUE,
+        'widget' => 'select',
+        'multiple' => FALSE,
+        'remember' => FALSE,
+        'default_group' => 'All',
+        'default_group_multiple' => [],
+        'group_items' => [],
+      ],
+    ];
+    $config->set("{$base}.filters", $filters);
+    $changed = TRUE;
+  }
+
+  // Remove dangling result_name_1 references from the Alerts table display.
+  // The field was removed from issues__page but leftover column/info entries
+  // remained in the style config, which also masked a missing result_name
+  // field needed by PagesByIssueLink's fallback for custom test keys.
+  $issues_style_base = 'display.issues__page.display_options.style.options';
+  if ($config->get($issues_style_base) !== NULL) {
+    $columns = $config->get("{$issues_style_base}.columns");
+    if (is_array($columns) && array_key_exists('result_name_1', $columns)) {
+      unset($columns['result_name_1']);
+      $config->set("{$issues_style_base}.columns", $columns);
+      $changed = TRUE;
+    }
+    $info = $config->get("{$issues_style_base}.info");
+    if (is_array($info) && array_key_exists('result_name_1', $info)) {
+      unset($info['result_name_1']);
+      $config->set("{$issues_style_base}.info", $info);
+      $changed = TRUE;
+    }
+  }
+
+  // Drop the dead result_key field from pages_by_issue__page: it was declared
+  // as an excluded field using PagesByIssueLink, but nothing tokenizes or
+  // sorts on it, so every row rendered a hidden anchor for no reason. The
+  // exposed filter on result_key is a separate in_operator declaration and
+  // is preserved.
+  $pages_base = 'display.pages_by_issue__page.display_options';
+  if ($config->get($pages_base) !== NULL) {
+    $fields = $config->get("{$pages_base}.fields") ?? [];
+    if (array_key_exists('result_key', $fields)) {
+      unset($fields['result_key']);
+      $config->set("{$pages_base}.fields", $fields);
+      $changed = TRUE;
+    }
+    $pages_columns = $config->get("{$pages_base}.style.options.columns");
+    if (is_array($pages_columns) && array_key_exists('result_key', $pages_columns)) {
+      unset($pages_columns['result_key']);
+      $config->set("{$pages_base}.style.options.columns", $pages_columns);
+      $changed = TRUE;
+    }
+    $pages_info = $config->get("{$pages_base}.style.options.info");
+    if (is_array($pages_info) && array_key_exists('result_key', $pages_info)) {
+      unset($pages_info['result_key']);
+      $config->set("{$pages_base}.style.options.info", $pages_info);
+      $changed = TRUE;
+    }
+  }
+
+  // Fix duplicate rows on the "Most frequent alerts" block: result_name was
+  // declared as a group_type:group field, so SQL GROUP BY landed on it and
+  // the same result_key rendered once per distinct stored name. The plugin
+  // now joins result_name via an aggregated additional_fields, so the
+  // explicit field declaration and its table style references can go.
+  $top_base = 'display.block_top_issues.display_options';
+  if ($config->get($top_base) !== NULL) {
+    $top_fields = $config->get("{$top_base}.fields") ?? [];
+    if (array_key_exists('result_name', $top_fields)) {
+      unset($top_fields['result_name']);
+      $config->set("{$top_base}.fields", $top_fields);
+      $changed = TRUE;
+    }
+    $top_columns = $config->get("{$top_base}.style.options.columns");
+    if (is_array($top_columns) && array_key_exists('result_name', $top_columns)) {
+      unset($top_columns['result_name']);
+      $config->set("{$top_base}.style.options.columns", $top_columns);
+      $changed = TRUE;
+    }
+    $top_info = $config->get("{$top_base}.style.options.info");
+    if (is_array($top_info) && array_key_exists('result_name', $top_info)) {
+      unset($top_info['result_name']);
+      $config->set("{$top_base}.style.options.info", $top_info);
+      $changed = TRUE;
+    }
+  }
+
+  // Add the missing Dev alerts summation column to the Alerts table display.
+  // Only touch the display if the field is missing and the fields list is
+  // recognizable (overrides from default), so sites that replaced the
+  // display wholesale are left alone.
+  $alerts_base = 'display.issues__page.display_options';
+  $alerts_fields = $config->get("{$alerts_base}.fields") ?? [];
+  if (is_array($alerts_fields)
+    && array_key_exists('content_count', $alerts_fields)
+    && !array_key_exists('dev_count', $alerts_fields)
+  ) {
+    // Preserve field order: dev_count goes between content_count and
+    // result_key to match a fresh install.
+    $reordered = [];
+    foreach ($alerts_fields as $id => $field) {
+      $reordered[$id] = $field;
+      if ($id === 'content_count') {
+        $reordered['dev_count'] = [
+          'id' => 'dev_count',
+          'table' => 'ed11y_result',
+          'field' => 'dev_count',
+          'relationship' => 'none',
+          'group_type' => 'sum',
+          'admin_label' => '',
+          'plugin_id' => 'numeric',
+          'label' => 'Dev alerts',
+          'exclude' => FALSE,
+          'alter' => [
+            'alter_text' => FALSE,
+            'text' => '',
+            'make_link' => FALSE,
+            'path' => '',
+            'absolute' => FALSE,
+            'external' => FALSE,
+            'replace_spaces' => FALSE,
+            'path_case' => 'none',
+            'trim_whitespace' => FALSE,
+            'alt' => '',
+            'rel' => '',
+            'link_class' => '',
+            'prefix' => '',
+            'suffix' => '',
+            'target' => '',
+            'nl2br' => FALSE,
+            'max_length' => 0,
+            'word_boundary' => TRUE,
+            'ellipsis' => TRUE,
+            'more_link' => FALSE,
+            'more_link_text' => '',
+            'more_link_path' => '',
+            'strip_tags' => FALSE,
+            'trim' => FALSE,
+            'preserve_tags' => '',
+            'html' => FALSE,
+          ],
+          'element_type' => '',
+          'element_class' => '',
+          'element_label_type' => '',
+          'element_label_class' => '',
+          'element_label_colon' => FALSE,
+          'element_wrapper_type' => '',
+          'element_wrapper_class' => '',
+          'element_default_classes' => TRUE,
+          'empty' => '',
+          'hide_empty' => FALSE,
+          'empty_zero' => FALSE,
+          'hide_alter_empty' => TRUE,
+          'set_precision' => FALSE,
+          'precision' => 0,
+          'decimal' => '.',
+          'separator' => ',',
+          'format_plural' => FALSE,
+          'format_plural_string' => "1\x03@count",
+          'prefix' => '',
+          'suffix' => '',
+        ];
+      }
+    }
+    $config->set("{$alerts_base}.fields", $reordered);
+
+    $alerts_columns = $config->get("{$alerts_base}.style.options.columns") ?? [];
+    if (!array_key_exists('dev_count', $alerts_columns)) {
+      $alerts_columns = _editoria11y_insert_after(
+        $alerts_columns,
+        'content_count',
+        'dev_count',
+        'dev_count'
+      );
+      $config->set("{$alerts_base}.style.options.columns", $alerts_columns);
+    }
+    $alerts_info = $config->get("{$alerts_base}.style.options.info") ?? [];
+    if (!array_key_exists('dev_count', $alerts_info)) {
+      $alerts_info = _editoria11y_insert_after(
+        $alerts_info,
+        'content_count',
+        'dev_count',
+        [
+          'sortable' => TRUE,
+          'default_sort_order' => 'asc',
+          'align' => '',
+          'separator' => '',
+          'empty_column' => FALSE,
+          'responsive' => '',
+        ]
+      );
+      $config->set("{$alerts_base}.style.options.info", $alerts_info);
+    }
+    $changed = TRUE;
+  }
+
+  // Reshape Pages By Issue to show a dynamic heading derived from the
+  // filtered alert and move the filters to the first position.
+  if ($config->get($pages_base) !== NULL) {
+    if ($config->get("{$pages_base}.title") !== '') {
+      $config->set("{$pages_base}.title", '');
+      $changed = TRUE;
+    }
+
+    $pages_fields = $config->get("{$pages_base}.fields") ?? [];
+    if (!array_key_exists('result_name', $pages_fields)) {
+      $result_name_field = [
+        'id' => 'result_name',
+        'table' => 'ed11y_result',
+        'field' => 'result_name',
+        'relationship' => 'none',
+        'group_type' => 'group',
+        'admin_label' => '',
+        'plugin_id' => 'standard',
+        'label' => '',
+        'exclude' => TRUE,
+        'alter' => [
+          'alter_text' => FALSE,
+          'text' => '',
+          'make_link' => FALSE,
+          'path' => '',
+          'absolute' => FALSE,
+          'external' => FALSE,
+          'replace_spaces' => FALSE,
+          'path_case' => 'none',
+          'trim_whitespace' => FALSE,
+          'alt' => '',
+          'rel' => '',
+          'link_class' => '',
+          'prefix' => '',
+          'suffix' => '',
+          'target' => '',
+          'nl2br' => FALSE,
+          'max_length' => 0,
+          'word_boundary' => TRUE,
+          'ellipsis' => TRUE,
+          'more_link' => FALSE,
+          'more_link_text' => '',
+          'more_link_path' => '',
+          'strip_tags' => TRUE,
+          'trim' => FALSE,
+          'preserve_tags' => '',
+          'html' => FALSE,
+        ],
+        'element_type' => '',
+        'element_class' => '',
+        'element_label_type' => '',
+        'element_label_class' => '',
+        'element_label_colon' => FALSE,
+        'element_wrapper_type' => '',
+        'element_wrapper_class' => '',
+        'element_default_classes' => TRUE,
+        'empty' => '',
+        'hide_empty' => FALSE,
+        'empty_zero' => FALSE,
+        'hide_alter_empty' => TRUE,
+      ];
+      // Prepend so {{ result_name }} resolves regardless of later fields.
+      $pages_fields = ['result_name' => $result_name_field] + $pages_fields;
+      $config->set("{$pages_base}.fields", $pages_fields);
+      $changed = TRUE;
+    }
+
+    $header = $config->get("{$pages_base}.header") ?? [];
+    if (!array_key_exists('area_text_custom', $header)) {
+      $header['area_text_custom'] = [
+        'id' => 'area_text_custom',
+        'table' => 'views',
+        'field' => 'area_text_custom',
+        'relationship' => 'none',
+        'group_type' => 'group',
+        'admin_label' => '',
+        'plugin_id' => 'text_custom',
+        'empty' => TRUE,
+        'content' => '<h1>Pages with alert "{{ result_name }}"</h1>',
+        'tokenize' => TRUE,
+      ];
+      $config->set("{$pages_base}.header", $header);
+      // Ensure the display overrides header from default.
+      $defaults = $config->get("{$pages_base}.defaults") ?? [];
+      if (($defaults['header'] ?? NULL) !== FALSE) {
+        $defaults['header'] = FALSE;
+        $config->set("{$pages_base}.defaults", $defaults);
+      }
+      $changed = TRUE;
+    }
+
+    // Reorder filters so result_key is first. Using + keeps the existing
+    // entries (PHP array union preserves earlier keys unchanged).
+    $pages_filters = $config->get("{$pages_base}.filters") ?? [];
+    if (is_array($pages_filters)
+      && array_key_exists('result_key', $pages_filters)
+      && array_key_first($pages_filters) !== 'result_key'
+    ) {
+      $reordered_filters = ['result_key' => $pages_filters['result_key']] + $pages_filters;
+      $config->set("{$pages_base}.filters", $reordered_filters);
+      $changed = TRUE;
+    }
+  }
+
+  if ($changed) {
+    $config->save(TRUE);
+  }
+
+  // Relabel all "Title" labels on page_title fields and filters to "Page"
+  // across both dashboard views. Targets only labels that are exactly the
+  // string "Title" (so translated or customized labels are left alone) on
+  // handlers pointing at the page_title column or the editoria11y_page_link
+  // field plugin.
+  foreach (['views.view.ed11y_result', 'views.view.ed11y_action'] as $name) {
+    $config = \Drupal::configFactory()->getEditable($name);
+    if ($config->isNew()) {
+      continue;
+    }
+    if (_editoria11y_relabel_title_to_page($config)) {
+      $config->save(TRUE);
+    }
+  }
+}
+
+/**
+ * Insert a key/value into an associative array after a given key.
+ *
+ * Used by editoria11y_update_9016() to preserve column order when patching
+ * Views table-style config. Returns the original array unchanged if the
+ * anchor key is missing.
+ */
+function _editoria11y_insert_after(array $source, string $after, string $key, mixed $value): array {
+  if (!array_key_exists($after, $source)) {
+    $source[$key] = $value;
+    return $source;
+  }
+  $out = [];
+  foreach ($source as $k => $v) {
+    $out[$k] = $v;
+    if ($k === $after) {
+      $out[$key] = $value;
+    }
+  }
+  return $out;
+}
+
+/**
+ * Rename "Title" to "Page" on page_title handlers in a view config.
+ *
+ * Walks every display's fields and filters, matching the exact label
+ * "Title" on handlers keyed to page_title (or the editoria11y_page_link
+ * plugin). Returns TRUE when something changed.
+ */
+function _editoria11y_relabel_title_to_page(Config $config): bool {
+  $changed = FALSE;
+  foreach (array_keys($config->get('display') ?? []) as $display_id) {
+    $fields_key = "display.{$display_id}.display_options.fields";
+    $fields = $config->get($fields_key) ?? [];
+    foreach ($fields as $field_id => $field) {
+      $is_page_field = ($field['field'] ?? NULL) === 'page_title'
+        || ($field['plugin_id'] ?? NULL) === 'editoria11y_page_link';
+      if ($is_page_field && ($field['label'] ?? NULL) === 'Title') {
+        $config->set("{$fields_key}.{$field_id}.label", 'Page');
+        $changed = TRUE;
+      }
+    }
+    $filters_key = "display.{$display_id}.display_options.filters";
+    $filters = $config->get($filters_key) ?? [];
+    foreach ($filters as $filter_id => $filter) {
+      if (($filter['field'] ?? NULL) !== 'page_title') {
+        continue;
+      }
+      if (($filter['expose']['label'] ?? NULL) === 'Title') {
+        $config->set("{$filters_key}.{$filter_id}.expose.label", 'Page');
+        $changed = TRUE;
+      }
+    }
+  }
+  return $changed;
+}
+
+/**
+ * Restore default config for sites affected by bug #3587962.
+ */
+function editoria11y_update_9017(): void {
+  $config = \Drupal::configFactory()->getEditable('editoria11y.settings');
+  $stored = $config->get('tests_off');
+  if (empty($stored)) {
+    return;
+  }
+  $stored_keys = explode(',', $stored);
+  $content = TestNames::contentTests();
+
+  if (count(array_diff($content, $stored_keys)) === 0) {
+    // All tests individually disabled; almost certainly a bug.
+    $kept = array_values(array_diff($stored_keys, $content));
+    $config->set('tests_off', implode(',', $kept))->save(TRUE);
+  }
+}
+
+/**
+ * Backfill tests_off config with off-by-default keys.
+ */
+function editoria11y_update_9018(): void {
+  $config = \Drupal::configFactory()->getEditable('editoria11y.settings');
+  $stored = $config->get('tests_off');
+  $stored_keys = empty($stored) ? [] : explode(',', $stored);
+  $merged = array_values(array_unique(array_merge($stored_keys, TestNames::offByDefault())));
+  if ($merged === $stored_keys) {
+    return;
+  }
+  $config->set('tests_off', implode(',', $merged))->save(TRUE);
+}
+
+/**
+ * Add compatibility for Groups module.
+ */
+function editoria11y_update_9019(&$sandbox): void {
+  /*
+   * Compatibility for Groups was added in 3.0.4:
+   * 1. Before 3.0.4 the module route ID referenced the outer {group} entity
+   *    instead of the inner relationship. This meant BOTH entity_id AND
+   *    page_path were derived from the wrong entity. The original ID
+   *    is unrecoverable, and the bad row blocks new visits from being
+   *    recorded (insertPage fails on the unique key).
+   * 2. Before commit 58ff125 the loop did not set entity_id at all for routes
+   *    other than node / taxonomy_term, so user, group, and other entity
+   *    canonical routes were stored with entity_id = 0. These rows have correct
+   *    page_path and can be REPAIRED in place: PathValidator resolves
+   *    the path back to its route + parameters, the entity is loaded, and
+   *    entity_id / entity_type are rewritten to current values.
+   *
+   * Rows whose underlying entity has been deleted are left untouched; the CSA
+   * "Check deleted" tool already covers cleanup of those. Stale-but-legitimate
+   * mismatches (e.g. Group 2 → 3 renamed group_content → group_relationship)
+   * are also left alone — only the specific group corruption fingerprint
+   * triggers deletion.
+   */
+  \Drupal::moduleHandler()->loadInclude('editoria11y', 'module');
+  $database = \Drupal::database();
+  $batch_size = 250;
+
+  $filter_sql = "route_name LIKE 'entity.%.canonical' AND ("
+    . "route_name IN ('entity.group_relationship.canonical', 'entity.group_content.canonical') "
+    . "OR entity_id = 0)";
+
+  if (!isset($sandbox['total'])) {
+    $sandbox['total'] = (int) $database->query(
+      "SELECT COUNT(*) FROM {ed11y_page} WHERE $filter_sql"
+    )->fetchField();
+    $sandbox['current'] = 0;
+    $sandbox['updated'] = 0;
+    $sandbox['deleted'] = 0;
+    $sandbox['skipped'] = 0;
+    // Keyset cursor: this update deletes corrupted rows and repairs
+    // entity_id = 0 rows, both of which drop the row out of $filter_sql. An
+    // OFFSET would then skip the unprocessed rows that shifted forward (and
+    // eventually spin forever on an empty range), so page by primary key
+    // instead — immune to set-size changes and index-backed on pid.
+    $sandbox['last_pid'] = 0;
+  }
+
+  if ($sandbox['total'] === 0) {
+    $sandbox['#finished'] = 1;
+    return;
+  }
+
+  $rows = $database->queryRange(
+    "SELECT pid, route_name, page_path, page_language, entity_id, entity_type "
+    . "FROM {ed11y_page} WHERE $filter_sql AND pid > :last_pid ORDER BY pid",
+    0,
+    $batch_size,
+    [':last_pid' => $sandbox['last_pid']]
+  );
+
+  $path_validator = \Drupal::service('path.validator');
+  $entity_type_manager = \Drupal::entityTypeManager();
+
+  // One transaction per batch keeps the batch atomic and avoids a commit per
+  // row; it is committed when $transaction is released below.
+  $transaction = $database->startTransaction();
+
+  // Corrupted-row deletes are collected and issued once per batch (3 queries
+  // instead of 3 per row).
+  $delete_pids = [];
+  $seen = 0;
+
+  foreach ($rows as $row) {
+    $seen++;
+    $sandbox['current']++;
+    // Advance the keyset cursor; rows arrive in ascending pid order.
+    $sandbox['last_pid'] = $row->pid;
+
+    if (empty($row->page_path) || !preg_match('/^entity\.([a-z0-9_]+)\.canonical$/', $row->route_name, $m)) {
+      $sandbox['skipped']++;
+      continue;
+    }
+
+    // Strip any query string before path validation. Skip the access check:
+    // this maintenance pass only needs route + parameter resolution, and an
+    // access-based false negative would wrongly treat a live row as deleted.
+    $clean_path = explode('?', $row->page_path, 2)[0];
+    $url = $path_validator->getUrlIfValidWithoutAccessCheck($clean_path);
+    if (!$url) {
+      // Entity is gone; the CSA "Check deleted" tool handles cleanup.
+      $sandbox['skipped']++;
+      continue;
+    }
+
+    $resolved_route = $url->getRouteName();
+    if ($resolved_route !== $row->route_name) {
+      // Fingerprint of the group_relationship/group_content bug: a stored
+      // route_name of entity.group_(relationship|content).canonical paired
+      // with a page_path that actually resolves to entity.group.canonical.
+      // page_path was generated from the wrong (outer Group) entity, so every
+      // relationship visit under that group collided on the same /group/{gid}
+      // row via the unique key on (page_path, page_language). The original
+      // relationship id is unrecoverable AND on older Editoria11y versions
+      // the row blocks new data (insertPage fails the unique key check), so
+      // delete the row and its cascaded results/actions for a clean slate.
+      $is_group_corruption = in_array($row->route_name, [
+        'entity.group_relationship.canonical',
+        'entity.group_content.canonical',
+      ], TRUE) && $resolved_route === 'entity.group.canonical';
+
+      if ($is_group_corruption) {
+        $delete_pids[] = $row->pid;
+        $sandbox['deleted']++;
+      }
+      else {
+        // Other route_name vs path mismatches (e.g. legitimate Group 2 → 3
+        // group_content → group_relationship rename) are left for re-crawl.
+        $sandbox['skipped']++;
+      }
+      continue;
+    }
+
+    $params = $url->getRouteParameters();
+    $entity_type_id = $m[1];
+    if (!isset($params[$entity_type_id])) {
+      $sandbox['skipped']++;
+      continue;
+    }
+
+    try {
+      $entity = $entity_type_manager->getStorage($entity_type_id)->load($params[$entity_type_id]);
+    }
+    catch (\Throwable $e) {
+      $sandbox['skipped']++;
+      continue;
+    }
+    if (!$entity instanceof ContentEntityInterface) {
+      $sandbox['skipped']++;
+      continue;
+    }
+
+    $fields = [];
+    $new_id = (int) $entity->id();
+    if ($new_id && (int) $row->entity_id !== $new_id) {
+      $fields['entity_id'] = $new_id;
+    }
+    $new_label = _editoria11y_resolve_entity_type_label($entity);
+    if ($new_label !== NULL && $new_label !== '' && $new_label !== $row->entity_type) {
+      // mb_substr so a multibyte label is not truncated mid-character into the
+      // varchar(32) entity_type column (which would emit invalid UTF-8).
+      $fields['entity_type'] = mb_substr($new_label, 0, 32);
+    }
+    if ($fields) {
+      $database->update('ed11y_page')
+        ->fields($fields)
+        ->condition('pid', $row->pid)
+        ->execute();
+      $sandbox['updated']++;
+    }
+    else {
+      $sandbox['skipped']++;
+    }
+  }
+
+  // Cascade-delete corrupted rows and their results/actions in one pass per
+  // table. Children (result, action) before the parent (page).
+  if ($delete_pids) {
+    $database->delete('ed11y_result')->condition('pid', $delete_pids, 'IN')->execute();
+    $database->delete('ed11y_action')->condition('pid', $delete_pids, 'IN')->execute();
+    $database->delete('ed11y_page')->condition('pid', $delete_pids, 'IN')->execute();
+  }
+
+  // Release this batch's transaction (commits on destruct).
+  unset($transaction);
+
+  // Per-row entity + bundle loads accumulate in the entity memory cache, which
+  // would grow unbounded across batches within a single drush process.
+  \Drupal::service('entity.memory_cache')->deleteAll();
+
+  // Done when the batch came back short. Never key completion off
+  // current >= total: deletions make the up-front total unreachable, and the
+  // keyset cursor — not a row count — is what guarantees forward progress.
+  $sandbox['#finished'] = $seen < $batch_size
+    ? 1
+    : min(0.99, $sandbox['current'] / $sandbox['total']);
+
+  if ($sandbox['#finished'] === 1) {
+    \Drupal::logger('Editoria11y')->notice(
+      'editoria11y_update_9019: scanned @total rows, repaired @updated, deleted @deleted corrupted group rows, left @skipped untouched.',
+      [
+        '@total' => $sandbox['total'],
+        '@updated' => $sandbox['updated'],
+        '@deleted' => $sandbox['deleted'],
+        '@skipped' => $sandbox['skipped'],
+      ]
+    );
+  }
+}
+
+/**
+ * Add path_hash and unique keys; remove duplicates the missing keys allowed.
+ */
+function editoria11y_update_9020(&$sandbox): void {
+  /*
+   * The report tables were designed around unique keys that were never
+   * created on existing sites (and the (page_path, page_language) pair is
+   * too long for a portable unique index at all). This update:
+   * 1. Adds ed11y_page.path_hash = sha256("page_path|page_language") and
+   *    backfills it in batches.
+   * 2. Deletes duplicate rows that only existed because the keys were
+   *    missing (keeping the newest row of each duplicate set).
+   * 3. Creates the unique keys defined in UpdateHelpers::schemaCurrent().
+   * 4. Bumps editoria11y.db_version to '3', re-enabling the checker, which
+   *    stays off between code deploy and updatedb so nothing writes against
+   *    the missing column.
+   */
+  $database = \Drupal::database();
+  $schema = $database->schema();
+  $batch_size = 500;
+
+  if (!$schema->tableExists('ed11y_page') || !$schema->tableExists('ed11y_result') || !$schema->tableExists('ed11y_action')) {
+    // Nothing to upgrade; a (re)install creates the current schema directly.
+    \Drupal::state()->set('editoria11y.db_version', '3');
+    $sandbox['#finished'] = 1;
+    return;
+  }
+
+  if (!isset($sandbox['stage'])) {
+    $sandbox['stage'] = 'prepare';
+    $sandbox['deduped'] = 0;
+    $sandbox['hashed'] = 0;
+    $sandbox['last_pid'] = 0;
+  }
+
+  switch ($sandbox['stage']) {
+    case 'prepare':
+      if (!$schema->fieldExists('ed11y_page', 'path_hash')) {
+        $schema->addField('ed11y_page', 'path_hash', [
+          'type' => 'varchar_ascii',
+          'length' => 64,
+          'not null' => TRUE,
+          'default' => '',
+          'description' => 'sha256 of "page_path|page_language", unique per page.',
+        ]);
+      }
+      // A long-form unique key spec named 'ed11y' briefly existed and could
+      // have been created on SQLite (no index length limit there); replace
+      // it with the portable keys added below.
+      if ($schema->indexExists('ed11y_page', 'ed11y')) {
+        $schema->dropUniqueKey('ed11y_page', 'ed11y');
+      }
+      if ($schema->indexExists('ed11y_action', 'ed11y')) {
+        $schema->dropUniqueKey('ed11y_action', 'ed11y');
+      }
+      $sandbox['stage'] = 'dedupe_pages';
+      $sandbox['#finished'] = 0.05;
+      return;
+
+    case 'dedupe_pages':
+      // Keep the newest row per (page_path, page_language). Duplicates are
+      // stale copies of the same page, so their result/action rows go too;
+      // the next scan of the page repopulates the kept row. The processed
+      // groups drop out of HAVING > 1, so re-querying from the top each
+      // batch always makes progress.
+      $dupes = $database->queryRange(
+        "SELECT page_path, page_language, MAX(pid) AS keep_pid FROM {ed11y_page} GROUP BY page_path, page_language HAVING COUNT(*) > 1",
+        0,
+        50
+      )->fetchAll();
+      if (!$dupes) {
+        $sandbox['stage'] = 'backfill';
+        $sandbox['#finished'] = 0.15;
+        return;
+      }
+      $transaction = $database->startTransaction();
+      foreach ($dupes as $dupe) {
+        $doomed = $database->select('ed11y_page', 'p')
+          ->fields('p', ['pid'])
+          ->condition('page_path', $dupe->page_path)
+          ->condition('page_language', $dupe->page_language)
+          ->condition('pid', $dupe->keep_pid, '!=')
+          ->execute()
+          ->fetchCol();
+        if ($doomed) {
+          $database->delete('ed11y_action')->condition('pid', $doomed, 'IN')->execute();
+          $database->delete('ed11y_result')->condition('pid', $doomed, 'IN')->execute();
+          $database->delete('ed11y_page')->condition('pid', $doomed, 'IN')->execute();
+          $sandbox['deduped'] += count($doomed);
+        }
+      }
+      unset($transaction);
+      $sandbox['#finished'] = 0.1;
+      return;
+
+    case 'backfill':
+      // Keyset cursor on pid; the hash is computed in PHP so the SQL stays
+      // portable. Rows written by the new code already carry a hash and are
+      // excluded by the path_hash = '' condition.
+      $rows = $database->queryRange(
+        "SELECT pid, page_path, page_language FROM {ed11y_page} WHERE path_hash = '' AND pid > :last_pid ORDER BY pid",
+        0,
+        $batch_size,
+        [':last_pid' => $sandbox['last_pid']]
+      )->fetchAll();
+      $transaction = $database->startTransaction();
+      foreach ($rows as $row) {
+        $sandbox['last_pid'] = $row->pid;
+        $database->update('ed11y_page')
+          ->fields(['path_hash' => Api::pathHash($row->page_path, $row->page_language)])
+          ->condition('pid', $row->pid)
+          ->execute();
+        $sandbox['hashed']++;
+      }
+      unset($transaction);
+      if (count($rows) < $batch_size) {
+        $sandbox['stage'] = 'dedupe_results';
+      }
+      $sandbox['#finished'] = 0.4;
+      return;
+
+    case 'dedupe_results':
+      // One row per (pid, result_key): the key set the report merge()
+      // upserts on. Keep the newest row of each duplicate set.
+      $dupes = $database->queryRange(
+        "SELECT pid, result_key, MAX(id) AS keep_id FROM {ed11y_result} GROUP BY pid, result_key HAVING COUNT(*) > 1",
+        0,
+        100
+      )->fetchAll();
+      if (!$dupes) {
+        $sandbox['stage'] = 'dedupe_actions';
+        $sandbox['#finished'] = 0.7;
+        return;
+      }
+      $transaction = $database->startTransaction();
+      foreach ($dupes as $dupe) {
+        $database->delete('ed11y_result')
+          ->condition('pid', $dupe->pid)
+          ->condition('result_key', $dupe->result_key)
+          ->condition('id', $dupe->keep_id, '!=')
+          ->execute();
+        $sandbox['deduped']++;
+      }
+      unset($transaction);
+      $sandbox['#finished'] = 0.6;
+      return;
+
+    case 'dedupe_actions':
+      $dupes = $database->queryRange(
+        "SELECT pid, result_key, element_id, action_type, uid, MAX(id) AS keep_id FROM {ed11y_action} GROUP BY pid, result_key, element_id, action_type, uid HAVING COUNT(*) > 1",
+        0,
+        100
+      )->fetchAll();
+      if (!$dupes) {
+        $sandbox['stage'] = 'add_keys';
+        $sandbox['#finished'] = 0.9;
+        return;
+      }
+      $transaction = $database->startTransaction();
+      foreach ($dupes as $dupe) {
+        $database->delete('ed11y_action')
+          ->condition('pid', $dupe->pid)
+          ->condition('result_key', $dupe->result_key)
+          ->condition('element_id', $dupe->element_id)
+          ->condition('action_type', $dupe->action_type)
+          ->condition('uid', $dupe->uid)
+          ->condition('id', $dupe->keep_id, '!=')
+          ->execute();
+        $sandbox['deduped']++;
+      }
+      unset($transaction);
+      $sandbox['#finished'] = 0.8;
+      return;
+
+    case 'add_keys':
+      if (!$schema->indexExists('ed11y_page', 'ed11y_path_hash')) {
+        $schema->addUniqueKey('ed11y_page', 'ed11y_path_hash', ['path_hash']);
+      }
+      if (!$schema->indexExists('ed11y_result', 'ed11y_result_key')) {
+        $schema->addUniqueKey('ed11y_result', 'ed11y_result_key', ['pid', 'result_key']);
+      }
+      if (!$schema->indexExists('ed11y_action', 'ed11y_action_key')) {
+        $schema->addUniqueKey('ed11y_action', 'ed11y_action_key', [
+          'pid',
+          'result_key',
+          'element_id',
+          'action_type',
+          'uid',
+        ]);
+      }
+      \Drupal::state()->set('editoria11y.db_version', '3');
+      \Drupal::logger('Editoria11y')->notice(
+        'editoria11y_update_9020: hashed @hashed page rows, removed @deduped duplicate rows, added unique keys.',
+        [
+          '@hashed' => $sandbox['hashed'],
+          '@deduped' => $sandbox['deduped'],
+        ]
+      );
+      $sandbox['#finished'] = 1;
+      return;
+  }
 }

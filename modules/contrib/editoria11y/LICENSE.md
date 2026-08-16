@@ -1,9 +1,14 @@
 # Editoria11y - License
 
-Editoria11y was adapted from the Sa11y library. Credits and attachments follow.
+Editoria11y is co-developed with the Sa11y library. Credits and attachments follow.
 
 The Editoria11y JS library was created by John Jameson at the Web Development
-Services team, at Princeton University, and is released under the GNU GPLv2
+Services team, at Princeton University. 
+
+The translation Lang files were machine-generated in M365 Copilot. The rest is human made.
+
+The Editoria11y Drupal module is released under the GNU GPLv2
+
 License:
 
                     GNU GENERAL PUBLIC LICENSE
@@ -387,21 +392,7 @@ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-## Tippy.js by Atomiks
-
-The awesome tooltip library was created by Atomiks (MIT license). View Tippy.js:
-https://github.com/atomiks/tippyjs
-
 ## Icons by Font Awesome
 
 The SVG icons used in this project are created by Font Awesome. View
 FontAwesome's license: https://fontawesome.com/license/free
-
-## Color Contrast Checker created by jasonday
-
-The colour contrast jQuery plugin was created by jasonday (MIT license).
-https://www.jqueryscript.net/other/color-contrast-checker.html
-
-## Powered by jQuery
-
-Powered by jQuery (MIT license). https://github.com/jquery/jquery

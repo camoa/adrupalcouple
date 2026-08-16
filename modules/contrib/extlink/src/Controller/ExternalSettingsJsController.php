@@ -6,6 +6,7 @@ use Drupal\Component\Serialization\Json;
 use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Cache\CacheableResponse;
 use Drupal\Core\Controller\ControllerBase;
+use Drupal\extlink\Hook\ExtlinkHooks;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -14,12 +15,18 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class ExternalSettingsJsController extends ControllerBase {
 
   /**
+   * The extlink hook service used to build the JS settings array.
+   */
+  protected ExtlinkHooks $extlinkHooks;
+
+  /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
     $controller = parent::create($container);
     $controller->configFactory = $container->get('config.factory');
     $controller->moduleHandler = $container->get('module_handler');
+    $controller->extlinkHooks = $container->get(ExtlinkHooks::class);
 
     return $controller;
   }
@@ -32,7 +39,7 @@ class ExternalSettingsJsController extends ControllerBase {
    */
   public function extlinkJsFile() {
     $config = $this->configFactory->get('extlink.settings');
-    $settings = _extlink_get_settings_from_config($config);
+    $settings = $this->extlinkHooks->getSettingsFromConfig($config);
 
     // Need to double backslashes to escape the JS string literal.
     $settings_json = str_replace('\\', '\\\\', Json::encode($settings));

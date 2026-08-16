@@ -1,0 +1,3005 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: editoria11y 3.0.0\n"
+"POT-Creation-Date: 2026-08-01 21:46-0400\n"
+"PO-Revision-Date: 2026-2-12 10:00+0000\n"
+"Language-Team: Editoria11y\n"
+"Language: uk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : (n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2));\n"
+
+msgid ""
+"editoria11y_post_update_0004: scanned @scanned mismatched page(s), "
+"backfilled @fixed to the referenced entity language."
+msgstr ""
+"editoria11y_post_update_0004: scanned @scanned mismatched page(s), "
+"backfilled @fixed to the referenced entity language."
+
+msgid "Editoria11y"
+msgstr "Editoria11y"
+
+msgid "Editoria11y - Pages with issues"
+msgstr "Editoria11y – Сторінки з проблемами"
+
+msgctxt "problems"
+msgid "Provides relationship for issues and dismissals"
+msgstr "Визначає зв’язок між проблемами та відхиленнями"
+
+msgid "EID"
+msgstr "EID"
+
+msgid "Editoria11y's internal page ID"
+msgstr "Внутрішній ідентифікатор сторінки Editoria11y"
+
+msgid "Entity ID"
+msgstr "ID сутності"
+
+msgid "The NID/TID/UID of the page with an issue."
+msgstr "NID/TID/UID сторінки, на якій виявлено проблему."
+
+msgid "Entity type"
+msgstr "Тип сутності"
+
+msgid "The entity type; \"route\" if no type found."
+msgstr "Тип сутності; «route», якщо тип не визначено."
+
+msgid "Route name"
+msgstr "Назва маршруту"
+
+msgid "Route name for page."
+msgstr "Назва маршруту для сторінки."
+
+msgid "Page path"
+msgstr "Шлях сторінки"
+
+msgid "Internal, relative page path."
+msgstr "Внутрішній відносний шлях сторінки."
+
+msgid "Page language"
+msgstr "Мова сторінки"
+
+msgid "Active translation."
+msgstr "Активний переклад."
+
+msgid "Page title"
+msgstr "Заголовок сторінки"
+
+msgid "The name of the route where this was last seen."
+msgstr "Назва маршруту, де це було востаннє зафіксовано."
+
+msgid "Content alerts"
+msgstr "Сповіщення щодо вмісту"
+
+msgid "Number of alerts shown to content editors."
+msgstr "Кількість сповіщень, показаних редакторам контенту."
+
+msgid "Dev alerts"
+msgstr "Сповіщення для розробників"
+
+msgid "Number of alerts shown to developers."
+msgstr "Кількість сповіщень, показаних розробникам."
+
+msgid "Updated"
+msgstr "Оновлено"
+
+msgid "When this page was last checked."
+msgstr "Коли сторінку було перевірено востаннє."
+
+msgid "Editoria11y - Test results"
+msgstr "Editoria11y – Результати тестування"
+
+msgctxt "problems"
+msgid "Stores Editoria11y issue list"
+msgstr "Зберігає список проблем Editoria11y"
+
+msgid "Result row"
+msgstr "Рядок результату"
+
+msgid "Internal identifier"
+msgstr "Внутрішній ідентифікатор"
+
+msgid "Created"
+msgstr "Створено"
+
+msgid "When this page was flagged."
+msgstr "Коли сторінку було позначено."
+
+msgid "Alert type"
+msgstr "Тип сповіщення"
+
+msgid "The name of the test as reported by Editoria11y JS"
+msgstr "Назва тесту, передана Editoria11y JS"
+
+msgid "Alert type, linked"
+msgstr "Тип сповіщення (з посиланням)"
+
+msgid "Linked to report of all alerts of this type."
+msgstr "Посилання на звіт усіх сповіщень цього типу."
+
+msgid "Content alert count"
+msgstr "Кількість сповіщень щодо вмісту"
+
+msgid "The number of hits for this test type on this page"
+msgstr "Кількість спрацювань цього тесту на сторінці"
+
+msgid "Dev alert count"
+msgstr "Кількість сповіщень для розробників"
+
+msgid "Editoria11y - Dismissals"
+msgstr "Editoria11y — Приховування"
+
+msgid "Stores Editoria11y warnings and dismissals"
+msgstr "Зберігає попередження і приховані сповіщення Editoria11y"
+
+msgid "Dismissal internal reference ID"
+msgstr "Внутрішній ID приховування"
+
+msgid "Page with dismissal"
+msgstr "Сторінка з прихованим сповіщенням"
+
+msgid "Dismissed by"
+msgstr "Приховано користувачем"
+
+msgid "The user linked to this dismissal."
+msgstr "Користувач, який приховав сповіщення."
+
+msgid "Linked Drupal user"
+msgstr "Пов’язаний користувач Drupal"
+
+msgid "Dismissed element id"
+msgstr "ID прихованого елемента"
+
+msgid "Code sample to identify the flagged element."
+msgstr "Фрагмент коду для ідентифікації позначеного елемента."
+
+msgid "Dismissed on"
+msgstr "Приховано"
+
+msgid "The Unix timestamp of the first time this record was flagged."
+msgstr "UNIX‑мітка часу першого приховування цього запису."
+
+msgid "Dismissal stale since"
+msgstr "Застаріле від"
+
+msgid "The element has not been seen since this date."
+msgstr "Елемент не з’являвся з цієї дати."
+
+msgid "Dismissed result name"
+msgstr "Назва прихованого результату"
+
+msgid "Dismissed result name, linked"
+msgstr "Назва прихованого результату (з посиланням)"
+
+msgid "Links to report of all alerts of this type."
+msgstr "Посилання на звіт усіх сповіщень цього типу."
+
+msgid "Dismissal status"
+msgstr "Статус приховування"
+
+msgid "The type of dismissal (e.g., OK, Ignore)"
+msgstr "Тип приховування (наприклад OK, Ignore)"
+
+msgid "Relate from Editoria11y page to referenced node"
+msgstr "Зв’язок сторінки Editoria11y з відповідним вузлом"
+
+msgid "Issues were found on this node"
+msgstr "У цьому вузлі виявлено проблеми"
+
+msgid "Relate from node data to Editoria11y page"
+msgstr "Зв’язок даних вузла зі сторінкою Editoria11y"
+
+msgid "Relate from Editoria11y page to referenced taxonomy term"
+msgstr "Зв’язок сторінки Editoria11y з відповідним терміном таксономії"
+
+msgid "Issues were found on this term page"
+msgstr "У цьому терміні виявлено проблеми"
+
+msgid "Relate from taxonomy term data to Editoria11y page"
+msgstr "Зв’язок даних терміна зі сторінкою Editoria11y"
+
+msgid "Relate from Editoria11y page list to user bio page data"
+msgstr "Зв’язок списку сторінок Editoria11y із даними біографії користувача"
+
+msgid "Issues were found on this user bio page"
+msgstr "На сторінці біографії користувача виявлено проблеми"
+
+msgid "Relate from Editoria11y page to user bio page with issues"
+msgstr ""
+"Зв’язок сторінки Editoria11y зі сторінкою біографії користувача з проблемами"
+
+msgid "Relate from user bio page to Editoria11y results"
+msgstr "Зв’язок сторінки біографії користувача з результатами Editoria11y"
+
+msgid "Relate from users list to Editoria11y results on bio page"
+msgstr ""
+"Зв’язок списку користувачів з результатами Editoria11y на сторінці біографії"
+
+msgid "Relate from Editoria11y page to issues on page"
+msgstr "Зв’язок сторінки Editoria11y з виявленими проблемами"
+
+msgid "Issues found on this node"
+msgstr "У цьому вузлі виявлено проблеми"
+
+msgid "Relate from Editoria11y result to page"
+msgstr "Зв’язок результату Editoria11y зі сторінкою"
+
+msgid "Relate from Editoria11y page to dismissals on page"
+msgstr "Зв’язок сторінки Editoria11y з приховуваннями на сторінці"
+
+msgid "Relate from Editoria11y dismissal to page"
+msgstr "Зв’язок приховування Editoria11y зі сторінкою"
+
+msgid "Group relationship for node with Editoria11y issues"
+msgstr "Зв’язок Group для вузла з проблемами Editoria11y"
+
+msgid ""
+"Bridge to the Group module. Add the Group module Group relationship on top "
+"of this one to filter or sort issues by group."
+msgstr ""
+"Місток до модуля Group. Щоб фільтрувати або сортувати проблеми за групою, "
+"додайте після цього зв’язок Group із однойменного модуля."
+
+msgid "Group relationship for node"
+msgstr "Зв’язок Group для вузла"
+
+msgid "Group relationship for user bio with Editoria11y issues"
+msgstr "Зв’язок Group для біографії користувача з проблемами Editoria11y"
+
+msgid "Group relationship for user"
+msgstr "Зв’язок Group для користувача"
+
+msgid "Group relationship for taxonomy term with Editoria11y issues"
+msgstr "Зв’язок Group для терміна таксономії з проблемами Editoria11y"
+
+msgid ""
+"Bridge to the Group module. Add the Group module Group relationship on top "
+"of this one to filter or sort issues by group. Requires a contrib module "
+"that exposes terms as group content."
+msgstr ""
+"Місток до модуля Group. Щоб фільтрувати або сортувати проблеми за групою, "
+"додайте після цього зв’язок Group із однойменного модуля. Потребує "
+"стороннього модуля, який надає терміни як вміст групи."
+
+msgid "Group relationship for taxonomy term"
+msgstr "Зв’язок Group для терміна таксономії"
+
+msgid "Warning: possible out of date path. This content may have moved to"
+msgstr "Попередження: шлях може бути застарілим. Можливо, вміст переміщено до"
+
+msgid "Export CSV"
+msgstr "Експортувати CSV"
+
+msgid "Predelete failed: @error_message"
+msgstr "Помилка попереднього видалення: @error_message"
+
+msgid "Page attachment failed: @error_message"
+msgstr "Не вдалося приєднати сторінку: @error_message"
+
+msgid ""
+"editoria11y_update_9019: scanned @total rows, repaired @updated, deleted "
+"@deleted corrupted group rows, left @skipped untouched."
+msgstr ""
+"editoria11y_update_9019: scanned @total rows, repaired @updated, deleted "
+"@deleted corrupted group rows, left @skipped untouched."
+
+msgid ""
+"editoria11y_update_9020: hashed @hashed page rows, removed @deduped "
+"duplicate rows, added unique keys."
+msgstr "editoria11y_update_9020: hashed @hashed page rows, removed @deduped duplicate rows, added unique keys."
+
+msgid "Editoria11y Accessibility Checker"
+msgstr "Editoria11y – засіб перевірки доступності"
+
+msgid ""
+"Checks page content for accessibility and provides a site-wide dashboard."
+msgstr "Перевіряє доступність вмісту сторінки та надає загальну панель стану."
+
+msgid "Content Accessibility"
+msgstr "Доступність вмісту"
+
+msgid "Accessibility checker notifications and exclusions."
+msgstr "Сповіщення та виключення засобу перевірки доступності."
+
+msgid "Results from the Editoria11y checker."
+msgstr "Результати перевірки Editoria11y."
+
+msgid "Dashboard"
+msgstr "Панель"
+
+msgid "Core settings"
+msgstr "Основні налаштування"
+
+msgid "Demo"
+msgstr "Демо"
+
+msgid "View Editoria11y checker"
+msgstr "Переглянути засіб перевірки Editoria11y"
+
+msgid "Assign to all content editors."
+msgstr "Призначити всім редакторам контенту."
+
+msgid "Administer Editoria11y checker"
+msgstr "Адмініструвати засіб перевірки Editoria11y"
+
+msgid "Allows user to purge results and change configuration."
+msgstr "Дозволяє очищувати результати та змінювати конфігурацію."
+
+msgid "Mark as hidden in Editoria11y"
+msgstr "Позначити як приховане в Editoria11y"
+
+msgid "Adds button to suppress a manual check for the current user."
+msgstr ""
+"Додає кнопку для приховування ручної перевірки для поточного користувача."
+
+msgid "Mark as OK in Editoria11y"
+msgstr "Позначити як OK у Editoria11y"
+
+msgid ""
+"Adds button to suppress a manual check for all users, if sync is enabled."
+msgstr ""
+"Додає кнопку для приховування сповіщення для всіх користувачів (якщо "
+"синхронізацію увімкнено)."
+
+msgid "Manage Editoria11y results"
+msgstr "Керувати результатами Editoria11y"
+
+msgid "View the site-wide dashboard and reset dismissals."
+msgstr "Переглянути загальну панель і скинути приховані сповіщення."
+
+msgid "Editoria11y core settings"
+msgstr "Основні налаштування Editoria11y"
+
+msgid "Content Accessibility Issues"
+msgstr "Проблеми доступності вмісту"
+
+msgid "Editoria11y Settings"
+msgstr "Налаштування Editoria11y"
+
+msgid "Check elements in these containers"
+msgstr "Перевіряти елементи в цих контейнерах"
+
+msgid "Alert panel assertiveness"
+msgstr "Рівень настирливості панелі сповіщень"
+
+msgid "Do not run if these elements are on the page"
+msgstr "Не запускати, якщо ці елементи присутні на сторінці"
+
+msgid "Suppress all alerts if none of these elements are present"
+msgstr "Приховувати всі сповіщення, якщо жодного з цих елементів немає"
+
+msgid "Do not run tests on these containers"
+msgstr "Не запускати тести в цих контейнерах"
+
+msgid "Move toggle to avoid colliding with these widgets"
+msgstr "Перемістити перемикач, щоб уникнути перекривання з цими віджетами"
+
+msgid ""
+"Full check should warn on these elements with embedded uncheckable content"
+msgstr ""
+"Повна перевірка повинна попереджати про елементи з вбудованим "
+"неперевірюваним вмістом"
+
+msgid "These links download a document or image and need a manual review"
+msgstr ""
+"Ці посилання завантажують документ або зображення й потребують ручної "
+"перевірки"
+
+msgid "Strings that indicate a link opens in a new window"
+msgstr "Фрази, що вказують на відкриття посилання в новому вікні"
+
+msgid "Remove these strings from link text before checking for bad link text"
+msgstr "Видалити ці фрази з тексту посилання перед його перевіркою"
+
+msgid "Remove strings in this selector before checking for bad link text"
+msgstr ""
+"Видалити фрази в елементах за цим селектором перед перевіркою тексту "
+"посилання"
+
+msgid ""
+"Hidden elements in these containers will be revealed by theme JS on request "
+"via a dispatched event"
+msgstr ""
+"Приховані елементи в цих контейнерах будуть показані JavaScript-кодом теми "
+"за подією"
+
+msgid "Elements that truncate overflow, partially hiding buttons"
+msgstr "Елементи, що обрізають переповнення та частково приховують кнопки"
+
+msgid "Color scheme for panel and tooltips"
+msgstr "Кольорова схема панелі та підказок"
+
+msgid "Pin toolbar to left or right"
+msgstr "Прикріпити панель інструментів ліворуч або праворуч"
+
+msgid "Web components the checker should check"
+msgstr "Вебкомпоненти, які слід перевіряти"
+
+msgid "Auto-detects for additional shadow components"
+msgstr "Автоматично виявляє додаткові компоненти shadow DOM"
+
+msgid "Auto-detects and checks new content"
+msgstr "Автоматично виявляє та перевіряє новий вміст"
+
+msgid "Disables dashboard and synchronized marking of elements as OK"
+msgstr "Вимикає панель та синхронізоване позначення елементів як OK"
+
+msgid "URL query parameters that should be recorded as separate pages"
+msgstr "Параметри URL, які слід зберігати як окремі сторінки"
+
+msgid "Remove string from URL for dashboard page links"
+msgstr "Видалити рядок із URL у посиланнях панелі"
+
+msgid "Number of custom test finished events the checker should wait for"
+msgstr "Кількість подій завершення кастомних тестів, на які слід чекати"
+
+msgid "Disables live editor checking"
+msgstr "Вимикає перевірку під час редагування"
+
+msgid ""
+"Selector for frontend-context editors that should inherit the document "
+"outline"
+msgstr ""
+"Селектор редакторів у фронтенді, які мають успадковувати структуру "
+"заголовків документа"
+
+msgid "Selector for editors where their first heading should be h2"
+msgstr "Селектор редакторів, де перший заголовок має бути h2"
+
+msgid "Selector for editors where their first heading should be h3"
+msgstr "Селектор редакторів, де перший заголовок має бути h3"
+
+msgid "Selector for editors where their first heading should be h4"
+msgstr "Селектор редакторів, де перший заголовок має бути h4"
+
+msgid "Selectors for components where edit links are meaningless on tips"
+msgstr ""
+"Селектори компонентів, де посилання редагування в підказках є недоречними"
+
+msgid "Tell CK5 to have a header rows or columns by default."
+msgstr ""
+"Указує CKEditor 5 створювати рядки або стовпці заголовків за замовчуванням."
+
+msgid "Tests not shown to content authors."
+msgstr "Тести, які не показуються авторам контенту."
+
+msgid "Disable the tests you are not ready for"
+msgstr "Вимкніть тести, до яких ви ще не готові"
+
+msgid "linkNewWindow"
+msgstr "linkNewWindow"
+
+msgid "linkNoText"
+msgstr "linkNoText"
+
+msgid "altEmptyLinked"
+msgstr "altEmptyLinked"
+
+msgid "linkDocument"
+msgstr "linkDocument"
+
+msgid "linkTextIsURL"
+msgstr "linkTextIsURL"
+
+msgid "linkTextIsGeneric"
+msgstr "linkTextIsGeneric"
+
+msgid "textPossibleList"
+msgstr "textPossibleList"
+
+msgid "textPossibleHeading"
+msgstr "textPossibleHeading"
+
+msgid "textUppercase"
+msgstr "textUppercase"
+
+msgid "tableNoHeaderCells"
+msgstr "tableNoHeaderCells"
+
+msgid "tableEmptyHeaderCell"
+msgstr "tableEmptyHeaderCell"
+
+msgid "tableContainsContentHeading"
+msgstr "tableContainsContentHeading"
+
+msgid "embedVideo"
+msgstr "embedVideo"
+
+msgid "embedAudio"
+msgstr "embedAudio"
+
+msgid "embedVisualization"
+msgstr "embedVisualization"
+
+msgid "embedTwitter"
+msgstr "embedTwitter"
+
+msgid "embedCustom"
+msgstr "embedCustom"
+
+msgid "headingEmpty"
+msgstr "headingEmpty"
+
+msgid "headingIsLong"
+msgstr "headingIsLong"
+
+msgid "headingLevelSkipped"
+msgstr "headingLevelSkipped"
+
+msgid "blockquoteIsShort"
+msgstr "blockquoteIsShort"
+
+msgid "altMissing"
+msgstr "altMissing"
+
+msgid "altNull"
+msgstr "altNull"
+
+msgid "altMeaningless"
+msgstr "altMeaningless"
+
+msgid "altURL"
+msgstr "altURL"
+
+msgid "altImageOf"
+msgstr "altImageOf"
+
+msgid "altDeadspace"
+msgstr "altDeadspace"
+
+msgid "altLong"
+msgstr "altLong"
+
+msgid "altPartOfLinkWithText"
+msgstr "altPartOfLinkWithText"
+
+msgid "2-letter code (en, fr, de)"
+msgstr "2‑літерний код (en, fr, de)"
+
+msgid "Alert"
+msgstr "Сповіщення"
+
+msgid "Alert types"
+msgstr "Типи сповіщень"
+
+msgid "Alerts"
+msgstr "Сповіщення"
+
+msgid "All dismissals"
+msgstr "Усі приховані"
+
+msgid "All issues"
+msgstr "Усі проблеми"
+
+msgid "All pages"
+msgstr "Усі сторінки"
+
+msgid "Apply"
+msgstr "Застосувати"
+
+msgid "Author"
+msgstr "Автор"
+
+msgid "Authored after"
+msgstr "Створено після"
+
+msgid "Authored before"
+msgstr "Створено до"
+
+msgid "Authored"
+msgstr "Створено"
+
+msgid "Content type"
+msgstr "Тип вмісту"
+
+msgid "Detected"
+msgstr "Виявлено"
+
+msgid "Dismissals"
+msgstr "Приховані"
+
+msgid "Dismissed accessibility alerts"
+msgstr "Приховані сповіщення про доступність"
+
+msgid "Edited"
+msgstr "Відредаговано"
+
+msgid "Editor"
+msgstr "Редактор"
+
+msgid "Items per page"
+msgstr "Елементів на сторінку"
+
+msgid "Filter"
+msgstr "Фільтр"
+
+msgid "Language"
+msgstr "Мова"
+
+msgid "Last editor"
+msgstr "Останній редактор"
+
+msgid "Marked"
+msgstr "Позначено"
+
+msgid "No dismissals found."
+msgstr "Прихованих сповіщень не знайдено."
+
+msgid "Page"
+msgstr "Сторінка"
+
+msgid "Pages"
+msgstr "Сторінки"
+
+msgid "Pages with alerts"
+msgstr "Сторінки зі сповіщеннями"
+
+msgid "Panel"
+msgstr "Panel"
+
+msgid "Path"
+msgstr "Шлях"
+
+msgid "Published"
+msgstr "Опубліковано"
+
+msgid "Recent"
+msgstr "Останні"
+
+msgid "Recent accessibility alerts"
+msgstr "Останні сповіщення про доступність"
+
+msgid "Recent alerts"
+msgstr "Останні проблеми"
+
+msgctxt "problems"
+msgid "Recent alerts"
+msgstr "Недавні попередження"
+
+msgid "Sort by"
+msgstr "Сортувати за"
+
+msgid "Title"
+msgstr "Назва"
+
+msgid "Type"
+msgstr "Тип"
+
+msgid "Filter and sort"
+msgstr "Фільтрувати і сортувати"
+
+msgid "Deleted."
+msgstr "Видалено."
+
+msgid "Delete failed."
+msgstr "Не вдалося видалити."
+
+msgid "<p>The Editoria11y <strong><em>@type</em></strong> view is missing.</p>"
+msgstr "<p>Відсутній перегляд Editoria11y <strong><em>@type</em></strong>.</p>"
+
+msgid ""
+"<p>There are three view configurations this module installs, found in its /"
+"config/install folder. Each must be installed for this dashboard to display "
+"results.</p>"
+msgstr ""
+"<p>There are three view configurations this module installs, found in its /"
+"config/install folder. Each must be installed for this dashboard to display "
+"results.</p><p>Модуль встановлює три конфігурації переглядів у папці /config/"
+"install. Усі вони мають бути встановлені, щоб панель могла показувати "
+"результати.</p>"
+
+msgid ""
+"<p>To fix: copy and paste the contents of <strong>/editoria11y/config/"
+"install/views.view.ed11y_@type.yml</strong> into a \"View\" type import at "
+"<a href=\"/admin/config/development/configuration/single/import\">/admin/"
+"config/development/configuration/single/import</a>. If you sync your "
+"configuration to the filesystem, be sure to include these Views in your "
+"repository.</p>"
+msgstr ""
+"<p>To fix: copy and paste the contents of <strong>/editoria11y/config/"
+"install/views.view.ed11y_@type.yml</strong> into a \"View\" type import at "
+"<a href=\"/admin/config/development/configuration/single/import\">/admin/"
+"config/development/configuration/single/import</a>. If you sync your "
+"configuration to the filesystem, be sure to include these Views in your "
+"repository.</p><p>Щоб виправити: скопіюйте вміст <strong>/editoria11y/config/"
+"install/views.view.ed11y_@type.yml</strong> у імпорт типу «View» за адресою "
+"<a href=\"/admin/config/development/configuration/single/import\">/admin/"
+"config/development/configuration/single/import</a>. Якщо ви синхронізуєте "
+"конфігурацію з файловою системою, додайте ці перегляди до репозиторію.</p>"
+
+msgid "link is external"
+msgstr "посилання є зовнішнім"
+
+msgid "link sends email"
+msgstr "посилання відкриває поштову програму"
+
+msgid "No results found"
+msgstr "Результатів не знайдено"
+
+msgid ""
+"Your Editoria11y CSA trial has @days days remaining. <a "
+"href=\"@url\">Activate a license</a> to continue using CSA features after "
+"the trial ends."
+msgstr ""
+"Ваш пробний період Editoria11y CSA має ще @days днів. <a "
+"href=\"@url\">Активуйте ліцензію</a>, щоб продовжити використання функцій "
+"CSA після закінчення пробного періоду."
+
+msgid ""
+"Your Editoria11y CSA trial has expired. CSA features have been disabled. <a "
+"href=\"@url\">Activate a license</a> to continue using them."
+msgstr ""
+"Ваш пробний період Editoria11y CSA закінчився. Функції CSA були вимкнені. <a "
+"href=\"@url\">Активуйте ліцензію</a>, щоб продовжити їх використання."
+
+msgid ""
+"Your Editoria11y CSA license has expired. <a href=\"@url\">Renew or "
+"deactivate your license</a>."
+msgstr ""
+"Ваша ліцензія Editoria11y CSA закінчилась. <a href=\"@url\">Оновіть або "
+"деактивуйте ліцензію</a>."
+
+msgid ""
+"Your Editoria11y CSA license has expired. Please renew to reactivate CSA add-"
+"ons."
+msgstr ""
+"Ваша ліцензія Editoria11y CSA закінчилась. Будь ласка, оновіть її, щоб "
+"повторно активувати доповнення CSA."
+
+msgid "Cron license check failed: @msg"
+msgstr "Перевірка ліцензії через cron не вдалася: @msg"
+
+msgid ""
+"Editoria11y CSA features are active on a @days-day trial. <a "
+"href=\"@url\">Activate a license</a> to continue using them after the trial "
+"ends."
+msgstr ""
+"Функції Editoria11y CSA активні на @days-денному пробному терміні. <a "
+"href=\"@url\">Активуйте ліцензію</a>, щоб продовжити їх використання після "
+"закінчення пробного терміну."
+
+msgid "Editoria11y Custom Test"
+msgstr "Власний тест Editoria11y"
+
+msgid "Editoria11y Custom Tests"
+msgstr "Власні тести Editoria11y"
+
+msgid "editoria11y custom test"
+msgstr "власний тест editoria11y"
+
+msgid "editoria11y custom tests"
+msgstr "власні тести editoria11y"
+
+msgid "Editoria11y CSA: Advanced Tools"
+msgstr "Editoria11y CSA: розширені інструменти"
+
+msgid ""
+"Community-Supported Addons include code and contrast checks, custom checks, "
+"a site crawler and report maintenance tools."
+msgstr "Доповнення, підтримувані спільнотою, містять перевірки коду та контрастності, кастомні перевірки, сканер сайту та інструменти обслуговування звітів."
+
+msgid "Add custom test"
+msgstr "Додати власний тест"
+
+msgid "Recheck"
+msgstr "Перевірити знову"
+
+msgid "CSA membership"
+msgstr "Членство CSA"
+
+msgid "Custom tests"
+msgstr "Кастомні тести"
+
+msgid "Dashboard Actions"
+msgstr "Дії панелі"
+
+msgid "Editoria11y CSA membership"
+msgstr "Членство Editoria11y CSA"
+
+msgid "Editoria11y custom tests"
+msgstr "Власні тести Editoria11y"
+
+msgid "Add a custom test"
+msgstr "Додати власний тест"
+
+msgid "Edit custom test"
+msgstr "Редагувати власний тест"
+
+msgid "Delete custom test"
+msgstr "Видалити власний тест"
+
+msgid "Editoria11y CSA Settings"
+msgstr "Налаштування Editoria11y CSA"
+
+msgid "Developer roles"
+msgstr "Ролі розробників"
+
+msgid "Developer assertiveness"
+msgstr "Рівень настирливості сповіщень для розробників"
+
+msgid "Tests overridden to show to content editors"
+msgstr "Тести, примусово показувані редакторам контенту"
+
+msgid "Tests overridden to turn off"
+msgstr "Тести, примусово вимкнені"
+
+msgid "Tests overridden to only to show to developers"
+msgstr "Тести, примусово показувані лише розробникам"
+
+msgid "Elements to ignore for contrast test"
+msgstr "Елементи, які слід ігнорувати під час перевірки контрасту"
+
+msgid "Turn on contrast checks"
+msgstr "Увімкнути перевірку контрасту"
+
+msgid "Developer check root: body or specify"
+msgstr "Корінь перевірки розробника: body або визначений селектор"
+
+msgid "Developer check root selector"
+msgstr "Селектор кореневого контейнера для перевірки розробником"
+
+msgid "Selector for elements to ignore for developers"
+msgstr "Селектор елементів, які розробники повинні ігнорувати"
+
+msgid "Enabled"
+msgstr "Увімкнено"
+
+msgid "Custom development domain patterns"
+msgstr "Власні шаблони доменів розробки"
+
+msgid "ID"
+msgstr "ID"
+
+msgid "Label"
+msgstr "Мітка"
+
+msgid "Test key"
+msgstr "Ключ тесту"
+
+msgid "Tooltip title"
+msgstr "Заголовок підказки"
+
+msgid "Tip content HTML"
+msgstr "HTML-вміст підказки"
+
+msgid "Element set to check"
+msgstr "Набір елементів для перевірки"
+
+msgid "Dismiss key type"
+msgstr "Тип ключа відхилення"
+
+msgid "CSS filter selector"
+msgstr "CSS-селектор фільтра"
+
+msgid "Text strings to include"
+msgstr "Текстові рядки для включення"
+
+msgid "Text string"
+msgstr "Текстовий рядок"
+
+msgid "Text strings to exclude"
+msgstr "Текстові рядки для виключення"
+
+msgid "Case sensitive text matching"
+msgstr "Зіставлення тексту з урахуванням регістру"
+
+msgid "Filter which pages will be crawled"
+msgstr "Фільтрувати сторінки для сканування"
+
+msgid "Cancel"
+msgstr "Скасувати"
+
+msgid "Millisecond pause between page requests"
+msgstr "Пауза в мілісекундах між запитами сторінок"
+
+msgid "This tab needs to remain open and in the foreground during the crawl."
+msgstr "Під час сканування вкладка повинна залишатися відкритою та активною."
+
+msgid "Estimated time:"
+msgstr "Орієнтовний час:"
+
+msgid "hours"
+msgstr "год"
+
+msgid "minutes"
+msgstr "хв"
+
+msgid "minute"
+msgstr "хв"
+
+msgid "Start crawling"
+msgstr "Почати сканування"
+
+msgid "Checked:"
+msgstr "Перевірено:"
+
+msgid "pages"
+msgstr "сторінок"
+
+msgid "Back to dashboard"
+msgstr "Назад до панелі"
+
+msgid "Test"
+msgstr "Тест"
+
+msgid "Elements"
+msgstr "Елементи"
+
+msgid "Status"
+msgstr "Статус"
+
+msgid "Text"
+msgstr "Текст"
+
+msgid "On"
+msgstr "Дата"
+
+msgid "Off"
+msgstr "Вимкнено"
+
+msgid "Freemius deactivation API call failed: @msg"
+msgstr "Виклик API деактивації Freemius не вдався: @msg"
+
+msgid "Cannot cancel subscription: API token not found."
+msgstr "Неможливо скасувати підписку: токен API не знайдено."
+
+msgid "Freemius subscription cancellation API call failed: @msg"
+msgstr "Виклик API скасування підписки Freemius не вдався: @msg"
+
+msgid "Key module lookup for @id failed: @msg"
+msgstr "Key module lookup for @id failed: @msg"
+
+msgid "Failed to update Freemius install properties: @msg"
+msgstr "Не вдалося оновити властивості встановлення Freemius: @msg"
+
+msgid ""
+"An <a href=\"@settings\">active license must be deactivated</a> before "
+"uninstalling."
+msgstr ""
+"Активну <a href=\"@settings\">ліцензію необхідно деактивувати</a> перед "
+"видаленням."
+
+msgid "License key stored. Use editoria11y-csa:activate to activate."
+msgstr ""
+"Ключ ліцензії збережено. Виконайте editoria11y-csa:activate для активації."
+
+msgid "License activated."
+msgstr "Ліцензію активовано."
+
+msgid "License deactivated."
+msgstr "Ліцензію деактивовано."
+
+msgid "License active. Expires: @date"
+msgstr "Ліцензія активна. Закінчується: @date"
+
+msgid "License active. No expiration date."
+msgstr "Ліцензія активна. Без дати закінчення."
+
+msgid ""
+"License management locked. Use editoria11y-csa:unlock to re-enable UI "
+"changes."
+msgstr ""
+"Управління ліцензіями заблоковано. Використовуйте editoria11y-csa:unlock для "
+"повторного включення змін інтерфейсу."
+
+msgid "License management unlocked. UI changes are now allowed."
+msgstr ""
+"Керування ліцензіями розблоковано. Зміни через інтерфейс тепер дозволені."
+
+msgid "License expired or cancelled."
+msgstr "Ліцензія прострочена або скасована."
+
+msgid "License key cannot be empty."
+msgstr "Ключ ліцензії не може бути порожнім."
+
+msgid "Failed to store key: {msg}"
+msgstr "Не вдалося зберегти ключ: {msg}"
+
+msgid "No stored license key found. Run editoria11y-csa:set-key first."
+msgstr ""
+"Збереженого ключа ліцензії не знайдено. Спочатку виконайте editoria11y-"
+"csa:set-key."
+
+msgid "Activation failed: {msg}"
+msgstr "Активація не вдалася: {msg}"
+
+msgid "Deactivation failed: {msg}"
+msgstr "Деактивація не вдалася: {msg}"
+
+msgid "License check failed: {msg}"
+msgstr "Перевірка ліцензії не вдалася: {msg}"
+
+msgid "Export"
+msgstr "Експорт"
+
+msgid "Export pages"
+msgstr "Експортувати сторінки"
+
+msgid "Export dismissals"
+msgstr "Експортувати приховані"
+
+msgid "Export alerts"
+msgstr "Експортувати сповіщення"
+
+msgid "Paths with parameters"
+msgstr "Шляхи з параметрами"
+
+msgid "Drop records for deleted or moved pages"
+msgstr "Видалити записи для видалених або переміщених сторінок"
+
+msgid "Deletes results that no longer have valid paths or entity references."
+msgstr ""
+"Видаляє результати, що не мають дійсних шляхів або посилань на сутності."
+
+msgid "Update page titles"
+msgstr "Оновити заголовки сторінок"
+
+msgid ""
+"Replaces recorded titles for Nodes, Terms and Users with the current value "
+"on their edit page."
+msgstr ""
+"Замінює збережені заголовки вузлів, термінів і користувачів актуальними з "
+"їхніх сторінок редагування."
+
+msgid "Update page paths"
+msgstr "Оновити шляхи сторінок"
+
+msgid ""
+"Replaces recorded URLs for Nodes, Terms and Users with their current "
+"canonical path. <br>@ReviewPaths (node/1?node=2) will not be updated."
+msgstr ""
+"Замінює збережені URL вузлів, термінів і користувачів їхніми актуальними "
+"канонічними шляхами. <br>@ReviewPaths (node/1?node=2) не будуть оновлені."
+
+msgid "Risky deletions"
+msgstr "Ризиковані видалення"
+
+msgid "Delete records for paths with parameters (e.g., ?page=2)"
+msgstr "Видалити записи для шляхів із параметрами (наприклад ?page=2)"
+
+msgid "None"
+msgstr "Немає"
+
+msgid "Only for nodes, terms & users"
+msgstr "Лише для вузлів, термінів і користувачів"
+
+msgid "All, including search and views"
+msgstr "Усі, включно з пошуком і переглядами"
+
+msgid ""
+"Used to remove duplicate records when previously recorded parameters like "
+"page numbers or search keys were not meaningful. Parameters that are not "
+"meaningful should be removed from the list of parameters to save under "
+"\"Syncing results to reports\" in the module configuration.<br>@ReviewPaths "
+"should be reviewed before proceeding. <strong>There is no undo</strong>."
+msgstr ""
+"Використовується для видалення дубльованих записів, якщо раніше збережені "
+"параметри (наприклад, номери сторінок або ключі пошуку) не були значущими. "
+"Незначущі параметри слід видалити з переліку параметрів у розділі "
+"«Синхронізація результатів із звітами».<br>@ReviewPaths слід переглянути "
+"перед продовженням. <strong>Операцію не можна скасувати</strong>."
+
+msgid "Start"
+msgstr "Почати"
+
+msgid "Recheck nodes"
+msgstr "Перевірити вузли повторно"
+
+msgid "Set up a crawl"
+msgstr "Налаштувати сканування"
+
+msgid "Processing batch #@batch_id of @count."
+msgstr "Обробка партії #@batch_id з @count."
+
+msgid "@process processed @count, deleted @deleted, updated @updated."
+msgstr "@process опрацював @count, видалено @deleted, оновлено @updated."
+
+msgid ""
+"An error occurred while processing %error_operation with arguments: "
+"@arguments"
+msgstr ""
+"Під час виконання %error_operation з аргументами @arguments сталася помилка"
+
+msgid "No records to process."
+msgstr "Немає записів для обробки."
+
+msgid ""
+"@process processed @count, deleted @deleted, updated @updated in @elapsed."
+msgstr ""
+"@process опрацював @count, видалено @deleted, оновлено @updated за @elapsed."
+
+msgid "Admin label for the configuration page"
+msgstr "Мітка адміністратора для сторінки налаштування"
+
+msgid "Test grouping ID"
+msgstr "ID групування тестів"
+
+msgid ""
+"Letters, numbers and underscores only.<br>Rules that share an ID will be "
+"grouped on dashboard reports."
+msgstr ""
+"Лише літери, цифри та підкреслення.<br>Правила з однаковим ID будуть "
+"згруповані у звітах панелі управління."
+
+msgid "Active"
+msgstr "Активний"
+
+msgid "Alert content"
+msgstr "Вміст сповіщення"
+
+msgid "Tip title"
+msgstr "Заголовок підказки"
+
+msgid "Tip details"
+msgstr "Деталі підказки"
+
+msgid ""
+"HTML displayed in the tooltip. The provided template is optional.<br>\n"
+"        Allowed tags: @tags."
+msgstr ""
+"HTML, що відображається у підказці. Наданий шаблон є необов'язковим.<br>\n"
+"        Дозволені теги: @tags."
+
+msgid "To fix"
+msgstr "Для виправлення"
+
+msgid "Error"
+msgstr "Помилка"
+
+msgid "Manual check"
+msgstr "Ручна перевірка"
+
+msgid "Dismiss key"
+msgstr "Ключ відхилення"
+
+msgid ""
+"How dismissals are tracked. 'Text' uses its text content, 'Attributes' uses "
+"its attributes (href, id, class, src)."
+msgstr ""
+"Як відстежуються відхилення. 'Text' — текстовий вміст, 'Attributes' — "
+"атрибути (href, id, class, src)."
+
+msgid "Text content"
+msgstr "Текстовий вміст"
+
+msgid "Attributes on tag (e.g. href and src)"
+msgstr "Атрибути тегу (наприклад, href і src)"
+
+msgid "Elements to check"
+msgstr "Елементи для перевірки"
+
+msgid ""
+"These sets contain elements that match your check area and skip over "
+"configuration."
+msgstr ""
+"Ці набори містять елементи, що відповідають вашій зоні перевірки, та "
+"пропускають налаштування."
+
+msgid "Common choices"
+msgstr "Поширені варіанти"
+
+msgid "All text elements: Headings, Paragraphs, Blockquotes and Lists"
+msgstr "Всі текстові елементи: Заголовки, Абзаци, Блокові цитати та Списки"
+
+msgid "Links"
+msgstr "Посилання"
+
+msgid "Paragraphs"
+msgstr "Абзаци"
+
+msgid "Headings"
+msgstr "Заголовки"
+
+msgid "Images"
+msgstr "Зображення"
+
+msgid "All elements"
+msgstr "Усі елементи"
+
+msgid "...other..."
+msgstr "...інше..."
+
+msgid "Specific elements and combinations"
+msgstr "Конкретні елементи та комбінації"
+
+msgid "Lists"
+msgstr "Списки"
+
+msgid "Blockquotes"
+msgstr "Блокові цитати"
+
+msgid "Tables"
+msgstr "Таблиці"
+
+msgid "Buttons"
+msgstr "Кнопки"
+
+msgid "Inputs"
+msgstr "Поля введення"
+
+msgid "Labels"
+msgstr "Мітки"
+
+msgid "Iframes"
+msgstr "Iframes"
+
+msgid "Videos"
+msgstr "Відео"
+
+msgid "Audio"
+msgstr "Аудіо"
+
+msgid ""
+"Note: combining Links with Paragraphs and other text containers can lead to "
+"duplicate alerts."
+msgstr ""
+"Примітка: поєднання Посилань з Абзацами та іншими текстовими контейнерами "
+"може призвести до дублювання сповіщень."
+
+msgid "When tip should appear"
+msgstr "Коли має з'являтися підказка"
+
+msgid ""
+"This test builder allows for simple text and attribute tests.<br>Check the "
+"module readme for <a href=\"@url\">tips on writing more complex tests</a>."
+msgstr ""
+"Цей конструктор тестів дозволяє створювати прості тести тексту та атрибутів."
+"<br>Ознайомтеся з readme модуля, щоб отримати <a href=\"@url\">поради щодо "
+"написання складніших тестів</a>."
+
+msgid "Select by attributes"
+msgstr "Вибрати за атрибутами"
+
+msgid ""
+"Match using CSS selectors.<br>Use :not() to skip elements, e.g. "
+"<code>:is(.check1, .check2):not(.ignore, .ignore *)</code>.<br>Use attribute "
+"selectors for URLs, e.g. <code>[href*=\".dev/\"]</code>."
+msgstr ""
+"Збіг за допомогою CSS-селекторів.<br>Використовуйте :not() для пропуску "
+"елементів, наприклад <code>:is(.check1, .check2):not(.ignore, .ignore *)</"
+"code>.<br>Використовуйте селектори атрибутів для URL-адрес, наприклад "
+"<code>[href*=\".dev/\"]</code>."
+
+msgid "Select by text"
+msgstr "Вибрати за текстом"
+
+msgid "Flag elements containing any of these text strings. One per line."
+msgstr ""
+"Позначати елементи, що містять будь-який з цих текстових рядків. По одному "
+"на рядок."
+
+msgid "Case sensitive"
+msgstr "З урахуванням регістру"
+
+msgid "Exclude elements that match this text"
+msgstr "Виключати елементи, що відповідають цьому тексту"
+
+msgid ""
+"Don't flag elements if they contain any of these words or phrases. E.g., a "
+"link to a development server is ok if it contains \"dev.\" One per line."
+msgstr ""
+"Не позначати елементи, якщо вони містять будь-яке з цих слів або фраз. "
+"Наприклад, посилання на сервер розробки є прийнятним, якщо воно містить "
+"\"dev.\" По одному на рядок."
+
+msgid "Test key must contain only letters, numbers, and underscores."
+msgstr "Ключ тесту повинен містити лише літери, цифри та підкреслення."
+
+msgid "Tip content must contain visible text."
+msgstr "Вміст підказки повинен містити видимий текст."
+
+msgid "Select at least one rule."
+msgstr "Виберіть принаймні одне правило."
+
+msgid "Select at least one element type."
+msgstr "Виберіть принаймні один тип елемента."
+
+msgid "The filter selector should be a CSS selector, not a CSS rule block."
+msgstr "Селектор фільтра має бути CSS-селектором, а не блоком правил CSS."
+
+msgid "Created new custom test %label."
+msgstr "Створено новий власний тест %label."
+
+msgid "Updated custom test %label."
+msgstr "Оновлено власний тест %label."
+
+msgid "Are you deactivating this site or cancelling altogether?"
+msgstr "Ви деактивуєте цей вебсайт чи скасовуєте підписку повністю?"
+
+msgid "You can manage your subscriptions at any time in your Freemius account."
+msgstr ""
+"Ви можете керувати своїми підписками у будь-який час у своєму обліковому "
+"записі Freemius."
+
+msgid "Choose an action"
+msgstr "Оберіть дію"
+
+msgid ""
+"<strong>Deactivate this site</strong>, but keep my subscription active and "
+"renewing for use on another site"
+msgstr ""
+"<strong>Деактивувати цей сайт</strong>, але залишити підписку активною та "
+"поновлюваною для використання на іншому сайті"
+
+msgid ""
+"<strong>Cancel my subscription</strong> to the Editoria11y CSA altogether"
+msgstr "<strong>Скасувати мою підписку</strong> на Editoria11y CSA повністю"
+
+msgid "Confirm deactivation"
+msgstr "Підтвердити деактивацію"
+
+msgid "Never mind; keep site active"
+msgstr "Скасувати; залишити вебсайт активним"
+
+msgid ""
+"This site appears to be a development or testing environment with an active "
+"license."
+msgstr ""
+"Схоже, цей сайт є середовищем розробки або тестування з активною ліцензією."
+
+msgid "How would you like to proceed?"
+msgstr "Як ви бажаєте продовжити?"
+
+msgid ""
+"<strong>Cancel deactivation</strong>; I will manage this from the production "
+"site"
+msgstr ""
+"<strong>Скасувати деактивацію</strong>; я керуватиму цим з виробничого сайту"
+
+msgid ""
+"<strong>Disconnect this copy</strong>; leave the production license active"
+msgstr ""
+"<strong>Від'єднати цю копію</strong>; залишити виробничу ліцензію активною"
+
+msgid ""
+"<strong>Deactivate all copies of this site</strong> (production, dev, and QA)"
+msgstr ""
+"<strong>Деактивувати всі копії цього сайту</strong> (виробництво, dev та QA)"
+
+msgid "Confirm"
+msgstr "Підтвердити"
+
+msgid ""
+"Editoria11y promotes accessibility in a unique way. Its tools are highly "
+"effective at helping non-technical authors prepare content that can be "
+"enjoyed equally by disabled Web users. We consider this a public good, so "
+"Editoria11y will always be free to use."
+msgstr ""
+"Editoria11y сприяє доступності унікальним чином. Його інструменти дуже "
+"ефективні у допомозі нетехнічним авторам підготувати контент, яким можуть "
+"однаково насолоджуватися веб-користувачі з обмеженими можливостями. Ми "
+"вважаємо це суспільним благом, тому Editoria11y завжди буде безкоштовним у "
+"використанні."
+
+msgid "Editoria11y is not, however, free to develop or support."
+msgstr "Однак розробка та підтримка Editoria11y не є безкоштовними."
+
+msgid ""
+"The \"Community Supported Add-ons\" (CSA) project fills the gap: project "
+"membership subscriptions fund the development of the Editoria11y library, "
+"its CMS plugins, and the CSA suite."
+msgstr ""
+"Проект \"Community Supported Add-ons\" (CSA) заповнює прогалину: підписки на "
+"членство в проекті фінансують розробку бібліотеки Editoria11y, її CMS-"
+"плагінів та пакету CSA."
+
+msgid ""
+"<a href=\"@url\"><strong>Join the CSA</strong></a> to support this project"
+msgstr ""
+"<a href=\"@url\"><strong>Приєднайтесь до CSA</strong></a>, щоб підтримати "
+"цей проект"
+
+msgid ""
+"Existing members: <a href=\"@url\"><strong>Manage your subscription</"
+"strong></a> or <a href=\"@support_url\"><strong>contact support</strong></a>"
+msgstr ""
+"Наявні члени: <a href=\"@url\"><strong>Керування підпискою</strong></a> або "
+"<a href=\"@support_url\"><strong>зв'язатися з підтримкою</strong></a>"
+
+msgid ""
+"License management on this site has been locked via Drush. Use <code>drush "
+"ed11y-unlock</code> to re-enable changes from this form."
+msgstr ""
+"Управління ліцензіями на цьому сайті було заблоковано через Drush. "
+"Використовуйте <code>drush ed11y-unlock</code>, щоб повторно включити зміни "
+"з цієї форми."
+
+msgid "Warning: this site matches a dev or QA URL pattern"
+msgstr "Увага: цей вебсайт відповідає шаблону URL для розробки або QA"
+
+msgid "Shared activations should be managed in the production copy."
+msgstr "Спільними активаціями слід керувати у виробничій копії."
+
+msgid ""
+"Use <code>drush ed11y-lock</code> to prevent changing shared activations."
+msgstr ""
+"Використовуйте <code>drush ed11y-lock</code>, щоб запобігти зміні спільних "
+"активацій."
+
+msgid ""
+"Deactivating a shared key deactivates all copies of a site, including "
+"production."
+msgstr ""
+"Деактивація спільного ключа деактивує всі копії сайту, включаючи виробництво."
+
+msgid ""
+"Separate license activations from a development environment consume an "
+"additional key."
+msgstr ""
+"Окремі активації ліцензій із середовища розробки використовують додатковий "
+"ключ."
+
+msgid "Trial (@days days remaining)"
+msgstr "Пробний період (залишилося днів: @days)"
+
+msgid "Trial (expired)"
+msgstr "Пробний період (закінчився)"
+
+msgid "License expired"
+msgstr "Ліцензія прострочена"
+
+msgid "Active membership"
+msgstr "Активне членство"
+
+msgid "Activate using stored license key"
+msgstr "Активувати, використовуючи збережений ключ ліцензії"
+
+msgid "Activate with a different license key"
+msgstr "Активувати з іншим ключем ліцензії"
+
+msgid "Activate (enter license key below)"
+msgstr "Активувати (введіть ключ ліцензії нижче)"
+
+msgid "<strong>License expired.</strong> Expired on: @date"
+msgstr "<strong>Ліцензія прострочена.</strong> Закінчилася: @date"
+
+msgid "<strong>License has expired.</strong>"
+msgstr "<strong>License has expired.</strong>"
+
+msgid "<strong>Trial license active.</strong> Trial ends: @date"
+msgstr ""
+"<strong>Пробна ліцензія активна.</strong> Пробний період завершується: @date"
+
+msgid "<strong>License active.</strong> Expires: @date"
+msgstr "<strong>Ліцензія активна.</strong> Закінчується: @date"
+
+msgid "<strong>Lifetime license active.</strong>"
+msgstr "<strong>Lifetime license active.</strong>"
+
+msgid "Check for license renewal"
+msgstr "Перевірити поновлення ліцензії"
+
+msgid "Deactivate license"
+msgstr "Деактивувати ліцензію"
+
+msgid "A license key is stored but not active"
+msgstr "Ключ ліцензії збережено, але не активовано"
+
+msgid "Add a license key to enable CSA features"
+msgstr "Додайте ключ ліцензії, щоб увімкнути функції CSA"
+
+msgid "Enable CSA features"
+msgstr "Увімкнути функції CSA"
+
+msgid "CSA license key"
+msgstr "Ключ ліцензії CSA"
+
+msgid ""
+"<a href=\"@url\">Join the CSA</a> to enable CSA features. Visit the Freemius "
+"dashboard to <a href=\"@freemius\">manage your subscription</a> or recover a "
+"lost key."
+msgstr ""
+"<a href=\"@url\">Приєднайтесь до CSA</a>, щоб увімкнути функції CSA. "
+"Відвідайте панель Freemius, щоб <a href=\"@freemius\">керувати підпискою</a> "
+"або відновити втрачений ключ."
+
+msgid "Local, Dev and QA site URL patterns"
+msgstr "Шаблони URL для локальних, Dev і QA вебсайтів"
+
+msgid ""
+"One pattern per line, up to 5 patterns. Wildcards are supported (e.g. "
+"<code>*.test.example.com</code>).<br>Local, dev and QA sites can share an "
+"activation with production site, but only production sites check for "
+"renewals."
+msgstr ""
+"Один шаблон на рядок, до 5 шаблонів. Підтримуються символи підстановки "
+"(наприклад, <code>*.test.example.com</code>).<br>Локальні, dev та QA сайти "
+"можуть ділити активацію з виробничим сайтом, але лише виробничі сайти "
+"перевіряють оновлення."
+
+msgid ""
+"Additionally, any hostname consisting only of digits and dots (raw IPv4 "
+"address) is treated as a development environment."
+msgstr ""
+"Крім того, будь-яке ім'я хоста, що складається лише з цифр і крапок (raw "
+"IPv4-адреса), вважається середовищем розробки."
+
+msgid "Built-in development URL patterns"
+msgstr "Вбудовані шаблони URL для розробки"
+
+msgid "Enter no more than 5 custom domain patterns."
+msgstr "Введіть не більше ніж 5 власних шаблонів доменів."
+
+msgid "Saved license key not found. Please activate with a new key."
+msgstr ""
+"Збережений ключ ліцензії не знайдено. Активуйте за допомогою нового ключа."
+
+msgid "Enter a license key."
+msgstr "Введіть ключ ліцензії."
+
+msgid "Activation failed: @msg"
+msgstr "Активація не вдалася: @msg"
+
+msgid "License renewed and active."
+msgstr "Ліцензію поновлено й активовано."
+
+msgid "License is still expired."
+msgstr "Ліцензія все ще прострочена."
+
+msgid "Unexpected license status: @status"
+msgstr "Неочікуваний статус ліцензії: @status"
+
+msgid "Could not reach licensing server: @msg"
+msgstr "Не вдалося зв’язатися з сервером ліцензування: @msg"
+
+msgid "Deactivation failed: @msg"
+msgstr "Деактивація не вдалася: @msg"
+
+msgid "Editoria11y Export Batch Processor"
+msgstr "Editoria11y – пакетна обробка експортів"
+
+msgid ""
+"Batching is only needed for very large or heavily customized CSV exports."
+msgstr "Пакетна обробка потрібна лише для дуже великих або значно налаштованих CSV-експортів."
+
+msgid "hide"
+msgstr "сховати"
+
+msgid "ok"
+msgstr "ok"
+
+msgid "Yes"
+msgstr "Так"
+
+msgid "No"
+msgstr "Ні"
+
+msgid "This alt text is a filename, not a description"
+msgstr "Цей альтернативний текст є назвою файлу, а не описом"
+
+msgid "Is this a clear and concise description of the image?"
+msgstr "Чи є це чітким і лаконічним описом зображення?"
+
+msgid "This alt text may be a placeholder"
+msgstr "Цей alt-текст може бути заповнювачем"
+
+msgid "This alt text is unpronounceable"
+msgstr "Цей альтернативний текст неможливо вимовити"
+
+msgid "This custom input field is missing a label"
+msgstr "У цього користувацького поля введення відсутня мітка"
+
+msgid "Button is missing an accessible label"
+msgstr "Кнопка не має доступної назви"
+
+msgid "Button has an invalid ARIA label"
+msgstr "Кнопка має недійсний ARIA‑ярлик"
+
+msgid "Button name repeats the word \"button\""
+msgstr "Назва кнопки повторює слово «button»"
+
+msgid "This button is unpronounceable"
+msgstr "Цю кнопку неможливо вимовити"
+
+msgid "Text does not have enough contrast to be easily legible"
+msgstr "Текст має недостатній контраст і його важко читати"
+
+msgid "Graphic or icon does not have enough contrast"
+msgstr "Графіка або піктограма має недостатній контраст"
+
+msgid "Input does not provide enough contrast to be easily legible"
+msgstr "Поле введення має недостатній контраст і його важко читати"
+
+msgid "Placeholder text does not have enough contrast to be easily legible"
+msgstr "Текст заповнювача має недостатній контраст"
+
+msgid "Does this placeholder text have enough contrast?"
+msgstr "Чи має цей текст заповнювача достатній контраст?"
+
+msgid "Does this text have enough contrast?"
+msgstr "Чи має цей текст достатній контраст?"
+
+msgid "Does this graphic or icon have enough contrast?"
+msgstr "Чи має ця графіка або піктограма достатній контраст?"
+
+msgid "Duplicate ID attribute"
+msgstr "Дубльований атрибут ID"
+
+msgid "This link has a tooltip with the same text as the link"
+msgstr "Це посилання має підказку (tooltip) з таким самим текстом, як і лінк"
+
+msgid "Does this audio have a transcript?"
+msgstr "Чи має цей аудіозапис транскрипт?"
+
+msgid "Is this visualization accessible?"
+msgstr "Чи є ця візуалізація доступною?"
+
+msgid "Embedded iframes need manual checks"
+msgstr "Вбудовані iframe потребують ручної перевірки"
+
+msgid "Frame missing \"title\" attribute"
+msgstr "У фрейма відсутній атрибут «title»"
+
+msgid "Frame with tabindex=\"-1\" will not be keyboard accessible."
+msgstr "Фрейм із tabindex=\"‑1\" не буде доступний з клавіатури"
+
+msgid "Is this video accurately captioned?"
+msgstr "Чи має це відео коректні субтитри?"
+
+msgid "This heading has no text"
+msgstr "Цей заголовок не містить тексту"
+
+msgid "This image is used as a heading, so it needs alt text"
+msgstr ""
+"Це зображення використано як заголовок, тому воно потребує альтернативного "
+"тексту"
+
+msgid "The first heading on this page is a subheading"
+msgstr "Перший заголовок на сторінці є підзаголовком"
+
+msgid "Can this heading be shorter?"
+msgstr "Чи може цей заголовок бути коротшим?"
+
+msgid "This page is missing a Heading 1"
+msgstr "На цій сторінці відсутній заголовок рівня 1"
+
+msgid "This heading is tagged at the wrong level"
+msgstr "Цей заголовок має некоректний рівень"
+
+msgid "This heading is unpronounceable"
+msgstr "Цей заголовок неможливо вимовити"
+
+msgid "This element cannot be described by screen readers"
+msgstr "Цей елемент неможливо коректно описати читачами з екрана"
+
+msgid "Can this alt text be shorter?"
+msgstr "Чи може цей альтернативний текст бути коротшим?"
+
+msgid "Is this image actually meaningless?"
+msgstr "Чи справді це зображення лише декоративне?"
+
+msgid "Image in a carousel or gallery marked as decorative"
+msgstr "Зображення в каруселі/галереї позначено як декоративне"
+
+msgid "This captioned image has no alt text"
+msgstr "Це зображення з підписом не містить alt-тексту"
+
+msgid "Alt text should not be the same as caption text"
+msgstr "Альтернативний текст не повинен збігатися з текстом підпису"
+
+msgid "Is there a visible label for this field?"
+msgstr "Чи є видимий ярлик для цього поля?"
+
+msgid "Prefer visible labels to placeholders"
+msgstr "Надавайте перевагу видимим ярликам, а не заповнювачам"
+
+msgid "Is this reset button needed?"
+msgstr "Чи потрібна ця кнопка «Скинути»?"
+
+msgid "This input has an empty label"
+msgstr "Це поле введення має порожню мітку"
+
+msgid "Visible label does not match invisible label"
+msgstr "Видима назва не відповідає доступній назві"
+
+msgid "This image input is missing alt text"
+msgstr "У цього поля зображення відсутній alt‑текст"
+
+msgid "This input is not connected to a label"
+msgstr "Це поле введення не пов’язане з міткою"
+
+msgid "Language tag does not match the content"
+msgstr "Тег мови не відповідає вмісту"
+
+msgid "This content appears to be in a different language"
+msgstr "Цей вміст, ймовірно, написаний іншою мовою"
+
+msgid "This alt text appears to be in a different language"
+msgstr "Цей alt‑текст, ймовірно, написаний іншою мовою"
+
+msgid "Alt text used as a link should not be a URL"
+msgstr "Alt‑текст у лінку не повинен бути URL‑адресою"
+
+msgid "This linked alt might not be clear and concise"
+msgstr ""
+"Цей альтернативний текст посилання може бути нечітким або надто розлогим"
+
+msgid "Linked images need pronounceable alt text"
+msgstr "Зображення‑лінки повинні мати вимовний альтернативний текст"
+
+msgid "Manual check: link contains \"click here\""
+msgstr "Ручна перевірка: посилання містить «click here»"
+
+msgid "Link article titles, not DOI numbers"
+msgstr "Лінкуйте назви статей, а не номери DOI"
+
+msgid "This link contains no words"
+msgstr "Це посилання не містить слів."
+
+msgid "Link with invalid \"aria-labelledby\" attribute"
+msgstr "Лінк має недійсний атрибут «aria‑labelledby»"
+
+msgid "This link needs a label"
+msgstr "Це посилання потребує ярлика"
+
+msgid "Link points to a file without warning"
+msgstr "Лінк веде до файлу без попередження"
+
+msgid "Links with the same text link to different pages"
+msgstr "Посилання з однаковим текстом ведуть на різні сторінки"
+
+msgid "Does this alt text describe the link or the image?"
+msgstr "Чи описує цей alt-текст посилання чи зображення?"
+
+msgid "Does this alt text make sense as part of this link?"
+msgstr "Чи має сенс цей альтернативний текст у контексті лінку?"
+
+msgid "Can this linked alt text be shorter?"
+msgstr "Чи може alt‑текст лінкованого зображення бути коротшим?"
+
+msgid "This linked image needs alt text"
+msgstr "Це зображення‑лінк потребує alt‑тексту"
+
+msgid "Does this linked image need a description?"
+msgstr "Чи потребує це зображення-лінк опису?"
+
+msgid "Is this link actually a button?"
+msgstr "Чи є це посилання насправді кнопкою?"
+
+msgid "Does this link open a new tab without warning?"
+msgstr "Чи відкривається цей лінк у новій вкладці без попередження?"
+
+msgid "This linked alt text may be a placeholder"
+msgstr "Alt-текст лінкованого зображення може бути заповнювачем"
+
+msgid "This link only contains generic words"
+msgstr "Це посилання містить лише загальні слова"
+
+msgid "The purpose of this link is visually hidden"
+msgstr "Призначення цього посилання приховане візуально"
+
+msgid "Does this image's alt describe the image or the link?"
+msgstr "Чи описує цей alt‑текст зображення чи сам лінк?"
+
+msgid "Are the symbols or emoji in this link meaningful?"
+msgstr "Чи є символи або емодзі в цьому посиланні змістовними?"
+
+msgid "This link is unpronounceable"
+msgstr "Це посилання неможливо вимовити"
+
+msgid "Link text should not be a URL"
+msgstr "Текст лінку не повинен бути URL‑адресою"
+
+msgid "Meta tag for page language missing"
+msgstr "Відсутній meta‑тег для мови сторінки"
+
+msgid "Did you mean a different language code?"
+msgstr "Можливо, ви мали на увазі інший код мови?"
+
+msgid "Invalid language code"
+msgstr "Недійсний код мови"
+
+msgid "Page language may not match the content"
+msgstr "Мова сторінки може не відповідати вмісту"
+
+msgid "Meta tag limits how much users can enlarge text"
+msgstr "Meta‑тег обмежує можливість збільшення тексту користувачем"
+
+msgid "Meta tag automatically refreshes page"
+msgstr "Meta‑тег автоматично оновлює сторінку"
+
+msgid "Meta tag prevents users from enlarging text"
+msgstr "Meta‑тег забороняє масштабування"
+
+msgid "Meta tag for page title missing"
+msgstr "Відсутній meta‑тег заголовка сторінки"
+
+msgid "Invalid HTML: image has no alt attribute"
+msgstr "Некоректний HTML: зображення без атрибута alt"
+
+msgid "Invalid HTML: linked image missing alt attribute"
+msgstr "Некоректний HTML: зображення‑лінк без атрибута alt"
+
+msgid "Invalid HTML: image in link missing alt attribute"
+msgstr "Некоректний HTML: зображення в лінку без атрибута alt"
+
+msgid "This link target may be invalid"
+msgstr "Ціль посилання може бути недійсною"
+
+msgid "Should this quote be a heading?"
+msgstr "Чи повинен цей блок цитати бути заголовком?"
+
+msgid "Has this document been tagged for screen readers?"
+msgstr "Чи належно позначено цей документ для читачів з екрана?"
+
+msgid "Should this bold text be a heading?"
+msgstr "Чи повинен цей жирний текст бути заголовком?"
+
+msgid "Should this have list formatting?"
+msgstr "Чи потрібно оформити це як список?"
+
+msgid "Broken same-page link"
+msgstr "Зламаний внутрішній лінк"
+
+msgid "Do not justify text"
+msgstr "Уникайте вирівнювання тексту по ширині"
+
+msgid "Nested interactive layout components"
+msgstr "Вкладені інтерактивні компоненти"
+
+msgid "Is there an alternative for this PDF?"
+msgstr "Чи є альтернатива цьому PDF?"
+
+msgid "Text is too small"
+msgstr "Текст занадто малий"
+
+msgid "Large blocks of emphasized text are harder to read"
+msgstr "Великі блоки виділеного (жирного/курсиву) тексту складніше читати"
+
+msgid "Do not use sub/superscript as visual formatting"
+msgstr "Не використовуйте верхній/нижній індекс лише як візуальне оформлення"
+
+msgid "Only links should be underlined"
+msgstr "Підкреслення варто застосовувати лише до лінків"
+
+msgid "Is this uppercase text needed?"
+msgstr "Чи потрібен цей текст великими літерами?"
+
+msgid "Are there redundant words in this alt text?"
+msgstr "Чи є зайві слова в цьому alt‑тексті?"
+
+msgid "Tabindex overrides interrupt the focus order"
+msgstr "Перевизначення tabindex порушують порядок фокусування"
+
+msgid "This header cell needs text"
+msgstr "Ця комірка заголовка потребує тексту"
+
+msgid "This table has an invalid headers attribute"
+msgstr "Ця таблиця має недійсний атрибут «headers»"
+
+msgid "This table needs a header row and/or column"
+msgstr "У таблиці бракує рядка заголовків і/або заголовків стовпців"
+
+msgid "Content headings should not be used inside tables"
+msgstr "Заголовки вмісту не слід використовувати в таблицях"
+
+msgid "Invalid HTML list"
+msgstr "Некоректний HTML‑список"
+
+msgid "Linked images"
+msgstr "Зображення-посилання"
+
+msgid "Text formatting"
+msgstr "Форматування тексту"
+
+msgid "Video, audio, frames"
+msgstr "Відео, аудіо, фрейми"
+
+msgid "Contrast"
+msgstr "Контрастність"
+
+msgid "Forms"
+msgstr "Форми"
+
+msgid "ARIA and focus"
+msgstr "ARIA та фокус"
+
+msgid "Page metadata"
+msgstr "Метадані сторінки"
+
+msgid "The request could not be processed. Details have been logged."
+msgstr "Не вдалося обробити запит. Подробиці записано до журналу."
+
+msgid "API request rejected: @message"
+msgstr "Запит API відхилено: @message"
+
+msgid "API request failed: @message"
+msgstr "Помилка запиту API: @message"
+
+msgid "Export pages with alerts"
+msgstr "Експортувати сторінки зі сповіщеннями"
+
+msgid ""
+"Install the Editoria11y Export Batch Processor module to download these "
+"reports."
+msgstr "Встановіть модуль Editoria11y Export Batch Processor, щоб завантажити ці звіти."
+
+msgid "Export results"
+msgstr "Експорт результатів"
+
+msgctxt "problems"
+msgid "Top alerts"
+msgstr "Найчастіші проблеми"
+
+msgctxt "problems"
+msgid "Pages with the most alerts"
+msgstr "Сторінки з найбільшою кількістю проблем"
+
+msgid "Recent dismissals"
+msgstr "Останні приховані"
+
+msgid ""
+"Activate the <a href=\"@csa\">Editoria11y CSA submodule</a> to see developer "
+"tests."
+msgstr ""
+"Активуйте <a href=\"@csa\">підмодуль Editoria11y CSA</a>, щоб бачити тести "
+"для розробників."
+
+msgid "Include all parts of the page that contain your theme and content."
+msgstr "Включіть усі частини сторінки, які містять вашу тему та вміст."
+
+msgid "Include all parts of the page that contain your editable content."
+msgstr "Включіть усі частини сторінки, які містять ваш редагований вміст."
+
+msgid "Exclude elements that show unhelpful, repetitive, or inaccurate alerts."
+msgstr ""
+"Виключіть елементи, що показують некорисні, повторювані або неточні "
+"сповіщення."
+
+msgid ""
+"<a href=\"@permissions\">Add permissions</a>, especially \"View Editoria11y "
+"checker\" and \"Mark OK.\"</a>"
+msgstr ""
+"<a href=\"@permissions\">Додайте дозволи</a>, особливо «View Editoria11y "
+"checker» та «Mark OK».</a>"
+
+msgid ""
+"If you need help: <a href=\"@config_guide\">Configuration Guide</a> | <a "
+"href=\"@issue_queue\">Issue Queue</a> | <a href=\"@help\">Support contacts</"
+"a>"
+msgstr ""
+"Якщо потрібна допомога: <a href=\"@config_guide\">Посібник з налаштування</"
+"a> | <a href=\"@issue_queue\">Черга звернень</a> | <a "
+"href=\"@help\">Контакти підтримки</a>"
+
+msgid "Autodetect"
+msgstr "Автовизначення"
+
+msgid "Only user-editable content"
+msgstr "Лише вміст, що редагується користувачем"
+
+msgid "Other"
+msgstr "Інше"
+
+msgid "Parts of the page to test"
+msgstr "Частини сторінки для перевірки"
+
+msgid "\"Autodetect\" selects:"
+msgstr "«Автовизначення» вибирає:"
+
+msgid "Other: specify regions to check for developer and content problems"
+msgstr "Інше: вкажіть ділянки для перевірки на проблеми розробника та вмісту"
+
+msgid ""
+"Provide CSS selectors. For many sites, the site theme is wrapped in "
+"<code>.dialog-off-canvas-main-canvas</code> while editing."
+msgstr ""
+"Вкажіть CSS-селектори. Для багатьох сайтів тема сайту загорнута в "
+"<code>.dialog-off-canvas-main-canvas</code> під час редагування."
+
+msgid "Do not check for any errors inside these elements"
+msgstr "Не перевіряти помилки всередині цих елементів"
+
+msgid "These parts of the page will be ignored entirely."
+msgstr "Ці частини сторінки будуть повністю проігноровані."
+
+msgid "match content settings"
+msgstr "match content settings"
+
+msgid "Page regions with user-editable content"
+msgstr "Області сторінки з вмістом, що редагується користувачем"
+
+msgid ""
+"Default: <code><em>main</em></code><br>Provide <a target=\"_blank\" "
+"href=\"https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/"
+"Selectors\">CSS selectors</a>. Content authors will only see the alerts "
+"within these parts of the page. Do not provide selectors that nest within "
+"each other, or the inner content will be checked twice."
+msgstr ""
+"За замовчуванням: <code><em>main</em></code><br>Укажіть <a target=\"_blank\" "
+"href=\"https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/"
+"Selectors\">CSS-селектори</a>. Автори вмісту бачитимуть сповіщення лише в "
+"межах цих частин сторінки. Не використовуйте вкладені селектори — інакше "
+"внутрішній вміст перевірятиметься двічі."
+
+msgid ""
+"Default: <code><em>main</em></code><br>Provide <a target=\"_blank\" "
+"href=\"https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/"
+"Selectors\">CSS selectors</a>. Do not provide selectors that nest within "
+"each other, or the inner content will be checked twice."
+msgstr ""
+"За замовчуванням: <code><em>main</em></code><br>Укажіть <a target=\"_blank\" "
+"href=\"https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/"
+"Selectors\">CSS-селектори</a>. Не використовуйте вкладені селектори — інакше "
+"внутрішній вміст перевірятиметься двічі."
+
+msgid "Errors in these elements should only be shown to developers"
+msgstr "Помилки в цих елементах мають показуватися лише розробникам"
+
+msgid "Do not check for content errors inside these elements"
+msgstr "Не перевіряти помилки вмісту всередині цих елементів"
+
+msgid ""
+"Content editors are not responsible for errors in these elements. <br>E.g.: "
+"<code><em>#sidebar-menu a, .slide [aria-hidden=\"true\"]</em></code>."
+msgstr ""
+"Редактори вмісту не відповідають за помилки в цих елементах. <br>Напр.: "
+"<code><em>#sidebar-menu a, .slide [aria-hidden=\"true\"]</em></code>."
+
+msgid "Roles that will see developer alerts"
+msgstr "Ролі, які бачитимуть сповіщення для розробників"
+
+msgid ""
+"All roles with the <a href=\":url\">View editoria11y checker</a> permission "
+"see content alerts."
+msgstr ""
+"Усі ролі з дозволом <a href=\":url\">View editoria11y checker</a> бачать "
+"сповіщення про вміст."
+
+msgid "Advanced settings"
+msgstr "Розширені налаштування"
+
+msgid "Assertiveness"
+msgstr "Наполегливість"
+
+msgid "Checker mode for content roles"
+msgstr "Режим перевірки для ролей редакторів вмісту"
+
+msgid "Start open if there are any alerts"
+msgstr "Відкривати, якщо є сповіщення"
+
+msgid "Start open if there are new alerts"
+msgstr "Відкривати, якщо є нові сповіщення"
+
+msgid "Start minimized"
+msgstr "Запускати згорнутим"
+
+msgid ""
+"Choose when the control panel should open and show inline tips. \"Start open "
+"if there are any alerts\" is recommended, as it helps tips get noticed over "
+"time."
+msgstr ""
+"Укажіть, коли панель має відкриватися та показувати підказки. Рекомендовано "
+"«Відкривати, якщо є сповіщення», щоб підказки не залишалися непоміченими."
+
+msgid "Checker mode for developer roles"
+msgstr "Режим перевірки для ролей розробників"
+
+msgid "Do not check any content while it is being edited"
+msgstr "Не перевіряти вміст під час редагування"
+
+msgid ""
+"Use the \"Do not check on pages with these elements\" setting to prevent "
+"checking only on specific pages. E.g., exclude: <code><em>form[id^=\"node-"
+"article\"]</em></code>."
+msgstr ""
+"Щоб вимкнути перевірку лише на певних сторінках, використовуйте параметр «Не "
+"перевіряти сторінки з цими елементами». Наприклад, виключити: "
+"<code><em>form[id^=\"node-article\"]</em></code>."
+
+msgid "Assign headers to CKEditor tables on insert"
+msgstr "Призначати заголовки для таблиць CKEditor під час вставлення"
+
+msgid "First row"
+msgstr "Перший рядок"
+
+msgid "First column"
+msgstr "Перший стовпець"
+
+msgid "Both"
+msgstr "Обидва"
+
+msgid ""
+"You will need to clear cache for changes to this setting to appear in "
+"CKEditor."
+msgstr "Щоб зміни цього параметра з’явилися в CKEditor, потрібно очистити кеш."
+
+msgid "Theme compatibility"
+msgstr "Сумісність із темою"
+
+msgid "Configuration tips"
+msgstr "Поради щодо конфігурації"
+
+msgid ""
+"If the checker <strong>toggle</strong> does not appear: make sure a z-"
+"indexed or overflow-hidden element in your front-end theme is not hiding or "
+"covering the <code><em>ed11y-element-panel</em></code> container, make sure "
+"that any custom selectors in the \"Disable the scanner if these elements are "
+"detected\" field are not present, and make sure that no JavaScript errors "
+"are appearing in your <a href=\"https://developer.mozilla.org/en-US/docs/"
+"Tools/Browser_Console\"> browser console</a>"
+msgstr ""
+"Якщо <strong>перемикач</strong> перевірки не відображається: переконайтеся, "
+"що елементи з високим z-index або зі властивістю overflow:hidden у темі не "
+"перекривають контейнер <code><em>ed11y-element-panel</em></code>. Також "
+"перевірте, що селектори в полі «Вимкнути сканер, якщо виявлено ці елементи» "
+"не присутні на сторінці, і що у <a href=\"https://developer.mozilla.org/en-"
+"US/docs/Tools/Browser_Console\">консолі браузера</a> немає помилок "
+"JavaScript."
+
+msgid ""
+"If the checker toggle is present but <strong>not detecting</strong> errors, "
+"or missing errors that should be flagged: check that your inclusions & "
+"exclusion settings below are not missing or ignoring the elements. It is not "
+"uncommon for homepages or views to insert editable content outside the "
+"<code><em>main</em></code> element."
+msgstr ""
+"Якщо перемикач присутній, але <strong>не виявляє</strong> помилки або "
+"пропускає ті, що мали б бути позначені: перевірте налаштування включення/"
+"виключення елементів. Часто головні сторінки або перегляди розміщують "
+"редагований контент поза елементом <code><em>main</em></code>."
+
+msgid "Theme"
+msgstr "Тема"
+
+msgid "Sleek"
+msgstr "Sleek"
+
+msgid "Classic"
+msgstr "Classic"
+
+msgid "Dark"
+msgstr "Dark"
+
+msgid "Do not check on pages with these elements"
+msgstr "Не перевіряти сторінки, що містять ці елементи"
+
+msgid ""
+"Used to block checking on site sections or admin pages.<br>E.g. "
+"<code><em>.content-type-example, .tabs__link[href=*\"edit\"]</em></code>."
+msgstr ""
+"Використовується для блокування перевірки в розділах вебсайту або "
+"адміністративних сторінках.<br>Наприклад: <code><em>.content-type-"
+"example, .tabs__link[href=*\"edit\"]</em></code>."
+
+msgid "Hide all alerts on pages where these elements are not present"
+msgstr "Приховувати всі сповіщення на сторінках, де ці елементи відсутні"
+
+msgid ""
+"Used to limit alerting to nodes where the user can edit something. Suggested "
+"selectors:<br> <code><em>.contextual-region a[href*=\"/edit\"], .contextual-"
+"region a[href*=\"/manage\"]</em></code>."
+msgstr ""
+"Використовується для показу сповіщень лише на сторінках, де користувач може "
+"щось редагувати. Рекомендовані селектори:<br><code><em>.contextual-region "
+"a[href*=\"/edit\"], .contextual-region a[href*=\"/manage\"]</em></code>."
+
+msgid ""
+"Set to the number of other themes or modules that will be <a href=\"https://"
+"editoria11y.princeton.edu/configuration/#customtests\">injecting custom "
+"result JS events</a>."
+msgstr ""
+"Укажіть кількість тем чи модулів, які будуть <a href=\"https://"
+"editoria11y.princeton.edu/configuration/#customtests\">надсилати кастомні "
+"події результатів JS</a>."
+
+msgid "Positioning"
+msgstr "Позиціонування"
+
+msgid "Don't show edit links on tips in these containers"
+msgstr "Не показувати посилання редагування в підказках у цих контейнерах"
+
+msgid ""
+"Tips show copies of the \"Edit\" and \"Layout\" links for nodes, users and "
+"taxonomy terms. These links are not helpful on lists of content from remote "
+"nodes.<br>Provide a comma-separated list of page sections of where these "
+"links should not show, E.g.: <code><em>#sidebar-menu, .news-feed</em></code>."
+"<br>To hide the links <strong>everywhere</strong>, set this field to an "
+"asterisk (<code><em>*</em></code>).<br>To modify the links, <a "
+"href=\"https://editoria11y.princeton.edu/configuration/#modify-tips\" "
+"target=\"_blank\">use the ed11yPop event</a> in your theme JS."
+msgstr ""
+"Підказки містять копії посилань «Редагувати» та «Макет» для вузлів, "
+"користувачів і термінів таксономії. На списках віддаленого контенту ці "
+"посилання недоречні.<br>Укажіть через кому розділи сторінки, де їх не слід "
+"показувати, наприклад: <code><em>#sidebar-menu, .news-feed</em></code>."
+"<br>Щоб приховати посилання <strong>скрізь</strong>, вкажіть символ зірочки "
+"(<code><em>*</em></code>).<br>Щоб змінити посилання, скористайтеся подією <a "
+"href=\"https://editoria11y.princeton.edu/configuration/#modify-tips\" "
+"target=\"_blank\">ed11yPop</a> у JS теми."
+
+msgid "Pin panel to..."
+msgstr "Прикріпити панель до…"
+
+msgid "Right"
+msgstr "Праворуч"
+
+msgid "Left"
+msgstr "Ліворуч"
+
+msgid "Don't cover these other widgets"
+msgstr "Не перекривати ці віджети"
+
+msgid ""
+"Provide a comma-separated list of selectors for other things that appear in "
+"the bottom right of the page. <br>If nothing is set, Editoria11y will "
+"automatically slide left to accommodate <code><em>#klaro_toggle_dialog, "
+"#klaro-cookie-notice .same-page-preview-dialog.ui-dialog-position-side</em></"
+"code>."
+msgstr ""
+"Укажіть список селекторів через кому для елементів, які з’являються внизу "
+"праворуч на сторінці.<br>Якщо список порожній, Editoria11y автоматично "
+"зміститься ліворуч, щоб не перекривати <code><em>#klaro_toggle_dialog, "
+"#klaro-cookie-notice .same-page-preview-dialog.ui-dialog-position-side</em></"
+"code>."
+
+msgid "Elements with overflow hidden"
+msgstr "Елементи з overflow:hidden"
+
+msgid ""
+"Sometimes buttons get drawn and visually truncated outside the bounds of a "
+"positioned element. Provide a selector list."
+msgstr ""
+"Іноді кнопки частково обрізаються через межі позиціонованого елемента. "
+"Укажіть список відповідних селекторів."
+
+msgid "Theme JS will handle revealing hidden tooltips inside these containers"
+msgstr ""
+"JavaScript теми відповідатиме за показ прихованих підказок у цих контейнерах"
+
+msgid ""
+"Editoria11y detects hidden tooltips and warns the user when they try to jump "
+"to them from the panel. For elements on this list, Editoria11y will <a "
+"href=\"https://itmaybejj.github.io/editoria11y/#dealing-with-alerts-on-"
+"hidden-or-size-constrained-content\">dispatch a JS event</a> instead of a "
+"warning, so custom JS in your theme can first reveal the hidden tip (e.g., "
+"open an accordion or tab panel)."
+msgstr ""
+"Editoria11y виявляє приховані підказки та зазвичай попереджає користувача "
+"при спробі перейти до них із панелі. Для елементів у цьому списку "
+"Editoria11y замість попередження <a href=\"https://itmaybejj.github.io/"
+"editoria11y/#dealing-with-alerts-on-hidden-or-size-constrained-"
+"content\">створює подію JS</a>, щоб скрипт теми міг спочатку розкрити "
+"підказку (наприклад, відкрити акордеон чи панель вкладок)."
+
+msgid "Detecting dynamic and shadow content"
+msgstr "Виявлення динамічного та shadow‑вмісту"
+
+msgid "Dynamically refresh if new content appears"
+msgstr "Динамічно оновлювати при появі нового вмісту"
+
+msgid "Watch for changes anywhere on the page"
+msgstr "Відстежувати зміни на всій сторінці"
+
+msgid "Only watch for changes to content containers present on load"
+msgstr "Відстежувати зміни лише в контейнерах, присутніх при завантаженні"
+
+msgid "Do not watch for changes"
+msgstr "Не відстежувати зміни"
+
+msgid ""
+"Set to \"anywhere\" if changes are being missed, set to \"ignore\" if you "
+"notice performance issues. Themes and modules can also call "
+"<code>Drupal.Ed11y.refresh()</code> to refresh results."
+msgstr ""
+"Виберіть «anywhere», якщо пропускаються зміни; виберіть «ignore», якщо "
+"спостерігається падіння продуктивності. Теми та модулі також можуть "
+"викликати <code>Drupal.Ed11y.refresh()</code> для оновлення результатів."
+
+msgid "Check inside these specific Web components"
+msgstr "Перевіряти всередині цих вебкомпонентів"
+
+msgid ""
+"Provide selectors for elements with <a href='https://developer.mozilla.org/"
+"en-US/docs/Web/Web_Components'>shadow DOM</a> you want tested. E.g.: "
+"<code><em>my-fancy-accordion-widget, my-magical-slideshow</em></code>."
+msgstr ""
+"Укажіть селектори елементів із <a href='https://developer.mozilla.org/en-US/"
+"docs/Web/Web_Components'>shadow DOM</a>, які потрібно перевіряти. Наприклад: "
+"<code><em>my-fancy-accordion-widget, my-magical-slideshow</em></code>."
+
+msgid "Auto-detect any Web components"
+msgstr "Автоматично виявляти будь‑які вебкомпоненти"
+
+msgid ""
+"This is easier to configure than specifying components, but may slow test "
+"runs on very complicated pages."
+msgstr ""
+"Це простіше, ніж перелічувати компоненти, але може уповільнити перевірку на "
+"складних сторінках."
+
+msgid "Syncing results to reports"
+msgstr "Синхронізація результатів зі звітами"
+
+msgid ""
+"Remember that results only sync to the dashboard when viewing nodes. Results "
+"shown while editing or viewing previews or revisions will not sync."
+msgstr ""
+"Пам’ятайте: результати синхронізуються з панеллю лише під час перегляду "
+"вузлів. Результати, показані під час редагування, попереднього перегляду чи "
+"перегляду версій, не синхронізуються."
+
+msgid "Remove redundant base url from URLs"
+msgstr "Видалити зайву базову частину з URL‑адрес"
+
+msgid ""
+"Provide base URL (\"/mysite\") if your site is installed in a subdirectory. "
+"Subdirectories tend to get duplicated (/mysite/mysite/mypage) and throw "
+"errors from the API."
+msgstr ""
+"Укажіть базовий URL (наприклад, «/mysite»), якщо сайт встановлено в "
+"підкаталозі. Підкаталоги можуть дублюватися (/mysite/mysite/mypage), що "
+"спричиняє помилки API."
+
+msgid "Preserve query parameters"
+msgstr "Зберігати параметри запиту"
+
+msgid ""
+"The dashboard ignores most parameters: results for both /news?f=1 and /news?"
+"f=2 will show up as just /news. Provide a comma separated list of parameters "
+"that are meaningful, and should appear as separate pages in results."
+msgstr ""
+"Панель ігнорує більшість параметрів: результати для /news?f=1 і /news?f=2 "
+"показуватимуться як /news. Укажіть перелік важливих параметрів через кому — "
+"вони будуть трактуватися як окремі сторінки."
+
+msgid "Disable sync altogether"
+msgstr "Повністю вимкнути синхронізацію"
+
+msgid ""
+"Syncing test results back to Drupal is required for the <a target=\"_blank\" "
+"href=\"/admin/reports/editoria11y\">issue</a> and <a target=\"_blank\" "
+"href=\"/admin/reports/editoria11y/dismissals\">dismissal</a> dashboards and "
+"\"mark OK\" buttons."
+msgstr ""
+"Синхронізація результатів у Drupal необхідна для панелей <a "
+"target=\"_blank\" href=\"/admin/reports/editoria11y\">проблем</a> і <a "
+"target=\"_blank\" href=\"/admin/reports/editoria11y/dismissals\">прихованих</"
+"a>, а також для кнопки «Позначити як OK»."
+
+msgid "Heading outline position of editable content"
+msgstr "Структура заголовків редагованого вмісту"
+
+msgid ""
+"To check headings in CKEditor, Editoria11y needs to know what the first "
+"heading level should be in this field. Body fields should generally be at "
+"the h2 level."
+msgstr ""
+"Щоб перевіряти заголовки в CKEditor, Editoria11y повинен знати, з якого "
+"рівня має починатися структура заголовків. Основний текст зазвичай "
+"починається з h2."
+
+msgid "H2 level fields (body content)"
+msgstr "Поля рівня H2 (основний вміст)"
+
+msgid ""
+"Body fields on nodes are preceded by an h1, and their heading outline should "
+"start with an h2. Ideally set this for top-level body fields for each of "
+"your content types, and set blocks and embedded nodes to h3 or h4.\n"
+"        <br>Set all content types: <code><em>form[id^=\"node-\"] #edit-body-"
+"wrapper .ck-content</em></code>\n"
+"        <br>Set specific content types: <code><em>form[id^=\"node-\"] #edit-"
+"body-wrapper .ck-content</em></code>\n"
+"        <br>Set up for Gutenberg: <code><em>form[id^=\"node-\"] #edit-body-"
+"wrapper .is-root-container</em></code>"
+msgstr ""
+"Поля основного тексту у вузлах мають перед собою заголовок h1, тож їхня "
+"структура має починатися з h2. Рекомендовано встановити це для основних "
+"полів кожного типу вмісту, а для блоків і вбудованих вузлів — h3 або h4.\n"
+"<br>Для всіх типів вмісту: <code><em>form[id^=\"node-\"] #edit-body-"
+"wrapper .ck-content</em></code>\n"
+"<br>Для окремих типів: <code><em>form[id^=\"node-\"] #edit-body-wrapper .ck-"
+"content</em></code>\n"
+"<br>Для Gutenberg: <code><em>form[id^=\"node-\"] #edit-body-wrapper .is-root-"
+"container</em></code>"
+
+msgid "H3 level fields (blocks or paragraphs with separate titles)"
+msgstr "Поля рівня H3 (блоки або параграфи з окремими заголовками)"
+
+msgid ""
+"Sometimes inline and layout builder blocks are grouped under an h2 from a "
+"separate field, so their highest heading level should be h3."
+msgstr ""
+"Іноді блоки inline або layout builder групуються під заголовком h2 з іншого "
+"поля, і тоді їхній найвищий рівень має бути h3."
+
+msgid "H4 level fields (deeply nested blocks or paragraphs)"
+msgstr "Поля рівня H4 (глибоко вкладені блоки або параграфи)"
+
+msgid ""
+"Sometimes inline and layout builder blocks are grouped under an h3 from a "
+"separate field, so their highest heading level should be h4."
+msgstr ""
+"Деякі inline‑блоки або блоки layout builder розміщуються під заголовком h3 — "
+"у такому випадку їхнім найвищим заголовком має бути h4."
+
+msgid "Modify tests that usually detect content issues"
+msgstr "Змінити тести, які зазвичай виявляють проблеми вмісту"
+
+msgid "Modify tests that usually detect template or configuration issues"
+msgstr ""
+"Змінити тести, які зазвичай виявляють проблеми шаблону або конфігурації"
+
+msgid "Do not check contrast for these elements"
+msgstr "Не перевіряти контраст для цих елементів"
+
+msgid ""
+"Provide a comma-separated list of selectors for elements to ignore for all "
+"users."
+msgstr ""
+"Укажіть список селекторів через кому для елементів, які слід ігнорувати для "
+"всіх користувачів."
+
+msgid "Remind editor that content in these embeds needs manual review"
+msgstr ""
+"Нагадати редактору, що вміст цих вбудованих елементів потребує ручної "
+"перевірки"
+
+msgid ""
+"Provide a comma-separated list of selectors you wish to flag for the editor, "
+"e.g.: <code><em>.my-embedded-feed, #my-social-link-block</em></code>."
+msgstr ""
+"Укажіть список селекторів через кому, які слід позначати для редактора, "
+"наприклад: <code><em>.my-embedded-feed, #my-social-link-block</em></code>."
+
+msgid ""
+"Default settings should work with both <a href=\"https://www.drupal.org/"
+"project/linkpurpose\" target=\"_blank\">Link Purpose Icons</a> and <a "
+"target=\"_blank\" href=\"https://www.drupal.org/project/extlink\">External "
+"Links</a>."
+msgstr ""
+"Типові налаштування працюють і з <a href=\"https://www.drupal.org/project/"
+"linkpurpose\" target=\"_blank\">Link Purpose Icons</a>, і з <a "
+"target=\"_blank\" href=\"https://www.drupal.org/project/extlink\">External "
+"Links</a>."
+
+msgid "Remind the editor that these linked documents need a manual check"
+msgstr ""
+"Нагадати редактору, що ці пов’язані документи потребують ручної перевірки"
+
+msgid ""
+"Add or remove filetypes. Set to \"false\" to disable the test altogether. "
+"Providing any value will override the default, which is "
+"<code><em>a[href$='.pdf'], a[href*='.pdf?']</em></code>."
+msgstr ""
+"Додайте або видаліть типи файлів. Встановіть «false», щоб повністю вимкнути "
+"тест. Будь‑яке надане значення замінить значення за замовчуванням: "
+"<code><em>a[href$='.pdf'], a[href*='.pdf?']</em></code>."
+
+msgid "Remove elements that match these selectors before testing link text"
+msgstr ""
+"Видалити елементи за цими селекторами перед перевіркою тексту посилання"
+
+msgid ""
+"Provide a CSS selector of elements your modules programmatically add to "
+"links (usually external or open-in-new-window links), so they can be ignored "
+"when the link text is checked for the \"link has no text\" and \"link text "
+"is not meaningful\" tests.<br>E.g.: <code><em>.this, .that</em></code>"
+msgstr ""
+"Укажіть CSS‑селектор елементів, які ваші модулі додають до посилань "
+"програмно (зазвичай позначення зовнішніх або тих, що відкриваються в новому "
+"вікні), щоб їх ігнорувати під час тестів «посилання без тексту» та "
+"«незмістовний текст посилання».<br>Наприклад: <code><em>.this, .that</em></"
+"code>"
+
+msgid "Remove these strings before testing link text"
+msgstr "Видалити ці фрази перед перевіркою тексту посилання"
+
+msgid ""
+"Provide a pipe-separated (\"|\") list of phrases your modules "
+"programmatically add to links to hint a purpose (external, mail, phone, open-"
+"in-new-window), so they can be ignored when the link text is checked for the "
+"\"link has no text\" and \"link text is not meaningful\" tests; e.g.:  "
+"<pre><code><em>(link is external)|(link sends email)</em></code></pre>"
+msgstr ""
+"Укажіть список фраз, розділених «|», які ваші модулі додають до посилань, "
+"щоб указати призначення (зовнішнє, email, телефон, відкриття в новому "
+"вікні). Ці фрази ігноруються під час тестів «посилання без тексту» та "
+"«незмістовний текст посилання». Наприклад:<pre><code><em>(link is external)|"
+"(link sends email)</em></code></pre>"
+
+msgid "Strings in links that indicate new tabs"
+msgstr "Фрази у посиланнях, що вказують на відкриття в новій вкладці"
+
+msgid ""
+"Provide a pipe-separated list of phrases your site uses to warn users a link "
+"opens in a new tab; e.g.:  <pre><code><em>new&nbsp;tab|new&nbsp;window|"
+"external</em></code></pre>"
+msgstr ""
+"Укажіть список фраз, розділених «|», якими сайт позначає відкриття посилання "
+"в новій вкладці. Наприклад:<pre><code><em>new&nbsp;tab|new&nbsp;window|"
+"external</em></code></pre>"
+
+msgid ""
+"Modules like Link Purpose or External Links can mark links automatically."
+msgstr ""
+"Модулі на кшталт Link Purpose або External Links можуть автоматично "
+"позначати посилання."
+
+msgid "CSA/developer test"
+msgstr "Тест CSA/розробника"
+
+msgid "Show to developers"
+msgstr "Показувати розробникам"
+
+msgid "Show to everybody"
+msgstr "Показувати всім"
+
+msgid "Dashboard sync is disabled in Editoria11y configuration."
+msgstr "Синхронізацію панелі вимкнено в конфігурації Editoria11y."
+
+msgid "(invalid URL)"
+msgstr "(некоректний URL)"
+
+msgid "Editoria11y: Dismissals"
+msgstr "Editoria11y: Приховані сповіщення"
+
+msgid "Default"
+msgstr "Типове"
+
+msgid "Node path"
+msgstr "Шлях вузла"
+
+msgid "view"
+msgstr "перегляд"
+
+msgid "Term path"
+msgstr "Шлях терміна"
+
+msgid "User bio path"
+msgstr "Шлях біографії користувача"
+
+msgid "Term title"
+msgstr "Назва терміна"
+
+msgid ", "
+msgstr ", "
+
+msgid "Node title"
+msgstr "Назва вузла"
+
+msgid "User name"
+msgstr "Ім’я користувача"
+
+msgid "Recorded path"
+msgstr "Збережений шлях"
+
+msgid "Computed"
+msgstr "Обчислено"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty %}{% set dynamic_path = page_path %}{% endif %}\r\n"
+"{% set dynamic_title = title ~ name_2 ~ name_1 %}{% if dynamic_title is "
+"empty %}{% set dynamic_title = page_title %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ dynamic_title }}</"
+"a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty %}{% set dynamic_path = page_path %}{% endif %}\r\n"
+"{% set dynamic_title = title ~ name_2 ~ name_1 %}{% if dynamic_title is "
+"empty %}{% set dynamic_title = page_title %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ dynamic_title }}</"
+"a>"
+
+msgid "Dismissed alert"
+msgstr "Приховане сповіщення"
+
+msgid "By"
+msgstr "Ким"
+
+msgid "1"
+msgid_plural "@count"
+msgstr[0] "1"
+msgstr[1] "@count"
+msgstr[2] "@count"
+
+msgid "Reset"
+msgstr "Скинути"
+
+msgid ""
+"<span class=\"ed11y-reset-dismissal\"><span class=\"ed11y-page-id\">{{ pid }}"
+"</span><span class=\"ed11y-dismissal-id\">{{id}}</span></span>"
+msgstr ""
+"<span class=\"ed11y-reset-dismissal\"><span class=\"ed11y-page-id\">{{ pid }}"
+"</span><span class=\"ed11y-dismissal-id\">{{id}}</span></span>"
+
+msgid "››"
+msgstr "››"
+
+msgid "‹‹"
+msgstr "‹‹"
+
+msgid "- All -"
+msgstr "- Усі -"
+
+msgid "Offset"
+msgstr "Зсув"
+
+msgid "« First"
+msgstr "« Перша"
+
+msgid "Last »"
+msgstr "Остання »"
+
+msgid "Asc"
+msgstr "За зростанням"
+
+msgid "Desc"
+msgstr "За спаданням"
+
+msgid "User who dismissed alert"
+msgstr "Користувач, який приховав сповіщення"
+
+msgid "pid"
+msgstr "pid"
+
+msgid "Node"
+msgstr "Вузол"
+
+msgid "Term"
+msgstr "Термін"
+
+msgid "User bio"
+msgstr "Біографія користувача"
+
+msgid "Dismissals page"
+msgstr "Сторінка прихованих"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty %}{% set dynamic_path = page_path %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title }}</a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty %}{% set dynamic_path = page_path %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title }}</a>"
+
+msgid "Still on page"
+msgstr "Все ще на сторінці"
+
+msgid "Reset filters"
+msgstr "Скинути фільтри"
+
+msgid "Issues marked as hidden or OK in Editoria11y."
+msgstr "Проблеми, позначені як приховані або OK у Editoria11y."
+
+msgid "Dismissals filtered by issue"
+msgstr "Приховані сповіщення за типом проблеми"
+
+msgid "No dismissals match these filters."
+msgstr "Немає прихованих сповіщень, що відповідають цим фільтрам."
+
+msgid "All"
+msgstr "Усі"
+
+msgid "Dismissed alerts of type \"{{result_name}}\""
+msgstr "Приховані сповіщення типу «{{result_name}}»"
+
+msgid ""
+"<a href=\"/admin/reports/editoria11y/dismissals/\" class=\"button button--"
+"primary\">Show all dismissals</a>"
+msgstr ""
+"<a href=\"/admin/reports/editoria11y/dismissals/\" class=\"button button--"
+"primary\">Show all dismissals</a><a href=\"/admin/reports/editoria11y/"
+"dismissals/\" class=\"button button--primary\">Показати всі приховані</a>"
+
+msgid "Recent Editoria11y Dismissals"
+msgstr "Останні приховані Editoria11y"
+
+msgid "Editoria11y - Recent dismissals"
+msgstr "Editoria11y — Останні приховані"
+
+msgid "Editoria11y: Alerts"
+msgstr "Editoria11y: Сповіщення"
+
+msgid "Top results"
+msgstr "Ключові результати"
+
+msgid "Computed title"
+msgstr "Обчислена назва"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path|render %}{% set dynamic_path = "
+"page_path %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{  page_title_1 }}</"
+"a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path|render %}{% set dynamic_path = "
+"page_path %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{  page_title_1 }}</"
+"a>"
+
+msgid "<a href=\"{{page_path_1}}\" data-ed1ref=\"{{pid}}\">{{page_path_1}}</a>"
+msgstr ""
+"<a href=\"{{page_path_1}}\" data-ed1ref=\"{{pid}}\">{{page_path_1}}</a>"
+
+msgid "No alerts found."
+msgstr "Сповіщень не знайдено."
+
+msgid "YYYY-MM-DD"
+msgstr "РРРР-ММ-ДД"
+
+msgid "User bio page"
+msgstr "Сторінка біографії користувача"
+
+msgid "Node author"
+msgstr "Автор вузла"
+
+msgid "All pages with issues"
+msgstr "Усі сторінки з проблемами"
+
+msgid "Block: Pages with the most"
+msgstr "Блок: Сторінки з найбільшою кількістю проблем"
+
+msgid "Block: Recent alerts"
+msgstr "Блок: Останні сповіщення"
+
+msgid "Recent Editoria11y Alerts"
+msgstr "Останні сповіщення Editoria11y"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path|render %}{% set dynamic_path = "
+"page_path %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title_1 }}</a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path|render %}{% set dynamic_path = "
+"page_path %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title_1 }}</a>"
+
+msgid "Issue"
+msgstr "Проблема"
+
+msgid "Editoria11y - Recent alerts"
+msgstr "Editoria11y — Останні сповіщення"
+
+msgid "Block: Most frequent alerts"
+msgstr "Блок: Найчастіші сповіщення"
+
+msgid "Most Frequent Editoria11y Alerts"
+msgstr "Найчастіші сповіщення Editoria11y"
+
+msgid "Editoria11y - Most frequent alerts"
+msgstr "Editoria11y — Найчастіші сповіщення"
+
+msgid "Alerts on specified page"
+msgstr "Сповіщення на вказаній сторінці"
+
+msgid ""
+"<a href=\"{{ page_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title_1 }}</a>"
+msgstr ""
+"<a href=\"{{ page_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title_1 }}</a>"
+
+msgid "<p><strong>Author:</strong> {{ uid }}</p>"
+msgstr "<p><strong>Автор:</strong> {{ uid }}</p>"
+
+msgid "<p><strong>Last editor:</strong> {{ uid_1 }}</p>"
+msgstr "<p><strong>Останній редактор:</strong> {{ uid_1 }}</p>"
+
+msgid ""
+"<h1>Accessibility issues on: {{page_title_1}}</h1>\r\n"
+"<p>{{uid}}{{uid_1}}</p>"
+msgstr ""
+"<h1>Accessibility issues on: {{page_title_1}}</h1>\r\n"
+"<p>{{uid}}{{uid_1}}</p><h1>Проблеми доступності на сторінці: {{page_title_1}}"
+"</h1>\r\n"
+"<p>{{uid}}{{uid_1}}</p>"
+
+msgid ""
+"<p><a href=\"../editoria11y/pages\" class=\"button button--primary\">All "
+"pages with alerts</a></p>"
+msgstr ""
+"<p><a href=\"../editoria11y/pages\" class=\"button button--primary\">All "
+"pages with alerts</a></p><p><a href=\"../editoria11y/pages\" class=\"button "
+"button--primary\">Усі сторінки зі сповіщеннями</a></p>"
+
+msgid ""
+"<span class=\"ed11y-reset-this-path\" hidden><p class=\"more-link\"><a "
+"role=\"button\" class=\"action-link action-link--icon-trash action-link--"
+"danger\"><span hidden class=\"ed11y-api-path\">{{ page_path }}</span>Reset "
+"results for this page</a></p></span>"
+msgstr ""
+"<span class=\"ed11y-reset-this-path\" hidden><p class=\"more-link\"><a "
+"role=\"button\" class=\"action-link action-link--icon-trash action-link--"
+"danger\"><span hidden class=\"ed11y-api-path\">{{ page_path }}</span>Reset "
+"results for this page</a></p></span><span class=\"ed11y-reset-this-path\" "
+"hidden><p class=\"more-link\"><a role=\"button\" class=\"action-link action-"
+"link--icon-trash action-link--danger\"><span hidden class=\"ed11y-api-"
+"path\">{{ page_path }}</span>Скинути результати для цієї сторінки</a></p></"
+"span>"
+
+msgid "Issue types"
+msgstr "Типи проблем"
+
+msgid "Pages with specified alert"
+msgstr "Сторінки з указаним сповіщенням"
+
+msgid "Published status"
+msgstr "Статус публікації"
+
+msgid "Created by"
+msgstr "Створено користувачем"
+
+msgid "Created after"
+msgstr "Створено після"
+
+msgid "Created before"
+msgstr "Створено до"
+
+msgid "<h1>Pages with alert \"{{ result_name }}\"</h1>"
+msgstr "<h1>Сторінки зі сповіщенням «{{ result_name }}»</h1>"
+
+msgid ""
+"<a href=\"../editoria11y/alerts\" class=\"button button--primary\">All "
+"alerts</a>"
+msgstr ""
+"<a href=\"../editoria11y/alerts\" class=\"button button--primary\">All "
+"alerts</a><a href=\"../editoria11y/alerts\" class=\"button button--"
+"primary\">Усі сповіщення</a>"
+
+msgid "Pages with issues"
+msgstr "Сторінки з проблемами"
+
+msgid "Next ›"
+msgstr "Далі ›"
+
+msgid "‹ Previous"
+msgstr "‹ Назад"
+
+msgid "Authored on"
+msgstr "Створено"
+
+msgid "Changed"
+msgstr "Змінено"
+
+msgid "Editoria11y: Crawler"
+msgstr "Editoria11y: Crawler"
+
+msgid "Editoria11y: Crawl Nodes"
+msgstr "Editoria11y: Сканування вузлів"
+
+msgid "Authored by"
+msgstr "Автор"
+
+msgid "Has results"
+msgstr "Є результати"
+
+msgid "Has no alerts"
+msgstr "Немає сповіщень"
+
+msgid "Has alerts"
+msgstr "Є сповіщення"
+
+msgid "nid"
+msgstr "nid"
+
+msgid "Editoria11y: Export"
+msgstr "Editoria11y: Експорт"
+
+msgid "Export page with alerts"
+msgstr "Експортувати сторінку зі сповіщеннями"
+
+msgid "Link to Taxonomy term"
+msgstr "Посилання на термін таксономії"
+
+msgid "Link to User"
+msgstr "Посилання на користувача"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path_1|render %}{% set dynamic_path = "
+"page_path_1 %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title }}</a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path_1|render %}{% set dynamic_path = "
+"page_path_1 %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title }}</a>"
+
+msgid "Path when checked"
+msgstr "Шлях під час перевірки"
+
+msgid "<a href=\"{{page_path_1}}\" data-ed1ref=\"{{pid}}\">{{page_path_1}}"
+msgstr "<a href=\"{{page_path_1}}\" data-ed1ref=\"{{pid}}\">{{page_path_1}}"
+
+msgid "Current URL"
+msgstr "Поточний URL"
+
+msgid "{{ view_taxonomy_term }}{{ view_user }}{{ view_node }}"
+msgstr "{{ view_taxonomy_term }}{{ view_user }}{{ view_node }}"
+
+msgid "{% if type is empty %}{{entity_type}}{%else%}{{type}}{% endif %}"
+msgstr "{% if type is empty %}{{entity_type}}{%else%}{{type}}{% endif %}"
+
+msgid "Entity Type"
+msgstr "Тип сутності"
+
+msgid "Langcode (en, fr, de)"
+msgstr "Код мови (en, fr, de)"
+
+msgid "Referenced node"
+msgstr "Пов’язаний вузол"
+
+msgid "Referenced term"
+msgstr "Пов’язаний термін"
+
+msgid "Referenced user bio"
+msgstr "Пов’язана біографія користувача"
+
+msgid "<p>Records chosen for export can be filtered and previewed below.</p>"
+msgstr ""
+"<p>Records chosen for export can be filtered and previewed below.</"
+"p><p>Вибрані для експорту записи можна відфільтрувати та переглянути нижче.</"
+"p>"
+
+msgid "<a href=\"/admin/reports/editoria11y/export\">Back to dashboard</a>"
+msgstr "<a href=\"/admin/reports/editoria11y/export\">Назад до панелі</a>"
+
+msgid "Dismissals export"
+msgstr "Експорт прихованих"
+
+msgid "Link to Content"
+msgstr "Посилання на вміст"
+
+msgid "Page raw path"
+msgstr "Сирий шлях сторінки"
+
+msgid "Name"
+msgstr "Назва"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path_1|render %}{% set dynamic_path = "
+"page_path_1 %}{% endif %}\r\n"
+"{% set dynamic_title = title_1 ~ name ~ name_1 %}{% if dynamic_title is "
+"empty %}{% set dynamic_title = page_title %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ dynamic_title }}</"
+"a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path_1|render %}{% set dynamic_path = "
+"page_path_1 %}{% endif %}\r\n"
+"{% set dynamic_title = title_1 ~ name ~ name_1 %}{% if dynamic_title is "
+"empty %}{% set dynamic_title = page_title %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ dynamic_title }}</"
+"a>"
+
+msgid "dismissal"
+msgstr "приховане"
+
+msgid "Page export"
+msgstr "Експорт сторінки"
+
+msgid "Alerts export"
+msgstr "Експорт сповіщень"
+
+msgid "Editoria11y alerts on pages"
+msgstr "Сповіщення Editoria11y на сторінках"
+
+msgid "{{ view_taxonomy_term }}{{ view_user }}{{ view_node }} "
+msgstr "{{ view_taxonomy_term }}{{ view_user }}{{ view_node }} "
+
+msgid "Results for page"
+msgstr "Результати для сторінки"
+
+msgid "<a href=\"./export/pages\">Export pages with alerts</a>"
+msgstr "<a href=\"./export/pages\">Експортувати сторінки зі сповіщеннями</a>"
+
+msgid "<a href=\"./export/dismissals\">Export dismissals</a>"
+msgstr "<a href=\"./export/dismissals\">Експортувати відхилення</a>"
+
+msgid "<a href=\"./export/alerts\">Export alert list</a>"
+msgstr "<a href=\"./export/alerts\">Експортувати список сповіщень</a>"
+
+msgid "Export alerts on pages"
+msgstr "Експортувати сповіщення на сторінках"
+
+msgid "Result name"
+msgstr "Назва результату"

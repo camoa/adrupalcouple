@@ -1,10 +1,17 @@
 filter_settings.markdown_easy:
-  type: filter
+  type: mapping
   label: 'Markdown Easy filter'
   mapping:
     flavor:
       type: string
       label: Flavor
-    tips:
-      type: string
-      label: Tips
+markdown_easy.settings:
+  type: config_object
+  label: 'Markdown Easy settings'
+  mapping:
+    skip_filter_enforcement:
+      type: boolean
+      label: 'Skip filter enforcement'
+    skip_html_input_stripping:
+      type: boolean
+      label: 'Skip HTML input stripping'

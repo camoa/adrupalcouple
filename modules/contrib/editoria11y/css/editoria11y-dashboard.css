@@ -1,0 +1,250 @@
+/* stylelint-disable no-descending-specificity order/properties-order */
+.ed11y-reset-page {
+  float: right;
+  font-size: 0.9em;
+  font-weight: 400;
+}
+
+@media (min-width: 60rem) {
+
+  #editoria11y-form-dashboard .form-item,
+  #editoria11y-form-dismissal-filters .form-item {
+    display: inline-block;
+    max-width: 48%;
+    margin: 0 1% 1rem 0;
+  }
+
+  #editoria11y-form-dashboard .edit-actions,
+  #editoria11y-form-dismissal-filters .edit-actions {
+    display: inline-block;
+    max-width: 18%;
+  }
+}
+
+#recent_dismissals ~ table {
+  width: 100%;
+}
+
+.clear-both {
+  clear: both;
+}
+
+/* 1. Define the steps */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    height: 16px;
+  }
+
+  99% {
+    opacity: 0;
+    height: 16px;
+  }
+
+  100% {
+    opacity: 1;
+    height: auto;
+  }
+}
+
+/* 2. Apply to an element */
+.box {
+  width: 100px;
+  height: 100px;
+  background-color: blue;
+  animation: fadeIn 2s ease-in-out forwards;
+}
+
+[id^="views-exposed-form-ed11y"] {
+  /* Prevent flash before details element appears. */
+  overflow: hidden;
+  animation: fadeIn 2s ease-in-out forwards;
+}
+
+details.ed11y-filters:not([open]) + form {
+  position: absolute;
+  display: none;
+  visibility: hidden;
+  height: 0;
+}
+
+.view-ed11y-result .marker:empty {
+  display: none;
+}
+
+details.ed11y-filters[open] {
+  margin-bottom: 0;
+  padding-bottom: 0;
+
+  & + form {
+    height: auto;
+    margin-top: 0;
+    padding-top: 0;
+    opacity: 1;
+    border-top: 0;
+    margin-left: var(--gin-border-m, 0);
+    margin-right: var(--gin-border-m, 0);
+    max-width: calc(100% - var(--gin-border-m, 0) - var(--gin-border-m, 0));
+    border-radius: 0;
+    gap: 12px;
+    animation: none;
+
+    select {
+      min-width: 100%;
+    }
+
+    .form-item {
+      margin-block: max(var(--space-s), 0.75em);
+      max-width: min(18em, 100%);
+
+      &[class*="form-item--langcode"] {
+        max-width: min(9em, 100%);
+      }
+    }
+
+    .form-item--no-label {
+      margin-top: 3px;
+    }
+
+    #edit-actions {
+      width: 100%;
+    }
+  }
+}
+
+th[id^=view-page-title],
+th[id^=view-page-path],
+th[id^=view-result-key],
+th[id^=view-title],
+th[id^=view-view-node] {
+  min-width: 12em;
+  max-width: 20em;
+  overflow-wrap: break-word;
+}
+
+.views-field a {
+  display: inline-block;
+  min-width: 24px;
+}
+
+.views-field-content-count,
+.views-field-content-results,
+.views-field-dev-results,
+.views-field-dev-count {
+  text-align: end;
+}
+
+.ed11y-no-th-hyphens,
+.editoria11y-export,
+[class*="view-ed11y"] {
+  th {
+    hyphens: none;
+    font-size: clamp(13px, .75em, 16px);
+    line-height: 1.3;
+    font-weight: 600;
+  }
+
+  td {
+    font-size: clamp(15px, .9375rem, 16px);
+    line-height: 1.3;
+  }
+
+  .views-field-result-name,
+  [class*="views-field-page-path"],
+  [class*="views-field-page-title"] {
+    min-width: 12em;
+    hyphens: none;
+  }
+}
+
+button.action-link.ed11y-reset-this-dismissal {
+  padding: 0.25em 0.75em;
+  border: transparent;
+  background: transparent;
+
+  &::before {
+    margin: 0 0 0 -1px;
+    content: url("data:image/svg+xml,%3csvg height='16' fill='%23cc3d3d' width='16' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M14.9 2.9c-.1-.4-.2-.6-.2-.6-.1-.4-.4-.4-.8-.5l-2.3-.3c-.3 0-.3 0-.4-.3-.4-.7-.5-1.2-.9-1.2H5.7c-.4 0-.5.5-.9 1.3-.1.2-.1.2-.4.3l-2.3.3c-.4 0-.7.1-.8.4 0 0-.1.2-.2.5-.1.6-.2.5.3.5h13.2c.5 0 .4.1.3-.4zm-1.5 1.8H2.6c-.7 0-.8.1-.7.6l.8 10.1c.1.5.1.6.8.6h9.1c.6 0 .7-.1.8-.6l.8-10.1c0-.5-.1-.6-.8-.6z'/%3e%3c/svg%3e");
+    background: none !important;
+  }
+
+  &:hover,
+  &:focus {
+    background: #cc3d3d;
+
+    &::before {
+      content: url("data:image/svg+xml,%3csvg height='16' fill='%23fff' width='16' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M14.9 2.9c-.1-.4-.2-.6-.2-.6-.1-.4-.4-.4-.8-.5l-2.3-.3c-.3 0-.3 0-.4-.3-.4-.7-.5-1.2-.9-1.2H5.7c-.4 0-.5.5-.9 1.3-.1.2-.1.2-.4.3l-2.3.3c-.4 0-.7.1-.8.4 0 0-.1.2-.2.5-.1.6-.2.5.3.5h13.2c.5 0 .4.1.3-.4zm-1.5 1.8H2.6c-.7 0-.8.1-.7.6l.8 10.1c.1.5.1.6.8.6h9.1c.6 0 .7-.1.8-.6l.8-10.1c0-.5-.1-.6-.8-.6z'/%3e%3c/svg%3e");
+    }
+  }
+}
+
+div.more-link {
+  text-align: start;
+}
+
+.views-data-export-feed a.feed-icon {
+  display: inline-block;
+  text-indent: 0;
+  width: auto;
+  height: auto;
+  background-position: calc(100% - 10px) 50%;
+  font-weight: bold;
+  font-size: 1.125em;
+  border: 2px solid;
+  padding: 8px 57px 8px 13px;
+  border-radius: 3px;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.editoria11y-no-export-links {
+  margin-top: 2rem;
+}
+
+.editoria11y-export-overview {
+  .views-display-link:not(.views-exposed-form a) {
+    display: none;
+  }
+
+  .view-header.views-exposed-form {
+    flex-direction: column;
+    padding: clamp(8px, 2vw, 36px);
+  }
+
+  p {
+    font-weight: 500;
+  }
+
+  .editoria11y-export-actions {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    margin: .5em 0;
+
+    &:empty {
+      display: none;
+    }
+  }
+
+  a {
+    margin: 0 1rem .5rem 0;
+    font-weight: 500;
+  }
+
+  a.views-display-link {
+    font-weight: bold;
+  }
+
+  .feed-icons {
+    line-height: 0;
+
+    a {
+      line-height: 1.5;
+      border-radius: var(--gin-border-m, .5rem);
+    }
+  }
+}

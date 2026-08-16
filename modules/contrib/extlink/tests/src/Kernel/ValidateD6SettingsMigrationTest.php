@@ -4,12 +4,14 @@ namespace Drupal\Tests\extlink\Kernel;
 
 use Drupal\Tests\extlink\Traits\ExtlinkMigrationTestTrait;
 use Drupal\Tests\migrate_drupal\Kernel\d6\MigrateDrupal6TestBase;
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
  * Tests migration of extlink settings from D6 to config.
- *
- * @group extlink
  */
+#[Group('extlink')]
+#[RunTestsInSeparateProcesses]
 class ValidateD6SettingsMigrationTest extends MigrateDrupal6TestBase {
   use ExtlinkMigrationTestTrait;
 

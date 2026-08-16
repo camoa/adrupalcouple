@@ -5,6 +5,7 @@ namespace Drupal\editoria11y\Controller;
 use Drupal\Component\Serialization\Json;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\editoria11y\Api;
+use Drupal\editoria11y\Exception\Editoria11yApiException;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,7 +27,7 @@ final class ApiController extends ControllerBase {
   /**
    * Constructs a \Drupal\editoria11y\Api ReportsController object.
    */
-  public function __construct($api) {
+  public function __construct(Api $api) {
     $this->api = $api;
   }
 
@@ -42,27 +43,30 @@ final class ApiController extends ControllerBase {
   }
 
   /**
+   * Decodes and shape-checks a JSON request body.
+   *
+   * Json::decode() returns NULL for malformed JSON rather than throwing, so
+   * without this check a bad body would only fail incidentally somewhere in
+   * the Api layer.
+   *
+   * @throws \Drupal\editoria11y\Exception\Editoria11yApiException
+   *   Malformed request body.
+   */
+  private function decodeRequest(Request $request): array {
+    $data = Json::decode($request->getContent());
+    if (!is_array($data)) {
+      throw new Editoria11yApiException('Invalid or empty JSON request body.');
+    }
+    return $data;
+  }
+
+  /**
    * Function to report the results.
    */
   public function report(Request $request): JsonResponse {
     try {
-      $results = Json::decode($request->getContent());
+      $results = $this->decodeRequest($request);
       $this->api->testResults($results);
-      return new JsonResponse("ok");
-    }
-    catch (\Exception $e) {
-      return $this->sendErrorResponse($e);
-    }
-  }
-
-  /**
-   * OK function to check if everything is good.
-   */
-  public function ok(Request $request): JsonResponse {
-    try {
-      $dismissal = Json::decode($request->getContent());
-
-      $this->api->dismiss("ok", $dismissal);
       return new JsonResponse("ok");
     }
     catch (\Exception $e) {
@@ -73,24 +77,10 @@ final class ApiController extends ControllerBase {
   /**
    * Function to hide elements.
    */
-  public function hide(Request $request): JsonResponse {
+  public function dismiss(Request $request): JsonResponse {
     try {
-      $dismissal = Json::decode($request->getContent());
-      $this->api->dismiss("hide", $dismissal);
-      return new JsonResponse("ok");
-    }
-    catch (\Exception $e) {
-      return $this->sendErrorResponse($e);
-    }
-  }
-
-  /**
-   * Function to reset the responses.
-   */
-  public function reset(Request $request): JsonResponse {
-    try {
-      $dismissal = Json::decode($request->getContent());
-      $this->api->dismiss("reset", $dismissal);
+      $dismissal = $this->decodeRequest($request);
+      $this->api->dismiss($dismissal);
       return new JsonResponse("ok");
     }
     catch (\Exception $e) {
@@ -103,8 +93,10 @@ final class ApiController extends ControllerBase {
    */
   public function purgePage(Request $request): JsonResponse {
     try {
-      $page = Json::decode($request->getContent());
-      $this->api->purgePage($page);
+      $data = $this->decodeRequest($request);
+      $page = $data['pid'] ?? FALSE;
+      $path = $data['page_path'] ?? FALSE;
+      $this->api->purgePage($page, $path);
       return new JsonResponse("ok");
     }
     catch (\Exception $e) {
@@ -117,7 +109,7 @@ final class ApiController extends ControllerBase {
    */
   public function purgeDismissals(Request $request): JsonResponse {
     try {
-      $data = Json::decode($request->getContent());
+      $data = $this->decodeRequest($request);
       $this->api->purgeDismissal($data);
       return new JsonResponse("ok");
     }
@@ -128,15 +120,27 @@ final class ApiController extends ControllerBase {
 
   /**
    * Function to send error messages.
+   *
+   * Intentional validation failures carry curated messages the dashboard
+   * shows to the submitter. Anything else (e.g. a database exception) may
+   * embed queries or driver details, so those are logged and the response
+   * stays generic.
    */
-  private function sendErrorResponse($e): JsonResponse {
-    // @todo Record exceptions in log.
+  private function sendErrorResponse(\Exception $e): JsonResponse {
+    if ($e instanceof Editoria11yApiException) {
+      $this->getLogger('editoria11y')->notice('API request rejected: @message', ['@message' => $e->getMessage()]);
+      $description = $e->getMessage();
+    }
+    else {
+      $this->getLogger('editoria11y')->error('API request failed: @message', ['@message' => $e->getMessage()]);
+      $description = (string) $this->t('The request could not be processed. Details have been logged.');
+    }
     return new JsonResponse(
           [
             "message" => "error",
-            "description" => $e->getMessage(),
-            "code" => $e->getCode(),
-          ]
+            "description" => $description,
+          ],
+          400
       );
   }
 

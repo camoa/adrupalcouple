@@ -1,0 +1,67 @@
+<?php
+
+/**
+ * @file
+ * Editoria11y Export install file.
+ */
+
+/**
+ * Mark editoria11y_export as an enforced dependency on the export view.
+ *
+ * Without this, uninstalling the submodule leaves the view in active config
+ * because other module dependencies (node, user, etc.) remain enabled.
+ */
+function editoria11y_export_update_9001(): void {
+  $config = \Drupal::configFactory()->getEditable('views.view.ed11y_export');
+  if ($config->isNew()) {
+    return;
+  }
+  $enforced = $config->get('dependencies.enforced.module') ?? [];
+  if (!in_array('editoria11y_export', $enforced, TRUE)) {
+    $enforced[] = 'editoria11y_export';
+    $config->set('dependencies.enforced.module', $enforced)->save(TRUE);
+  }
+}
+
+/**
+ * Fixes labels and translations in Views.
+ */
+function editoria11y_export_update_9002(): void {
+  $config = \Drupal::configFactory()->getEditable('views.view.ed11y_export');
+  if ($config->isNew()) {
+    return;
+  }
+  $displays = $config->get('display') ?? [];
+  $changed = FALSE;
+  foreach ($displays as $displayId => $display) {
+    $filters = $display['display_options']['filters'] ?? [];
+    foreach ($filters as $filterId => $filter) {
+      if (($filter['expose']['description'] ?? NULL) === '<none>') {
+        $displays[$displayId]['display_options']['filters'][$filterId]['expose']['description'] = '';
+        $changed = TRUE;
+      }
+      // Relabel "Title" → "Page" on page_title exposed filters.
+      if (($filter['field'] ?? NULL) === 'page_title'
+        && ($filter['expose']['label'] ?? NULL) === 'Title'
+      ) {
+        $displays[$displayId]['display_options']['filters'][$filterId]['expose']['label'] = 'Page';
+        $changed = TRUE;
+      }
+    }
+
+    // Relabel "Title" → "Page" on page_title fields (and on the
+    // editoria11y_page_link plugin, which renders a page title link).
+    $fields = $display['display_options']['fields'] ?? [];
+    foreach ($fields as $fieldId => $field) {
+      $is_page_field = ($field['field'] ?? NULL) === 'page_title'
+        || ($field['plugin_id'] ?? NULL) === 'editoria11y_page_link';
+      if ($is_page_field && ($field['label'] ?? NULL) === 'Title') {
+        $displays[$displayId]['display_options']['fields'][$fieldId]['label'] = 'Page';
+        $changed = TRUE;
+      }
+    }
+  }
+  if ($changed) {
+    $config->set('display', $displays)->save(TRUE);
+  }
+}

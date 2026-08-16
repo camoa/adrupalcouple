@@ -1,36 +1,5 @@
-editoria11y-library:
-  version: 2.4.7
-  js:
-    library/dist/editoria11y.min.js: { preprocess: false }
-  css:
-    theme:
-      library/dist/editoria11y.min.css: { preprocess: false }
-  dependencies:
-    - core/drupal
-    - core/drupalSettings
-
-editoria11y-localization:
-  version: 2.4.7
-  js:
-    js/editoria11y-localization.js: {}
-  dependencies:
-    - core/drupal
-    - core/drupalSettings
-
-editoria11y-library-localized:
-  version: 2.4.7
-  js:
-    library/dist/editoria11y.min.js: { preprocess: false }
-  css:
-    theme:
-      library/dist/editoria11y.min.css: { preprocess: false }
-  dependencies:
-    - core/drupal
-    - core/drupalSettings
-    - editoria11y/editoria11y-localization
-
 editoria11y-demo:
-  version: 2.4.7
+  version: 3.0.1-730
   js:
     js/editoria11y-demo.js: {}
   css:
@@ -41,49 +10,31 @@ editoria11y-demo:
     - core/drupalSettings
 
 editoria11y:
-  version: 2.4.7
+  version: 3.0.1-730
   js:
-    js/editoria11y-drupal.js: {}
+    js/editoria11y-drupal.js:
+      { attributes: { type: module } }
+  css:
+    theme:
+      css/editoria11y-demo.css: { preprocess: false }
   dependencies:
-    - editoria11y/editoria11y-library
+    - core/drupal
+    - core/drupalSettings
 
-editoria11y-localized:
-  version: 2.4.7
+editoria11y-dashboard:
+  version: 3.0.1-730
   js:
-    js/editoria11y-drupal.js: {}
-  dependencies:
-    - editoria11y/editoria11y-library-localized
-
-editoria11y-admin:
-  version: 2.4.7
-  js:
-    js/editoria11y-admin.js: {}
+    js/editoria11y-dashboard.js: {}
   css:
     layout:
-      css/editoria11y-admin.css: {}
+      css/editoria11y-dashboard.css: {}
   dependencies:
     - core/drupal
     - core/drupalSettings
     - core/drupal.message
 
-editoria11y-unminified:
-  version: 2.4.7
-  js:
-    library/js/ed11y-element-alt.js: {preprocess: false}
-    library/js/ed11y-element-panel.js: {preprocess: false}
-    library/js/ed11y-element-result.js: {preprocess: false}
-    library/js/ed11y-element-tip.js: {preprocess: false}
-    library/js/ed11y-localization.js: { preprocess: false }
-    library/js/ed11y-test-embeds.js: { preprocess: false }
-    library/js/ed11y-test-headings.js: {preprocess: false}
-    library/js/ed11y-test-images.js: {preprocess: false}
-    library/js/ed11y-test-links.js: {preprocess: false}
-    library/js/ed11y-test-text.js: {preprocess: false}
-    library/js/ed11y.js: {preprocess: false}
-    js/editoria11y-drupal.js: {preprocess: false}
+editoria11y-settings:
+  version: 3.0.1-730
   css:
-    theme:
-      library/css/editoria11y.css: { preprocess: false }
-  dependencies:
-    - core/drupal
-    - core/drupalSettings
+    layout:
+      css/editoria11y-settings.css: {}

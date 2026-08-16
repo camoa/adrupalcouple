@@ -1,0 +1,3031 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: editoria11y 3.0.0\n"
+"POT-Creation-Date: 2026-08-01 21:46-0400\n"
+"PO-Revision-Date: 2026-2-12 10:00+0000\n"
+"Language-Team: Editoria11y\n"
+"Language: hu\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid ""
+"editoria11y_post_update_0004: scanned @scanned mismatched page(s), "
+"backfilled @fixed to the referenced entity language."
+msgstr ""
+"editoria11y_post_update_0004: scanned @scanned mismatched page(s), "
+"backfilled @fixed to the referenced entity language."
+
+msgid "Editoria11y"
+msgstr "Editoria11y"
+
+msgid "Editoria11y - Pages with issues"
+msgstr "Editoria11y – Problémás oldalak"
+
+msgctxt "problems"
+msgid "Provides relationship for issues and dismissals"
+msgstr "Kapcsolatot biztosít a hibák és az elutasítások között"
+
+msgid "EID"
+msgstr "EID"
+
+msgid "Editoria11y's internal page ID"
+msgstr "Az Editoria11y belső oldal‑azonosítója"
+
+msgid "Entity ID"
+msgstr "Entitás azonosító"
+
+msgid "The NID/TID/UID of the page with an issue."
+msgstr "A hibás oldal NID/TID/UID azonosítója."
+
+msgid "Entity type"
+msgstr "Entitástípus"
+
+msgid "The entity type; \"route\" if no type found."
+msgstr "Az entitás típusa; „route”, ha a típus nem található."
+
+msgid "Route name"
+msgstr "Útvonal neve"
+
+msgid "Route name for page."
+msgstr "Az oldal útvonalának neve."
+
+msgid "Page path"
+msgstr "Oldal útvonala"
+
+msgid "Internal, relative page path."
+msgstr "Belső, relatív oldalútvonal."
+
+msgid "Page language"
+msgstr "Oldal nyelve"
+
+msgid "Active translation."
+msgstr "Aktív fordítás."
+
+msgid "Page title"
+msgstr "Oldal címe"
+
+msgid "The name of the route where this was last seen."
+msgstr "Annak az útvonalnak a neve, ahol ez utoljára megjelent."
+
+msgid "Content alerts"
+msgstr "Tartalmi figyelmeztetések"
+
+msgid "Number of alerts shown to content editors."
+msgstr "A tartalomszerkesztőknek megjelenített figyelmeztetések száma."
+
+msgid "Dev alerts"
+msgstr "Fejlesztői figyelmeztetések"
+
+msgid "Number of alerts shown to developers."
+msgstr "A fejlesztőknek megjelenített figyelmeztetések száma."
+
+msgid "Updated"
+msgstr "Frissítve"
+
+msgid "When this page was last checked."
+msgstr "Mikor volt az oldal utoljára ellenőrizve."
+
+msgid "Editoria11y - Test results"
+msgstr "Editoria11y – Teszteredmények"
+
+msgctxt "problems"
+msgid "Stores Editoria11y issue list"
+msgstr "Eltárolja az Editoria11y hibalistát"
+
+msgid "Result row"
+msgstr "Eredménysor"
+
+msgid "Internal identifier"
+msgstr "Belső azonosító"
+
+msgid "Created"
+msgstr "Létrehozva"
+
+msgid "When this page was flagged."
+msgstr "Mikor lett az oldal megjelölve."
+
+msgid "Alert type"
+msgstr "Figyelmeztetés típusa"
+
+msgid "The name of the test as reported by Editoria11y JS"
+msgstr "A teszt neve az Editoria11y JS jelentése szerint"
+
+msgid "Alert type, linked"
+msgstr "Figyelmeztetés típusa (linkelt)"
+
+msgid "Linked to report of all alerts of this type."
+msgstr "A típus összes figyelmeztetését megjelenítő riporthoz linkelve."
+
+msgid "Content alert count"
+msgstr "Tartalmi figyelmeztetések száma"
+
+msgid "The number of hits for this test type on this page"
+msgstr "Az adott teszttípus előfordulásainak száma ezen az oldalon"
+
+msgid "Dev alert count"
+msgstr "Fejlesztői figyelmeztetések száma"
+
+msgid "Editoria11y - Dismissals"
+msgstr "Editoria11y – Elutasítások"
+
+msgid "Stores Editoria11y warnings and dismissals"
+msgstr "Eltárolja az Editoria11y figyelmeztetéseit és elutasításait"
+
+msgid "Dismissal internal reference ID"
+msgstr "Elutasítás belső hivatkozási azonosító"
+
+msgid "Page with dismissal"
+msgstr "Oldal elutasított tételekkel"
+
+msgid "Dismissed by"
+msgstr "Ki utasította el"
+
+msgid "The user linked to this dismissal."
+msgstr "Az elutasítást végrehajtó felhasználó."
+
+msgid "Linked Drupal user"
+msgstr "Kapcsolt Drupal felhasználó"
+
+msgid "Dismissed element id"
+msgstr "Elutasított elem azonosítója"
+
+msgid "Code sample to identify the flagged element."
+msgstr "Kódrészlet a megjelölt elem azonosításához."
+
+msgid "Dismissed on"
+msgstr "Elutasítva ekkor"
+
+msgid "The Unix timestamp of the first time this record was flagged."
+msgstr "A tétel első megjelölésének Unix időbélyege."
+
+msgid "Dismissal stale since"
+msgstr "Elavult ettől a dátumtól"
+
+msgid "The element has not been seen since this date."
+msgstr "Az elem nem jelent meg ezóta."
+
+msgid "Dismissed result name"
+msgstr "Elutasított eredmény neve"
+
+msgid "Dismissed result name, linked"
+msgstr "Elutasított eredmény neve (linkelt)"
+
+msgid "Links to report of all alerts of this type."
+msgstr "A típus összes figyelmeztetését tartalmazó jelentéshez linkelve."
+
+msgid "Dismissal status"
+msgstr "Elutasítás állapota"
+
+msgid "The type of dismissal (e.g., OK, Ignore)"
+msgstr "Az elutasítás típusa (pl. OK, Ignorálás)"
+
+msgid "Relate from Editoria11y page to referenced node"
+msgstr "Kapcsolat az Editoria11y oldal és a hivatkozott node között"
+
+msgid "Issues were found on this node"
+msgstr "Ezen a nodon hibák találhatók"
+
+msgid "Relate from node data to Editoria11y page"
+msgstr "A node adataihoz tartozó Editoria11y oldal"
+
+msgid "Relate from Editoria11y page to referenced taxonomy term"
+msgstr "Kapcsolat az Editoria11y oldal és a hivatkozott taxonómiaterm között"
+
+msgid "Issues were found on this term page"
+msgstr "Ez a taxonómiaoldal hibákat tartalmaz"
+
+msgid "Relate from taxonomy term data to Editoria11y page"
+msgstr "A taxonómiaterm adataihoz tartozó Editoria11y oldal"
+
+msgid "Relate from Editoria11y page list to user bio page data"
+msgstr ""
+"Kapcsolat az Editoria11y oldallista és a felhasználói bemutatkozás között"
+
+msgid "Issues were found on this user bio page"
+msgstr "Ezen a felhasználói bemutatkozó oldalon hibák találhatók"
+
+msgid "Relate from Editoria11y page to user bio page with issues"
+msgstr ""
+"Kapcsolat az Editoria11y oldal és a hibás felhasználói bemutatkozó oldal "
+"között"
+
+msgid "Relate from user bio page to Editoria11y results"
+msgstr ""
+"Kapcsolat a felhasználói bemutatkozó oldal és az Editoria11y eredmények "
+"között"
+
+msgid "Relate from users list to Editoria11y results on bio page"
+msgstr ""
+"Kapcsolat a felhasználói lista és a bemutatkozó oldalak Editoria11y "
+"eredményei között"
+
+msgid "Relate from Editoria11y page to issues on page"
+msgstr "Kapcsolat az Editoria11y oldal és a hibák között"
+
+msgid "Issues found on this node"
+msgstr "Ezen a nodon hibák találhatók"
+
+msgid "Relate from Editoria11y result to page"
+msgstr "Kapcsolat az Editoria11y eredmény és az oldal között"
+
+msgid "Relate from Editoria11y page to dismissals on page"
+msgstr "Kapcsolat az Editoria11y oldal és az oldalon lévő elutasítások között"
+
+msgid "Relate from Editoria11y dismissal to page"
+msgstr "Kapcsolat az Editoria11y elutasítás és az oldal között"
+
+msgid "Group relationship for node with Editoria11y issues"
+msgstr "Group-kapcsolat a hibás node számára"
+
+msgid ""
+"Bridge to the Group module. Add the Group module Group relationship on top "
+"of this one to filter or sort issues by group."
+msgstr ""
+"Híd a Group modulhoz. Erre építve adja hozzá a Group modul saját Group-"
+"kapcsolatát, hogy a hibákat csoport szerint szűrhesse vagy rendezhesse."
+
+msgid "Group relationship for node"
+msgstr "Group-kapcsolat a node számára"
+
+msgid "Group relationship for user bio with Editoria11y issues"
+msgstr "Group-kapcsolat a hibás felhasználói bemutatkozás számára"
+
+msgid "Group relationship for user"
+msgstr "Group-kapcsolat a felhasználó számára"
+
+msgid "Group relationship for taxonomy term with Editoria11y issues"
+msgstr "Group-kapcsolat a hibás taxonómiaterm számára"
+
+msgid ""
+"Bridge to the Group module. Add the Group module Group relationship on top "
+"of this one to filter or sort issues by group. Requires a contrib module "
+"that exposes terms as group content."
+msgstr ""
+"Híd a Group modulhoz. Erre építve adja hozzá a Group modul saját Group-"
+"kapcsolatát, hogy a hibákat csoport szerint szűrhesse vagy rendezhesse. "
+"Ehhez egy olyan contrib modul szükséges, amely a taxonómiatermeket "
+"csoporttartalomként teszi elérhetővé."
+
+msgid "Group relationship for taxonomy term"
+msgstr "Group-kapcsolat a taxonómiaterm számára"
+
+msgid "Warning: possible out of date path. This content may have moved to"
+msgstr ""
+"Figyelem: az útvonal elavult lehet. A tartalom lehet, hogy át lett helyezve "
+"ide:"
+
+msgid "Export CSV"
+msgstr "CSV exportálása"
+
+msgid "Predelete failed: @error_message"
+msgstr "Előtörlés sikertelen: @error_message"
+
+msgid "Page attachment failed: @error_message"
+msgstr "Az oldal csatolása sikertelen: @error_message"
+
+msgid ""
+"editoria11y_update_9019: scanned @total rows, repaired @updated, deleted "
+"@deleted corrupted group rows, left @skipped untouched."
+msgstr ""
+"editoria11y_update_9019: scanned @total rows, repaired @updated, deleted "
+"@deleted corrupted group rows, left @skipped untouched."
+
+msgid ""
+"editoria11y_update_9020: hashed @hashed page rows, removed @deduped "
+"duplicate rows, added unique keys."
+msgstr "editoria11y_update_9020: hashed @hashed page rows, removed @deduped duplicate rows, added unique keys."
+
+msgid "Editoria11y Accessibility Checker"
+msgstr "Editoria11y akadálymentesség-ellenőrző"
+
+msgid ""
+"Checks page content for accessibility and provides a site-wide dashboard."
+msgstr ""
+"A lap tartalmát ellenőrzi az akadálymentesség szempontjából, és "
+"webhelyszintű irányítópultot biztosít."
+
+msgid "Content Accessibility"
+msgstr "Tartalom akadálymentessége"
+
+msgid "Accessibility checker notifications and exclusions."
+msgstr "Akadálymentességi ellenőrzés figyelmeztetései és kizárásai."
+
+msgid "Results from the Editoria11y checker."
+msgstr "Az Editoria11y ellenőrző eredményei."
+
+msgid "Dashboard"
+msgstr "Irányítópult"
+
+msgid "Core settings"
+msgstr "Alapbeállítások"
+
+msgid "Demo"
+msgstr "Demó"
+
+msgid "View Editoria11y checker"
+msgstr "Editoria11y ellenőrző megtekintése"
+
+msgid "Assign to all content editors."
+msgstr "Hozzárendelés minden tartalomszerkesztőhöz."
+
+msgid "Administer Editoria11y checker"
+msgstr "Editoria11y ellenőrző adminisztrálása"
+
+msgid "Allows user to purge results and change configuration."
+msgstr "Lehetővé teszi az eredmények törlését és a konfiguráció módosítását."
+
+msgid "Mark as hidden in Editoria11y"
+msgstr "Elrejtés megjelölése az Editoria11y‑ben"
+
+msgid "Adds button to suppress a manual check for the current user."
+msgstr ""
+"Gombot ad hozzá a kézi ellenőrzés elrejtéséhez a jelenlegi felhasználó "
+"számára."
+
+msgid "Mark as OK in Editoria11y"
+msgstr "„OK” megjelölés az Editoria11y‑ben"
+
+msgid ""
+"Adds button to suppress a manual check for all users, if sync is enabled."
+msgstr ""
+"Gombot ad hozzá a kézi ellenőrzés minden felhasználóra érvényes elrejtéséhez "
+"(ha a szinkronizáció engedélyezett)."
+
+msgid "Manage Editoria11y results"
+msgstr "Editoria11y eredmények kezelése"
+
+msgid "View the site-wide dashboard and reset dismissals."
+msgstr ""
+"A webhelyszintű irányítópult megtekintése és az elutasítások visszaállítása."
+
+msgid "Editoria11y core settings"
+msgstr "Editoria11y alapbeállítások"
+
+msgid "Content Accessibility Issues"
+msgstr "Tartalom akadálymentességi problémái"
+
+msgid "Editoria11y Settings"
+msgstr "Editoria11y beállítások"
+
+msgid "Check elements in these containers"
+msgstr "Elemek ellenőrzése ezekben a konténerekben"
+
+msgid "Alert panel assertiveness"
+msgstr "Figyelmeztető panel hangsúlyossága"
+
+msgid "Do not run if these elements are on the page"
+msgstr "Ne fusson, ha ezek az elemek jelen vannak az oldalon"
+
+msgid "Suppress all alerts if none of these elements are present"
+msgstr ""
+"Minden figyelmeztetés elrejtése, ha ezek az elemek nem találhatók az oldalon"
+
+msgid "Do not run tests on these containers"
+msgstr "Ne végezzen ellenőrzést ezekben a konténerekben"
+
+msgid "Move toggle to avoid colliding with these widgets"
+msgstr "A kapcsoló mozgatása az ütközések elkerüléséhez"
+
+msgid ""
+"Full check should warn on these elements with embedded uncheckable content"
+msgstr ""
+"A teljes ellenőrzés figyelmeztessen ezekre az elemekre, ha beágyazott, nem "
+"ellenőrizhető tartalmuk van"
+
+msgid "These links download a document or image and need a manual review"
+msgstr ""
+"Ezek a linkek dokumentumot vagy képet töltenek le, ezért kézi ellenőrzést "
+"igényelnek"
+
+msgid "Strings that indicate a link opens in a new window"
+msgstr "Kifejezések, amelyek új ablakban/fülön való megnyitásra utalnak"
+
+msgid "Remove these strings from link text before checking for bad link text"
+msgstr ""
+"Ezeknek a kifejezéseknek az eltávolítása a linkfeliratból az ellenőrzés előtt"
+
+msgid "Remove strings in this selector before checking for bad link text"
+msgstr ""
+"A megadott szelektor által kijelölt elemekből távolítsa el a kifejezéseket a "
+"linkfelirat‑ellenőrzés előtt"
+
+msgid ""
+"Hidden elements in these containers will be revealed by theme JS on request "
+"via a dispatched event"
+msgstr ""
+"A témához tartozó JS itt elrejti/megmutatja a rejtett elemeket egy esemény "
+"hatására"
+
+msgid "Elements that truncate overflow, partially hiding buttons"
+msgstr ""
+"Elemei, amelyek levágják a túlcsorduló tartalmat, részben elrejtve a gombokat"
+
+msgid "Color scheme for panel and tooltips"
+msgstr "A panel és a buboréksúgók színsémája"
+
+msgid "Pin toolbar to left or right"
+msgstr "Eszköztár rögzítése balra vagy jobbra"
+
+msgid "Web components the checker should check"
+msgstr "Webkomponensek, amelyeket ellenőrizni kell"
+
+msgid "Auto-detects for additional shadow components"
+msgstr "További shadow DOM komponensek automatikus felismerése"
+
+msgid "Auto-detects and checks new content"
+msgstr "Új tartalom automatikus felismerése és ellenőrzése"
+
+msgid "Disables dashboard and synchronized marking of elements as OK"
+msgstr "Letiltja az irányítópultot és az elemek szinkronizált OK‑jelölését"
+
+msgid "URL query parameters that should be recorded as separate pages"
+msgstr "URL‑paraméterek, amelyeket külön oldalként kell kezelni"
+
+msgid "Remove string from URL for dashboard page links"
+msgstr "A megadott karaktersor eltávolítása az irányítópult URL‑jeiből"
+
+msgid "Number of custom test finished events the checker should wait for"
+msgstr "A lekérendő egyedi teszt‑befejezési események száma"
+
+msgid "Disables live editor checking"
+msgstr "A szerkesztés közbeni ellenőrzések tiltása"
+
+msgid ""
+"Selector for frontend-context editors that should inherit the document "
+"outline"
+msgstr ""
+"Szelektor azon szerkesztőkhöz, amelyeknek örökölniük kell a dokumentum "
+"címsorstruktúráját"
+
+msgid "Selector for editors where their first heading should be h2"
+msgstr ""
+"Szelektor azon szerkesztőkhöz, ahol az első címsornak h2‑nek kell lennie"
+
+msgid "Selector for editors where their first heading should be h3"
+msgstr ""
+"Szelektor azon szerkesztőkhöz, ahol az első címsornak h3‑nak kell lennie"
+
+msgid "Selector for editors where their first heading should be h4"
+msgstr ""
+"Szelektor azon szerkesztőkhöz, ahol az első címsornak h4‑nek kell lennie"
+
+msgid "Selectors for components where edit links are meaningless on tips"
+msgstr ""
+"Szelektorok azokhoz az elemekhez, ahol az „Szerkesztés” link nem értelmes a "
+"buboréksúgókban"
+
+msgid "Tell CK5 to have a header rows or columns by default."
+msgstr "Alapértelmezett táblafejlécek beállítása a CKEditor 5 számára."
+
+msgid "Tests not shown to content authors."
+msgstr "A tartalomszerkesztők számára nem megjelenített tesztek."
+
+msgid "Disable the tests you are not ready for"
+msgstr "A még nem használni kívánt tesztek kikapcsolása"
+
+msgid "linkNewWindow"
+msgstr "linkNewWindow"
+
+msgid "linkNoText"
+msgstr "linkNoText"
+
+msgid "altEmptyLinked"
+msgstr "altEmptyLinked"
+
+msgid "linkDocument"
+msgstr "linkDocument"
+
+msgid "linkTextIsURL"
+msgstr "linkTextIsURL"
+
+msgid "linkTextIsGeneric"
+msgstr "linkTextIsGeneric"
+
+msgid "textPossibleList"
+msgstr "textPossibleList"
+
+msgid "textPossibleHeading"
+msgstr "textPossibleHeading"
+
+msgid "textUppercase"
+msgstr "textUppercase"
+
+msgid "tableNoHeaderCells"
+msgstr "tableNoHeaderCells"
+
+msgid "tableEmptyHeaderCell"
+msgstr "tableEmptyHeaderCell"
+
+msgid "tableContainsContentHeading"
+msgstr "tableContainsContentHeading"
+
+msgid "embedVideo"
+msgstr "embedVideo"
+
+msgid "embedAudio"
+msgstr "embedAudio"
+
+msgid "embedVisualization"
+msgstr "embedVisualization"
+
+msgid "embedTwitter"
+msgstr "embedTwitter"
+
+msgid "embedCustom"
+msgstr "embedCustom"
+
+msgid "headingEmpty"
+msgstr "headingEmpty"
+
+msgid "headingIsLong"
+msgstr "headingIsLong"
+
+msgid "headingLevelSkipped"
+msgstr "headingLevelSkipped"
+
+msgid "blockquoteIsShort"
+msgstr "blockquoteIsShort"
+
+msgid "altMissing"
+msgstr "altMissing"
+
+msgid "altNull"
+msgstr "altNull"
+
+msgid "altMeaningless"
+msgstr "altMeaningless"
+
+msgid "altURL"
+msgstr "altURL"
+
+msgid "altImageOf"
+msgstr "altImageOf"
+
+msgid "altDeadspace"
+msgstr "altDeadspace"
+
+msgid "altLong"
+msgstr "altLong"
+
+msgid "altPartOfLinkWithText"
+msgstr "altPartOfLinkWithText"
+
+msgid "2-letter code (en, fr, de)"
+msgstr "Kétbetűs kód (pl. en, fr, de)"
+
+msgid "Alert"
+msgstr "Figyelmeztetés"
+
+msgid "Alert types"
+msgstr "Figyelmeztetés típusok"
+
+msgid "Alerts"
+msgstr "Figyelmeztetések"
+
+msgid "All dismissals"
+msgstr "Összes elutasítás"
+
+msgid "All issues"
+msgstr "Összes probléma"
+
+msgid "All pages"
+msgstr "Összes oldal"
+
+msgid "Apply"
+msgstr "Alkalmaz"
+
+msgid "Author"
+msgstr "Szerző"
+
+msgid "Authored after"
+msgstr "Létrehozva ezután"
+
+msgid "Authored before"
+msgstr "Létrehozva ezelőtt"
+
+msgid "Authored"
+msgstr "Létrehozva"
+
+msgid "Content type"
+msgstr "Tartalomtípus"
+
+msgid "Detected"
+msgstr "Észlelve"
+
+msgid "Dismissals"
+msgstr "Elutasítások"
+
+msgid "Dismissed accessibility alerts"
+msgstr "Elutasított akadálymentességi figyelmeztetések"
+
+msgid "Edited"
+msgstr "Szerkesztve"
+
+msgid "Editor"
+msgstr "Szerkesztő"
+
+msgid "Items per page"
+msgstr "Elem/oldal"
+
+msgid "Filter"
+msgstr "Szűrés"
+
+msgid "Language"
+msgstr "Nyelv"
+
+msgid "Last editor"
+msgstr "Utolsó szerkesztő"
+
+msgid "Marked"
+msgstr "Megjelölve"
+
+msgid "No dismissals found."
+msgstr "Nem találhatók elutasítások."
+
+msgid "Page"
+msgstr "Oldal"
+
+msgid "Pages"
+msgstr "Oldalak"
+
+msgid "Pages with alerts"
+msgstr "Figyelmeztetésekkel rendelkező oldalak"
+
+msgid "Panel"
+msgstr "Panel"
+
+msgid "Path"
+msgstr "Útvonal"
+
+msgid "Published"
+msgstr "Közzétéve"
+
+msgid "Recent"
+msgstr "Legutóbbi"
+
+msgid "Recent accessibility alerts"
+msgstr "Legutóbbi akadálymentességi figyelmeztetések"
+
+msgid "Recent alerts"
+msgstr "Legutóbbi problémák"
+
+msgctxt "problems"
+msgid "Recent alerts"
+msgstr "Legutóbbi riasztások"
+
+msgid "Sort by"
+msgstr "Rendezés"
+
+msgid "Title"
+msgstr "Cím"
+
+msgid "Type"
+msgstr "Típus"
+
+msgid "Filter and sort"
+msgstr "Szűrés és rendezés"
+
+msgid "Deleted."
+msgstr "Törölve."
+
+msgid "Delete failed."
+msgstr "A törlés sikertelen."
+
+msgid "<p>The Editoria11y <strong><em>@type</em></strong> view is missing.</p>"
+msgstr "<p>Hiányzik az Editoria11y <strong><em>@type</em></strong> nézet.</p>"
+
+msgid ""
+"<p>There are three view configurations this module installs, found in its /"
+"config/install folder. Each must be installed for this dashboard to display "
+"results.</p>"
+msgstr ""
+"<p>A modul három nézetkonfigurációt telepít a /config/install mappában. Az "
+"irányítópult működéséhez mindhárom szükséges.</p>"
+
+msgid ""
+"<p>To fix: copy and paste the contents of <strong>/editoria11y/config/"
+"install/views.view.ed11y_@type.yml</strong> into a \"View\" type import at "
+"<a href=\"/admin/config/development/configuration/single/import\">/admin/"
+"config/development/configuration/single/import</a>. If you sync your "
+"configuration to the filesystem, be sure to include these Views in your "
+"repository.</p>"
+msgstr ""
+"<p>Javításhoz: másolja át a <strong>/editoria11y/config/install/"
+"views.view.ed11y_@type.yml</strong> fájl tartalmát a „View” típusú import "
+"mezőbe: <a href=\"/admin/config/development/configuration/single/import\">/"
+"admin/config/development/configuration/single/import</a>. Ha fájlrendszeri "
+"konfiguráció‑szinkronizációt használ, ezeket a nézeteket is mentse a repóba."
+"</p>"
+
+msgid "link is external"
+msgstr "külső hivatkozás"
+
+msgid "link sends email"
+msgstr "e‑mail küldésére mutató link"
+
+msgid "No results found"
+msgstr "Nem találhatók eredmények"
+
+msgid ""
+"Your Editoria11y CSA trial has @days days remaining. <a "
+"href=\"@url\">Activate a license</a> to continue using CSA features after "
+"the trial ends."
+msgstr ""
+"Az Editoria11y CSA próbaidőszakából @days nap van hátra. <a "
+"href=\"@url\">Aktiváljon licencet</a>, hogy a próba lejárta után is "
+"használhassa a CSA funkciókat."
+
+msgid ""
+"Your Editoria11y CSA trial has expired. CSA features have been disabled. <a "
+"href=\"@url\">Activate a license</a> to continue using them."
+msgstr ""
+"Az Editoria11y CSA próbaidőszaka lejárt. A CSA funkciók letiltásra kerültek. "
+"<a href=\"@url\">Aktiváljon licencet</a> a további használathoz."
+
+msgid ""
+"Your Editoria11y CSA license has expired. <a href=\"@url\">Renew or "
+"deactivate your license</a>."
+msgstr ""
+"Az Editoria11y CSA licence lejárt. <a href=\"@url\">Újítsa meg vagy "
+"deaktiválja a licencét</a>."
+
+msgid ""
+"Your Editoria11y CSA license has expired. Please renew to reactivate CSA add-"
+"ons."
+msgstr ""
+"Az Editoria11y CSA licence lejárt. A CSA kiegészítők újraaktiválásához "
+"újítsa meg a licencet."
+
+msgid "Cron license check failed: @msg"
+msgstr "A cron-licencellenőrzés sikertelen: @msg"
+
+msgid ""
+"Editoria11y CSA features are active on a @days-day trial. <a "
+"href=\"@url\">Activate a license</a> to continue using them after the trial "
+"ends."
+msgstr ""
+"Az Editoria11y CSA funkciók @days napos próbaidőszakban aktívak. <a "
+"href=\"@url\">Aktiváljon licencet</a> a próba lejárta utáni további "
+"használathoz."
+
+msgid "Editoria11y Custom Test"
+msgstr "Editoria11y Egyéni Teszt"
+
+msgid "Editoria11y Custom Tests"
+msgstr "Editoria11y Egyéni Tesztek"
+
+msgid "editoria11y custom test"
+msgstr "editoria11y egyéni teszt"
+
+msgid "editoria11y custom tests"
+msgstr "editoria11y egyéni tesztek"
+
+msgid "Editoria11y CSA: Advanced Tools"
+msgstr "Editoria11y CSA: speciális eszközök"
+
+msgid ""
+"Community-Supported Addons include code and contrast checks, custom checks, "
+"a site crawler and report maintenance tools."
+msgstr "A közösségi kiegészítők kód- és kontrasztellenőrzéseket, egyedi ellenőrzéseket, webhelybejárót és jelentéskarbantartó eszközöket tartalmaznak."
+
+msgid "Add custom test"
+msgstr "Egyéni teszt hozzáadása"
+
+msgid "Recheck"
+msgstr "Újraellenőrzés"
+
+msgid "CSA membership"
+msgstr "CSA tagság"
+
+msgid "Custom tests"
+msgstr "Egyedi tesztek"
+
+msgid "Dashboard Actions"
+msgstr "Irányítópult műveletei"
+
+msgid "Editoria11y CSA membership"
+msgstr "Editoria11y CSA tagság"
+
+msgid "Editoria11y custom tests"
+msgstr "Editoria11y egyéni tesztek"
+
+msgid "Add a custom test"
+msgstr "Egyéni teszt hozzáadása"
+
+msgid "Edit custom test"
+msgstr "Egyéni teszt szerkesztése"
+
+msgid "Delete custom test"
+msgstr "Egyéni teszt törlése"
+
+msgid "Editoria11y CSA Settings"
+msgstr "Editoria11y CSA beállítások"
+
+msgid "Developer roles"
+msgstr "Fejlesztői szerepkörök"
+
+msgid "Developer assertiveness"
+msgstr "Fejlesztői figyelmeztetések intenzitása"
+
+msgid "Tests overridden to show to content editors"
+msgstr "Tartalomszerkesztőknek kényszerítve megjelenített tesztek"
+
+msgid "Tests overridden to turn off"
+msgstr "Kikapcsolásra kényszerített tesztek"
+
+msgid "Tests overridden to only to show to developers"
+msgstr "Kizárólag fejlesztőknek megjelenített tesztek"
+
+msgid "Elements to ignore for contrast test"
+msgstr "Kontraszt‑tesztből kizárt elemek"
+
+msgid "Turn on contrast checks"
+msgstr "Kontrasztellenőrzés bekapcsolása"
+
+msgid "Developer check root: body or specify"
+msgstr "Fejlesztői ellenőrzés gyökere: body vagy egyedi szelektor"
+
+msgid "Developer check root selector"
+msgstr "Fejlesztői ellenőrzés gyökérszelektora"
+
+msgid "Selector for elements to ignore for developers"
+msgstr ""
+"Olyan elemek szelektora, amelyeket a fejlesztőknek figyelmen kívül kell "
+"hagyniuk"
+
+msgid "Enabled"
+msgstr "Engedélyezve"
+
+msgid "Custom development domain patterns"
+msgstr "Egyéni fejlesztői domain‑minták"
+
+msgid "ID"
+msgstr "ID"
+
+msgid "Label"
+msgstr "Felirat"
+
+msgid "Test key"
+msgstr "Tesztkulcs"
+
+msgid "Tooltip title"
+msgstr "Eszköztipp címe"
+
+msgid "Tip content HTML"
+msgstr "Tipp tartalma (HTML)"
+
+msgid "Element set to check"
+msgstr "Ellenőrzendő elemkészlet"
+
+msgid "Dismiss key type"
+msgstr "Elvetési kulcs típusa"
+
+msgid "CSS filter selector"
+msgstr "CSS‑szűrőszelektor"
+
+msgid "Text strings to include"
+msgstr "Belefoglalandó szövegek"
+
+msgid "Text string"
+msgstr "Szöveg"
+
+msgid "Text strings to exclude"
+msgstr "Kihagyandó szövegek"
+
+msgid "Case sensitive text matching"
+msgstr "Kis‑ és nagybetűre érzékeny szövegegyezés"
+
+msgid "Filter which pages will be crawled"
+msgstr "Szűrje, mely oldalak kerüljenek be a bejárásba"
+
+msgid "Cancel"
+msgstr "Mégse"
+
+msgid "Millisecond pause between page requests"
+msgstr "Oldalkérések közti szünet (ezredmásodpercben)"
+
+msgid "This tab needs to remain open and in the foreground during the crawl."
+msgstr ""
+"A bejárás ideje alatt a böngészőfület nyitva és fókuszban kell tartani."
+
+msgid "Estimated time:"
+msgstr "Becsült idő:"
+
+msgid "hours"
+msgstr "óra"
+
+msgid "minutes"
+msgstr "perc"
+
+msgid "minute"
+msgstr "perc"
+
+msgid "Start crawling"
+msgstr "Bejárás indítása"
+
+msgid "Checked:"
+msgstr "Ellenőrizve:"
+
+msgid "pages"
+msgstr "oldal"
+
+msgid "Back to dashboard"
+msgstr "Vissza az irányítópultra"
+
+msgid "Test"
+msgstr "Teszt"
+
+msgid "Elements"
+msgstr "Elemek"
+
+msgid "Status"
+msgstr "Állapot"
+
+msgid "Text"
+msgstr "Szöveg"
+
+msgid "On"
+msgstr "Dátum"
+
+msgid "Off"
+msgstr "Kikapcsolva"
+
+msgid "Freemius deactivation API call failed: @msg"
+msgstr "A Freemius deaktiválási API‑hívás sikertelen: @msg"
+
+msgid "Cannot cancel subscription: API token not found."
+msgstr "Az előfizetés nem mondható le: nem található API‑token."
+
+msgid "Freemius subscription cancellation API call failed: @msg"
+msgstr "A Freemius előfizetés‑lemondási API‑hívás sikertelen: @msg"
+
+msgid "Key module lookup for @id failed: @msg"
+msgstr "Key module lookup for @id failed: @msg"
+
+msgid "Failed to update Freemius install properties: @msg"
+msgstr "A Freemius telepítési tulajdonságainak frissítése sikertelen: @msg"
+
+msgid ""
+"An <a href=\"@settings\">active license must be deactivated</a> before "
+"uninstalling."
+msgstr ""
+"Az eltávolítás előtt <a href=\"@settings\">az aktív licencet deaktiválni "
+"kell</a>."
+
+msgid "License key stored. Use editoria11y-csa:activate to activate."
+msgstr ""
+"Licenckulcs eltárolva. Az aktiváláshoz használja az editoria11y-csa:activate "
+"parancsot."
+
+msgid "License activated."
+msgstr "Licenc aktiválva."
+
+msgid "License deactivated."
+msgstr "Licenc deaktiválva."
+
+msgid "License active. Expires: @date"
+msgstr "A licenc aktív. Lejár: @date"
+
+msgid "License active. No expiration date."
+msgstr "A licenc aktív. Nincs lejárati dátum."
+
+msgid ""
+"License management locked. Use editoria11y-csa:unlock to re-enable UI "
+"changes."
+msgstr ""
+"Licenckezelés zárolva. A felületi módosítások engedélyezéséhez használja az "
+"editoria11y-csa:unlock parancsot."
+
+msgid "License management unlocked. UI changes are now allowed."
+msgstr "Licenckezelés feloldva. A felületi módosítások engedélyezve."
+
+msgid "License expired or cancelled."
+msgstr "A licenc lejárt vagy törölve lett."
+
+msgid "License key cannot be empty."
+msgstr "A licenckulcs nem lehet üres."
+
+msgid "Failed to store key: {msg}"
+msgstr "A kulcs tárolása sikertelen: {msg}"
+
+msgid "No stored license key found. Run editoria11y-csa:set-key first."
+msgstr ""
+"Nem található eltárolt licenckulcs. Először futtassa az editoria11y-csa:set-"
+"key parancsot."
+
+msgid "Activation failed: {msg}"
+msgstr "Az aktiválás sikertelen: {msg}"
+
+msgid "Deactivation failed: {msg}"
+msgstr "A deaktiválás sikertelen: {msg}"
+
+msgid "License check failed: {msg}"
+msgstr "A licencellenőrzés sikertelen: {msg}"
+
+msgid "Export"
+msgstr "Exportálás"
+
+msgid "Export pages"
+msgstr "Oldalak exportálása"
+
+msgid "Export dismissals"
+msgstr "Elutasítások exportálása"
+
+msgid "Export alerts"
+msgstr "Figyelmeztetések exportálása"
+
+msgid "Paths with parameters"
+msgstr "Paraméteres útvonalak"
+
+msgid "Drop records for deleted or moved pages"
+msgstr "Törölt vagy áthelyezett oldalak rekordjainak törlése"
+
+msgid "Deletes results that no longer have valid paths or entity references."
+msgstr ""
+"Törli azokat az eredményeket, amelyek már nem érvényes utakra vagy "
+"entitásokra mutatnak."
+
+msgid "Update page titles"
+msgstr "Oldalcímek frissítése"
+
+msgid ""
+"Replaces recorded titles for Nodes, Terms and Users with the current value "
+"on their edit page."
+msgstr ""
+"A node‑ok, taxonómiai elemek és felhasználók rögzített címeit frissíti az "
+"aktuális szerkesztőoldaluk alapján."
+
+msgid "Update page paths"
+msgstr "Oldalútvonalak frissítése"
+
+msgid ""
+"Replaces recorded URLs for Nodes, Terms and Users with their current "
+"canonical path. <br>@ReviewPaths (node/1?node=2) will not be updated."
+msgstr ""
+"A rögzített URL‑eket lecseréli a node‑ok, taxonómiai elemek és felhasználók "
+"aktuális kanonikus útvonalaira.<br>@ReviewPaths (node/1?node=2) nem kerül "
+"frissítésre."
+
+msgid "Risky deletions"
+msgstr "Kockázatos törlések"
+
+msgid "Delete records for paths with parameters (e.g., ?page=2)"
+msgstr "Rekordok törlése a paraméteres útvonalakról (pl. ?page=2)"
+
+msgid "None"
+msgstr "Nincs"
+
+msgid "Only for nodes, terms & users"
+msgstr "Csak node‑okra, taxonómiára és felhasználókra"
+
+msgid "All, including search and views"
+msgstr "Minden, beleértve a keresést és a nézeteket is"
+
+msgid ""
+"Used to remove duplicate records when previously recorded parameters like "
+"page numbers or search keys were not meaningful. Parameters that are not "
+"meaningful should be removed from the list of parameters to save under "
+"\"Syncing results to reports\" in the module configuration.<br>@ReviewPaths "
+"should be reviewed before proceeding. <strong>There is no undo</strong>."
+msgstr ""
+"Duplikált rekordok eltávolítására szolgál, ha a korábban rögzített "
+"paraméterek – például oldalszám vagy keresési kulcs – nem voltak relevánsak. "
+"A nem releváns paramétereket el kell távolítani a „Syncing results to "
+"reports” beállításból.<br>@ReviewPaths listáját ellenőrizni kell a folytatás "
+"előtt. <strong>A művelet nem vonható vissza</strong>."
+
+msgid "Start"
+msgstr "Indítás"
+
+msgid "Recheck nodes"
+msgstr "Node‑ok újraellenőrzése"
+
+msgid "Set up a crawl"
+msgstr "Bejárás beállítása"
+
+msgid "Processing batch #@batch_id of @count."
+msgstr "@batch_id / @count köteg feldolgozása."
+
+msgid "@process processed @count, deleted @deleted, updated @updated."
+msgstr "@process: @count feldolgozva, @deleted törölve, @updated frissítve."
+
+msgid ""
+"An error occurred while processing %error_operation with arguments: "
+"@arguments"
+msgstr ""
+"Hiba történt a(z) %error_operation művelet végrehajtása közben, az alábbi "
+"paraméterekkel: @arguments"
+
+msgid "No records to process."
+msgstr "Nincs feldolgozandó rekord."
+
+msgid ""
+"@process processed @count, deleted @deleted, updated @updated in @elapsed."
+msgstr ""
+"@process: @count feldolgozva, @deleted törölve, @updated frissítve, idő: "
+"@elapsed."
+
+msgid "Admin label for the configuration page"
+msgstr "Adminisztrátori felirat a konfigurációs oldalhoz"
+
+msgid "Test grouping ID"
+msgstr "Tesztcsoportosítási azonosító"
+
+msgid ""
+"Letters, numbers and underscores only.<br>Rules that share an ID will be "
+"grouped on dashboard reports."
+msgstr ""
+"Csak betűk, számok és aláhúzások.<br>Az azonos azonosítójú szabályok "
+"csoportosítva jelennek meg az irányítópult-jelentésekben."
+
+msgid "Active"
+msgstr "Aktív"
+
+msgid "Alert content"
+msgstr "Riasztás tartalma"
+
+msgid "Tip title"
+msgstr "Tipp címe"
+
+msgid "Tip details"
+msgstr "Tipp részletei"
+
+msgid ""
+"HTML displayed in the tooltip. The provided template is optional.<br>\n"
+"        Allowed tags: @tags."
+msgstr ""
+"Az eszközleírásban megjelenített HTML. A megadott sablon nem kötelező.<br>\n"
+"        Engedélyezett tagek: @tags."
+
+msgid "To fix"
+msgstr "Javítandó"
+
+msgid "Error"
+msgstr "Hiba"
+
+msgid "Manual check"
+msgstr "Manuális ellenőrzés"
+
+msgid "Dismiss key"
+msgstr "Elvetési kulcs"
+
+msgid ""
+"How dismissals are tracked. 'Text' uses its text content, 'Attributes' uses "
+"its attributes (href, id, class, src)."
+msgstr ""
+"Az elvetések nyomon követésének módja. A 'Text' a szöveges tartalmát, az "
+"'Attributes' az attribútumait (href, id, class, src) használja."
+
+msgid "Text content"
+msgstr "Szöveges tartalom"
+
+msgid "Attributes on tag (e.g. href and src)"
+msgstr "Tag attribútumai (pl. href és src)"
+
+msgid "Elements to check"
+msgstr "Ellenőrzendő elemek"
+
+msgid ""
+"These sets contain elements that match your check area and skip over "
+"configuration."
+msgstr ""
+"Ezek a készletek az ellenőrzési területnek megfelelő elemeket tartalmaznak, "
+"és kihagyják a konfigurációt."
+
+msgid "Common choices"
+msgstr "Általános választások"
+
+msgid "All text elements: Headings, Paragraphs, Blockquotes and Lists"
+msgstr "Minden szövegelem: Fejlécek, Bekezdések, Idézetblokkok és Listák"
+
+msgid "Links"
+msgstr "Linkek"
+
+msgid "Paragraphs"
+msgstr "Bekezdések"
+
+msgid "Headings"
+msgstr "Fejlécek"
+
+msgid "Images"
+msgstr "Képek"
+
+msgid "All elements"
+msgstr "Minden elem"
+
+msgid "...other..."
+msgstr "...egyéb..."
+
+msgid "Specific elements and combinations"
+msgstr "Specifikus elemek és kombinációk"
+
+msgid "Lists"
+msgstr "Listák"
+
+msgid "Blockquotes"
+msgstr "Idézetblokkok"
+
+msgid "Tables"
+msgstr "Táblázatok"
+
+msgid "Buttons"
+msgstr "Gombok"
+
+msgid "Inputs"
+msgstr "Beviteli mezők"
+
+msgid "Labels"
+msgstr "Feliratok"
+
+msgid "Iframes"
+msgstr "Iframes"
+
+msgid "Videos"
+msgstr "Videók"
+
+msgid "Audio"
+msgstr "Hang"
+
+msgid ""
+"Note: combining Links with Paragraphs and other text containers can lead to "
+"duplicate alerts."
+msgstr ""
+"Megjegyzés: a Linkek Bekezdésekkel és más szöveges tárolókkal való "
+"kombinálása ismétlődő riasztásokhoz vezethet."
+
+msgid "When tip should appear"
+msgstr "Mikor jelenjen meg a tipp"
+
+msgid ""
+"This test builder allows for simple text and attribute tests.<br>Check the "
+"module readme for <a href=\"@url\">tips on writing more complex tests</a>."
+msgstr ""
+"Ez a tesztkészítő egyszerű szöveg- és attribútumteszteket tesz lehetővé."
+"<br>A modul readme fájlában <a href=\"@url\">tippeket talál összetettebb "
+"tesztek írásához</a>."
+
+msgid "Select by attributes"
+msgstr "Kiválasztás attribútumok alapján"
+
+msgid ""
+"Match using CSS selectors.<br>Use :not() to skip elements, e.g. "
+"<code>:is(.check1, .check2):not(.ignore, .ignore *)</code>.<br>Use attribute "
+"selectors for URLs, e.g. <code>[href*=\".dev/\"]</code>."
+msgstr ""
+"Egyeztetés CSS-szelektorokkal.<br>Használja a :not() elemet az elemek "
+"kihagyásához, pl. <code>:is(.check1, .check2):not(.ignore, .ignore *)</code>."
+"<br>Használjon attribútumszelektor okat URL-ekhez, pl. <code>[href*=\".dev/"
+"\"]</code>."
+
+msgid "Select by text"
+msgstr "Kiválasztás szöveg alapján"
+
+msgid "Flag elements containing any of these text strings. One per line."
+msgstr ""
+"Jelölje meg az ezen szöveges karakterláncok bármelyikét tartalmazó elemeket. "
+"Soronként egy."
+
+msgid "Case sensitive"
+msgstr "Kis- és nagybetű érzékeny"
+
+msgid "Exclude elements that match this text"
+msgstr "Zárja ki a szövegnek megfelelő elemeket"
+
+msgid ""
+"Don't flag elements if they contain any of these words or phrases. E.g., a "
+"link to a development server is ok if it contains \"dev.\" One per line."
+msgstr ""
+"Ne jelölje meg az elemeket, ha tartalmazzák ezeket a szavakat vagy "
+"kifejezéseket. Pl. egy fejlesztői szerverre mutató link elfogadható, ha "
+"tartalmazza a \"dev.\" szót. Soronként egy."
+
+msgid "Test key must contain only letters, numbers, and underscores."
+msgstr "A tesztkulcs csak betűket, számokat és aláhúzásokat tartalmazhat."
+
+msgid "Tip content must contain visible text."
+msgstr "A tipp tartalmának látható szöveget kell tartalmaznia."
+
+msgid "Select at least one rule."
+msgstr "Válasszon legalább egy szabályt."
+
+msgid "Select at least one element type."
+msgstr "Válasszon legalább egy elemtípust."
+
+msgid "The filter selector should be a CSS selector, not a CSS rule block."
+msgstr "A szűrőszelektor CSS-szelektor legyen, ne CSS-szabályblokk."
+
+msgid "Created new custom test %label."
+msgstr "Új egyéni teszt létrehozva: %label."
+
+msgid "Updated custom test %label."
+msgstr "Egyéni teszt frissítve: %label."
+
+msgid "Are you deactivating this site or cancelling altogether?"
+msgstr ""
+"Csak ezt a webhelyet deaktiválja, vagy teljesen lemondja az előfizetést?"
+
+msgid "You can manage your subscriptions at any time in your Freemius account."
+msgstr "Előfizetéseit bármikor kezelheti a Freemius‑fiókjában."
+
+msgid "Choose an action"
+msgstr "Válasszon műveletet"
+
+msgid ""
+"<strong>Deactivate this site</strong>, but keep my subscription active and "
+"renewing for use on another site"
+msgstr ""
+"<strong>Ennek a webhelynek a deaktiválása</strong>, de az előfizetés "
+"maradjon aktív és megújuló, hogy egy másik webhelyen használhassam"
+
+msgid ""
+"<strong>Cancel my subscription</strong> to the Editoria11y CSA altogether"
+msgstr "<strong>Az Editoria11y CSA-előfizetés teljes lemondása</strong>"
+
+msgid "Confirm deactivation"
+msgstr "Deaktiválás megerősítése"
+
+msgid "Never mind; keep site active"
+msgstr "Mégsem; a webhely maradjon aktív"
+
+msgid ""
+"This site appears to be a development or testing environment with an active "
+"license."
+msgstr ""
+"Úgy tűnik, hogy ez a webhely egy fejlesztői vagy tesztkörnyezet aktív "
+"licenccel."
+
+msgid "How would you like to proceed?"
+msgstr "Hogyan szeretne folytatni?"
+
+msgid ""
+"<strong>Cancel deactivation</strong>; I will manage this from the production "
+"site"
+msgstr ""
+"<strong>Deaktiválás megszakítása</strong>; ezt az éles webhelyről fogom "
+"kezelni"
+
+msgid ""
+"<strong>Disconnect this copy</strong>; leave the production license active"
+msgstr ""
+"<strong>Ennek a másolatnak a lecsatlakoztatása</strong>; az éles licenc "
+"maradjon aktív"
+
+msgid ""
+"<strong>Deactivate all copies of this site</strong> (production, dev, and QA)"
+msgstr ""
+"<strong>A webhely összes másolatának deaktiválása</strong> (éles, fejlesztői "
+"és QA)"
+
+msgid "Confirm"
+msgstr "Megerősítés"
+
+msgid ""
+"Editoria11y promotes accessibility in a unique way. Its tools are highly "
+"effective at helping non-technical authors prepare content that can be "
+"enjoyed equally by disabled Web users. We consider this a public good, so "
+"Editoria11y will always be free to use."
+msgstr ""
+"Az Editoria11y egyedi módon mozdítja elő az akadálymentességet. Eszközei "
+"rendkívül hatékonyak abban, hogy segítsenek a nem műszaki szerzőknek olyan "
+"tartalmat készíteni, amelyet a fogyatékkal élő webhasználók is egyenrangúan "
+"élvezhetnek. Ezt közjónak tekintjük, ezért az Editoria11y mindig ingyenesen "
+"használható marad."
+
+msgid "Editoria11y is not, however, free to develop or support."
+msgstr "Az Editoria11y fejlesztése és támogatása azonban nem ingyenes."
+
+msgid ""
+"The \"Community Supported Add-ons\" (CSA) project fills the gap: project "
+"membership subscriptions fund the development of the Editoria11y library, "
+"its CMS plugins, and the CSA suite."
+msgstr ""
+"A „Community Supported Add-ons” (CSA) projekt ezt a hiányt pótolja: a "
+"projekthez való tagsági előfizetések finanszírozzák az Editoria11y könyvtár, "
+"a CMS-bővítményei és a CSA-csomag fejlesztését."
+
+msgid ""
+"<a href=\"@url\"><strong>Join the CSA</strong></a> to support this project"
+msgstr ""
+"<a href=\"@url\"><strong>Csatlakozzon a CSA-hoz</strong></a> a projekt "
+"támogatásához"
+
+msgid ""
+"Existing members: <a href=\"@url\"><strong>Manage your subscription</"
+"strong></a> or <a href=\"@support_url\"><strong>contact support</strong></a>"
+msgstr ""
+"Meglévő tagok: <a href=\"@url\"><strong>Előfizetés kezelése</strong></a> "
+"vagy <a href=\"@support_url\"><strong>kapcsolat a támogatással</strong></a>"
+
+msgid ""
+"License management on this site has been locked via Drush. Use <code>drush "
+"ed11y-unlock</code> to re-enable changes from this form."
+msgstr ""
+"A licenckezelés ezen a webhelyen Drush-csal zárolva lett. A módosítások "
+"engedélyezéséhez ebből az űrlapból használja a <code>drush ed11y-unlock</"
+"code> parancsot."
+
+msgid "Warning: this site matches a dev or QA URL pattern"
+msgstr "Figyelem: ez a webhely illeszkedik egy fejlesztői vagy QA URL‑mintára"
+
+msgid "Shared activations should be managed in the production copy."
+msgstr "A megosztott aktiválásokat az éles másolaton kell kezelni."
+
+msgid ""
+"Use <code>drush ed11y-lock</code> to prevent changing shared activations."
+msgstr ""
+"A megosztott aktiválások módosításának megakadályozásához használja a "
+"<code>drush ed11y-lock</code> parancsot."
+
+msgid ""
+"Deactivating a shared key deactivates all copies of a site, including "
+"production."
+msgstr ""
+"Egy megosztott kulcs deaktiválása a webhely összes másolatát deaktiválja, "
+"beleértve az éles környezetet is."
+
+msgid ""
+"Separate license activations from a development environment consume an "
+"additional key."
+msgstr ""
+"A fejlesztői környezetből történő külön licencaktiválás egy további kulcsot "
+"használ fel."
+
+msgid "Trial (@days days remaining)"
+msgstr "Próbaidőszak (@days nap van hátra)"
+
+msgid "Trial (expired)"
+msgstr "Próbaidőszak (lejárt)"
+
+msgid "License expired"
+msgstr "Licenc lejárt"
+
+msgid "Active membership"
+msgstr "Aktív tagság"
+
+msgid "Activate using stored license key"
+msgstr "Aktiválás az eltárolt licenckulccsal"
+
+msgid "Activate with a different license key"
+msgstr "Aktiválás másik licenckulccsal"
+
+msgid "Activate (enter license key below)"
+msgstr "Aktiválás (adja meg lent a licenckulcsot)"
+
+msgid "<strong>License expired.</strong> Expired on: @date"
+msgstr "<strong>A licenc lejárt.</strong> Lejárat dátuma: @date"
+
+msgid "<strong>License has expired.</strong>"
+msgstr "<strong>A licenc lejárt.</strong>"
+
+msgid "<strong>Trial license active.</strong> Trial ends: @date"
+msgstr "<strong>Próbalicenc aktív.</strong> A próba vége: @date"
+
+msgid "<strong>License active.</strong> Expires: @date"
+msgstr "<strong>A licenc aktív.</strong> Lejár: @date"
+
+msgid "<strong>Lifetime license active.</strong>"
+msgstr "<strong>Élethosszig tartó licenc aktív.</strong>"
+
+msgid "Check for license renewal"
+msgstr "Licencmegújítás ellenőrzése"
+
+msgid "Deactivate license"
+msgstr "Licenc deaktiválása"
+
+msgid "A license key is stored but not active"
+msgstr "Egy licenckulcs el van tárolva, de nem aktív"
+
+msgid "Add a license key to enable CSA features"
+msgstr "A CSA funkciók engedélyezéséhez adjon meg egy licenckulcsot"
+
+msgid "Enable CSA features"
+msgstr "CSA funkciók engedélyezése"
+
+msgid "CSA license key"
+msgstr "CSA licenckulcs"
+
+msgid ""
+"<a href=\"@url\">Join the CSA</a> to enable CSA features. Visit the Freemius "
+"dashboard to <a href=\"@freemius\">manage your subscription</a> or recover a "
+"lost key."
+msgstr ""
+"<a href=\"@url\">Csatlakozzon a CSA-hoz</a> a CSA funkciók engedélyezéséhez. "
+"Az <a href=\"@freemius\">előfizetés kezeléséhez</a> vagy egy elveszett kulcs "
+"helyreállításához látogasson el a Freemius irányítópultjára."
+
+msgid "Local, Dev and QA site URL patterns"
+msgstr "Helyi, fejlesztői és QA webhely‑URL‑minták"
+
+msgid ""
+"One pattern per line, up to 5 patterns. Wildcards are supported (e.g. "
+"<code>*.test.example.com</code>).<br>Local, dev and QA sites can share an "
+"activation with production site, but only production sites check for "
+"renewals."
+msgstr ""
+"Soronként egy minta, legfeljebb 5 minta. A helyettesítő karakterek "
+"támogatottak (pl. <code>*.test.example.com</code>).<br>A helyi, fejlesztői "
+"és QA webhelyek megoszthatnak egy aktiválást az éles webhellyel, de csak az "
+"éles webhelyek ellenőrzik a megújításokat."
+
+msgid ""
+"Additionally, any hostname consisting only of digits and dots (raw IPv4 "
+"address) is treated as a development environment."
+msgstr ""
+"Ezenfelül minden olyan gépnév, amely csak számjegyekből és pontokból áll "
+"(nyers IPv4-cím), fejlesztői környezetként van kezelve."
+
+msgid "Built-in development URL patterns"
+msgstr "Beépített fejlesztői URL‑minták"
+
+msgid "Enter no more than 5 custom domain patterns."
+msgstr "Legfeljebb 5 egyéni domain‑mintát adjon meg."
+
+msgid "Saved license key not found. Please activate with a new key."
+msgstr "A mentett licenckulcs nem található. Aktiváljon új kulccsal."
+
+msgid "Enter a license key."
+msgstr "Adjon meg egy licenckulcsot."
+
+msgid "Activation failed: @msg"
+msgstr "Az aktiválás sikertelen: @msg"
+
+msgid "License renewed and active."
+msgstr "A licenc megújítva és aktív."
+
+msgid "License is still expired."
+msgstr "A licenc továbbra is lejárt állapotban van."
+
+msgid "Unexpected license status: @status"
+msgstr "Váratlan licencállapot: @status"
+
+msgid "Could not reach licensing server: @msg"
+msgstr "Nem sikerült elérni a licencszervert: @msg"
+
+msgid "Deactivation failed: @msg"
+msgstr "A deaktiválás sikertelen: @msg"
+
+msgid "Editoria11y Export Batch Processor"
+msgstr "Editoria11y export kötegelt feldolgozó"
+
+msgid ""
+"Batching is only needed for very large or heavily customized CSV exports."
+msgstr "Kötegelt feldolgozásra csak nagyon nagy vagy erősen testreszabott CSV-exportoknál van szükség."
+
+msgid "hide"
+msgstr "elrejtés"
+
+msgid "ok"
+msgstr "ok"
+
+msgid "Yes"
+msgstr "Igen"
+
+msgid "No"
+msgstr "Nem"
+
+msgid "This alt text is a filename, not a description"
+msgstr "Ez az alternatív szöveg fájlnév, nem valódi leírás"
+
+msgid "Is this a clear and concise description of the image?"
+msgstr "Világos és tömör leírás ez a képről?"
+
+msgid "This alt text may be a placeholder"
+msgstr "Ez az alt‑szöveg helyőrző lehet"
+
+msgid "This alt text is unpronounceable"
+msgstr "Ez az alternatív szöveg nem ejthető ki"
+
+msgid "This custom input field is missing a label"
+msgstr "Hiányzik a címke ehhez az egyéni beviteli mezőhöz"
+
+msgid "Button is missing an accessible label"
+msgstr "A gombnak nincs hozzáférhető neve"
+
+msgid "Button has an invalid ARIA label"
+msgstr "A gomb érvénytelen ARIA‑címkét használ"
+
+msgid "Button name repeats the word \"button\""
+msgstr "A gomb neve ismétli a „button” szót"
+
+msgid "This button is unpronounceable"
+msgstr "Ez a gomb kiejthetetlen"
+
+msgid "Text does not have enough contrast to be easily legible"
+msgstr "A szöveg kontrasztja túl alacsony, nehezen olvasható"
+
+msgid "Graphic or icon does not have enough contrast"
+msgstr "A grafika vagy ikon kontrasztja nem elegendő"
+
+msgid "Input does not provide enough contrast to be easily legible"
+msgstr "A beviteli mező kontrasztja túl alacsony"
+
+msgid "Placeholder text does not have enough contrast to be easily legible"
+msgstr "A helykitöltő szöveg kontrasztja túl alacsony"
+
+msgid "Does this placeholder text have enough contrast?"
+msgstr "A helykitöltő szövegnek van elegendő kontrasztja?"
+
+msgid "Does this text have enough contrast?"
+msgstr "Ennek a szövegnek elegendő a kontrasztja?"
+
+msgid "Does this graphic or icon have enough contrast?"
+msgstr "Ennek a grafikának vagy ikonnak elegendő a kontrasztja?"
+
+msgid "Duplicate ID attribute"
+msgstr "Duplikált ID‑attribútum"
+
+msgid "This link has a tooltip with the same text as the link"
+msgstr "A link title‑je megegyezik a link szövegével"
+
+msgid "Does this audio have a transcript?"
+msgstr "Van ennek a hanganyagnak szöveges átirata?"
+
+msgid "Is this visualization accessible?"
+msgstr "Ez az adatvizualizáció hozzáférhető?"
+
+msgid "Embedded iframes need manual checks"
+msgstr "A beágyazott iframe‑ek kézi ellenőrzést igényelnek"
+
+msgid "Frame missing \"title\" attribute"
+msgstr "Az iframe hiányolja a „title” attribútumot"
+
+msgid "Frame with tabindex=\"-1\" will not be keyboard accessible."
+msgstr "A tabindex=\"‑1\" iframe nem érhető el billentyűzettel"
+
+msgid "Is this video accurately captioned?"
+msgstr "Ennek a videónak van megfelelő felirata?"
+
+msgid "This heading has no text"
+msgstr "A címsor nem tartalmaz szöveget"
+
+msgid "This image is used as a heading, so it needs alt text"
+msgstr "A kép címsorként szerepel, alt‑szöveg szükséges"
+
+msgid "The first heading on this page is a subheading"
+msgstr "A lap első címsora nem 1. szintű"
+
+msgid "Can this heading be shorter?"
+msgstr "Ez a címsor lehetne rövidebb?"
+
+msgid "This page is missing a Heading 1"
+msgstr "A lapon nincs 1. szintű címsor"
+
+msgid "This heading is tagged at the wrong level"
+msgstr "A címsor szintje hibás"
+
+msgid "This heading is unpronounceable"
+msgstr "Ez a címsor kiejthetetlen"
+
+msgid "This element cannot be described by screen readers"
+msgstr "Ez az elem nem érthető a képernyőolvasók számára"
+
+msgid "Can this alt text be shorter?"
+msgstr "Ez az alternatív szöveg túl hosszú"
+
+msgid "Is this image actually meaningless?"
+msgstr "Ez a kép valóban dekoratív?"
+
+msgid "Image in a carousel or gallery marked as decorative"
+msgstr "Diavetítésben szereplő kép dekoratívként van jelölve"
+
+msgid "This captioned image has no alt text"
+msgstr "A képaláírással rendelkező képnek nincs alt‑szövege"
+
+msgid "Alt text should not be the same as caption text"
+msgstr "Az alt‑szöveg nem lehet azonos a képaláírással"
+
+msgid "Is there a visible label for this field?"
+msgstr "Van ehhez a mezőhez látható címke?"
+
+msgid "Prefer visible labels to placeholders"
+msgstr "Inkább használjon látható címkét helykitöltő helyett"
+
+msgid "Is this reset button needed?"
+msgstr "Szükséges ez a „Törlés/Alaphelyzet” gomb?"
+
+msgid "This input has an empty label"
+msgstr "A beviteli mező címkéje üres"
+
+msgid "Visible label does not match invisible label"
+msgstr "A látható címke nem egyezik a hozzáférhető címmel"
+
+msgid "This image input is missing alt text"
+msgstr "Ehhez a kép beviteli mezőhöz hiányzik az alt‑szöveg"
+
+msgid "This input is not connected to a label"
+msgstr "Ez a beviteli mező nincs címkéhez kapcsolva"
+
+msgid "Language tag does not match the content"
+msgstr "A nyelvi címke nem egyezik a tartalommal"
+
+msgid "This content appears to be in a different language"
+msgstr "Ez a tartalom más nyelven íródottnak tűnik"
+
+msgid "This alt text appears to be in a different language"
+msgstr "Ez az alt‑szöveg más nyelven íródottnak tűnik"
+
+msgid "Alt text used as a link should not be a URL"
+msgstr "A hivatkozás alt‑szövege nem lehet URL"
+
+msgid "This linked alt might not be clear and concise"
+msgstr "Ez a hivatkozott alt-szöveg nem biztos, hogy világos és tömör"
+
+msgid "Linked images need pronounceable alt text"
+msgstr "A képlinkek alt‑szövegének ejthetőnek kell lennie"
+
+msgid "Manual check: link contains \"click here\""
+msgstr "Kézi ellenőrzés: a link „kattints ide” szöveget tartalmaz"
+
+msgid "Link article titles, not DOI numbers"
+msgstr "A DOI helyett a cikk címére kell linkelni"
+
+msgid "This link contains no words"
+msgstr "Ez a link nem tartalmaz szöveget"
+
+msgid "Link with invalid \"aria-labelledby\" attribute"
+msgstr "A link érvénytelen aria‑labelledby értéket használ"
+
+msgid "This link needs a label"
+msgstr "A linkhez címke szükséges"
+
+msgid "Link points to a file without warning"
+msgstr "A link fájlra mutat figyelmeztetés nélkül"
+
+msgid "Links with the same text link to different pages"
+msgstr "Az azonos szövegű linkek különböző oldalakra mutatnak"
+
+msgid "Does this alt text describe the link or the image?"
+msgstr "Ez az alt‑szöveg a link célját vagy a képet írja le?"
+
+msgid "Does this alt text make sense as part of this link?"
+msgstr "Az alt‑szöveg illeszkedik a link tartalmához?"
+
+msgid "Can this linked alt text be shorter?"
+msgstr "A képlink alt‑szövege lehetne rövidebb?"
+
+msgid "This linked image needs alt text"
+msgstr "A képlink alt‑szöveget igényel"
+
+msgid "Does this linked image need a description?"
+msgstr "Szükség van leírásra ehhez a képlinkhez?"
+
+msgid "Is this link actually a button?"
+msgstr "Ez a link valójában gomb?"
+
+msgid "Does this link open a new tab without warning?"
+msgstr "A link új lapon nyílik meg figyelmeztetés nélkül"
+
+msgid "This linked alt text may be a placeholder"
+msgstr "A képlink alt‑szövege helyőrző lehet"
+
+msgid "This link only contains generic words"
+msgstr "Ez a link csak általános szavakat tartalmaz"
+
+msgid "The purpose of this link is visually hidden"
+msgstr "Ennek a linknek a célja vizuálisan rejtve van"
+
+msgid "Does this image's alt describe the image or the link?"
+msgstr "Az alt‑szöveg a képet vagy a link célját írja le?"
+
+msgid "Are the symbols or emoji in this link meaningful?"
+msgstr "A linkben lévő szimbólumok/emoji értelmesek?"
+
+msgid "This link is unpronounceable"
+msgstr "Ez a hivatkozás kiejthetetlen"
+
+msgid "Link text should not be a URL"
+msgstr "Linkfelirat nem lehet puszta URL"
+
+msgid "Meta tag for page language missing"
+msgstr "A dokumentum nyelvét megadó meta‑címke hiányzik"
+
+msgid "Did you mean a different language code?"
+msgstr "Más nyelvkódra gondolt?"
+
+msgid "Invalid language code"
+msgstr "Érvénytelen nyelvkód"
+
+msgid "Page language may not match the content"
+msgstr "Az oldal nyelve esetleg nem egyezik a tartalommal"
+
+msgid "Meta tag limits how much users can enlarge text"
+msgstr "A meta‑címke korlátozza a nagyítást"
+
+msgid "Meta tag automatically refreshes page"
+msgstr "Ez a meta‑címke automatikusan frissíti az oldalt"
+
+msgid "Meta tag prevents users from enlarging text"
+msgstr "Ez a meta‑címke tiltja a nagyítást"
+
+msgid "Meta tag for page title missing"
+msgstr "Hiányzik az oldal címét megadó meta‑címke"
+
+msgid "Invalid HTML: image has no alt attribute"
+msgstr "A kép nem tartalmaz alt attribútumot"
+
+msgid "Invalid HTML: linked image missing alt attribute"
+msgstr "A linkben lévő kép nem tartalmaz alt attribútumot"
+
+msgid "Invalid HTML: image in link missing alt attribute"
+msgstr "A linkben lévő kép alt attribútuma hiányzik"
+
+msgid "This link target may be invalid"
+msgstr "A link célja hibás lehet"
+
+msgid "Should this quote be a heading?"
+msgstr "Lehet, hogy ez az idézet valójában címsor lenne?"
+
+msgid "Has this document been tagged for screen readers?"
+msgstr "Ez a dokumentum megfelelően tagelt a képernyőolvasók számára?"
+
+msgid "Should this bold text be a heading?"
+msgstr "Ez a félkövér szöveg valójában címsor?"
+
+msgid "Should this have list formatting?"
+msgstr "Ezt a tartalmat listaként kellene formázni?"
+
+msgid "Broken same-page link"
+msgstr "Hibás oldalon belüli hivatkozás"
+
+msgid "Do not justify text"
+msgstr "Ne használjon sorkizárt igazítást"
+
+msgid "Nested interactive layout components"
+msgstr "Beágyazott interaktív elemek találhatók"
+
+msgid "Is there an alternative for this PDF?"
+msgstr "Van alternatívája ennek a PDF‑nek?"
+
+msgid "Text is too small"
+msgstr "A szöveg túl kicsi"
+
+msgid "Large blocks of emphasized text are harder to read"
+msgstr "A túl sok kiemelt szöveg nehezen olvasható"
+
+msgid "Do not use sub/superscript as visual formatting"
+msgstr "A felső‑/alsóindexet ne használja pusztán formázásként"
+
+msgid "Only links should be underlined"
+msgstr "Csak a linkek legyenek aláhúzva"
+
+msgid "Is this uppercase text needed?"
+msgstr "Szükséges a CSUPA NAGYBETŰS szöveg?"
+
+msgid "Are there redundant words in this alt text?"
+msgstr "Felesleges szavak lehetnek az alt‑szövegben"
+
+msgid "Tabindex overrides interrupt the focus order"
+msgstr "A tabindex‑felülírások megszakítják a fókuszsorrendet"
+
+msgid "This header cell needs text"
+msgstr "A táblázat fejléccellája hiányzik"
+
+msgid "This table has an invalid headers attribute"
+msgstr "A táblázat érvénytelen fejléc‑attribútumot tartalmaz"
+
+msgid "This table needs a header row and/or column"
+msgstr "A táblázatból hiányoznak a sor‑/oszlopfejlécek"
+
+msgid "Content headings should not be used inside tables"
+msgstr "Tartalmi címsor nem használható táblázaton belül"
+
+msgid "Invalid HTML list"
+msgstr "Érvénytelen HTML‑lista"
+
+msgid "Linked images"
+msgstr "Képlinkek"
+
+msgid "Text formatting"
+msgstr "Szövegformázás"
+
+msgid "Video, audio, frames"
+msgstr "Videó, hang, keretek"
+
+msgid "Contrast"
+msgstr "Kontraszt"
+
+msgid "Forms"
+msgstr "Űrlapok"
+
+msgid "ARIA and focus"
+msgstr "ARIA és fókusz"
+
+msgid "Page metadata"
+msgstr "Oldal metaadatai"
+
+msgid "The request could not be processed. Details have been logged."
+msgstr "A kérést nem sikerült feldolgozni. A részletek naplózásra kerültek."
+
+msgid "API request rejected: @message"
+msgstr "API-kérés elutasítva: @message"
+
+msgid "API request failed: @message"
+msgstr "Az API-kérés sikertelen: @message"
+
+msgid "Export pages with alerts"
+msgstr "Figyelmeztetéses oldalak exportálása"
+
+msgid ""
+"Install the Editoria11y Export Batch Processor module to download these "
+"reports."
+msgstr "Telepítse az Editoria11y Export Batch Processor modult ezen jelentések letöltéséhez."
+
+msgid "Export results"
+msgstr "Eredmények exportálása"
+
+msgctxt "problems"
+msgid "Top alerts"
+msgstr "Leggyakoribb problémák"
+
+msgctxt "problems"
+msgid "Pages with the most alerts"
+msgstr "A legtöbb problémát tartalmazó oldalak"
+
+msgid "Recent dismissals"
+msgstr "Legutóbbi elutasítások"
+
+msgid ""
+"Activate the <a href=\"@csa\">Editoria11y CSA submodule</a> to see developer "
+"tests."
+msgstr ""
+"A fejlesztői tesztek megtekintéséhez aktiválja az <a "
+"href=\"@csa\">Editoria11y CSA almodult</a>."
+
+msgid "Include all parts of the page that contain your theme and content."
+msgstr ""
+"Foglaljon bele minden olyan oldalrészt, amely a sablont és a tartalmat "
+"tartalmazza."
+
+msgid "Include all parts of the page that contain your editable content."
+msgstr ""
+"Foglaljon bele minden olyan oldalrészt, amely szerkeszthető tartalmat "
+"tartalmaz."
+
+msgid "Exclude elements that show unhelpful, repetitive, or inaccurate alerts."
+msgstr ""
+"Zárja ki azokat az elemeket, amelyek haszontalan, ismétlődő vagy pontatlan "
+"üzeneteket mutatnak."
+
+msgid ""
+"<a href=\"@permissions\">Add permissions</a>, especially \"View Editoria11y "
+"checker\" and \"Mark OK.\"</a>"
+msgstr ""
+"<a href=\"@permissions\">Jogosultságok hozzáadása</a>, különösen a „View "
+"Editoria11y checker” és „Mark OK” jogosultságok.</a>"
+
+msgid ""
+"If you need help: <a href=\"@config_guide\">Configuration Guide</a> | <a "
+"href=\"@issue_queue\">Issue Queue</a> | <a href=\"@help\">Support contacts</"
+"a>"
+msgstr ""
+"Ha segítségre van szüksége: <a href=\"@config_guide\">Beállítási útmutató</"
+"a> | <a href=\"@issue_queue\">Hibajegyek</a> | <a href=\"@help\">Támogatási "
+"kapcsolatok</a>"
+
+msgid "Autodetect"
+msgstr "Automatikus felismerés"
+
+msgid "Only user-editable content"
+msgstr "Csak a felhasználó által szerkeszthető tartalom"
+
+msgid "Other"
+msgstr "Egyéb"
+
+msgid "Parts of the page to test"
+msgstr "Az oldal tesztelendő részei"
+
+msgid "\"Autodetect\" selects:"
+msgstr "Az „Automatikus felismerés” ezt választja:"
+
+msgid "Other: specify regions to check for developer and content problems"
+msgstr ""
+"Egyéb: adja meg a fejlesztői és tartalmi hibákra ellenőrzendő területeket"
+
+msgid ""
+"Provide CSS selectors. For many sites, the site theme is wrapped in "
+"<code>.dialog-off-canvas-main-canvas</code> while editing."
+msgstr ""
+"Adjon meg CSS-szelektorokat. Sok webhelyen a sablon szerkesztés közben a "
+"<code>.dialog-off-canvas-main-canvas</code> elemben van becsomagolva."
+
+msgid "Do not check for any errors inside these elements"
+msgstr "Ezekben az elemekben ne keressen semmilyen hibát"
+
+msgid "These parts of the page will be ignored entirely."
+msgstr "Az oldal ezen részeit teljesen figyelmen kívül hagyja."
+
+msgid "match content settings"
+msgstr "match content settings"
+
+msgid "Page regions with user-editable content"
+msgstr ""
+"Az oldal felhasználó által szerkeszthető tartalmat tartalmazó területei"
+
+msgid ""
+"Default: <code><em>main</em></code><br>Provide <a target=\"_blank\" "
+"href=\"https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/"
+"Selectors\">CSS selectors</a>. Content authors will only see the alerts "
+"within these parts of the page. Do not provide selectors that nest within "
+"each other, or the inner content will be checked twice."
+msgstr ""
+"Alapértelmezett: <code><em>main</em></code><br>Adjon meg <a "
+"target=\"_blank\" href=\"https://developer.mozilla.org/en-US/docs/Learn/CSS/"
+"Building_blocks/Selectors\">CSS‑szelektorokat</a>. A tartalomszerzők csak az "
+"oldalnak ezeken a részein látják a riasztásokat. Ne adjon meg egymásba "
+"ágyazott szelektorokat, mert a belső tartalom kétszer kerülne ellenőrzésre."
+
+msgid ""
+"Default: <code><em>main</em></code><br>Provide <a target=\"_blank\" "
+"href=\"https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/"
+"Selectors\">CSS selectors</a>. Do not provide selectors that nest within "
+"each other, or the inner content will be checked twice."
+msgstr ""
+"Alapértelmezett: <code><em>main</em></code><br>Adjon meg <a "
+"target=\"_blank\" href=\"https://developer.mozilla.org/en-US/docs/Learn/CSS/"
+"Building_blocks/Selectors\">CSS‑szelektorokat</a>. Ne adjon meg egymásba "
+"ágyazott szelektorokat, mert a belső tartalom kétszer kerülne ellenőrzésre."
+
+msgid "Errors in these elements should only be shown to developers"
+msgstr "Az ezekben az elemekben lévő hibák csak a fejlesztőknek jelenjenek meg"
+
+msgid "Do not check for content errors inside these elements"
+msgstr "Ezekben az elemekben ne keressen tartalmi hibát"
+
+msgid ""
+"Content editors are not responsible for errors in these elements. <br>E.g.: "
+"<code><em>#sidebar-menu a, .slide [aria-hidden=\"true\"]</em></code>."
+msgstr ""
+"A tartalomszerkesztők nem felelősek az ezekben az elemekben lévő hibákért. "
+"<br>Pl.: <code><em>#sidebar-menu a, .slide [aria-hidden=\"true\"]</em></"
+"code>."
+
+msgid "Roles that will see developer alerts"
+msgstr "Fejlesztői figyelmeztetéseket látó szerepkörök"
+
+msgid ""
+"All roles with the <a href=\":url\">View editoria11y checker</a> permission "
+"see content alerts."
+msgstr ""
+"A <a href=\":url\">View editoria11y checker</a> jogosultsággal rendelkező "
+"minden szerepkör látja a tartalmi figyelmeztetéseket."
+
+msgid "Advanced settings"
+msgstr "Haladó beállítások"
+
+msgid "Assertiveness"
+msgstr "Hangsúlyosság"
+
+msgid "Checker mode for content roles"
+msgstr "Ellenőrzőpanel módja tartalomszerkesztői szerepkörökhöz"
+
+msgid "Start open if there are any alerts"
+msgstr "Megnyitva indul, ha vannak figyelmeztetések"
+
+msgid "Start open if there are new alerts"
+msgstr "Megnyitva indul, ha új figyelmeztetések vannak"
+
+msgid "Start minimized"
+msgstr "Kis méretben indul"
+
+msgid ""
+"Choose when the control panel should open and show inline tips. \"Start open "
+"if there are any alerts\" is recommended, as it helps tips get noticed over "
+"time."
+msgstr ""
+"Válassza ki, mikor nyíljon meg a panel és jelenjenek meg a helyben megjelenő "
+"tippek. Az „Nyitva indul, ha van figyelmeztetés” opció ajánlott, mert jobban "
+"észrevehetők így a tippek."
+
+msgid "Checker mode for developer roles"
+msgstr "Ellenőrzőpanel módja fejlesztői szerepkörökhöz"
+
+msgid "Do not check any content while it is being edited"
+msgstr "Ne ellenőrizze a tartalmat szerkesztés közben"
+
+msgid ""
+"Use the \"Do not check on pages with these elements\" setting to prevent "
+"checking only on specific pages. E.g., exclude: <code><em>form[id^=\"node-"
+"article\"]</em></code>."
+msgstr ""
+"Az ellenőrzés kizárásához használja a „Ne ellenőrizze az oldalakat, ha ezek "
+"az elemek szerepelnek rajta” beállítást. Példa kizárásra: "
+"<code><em>form[id^=\"node-article\"]</em></code>."
+
+msgid "Assign headers to CKEditor tables on insert"
+msgstr "Fejlécek hozzárendelése a CKEditor táblákhoz beillesztéskor"
+
+msgid "First row"
+msgstr "Első sor"
+
+msgid "First column"
+msgstr "Első oszlop"
+
+msgid "Both"
+msgstr "Mindkettő"
+
+msgid ""
+"You will need to clear cache for changes to this setting to appear in "
+"CKEditor."
+msgstr ""
+"Ehhez a módosításhoz szükséges a gyorsítótár törlése, hogy a CKEditor is "
+"alkalmazza."
+
+msgid "Theme compatibility"
+msgstr "Téma kompatibilitás"
+
+msgid "Configuration tips"
+msgstr "Konfigurációs tippek"
+
+msgid ""
+"If the checker <strong>toggle</strong> does not appear: make sure a z-"
+"indexed or overflow-hidden element in your front-end theme is not hiding or "
+"covering the <code><em>ed11y-element-panel</em></code> container, make sure "
+"that any custom selectors in the \"Disable the scanner if these elements are "
+"detected\" field are not present, and make sure that no JavaScript errors "
+"are appearing in your <a href=\"https://developer.mozilla.org/en-US/docs/"
+"Tools/Browser_Console\"> browser console</a>"
+msgstr ""
+"Ha az ellenőrző <strong>kapcsoló</strong> nem jelenik meg: ellenőrizze, hogy "
+"az előtérben lévő vagy overflow:hidden stílussal rendelkező elemek nem "
+"takarják‑e a <code><em>ed11y-element-panel</em></code> konténert; hogy a "
+"„Disable the scanner if these elements are detected” mezőben megadott egyéni "
+"szelektorok nem találhatók‑e meg; és hogy a <a href=\"https://"
+"developer.mozilla.org/en-US/docs/Tools/Browser_Console\">böngésző konzolban</"
+"a> nem jelenik‑e meg JavaScript‑hiba."
+
+msgid ""
+"If the checker toggle is present but <strong>not detecting</strong> errors, "
+"or missing errors that should be flagged: check that your inclusions & "
+"exclusion settings below are not missing or ignoring the elements. It is not "
+"uncommon for homepages or views to insert editable content outside the "
+"<code><em>main</em></code> element."
+msgstr ""
+"Ha a kapcsoló megjelenik, de <strong>nem talál</strong> hibákat, vagy kihagy "
+"jelölendő problémákat: ellenőrizze a bevonási és kizárási beállításokat. "
+"Gyakori, hogy kezdőoldalak vagy nézetek szerkeszthető tartalmat helyeznek el "
+"a <code><em>main</em></code> elemen kívül."
+
+msgid "Theme"
+msgstr "Téma"
+
+msgid "Sleek"
+msgstr "Sleek"
+
+msgid "Classic"
+msgstr "Classic"
+
+msgid "Dark"
+msgstr "Dark"
+
+msgid "Do not check on pages with these elements"
+msgstr "Ne ellenőrizze azokat az oldalakat, ahol ezek az elemek megtalálhatók"
+
+msgid ""
+"Used to block checking on site sections or admin pages.<br>E.g. "
+"<code><em>.content-type-example, .tabs__link[href=*\"edit\"]</em></code>."
+msgstr ""
+"Webhelyszakaszok vagy adminoldalak ellenőrzésének tiltására használható."
+"<br>Például: <code><em>.content-type-example, .tabs__link[href=*\"edit\"]</"
+"em></code>."
+
+msgid "Hide all alerts on pages where these elements are not present"
+msgstr ""
+"Minden figyelmeztetés elrejtése azokon az oldalakon, ahol ezek az elemek nem "
+"találhatók"
+
+msgid ""
+"Used to limit alerting to nodes where the user can edit something. Suggested "
+"selectors:<br> <code><em>.contextual-region a[href*=\"/edit\"], .contextual-"
+"region a[href*=\"/manage\"]</em></code>."
+msgstr ""
+"A figyelmeztetések korlátozására használható azokra a node‑okra, ahol a "
+"felhasználó ténylegesen szerkeszthet. Ajánlott szelektorok:"
+"<br><code><em>.contextual-region a[href*=\"/edit\"], .contextual-region "
+"a[href*=\"/manage\"]</em></code>."
+
+msgid ""
+"Set to the number of other themes or modules that will be <a href=\"https://"
+"editoria11y.princeton.edu/configuration/#customtests\">injecting custom "
+"result JS events</a>."
+msgstr ""
+"Adja meg azon témák vagy modulok számát, amelyek <a href=\"https://"
+"editoria11y.princeton.edu/configuration/#customtests\">egyedi "
+"eredmény‑eseményeket</a> küldenek."
+
+msgid "Positioning"
+msgstr "Elhelyezés"
+
+msgid "Don't show edit links on tips in these containers"
+msgstr ""
+"Ne jelenjenek meg „Szerkesztés” linkek a tippekben ezekben a konténerekben"
+
+msgid ""
+"Tips show copies of the \"Edit\" and \"Layout\" links for nodes, users and "
+"taxonomy terms. These links are not helpful on lists of content from remote "
+"nodes.<br>Provide a comma-separated list of page sections of where these "
+"links should not show, E.g.: <code><em>#sidebar-menu, .news-feed</em></code>."
+"<br>To hide the links <strong>everywhere</strong>, set this field to an "
+"asterisk (<code><em>*</em></code>).<br>To modify the links, <a "
+"href=\"https://editoria11y.princeton.edu/configuration/#modify-tips\" "
+"target=\"_blank\">use the ed11yPop event</a> in your theme JS."
+msgstr ""
+"A tippek másolatban megjelenítik a „Szerkesztés” és „Elrendezés” linkeket "
+"node‑okhoz, felhasználókhoz és taxonómiatermekhez. Távoli tartalomlistákon "
+"ezek a linkek félrevezetők.<br>Adjon meg vesszővel elválasztott területeket, "
+"ahol ne jelenjenek meg, pl.: <code><em>#sidebar-menu, .news-feed</em></code>."
+"<br>Ha <strong>mindenhol</strong> el szeretné rejteni őket, adja meg: "
+"<code><em>*</em></code>.<br>A linkek módosításához használja az <a "
+"href=\"https://editoria11y.princeton.edu/configuration/#modify-tips\" "
+"target=\"_blank\">ed11yPop eseményt</a> a témában."
+
+msgid "Pin panel to..."
+msgstr "Panel rögzítése…"
+
+msgid "Right"
+msgstr "Jobbra"
+
+msgid "Left"
+msgstr "Balra"
+
+msgid "Don't cover these other widgets"
+msgstr "Ne takarja el ezeket a widgeteket"
+
+msgid ""
+"Provide a comma-separated list of selectors for other things that appear in "
+"the bottom right of the page. <br>If nothing is set, Editoria11y will "
+"automatically slide left to accommodate <code><em>#klaro_toggle_dialog, "
+"#klaro-cookie-notice .same-page-preview-dialog.ui-dialog-position-side</em></"
+"code>."
+msgstr ""
+"Adjon meg vesszővel elválasztott szelektorokat azokhoz az elemekhez, amelyek "
+"a jobb alsó sarokban jelennek meg.<br>Ha nincs megadva semmi, az Editoria11y "
+"automatikusan balra csúszik, hogy ne takarja el a pl.: "
+"<code><em>#klaro_toggle_dialog, #klaro-cookie-notice .same-page-preview-"
+"dialog.ui-dialog-position-side</em></code> elemeket."
+
+msgid "Elements with overflow hidden"
+msgstr "Overflow:hidden tulajdonságú elemek"
+
+msgid ""
+"Sometimes buttons get drawn and visually truncated outside the bounds of a "
+"positioned element. Provide a selector list."
+msgstr ""
+"Néha a gombok kilógnak és levágódnak egy pozicionált elem határain kívül. "
+"Adjon meg ezekhez szelektorokat."
+
+msgid "Theme JS will handle revealing hidden tooltips inside these containers"
+msgstr ""
+"A téma JavaScript‑je kezeli a rejtett tippek megjelenítését ezekben a "
+"konténerekben"
+
+msgid ""
+"Editoria11y detects hidden tooltips and warns the user when they try to jump "
+"to them from the panel. For elements on this list, Editoria11y will <a "
+"href=\"https://itmaybejj.github.io/editoria11y/#dealing-with-alerts-on-"
+"hidden-or-size-constrained-content\">dispatch a JS event</a> instead of a "
+"warning, so custom JS in your theme can first reveal the hidden tip (e.g., "
+"open an accordion or tab panel)."
+msgstr ""
+"Az Editoria11y figyelmezteti a felhasználót, ha rejtett tippre próbál "
+"ugrani. A listában szereplő elemek esetében figyelmeztetés helyett <a "
+"href=\"https://itmaybejj.github.io/editoria11y/#dealing-with-alerts-on-"
+"hidden-or-size-constrained-content\">JS‑eseményt küld</a>, így a téma egyedi "
+"JavaScript‑je előbb megjelenítheti a rejtett tippet (pl. harmonika nyitása, "
+"fül aktiválása)."
+
+msgid "Detecting dynamic and shadow content"
+msgstr "Dinamikus és shadow tartalom felismerése"
+
+msgid "Dynamically refresh if new content appears"
+msgstr "Dinamikus frissítés új tartalom megjelenésekor"
+
+msgid "Watch for changes anywhere on the page"
+msgstr "Változások figyelése az oldal bármely részén"
+
+msgid "Only watch for changes to content containers present on load"
+msgstr ""
+"Csak a betöltéskor jelenlévő tartalomkonténerek változásainak figyelése"
+
+msgid "Do not watch for changes"
+msgstr "Változások figyelésének kikapcsolása"
+
+msgid ""
+"Set to \"anywhere\" if changes are being missed, set to \"ignore\" if you "
+"notice performance issues. Themes and modules can also call "
+"<code>Drupal.Ed11y.refresh()</code> to refresh results."
+msgstr ""
+"Állítsa „anywhere” értékre, ha változások maradnak észrevétlenül; állítsa "
+"„ignore” értékre, ha teljesítményproblémák jelentkeznek. A témák és modulok "
+"a <code>Drupal.Ed11y.refresh()</code> hívással is frissíthetik az "
+"eredményeket."
+
+msgid "Check inside these specific Web components"
+msgstr "Ezen konkrét Web‑komponensek belsejének ellenőrzése"
+
+msgid ""
+"Provide selectors for elements with <a href='https://developer.mozilla.org/"
+"en-US/docs/Web/Web_Components'>shadow DOM</a> you want tested. E.g.: "
+"<code><em>my-fancy-accordion-widget, my-magical-slideshow</em></code>."
+msgstr ""
+"Adjon meg szelektorokat azokhoz a <a href='https://developer.mozilla.org/en-"
+"US/docs/Web/Web_Components'>shadow DOM</a>‑ot használó elemekhez, amelyeket "
+"ellenőrizni szeretne, pl.: <code><em>my-fancy-accordion-widget, my-magical-"
+"slideshow</em></code>."
+
+msgid "Auto-detect any Web components"
+msgstr "Web‑komponensek automatikus felismerése"
+
+msgid ""
+"This is easier to configure than specifying components, but may slow test "
+"runs on very complicated pages."
+msgstr ""
+"Könnyebben konfigurálható, mint az egyes komponensek felsorolása, azonban "
+"összetett oldalakon lassíthatja a tesztelést."
+
+msgid "Syncing results to reports"
+msgstr "Eredmények szinkronizálása a jelentésekbe"
+
+msgid ""
+"Remember that results only sync to the dashboard when viewing nodes. Results "
+"shown while editing or viewing previews or revisions will not sync."
+msgstr ""
+"Ne feledje: az eredmények csak node megtekintésekor szinkronizálódnak. "
+"Szerkesztés, előnézet vagy verziónézet alatt megjelenő eredmények nem "
+"kerülnek szinkronizálásra."
+
+msgid "Remove redundant base url from URLs"
+msgstr "Felesleges alap URL eltávolítása a hivatkozásokból"
+
+msgid ""
+"Provide base URL (\"/mysite\") if your site is installed in a subdirectory. "
+"Subdirectories tend to get duplicated (/mysite/mysite/mypage) and throw "
+"errors from the API."
+msgstr ""
+"Adja meg az alap URL‑t (például „/mysite”), ha a webhely alkönyvtárban fut. "
+"Az alkönyvtárak könnyen duplikálódhatnak (/mysite/mysite/mypage), ami "
+"API‑hibákhoz vezet."
+
+msgid "Preserve query parameters"
+msgstr "Lekérdezési paraméterek megőrzése"
+
+msgid ""
+"The dashboard ignores most parameters: results for both /news?f=1 and /news?"
+"f=2 will show up as just /news. Provide a comma separated list of parameters "
+"that are meaningful, and should appear as separate pages in results."
+msgstr ""
+"Az irányítópult a legtöbb paramétert figyelmen kívül hagyja: a /news?f=1 és /"
+"news?f=2 egyaránt /news‑ként jelenik meg. Adjon meg vesszővel elválasztott, "
+"jelentést hordozó paramétereket, amelyeket külön oldalnak kell tekinteni."
+
+msgid "Disable sync altogether"
+msgstr "A szinkronizálás teljes kikapcsolása"
+
+msgid ""
+"Syncing test results back to Drupal is required for the <a target=\"_blank\" "
+"href=\"/admin/reports/editoria11y\">issue</a> and <a target=\"_blank\" "
+"href=\"/admin/reports/editoria11y/dismissals\">dismissal</a> dashboards and "
+"\"mark OK\" buttons."
+msgstr ""
+"A teszteredmények Drupalba való visszaszinkronizálása szükséges a <a "
+"target=\"_blank\" href=\"/admin/reports/editoria11y\">hibajelentések</a>, az "
+"<a target=\"_blank\" href=\"/admin/reports/editoria11y/"
+"dismissals\">elutasítások</a> irányítópultjaihoz és az „OK jelölése” "
+"gombokhoz."
+
+msgid "Heading outline position of editable content"
+msgstr "A szerkeszthető tartalom címsor‑szintje"
+
+msgid ""
+"To check headings in CKEditor, Editoria11y needs to know what the first "
+"heading level should be in this field. Body fields should generally be at "
+"the h2 level."
+msgstr ""
+"A CKEditor címsorainak ellenőrzéséhez az Editoria11y‑nek tudnia kell a mező "
+"induló címsorszintjét. A fő tartalmi mezők általában h2 szinten kezdődnek."
+
+msgid "H2 level fields (body content)"
+msgstr "H2‑szintű mezők (főtartalom)"
+
+msgid ""
+"Body fields on nodes are preceded by an h1, and their heading outline should "
+"start with an h2. Ideally set this for top-level body fields for each of "
+"your content types, and set blocks and embedded nodes to h3 or h4.\n"
+"        <br>Set all content types: <code><em>form[id^=\"node-\"] #edit-body-"
+"wrapper .ck-content</em></code>\n"
+"        <br>Set specific content types: <code><em>form[id^=\"node-\"] #edit-"
+"body-wrapper .ck-content</em></code>\n"
+"        <br>Set up for Gutenberg: <code><em>form[id^=\"node-\"] #edit-body-"
+"wrapper .is-root-container</em></code>"
+msgstr ""
+"A node‑ok fő tartalmi mezői előtt h1 található, ezért a címsorszintjük "
+"h2‑vel kezdődik. A fő tartalommezőknél ezt állítsa be, a blokkok és "
+"beágyazott node‑ok pedig h3 vagy h4 szinten kezdődjenek.\n"
+"<br>Minden tartalomtípushoz: <code><em>form[id^=\"node-\"] #edit-body-"
+"wrapper .ck-content</em></code>\n"
+"<br>Specifikus típusokhoz: <code><em>form[id^=\"node-\"] #edit-body-"
+"wrapper .ck-content</em></code>\n"
+"<br>Gutenberg esetén: <code><em>form[id^=\"node-\"] #edit-body-wrapper .is-"
+"root-container</em></code>"
+
+msgid "H3 level fields (blocks or paragraphs with separate titles)"
+msgstr "H3 szintű mezők (blokkok vagy külön címmel rendelkező bekezdések)"
+
+msgid ""
+"Sometimes inline and layout builder blocks are grouped under an h2 from a "
+"separate field, so their highest heading level should be h3."
+msgstr ""
+"Bizonyos inline és layout‑builder blokkok egy másik mező h2 címsora alá "
+"kerülnek, ezért a legmagasabb címsorszintjüknek h3‑nak kell lennie."
+
+msgid "H4 level fields (deeply nested blocks or paragraphs)"
+msgstr "H4 szintű mezők (mélyen beágyazott blokkok vagy bekezdések)"
+
+msgid ""
+"Sometimes inline and layout builder blocks are grouped under an h3 from a "
+"separate field, so their highest heading level should be h4."
+msgstr ""
+"Bizonyos inline és layout‑builder blokkok h3 címsor alá kerülnek, ezért a "
+"legmagasabb címsorszintjük h4."
+
+msgid "Modify tests that usually detect content issues"
+msgstr "Tartalmi hibákat észlelő tesztek módosítása"
+
+msgid "Modify tests that usually detect template or configuration issues"
+msgstr "Sablon‑ vagy konfigurációs hibákat észlelő tesztek módosítása"
+
+msgid "Do not check contrast for these elements"
+msgstr "Nem ellenőrizendő kontrasztú elemek"
+
+msgid ""
+"Provide a comma-separated list of selectors for elements to ignore for all "
+"users."
+msgstr ""
+"Adjon meg vesszővel elválasztott szelektorlistát azon elemekhez, amelyeket "
+"minden felhasználó számára ki kell hagyni."
+
+msgid "Remind editor that content in these embeds needs manual review"
+msgstr ""
+"Emlékeztesse a szerkesztőt, hogy ezek a beágyazott tartalmak kézi "
+"ellenőrzést igényelnek"
+
+msgid ""
+"Provide a comma-separated list of selectors you wish to flag for the editor, "
+"e.g.: <code><em>.my-embedded-feed, #my-social-link-block</em></code>."
+msgstr ""
+"Adjon meg vesszővel elválasztott szelektorokat, amelyeket szeretne kiemelni "
+"a szerkesztők számára, pl.: <code><em>.my-embedded-feed, #my-social-link-"
+"block</em></code>."
+
+msgid ""
+"Default settings should work with both <a href=\"https://www.drupal.org/"
+"project/linkpurpose\" target=\"_blank\">Link Purpose Icons</a> and <a "
+"target=\"_blank\" href=\"https://www.drupal.org/project/extlink\">External "
+"Links</a>."
+msgstr ""
+"Az alapértelmezett beállítások működnek a <a href=\"https://www.drupal.org/"
+"project/linkpurpose\" target=\"_blank\">Link Purpose Icons</a> és az <a "
+"target=\"_blank\" href=\"https://www.drupal.org/project/extlink\">External "
+"Links</a> modulokkal is."
+
+msgid "Remind the editor that these linked documents need a manual check"
+msgstr ""
+"Emlékeztesse a szerkesztőt, hogy ezek a dokumentumok kézi ellenőrzést "
+"igényelnek"
+
+msgid ""
+"Add or remove filetypes. Set to \"false\" to disable the test altogether. "
+"Providing any value will override the default, which is "
+"<code><em>a[href$='.pdf'], a[href*='.pdf?']</em></code>."
+msgstr ""
+"Fájltípusok hozzáadása vagy eltávolítása. A „false” érték teljesen "
+"kikapcsolja a tesztet. Bármely érték felülírja az alapértelmezettet: "
+"<code><em>a[href$='.pdf'], a[href*='.pdf?']</em></code>."
+
+msgid "Remove elements that match these selectors before testing link text"
+msgstr ""
+"A megadott szelektoroknak megfelelő elemek eltávolítása a linkfelirat "
+"ellenőrzése előtt"
+
+msgid ""
+"Provide a CSS selector of elements your modules programmatically add to "
+"links (usually external or open-in-new-window links), so they can be ignored "
+"when the link text is checked for the \"link has no text\" and \"link text "
+"is not meaningful\" tests.<br>E.g.: <code><em>.this, .that</em></code>"
+msgstr ""
+"Adjon meg CSS‑szelektort azokra az elemekre, amelyeket a modulok "
+"programozottan adnak a linkekhez (pl. külső vagy új lapon nyíló linkek "
+"ikonja), hogy ezeket figyelmen kívül lehessen hagyni a „nincs linkfelirat” "
+"vagy „értelmetlen linkfelirat” teszteknél.<br>Például: "
+"<code><em>.this, .that</em></code>"
+
+msgid "Remove these strings before testing link text"
+msgstr ""
+"Ezeknek a karakterláncoknak az eltávolítása a linkfelirat ellenőrzése előtt"
+
+msgid ""
+"Provide a pipe-separated (\"|\") list of phrases your modules "
+"programmatically add to links to hint a purpose (external, mail, phone, open-"
+"in-new-window), so they can be ignored when the link text is checked for the "
+"\"link has no text\" and \"link text is not meaningful\" tests; e.g.:  "
+"<pre><code><em>(link is external)|(link sends email)</em></code></pre>"
+msgstr ""
+"Adjon meg „|” jellel elválasztott kifejezéseket, amelyeket a modulok "
+"programozottan adnak hozzá linkekhez (pl. külső, email, telefon, új lapon "
+"megnyíló jelölések). Ezek figyelmen kívül lesznek hagyva a "
+"linkfelirat‑teszteknél.<br>Például:<pre><code><em>(link is external)|(link "
+"sends email)</em></code></pre>"
+
+msgid "Strings in links that indicate new tabs"
+msgstr "Új lapon való megnyitásra utaló kifejezések"
+
+msgid ""
+"Provide a pipe-separated list of phrases your site uses to warn users a link "
+"opens in a new tab; e.g.:  <pre><code><em>new&nbsp;tab|new&nbsp;window|"
+"external</em></code></pre>"
+msgstr ""
+"Adja meg a „|” jellel elválasztott kifejezéseket, melyek a felhasználót új "
+"lapra figyelmeztetik.<br>Példa:<pre><code><em>new&nbsp;tab|new&nbsp;window|"
+"external</em></code></pre>"
+
+msgid ""
+"Modules like Link Purpose or External Links can mark links automatically."
+msgstr ""
+"Az olyan modulok, mint a Link Purpose vagy az External Links, automatikusan "
+"megjelölhetik ezeket a linkeket."
+
+msgid "CSA/developer test"
+msgstr "CSA/fejlesztői teszt"
+
+msgid "Show to developers"
+msgstr "Megjelenítés fejlesztőknek"
+
+msgid "Show to everybody"
+msgstr "Megjelenítés mindenkinek"
+
+msgid "Dashboard sync is disabled in Editoria11y configuration."
+msgstr ""
+"Az irányítópult szinkronizálása le van tiltva az Editoria11y beállításaiban."
+
+msgid "(invalid URL)"
+msgstr "(érvénytelen URL)"
+
+msgid "Editoria11y: Dismissals"
+msgstr "Editoria11y: Elutasítások"
+
+msgid "Default"
+msgstr "Alapértelmezett"
+
+msgid "Node path"
+msgstr "Node útvonala"
+
+msgid "view"
+msgstr "nézet"
+
+msgid "Term path"
+msgstr "Taxonómiaútvonal"
+
+msgid "User bio path"
+msgstr "Felhasználói bemutatkozás útvonala"
+
+msgid "Term title"
+msgstr "Taxonómiai cím"
+
+msgid ", "
+msgstr ", "
+
+msgid "Node title"
+msgstr "Node címe"
+
+msgid "User name"
+msgstr "Felhasználó neve"
+
+msgid "Recorded path"
+msgstr "Rögzített útvonal"
+
+msgid "Computed"
+msgstr "Számított"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty %}{% set dynamic_path = page_path %}{% endif %}\r\n"
+"{% set dynamic_title = title ~ name_2 ~ name_1 %}{% if dynamic_title is "
+"empty %}{% set dynamic_title = page_title %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ dynamic_title }}</"
+"a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty %}{% set dynamic_path = page_path %}{% endif %}\r\n"
+"{% set dynamic_title = title ~ name_2 ~ name_1 %}{% if dynamic_title is "
+"empty %}{% set dynamic_title = page_title %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ dynamic_title }}</"
+"a>"
+
+msgid "Dismissed alert"
+msgstr "Elutasított figyelmeztetés"
+
+msgid "By"
+msgstr "Ki által"
+
+msgid "1"
+msgid_plural "@count"
+msgstr[0] "@count"
+
+msgid "Reset"
+msgstr "Visszaállítás"
+
+msgid ""
+"<span class=\"ed11y-reset-dismissal\"><span class=\"ed11y-page-id\">{{ pid }}"
+"</span><span class=\"ed11y-dismissal-id\">{{id}}</span></span>"
+msgstr ""
+"<span class=\"ed11y-reset-dismissal\"><span class=\"ed11y-page-id\">{{ pid }}"
+"</span><span class=\"ed11y-dismissal-id\">{{id}}</span></span>"
+
+msgid "››"
+msgstr "››"
+
+msgid "‹‹"
+msgstr "‹‹"
+
+msgid "- All -"
+msgstr "- Összes -"
+
+msgid "Offset"
+msgstr "Eltolás"
+
+msgid "« First"
+msgstr "« Első"
+
+msgid "Last »"
+msgstr "Utolsó »"
+
+msgid "Asc"
+msgstr "Növekvő"
+
+msgid "Desc"
+msgstr "Csökkenő"
+
+msgid "User who dismissed alert"
+msgstr "A figyelmeztetést elutasító felhasználó"
+
+msgid "pid"
+msgstr "pid"
+
+msgid "Node"
+msgstr "Node"
+
+msgid "Term"
+msgstr "Taxonómiaelem"
+
+msgid "User bio"
+msgstr "Felhasználói bemutatkozás"
+
+msgid "Dismissals page"
+msgstr "Elutasítások oldala"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty %}{% set dynamic_path = page_path %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title }}</a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty %}{% set dynamic_path = page_path %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title }}</a>"
+
+msgid "Still on page"
+msgstr "Még mindig az oldalon"
+
+msgid "Reset filters"
+msgstr "Szűrők törlése"
+
+msgid "Issues marked as hidden or OK in Editoria11y."
+msgstr "Az Editoria11y‑ben elrejtettnek vagy OK‑nak jelölt problémák."
+
+msgid "Dismissals filtered by issue"
+msgstr "Hiba szerinti elutasítások"
+
+msgid "No dismissals match these filters."
+msgstr "Nincs a szűrőknek megfelelő elutasítás."
+
+msgid "All"
+msgstr "Összes"
+
+msgid "Dismissed alerts of type \"{{result_name}}\""
+msgstr "„{{result_name}}” típusú elutasított figyelmeztetések"
+
+msgid ""
+"<a href=\"/admin/reports/editoria11y/dismissals/\" class=\"button button--"
+"primary\">Show all dismissals</a>"
+msgstr ""
+"<a href=\"/admin/reports/editoria11y/dismissals/\" class=\"button button--"
+"primary\">Összes elutasítás megtekintése</a>"
+
+msgid "Recent Editoria11y Dismissals"
+msgstr "Legutóbbi Editoria11y elutasítások"
+
+msgid "Editoria11y - Recent dismissals"
+msgstr "Editoria11y – Legutóbbi elutasítások"
+
+msgid "Editoria11y: Alerts"
+msgstr "Editoria11y: Figyelmeztetések"
+
+msgid "Top results"
+msgstr "Legfontosabb eredmények"
+
+msgid "Computed title"
+msgstr "Számított cím"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path|render %}{% set dynamic_path = "
+"page_path %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{  page_title_1 }}</"
+"a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path|render %}{% set dynamic_path = "
+"page_path %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{  page_title_1 }}</"
+"a>"
+
+msgid "<a href=\"{{page_path_1}}\" data-ed1ref=\"{{pid}}\">{{page_path_1}}</a>"
+msgstr ""
+"<a href=\"{{page_path_1}}\" data-ed1ref=\"{{pid}}\">{{page_path_1}}</a>"
+
+msgid "No alerts found."
+msgstr "Nem találhatók figyelmeztetések."
+
+msgid "YYYY-MM-DD"
+msgstr "YYYY-MM-DD"
+
+msgid "User bio page"
+msgstr "Felhasználói bemutatkozás oldala"
+
+msgid "Node author"
+msgstr "Node szerzője"
+
+msgid "All pages with issues"
+msgstr "Összes problémás oldal"
+
+msgid "Block: Pages with the most"
+msgstr "Blokk: Legtöbb problémát tartalmazó oldalak"
+
+msgid "Block: Recent alerts"
+msgstr "Blokk: Legutóbbi figyelmeztetések"
+
+msgid "Recent Editoria11y Alerts"
+msgstr "Legutóbbi Editoria11y figyelmeztetések"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path|render %}{% set dynamic_path = "
+"page_path %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title_1 }}</a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path|render %}{% set dynamic_path = "
+"page_path %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title_1 }}</a>"
+
+msgid "Issue"
+msgstr "Probléma"
+
+msgid "Editoria11y - Recent alerts"
+msgstr "Editoria11y – Legutóbbi figyelmeztetések"
+
+msgid "Block: Most frequent alerts"
+msgstr "Blokk: Leggyakoribb figyelmeztetések"
+
+msgid "Most Frequent Editoria11y Alerts"
+msgstr "Leggyakoribb Editoria11y figyelmeztetések"
+
+msgid "Editoria11y - Most frequent alerts"
+msgstr "Editoria11y – Leggyakoribb figyelmeztetések"
+
+msgid "Alerts on specified page"
+msgstr "Figyelmeztetések a megadott oldalon"
+
+msgid ""
+"<a href=\"{{ page_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title_1 }}</a>"
+msgstr ""
+"<a href=\"{{ page_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title_1 }}</a>"
+
+msgid "<p><strong>Author:</strong> {{ uid }}</p>"
+msgstr "<p><strong>Szerző:</strong> {{ uid }}</p>"
+
+msgid "<p><strong>Last editor:</strong> {{ uid_1 }}</p>"
+msgstr "<p><strong>Utolsó szerkesztő:</strong> {{ uid_1 }}</p>"
+
+msgid ""
+"<h1>Accessibility issues on: {{page_title_1}}</h1>\r\n"
+"<p>{{uid}}{{uid_1}}</p>"
+msgstr ""
+"<h1>Akadálymentességi problémák ezen az oldalon: {{page_title_1}}</h1>\r\n"
+"<p>{{uid}}{{uid_1}}</p>"
+
+msgid ""
+"<p><a href=\"../editoria11y/pages\" class=\"button button--primary\">All "
+"pages with alerts</a></p>"
+msgstr ""
+"<p><a href=\"../editoria11y/pages\" class=\"button button--primary\">Összes "
+"figyelmeztetést tartalmazó oldal</a></p>"
+
+msgid ""
+"<span class=\"ed11y-reset-this-path\" hidden><p class=\"more-link\"><a "
+"role=\"button\" class=\"action-link action-link--icon-trash action-link--"
+"danger\"><span hidden class=\"ed11y-api-path\">{{ page_path }}</span>Reset "
+"results for this page</a></p></span>"
+msgstr ""
+"<span class=\"ed11y-reset-this-path\" hidden><p class=\"more-link\"><a "
+"role=\"button\" class=\"action-link action-link--icon-trash action-link--"
+"danger\"><span hidden class=\"ed11y-api-path\">{{ page_path }}</span>Ezen "
+"oldal eredményeinek visszaállítása</a></p></span>"
+
+msgid "Issue types"
+msgstr "Problématípusok"
+
+msgid "Pages with specified alert"
+msgstr "Oldalak az adott figyelmeztetéssel"
+
+msgid "Published status"
+msgstr "Közzétételi állapot"
+
+msgid "Created by"
+msgstr "Létrehozta"
+
+msgid "Created after"
+msgstr "Létrehozva ezután"
+
+msgid "Created before"
+msgstr "Létrehozva ezelőtt"
+
+msgid "<h1>Pages with alert \"{{ result_name }}\"</h1>"
+msgstr "<h1>Oldalak a(z) „{{ result_name }}” figyelmeztetéssel</h1>"
+
+msgid ""
+"<a href=\"../editoria11y/alerts\" class=\"button button--primary\">All "
+"alerts</a>"
+msgstr ""
+"<a href=\"../editoria11y/alerts\" class=\"button button--primary\">Összes "
+"figyelmeztetés</a>"
+
+msgid "Pages with issues"
+msgstr "Problémás oldalak"
+
+msgid "Next ›"
+msgstr "Következő ›"
+
+msgid "‹ Previous"
+msgstr "‹ Előző"
+
+msgid "Authored on"
+msgstr "Létrehozva"
+
+msgid "Changed"
+msgstr "Módosítva"
+
+msgid "Editoria11y: Crawler"
+msgstr "Editoria11y: Bejáró"
+
+msgid "Editoria11y: Crawl Nodes"
+msgstr "Editoria11y: Node‑ok bejárása"
+
+msgid "Authored by"
+msgstr "Szerző"
+
+msgid "Has results"
+msgstr "Van eredmény"
+
+msgid "Has no alerts"
+msgstr "Nincs figyelmeztetés"
+
+msgid "Has alerts"
+msgstr "Van figyelmeztetés"
+
+msgid "nid"
+msgstr "nid"
+
+msgid "Editoria11y: Export"
+msgstr "Editoria11y: Exportálás"
+
+msgid "Export page with alerts"
+msgstr "A figyelmeztetéseket tartalmazó oldalak exportálása"
+
+msgid "Link to Taxonomy term"
+msgstr "Link taxonómiai elemre"
+
+msgid "Link to User"
+msgstr "Link felhasználóra"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path_1|render %}{% set dynamic_path = "
+"page_path_1 %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title }}</a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path_1|render %}{% set dynamic_path = "
+"page_path_1 %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title }}</a>"
+
+msgid "Path when checked"
+msgstr "Útvonal ellenőrzéskor"
+
+msgid "<a href=\"{{page_path_1}}\" data-ed1ref=\"{{pid}}\">{{page_path_1}}"
+msgstr "<a href=\"{{page_path_1}}\" data-ed1ref=\"{{pid}}\">{{page_path_1}}"
+
+msgid "Current URL"
+msgstr "Jelenlegi URL"
+
+msgid "{{ view_taxonomy_term }}{{ view_user }}{{ view_node }}"
+msgstr "{{ view_taxonomy_term }}{{ view_user }}{{ view_node }}"
+
+msgid "{% if type is empty %}{{entity_type}}{%else%}{{type}}{% endif %}"
+msgstr "{% if type is empty %}{{entity_type}}{%else%}{{type}}{% endif %}"
+
+msgid "Entity Type"
+msgstr "Entitástípus"
+
+msgid "Langcode (en, fr, de)"
+msgstr "Nyelvkód (en, fr, de)"
+
+msgid "Referenced node"
+msgstr "Hivatkozott node"
+
+msgid "Referenced term"
+msgstr "Hivatkozott taxonómiai elem"
+
+msgid "Referenced user bio"
+msgstr "Hivatkozott felhasználói bemutatkozás"
+
+msgid "<p>Records chosen for export can be filtered and previewed below.</p>"
+msgstr "<p>Az exportálandó rekordok alább szűrhetők és megtekinthetők.</p>"
+
+msgid "<a href=\"/admin/reports/editoria11y/export\">Back to dashboard</a>"
+msgstr ""
+"<a href=\"/admin/reports/editoria11y/export\">Vissza az irányítópultra</a>"
+
+msgid "Dismissals export"
+msgstr "Elutasítások exportja"
+
+msgid "Link to Content"
+msgstr "Hivatkozás a tartalomra"
+
+msgid "Page raw path"
+msgstr "Oldal nyers útvonala"
+
+msgid "Name"
+msgstr "Név"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path_1|render %}{% set dynamic_path = "
+"page_path_1 %}{% endif %}\r\n"
+"{% set dynamic_title = title_1 ~ name ~ name_1 %}{% if dynamic_title is "
+"empty %}{% set dynamic_title = page_title %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ dynamic_title }}</"
+"a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path_1|render %}{% set dynamic_path = "
+"page_path_1 %}{% endif %}\r\n"
+"{% set dynamic_title = title_1 ~ name ~ name_1 %}{% if dynamic_title is "
+"empty %}{% set dynamic_title = page_title %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ dynamic_title }}</"
+"a>"
+
+msgid "dismissal"
+msgstr "elutasítás"
+
+msgid "Page export"
+msgstr "Oldal exportálása"
+
+msgid "Alerts export"
+msgstr "Figyelmeztetések exportálása"
+
+msgid "Editoria11y alerts on pages"
+msgstr "Editoria11y figyelmeztetések az oldalakon"
+
+msgid "{{ view_taxonomy_term }}{{ view_user }}{{ view_node }} "
+msgstr "{{ view_taxonomy_term }}{{ view_user }}{{ view_node }} "
+
+msgid "Results for page"
+msgstr "Oldal eredményei"
+
+msgid "<a href=\"./export/pages\">Export pages with alerts</a>"
+msgstr ""
+"<a href=\"./export/pages\">Riasztással rendelkező oldalak exportálása</a>"
+
+msgid "<a href=\"./export/dismissals\">Export dismissals</a>"
+msgstr "<a href=\"./export/dismissals\">Elutasítások exportálása</a>"
+
+msgid "<a href=\"./export/alerts\">Export alert list</a>"
+msgstr "<a href=\"./export/alerts\">Riasztáslista exportálása</a>"
+
+msgid "Export alerts on pages"
+msgstr "Oldalak figyelmeztetéseinek exportálása"
+
+msgid "Result name"
+msgstr "Eredmény neve"

@@ -1,9 +1,11 @@
 services:
+  _defaults:
+    autowire: true
+
   extlink.setting_save.subscriber:
     class: Drupal\extlink\EventSubscriber\ExtlinkSettingsSaveEventSubscriber
-    arguments:
-      - '@library.discovery'
-      - '@asset.js.collection_optimizer'
-      - '@asset.query_string'
     tags:
       - { name: event_subscriber }
+
+  Drupal\extlink\Hook\ExtlinkHooks:
+    class: Drupal\extlink\Hook\ExtlinkHooks

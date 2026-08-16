@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Drupal\Tests\markdown_easy\Functional;
 
 use Drupal\Core\Session\AccountInterface;
-use Drupal\filter\Entity\FilterFormat;
 use Drupal\Tests\BrowserTestBase;
+use Drupal\filter\Entity\FilterFormat;
 
 /**
  * Test that the Markdown processor config is overridable.
@@ -93,7 +93,6 @@ final class ConfigModifyHookTest extends BrowserTestBase {
     $session->statusCodeEquals(200);
     $session->elementExists('css', 'strong:contains("This should be strong.")');
     $session->elementExists('css', 'em:contains("This is emphasized.")');
-    $session->elementNotExists('css', 'del:contains("This is struck.")');
     $session->elementExists('css', 'a:contains("I am a bad link.")');
     $session->elementExists('css', 'p:contains("Did I sneak in?")');
   }

@@ -1,0 +1,2979 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: editoria11y 3.0.0\n"
+"POT-Creation-Date: 2026-08-01 21:46-0400\n"
+"PO-Revision-Date: 2026-05-11 00:00+0000\n"
+"Language-Team: Editoria11y\n"
+"Language: lv\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
+"2);\n"
+
+msgid ""
+"editoria11y_post_update_0004: scanned @scanned mismatched page(s), "
+"backfilled @fixed to the referenced entity language."
+msgstr ""
+"editoria11y_post_update_0004: scanned @scanned mismatched page(s), "
+"backfilled @fixed to the referenced entity language."
+
+msgid "Editoria11y"
+msgstr "Editoria11y"
+
+msgid "Editoria11y - Pages with issues"
+msgstr "Editoria11y – Lapas ar problēmām"
+
+msgctxt "problems"
+msgid "Provides relationship for issues and dismissals"
+msgstr "Nosaka saistību starp problēmām un noraidījumiem"
+
+msgid "EID"
+msgstr "EID"
+
+msgid "Editoria11y's internal page ID"
+msgstr "Editoria11y iekšējais lapas ID"
+
+msgid "Entity ID"
+msgstr "Entitātes ID"
+
+msgid "The NID/TID/UID of the page with an issue."
+msgstr "Lapas ar problēmu NID/TID/UID."
+
+msgid "Entity type"
+msgstr "Entitātes tips"
+
+msgid "The entity type; \"route\" if no type found."
+msgstr "Entitātes tips; \"route\", ja tips nav atrasts."
+
+msgid "Route name"
+msgstr "Maršruta nosaukums"
+
+msgid "Route name for page."
+msgstr "Lapas maršruta nosaukums."
+
+msgid "Page path"
+msgstr "Lapas ceļš"
+
+msgid "Internal, relative page path."
+msgstr "Iekšējais, relatīvais lapas ceļš."
+
+msgid "Page language"
+msgstr "Lapas valoda"
+
+msgid "Active translation."
+msgstr "Aktīvais tulkojums."
+
+msgid "Page title"
+msgstr "Lapas nosaukums"
+
+msgid "The name of the route where this was last seen."
+msgstr "Maršruta nosaukums, kurā tas pēdējo reizi tika konstatēts."
+
+msgid "Content alerts"
+msgstr "Satura brīdinājumi"
+
+msgid "Number of alerts shown to content editors."
+msgstr "Satura redaktoriem rādīto brīdinājumu skaits."
+
+msgid "Dev alerts"
+msgstr "Izstrādātāju brīdinājumi"
+
+msgid "Number of alerts shown to developers."
+msgstr "Izstrādātājiem rādīto brīdinājumu skaits."
+
+msgid "Updated"
+msgstr "Atjaunināts"
+
+msgid "When this page was last checked."
+msgstr "Kad lapa pēdējo reizi tika pārbaudīta."
+
+msgid "Editoria11y - Test results"
+msgstr "Editoria11y – Testu rezultāti"
+
+msgctxt "problems"
+msgid "Stores Editoria11y issue list"
+msgstr "Glabā Editoria11y problēmu sarakstu"
+
+msgid "Result row"
+msgstr "Rezultātu rinda"
+
+msgid "Internal identifier"
+msgstr "Iekšējais identifikators"
+
+msgid "Created"
+msgstr "Izveidots"
+
+msgid "When this page was flagged."
+msgstr "Kad lapa tika atzīmēta."
+
+msgid "Alert type"
+msgstr "Brīdinājuma tips"
+
+msgid "The name of the test as reported by Editoria11y JS"
+msgstr "Testa nosaukums, ko paziņojis Editoria11y JS"
+
+msgid "Alert type, linked"
+msgstr "Brīdinājuma tips (ar saiti)"
+
+msgid "Linked to report of all alerts of this type."
+msgstr "Saistīts ar visu šāda tipa brīdinājumu pārskatu."
+
+msgid "Content alert count"
+msgstr "Satura brīdinājumu skaits"
+
+msgid "The number of hits for this test type on this page"
+msgstr "Šī testa tipa atradumu skaits šajā lapā"
+
+msgid "Dev alert count"
+msgstr "Izstrādātāju brīdinājumu skaits"
+
+msgid "Editoria11y - Dismissals"
+msgstr "Editoria11y – Noraidījumi"
+
+msgid "Stores Editoria11y warnings and dismissals"
+msgstr "Glabā Editoria11y brīdinājumus un noraidījumus"
+
+msgid "Dismissal internal reference ID"
+msgstr "Noraidījuma iekšējās atsauces ID"
+
+msgid "Page with dismissal"
+msgstr "Lapa ar noraidījumu"
+
+msgid "Dismissed by"
+msgstr "Noraidīja"
+
+msgid "The user linked to this dismissal."
+msgstr "Lietotājs, kas saistīts ar šo noraidījumu."
+
+msgid "Linked Drupal user"
+msgstr "Saistītais Drupal lietotājs"
+
+msgid "Dismissed element id"
+msgstr "Noraidītā elementa id"
+
+msgid "Code sample to identify the flagged element."
+msgstr "Koda paraugs atzīmētā elementa identificēšanai."
+
+msgid "Dismissed on"
+msgstr "Noraidīts"
+
+msgid "The Unix timestamp of the first time this record was flagged."
+msgstr "Unix laika zīmogs, kad šis ieraksts pirmo reizi tika atzīmēts."
+
+msgid "Dismissal stale since"
+msgstr "Noraidījums novecojis kopš"
+
+msgid "The element has not been seen since this date."
+msgstr "Elements nav konstatēts kopš šī datuma."
+
+msgid "Dismissed result name"
+msgstr "Noraidītā rezultāta nosaukums"
+
+msgid "Dismissed result name, linked"
+msgstr "Noraidītā rezultāta nosaukums (ar saiti)"
+
+msgid "Links to report of all alerts of this type."
+msgstr "Saite uz visu šāda tipa brīdinājumu pārskatu."
+
+msgid "Dismissal status"
+msgstr "Noraidījuma statuss"
+
+msgid "The type of dismissal (e.g., OK, Ignore)"
+msgstr "Noraidījuma tips (piemēram, OK, Ignorēt)"
+
+msgid "Relate from Editoria11y page to referenced node"
+msgstr "Saistījums no Editoria11y lapas uz norādīto mezglu"
+
+msgid "Issues were found on this node"
+msgstr "Šajā mezglā tika atrastas problēmas"
+
+msgid "Relate from node data to Editoria11y page"
+msgstr "Saistījums no mezgla datiem uz Editoria11y lapu"
+
+msgid "Relate from Editoria11y page to referenced taxonomy term"
+msgstr "Saistījums no Editoria11y lapas uz norādīto taksonomijas terminu"
+
+msgid "Issues were found on this term page"
+msgstr "Šajā taksonomijas lapā tika atrastas problēmas"
+
+msgid "Relate from taxonomy term data to Editoria11y page"
+msgstr "Saistījums no taksonomijas termina datiem uz Editoria11y lapu"
+
+msgid "Relate from Editoria11y page list to user bio page data"
+msgstr ""
+"Saistījums no Editoria11y lapu saraksta uz lietotāja biogrāfijas lapas datiem"
+
+msgid "Issues were found on this user bio page"
+msgstr "Šajā lietotāja biogrāfijas lapā tika atrastas problēmas"
+
+msgid "Relate from Editoria11y page to user bio page with issues"
+msgstr ""
+"Saistījums no Editoria11y lapas uz lietotāja biogrāfijas lapu ar problēmām"
+
+msgid "Relate from user bio page to Editoria11y results"
+msgstr "Saistījums no lietotāja biogrāfijas lapas uz Editoria11y rezultātiem"
+
+msgid "Relate from users list to Editoria11y results on bio page"
+msgstr ""
+"Saistījums no lietotāju saraksta uz Editoria11y rezultātiem biogrāfijas lapā"
+
+msgid "Relate from Editoria11y page to issues on page"
+msgstr "Saistījums no Editoria11y lapas uz problēmām lapā"
+
+msgid "Issues found on this node"
+msgstr "Šajā mezglā atrastās problēmas"
+
+msgid "Relate from Editoria11y result to page"
+msgstr "Saistījums no Editoria11y rezultāta uz lapu"
+
+msgid "Relate from Editoria11y page to dismissals on page"
+msgstr "Saistījums no Editoria11y lapas uz noraidījumiem lapā"
+
+msgid "Relate from Editoria11y dismissal to page"
+msgstr "Saistījums no Editoria11y noraidījuma uz lapu"
+
+msgid "Group relationship for node with Editoria11y issues"
+msgstr "Grupas saistība mezglam ar Editoria11y problēmām"
+
+msgid ""
+"Bridge to the Group module. Add the Group module Group relationship on top "
+"of this one to filter or sort issues by group."
+msgstr ""
+"Tilts uz Group moduli. Pievienojiet Group moduļa Grupas saistību virs šīs, "
+"lai filtrētu vai kārtotu problēmas pēc grupas."
+
+msgid "Group relationship for node"
+msgstr "Grupas saistība mezglam"
+
+msgid "Group relationship for user bio with Editoria11y issues"
+msgstr "Grupas saistība lietotāja biogrāfijai ar Editoria11y problēmām"
+
+msgid "Group relationship for user"
+msgstr "Grupas saistība lietotājam"
+
+msgid "Group relationship for taxonomy term with Editoria11y issues"
+msgstr "Grupas saistība taksonomijas terminam ar Editoria11y problēmām"
+
+msgid ""
+"Bridge to the Group module. Add the Group module Group relationship on top "
+"of this one to filter or sort issues by group. Requires a contrib module "
+"that exposes terms as group content."
+msgstr ""
+"Tilts uz Group moduli. Pievienojiet Group moduļa Grupas saistību virs šīs, "
+"lai filtrētu vai kārtotu problēmas pēc grupas. Nepieciešams kontrib modulis, "
+"kas padara terminus pieejamus kā grupas saturu."
+
+msgid "Group relationship for taxonomy term"
+msgstr "Grupas saistība taksonomijas terminam"
+
+msgid "Warning: possible out of date path. This content may have moved to"
+msgstr ""
+"Brīdinājums: iespējams novecojis ceļš. Šis saturs, iespējams, pārvietots uz"
+
+msgid "Export CSV"
+msgstr "Eksportēt CSV"
+
+msgid "Predelete failed: @error_message"
+msgstr "Priekšdzēšana neizdevās: @error_message"
+
+msgid "Page attachment failed: @error_message"
+msgstr "Lapas pievienošana neizdevās: @error_message"
+
+msgid ""
+"editoria11y_update_9019: scanned @total rows, repaired @updated, deleted "
+"@deleted corrupted group rows, left @skipped untouched."
+msgstr ""
+"editoria11y_update_9019: scanned @total rows, repaired @updated, deleted "
+"@deleted corrupted group rows, left @skipped untouched."
+
+msgid ""
+"editoria11y_update_9020: hashed @hashed page rows, removed @deduped "
+"duplicate rows, added unique keys."
+msgstr "editoria11y_update_9020: hashed @hashed page rows, removed @deduped duplicate rows, added unique keys."
+
+msgid "Editoria11y Accessibility Checker"
+msgstr "Editoria11y pieejamības pārbaudītājs"
+
+msgid ""
+"Checks page content for accessibility and provides a site-wide dashboard."
+msgstr ""
+"Pārbauda lapas saturu pieejamības ziņā un nodrošina vietņu mēroga paneli."
+
+msgid "Content Accessibility"
+msgstr "Satura pieejamība"
+
+msgid "Accessibility checker notifications and exclusions."
+msgstr "Pieejamības pārbaudītāja paziņojumi un izslēgumi."
+
+msgid "Results from the Editoria11y checker."
+msgstr "Editoria11y pārbaudītāja rezultāti."
+
+msgid "Dashboard"
+msgstr "Panelis"
+
+msgid "Core settings"
+msgstr "Pamata iestatījumi"
+
+msgid "Demo"
+msgstr "Demo"
+
+msgid "View Editoria11y checker"
+msgstr "Skatīt Editoria11y pārbaudītāju"
+
+msgid "Assign to all content editors."
+msgstr "Piešķirt visiem satura redaktoriem."
+
+msgid "Administer Editoria11y checker"
+msgstr "Administrēt Editoria11y pārbaudītāju"
+
+msgid "Allows user to purge results and change configuration."
+msgstr "Ļauj lietotājam dzēst rezultātus un mainīt konfigurāciju."
+
+msgid "Mark as hidden in Editoria11y"
+msgstr "Atzīmēt kā slēptu Editoria11y"
+
+msgid "Adds button to suppress a manual check for the current user."
+msgstr "Pievieno pogu manuālas pārbaudes slēpšanai pašreizējam lietotājam."
+
+msgid "Mark as OK in Editoria11y"
+msgstr "Atzīmēt kā OK Editoria11y"
+
+msgid ""
+"Adds button to suppress a manual check for all users, if sync is enabled."
+msgstr ""
+"Pievieno pogu manuālas pārbaudes slēpšanai visiem lietotājiem, ja "
+"sinhronizācija ir iespējota."
+
+msgid "Manage Editoria11y results"
+msgstr "Pārvaldīt Editoria11y rezultātus"
+
+msgid "View the site-wide dashboard and reset dismissals."
+msgstr "Skatīt vietņu mēroga paneli un atiestatīt noraidījumus."
+
+msgid "Editoria11y core settings"
+msgstr "Editoria11y pamata iestatījumi"
+
+msgid "Content Accessibility Issues"
+msgstr "Satura pieejamības problēmas"
+
+msgid "Editoria11y Settings"
+msgstr "Editoria11y iestatījumi"
+
+msgid "Check elements in these containers"
+msgstr "Pārbaudīt elementus šajos konteineros"
+
+msgid "Alert panel assertiveness"
+msgstr "Brīdinājumu paneļa uzstājība"
+
+msgid "Do not run if these elements are on the page"
+msgstr "Nepalaist, ja šie elementi atrodas lapā"
+
+msgid "Suppress all alerts if none of these elements are present"
+msgstr "Slēpt visus brīdinājumus, ja neviens no šiem elementiem nav klāt"
+
+msgid "Do not run tests on these containers"
+msgstr "Nepalaist testus šajos konteineros"
+
+msgid "Move toggle to avoid colliding with these widgets"
+msgstr "Pārvietot slēdzi, lai izvairītos no sadursmes ar šiem logrīkiem"
+
+msgid ""
+"Full check should warn on these elements with embedded uncheckable content"
+msgstr ""
+"Pilnā pārbaudē jābrīdina par šiem elementiem ar iegultu nepārbaudāmu saturu"
+
+msgid "These links download a document or image and need a manual review"
+msgstr "Šīs saites lejupielādē dokumentu vai attēlu un prasa manuālu pārskatu"
+
+msgid "Strings that indicate a link opens in a new window"
+msgstr "Teksta virknes, kas norāda, ka saite tiek atvērta jaunā logā"
+
+msgid "Remove these strings from link text before checking for bad link text"
+msgstr "Pirms saites teksta pārbaudes noņemt šīs virknes no saites teksta"
+
+msgid "Remove strings in this selector before checking for bad link text"
+msgstr "Pirms saites teksta pārbaudes noņemt virknes šajā selektorā"
+
+msgid ""
+"Hidden elements in these containers will be revealed by theme JS on request "
+"via a dispatched event"
+msgstr ""
+"Slēptie elementi šajos konteineros tiks atklāti ar motīva JS, nosūtot "
+"notikumu"
+
+msgid "Elements that truncate overflow, partially hiding buttons"
+msgstr "Elementi, kas saīsina pārplūdi, daļēji slēpjot pogas"
+
+msgid "Color scheme for panel and tooltips"
+msgstr "Paneļa un rīkpadomu krāsu shēma"
+
+msgid "Pin toolbar to left or right"
+msgstr "Piespraust rīkjoslu pa kreisi vai pa labi"
+
+msgid "Web components the checker should check"
+msgstr "Tīmekļa komponenti, ko pārbaudītājam jāpārbauda"
+
+msgid "Auto-detects for additional shadow components"
+msgstr "Automātiski nosaka papildu ēnu komponentus"
+
+msgid "Auto-detects and checks new content"
+msgstr "Automātiski nosaka un pārbauda jaunu saturu"
+
+msgid "Disables dashboard and synchronized marking of elements as OK"
+msgstr "Atspējo paneli un sinhronizēto elementu atzīmēšanu kā OK"
+
+msgid "URL query parameters that should be recorded as separate pages"
+msgstr "URL vaicājuma parametri, kas jāreģistrē kā atsevišķas lapas"
+
+msgid "Remove string from URL for dashboard page links"
+msgstr "Noņemt virkni no URL paneļa lapu saitēs"
+
+msgid "Number of custom test finished events the checker should wait for"
+msgstr ""
+"Pielāgoto testu pabeigšanas notikumu skaits, uz kuriem pārbaudītājam jāgaida"
+
+msgid "Disables live editor checking"
+msgstr "Atspējo tiešraides redaktora pārbaudi"
+
+msgid ""
+"Selector for frontend-context editors that should inherit the document "
+"outline"
+msgstr "Selektors priekšgala redaktoriem, kuriem jāmanto dokumenta struktūra"
+
+msgid "Selector for editors where their first heading should be h2"
+msgstr "Selektors redaktoriem, kur pirmajam virsrakstam jābūt h2"
+
+msgid "Selector for editors where their first heading should be h3"
+msgstr "Selektors redaktoriem, kur pirmajam virsrakstam jābūt h3"
+
+msgid "Selector for editors where their first heading should be h4"
+msgstr "Selektors redaktoriem, kur pirmajam virsrakstam jābūt h4"
+
+msgid "Selectors for components where edit links are meaningless on tips"
+msgstr "Selektori komponentiem, kur rediģēšanas saites padomos ir bezjēdzīgas"
+
+msgid "Tell CK5 to have a header rows or columns by default."
+msgstr ""
+"Norādīt CKEditor 5 pēc noklusējuma izmantot virsrakstu rindas vai kolonnas."
+
+msgid "Tests not shown to content authors."
+msgstr "Testi, kas netiek rādīti satura autoriem."
+
+msgid "Disable the tests you are not ready for"
+msgstr "Atspējot testus, kuriem neesat gatavs"
+
+msgid "linkNewWindow"
+msgstr "linkNewWindow"
+
+msgid "linkNoText"
+msgstr "linkNoText"
+
+msgid "altEmptyLinked"
+msgstr "altEmptyLinked"
+
+msgid "linkDocument"
+msgstr "linkDocument"
+
+msgid "linkTextIsURL"
+msgstr "linkTextIsURL"
+
+msgid "linkTextIsGeneric"
+msgstr "linkTextIsGeneric"
+
+msgid "textPossibleList"
+msgstr "textPossibleList"
+
+msgid "textPossibleHeading"
+msgstr "textPossibleHeading"
+
+msgid "textUppercase"
+msgstr "textUppercase"
+
+msgid "tableNoHeaderCells"
+msgstr "tableNoHeaderCells"
+
+msgid "tableEmptyHeaderCell"
+msgstr "tableEmptyHeaderCell"
+
+msgid "tableContainsContentHeading"
+msgstr "tableContainsContentHeading"
+
+msgid "embedVideo"
+msgstr "embedVideo"
+
+msgid "embedAudio"
+msgstr "embedAudio"
+
+msgid "embedVisualization"
+msgstr "embedVisualization"
+
+msgid "embedTwitter"
+msgstr "embedTwitter"
+
+msgid "embedCustom"
+msgstr "embedCustom"
+
+msgid "headingEmpty"
+msgstr "headingEmpty"
+
+msgid "headingIsLong"
+msgstr "headingIsLong"
+
+msgid "headingLevelSkipped"
+msgstr "headingLevelSkipped"
+
+msgid "blockquoteIsShort"
+msgstr "blockquoteIsShort"
+
+msgid "altMissing"
+msgstr "altMissing"
+
+msgid "altNull"
+msgstr "altNull"
+
+msgid "altMeaningless"
+msgstr "altMeaningless"
+
+msgid "altURL"
+msgstr "altURL"
+
+msgid "altImageOf"
+msgstr "altImageOf"
+
+msgid "altDeadspace"
+msgstr "altDeadspace"
+
+msgid "altLong"
+msgstr "altLong"
+
+msgid "altPartOfLinkWithText"
+msgstr "altPartOfLinkWithText"
+
+msgid "2-letter code (en, fr, de)"
+msgstr "Divu burtu kods (en, fr, de)"
+
+msgid "Alert"
+msgstr "Brīdinājums"
+
+msgid "Alert types"
+msgstr "Brīdinājumu tipi"
+
+msgid "Alerts"
+msgstr "Brīdinājumi"
+
+msgid "All dismissals"
+msgstr "Visi noraidījumi"
+
+msgid "All issues"
+msgstr "Visas problēmas"
+
+msgid "All pages"
+msgstr "Visas lapas"
+
+msgid "Apply"
+msgstr "Lietot"
+
+msgid "Author"
+msgstr "Autors"
+
+msgid "Authored after"
+msgstr "Izveidots pēc"
+
+msgid "Authored before"
+msgstr "Izveidots pirms"
+
+msgid "Authored"
+msgstr "Izveidots"
+
+msgid "Content type"
+msgstr "Satura tips"
+
+msgid "Detected"
+msgstr "Konstatēts"
+
+msgid "Dismissals"
+msgstr "Noraidījumi"
+
+msgid "Dismissed accessibility alerts"
+msgstr "Noraidītie pieejamības brīdinājumi"
+
+msgid "Edited"
+msgstr "Rediģēts"
+
+msgid "Editor"
+msgstr "Redaktors"
+
+msgid "Items per page"
+msgstr "Vienumi lapā"
+
+msgid "Filter"
+msgstr "Filtrs"
+
+msgid "Language"
+msgstr "Valoda"
+
+msgid "Last editor"
+msgstr "Pēdējais redaktors"
+
+msgid "Marked"
+msgstr "Atzīmēts"
+
+msgid "No dismissals found."
+msgstr "Noraidījumi nav atrasti."
+
+msgid "Page"
+msgstr "Lapa"
+
+msgid "Pages"
+msgstr "Lapas"
+
+msgid "Pages with alerts"
+msgstr "Lapas ar brīdinājumiem"
+
+msgid "Panel"
+msgstr "Panelis"
+
+msgid "Path"
+msgstr "Ceļš"
+
+msgid "Published"
+msgstr "Publicēts"
+
+msgid "Recent"
+msgstr "Jaunākie"
+
+msgid "Recent accessibility alerts"
+msgstr "Jaunākie pieejamības brīdinājumi"
+
+msgid "Recent alerts"
+msgstr "Jaunākās problēmas"
+
+msgctxt "problems"
+msgid "Recent alerts"
+msgstr "Jaunākās problēmas"
+
+msgid "Sort by"
+msgstr "Kārtot pēc"
+
+msgid "Title"
+msgstr "Nosaukums"
+
+msgid "Type"
+msgstr "Tips"
+
+msgid "Filter and sort"
+msgstr "Filtrēt un kārtot"
+
+msgid "Deleted."
+msgstr "Izdzēsts."
+
+msgid "Delete failed."
+msgstr "Dzēšana neizdevās."
+
+msgid "<p>The Editoria11y <strong><em>@type</em></strong> view is missing.</p>"
+msgstr ""
+"<p>The Editoria11y <strong><em>@type</em></strong> view is missing.</p>"
+
+msgid ""
+"<p>There are three view configurations this module installs, found in its /"
+"config/install folder. Each must be installed for this dashboard to display "
+"results.</p>"
+msgstr ""
+"<p>There are three view configurations this module installs, found in its /"
+"config/install folder. Each must be installed for this dashboard to display "
+"results.</p>"
+
+msgid ""
+"<p>To fix: copy and paste the contents of <strong>/editoria11y/config/"
+"install/views.view.ed11y_@type.yml</strong> into a \"View\" type import at "
+"<a href=\"/admin/config/development/configuration/single/import\">/admin/"
+"config/development/configuration/single/import</a>. If you sync your "
+"configuration to the filesystem, be sure to include these Views in your "
+"repository.</p>"
+msgstr ""
+"<p>To fix: copy and paste the contents of <strong>/editoria11y/config/"
+"install/views.view.ed11y_@type.yml</strong> into a \"View\" type import at "
+"<a href=\"/admin/config/development/configuration/single/import\">/admin/"
+"config/development/configuration/single/import</a>. If you sync your "
+"configuration to the filesystem, be sure to include these Views in your "
+"repository.</p>"
+
+msgid "link is external"
+msgstr "saite ir ārēja"
+
+msgid "link sends email"
+msgstr "saite atver e-pasta programmu"
+
+msgid "No results found"
+msgstr "Rezultāti nav atrasti"
+
+msgid ""
+"Your Editoria11y CSA trial has @days days remaining. <a "
+"href=\"@url\">Activate a license</a> to continue using CSA features after "
+"the trial ends."
+msgstr ""
+"Jūsu Editoria11y CSA izmēģinājumam ir atlikušas @days dienas. <a "
+"href=\"@url\">Aktivizējiet licenci</a>, lai turpinātu izmantot CSA funkcijas "
+"pēc izmēģinājuma beigām."
+
+msgid ""
+"Your Editoria11y CSA trial has expired. CSA features have been disabled. <a "
+"href=\"@url\">Activate a license</a> to continue using them."
+msgstr ""
+"Jūsu Editoria11y CSA izmēģinājums ir beidzies. CSA funkcijas ir atspējotas. "
+"<a href=\"@url\">Aktivizējiet licenci</a>, lai turpinātu tās izmantot."
+
+msgid ""
+"Your Editoria11y CSA license has expired. <a href=\"@url\">Renew or "
+"deactivate your license</a>."
+msgstr ""
+"Jūsu Editoria11y CSA licence ir beigusies. <a href=\"@url\">Atjaunojiet vai "
+"deaktivizējiet savu licenci</a>."
+
+msgid ""
+"Your Editoria11y CSA license has expired. Please renew to reactivate CSA add-"
+"ons."
+msgstr ""
+"Jūsu Editoria11y CSA licence ir beigusies. Lūdzu, atjauniniet, lai atkārtoti "
+"aktivizētu CSA papildinājumus."
+
+msgid "Cron license check failed: @msg"
+msgstr "Cron licences pārbaude neizdevās: @msg"
+
+msgid ""
+"Editoria11y CSA features are active on a @days-day trial. <a "
+"href=\"@url\">Activate a license</a> to continue using them after the trial "
+"ends."
+msgstr ""
+"Editoria11y CSA funkcijas ir aktīvas @days dienu izmēģinājumā. <a "
+"href=\"@url\">Aktivizējiet licenci</a>, lai turpinātu tās izmantot pēc "
+"izmēģinājuma beigām."
+
+msgid "Editoria11y Custom Test"
+msgstr "Editoria11y pielāgotais tests"
+
+msgid "Editoria11y Custom Tests"
+msgstr "Editoria11y pielāgotie testi"
+
+msgid "editoria11y custom test"
+msgstr "editoria11y pielāgotais tests"
+
+msgid "editoria11y custom tests"
+msgstr "editoria11y pielāgotie testi"
+
+msgid "Editoria11y CSA: Advanced Tools"
+msgstr "Editoria11y CSA: paplašinātie rīki"
+
+msgid ""
+"Community-Supported Addons include code and contrast checks, custom checks, "
+"a site crawler and report maintenance tools."
+msgstr "Kopienas atbalstītie papildinājumi ietver koda un kontrasta pārbaudes, pielāgotas pārbaudes, vietnes rāpuļprogrammu un pārskatu uzturēšanas rīkus."
+
+msgid "Add custom test"
+msgstr "Pievienot pielāgotu testu"
+
+msgid "Recheck"
+msgstr "Pārbaudīt atkārtoti"
+
+msgid "CSA membership"
+msgstr "CSA dalība"
+
+msgid "Custom tests"
+msgstr "Pielāgotie testi"
+
+msgid "Dashboard Actions"
+msgstr "Paneļa darbības"
+
+msgid "Editoria11y CSA membership"
+msgstr "Editoria11y CSA dalība"
+
+msgid "Editoria11y custom tests"
+msgstr "Editoria11y pielāgotie testi"
+
+msgid "Add a custom test"
+msgstr "Pievienot pielāgotu testu"
+
+msgid "Edit custom test"
+msgstr "Rediģēt pielāgotu testu"
+
+msgid "Delete custom test"
+msgstr "Dzēst pielāgotu testu"
+
+msgid "Editoria11y CSA Settings"
+msgstr "Editoria11y CSA iestatījumi"
+
+msgid "Developer roles"
+msgstr "Izstrādātāju lomas"
+
+msgid "Developer assertiveness"
+msgstr "Izstrādātāju brīdinājumu uzstājība"
+
+msgid "Tests overridden to show to content editors"
+msgstr "Testi, kas pārrakstīti, lai rādītu satura redaktoriem"
+
+msgid "Tests overridden to turn off"
+msgstr "Testi, kas pārrakstīti, lai izslēgtu"
+
+msgid "Tests overridden to only to show to developers"
+msgstr "Testi, kas pārrakstīti, lai rādītu tikai izstrādātājiem"
+
+msgid "Elements to ignore for contrast test"
+msgstr "Elementi, ko ignorēt kontrasta testā"
+
+msgid "Turn on contrast checks"
+msgstr "Ieslēgt kontrasta pārbaudes"
+
+msgid "Developer check root: body or specify"
+msgstr "Izstrādātāja pārbaudes sakne: body vai norādiet"
+
+msgid "Developer check root selector"
+msgstr "Izstrādātāja pārbaudes saknes selektors"
+
+msgid "Selector for elements to ignore for developers"
+msgstr "Selektors elementiem, ko izstrādātāji ignorē"
+
+msgid "Enabled"
+msgstr "Iespējots"
+
+msgid "Custom development domain patterns"
+msgstr "Pielāgoti izstrādes domēna modeļi"
+
+msgid "ID"
+msgstr "ID"
+
+msgid "Label"
+msgstr "Etiķete"
+
+msgid "Test key"
+msgstr "Testa atslēga"
+
+msgid "Tooltip title"
+msgstr "Rīkpadoma virsraksts"
+
+msgid "Tip content HTML"
+msgstr "Padoma satura HTML"
+
+msgid "Element set to check"
+msgstr "Pārbaudāmo elementu kopa"
+
+msgid "Dismiss key type"
+msgstr "Noraidījuma atslēgas tips"
+
+msgid "CSS filter selector"
+msgstr "CSS filtra selektors"
+
+msgid "Text strings to include"
+msgstr "Iekļaujamās teksta virknes"
+
+msgid "Text string"
+msgstr "Teksta virkne"
+
+msgid "Text strings to exclude"
+msgstr "Izslēdzamās teksta virknes"
+
+msgid "Case sensitive text matching"
+msgstr "Reģistrjutīga teksta atbilstība"
+
+msgid "Filter which pages will be crawled"
+msgstr "Filtrēt, kuras lapas tiks skenētas"
+
+msgid "Cancel"
+msgstr "Atcelt"
+
+msgid "Millisecond pause between page requests"
+msgstr "Milisekunžu pauze starp lapu pieprasījumiem"
+
+msgid "This tab needs to remain open and in the foreground during the crawl."
+msgstr "Skenēšanas laikā šai cilnei jāpaliek atvērtai un priekšplānā."
+
+msgid "Estimated time:"
+msgstr "Paredzamais laiks:"
+
+msgid "hours"
+msgstr "hours"
+
+msgid "minutes"
+msgstr "minutes"
+
+msgid "minute"
+msgstr "minute"
+
+msgid "Start crawling"
+msgstr "Sākt skenēšanu"
+
+msgid "Checked:"
+msgstr "Pārbaudīts:"
+
+msgid "pages"
+msgstr "pages"
+
+msgid "Back to dashboard"
+msgstr "Atpakaļ uz paneli"
+
+msgid "Test"
+msgstr "Tests"
+
+msgid "Elements"
+msgstr "Elementi"
+
+msgid "Status"
+msgstr "Statuss"
+
+msgid "Text"
+msgstr "Teksts"
+
+msgid "On"
+msgstr "Ieslēgts"
+
+msgid "Off"
+msgstr "Izslēgts"
+
+msgid "Freemius deactivation API call failed: @msg"
+msgstr "Freemius deaktivizācijas API izsaukums neizdevās: @msg"
+
+msgid "Cannot cancel subscription: API token not found."
+msgstr "Nevar atcelt abonementu: API pilnvara nav atrasta."
+
+msgid "Freemius subscription cancellation API call failed: @msg"
+msgstr "Freemius abonementa atcelšanas API izsaukums neizdevās: @msg"
+
+msgid "Key module lookup for @id failed: @msg"
+msgstr "Key module lookup for @id failed: @msg"
+
+msgid "Failed to update Freemius install properties: @msg"
+msgstr "Neizdevās atjaunināt Freemius instalācijas rekvizītus: @msg"
+
+msgid ""
+"An <a href=\"@settings\">active license must be deactivated</a> before "
+"uninstalling."
+msgstr ""
+"Pirms atinstalēšanas jādeaktivizē <a href=\"@settings\">aktīvā licence</a>."
+
+msgid "License key stored. Use editoria11y-csa:activate to activate."
+msgstr ""
+"Licences atslēga saglabāta. Izmantojiet editoria11y-csa:activate, lai "
+"aktivizētu."
+
+msgid "License activated."
+msgstr "Licence aktivizēta."
+
+msgid "License deactivated."
+msgstr "Licence deaktivizēta."
+
+msgid "License active. Expires: @date"
+msgstr "Licence aktīva. Beidzas: @date"
+
+msgid "License active. No expiration date."
+msgstr "Licence aktīva. Bez beigu datuma."
+
+msgid ""
+"License management locked. Use editoria11y-csa:unlock to re-enable UI "
+"changes."
+msgstr ""
+"Licences pārvaldība bloķēta. Izmantojiet editoria11y-csa:unlock, lai "
+"atkārtoti iespējotu interfeisa izmaiņas."
+
+msgid "License management unlocked. UI changes are now allowed."
+msgstr "Licences pārvaldība atbloķēta. Interfeisa izmaiņas tagad ir atļautas."
+
+msgid "License expired or cancelled."
+msgstr "Licence ir beigusies vai atcelta."
+
+msgid "License key cannot be empty."
+msgstr "Licences atslēga nevar būt tukša."
+
+msgid "Failed to store key: {msg}"
+msgstr "Neizdevās saglabāt atslēgu: {msg}"
+
+msgid "No stored license key found. Run editoria11y-csa:set-key first."
+msgstr ""
+"Saglabāta licences atslēga nav atrasta. Vispirms palaidiet editoria11y-"
+"csa:set-key."
+
+msgid "Activation failed: {msg}"
+msgstr "Aktivizācija neizdevās: {msg}"
+
+msgid "Deactivation failed: {msg}"
+msgstr "Deaktivizācija neizdevās: {msg}"
+
+msgid "License check failed: {msg}"
+msgstr "Licences pārbaude neizdevās: {msg}"
+
+msgid "Export"
+msgstr "Eksportēt"
+
+msgid "Export pages"
+msgstr "Eksportēt lapas"
+
+msgid "Export dismissals"
+msgstr "Eksportēt noraidījumus"
+
+msgid "Export alerts"
+msgstr "Eksportēt brīdinājumus"
+
+msgid "Paths with parameters"
+msgstr "Ceļi ar parametriem"
+
+msgid "Drop records for deleted or moved pages"
+msgstr "Dzēst ierakstus dzēstajām vai pārvietotajām lapām"
+
+msgid "Deletes results that no longer have valid paths or entity references."
+msgstr "Dzēš rezultātus, kuriem vairs nav derīgu ceļu vai entitāšu atsauču."
+
+msgid "Update page titles"
+msgstr "Atjaunināt lapu virsrakstus"
+
+msgid ""
+"Replaces recorded titles for Nodes, Terms and Users with the current value "
+"on their edit page."
+msgstr ""
+"Aizstāj reģistrētos mezglu, terminu un lietotāju virsrakstus ar pašreizējo "
+"vērtību to rediģēšanas lapā."
+
+msgid "Update page paths"
+msgstr "Atjaunināt lapu ceļus"
+
+msgid ""
+"Replaces recorded URLs for Nodes, Terms and Users with their current "
+"canonical path. <br>@ReviewPaths (node/1?node=2) will not be updated."
+msgstr ""
+"Aizstāj reģistrētos mezglu, terminu un lietotāju URL ar to pašreizējo "
+"kanonisko ceļu. <br>@ReviewPaths (node/1?node=2) netiks atjaunināts."
+
+msgid "Risky deletions"
+msgstr "Riskanta dzēšana"
+
+msgid "Delete records for paths with parameters (e.g., ?page=2)"
+msgstr "Dzēst ierakstus ceļiem ar parametriem (piemēram, ?page=2)"
+
+msgid "None"
+msgstr "Nav"
+
+msgid "Only for nodes, terms & users"
+msgstr "Tikai mezgliem, terminiem un lietotājiem"
+
+msgid "All, including search and views"
+msgstr "Visi, ieskaitot meklēšanu un skatus"
+
+msgid ""
+"Used to remove duplicate records when previously recorded parameters like "
+"page numbers or search keys were not meaningful. Parameters that are not "
+"meaningful should be removed from the list of parameters to save under "
+"\"Syncing results to reports\" in the module configuration.<br>@ReviewPaths "
+"should be reviewed before proceeding. <strong>There is no undo</strong>."
+msgstr ""
+"Tiek izmantots, lai noņemtu dublētus ierakstus, ja iepriekš reģistrētie "
+"parametri (piemēram, lapu numuri vai meklēšanas atslēgas) nebija nozīmīgi. "
+"Nenozīmīgi parametri jānoņem no parametru saraksta sadaļā \"Rezultātu "
+"sinhronizācija ar pārskatiem\".<br>@ReviewPaths ir jāpārskata pirms "
+"turpināšanas. <strong>Atsaukšana nav iespējama</strong>."
+
+msgid "Start"
+msgstr "Sākt"
+
+msgid "Recheck nodes"
+msgstr "Atkārtoti pārbaudīt mezglus"
+
+msgid "Set up a crawl"
+msgstr "Iestatīt skenēšanu"
+
+msgid "Processing batch #@batch_id of @count."
+msgstr "Apstrādā paketi #@batch_id no @count."
+
+msgid "@process processed @count, deleted @deleted, updated @updated."
+msgstr "@process apstrādāja @count, dzēsa @deleted, atjaunināja @updated."
+
+msgid ""
+"An error occurred while processing %error_operation with arguments: "
+"@arguments"
+msgstr "Radās kļūda, apstrādājot %error_operation ar argumentiem: @arguments"
+
+msgid "No records to process."
+msgstr "Nav ierakstu apstrādei."
+
+msgid ""
+"@process processed @count, deleted @deleted, updated @updated in @elapsed."
+msgstr ""
+"@process apstrādāja @count, dzēsa @deleted, atjaunināja @updated laikā "
+"@elapsed."
+
+msgid "Admin label for the configuration page"
+msgstr "Administratora etiķete konfigurācijas lapai"
+
+msgid "Test grouping ID"
+msgstr "Testu grupēšanas ID"
+
+msgid ""
+"Letters, numbers and underscores only.<br>Rules that share an ID will be "
+"grouped on dashboard reports."
+msgstr ""
+"Tikai burti, cipari un pasvītras.<br>Noteikumi ar vienādu ID tiks grupēti "
+"paneļa pārskatos."
+
+msgid "Active"
+msgstr "Aktīvs"
+
+msgid "Alert content"
+msgstr "Brīdinājuma saturs"
+
+msgid "Tip title"
+msgstr "Padoma virsraksts"
+
+msgid "Tip details"
+msgstr "Padoma detaļas"
+
+msgid ""
+"HTML displayed in the tooltip. The provided template is optional.<br>\n"
+"        Allowed tags: @tags."
+msgstr ""
+"HTML, kas tiek rādīts rīkpadomā. Norādītā veidne nav obligāta.<br>\n"
+"        Atļautie tagi: @tags."
+
+msgid "To fix"
+msgstr "Labošanai"
+
+msgid "Error"
+msgstr "Kļūda"
+
+msgid "Manual check"
+msgstr "Manuāla pārbaude"
+
+msgid "Dismiss key"
+msgstr "Noraidījuma atslēga"
+
+msgid ""
+"How dismissals are tracked. 'Text' uses its text content, 'Attributes' uses "
+"its attributes (href, id, class, src)."
+msgstr ""
+"Kā tiek izsekoti noraidījumi. 'Text' izmanto teksta saturu, 'Attributes' "
+"izmanto atribūtus (href, id, class, src)."
+
+msgid "Text content"
+msgstr "Teksta saturs"
+
+msgid "Attributes on tag (e.g. href and src)"
+msgstr "Taga atribūti (piemēram, href un src)"
+
+msgid "Elements to check"
+msgstr "Pārbaudāmie elementi"
+
+msgid ""
+"These sets contain elements that match your check area and skip over "
+"configuration."
+msgstr ""
+"Šīs kopas satur elementus, kas atbilst jūsu pārbaudes apgabalam, un izlaiž "
+"konfigurāciju."
+
+msgid "Common choices"
+msgstr "Izplatītākās izvēles"
+
+msgid "All text elements: Headings, Paragraphs, Blockquotes and Lists"
+msgstr "Visi teksta elementi: virsraksti, rindkopas, blokpēdiņas un saraksti"
+
+msgid "Links"
+msgstr "Saites"
+
+msgid "Paragraphs"
+msgstr "Rindkopas"
+
+msgid "Headings"
+msgstr "Virsraksti"
+
+msgid "Images"
+msgstr "Attēli"
+
+msgid "All elements"
+msgstr "Visi elementi"
+
+msgid "...other..."
+msgstr "...citi..."
+
+msgid "Specific elements and combinations"
+msgstr "Konkrēti elementi un kombinācijas"
+
+msgid "Lists"
+msgstr "Saraksti"
+
+msgid "Blockquotes"
+msgstr "Blokpēdiņas"
+
+msgid "Tables"
+msgstr "Tabulas"
+
+msgid "Buttons"
+msgstr "Pogas"
+
+msgid "Inputs"
+msgstr "Ievades lauki"
+
+msgid "Labels"
+msgstr "Etiķetes"
+
+msgid "Iframes"
+msgstr "Iframes"
+
+msgid "Videos"
+msgstr "Video"
+
+msgid "Audio"
+msgstr "Audio"
+
+msgid ""
+"Note: combining Links with Paragraphs and other text containers can lead to "
+"duplicate alerts."
+msgstr ""
+"Piezīme: saišu apvienošana ar rindkopām un citiem teksta konteineriem var "
+"radīt dublētus brīdinājumus."
+
+msgid "When tip should appear"
+msgstr "Kad padomam jāparādās"
+
+msgid ""
+"This test builder allows for simple text and attribute tests.<br>Check the "
+"module readme for <a href=\"@url\">tips on writing more complex tests</a>."
+msgstr ""
+"Šis testu veidotājs ļauj veikt vienkāršus teksta un atribūtu testus."
+"<br>Skatiet moduļa readme, lai iegūtu <a href=\"@url\">padomus sarežģītāku "
+"testu rakstīšanai</a>."
+
+msgid "Select by attributes"
+msgstr "Atlasīt pēc atribūtiem"
+
+msgid ""
+"Match using CSS selectors.<br>Use :not() to skip elements, e.g. "
+"<code>:is(.check1, .check2):not(.ignore, .ignore *)</code>.<br>Use attribute "
+"selectors for URLs, e.g. <code>[href*=\".dev/\"]</code>."
+msgstr ""
+"Atbilstība, izmantojot CSS selektorus.<br>Izmantojiet :not(), lai izlaistu "
+"elementus, piemēram, <code>:is(.check1, .check2):not(.ignore, .ignore *)</"
+"code>.<br>Izmantojiet atribūtu selektorus URL, piemēram, <code>[href*=\".dev/"
+"\"]</code>."
+
+msgid "Select by text"
+msgstr "Atlasīt pēc teksta"
+
+msgid "Flag elements containing any of these text strings. One per line."
+msgstr ""
+"Atzīmēt elementus, kas satur kādu no šīm teksta virknēm. Viena katrā rindā."
+
+msgid "Case sensitive"
+msgstr "Reģistrjutīgs"
+
+msgid "Exclude elements that match this text"
+msgstr "Izslēgt elementus, kas atbilst šim tekstam"
+
+msgid ""
+"Don't flag elements if they contain any of these words or phrases. E.g., a "
+"link to a development server is ok if it contains \"dev.\" One per line."
+msgstr ""
+"Neatzīmēt elementus, ja tie satur kādu no šiem vārdiem vai frāzēm. Piemēram, "
+"saite uz izstrādes serveri ir pieļaujama, ja satur \"dev.\" Viena katrā "
+"rindā."
+
+msgid "Test key must contain only letters, numbers, and underscores."
+msgstr "Testa atslēga drīkst saturēt tikai burtus, ciparus un pasvītras."
+
+msgid "Tip content must contain visible text."
+msgstr "Padoma saturam jāsatur redzams teksts."
+
+msgid "Select at least one rule."
+msgstr "Atlasīt vismaz vienu noteikumu."
+
+msgid "Select at least one element type."
+msgstr "Atlasīt vismaz vienu elementa tipu."
+
+msgid "The filter selector should be a CSS selector, not a CSS rule block."
+msgstr "Filtra selektoram jābūt CSS selektoram, nevis CSS noteikumu blokam."
+
+msgid "Created new custom test %label."
+msgstr "Izveidots jauns pielāgots tests %label."
+
+msgid "Updated custom test %label."
+msgstr "Atjaunināts pielāgots tests %label."
+
+msgid "Are you deactivating this site or cancelling altogether?"
+msgstr "Vai deaktivizēt šo vietni vai atcelt pilnībā?"
+
+msgid "You can manage your subscriptions at any time in your Freemius account."
+msgstr "Savus abonementes varat pārvaldīt jebkurā laikā savā Freemius kontā."
+
+msgid "Choose an action"
+msgstr "Izvēlēties darbību"
+
+msgid ""
+"<strong>Deactivate this site</strong>, but keep my subscription active and "
+"renewing for use on another site"
+msgstr ""
+"<strong>Deaktivizēt šo vietni</strong>, bet saglabāt manu abonementu aktīvu "
+"un atjaunojamu lietošanai citā vietnē"
+
+msgid ""
+"<strong>Cancel my subscription</strong> to the Editoria11y CSA altogether"
+msgstr "<strong>Atcelt manu abonementu</strong> Editoria11y CSA pilnībā"
+
+msgid "Confirm deactivation"
+msgstr "Apstiprināt deaktivizāciju"
+
+msgid "Never mind; keep site active"
+msgstr "Atstāt; saglabāt vietni aktīvu"
+
+msgid ""
+"This site appears to be a development or testing environment with an active "
+"license."
+msgstr "Šī vietne šķiet esam izstrādes vai testēšanas vide ar aktīvu licenci."
+
+msgid "How would you like to proceed?"
+msgstr "Kā vēlaties turpināt?"
+
+msgid ""
+"<strong>Cancel deactivation</strong>; I will manage this from the production "
+"site"
+msgstr ""
+"<strong>Atcelt deaktivizāciju</strong>; es to pārvaldīšu no ražošanas vietnes"
+
+msgid ""
+"<strong>Disconnect this copy</strong>; leave the production license active"
+msgstr "<strong>Atvienot šo kopiju</strong>; atstāt ražošanas licenci aktīvu"
+
+msgid ""
+"<strong>Deactivate all copies of this site</strong> (production, dev, and QA)"
+msgstr ""
+"<strong>Deaktivizēt visas šīs vietnes kopijas</strong> (ražošana, izstrāde "
+"un QA)"
+
+msgid "Confirm"
+msgstr "Apstiprināt"
+
+msgid ""
+"Editoria11y promotes accessibility in a unique way. Its tools are highly "
+"effective at helping non-technical authors prepare content that can be "
+"enjoyed equally by disabled Web users. We consider this a public good, so "
+"Editoria11y will always be free to use."
+msgstr ""
+"Editoria11y veicina pieejamību unikālā veidā. Tā rīki ir ļoti efektīvi, "
+"palīdzot ne-tehniskiem autoriem sagatavot saturu, ko var vienlīdzīgi baudīt "
+"interneta lietotāji ar invaliditāti. Mēs uzskatām to par sabiedrisku labumu, "
+"tāpēc Editoria11y vienmēr būs brīvi lietojams."
+
+msgid "Editoria11y is not, however, free to develop or support."
+msgstr "Tomēr Editoria11y izstrāde un atbalsts nav bezmaksas."
+
+msgid ""
+"The \"Community Supported Add-ons\" (CSA) project fills the gap: project "
+"membership subscriptions fund the development of the Editoria11y library, "
+"its CMS plugins, and the CSA suite."
+msgstr ""
+"Projekts \"Community Supported Add-ons\" (CSA) aizpilda šo plaisu: projekta "
+"dalības abonamenti finansē Editoria11y bibliotēkas, tās CMS spraudņu un CSA "
+"komplekta izstrādi."
+
+msgid ""
+"<a href=\"@url\"><strong>Join the CSA</strong></a> to support this project"
+msgstr ""
+"<a href=\"@url\"><strong>Pievienoties CSA</strong></a>, lai atbalstītu šo "
+"projektu"
+
+msgid ""
+"Existing members: <a href=\"@url\"><strong>Manage your subscription</"
+"strong></a> or <a href=\"@support_url\"><strong>contact support</strong></a>"
+msgstr ""
+"Esošie dalībnieki: <a href=\"@url\"><strong>Pārvaldiet savu abonementu</"
+"strong></a> vai <a href=\"@support_url\"><strong>sazinieties ar atbalstu</"
+"strong></a>"
+
+msgid ""
+"License management on this site has been locked via Drush. Use <code>drush "
+"ed11y-unlock</code> to re-enable changes from this form."
+msgstr ""
+"Licences pārvaldība šajā vietnē ir bloķēta ar Drush. Izmantojiet <code>drush "
+"ed11y-unlock</code>, lai atkārtoti iespējotu izmaiņas no šīs formas."
+
+msgid "Warning: this site matches a dev or QA URL pattern"
+msgstr "Brīdinājums: šī vietne atbilst izstrādes vai QA URL modelim"
+
+msgid "Shared activations should be managed in the production copy."
+msgstr "Koplietotās aktivizācijas jāpārvalda ražošanas kopijā."
+
+msgid ""
+"Use <code>drush ed11y-lock</code> to prevent changing shared activations."
+msgstr ""
+"Izmantojiet <code>drush ed11y-lock</code>, lai novērstu koplietoto "
+"aktivizāciju maiņu."
+
+msgid ""
+"Deactivating a shared key deactivates all copies of a site, including "
+"production."
+msgstr ""
+"Koplietojamas atslēgas deaktivizācija deaktivizē visas vietnes kopijas, "
+"ieskaitot ražošanu."
+
+msgid ""
+"Separate license activations from a development environment consume an "
+"additional key."
+msgstr ""
+"Atsevišķas licences aktivizācijas no izstrādes vides patērē papildu atslēgu."
+
+msgid "Trial (@days days remaining)"
+msgstr "Izmēģinājums (atlikušas @days dienas)"
+
+msgid "Trial (expired)"
+msgstr "Izmēģinājums (beidzies)"
+
+msgid "License expired"
+msgstr "Licence beigusies"
+
+msgid "Active membership"
+msgstr "Aktīva dalība"
+
+msgid "Activate using stored license key"
+msgstr "Aktivizēt, izmantojot saglabāto licences atslēgu"
+
+msgid "Activate with a different license key"
+msgstr "Aktivizēt ar citu licences atslēgu"
+
+msgid "Activate (enter license key below)"
+msgstr "Aktivizēt (ievadiet licences atslēgu zemāk)"
+
+msgid "<strong>License expired.</strong> Expired on: @date"
+msgstr "<strong>Licence beigusies.</strong> Beidzās: @date"
+
+msgid "<strong>License has expired.</strong>"
+msgstr "<strong>License has expired.</strong>"
+
+msgid "<strong>Trial license active.</strong> Trial ends: @date"
+msgstr ""
+"<strong>Izmēģinājuma licence aktīva.</strong> Izmēģinājums beidzas: @date"
+
+msgid "<strong>License active.</strong> Expires: @date"
+msgstr "<strong>Licence aktīva.</strong> Beidzas: @date"
+
+msgid "<strong>Lifetime license active.</strong>"
+msgstr "<strong>Lifetime license active.</strong>"
+
+msgid "Check for license renewal"
+msgstr "Pārbaudīt licences atjaunošanu"
+
+msgid "Deactivate license"
+msgstr "Deaktivizēt licenci"
+
+msgid "A license key is stored but not active"
+msgstr "Licences atslēga ir saglabāta, bet nav aktīva"
+
+msgid "Add a license key to enable CSA features"
+msgstr "Pievienojiet licences atslēgu, lai iespējotu CSA funkcijas"
+
+msgid "Enable CSA features"
+msgstr "Iespējot CSA funkcijas"
+
+msgid "CSA license key"
+msgstr "CSA licences atslēga"
+
+msgid ""
+"<a href=\"@url\">Join the CSA</a> to enable CSA features. Visit the Freemius "
+"dashboard to <a href=\"@freemius\">manage your subscription</a> or recover a "
+"lost key."
+msgstr ""
+"<a href=\"@url\">Pievienojieties CSA</a>, lai iespējotu CSA funkcijas. "
+"Apmeklējiet Freemius paneli, lai <a href=\"@freemius\">pārvaldītu savu "
+"abonementu</a> vai atgūtu pazaudētu atslēgu."
+
+msgid "Local, Dev and QA site URL patterns"
+msgstr "Lokālo, izstrādes un QA vietņu URL modeļi"
+
+msgid ""
+"One pattern per line, up to 5 patterns. Wildcards are supported (e.g. "
+"<code>*.test.example.com</code>).<br>Local, dev and QA sites can share an "
+"activation with production site, but only production sites check for "
+"renewals."
+msgstr ""
+"Viens modelis katrā rindā, līdz 5 modeļiem. Aizstājējzīmes ir atbalstītas "
+"(piemēram, <code>*.test.example.com</code>).<br>Lokālās, izstrādes un QA "
+"vietnes var koplietot aktivizāciju ar ražošanas vietni, taču tikai ražošanas "
+"vietnes pārbauda atjaunošanas."
+
+msgid ""
+"Additionally, any hostname consisting only of digits and dots (raw IPv4 "
+"address) is treated as a development environment."
+msgstr ""
+"Turklāt jebkurš resursdatora nosaukums, kas sastāv tikai no cipariem un "
+"punktiem (tīrs IPv4 adrese), tiek uzskatīts par izstrādes vidi."
+
+msgid "Built-in development URL patterns"
+msgstr "Iebūvētie izstrādes URL modeļi"
+
+msgid "Enter no more than 5 custom domain patterns."
+msgstr "Ievadiet ne vairāk kā 5 pielāgotus domēna modeļus."
+
+msgid "Saved license key not found. Please activate with a new key."
+msgstr ""
+"Saglabāta licences atslēga nav atrasta. Lūdzu, aktivizējiet ar jaunu atslēgu."
+
+msgid "Enter a license key."
+msgstr "Ievadiet licences atslēgu."
+
+msgid "Activation failed: @msg"
+msgstr "Aktivizācija neizdevās: @msg"
+
+msgid "License renewed and active."
+msgstr "Licence atjaunota un aktīva."
+
+msgid "License is still expired."
+msgstr "Licence joprojām ir beigusies."
+
+msgid "Unexpected license status: @status"
+msgstr "Neparedzēts licences statuss: @status"
+
+msgid "Could not reach licensing server: @msg"
+msgstr "Nevarēja sasniegt licencēšanas serveri: @msg"
+
+msgid "Deactivation failed: @msg"
+msgstr "Deaktivizācija neizdevās: @msg"
+
+msgid "Editoria11y Export Batch Processor"
+msgstr "Editoria11y eksporta pakešu apstrāde"
+
+msgid ""
+"Batching is only needed for very large or heavily customized CSV exports."
+msgstr "Pakešu apstrāde ir nepieciešama tikai ļoti lieliem vai stipri pielāgotiem CSV eksportiem."
+
+msgid "hide"
+msgstr "hide"
+
+msgid "ok"
+msgstr "ok"
+
+msgid "Yes"
+msgstr "Jā"
+
+msgid "No"
+msgstr "Nē"
+
+msgid "This alt text is a filename, not a description"
+msgstr "Šis alternatīvais teksts ir faila nosaukums, nevis apraksts"
+
+msgid "Is this a clear and concise description of the image?"
+msgstr "Vai šis ir skaidrs un kodolīgs attēla apraksts?"
+
+msgid "This alt text may be a placeholder"
+msgstr "Šis alt teksts var būt vietturis"
+
+msgid "This alt text is unpronounceable"
+msgstr "Šis alternatīvais teksts nav izrunājams"
+
+msgid "This custom input field is missing a label"
+msgstr "Šim pielāgotajam ievades laukam trūkst etiķetes"
+
+msgid "Button is missing an accessible label"
+msgstr "Pogai trūkst piekļūstama nosaukuma"
+
+msgid "Button has an invalid ARIA label"
+msgstr "Pogai ir nederīga ARIA etiķete"
+
+msgid "Button name repeats the word \"button\""
+msgstr "Pogas nosaukumā atkārtojas vārds \"button\""
+
+msgid "This button is unpronounceable"
+msgstr "Šī poga nav izrunājama"
+
+msgid "Text does not have enough contrast to be easily legible"
+msgstr "Tekstam nav pietiekama kontrasta, lai to varētu viegli lasīt"
+
+msgid "Graphic or icon does not have enough contrast"
+msgstr "Grafikam vai ikonai nav pietiekama kontrasta"
+
+msgid "Input does not provide enough contrast to be easily legible"
+msgstr "Ievades laukam nav pietiekama kontrasta, lai to varētu viegli lasīt"
+
+msgid "Placeholder text does not have enough contrast to be easily legible"
+msgstr "Viettura tekstam nav pietiekama kontrasta, lai to varētu viegli lasīt"
+
+msgid "Does this placeholder text have enough contrast?"
+msgstr "Vai šim viettura tekstam ir pietiekams kontrasts?"
+
+msgid "Does this text have enough contrast?"
+msgstr "Vai šim tekstam ir pietiekams kontrasts?"
+
+msgid "Does this graphic or icon have enough contrast?"
+msgstr "Vai šim grafikam vai ikonai ir pietiekams kontrasts?"
+
+msgid "Duplicate ID attribute"
+msgstr "Dublēts ID atribūts"
+
+msgid "This link has a tooltip with the same text as the link"
+msgstr "Šai saitei ir rīkpadome ar tādu pašu tekstu kā saitei"
+
+msgid "Does this audio have a transcript?"
+msgstr "Vai šim audio ir atšifrējums?"
+
+msgid "Is this visualization accessible?"
+msgstr "Vai šī vizualizācija ir piekļūstama?"
+
+msgid "Embedded iframes need manual checks"
+msgstr "Iegultajiem iframe elementiem nepieciešamas manuālas pārbaudes"
+
+msgid "Frame missing \"title\" attribute"
+msgstr "Rāmim trūkst \"title\" atribūta"
+
+msgid "Frame with tabindex=\"-1\" will not be keyboard accessible."
+msgstr "Rāmis ar tabindex=\"-1\" nebūs pieejams ar tastatūru."
+
+msgid "Is this video accurately captioned?"
+msgstr "Vai šim video ir precīzi subtitri?"
+
+msgid "This heading has no text"
+msgstr "Šim virsrakstam nav teksta"
+
+msgid "This image is used as a heading, so it needs alt text"
+msgstr ""
+"Šis attēls tiek izmantots kā virsraksts, tāpēc tam nepieciešams "
+"alternatīvais teksts"
+
+msgid "The first heading on this page is a subheading"
+msgstr "Pirmais virsraksts šajā lapā ir apakšvirsraksts"
+
+msgid "Can this heading be shorter?"
+msgstr "Vai šo virsrakstu var padarīt īsāku?"
+
+msgid "This page is missing a Heading 1"
+msgstr "Šajā lapā trūkst 1. līmeņa virsraksta"
+
+msgid "This heading is tagged at the wrong level"
+msgstr "Šis virsraksts ir atzīmēts nepareizā līmenī"
+
+msgid "This heading is unpronounceable"
+msgstr "Šis virsraksts nav izrunājams"
+
+msgid "This element cannot be described by screen readers"
+msgstr "Šo elementu ekrānlasītāji nevar aprakstīt"
+
+msgid "Can this alt text be shorter?"
+msgstr "Vai šo alternatīvo tekstu var padarīt īsāku?"
+
+msgid "Is this image actually meaningless?"
+msgstr "Vai šis attēls patiešām ir nenozīmīgs?"
+
+msgid "Image in a carousel or gallery marked as decorative"
+msgstr "Attēls karuselī vai galerijā atzīmēts kā dekoratīvs"
+
+msgid "This captioned image has no alt text"
+msgstr "Šim attēlam ar parakstu nav alt teksta"
+
+msgid "Alt text should not be the same as caption text"
+msgstr "Alternatīvajam tekstam nevajadzētu sakrist ar parakstu"
+
+msgid "Is there a visible label for this field?"
+msgstr "Vai šim laukam ir redzama etiķete?"
+
+msgid "Prefer visible labels to placeholders"
+msgstr "Dodiet priekšroku redzamām etiķetēm, nevis vietturiem"
+
+msgid "Is this reset button needed?"
+msgstr "Vai šī atiestatīšanas poga ir nepieciešama?"
+
+msgid "This input has an empty label"
+msgstr "Šim ievades laukam ir tukša etiķete"
+
+msgid "Visible label does not match invisible label"
+msgstr "Redzamā etiķete neatbilst neredzamajai etiķetei"
+
+msgid "This image input is missing alt text"
+msgstr "Šim attēla ievades laukam trūkst alternatīvā teksta"
+
+msgid "This input is not connected to a label"
+msgstr "Šis ievades lauks nav savienots ar etiķeti"
+
+msgid "Language tag does not match the content"
+msgstr "Valodas atzīme neatbilst saturam"
+
+msgid "This content appears to be in a different language"
+msgstr "Šķiet, ka šis saturs ir citā valodā"
+
+msgid "This alt text appears to be in a different language"
+msgstr "Šķiet, ka šis alternatīvais teksts ir citā valodā"
+
+msgid "Alt text used as a link should not be a URL"
+msgstr "Alternatīvais teksts, kas izmantots kā saite, nedrīkst būt URL"
+
+msgid "This linked alt might not be clear and concise"
+msgstr "Šis saites alternatīvais teksts var nebūt skaidrs un kodolīgs"
+
+msgid "Linked images need pronounceable alt text"
+msgstr "Saistītajiem attēliem nepieciešams izrunājams alternatīvais teksts"
+
+msgid "Manual check: link contains \"click here\""
+msgstr "Manuāla pārbaude: saite satur \"klikšķiniet šeit\""
+
+msgid "Link article titles, not DOI numbers"
+msgstr "Veidojiet saiti uz raksta nosaukumu, nevis DOI numuru"
+
+msgid "This link contains no words"
+msgstr "Šī saite nesatur vārdus"
+
+msgid "Link with invalid \"aria-labelledby\" attribute"
+msgstr "Saitei ir nederīgs \"aria-labelledby\" atribūts"
+
+msgid "This link needs a label"
+msgstr "Šai saitei nepieciešama etiķete"
+
+msgid "Link points to a file without warning"
+msgstr "Saite norāda uz failu bez brīdinājuma"
+
+msgid "Links with the same text link to different pages"
+msgstr "Saites ar vienādu tekstu norāda uz dažādām lapām"
+
+msgid "Does this alt text describe the link or the image?"
+msgstr "Vai šis alternatīvais teksts apraksta saiti vai attēlu?"
+
+msgid "Does this alt text make sense as part of this link?"
+msgstr "Vai šis alternatīvais teksts ir jēgpilns šīs saites kontekstā?"
+
+msgid "Can this linked alt text be shorter?"
+msgstr "Vai šo saistīto alternatīvo tekstu var padarīt īsāku?"
+
+msgid "This linked image needs alt text"
+msgstr "Šim saistītajam attēlam nepieciešams alternatīvais teksts"
+
+msgid "Does this linked image need a description?"
+msgstr "Vai šim saistītajam attēlam nepieciešams apraksts?"
+
+msgid "Is this link actually a button?"
+msgstr "Vai šī saite patiesībā ir poga?"
+
+msgid "Does this link open a new tab without warning?"
+msgstr "Vai šī saite atver jaunu cilni bez brīdinājuma?"
+
+msgid "This linked alt text may be a placeholder"
+msgstr "Šis saistītais alt teksts var būt vietturis"
+
+msgid "This link only contains generic words"
+msgstr "Šī saite satur tikai vispārīgus vārdus"
+
+msgid "The purpose of this link is visually hidden"
+msgstr "Šīs saites mērķis ir vizuāli slēpts"
+
+msgid "Does this image's alt describe the image or the link?"
+msgstr "Vai šī attēla alternatīvais teksts apraksta attēlu vai saiti?"
+
+msgid "Are the symbols or emoji in this link meaningful?"
+msgstr "Vai simboli vai emocijzīmes šajā saitē ir jēgpilni?"
+
+msgid "This link is unpronounceable"
+msgstr "Šī saite nav izrunājama"
+
+msgid "Link text should not be a URL"
+msgstr "Saites tekstam nevajadzētu būt URL"
+
+msgid "Meta tag for page language missing"
+msgstr "Trūkst meta atzīmes lapas valodai"
+
+msgid "Did you mean a different language code?"
+msgstr "Vai domājāt citu valodas kodu?"
+
+msgid "Invalid language code"
+msgstr "Nederīgs valodas kods"
+
+msgid "Page language may not match the content"
+msgstr "Lapas valoda var neatbilst saturam"
+
+msgid "Meta tag limits how much users can enlarge text"
+msgstr "Meta atzīme ierobežo teksta palielināšanu"
+
+msgid "Meta tag automatically refreshes page"
+msgstr "Meta atzīme automātiski atsvaidzina lapu"
+
+msgid "Meta tag prevents users from enlarging text"
+msgstr "Meta atzīme neļauj lietotājiem palielināt tekstu"
+
+msgid "Meta tag for page title missing"
+msgstr "Trūkst meta atzīmes lapas nosaukumam"
+
+msgid "Invalid HTML: image has no alt attribute"
+msgstr "Nederīgs HTML: attēlam nav alt atribūta"
+
+msgid "Invalid HTML: linked image missing alt attribute"
+msgstr "Nederīgs HTML: saistītajam attēlam trūkst alt atribūta"
+
+msgid "Invalid HTML: image in link missing alt attribute"
+msgstr "Nederīgs HTML: attēlam saitē trūkst alt atribūta"
+
+msgid "This link target may be invalid"
+msgstr "Šīs saites mērķis var būt nederīgs"
+
+msgid "Should this quote be a heading?"
+msgstr "Vai šim citātam vajadzētu būt virsrakstam?"
+
+msgid "Has this document been tagged for screen readers?"
+msgstr "Vai šis dokuments ir atzīmēts ekrānlasītājiem?"
+
+msgid "Should this bold text be a heading?"
+msgstr "Vai šim treknraksta tekstam vajadzētu būt virsrakstam?"
+
+msgid "Should this have list formatting?"
+msgstr "Vai tam vajadzētu būt saraksta formatējumam?"
+
+msgid "Broken same-page link"
+msgstr "Bojāta saite uz to pašu lapu"
+
+msgid "Do not justify text"
+msgstr "Neizmantojiet abpusēji izlīdzinātu tekstu"
+
+msgid "Nested interactive layout components"
+msgstr "Ligzdoti interaktīvi izkārtojuma komponenti"
+
+msgid "Is there an alternative for this PDF?"
+msgstr "Vai šim PDF ir alternatīva?"
+
+msgid "Text is too small"
+msgstr "Teksts ir pārāk mazs"
+
+msgid "Large blocks of emphasized text are harder to read"
+msgstr "Lieli izcelta teksta bloki ir grūtāk lasāmi"
+
+msgid "Do not use sub/superscript as visual formatting"
+msgstr "Nelietojiet apakšrakstu/augšrakstu kā vizuālu formatējumu"
+
+msgid "Only links should be underlined"
+msgstr "Tikai saites drīkst būt pasvītrotas"
+
+msgid "Is this uppercase text needed?"
+msgstr "Vai šis teksts ar lielajiem burtiem ir nepieciešams?"
+
+msgid "Are there redundant words in this alt text?"
+msgstr "Vai šajā alternatīvajā tekstā ir lieki vārdi?"
+
+msgid "Tabindex overrides interrupt the focus order"
+msgstr "Tabindex pārrakstīšana pārtrauc fokusa secību"
+
+msgid "This header cell needs text"
+msgstr "Šai galvenes šūnai nepieciešams teksts"
+
+msgid "This table has an invalid headers attribute"
+msgstr "Šai tabulai ir nederīgs \"headers\" atribūts"
+
+msgid "This table needs a header row and/or column"
+msgstr "Šai tabulai nepieciešama galvenes rinda un/vai kolonna"
+
+msgid "Content headings should not be used inside tables"
+msgstr "Satura virsrakstus nedrīkst lietot tabulās"
+
+msgid "Invalid HTML list"
+msgstr "Nederīgs HTML saraksts"
+
+msgid "Linked images"
+msgstr "Saitēs esošie attēli"
+
+msgid "Text formatting"
+msgstr "Teksta formatēšana"
+
+msgid "Video, audio, frames"
+msgstr "Video, audio, rāmji"
+
+msgid "Contrast"
+msgstr "Kontrasts"
+
+msgid "Forms"
+msgstr "Veidlapas"
+
+msgid "ARIA and focus"
+msgstr "ARIA un fokuss"
+
+msgid "Page metadata"
+msgstr "Lapas metadati"
+
+msgid "The request could not be processed. Details have been logged."
+msgstr "Pieprasījumu neizdevās apstrādāt. Sīkāka informācija ir reģistrēta žurnālā."
+
+msgid "API request rejected: @message"
+msgstr "API pieprasījums noraidīts: @message"
+
+msgid "API request failed: @message"
+msgstr "API pieprasījums neizdevās: @message"
+
+msgid "Export pages with alerts"
+msgstr "Eksportēt lapas ar brīdinājumiem"
+
+msgid ""
+"Install the Editoria11y Export Batch Processor module to download these "
+"reports."
+msgstr "Instalējiet Editoria11y Export Batch Processor moduli, lai lejupielādētu šos pārskatus."
+
+msgid "Export results"
+msgstr "Eksportēt rezultātus"
+
+msgctxt "problems"
+msgid "Top alerts"
+msgstr "Biežākās problēmas"
+
+msgctxt "problems"
+msgid "Pages with the most alerts"
+msgstr "Lapas ar visvairāk problēmām"
+
+msgid "Recent dismissals"
+msgstr "Jaunākie noraidījumi"
+
+msgid ""
+"Activate the <a href=\"@csa\">Editoria11y CSA submodule</a> to see developer "
+"tests."
+msgstr ""
+"Aktivizējiet <a href=\"@csa\">Editoria11y CSA apakšmoduli</a>, lai redzētu "
+"izstrādātāju testus."
+
+msgid "Include all parts of the page that contain your theme and content."
+msgstr "Iekļaut visas lapas daļas, kas satur jūsu motīvu un saturu."
+
+msgid "Include all parts of the page that contain your editable content."
+msgstr "Iekļaut visas lapas daļas, kas satur jūsu rediģējamo saturu."
+
+msgid "Exclude elements that show unhelpful, repetitive, or inaccurate alerts."
+msgstr ""
+"Izslēgt elementus, kas rāda nepalīdzīgus, atkārtotus vai neprecīzus "
+"brīdinājumus."
+
+msgid ""
+"<a href=\"@permissions\">Add permissions</a>, especially \"View Editoria11y "
+"checker\" and \"Mark OK.\"</a>"
+msgstr ""
+"<a href=\"@permissions\">Add permissions</a>, especially \"View Editoria11y "
+"checker\" and \"Mark OK.\"</a>"
+
+msgid ""
+"If you need help: <a href=\"@config_guide\">Configuration Guide</a> | <a "
+"href=\"@issue_queue\">Issue Queue</a> | <a href=\"@help\">Support contacts</"
+"a>"
+msgstr ""
+"Ja nepieciešama palīdzība: <a href=\"@config_guide\">Konfigurācijas "
+"ceļvedis</a> | <a href=\"@issue_queue\">Problēmu rinda</a> | <a "
+"href=\"@help\">Atbalsta kontakti</a>"
+
+msgid "Autodetect"
+msgstr "Automātiski noteikt"
+
+msgid "Only user-editable content"
+msgstr "Tikai lietotāja rediģējams saturs"
+
+msgid "Other"
+msgstr "Cits"
+
+msgid "Parts of the page to test"
+msgstr "Lapas daļas, kas jātestē"
+
+msgid "\"Autodetect\" selects:"
+msgstr "\"Automātiski noteikt\" atlasa:"
+
+msgid "Other: specify regions to check for developer and content problems"
+msgstr ""
+"Cits: norādiet apgabalus, kuros jāpārbauda izstrādātāju un satura problēmas"
+
+msgid ""
+"Provide CSS selectors. For many sites, the site theme is wrapped in "
+"<code>.dialog-off-canvas-main-canvas</code> while editing."
+msgstr ""
+"Norādiet CSS selektorus. Daudzās vietnēs rediģēšanas laikā vietnes motīvs ir "
+"iesaiņots <code>.dialog-off-canvas-main-canvas</code>."
+
+msgid "Do not check for any errors inside these elements"
+msgstr "Nepārbaudīt kļūdas šajos elementos"
+
+msgid "These parts of the page will be ignored entirely."
+msgstr "Šīs lapas daļas tiks pilnībā ignorētas."
+
+msgid "match content settings"
+msgstr "atbilst satura iestatījumiem"
+
+msgid "Page regions with user-editable content"
+msgstr "Lapas apgabali ar lietotāja rediģējamu saturu"
+
+msgid ""
+"Default: <code><em>main</em></code><br>Provide <a target=\"_blank\" "
+"href=\"https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/"
+"Selectors\">CSS selectors</a>. Content authors will only see the alerts "
+"within these parts of the page. Do not provide selectors that nest within "
+"each other, or the inner content will be checked twice."
+msgstr ""
+"Noklusējums: <code><em>main</em></code><br>Norādiet <a target=\"_blank\" "
+"href=\"https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/"
+"Selectors\">CSS selektorus</a>. Satura autori redzēs tikai brīdinājumus "
+"šajās lapas daļās. Nenorādiet selektorus, kas ligzdojas viens otra iekšā, "
+"citādi iekšējais saturs tiks pārbaudīts divreiz."
+
+msgid ""
+"Default: <code><em>main</em></code><br>Provide <a target=\"_blank\" "
+"href=\"https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/"
+"Selectors\">CSS selectors</a>. Do not provide selectors that nest within "
+"each other, or the inner content will be checked twice."
+msgstr ""
+"Noklusējums: <code><em>main</em></code><br>Norādiet <a target=\"_blank\" "
+"href=\"https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/"
+"Selectors\">CSS selektorus</a>. Nenorādiet selektorus, kas ligzdojas viens "
+"otra iekšā, citādi iekšējais saturs tiks pārbaudīts divreiz."
+
+msgid "Errors in these elements should only be shown to developers"
+msgstr "Kļūdas šajos elementos jārāda tikai izstrādātājiem"
+
+msgid "Do not check for content errors inside these elements"
+msgstr "Nepārbaudīt satura kļūdas šajos elementos"
+
+msgid ""
+"Content editors are not responsible for errors in these elements. <br>E.g.: "
+"<code><em>#sidebar-menu a, .slide [aria-hidden=\"true\"]</em></code>."
+msgstr ""
+"Satura redaktori nav atbildīgi par kļūdām šajos elementos. <br>Piemēram: "
+"<code><em>#sidebar-menu a, .slide [aria-hidden=\"true\"]</em></code>."
+
+msgid "Roles that will see developer alerts"
+msgstr "Lomas, kas redzēs izstrādātāju brīdinājumus"
+
+msgid ""
+"All roles with the <a href=\":url\">View editoria11y checker</a> permission "
+"see content alerts."
+msgstr ""
+"Visas lomas ar <a href=\":url\">Skatīt editoria11y pārbaudītāju</a> atļauju "
+"redz satura brīdinājumus."
+
+msgid "Advanced settings"
+msgstr "Papildu iestatījumi"
+
+msgid "Assertiveness"
+msgstr "Uzstājība"
+
+msgid "Checker mode for content roles"
+msgstr "Pārbaudītāja režīms satura lomām"
+
+msgid "Start open if there are any alerts"
+msgstr "Sākt atvērtu, ja ir kādi brīdinājumi"
+
+msgid "Start open if there are new alerts"
+msgstr "Sākt atvērtu, ja ir jauni brīdinājumi"
+
+msgid "Start minimized"
+msgstr "Sākt minimizētu"
+
+msgid ""
+"Choose when the control panel should open and show inline tips. \"Start open "
+"if there are any alerts\" is recommended, as it helps tips get noticed over "
+"time."
+msgstr ""
+"Izvēlēties, kad vadības panelim jāatveras un jārāda iekļauti padomi. "
+"Ieteicams \"Sākt atvērtu, ja ir kādi brīdinājumi\", jo tas palīdz padomus "
+"ievērot laika gaitā."
+
+msgid "Checker mode for developer roles"
+msgstr "Pārbaudītāja režīms izstrādātāju lomām"
+
+msgid "Do not check any content while it is being edited"
+msgstr "Nepārbaudīt saturu rediģēšanas laikā"
+
+msgid ""
+"Use the \"Do not check on pages with these elements\" setting to prevent "
+"checking only on specific pages. E.g., exclude: <code><em>form[id^=\"node-"
+"article\"]</em></code>."
+msgstr ""
+"Izmantojiet iestatījumu \"Nepārbaudīt lapās ar šiem elementiem\", lai "
+"novērstu pārbaudi tikai konkrētās lapās. Piemēram, izslēdziet: "
+"<code><em>form[id^=\"node-article\"]</em></code>."
+
+msgid "Assign headers to CKEditor tables on insert"
+msgstr "Piešķirt galvenes CKEditor tabulām ievietošanas brīdī"
+
+msgid "First row"
+msgstr "Pirmā rinda"
+
+msgid "First column"
+msgstr "Pirmā kolonna"
+
+msgid "Both"
+msgstr "Abi"
+
+msgid ""
+"You will need to clear cache for changes to this setting to appear in "
+"CKEditor."
+msgstr "Jānotīra kešatmiņa, lai izmaiņas šajā iestatījumā parādītos CKEditor."
+
+msgid "Theme compatibility"
+msgstr "Motīva savietojamība"
+
+msgid "Configuration tips"
+msgstr "Konfigurācijas padomi"
+
+msgid ""
+"If the checker <strong>toggle</strong> does not appear: make sure a z-"
+"indexed or overflow-hidden element in your front-end theme is not hiding or "
+"covering the <code><em>ed11y-element-panel</em></code> container, make sure "
+"that any custom selectors in the \"Disable the scanner if these elements are "
+"detected\" field are not present, and make sure that no JavaScript errors "
+"are appearing in your <a href=\"https://developer.mozilla.org/en-US/docs/"
+"Tools/Browser_Console\"> browser console</a>"
+msgstr ""
+"Ja pārbaudītāja <strong>slēdzis</strong> neparādās: pārliecinieties, ka z-"
+"indexed vai overflow-hidden elements jūsu priekšgala motīvā neslēpj vai "
+"neaizklāj <code><em>ed11y-element-panel</em></code> konteineru, "
+"pārliecinieties, ka nav klāt pielāgotu selektoru laukā \"Atspējot skeneri, "
+"ja šie elementi ir konstatēti\", un pārliecinieties, ka <a href=\"https://"
+"developer.mozilla.org/en-US/docs/Tools/Browser_Console\"> pārlūka konsolē</"
+"a> nav JavaScript kļūdu"
+
+msgid ""
+"If the checker toggle is present but <strong>not detecting</strong> errors, "
+"or missing errors that should be flagged: check that your inclusions & "
+"exclusion settings below are not missing or ignoring the elements. It is not "
+"uncommon for homepages or views to insert editable content outside the "
+"<code><em>main</em></code> element."
+msgstr ""
+"Ja pārbaudītāja slēdzis ir klāt, bet <strong>neatklāj</strong> kļūdas vai "
+"nokavē kļūdas, kas jāatzīmē: pārbaudiet, vai jūsu iekļaušanas un izslēgšanas "
+"iestatījumi zemāk nenokavē vai neignorē elementus. Nav nekas neparasts, ka "
+"sākumlapas vai skati ievieto rediģējamu saturu ārpus <code><em>main</em></"
+"code> elementa."
+
+msgid "Theme"
+msgstr "Motīvs"
+
+msgid "Sleek"
+msgstr "Elegants"
+
+msgid "Classic"
+msgstr "Klasiskais"
+
+msgid "Dark"
+msgstr "Tumšais"
+
+msgid "Do not check on pages with these elements"
+msgstr "Nepārbaudīt lapās ar šiem elementiem"
+
+msgid ""
+"Used to block checking on site sections or admin pages.<br>E.g. "
+"<code><em>.content-type-example, .tabs__link[href=*\"edit\"]</em></code>."
+msgstr ""
+"Tiek izmantots, lai bloķētu pārbaudi vietnes sadaļās vai administrācijas "
+"lapās.<br>Piemēram, <code><em>.content-type-"
+"example, .tabs__link[href=*\"edit\"]</em></code>."
+
+msgid "Hide all alerts on pages where these elements are not present"
+msgstr "Slēpt visus brīdinājumus lapās, kur šie elementi nav klāt"
+
+msgid ""
+"Used to limit alerting to nodes where the user can edit something. Suggested "
+"selectors:<br> <code><em>.contextual-region a[href*=\"/edit\"], .contextual-"
+"region a[href*=\"/manage\"]</em></code>."
+msgstr ""
+"Tiek izmantots, lai ierobežotu brīdinājumus ar mezgliem, kur lietotājs var "
+"kaut ko rediģēt. Ieteicamie selektori:<br> <code><em>.contextual-region "
+"a[href*=\"/edit\"], .contextual-region a[href*=\"/manage\"]</em></code>."
+
+msgid ""
+"Set to the number of other themes or modules that will be <a href=\"https://"
+"editoria11y.princeton.edu/configuration/#customtests\">injecting custom "
+"result JS events</a>."
+msgstr ""
+"Iestatiet uz citu motīvu vai moduļu skaitu, kas <a href=\"https://"
+"editoria11y.princeton.edu/configuration/#customtests\">injicēs pielāgotus "
+"rezultātu JS notikumus</a>."
+
+msgid "Positioning"
+msgstr "Novietojums"
+
+msgid "Don't show edit links on tips in these containers"
+msgstr "Nerādīt rediģēšanas saites padomos šajos konteineros"
+
+msgid ""
+"Tips show copies of the \"Edit\" and \"Layout\" links for nodes, users and "
+"taxonomy terms. These links are not helpful on lists of content from remote "
+"nodes.<br>Provide a comma-separated list of page sections of where these "
+"links should not show, E.g.: <code><em>#sidebar-menu, .news-feed</em></code>."
+"<br>To hide the links <strong>everywhere</strong>, set this field to an "
+"asterisk (<code><em>*</em></code>).<br>To modify the links, <a "
+"href=\"https://editoria11y.princeton.edu/configuration/#modify-tips\" "
+"target=\"_blank\">use the ed11yPop event</a> in your theme JS."
+msgstr ""
+"Padomi rāda mezglu, lietotāju un taksonomijas terminu \"Rediģēt\" un "
+"\"Izkārtojums\" saišu kopijas. Šīs saites nav noderīgas attālu mezglu satura "
+"sarakstos.<br>Norādiet ar komatu atdalītu lapas sadaļu sarakstu, kur šīs "
+"saites nerādīt, piemēram: <code><em>#sidebar-menu, .news-feed</em></code>."
+"<br>Lai slēptu saites <strong>visur</strong>, iestatiet šo lauku uz "
+"zvaigznīti (<code><em>*</em></code>).<br>Lai modificētu saites, <a "
+"href=\"https://editoria11y.princeton.edu/configuration/#modify-tips\" "
+"target=\"_blank\">izmantojiet ed11yPop notikumu</a> jūsu motīva JS."
+
+msgid "Pin panel to..."
+msgstr "Piespraust paneli..."
+
+msgid "Right"
+msgstr "Pa labi"
+
+msgid "Left"
+msgstr "Pa kreisi"
+
+msgid "Don't cover these other widgets"
+msgstr "Neaizklāt šos citus logrīkus"
+
+msgid ""
+"Provide a comma-separated list of selectors for other things that appear in "
+"the bottom right of the page. <br>If nothing is set, Editoria11y will "
+"automatically slide left to accommodate <code><em>#klaro_toggle_dialog, "
+"#klaro-cookie-notice .same-page-preview-dialog.ui-dialog-position-side</em></"
+"code>."
+msgstr ""
+"Norādiet ar komatu atdalītu selektoru sarakstu citām lietām, kas parādās "
+"lapas apakšējā labajā stūrī. <br>Ja nekas nav iestatīts, Editoria11y "
+"automātiski pārbīdīsies pa kreisi, lai pielāgotos "
+"<code><em>#klaro_toggle_dialog, #klaro-cookie-notice .same-page-preview-"
+"dialog.ui-dialog-position-side</em></code>."
+
+msgid "Elements with overflow hidden"
+msgstr "Elementi ar overflow hidden"
+
+msgid ""
+"Sometimes buttons get drawn and visually truncated outside the bounds of a "
+"positioned element. Provide a selector list."
+msgstr ""
+"Dažreiz pogas tiek uzzīmētas un vizuāli saīsinātas ārpus pozicionēta "
+"elementa robežām. Norādiet selektoru sarakstu."
+
+msgid "Theme JS will handle revealing hidden tooltips inside these containers"
+msgstr "Motīva JS apstrādās slēpto rīkpadomu atklāšanu šajos konteineros"
+
+msgid ""
+"Editoria11y detects hidden tooltips and warns the user when they try to jump "
+"to them from the panel. For elements on this list, Editoria11y will <a "
+"href=\"https://itmaybejj.github.io/editoria11y/#dealing-with-alerts-on-"
+"hidden-or-size-constrained-content\">dispatch a JS event</a> instead of a "
+"warning, so custom JS in your theme can first reveal the hidden tip (e.g., "
+"open an accordion or tab panel)."
+msgstr ""
+"Editoria11y nosaka slēptus rīkpadomus un brīdina lietotāju, kad tie mēģina "
+"uz tiem pāriet no paneļa. Šī saraksta elementiem Editoria11y <a "
+"href=\"https://itmaybejj.github.io/editoria11y/#dealing-with-alerts-on-"
+"hidden-or-size-constrained-content\">nosūtīs JS notikumu</a> brīdinājuma "
+"vietā, lai pielāgotais JS jūsu motīvā vispirms varētu atklāt slēpto padomu "
+"(piemēram, atvērt akordeonu vai cilnes paneli)."
+
+msgid "Detecting dynamic and shadow content"
+msgstr "Dinamiskā un ēnu satura noteikšana"
+
+msgid "Dynamically refresh if new content appears"
+msgstr "Dinamiski atsvaidzināt, ja parādās jauns saturs"
+
+msgid "Watch for changes anywhere on the page"
+msgstr "Sekot izmaiņām jebkurā lapas vietā"
+
+msgid "Only watch for changes to content containers present on load"
+msgstr "Sekot tikai izmaiņām satura konteineros, kas klāt ielādes laikā"
+
+msgid "Do not watch for changes"
+msgstr "Nesekot izmaiņām"
+
+msgid ""
+"Set to \"anywhere\" if changes are being missed, set to \"ignore\" if you "
+"notice performance issues. Themes and modules can also call "
+"<code>Drupal.Ed11y.refresh()</code> to refresh results."
+msgstr ""
+"Iestatiet uz \"jebkur\", ja izmaiņas tiek nokavētas; iestatiet uz "
+"\"ignorēt\", ja pamanāt veiktspējas problēmas. Motīvi un moduļi var arī "
+"izsaukt <code>Drupal.Ed11y.refresh()</code>, lai atsvaidzinātu rezultātus."
+
+msgid "Check inside these specific Web components"
+msgstr "Pārbaudīt šajos konkrētajos tīmekļa komponentos"
+
+msgid ""
+"Provide selectors for elements with <a href='https://developer.mozilla.org/"
+"en-US/docs/Web/Web_Components'>shadow DOM</a> you want tested. E.g.: "
+"<code><em>my-fancy-accordion-widget, my-magical-slideshow</em></code>."
+msgstr ""
+"Norādiet selektorus elementiem ar <a href='https://developer.mozilla.org/en-"
+"US/docs/Web/Web_Components'>shadow DOM</a>, kurus vēlaties pārbaudīt. "
+"Piemēram: <code><em>my-fancy-accordion-widget, my-magical-slideshow</em></"
+"code>."
+
+msgid "Auto-detect any Web components"
+msgstr "Automātiski noteikt jebkādus tīmekļa komponentus"
+
+msgid ""
+"This is easier to configure than specifying components, but may slow test "
+"runs on very complicated pages."
+msgstr ""
+"To ir vieglāk konfigurēt nekā komponentu norādīšanu, taču tas var palēnināt "
+"testu palaišanu ļoti sarežģītās lapās."
+
+msgid "Syncing results to reports"
+msgstr "Rezultātu sinhronizācija ar pārskatiem"
+
+msgid ""
+"Remember that results only sync to the dashboard when viewing nodes. Results "
+"shown while editing or viewing previews or revisions will not sync."
+msgstr ""
+"Atcerieties, ka rezultāti sinhronizējas ar paneli tikai mezglu skatīšanas "
+"laikā. Rezultāti, kas rādīti rediģēšanas vai priekšskatījuma/revīziju "
+"skatīšanas laikā, netiks sinhronizēti."
+
+msgid "Remove redundant base url from URLs"
+msgstr "Noņemt lieko bāzes URL no URL"
+
+msgid ""
+"Provide base URL (\"/mysite\") if your site is installed in a subdirectory. "
+"Subdirectories tend to get duplicated (/mysite/mysite/mypage) and throw "
+"errors from the API."
+msgstr ""
+"Norādiet bāzes URL (\"/mysite\"), ja jūsu vietne ir instalēta "
+"apakšdirektorijā. Apakšdirektoriji mēdz dubultot (/mysite/mysite/mypage) un "
+"radīt kļūdas API."
+
+msgid "Preserve query parameters"
+msgstr "Saglabāt vaicājuma parametrus"
+
+msgid ""
+"The dashboard ignores most parameters: results for both /news?f=1 and /news?"
+"f=2 will show up as just /news. Provide a comma separated list of parameters "
+"that are meaningful, and should appear as separate pages in results."
+msgstr ""
+"Panelis ignorē lielāko daļu parametru: rezultāti gan /news?f=1, gan /news?"
+"f=2 parādīsies kā /news. Norādiet ar komatu atdalītu nozīmīgu parametru "
+"sarakstu, kuriem jāparādās kā atsevišķām lapām rezultātos."
+
+msgid "Disable sync altogether"
+msgstr "Atspējot sinhronizāciju pavisam"
+
+msgid ""
+"Syncing test results back to Drupal is required for the <a target=\"_blank\" "
+"href=\"/admin/reports/editoria11y\">issue</a> and <a target=\"_blank\" "
+"href=\"/admin/reports/editoria11y/dismissals\">dismissal</a> dashboards and "
+"\"mark OK\" buttons."
+msgstr ""
+"Testu rezultātu sinhronizācija ar Drupal ir nepieciešama <a "
+"target=\"_blank\" href=\"/admin/reports/editoria11y\">problēmu</a> un <a "
+"target=\"_blank\" href=\"/admin/reports/editoria11y/"
+"dismissals\">noraidījumu</a> paneļiem un \"atzīmēt OK\" pogām."
+
+msgid "Heading outline position of editable content"
+msgstr "Rediģējamā satura virsrakstu struktūras pozīcija"
+
+msgid ""
+"To check headings in CKEditor, Editoria11y needs to know what the first "
+"heading level should be in this field. Body fields should generally be at "
+"the h2 level."
+msgstr ""
+"Lai pārbaudītu virsrakstus CKEditor, Editoria11y jāzina, kādam jābūt "
+"pirmajam virsraksta līmenim šajā laukā. Pamatteksta laukiem parasti jābūt h2 "
+"līmenī."
+
+msgid "H2 level fields (body content)"
+msgstr "H2 līmeņa lauki (pamatteksta saturs)"
+
+msgid ""
+"Body fields on nodes are preceded by an h1, and their heading outline should "
+"start with an h2. Ideally set this for top-level body fields for each of "
+"your content types, and set blocks and embedded nodes to h3 or h4.\n"
+"        <br>Set all content types: <code><em>form[id^=\"node-\"] #edit-body-"
+"wrapper .ck-content</em></code>\n"
+"        <br>Set specific content types: <code><em>form[id^=\"node-\"] #edit-"
+"body-wrapper .ck-content</em></code>\n"
+"        <br>Set up for Gutenberg: <code><em>form[id^=\"node-\"] #edit-body-"
+"wrapper .is-root-container</em></code>"
+msgstr ""
+"Mezglu pamatteksta lauki seko h1, un to virsrakstu struktūrai jāsākas ar h2. "
+"Ideālā gadījumā iestatiet to augstākā līmeņa pamatteksta laukiem katram "
+"satura tipam, un iestatiet blokus un iegultos mezglus uz h3 vai h4.\n"
+"        <br>Iestatīt visus satura tipus: <code><em>form[id^=\"node-\"] #edit-"
+"body-wrapper .ck-content</em></code>\n"
+"        <br>Iestatīt konkrētus satura tipus: <code><em>form[id^=\"node-\"] "
+"#edit-body-wrapper .ck-content</em></code>\n"
+"        <br>Iestatīt Gutenberg: <code><em>form[id^=\"node-\"] #edit-body-"
+"wrapper .is-root-container</em></code>"
+
+msgid "H3 level fields (blocks or paragraphs with separate titles)"
+msgstr "H3 līmeņa lauki (bloki vai rindkopas ar atsevišķiem virsrakstiem)"
+
+msgid ""
+"Sometimes inline and layout builder blocks are grouped under an h2 from a "
+"separate field, so their highest heading level should be h3."
+msgstr ""
+"Dažreiz iekļauti un izkārtojuma veidotāja bloki tiek grupēti zem h2 no "
+"atsevišķa lauka, tāpēc to augstākajam virsraksta līmenim jābūt h3."
+
+msgid "H4 level fields (deeply nested blocks or paragraphs)"
+msgstr "H4 līmeņa lauki (dziļi ligzdoti bloki vai rindkopas)"
+
+msgid ""
+"Sometimes inline and layout builder blocks are grouped under an h3 from a "
+"separate field, so their highest heading level should be h4."
+msgstr ""
+"Dažreiz iekļauti un izkārtojuma veidotāja bloki tiek grupēti zem h3 no "
+"atsevišķa lauka, tāpēc to augstākajam virsraksta līmenim jābūt h4."
+
+msgid "Modify tests that usually detect content issues"
+msgstr "Modificēt testus, kas parasti nosaka satura problēmas"
+
+msgid "Modify tests that usually detect template or configuration issues"
+msgstr ""
+"Modificēt testus, kas parasti nosaka veidnes vai konfigurācijas problēmas"
+
+msgid "Do not check contrast for these elements"
+msgstr "Nepārbaudīt kontrastu šiem elementiem"
+
+msgid ""
+"Provide a comma-separated list of selectors for elements to ignore for all "
+"users."
+msgstr ""
+"Norādiet ar komatu atdalītu selektoru sarakstu elementiem, ko ignorēt visiem "
+"lietotājiem."
+
+msgid "Remind editor that content in these embeds needs manual review"
+msgstr ""
+"Atgādināt redaktoram, ka saturs šajos iegultos elementos prasa manuālu "
+"pārskatu"
+
+msgid ""
+"Provide a comma-separated list of selectors you wish to flag for the editor, "
+"e.g.: <code><em>.my-embedded-feed, #my-social-link-block</em></code>."
+msgstr ""
+"Norādiet ar komatu atdalītu selektoru sarakstu, ko vēlaties atzīmēt "
+"redaktoram, piemēram: <code><em>.my-embedded-feed, #my-social-link-block</"
+"em></code>."
+
+msgid ""
+"Default settings should work with both <a href=\"https://www.drupal.org/"
+"project/linkpurpose\" target=\"_blank\">Link Purpose Icons</a> and <a "
+"target=\"_blank\" href=\"https://www.drupal.org/project/extlink\">External "
+"Links</a>."
+msgstr ""
+"Noklusējuma iestatījumiem vajadzētu darboties gan ar <a href=\"https://"
+"www.drupal.org/project/linkpurpose\" target=\"_blank\">Link Purpose Icons</"
+"a>, gan ar <a target=\"_blank\" href=\"https://www.drupal.org/project/"
+"extlink\">External Links</a>."
+
+msgid "Remind the editor that these linked documents need a manual check"
+msgstr ""
+"Atgādināt redaktoram, ka šie saistītie dokumenti prasa manuālu pārbaudi"
+
+msgid ""
+"Add or remove filetypes. Set to \"false\" to disable the test altogether. "
+"Providing any value will override the default, which is "
+"<code><em>a[href$='.pdf'], a[href*='.pdf?']</em></code>."
+msgstr ""
+"Pievienot vai noņemt failu tipus. Iestatiet uz \"false\", lai pilnībā "
+"atspējotu testu. Jebkuras vērtības norādīšana pārrakstīs noklusējumu, kas ir "
+"<code><em>a[href$='.pdf'], a[href*='.pdf?']</em></code>."
+
+msgid "Remove elements that match these selectors before testing link text"
+msgstr ""
+"Pirms saites teksta pārbaudes noņemt elementus, kas atbilst šiem selektoriem"
+
+msgid ""
+"Provide a CSS selector of elements your modules programmatically add to "
+"links (usually external or open-in-new-window links), so they can be ignored "
+"when the link text is checked for the \"link has no text\" and \"link text "
+"is not meaningful\" tests.<br>E.g.: <code><em>.this, .that</em></code>"
+msgstr ""
+"Norādiet CSS selektoru elementiem, ko jūsu moduļi programmatiski pievieno "
+"saitēm (parasti ārējas vai jaunā logā atvērtas saites), lai tos varētu "
+"ignorēt, pārbaudot saites tekstu \"saitei nav teksta\" un \"saites teksts "
+"nav jēgpilns\" testos.<br>Piemēram: <code><em>.this, .that</em></code>"
+
+msgid "Remove these strings before testing link text"
+msgstr "Pirms saites teksta pārbaudes noņemt šīs virknes"
+
+msgid ""
+"Provide a pipe-separated (\"|\") list of phrases your modules "
+"programmatically add to links to hint a purpose (external, mail, phone, open-"
+"in-new-window), so they can be ignored when the link text is checked for the "
+"\"link has no text\" and \"link text is not meaningful\" tests; e.g.:  "
+"<pre><code><em>(link is external)|(link sends email)</em></code></pre>"
+msgstr ""
+"Norādiet ar vertikālu svītru (\"|\") atdalītu frāžu sarakstu, ko jūsu moduļi "
+"programmatiski pievieno saitēm, lai norādītu mērķi (ārēja, e-pasts, "
+"tālrunis, jauns logs), lai tos varētu ignorēt saites teksta pārbaudes laikā; "
+"piemēram:  <pre><code><em>(link is external)|(link sends email)</em></code></"
+"pre>"
+
+msgid "Strings in links that indicate new tabs"
+msgstr "Virknes saitēs, kas norāda jaunas cilnes"
+
+msgid ""
+"Provide a pipe-separated list of phrases your site uses to warn users a link "
+"opens in a new tab; e.g.:  <pre><code><em>new&nbsp;tab|new&nbsp;window|"
+"external</em></code></pre>"
+msgstr ""
+"Norādiet ar vertikālu svītru atdalītu frāžu sarakstu, ko jūsu vietne "
+"izmanto, lai brīdinātu lietotājus, ka saite tiek atvērta jaunā cilnē; "
+"piemēram:  <pre><code><em>new&nbsp;tab|new&nbsp;window|external</em></code></"
+"pre>"
+
+msgid ""
+"Modules like Link Purpose or External Links can mark links automatically."
+msgstr ""
+"Tādi moduļi kā Link Purpose vai External Links var automātiski atzīmēt "
+"saites."
+
+msgid "CSA/developer test"
+msgstr "CSA/izstrādātāja tests"
+
+msgid "Show to developers"
+msgstr "Rādīt izstrādātājiem"
+
+msgid "Show to everybody"
+msgstr "Rādīt visiem"
+
+msgid "Dashboard sync is disabled in Editoria11y configuration."
+msgstr "Paneļa sinhronizācija ir atspējota Editoria11y konfigurācijā."
+
+msgid "(invalid URL)"
+msgstr "(nederīgs URL)"
+
+msgid "Editoria11y: Dismissals"
+msgstr "Editoria11y: Noraidījumi"
+
+msgid "Default"
+msgstr "Noklusējums"
+
+msgid "Node path"
+msgstr "Mezgla ceļš"
+
+msgid "view"
+msgstr "view"
+
+msgid "Term path"
+msgstr "Termina ceļš"
+
+msgid "User bio path"
+msgstr "Lietotāja biogrāfijas ceļš"
+
+msgid "Term title"
+msgstr "Termina virsraksts"
+
+msgid ", "
+msgstr ", "
+
+msgid "Node title"
+msgstr "Mezgla virsraksts"
+
+msgid "User name"
+msgstr "Lietotājvārds"
+
+msgid "Recorded path"
+msgstr "Reģistrētais ceļš"
+
+msgid "Computed"
+msgstr "Aprēķināts"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty %}{% set dynamic_path = page_path %}{% endif %}\r\n"
+"{% set dynamic_title = title ~ name_2 ~ name_1 %}{% if dynamic_title is "
+"empty %}{% set dynamic_title = page_title %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ dynamic_title }}</"
+"a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty %}{% set dynamic_path = page_path %}{% endif %}\\r\n"
+"{% set dynamic_title = title ~ name_2 ~ name_1 %}{% if dynamic_title is "
+"empty %}{% set dynamic_title = page_title %}{% endif %}\\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ dynamic_title }}</"
+"a>"
+
+msgid "Dismissed alert"
+msgstr "Noraidītais brīdinājums"
+
+msgid "By"
+msgstr "Veica"
+
+msgid "1"
+msgid_plural "@count"
+msgstr[0] "1"
+msgstr[1] "@count"
+msgstr[2] "0"
+
+msgid "Reset"
+msgstr "Atiestatīt"
+
+msgid ""
+"<span class=\"ed11y-reset-dismissal\"><span class=\"ed11y-page-id\">{{ pid }}"
+"</span><span class=\"ed11y-dismissal-id\">{{id}}</span></span>"
+msgstr ""
+"<span class=\"ed11y-reset-dismissal\"><span class=\"ed11y-page-id\">{{ pid }}"
+"</span><span class=\"ed11y-dismissal-id\">{{id}}</span></span>"
+
+msgid "››"
+msgstr "››"
+
+msgid "‹‹"
+msgstr "‹‹"
+
+msgid "- All -"
+msgstr "- Visi -"
+
+msgid "Offset"
+msgstr "Nobīde"
+
+msgid "« First"
+msgstr "« Pirmā"
+
+msgid "Last »"
+msgstr "Pēdējā »"
+
+msgid "Asc"
+msgstr "Augošā"
+
+msgid "Desc"
+msgstr "Dilstošā"
+
+msgid "User who dismissed alert"
+msgstr "Lietotājs, kas noraidīja brīdinājumu"
+
+msgid "pid"
+msgstr "pid"
+
+msgid "Node"
+msgstr "Mezgls"
+
+msgid "Term"
+msgstr "Termins"
+
+msgid "User bio"
+msgstr "Lietotāja biogrāfija"
+
+msgid "Dismissals page"
+msgstr "Noraidījumu lapa"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty %}{% set dynamic_path = page_path %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title }}</a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty %}{% set dynamic_path = page_path %}{% endif %}\\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title }}</a>"
+
+msgid "Still on page"
+msgstr "Joprojām lapā"
+
+msgid "Reset filters"
+msgstr "Atiestatīt filtrus"
+
+msgid "Issues marked as hidden or OK in Editoria11y."
+msgstr "Editoria11y atzīmētās problēmas kā slēptas vai OK."
+
+msgid "Dismissals filtered by issue"
+msgstr "Noraidījumi filtrēti pēc problēmas"
+
+msgid "No dismissals match these filters."
+msgstr "Neviens noraidījums neatbilst šiem filtriem."
+
+msgid "All"
+msgstr "Visi"
+
+msgid "Dismissed alerts of type \"{{result_name}}\""
+msgstr "Dismissed alerts of type \"{{result_name}}\""
+
+msgid ""
+"<a href=\"/admin/reports/editoria11y/dismissals/\" class=\"button button--"
+"primary\">Show all dismissals</a>"
+msgstr ""
+"<a href=\"/admin/reports/editoria11y/dismissals/\" class=\"button button--"
+"primary\">Show all dismissals</a>"
+
+msgid "Recent Editoria11y Dismissals"
+msgstr "Jaunākie Editoria11y noraidījumi"
+
+msgid "Editoria11y - Recent dismissals"
+msgstr "Editoria11y – Jaunākie noraidījumi"
+
+msgid "Editoria11y: Alerts"
+msgstr "Editoria11y: Brīdinājumi"
+
+msgid "Top results"
+msgstr "Populārākie rezultāti"
+
+msgid "Computed title"
+msgstr "Aprēķinātais virsraksts"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path|render %}{% set dynamic_path = "
+"page_path %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{  page_title_1 }}</"
+"a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path|render %}{% set dynamic_path = "
+"page_path %}{% endif %}\\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{  page_title_1 }}</"
+"a>"
+
+msgid "<a href=\"{{page_path_1}}\" data-ed1ref=\"{{pid}}\">{{page_path_1}}</a>"
+msgstr ""
+"<a href=\"{{page_path_1}}\" data-ed1ref=\"{{pid}}\">{{page_path_1}}</a>"
+
+msgid "No alerts found."
+msgstr "Brīdinājumi nav atrasti."
+
+msgid "YYYY-MM-DD"
+msgstr "GGGG-MM-DD"
+
+msgid "User bio page"
+msgstr "Lietotāja biogrāfijas lapa"
+
+msgid "Node author"
+msgstr "Mezgla autors"
+
+msgid "All pages with issues"
+msgstr "Visas lapas ar problēmām"
+
+msgid "Block: Pages with the most"
+msgstr "Bloks: Lapas ar visvairāk"
+
+msgid "Block: Recent alerts"
+msgstr "Bloks: Jaunākie brīdinājumi"
+
+msgid "Recent Editoria11y Alerts"
+msgstr "Jaunākie Editoria11y brīdinājumi"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path|render %}{% set dynamic_path = "
+"page_path %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title_1 }}</a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path|render %}{% set dynamic_path = "
+"page_path %}{% endif %}\\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title_1 }}</a>"
+
+msgid "Issue"
+msgstr "Problēma"
+
+msgid "Editoria11y - Recent alerts"
+msgstr "Editoria11y – Jaunākie brīdinājumi"
+
+msgid "Block: Most frequent alerts"
+msgstr "Bloks: Biežākie brīdinājumi"
+
+msgid "Most Frequent Editoria11y Alerts"
+msgstr "Biežākie Editoria11y brīdinājumi"
+
+msgid "Editoria11y - Most frequent alerts"
+msgstr "Editoria11y – Biežākie brīdinājumi"
+
+msgid "Alerts on specified page"
+msgstr "Brīdinājumi norādītajā lapā"
+
+msgid ""
+"<a href=\"{{ page_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title_1 }}</a>"
+msgstr ""
+"<a href=\"{{ page_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title_1 }}</a>"
+
+msgid "<p><strong>Author:</strong> {{ uid }}</p>"
+msgstr "<p><strong>Author:</strong> {{ uid }}</p>"
+
+msgid "<p><strong>Last editor:</strong> {{ uid_1 }}</p>"
+msgstr "<p><strong>Last editor:</strong> {{ uid_1 }}</p>"
+
+msgid ""
+"<h1>Accessibility issues on: {{page_title_1}}</h1>\r\n"
+"<p>{{uid}}{{uid_1}}</p>"
+msgstr ""
+"<h1>Accessibility issues on: {{page_title_1}}</h1>\\r\n"
+"<p>{{uid}}{{uid_1}}</p>"
+
+msgid ""
+"<p><a href=\"../editoria11y/pages\" class=\"button button--primary\">All "
+"pages with alerts</a></p>"
+msgstr ""
+"<p><a href=\"../editoria11y/pages\" class=\"button button--primary\">All "
+"pages with alerts</a></p>"
+
+msgid ""
+"<span class=\"ed11y-reset-this-path\" hidden><p class=\"more-link\"><a "
+"role=\"button\" class=\"action-link action-link--icon-trash action-link--"
+"danger\"><span hidden class=\"ed11y-api-path\">{{ page_path }}</span>Reset "
+"results for this page</a></p></span>"
+msgstr ""
+"<span class=\"ed11y-reset-this-path\" hidden><p class=\"more-link\"><a "
+"role=\"button\" class=\"action-link action-link--icon-trash action-link--"
+"danger\"><span hidden class=\"ed11y-api-path\">{{ page_path }}</span>Reset "
+"results for this page</a></p></span>"
+
+msgid "Issue types"
+msgstr "Problēmu tipi"
+
+msgid "Pages with specified alert"
+msgstr "Lapas ar norādīto brīdinājumu"
+
+msgid "Published status"
+msgstr "Publicēšanas statuss"
+
+msgid "Created by"
+msgstr "Izveidoja"
+
+msgid "Created after"
+msgstr "Izveidots pēc"
+
+msgid "Created before"
+msgstr "Izveidots pirms"
+
+msgid "<h1>Pages with alert \"{{ result_name }}\"</h1>"
+msgstr "<h1>Lapas ar brīdinājumu „{{ result_name }}”</h1>"
+
+msgid ""
+"<a href=\"../editoria11y/alerts\" class=\"button button--primary\">All "
+"alerts</a>"
+msgstr ""
+"<a href=\"../editoria11y/alerts\" class=\"button button--primary\">All "
+"alerts</a>"
+
+msgid "Pages with issues"
+msgstr "Lapas ar problēmām"
+
+msgid "Next ›"
+msgstr "Nākamā ›"
+
+msgid "‹ Previous"
+msgstr "‹ Iepriekšējā"
+
+msgid "Authored on"
+msgstr "Autors izveidoja"
+
+msgid "Changed"
+msgstr "Mainīts"
+
+msgid "Editoria11y: Crawler"
+msgstr "Editoria11y: Skeneris"
+
+msgid "Editoria11y: Crawl Nodes"
+msgstr "Editoria11y: Skenēt mezglus"
+
+msgid "Authored by"
+msgstr "Autors"
+
+msgid "Has results"
+msgstr "Ir rezultāti"
+
+msgid "Has no alerts"
+msgstr "Nav brīdinājumu"
+
+msgid "Has alerts"
+msgstr "Ir brīdinājumi"
+
+msgid "nid"
+msgstr "nid"
+
+msgid "Editoria11y: Export"
+msgstr "Editoria11y: Eksports"
+
+msgid "Export page with alerts"
+msgstr "Eksportēt lapu ar brīdinājumiem"
+
+msgid "Link to Taxonomy term"
+msgstr "Saite uz taksonomijas terminu"
+
+msgid "Link to User"
+msgstr "Saite uz lietotāju"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path_1|render %}{% set dynamic_path = "
+"page_path_1 %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title }}</a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path_1|render %}{% set dynamic_path = "
+"page_path_1 %}{% endif %}\\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title }}</a>"
+
+msgid "Path when checked"
+msgstr "Ceļš pārbaudes laikā"
+
+msgid "<a href=\"{{page_path_1}}\" data-ed1ref=\"{{pid}}\">{{page_path_1}}"
+msgstr "<a href=\"{{page_path_1}}\" data-ed1ref=\"{{pid}}\">{{page_path_1}}"
+
+msgid "Current URL"
+msgstr "Pašreizējais URL"
+
+msgid "{{ view_taxonomy_term }}{{ view_user }}{{ view_node }}"
+msgstr "{{ view_taxonomy_term }}{{ view_user }}{{ view_node }}"
+
+msgid "{% if type is empty %}{{entity_type}}{%else%}{{type}}{% endif %}"
+msgstr "{% if type is empty %}{{entity_type}}{%else%}{{type}}{% endif %}"
+
+msgid "Entity Type"
+msgstr "Entitātes tips"
+
+msgid "Langcode (en, fr, de)"
+msgstr "Valodas kods (en, fr, de)"
+
+msgid "Referenced node"
+msgstr "Norādītais mezgls"
+
+msgid "Referenced term"
+msgstr "Norādītais termins"
+
+msgid "Referenced user bio"
+msgstr "Norādītā lietotāja biogrāfija"
+
+msgid "<p>Records chosen for export can be filtered and previewed below.</p>"
+msgstr "<p>Records chosen for export can be filtered and previewed below.</p>"
+
+msgid "<a href=\"/admin/reports/editoria11y/export\">Back to dashboard</a>"
+msgstr "<a href=\"/admin/reports/editoria11y/export\">Back to dashboard</a>"
+
+msgid "Dismissals export"
+msgstr "Noraidījumu eksports"
+
+msgid "Link to Content"
+msgstr "Saite uz saturu"
+
+msgid "Page raw path"
+msgstr "Lapas neapstrādātais ceļš"
+
+msgid "Name"
+msgstr "Nosaukums"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path_1|render %}{% set dynamic_path = "
+"page_path_1 %}{% endif %}\r\n"
+"{% set dynamic_title = title_1 ~ name ~ name_1 %}{% if dynamic_title is "
+"empty %}{% set dynamic_title = page_title %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ dynamic_title }}</"
+"a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path_1|render %}{% set dynamic_path = "
+"page_path_1 %}{% endif %}\\r\n"
+"{% set dynamic_title = title_1 ~ name ~ name_1 %}{% if dynamic_title is "
+"empty %}{% set dynamic_title = page_title %}{% endif %}\\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ dynamic_title }}</"
+"a>"
+
+msgid "dismissal"
+msgstr "dismissal"
+
+msgid "Page export"
+msgstr "Lapas eksports"
+
+msgid "Alerts export"
+msgstr "Brīdinājumu eksports"
+
+msgid "Editoria11y alerts on pages"
+msgstr "Editoria11y brīdinājumi lapās"
+
+msgid "{{ view_taxonomy_term }}{{ view_user }}{{ view_node }} "
+msgstr "{{ view_taxonomy_term }}{{ view_user }}{{ view_node }} "
+
+msgid "Results for page"
+msgstr "Rezultāti lapai"
+
+msgid "<a href=\"./export/pages\">Export pages with alerts</a>"
+msgstr "<a href=\"./export/pages\">Export pages with alerts</a>"
+
+msgid "<a href=\"./export/dismissals\">Export dismissals</a>"
+msgstr "<a href=\"./export/dismissals\">Export dismissals</a>"
+
+msgid "<a href=\"./export/alerts\">Export alert list</a>"
+msgstr "<a href=\"./export/alerts\">Export alert list</a>"
+
+msgid "Export alerts on pages"
+msgstr "Eksportēt brīdinājumus lapās"
+
+msgid "Result name"
+msgstr "Rezultāta nosaukums"

@@ -4,9 +4,10 @@ namespace Drupal\extlink\EventSubscriber;
 
 use Drupal\Core\Asset\AssetCollectionOptimizerInterface;
 use Drupal\Core\Asset\AssetQueryStringInterface;
-use Drupal\Core\Asset\LibraryDiscoveryInterface;
+use Drupal\Core\Asset\LibraryDiscoveryCollector;
 use Drupal\Core\Config\ConfigCrudEvent;
 use Drupal\Core\Config\ConfigEvents;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -14,18 +15,10 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  */
 class ExtlinkSettingsSaveEventSubscriber implements EventSubscriberInterface {
 
-  /**
-   * ExtlinkSettingsSaveEventSubscriber constructor.
-   *
-   * @param \Drupal\Core\Asset\LibraryDiscoveryInterface $libraryDiscovery
-   *   The CSS/JS asset library discovery service.
-   * @param \Drupal\Core\Asset\AssetCollectionOptimizerInterface $jsOptimizer
-   *   The JS asset optimizer service.
-   * @param \Drupal\Core\Asset\AssetQueryStringInterface $assetQueryString
-   *   The asset query string service.
-   */
   public function __construct(
-    protected LibraryDiscoveryInterface $libraryDiscovery,
+    #[Autowire(service: 'library.discovery.collector')]
+    protected LibraryDiscoveryCollector $libraryDiscovery,
+    #[Autowire(service: 'asset.js.collection_optimizer')]
     protected AssetCollectionOptimizerInterface $jsOptimizer,
     protected AssetQueryStringInterface $assetQueryString,
   ) {
@@ -46,7 +39,7 @@ class ExtlinkSettingsSaveEventSubscriber implements EventSubscriberInterface {
         // When using external JS file is enabled or disabled, need to flush the
         // library discovery cache to update the dependencies of drupal.extlink
         // library.
-        $this->libraryDiscovery->clearCachedDefinitions();
+        $this->libraryDiscovery->clear();
         $flush_js_files = TRUE;
       }
 

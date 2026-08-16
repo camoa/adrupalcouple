@@ -1,0 +1,2959 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: editoria11y 3.0.0\n"
+"POT-Creation-Date: 2026-08-01 21:46-0400\n"
+"PO-Revision-Date: 2026-2-12 10:00+0000\n"
+"Language-Team: Editoria11y\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid ""
+"editoria11y_post_update_0004: scanned @scanned mismatched page(s), "
+"backfilled @fixed to the referenced entity language."
+msgstr ""
+"editoria11y_post_update_0004: scanned @scanned mismatched page(s), "
+"backfilled @fixed to the referenced entity language."
+
+msgid "Editoria11y"
+msgstr "Editoria11y"
+
+msgid "Editoria11y - Pages with issues"
+msgstr "Editoria11y - 問題のあるページ"
+
+msgctxt "problems"
+msgid "Provides relationship for issues and dismissals"
+msgstr "問題と非表示設定の関連情報を提供します"
+
+msgid "EID"
+msgstr "EID"
+
+msgid "Editoria11y's internal page ID"
+msgstr "Editoria11y 内部ページ ID"
+
+msgid "Entity ID"
+msgstr "エンティティ ID"
+
+msgid "The NID/TID/UID of the page with an issue."
+msgstr "問題があるページの NID/TID/UID です。"
+
+msgid "Entity type"
+msgstr "エンティティタイプ"
+
+msgid "The entity type; \"route\" if no type found."
+msgstr "エンティティタイプ。見つからない場合は「route」になります。"
+
+msgid "Route name"
+msgstr "ルート名"
+
+msgid "Route name for page."
+msgstr "ページのルート名です。"
+
+msgid "Page path"
+msgstr "ページパス"
+
+msgid "Internal, relative page path."
+msgstr "内部の相対パスです。"
+
+msgid "Page language"
+msgstr "ページの言語"
+
+msgid "Active translation."
+msgstr "現在の翻訳です。"
+
+msgid "Page title"
+msgstr "ページタイトル"
+
+msgid "The name of the route where this was last seen."
+msgstr "これが最後に確認されたルート名です。"
+
+msgid "Content alerts"
+msgstr "コンテンツの警告"
+
+msgid "Number of alerts shown to content editors."
+msgstr "コンテンツ編集者に表示される警告の数です。"
+
+msgid "Dev alerts"
+msgstr "開発者向け警告"
+
+msgid "Number of alerts shown to developers."
+msgstr "開発者に表示される警告の数です。"
+
+msgid "Updated"
+msgstr "更新日"
+
+msgid "When this page was last checked."
+msgstr "このページが最後にチェックされた日時です。"
+
+msgid "Editoria11y - Test results"
+msgstr "Editoria11y - テスト結果"
+
+msgctxt "problems"
+msgid "Stores Editoria11y issue list"
+msgstr "Editoria11y の問題リストを保存します"
+
+msgid "Result row"
+msgstr "結果行"
+
+msgid "Internal identifier"
+msgstr "内部識別子"
+
+msgid "Created"
+msgstr "作成日時"
+
+msgid "When this page was flagged."
+msgstr "このページがフラグ付けされた日時です。"
+
+msgid "Alert type"
+msgstr "警告タイプ"
+
+msgid "The name of the test as reported by Editoria11y JS"
+msgstr "Editoria11y JS によって報告されたテスト名"
+
+msgid "Alert type, linked"
+msgstr "警告タイプ（リンク付き）"
+
+msgid "Linked to report of all alerts of this type."
+msgstr "このタイプの警告一覧レポートにリンクしています。"
+
+msgid "Content alert count"
+msgstr "コンテンツ警告数"
+
+msgid "The number of hits for this test type on this page"
+msgstr "このページでこのテストがヒットした回数です。"
+
+msgid "Dev alert count"
+msgstr "開発者向け警告数"
+
+msgid "Editoria11y - Dismissals"
+msgstr "Editoria11y - 非表示設定"
+
+msgid "Stores Editoria11y warnings and dismissals"
+msgstr "Editoria11y の警告と非表示設定を保存します"
+
+msgid "Dismissal internal reference ID"
+msgstr "非表示設定の内部参照 ID"
+
+msgid "Page with dismissal"
+msgstr "非表示設定があるページ"
+
+msgid "Dismissed by"
+msgstr "非表示にしたユーザー"
+
+msgid "The user linked to this dismissal."
+msgstr "この非表示設定を行ったユーザーです。"
+
+msgid "Linked Drupal user"
+msgstr "関連する Drupal ユーザー"
+
+msgid "Dismissed element id"
+msgstr "非表示対象の要素 ID"
+
+msgid "Code sample to identify the flagged element."
+msgstr "特定の要素を識別するコード断片です。"
+
+msgid "Dismissed on"
+msgstr "非表示日時"
+
+msgid "The Unix timestamp of the first time this record was flagged."
+msgstr "このレコードが初めてフラグ付けされた Unix タイムスタンプ。"
+
+msgid "Dismissal stale since"
+msgstr "非表示が古くなった日時"
+
+msgid "The element has not been seen since this date."
+msgstr "この日以降、その要素は検出されていません。"
+
+msgid "Dismissed result name"
+msgstr "非表示にした結果名"
+
+msgid "Dismissed result name, linked"
+msgstr "非表示にした結果名（リンク付き）"
+
+msgid "Links to report of all alerts of this type."
+msgstr "この種類の警告一覧レポートへのリンクです。"
+
+msgid "Dismissal status"
+msgstr "非表示ステータス"
+
+msgid "The type of dismissal (e.g., OK, Ignore)"
+msgstr "非表示の種類（例：OK、無視）"
+
+msgid "Relate from Editoria11y page to referenced node"
+msgstr "Editoria11y ページから参照ノードへの関連付け"
+
+msgid "Issues were found on this node"
+msgstr "このノードで問題が見つかりました"
+
+msgid "Relate from node data to Editoria11y page"
+msgstr "ノードデータから Editoria11y ページへの関連付け"
+
+msgid "Relate from Editoria11y page to referenced taxonomy term"
+msgstr "Editoria11y ページから参照タクソノミータームへの関連付け"
+
+msgid "Issues were found on this term page"
+msgstr "このタクソノミーページで問題が見つかりました"
+
+msgid "Relate from taxonomy term data to Editoria11y page"
+msgstr "タクソノミータームデータから Editoria11y ページへの関連付け"
+
+msgid "Relate from Editoria11y page list to user bio page data"
+msgstr "Editoria11y ページ一覧からユーザープロフィールページへの関連付け"
+
+msgid "Issues were found on this user bio page"
+msgstr "このユーザープロフィールページで問題が見つかりました"
+
+msgid "Relate from Editoria11y page to user bio page with issues"
+msgstr "Editoria11y ページから問題のあるユーザープロフィールページへの関連付け"
+
+msgid "Relate from user bio page to Editoria11y results"
+msgstr "ユーザープロフィールページから Editoria11y 結果への関連付け"
+
+msgid "Relate from users list to Editoria11y results on bio page"
+msgstr "ユーザー一覧からプロフィールページの Editoria11y 結果への関連付け"
+
+msgid "Relate from Editoria11y page to issues on page"
+msgstr "Editoria11y ページから問題リストへの関連付け"
+
+msgid "Issues found on this node"
+msgstr "このノードで見つかった問題"
+
+msgid "Relate from Editoria11y result to page"
+msgstr "Editoria11y 結果からページへの関連付け"
+
+msgid "Relate from Editoria11y page to dismissals on page"
+msgstr "Editoria11y ページからページ上の非表示設定への関連付け"
+
+msgid "Relate from Editoria11y dismissal to page"
+msgstr "Editoria11y 非表示情報からページへの関連付け"
+
+msgid "Group relationship for node with Editoria11y issues"
+msgstr "Editoria11y の問題があるノード用の Group リレーションシップ"
+
+msgid ""
+"Bridge to the Group module. Add the Group module Group relationship on top "
+"of this one to filter or sort issues by group."
+msgstr ""
+"Group モジュールへの橋渡しです。問題をグループ別に絞り込みまたは並べ替えるに"
+"は、この上に Group モジュールの Group リレーションシップを追加してください。"
+
+msgid "Group relationship for node"
+msgstr "ノード用の Group リレーションシップ"
+
+msgid "Group relationship for user bio with Editoria11y issues"
+msgstr ""
+"Editoria11y の問題があるユーザープロフィール用の Group リレーションシップ"
+
+msgid "Group relationship for user"
+msgstr "ユーザー用の Group リレーションシップ"
+
+msgid "Group relationship for taxonomy term with Editoria11y issues"
+msgstr ""
+"Editoria11y の問題があるタクソノミーターム用の Group リレーションシップ"
+
+msgid ""
+"Bridge to the Group module. Add the Group module Group relationship on top "
+"of this one to filter or sort issues by group. Requires a contrib module "
+"that exposes terms as group content."
+msgstr ""
+"Group モジュールへの橋渡しです。問題をグループ別に絞り込みまたは並べ替えるに"
+"は、この上に Group モジュールの Group リレーションシップを追加してください。"
+"タームをグループコンテンツとして公開するコントリビューションモジュールが必要"
+"です。"
+
+msgid "Group relationship for taxonomy term"
+msgstr "タクソノミーターム用の Group リレーションシップ"
+
+msgid "Warning: possible out of date path. This content may have moved to"
+msgstr ""
+"警告：このパスは古くなっている可能性があります。コンテンツは移動された可能性"
+"があります："
+
+msgid "Export CSV"
+msgstr "CSVをエクスポート"
+
+msgid "Predelete failed: @error_message"
+msgstr "事前削除に失敗しました：@error_message"
+
+msgid "Page attachment failed: @error_message"
+msgstr "ページの添付に失敗しました：@error_message"
+
+msgid ""
+"editoria11y_update_9019: scanned @total rows, repaired @updated, deleted "
+"@deleted corrupted group rows, left @skipped untouched."
+msgstr ""
+"editoria11y_update_9019: scanned @total rows, repaired @updated, deleted "
+"@deleted corrupted group rows, left @skipped untouched."
+
+msgid ""
+"editoria11y_update_9020: hashed @hashed page rows, removed @deduped "
+"duplicate rows, added unique keys."
+msgstr "editoria11y_update_9020: hashed @hashed page rows, removed @deduped duplicate rows, added unique keys."
+
+msgid "Editoria11y Accessibility Checker"
+msgstr "Editoria11y アクセシビリティチェッカー"
+
+msgid ""
+"Checks page content for accessibility and provides a site-wide dashboard."
+msgstr ""
+"ページのアクセシビリティをチェックし、サイト全体のダッシュボードを提供しま"
+"す。"
+
+msgid "Content Accessibility"
+msgstr "コンテンツのアクセシビリティ"
+
+msgid "Accessibility checker notifications and exclusions."
+msgstr "アクセシビリティチェッカーの通知と除外設定です。"
+
+msgid "Results from the Editoria11y checker."
+msgstr "Editoria11y チェッカーの結果です。"
+
+msgid "Dashboard"
+msgstr "ダッシュボード"
+
+msgid "Core settings"
+msgstr "コア設定"
+
+msgid "Demo"
+msgstr "デモ"
+
+msgid "View Editoria11y checker"
+msgstr "Editoria11y チェッカーを表示"
+
+msgid "Assign to all content editors."
+msgstr "すべてのコンテンツ編集者に割り当てます。"
+
+msgid "Administer Editoria11y checker"
+msgstr "Editoria11y チェッカーの管理"
+
+msgid "Allows user to purge results and change configuration."
+msgstr "結果の消去と設定変更をユーザーに許可します。"
+
+msgid "Mark as hidden in Editoria11y"
+msgstr "Editoria11y 内で非表示としてマーク"
+
+msgid "Adds button to suppress a manual check for the current user."
+msgstr "現在のユーザー向けに手動チェックを抑制するボタンを追加します。"
+
+msgid "Mark as OK in Editoria11y"
+msgstr "Editoria11y で OK とマーク"
+
+msgid ""
+"Adds button to suppress a manual check for all users, if sync is enabled."
+msgstr ""
+"同期が有効な場合、すべてのユーザー向けに手動チェックを非表示にするボタンを追"
+"加します。"
+
+msgid "Manage Editoria11y results"
+msgstr "Editoria11y 結果を管理"
+
+msgid "View the site-wide dashboard and reset dismissals."
+msgstr "サイト全体のダッシュボードを表示し、非表示設定をリセットします。"
+
+msgid "Editoria11y core settings"
+msgstr "Editoria11yコア設定"
+
+msgid "Content Accessibility Issues"
+msgstr "コンテンツのアクセシビリティ問題"
+
+msgid "Editoria11y Settings"
+msgstr "Editoria11y 設定"
+
+msgid "Check elements in these containers"
+msgstr "これらのコンテナ内の要素をチェックする"
+
+msgid "Alert panel assertiveness"
+msgstr "アラートパネルの強調レベル"
+
+msgid "Do not run if these elements are on the page"
+msgstr "これらの要素がページ内にある場合、実行しない"
+
+msgid "Suppress all alerts if none of these elements are present"
+msgstr "これらの要素が存在しない場合、すべてのアラートを非表示にする"
+
+msgid "Do not run tests on these containers"
+msgstr "これらのコンテナではテストを実行しない"
+
+msgid "Move toggle to avoid colliding with these widgets"
+msgstr "ウィジェットと重ならないようトグルを移動する"
+
+msgid ""
+"Full check should warn on these elements with embedded uncheckable content"
+msgstr ""
+"完全チェックでは、非チェック可能な埋め込みコンテンツを含む要素に警告を表示す"
+"るべきです"
+
+msgid "These links download a document or image and need a manual review"
+msgstr ""
+"これらのリンクは文書または画像をダウンロードするため、手動レビューが必要です"
+
+msgid "Strings that indicate a link opens in a new window"
+msgstr "新規ウィンドウで開くことを示す文字列"
+
+msgid "Remove these strings from link text before checking for bad link text"
+msgstr "リンクテキストをチェックする前に、これらの文字列を削除してください"
+
+msgid "Remove strings in this selector before checking for bad link text"
+msgstr "リンクテキストの検証前に、このセレクタ内の文字列を削除してください"
+
+msgid ""
+"Hidden elements in these containers will be revealed by theme JS on request "
+"via a dispatched event"
+msgstr ""
+"これらのコンテナ内の非表示要素は、テーマの JavaScript によるイベント発火で表"
+"示されます"
+
+msgid "Elements that truncate overflow, partially hiding buttons"
+msgstr "オーバーフローを切り捨て、ボタンが部分的に見えなくなる要素"
+
+msgid "Color scheme for panel and tooltips"
+msgstr "パネルとツールチップの配色"
+
+msgid "Pin toolbar to left or right"
+msgstr "ツールバーを左または右に固定"
+
+msgid "Web components the checker should check"
+msgstr "チェッカーが検査すべき Web コンポーネント"
+
+msgid "Auto-detects for additional shadow components"
+msgstr "shadow DOM コンポーネントを自動検出"
+
+msgid "Auto-detects and checks new content"
+msgstr "新しいコンテンツを自動検出してチェックする"
+
+msgid "Disables dashboard and synchronized marking of elements as OK"
+msgstr "ダッシュボードと「OK」同期マーク機能を無効化"
+
+msgid "URL query parameters that should be recorded as separate pages"
+msgstr "別ページとして記録すべき URL クエリパラメータ"
+
+msgid "Remove string from URL for dashboard page links"
+msgstr "ダッシュボードページリンクの URL から文字列を削除"
+
+msgid "Number of custom test finished events the checker should wait for"
+msgstr "チェッカーが待機すべきカスタムテスト終了イベントの数"
+
+msgid "Disables live editor checking"
+msgstr "編集画面でのリアルタイムチェックを無効化"
+
+msgid ""
+"Selector for frontend-context editors that should inherit the document "
+"outline"
+msgstr "ドキュメントアウトラインを引き継ぐべきフロントエンドエディタのセレクタ"
+
+msgid "Selector for editors where their first heading should be h2"
+msgstr "最初の見出しを h2 とすべきエディタのセレクタ"
+
+msgid "Selector for editors where their first heading should be h3"
+msgstr "最初の見出しを h3 とすべきエディタのセレクタ"
+
+msgid "Selector for editors where their first heading should be h4"
+msgstr "最初の見出しを h4 とすべきエディタのセレクタ"
+
+msgid "Selectors for components where edit links are meaningless on tips"
+msgstr "ヒント内で編集リンクが無意味となるコンポーネントのセレクタ"
+
+msgid "Tell CK5 to have a header rows or columns by default."
+msgstr "CKEditor 5 でデフォルトのヘッダー行または列を設定します。"
+
+msgid "Tests not shown to content authors."
+msgstr "コンテンツ編集者には表示されないテスト。"
+
+msgid "Disable the tests you are not ready for"
+msgstr "準備ができていないテストを無効化"
+
+msgid "linkNewWindow"
+msgstr "linkNewWindow"
+
+msgid "linkNoText"
+msgstr "linkNoText"
+
+msgid "altEmptyLinked"
+msgstr "altEmptyLinked"
+
+msgid "linkDocument"
+msgstr "linkDocument"
+
+msgid "linkTextIsURL"
+msgstr "linkTextIsURL"
+
+msgid "linkTextIsGeneric"
+msgstr "linkTextIsGeneric"
+
+msgid "textPossibleList"
+msgstr "textPossibleList"
+
+msgid "textPossibleHeading"
+msgstr "textPossibleHeading"
+
+msgid "textUppercase"
+msgstr "textUppercase"
+
+msgid "tableNoHeaderCells"
+msgstr "tableNoHeaderCells"
+
+msgid "tableEmptyHeaderCell"
+msgstr "tableEmptyHeaderCell"
+
+msgid "tableContainsContentHeading"
+msgstr "tableContainsContentHeading"
+
+msgid "embedVideo"
+msgstr "embedVideo"
+
+msgid "embedAudio"
+msgstr "embedAudio"
+
+msgid "embedVisualization"
+msgstr "embedVisualization"
+
+msgid "embedTwitter"
+msgstr "embedTwitter"
+
+msgid "embedCustom"
+msgstr "embedCustom"
+
+msgid "headingEmpty"
+msgstr "headingEmpty"
+
+msgid "headingIsLong"
+msgstr "headingIsLong"
+
+msgid "headingLevelSkipped"
+msgstr "headingLevelSkipped"
+
+msgid "blockquoteIsShort"
+msgstr "blockquoteIsShort"
+
+msgid "altMissing"
+msgstr "altMissing"
+
+msgid "altNull"
+msgstr "altNull"
+
+msgid "altMeaningless"
+msgstr "altMeaningless"
+
+msgid "altURL"
+msgstr "altURL"
+
+msgid "altImageOf"
+msgstr "altImageOf"
+
+msgid "altDeadspace"
+msgstr "altDeadspace"
+
+msgid "altLong"
+msgstr "altLong"
+
+msgid "altPartOfLinkWithText"
+msgstr "altPartOfLinkWithText"
+
+msgid "2-letter code (en, fr, de)"
+msgstr "2 文字の言語コード（例：en, fr, de）"
+
+msgid "Alert"
+msgstr "警告"
+
+msgid "Alert types"
+msgstr "警告タイプ"
+
+msgid "Alerts"
+msgstr "警告"
+
+msgid "All dismissals"
+msgstr "すべての非表示設定"
+
+msgid "All issues"
+msgstr "すべての問題"
+
+msgid "All pages"
+msgstr "すべてのページ"
+
+msgid "Apply"
+msgstr "適用"
+
+msgid "Author"
+msgstr "作成者"
+
+msgid "Authored after"
+msgstr "この日以降に作成"
+
+msgid "Authored before"
+msgstr "この日以前に作成"
+
+msgid "Authored"
+msgstr "作成日"
+
+msgid "Content type"
+msgstr "コンテンツタイプ"
+
+msgid "Detected"
+msgstr "検出日"
+
+msgid "Dismissals"
+msgstr "非表示設定"
+
+msgid "Dismissed accessibility alerts"
+msgstr "非表示にされたアクセシビリティ警告"
+
+msgid "Edited"
+msgstr "編集日"
+
+msgid "Editor"
+msgstr "編集者"
+
+msgid "Items per page"
+msgstr "ページあたりの項目数"
+
+msgid "Filter"
+msgstr "フィルター"
+
+msgid "Language"
+msgstr "言語"
+
+msgid "Last editor"
+msgstr "最終編集者"
+
+msgid "Marked"
+msgstr "マーク済み"
+
+msgid "No dismissals found."
+msgstr "非表示設定はありません。"
+
+msgid "Page"
+msgstr "ページ"
+
+msgid "Pages"
+msgstr "ページ"
+
+msgid "Pages with alerts"
+msgstr "警告のあるページ"
+
+msgid "Panel"
+msgstr "パネル"
+
+msgid "Path"
+msgstr "パス"
+
+msgid "Published"
+msgstr "公開済み"
+
+msgid "Recent"
+msgstr "最近"
+
+msgid "Recent accessibility alerts"
+msgstr "最近のアクセシビリティ警告"
+
+msgid "Recent alerts"
+msgstr "最近の問題"
+
+msgctxt "problems"
+msgid "Recent alerts"
+msgstr "最近の警告"
+
+msgid "Sort by"
+msgstr "並べ替え"
+
+msgid "Title"
+msgstr "タイトル"
+
+msgid "Type"
+msgstr "タイプ"
+
+msgid "Filter and sort"
+msgstr "フィルターと並べ替え"
+
+msgid "Deleted."
+msgstr "削除しました。"
+
+msgid "Delete failed."
+msgstr "削除に失敗しました。"
+
+msgid "<p>The Editoria11y <strong><em>@type</em></strong> view is missing.</p>"
+msgstr ""
+"<p>Editoria11y の <strong><em>@type</em></strong> ビューが見つかりません。</"
+"p>"
+
+msgid ""
+"<p>There are three view configurations this module installs, found in its /"
+"config/install folder. Each must be installed for this dashboard to display "
+"results.</p>"
+msgstr ""
+"<p>このモジュールは <code>/config/install</code> に 3 つのビュー設定を提供し"
+"ます。ダッシュボードで結果を表示するにはすべてをインストールする必要がありま"
+"す。</p>"
+
+msgid ""
+"<p>To fix: copy and paste the contents of <strong>/editoria11y/config/"
+"install/views.view.ed11y_@type.yml</strong> into a \"View\" type import at "
+"<a href=\"/admin/config/development/configuration/single/import\">/admin/"
+"config/development/configuration/single/import</a>. If you sync your "
+"configuration to the filesystem, be sure to include these Views in your "
+"repository.</p>"
+msgstr ""
+"<p>修正方法：<strong>/editoria11y/config/install/views.view.ed11y_@type.yml</"
+"strong> の内容を <a href=\"/admin/config/development/configuration/single/"
+"import\">/admin/config/development/configuration/single/import</a> の「View」"
+"インポートに貼り付けてください。設定同期を使っている場合は、必ずこれらの"
+"ビューをリポジトリに含めてください。</p>"
+
+msgid "link is external"
+msgstr "外部リンク"
+
+msgid "link sends email"
+msgstr "メール送信リンク"
+
+msgid "No results found"
+msgstr "結果が見つかりません"
+
+msgid ""
+"Your Editoria11y CSA trial has @days days remaining. <a "
+"href=\"@url\">Activate a license</a> to continue using CSA features after "
+"the trial ends."
+msgstr ""
+"Editoria11y CSA のトライアルは残り @days 日です。トライアル終了後も CSA 機能"
+"を引き続き使用するには、<a href=\"@url\">ライセンスを有効化</a>してください。"
+
+msgid ""
+"Your Editoria11y CSA trial has expired. CSA features have been disabled. <a "
+"href=\"@url\">Activate a license</a> to continue using them."
+msgstr ""
+"Editoria11y CSA のトライアルが終了しました。CSA 機能は無効化されています。引"
+"き続き使用するには、<a href=\"@url\">ライセンスを有効化</a>してください。"
+
+msgid ""
+"Your Editoria11y CSA license has expired. <a href=\"@url\">Renew or "
+"deactivate your license</a>."
+msgstr ""
+"Editoria11y CSA のライセンスの有効期限が切れました。<a href=\"@url\">ライセン"
+"スを更新または無効化</a>してください。"
+
+msgid ""
+"Your Editoria11y CSA license has expired. Please renew to reactivate CSA add-"
+"ons."
+msgstr ""
+"Editoria11y CSA のライセンスの有効期限が切れました。CSA アドオンを再有効化す"
+"るには更新してください。"
+
+msgid "Cron license check failed: @msg"
+msgstr "Cron によるライセンスチェックに失敗しました：@msg"
+
+msgid ""
+"Editoria11y CSA features are active on a @days-day trial. <a "
+"href=\"@url\">Activate a license</a> to continue using them after the trial "
+"ends."
+msgstr ""
+"Editoria11y CSA 機能は @days 日間のトライアル中に有効です。トライアル終了後も"
+"引き続き使用するには、<a href=\"@url\">ライセンスを有効化</a>してください。"
+
+msgid "Editoria11y Custom Test"
+msgstr "Editoria11y カスタムテスト"
+
+msgid "Editoria11y Custom Tests"
+msgstr "Editoria11y カスタムテスト"
+
+msgid "editoria11y custom test"
+msgstr "editoria11y カスタムテスト"
+
+msgid "editoria11y custom tests"
+msgstr "editoria11y カスタムテスト"
+
+msgid "Editoria11y CSA: Advanced Tools"
+msgstr "Editoria11y CSA: 高度なツール"
+
+msgid ""
+"Community-Supported Addons include code and contrast checks, custom checks, "
+"a site crawler and report maintenance tools."
+msgstr "コミュニティ支援アドオンには、コードチェック、コントラストチェック、カスタムチェック、サイトクローラー、レポート管理ツールが含まれます。"
+
+msgid "Add custom test"
+msgstr "カスタムテストを追加"
+
+msgid "Recheck"
+msgstr "再チェック"
+
+msgid "CSA membership"
+msgstr "CSA メンバーシップ"
+
+msgid "Custom tests"
+msgstr "カスタムテスト"
+
+msgid "Dashboard Actions"
+msgstr "ダッシュボード操作"
+
+msgid "Editoria11y CSA membership"
+msgstr "Editoria11y CSA メンバーシップ"
+
+msgid "Editoria11y custom tests"
+msgstr "Editoria11y カスタムテスト"
+
+msgid "Add a custom test"
+msgstr "カスタムテストを追加"
+
+msgid "Edit custom test"
+msgstr "カスタムテストを編集"
+
+msgid "Delete custom test"
+msgstr "カスタムテストを削除"
+
+msgid "Editoria11y CSA Settings"
+msgstr "Editoria11y CSA 設定"
+
+msgid "Developer roles"
+msgstr "開発者ロール"
+
+msgid "Developer assertiveness"
+msgstr "開発者向け警告の強調レベル"
+
+msgid "Tests overridden to show to content editors"
+msgstr "コンテンツ編集者に強制的に表示されるテスト"
+
+msgid "Tests overridden to turn off"
+msgstr "強制的に無効化されるテスト"
+
+msgid "Tests overridden to only to show to developers"
+msgstr "開発者のみに強制的に表示されるテスト"
+
+msgid "Elements to ignore for contrast test"
+msgstr "コントラストテストで無視する要素"
+
+msgid "Turn on contrast checks"
+msgstr "コントラストチェックを有効化"
+
+msgid "Developer check root: body or specify"
+msgstr "開発者チェックのルート：body または指定"
+
+msgid "Developer check root selector"
+msgstr "開発者チェックルートのセレクタ"
+
+msgid "Selector for elements to ignore for developers"
+msgstr "開発者向けチェックで無視する要素のセレクタ"
+
+msgid "Enabled"
+msgstr "有効"
+
+msgid "Custom development domain patterns"
+msgstr "カスタム開発ドメインパターン"
+
+msgid "ID"
+msgstr "ID"
+
+msgid "Label"
+msgstr "ラベル"
+
+msgid "Test key"
+msgstr "テストキー"
+
+msgid "Tooltip title"
+msgstr "ツールチップのタイトル"
+
+msgid "Tip content HTML"
+msgstr "ヒント本文の HTML"
+
+msgid "Element set to check"
+msgstr "チェックする要素のセット"
+
+msgid "Dismiss key type"
+msgstr "非表示キーのタイプ"
+
+msgid "CSS filter selector"
+msgstr "CSS フィルタセレクタ"
+
+msgid "Text strings to include"
+msgstr "対象に含めるテキスト文字列"
+
+msgid "Text string"
+msgstr "テキスト文字列"
+
+msgid "Text strings to exclude"
+msgstr "対象から除外するテキスト文字列"
+
+msgid "Case sensitive text matching"
+msgstr "大文字と小文字を区別してテキストを照合"
+
+msgid "Filter which pages will be crawled"
+msgstr "クロール対象ページのフィルタ"
+
+msgid "Cancel"
+msgstr "キャンセル"
+
+msgid "Millisecond pause between page requests"
+msgstr "ページリクエスト間の待機時間（ミリ秒）"
+
+msgid "This tab needs to remain open and in the foreground during the crawl."
+msgstr "クロール中、このタブは開いた状態で前面に保持する必要があります。"
+
+msgid "Estimated time:"
+msgstr "推定時間："
+
+msgid "hours"
+msgstr "時間"
+
+msgid "minutes"
+msgstr "分"
+
+msgid "minute"
+msgstr "分"
+
+msgid "Start crawling"
+msgstr "クロール開始"
+
+msgid "Checked:"
+msgstr "チェック済み："
+
+msgid "pages"
+msgstr "ページ"
+
+msgid "Back to dashboard"
+msgstr "ダッシュボードに戻る"
+
+msgid "Test"
+msgstr "テスト"
+
+msgid "Elements"
+msgstr "要素"
+
+msgid "Status"
+msgstr "ステータス"
+
+msgid "Text"
+msgstr "テキスト"
+
+msgid "On"
+msgstr "日時"
+
+msgid "Off"
+msgstr "オフ"
+
+msgid "Freemius deactivation API call failed: @msg"
+msgstr "Freemius の無効化 API 呼び出しに失敗しました：@msg"
+
+msgid "Cannot cancel subscription: API token not found."
+msgstr ""
+"サブスクリプションをキャンセルできません：API トークンが見つかりません。"
+
+msgid "Freemius subscription cancellation API call failed: @msg"
+msgstr ""
+"Freemius のサブスクリプションキャンセル API 呼び出しに失敗しました：@msg"
+
+msgid "Key module lookup for @id failed: @msg"
+msgstr "Key module lookup for @id failed: @msg"
+
+msgid "Failed to update Freemius install properties: @msg"
+msgstr "Freemius のインストールプロパティの更新に失敗しました：@msg"
+
+msgid ""
+"An <a href=\"@settings\">active license must be deactivated</a> before "
+"uninstalling."
+msgstr ""
+"アンインストールする前に<a href=\"@settings\">有効なライセンスを無効化</a>す"
+"る必要があります。"
+
+msgid "License key stored. Use editoria11y-csa:activate to activate."
+msgstr ""
+"ライセンスキーを保存しました。有効化するには editoria11y-csa:activate を使用"
+"してください。"
+
+msgid "License activated."
+msgstr "ライセンスを有効化しました。"
+
+msgid "License deactivated."
+msgstr "ライセンスを無効化しました。"
+
+msgid "License active. Expires: @date"
+msgstr "ライセンスは有効です。有効期限：@date"
+
+msgid "License active. No expiration date."
+msgstr "ライセンスは有効です。有効期限はありません。"
+
+msgid ""
+"License management locked. Use editoria11y-csa:unlock to re-enable UI "
+"changes."
+msgstr ""
+"ライセンス管理をロックしました。UI からの変更を再度有効にするには "
+"editoria11y-csa:unlock を使用してください。"
+
+msgid "License management unlocked. UI changes are now allowed."
+msgstr "ライセンス管理のロックを解除しました。UI からの変更が許可されます。"
+
+msgid "License expired or cancelled."
+msgstr "ライセンスの有効期限が切れているかキャンセルされています。"
+
+msgid "License key cannot be empty."
+msgstr "ライセンスキーは空にできません。"
+
+msgid "Failed to store key: {msg}"
+msgstr "キーの保存に失敗しました：{msg}"
+
+msgid "No stored license key found. Run editoria11y-csa:set-key first."
+msgstr ""
+"保存されたライセンスキーが見つかりません。先に editoria11y-csa:set-key を実行"
+"してください。"
+
+msgid "Activation failed: {msg}"
+msgstr "有効化に失敗しました：{msg}"
+
+msgid "Deactivation failed: {msg}"
+msgstr "無効化に失敗しました：{msg}"
+
+msgid "License check failed: {msg}"
+msgstr "ライセンスチェックに失敗しました：{msg}"
+
+msgid "Export"
+msgstr "エクスポート"
+
+msgid "Export pages"
+msgstr "ページをエクスポート"
+
+msgid "Export dismissals"
+msgstr "非表示設定をエクスポート"
+
+msgid "Export alerts"
+msgstr "警告をエクスポート"
+
+msgid "Paths with parameters"
+msgstr "パラメータ付きパス"
+
+msgid "Drop records for deleted or moved pages"
+msgstr "削除または移動されたページのレコードを削除"
+
+msgid "Deletes results that no longer have valid paths or entity references."
+msgstr "無効なパスまたはエンティティ参照を持つ結果を削除します。"
+
+msgid "Update page titles"
+msgstr "ページタイトルを更新"
+
+msgid ""
+"Replaces recorded titles for Nodes, Terms and Users with the current value "
+"on their edit page."
+msgstr ""
+"ノード、ターム、ユーザーの記録されたタイトルを、各編集ページの現在の値で置き"
+"換えます。"
+
+msgid "Update page paths"
+msgstr "ページパスを更新"
+
+msgid ""
+"Replaces recorded URLs for Nodes, Terms and Users with their current "
+"canonical path. <br>@ReviewPaths (node/1?node=2) will not be updated."
+msgstr ""
+"ノード、ターム、ユーザーの記録された URL を現在の標準パスで置き換えます。"
+"<br>@ReviewPaths（例：node/1?node=2）は更新されません。"
+
+msgid "Risky deletions"
+msgstr "リスクのある削除"
+
+msgid "Delete records for paths with parameters (e.g., ?page=2)"
+msgstr "パラメータ付きパス（例：?page=2）のレコードを削除"
+
+msgid "None"
+msgstr "なし"
+
+msgid "Only for nodes, terms & users"
+msgstr "ノード・ターム・ユーザーのみ"
+
+msgid "All, including search and views"
+msgstr "すべて（検索・ビューを含む）"
+
+msgid ""
+"Used to remove duplicate records when previously recorded parameters like "
+"page numbers or search keys were not meaningful. Parameters that are not "
+"meaningful should be removed from the list of parameters to save under "
+"\"Syncing results to reports\" in the module configuration.<br>@ReviewPaths "
+"should be reviewed before proceeding. <strong>There is no undo</strong>."
+msgstr ""
+"以前保存されたページ番号や検索キーなどのパラメータが意味を持たなかった場合"
+"に、重複レコードを削除するために使用します。意味のないパラメータは「結果とレ"
+"ポートの同期」設定で除外パラメータから外してください。<br>@ReviewPaths を実行"
+"前に必ず確認してください。<strong>元に戻すことはできません</strong>。"
+
+msgid "Start"
+msgstr "開始"
+
+msgid "Recheck nodes"
+msgstr "ノードを再チェック"
+
+msgid "Set up a crawl"
+msgstr "クロールを設定"
+
+msgid "Processing batch #@batch_id of @count."
+msgstr "バッチ @batch_id / @count を処理中。"
+
+msgid "@process processed @count, deleted @deleted, updated @updated."
+msgstr "@process：@count 件処理、@deleted 件削除、@updated 件更新。"
+
+msgid ""
+"An error occurred while processing %error_operation with arguments: "
+"@arguments"
+msgstr "%error_operation の処理中にエラーが発生しました（引数：@arguments）"
+
+msgid "No records to process."
+msgstr "処理するレコードがありません。"
+
+msgid ""
+"@process processed @count, deleted @deleted, updated @updated in @elapsed."
+msgstr ""
+"@process：@count 件処理、@deleted 件削除、@updated 件更新（所要時間："
+"@elapsed）。"
+
+msgid "Admin label for the configuration page"
+msgstr "設定ページの管理ラベル"
+
+msgid "Test grouping ID"
+msgstr "テストグループID"
+
+msgid ""
+"Letters, numbers and underscores only.<br>Rules that share an ID will be "
+"grouped on dashboard reports."
+msgstr ""
+"文字、数字、アンダースコアのみ使用できます。<br>同じIDを共有するルールはダッ"
+"シュボードレポートでグループ化されます。"
+
+msgid "Active"
+msgstr "有効"
+
+msgid "Alert content"
+msgstr "アラートの内容"
+
+msgid "Tip title"
+msgstr "ヒントのタイトル"
+
+msgid "Tip details"
+msgstr "ヒントの詳細"
+
+msgid ""
+"HTML displayed in the tooltip. The provided template is optional.<br>\n"
+"        Allowed tags: @tags."
+msgstr ""
+"ツールチップに表示されるHTMLです。提供されたテンプレートは任意です。<br>\n"
+"        使用可能なタグ: @tags。"
+
+msgid "To fix"
+msgstr "修正方法"
+
+msgid "Error"
+msgstr "エラー"
+
+msgid "Manual check"
+msgstr "手動チェック"
+
+msgid "Dismiss key"
+msgstr "閉じるキー"
+
+msgid ""
+"How dismissals are tracked. 'Text' uses its text content, 'Attributes' uses "
+"its attributes (href, id, class, src)."
+msgstr ""
+"非表示の追跡方法。'Text'はテキストコンテンツを使用し、'Attributes'は属性"
+"（href、id、class、src）を使用します。"
+
+msgid "Text content"
+msgstr "テキストコンテンツ"
+
+msgid "Attributes on tag (e.g. href and src)"
+msgstr "タグの属性（例：hrefとsrc）"
+
+msgid "Elements to check"
+msgstr "チェックする要素"
+
+msgid ""
+"These sets contain elements that match your check area and skip over "
+"configuration."
+msgstr ""
+"これらのセットには、チェックエリアに一致する要素が含まれており、設定をスキッ"
+"プします。"
+
+msgid "Common choices"
+msgstr "よく使われる選択肢"
+
+msgid "All text elements: Headings, Paragraphs, Blockquotes and Lists"
+msgstr "すべてのテキスト要素：見出し、段落、ブロック引用、リスト"
+
+msgid "Links"
+msgstr "リンク"
+
+msgid "Paragraphs"
+msgstr "段落"
+
+msgid "Headings"
+msgstr "見出し"
+
+msgid "Images"
+msgstr "画像"
+
+msgid "All elements"
+msgstr "すべての要素"
+
+msgid "...other..."
+msgstr "...その他..."
+
+msgid "Specific elements and combinations"
+msgstr "特定の要素と組み合わせ"
+
+msgid "Lists"
+msgstr "リスト"
+
+msgid "Blockquotes"
+msgstr "ブロック引用"
+
+msgid "Tables"
+msgstr "テーブル"
+
+msgid "Buttons"
+msgstr "ボタン"
+
+msgid "Inputs"
+msgstr "入力フィールド"
+
+msgid "Labels"
+msgstr "ラベル"
+
+msgid "Iframes"
+msgstr "Iframes"
+
+msgid "Videos"
+msgstr "動画"
+
+msgid "Audio"
+msgstr "音声"
+
+msgid ""
+"Note: combining Links with Paragraphs and other text containers can lead to "
+"duplicate alerts."
+msgstr ""
+"注意：リンクと段落や他のテキストコンテナを組み合わせると、重複したアラートが"
+"表示される場合があります。"
+
+msgid "When tip should appear"
+msgstr "ヒントを表示するタイミング"
+
+msgid ""
+"This test builder allows for simple text and attribute tests.<br>Check the "
+"module readme for <a href=\"@url\">tips on writing more complex tests</a>."
+msgstr ""
+"このテストビルダーは、シンプルなテキストおよび属性テストを作成できます。<br>"
+"より複雑なテストの作成については、モジュールのreadmeで<a href=\"@url\">ヒント"
+"</a>をご確認ください。"
+
+msgid "Select by attributes"
+msgstr "属性で選択"
+
+msgid ""
+"Match using CSS selectors.<br>Use :not() to skip elements, e.g. "
+"<code>:is(.check1, .check2):not(.ignore, .ignore *)</code>.<br>Use attribute "
+"selectors for URLs, e.g. <code>[href*=\".dev/\"]</code>."
+msgstr ""
+"CSSセレクターを使用して一致させます。<br>:not()を使用して要素をスキップできま"
+"す。例: <code>:is(.check1, .check2):not(.ignore, .ignore *)</code>。<br>URLに"
+"は属性セレクターを使用します。例: <code>[href*=\".dev/\"]</code>。"
+
+msgid "Select by text"
+msgstr "テキストで選択"
+
+msgid "Flag elements containing any of these text strings. One per line."
+msgstr "これらのテキスト文字列を含む要素をフラグします。1行に1つ。"
+
+msgid "Case sensitive"
+msgstr "大文字と小文字を区別する"
+
+msgid "Exclude elements that match this text"
+msgstr "このテキストに一致する要素を除外する"
+
+msgid ""
+"Don't flag elements if they contain any of these words or phrases. E.g., a "
+"link to a development server is ok if it contains \"dev.\" One per line."
+msgstr ""
+"これらの単語やフレーズを含む要素はフラグしません。例：開発サーバーへのリンク"
+"は\"dev.\"を含む場合は問題ありません。1行に1つ。"
+
+msgid "Test key must contain only letters, numbers, and underscores."
+msgstr "テストキーには文字、数字、アンダースコアのみ使用できます。"
+
+msgid "Tip content must contain visible text."
+msgstr "ヒントのコンテンツには表示されるテキストが必要です。"
+
+msgid "Select at least one rule."
+msgstr "少なくとも1つのルールを選択してください。"
+
+msgid "Select at least one element type."
+msgstr "少なくとも1つの要素タイプを選択してください。"
+
+msgid "The filter selector should be a CSS selector, not a CSS rule block."
+msgstr ""
+"フィルターセレクターはCSSセレクターである必要があります。CSSルールブロックで"
+"はありません。"
+
+msgid "Created new custom test %label."
+msgstr "新しいカスタムテスト %label を作成しました。"
+
+msgid "Updated custom test %label."
+msgstr "カスタムテスト %label を更新しました。"
+
+msgid "Are you deactivating this site or cancelling altogether?"
+msgstr "このサイトを無効化しますか、それとも完全にキャンセルしますか？"
+
+msgid "You can manage your subscriptions at any time in your Freemius account."
+msgstr "サブスクリプションはいつでも Freemius アカウントから管理できます。"
+
+msgid "Choose an action"
+msgstr "アクションを選択"
+
+msgid ""
+"<strong>Deactivate this site</strong>, but keep my subscription active and "
+"renewing for use on another site"
+msgstr ""
+"<strong>このサイトを無効化</strong>する。ただし、別のサイトで使用するためにサ"
+"ブスクリプションは有効な状態で更新し続ける"
+
+msgid ""
+"<strong>Cancel my subscription</strong> to the Editoria11y CSA altogether"
+msgstr ""
+"Editoria11y CSA の<strong>サブスクリプションを完全にキャンセル</strong>する"
+
+msgid "Confirm deactivation"
+msgstr "無効化を確認"
+
+msgid "Never mind; keep site active"
+msgstr "キャンセル。サイトを有効のまま保持"
+
+msgid ""
+"This site appears to be a development or testing environment with an active "
+"license."
+msgstr ""
+"このサイトは、有効なライセンスが適用された開発環境またはテスト環境のようで"
+"す。"
+
+msgid "How would you like to proceed?"
+msgstr "どのように進めますか？"
+
+msgid ""
+"<strong>Cancel deactivation</strong>; I will manage this from the production "
+"site"
+msgstr "<strong>無効化をキャンセル</strong>する。本番サイトから管理します"
+
+msgid ""
+"<strong>Disconnect this copy</strong>; leave the production license active"
+msgstr ""
+"<strong>このコピーのみ切断</strong>する。本番のライセンスは有効のまま残す"
+
+msgid ""
+"<strong>Deactivate all copies of this site</strong> (production, dev, and QA)"
+msgstr ""
+"このサイトの<strong>すべてのコピーを無効化</strong>する（本番、開発、QA）"
+
+msgid "Confirm"
+msgstr "確認"
+
+msgid ""
+"Editoria11y promotes accessibility in a unique way. Its tools are highly "
+"effective at helping non-technical authors prepare content that can be "
+"enjoyed equally by disabled Web users. We consider this a public good, so "
+"Editoria11y will always be free to use."
+msgstr ""
+"Editoria11y は独自の方法でアクセシビリティを推進します。そのツールは、技術者"
+"ではない作成者が、障害のある Web ユーザーも同じように利用できるコンテンツを作"
+"成するのに大きな効果を発揮します。私たちはこれを公共の利益と考えているため、"
+"Editoria11y は常に無料で使用できます。"
+
+msgid "Editoria11y is not, however, free to develop or support."
+msgstr "ただし、Editoria11y の開発やサポートには費用がかかります。"
+
+msgid ""
+"The \"Community Supported Add-ons\" (CSA) project fills the gap: project "
+"membership subscriptions fund the development of the Editoria11y library, "
+"its CMS plugins, and the CSA suite."
+msgstr ""
+"「Community Supported Add-ons」（CSA）プロジェクトがそのギャップを埋めます。"
+"プロジェクトのメンバーシップサブスクリプションが、Editoria11y ライブラリ、そ"
+"の CMS プラグイン、CSA スイートの開発を支えています。"
+
+msgid ""
+"<a href=\"@url\"><strong>Join the CSA</strong></a> to support this project"
+msgstr ""
+"このプロジェクトを支援するには <a href=\"@url\"><strong>CSA に参加</strong></"
+"a>してください"
+
+msgid ""
+"Existing members: <a href=\"@url\"><strong>Manage your subscription</"
+"strong></a> or <a href=\"@support_url\"><strong>contact support</strong></a>"
+msgstr ""
+"既存のメンバー：<a href=\"@url\"><strong>サブスクリプションを管理</strong></"
+"a>するか、<a href=\"@support_url\"><strong>サポートに連絡</strong></a>してく"
+"ださい"
+
+msgid ""
+"License management on this site has been locked via Drush. Use <code>drush "
+"ed11y-unlock</code> to re-enable changes from this form."
+msgstr ""
+"このサイトのライセンス管理は Drush によってロックされています。このフォームか"
+"らの変更を再度有効にするには <code>drush ed11y-unlock</code> を使用してくださ"
+"い。"
+
+msgid "Warning: this site matches a dev or QA URL pattern"
+msgstr "警告：このサイトは開発または QA の URL パターンに一致します"
+
+msgid "Shared activations should be managed in the production copy."
+msgstr "共有された有効化は本番コピーで管理する必要があります。"
+
+msgid ""
+"Use <code>drush ed11y-lock</code> to prevent changing shared activations."
+msgstr ""
+"共有された有効化の変更を防ぐには <code>drush ed11y-lock</code> を使用してくだ"
+"さい。"
+
+msgid ""
+"Deactivating a shared key deactivates all copies of a site, including "
+"production."
+msgstr ""
+"共有キーを無効化すると、本番を含むサイトのすべてのコピーが無効化されます。"
+
+msgid ""
+"Separate license activations from a development environment consume an "
+"additional key."
+msgstr "開発環境から個別にライセンスを有効化すると、追加のキーを消費します。"
+
+msgid "Trial (@days days remaining)"
+msgstr "トライアル（残り @days 日）"
+
+msgid "Trial (expired)"
+msgstr "トライアル（終了）"
+
+msgid "License expired"
+msgstr "ライセンスの有効期限切れ"
+
+msgid "Active membership"
+msgstr "有効なメンバーシップ"
+
+msgid "Activate using stored license key"
+msgstr "保存されたライセンスキーで有効化"
+
+msgid "Activate with a different license key"
+msgstr "別のライセンスキーで有効化"
+
+msgid "Activate (enter license key below)"
+msgstr "有効化（下にライセンスキーを入力）"
+
+msgid "<strong>License expired.</strong> Expired on: @date"
+msgstr "<strong>ライセンスの有効期限切れ。</strong>有効期限：@date"
+
+msgid "<strong>License has expired.</strong>"
+msgstr "<strong>ライセンスの有効期限が切れました。</strong>"
+
+msgid "<strong>Trial license active.</strong> Trial ends: @date"
+msgstr ""
+"<strong>トライアルライセンスが有効です。</strong>トライアル終了日：@date"
+
+msgid "<strong>License active.</strong> Expires: @date"
+msgstr "<strong>ライセンスは有効です。</strong>有効期限：@date"
+
+msgid "<strong>Lifetime license active.</strong>"
+msgstr "<strong>永久ライセンスが有効です。</strong>"
+
+msgid "Check for license renewal"
+msgstr "ライセンスの更新を確認"
+
+msgid "Deactivate license"
+msgstr "ライセンスを無効化"
+
+msgid "A license key is stored but not active"
+msgstr "ライセンスキーは保存されていますが、有効化されていません"
+
+msgid "Add a license key to enable CSA features"
+msgstr "CSA 機能を使用するには、ライセンスキーを追加してください"
+
+msgid "Enable CSA features"
+msgstr "CSA 機能を有効化"
+
+msgid "CSA license key"
+msgstr "CSA ライセンスキー"
+
+msgid ""
+"<a href=\"@url\">Join the CSA</a> to enable CSA features. Visit the Freemius "
+"dashboard to <a href=\"@freemius\">manage your subscription</a> or recover a "
+"lost key."
+msgstr ""
+"CSA 機能を有効にするには <a href=\"@url\">CSA に参加</a>してください。"
+"Freemius ダッシュボードにアクセスして <a href=\"@freemius\">サブスクリプショ"
+"ンを管理</a>するか、紛失したキーを復旧できます。"
+
+msgid "Local, Dev and QA site URL patterns"
+msgstr "ローカル、開発、QA サイトの URL パターン"
+
+msgid ""
+"One pattern per line, up to 5 patterns. Wildcards are supported (e.g. "
+"<code>*.test.example.com</code>).<br>Local, dev and QA sites can share an "
+"activation with production site, but only production sites check for "
+"renewals."
+msgstr ""
+"1 行につき 1 パターン、最大 5 パターンまで指定できます。ワイルドカードに対応"
+"しています（例：<code>*.test.example.com</code>）。<br>ローカル、開発、QA サ"
+"イトは本番サイトと有効化を共有できますが、更新のチェックは本番サイトのみで行"
+"われます。"
+
+msgid ""
+"Additionally, any hostname consisting only of digits and dots (raw IPv4 "
+"address) is treated as a development environment."
+msgstr ""
+"さらに、数字とドットのみで構成されるホスト名（生の IPv4 アドレス）は開発環境"
+"として扱われます。"
+
+msgid "Built-in development URL patterns"
+msgstr "組み込みの開発用 URL パターン"
+
+msgid "Enter no more than 5 custom domain patterns."
+msgstr "カスタムドメインパターンは 5 つまで入力してください。"
+
+msgid "Saved license key not found. Please activate with a new key."
+msgstr ""
+"保存されたライセンスキーが見つかりません。新しいキーで有効化してください。"
+
+msgid "Enter a license key."
+msgstr "ライセンスキーを入力してください。"
+
+msgid "Activation failed: @msg"
+msgstr "有効化に失敗しました：@msg"
+
+msgid "License renewed and active."
+msgstr "ライセンスが更新され、有効になりました。"
+
+msgid "License is still expired."
+msgstr "ライセンスは引き続き有効期限切れです。"
+
+msgid "Unexpected license status: @status"
+msgstr "予期しないライセンス状態です：@status"
+
+msgid "Could not reach licensing server: @msg"
+msgstr "ライセンスサーバーに接続できませんでした：@msg"
+
+msgid "Deactivation failed: @msg"
+msgstr "無効化に失敗しました：@msg"
+
+msgid "Editoria11y Export Batch Processor"
+msgstr "Editoria11y エクスポートバッチ処理"
+
+msgid ""
+"Batching is only needed for very large or heavily customized CSV exports."
+msgstr "バッチ処理が必要なのは、非常に大きな CSV エクスポートや大幅にカスタマイズされた CSV エクスポートの場合のみです。"
+
+msgid "hide"
+msgstr "非表示"
+
+msgid "ok"
+msgstr "OK"
+
+msgid "Yes"
+msgstr "はい"
+
+msgid "No"
+msgstr "いいえ"
+
+msgid "This alt text is a filename, not a description"
+msgstr "この代替テキストは説明ではなくファイル名です"
+
+msgid "Is this a clear and concise description of the image?"
+msgstr "これは画像の明確で簡潔な説明ですか？"
+
+msgid "This alt text may be a placeholder"
+msgstr "この代替テキストはプレースホルダーの可能性があります"
+
+msgid "This alt text is unpronounceable"
+msgstr "この代替テキストは発音できません"
+
+msgid "This custom input field is missing a label"
+msgstr "このカスタム入力欄にはラベルがありません"
+
+msgid "Button is missing an accessible label"
+msgstr "このボタンにはアクセシブルな名称がありません"
+
+msgid "Button has an invalid ARIA label"
+msgstr "このボタンの ARIA ラベルが無効です"
+
+msgid "Button name repeats the word \"button\""
+msgstr "ボタン名に「button」という語が重複しています"
+
+msgid "This button is unpronounceable"
+msgstr "このボタンは発音できません"
+
+msgid "Text does not have enough contrast to be easily legible"
+msgstr "テキストのコントラストが不十分で読みづらい状態です"
+
+msgid "Graphic or icon does not have enough contrast"
+msgstr "グラフィックまたはアイコンのコントラストが不十分です"
+
+msgid "Input does not provide enough contrast to be easily legible"
+msgstr "入力フィールドのコントラストが不十分で読みづらい状態です"
+
+msgid "Placeholder text does not have enough contrast to be easily legible"
+msgstr "プレースホルダーのテキストコントラストが不十分です"
+
+msgid "Does this placeholder text have enough contrast?"
+msgstr "このプレースホルダーは十分なコントラストがありますか？"
+
+msgid "Does this text have enough contrast?"
+msgstr "このテキストは十分なコントラストがありますか？"
+
+msgid "Does this graphic or icon have enough contrast?"
+msgstr "このグラフィック／アイコンは十分なコントラストがありますか？"
+
+msgid "Duplicate ID attribute"
+msgstr "重複した ID 属性があります"
+
+msgid "This link has a tooltip with the same text as the link"
+msgstr "このリンクのツールチップがリンク本文と同じ内容です"
+
+msgid "Does this audio have a transcript?"
+msgstr "この音声コンテンツには文字起こしがありますか？"
+
+msgid "Is this visualization accessible?"
+msgstr "このデータ可視化はアクセシブルですか？"
+
+msgid "Embedded iframes need manual checks"
+msgstr "埋め込み iframe は手動チェックが必要です"
+
+msgid "Frame missing \"title\" attribute"
+msgstr "iframe に \"title\" 属性がありません"
+
+msgid "Frame with tabindex=\"-1\" will not be keyboard accessible."
+msgstr "tabindex=\"‑1\" のフレームはキーボードから操作できません。"
+
+msgid "Is this video accurately captioned?"
+msgstr "この動画には正確な字幕がありますか？"
+
+msgid "This heading has no text"
+msgstr "この見出しにはテキストがありません"
+
+msgid "This image is used as a heading, so it needs alt text"
+msgstr "この画像は見出しとして使用されているため、代替テキストが必要です"
+
+msgid "The first heading on this page is a subheading"
+msgstr "ページ内の最初の見出しが下位レベルの見出しになっています"
+
+msgid "Can this heading be shorter?"
+msgstr "この見出しは短くできますか？"
+
+msgid "This page is missing a Heading 1"
+msgstr "このページにはレベル 1 の見出しがありません"
+
+msgid "This heading is tagged at the wrong level"
+msgstr "この見出しは不適切なレベルでマークされています"
+
+msgid "This heading is unpronounceable"
+msgstr "この見出しは発音できません"
+
+msgid "This element cannot be described by screen readers"
+msgstr "この要素はスクリーンリーダーで適切に説明できません"
+
+msgid "Can this alt text be shorter?"
+msgstr "この代替テキストは短くできますか？"
+
+msgid "Is this image actually meaningless?"
+msgstr "この画像は本当に装飾目的のみですか？"
+
+msgid "Image in a carousel or gallery marked as decorative"
+msgstr "カルーセル／ギャラリー内の画像が装飾扱いになっています"
+
+msgid "This captioned image has no alt text"
+msgstr "このキャプション付きの画像には alt テキストがありません"
+
+msgid "Alt text should not be the same as caption text"
+msgstr "alt テキストはキャプションと同じ内容にすべきではありません"
+
+msgid "Is there a visible label for this field?"
+msgstr "このフィールドには可視ラベルがありますか？"
+
+msgid "Prefer visible labels to placeholders"
+msgstr "プレースホルダーではなく可視ラベルを使用してください"
+
+msgid "Is this reset button needed?"
+msgstr "このリセットボタンは必要ですか？"
+
+msgid "This input has an empty label"
+msgstr "この入力欄のラベルが空です"
+
+msgid "Visible label does not match invisible label"
+msgstr "可視ラベルが非表示ラベルと一致していません"
+
+msgid "This image input is missing alt text"
+msgstr "この画像入力に代替テキストがありません"
+
+msgid "This input is not connected to a label"
+msgstr "この入力欄はラベルと関連付けられていません"
+
+msgid "Language tag does not match the content"
+msgstr "言語タグがコンテンツと一致しません"
+
+msgid "This content appears to be in a different language"
+msgstr "このコンテンツは別の言語で書かれているようです"
+
+msgid "This alt text appears to be in a different language"
+msgstr "この代替テキストは別の言語で書かれているようです"
+
+msgid "Alt text used as a link should not be a URL"
+msgstr "リンクの alt テキストが URL になっています"
+
+msgid "This linked alt might not be clear and concise"
+msgstr "このリンクされた代替テキストは明確で簡潔でない可能性があります"
+
+msgid "Linked images need pronounceable alt text"
+msgstr "リンク画像には発音可能な代替テキストが必要です"
+
+msgid "Manual check: link contains \"click here\""
+msgstr "手動チェック：リンクに「クリックしてください」が含まれています"
+
+msgid "Link article titles, not DOI numbers"
+msgstr "DOI 番号ではなく記事タイトルをリンクしてください"
+
+msgid "This link contains no words"
+msgstr "このリンクにはテキストがありません"
+
+msgid "Link with invalid \"aria-labelledby\" attribute"
+msgstr "このリンクの aria‑labelledby が無効です"
+
+msgid "This link needs a label"
+msgstr "このリンクにはラベルが必要です"
+
+msgid "Link points to a file without warning"
+msgstr "警告なしにファイルへリンクしています"
+
+msgid "Links with the same text link to different pages"
+msgstr "同じテキストのリンクがそれぞれ異なるページを指しています"
+
+msgid "Does this alt text describe the link or the image?"
+msgstr "この alt テキストはリンクを説明していますか？画像を説明していますか？"
+
+msgid "Does this alt text make sense as part of this link?"
+msgstr "この alt テキストはリンク文脈において意味がありますか？"
+
+msgid "Can this linked alt text be shorter?"
+msgstr "このリンク画像の alt テキストを短縮できますか？"
+
+msgid "This linked image needs alt text"
+msgstr "このリンク画像には代替テキストが必要です"
+
+msgid "Does this linked image need a description?"
+msgstr "このリンク画像には説明が必要ですか？"
+
+msgid "Is this link actually a button?"
+msgstr "このリンクは実際にはボタンではありませんか？"
+
+msgid "Does this link open a new tab without warning?"
+msgstr "このリンクは警告なしに新しいタブを開きますか？"
+
+msgid "This linked alt text may be a placeholder"
+msgstr "このリンク画像の代替テキストはプレースホルダーの可能性があります"
+
+msgid "This link only contains generic words"
+msgstr "このリンクには一般的な語句しか含まれていません"
+
+msgid "The purpose of this link is visually hidden"
+msgstr "このリンクの目的は視覚的に隠されています"
+
+msgid "Does this image's alt describe the image or the link?"
+msgstr "この alt テキストは画像を説明していますか？リンクを説明していますか？"
+
+msgid "Are the symbols or emoji in this link meaningful?"
+msgstr "このリンク内の記号／絵文字に意味はありますか？"
+
+msgid "This link is unpronounceable"
+msgstr "このリンクは発音できません"
+
+msgid "Link text should not be a URL"
+msgstr "リンクテキストが URL になっています"
+
+msgid "Meta tag for page language missing"
+msgstr "ページ言語の meta タグがありません"
+
+msgid "Did you mean a different language code?"
+msgstr "別の言語コードではありませんか？"
+
+msgid "Invalid language code"
+msgstr "無効な言語コードです"
+
+msgid "Page language may not match the content"
+msgstr "ページの言語がコンテンツと一致しない可能性があります"
+
+msgid "Meta tag limits how much users can enlarge text"
+msgstr "meta タグが拡大率を制限しています"
+
+msgid "Meta tag automatically refreshes page"
+msgstr "meta タグがページを自動更新します"
+
+msgid "Meta tag prevents users from enlarging text"
+msgstr "meta タグが拡大を無効にしています"
+
+msgid "Meta tag for page title missing"
+msgstr "ページタイトルの meta タグがありません"
+
+msgid "Invalid HTML: image has no alt attribute"
+msgstr "無効な HTML：画像に alt 属性がありません"
+
+msgid "Invalid HTML: linked image missing alt attribute"
+msgstr "無効な HTML：リンク画像に alt 属性がありません"
+
+msgid "Invalid HTML: image in link missing alt attribute"
+msgstr "無効な HTML：リンク内の画像に alt 属性がありません"
+
+msgid "This link target may be invalid"
+msgstr "このリンク先は無効な可能性があります"
+
+msgid "Should this quote be a heading?"
+msgstr "この引用は見出しであるべきですか？"
+
+msgid "Has this document been tagged for screen readers?"
+msgstr "この文書はスクリーンリーダー用に適切にタグ付けされていますか？"
+
+msgid "Should this bold text be a heading?"
+msgstr "この太字テキストは見出しであるべきですか？"
+
+msgid "Should this have list formatting?"
+msgstr "これはリストとして書式設定すべきですか？"
+
+msgid "Broken same-page link"
+msgstr "ページ内リンクが壊れています"
+
+msgid "Do not justify text"
+msgstr "両端揃えのテキストは使用しないでください"
+
+msgid "Nested interactive layout components"
+msgstr "入れ子になったインタラクティブコンポーネント"
+
+msgid "Is there an alternative for this PDF?"
+msgstr "この PDF に代替形式はありますか？"
+
+msgid "Text is too small"
+msgstr "テキストが小さすぎます"
+
+msgid "Large blocks of emphasized text are harder to read"
+msgstr "大量の強調テキストは読みづらくなります"
+
+msgid "Do not use sub/superscript as visual formatting"
+msgstr "上付き／下付きは装飾として使用しないでください"
+
+msgid "Only links should be underlined"
+msgstr "下線はリンクにのみ使用してください"
+
+msgid "Is this uppercase text needed?"
+msgstr "この全文大文字表記は必要ですか？"
+
+msgid "Are there redundant words in this alt text?"
+msgstr "この alt テキストに不要な語句が含まれていますか？"
+
+msgid "Tabindex overrides interrupt the focus order"
+msgstr "Tabindex の上書きがフォーカス順序を妨げています"
+
+msgid "This header cell needs text"
+msgstr "この表見出しセルにはテキストが必要です"
+
+msgid "This table has an invalid headers attribute"
+msgstr "この表には無効な headers 属性があります"
+
+msgid "This table needs a header row and/or column"
+msgstr "この表には行見出し／列見出しが不足しています"
+
+msgid "Content headings should not be used inside tables"
+msgstr "内容見出しを表内で使用すべきではありません"
+
+msgid "Invalid HTML list"
+msgstr "無効な HTML リストです"
+
+msgid "Linked images"
+msgstr "リンク画像"
+
+msgid "Text formatting"
+msgstr "テキストの書式"
+
+msgid "Video, audio, frames"
+msgstr "動画、音声、フレーム"
+
+msgid "Contrast"
+msgstr "コントラスト"
+
+msgid "Forms"
+msgstr "フォーム"
+
+msgid "ARIA and focus"
+msgstr "ARIA とフォーカス"
+
+msgid "Page metadata"
+msgstr "ページのメタデータ"
+
+msgid "The request could not be processed. Details have been logged."
+msgstr "リクエストを処理できませんでした。詳細はログに記録されました。"
+
+msgid "API request rejected: @message"
+msgstr "API リクエストが拒否されました：@message"
+
+msgid "API request failed: @message"
+msgstr "API リクエストに失敗しました：@message"
+
+msgid "Export pages with alerts"
+msgstr "警告のあるページをエクスポート"
+
+msgid ""
+"Install the Editoria11y Export Batch Processor module to download these "
+"reports."
+msgstr "これらのレポートをダウンロードするには、Editoria11y Export Batch Processorモジュールをインストールしてください。"
+
+msgid "Export results"
+msgstr "結果をエクスポート"
+
+msgctxt "problems"
+msgid "Top alerts"
+msgstr "主要な問題"
+
+msgctxt "problems"
+msgid "Pages with the most alerts"
+msgstr "最も多くの問題があるページ"
+
+msgid "Recent dismissals"
+msgstr "最近の非表示設定"
+
+msgid ""
+"Activate the <a href=\"@csa\">Editoria11y CSA submodule</a> to see developer "
+"tests."
+msgstr ""
+"開発者テストを表示するには <a href=\"@csa\">Editoria11y CSA サブモジュール</"
+"a>を有効化してください。"
+
+msgid "Include all parts of the page that contain your theme and content."
+msgstr "テーマとコンテンツを含むページのすべての部分を含めてください。"
+
+msgid "Include all parts of the page that contain your editable content."
+msgstr "編集可能なコンテンツを含むページのすべての部分を含めてください。"
+
+msgid "Exclude elements that show unhelpful, repetitive, or inaccurate alerts."
+msgstr ""
+"役に立たない、繰り返し表示される、または不正確な警告を表示する要素を除外して"
+"ください。"
+
+msgid ""
+"<a href=\"@permissions\">Add permissions</a>, especially \"View Editoria11y "
+"checker\" and \"Mark OK.\"</a>"
+msgstr ""
+"<a href=\"@permissions\">権限を追加</a>してください。特に「View Editoria11y "
+"checker」と「Mark OK」が重要です。</a>"
+
+msgid ""
+"If you need help: <a href=\"@config_guide\">Configuration Guide</a> | <a "
+"href=\"@issue_queue\">Issue Queue</a> | <a href=\"@help\">Support contacts</"
+"a>"
+msgstr ""
+"サポートが必要な場合：<a href=\"@config_guide\">設定ガイド</a> | <a "
+"href=\"@issue_queue\">課題キュー</a> | <a href=\"@help\">サポート連絡先</a>"
+
+msgid "Autodetect"
+msgstr "自動検出"
+
+msgid "Only user-editable content"
+msgstr "ユーザーが編集可能なコンテンツのみ"
+
+msgid "Other"
+msgstr "その他"
+
+msgid "Parts of the page to test"
+msgstr "テスト対象のページ部分"
+
+msgid "\"Autodetect\" selects:"
+msgstr "「自動検出」が選択するもの："
+
+msgid "Other: specify regions to check for developer and content problems"
+msgstr "その他: 開発者とコンテンツの問題を確認する領域を指定"
+
+msgid ""
+"Provide CSS selectors. For many sites, the site theme is wrapped in "
+"<code>.dialog-off-canvas-main-canvas</code> while editing."
+msgstr ""
+"CSS セレクタを指定してください。多くのサイトでは、編集中のサイトテーマは "
+"<code>.dialog-off-canvas-main-canvas</code> でラップされます。"
+
+msgid "Do not check for any errors inside these elements"
+msgstr "これらの要素内のいかなるエラーも確認しない"
+
+msgid "These parts of the page will be ignored entirely."
+msgstr "ページのこれらの部分は完全に無視されます。"
+
+msgid "match content settings"
+msgstr "match content settings"
+
+msgid "Page regions with user-editable content"
+msgstr "ユーザーが編集可能なコンテンツを含むページ領域"
+
+msgid ""
+"Default: <code><em>main</em></code><br>Provide <a target=\"_blank\" "
+"href=\"https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/"
+"Selectors\">CSS selectors</a>. Content authors will only see the alerts "
+"within these parts of the page. Do not provide selectors that nest within "
+"each other, or the inner content will be checked twice."
+msgstr ""
+"デフォルト：<code><em>main</em></code><br><a target=\"_blank\" "
+"href=\"https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/"
+"Selectors\">CSS セレクタ</a>を指定してください。コンテンツ作成者はこれらの"
+"ページ部分内の警告のみを確認できます。ネストしたセレクタを指定すると内部コン"
+"テンツが重複してチェックされるため避けてください。"
+
+msgid ""
+"Default: <code><em>main</em></code><br>Provide <a target=\"_blank\" "
+"href=\"https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/"
+"Selectors\">CSS selectors</a>. Do not provide selectors that nest within "
+"each other, or the inner content will be checked twice."
+msgstr ""
+"デフォルト：<code><em>main</em></code><br><a target=\"_blank\" "
+"href=\"https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/"
+"Selectors\">CSS セレクタ</a>を指定してください。ネストしたセレクタを指定する"
+"と内部コンテンツが重複してチェックされるため避けてください。"
+
+msgid "Errors in these elements should only be shown to developers"
+msgstr "これらの要素内のエラーは開発者にのみ表示します"
+
+msgid "Do not check for content errors inside these elements"
+msgstr "これらの要素内のコンテンツエラーを確認しない"
+
+msgid ""
+"Content editors are not responsible for errors in these elements. <br>E.g.: "
+"<code><em>#sidebar-menu a, .slide [aria-hidden=\"true\"]</em></code>."
+msgstr ""
+"コンテンツ編集者はこれらの要素内のエラーに責任を持ちません。<br>例: "
+"<code><em>#sidebar-menu a, .slide [aria-hidden=\"true\"]</em></code>。"
+
+msgid "Roles that will see developer alerts"
+msgstr "開発者向け警告を表示するロール"
+
+msgid ""
+"All roles with the <a href=\":url\">View editoria11y checker</a> permission "
+"see content alerts."
+msgstr ""
+"<a href=\":url\">View editoria11y checker</a>権限を持つすべてのロールがコンテ"
+"ンツ警告を表示します。"
+
+msgid "Advanced settings"
+msgstr "詳細設定"
+
+msgid "Assertiveness"
+msgstr "強調レベル"
+
+msgid "Checker mode for content roles"
+msgstr "コンテンツロールでのチェッカーモード"
+
+msgid "Start open if there are any alerts"
+msgstr "警告がある場合に開いた状態で開始"
+
+msgid "Start open if there are new alerts"
+msgstr "新しい警告がある場合に開いた状態で開始"
+
+msgid "Start minimized"
+msgstr "最小化した状態で開始"
+
+msgid ""
+"Choose when the control panel should open and show inline tips. \"Start open "
+"if there are any alerts\" is recommended, as it helps tips get noticed over "
+"time."
+msgstr ""
+"パネルを開くタイミングおよびインラインヒントの表示を選択します。「警告がある"
+"場合に開いた状態で開始」が推奨されます。ヒントが見逃されにくくなります。"
+
+msgid "Checker mode for developer roles"
+msgstr "開発者ロールでのチェッカーモード"
+
+msgid "Do not check any content while it is being edited"
+msgstr "編集中のコンテンツはチェックしない"
+
+msgid ""
+"Use the \"Do not check on pages with these elements\" setting to prevent "
+"checking only on specific pages. E.g., exclude: <code><em>form[id^=\"node-"
+"article\"]</em></code>."
+msgstr ""
+"特定ページでチェックを無効化したい場合は、「これらの要素が存在するページでは"
+"チェックしない」を使用してください。例：<code><em>form[id^=\"node-"
+"article\"]</em></code>"
+
+msgid "Assign headers to CKEditor tables on insert"
+msgstr "CKEditor のテーブル挿入時にヘッダーを付与する"
+
+msgid "First row"
+msgstr "最初の行"
+
+msgid "First column"
+msgstr "最初の列"
+
+msgid "Both"
+msgstr "両方"
+
+msgid ""
+"You will need to clear cache for changes to this setting to appear in "
+"CKEditor."
+msgstr "この設定を CKEditor に反映させるにはキャッシュのクリアが必要です。"
+
+msgid "Theme compatibility"
+msgstr "テーマ互換性"
+
+msgid "Configuration tips"
+msgstr "設定に関するヒント"
+
+msgid ""
+"If the checker <strong>toggle</strong> does not appear: make sure a z-"
+"indexed or overflow-hidden element in your front-end theme is not hiding or "
+"covering the <code><em>ed11y-element-panel</em></code> container, make sure "
+"that any custom selectors in the \"Disable the scanner if these elements are "
+"detected\" field are not present, and make sure that no JavaScript errors "
+"are appearing in your <a href=\"https://developer.mozilla.org/en-US/docs/"
+"Tools/Browser_Console\"> browser console</a>"
+msgstr ""
+"チェッカーの<strong>トグル</strong>が表示されない場合：<code><em>ed11y-"
+"element-panel</em></code> コンテナをフロントエンドテーマ側の z-index や "
+"overflow-hidden の要素が隠していないか確認し、「これらの要素が検出された場合"
+"にスキャナーを無効化」フィールドに該当するカスタムセレクタがないか確認し、<a "
+"href=\"https://developer.mozilla.org/en-US/docs/Tools/Browser_Console\">ブラ"
+"ウザのコンソール</a>に JavaScript エラーが出ていないか確認してください。"
+
+msgid ""
+"If the checker toggle is present but <strong>not detecting</strong> errors, "
+"or missing errors that should be flagged: check that your inclusions & "
+"exclusion settings below are not missing or ignoring the elements. It is not "
+"uncommon for homepages or views to insert editable content outside the "
+"<code><em>main</em></code> element."
+msgstr ""
+"トグルが表示されているにもかかわらず、エラーを<strong>検出しない</strong>、ま"
+"たは検出されるべきエラーが欠落する場合：設定した対象領域・除外領域のセレクタ"
+"が正しいか確認してください。<code><em>main</em></code> 要素の外側に編集可能な"
+"コンテンツが存在するケースは珍しくありません。"
+
+msgid "Theme"
+msgstr "テーマ"
+
+msgid "Sleek"
+msgstr "Sleek"
+
+msgid "Classic"
+msgstr "Classic"
+
+msgid "Dark"
+msgstr "Dark"
+
+msgid "Do not check on pages with these elements"
+msgstr "これらの要素を含むページではチェックを実行しない"
+
+msgid ""
+"Used to block checking on site sections or admin pages.<br>E.g. "
+"<code><em>.content-type-example, .tabs__link[href=*\"edit\"]</em></code>."
+msgstr ""
+"特定のサイトセクションや管理画面でチェックを無効化するために使用します。<br>"
+"例：<code><em>.content-type-example, .tabs__link[href=*\"edit\"]</em></"
+"code>。"
+
+msgid "Hide all alerts on pages where these elements are not present"
+msgstr "これらの要素が存在しないページではすべての警告を非表示にする"
+
+msgid ""
+"Used to limit alerting to nodes where the user can edit something. Suggested "
+"selectors:<br> <code><em>.contextual-region a[href*=\"/edit\"], .contextual-"
+"region a[href*=\"/manage\"]</em></code>."
+msgstr ""
+"ユーザーが編集可能なノードのみに警告を表示するために使用します。推奨セレク"
+"タ：<br><code><em>.contextual-region a[href*=\"/edit\"], .contextual-region "
+"a[href*=\"/manage\"]</em></code>"
+
+msgid ""
+"Set to the number of other themes or modules that will be <a href=\"https://"
+"editoria11y.princeton.edu/configuration/#customtests\">injecting custom "
+"result JS events</a>."
+msgstr ""
+"<a href=\"https://editoria11y.princeton.edu/configuration/#customtests\">カス"
+"タム結果イベント</a>を注入するテーマ／モジュールの数を設定します。"
+
+msgid "Positioning"
+msgstr "位置設定"
+
+msgid "Don't show edit links on tips in these containers"
+msgstr "これらのコンテナ内ではヒントに「編集」リンクを表示しない"
+
+msgid ""
+"Tips show copies of the \"Edit\" and \"Layout\" links for nodes, users and "
+"taxonomy terms. These links are not helpful on lists of content from remote "
+"nodes.<br>Provide a comma-separated list of page sections of where these "
+"links should not show, E.g.: <code><em>#sidebar-menu, .news-feed</em></code>."
+"<br>To hide the links <strong>everywhere</strong>, set this field to an "
+"asterisk (<code><em>*</em></code>).<br>To modify the links, <a "
+"href=\"https://editoria11y.princeton.edu/configuration/#modify-tips\" "
+"target=\"_blank\">use the ed11yPop event</a> in your theme JS."
+msgstr ""
+"ヒント内にはノード・ユーザー・タクソノミータームに対する「編集」「レイアウ"
+"ト」リンクのコピーが表示されます。リモートノードの一覧では意味がありません。"
+"<br>これらのリンクを非表示にするページ領域をカンマ区切りで指定します（例："
+"<code><em>#sidebar-menu, .news-feed</em></code>）。<br><strong>すべての場所</"
+"strong>で非表示にするには、<code><em>*</em></code> を指定します。<br>リンクを"
+"カスタマイズするには、テーマの JavaScript で <a href=\"https://"
+"editoria11y.princeton.edu/configuration/#modify-tips\" "
+"target=\"_blank\">ed11yPop イベント</a>を利用してください。"
+
+msgid "Pin panel to..."
+msgstr "パネルの固定位置…"
+
+msgid "Right"
+msgstr "右"
+
+msgid "Left"
+msgstr "左"
+
+msgid "Don't cover these other widgets"
+msgstr "これらのウィジェットを覆わないようにする"
+
+msgid ""
+"Provide a comma-separated list of selectors for other things that appear in "
+"the bottom right of the page. <br>If nothing is set, Editoria11y will "
+"automatically slide left to accommodate <code><em>#klaro_toggle_dialog, "
+"#klaro-cookie-notice .same-page-preview-dialog.ui-dialog-position-side</em></"
+"code>."
+msgstr ""
+"ページ右下に表示される他の要素のセレクタをカンマ区切りで指定してください。"
+"<br>指定がない場合、Editoria11y は自動的に左側へ移動し、"
+"<code><em>#klaro_toggle_dialog, #klaro-cookie-notice .same-page-preview-"
+"dialog.ui-dialog-position-side</em></code> などを避けます。"
+
+msgid "Elements with overflow hidden"
+msgstr "overflow:hidden が適用されている要素"
+
+msgid ""
+"Sometimes buttons get drawn and visually truncated outside the bounds of a "
+"positioned element. Provide a selector list."
+msgstr ""
+"位置指定要素の境界外にボタンが描画され、見切れることがあります。対象となる要"
+"素のセレクタを指定してください。"
+
+msgid "Theme JS will handle revealing hidden tooltips inside these containers"
+msgstr ""
+"テーマ側の JavaScript が、これらのコンテナ内の非表示ツールチップを表示します"
+
+msgid ""
+"Editoria11y detects hidden tooltips and warns the user when they try to jump "
+"to them from the panel. For elements on this list, Editoria11y will <a "
+"href=\"https://itmaybejj.github.io/editoria11y/#dealing-with-alerts-on-"
+"hidden-or-size-constrained-content\">dispatch a JS event</a> instead of a "
+"warning, so custom JS in your theme can first reveal the hidden tip (e.g., "
+"open an accordion or tab panel)."
+msgstr ""
+"Editoria11y はパネルから隠れたツールチップへジャンプしようとした際に警告を表"
+"示します。ここに指定された要素については、警告の代わりに<a href=\"https://"
+"itmaybejj.github.io/editoria11y/#dealing-with-alerts-on-hidden-or-size-"
+"constrained-content\">JS イベント</a>を発火させ、テーマ側のカスタム "
+"JavaScript でツールチップを表示（例：アコーディオンやタブの展開）できるように"
+"します。"
+
+msgid "Detecting dynamic and shadow content"
+msgstr "動的コンテンツおよび Shadow DOM の検出"
+
+msgid "Dynamically refresh if new content appears"
+msgstr "新しいコンテンツが表示された場合は自動的に更新する"
+
+msgid "Watch for changes anywhere on the page"
+msgstr "ページ内のどこであっても変更を監視する"
+
+msgid "Only watch for changes to content containers present on load"
+msgstr "読み込み時に存在していたコンテンツコンテナの変化のみ監視する"
+
+msgid "Do not watch for changes"
+msgstr "変更を監視しない"
+
+msgid ""
+"Set to \"anywhere\" if changes are being missed, set to \"ignore\" if you "
+"notice performance issues. Themes and modules can also call "
+"<code>Drupal.Ed11y.refresh()</code> to refresh results."
+msgstr ""
+"変更が検出されない場合は「anywhere」を、パフォーマンス問題がある場合は"
+"「ignore」を選択してください。テーマやモジュールから "
+"<code>Drupal.Ed11y.refresh()</code> を呼び出して結果を手動更新することもでき"
+"ます。"
+
+msgid "Check inside these specific Web components"
+msgstr "指定した Web コンポーネント内部をチェックする"
+
+msgid ""
+"Provide selectors for elements with <a href='https://developer.mozilla.org/"
+"en-US/docs/Web/Web_Components'>shadow DOM</a> you want tested. E.g.: "
+"<code><em>my-fancy-accordion-widget, my-magical-slideshow</em></code>."
+msgstr ""
+"テスト対象にしたい <a href='https://developer.mozilla.org/en-US/docs/Web/"
+"Web_Components'>shadow DOM</a> を持つ要素のセレクタを指定します。例："
+"<code><em>my-fancy-accordion-widget, my-magical-slideshow</em></code>。"
+
+msgid "Auto-detect any Web components"
+msgstr "Web コンポーネントを自動検出する"
+
+msgid ""
+"This is easier to configure than specifying components, but may slow test "
+"runs on very complicated pages."
+msgstr ""
+"コンポーネントを指定するより簡単ですが、複雑なページではテスト速度が低下する"
+"場合があります。"
+
+msgid "Syncing results to reports"
+msgstr "結果をレポートへ同期する"
+
+msgid ""
+"Remember that results only sync to the dashboard when viewing nodes. Results "
+"shown while editing or viewing previews or revisions will not sync."
+msgstr ""
+"結果は、ノードを「閲覧」した際にのみダッシュボードへ同期されます。編集画面・"
+"プレビュー・リビジョン画面で表示された結果は同期されません。"
+
+msgid "Remove redundant base url from URLs"
+msgstr "URL から余分なベースパスを削除する"
+
+msgid ""
+"Provide base URL (\"/mysite\") if your site is installed in a subdirectory. "
+"Subdirectories tend to get duplicated (/mysite/mysite/mypage) and throw "
+"errors from the API."
+msgstr ""
+"サイトがサブディレクトリ（例：/mysite）に配置されている場合は、そのベース "
+"URL を指定してください。サブディレクトリが重複すると（/mysite/mysite/mypage "
+"など）API エラーを引き起こす場合があります。"
+
+msgid "Preserve query parameters"
+msgstr "クエリパラメータを保持する"
+
+msgid ""
+"The dashboard ignores most parameters: results for both /news?f=1 and /news?"
+"f=2 will show up as just /news. Provide a comma separated list of parameters "
+"that are meaningful, and should appear as separate pages in results."
+msgstr ""
+"ダッシュボードは多くのパラメータを無視します（/news?f=1 と /news?f=2 は /"
+"news として扱われます）。別ページとして扱うべき意味のあるパラメータをカンマ区"
+"切りで指定してください."
+
+msgid "Disable sync altogether"
+msgstr "同期を完全に無効化する"
+
+msgid ""
+"Syncing test results back to Drupal is required for the <a target=\"_blank\" "
+"href=\"/admin/reports/editoria11y\">issue</a> and <a target=\"_blank\" "
+"href=\"/admin/reports/editoria11y/dismissals\">dismissal</a> dashboards and "
+"\"mark OK\" buttons."
+msgstr ""
+"<a target=\"_blank\" href=\"/admin/reports/editoria11y\">問題レポート</a>、"
+"<a target=\"_blank\" href=\"/admin/reports/editoria11y/dismissals\">非表示レ"
+"ポート</a>、および「OK とマーク」機能にはテスト結果の同期が必要です。"
+
+msgid "Heading outline position of editable content"
+msgstr "編集可能コンテンツの見出しアウトライン位置"
+
+msgid ""
+"To check headings in CKEditor, Editoria11y needs to know what the first "
+"heading level should be in this field. Body fields should generally be at "
+"the h2 level."
+msgstr ""
+"CKEditor 内の見出しをチェックするには、このフィールドで最初の見出しレベルを指"
+"定する必要があります。本文フィールドは通常 h2 から始まります。"
+
+msgid "H2 level fields (body content)"
+msgstr "H2 レベルのフィールド（本文コンテンツ）"
+
+msgid ""
+"Body fields on nodes are preceded by an h1, and their heading outline should "
+"start with an h2. Ideally set this for top-level body fields for each of "
+"your content types, and set blocks and embedded nodes to h3 or h4.\n"
+"        <br>Set all content types: <code><em>form[id^=\"node-\"] #edit-body-"
+"wrapper .ck-content</em></code>\n"
+"        <br>Set specific content types: <code><em>form[id^=\"node-\"] #edit-"
+"body-wrapper .ck-content</em></code>\n"
+"        <br>Set up for Gutenberg: <code><em>form[id^=\"node-\"] #edit-body-"
+"wrapper .is-root-container</em></code>"
+msgstr ""
+"ノードの本文フィールドは h1 の後に続くため、h2 から開始すべきです。各コンテン"
+"ツタイプで上位本文フィールドを h2 とし、ブロックや埋め込みノードは h3 または "
+"h4 にすることが推奨されます。\n"
+"<br>すべてのコンテンツタイプに適用：<code><em>form[id^=\"node-\"] #edit-body-"
+"wrapper .ck-content</em></code>\n"
+"<br>特定のタイプに適用：<code><em>form[id^=\"node-\"] #edit-body-wrapper .ck-"
+"content</em></code>\n"
+"<br>Gutenberg 用：<code><em>form[id^=\"node-\"] #edit-body-wrapper .is-root-"
+"container</em></code>"
+
+msgid "H3 level fields (blocks or paragraphs with separate titles)"
+msgstr "H3 レベルのフィールド（別タイトルを持つブロックや段落）"
+
+msgid ""
+"Sometimes inline and layout builder blocks are grouped under an h2 from a "
+"separate field, so their highest heading level should be h3."
+msgstr ""
+"インラインブロックやレイアウトビルダーのブロックが他フィールドの h2 の下に配"
+"置される場合、それらの最大見出しレベルは h3 であるべきです。"
+
+msgid "H4 level fields (deeply nested blocks or paragraphs)"
+msgstr "H4 レベルのフィールド（深くネストされたブロックや段落）"
+
+msgid ""
+"Sometimes inline and layout builder blocks are grouped under an h3 from a "
+"separate field, so their highest heading level should be h4."
+msgstr ""
+"インラインブロックやレイアウトビルダーのブロックが他フィールドの h3 の下に置"
+"かれる場合、それらの最大見出しレベルは h4 が適切です。"
+
+msgid "Modify tests that usually detect content issues"
+msgstr "通常コンテンツの問題を検出するテストを変更"
+
+msgid "Modify tests that usually detect template or configuration issues"
+msgstr "通常テンプレートや設定の問題を検出するテストを変更"
+
+msgid "Do not check contrast for these elements"
+msgstr "これらの要素はコントラストチェックの対象外にする"
+
+msgid ""
+"Provide a comma-separated list of selectors for elements to ignore for all "
+"users."
+msgstr ""
+"すべてのユーザーに対して無視する要素のセレクタを、カンマ区切りで指定します。"
+
+msgid "Remind editor that content in these embeds needs manual review"
+msgstr "これらの埋め込みコンテンツは手動レビューが必要であることを編集者に通知"
+
+msgid ""
+"Provide a comma-separated list of selectors you wish to flag for the editor, "
+"e.g.: <code><em>.my-embedded-feed, #my-social-link-block</em></code>."
+msgstr ""
+"編集者に注意喚起したい埋め込み要素のセレクタをカンマ区切りで指定します。例："
+"<code><em>.my-embedded-feed, #my-social-link-block</em></code>"
+
+msgid ""
+"Default settings should work with both <a href=\"https://www.drupal.org/"
+"project/linkpurpose\" target=\"_blank\">Link Purpose Icons</a> and <a "
+"target=\"_blank\" href=\"https://www.drupal.org/project/extlink\">External "
+"Links</a>."
+msgstr ""
+"デフォルト設定は <a href=\"https://www.drupal.org/project/linkpurpose\" "
+"target=\"_blank\">Link Purpose Icons</a> および <a target=\"_blank\" "
+"href=\"https://www.drupal.org/project/extlink\">External Links</a> の両方で動"
+"作するよう設計されています。"
+
+msgid "Remind the editor that these linked documents need a manual check"
+msgstr "これらのリンクされた文書は手動チェックが必要であると編集者に通知する"
+
+msgid ""
+"Add or remove filetypes. Set to \"false\" to disable the test altogether. "
+"Providing any value will override the default, which is "
+"<code><em>a[href$='.pdf'], a[href*='.pdf?']</em></code>."
+msgstr ""
+"ファイルタイプを追加または削除できます。「false」を指定するとテスト全体を無効"
+"化します。値を指定すると、デフォルト（<code><em>a[href$='.pdf'], "
+"a[href*='.pdf?']</em></code>）を上書きします。"
+
+msgid "Remove elements that match these selectors before testing link text"
+msgstr "リンクテキストの検証前に、これらのセレクタに一致する要素を取り除く"
+
+msgid ""
+"Provide a CSS selector of elements your modules programmatically add to "
+"links (usually external or open-in-new-window links), so they can be ignored "
+"when the link text is checked for the \"link has no text\" and \"link text "
+"is not meaningful\" tests.<br>E.g.: <code><em>.this, .that</em></code>"
+msgstr ""
+"モジュールによってリンクに自動付与される要素（外部リンクアイコンなど）の CSS "
+"セレクタを指定します。これにより「リンクにテキストがない」「リンクテキストが"
+"意味を持たない」テストで除外できます。<br>例：<code><em>.this, .that</em></"
+"code>"
+
+msgid "Remove these strings before testing link text"
+msgstr "リンクテキスト検証前にこれらの文字列を削除"
+
+msgid ""
+"Provide a pipe-separated (\"|\") list of phrases your modules "
+"programmatically add to links to hint a purpose (external, mail, phone, open-"
+"in-new-window), so they can be ignored when the link text is checked for the "
+"\"link has no text\" and \"link text is not meaningful\" tests; e.g.:  "
+"<pre><code><em>(link is external)|(link sends email)</em></code></pre>"
+msgstr ""
+"リンクの目的（外部、メール、電話、新規タブなど）を示すためにモジュールが自動"
+"付与するフレーズを、パイプ区切り（\"|\"）で指定します。これらはリンクテキスト"
+"検証時に除外されます。<br>例：<pre><code><em>(link is external)|(link sends "
+"email)</em></code></pre>"
+
+msgid "Strings in links that indicate new tabs"
+msgstr "新しいタブで開くことを示す文字列"
+
+msgid ""
+"Provide a pipe-separated list of phrases your site uses to warn users a link "
+"opens in a new tab; e.g.:  <pre><code><em>new&nbsp;tab|new&nbsp;window|"
+"external</em></code></pre>"
+msgstr ""
+"リンクが新しいタブで開くことを通知するために使用する語句をパイプ区切りで指定"
+"します。<br>例：<pre><code><em>new&nbsp;tab|new&nbsp;window|external</em></"
+"code></pre>"
+
+msgid ""
+"Modules like Link Purpose or External Links can mark links automatically."
+msgstr ""
+"Link Purpose や External Links のようなモジュールを使うと、リンクを自動的に"
+"マークできます。"
+
+msgid "CSA/developer test"
+msgstr "CSA／開発者テスト"
+
+msgid "Show to developers"
+msgstr "開発者に表示"
+
+msgid "Show to everybody"
+msgstr "全員に表示"
+
+msgid "Dashboard sync is disabled in Editoria11y configuration."
+msgstr "Editoria11y の設定でダッシュボード同期が無効になっています。"
+
+msgid "(invalid URL)"
+msgstr "（無効な URL）"
+
+msgid "Editoria11y: Dismissals"
+msgstr "Editoria11y：非表示設定"
+
+msgid "Default"
+msgstr "デフォルト"
+
+msgid "Node path"
+msgstr "ノードパス"
+
+msgid "view"
+msgstr "表示"
+
+msgid "Term path"
+msgstr "タームパス"
+
+msgid "User bio path"
+msgstr "ユーザープロフィールパス"
+
+msgid "Term title"
+msgstr "タームタイトル"
+
+msgid ", "
+msgstr ", "
+
+msgid "Node title"
+msgstr "ノードタイトル"
+
+msgid "User name"
+msgstr "ユーザー名"
+
+msgid "Recorded path"
+msgstr "記録されたパス"
+
+msgid "Computed"
+msgstr "計算値"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty %}{% set dynamic_path = page_path %}{% endif %}\r\n"
+"{% set dynamic_title = title ~ name_2 ~ name_1 %}{% if dynamic_title is "
+"empty %}{% set dynamic_title = page_title %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ dynamic_title }}</"
+"a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty %}{% set dynamic_path = page_path %}{% endif %}\r\n"
+"{% set dynamic_title = title ~ name_2 ~ name_1 %}{% if dynamic_title is "
+"empty %}{% set dynamic_title = page_title %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ dynamic_title }}</"
+"a>"
+
+msgid "Dismissed alert"
+msgstr "非表示にされた警告"
+
+msgid "By"
+msgstr "ユーザー"
+
+msgid "1"
+msgid_plural "@count"
+msgstr[0] "@count"
+
+msgid "Reset"
+msgstr "リセット"
+
+msgid ""
+"<span class=\"ed11y-reset-dismissal\"><span class=\"ed11y-page-id\">{{ pid }}"
+"</span><span class=\"ed11y-dismissal-id\">{{id}}</span></span>"
+msgstr ""
+"<span class=\"ed11y-reset-dismissal\"><span class=\"ed11y-page-id\">{{ pid }}"
+"</span><span class=\"ed11y-dismissal-id\">{{id}}</span></span>"
+
+msgid "››"
+msgstr "››"
+
+msgid "‹‹"
+msgstr "‹‹"
+
+msgid "- All -"
+msgstr "- すべて -"
+
+msgid "Offset"
+msgstr "オフセット"
+
+msgid "« First"
+msgstr "« 最初"
+
+msgid "Last »"
+msgstr "最後 »"
+
+msgid "Asc"
+msgstr "昇順"
+
+msgid "Desc"
+msgstr "降順"
+
+msgid "User who dismissed alert"
+msgstr "警告を非表示にしたユーザー"
+
+msgid "pid"
+msgstr "pid"
+
+msgid "Node"
+msgstr "ノード"
+
+msgid "Term"
+msgstr "ターム"
+
+msgid "User bio"
+msgstr "ユーザープロフィール"
+
+msgid "Dismissals page"
+msgstr "非表示設定ページ"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty %}{% set dynamic_path = page_path %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title }}</a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty %}{% set dynamic_path = page_path %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title }}</a>"
+
+msgid "Still on page"
+msgstr "ページに残っています"
+
+msgid "Reset filters"
+msgstr "フィルターをリセット"
+
+msgid "Issues marked as hidden or OK in Editoria11y."
+msgstr "Editoria11y で非表示または OK とマークされた問題です。"
+
+msgid "Dismissals filtered by issue"
+msgstr "問題別に絞り込まれた非表示設定"
+
+msgid "No dismissals match these filters."
+msgstr "条件に一致する非表示設定はありません。"
+
+msgid "All"
+msgstr "すべて"
+
+msgid "Dismissed alerts of type \"{{result_name}}\""
+msgstr "「{{result_name}}」タイプの非表示警告"
+
+msgid ""
+"<a href=\"/admin/reports/editoria11y/dismissals/\" class=\"button button--"
+"primary\">Show all dismissals</a>"
+msgstr ""
+"<a href=\"/admin/reports/editoria11y/dismissals/\" class=\"button button--"
+"primary\">すべての非表示設定を表示</a>"
+
+msgid "Recent Editoria11y Dismissals"
+msgstr "最近の Editoria11y 非表示設定"
+
+msgid "Editoria11y - Recent dismissals"
+msgstr "Editoria11y - 最近の非表示設定"
+
+msgid "Editoria11y: Alerts"
+msgstr "Editoria11y：警告"
+
+msgid "Top results"
+msgstr "主要な結果"
+
+msgid "Computed title"
+msgstr "計算されたタイトル"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path|render %}{% set dynamic_path = "
+"page_path %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{  page_title_1 }}</"
+"a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path|render %}{% set dynamic_path = "
+"page_path %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{  page_title_1 }}</"
+"a>"
+
+msgid "<a href=\"{{page_path_1}}\" data-ed1ref=\"{{pid}}\">{{page_path_1}}</a>"
+msgstr ""
+"<a href=\"{{page_path_1}}\" data-ed1ref=\"{{pid}}\">{{page_path_1}}</a>"
+
+msgid "No alerts found."
+msgstr "警告はありません。"
+
+msgid "YYYY-MM-DD"
+msgstr "YYYY-MM-DD"
+
+msgid "User bio page"
+msgstr "ユーザープロフィールページ"
+
+msgid "Node author"
+msgstr "ノード作成者"
+
+msgid "All pages with issues"
+msgstr "問題のあるすべてのページ"
+
+msgid "Block: Pages with the most"
+msgstr "ブロック：問題数が最も多いページ"
+
+msgid "Block: Recent alerts"
+msgstr "ブロック：最近の警告"
+
+msgid "Recent Editoria11y Alerts"
+msgstr "最近の Editoria11y 警告"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path|render %}{% set dynamic_path = "
+"page_path %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title_1 }}</a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path|render %}{% set dynamic_path = "
+"page_path %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title_1 }}</a>"
+
+msgid "Issue"
+msgstr "問題"
+
+msgid "Editoria11y - Recent alerts"
+msgstr "Editoria11y - 最近の警告"
+
+msgid "Block: Most frequent alerts"
+msgstr "ブロック：最も頻繁な警告"
+
+msgid "Most Frequent Editoria11y Alerts"
+msgstr "最も頻繁に発生する Editoria11y 警告"
+
+msgid "Editoria11y - Most frequent alerts"
+msgstr "Editoria11y - 最も頻発する警告"
+
+msgid "Alerts on specified page"
+msgstr "指定ページの警告"
+
+msgid ""
+"<a href=\"{{ page_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title_1 }}</a>"
+msgstr ""
+"<a href=\"{{ page_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title_1 }}</a>"
+
+msgid "<p><strong>Author:</strong> {{ uid }}</p>"
+msgstr "<p><strong>作成者：</strong> {{ uid }}</p>"
+
+msgid "<p><strong>Last editor:</strong> {{ uid_1 }}</p>"
+msgstr "<p><strong>最終編集者：</strong> {{ uid_1 }}</p>"
+
+msgid ""
+"<h1>Accessibility issues on: {{page_title_1}}</h1>\r\n"
+"<p>{{uid}}{{uid_1}}</p>"
+msgstr ""
+"<h1>アクセシビリティの問題：{{page_title_1}}</h1>\r\n"
+"<p>{{uid}}{{uid_1}}</p>"
+
+msgid ""
+"<p><a href=\"../editoria11y/pages\" class=\"button button--primary\">All "
+"pages with alerts</a></p>"
+msgstr ""
+"<p><a href=\"../editoria11y/pages\" class=\"button button--primary\">警告のあ"
+"るすべてのページ</a></p>"
+
+msgid ""
+"<span class=\"ed11y-reset-this-path\" hidden><p class=\"more-link\"><a "
+"role=\"button\" class=\"action-link action-link--icon-trash action-link--"
+"danger\"><span hidden class=\"ed11y-api-path\">{{ page_path }}</span>Reset "
+"results for this page</a></p></span>"
+msgstr ""
+"<span class=\"ed11y-reset-this-path\" hidden><p class=\"more-link\"><a "
+"role=\"button\" class=\"action-link action-link--icon-trash action-link--"
+"danger\"><span hidden class=\"ed11y-api-path\">{{ page_path }}</span>このペー"
+"ジの結果をリセット</a></p></span>"
+
+msgid "Issue types"
+msgstr "問題タイプ"
+
+msgid "Pages with specified alert"
+msgstr "指定した警告のあるページ"
+
+msgid "Published status"
+msgstr "公開ステータス"
+
+msgid "Created by"
+msgstr "作成者"
+
+msgid "Created after"
+msgstr "この日以降に作成"
+
+msgid "Created before"
+msgstr "この日以前に作成"
+
+msgid "<h1>Pages with alert \"{{ result_name }}\"</h1>"
+msgstr "<h1>警告「{{ result_name }}」があるページ</h1>"
+
+msgid ""
+"<a href=\"../editoria11y/alerts\" class=\"button button--primary\">All "
+"alerts</a>"
+msgstr ""
+"<a href=\"../editoria11y/alerts\" class=\"button button--primary\">すべての警"
+"告</a>"
+
+msgid "Pages with issues"
+msgstr "問題のあるページ"
+
+msgid "Next ›"
+msgstr "次 ›"
+
+msgid "‹ Previous"
+msgstr "‹ 前"
+
+msgid "Authored on"
+msgstr "作成日"
+
+msgid "Changed"
+msgstr "変更日"
+
+msgid "Editoria11y: Crawler"
+msgstr "Editoria11y：クロール機能"
+
+msgid "Editoria11y: Crawl Nodes"
+msgstr "Editoria11y：ノードのクロール"
+
+msgid "Authored by"
+msgstr "作成者"
+
+msgid "Has results"
+msgstr "結果あり"
+
+msgid "Has no alerts"
+msgstr "警告なし"
+
+msgid "Has alerts"
+msgstr "警告あり"
+
+msgid "nid"
+msgstr "nid"
+
+msgid "Editoria11y: Export"
+msgstr "Editoria11y：エクスポート"
+
+msgid "Export page with alerts"
+msgstr "警告のあるページをエクスポート"
+
+msgid "Link to Taxonomy term"
+msgstr "タクソノミータームへのリンク"
+
+msgid "Link to User"
+msgstr "ユーザーへのリンク"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path_1|render %}{% set dynamic_path = "
+"page_path_1 %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title }}</a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path_1|render %}{% set dynamic_path = "
+"page_path_1 %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title }}</a>"
+
+msgid "Path when checked"
+msgstr "チェック時のパス"
+
+msgid "<a href=\"{{page_path_1}}\" data-ed1ref=\"{{pid}}\">{{page_path_1}}"
+msgstr "<a href=\"{{page_path_1}}\" data-ed1ref=\"{{pid}}\">{{page_path_1}}"
+
+msgid "Current URL"
+msgstr "現在の URL"
+
+msgid "{{ view_taxonomy_term }}{{ view_user }}{{ view_node }}"
+msgstr "{{ view_taxonomy_term }}{{ view_user }}{{ view_node }}"
+
+msgid "{% if type is empty %}{{entity_type}}{%else%}{{type}}{% endif %}"
+msgstr "{% if type is empty %}{{entity_type}}{%else%}{{type}}{% endif %}"
+
+msgid "Entity Type"
+msgstr "エンティティタイプ"
+
+msgid "Langcode (en, fr, de)"
+msgstr "言語コード（例：en, fr, de）"
+
+msgid "Referenced node"
+msgstr "参照ノード"
+
+msgid "Referenced term"
+msgstr "参照ターム"
+
+msgid "Referenced user bio"
+msgstr "参照ユーザープロフィール"
+
+msgid "<p>Records chosen for export can be filtered and previewed below.</p>"
+msgstr ""
+"<p>エクスポート対象レコードは以下でフィルタおよびプレビューできます。</p>"
+
+msgid "<a href=\"/admin/reports/editoria11y/export\">Back to dashboard</a>"
+msgstr "<a href=\"/admin/reports/editoria11y/export\">ダッシュボードに戻る</a>"
+
+msgid "Dismissals export"
+msgstr "非表示設定のエクスポート"
+
+msgid "Link to Content"
+msgstr "コンテンツへのリンク"
+
+msgid "Page raw path"
+msgstr "ページの生パス"
+
+msgid "Name"
+msgstr "名前"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path_1|render %}{% set dynamic_path = "
+"page_path_1 %}{% endif %}\r\n"
+"{% set dynamic_title = title_1 ~ name ~ name_1 %}{% if dynamic_title is "
+"empty %}{% set dynamic_title = page_title %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ dynamic_title }}</"
+"a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path_1|render %}{% set dynamic_path = "
+"page_path_1 %}{% endif %}\r\n"
+"{% set dynamic_title = title_1 ~ name ~ name_1 %}{% if dynamic_title is "
+"empty %}{% set dynamic_title = page_title %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ dynamic_title }}</"
+"a>"
+
+msgid "dismissal"
+msgstr "非表示"
+
+msgid "Page export"
+msgstr "ページのエクスポート"
+
+msgid "Alerts export"
+msgstr "警告のエクスポート"
+
+msgid "Editoria11y alerts on pages"
+msgstr "ページにある Editoria11y 警告"
+
+msgid "{{ view_taxonomy_term }}{{ view_user }}{{ view_node }} "
+msgstr "{{ view_taxonomy_term }}{{ view_user }}{{ view_node }} "
+
+msgid "Results for page"
+msgstr "ページの結果"
+
+msgid "<a href=\"./export/pages\">Export pages with alerts</a>"
+msgstr "<a href=\"./export/pages\">警告のあるページをエクスポート</a>"
+
+msgid "<a href=\"./export/dismissals\">Export dismissals</a>"
+msgstr "<a href=\"./export/dismissals\">非表示設定をエクスポート</a>"
+
+msgid "<a href=\"./export/alerts\">Export alert list</a>"
+msgstr "<a href=\"./export/alerts\">警告一覧をエクスポート</a>"
+
+msgid "Export alerts on pages"
+msgstr "ページ上の警告をエクスポート"
+
+msgid "Result name"
+msgstr "結果名"

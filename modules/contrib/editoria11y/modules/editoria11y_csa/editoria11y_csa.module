@@ -1,0 +1,299 @@
+<?php
+
+/**
+ * @file
+ * Editoria11y CSA module file.
+ */
+
+use Drupal\views\ViewExecutable;
+use Drupal\Core\Cache\Cache;
+use Drupal\Core\Cache\CacheableMetadata;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Session\AccountInterface;
+use Drupal\Core\Url;
+use Drupal\editoria11y\CSAStatus;
+use Drupal\editoria11y_csa\Exception\LicenseManagerException;
+
+/**
+ * Implements hook_views_pre_render().
+ *
+ * Starter kit for translating Views messages.
+ */
+function editoria11y_csa_views_pre_render(ViewExecutable $view): void {
+  if ($view->id() === 'ed11y_crawler' &&
+      !empty($view->empty['area_text_custom']) &&
+      $view->empty['area_text_custom']->options['content'] === 'No results found') {
+    $view->empty['area_text_custom']->options['content'] = (string) t('No results found');
+  }
+}
+
+/**
+ * Implements hook_theme().
+ *
+ * Registers a dedicated template for the crawler view so the required markup
+ * (progress bar, JS mount points) can live in Twig instead of translatable
+ * views config, where Drupal's locale HTML safety filter would reject it.
+ */
+function editoria11y_csa_theme(): array {
+  return [
+    'views_view__ed11y_crawler' => [
+      'base hook' => 'views_view',
+    ],
+  ];
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for views_view__ed11y_crawler.
+ *
+ * Exposes the token values that were previously provided by [view:url],
+ * [view:current-page], and [view:page-count] in the area content.
+ */
+function editoria11y_csa_preprocess_views_view__ed11y_crawler(array &$variables): void {
+  /** @var \Drupal\views\ViewExecutable $view */
+  $view = $variables['view'];
+  $pager = $view->getPager();
+  $perPage = $pager ? (int) $pager->getItemsPerPage() : 0;
+  $totalItems = $pager ? (int) ($pager->getTotalItems() ?? 0) : 0;
+  $variables['crawl_current_page'] = $view->getCurrentPage() + 1;
+  $variables['crawl_total_pages'] = $perPage > 0 ? (int) max(1, ceil($totalItems / $perPage)) : 1;
+  $variables['crawl_exit_url'] = $view->hasUrl() ? $view->getUrl()->toString() : '';
+}
+
+/**
+ * Implements hook_cron().
+ */
+function editoria11y_csa_cron(): void {
+  $manager = \Drupal::service('editoria11y_csa.license_manager');
+
+  // Expire trial if the trial period has elapsed.
+  $manager->expireTrialIfNeeded();
+
+  // Check license status if due.
+  if ($manager->shouldCheck()) {
+    try {
+      $manager->checkStatus();
+    }
+    catch (LicenseManagerException $e) {
+      \Drupal::logger('editoria11y_csa')->warning(
+        'Cron license check failed: @msg',
+        ['@msg' => $e->getMessage()]
+      );
+    }
+  }
+}
+
+/**
+ * Implements hook_user_login().
+ *
+ * Shows a one-time trial notification to administrators after login.
+ */
+function editoria11y_csa_user_login(AccountInterface $account): void {
+  $csaActive = CSAStatus::current(\Drupal::state());
+  if ($csaActive !== CSAStatus::Trial) {
+    return;
+  }
+  if (!$account->hasPermission('administer editoria11y checker')) {
+    return;
+  }
+
+  $manager = \Drupal::service('editoria11y_csa.license_manager');
+  $url = Url::fromRoute('editoria11y_csa.settings')->toString();
+
+  if ($manager->isTrialActive()) {
+    $days = $manager->getTrialDaysRemaining();
+    \Drupal::messenger()->addMessage(t(
+      'Your Editoria11y CSA trial has @days days remaining. <a href="@url">Activate a license</a> to continue using CSA features after the trial ends.',
+      ['@days' => $days, '@url' => $url]
+    ));
+  }
+  else {
+    // Trial just expired (cron hasn't caught it yet).
+    $manager->expireTrialIfNeeded();
+    \Drupal::messenger()->addError(t(
+      'Your Editoria11y CSA trial has expired. CSA features have been disabled. <a href="@url">Activate a license</a> to continue using them.',
+      ['@url' => $url]
+    ));
+  }
+}
+
+/**
+ * Implements hook_page_attachments().
+ *
+ * Shows expiration warnings to admins (any page) and dashboard viewers.
+ */
+function editoria11y_csa_page_attachments(array &$attachments): void {
+  $csaActive = CSAStatus::current(\Drupal::state());
+  /** @var \Drupal\editoria11y_csa\LicenseManager $manager */
+  $manager = \Drupal::service('editoria11y_csa.license_manager');
+  $expiration = $manager->licenseStore()->get('expiration');
+
+  $confirmedExpired = $csaActive === CSAStatus::LicenseExpired;
+  $locallyExpired = $csaActive === CSAStatus::Licensed
+    && $expiration
+    && strtotime($expiration) < \Drupal::time()->getRequestTime();
+
+  if (!$confirmedExpired && !$locallyExpired) {
+    return;
+  }
+
+  $currentUser = \Drupal::currentUser();
+  $messenger = \Drupal::messenger();
+
+  if ($currentUser->hasPermission('administer editoria11y checker')) {
+    $settingsUrl = Url::fromRoute('editoria11y_csa.settings')->toString();
+    $messenger->addWarning(t(
+      'Your Editoria11y CSA license has expired. <a href="@url">Renew or deactivate your license</a>.',
+      ['@url' => $settingsUrl]
+    ));
+  }
+  elseif (
+    \Drupal::routeMatch()->getRouteName() === 'editoria11y.reports_dashboard'
+    && $currentUser->hasPermission('manage editoria11y results')
+  ) {
+    $messenger->addWarning(t('Your Editoria11y CSA license has expired. Please renew to reactivate CSA add-ons.'));
+  }
+}
+
+/**
+ * Implements hook_editoria11y_alter_config().
+ *
+ * Adds per-user values to drupalSettings (profile, allow_ok override).
+ */
+function editoria11y_csa_editoria11y_alter_config(array &$attach, CacheableMetadata $cacheableMetadata): void {
+  $config = \Drupal::config('editoria11y_csa.settings');
+
+  // Module settings being changed need to bust the cache.
+  $cacheableMetadata->addCacheableDependency($config);
+
+  if (!CSAStatus::current(\Drupal::state())->isActive()) {
+    return;
+  }
+  $roles = \Drupal::currentUser()->getRoles();
+  $dev_roles = explode(',', $config->get('roles'));
+  $match = array_intersect($roles, $dev_roles);
+  if (!empty($match)) {
+    // Developer mode.
+    $attach['profile'] = 'dev';
+  }
+  else {
+    // Content mode.
+    $attach['profile'] = 'content';
+  }
+
+  if (!empty($attach['allow_ok'])) {
+    $attach['allow_ok'] = 'okAll';
+  }
+}
+
+/**
+ * Implements hook_editoria11y_alter_global_config().
+ *
+ * Adds global CSA config, global dismissals, and custom test entities
+ * to the cacheable config API response.
+ */
+function editoria11y_csa_editoria11y_alter_global_config(array &$data, CacheableMetadata $cacheMetadata): void {
+  $config = \Drupal::config('editoria11y_csa.settings');
+  $cacheMetadata->addCacheableDependency($config);
+  $cacheMetadata->addCacheTags(['editoria11y:dismissals', 'editoria11y:settings']);
+
+  if (!CSAStatus::current(\Drupal::state())->isActive()) {
+    return;
+  }
+
+  // Developer assertiveness (JS picks based on profile flag in drupalSettings).
+  $dev_assertiveness = $config->get('assertiveness');
+  if (!empty($dev_assertiveness)) {
+    $data['dev_assertiveness'] = $dev_assertiveness;
+  }
+
+  // Global config for both modes.
+  if ($config->get('dev_check_root') === 'automatic') {
+    $dev_roots = 'body > *:not(#toolbar-administration, #drupal-live-announce, .gin-secondary-toolbar, .admin-toolbar, script, style, .ed11y-element)';
+  }
+  elseif (($config->get('dev_check_root') === 'specify' &&
+    !empty($config->get('specify_root')))
+  ) {
+    $dev_roots = $config->get('specify_root');
+  }
+  else {
+    $dev_roots = empty($data['content_root']) ? 'body' : $data['content_root'];
+  }
+  $data['sync_root'] = $dev_roots;
+  $data['sync_ignore'] = $config->get('always_ignore');
+  $data['tests_content'] = $config->get('tests_content');
+  $data['tests_dev'] = $config->get('tests_dev');
+  $data['tests_off'] = $config->get('tests_off');
+  $data['contrast_ignore'] = $config->get('contrast_ignore');
+
+  // Global dismissals.
+  $global = \Drupal::service('editoria11y_csa.global_actions');
+  $clear_config = \Drupal::state()->get('editoria11y.pending_clear', '');
+  $clears = empty($clear_config) ? [] : explode("|", $clear_config);
+  $results = $global->globalDismissals();
+  foreach ($results as $record) {
+    if (empty($clears) || !in_array($record->element_id, $clears)) {
+      $data['globalDismissals'][$record->result_key][$record->element_id] = 'okAll';
+    }
+  }
+
+  // Custom test entities.
+  // Guard against the entity type not yet being registered (e.g. after a
+  // module update before caches have been rebuilt).
+  if (!\Drupal::entityTypeManager()->hasDefinition('ed11y_custom_test')) {
+    return;
+  }
+  /** @var \Drupal\editoria11y_csa\Ed11yCustomRuleInterface[] $tests */
+  $tests = \Drupal::entityTypeManager()
+    ->getStorage('ed11y_custom_test')
+    ->loadMultiple();
+  $custom_rules = [];
+  foreach ($tests as $test) {
+    if ($test->status()) {
+      $custom_rules[] = [
+        'testKey' => $test->get('test_key'),
+        'testName' => $test->get('test_name'),
+        'tipContent' => $test->get('tip_content'),
+        'elementSet' => explode(",", $test->get('element_set')) ,
+        'type' => $test->get('type'),
+        'dismissKey' => $test->get('dismiss_key'),
+        'filterSelector' => $test->get('filter_selector'),
+        'includeText' => $test->get('include_text'),
+        'excludeText' => $test->get('exclude_text'),
+        'caseSensitive' => $test->get('case_sensitive'),
+      ];
+    }
+  }
+  if (!empty($custom_rules)) {
+    $data['custom_rules'] = $custom_rules;
+  }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_insert() for ed11y_custom_test.
+ */
+function editoria11y_csa_ed11y_custom_test_insert(EntityInterface $entity): void {
+  _editoria11y_csa_increment_config_version();
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_update() for ed11y_custom_test.
+ */
+function editoria11y_csa_ed11y_custom_test_update(EntityInterface $entity): void {
+  _editoria11y_csa_increment_config_version();
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_delete() for ed11y_custom_test.
+ */
+function editoria11y_csa_ed11y_custom_test_delete(EntityInterface $entity): void {
+  _editoria11y_csa_increment_config_version();
+}
+
+/**
+ * Increments the config version to bust the browser cache for the config API.
+ */
+function _editoria11y_csa_increment_config_version(): void {
+  $v = \Drupal::state()->get('editoria11y.config_version', 0);
+  \Drupal::state()->set('editoria11y.config_version', $v + 1);
+  Cache::invalidateTags(['editoria11y:settings', 'editoria11y:dismissals']);
+}

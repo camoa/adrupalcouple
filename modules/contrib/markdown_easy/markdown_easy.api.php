@@ -5,8 +5,6 @@
  * Markdown Easy module hook definitions.
  */
 
-use League\CommonMark\MarkdownConverter;
-
 /**
  * @addtogroup hooks
  * @{
@@ -15,12 +13,23 @@ use League\CommonMark\MarkdownConverter;
 /**
  * Modify the Markdown converter configuration.
  *
- * @param \League\CommonMark\MarkdownConverter $converter
- *   The Markdown converter whose configuration is to be modified.
+ * @param array $config
+ *   The Markdown converter's configuration to be modified.
  *
  * @ingroup markdown_easy
  */
-function hook_markdown_easy_config_modify(MarkdownConverter &$converter) {
+function hook_markdown_easy_config_modify(array &$config) {
+}
+
+/**
+ * Modify the Markdown environment.
+ *
+ * @param \League\CommonMark\Environment\Environment $environment
+ *   The Markdown environment that contains the current parsers and configs.
+ *
+ * @ingroup markdown_easy
+ */
+function hook_markdown_easy_environment_modify(Environment &$environment) {
 }
 
 /**

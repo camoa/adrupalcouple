@@ -27,6 +27,9 @@
     "source": "https://git.drupalcode.org/project/extlink"
   },
   "require": {
-    "drupal/core": "^10 || ^11"
+    "drupal/core": "^11.3 || ^12"
+  },
+  "require-dev": {
+     "drupal/ui_icons": "1.1.x-dev"
   }
 }

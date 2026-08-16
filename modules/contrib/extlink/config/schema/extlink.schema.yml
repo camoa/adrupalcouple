@@ -20,7 +20,7 @@ extlink.settings:
       type: boolean
       label: 'Display default text in title'
     extlink_target_default_title_text:
-      type: string
+      type: text
       label: 'Default title text for new window links'
     extlink_title_no_override:
       type: boolean
@@ -110,12 +110,58 @@ extlink.settings:
         tel:
           type: string
           label: 'Tel link classes'
+    extlink_use_icon:
+      type: boolean
+      label: 'Use icons instead of images.'
+    extlink_icons:
+      type: mapping
+      label: 'Icons'
+      mapping:
+        links:
+          type: mapping
+          label: 'External link icon'
+          mapping:
+            icon:
+              type: string
+              label: 'Icon'
+            settings:
+              type: sequence
+              label: 'Icon extractor settings'
+              sequence:
+                type: ui_icons.icon_pack_options.[%key]
+        mailto:
+          type: mapping
+          label: 'Mail link icon'
+          mapping:
+            icon:
+              type: string
+              label: 'Icon'
+            settings:
+              type: sequence
+              label: 'Icon extractor settings'
+              sequence:
+                type: ui_icons.icon_pack_options.[%key]
+        tel:
+          type: mapping
+          label: 'Tel link icon'
+          mapping:
+            icon:
+              type: string
+              label: 'Icon'
+            settings:
+              type: sequence
+              label: 'Icon extractor settings'
+              sequence:
+                type: ui_icons.icon_pack_options.[%key]
     extlink_icon_placement:
       type: string
       label: 'Add icon in front of any processed link.'
     extlink_prevent_orphan:
       type: boolean
       label: 'Prevent text wrapping separating the last word from the icon.'
+    extlink_prevent_orphan_text_like:
+      type: boolean
+      label: 'Wrap only text-like links that starts and ends with text and may contain simple HTML elements between the text.'
     allowed_domains:
       type: sequence
       label: 'Allowed domains'

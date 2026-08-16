@@ -1,0 +1,3007 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: editoria11y 3.0.0\n"
+"POT-Creation-Date: 2026-08-01 21:46-0400\n"
+"PO-Revision-Date: 2026-05-11 00:00+0000\n"
+"Language-Team: Editoria11y\n"
+"Language: tr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid ""
+"editoria11y_post_update_0004: scanned @scanned mismatched page(s), "
+"backfilled @fixed to the referenced entity language."
+msgstr ""
+"editoria11y_post_update_0004: scanned @scanned mismatched page(s), "
+"backfilled @fixed to the referenced entity language."
+
+msgid "Editoria11y"
+msgstr "Editoria11y"
+
+msgid "Editoria11y - Pages with issues"
+msgstr "Editoria11y – Sorunlu sayfalar"
+
+msgctxt "problems"
+msgid "Provides relationship for issues and dismissals"
+msgstr "Sorunlar ve kapatmalar için ilişki sağlar"
+
+msgid "EID"
+msgstr "EID"
+
+msgid "Editoria11y's internal page ID"
+msgstr "Editoria11y'nin dahili sayfa kimliği"
+
+msgid "Entity ID"
+msgstr "Varlık kimliği"
+
+msgid "The NID/TID/UID of the page with an issue."
+msgstr "Sorun bulunan sayfanın NID/TID/UID değeri."
+
+msgid "Entity type"
+msgstr "Varlık türü"
+
+msgid "The entity type; \"route\" if no type found."
+msgstr "Varlık türü; tür bulunamazsa \"route\"."
+
+msgid "Route name"
+msgstr "Rota adı"
+
+msgid "Route name for page."
+msgstr "Sayfanın rota adı."
+
+msgid "Page path"
+msgstr "Sayfa yolu"
+
+msgid "Internal, relative page path."
+msgstr "Dahili, göreli sayfa yolu."
+
+msgid "Page language"
+msgstr "Sayfa dili"
+
+msgid "Active translation."
+msgstr "Etkin çeviri."
+
+msgid "Page title"
+msgstr "Sayfa başlığı"
+
+msgid "The name of the route where this was last seen."
+msgstr "Bu öğenin son görüldüğü rotanın adı."
+
+msgid "Content alerts"
+msgstr "İçerik uyarıları"
+
+msgid "Number of alerts shown to content editors."
+msgstr "İçerik düzenleyicilerine gösterilen uyarı sayısı."
+
+msgid "Dev alerts"
+msgstr "Geliştirici uyarıları"
+
+msgid "Number of alerts shown to developers."
+msgstr "Geliştiricilere gösterilen uyarı sayısı."
+
+msgid "Updated"
+msgstr "Güncellendi"
+
+msgid "When this page was last checked."
+msgstr "Bu sayfanın son kontrol edildiği tarih."
+
+msgid "Editoria11y - Test results"
+msgstr "Editoria11y – Test sonuçları"
+
+msgctxt "problems"
+msgid "Stores Editoria11y issue list"
+msgstr "Editoria11y sorun listesini depolar"
+
+msgid "Result row"
+msgstr "Sonuç satırı"
+
+msgid "Internal identifier"
+msgstr "Dahili tanımlayıcı"
+
+msgid "Created"
+msgstr "Oluşturuldu"
+
+msgid "When this page was flagged."
+msgstr "Bu sayfanın işaretlendiği tarih."
+
+msgid "Alert type"
+msgstr "Uyarı türü"
+
+msgid "The name of the test as reported by Editoria11y JS"
+msgstr "Editoria11y JS tarafından raporlanan test adı"
+
+msgid "Alert type, linked"
+msgstr "Uyarı türü, bağlantılı"
+
+msgid "Linked to report of all alerts of this type."
+msgstr "Bu türdeki tüm uyarıların raporuna bağlantılı."
+
+msgid "Content alert count"
+msgstr "İçerik uyarısı sayısı"
+
+msgid "The number of hits for this test type on this page"
+msgstr "Bu sayfadaki bu test türünde bulunan sayı"
+
+msgid "Dev alert count"
+msgstr "Geliştirici uyarısı sayısı"
+
+msgid "Editoria11y - Dismissals"
+msgstr "Editoria11y – Kapatmalar"
+
+msgid "Stores Editoria11y warnings and dismissals"
+msgstr "Editoria11y uyarılarını ve kapatmalarını depolar"
+
+msgid "Dismissal internal reference ID"
+msgstr "Kapatma dahili referans kimliği"
+
+msgid "Page with dismissal"
+msgstr "Kapatma yapılan sayfa"
+
+msgid "Dismissed by"
+msgstr "Kapatan"
+
+msgid "The user linked to this dismissal."
+msgstr "Bu kapatmayla ilişkili kullanıcı."
+
+msgid "Linked Drupal user"
+msgstr "İlişkili Drupal kullanıcısı"
+
+msgid "Dismissed element id"
+msgstr "Kapatılan öğenin id değeri"
+
+msgid "Code sample to identify the flagged element."
+msgstr "İşaretlenen öğeyi tanımlamak için kod örneği."
+
+msgid "Dismissed on"
+msgstr "Kapatma tarihi"
+
+msgid "The Unix timestamp of the first time this record was flagged."
+msgstr "Bu kaydın ilk işaretlendiği Unix zaman damgası."
+
+msgid "Dismissal stale since"
+msgstr "Kapatmanın güncelliğini yitirdiği tarih"
+
+msgid "The element has not been seen since this date."
+msgstr "Öğe bu tarihten bu yana görülmedi."
+
+msgid "Dismissed result name"
+msgstr "Kapatılan sonuç adı"
+
+msgid "Dismissed result name, linked"
+msgstr "Kapatılan sonuç adı, bağlantılı"
+
+msgid "Links to report of all alerts of this type."
+msgstr "Bu türdeki tüm uyarıların raporuna bağlantı."
+
+msgid "Dismissal status"
+msgstr "Kapatma durumu"
+
+msgid "The type of dismissal (e.g., OK, Ignore)"
+msgstr "Kapatma türü (örn. Tamam, Yoksay)"
+
+msgid "Relate from Editoria11y page to referenced node"
+msgstr "Editoria11y sayfasından başvurulan düğüme ilişki"
+
+msgid "Issues were found on this node"
+msgstr "Bu düğümde sorunlar bulundu"
+
+msgid "Relate from node data to Editoria11y page"
+msgstr "Düğüm verisinden Editoria11y sayfasına ilişki"
+
+msgid "Relate from Editoria11y page to referenced taxonomy term"
+msgstr "Editoria11y sayfasından başvurulan taksonomi terimine ilişki"
+
+msgid "Issues were found on this term page"
+msgstr "Bu terim sayfasında sorunlar bulundu"
+
+msgid "Relate from taxonomy term data to Editoria11y page"
+msgstr "Taksonomi terimi verisinden Editoria11y sayfasına ilişki"
+
+msgid "Relate from Editoria11y page list to user bio page data"
+msgstr ""
+"Editoria11y sayfa listesinden kullanıcı biyografi sayfası verisine ilişki"
+
+msgid "Issues were found on this user bio page"
+msgstr "Bu kullanıcı biyografi sayfasında sorunlar bulundu"
+
+msgid "Relate from Editoria11y page to user bio page with issues"
+msgstr "Editoria11y sayfasından sorunlu kullanıcı biyografi sayfasına ilişki"
+
+msgid "Relate from user bio page to Editoria11y results"
+msgstr "Kullanıcı biyografi sayfasından Editoria11y sonuçlarına ilişki"
+
+msgid "Relate from users list to Editoria11y results on bio page"
+msgstr ""
+"Kullanıcı listesinden biyografi sayfasındaki Editoria11y sonuçlarına ilişki"
+
+msgid "Relate from Editoria11y page to issues on page"
+msgstr "Editoria11y sayfasından sayfadaki sorunlara ilişki"
+
+msgid "Issues found on this node"
+msgstr "Bu düğümde sorunlar bulundu"
+
+msgid "Relate from Editoria11y result to page"
+msgstr "Editoria11y sonucundan sayfaya ilişki"
+
+msgid "Relate from Editoria11y page to dismissals on page"
+msgstr "Editoria11y sayfasından sayfadaki kapatmalara ilişki"
+
+msgid "Relate from Editoria11y dismissal to page"
+msgstr "Editoria11y kapatmasından sayfaya ilişki"
+
+msgid "Group relationship for node with Editoria11y issues"
+msgstr "Editoria11y sorunları olan düğüm için Group ilişkisi"
+
+msgid ""
+"Bridge to the Group module. Add the Group module Group relationship on top "
+"of this one to filter or sort issues by group."
+msgstr ""
+"Group modülüne köprü. Sorunları gruba göre filtrelemek veya sıralamak için "
+"bu ilişkinin üzerine Group modülünün Group ilişkisini ekleyin."
+
+msgid "Group relationship for node"
+msgstr "Düğüm için Group ilişkisi"
+
+msgid "Group relationship for user bio with Editoria11y issues"
+msgstr "Editoria11y sorunları olan kullanıcı biyografisi için Group ilişkisi"
+
+msgid "Group relationship for user"
+msgstr "Kullanıcı için Group ilişkisi"
+
+msgid "Group relationship for taxonomy term with Editoria11y issues"
+msgstr "Editoria11y sorunları olan taksonomi terimi için Group ilişkisi"
+
+msgid ""
+"Bridge to the Group module. Add the Group module Group relationship on top "
+"of this one to filter or sort issues by group. Requires a contrib module "
+"that exposes terms as group content."
+msgstr ""
+"Group modülüne köprü. Sorunları gruba göre filtrelemek veya sıralamak için "
+"bu ilişkinin üzerine Group modülünün Group ilişkisini ekleyin. Terimleri "
+"grup içeriği olarak sunan bir katkı modülü gerektirir."
+
+msgid "Group relationship for taxonomy term"
+msgstr "Taksonomi terimi için Group ilişkisi"
+
+msgid "Warning: possible out of date path. This content may have moved to"
+msgstr "Uyarı: Yol güncel olmayabilir. Bu içerik şuraya taşınmış olabilir:"
+
+msgid "Export CSV"
+msgstr "CSV'yi dışa aktar"
+
+msgid "Predelete failed: @error_message"
+msgstr "Ön silme başarısız: @error_message"
+
+msgid "Page attachment failed: @error_message"
+msgstr "Sayfa ekleme başarısız: @error_message"
+
+msgid ""
+"editoria11y_update_9019: scanned @total rows, repaired @updated, deleted "
+"@deleted corrupted group rows, left @skipped untouched."
+msgstr ""
+"editoria11y_update_9019: scanned @total rows, repaired @updated, deleted "
+"@deleted corrupted group rows, left @skipped untouched."
+
+msgid ""
+"editoria11y_update_9020: hashed @hashed page rows, removed @deduped "
+"duplicate rows, added unique keys."
+msgstr "editoria11y_update_9020: hashed @hashed page rows, removed @deduped duplicate rows, added unique keys."
+
+msgid "Editoria11y Accessibility Checker"
+msgstr "Editoria11y Erişilebilirlik Denetleyicisi"
+
+msgid ""
+"Checks page content for accessibility and provides a site-wide dashboard."
+msgstr ""
+"Sayfa içeriğini erişilebilirlik açısından denetler ve site genelinde bir "
+"gösterge paneli sunar."
+
+msgid "Content Accessibility"
+msgstr "İçerik Erişilebilirliği"
+
+msgid "Accessibility checker notifications and exclusions."
+msgstr "Erişilebilirlik denetleyici bildirimleri ve dışlamalar."
+
+msgid "Results from the Editoria11y checker."
+msgstr "Editoria11y denetleyicisinden sonuçlar."
+
+msgid "Dashboard"
+msgstr "Gösterge paneli"
+
+msgid "Core settings"
+msgstr "Temel ayarlar"
+
+msgid "Demo"
+msgstr "Demo"
+
+msgid "View Editoria11y checker"
+msgstr "Editoria11y denetleyicisini görüntüle"
+
+msgid "Assign to all content editors."
+msgstr "Tüm içerik düzenleyicilerine ata."
+
+msgid "Administer Editoria11y checker"
+msgstr "Editoria11y denetleyicisini yönet"
+
+msgid "Allows user to purge results and change configuration."
+msgstr ""
+"Kullanıcının sonuçları temizlemesine ve yapılandırmayı değiştirmesine izin "
+"verir."
+
+msgid "Mark as hidden in Editoria11y"
+msgstr "Editoria11y'de gizli olarak işaretle"
+
+msgid "Adds button to suppress a manual check for the current user."
+msgstr "Mevcut kullanıcı için manuel denetimi bastırmak üzere düğme ekler."
+
+msgid "Mark as OK in Editoria11y"
+msgstr "Editoria11y'de Tamam olarak işaretle"
+
+msgid ""
+"Adds button to suppress a manual check for all users, if sync is enabled."
+msgstr ""
+"Senkronizasyon etkinse tüm kullanıcılar için manuel denetimi bastırmak üzere "
+"düğme ekler."
+
+msgid "Manage Editoria11y results"
+msgstr "Editoria11y sonuçlarını yönet"
+
+msgid "View the site-wide dashboard and reset dismissals."
+msgstr "Site genelindeki gösterge panelini görüntüle ve kapatmaları sıfırla."
+
+msgid "Editoria11y core settings"
+msgstr "Editoria11y temel ayarları"
+
+msgid "Content Accessibility Issues"
+msgstr "İçerik Erişilebilirlik Sorunları"
+
+msgid "Editoria11y Settings"
+msgstr "Editoria11y Ayarları"
+
+msgid "Check elements in these containers"
+msgstr "Bu kapsayıcılardaki öğeleri denetle"
+
+msgid "Alert panel assertiveness"
+msgstr "Uyarı paneli iddiacılığı"
+
+msgid "Do not run if these elements are on the page"
+msgstr "Bu öğeler sayfada varsa çalıştırma"
+
+msgid "Suppress all alerts if none of these elements are present"
+msgstr "Bu öğelerin hiçbiri yoksa tüm uyarıları gizle"
+
+msgid "Do not run tests on these containers"
+msgstr "Bu kapsayıcılarda test çalıştırma"
+
+msgid "Move toggle to avoid colliding with these widgets"
+msgstr "Bu araç takımlarıyla çakışmamak için geçişi taşı"
+
+msgid ""
+"Full check should warn on these elements with embedded uncheckable content"
+msgstr ""
+"Tam denetim, gömülü denetlenemeyen içerik barındıran bu öğeleri uyarmalı"
+
+msgid "These links download a document or image and need a manual review"
+msgstr ""
+"Bu bağlantılar bir belge veya görüntü indirir; manuel inceleme gerektirir"
+
+msgid "Strings that indicate a link opens in a new window"
+msgstr "Bir bağlantının yeni pencerede açıldığını belirten dizeler"
+
+msgid "Remove these strings from link text before checking for bad link text"
+msgstr ""
+"Kötü bağlantı metni denetiminden önce bu dizeleri bağlantı metninden kaldır"
+
+msgid "Remove strings in this selector before checking for bad link text"
+msgstr "Kötü bağlantı metni denetiminden önce bu seçicideki dizeleri kaldır"
+
+msgid ""
+"Hidden elements in these containers will be revealed by theme JS on request "
+"via a dispatched event"
+msgstr ""
+"Bu kapsayıcılardaki gizli öğeler, tema JS tarafından gönderilen bir olayı "
+"aracılığıyla talep üzerine açılacaktır"
+
+msgid "Elements that truncate overflow, partially hiding buttons"
+msgstr "Taşmayı kesen, düğmeleri kısmen gizleyen öğeler"
+
+msgid "Color scheme for panel and tooltips"
+msgstr "Panel ve araç ipuçları için renk şeması"
+
+msgid "Pin toolbar to left or right"
+msgstr "Araç çubuğunu sola veya sağa sabitle"
+
+msgid "Web components the checker should check"
+msgstr "Denetleyicinin kontrol etmesi gereken Web bileşenleri"
+
+msgid "Auto-detects for additional shadow components"
+msgstr "Ek gölge bileşenlerini otomatik olarak algılar"
+
+msgid "Auto-detects and checks new content"
+msgstr "Yeni içeriği otomatik olarak algılar ve denetler"
+
+msgid "Disables dashboard and synchronized marking of elements as OK"
+msgstr ""
+"Gösterge panelini ve öğelerin Tamam olarak senkronize işaretlenmesini devre "
+"dışı bırakır"
+
+msgid "URL query parameters that should be recorded as separate pages"
+msgstr "Ayrı sayfalar olarak kaydedilmesi gereken URL sorgu parametreleri"
+
+msgid "Remove string from URL for dashboard page links"
+msgstr "Gösterge paneli sayfa bağlantıları için URL'den dizeyi kaldır"
+
+msgid "Number of custom test finished events the checker should wait for"
+msgstr "Denetleyicinin beklemesi gereken özel test tamamlama olayı sayısı"
+
+msgid "Disables live editor checking"
+msgstr "Canlı düzenleyici denetimini devre dışı bırakır"
+
+msgid ""
+"Selector for frontend-context editors that should inherit the document "
+"outline"
+msgstr ""
+"Belge ana hatlarını devralması gereken ön uç bağlam düzenleyicileri için "
+"seçici"
+
+msgid "Selector for editors where their first heading should be h2"
+msgstr "İlk başlığının h2 olması gereken düzenleyiciler için seçici"
+
+msgid "Selector for editors where their first heading should be h3"
+msgstr "İlk başlığının h3 olması gereken düzenleyiciler için seçici"
+
+msgid "Selector for editors where their first heading should be h4"
+msgstr "İlk başlığının h4 olması gereken düzenleyiciler için seçici"
+
+msgid "Selectors for components where edit links are meaningless on tips"
+msgstr ""
+"Düzenleme bağlantılarının ipuçlarında anlamsız olduğu bileşenler için "
+"seçiciler"
+
+msgid "Tell CK5 to have a header rows or columns by default."
+msgstr ""
+"CK5'e varsayılan olarak başlık satırları veya sütunları kullanmasını söyle."
+
+msgid "Tests not shown to content authors."
+msgstr "İçerik yazarlarına gösterilmeyen testler."
+
+msgid "Disable the tests you are not ready for"
+msgstr "Hazır olmadığınız testleri devre dışı bırakın"
+
+msgid "linkNewWindow"
+msgstr "linkNewWindow"
+
+msgid "linkNoText"
+msgstr "linkNoText"
+
+msgid "altEmptyLinked"
+msgstr "altEmptyLinked"
+
+msgid "linkDocument"
+msgstr "linkDocument"
+
+msgid "linkTextIsURL"
+msgstr "linkTextIsURL"
+
+msgid "linkTextIsGeneric"
+msgstr "linkTextIsGeneric"
+
+msgid "textPossibleList"
+msgstr "textPossibleList"
+
+msgid "textPossibleHeading"
+msgstr "textPossibleHeading"
+
+msgid "textUppercase"
+msgstr "textUppercase"
+
+msgid "tableNoHeaderCells"
+msgstr "tableNoHeaderCells"
+
+msgid "tableEmptyHeaderCell"
+msgstr "tableEmptyHeaderCell"
+
+msgid "tableContainsContentHeading"
+msgstr "tableContainsContentHeading"
+
+msgid "embedVideo"
+msgstr "embedVideo"
+
+msgid "embedAudio"
+msgstr "embedAudio"
+
+msgid "embedVisualization"
+msgstr "embedVisualization"
+
+msgid "embedTwitter"
+msgstr "embedTwitter"
+
+msgid "embedCustom"
+msgstr "embedCustom"
+
+msgid "headingEmpty"
+msgstr "headingEmpty"
+
+msgid "headingIsLong"
+msgstr "headingIsLong"
+
+msgid "headingLevelSkipped"
+msgstr "headingLevelSkipped"
+
+msgid "blockquoteIsShort"
+msgstr "blockquoteIsShort"
+
+msgid "altMissing"
+msgstr "altMissing"
+
+msgid "altNull"
+msgstr "altNull"
+
+msgid "altMeaningless"
+msgstr "altMeaningless"
+
+msgid "altURL"
+msgstr "altURL"
+
+msgid "altImageOf"
+msgstr "altImageOf"
+
+msgid "altDeadspace"
+msgstr "altDeadspace"
+
+msgid "altLong"
+msgstr "altLong"
+
+msgid "altPartOfLinkWithText"
+msgstr "altPartOfLinkWithText"
+
+msgid "2-letter code (en, fr, de)"
+msgstr "2 harfli kod (en, fr, de)"
+
+msgid "Alert"
+msgstr "Uyarı"
+
+msgid "Alert types"
+msgstr "Uyarı türleri"
+
+msgid "Alerts"
+msgstr "Uyarılar"
+
+msgid "All dismissals"
+msgstr "Tüm kapatmalar"
+
+msgid "All issues"
+msgstr "Tüm sorunlar"
+
+msgid "All pages"
+msgstr "Tüm sayfalar"
+
+msgid "Apply"
+msgstr "Uygula"
+
+msgid "Author"
+msgstr "Yazar"
+
+msgid "Authored after"
+msgstr "Şu tarihten sonra yazıldı"
+
+msgid "Authored before"
+msgstr "Şu tarihten önce yazıldı"
+
+msgid "Authored"
+msgstr "Yazıldı"
+
+msgid "Content type"
+msgstr "İçerik türü"
+
+msgid "Detected"
+msgstr "Algılandı"
+
+msgid "Dismissals"
+msgstr "Kapatmalar"
+
+msgid "Dismissed accessibility alerts"
+msgstr "Kapatılan erişilebilirlik uyarıları"
+
+msgid "Edited"
+msgstr "Düzenlendi"
+
+msgid "Editor"
+msgstr "Düzenleyici"
+
+msgid "Items per page"
+msgstr "Sayfa başına öğe"
+
+msgid "Filter"
+msgstr "Filtrele"
+
+msgid "Language"
+msgstr "Dil"
+
+msgid "Last editor"
+msgstr "Son düzenleyici"
+
+msgid "Marked"
+msgstr "İşaretlendi"
+
+msgid "No dismissals found."
+msgstr "Kapatma bulunamadı."
+
+msgid "Page"
+msgstr "Sayfa"
+
+msgid "Pages"
+msgstr "Sayfalar"
+
+msgid "Pages with alerts"
+msgstr "Uyarı içeren sayfalar"
+
+msgid "Panel"
+msgstr "Panel"
+
+msgid "Path"
+msgstr "Yol"
+
+msgid "Published"
+msgstr "Yayınlandı"
+
+msgid "Recent"
+msgstr "Son"
+
+msgid "Recent accessibility alerts"
+msgstr "Son erişilebilirlik uyarıları"
+
+msgid "Recent alerts"
+msgstr "Son uyarılar"
+
+msgctxt "problems"
+msgid "Recent alerts"
+msgstr "Son uyarılar"
+
+msgid "Sort by"
+msgstr "Sıralama ölçütü"
+
+msgid "Title"
+msgstr "Başlık"
+
+msgid "Type"
+msgstr "Tür"
+
+msgid "Filter and sort"
+msgstr "Filtrele ve sırala"
+
+msgid "Deleted."
+msgstr "Silindi."
+
+msgid "Delete failed."
+msgstr "Silme başarısız."
+
+msgid "<p>The Editoria11y <strong><em>@type</em></strong> view is missing.</p>"
+msgstr ""
+"<p>The Editoria11y <strong><em>@type</em></strong> view is missing.</p>"
+
+msgid ""
+"<p>There are three view configurations this module installs, found in its /"
+"config/install folder. Each must be installed for this dashboard to display "
+"results.</p>"
+msgstr ""
+"<p>There are three view configurations this module installs, found in its /"
+"config/install folder. Each must be installed for this dashboard to display "
+"results.</p>"
+
+msgid ""
+"<p>To fix: copy and paste the contents of <strong>/editoria11y/config/"
+"install/views.view.ed11y_@type.yml</strong> into a \"View\" type import at "
+"<a href=\"/admin/config/development/configuration/single/import\">/admin/"
+"config/development/configuration/single/import</a>. If you sync your "
+"configuration to the filesystem, be sure to include these Views in your "
+"repository.</p>"
+msgstr ""
+"<p>To fix: copy and paste the contents of <strong>/editoria11y/config/"
+"install/views.view.ed11y_@type.yml</strong> into a \"View\" type import at "
+"<a href=\"/admin/config/development/configuration/single/import\">/admin/"
+"config/development/configuration/single/import</a>. If you sync your "
+"configuration to the filesystem, be sure to include these Views in your "
+"repository.</p>"
+
+msgid "link is external"
+msgstr "bağlantı harici"
+
+msgid "link sends email"
+msgstr "bağlantı e-posta açar"
+
+msgid "No results found"
+msgstr "Sonuç bulunamadı"
+
+msgid ""
+"Your Editoria11y CSA trial has @days days remaining. <a "
+"href=\"@url\">Activate a license</a> to continue using CSA features after "
+"the trial ends."
+msgstr ""
+"Editoria11y CSA deneme sürenizin bitmesine @days gün kaldı. Deneme süresi "
+"sona erdikten sonra CSA özelliklerini kullanmaya devam etmek için <a "
+"href=\"@url\">lisans etkinleştirin</a>."
+
+msgid ""
+"Your Editoria11y CSA trial has expired. CSA features have been disabled. <a "
+"href=\"@url\">Activate a license</a> to continue using them."
+msgstr ""
+"Editoria11y CSA deneme süreniz sona erdi. CSA özellikleri devre dışı "
+"bırakıldı. Bunları kullanmaya devam etmek için <a href=\"@url\">lisans "
+"etkinleştirin</a>."
+
+msgid ""
+"Your Editoria11y CSA license has expired. <a href=\"@url\">Renew or "
+"deactivate your license</a>."
+msgstr ""
+"Editoria11y CSA lisansınızın süresi doldu. <a href=\"@url\">Lisansınızı "
+"yenileyin veya devre dışı bırakın</a>."
+
+msgid ""
+"Your Editoria11y CSA license has expired. Please renew to reactivate CSA add-"
+"ons."
+msgstr ""
+"Editoria11y CSA lisansınızın süresi doldu. CSA eklentilerini yeniden "
+"etkinleştirmek için lütfen yenileyin."
+
+msgid "Cron license check failed: @msg"
+msgstr "Cron lisans denetimi başarısız: @msg"
+
+msgid ""
+"Editoria11y CSA features are active on a @days-day trial. <a "
+"href=\"@url\">Activate a license</a> to continue using them after the trial "
+"ends."
+msgstr ""
+"Editoria11y CSA özellikleri @days günlük deneme sürümünde aktiftir. Deneme "
+"süresi sona erdikten sonra kullanmaya devam etmek için <a "
+"href=\"@url\">lisans etkinleştirin</a>."
+
+msgid "Editoria11y Custom Test"
+msgstr "Editoria11y Özel Testi"
+
+msgid "Editoria11y Custom Tests"
+msgstr "Editoria11y Özel Testleri"
+
+msgid "editoria11y custom test"
+msgstr "editoria11y özel testi"
+
+msgid "editoria11y custom tests"
+msgstr "editoria11y özel testleri"
+
+msgid "Editoria11y CSA: Advanced Tools"
+msgstr "Editoria11y CSA: Gelişmiş Araçlar"
+
+msgid ""
+"Community-Supported Addons include code and contrast checks, custom checks, "
+"a site crawler and report maintenance tools."
+msgstr "Topluluk Destekli Eklentiler; kod ve kontrast denetimlerini, özel denetimleri, bir site tarayıcısını ve rapor bakım araçlarını içerir."
+
+msgid "Add custom test"
+msgstr "Özel test ekle"
+
+msgid "Recheck"
+msgstr "Yeniden denetle"
+
+msgid "CSA membership"
+msgstr "CSA üyeliği"
+
+msgid "Custom tests"
+msgstr "Özel testler"
+
+msgid "Dashboard Actions"
+msgstr "Gösterge paneli işlemleri"
+
+msgid "Editoria11y CSA membership"
+msgstr "Editoria11y CSA üyeliği"
+
+msgid "Editoria11y custom tests"
+msgstr "Editoria11y özel testleri"
+
+msgid "Add a custom test"
+msgstr "Özel test ekle"
+
+msgid "Edit custom test"
+msgstr "Özel testi düzenle"
+
+msgid "Delete custom test"
+msgstr "Özel testi sil"
+
+msgid "Editoria11y CSA Settings"
+msgstr "Editoria11y CSA Ayarları"
+
+msgid "Developer roles"
+msgstr "Geliştirici rolleri"
+
+msgid "Developer assertiveness"
+msgstr "Geliştirici iddiacılığı"
+
+msgid "Tests overridden to show to content editors"
+msgstr "İçerik düzenleyicilerine gösterilmek üzere geçersiz kılınan testler"
+
+msgid "Tests overridden to turn off"
+msgstr "Kapatmak için geçersiz kılınan testler"
+
+msgid "Tests overridden to only to show to developers"
+msgstr "Yalnızca geliştiricilere gösterilmek üzere geçersiz kılınan testler"
+
+msgid "Elements to ignore for contrast test"
+msgstr "Kontrast testi için yoksayılacak öğeler"
+
+msgid "Turn on contrast checks"
+msgstr "Kontrast denetimlerini etkinleştir"
+
+msgid "Developer check root: body or specify"
+msgstr "Geliştirici denetimi kökü: body veya belirtin"
+
+msgid "Developer check root selector"
+msgstr "Geliştirici denetimi kök seçicisi"
+
+msgid "Selector for elements to ignore for developers"
+msgstr "Geliştiriciler için yoksayılacak öğelerin seçicisi"
+
+msgid "Enabled"
+msgstr "Etkin"
+
+msgid "Custom development domain patterns"
+msgstr "Özel geliştirme etki alanı kalıpları"
+
+msgid "ID"
+msgstr "ID"
+
+msgid "Label"
+msgstr "Etiket"
+
+msgid "Test key"
+msgstr "Test anahtarı"
+
+msgid "Tooltip title"
+msgstr "Araç ipucu başlığı"
+
+msgid "Tip content HTML"
+msgstr "İpucu içeriği HTML"
+
+msgid "Element set to check"
+msgstr "Denetlenecek öğe kümesi"
+
+msgid "Dismiss key type"
+msgstr "Kapatma anahtarı türü"
+
+msgid "CSS filter selector"
+msgstr "CSS filtre seçicisi"
+
+msgid "Text strings to include"
+msgstr "Dahil edilecek metin dizeleri"
+
+msgid "Text string"
+msgstr "Metin dizesi"
+
+msgid "Text strings to exclude"
+msgstr "Dışlanacak metin dizeleri"
+
+msgid "Case sensitive text matching"
+msgstr "Büyük/küçük harfe duyarlı metin eşleşmesi"
+
+msgid "Filter which pages will be crawled"
+msgstr "Hangi sayfaların taranacağını filtrele"
+
+msgid "Cancel"
+msgstr "İptal"
+
+msgid "Millisecond pause between page requests"
+msgstr "Sayfa istekleri arasındaki milisaniye duraklaması"
+
+msgid "This tab needs to remain open and in the foreground during the crawl."
+msgstr "Bu sekmenin tarama sırasında açık ve ön planda kalması gerekir."
+
+msgid "Estimated time:"
+msgstr "Tahmini süre:"
+
+msgid "hours"
+msgstr "hours"
+
+msgid "minutes"
+msgstr "minutes"
+
+msgid "minute"
+msgstr "minute"
+
+msgid "Start crawling"
+msgstr "Taramayı başlat"
+
+msgid "Checked:"
+msgstr "Denetlendi:"
+
+msgid "pages"
+msgstr "pages"
+
+msgid "Back to dashboard"
+msgstr "Gösterge paneline dön"
+
+msgid "Test"
+msgstr "Test"
+
+msgid "Elements"
+msgstr "Öğeler"
+
+msgid "Status"
+msgstr "Durum"
+
+msgid "Text"
+msgstr "Metin"
+
+msgid "On"
+msgstr "Açık"
+
+msgid "Off"
+msgstr "Kapalı"
+
+msgid "Freemius deactivation API call failed: @msg"
+msgstr "Freemius devre dışı bırakma API çağrısı başarısız: @msg"
+
+msgid "Cannot cancel subscription: API token not found."
+msgstr "Abonelik iptal edilemiyor: API belirteci bulunamadı."
+
+msgid "Freemius subscription cancellation API call failed: @msg"
+msgstr "Freemius abonelik iptali API çağrısı başarısız: @msg"
+
+msgid "Key module lookup for @id failed: @msg"
+msgstr "Key module lookup for @id failed: @msg"
+
+msgid "Failed to update Freemius install properties: @msg"
+msgstr "Freemius kurulum özellikleri güncellenemedi: @msg"
+
+msgid ""
+"An <a href=\"@settings\">active license must be deactivated</a> before "
+"uninstalling."
+msgstr ""
+"Kaldırmadan önce <a href=\"@settings\">etkin lisans devre dışı "
+"bırakılmalıdır</a>."
+
+msgid "License key stored. Use editoria11y-csa:activate to activate."
+msgstr ""
+"Lisans anahtarı saklandı. Etkinleştirmek için editoria11y-csa:activate "
+"komutunu kullanın."
+
+msgid "License activated."
+msgstr "Lisans etkinleştirildi."
+
+msgid "License deactivated."
+msgstr "Lisans devre dışı bırakıldı."
+
+msgid "License active. Expires: @date"
+msgstr "Lisans aktif. Bitiş tarihi: @date"
+
+msgid "License active. No expiration date."
+msgstr "Lisans aktif. Bitiş tarihi yok."
+
+msgid ""
+"License management locked. Use editoria11y-csa:unlock to re-enable UI "
+"changes."
+msgstr ""
+"Lisans yönetimi kilitli. Arayüz değişikliklerini yeniden etkinleştirmek için "
+"editoria11y-csa:unlock komutunu kullanın."
+
+msgid "License management unlocked. UI changes are now allowed."
+msgstr ""
+"Lisans yönetiminin kilidi açıldı. Arayüz değişikliklerine artık izin "
+"verilmektedir."
+
+msgid "License expired or cancelled."
+msgstr "Lisansın süresi doldu veya iptal edildi."
+
+msgid "License key cannot be empty."
+msgstr "Lisans anahtarı boş olamaz."
+
+msgid "Failed to store key: {msg}"
+msgstr "Anahtar saklanamadı: {msg}"
+
+msgid "No stored license key found. Run editoria11y-csa:set-key first."
+msgstr ""
+"Saklı lisans anahtarı bulunamadı. Önce editoria11y-csa:set-key komutunu "
+"çalıştırın."
+
+msgid "Activation failed: {msg}"
+msgstr "Etkinleştirme başarısız: {msg}"
+
+msgid "Deactivation failed: {msg}"
+msgstr "Devre dışı bırakma başarısız: {msg}"
+
+msgid "License check failed: {msg}"
+msgstr "Lisans denetimi başarısız: {msg}"
+
+msgid "Export"
+msgstr "Dışa aktar"
+
+msgid "Export pages"
+msgstr "Sayfaları dışa aktar"
+
+msgid "Export dismissals"
+msgstr "Kapatmaları dışa aktar"
+
+msgid "Export alerts"
+msgstr "Uyarıları dışa aktar"
+
+msgid "Paths with parameters"
+msgstr "Parametreli yollar"
+
+msgid "Drop records for deleted or moved pages"
+msgstr "Silinen veya taşınan sayfaların kayıtlarını sil"
+
+msgid "Deletes results that no longer have valid paths or entity references."
+msgstr "Artık geçerli yolu veya varlık başvurusu olmayan sonuçları siler."
+
+msgid "Update page titles"
+msgstr "Sayfa başlıklarını güncelle"
+
+msgid ""
+"Replaces recorded titles for Nodes, Terms and Users with the current value "
+"on their edit page."
+msgstr ""
+"Düğümler, Terimler ve Kullanıcılar için kaydedilen başlıkları düzenleme "
+"sayfasındaki güncel değerle değiştirir."
+
+msgid "Update page paths"
+msgstr "Sayfa yollarını güncelle"
+
+msgid ""
+"Replaces recorded URLs for Nodes, Terms and Users with their current "
+"canonical path. <br>@ReviewPaths (node/1?node=2) will not be updated."
+msgstr ""
+"Düğümler, Terimler ve Kullanıcılar için kaydedilen URL'leri mevcut kurallı "
+"yollarıyla değiştirir. <br>@ReviewPaths (node/1?node=2) güncellenmeyecektir."
+
+msgid "Risky deletions"
+msgstr "Riskli silme işlemleri"
+
+msgid "Delete records for paths with parameters (e.g., ?page=2)"
+msgstr "Parametreli yolların kayıtlarını sil (örn. ?page=2)"
+
+msgid "None"
+msgstr "Hiçbiri"
+
+msgid "Only for nodes, terms & users"
+msgstr "Yalnızca düğümler, terimler ve kullanıcılar için"
+
+msgid "All, including search and views"
+msgstr "Arama ve görünümler dahil tümü"
+
+msgid ""
+"Used to remove duplicate records when previously recorded parameters like "
+"page numbers or search keys were not meaningful. Parameters that are not "
+"meaningful should be removed from the list of parameters to save under "
+"\"Syncing results to reports\" in the module configuration.<br>@ReviewPaths "
+"should be reviewed before proceeding. <strong>There is no undo</strong>."
+msgstr ""
+"Daha önce kaydedilen sayfa numaraları veya arama anahtarları gibi "
+"parametreler anlamlı olmadığında yinelenen kayıtları kaldırmak için "
+"kullanılır. Anlamlı olmayan parametreler, modül yapılandırmasındaki "
+"\"Sonuçları raporlarla senkronize et\" bölümündeki kaydedilecek parametre "
+"listesinden çıkarılmalıdır.<br>Devam etmeden önce @ReviewPaths gözden "
+"geçirilmelidir. <strong>Geri alma mümkün değildir</strong>."
+
+msgid "Start"
+msgstr "Başlat"
+
+msgid "Recheck nodes"
+msgstr "Düğümleri yeniden denetle"
+
+msgid "Set up a crawl"
+msgstr "Tarama ayarla"
+
+msgid "Processing batch #@batch_id of @count."
+msgstr "@count toplu işlemin #@batch_id numaralısı işleniyor."
+
+msgid "@process processed @count, deleted @deleted, updated @updated."
+msgstr "@process: @count işlendi, @deleted silindi, @updated güncellendi."
+
+msgid ""
+"An error occurred while processing %error_operation with arguments: "
+"@arguments"
+msgstr ""
+"%error_operation şu bağımsız değişkenlerle işlenirken bir hata oluştu: "
+"@arguments"
+
+msgid "No records to process."
+msgstr "İşlenecek kayıt yok."
+
+msgid ""
+"@process processed @count, deleted @deleted, updated @updated in @elapsed."
+msgstr ""
+"@process: @count işlendi, @deleted silindi, @updated güncellendi (@elapsed "
+"sürede)."
+
+msgid "Admin label for the configuration page"
+msgstr "Yapılandırma sayfası için yönetici etiketi"
+
+msgid "Test grouping ID"
+msgstr "Test gruplama kimliği"
+
+msgid ""
+"Letters, numbers and underscores only.<br>Rules that share an ID will be "
+"grouped on dashboard reports."
+msgstr ""
+"Yalnızca harfler, rakamlar ve alt çizgiler.<br>Aynı kimliği paylaşan "
+"kurallar gösterge paneli raporlarında gruplandırılır."
+
+msgid "Active"
+msgstr "Etkin"
+
+msgid "Alert content"
+msgstr "Uyarı içeriği"
+
+msgid "Tip title"
+msgstr "İpucu başlığı"
+
+msgid "Tip details"
+msgstr "İpucu ayrıntıları"
+
+msgid ""
+"HTML displayed in the tooltip. The provided template is optional.<br>\n"
+"        Allowed tags: @tags."
+msgstr ""
+"Araç ipucunda görüntülenen HTML. Sağlanan şablon isteğe bağlıdır.<br>\n"
+"        İzin verilen etiketler: @tags."
+
+msgid "To fix"
+msgstr "Düzeltmek için"
+
+msgid "Error"
+msgstr "Hata"
+
+msgid "Manual check"
+msgstr "Elle kontrol"
+
+msgid "Dismiss key"
+msgstr "Kapatma anahtarı"
+
+msgid ""
+"How dismissals are tracked. 'Text' uses its text content, 'Attributes' uses "
+"its attributes (href, id, class, src)."
+msgstr ""
+"Kapatmaların nasıl izlendiği. 'Text' metin içeriğini, 'Attributes' "
+"özniteliklerini (href, id, class, src) kullanır."
+
+msgid "Text content"
+msgstr "Metin içeriği"
+
+msgid "Attributes on tag (e.g. href and src)"
+msgstr "Etiket üzerindeki öznitelikler (örn. href ve src)"
+
+msgid "Elements to check"
+msgstr "Denetlenecek öğeler"
+
+msgid ""
+"These sets contain elements that match your check area and skip over "
+"configuration."
+msgstr ""
+"Bu kümeler, denetim alanınıza uyan ve yapılandırmayı atlayan öğeler içerir."
+
+msgid "Common choices"
+msgstr "Yaygın seçenekler"
+
+msgid "All text elements: Headings, Paragraphs, Blockquotes and Lists"
+msgstr "Tüm metin öğeleri: Başlıklar, Paragraflar, Blok alıntılar ve Listeler"
+
+msgid "Links"
+msgstr "Bağlantılar"
+
+msgid "Paragraphs"
+msgstr "Paragraflar"
+
+msgid "Headings"
+msgstr "Başlıklar"
+
+msgid "Images"
+msgstr "Görseller"
+
+msgid "All elements"
+msgstr "Tüm öğeler"
+
+msgid "...other..."
+msgstr "...diğer..."
+
+msgid "Specific elements and combinations"
+msgstr "Belirli öğeler ve kombinasyonlar"
+
+msgid "Lists"
+msgstr "Listeler"
+
+msgid "Blockquotes"
+msgstr "Blok alıntılar"
+
+msgid "Tables"
+msgstr "Tablolar"
+
+msgid "Buttons"
+msgstr "Düğmeler"
+
+msgid "Inputs"
+msgstr "Girişler"
+
+msgid "Labels"
+msgstr "Etiketler"
+
+msgid "Iframes"
+msgstr "Iframe'ler"
+
+msgid "Videos"
+msgstr "Videolar"
+
+msgid "Audio"
+msgstr "Ses"
+
+msgid ""
+"Note: combining Links with Paragraphs and other text containers can lead to "
+"duplicate alerts."
+msgstr ""
+"Not: Bağlantıları Paragraflar ve diğer metin kapsayıcılarıyla birleştirmek "
+"yinelenen uyarılara yol açabilir."
+
+msgid "When tip should appear"
+msgstr "İpucunun ne zaman görünmesi gerektiği"
+
+msgid ""
+"This test builder allows for simple text and attribute tests.<br>Check the "
+"module readme for <a href=\"@url\">tips on writing more complex tests</a>."
+msgstr ""
+"Bu test oluşturucu basit metin ve öznitelik testlerine izin verir.<br>Daha "
+"karmaşık testler yazma konusundaki <a href=\"@url\">ipuçları için modül "
+"benioku dosyasını</a> inceleyin."
+
+msgid "Select by attributes"
+msgstr "Özniteliklere göre seç"
+
+msgid ""
+"Match using CSS selectors.<br>Use :not() to skip elements, e.g. "
+"<code>:is(.check1, .check2):not(.ignore, .ignore *)</code>.<br>Use attribute "
+"selectors for URLs, e.g. <code>[href*=\".dev/\"]</code>."
+msgstr ""
+"CSS seçicileri kullanarak eşleştir.<br>Öğeleri atlamak için :not() kullanın, "
+"örn. <code>:is(.check1, .check2):not(.ignore, .ignore *)</code>.<br>URL'ler "
+"için öznitelik seçicileri kullanın, örn. <code>[href*=\".dev/\"]</code>."
+
+msgid "Select by text"
+msgstr "Metne göre seç"
+
+msgid "Flag elements containing any of these text strings. One per line."
+msgstr ""
+"Bu metin dizelerinden herhangi birini içeren öğeleri işaretle. Satır başına "
+"bir tane."
+
+msgid "Case sensitive"
+msgstr "Büyük/küçük harfe duyarlı"
+
+msgid "Exclude elements that match this text"
+msgstr "Bu metinle eşleşen öğeleri dışla"
+
+msgid ""
+"Don't flag elements if they contain any of these words or phrases. E.g., a "
+"link to a development server is ok if it contains \"dev.\" One per line."
+msgstr ""
+"Öğeler bu sözcük veya ifadelerden herhangi birini içeriyorsa işaretleme. "
+"Örn. geliştirme sunucusuna bağlantı \"dev.\" içeriyorsa uygundur. Satır "
+"başına bir tane."
+
+msgid "Test key must contain only letters, numbers, and underscores."
+msgstr "Test anahtarı yalnızca harf, rakam ve alt çizgi içermelidir."
+
+msgid "Tip content must contain visible text."
+msgstr "İpucu içeriği görünür metin içermelidir."
+
+msgid "Select at least one rule."
+msgstr "En az bir kural seçin."
+
+msgid "Select at least one element type."
+msgstr "En az bir öğe türü seçin."
+
+msgid "The filter selector should be a CSS selector, not a CSS rule block."
+msgstr "Filtre seçicisi bir CSS kural bloğu değil, CSS seçicisi olmalıdır."
+
+msgid "Created new custom test %label."
+msgstr "%label adlı yeni özel test oluşturuldu."
+
+msgid "Updated custom test %label."
+msgstr "%label adlı özel test güncellendi."
+
+msgid "Are you deactivating this site or cancelling altogether?"
+msgstr ""
+"Bu siteyi devre dışı mı bırakıyorsunuz, yoksa tamamen iptal mi ediyorsunuz?"
+
+msgid "You can manage your subscriptions at any time in your Freemius account."
+msgstr "Aboneliklerinizi Freemius hesabınızdan her zaman yönetebilirsiniz."
+
+msgid "Choose an action"
+msgstr "Bir işlem seçin"
+
+msgid ""
+"<strong>Deactivate this site</strong>, but keep my subscription active and "
+"renewing for use on another site"
+msgstr ""
+"<strong>Bu siteyi devre dışı bırak</strong>, ancak aboneliğimi başka bir "
+"sitede kullanmak üzere aktif ve yenilenmeye devam etsin"
+
+msgid ""
+"<strong>Cancel my subscription</strong> to the Editoria11y CSA altogether"
+msgstr "Editoria11y CSA aboneliğimi tamamen <strong>iptal et</strong>"
+
+msgid "Confirm deactivation"
+msgstr "Devre dışı bırakmayı onayla"
+
+msgid "Never mind; keep site active"
+msgstr "Boşver; siteyi aktif tut"
+
+msgid ""
+"This site appears to be a development or testing environment with an active "
+"license."
+msgstr ""
+"Bu sitenin aktif lisansa sahip bir geliştirme veya test ortamı olduğu "
+"görünüyor."
+
+msgid "How would you like to proceed?"
+msgstr "Nasıl devam etmek istersiniz?"
+
+msgid ""
+"<strong>Cancel deactivation</strong>; I will manage this from the production "
+"site"
+msgstr ""
+"<strong>Devre dışı bırakmayı iptal et</strong>; bunu üretim sitesinden "
+"yöneteceğim"
+
+msgid ""
+"<strong>Disconnect this copy</strong>; leave the production license active"
+msgstr ""
+"<strong>Bu kopyayı bağlantısını kes</strong>; üretim lisansını aktif bırak"
+
+msgid ""
+"<strong>Deactivate all copies of this site</strong> (production, dev, and QA)"
+msgstr ""
+"Bu sitenin <strong>tüm kopyalarını devre dışı bırak</strong> (üretim, "
+"geliştirme ve QA)"
+
+msgid "Confirm"
+msgstr "Onayla"
+
+msgid ""
+"Editoria11y promotes accessibility in a unique way. Its tools are highly "
+"effective at helping non-technical authors prepare content that can be "
+"enjoyed equally by disabled Web users. We consider this a public good, so "
+"Editoria11y will always be free to use."
+msgstr ""
+"Editoria11y, erişilebilirliği benzersiz bir biçimde destekler. Araçları, "
+"teknik olmayan yazarların engelli web kullanıcılarının da eşit biçimde "
+"yararlanabileceği içerik hazırlamasına yardımcı olmada son derece etkilidir. "
+"Bunu bir kamu yararı olarak değerlendirdiğimizden Editoria11y her zaman "
+"ücretsiz kullanılabilecektir."
+
+msgid "Editoria11y is not, however, free to develop or support."
+msgstr ""
+"Ancak Editoria11y'nin geliştirilmesi ve desteklenmesi ücretsiz değildir."
+
+msgid ""
+"The \"Community Supported Add-ons\" (CSA) project fills the gap: project "
+"membership subscriptions fund the development of the Editoria11y library, "
+"its CMS plugins, and the CSA suite."
+msgstr ""
+"\"Topluluk Destekli Eklentiler\" (CSA) projesi bu boşluğu dolduruyor: proje "
+"üyelik abonelikleri Editoria11y kitaplığının, CMS eklentilerinin ve CSA "
+"paketinin geliştirilmesini finanse eder."
+
+msgid ""
+"<a href=\"@url\"><strong>Join the CSA</strong></a> to support this project"
+msgstr ""
+"Bu projeyi desteklemek için <a href=\"@url\"><strong>CSA'ya katılın</"
+"strong></a>"
+
+msgid ""
+"Existing members: <a href=\"@url\"><strong>Manage your subscription</"
+"strong></a> or <a href=\"@support_url\"><strong>contact support</strong></a>"
+msgstr ""
+"Mevcut üyeler: <a href=\"@url\"><strong>Aboneliğinizi yönetin</strong></a> "
+"veya <a href=\"@support_url\"><strong>destekle iletişime geçin</strong></a>"
+
+msgid ""
+"License management on this site has been locked via Drush. Use <code>drush "
+"ed11y-unlock</code> to re-enable changes from this form."
+msgstr ""
+"Bu sitedeki lisans yönetimi Drush aracılığıyla kilitlendi. Bu formdaki "
+"değişiklikleri yeniden etkinleştirmek için <code>drush ed11y-unlock</code> "
+"komutunu kullanın."
+
+msgid "Warning: this site matches a dev or QA URL pattern"
+msgstr "Uyarı: Bu site bir geliştirme veya QA URL kalıbıyla eşleşiyor"
+
+msgid "Shared activations should be managed in the production copy."
+msgstr "Paylaşılan etkinleştirmeler üretim kopyasından yönetilmelidir."
+
+msgid ""
+"Use <code>drush ed11y-lock</code> to prevent changing shared activations."
+msgstr ""
+"Paylaşılan etkinleştirmelerin değiştirilmesini önlemek için <code>drush "
+"ed11y-lock</code> komutunu kullanın."
+
+msgid ""
+"Deactivating a shared key deactivates all copies of a site, including "
+"production."
+msgstr ""
+"Paylaşılan bir anahtarı devre dışı bırakmak, üretim dahil sitenin tüm "
+"kopyalarını devre dışı bırakır."
+
+msgid ""
+"Separate license activations from a development environment consume an "
+"additional key."
+msgstr ""
+"Geliştirme ortamından ayrı lisans etkinleştirmeleri ek bir anahtar tüketir."
+
+msgid "Trial (@days days remaining)"
+msgstr "Deneme (@days gün kaldı)"
+
+msgid "Trial (expired)"
+msgstr "Deneme (süresi doldu)"
+
+msgid "License expired"
+msgstr "Lisans süresi doldu"
+
+msgid "Active membership"
+msgstr "Aktif üyelik"
+
+msgid "Activate using stored license key"
+msgstr "Saklı lisans anahtarıyla etkinleştir"
+
+msgid "Activate with a different license key"
+msgstr "Farklı bir lisans anahtarıyla etkinleştir"
+
+msgid "Activate (enter license key below)"
+msgstr "Etkinleştir (aşağıya lisans anahtarını girin)"
+
+msgid "<strong>License expired.</strong> Expired on: @date"
+msgstr "<strong>Lisans süresi doldu.</strong> Bitiş tarihi: @date"
+
+msgid "<strong>License has expired.</strong>"
+msgstr "<strong>License has expired.</strong>"
+
+msgid "<strong>Trial license active.</strong> Trial ends: @date"
+msgstr "<strong>Deneme lisansı aktif.</strong> Deneme bitiş tarihi: @date"
+
+msgid "<strong>License active.</strong> Expires: @date"
+msgstr "<strong>Lisans aktif.</strong> Bitiş tarihi: @date"
+
+msgid "<strong>Lifetime license active.</strong>"
+msgstr "<strong>Lifetime license active.</strong>"
+
+msgid "Check for license renewal"
+msgstr "Lisans yenileme denetle"
+
+msgid "Deactivate license"
+msgstr "Lisansı devre dışı bırak"
+
+msgid "A license key is stored but not active"
+msgstr "Bir lisans anahtarı saklanmış ancak etkin değil"
+
+msgid "Add a license key to enable CSA features"
+msgstr "CSA özelliklerini etkinleştirmek için bir lisans anahtarı ekleyin"
+
+msgid "Enable CSA features"
+msgstr "CSA özelliklerini etkinleştir"
+
+msgid "CSA license key"
+msgstr "CSA lisans anahtarı"
+
+msgid ""
+"<a href=\"@url\">Join the CSA</a> to enable CSA features. Visit the Freemius "
+"dashboard to <a href=\"@freemius\">manage your subscription</a> or recover a "
+"lost key."
+msgstr ""
+"CSA özelliklerini etkinleştirmek için <a href=\"@url\">CSA'ya katılın</a>. "
+"<a href=\"@freemius\">Aboneliğinizi yönetmek</a> veya kaybolan anahtarı "
+"kurtarmak için Freemius gösterge panelini ziyaret edin."
+
+msgid "Local, Dev and QA site URL patterns"
+msgstr "Yerel, Geliştirme ve QA site URL kalıpları"
+
+msgid ""
+"One pattern per line, up to 5 patterns. Wildcards are supported (e.g. "
+"<code>*.test.example.com</code>).<br>Local, dev and QA sites can share an "
+"activation with production site, but only production sites check for "
+"renewals."
+msgstr ""
+"Satır başına bir kalıp, en fazla 5 kalıp. Joker karakterler desteklenir "
+"(örn. <code>*.test.example.com</code>).<br>Yerel, geliştirme ve QA siteleri "
+"üretim sitesiyle etkinleştirme paylaşabilir, ancak yalnızca üretim siteleri "
+"yenilemeleri kontrol eder."
+
+msgid ""
+"Additionally, any hostname consisting only of digits and dots (raw IPv4 "
+"address) is treated as a development environment."
+msgstr ""
+"Ayrıca yalnızca rakam ve noktalardan oluşan bir ana bilgisayar adı (ham IPv4 "
+"adresi) geliştirme ortamı olarak işlenir."
+
+msgid "Built-in development URL patterns"
+msgstr "Yerleşik geliştirme URL kalıpları"
+
+msgid "Enter no more than 5 custom domain patterns."
+msgstr "En fazla 5 özel etki alanı kalıbı girin."
+
+msgid "Saved license key not found. Please activate with a new key."
+msgstr ""
+"Kaydedilen lisans anahtarı bulunamadı. Lütfen yeni bir anahtarla "
+"etkinleştirin."
+
+msgid "Enter a license key."
+msgstr "Lisans anahtarı girin."
+
+msgid "Activation failed: @msg"
+msgstr "Etkinleştirme başarısız: @msg"
+
+msgid "License renewed and active."
+msgstr "Lisans yenilendi ve aktif."
+
+msgid "License is still expired."
+msgstr "Lisans hâlâ süresi dolmuş."
+
+msgid "Unexpected license status: @status"
+msgstr "Beklenmeyen lisans durumu: @status"
+
+msgid "Could not reach licensing server: @msg"
+msgstr "Lisanslama sunucusuna ulaşılamadı: @msg"
+
+msgid "Deactivation failed: @msg"
+msgstr "Devre dışı bırakma başarısız: @msg"
+
+msgid "Editoria11y Export Batch Processor"
+msgstr "Editoria11y Dışa Aktarma Toplu İşlemcisi"
+
+msgid ""
+"Batching is only needed for very large or heavily customized CSV exports."
+msgstr "Toplu işleme yalnızca çok büyük veya yoğun şekilde özelleştirilmiş CSV dışa aktarmaları için gereklidir."
+
+msgid "hide"
+msgstr "hide"
+
+msgid "ok"
+msgstr "ok"
+
+msgid "Yes"
+msgstr "Evet"
+
+msgid "No"
+msgstr "Hayır"
+
+msgid "This alt text is a filename, not a description"
+msgstr "Bu alternatif metin bir dosya adı, açıklama değil"
+
+msgid "Is this a clear and concise description of the image?"
+msgstr "Bu, görüntünün açık ve özlü bir açıklaması mı?"
+
+msgid "This alt text may be a placeholder"
+msgstr "Bu alternatif metin bir yer tutucu olabilir"
+
+msgid "This alt text is unpronounceable"
+msgstr "Bu alternatif metin telaffuz edilemiyor"
+
+msgid "This custom input field is missing a label"
+msgstr "Bu özel giriş alanının etiketi eksik"
+
+msgid "Button is missing an accessible label"
+msgstr "Düğmede erişilebilir etiket yok"
+
+msgid "Button has an invalid ARIA label"
+msgstr "Düğmede geçersiz bir ARIA etiketi var"
+
+msgid "Button name repeats the word \"button\""
+msgstr "Düğme adında \"button\" sözcüğü tekrarlanıyor"
+
+msgid "This button is unpronounceable"
+msgstr "Bu düğme telaffuz edilemiyor"
+
+msgid "Text does not have enough contrast to be easily legible"
+msgstr "Metin kolayca okunabilmek için yeterli kontrasta sahip değil"
+
+msgid "Graphic or icon does not have enough contrast"
+msgstr "Grafik veya simgenin yeterli kontrastı yok"
+
+msgid "Input does not provide enough contrast to be easily legible"
+msgstr "Giriş alanı kolayca okunabilmek için yeterli kontrast sağlamıyor"
+
+msgid "Placeholder text does not have enough contrast to be easily legible"
+msgstr "Yer tutucu metin yeterli kontrasta sahip değil"
+
+msgid "Does this placeholder text have enough contrast?"
+msgstr "Bu yer tutucu metinde yeterli kontrast var mı?"
+
+msgid "Does this text have enough contrast?"
+msgstr "Bu metnin yeterli kontrastı var mı?"
+
+msgid "Does this graphic or icon have enough contrast?"
+msgstr "Bu grafik veya simgenin yeterli kontrastı var mı?"
+
+msgid "Duplicate ID attribute"
+msgstr "Yinelenen ID özniteliği"
+
+msgid "This link has a tooltip with the same text as the link"
+msgstr "Bu bağlantının araç ipucu, bağlantı metniyle aynı"
+
+msgid "Does this audio have a transcript?"
+msgstr "Bu sesli içeriğin dökümü var mı?"
+
+msgid "Is this visualization accessible?"
+msgstr "Bu görselleştirme erişilebilir mi?"
+
+msgid "Embedded iframes need manual checks"
+msgstr "Gömülü iframe'ler elle denetim gerektiriyor"
+
+msgid "Frame missing \"title\" attribute"
+msgstr "Çerçevede \"title\" özniteliği eksik"
+
+msgid "Frame with tabindex=\"-1\" will not be keyboard accessible."
+msgstr "tabindex=\"-1\" olan çerçeve klavyeyle erişilebilir olmayacak."
+
+msgid "Is this video accurately captioned?"
+msgstr "Bu video doğru şekilde altyazılandırılmış mı?"
+
+msgid "This heading has no text"
+msgstr "Bu başlıkta metin yok"
+
+msgid "This image is used as a heading, so it needs alt text"
+msgstr "Bu görüntü başlık olarak kullanılıyor; alternatif metin gerekli"
+
+msgid "The first heading on this page is a subheading"
+msgstr "Bu sayfadaki ilk başlık bir alt başlık"
+
+msgid "Can this heading be shorter?"
+msgstr "Bu başlık kısaltılabilir mi?"
+
+msgid "This page is missing a Heading 1"
+msgstr "Bu sayfada 1. Düzey Başlık eksik"
+
+msgid "This heading is tagged at the wrong level"
+msgstr "Bu başlık yanlış düzeyde etiketlenmiş"
+
+msgid "This heading is unpronounceable"
+msgstr "Bu başlık telaffuz edilemiyor"
+
+msgid "This element cannot be described by screen readers"
+msgstr "Bu öğe ekran okuyucular tarafından tanımlanamıyor"
+
+msgid "Can this alt text be shorter?"
+msgstr "Bu alternatif metin kısaltılabilir mi?"
+
+msgid "Is this image actually meaningless?"
+msgstr "Bu görüntü gerçekten anlamsız mı?"
+
+msgid "Image in a carousel or gallery marked as decorative"
+msgstr "Döngü veya galeride dekoratif olarak işaretlenmiş görüntü"
+
+msgid "This captioned image has no alt text"
+msgstr "Bu başlıklı görselde alternatif metin yok"
+
+msgid "Alt text should not be the same as caption text"
+msgstr "Alternatif metin, açıklama metniyle aynı olmamalı"
+
+msgid "Is there a visible label for this field?"
+msgstr "Bu alan için görünür bir etiket var mı?"
+
+msgid "Prefer visible labels to placeholders"
+msgstr "Yer tutucular yerine görünür etiketleri tercih edin"
+
+msgid "Is this reset button needed?"
+msgstr "Bu sıfırlama düğmesi gerekli mi?"
+
+msgid "This input has an empty label"
+msgstr "Bu giriş alanının etiketi boş"
+
+msgid "Visible label does not match invisible label"
+msgstr "Görünür etiket, görünmez etiketle eşleşmiyor"
+
+msgid "This image input is missing alt text"
+msgstr "Bu görüntü girişinde alternatif metin eksik"
+
+msgid "This input is not connected to a label"
+msgstr "Bu giriş alanı bir etiketle bağlantılı değil"
+
+msgid "Language tag does not match the content"
+msgstr "Dil etiketi içerikle eşleşmiyor"
+
+msgid "This content appears to be in a different language"
+msgstr "Bu içerik farklı bir dilde görünüyor"
+
+msgid "This alt text appears to be in a different language"
+msgstr "Bu alternatif metin farklı bir dilde görünüyor"
+
+msgid "Alt text used as a link should not be a URL"
+msgstr "Bağlantı olarak kullanılan alternatif metin URL olmamalı"
+
+msgid "This linked alt might not be clear and concise"
+msgstr "Bu bağlantılı alternatif metin açık ve özlü olmayabilir"
+
+msgid "Linked images need pronounceable alt text"
+msgstr "Bağlantılı görüntülerin telaffuz edilebilir alternatif metin gerekir"
+
+msgid "Manual check: link contains \"click here\""
+msgstr "Manuel denetim: bağlantı \"buraya tıklayın\" ifadesi içeriyor"
+
+msgid "Link article titles, not DOI numbers"
+msgstr "Makale başlıklarına bağlantı verin, DOI numaralarına değil"
+
+msgid "This link contains no words"
+msgstr "Bu bağlantıda hiç sözcük yok"
+
+msgid "Link with invalid \"aria-labelledby\" attribute"
+msgstr "Geçersiz \"aria-labelledby\" özniteliği olan bağlantı"
+
+msgid "This link needs a label"
+msgstr "Bu bağlantının bir etikete ihtiyacı var"
+
+msgid "Link points to a file without warning"
+msgstr "Bağlantı uyarı vermeden bir dosyaya yönlendiriyor"
+
+msgid "Links with the same text link to different pages"
+msgstr "Aynı metne sahip bağlantılar farklı sayfalara gidiyor"
+
+msgid "Does this alt text describe the link or the image?"
+msgstr "Bu alternatif metin bağlantıyı mı yoksa görüntüyü mü açıklıyor?"
+
+msgid "Does this alt text make sense as part of this link?"
+msgstr "Bu alternatif metin bu bağlantının bir parçası olarak anlamlı mı?"
+
+msgid "Can this linked alt text be shorter?"
+msgstr "Bu bağlantılı alternatif metin kısaltılabilir mi?"
+
+msgid "This linked image needs alt text"
+msgstr "Bu bağlantılı görüntünün alternatif metne ihtiyacı var"
+
+msgid "Does this linked image need a description?"
+msgstr "Bu bağlantılı görüntünün açıklamaya ihtiyacı var mı?"
+
+msgid "Is this link actually a button?"
+msgstr "Bu bağlantı aslında bir düğme mi?"
+
+msgid "Does this link open a new tab without warning?"
+msgstr "Bu bağlantı uyarı vermeden yeni sekme açıyor mu?"
+
+msgid "This linked alt text may be a placeholder"
+msgstr "Bu bağlantılı alternatif metin bir yer tutucu olabilir"
+
+msgid "This link only contains generic words"
+msgstr "Bu bağlantı yalnızca genel sözcükler içeriyor"
+
+msgid "The purpose of this link is visually hidden"
+msgstr "Bu bağlantının amacı görsel olarak gizli"
+
+msgid "Does this image's alt describe the image or the link?"
+msgstr ""
+"Bu görüntünün alternatif metni görüntüyü mü yoksa bağlantıyı mı açıklıyor?"
+
+msgid "Are the symbols or emoji in this link meaningful?"
+msgstr "Bu bağlantıdaki semboller veya emojiler anlamlı mı?"
+
+msgid "This link is unpronounceable"
+msgstr "Bu bağlantı telaffuz edilemiyor"
+
+msgid "Link text should not be a URL"
+msgstr "Bağlantı metni URL olmamalı"
+
+msgid "Meta tag for page language missing"
+msgstr "Sayfa dili için meta etiketi eksik"
+
+msgid "Did you mean a different language code?"
+msgstr "Farklı bir dil kodu mu kastettiniz?"
+
+msgid "Invalid language code"
+msgstr "Geçersiz dil kodu"
+
+msgid "Page language may not match the content"
+msgstr "Sayfa dili içerikle eşleşmiyor olabilir"
+
+msgid "Meta tag limits how much users can enlarge text"
+msgstr "Meta etiketi kullanıcıların metni ne kadar büyütebileceğini kısıtlıyor"
+
+msgid "Meta tag automatically refreshes page"
+msgstr "Meta etiketi sayfayı otomatik olarak yeniliyor"
+
+msgid "Meta tag prevents users from enlarging text"
+msgstr "Meta etiketi kullanıcıların metni büyütmesini engelliyor"
+
+msgid "Meta tag for page title missing"
+msgstr "Sayfa başlığı için meta etiketi eksik"
+
+msgid "Invalid HTML: image has no alt attribute"
+msgstr "Geçersiz HTML: görüntüde alt özniteliği yok"
+
+msgid "Invalid HTML: linked image missing alt attribute"
+msgstr "Geçersiz HTML: bağlantılı görüntüde alt özniteliği eksik"
+
+msgid "Invalid HTML: image in link missing alt attribute"
+msgstr "Geçersiz HTML: bağlantı içindeki görüntüde alt özniteliği eksik"
+
+msgid "This link target may be invalid"
+msgstr "Bağlantı hedefi geçersiz olabilir"
+
+msgid "Should this quote be a heading?"
+msgstr "Bu alıntı bir başlık olmalı mı?"
+
+msgid "Has this document been tagged for screen readers?"
+msgstr "Bu belge ekran okuyucular için etiketlendi mi?"
+
+msgid "Should this bold text be a heading?"
+msgstr "Bu kalın metin bir başlık olmalı mı?"
+
+msgid "Should this have list formatting?"
+msgstr "Buna liste biçimlendirmesi uygulanmalı mı?"
+
+msgid "Broken same-page link"
+msgstr "Bozuk sayfa içi bağlantı"
+
+msgid "Do not justify text"
+msgstr "Metni iki yana yaslamayın"
+
+msgid "Nested interactive layout components"
+msgstr "İç içe etkileşimli düzen bileşenleri"
+
+msgid "Is there an alternative for this PDF?"
+msgstr "Bu PDF için bir alternatif var mı?"
+
+msgid "Text is too small"
+msgstr "Metin çok küçük"
+
+msgid "Large blocks of emphasized text are harder to read"
+msgstr "Büyük bloklar halinde vurgulanan metin okunması daha zordur"
+
+msgid "Do not use sub/superscript as visual formatting"
+msgstr "Alt/üst simgeyi yalnızca görsel biçimlendirme için kullanmayın"
+
+msgid "Only links should be underlined"
+msgstr "Yalnızca bağlantıların altı çizilmeli"
+
+msgid "Is this uppercase text needed?"
+msgstr "Bu büyük harf metni gerekli mi?"
+
+msgid "Are there redundant words in this alt text?"
+msgstr "Bu alternatif metinde gereksiz sözcükler var mı?"
+
+msgid "Tabindex overrides interrupt the focus order"
+msgstr "Tabindex geçersiz kılmaları odak sırasını bozuyor"
+
+msgid "This header cell needs text"
+msgstr "Bu başlık hücresine metin gerekiyor"
+
+msgid "This table has an invalid headers attribute"
+msgstr "Bu tablonun headers özniteliği geçersiz"
+
+msgid "This table needs a header row and/or column"
+msgstr "Bu tabloda başlık satırı ve/veya sütunu gerekiyor"
+
+msgid "Content headings should not be used inside tables"
+msgstr "İçerik başlıkları tablo içinde kullanılmamalı"
+
+msgid "Invalid HTML list"
+msgstr "Geçersiz HTML listesi"
+
+msgid "Linked images"
+msgstr "Bağlantılı görseller"
+
+msgid "Text formatting"
+msgstr "Metin biçimlendirme"
+
+msgid "Video, audio, frames"
+msgstr "Video, ses, çerçeveler"
+
+msgid "Contrast"
+msgstr "Kontrast"
+
+msgid "Forms"
+msgstr "Formlar"
+
+msgid "ARIA and focus"
+msgstr "ARIA ve odak"
+
+msgid "Page metadata"
+msgstr "Sayfa meta verisi"
+
+msgid "The request could not be processed. Details have been logged."
+msgstr "İstek işlenemedi. Ayrıntılar günlüğe kaydedildi."
+
+msgid "API request rejected: @message"
+msgstr "API isteği reddedildi: @message"
+
+msgid "API request failed: @message"
+msgstr "API isteği başarısız: @message"
+
+msgid "Export pages with alerts"
+msgstr "Uyarıları olan sayfaları dışa aktar"
+
+msgid ""
+"Install the Editoria11y Export Batch Processor module to download these "
+"reports."
+msgstr "Bu raporları indirmek için Editoria11y Dışa Aktarma Toplu İşlemcisi modülünü kurun."
+
+msgid "Export results"
+msgstr "Sonuçları dışa aktar"
+
+msgctxt "problems"
+msgid "Top alerts"
+msgstr "En sık uyarılar"
+
+msgctxt "problems"
+msgid "Pages with the most alerts"
+msgstr "En fazla uyarı içeren sayfalar"
+
+msgid "Recent dismissals"
+msgstr "Son kapatmalar"
+
+msgid ""
+"Activate the <a href=\"@csa\">Editoria11y CSA submodule</a> to see developer "
+"tests."
+msgstr ""
+"Geliştirici testlerini görmek için <a href=\"@csa\">Editoria11y CSA alt "
+"modülünü</a> etkinleştirin."
+
+msgid "Include all parts of the page that contain your theme and content."
+msgstr ""
+"Temanızı ve içeriğinizi barındıran sayfanın tüm bölümlerini dahil edin."
+
+msgid "Include all parts of the page that contain your editable content."
+msgstr ""
+"Düzenlenebilir içeriğinizi barındıran sayfanın tüm bölümlerini dahil edin."
+
+msgid "Exclude elements that show unhelpful, repetitive, or inaccurate alerts."
+msgstr "Yararsız, tekrarlayan veya yanlış uyarılar gösteren öğeleri dışlayın."
+
+msgid ""
+"<a href=\"@permissions\">Add permissions</a>, especially \"View Editoria11y "
+"checker\" and \"Mark OK.\"</a>"
+msgstr ""
+"<a href=\"@permissions\">Add permissions</a>, especially \"View Editoria11y "
+"checker\" and \"Mark OK.\"</a>"
+
+msgid ""
+"If you need help: <a href=\"@config_guide\">Configuration Guide</a> | <a "
+"href=\"@issue_queue\">Issue Queue</a> | <a href=\"@help\">Support contacts</"
+"a>"
+msgstr ""
+"Yardıma ihtiyacınız varsa: <a href=\"@config_guide\">Yapılandırma Kılavuzu</"
+"a> | <a href=\"@issue_queue\">Sorun Kuyruğu</a> | <a href=\"@help\">Destek "
+"iletişim bilgileri</a>"
+
+msgid "Autodetect"
+msgstr "Otomatik algıla"
+
+msgid "Only user-editable content"
+msgstr "Yalnızca kullanıcı tarafından düzenlenebilir içerik"
+
+msgid "Other"
+msgstr "Diğer"
+
+msgid "Parts of the page to test"
+msgstr "Test edilecek sayfa bölümleri"
+
+msgid "\"Autodetect\" selects:"
+msgstr "\"Otomatik algıla\" şunları seçer:"
+
+msgid "Other: specify regions to check for developer and content problems"
+msgstr ""
+"Diğer: geliştirici ve içerik sorunları için denetlenecek bölgeleri belirtin"
+
+msgid ""
+"Provide CSS selectors. For many sites, the site theme is wrapped in "
+"<code>.dialog-off-canvas-main-canvas</code> while editing."
+msgstr ""
+"CSS seçiciler sağlayın. Pek çok sitede düzenleme sırasında site teması "
+"<code>.dialog-off-canvas-main-canvas</code> içine sarılır."
+
+msgid "Do not check for any errors inside these elements"
+msgstr "Bu öğelerin içindeki hataları denetleme"
+
+msgid "These parts of the page will be ignored entirely."
+msgstr "Sayfanın bu bölümleri tamamen yoksayılacaktır."
+
+msgid "match content settings"
+msgstr "içerik ayarlarıyla eşleştir"
+
+msgid "Page regions with user-editable content"
+msgstr "Kullanıcı tarafından düzenlenebilir içerik barındıran sayfa bölgeleri"
+
+msgid ""
+"Default: <code><em>main</em></code><br>Provide <a target=\"_blank\" "
+"href=\"https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/"
+"Selectors\">CSS selectors</a>. Content authors will only see the alerts "
+"within these parts of the page. Do not provide selectors that nest within "
+"each other, or the inner content will be checked twice."
+msgstr ""
+"Varsayılan: <code><em>main</em></code><br><a target=\"_blank\" "
+"href=\"https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/"
+"Selectors\">CSS seçiciler</a> sağlayın. İçerik yazarları uyarıları yalnızca "
+"sayfanın bu bölümlerinde görecektir. İç içe geçmiş seçiciler kullanmayın; "
+"aksi takdirde iç içerik iki kez denetlenir."
+
+msgid ""
+"Default: <code><em>main</em></code><br>Provide <a target=\"_blank\" "
+"href=\"https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/"
+"Selectors\">CSS selectors</a>. Do not provide selectors that nest within "
+"each other, or the inner content will be checked twice."
+msgstr ""
+"Varsayılan: <code><em>main</em></code><br><a target=\"_blank\" "
+"href=\"https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/"
+"Selectors\">CSS seçiciler</a> sağlayın. İç içe geçmiş seçiciler kullanmayın; "
+"aksi takdirde iç içerik iki kez denetlenir."
+
+msgid "Errors in these elements should only be shown to developers"
+msgstr "Bu öğelerdeki hatalar yalnızca geliştiricilere gösterilmeli"
+
+msgid "Do not check for content errors inside these elements"
+msgstr "Bu öğelerin içindeki içerik hatalarını denetleme"
+
+msgid ""
+"Content editors are not responsible for errors in these elements. <br>E.g.: "
+"<code><em>#sidebar-menu a, .slide [aria-hidden=\"true\"]</em></code>."
+msgstr ""
+"İçerik düzenleyicileri bu öğelerdeki hatalardan sorumlu değildir. <br>Örn.: "
+"<code><em>#sidebar-menu a, .slide [aria-hidden=\"true\"]</em></code>."
+
+msgid "Roles that will see developer alerts"
+msgstr "Geliştirici uyarılarını görecek roller"
+
+msgid ""
+"All roles with the <a href=\":url\">View editoria11y checker</a> permission "
+"see content alerts."
+msgstr ""
+"<a href=\":url\">Editoria11y denetleyicisini görüntüle</a> iznine sahip tüm "
+"roller içerik uyarılarını görür."
+
+msgid "Advanced settings"
+msgstr "Gelişmiş ayarlar"
+
+msgid "Assertiveness"
+msgstr "İddiacılık"
+
+msgid "Checker mode for content roles"
+msgstr "İçerik rolleri için denetleyici modu"
+
+msgid "Start open if there are any alerts"
+msgstr "Herhangi bir uyarı varsa açık başlat"
+
+msgid "Start open if there are new alerts"
+msgstr "Yeni uyarılar varsa açık başlat"
+
+msgid "Start minimized"
+msgstr "Küçültülmüş başlat"
+
+msgid ""
+"Choose when the control panel should open and show inline tips. \"Start open "
+"if there are any alerts\" is recommended, as it helps tips get noticed over "
+"time."
+msgstr ""
+"Denetim panelinin ne zaman açılacağını ve satır içi ipuçlarını ne zaman "
+"göstereceğini seçin. \"Herhangi bir uyarı varsa açık başlat\" önerilir; "
+"ipuçlarının zamanla fark edilmesine yardımcı olur."
+
+msgid "Checker mode for developer roles"
+msgstr "Geliştirici rolleri için denetleyici modu"
+
+msgid "Do not check any content while it is being edited"
+msgstr "Düzenlenirken hiçbir içeriği denetleme"
+
+msgid ""
+"Use the \"Do not check on pages with these elements\" setting to prevent "
+"checking only on specific pages. E.g., exclude: <code><em>form[id^=\"node-"
+"article\"]</em></code>."
+msgstr ""
+"\"Bu öğeler sayfada varsa çalıştırma\" ayarını yalnızca belirli sayfalarda "
+"denetimi engellemek için kullanın. Örn. dışla: <code><em>form[id^=\"node-"
+"article\"]</em></code>."
+
+msgid "Assign headers to CKEditor tables on insert"
+msgstr "Eklemede CKEditor tablolarına başlıklar ata"
+
+msgid "First row"
+msgstr "İlk satır"
+
+msgid "First column"
+msgstr "İlk sütun"
+
+msgid "Both"
+msgstr "Her ikisi de"
+
+msgid ""
+"You will need to clear cache for changes to this setting to appear in "
+"CKEditor."
+msgstr ""
+"Bu ayardaki değişikliklerin CKEditor'da görünmesi için önbelleği "
+"temizlemeniz gerekecektir."
+
+msgid "Theme compatibility"
+msgstr "Tema uyumluluğu"
+
+msgid "Configuration tips"
+msgstr "Yapılandırma ipuçları"
+
+msgid ""
+"If the checker <strong>toggle</strong> does not appear: make sure a z-"
+"indexed or overflow-hidden element in your front-end theme is not hiding or "
+"covering the <code><em>ed11y-element-panel</em></code> container, make sure "
+"that any custom selectors in the \"Disable the scanner if these elements are "
+"detected\" field are not present, and make sure that no JavaScript errors "
+"are appearing in your <a href=\"https://developer.mozilla.org/en-US/docs/"
+"Tools/Browser_Console\"> browser console</a>"
+msgstr ""
+"Denetleyici <strong>geçişi</strong> görünmüyorsa: ön uç temanızdaki z-"
+"index'li veya overflow-hidden bir öğenin <code><em>ed11y-element-panel</em></"
+"code> kapsayıcısını gizlemediğinden veya örtmediğinden, \"Bu öğeler "
+"algılandığında tarayıcıyı devre dışı bırak\" alanındaki özel seçicilerin "
+"mevcut olmadığından ve <a href=\"https://developer.mozilla.org/en-US/docs/"
+"Tools/Browser_Console\">tarayıcı konsolunuzda</a> JavaScript hatası "
+"bulunmadığından emin olun"
+
+msgid ""
+"If the checker toggle is present but <strong>not detecting</strong> errors, "
+"or missing errors that should be flagged: check that your inclusions & "
+"exclusion settings below are not missing or ignoring the elements. It is not "
+"uncommon for homepages or views to insert editable content outside the "
+"<code><em>main</em></code> element."
+msgstr ""
+"Denetleyici geçişi mevcut ancak hataları <strong>algılamıyorsa</strong> veya "
+"işaretlenmesi gereken hataları kaçırıyorsa: aşağıdaki dahil etme ve dışlama "
+"ayarlarınızın öğeleri kaçırmadığını veya yoksaymadığını kontrol edin. Ana "
+"sayfaların veya görünümlerin düzenlenebilir içeriği <code><em>main</em></"
+"code> öğesinin dışına eklemesi alışılmadık bir durum değildir."
+
+msgid "Theme"
+msgstr "Tema"
+
+msgid "Sleek"
+msgstr "Şık"
+
+msgid "Classic"
+msgstr "Klasik"
+
+msgid "Dark"
+msgstr "Koyu"
+
+msgid "Do not check on pages with these elements"
+msgstr "Bu öğeler olan sayfalarda denetim yapma"
+
+msgid ""
+"Used to block checking on site sections or admin pages.<br>E.g. "
+"<code><em>.content-type-example, .tabs__link[href=*\"edit\"]</em></code>."
+msgstr ""
+"Site bölümlerinde veya yönetim sayfalarında denetimi engellemek için "
+"kullanılır.<br>Örn. <code><em>.content-type-"
+"example, .tabs__link[href=*\"edit\"]</em></code>."
+
+msgid "Hide all alerts on pages where these elements are not present"
+msgstr "Bu öğeler olmayan sayfalarda tüm uyarıları gizle"
+
+msgid ""
+"Used to limit alerting to nodes where the user can edit something. Suggested "
+"selectors:<br> <code><em>.contextual-region a[href*=\"/edit\"], .contextual-"
+"region a[href*=\"/manage\"]</em></code>."
+msgstr ""
+"Uyarıları kullanıcının bir şeyleri düzenleyebildiği düğümlerle sınırlamak "
+"için kullanılır. Önerilen seçiciler:<br> <code><em>.contextual-region "
+"a[href*=\"/edit\"], .contextual-region a[href*=\"/manage\"]</em></code>."
+
+msgid ""
+"Set to the number of other themes or modules that will be <a href=\"https://"
+"editoria11y.princeton.edu/configuration/#customtests\">injecting custom "
+"result JS events</a>."
+msgstr ""
+"<a href=\"https://editoria11y.princeton.edu/configuration/"
+"#customtests\">Özel sonuç JS olayları enjekte edecek</a> diğer tema veya "
+"modül sayısına ayarlayın."
+
+msgid "Positioning"
+msgstr "Konumlandırma"
+
+msgid "Don't show edit links on tips in these containers"
+msgstr "Bu kapsayıcılardaki ipuçlarında düzenleme bağlantılarını gösterme"
+
+msgid ""
+"Tips show copies of the \"Edit\" and \"Layout\" links for nodes, users and "
+"taxonomy terms. These links are not helpful on lists of content from remote "
+"nodes.<br>Provide a comma-separated list of page sections of where these "
+"links should not show, E.g.: <code><em>#sidebar-menu, .news-feed</em></code>."
+"<br>To hide the links <strong>everywhere</strong>, set this field to an "
+"asterisk (<code><em>*</em></code>).<br>To modify the links, <a "
+"href=\"https://editoria11y.princeton.edu/configuration/#modify-tips\" "
+"target=\"_blank\">use the ed11yPop event</a> in your theme JS."
+msgstr ""
+"İpuçları düğümler, kullanıcılar ve taksonomi terimleri için \"Düzenle\" ve "
+"\"Düzen\" bağlantılarının kopyalarını gösterir. Bu bağlantılar uzak "
+"düğümlerden gelen içerik listelerinde yardımcı değildir.<br>Bu bağlantıların "
+"gösterilmemesi gereken sayfa bölümlerinin virgülle ayrılmış listesini "
+"sağlayın, örn.: <code><em>#sidebar-menu, .news-feed</em></code>."
+"<br>Bağlantıları <strong>her yerde</strong> gizlemek için bu alanı yıldız "
+"işareti olarak (<code><em>*</em></code>) ayarlayın.<br>Bağlantıları "
+"değiştirmek için tema JS'inizde <a href=\"https://editoria11y.princeton.edu/"
+"configuration/#modify-tips\" target=\"_blank\">ed11yPop olayını kullanın</a>."
+
+msgid "Pin panel to..."
+msgstr "Paneli şuraya sabitle..."
+
+msgid "Right"
+msgstr "Sağ"
+
+msgid "Left"
+msgstr "Sol"
+
+msgid "Don't cover these other widgets"
+msgstr "Bu diğer araç takımlarını örtme"
+
+msgid ""
+"Provide a comma-separated list of selectors for other things that appear in "
+"the bottom right of the page. <br>If nothing is set, Editoria11y will "
+"automatically slide left to accommodate <code><em>#klaro_toggle_dialog, "
+"#klaro-cookie-notice .same-page-preview-dialog.ui-dialog-position-side</em></"
+"code>."
+msgstr ""
+"Sayfanın sağ alt köşesinde görünen diğer şeyler için virgülle ayrılmış "
+"seçici listesi sağlayın. <br>Hiçbir şey ayarlanmamışsa Editoria11y, "
+"<code><em>#klaro_toggle_dialog, #klaro-cookie-notice .same-page-preview-"
+"dialog.ui-dialog-position-side</em></code> için otomatik olarak sola kayar."
+
+msgid "Elements with overflow hidden"
+msgstr "Overflow hidden olan öğeler"
+
+msgid ""
+"Sometimes buttons get drawn and visually truncated outside the bounds of a "
+"positioned element. Provide a selector list."
+msgstr ""
+"Bazen düğmeler konumlandırılmış bir öğenin sınırları dışında çizilir ve "
+"görsel olarak kesilir. Seçici listesi sağlayın."
+
+msgid "Theme JS will handle revealing hidden tooltips inside these containers"
+msgstr ""
+"Tema JS, bu kapsayıcılardaki gizli araç ipuçlarını ortaya çıkarmayı yönetir"
+
+msgid ""
+"Editoria11y detects hidden tooltips and warns the user when they try to jump "
+"to them from the panel. For elements on this list, Editoria11y will <a "
+"href=\"https://itmaybejj.github.io/editoria11y/#dealing-with-alerts-on-"
+"hidden-or-size-constrained-content\">dispatch a JS event</a> instead of a "
+"warning, so custom JS in your theme can first reveal the hidden tip (e.g., "
+"open an accordion or tab panel)."
+msgstr ""
+"Editoria11y, gizli araç ipuçlarını algılar ve kullanıcı panelden bunlara "
+"atlamaya çalıştığında uyarır. Bu listedeki öğeler için Editoria11y, uyarı "
+"yerine <a href=\"https://itmaybejj.github.io/editoria11y/#dealing-with-"
+"alerts-on-hidden-or-size-constrained-content\">bir JS olayı gönderir</a>; "
+"böylece temanızdaki özel JS önce gizli ipucunu ortaya çıkarabilir (örn. bir "
+"akordeon veya sekme panelini açabilir)."
+
+msgid "Detecting dynamic and shadow content"
+msgstr "Dinamik ve gölge içerik algılama"
+
+msgid "Dynamically refresh if new content appears"
+msgstr "Yeni içerik görünürse dinamik olarak yenile"
+
+msgid "Watch for changes anywhere on the page"
+msgstr "Sayfanın herhangi bir yerindeki değişiklikleri izle"
+
+msgid "Only watch for changes to content containers present on load"
+msgstr ""
+"Yalnızca yükleme sırasında mevcut içerik kapsayıcılarındaki değişiklikleri "
+"izle"
+
+msgid "Do not watch for changes"
+msgstr "Değişiklikleri izleme"
+
+msgid ""
+"Set to \"anywhere\" if changes are being missed, set to \"ignore\" if you "
+"notice performance issues. Themes and modules can also call "
+"<code>Drupal.Ed11y.refresh()</code> to refresh results."
+msgstr ""
+"Değişiklikler kaçırılıyorsa \"her yer\" olarak, performans sorunları fark "
+"ederseniz \"yoksay\" olarak ayarlayın. Temalar ve modüller de sonuçları "
+"yenilemek için <code>Drupal.Ed11y.refresh()</code> çağrısı yapabilir."
+
+msgid "Check inside these specific Web components"
+msgstr "Bu belirli Web bileşenlerinin içini denetle"
+
+msgid ""
+"Provide selectors for elements with <a href='https://developer.mozilla.org/"
+"en-US/docs/Web/Web_Components'>shadow DOM</a> you want tested. E.g.: "
+"<code><em>my-fancy-accordion-widget, my-magical-slideshow</em></code>."
+msgstr ""
+"Test edilmesini istediğiniz <a href='https://developer.mozilla.org/en-US/"
+"docs/Web/Web_Components'>gölge DOM</a> içeren öğeler için seçiciler "
+"sağlayın. Örn.: <code><em>my-fancy-accordion-widget, my-magical-slideshow</"
+"em></code>."
+
+msgid "Auto-detect any Web components"
+msgstr "Herhangi bir Web bileşenini otomatik algıla"
+
+msgid ""
+"This is easier to configure than specifying components, but may slow test "
+"runs on very complicated pages."
+msgstr ""
+"Bileşen belirtmekten daha kolay yapılandırılır, ancak çok karmaşık "
+"sayfalarda test çalıştırmalarını yavaşlatabilir."
+
+msgid "Syncing results to reports"
+msgstr "Sonuçları raporlarla senkronize et"
+
+msgid ""
+"Remember that results only sync to the dashboard when viewing nodes. Results "
+"shown while editing or viewing previews or revisions will not sync."
+msgstr ""
+"Sonuçların yalnızca düğümler görüntülenirken gösterge paneline senkronize "
+"edildiğini unutmayın. Düzenleme, önizleme veya revizyon görüntüleme "
+"sırasında gösterilen sonuçlar senkronize edilmez."
+
+msgid "Remove redundant base url from URLs"
+msgstr "URL'lerden gereksiz temel URL'yi kaldır"
+
+msgid ""
+"Provide base URL (\"/mysite\") if your site is installed in a subdirectory. "
+"Subdirectories tend to get duplicated (/mysite/mysite/mypage) and throw "
+"errors from the API."
+msgstr ""
+"Siteniz bir alt dizine kurulduysa temel URL'yi (\"/mysite\") sağlayın. Alt "
+"dizinler çoğaltılmaya (/mysite/mysite/mypage) ve API'den hata almaya "
+"eğilimlidir."
+
+msgid "Preserve query parameters"
+msgstr "Sorgu parametrelerini koru"
+
+msgid ""
+"The dashboard ignores most parameters: results for both /news?f=1 and /news?"
+"f=2 will show up as just /news. Provide a comma separated list of parameters "
+"that are meaningful, and should appear as separate pages in results."
+msgstr ""
+"Gösterge paneli çoğu parametreyi yoksayar: hem /news?f=1 hem de /news?f=2 "
+"sonuçları yalnızca /news olarak görünür. Anlamlı olan ve sonuçlarda ayrı "
+"sayfalar olarak görünmesi gereken parametrelerin virgülle ayrılmış listesini "
+"sağlayın."
+
+msgid "Disable sync altogether"
+msgstr "Senkronizasyonu tamamen devre dışı bırak"
+
+msgid ""
+"Syncing test results back to Drupal is required for the <a target=\"_blank\" "
+"href=\"/admin/reports/editoria11y\">issue</a> and <a target=\"_blank\" "
+"href=\"/admin/reports/editoria11y/dismissals\">dismissal</a> dashboards and "
+"\"mark OK\" buttons."
+msgstr ""
+"Test sonuçlarının Drupal'a geri senkronize edilmesi <a target=\"_blank\" "
+"href=\"/admin/reports/editoria11y\">sorun</a> ve <a target=\"_blank\" "
+"href=\"/admin/reports/editoria11y/dismissals\">kapatma</a> gösterge "
+"panelleri ile \"Tamam olarak işaretle\" düğmeleri için gereklidir."
+
+msgid "Heading outline position of editable content"
+msgstr "Düzenlenebilir içeriğin başlık ana hattı konumu"
+
+msgid ""
+"To check headings in CKEditor, Editoria11y needs to know what the first "
+"heading level should be in this field. Body fields should generally be at "
+"the h2 level."
+msgstr ""
+"CKEditor'da başlıkları denetlemek için Editoria11y'nin bu alandaki ilk "
+"başlık düzeyinin ne olması gerektiğini bilmesi gerekir. Gövde alanları "
+"genellikle h2 düzeyinde olmalıdır."
+
+msgid "H2 level fields (body content)"
+msgstr "H2 düzeyindeki alanlar (gövde içeriği)"
+
+msgid ""
+"Body fields on nodes are preceded by an h1, and their heading outline should "
+"start with an h2. Ideally set this for top-level body fields for each of "
+"your content types, and set blocks and embedded nodes to h3 or h4.\n"
+"        <br>Set all content types: <code><em>form[id^=\"node-\"] #edit-body-"
+"wrapper .ck-content</em></code>\n"
+"        <br>Set specific content types: <code><em>form[id^=\"node-\"] #edit-"
+"body-wrapper .ck-content</em></code>\n"
+"        <br>Set up for Gutenberg: <code><em>form[id^=\"node-\"] #edit-body-"
+"wrapper .is-root-container</em></code>"
+msgstr ""
+"Düğümlerdeki gövde alanlarının önünde bir h1 bulunur ve başlık ana hatları "
+"h2 ile başlamalıdır. İdeal olarak bunu her içerik türünüzdeki üst düzey "
+"gövde alanları için ayarlayın; blokları ve gömülü düğümleri h3 veya h4 "
+"olarak ayarlayın.\n"
+"        <br>Tüm içerik türlerini ayarla: <code><em>form[id^=\"node-\"] #edit-"
+"body-wrapper .ck-content</em></code>\n"
+"        <br>Belirli içerik türlerini ayarla: <code><em>form[id^=\"node-\"] "
+"#edit-body-wrapper .ck-content</em></code>\n"
+"        <br>Gutenberg için ayarla: <code><em>form[id^=\"node-\"] #edit-body-"
+"wrapper .is-root-container</em></code>"
+
+msgid "H3 level fields (blocks or paragraphs with separate titles)"
+msgstr "H3 düzeyindeki alanlar (ayrı başlıklı bloklar veya paragraflar)"
+
+msgid ""
+"Sometimes inline and layout builder blocks are grouped under an h2 from a "
+"separate field, so their highest heading level should be h3."
+msgstr ""
+"Bazen satır içi ve düzen oluşturucu blokları ayrı bir alandaki h2'nin "
+"altında gruplandırılır; bu nedenle en yüksek başlık düzeyleri h3 olmalıdır."
+
+msgid "H4 level fields (deeply nested blocks or paragraphs)"
+msgstr "H4 düzeyindeki alanlar (derin iç içe bloklar veya paragraflar)"
+
+msgid ""
+"Sometimes inline and layout builder blocks are grouped under an h3 from a "
+"separate field, so their highest heading level should be h4."
+msgstr ""
+"Bazen satır içi ve düzen oluşturucu blokları ayrı bir alandaki h3'ün altında "
+"gruplandırılır; bu nedenle en yüksek başlık düzeyleri h4 olmalıdır."
+
+msgid "Modify tests that usually detect content issues"
+msgstr "İçerik sorunlarını genellikle algılayan testleri değiştir"
+
+msgid "Modify tests that usually detect template or configuration issues"
+msgstr ""
+"Şablon veya yapılandırma sorunlarını genellikle algılayan testleri değiştir"
+
+msgid "Do not check contrast for these elements"
+msgstr "Bu öğeler için kontrast denetimi yapma"
+
+msgid ""
+"Provide a comma-separated list of selectors for elements to ignore for all "
+"users."
+msgstr ""
+"Tüm kullanıcılar için yoksayılacak öğelerin virgülle ayrılmış seçici "
+"listesini sağlayın."
+
+msgid "Remind editor that content in these embeds needs manual review"
+msgstr ""
+"Düzenleyiciyi bu gömülü öğelerdeki içeriğin manuel inceleme gerektirdiği "
+"konusunda uyar"
+
+msgid ""
+"Provide a comma-separated list of selectors you wish to flag for the editor, "
+"e.g.: <code><em>.my-embedded-feed, #my-social-link-block</em></code>."
+msgstr ""
+"Düzenleyici için işaretlemek istediğiniz seçicilerin virgülle ayrılmış "
+"listesini sağlayın, örn.: <code><em>.my-embedded-feed, #my-social-link-"
+"block</em></code>."
+
+msgid ""
+"Default settings should work with both <a href=\"https://www.drupal.org/"
+"project/linkpurpose\" target=\"_blank\">Link Purpose Icons</a> and <a "
+"target=\"_blank\" href=\"https://www.drupal.org/project/extlink\">External "
+"Links</a>."
+msgstr ""
+"Varsayılan ayarlar hem <a href=\"https://www.drupal.org/project/"
+"linkpurpose\" target=\"_blank\">Bağlantı Amacı Simgeleri</a> hem de <a "
+"target=\"_blank\" href=\"https://www.drupal.org/project/extlink\">Harici "
+"Bağlantılar</a> ile çalışmalıdır."
+
+msgid "Remind the editor that these linked documents need a manual check"
+msgstr ""
+"Düzenleyiciyi bu bağlantılı belgelerin manuel denetim gerektirdiği konusunda "
+"uyar"
+
+msgid ""
+"Add or remove filetypes. Set to \"false\" to disable the test altogether. "
+"Providing any value will override the default, which is "
+"<code><em>a[href$='.pdf'], a[href*='.pdf?']</em></code>."
+msgstr ""
+"Dosya türleri ekleyin veya kaldırın. Testi tamamen devre dışı bırakmak için "
+"\"false\" olarak ayarlayın. Herhangi bir değer sağlamak varsayılanı geçersiz "
+"kılar; varsayılan: <code><em>a[href$='.pdf'], a[href*='.pdf?']</em></code>."
+
+msgid "Remove elements that match these selectors before testing link text"
+msgstr "Bağlantı metni denetiminden önce bu seçicilerle eşleşen öğeleri kaldır"
+
+msgid ""
+"Provide a CSS selector of elements your modules programmatically add to "
+"links (usually external or open-in-new-window links), so they can be ignored "
+"when the link text is checked for the \"link has no text\" and \"link text "
+"is not meaningful\" tests.<br>E.g.: <code><em>.this, .that</em></code>"
+msgstr ""
+"Modüllerinizin bağlantılara programatik olarak eklediği öğelerin CSS "
+"seçicisini sağlayın (genellikle harici veya yeni pencerede açma "
+"bağlantıları); böylece \"bağlantının metni yok\" ve \"bağlantı metni anlamlı "
+"değil\" testlerinde bağlantı metni denetlenirken yoksayılabilir.<br>Örn.: "
+"<code><em>.this, .that</em></code>"
+
+msgid "Remove these strings before testing link text"
+msgstr "Bağlantı metni denetiminden önce bu dizeleri kaldır"
+
+msgid ""
+"Provide a pipe-separated (\"|\") list of phrases your modules "
+"programmatically add to links to hint a purpose (external, mail, phone, open-"
+"in-new-window), so they can be ignored when the link text is checked for the "
+"\"link has no text\" and \"link text is not meaningful\" tests; e.g.:  "
+"<pre><code><em>(link is external)|(link sends email)</em></code></pre>"
+msgstr ""
+"Modüllerinizin bağlantılara bir amaç belirtmek amacıyla programatik olarak "
+"eklediği ifadelerin boru ile ayrılmış (\"|\") listesini sağlayın (harici, "
+"posta, telefon, yeni pencerede açma); böylece \"bağlantının metni yok\" ve "
+"\"bağlantı metni anlamlı değil\" testlerinde bağlantı metni denetlenirken "
+"yoksayılabilir; örn.:  <pre><code><em>(link is external)|(link sends email)</"
+"em></code></pre>"
+
+msgid "Strings in links that indicate new tabs"
+msgstr "Yeni sekme açıldığını belirten bağlantılardaki dizeler"
+
+msgid ""
+"Provide a pipe-separated list of phrases your site uses to warn users a link "
+"opens in a new tab; e.g.:  <pre><code><em>new&nbsp;tab|new&nbsp;window|"
+"external</em></code></pre>"
+msgstr ""
+"Sitenizin kullanıcıları bir bağlantının yeni sekmede açıldığı konusunda "
+"uyarmak için kullandığı ifadelerin boru ile ayrılmış listesini sağlayın; "
+"örn.:  <pre><code><em>new&nbsp;tab|new&nbsp;window|external</em></code></pre>"
+
+msgid ""
+"Modules like Link Purpose or External Links can mark links automatically."
+msgstr ""
+"Link Purpose veya External Links gibi modüller bu bağlantıları otomatik "
+"olarak işaretleyebilir."
+
+msgid "CSA/developer test"
+msgstr "CSA/geliştirici testi"
+
+msgid "Show to developers"
+msgstr "Geliştiricilere göster"
+
+msgid "Show to everybody"
+msgstr "Herkese göster"
+
+msgid "Dashboard sync is disabled in Editoria11y configuration."
+msgstr ""
+"Gösterge paneli senkronizasyonu Editoria11y yapılandırmasında devre dışı "
+"bırakıldı."
+
+msgid "(invalid URL)"
+msgstr "(geçersiz URL)"
+
+msgid "Editoria11y: Dismissals"
+msgstr "Editoria11y: Kapatmalar"
+
+msgid "Default"
+msgstr "Varsayılan"
+
+msgid "Node path"
+msgstr "Düğüm yolu"
+
+msgid "view"
+msgstr "view"
+
+msgid "Term path"
+msgstr "Terim yolu"
+
+msgid "User bio path"
+msgstr "Kullanıcı biyografi yolu"
+
+msgid "Term title"
+msgstr "Terim başlığı"
+
+msgid ", "
+msgstr ", "
+
+msgid "Node title"
+msgstr "Düğüm başlığı"
+
+msgid "User name"
+msgstr "Kullanıcı adı"
+
+msgid "Recorded path"
+msgstr "Kaydedilen yol"
+
+msgid "Computed"
+msgstr "Hesaplanan"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty %}{% set dynamic_path = page_path %}{% endif %}\r\n"
+"{% set dynamic_title = title ~ name_2 ~ name_1 %}{% if dynamic_title is "
+"empty %}{% set dynamic_title = page_title %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ dynamic_title }}</"
+"a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty %}{% set dynamic_path = page_path %}{% endif %}\\r\n"
+"{% set dynamic_title = title ~ name_2 ~ name_1 %}{% if dynamic_title is "
+"empty %}{% set dynamic_title = page_title %}{% endif %}\\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ dynamic_title }}</"
+"a>"
+
+msgid "Dismissed alert"
+msgstr "Kapatılan uyarı"
+
+msgid "By"
+msgstr "Tarafından"
+
+msgid "1"
+msgid_plural "@count"
+msgstr[0] "1"
+msgstr[1] "@count"
+
+msgid "Reset"
+msgstr "Sıfırla"
+
+msgid ""
+"<span class=\"ed11y-reset-dismissal\"><span class=\"ed11y-page-id\">{{ pid }}"
+"</span><span class=\"ed11y-dismissal-id\">{{id}}</span></span>"
+msgstr ""
+"<span class=\"ed11y-reset-dismissal\"><span class=\"ed11y-page-id\">{{ pid }}"
+"</span><span class=\"ed11y-dismissal-id\">{{id}}</span></span>"
+
+msgid "››"
+msgstr "››"
+
+msgid "‹‹"
+msgstr "‹‹"
+
+msgid "- All -"
+msgstr "- Tümü -"
+
+msgid "Offset"
+msgstr "Ofset"
+
+msgid "« First"
+msgstr "« İlk"
+
+msgid "Last »"
+msgstr "Son »"
+
+msgid "Asc"
+msgstr "Artan"
+
+msgid "Desc"
+msgstr "Azalan"
+
+msgid "User who dismissed alert"
+msgstr "Uyarıyı kapatan kullanıcı"
+
+msgid "pid"
+msgstr "pid"
+
+msgid "Node"
+msgstr "Düğüm"
+
+msgid "Term"
+msgstr "Terim"
+
+msgid "User bio"
+msgstr "Kullanıcı biyografisi"
+
+msgid "Dismissals page"
+msgstr "Kapatmalar sayfası"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty %}{% set dynamic_path = page_path %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title }}</a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty %}{% set dynamic_path = page_path %}{% endif %}\\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title }}</a>"
+
+msgid "Still on page"
+msgstr "Hâlâ sayfada"
+
+msgid "Reset filters"
+msgstr "Filtreleri sıfırla"
+
+msgid "Issues marked as hidden or OK in Editoria11y."
+msgstr "Editoria11y'de gizli veya Tamam olarak işaretlenen sorunlar."
+
+msgid "Dismissals filtered by issue"
+msgstr "Soruna göre filtrelenmiş kapatmalar"
+
+msgid "No dismissals match these filters."
+msgstr "Hiçbir kapatma bu filtrelerle eşleşmiyor."
+
+msgid "All"
+msgstr "Tümü"
+
+msgid "Dismissed alerts of type \"{{result_name}}\""
+msgstr "Dismissed alerts of type \"{{result_name}}\""
+
+msgid ""
+"<a href=\"/admin/reports/editoria11y/dismissals/\" class=\"button button--"
+"primary\">Show all dismissals</a>"
+msgstr ""
+"<a href=\"/admin/reports/editoria11y/dismissals/\" class=\"button button--"
+"primary\">Show all dismissals</a>"
+
+msgid "Recent Editoria11y Dismissals"
+msgstr "Son Editoria11y Kapatmaları"
+
+msgid "Editoria11y - Recent dismissals"
+msgstr "Editoria11y – Son kapatmalar"
+
+msgid "Editoria11y: Alerts"
+msgstr "Editoria11y: Uyarılar"
+
+msgid "Top results"
+msgstr "En önemli sonuçlar"
+
+msgid "Computed title"
+msgstr "Hesaplanan başlık"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path|render %}{% set dynamic_path = "
+"page_path %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{  page_title_1 }}</"
+"a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path|render %}{% set dynamic_path = "
+"page_path %}{% endif %}\\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{  page_title_1 }}</"
+"a>"
+
+msgid "<a href=\"{{page_path_1}}\" data-ed1ref=\"{{pid}}\">{{page_path_1}}</a>"
+msgstr ""
+"<a href=\"{{page_path_1}}\" data-ed1ref=\"{{pid}}\">{{page_path_1}}</a>"
+
+msgid "No alerts found."
+msgstr "Uyarı bulunamadı."
+
+msgid "YYYY-MM-DD"
+msgstr "YYYY-AA-GG"
+
+msgid "User bio page"
+msgstr "Kullanıcı biyografi sayfası"
+
+msgid "Node author"
+msgstr "Düğüm yazarı"
+
+msgid "All pages with issues"
+msgstr "Sorunlu tüm sayfalar"
+
+msgid "Block: Pages with the most"
+msgstr "Blok: En fazla olan sayfalar"
+
+msgid "Block: Recent alerts"
+msgstr "Blok: Son uyarılar"
+
+msgid "Recent Editoria11y Alerts"
+msgstr "Son Editoria11y Uyarıları"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path|render %}{% set dynamic_path = "
+"page_path %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title_1 }}</a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path|render %}{% set dynamic_path = "
+"page_path %}{% endif %}\\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title_1 }}</a>"
+
+msgid "Issue"
+msgstr "Sorun"
+
+msgid "Editoria11y - Recent alerts"
+msgstr "Editoria11y – Son uyarılar"
+
+msgid "Block: Most frequent alerts"
+msgstr "Blok: En sık uyarılar"
+
+msgid "Most Frequent Editoria11y Alerts"
+msgstr "En Sık Editoria11y Uyarıları"
+
+msgid "Editoria11y - Most frequent alerts"
+msgstr "Editoria11y – En sık uyarılar"
+
+msgid "Alerts on specified page"
+msgstr "Belirtilen sayfadaki uyarılar"
+
+msgid ""
+"<a href=\"{{ page_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title_1 }}</a>"
+msgstr ""
+"<a href=\"{{ page_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title_1 }}</a>"
+
+msgid "<p><strong>Author:</strong> {{ uid }}</p>"
+msgstr "<p><strong>Author:</strong> {{ uid }}</p>"
+
+msgid "<p><strong>Last editor:</strong> {{ uid_1 }}</p>"
+msgstr "<p><strong>Last editor:</strong> {{ uid_1 }}</p>"
+
+msgid ""
+"<h1>Accessibility issues on: {{page_title_1}}</h1>\r\n"
+"<p>{{uid}}{{uid_1}}</p>"
+msgstr ""
+"<h1>Accessibility issues on: {{page_title_1}}</h1>\\r\n"
+"<p>{{uid}}{{uid_1}}</p>"
+
+msgid ""
+"<p><a href=\"../editoria11y/pages\" class=\"button button--primary\">All "
+"pages with alerts</a></p>"
+msgstr ""
+"<p><a href=\"../editoria11y/pages\" class=\"button button--primary\">All "
+"pages with alerts</a></p>"
+
+msgid ""
+"<span class=\"ed11y-reset-this-path\" hidden><p class=\"more-link\"><a "
+"role=\"button\" class=\"action-link action-link--icon-trash action-link--"
+"danger\"><span hidden class=\"ed11y-api-path\">{{ page_path }}</span>Reset "
+"results for this page</a></p></span>"
+msgstr ""
+"<span class=\"ed11y-reset-this-path\" hidden><p class=\"more-link\"><a "
+"role=\"button\" class=\"action-link action-link--icon-trash action-link--"
+"danger\"><span hidden class=\"ed11y-api-path\">{{ page_path }}</span>Reset "
+"results for this page</a></p></span>"
+
+msgid "Issue types"
+msgstr "Sorun türleri"
+
+msgid "Pages with specified alert"
+msgstr "Belirtilen uyarıya sahip sayfalar"
+
+msgid "Published status"
+msgstr "Yayın durumu"
+
+msgid "Created by"
+msgstr "Oluşturan"
+
+msgid "Created after"
+msgstr "Şu tarihten sonra oluşturuldu"
+
+msgid "Created before"
+msgstr "Şu tarihten önce oluşturuldu"
+
+msgid "<h1>Pages with alert \"{{ result_name }}\"</h1>"
+msgstr "<h1>\"{{ result_name }}\" uyarısına sahip sayfalar</h1>"
+
+msgid ""
+"<a href=\"../editoria11y/alerts\" class=\"button button--primary\">All "
+"alerts</a>"
+msgstr ""
+"<a href=\"../editoria11y/alerts\" class=\"button button--primary\">All "
+"alerts</a>"
+
+msgid "Pages with issues"
+msgstr "Sorunlu sayfalar"
+
+msgid "Next ›"
+msgstr "Sonraki ›"
+
+msgid "‹ Previous"
+msgstr "‹ Önceki"
+
+msgid "Authored on"
+msgstr "Yazılma tarihi"
+
+msgid "Changed"
+msgstr "Değiştirildi"
+
+msgid "Editoria11y: Crawler"
+msgstr "Editoria11y: Tarayıcı"
+
+msgid "Editoria11y: Crawl Nodes"
+msgstr "Editoria11y: Düğümleri Tara"
+
+msgid "Authored by"
+msgstr "Yazan"
+
+msgid "Has results"
+msgstr "Sonucu var"
+
+msgid "Has no alerts"
+msgstr "Uyarısı yok"
+
+msgid "Has alerts"
+msgstr "Uyarısı var"
+
+msgid "nid"
+msgstr "nid"
+
+msgid "Editoria11y: Export"
+msgstr "Editoria11y: Dışa Aktar"
+
+msgid "Export page with alerts"
+msgstr "Uyarıları olan sayfayı dışa aktar"
+
+msgid "Link to Taxonomy term"
+msgstr "Taksonomi terimine bağlantı"
+
+msgid "Link to User"
+msgstr "Kullanıcıya bağlantı"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path_1|render %}{% set dynamic_path = "
+"page_path_1 %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title }}</a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path_1|render %}{% set dynamic_path = "
+"page_path_1 %}{% endif %}\\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title }}</a>"
+
+msgid "Path when checked"
+msgstr "Denetim sırasındaki yol"
+
+msgid "<a href=\"{{page_path_1}}\" data-ed1ref=\"{{pid}}\">{{page_path_1}}"
+msgstr "<a href=\"{{page_path_1}}\" data-ed1ref=\"{{pid}}\">{{page_path_1}}"
+
+msgid "Current URL"
+msgstr "Geçerli URL"
+
+msgid "{{ view_taxonomy_term }}{{ view_user }}{{ view_node }}"
+msgstr "{{ view_taxonomy_term }}{{ view_user }}{{ view_node }}"
+
+msgid "{% if type is empty %}{{entity_type}}{%else%}{{type}}{% endif %}"
+msgstr "{% if type is empty %}{{entity_type}}{%else%}{{type}}{% endif %}"
+
+msgid "Entity Type"
+msgstr "Varlık Türü"
+
+msgid "Langcode (en, fr, de)"
+msgstr "Dil kodu (en, fr, de)"
+
+msgid "Referenced node"
+msgstr "Başvurulan düğüm"
+
+msgid "Referenced term"
+msgstr "Başvurulan terim"
+
+msgid "Referenced user bio"
+msgstr "Başvurulan kullanıcı biyografisi"
+
+msgid "<p>Records chosen for export can be filtered and previewed below.</p>"
+msgstr "<p>Records chosen for export can be filtered and previewed below.</p>"
+
+msgid "<a href=\"/admin/reports/editoria11y/export\">Back to dashboard</a>"
+msgstr "<a href=\"/admin/reports/editoria11y/export\">Back to dashboard</a>"
+
+msgid "Dismissals export"
+msgstr "Kapatmalar dışa aktarma"
+
+msgid "Link to Content"
+msgstr "İçeriğe bağlantı"
+
+msgid "Page raw path"
+msgstr "Sayfanın ham yolu"
+
+msgid "Name"
+msgstr "Ad"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path_1|render %}{% set dynamic_path = "
+"page_path_1 %}{% endif %}\r\n"
+"{% set dynamic_title = title_1 ~ name ~ name_1 %}{% if dynamic_title is "
+"empty %}{% set dynamic_title = page_title %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ dynamic_title }}</"
+"a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path_1|render %}{% set dynamic_path = "
+"page_path_1 %}{% endif %}\\r\n"
+"{% set dynamic_title = title_1 ~ name ~ name_1 %}{% if dynamic_title is "
+"empty %}{% set dynamic_title = page_title %}{% endif %}\\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ dynamic_title }}</"
+"a>"
+
+msgid "dismissal"
+msgstr "dismissal"
+
+msgid "Page export"
+msgstr "Sayfa dışa aktarma"
+
+msgid "Alerts export"
+msgstr "Uyarılar dışa aktarma"
+
+msgid "Editoria11y alerts on pages"
+msgstr "Sayfalardaki Editoria11y uyarıları"
+
+msgid "{{ view_taxonomy_term }}{{ view_user }}{{ view_node }} "
+msgstr "{{ view_taxonomy_term }}{{ view_user }}{{ view_node }} "
+
+msgid "Results for page"
+msgstr "Sayfa için sonuçlar"
+
+msgid "<a href=\"./export/pages\">Export pages with alerts</a>"
+msgstr "<a href=\"./export/pages\">Export pages with alerts</a>"
+
+msgid "<a href=\"./export/dismissals\">Export dismissals</a>"
+msgstr "<a href=\"./export/dismissals\">Export dismissals</a>"
+
+msgid "<a href=\"./export/alerts\">Export alert list</a>"
+msgstr "<a href=\"./export/alerts\">Export alert list</a>"
+
+msgid "Export alerts on pages"
+msgstr "Sayfalardaki uyarıları dışa aktar"
+
+msgid "Result name"
+msgstr "Sonuç adı"

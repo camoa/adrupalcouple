@@ -1,0 +1,31 @@
+services:
+
+  logger.channel.editoria11y_csa:
+    parent: logger.channel_base
+    arguments: ['editoria11y_csa']
+
+  editoria11y_csa.global_actions:
+    class: Drupal\editoria11y_csa\GlobalActions
+    arguments: ['@database']
+
+  editoria11y_csa.license_manager:
+    class: Drupal\editoria11y_csa\LicenseManager
+    arguments:
+      - '@http_client'
+      - '@keyvalue'
+      - '@config.factory'
+      - '@state'
+      - '@datetime.time'
+      - '@extension.list.module'
+      - '@language_manager'
+      - '@request_stack'
+      - '@logger.channel.editoria11y_csa'
+      - '@uuid'
+      - '@module_handler'
+
+  editoria11y_csa.uninstall_validator:
+    class: Drupal\editoria11y_csa\LicenseUninstallValidator
+    arguments:
+      - '@state'
+    tags:
+      - { name: module_install.uninstall_validator }

@@ -1,0 +1,141 @@
+<?php
+
+/**
+ * @file
+ * Hook implementations for the Editoria11y Export Batch Processor submodule.
+ */
+
+use Drupal\Component\Render\MarkupInterface;
+use Drupal\Component\Utility\Html;
+use Drupal\editoria11y\ViewsCsvExporter;
+use Drupal\views\ResultRow;
+use Drupal\views\ViewExecutable;
+
+/**
+ * Implements hook_views_data_export_row_alter().
+ *
+ * Applies the same spreadsheet-formula escaping to Views Data Export rows as
+ * the base module's streaming export, so a payload planted in a page title or
+ * display name is neutralized on both export paths. Scoped to Views over the
+ * module's own base tables so other exports on the site are left alone.
+ */
+function editoria11y_export_views_data_export_row_alter(&$row, ResultRow $result, ViewExecutable $view): void {
+  if (!is_array($row)) {
+    return;
+  }
+  if (!in_array($view->storage->get('base_table'), ViewsCsvExporter::ALLOWED_BASE_TABLES, TRUE)) {
+    return;
+  }
+  $row = array_map('_editoria11y_export_escape_cell', $row);
+}
+
+/**
+ * Reduces one export cell to spreadsheet-safe plain text.
+ *
+ * The CSV encoder (csv_serialization) decodes entities and strips tags
+ * *after* this alter hook runs, so testing the raw rendered value is not
+ * enough: a title typed as "<b>=SUM(...)" arrives here as markup whose first
+ * character is "<", yet the encoder's strip_tags pass would still uncover a
+ * live formula. Cells are therefore reduced to a decode/strip/trim fixed
+ * point — text a further encoder pass can no longer change — before the
+ * escape decision is made. Each decode or strip pass strictly shortens the
+ * string whenever it changes it, so the loop terminates.
+ *
+ * @param mixed $value
+ *   One cell from the row plugin: rendered markup, a raw string, an array of
+ *   either (flattened into a single cell by the encoder), or another scalar.
+ *
+ * @return mixed
+ *   The spreadsheet-safe cell value; non-string scalars pass through.
+ */
+function _editoria11y_export_escape_cell(mixed $value): mixed {
+  if (is_array($value)) {
+    return array_map('_editoria11y_export_escape_cell', $value);
+  }
+  if (!is_string($value) && !$value instanceof MarkupInterface) {
+    return $value;
+  }
+  /** @var \Drupal\editoria11y\ViewsCsvExporter $exporter */
+  $exporter = \Drupal::service('editoria11y.views_csv_exporter');
+  $text = $exporter->toPlainText($value);
+  do {
+    $previous = $text;
+    $text = trim(strip_tags(Html::decodeEntities($text)));
+  } while ($text !== $previous);
+  return $exporter->escapeSpreadsheetFormula($text);
+}
+
+/**
+ * Implements hook_modules_installed().
+ */
+function editoria11y_export_modules_installed(array $modules, bool $is_syncing): void {
+  // Only run on initial install.
+  if ($is_syncing || !in_array('editoria11y_export', $modules, TRUE)) {
+    return;
+  }
+
+  // Match private/public filesystem to Views Data Export's config.
+  _editoria11y_export_apply_export_filesystem(FALSE);
+}
+
+/**
+ * Aligns the export view's data_export displays to the best export filesystem.
+ *
+ * Views Data Export stores the destination filesystem per display in the
+ * "export_filesystem" option and reads it directly when generating the file —
+ * there is no site-wide VDE setting that overrides it. The view ships with
+ * "public" before this runs because that scheme is always available.
+ *
+ * @param bool $preserve_existing
+ *   When TRUE (update path) a display that already has an "export_filesystem"
+ *   value is left untouched, so an administrator's explicit choice is preserved
+ *   and only a missing value is populated. When FALSE (fresh install) every
+ *   data_export display is aligned to the preferred scheme.
+ *
+ * @return bool
+ *   TRUE if the view configuration was changed and saved.
+ */
+function _editoria11y_export_apply_export_filesystem(bool $preserve_existing): bool {
+  $config = \Drupal::configFactory()->getEditable('views.view.ed11y_export');
+  if ($config->isNew()) {
+    return FALSE;
+  }
+
+  $scheme = \Drupal::service('stream_wrapper_manager')->isValidScheme('private') ? 'private' : 'public';
+
+  $displays = $config->get('display') ?? [];
+  $changed = FALSE;
+  foreach ($displays as $displayId => $display) {
+    if (($display['display_plugin'] ?? NULL) !== 'data_export') {
+      continue;
+    }
+
+    $options = $display['display_options'] ?? [];
+    $displayChanged = FALSE;
+
+    // Remove the obsolete option so it can no longer shadow the new one.
+    if (array_key_exists('store_in_public_file_directory', $options)) {
+      unset($options['store_in_public_file_directory']);
+      $displayChanged = TRUE;
+    }
+
+    // On the update path, keep any value already chosen and only fill a gap; on
+    // fresh install, align every display to the preferred scheme.
+    $write_scheme = $preserve_existing ? empty($options['export_filesystem']) : TRUE;
+    if ($write_scheme && ($options['export_filesystem'] ?? NULL) !== $scheme) {
+      $options['export_filesystem'] = $scheme;
+      $displayChanged = TRUE;
+    }
+
+    if ($displayChanged) {
+      $displays[$displayId]['display_options'] = $options;
+      $changed = TRUE;
+    }
+  }
+
+  if ($changed) {
+    $config->set('display', $displays)->save(TRUE);
+  }
+
+  return $changed;
+}

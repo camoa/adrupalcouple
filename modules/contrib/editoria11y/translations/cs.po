@@ -1,0 +1,2973 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: editoria11y 3.0.0\n"
+"POT-Creation-Date: 2026-08-01 21:46-0400\n"
+"PO-Revision-Date: 2026-05-11 00:00+0000\n"
+"Language-Team: Editoria11y\n"
+"Language: cs\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : ((n>=2 && n<=4) ? 1 : 2);\n"
+
+msgid ""
+"editoria11y_post_update_0004: scanned @scanned mismatched page(s), "
+"backfilled @fixed to the referenced entity language."
+msgstr ""
+"editoria11y_post_update_0004: scanned @scanned mismatched page(s), "
+"backfilled @fixed to the referenced entity language."
+
+msgid "Editoria11y"
+msgstr "Editoria11y"
+
+msgid "Editoria11y - Pages with issues"
+msgstr "Editoria11y – Stránky s problémy"
+
+msgctxt "problems"
+msgid "Provides relationship for issues and dismissals"
+msgstr "Určuje vztah mezi problémy a ignorováními"
+
+msgid "EID"
+msgstr "EID"
+
+msgid "Editoria11y's internal page ID"
+msgstr "Interní ID stránky Editoria11y"
+
+msgid "Entity ID"
+msgstr "ID entity"
+
+msgid "The NID/TID/UID of the page with an issue."
+msgstr "NID/TID/UID stránky, na které byl nalezen problém."
+
+msgid "Entity type"
+msgstr "Typ entity"
+
+msgid "The entity type; \"route\" if no type found."
+msgstr "Typ entity; „route\", pokud nebyl typ nalezen."
+
+msgid "Route name"
+msgstr "Název trasy"
+
+msgid "Route name for page."
+msgstr "Název trasy pro stránku."
+
+msgid "Page path"
+msgstr "Cesta stránky"
+
+msgid "Internal, relative page path."
+msgstr "Interní, relativní cesta stránky."
+
+msgid "Page language"
+msgstr "Jazyk stránky"
+
+msgid "Active translation."
+msgstr "Aktivní překlad."
+
+msgid "Page title"
+msgstr "Název stránky"
+
+msgid "The name of the route where this was last seen."
+msgstr "Název trasy, kde bylo toto naposledy zaznamenáno."
+
+msgid "Content alerts"
+msgstr "Upozornění obsahu"
+
+msgid "Number of alerts shown to content editors."
+msgstr "Počet upozornění zobrazených editorům obsahu."
+
+msgid "Dev alerts"
+msgstr "Upozornění pro vývojáře"
+
+msgid "Number of alerts shown to developers."
+msgstr "Počet upozornění zobrazených vývojářům."
+
+msgid "Updated"
+msgstr "Aktualizováno"
+
+msgid "When this page was last checked."
+msgstr "Kdy byla tato stránka naposledy zkontrolována."
+
+msgid "Editoria11y - Test results"
+msgstr "Editoria11y – Výsledky testů"
+
+msgctxt "problems"
+msgid "Stores Editoria11y issue list"
+msgstr "Ukládá seznam problémů Editoria11y"
+
+msgid "Result row"
+msgstr "Řádek výsledku"
+
+msgid "Internal identifier"
+msgstr "Interní identifikátor"
+
+msgid "Created"
+msgstr "Vytvořeno"
+
+msgid "When this page was flagged."
+msgstr "Kdy byla tato stránka označena."
+
+msgid "Alert type"
+msgstr "Typ upozornění"
+
+msgid "The name of the test as reported by Editoria11y JS"
+msgstr "Název testu nahlášeného Editoria11y JS"
+
+msgid "Alert type, linked"
+msgstr "Typ upozornění (s odkazem)"
+
+msgid "Linked to report of all alerts of this type."
+msgstr "Odkaz na přehled všech upozornění tohoto typu."
+
+msgid "Content alert count"
+msgstr "Počet upozornění obsahu"
+
+msgid "The number of hits for this test type on this page"
+msgstr "Počet výskytů tohoto typu testu na stránce"
+
+msgid "Dev alert count"
+msgstr "Počet upozornění pro vývojáře"
+
+msgid "Editoria11y - Dismissals"
+msgstr "Editoria11y – Ignorování"
+
+msgid "Stores Editoria11y warnings and dismissals"
+msgstr "Ukládá varování a ignorování Editoria11y"
+
+msgid "Dismissal internal reference ID"
+msgstr "Interní referenční ID ignorování"
+
+msgid "Page with dismissal"
+msgstr "Stránka s ignorováním"
+
+msgid "Dismissed by"
+msgstr "Ignoroval(a)"
+
+msgid "The user linked to this dismissal."
+msgstr "Uživatel přidružený k tomuto ignorování."
+
+msgid "Linked Drupal user"
+msgstr "Přidružený uživatel Drupal"
+
+msgid "Dismissed element id"
+msgstr "ID ignorovaného prvku"
+
+msgid "Code sample to identify the flagged element."
+msgstr "Fragment kódu pro identifikaci označeného prvku."
+
+msgid "Dismissed on"
+msgstr "Ignorováno"
+
+msgid "The Unix timestamp of the first time this record was flagged."
+msgstr "Unix časové razítko prvního označení tohoto záznamu."
+
+msgid "Dismissal stale since"
+msgstr "Ignorování zastaralé od"
+
+msgid "The element has not been seen since this date."
+msgstr "Prvek nebyl od tohoto data zaznamenán."
+
+msgid "Dismissed result name"
+msgstr "Název ignorovaného výsledku"
+
+msgid "Dismissed result name, linked"
+msgstr "Název ignorovaného výsledku (s odkazem)"
+
+msgid "Links to report of all alerts of this type."
+msgstr "Odkaz na přehled všech upozornění tohoto typu."
+
+msgid "Dismissal status"
+msgstr "Stav ignorování"
+
+msgid "The type of dismissal (e.g., OK, Ignore)"
+msgstr "Typ ignorování (např. OK, Ignorovat)"
+
+msgid "Relate from Editoria11y page to referenced node"
+msgstr "Propojení stránky Editoria11y s odkazovaným uzlem"
+
+msgid "Issues were found on this node"
+msgstr "Na tomto uzlu byly nalezeny problémy"
+
+msgid "Relate from node data to Editoria11y page"
+msgstr "Propojení dat uzlu se stránkou Editoria11y"
+
+msgid "Relate from Editoria11y page to referenced taxonomy term"
+msgstr "Propojení stránky Editoria11y s odkazovaným taxonomickým termínem"
+
+msgid "Issues were found on this term page"
+msgstr "Na stránce tohoto termínu byly nalezeny problémy"
+
+msgid "Relate from taxonomy term data to Editoria11y page"
+msgstr "Propojení dat taxonomického termínu se stránkou Editoria11y"
+
+msgid "Relate from Editoria11y page list to user bio page data"
+msgstr "Propojení seznamu stránek Editoria11y s daty stránky profilu uživatele"
+
+msgid "Issues were found on this user bio page"
+msgstr "Na stránce profilu tohoto uživatele byly nalezeny problémy"
+
+msgid "Relate from Editoria11y page to user bio page with issues"
+msgstr "Propojení stránky Editoria11y se stránkou profilu uživatele s problémy"
+
+msgid "Relate from user bio page to Editoria11y results"
+msgstr "Propojení stránky profilu uživatele s výsledky Editoria11y"
+
+msgid "Relate from users list to Editoria11y results on bio page"
+msgstr "Propojení seznamu uživatelů s výsledky Editoria11y na stránce profilu"
+
+msgid "Relate from Editoria11y page to issues on page"
+msgstr "Propojení stránky Editoria11y s problémy na stránce"
+
+msgid "Issues found on this node"
+msgstr "Problémy nalezené na tomto uzlu"
+
+msgid "Relate from Editoria11y result to page"
+msgstr "Propojení výsledku Editoria11y se stránkou"
+
+msgid "Relate from Editoria11y page to dismissals on page"
+msgstr "Propojení stránky Editoria11y s ignorováními na stránce"
+
+msgid "Relate from Editoria11y dismissal to page"
+msgstr "Propojení ignorování Editoria11y se stránkou"
+
+msgid "Group relationship for node with Editoria11y issues"
+msgstr "Vztah Group pro uzel s problémy Editoria11y"
+
+msgid ""
+"Bridge to the Group module. Add the Group module Group relationship on top "
+"of this one to filter or sort issues by group."
+msgstr ""
+"Přemostění k modulu Group. Nad tento vztah přidejte vztah Group, který "
+"poskytuje modul Group, abyste mohli problémy filtrovat nebo řadit podle "
+"skupiny."
+
+msgid "Group relationship for node"
+msgstr "Vztah Group pro uzel"
+
+msgid "Group relationship for user bio with Editoria11y issues"
+msgstr "Vztah Group pro profil uživatele s problémy Editoria11y"
+
+msgid "Group relationship for user"
+msgstr "Vztah Group pro uživatele"
+
+msgid "Group relationship for taxonomy term with Editoria11y issues"
+msgstr "Vztah Group pro taxonomický termín s problémy Editoria11y"
+
+msgid ""
+"Bridge to the Group module. Add the Group module Group relationship on top "
+"of this one to filter or sort issues by group. Requires a contrib module "
+"that exposes terms as group content."
+msgstr ""
+"Přemostění k modulu Group. Nad tento vztah přidejte vztah Group, který "
+"poskytuje modul Group, abyste mohli problémy filtrovat nebo řadit podle "
+"skupiny. Vyžaduje doplňkový modul, který zpřístupňuje termíny jako obsah "
+"skupiny."
+
+msgid "Group relationship for taxonomy term"
+msgstr "Vztah Group pro taxonomický termín"
+
+msgid "Warning: possible out of date path. This content may have moved to"
+msgstr "Upozornění: možná zastaralá cesta. Tento obsah mohl být přesunut na"
+
+msgid "Export CSV"
+msgstr "Exportovat CSV"
+
+msgid "Predelete failed: @error_message"
+msgstr "Předmazání selhalo: @error_message"
+
+msgid "Page attachment failed: @error_message"
+msgstr "Připojení stránky selhalo: @error_message"
+
+msgid ""
+"editoria11y_update_9019: scanned @total rows, repaired @updated, deleted "
+"@deleted corrupted group rows, left @skipped untouched."
+msgstr ""
+"editoria11y_update_9019: scanned @total rows, repaired @updated, deleted "
+"@deleted corrupted group rows, left @skipped untouched."
+
+msgid ""
+"editoria11y_update_9020: hashed @hashed page rows, removed @deduped "
+"duplicate rows, added unique keys."
+msgstr "editoria11y_update_9020: hashed @hashed page rows, removed @deduped duplicate rows, added unique keys."
+
+msgid "Editoria11y Accessibility Checker"
+msgstr "Editoria11y – kontrola přístupnosti"
+
+msgid ""
+"Checks page content for accessibility and provides a site-wide dashboard."
+msgstr ""
+"Kontroluje obsah stránek z hlediska přístupnosti a poskytuje přehled pro "
+"celý web."
+
+msgid "Content Accessibility"
+msgstr "Přístupnost obsahu"
+
+msgid "Accessibility checker notifications and exclusions."
+msgstr "Oznámení a výjimky nástroje pro kontrolu přístupnosti."
+
+msgid "Results from the Editoria11y checker."
+msgstr "Výsledky kontroly Editoria11y."
+
+msgid "Dashboard"
+msgstr "Přehled"
+
+msgid "Core settings"
+msgstr "Základní nastavení"
+
+msgid "Demo"
+msgstr "Demo"
+
+msgid "View Editoria11y checker"
+msgstr "Zobrazit nástroj Editoria11y"
+
+msgid "Assign to all content editors."
+msgstr "Přiřadit všem editorům obsahu."
+
+msgid "Administer Editoria11y checker"
+msgstr "Spravovat nástroj Editoria11y"
+
+msgid "Allows user to purge results and change configuration."
+msgstr "Umožňuje uživateli vymazat výsledky a změnit konfiguraci."
+
+msgid "Mark as hidden in Editoria11y"
+msgstr "Označit jako skryté v Editoria11y"
+
+msgid "Adds button to suppress a manual check for the current user."
+msgstr "Přidá tlačítko pro potlačení ruční kontroly pro aktuálního uživatele."
+
+msgid "Mark as OK in Editoria11y"
+msgstr "Označit jako OK v Editoria11y"
+
+msgid ""
+"Adds button to suppress a manual check for all users, if sync is enabled."
+msgstr ""
+"Přidá tlačítko pro potlačení ruční kontroly pro všechny uživatele, je-li "
+"synchronizace zapnuta."
+
+msgid "Manage Editoria11y results"
+msgstr "Spravovat výsledky Editoria11y"
+
+msgid "View the site-wide dashboard and reset dismissals."
+msgstr "Zobrazit přehled pro celý web a resetovat ignorování."
+
+msgid "Editoria11y core settings"
+msgstr "Základní nastavení Editoria11y"
+
+msgid "Content Accessibility Issues"
+msgstr "Problémy s přístupností obsahu"
+
+msgid "Editoria11y Settings"
+msgstr "Nastavení Editoria11y"
+
+msgid "Check elements in these containers"
+msgstr "Kontrolovat prvky v těchto kontejnerech"
+
+msgid "Alert panel assertiveness"
+msgstr "Asertivita panelu upozornění"
+
+msgid "Do not run if these elements are on the page"
+msgstr "Nespouštět, pokud jsou na stránce tyto prvky"
+
+msgid "Suppress all alerts if none of these elements are present"
+msgstr "Potlačit všechna upozornění, pokud není přítomen žádný z těchto prvků"
+
+msgid "Do not run tests on these containers"
+msgstr "Nespouštět testy v těchto kontejnerech"
+
+msgid "Move toggle to avoid colliding with these widgets"
+msgstr "Přesunout přepínač, aby nekolidoval s těmito widgety"
+
+msgid ""
+"Full check should warn on these elements with embedded uncheckable content"
+msgstr ""
+"Úplná kontrola by měla varovat u prvků s vloženým nekontrolovatelným obsahem"
+
+msgid "These links download a document or image and need a manual review"
+msgstr "Tyto odkazy stahují dokument nebo obrázek a vyžadují ruční kontrolu"
+
+msgid "Strings that indicate a link opens in a new window"
+msgstr "Řetězce označující, že odkaz se otevírá v novém okně"
+
+msgid "Remove these strings from link text before checking for bad link text"
+msgstr ""
+"Odebrat tyto řetězce z textu odkazu před kontrolou nevhodného textu odkazu"
+
+msgid "Remove strings in this selector before checking for bad link text"
+msgstr ""
+"Odebrat řetězce v tomto selektoru před kontrolou nevhodného textu odkazu"
+
+msgid ""
+"Hidden elements in these containers will be revealed by theme JS on request "
+"via a dispatched event"
+msgstr ""
+"Skryté prvky v těchto kontejnerech budou odhaleny JS motivu na vyžádání "
+"prostřednictvím odeslaných událostí"
+
+msgid "Elements that truncate overflow, partially hiding buttons"
+msgstr "Prvky, které ořezávají přetečení a částečně skrývají tlačítka"
+
+msgid "Color scheme for panel and tooltips"
+msgstr "Barevné schéma panelu a nápověd"
+
+msgid "Pin toolbar to left or right"
+msgstr "Připnout panel nástrojů vlevo nebo vpravo"
+
+msgid "Web components the checker should check"
+msgstr "Webové komponenty, které má nástroj kontrolovat"
+
+msgid "Auto-detects for additional shadow components"
+msgstr "Automaticky detekuje další komponenty shadow DOM"
+
+msgid "Auto-detects and checks new content"
+msgstr "Automaticky detekuje a kontroluje nový obsah"
+
+msgid "Disables dashboard and synchronized marking of elements as OK"
+msgstr "Vypne přehled a synchronizované označování prvků jako OK"
+
+msgid "URL query parameters that should be recorded as separate pages"
+msgstr ""
+"Parametry dotazu URL, které mají být zaznamenány jako samostatné stránky"
+
+msgid "Remove string from URL for dashboard page links"
+msgstr "Odstranit řetězec z URL v odkazech přehledu"
+
+msgid "Number of custom test finished events the checker should wait for"
+msgstr "Počet událostí dokončení vlastních testů, na které má nástroj čekat"
+
+msgid "Disables live editor checking"
+msgstr "Vypne kontrolu za živého editování"
+
+msgid ""
+"Selector for frontend-context editors that should inherit the document "
+"outline"
+msgstr ""
+"Selektor editorů v kontextu frontendu, které mají dědit strukturu nadpisů "
+"dokumentu"
+
+msgid "Selector for editors where their first heading should be h2"
+msgstr "Selektor editorů, jejichž první nadpis má být h2"
+
+msgid "Selector for editors where their first heading should be h3"
+msgstr "Selektor editorů, jejichž první nadpis má být h3"
+
+msgid "Selector for editors where their first heading should be h4"
+msgstr "Selektor editorů, jejichž první nadpis má být h4"
+
+msgid "Selectors for components where edit links are meaningless on tips"
+msgstr ""
+"Selektory komponent, u nichž jsou odkazy „Upravit\" v nápovědách bez smyslu"
+
+msgid "Tell CK5 to have a header rows or columns by default."
+msgstr ""
+"Nastavit CKEditor 5, aby ve výchozím stavu měl řádky nebo sloupce záhlaví."
+
+msgid "Tests not shown to content authors."
+msgstr "Testy nezobrazované autorům obsahu."
+
+msgid "Disable the tests you are not ready for"
+msgstr "Vypněte testy, pro které nejste připraveni"
+
+msgid "linkNewWindow"
+msgstr "linkNewWindow"
+
+msgid "linkNoText"
+msgstr "linkNoText"
+
+msgid "altEmptyLinked"
+msgstr "altEmptyLinked"
+
+msgid "linkDocument"
+msgstr "linkDocument"
+
+msgid "linkTextIsURL"
+msgstr "linkTextIsURL"
+
+msgid "linkTextIsGeneric"
+msgstr "linkTextIsGeneric"
+
+msgid "textPossibleList"
+msgstr "textPossibleList"
+
+msgid "textPossibleHeading"
+msgstr "textPossibleHeading"
+
+msgid "textUppercase"
+msgstr "textUppercase"
+
+msgid "tableNoHeaderCells"
+msgstr "tableNoHeaderCells"
+
+msgid "tableEmptyHeaderCell"
+msgstr "tableEmptyHeaderCell"
+
+msgid "tableContainsContentHeading"
+msgstr "tableContainsContentHeading"
+
+msgid "embedVideo"
+msgstr "embedVideo"
+
+msgid "embedAudio"
+msgstr "embedAudio"
+
+msgid "embedVisualization"
+msgstr "embedVisualization"
+
+msgid "embedTwitter"
+msgstr "embedTwitter"
+
+msgid "embedCustom"
+msgstr "embedCustom"
+
+msgid "headingEmpty"
+msgstr "headingEmpty"
+
+msgid "headingIsLong"
+msgstr "headingIsLong"
+
+msgid "headingLevelSkipped"
+msgstr "headingLevelSkipped"
+
+msgid "blockquoteIsShort"
+msgstr "blockquoteIsShort"
+
+msgid "altMissing"
+msgstr "altMissing"
+
+msgid "altNull"
+msgstr "altNull"
+
+msgid "altMeaningless"
+msgstr "altMeaningless"
+
+msgid "altURL"
+msgstr "altURL"
+
+msgid "altImageOf"
+msgstr "altImageOf"
+
+msgid "altDeadspace"
+msgstr "altDeadspace"
+
+msgid "altLong"
+msgstr "altLong"
+
+msgid "altPartOfLinkWithText"
+msgstr "altPartOfLinkWithText"
+
+msgid "2-letter code (en, fr, de)"
+msgstr "Dvoupísmenný kód (en, fr, de)"
+
+msgid "Alert"
+msgstr "Upozornění"
+
+msgid "Alert types"
+msgstr "Typy upozornění"
+
+msgid "Alerts"
+msgstr "Upozornění"
+
+msgid "All dismissals"
+msgstr "Všechna ignorování"
+
+msgid "All issues"
+msgstr "Všechny problémy"
+
+msgid "All pages"
+msgstr "Všechny stránky"
+
+msgid "Apply"
+msgstr "Použít"
+
+msgid "Author"
+msgstr "Autor"
+
+msgid "Authored after"
+msgstr "Vytvořeno po"
+
+msgid "Authored before"
+msgstr "Vytvořeno před"
+
+msgid "Authored"
+msgstr "Vytvořeno"
+
+msgid "Content type"
+msgstr "Typ obsahu"
+
+msgid "Detected"
+msgstr "Zjištěno"
+
+msgid "Dismissals"
+msgstr "Ignorování"
+
+msgid "Dismissed accessibility alerts"
+msgstr "Ignorovaná upozornění přístupnosti"
+
+msgid "Edited"
+msgstr "Upraveno"
+
+msgid "Editor"
+msgstr "Editor"
+
+msgid "Items per page"
+msgstr "Položek na stránku"
+
+msgid "Filter"
+msgstr "Filtrovat"
+
+msgid "Language"
+msgstr "Jazyk"
+
+msgid "Last editor"
+msgstr "Poslední editor"
+
+msgid "Marked"
+msgstr "Označeno"
+
+msgid "No dismissals found."
+msgstr "Nebyla nalezena žádná ignorování."
+
+msgid "Page"
+msgstr "Stránka"
+
+msgid "Pages"
+msgstr "Stránky"
+
+msgid "Pages with alerts"
+msgstr "Stránky s upozorněními"
+
+msgid "Panel"
+msgstr "Panel"
+
+msgid "Path"
+msgstr "Cesta"
+
+msgid "Published"
+msgstr "Publikováno"
+
+msgid "Recent"
+msgstr "Nejnovější"
+
+msgid "Recent accessibility alerts"
+msgstr "Nejnovější upozornění přístupnosti"
+
+msgid "Recent alerts"
+msgstr "Nejnovější upozornění"
+
+msgctxt "problems"
+msgid "Recent alerts"
+msgstr "Nejnovější upozornění"
+
+msgid "Sort by"
+msgstr "Seřadit podle"
+
+msgid "Title"
+msgstr "Titul"
+
+msgid "Type"
+msgstr "Typ"
+
+msgid "Filter and sort"
+msgstr "Filtrovat a seřadit"
+
+msgid "Deleted."
+msgstr "Smazáno."
+
+msgid "Delete failed."
+msgstr "Smazání selhalo."
+
+msgid "<p>The Editoria11y <strong><em>@type</em></strong> view is missing.</p>"
+msgstr ""
+"<p>The Editoria11y <strong><em>@type</em></strong> view is missing.</p>"
+
+msgid ""
+"<p>There are three view configurations this module installs, found in its /"
+"config/install folder. Each must be installed for this dashboard to display "
+"results.</p>"
+msgstr ""
+"<p>There are three view configurations this module installs, found in its /"
+"config/install folder. Each must be installed for this dashboard to display "
+"results.</p>"
+
+msgid ""
+"<p>To fix: copy and paste the contents of <strong>/editoria11y/config/"
+"install/views.view.ed11y_@type.yml</strong> into a \"View\" type import at "
+"<a href=\"/admin/config/development/configuration/single/import\">/admin/"
+"config/development/configuration/single/import</a>. If you sync your "
+"configuration to the filesystem, be sure to include these Views in your "
+"repository.</p>"
+msgstr ""
+"<p>To fix: copy and paste the contents of <strong>/editoria11y/config/"
+"install/views.view.ed11y_@type.yml</strong> into a \"View\" type import at "
+"<a href=\"/admin/config/development/configuration/single/import\">/admin/"
+"config/development/configuration/single/import</a>. If you sync your "
+"configuration to the filesystem, be sure to include these Views in your "
+"repository.</p>"
+
+msgid "link is external"
+msgstr "odkaz je externí"
+
+msgid "link sends email"
+msgstr "odkaz otevírá e-mail"
+
+msgid "No results found"
+msgstr "Nebyly nalezeny žádné výsledky"
+
+msgid ""
+"Your Editoria11y CSA trial has @days days remaining. <a "
+"href=\"@url\">Activate a license</a> to continue using CSA features after "
+"the trial ends."
+msgstr ""
+"Váš zkušební okres Editoria11y CSA vyprší za @days dní. <a "
+"href=\"@url\">Aktivujte licenci</a> a pokračujte v používání funkcí CSA po "
+"uplynutí zkušební doby."
+
+msgid ""
+"Your Editoria11y CSA trial has expired. CSA features have been disabled. <a "
+"href=\"@url\">Activate a license</a> to continue using them."
+msgstr ""
+"Váš zkušební okres Editoria11y CSA vypršel. Funkce CSA byly deaktivovány. <a "
+"href=\"@url\">Aktivujte licenci</a> a pokračujte v jejich používání."
+
+msgid ""
+"Your Editoria11y CSA license has expired. <a href=\"@url\">Renew or "
+"deactivate your license</a>."
+msgstr ""
+"Vaše licence Editoria11y CSA vypršela. <a href=\"@url\">Obnovte nebo "
+"deaktivujte licenci</a>."
+
+msgid ""
+"Your Editoria11y CSA license has expired. Please renew to reactivate CSA add-"
+"ons."
+msgstr ""
+"Vaše licence Editoria11y CSA vypršela. Obnovte ji, abyste znovu aktivovali "
+"doplňky CSA."
+
+msgid "Cron license check failed: @msg"
+msgstr "Ověření licence přes cron selhalo: @msg"
+
+msgid ""
+"Editoria11y CSA features are active on a @days-day trial. <a "
+"href=\"@url\">Activate a license</a> to continue using them after the trial "
+"ends."
+msgstr ""
+"Funkce Editoria11y CSA jsou aktivní ve @days-denní zkušební době. <a "
+"href=\"@url\">Aktivujte licenci</a> a pokračujte v jejich používání po "
+"uplynutí zkušební doby."
+
+msgid "Editoria11y Custom Test"
+msgstr "Vlastní test Editoria11y"
+
+msgid "Editoria11y Custom Tests"
+msgstr "Vlastní testy Editoria11y"
+
+msgid "editoria11y custom test"
+msgstr "vlastní test editoria11y"
+
+msgid "editoria11y custom tests"
+msgstr "vlastní testy editoria11y"
+
+msgid "Editoria11y CSA: Advanced Tools"
+msgstr "Editoria11y CSA: pokročilé nástroje"
+
+msgid ""
+"Community-Supported Addons include code and contrast checks, custom checks, "
+"a site crawler and report maintenance tools."
+msgstr "Komunitní doplňky zahrnují kontroly kódu a kontrastu, vlastní kontroly, procházení webu a nástroje pro správu přehledů."
+
+msgid "Add custom test"
+msgstr "Přidat vlastní test"
+
+msgid "Recheck"
+msgstr "Zkontrolovat znovu"
+
+msgid "CSA membership"
+msgstr "Členství CSA"
+
+msgid "Custom tests"
+msgstr "Vlastní testy"
+
+msgid "Dashboard Actions"
+msgstr "Akce přehledu"
+
+msgid "Editoria11y CSA membership"
+msgstr "Členství Editoria11y CSA"
+
+msgid "Editoria11y custom tests"
+msgstr "Vlastní testy Editoria11y"
+
+msgid "Add a custom test"
+msgstr "Přidat vlastní test"
+
+msgid "Edit custom test"
+msgstr "Upravit vlastní test"
+
+msgid "Delete custom test"
+msgstr "Smazat vlastní test"
+
+msgid "Editoria11y CSA Settings"
+msgstr "Nastavení Editoria11y CSA"
+
+msgid "Developer roles"
+msgstr "Role vývojářů"
+
+msgid "Developer assertiveness"
+msgstr "Asertivita upozornění pro vývojáře"
+
+msgid "Tests overridden to show to content editors"
+msgstr "Testy přepsané tak, aby byly zobrazeny editorům obsahu"
+
+msgid "Tests overridden to turn off"
+msgstr "Testy přepsané tak, aby byly vypnuty"
+
+msgid "Tests overridden to only to show to developers"
+msgstr "Testy přepsané tak, aby byly zobrazeny pouze vývojářům"
+
+msgid "Elements to ignore for contrast test"
+msgstr "Prvky ignorované při kontrole kontrastu"
+
+msgid "Turn on contrast checks"
+msgstr "Zapnout kontroly kontrastu"
+
+msgid "Developer check root: body or specify"
+msgstr "Kořen kontroly vývojáře: body nebo vlastní selektor"
+
+msgid "Developer check root selector"
+msgstr "Selektor kořenového kontejneru pro kontrolu vývojáře"
+
+msgid "Selector for elements to ignore for developers"
+msgstr "Selektor prvků, které mají vývojáři ignorovat"
+
+msgid "Enabled"
+msgstr "Povoleno"
+
+msgid "Custom development domain patterns"
+msgstr "Vlastní vzory vývojových domén"
+
+msgid "ID"
+msgstr "ID"
+
+msgid "Label"
+msgstr "Popisek"
+
+msgid "Test key"
+msgstr "Klíč testu"
+
+msgid "Tooltip title"
+msgstr "Název nápovědy"
+
+msgid "Tip content HTML"
+msgstr "HTML obsah nápovědy"
+
+msgid "Element set to check"
+msgstr "Sada prvků ke kontrole"
+
+msgid "Dismiss key type"
+msgstr "Typ klíče ignorování"
+
+msgid "CSS filter selector"
+msgstr "CSS selektor filtru"
+
+msgid "Text strings to include"
+msgstr "Textové řetězce k zahrnutí"
+
+msgid "Text string"
+msgstr "Textový řetězec"
+
+msgid "Text strings to exclude"
+msgstr "Textové řetězce k vyloučení"
+
+msgid "Case sensitive text matching"
+msgstr "Porovnávání textu s rozlišením velikosti písmen"
+
+msgid "Filter which pages will be crawled"
+msgstr "Filtrovat stránky, které budou prohledávány"
+
+msgid "Cancel"
+msgstr "Zrušit"
+
+msgid "Millisecond pause between page requests"
+msgstr "Pauza v milisekundách mezi požadavky na stránky"
+
+msgid "This tab needs to remain open and in the foreground during the crawl."
+msgstr "Tato záložka musí zůstat otevřená a v popředí po dobu prohledávání."
+
+msgid "Estimated time:"
+msgstr "Odhadovaný čas:"
+
+msgid "hours"
+msgstr "hours"
+
+msgid "minutes"
+msgstr "minutes"
+
+msgid "minute"
+msgstr "minute"
+
+msgid "Start crawling"
+msgstr "Zahájit prohledávání"
+
+msgid "Checked:"
+msgstr "Zkontrolováno:"
+
+msgid "pages"
+msgstr "pages"
+
+msgid "Back to dashboard"
+msgstr "Zpět na přehled"
+
+msgid "Test"
+msgstr "Test"
+
+msgid "Elements"
+msgstr "Prvky"
+
+msgid "Status"
+msgstr "Stav"
+
+msgid "Text"
+msgstr "Text"
+
+msgid "On"
+msgstr "Zapnuto"
+
+msgid "Off"
+msgstr "Vypnuto"
+
+msgid "Freemius deactivation API call failed: @msg"
+msgstr "Volání API pro deaktivaci Freemius selhalo: @msg"
+
+msgid "Cannot cancel subscription: API token not found."
+msgstr "Nelze zrušit předplatné: token API nebyl nalezen."
+
+msgid "Freemius subscription cancellation API call failed: @msg"
+msgstr "Volání API pro zrušení předplatného Freemius selhalo: @msg"
+
+msgid "Key module lookup for @id failed: @msg"
+msgstr "Key module lookup for @id failed: @msg"
+
+msgid "Failed to update Freemius install properties: @msg"
+msgstr "Aktualizace vlastností instalace Freemius selhala: @msg"
+
+msgid ""
+"An <a href=\"@settings\">active license must be deactivated</a> before "
+"uninstalling."
+msgstr ""
+"Před odinstalováním musí být <a href=\"@settings\">aktivní licence "
+"deaktivována</a>."
+
+msgid "License key stored. Use editoria11y-csa:activate to activate."
+msgstr "Licenční klíč uložen. Ke aktivaci použijte editoria11y-csa:activate."
+
+msgid "License activated."
+msgstr "Licence aktivována."
+
+msgid "License deactivated."
+msgstr "Licence deaktivována."
+
+msgid "License active. Expires: @date"
+msgstr "Licence aktivní. Vyprší: @date"
+
+msgid "License active. No expiration date."
+msgstr "Licence aktivní. Bez data vypršení."
+
+msgid ""
+"License management locked. Use editoria11y-csa:unlock to re-enable UI "
+"changes."
+msgstr ""
+"Správa licencí je uzamčena. Ke znovupovolení změn rozhraní použijte "
+"editoria11y-csa:unlock."
+
+msgid "License management unlocked. UI changes are now allowed."
+msgstr "Správa licencí odemčena. Změny rozhraní jsou nyní povoleny."
+
+msgid "License expired or cancelled."
+msgstr "Licence vypršela nebo byla zrušena."
+
+msgid "License key cannot be empty."
+msgstr "Licenční klíč nesmí být prázdný."
+
+msgid "Failed to store key: {msg}"
+msgstr "Uložení klíče selhalo: {msg}"
+
+msgid "No stored license key found. Run editoria11y-csa:set-key first."
+msgstr ""
+"Uložený licenční klíč nebyl nalezen. Nejprve spusťte editoria11y-csa:set-key."
+
+msgid "Activation failed: {msg}"
+msgstr "Aktivace selhala: {msg}"
+
+msgid "Deactivation failed: {msg}"
+msgstr "Deaktivace selhala: {msg}"
+
+msgid "License check failed: {msg}"
+msgstr "Ověření licence selhalo: {msg}"
+
+msgid "Export"
+msgstr "Exportovat"
+
+msgid "Export pages"
+msgstr "Exportovat stránky"
+
+msgid "Export dismissals"
+msgstr "Exportovat ignorování"
+
+msgid "Export alerts"
+msgstr "Exportovat upozornění"
+
+msgid "Paths with parameters"
+msgstr "Cesty s parametry"
+
+msgid "Drop records for deleted or moved pages"
+msgstr "Odstranit záznamy pro smazané nebo přesunuté stránky"
+
+msgid "Deletes results that no longer have valid paths or entity references."
+msgstr "Smaže výsledky, které již nemají platné cesty nebo odkazy na entity."
+
+msgid "Update page titles"
+msgstr "Aktualizovat titulky stránek"
+
+msgid ""
+"Replaces recorded titles for Nodes, Terms and Users with the current value "
+"on their edit page."
+msgstr ""
+"Nahradí zaznamenané titulky uzlů, termínů a uživatelů aktuálními hodnotami z "
+"jejich editačních stránek."
+
+msgid "Update page paths"
+msgstr "Aktualizovat cesty stránek"
+
+msgid ""
+"Replaces recorded URLs for Nodes, Terms and Users with their current "
+"canonical path. <br>@ReviewPaths (node/1?node=2) will not be updated."
+msgstr ""
+"Nahradí zaznamenané URL uzlů, termínů a uživatelů jejich aktuální kanonickou "
+"cestou. <br>@ReviewPaths (node/1?node=2) nebude aktualizováno."
+
+msgid "Risky deletions"
+msgstr "Riziková mazání"
+
+msgid "Delete records for paths with parameters (e.g., ?page=2)"
+msgstr "Smazat záznamy pro cesty s parametry (např. ?page=2)"
+
+msgid "None"
+msgstr "Žádné"
+
+msgid "Only for nodes, terms & users"
+msgstr "Pouze pro uzly, termíny a uživatele"
+
+msgid "All, including search and views"
+msgstr "Vše, včetně vyhledávání a zobrazení"
+
+msgid ""
+"Used to remove duplicate records when previously recorded parameters like "
+"page numbers or search keys were not meaningful. Parameters that are not "
+"meaningful should be removed from the list of parameters to save under "
+"\"Syncing results to reports\" in the module configuration.<br>@ReviewPaths "
+"should be reviewed before proceeding. <strong>There is no undo</strong>."
+msgstr ""
+"Slouží k odstranění duplicitních záznamů, pokud dříve zaznamenané parametry "
+"(jako čísla stránek nebo klíče vyhledávání) nebyly smysluplné. Nesmyslné "
+"parametry je třeba odebrat ze seznamu parametrů v sekci „Synchronizace "
+"výsledků se zprávami\" v konfiguraci modulu.<br>@ReviewPaths by měl být "
+"zkontrolován před pokračováním. <strong>Tuto operaci nelze vrátit zpět</"
+"strong>."
+
+msgid "Start"
+msgstr "Spustit"
+
+msgid "Recheck nodes"
+msgstr "Znovu zkontrolovat uzly"
+
+msgid "Set up a crawl"
+msgstr "Nastavit prohledávání"
+
+msgid "Processing batch #@batch_id of @count."
+msgstr "Zpracovává se dávka č. @batch_id z @count."
+
+msgid "@process processed @count, deleted @deleted, updated @updated."
+msgstr "@process zpracoval @count, smazáno @deleted, aktualizováno @updated."
+
+msgid ""
+"An error occurred while processing %error_operation with arguments: "
+"@arguments"
+msgstr "Při zpracování %error_operation s argumenty @arguments došlo k chybě"
+
+msgid "No records to process."
+msgstr "Nejsou žádné záznamy ke zpracování."
+
+msgid ""
+"@process processed @count, deleted @deleted, updated @updated in @elapsed."
+msgstr ""
+"@process zpracoval @count, smazáno @deleted, aktualizováno @updated za "
+"@elapsed."
+
+msgid "Admin label for the configuration page"
+msgstr "Popisek správce pro stránku konfigurace"
+
+msgid "Test grouping ID"
+msgstr "ID skupiny testů"
+
+msgid ""
+"Letters, numbers and underscores only.<br>Rules that share an ID will be "
+"grouped on dashboard reports."
+msgstr ""
+"Pouze písmena, čísla a podtržítka.<br>Pravidla se stejným ID budou seskupena "
+"v přehledech."
+
+msgid "Active"
+msgstr "Aktivní"
+
+msgid "Alert content"
+msgstr "Obsah upozornění"
+
+msgid "Tip title"
+msgstr "Název tipu"
+
+msgid "Tip details"
+msgstr "Podrobnosti tipu"
+
+msgid ""
+"HTML displayed in the tooltip. The provided template is optional.<br>\n"
+"        Allowed tags: @tags."
+msgstr ""
+"HTML zobrazené v nápovědě. Poskytnutá šablona je volitelná.<br>\n"
+"        Povolené tagy: @tags."
+
+msgid "To fix"
+msgstr "K nápravě"
+
+msgid "Error"
+msgstr "Chyba"
+
+msgid "Manual check"
+msgstr "Ruční kontrola"
+
+msgid "Dismiss key"
+msgstr "Klíč ignorování"
+
+msgid ""
+"How dismissals are tracked. 'Text' uses its text content, 'Attributes' uses "
+"its attributes (href, id, class, src)."
+msgstr ""
+"Jak jsou ignorování sledována. 'Text' používá textový obsah, 'Attributes' "
+"používá atributy (href, id, class, src)."
+
+msgid "Text content"
+msgstr "Textový obsah"
+
+msgid "Attributes on tag (e.g. href and src)"
+msgstr "Atributy tagu (např. href a src)"
+
+msgid "Elements to check"
+msgstr "Prvky ke kontrole"
+
+msgid ""
+"These sets contain elements that match your check area and skip over "
+"configuration."
+msgstr ""
+"Tyto sady obsahují prvky odpovídající oblasti kontroly a přeskakují "
+"konfiguraci."
+
+msgid "Common choices"
+msgstr "Časté volby"
+
+msgid "All text elements: Headings, Paragraphs, Blockquotes and Lists"
+msgstr "Všechny textové prvky: nadpisy, odstavce, blokové citace a seznamy"
+
+msgid "Links"
+msgstr "Odkazy"
+
+msgid "Paragraphs"
+msgstr "Odstavce"
+
+msgid "Headings"
+msgstr "Nadpisy"
+
+msgid "Images"
+msgstr "Obrázky"
+
+msgid "All elements"
+msgstr "Všechny prvky"
+
+msgid "...other..."
+msgstr "...jiné..."
+
+msgid "Specific elements and combinations"
+msgstr "Konkrétní prvky a kombinace"
+
+msgid "Lists"
+msgstr "Seznamy"
+
+msgid "Blockquotes"
+msgstr "Blokové citace"
+
+msgid "Tables"
+msgstr "Tabulky"
+
+msgid "Buttons"
+msgstr "Tlačítka"
+
+msgid "Inputs"
+msgstr "Vstupní pole"
+
+msgid "Labels"
+msgstr "Popisky"
+
+msgid "Iframes"
+msgstr "Iframes"
+
+msgid "Videos"
+msgstr "Videa"
+
+msgid "Audio"
+msgstr "Audio"
+
+msgid ""
+"Note: combining Links with Paragraphs and other text containers can lead to "
+"duplicate alerts."
+msgstr ""
+"Poznámka: kombinování odkazů s odstavci a jinými textovými kontejnery může "
+"vést k duplicitním upozorněním."
+
+msgid "When tip should appear"
+msgstr "Kdy se má tip zobrazit"
+
+msgid ""
+"This test builder allows for simple text and attribute tests.<br>Check the "
+"module readme for <a href=\"@url\">tips on writing more complex tests</a>."
+msgstr ""
+"Tento nástroj pro tvorbu testů umožňuje jednoduché testy textu a atributů."
+"<br>Přečtěte si readme modulu pro <a href=\"@url\">tipy na psaní "
+"složitějších testů</a>."
+
+msgid "Select by attributes"
+msgstr "Vybrat podle atributů"
+
+msgid ""
+"Match using CSS selectors.<br>Use :not() to skip elements, e.g. "
+"<code>:is(.check1, .check2):not(.ignore, .ignore *)</code>.<br>Use attribute "
+"selectors for URLs, e.g. <code>[href*=\".dev/\"]</code>."
+msgstr ""
+"Shoda pomocí CSS selektorů.<br>Použijte :not() k přeskočení prvků, např. "
+"<code>:is(.check1, .check2):not(.ignore, .ignore *)</code>.<br>Použijte "
+"selektory atributů pro URL, např. <code>[href*=\".dev/\"]</code>."
+
+msgid "Select by text"
+msgstr "Vybrat podle textu"
+
+msgid "Flag elements containing any of these text strings. One per line."
+msgstr ""
+"Označit prvky obsahující kterýkoliv z těchto textových řetězců. Jeden na "
+"řádek."
+
+msgid "Case sensitive"
+msgstr "Rozlišovat velikost písmen"
+
+msgid "Exclude elements that match this text"
+msgstr "Vyloučit prvky odpovídající tomuto textu"
+
+msgid ""
+"Don't flag elements if they contain any of these words or phrases. E.g., a "
+"link to a development server is ok if it contains \"dev.\" One per line."
+msgstr ""
+"Neoznačovat prvky, pokud obsahují některé z těchto slov nebo frází. Např. "
+"odkaz na vývojový server je v pořádku, pokud obsahuje „dev.\" Jedno na řádek."
+
+msgid "Test key must contain only letters, numbers, and underscores."
+msgstr "Klíč testu smí obsahovat pouze písmena, čísla a podtržítka."
+
+msgid "Tip content must contain visible text."
+msgstr "Obsah tipu musí obsahovat viditelný text."
+
+msgid "Select at least one rule."
+msgstr "Vyberte alespoň jedno pravidlo."
+
+msgid "Select at least one element type."
+msgstr "Vyberte alespoň jeden typ prvku."
+
+msgid "The filter selector should be a CSS selector, not a CSS rule block."
+msgstr "Selektor filtru musí být CSS selektor, nikoli blok pravidel CSS."
+
+msgid "Created new custom test %label."
+msgstr "Byl vytvořen nový vlastní test %label."
+
+msgid "Updated custom test %label."
+msgstr "Vlastní test %label byl aktualizován."
+
+msgid "Are you deactivating this site or cancelling altogether?"
+msgstr "Deaktivujete pouze tento web, nebo rušíte předplatné úplně?"
+
+msgid "You can manage your subscriptions at any time in your Freemius account."
+msgstr "Svá předplatná můžete spravovat kdykoli ve svém účtu Freemius."
+
+msgid "Choose an action"
+msgstr "Zvolte akci"
+
+msgid ""
+"<strong>Deactivate this site</strong>, but keep my subscription active and "
+"renewing for use on another site"
+msgstr ""
+"<strong>Deaktivovat tento web</strong>, ale ponechat předplatné aktivní a "
+"obnovující se pro použití na jiném webu"
+
+msgid ""
+"<strong>Cancel my subscription</strong> to the Editoria11y CSA altogether"
+msgstr "<strong>Zrušit mé předplatné</strong> Editoria11y CSA úplně"
+
+msgid "Confirm deactivation"
+msgstr "Potvrdit deaktivaci"
+
+msgid "Never mind; keep site active"
+msgstr "Zrušit; ponechat web aktivní"
+
+msgid ""
+"This site appears to be a development or testing environment with an active "
+"license."
+msgstr ""
+"Zdá se, že tento web je vývojové nebo testovací prostředí s aktivní licencí."
+
+msgid "How would you like to proceed?"
+msgstr "Jak chcete pokračovat?"
+
+msgid ""
+"<strong>Cancel deactivation</strong>; I will manage this from the production "
+"site"
+msgstr ""
+"<strong>Zrušit deaktivaci</strong>; budu to spravovat z produkčního webu"
+
+msgid ""
+"<strong>Disconnect this copy</strong>; leave the production license active"
+msgstr ""
+"<strong>Odpojit tuto kopii</strong>; ponechat produkční licenci aktivní"
+
+msgid ""
+"<strong>Deactivate all copies of this site</strong> (production, dev, and QA)"
+msgstr ""
+"<strong>Deaktivovat všechny kopie tohoto webu</strong> (produkce, dev a QA)"
+
+msgid "Confirm"
+msgstr "Potvrdit"
+
+msgid ""
+"Editoria11y promotes accessibility in a unique way. Its tools are highly "
+"effective at helping non-technical authors prepare content that can be "
+"enjoyed equally by disabled Web users. We consider this a public good, so "
+"Editoria11y will always be free to use."
+msgstr ""
+"Editoria11y propaguje přístupnost jedinečným způsobem. Jeho nástroje jsou "
+"velmi účinné při pomoci netechnickým autorům připravit obsah, který mohou ve "
+"stejné míře využívat uživatelé webu s postižením. Považujeme to za veřejný "
+"statek, proto bude Editoria11y vždy zdarma k použití."
+
+msgid "Editoria11y is not, however, free to develop or support."
+msgstr "Editoria11y však není zdarma vyvíjet ani podporovat."
+
+msgid ""
+"The \"Community Supported Add-ons\" (CSA) project fills the gap: project "
+"membership subscriptions fund the development of the Editoria11y library, "
+"its CMS plugins, and the CSA suite."
+msgstr ""
+"Projekt „Community Supported Add-ons\" (CSA) tuto mezeru vyplňuje: "
+"předplatné členství v projektu financuje vývoj knihovny Editoria11y, jejích "
+"CMS pluginů a sady CSA."
+
+msgid ""
+"<a href=\"@url\"><strong>Join the CSA</strong></a> to support this project"
+msgstr ""
+"<a href=\"@url\"><strong>Přidejte se k CSA</strong></a> a podpořte tento "
+"projekt"
+
+msgid ""
+"Existing members: <a href=\"@url\"><strong>Manage your subscription</"
+"strong></a> or <a href=\"@support_url\"><strong>contact support</strong></a>"
+msgstr ""
+"Stávající členové: <a href=\"@url\"><strong>Spravovat předplatné</strong></"
+"a> nebo <a href=\"@support_url\"><strong>kontaktovat podporu</strong></a>"
+
+msgid ""
+"License management on this site has been locked via Drush. Use <code>drush "
+"ed11y-unlock</code> to re-enable changes from this form."
+msgstr ""
+"Správa licencí na tomto webu byla uzamčena přes Drush. Ke znovupovolení změn "
+"z tohoto formuláře použijte <code>drush ed11y-unlock</code>."
+
+msgid "Warning: this site matches a dev or QA URL pattern"
+msgstr "Upozornění: tento web odpovídá vzoru URL vývojového nebo QA prostředí"
+
+msgid "Shared activations should be managed in the production copy."
+msgstr "Sdílené aktivace by měly být spravovány v produkční kopii."
+
+msgid ""
+"Use <code>drush ed11y-lock</code> to prevent changing shared activations."
+msgstr ""
+"Ke zamezení změn sdílených aktivací použijte <code>drush ed11y-lock</code>."
+
+msgid ""
+"Deactivating a shared key deactivates all copies of a site, including "
+"production."
+msgstr ""
+"Deaktivace sdíleného klíče deaktivuje všechny kopie webu, včetně produkce."
+
+msgid ""
+"Separate license activations from a development environment consume an "
+"additional key."
+msgstr ""
+"Samostatné aktivace licence z vývojového prostředí spotřebují další klíč."
+
+msgid "Trial (@days days remaining)"
+msgstr "Zkušební verze (zbývá @days dní)"
+
+msgid "Trial (expired)"
+msgstr "Zkušební verze (vypršela)"
+
+msgid "License expired"
+msgstr "Licence vypršela"
+
+msgid "Active membership"
+msgstr "Aktivní členství"
+
+msgid "Activate using stored license key"
+msgstr "Aktivovat pomocí uloženého licenčního klíče"
+
+msgid "Activate with a different license key"
+msgstr "Aktivovat jiným licenčním klíčem"
+
+msgid "Activate (enter license key below)"
+msgstr "Aktivovat (zadejte licenční klíč níže)"
+
+msgid "<strong>License expired.</strong> Expired on: @date"
+msgstr "<strong>Licence vypršela.</strong> Vypršela dne: @date"
+
+msgid "<strong>License has expired.</strong>"
+msgstr "<strong>License has expired.</strong>"
+
+msgid "<strong>Trial license active.</strong> Trial ends: @date"
+msgstr "<strong>Zkušební licence aktivní.</strong> Zkušební doba končí: @date"
+
+msgid "<strong>License active.</strong> Expires: @date"
+msgstr "<strong>Licence aktivní.</strong> Vyprší: @date"
+
+msgid "<strong>Lifetime license active.</strong>"
+msgstr "<strong>Lifetime license active.</strong>"
+
+msgid "Check for license renewal"
+msgstr "Zkontrolovat obnovení licence"
+
+msgid "Deactivate license"
+msgstr "Deaktivovat licenci"
+
+msgid "A license key is stored but not active"
+msgstr "Licenční klíč je uložen, ale není aktivní"
+
+msgid "Add a license key to enable CSA features"
+msgstr "Přidejte licenční klíč pro zapnutí funkcí CSA"
+
+msgid "Enable CSA features"
+msgstr "Zapnout funkce CSA"
+
+msgid "CSA license key"
+msgstr "Licenční klíč CSA"
+
+msgid ""
+"<a href=\"@url\">Join the CSA</a> to enable CSA features. Visit the Freemius "
+"dashboard to <a href=\"@freemius\">manage your subscription</a> or recover a "
+"lost key."
+msgstr ""
+"<a href=\"@url\">Přidejte se k CSA</a> pro zapnutí funkcí CSA. Přejděte do "
+"přehledu Freemius a <a href=\"@freemius\">spravujte předplatné</a> nebo "
+"obnovte ztracený klíč."
+
+msgid "Local, Dev and QA site URL patterns"
+msgstr "Vzory URL lokálních, vývojových a QA webů"
+
+msgid ""
+"One pattern per line, up to 5 patterns. Wildcards are supported (e.g. "
+"<code>*.test.example.com</code>).<br>Local, dev and QA sites can share an "
+"activation with production site, but only production sites check for "
+"renewals."
+msgstr ""
+"Jeden vzor na řádek, nejvýše 5 vzorů. Zástupné znaky jsou podporovány (např. "
+"<code>*.test.example.com</code>).<br>Lokální, vývojové a QA weby mohou "
+"sdílet aktivaci s produkčním webem, ale pouze produkční weby kontrolují "
+"obnovení."
+
+msgid ""
+"Additionally, any hostname consisting only of digits and dots (raw IPv4 "
+"address) is treated as a development environment."
+msgstr ""
+"Dále je jakýkoliv název hostitele tvořený pouze číslicemi a tečkami (raw "
+"IPv4 adresa) považován za vývojové prostředí."
+
+msgid "Built-in development URL patterns"
+msgstr "Vestavěné vzory URL pro vývoj"
+
+msgid "Enter no more than 5 custom domain patterns."
+msgstr "Zadejte nejvýše 5 vlastních vzorů domén."
+
+msgid "Saved license key not found. Please activate with a new key."
+msgstr "Uložený licenční klíč nebyl nalezen. Aktivujte s novým klíčem."
+
+msgid "Enter a license key."
+msgstr "Zadejte licenční klíč."
+
+msgid "Activation failed: @msg"
+msgstr "Aktivace selhala: @msg"
+
+msgid "License renewed and active."
+msgstr "Licence obnovena a aktivní."
+
+msgid "License is still expired."
+msgstr "Licence stále vypršela."
+
+msgid "Unexpected license status: @status"
+msgstr "Neočekávaný stav licence: @status"
+
+msgid "Could not reach licensing server: @msg"
+msgstr "Nelze se připojit k licenčnímu serveru: @msg"
+
+msgid "Deactivation failed: @msg"
+msgstr "Deaktivace selhala: @msg"
+
+msgid "Editoria11y Export Batch Processor"
+msgstr "Editoria11y – dávkové zpracování exportů"
+
+msgid ""
+"Batching is only needed for very large or heavily customized CSV exports."
+msgstr "Dávkové zpracování je potřeba jen u velmi rozsáhlých nebo silně přizpůsobených CSV exportů."
+
+msgid "hide"
+msgstr "hide"
+
+msgid "ok"
+msgstr "ok"
+
+msgid "Yes"
+msgstr "Ano"
+
+msgid "No"
+msgstr "Ne"
+
+msgid "This alt text is a filename, not a description"
+msgstr "Tento alternativní text je název souboru, ne popis"
+
+msgid "Is this a clear and concise description of the image?"
+msgstr "Je toto jasný a stručný popis obrázku?"
+
+msgid "This alt text may be a placeholder"
+msgstr "Tento alternativní text může být zástupným textem"
+
+msgid "This alt text is unpronounceable"
+msgstr "Tento alternativní text nelze vyslovit"
+
+msgid "This custom input field is missing a label"
+msgstr "Tomuto vlastnímu vstupnímu poli chybí popisek"
+
+msgid "Button is missing an accessible label"
+msgstr "Tlačítku chybí přístupný popisek"
+
+msgid "Button has an invalid ARIA label"
+msgstr "Tlačítko má neplatný ARIA popisek"
+
+msgid "Button name repeats the word \"button\""
+msgstr "Název tlačítka opakuje slovo „button\""
+
+msgid "This button is unpronounceable"
+msgstr "Toto tlačítko nelze vyslovit"
+
+msgid "Text does not have enough contrast to be easily legible"
+msgstr "Text nemá dostatečný kontrast pro snadné čtení"
+
+msgid "Graphic or icon does not have enough contrast"
+msgstr "Grafika nebo ikona nemá dostatečný kontrast"
+
+msgid "Input does not provide enough contrast to be easily legible"
+msgstr "Vstupní pole nemá dostatečný kontrast pro snadné čtení"
+
+msgid "Placeholder text does not have enough contrast to be easily legible"
+msgstr "Zástupný text nemá dostatečný kontrast pro snadné čtení"
+
+msgid "Does this placeholder text have enough contrast?"
+msgstr "Má tento zástupný text dostatečný kontrast?"
+
+msgid "Does this text have enough contrast?"
+msgstr "Má tento text dostatečný kontrast?"
+
+msgid "Does this graphic or icon have enough contrast?"
+msgstr "Má tato grafika nebo ikona dostatečný kontrast?"
+
+msgid "Duplicate ID attribute"
+msgstr "Duplicitní atribut ID"
+
+msgid "This link has a tooltip with the same text as the link"
+msgstr "Tento odkaz má tooltip se stejným textem jako odkaz"
+
+msgid "Does this audio have a transcript?"
+msgstr "Má tento zvukový obsah přepis?"
+
+msgid "Is this visualization accessible?"
+msgstr "Je tato vizualizace přístupná?"
+
+msgid "Embedded iframes need manual checks"
+msgstr "Vložené prvky iframe vyžadují ruční kontrolu"
+
+msgid "Frame missing \"title\" attribute"
+msgstr "Rámci chybí atribut „title\""
+
+msgid "Frame with tabindex=\"-1\" will not be keyboard accessible."
+msgstr "Rámec s tabindex=\"-1\" nebude dostupný pomocí klávesnice."
+
+msgid "Is this video accurately captioned?"
+msgstr "Je toto video přesně titulkováno?"
+
+msgid "This heading has no text"
+msgstr "Tento nadpis nemá žádný text"
+
+msgid "This image is used as a heading, so it needs alt text"
+msgstr "Tento obrázek je použit jako nadpis, proto potřebuje alternativní text"
+
+msgid "The first heading on this page is a subheading"
+msgstr "První nadpis na této stránce je podnadpis"
+
+msgid "Can this heading be shorter?"
+msgstr "Může být tento nadpis kratší?"
+
+msgid "This page is missing a Heading 1"
+msgstr "Na této stránce chybí nadpis 1. úrovně"
+
+msgid "This heading is tagged at the wrong level"
+msgstr "Tento nadpis je označen na nesprávné úrovni"
+
+msgid "This heading is unpronounceable"
+msgstr "Tento nadpis nelze vyslovit"
+
+msgid "This element cannot be described by screen readers"
+msgstr "Tento prvek nemohou čtečky obrazovky popsat"
+
+msgid "Can this alt text be shorter?"
+msgstr "Může být tento alternativní text kratší?"
+
+msgid "Is this image actually meaningless?"
+msgstr "Je tento obrázek skutečně bez významu?"
+
+msgid "Image in a carousel or gallery marked as decorative"
+msgstr "Obrázek v karuselu nebo galerii je označen jako dekorativní"
+
+msgid "This captioned image has no alt text"
+msgstr "Obrázek s popiskem nemá alternativní text"
+
+msgid "Alt text should not be the same as caption text"
+msgstr "Alternativní text by neměl být stejný jako text popisku"
+
+msgid "Is there a visible label for this field?"
+msgstr "Má toto pole viditelný popisek?"
+
+msgid "Prefer visible labels to placeholders"
+msgstr "Dávejte přednost viditelným popiskům před zástupným textem"
+
+msgid "Is this reset button needed?"
+msgstr "Je toto tlačítko pro reset nutné?"
+
+msgid "This input has an empty label"
+msgstr "Toto vstupní pole má prázdný popisek"
+
+msgid "Visible label does not match invisible label"
+msgstr "Viditelný popisek neodpovídá neviditelnému popisku"
+
+msgid "This image input is missing alt text"
+msgstr "Tomuto obrázkovému tlačítku chybí alternativní text"
+
+msgid "This input is not connected to a label"
+msgstr "Toto vstupní pole není propojeno s popiskem"
+
+msgid "Language tag does not match the content"
+msgstr "Jazykový atribut neodpovídá obsahu"
+
+msgid "This content appears to be in a different language"
+msgstr "Zdá se, že tento obsah je v jiném jazyce"
+
+msgid "This alt text appears to be in a different language"
+msgstr "Zdá se, že tento alternativní text je v jiném jazyce"
+
+msgid "Alt text used as a link should not be a URL"
+msgstr "Alternativní text použitý jako odkaz by neměl být URL"
+
+msgid "This linked alt might not be clear and concise"
+msgstr ""
+"Alternativní text tohoto odkazovaného obrázku nemusí být jasný a stručný"
+
+msgid "Linked images need pronounceable alt text"
+msgstr "Obrázky jako odkazy potřebují vyslovitelný alternativní text"
+
+msgid "Manual check: link contains \"click here\""
+msgstr "Ruční kontrola: odkaz obsahuje „klikněte zde\""
+
+msgid "Link article titles, not DOI numbers"
+msgstr "Odkazujte na názvy článků, ne na čísla DOI"
+
+msgid "This link contains no words"
+msgstr "Tento odkaz neobsahuje žádná slova"
+
+msgid "Link with invalid \"aria-labelledby\" attribute"
+msgstr "Odkaz s neplatným atributem „aria-labelledby\""
+
+msgid "This link needs a label"
+msgstr "Tento odkaz potřebuje popisek"
+
+msgid "Link points to a file without warning"
+msgstr "Odkaz vede na soubor bez upozornění"
+
+msgid "Links with the same text link to different pages"
+msgstr "Odkazy se stejným textem vedou na různé stránky"
+
+msgid "Does this alt text describe the link or the image?"
+msgstr "Popisuje tento alternativní text odkaz, nebo obrázek?"
+
+msgid "Does this alt text make sense as part of this link?"
+msgstr "Dává tento alternativní text smysl jako součást tohoto odkazu?"
+
+msgid "Can this linked alt text be shorter?"
+msgstr "Může být tento alternativní text odkazu kratší?"
+
+msgid "This linked image needs alt text"
+msgstr "Tento odkazovaný obrázek potřebuje alternativní text"
+
+msgid "Does this linked image need a description?"
+msgstr "Potřebuje tento odkazovaný obrázek popis?"
+
+msgid "Is this link actually a button?"
+msgstr "Je tento odkaz ve skutečnosti tlačítko?"
+
+msgid "Does this link open a new tab without warning?"
+msgstr "Otevírá tento odkaz novou záložku bez upozornění?"
+
+msgid "This linked alt text may be a placeholder"
+msgstr ""
+"Alternativní text tohoto odkazovaného obrázku může být zástupným textem"
+
+msgid "This link only contains generic words"
+msgstr "Tento odkaz obsahuje pouze obecná slova"
+
+msgid "The purpose of this link is visually hidden"
+msgstr "Účel tohoto odkazu je vizuálně skrytý"
+
+msgid "Does this image's alt describe the image or the link?"
+msgstr "Popisuje alternativní text tohoto obrázku obrázek, nebo odkaz?"
+
+msgid "Are the symbols or emoji in this link meaningful?"
+msgstr "Jsou symboly nebo emoji v tomto odkazu smysluplné?"
+
+msgid "This link is unpronounceable"
+msgstr "Tento odkaz nelze vyslovit"
+
+msgid "Link text should not be a URL"
+msgstr "Text odkazu by neměl být URL"
+
+msgid "Meta tag for page language missing"
+msgstr "Chybí meta tag jazyka stránky"
+
+msgid "Did you mean a different language code?"
+msgstr "Nemělo to být jiný kód jazyka?"
+
+msgid "Invalid language code"
+msgstr "Neplatný kód jazyka"
+
+msgid "Page language may not match the content"
+msgstr "Jazyk stránky nemusí odpovídat obsahu"
+
+msgid "Meta tag limits how much users can enlarge text"
+msgstr "Meta tag omezuje možnost zvětšení textu"
+
+msgid "Meta tag automatically refreshes page"
+msgstr "Meta tag automaticky obnovuje stránku"
+
+msgid "Meta tag prevents users from enlarging text"
+msgstr "Meta tag zabraňuje uživatelům zvětšit text"
+
+msgid "Meta tag for page title missing"
+msgstr "Chybí meta tag názvu stránky"
+
+msgid "Invalid HTML: image has no alt attribute"
+msgstr "Neplatné HTML: obrázku chybí atribut alt"
+
+msgid "Invalid HTML: linked image missing alt attribute"
+msgstr "Neplatné HTML: odkazovanému obrázku chybí atribut alt"
+
+msgid "Invalid HTML: image in link missing alt attribute"
+msgstr "Neplatné HTML: obrázku v odkazu chybí atribut alt"
+
+msgid "This link target may be invalid"
+msgstr "Cíl odkazu může být neplatný"
+
+msgid "Should this quote be a heading?"
+msgstr "Měla by být tato citace nadpisem?"
+
+msgid "Has this document been tagged for screen readers?"
+msgstr "Je tento dokument označen pro čtečky obrazovky?"
+
+msgid "Should this bold text be a heading?"
+msgstr "Měl by být tento tučný text nadpisem?"
+
+msgid "Should this have list formatting?"
+msgstr "Měl by mít tento obsah formátování seznamu?"
+
+msgid "Broken same-page link"
+msgstr "Nefunkční odkaz na stejné stránce"
+
+msgid "Do not justify text"
+msgstr "Nepoužívejte zarovnání do bloku"
+
+msgid "Nested interactive layout components"
+msgstr "Vnořené interaktivní komponenty rozvržení"
+
+msgid "Is there an alternative for this PDF?"
+msgstr "Existuje alternativa k tomuto PDF?"
+
+msgid "Text is too small"
+msgstr "Text je příliš malý"
+
+msgid "Large blocks of emphasized text are harder to read"
+msgstr "Velké bloky zvýrazněného textu jsou hůře čitelné"
+
+msgid "Do not use sub/superscript as visual formatting"
+msgstr "Nepoužívejte dolní a horní index jen pro vizuální formátování"
+
+msgid "Only links should be underlined"
+msgstr "Podtržené by měly být pouze odkazy"
+
+msgid "Is this uppercase text needed?"
+msgstr "Je tento text velkými písmeny nutný?"
+
+msgid "Are there redundant words in this alt text?"
+msgstr "Obsahuje tento alternativní text nadbytečná slova?"
+
+msgid "Tabindex overrides interrupt the focus order"
+msgstr "Přepsání tabindexu narušuje pořadí procházení"
+
+msgid "This header cell needs text"
+msgstr "Tato buňka záhlaví potřebuje text"
+
+msgid "This table has an invalid headers attribute"
+msgstr "Tato tabulka má neplatný atribut „headers“"
+
+msgid "This table needs a header row and/or column"
+msgstr "Tato tabulka potřebuje řádek nebo sloupec záhlaví"
+
+msgid "Content headings should not be used inside tables"
+msgstr "Nadpisy obsahu by se neměly používat uvnitř tabulek"
+
+msgid "Invalid HTML list"
+msgstr "Neplatný seznam HTML"
+
+msgid "Linked images"
+msgstr "Obrázky v odkazech"
+
+msgid "Text formatting"
+msgstr "Formátování textu"
+
+msgid "Video, audio, frames"
+msgstr "Video, audio, rámce"
+
+msgid "Contrast"
+msgstr "Kontrast"
+
+msgid "Forms"
+msgstr "Formuláře"
+
+msgid "ARIA and focus"
+msgstr "ARIA a zaměření"
+
+msgid "Page metadata"
+msgstr "Metadata stránky"
+
+msgid "The request could not be processed. Details have been logged."
+msgstr "Požadavek nebylo možné zpracovat. Podrobnosti byly zaznamenány do protokolu."
+
+msgid "API request rejected: @message"
+msgstr "Požadavek API byl odmítnut: @message"
+
+msgid "API request failed: @message"
+msgstr "Požadavek API selhal: @message"
+
+msgid "Export pages with alerts"
+msgstr "Exportovat stránky s upozorněními"
+
+msgid ""
+"Install the Editoria11y Export Batch Processor module to download these "
+"reports."
+msgstr "Nainstalujte modul Editoria11y Export Batch Processor pro stažení těchto přehledů."
+
+msgid "Export results"
+msgstr "Exportovat výsledky"
+
+msgctxt "problems"
+msgid "Top alerts"
+msgstr "Nejčastější upozornění"
+
+msgctxt "problems"
+msgid "Pages with the most alerts"
+msgstr "Stránky s nejvíce upozorněními"
+
+msgid "Recent dismissals"
+msgstr "Nejnovější ignorování"
+
+msgid ""
+"Activate the <a href=\"@csa\">Editoria11y CSA submodule</a> to see developer "
+"tests."
+msgstr ""
+"Aktivujte <a href=\"@csa\">submodul Editoria11y CSA</a> pro zobrazení testů "
+"pro vývojáře."
+
+msgid "Include all parts of the page that contain your theme and content."
+msgstr "Zahrňte všechny části stránky, které obsahují váš motiv a obsah."
+
+msgid "Include all parts of the page that contain your editable content."
+msgstr "Zahrňte všechny části stránky, které obsahují váš upravitelný obsah."
+
+msgid "Exclude elements that show unhelpful, repetitive, or inaccurate alerts."
+msgstr ""
+"Vylučte prvky, které zobrazují neužitečná, opakující se nebo nepřesná "
+"upozornění."
+
+msgid ""
+"<a href=\"@permissions\">Add permissions</a>, especially \"View Editoria11y "
+"checker\" and \"Mark OK.\"</a>"
+msgstr ""
+"<a href=\"@permissions\">Add permissions</a>, especially \"View Editoria11y "
+"checker\" and \"Mark OK.\"</a>"
+
+msgid ""
+"If you need help: <a href=\"@config_guide\">Configuration Guide</a> | <a "
+"href=\"@issue_queue\">Issue Queue</a> | <a href=\"@help\">Support contacts</"
+"a>"
+msgstr ""
+"Pokud potřebujete pomoc: <a href=\"@config_guide\">Průvodce konfigurací</a> "
+"| <a href=\"@issue_queue\">Fronta problémů</a> | <a href=\"@help\">Kontakty "
+"podpory</a>"
+
+msgid "Autodetect"
+msgstr "Automatická detekce"
+
+msgid "Only user-editable content"
+msgstr "Pouze uživatelsky upravitelný obsah"
+
+msgid "Other"
+msgstr "Jiné"
+
+msgid "Parts of the page to test"
+msgstr "Části stránky ke kontrole"
+
+msgid "\"Autodetect\" selects:"
+msgstr "„Automatická detekce\" vybírá:"
+
+msgid "Other: specify regions to check for developer and content problems"
+msgstr "Jiné: zadejte oblasti pro kontrolu problémů vývojářů a obsahu"
+
+msgid ""
+"Provide CSS selectors. For many sites, the site theme is wrapped in "
+"<code>.dialog-off-canvas-main-canvas</code> while editing."
+msgstr ""
+"Zadejte CSS selektory. Na mnoha webech je motiv webu při editaci obalen v "
+"<code>.dialog-off-canvas-main-canvas</code>."
+
+msgid "Do not check for any errors inside these elements"
+msgstr "Nekontrolovat žádné chyby uvnitř těchto prvků"
+
+msgid "These parts of the page will be ignored entirely."
+msgstr "Tyto části stránky budou zcela ignorovány."
+
+msgid "match content settings"
+msgstr "odpovídat nastavení obsahu"
+
+msgid "Page regions with user-editable content"
+msgstr "Oblasti stránky s uživatelsky upravitelným obsahem"
+
+msgid ""
+"Default: <code><em>main</em></code><br>Provide <a target=\"_blank\" "
+"href=\"https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/"
+"Selectors\">CSS selectors</a>. Content authors will only see the alerts "
+"within these parts of the page. Do not provide selectors that nest within "
+"each other, or the inner content will be checked twice."
+msgstr ""
+"Výchozí: <code><em>main</em></code><br>Zadejte <a target=\"_blank\" "
+"href=\"https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/"
+"Selectors\">CSS selektory</a>. Autoři obsahu uvidí upozornění pouze v těchto "
+"částech stránky. Nezadávejte selektory, které se navzájem vnořují, jinak "
+"bude vnitřní obsah kontrolován dvakrát."
+
+msgid ""
+"Default: <code><em>main</em></code><br>Provide <a target=\"_blank\" "
+"href=\"https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/"
+"Selectors\">CSS selectors</a>. Do not provide selectors that nest within "
+"each other, or the inner content will be checked twice."
+msgstr ""
+"Výchozí: <code><em>main</em></code><br>Zadejte <a target=\"_blank\" "
+"href=\"https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/"
+"Selectors\">CSS selektory</a>. Nezadávejte selektory, které se navzájem "
+"vnořují, jinak bude vnitřní obsah kontrolován dvakrát."
+
+msgid "Errors in these elements should only be shown to developers"
+msgstr "Chyby v těchto prvcích by měly být zobrazeny pouze vývojářům"
+
+msgid "Do not check for content errors inside these elements"
+msgstr "Nekontrolovat chyby obsahu uvnitř těchto prvků"
+
+msgid ""
+"Content editors are not responsible for errors in these elements. <br>E.g.: "
+"<code><em>#sidebar-menu a, .slide [aria-hidden=\"true\"]</em></code>."
+msgstr ""
+"Editoři obsahu nejsou zodpovědní za chyby v těchto prvcích. <br>Např.: "
+"<code><em>#sidebar-menu a, .slide [aria-hidden=\"true\"]</em></code>."
+
+msgid "Roles that will see developer alerts"
+msgstr "Role, které uvidí upozornění pro vývojáře"
+
+msgid ""
+"All roles with the <a href=\":url\">View editoria11y checker</a> permission "
+"see content alerts."
+msgstr ""
+"Všechny role s oprávněním <a href=\":url\">Zobrazit nástroj editoria11y</a> "
+"vidí upozornění obsahu."
+
+msgid "Advanced settings"
+msgstr "Pokročilá nastavení"
+
+msgid "Assertiveness"
+msgstr "Asertivita"
+
+msgid "Checker mode for content roles"
+msgstr "Režim kontroly pro role obsahu"
+
+msgid "Start open if there are any alerts"
+msgstr "Otevřít při jakýchkoliv upozorněních"
+
+msgid "Start open if there are new alerts"
+msgstr "Otevřít při nových upozorněních"
+
+msgid "Start minimized"
+msgstr "Spustit minimalizovaně"
+
+msgid ""
+"Choose when the control panel should open and show inline tips. \"Start open "
+"if there are any alerts\" is recommended, as it helps tips get noticed over "
+"time."
+msgstr ""
+"Vyberte, kdy se má ovládací panel otevřít a zobrazit vložené tipy. "
+"Doporučuje se „Otevřít při jakýchkoliv upozorněních\", protože to pomáhá "
+"tipům být postupem času více přesné."
+
+msgid "Checker mode for developer roles"
+msgstr "Režim kontroly pro role vývojářů"
+
+msgid "Do not check any content while it is being edited"
+msgstr "Nekontrolovat žádný obsah při jeho editaci"
+
+msgid ""
+"Use the \"Do not check on pages with these elements\" setting to prevent "
+"checking only on specific pages. E.g., exclude: <code><em>form[id^=\"node-"
+"article\"]</em></code>."
+msgstr ""
+"Nastavení „Nekontrolovat na stránkách s těmito prvky\" použijte pro zamezení "
+"kontroly pouze na konkrétních stránkách. Např. vylučte: "
+"<code><em>form[id^=\"node-article\"]</em></code>."
+
+msgid "Assign headers to CKEditor tables on insert"
+msgstr "Přiřadit záhlaví tabulkám CKEditoru při vkládání"
+
+msgid "First row"
+msgstr "První řádek"
+
+msgid "First column"
+msgstr "První sloupec"
+
+msgid "Both"
+msgstr "Obojí"
+
+msgid ""
+"You will need to clear cache for changes to this setting to appear in "
+"CKEditor."
+msgstr ""
+"Pro projevení změn tohoto nastavení v CKEditoru je třeba vymazat mezipaměť."
+
+msgid "Theme compatibility"
+msgstr "Kompatibilita motivu"
+
+msgid "Configuration tips"
+msgstr "Tipy ke konfiguraci"
+
+msgid ""
+"If the checker <strong>toggle</strong> does not appear: make sure a z-"
+"indexed or overflow-hidden element in your front-end theme is not hiding or "
+"covering the <code><em>ed11y-element-panel</em></code> container, make sure "
+"that any custom selectors in the \"Disable the scanner if these elements are "
+"detected\" field are not present, and make sure that no JavaScript errors "
+"are appearing in your <a href=\"https://developer.mozilla.org/en-US/docs/"
+"Tools/Browser_Console\"> browser console</a>"
+msgstr ""
+"Pokud se <strong>přepínač</strong> nástroje nezobrazuje: ujistěte se, že "
+"prvek s z-indexem nebo overflow-hidden v motivu frontendu neskrývá ani "
+"nezakrývá kontejner <code><em>ed11y-element-panel</em></code>, a ujistěte "
+"se, že žádné vlastní selektory v poli „Zakázat kontrolu, jsou-li na stránce "
+"tyto prvky\" nejsou přítomny, a že se v <a href=\"https://"
+"developer.mozilla.org/en-US/docs/Tools/Browser_Console\">konzoli prohlížeče</"
+"a> nevyskytují chyby JavaScriptu"
+
+msgid ""
+"If the checker toggle is present but <strong>not detecting</strong> errors, "
+"or missing errors that should be flagged: check that your inclusions & "
+"exclusion settings below are not missing or ignoring the elements. It is not "
+"uncommon for homepages or views to insert editable content outside the "
+"<code><em>main</em></code> element."
+msgstr ""
+"Pokud je přepínač nástroje přítomen, ale <strong>nedetekuje</strong> chyby "
+"nebo přehlíží chyby, které by měly být označeny: zkontrolujte, zda vaše "
+"nastavení zahrnutí a vyloučení níže nechybí ani nepřehlíží prvky. Není "
+"neobvyklé, že domovské stránky nebo zobrazení vkládají upravitelný obsah "
+"mimo prvek <code><em>main</em></code>."
+
+msgid "Theme"
+msgstr "Motiv"
+
+msgid "Sleek"
+msgstr "Moderní"
+
+msgid "Classic"
+msgstr "Klasický"
+
+msgid "Dark"
+msgstr "Tmavý"
+
+msgid "Do not check on pages with these elements"
+msgstr "Nekontrolovat na stránkách s těmito prvky"
+
+msgid ""
+"Used to block checking on site sections or admin pages.<br>E.g. "
+"<code><em>.content-type-example, .tabs__link[href=*\"edit\"]</em></code>."
+msgstr ""
+"Slouží k zablokování kontroly v sekcích webu nebo na stránkách správce."
+"<br>Např. <code><em>.content-type-example, .tabs__link[href=*\"edit\"]</em></"
+"code>."
+
+msgid "Hide all alerts on pages where these elements are not present"
+msgstr "Skrýt všechna upozornění na stránkách, kde tyto prvky nejsou přítomny"
+
+msgid ""
+"Used to limit alerting to nodes where the user can edit something. Suggested "
+"selectors:<br> <code><em>.contextual-region a[href*=\"/edit\"], .contextual-"
+"region a[href*=\"/manage\"]</em></code>."
+msgstr ""
+"Slouží k omezení upozorňování na uzly, kde může uživatel něco upravit. "
+"Doporučené selektory:<br> <code><em>.contextual-region a[href*=\"/"
+"edit\"], .contextual-region a[href*=\"/manage\"]</em></code>."
+
+msgid ""
+"Set to the number of other themes or modules that will be <a href=\"https://"
+"editoria11y.princeton.edu/configuration/#customtests\">injecting custom "
+"result JS events</a>."
+msgstr ""
+"Nastavte na počet jiných motivů nebo modulů, které budou <a href=\"https://"
+"editoria11y.princeton.edu/configuration/#customtests\">vkládat vlastní JS "
+"události výsledků</a>."
+
+msgid "Positioning"
+msgstr "Umístění"
+
+msgid "Don't show edit links on tips in these containers"
+msgstr "Nezobrazovat editační odkazy v tipech v těchto kontejnerech"
+
+msgid ""
+"Tips show copies of the \"Edit\" and \"Layout\" links for nodes, users and "
+"taxonomy terms. These links are not helpful on lists of content from remote "
+"nodes.<br>Provide a comma-separated list of page sections of where these "
+"links should not show, E.g.: <code><em>#sidebar-menu, .news-feed</em></code>."
+"<br>To hide the links <strong>everywhere</strong>, set this field to an "
+"asterisk (<code><em>*</em></code>).<br>To modify the links, <a "
+"href=\"https://editoria11y.princeton.edu/configuration/#modify-tips\" "
+"target=\"_blank\">use the ed11yPop event</a> in your theme JS."
+msgstr ""
+"Tipy zobrazují kopie odkazů „Upravit\" a „Rozvržení\" pro uzly, uživatele a "
+"taxonomické termíny. Tyto odkazy nejsou užitečné v seznamech obsahu ze "
+"vzdálených uzlů.<br>Zadejte čárkami oddělený seznam sekcí stránky, kde se "
+"tyto odkazy nemají zobrazovat, např.: <code><em>#sidebar-menu, .news-feed</"
+"em></code>.<br>Chcete-li skrýt odkazy <strong>všude</strong>, nastavte toto "
+"pole na hvězdičku (<code><em>*</em></code>).<br>Chcete-li upravit odkazy, <a "
+"href=\"https://editoria11y.princeton.edu/configuration/#modify-tips\" "
+"target=\"_blank\">použijte událost ed11yPop</a> v JS motivu."
+
+msgid "Pin panel to..."
+msgstr "Připnout panel na..."
+
+msgid "Right"
+msgstr "Vpravo"
+
+msgid "Left"
+msgstr "Vlevo"
+
+msgid "Don't cover these other widgets"
+msgstr "Nezakrývat tyto další widgety"
+
+msgid ""
+"Provide a comma-separated list of selectors for other things that appear in "
+"the bottom right of the page. <br>If nothing is set, Editoria11y will "
+"automatically slide left to accommodate <code><em>#klaro_toggle_dialog, "
+"#klaro-cookie-notice .same-page-preview-dialog.ui-dialog-position-side</em></"
+"code>."
+msgstr ""
+"Zadejte čárkami oddělený seznam selektorů pro jiné prvky zobrazující se v "
+"pravém dolním rohu stránky. <br>Pokud není nic nastaveno, Editoria11y se "
+"automaticky posune doleva, aby přizpůsobil <code><em>#klaro_toggle_dialog, "
+"#klaro-cookie-notice .same-page-preview-dialog.ui-dialog-position-side</em></"
+"code>."
+
+msgid "Elements with overflow hidden"
+msgstr "Prvky se skrytým přetečením"
+
+msgid ""
+"Sometimes buttons get drawn and visually truncated outside the bounds of a "
+"positioned element. Provide a selector list."
+msgstr ""
+"Někdy jsou tlačítka vykreslena a vizuálně ořezána mimo hranice pozicovaného "
+"prvku. Zadejte seznam selektorů."
+
+msgid "Theme JS will handle revealing hidden tooltips inside these containers"
+msgstr "JS motivu zajistí odhalení skrytých nápověd uvnitř těchto kontejnerů"
+
+msgid ""
+"Editoria11y detects hidden tooltips and warns the user when they try to jump "
+"to them from the panel. For elements on this list, Editoria11y will <a "
+"href=\"https://itmaybejj.github.io/editoria11y/#dealing-with-alerts-on-"
+"hidden-or-size-constrained-content\">dispatch a JS event</a> instead of a "
+"warning, so custom JS in your theme can first reveal the hidden tip (e.g., "
+"open an accordion or tab panel)."
+msgstr ""
+"Editoria11y detekuje skryté nápovědy a varuje uživatele, když se z panelu "
+"snaží na ně přejít. Pro prvky v tomto seznamu Editoria11y <a href=\"https://"
+"itmaybejj.github.io/editoria11y/#dealing-with-alerts-on-hidden-or-size-"
+"constrained-content\">odešle JS událost</a> místo varování, takže vlastní JS "
+"v motivu může nejprve odhalit skrytý tip (např. otevřít harmoniku nebo "
+"záložkový panel)."
+
+msgid "Detecting dynamic and shadow content"
+msgstr "Detekce dynamického a shadow obsahu"
+
+msgid "Dynamically refresh if new content appears"
+msgstr "Dynamicky obnovit při výskytu nového obsahu"
+
+msgid "Watch for changes anywhere on the page"
+msgstr "Sledovat změny kdekoliv na stránce"
+
+msgid "Only watch for changes to content containers present on load"
+msgstr "Sledovat pouze změny obsažených kontejnerů přítomných při načtení"
+
+msgid "Do not watch for changes"
+msgstr "Nesledovat změny"
+
+msgid ""
+"Set to \"anywhere\" if changes are being missed, set to \"ignore\" if you "
+"notice performance issues. Themes and modules can also call "
+"<code>Drupal.Ed11y.refresh()</code> to refresh results."
+msgstr ""
+"Nastavte na „kdekoliv\", pokud jsou změny přehlíženy, nebo na „ignorovat\", "
+"pokud zaznamenáte problémy s výkonem. Motivy a moduly mohou také volat "
+"<code>Drupal.Ed11y.refresh()</code> pro obnovení výsledků."
+
+msgid "Check inside these specific Web components"
+msgstr "Kontrolovat uvnitř těchto konkrétních webových komponent"
+
+msgid ""
+"Provide selectors for elements with <a href='https://developer.mozilla.org/"
+"en-US/docs/Web/Web_Components'>shadow DOM</a> you want tested. E.g.: "
+"<code><em>my-fancy-accordion-widget, my-magical-slideshow</em></code>."
+msgstr ""
+"Zadejte selektory prvků se <a href='https://developer.mozilla.org/en-US/docs/"
+"Web/Web_Components'>shadow DOM</a>, které chcete kontrolovat. Např.: "
+"<code><em>my-fancy-accordion-widget, my-magical-slideshow</em></code>."
+
+msgid "Auto-detect any Web components"
+msgstr "Automaticky detekovat webové komponenty"
+
+msgid ""
+"This is easier to configure than specifying components, but may slow test "
+"runs on very complicated pages."
+msgstr ""
+"Toto je jednodušší na konfiguraci než specifikovat komponenty, ale může "
+"zpomalit testy na velmi složitých stránkách."
+
+msgid "Syncing results to reports"
+msgstr "Synchronizace výsledků se zprávami"
+
+msgid ""
+"Remember that results only sync to the dashboard when viewing nodes. Results "
+"shown while editing or viewing previews or revisions will not sync."
+msgstr ""
+"Pamatujte, že výsledky se synchronizují s přehledem pouze při prohlížení "
+"uzlů. Výsledky zobrazené při editaci nebo prohlížení náhledů nebo revizí se "
+"nesynchronizují."
+
+msgid "Remove redundant base url from URLs"
+msgstr "Odebrat nadbytečnou základní URL z adres URL"
+
+msgid ""
+"Provide base URL (\"/mysite\") if your site is installed in a subdirectory. "
+"Subdirectories tend to get duplicated (/mysite/mysite/mypage) and throw "
+"errors from the API."
+msgstr ""
+"Zadejte základní URL (\"/mysite\"), pokud je web nainstalován v podadresáři. "
+"Podadresáře mají tendenci se duplikovat (/mysite/mysite/mystranka) a "
+"způsobovat chyby API."
+
+msgid "Preserve query parameters"
+msgstr "Zachovat parametry dotazu"
+
+msgid ""
+"The dashboard ignores most parameters: results for both /news?f=1 and /news?"
+"f=2 will show up as just /news. Provide a comma separated list of parameters "
+"that are meaningful, and should appear as separate pages in results."
+msgstr ""
+"Přehled ignoruje většinu parametrů: výsledky pro /news?f=1 i /news?f=2 se "
+"zobrazí jako pouhé /news. Zadejte čárkami oddělený seznam parametrů, které "
+"jsou smysluplné a mají se zobrazovat jako samostatné stránky ve výsledcích."
+
+msgid "Disable sync altogether"
+msgstr "Úplně zakázat synchronizaci"
+
+msgid ""
+"Syncing test results back to Drupal is required for the <a target=\"_blank\" "
+"href=\"/admin/reports/editoria11y\">issue</a> and <a target=\"_blank\" "
+"href=\"/admin/reports/editoria11y/dismissals\">dismissal</a> dashboards and "
+"\"mark OK\" buttons."
+msgstr ""
+"Synchronizace výsledků testů zpět do Drupalu je vyžadována pro přehledy <a "
+"target=\"_blank\" href=\"/admin/reports/editoria11y\">problémů</a> a <a "
+"target=\"_blank\" href=\"/admin/reports/editoria11y/dismissals\">ignorování</"
+"a> a tlačítka „označit jako OK\"."
+
+msgid "Heading outline position of editable content"
+msgstr "Pozice struktury nadpisů upravitelného obsahu"
+
+msgid ""
+"To check headings in CKEditor, Editoria11y needs to know what the first "
+"heading level should be in this field. Body fields should generally be at "
+"the h2 level."
+msgstr ""
+"Pro kontrolu nadpisů v CKEditoru potřebuje Editoria11y vědět, jaká má být "
+"úroveň prvního nadpisu v tomto poli. Pole těla by obecně měla být na úrovni "
+"h2."
+
+msgid "H2 level fields (body content)"
+msgstr "Pole úrovně H2 (obsah těla)"
+
+msgid ""
+"Body fields on nodes are preceded by an h1, and their heading outline should "
+"start with an h2. Ideally set this for top-level body fields for each of "
+"your content types, and set blocks and embedded nodes to h3 or h4.\n"
+"        <br>Set all content types: <code><em>form[id^=\"node-\"] #edit-body-"
+"wrapper .ck-content</em></code>\n"
+"        <br>Set specific content types: <code><em>form[id^=\"node-\"] #edit-"
+"body-wrapper .ck-content</em></code>\n"
+"        <br>Set up for Gutenberg: <code><em>form[id^=\"node-\"] #edit-body-"
+"wrapper .is-root-container</em></code>"
+msgstr ""
+"Pole těla uzlů jsou předřazena h1 a jejich struktura nadpisů by měla začínat "
+"h2. Nastavte ideálně pro pole těla nejvyšší úrovně pro každý typ obsahu a "
+"nastavte bloky a vnořené uzly na h3 nebo h4.\n"
+"        <br>Nastavit všechny typy obsahu: <code><em>form[id^=\"node-\"] "
+"#edit-body-wrapper .ck-content</em></code>\n"
+"        <br>Nastavit konkrétní typy obsahu: <code><em>form[id^=\"node-\"] "
+"#edit-body-wrapper .ck-content</em></code>\n"
+"        <br>Nastavit pro Gutenberg: <code><em>form[id^=\"node-\"] #edit-body-"
+"wrapper .is-root-container</em></code>"
+
+msgid "H3 level fields (blocks or paragraphs with separate titles)"
+msgstr "Pole úrovně H3 (bloky nebo odstavce se samostatnými titulky)"
+
+msgid ""
+"Sometimes inline and layout builder blocks are grouped under an h2 from a "
+"separate field, so their highest heading level should be h3."
+msgstr ""
+"Někdy jsou vložené bloky a bloky tvůrce rozvržení seskupeny pod h2 ze "
+"samostatného pole, takže jejich nejvyšší úroveň nadpisu by měla být h3."
+
+msgid "H4 level fields (deeply nested blocks or paragraphs)"
+msgstr "Pole úrovně H4 (hluboce vnořené bloky nebo odstavce)"
+
+msgid ""
+"Sometimes inline and layout builder blocks are grouped under an h3 from a "
+"separate field, so their highest heading level should be h4."
+msgstr ""
+"Někdy jsou vložené bloky a bloky tvůrce rozvržení seskupeny pod h3 ze "
+"samostatného pole, takže jejich nejvyšší úroveň nadpisu by měla být h4."
+
+msgid "Modify tests that usually detect content issues"
+msgstr "Upravit testy, které obvykle detekují problémy s obsahem"
+
+msgid "Modify tests that usually detect template or configuration issues"
+msgstr ""
+"Upravit testy, které obvykle detekují problémy se šablonou nebo konfigurací"
+
+msgid "Do not check contrast for these elements"
+msgstr "Nekontrolovat kontrast u těchto prvků"
+
+msgid ""
+"Provide a comma-separated list of selectors for elements to ignore for all "
+"users."
+msgstr ""
+"Zadejte čárkami oddělený seznam selektorů prvků, které mají být ignorovány "
+"pro všechny uživatele."
+
+msgid "Remind editor that content in these embeds needs manual review"
+msgstr ""
+"Upozornit editora, že obsah v těchto vložených prvcích vyžaduje ruční "
+"kontrolu"
+
+msgid ""
+"Provide a comma-separated list of selectors you wish to flag for the editor, "
+"e.g.: <code><em>.my-embedded-feed, #my-social-link-block</em></code>."
+msgstr ""
+"Zadejte čárkami oddělený seznam selektorů, které chcete označit pro editora, "
+"např.: <code><em>.my-embedded-feed, #my-social-link-block</em></code>."
+
+msgid ""
+"Default settings should work with both <a href=\"https://www.drupal.org/"
+"project/linkpurpose\" target=\"_blank\">Link Purpose Icons</a> and <a "
+"target=\"_blank\" href=\"https://www.drupal.org/project/extlink\">External "
+"Links</a>."
+msgstr ""
+"Výchozí nastavení by mělo fungovat s <a href=\"https://www.drupal.org/"
+"project/linkpurpose\" target=\"_blank\">Link Purpose Icons</a> i <a "
+"target=\"_blank\" href=\"https://www.drupal.org/project/extlink\">External "
+"Links</a>."
+
+msgid "Remind the editor that these linked documents need a manual check"
+msgstr ""
+"Upozornit editora, že tyto odkazované dokumenty vyžadují ruční kontrolu"
+
+msgid ""
+"Add or remove filetypes. Set to \"false\" to disable the test altogether. "
+"Providing any value will override the default, which is "
+"<code><em>a[href$='.pdf'], a[href*='.pdf?']</em></code>."
+msgstr ""
+"Přidat nebo odebrat typy souborů. Nastavte na „false\" pro úplné zakázání "
+"testu. Zadání jakékoliv hodnoty přepíše výchozí nastavení, kterým je "
+"<code><em>a[href$='.pdf'], a[href*='.pdf?']</em></code>."
+
+msgid "Remove elements that match these selectors before testing link text"
+msgstr ""
+"Odebrat prvky odpovídající těmto selektorům před kontrolou textu odkazu"
+
+msgid ""
+"Provide a CSS selector of elements your modules programmatically add to "
+"links (usually external or open-in-new-window links), so they can be ignored "
+"when the link text is checked for the \"link has no text\" and \"link text "
+"is not meaningful\" tests.<br>E.g.: <code><em>.this, .that</em></code>"
+msgstr ""
+"Zadejte CSS selektor prvků, které vaše moduly programově přidávají k odkazům "
+"(obvykle externí nebo otevírající se v novém okně), aby mohly být ignorovány "
+"při kontrole textu odkazu pro testy „odkaz nemá text\" a „text odkazu není "
+"smysluplný\".<br>Např.: <code><em>.this, .that</em></code>"
+
+msgid "Remove these strings before testing link text"
+msgstr "Odebrat tyto řetězce před kontrolou textu odkazu"
+
+msgid ""
+"Provide a pipe-separated (\"|\") list of phrases your modules "
+"programmatically add to links to hint a purpose (external, mail, phone, open-"
+"in-new-window), so they can be ignored when the link text is checked for the "
+"\"link has no text\" and \"link text is not meaningful\" tests; e.g.:  "
+"<pre><code><em>(link is external)|(link sends email)</em></code></pre>"
+msgstr ""
+"Zadejte svislítkem („|\") oddělený seznam frází, které vaše moduly "
+"programově přidávají k odkazům pro naznačení účelu (externíodkaz, e-mail, "
+"telefon, otevření v novém okně), aby mohly být ignorovány při kontrole textu "
+"odkazu; např.:  <pre><code><em>(link is external)|(link sends email)</em></"
+"code></pre>"
+
+msgid "Strings in links that indicate new tabs"
+msgstr "Řetězce v odkazech označující nové záložky"
+
+msgid ""
+"Provide a pipe-separated list of phrases your site uses to warn users a link "
+"opens in a new tab; e.g.:  <pre><code><em>new&nbsp;tab|new&nbsp;window|"
+"external</em></code></pre>"
+msgstr ""
+"Zadejte svislítkem oddělený seznam frází, které váš web používá k varování "
+"uživatelů, že odkaz se otevírá na nové záložce; např.:  "
+"<pre><code><em>new&nbsp;tab|new&nbsp;window|external</em></code></pre>"
+
+msgid ""
+"Modules like Link Purpose or External Links can mark links automatically."
+msgstr ""
+"Moduly jako Link Purpose nebo External Links mohou tyto odkazy označit "
+"automaticky."
+
+msgid "CSA/developer test"
+msgstr "Test CSA/vývojářů"
+
+msgid "Show to developers"
+msgstr "Zobrazit vývojářům"
+
+msgid "Show to everybody"
+msgstr "Zobrazit všem"
+
+msgid "Dashboard sync is disabled in Editoria11y configuration."
+msgstr "Synchronizace přehledu je v konfiguraci Editoria11y zakázána."
+
+msgid "(invalid URL)"
+msgstr "(neplatná URL)"
+
+msgid "Editoria11y: Dismissals"
+msgstr "Editoria11y: Ignorování"
+
+msgid "Default"
+msgstr "Výchozí"
+
+msgid "Node path"
+msgstr "Cesta uzlu"
+
+msgid "view"
+msgstr "view"
+
+msgid "Term path"
+msgstr "Cesta termínu"
+
+msgid "User bio path"
+msgstr "Cesta profilu uživatele"
+
+msgid "Term title"
+msgstr "Název termínu"
+
+msgid ", "
+msgstr ", "
+
+msgid "Node title"
+msgstr "Název uzlu"
+
+msgid "User name"
+msgstr "Jméno uživatele"
+
+msgid "Recorded path"
+msgstr "Zaznamenaná cesta"
+
+msgid "Computed"
+msgstr "Vypočteno"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty %}{% set dynamic_path = page_path %}{% endif %}\r\n"
+"{% set dynamic_title = title ~ name_2 ~ name_1 %}{% if dynamic_title is "
+"empty %}{% set dynamic_title = page_title %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ dynamic_title }}</"
+"a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty %}{% set dynamic_path = page_path %}{% endif %}\\r\n"
+"{% set dynamic_title = title ~ name_2 ~ name_1 %}{% if dynamic_title is "
+"empty %}{% set dynamic_title = page_title %}{% endif %}\\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ dynamic_title }}</"
+"a>"
+
+msgid "Dismissed alert"
+msgstr "Ignorované upozornění"
+
+msgid "By"
+msgstr "Od"
+
+msgid "1"
+msgid_plural "@count"
+msgstr[0] "1"
+msgstr[1] "@count"
+msgstr[2] "@count"
+
+msgid "Reset"
+msgstr "Resetovat"
+
+msgid ""
+"<span class=\"ed11y-reset-dismissal\"><span class=\"ed11y-page-id\">{{ pid }}"
+"</span><span class=\"ed11y-dismissal-id\">{{id}}</span></span>"
+msgstr ""
+"<span class=\"ed11y-reset-dismissal\"><span class=\"ed11y-page-id\">{{ pid }}"
+"</span><span class=\"ed11y-dismissal-id\">{{id}}</span></span>"
+
+msgid "››"
+msgstr "››"
+
+msgid "‹‹"
+msgstr "‹‹"
+
+msgid "- All -"
+msgstr "– Vše –"
+
+msgid "Offset"
+msgstr "Posun"
+
+msgid "« First"
+msgstr "« První"
+
+msgid "Last »"
+msgstr "Poslední »"
+
+msgid "Asc"
+msgstr "Vzestupně"
+
+msgid "Desc"
+msgstr "Sestupně"
+
+msgid "User who dismissed alert"
+msgstr "Uživatel, který ignoroval upozornění"
+
+msgid "pid"
+msgstr "pid"
+
+msgid "Node"
+msgstr "Uzel"
+
+msgid "Term"
+msgstr "Termín"
+
+msgid "User bio"
+msgstr "Profil uživatele"
+
+msgid "Dismissals page"
+msgstr "Stránka ignorování"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty %}{% set dynamic_path = page_path %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title }}</a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty %}{% set dynamic_path = page_path %}{% endif %}\\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title }}</a>"
+
+msgid "Still on page"
+msgstr "Stále na stránce"
+
+msgid "Reset filters"
+msgstr "Resetovat filtry"
+
+msgid "Issues marked as hidden or OK in Editoria11y."
+msgstr "Problémy označené jako skryté nebo OK v Editoria11y."
+
+msgid "Dismissals filtered by issue"
+msgstr "Ignorování filtrovaná podle problému"
+
+msgid "No dismissals match these filters."
+msgstr "Žádné ignorování neodpovídá těmto filtrům."
+
+msgid "All"
+msgstr "Vše"
+
+msgid "Dismissed alerts of type \"{{result_name}}\""
+msgstr "Dismissed alerts of type \"{{result_name}}\""
+
+msgid ""
+"<a href=\"/admin/reports/editoria11y/dismissals/\" class=\"button button--"
+"primary\">Show all dismissals</a>"
+msgstr ""
+"<a href=\"/admin/reports/editoria11y/dismissals/\" class=\"button button--"
+"primary\">Show all dismissals</a>"
+
+msgid "Recent Editoria11y Dismissals"
+msgstr "Nejnovější ignorování Editoria11y"
+
+msgid "Editoria11y - Recent dismissals"
+msgstr "Editoria11y – Nejnovější ignorování"
+
+msgid "Editoria11y: Alerts"
+msgstr "Editoria11y: Upozornění"
+
+msgid "Top results"
+msgstr "Nejčastější výsledky"
+
+msgid "Computed title"
+msgstr "Vypočtený název"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path|render %}{% set dynamic_path = "
+"page_path %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{  page_title_1 }}</"
+"a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path|render %}{% set dynamic_path = "
+"page_path %}{% endif %}\\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{  page_title_1 }}</"
+"a>"
+
+msgid "<a href=\"{{page_path_1}}\" data-ed1ref=\"{{pid}}\">{{page_path_1}}</a>"
+msgstr ""
+"<a href=\"{{page_path_1}}\" data-ed1ref=\"{{pid}}\">{{page_path_1}}</a>"
+
+msgid "No alerts found."
+msgstr "Nebyla nalezena žádná upozornění."
+
+msgid "YYYY-MM-DD"
+msgstr "RRRR-MM-DD"
+
+msgid "User bio page"
+msgstr "Stránka profilu uživatele"
+
+msgid "Node author"
+msgstr "Autor uzlu"
+
+msgid "All pages with issues"
+msgstr "Všechny stránky s problémy"
+
+msgid "Block: Pages with the most"
+msgstr "Blok: Stránky s největším počtem"
+
+msgid "Block: Recent alerts"
+msgstr "Blok: Nejnovější upozornění"
+
+msgid "Recent Editoria11y Alerts"
+msgstr "Nejnovější upozornění Editoria11y"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path|render %}{% set dynamic_path = "
+"page_path %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title_1 }}</a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path|render %}{% set dynamic_path = "
+"page_path %}{% endif %}\\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title_1 }}</a>"
+
+msgid "Issue"
+msgstr "Problém"
+
+msgid "Editoria11y - Recent alerts"
+msgstr "Editoria11y – Nejnovější upozornění"
+
+msgid "Block: Most frequent alerts"
+msgstr "Blok: Nejčastější upozornění"
+
+msgid "Most Frequent Editoria11y Alerts"
+msgstr "Nejčastější upozornění Editoria11y"
+
+msgid "Editoria11y - Most frequent alerts"
+msgstr "Editoria11y – Nejčastější upozornění"
+
+msgid "Alerts on specified page"
+msgstr "Upozornění na zadané stránce"
+
+msgid ""
+"<a href=\"{{ page_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title_1 }}</a>"
+msgstr ""
+"<a href=\"{{ page_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title_1 }}</a>"
+
+msgid "<p><strong>Author:</strong> {{ uid }}</p>"
+msgstr "<p><strong>Author:</strong> {{ uid }}</p>"
+
+msgid "<p><strong>Last editor:</strong> {{ uid_1 }}</p>"
+msgstr "<p><strong>Last editor:</strong> {{ uid_1 }}</p>"
+
+msgid ""
+"<h1>Accessibility issues on: {{page_title_1}}</h1>\r\n"
+"<p>{{uid}}{{uid_1}}</p>"
+msgstr ""
+"<h1>Accessibility issues on: {{page_title_1}}</h1>\\r\n"
+"<p>{{uid}}{{uid_1}}</p>"
+
+msgid ""
+"<p><a href=\"../editoria11y/pages\" class=\"button button--primary\">All "
+"pages with alerts</a></p>"
+msgstr ""
+"<p><a href=\"../editoria11y/pages\" class=\"button button--primary\">All "
+"pages with alerts</a></p>"
+
+msgid ""
+"<span class=\"ed11y-reset-this-path\" hidden><p class=\"more-link\"><a "
+"role=\"button\" class=\"action-link action-link--icon-trash action-link--"
+"danger\"><span hidden class=\"ed11y-api-path\">{{ page_path }}</span>Reset "
+"results for this page</a></p></span>"
+msgstr ""
+"<span class=\"ed11y-reset-this-path\" hidden><p class=\"more-link\"><a "
+"role=\"button\" class=\"action-link action-link--icon-trash action-link--"
+"danger\"><span hidden class=\"ed11y-api-path\">{{ page_path }}</span>Reset "
+"results for this page</a></p></span>"
+
+msgid "Issue types"
+msgstr "Typy problémů"
+
+msgid "Pages with specified alert"
+msgstr "Stránky se zadaným upozorněním"
+
+msgid "Published status"
+msgstr "Stav publikování"
+
+msgid "Created by"
+msgstr "Vytvořil"
+
+msgid "Created after"
+msgstr "Vytvořeno po"
+
+msgid "Created before"
+msgstr "Vytvořeno před"
+
+msgid "<h1>Pages with alert \"{{ result_name }}\"</h1>"
+msgstr "<h1>Stránky s upozorněním „{{ result_name }}“</h1>"
+
+msgid ""
+"<a href=\"../editoria11y/alerts\" class=\"button button--primary\">All "
+"alerts</a>"
+msgstr ""
+"<a href=\"../editoria11y/alerts\" class=\"button button--primary\">All "
+"alerts</a>"
+
+msgid "Pages with issues"
+msgstr "Stránky s problémy"
+
+msgid "Next ›"
+msgstr "Další ›"
+
+msgid "‹ Previous"
+msgstr "‹ Předchozí"
+
+msgid "Authored on"
+msgstr "Vytvořeno dne"
+
+msgid "Changed"
+msgstr "Změněno"
+
+msgid "Editoria11y: Crawler"
+msgstr "Editoria11y: Prohledávač"
+
+msgid "Editoria11y: Crawl Nodes"
+msgstr "Editoria11y: Prohledávání uzlů"
+
+msgid "Authored by"
+msgstr "Vytvořil"
+
+msgid "Has results"
+msgstr "Má výsledky"
+
+msgid "Has no alerts"
+msgstr "Nemá žádná upozornění"
+
+msgid "Has alerts"
+msgstr "Má upozornění"
+
+msgid "nid"
+msgstr "nid"
+
+msgid "Editoria11y: Export"
+msgstr "Editoria11y: Export"
+
+msgid "Export page with alerts"
+msgstr "Exportovat stránku s upozorněními"
+
+msgid "Link to Taxonomy term"
+msgstr "Odkaz na taxonomický termín"
+
+msgid "Link to User"
+msgstr "Odkaz na uživatele"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path_1|render %}{% set dynamic_path = "
+"page_path_1 %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title }}</a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path_1|render %}{% set dynamic_path = "
+"page_path_1 %}{% endif %}\\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title }}</a>"
+
+msgid "Path when checked"
+msgstr "Cesta při kontrole"
+
+msgid "<a href=\"{{page_path_1}}\" data-ed1ref=\"{{pid}}\">{{page_path_1}}"
+msgstr "<a href=\"{{page_path_1}}\" data-ed1ref=\"{{pid}}\">{{page_path_1}}"
+
+msgid "Current URL"
+msgstr "Aktuální URL"
+
+msgid "{{ view_taxonomy_term }}{{ view_user }}{{ view_node }}"
+msgstr "{{ view_taxonomy_term }}{{ view_user }}{{ view_node }}"
+
+msgid "{% if type is empty %}{{entity_type}}{%else%}{{type}}{% endif %}"
+msgstr "{% if type is empty %}{{entity_type}}{%else%}{{type}}{% endif %}"
+
+msgid "Entity Type"
+msgstr "Typ entity"
+
+msgid "Langcode (en, fr, de)"
+msgstr "Kód jazyka (en, fr, de)"
+
+msgid "Referenced node"
+msgstr "Odkazovaný uzel"
+
+msgid "Referenced term"
+msgstr "Odkazovaný termín"
+
+msgid "Referenced user bio"
+msgstr "Odkazovaný profil uživatele"
+
+msgid "<p>Records chosen for export can be filtered and previewed below.</p>"
+msgstr "<p>Records chosen for export can be filtered and previewed below.</p>"
+
+msgid "<a href=\"/admin/reports/editoria11y/export\">Back to dashboard</a>"
+msgstr "<a href=\"/admin/reports/editoria11y/export\">Back to dashboard</a>"
+
+msgid "Dismissals export"
+msgstr "Export ignorování"
+
+msgid "Link to Content"
+msgstr "Odkaz na obsah"
+
+msgid "Page raw path"
+msgstr "Nezpracovaná cesta stránky"
+
+msgid "Name"
+msgstr "Název"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path_1|render %}{% set dynamic_path = "
+"page_path_1 %}{% endif %}\r\n"
+"{% set dynamic_title = title_1 ~ name ~ name_1 %}{% if dynamic_title is "
+"empty %}{% set dynamic_title = page_title %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ dynamic_title }}</"
+"a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path_1|render %}{% set dynamic_path = "
+"page_path_1 %}{% endif %}\\r\n"
+"{% set dynamic_title = title_1 ~ name ~ name_1 %}{% if dynamic_title is "
+"empty %}{% set dynamic_title = page_title %}{% endif %}\\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ dynamic_title }}</"
+"a>"
+
+msgid "dismissal"
+msgstr "dismissal"
+
+msgid "Page export"
+msgstr "Export stránek"
+
+msgid "Alerts export"
+msgstr "Export upozornění"
+
+msgid "Editoria11y alerts on pages"
+msgstr "Upozornění Editoria11y na stránkách"
+
+msgid "{{ view_taxonomy_term }}{{ view_user }}{{ view_node }} "
+msgstr "{{ view_taxonomy_term }}{{ view_user }}{{ view_node }} "
+
+msgid "Results for page"
+msgstr "Výsledky pro stránku"
+
+msgid "<a href=\"./export/pages\">Export pages with alerts</a>"
+msgstr "<a href=\"./export/pages\">Export pages with alerts</a>"
+
+msgid "<a href=\"./export/dismissals\">Export dismissals</a>"
+msgstr "<a href=\"./export/dismissals\">Export dismissals</a>"
+
+msgid "<a href=\"./export/alerts\">Export alert list</a>"
+msgstr "<a href=\"./export/alerts\">Export alert list</a>"
+
+msgid "Export alerts on pages"
+msgstr "Exportovat upozornění na stránkách"
+
+msgid "Result name"
+msgstr "Název výsledku"

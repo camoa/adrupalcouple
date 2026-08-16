@@ -17,3 +17,4 @@ preserve_params: 'search,keys,page,language,language_content_entity'
 disable_live: false
 live_h2: 'form[id^="node-"] #edit-body-wrapper .ck-content'
 ck5_table_headers: row
+tests_off: 'CONTRAST_WARNING_GRAPHIC,LINK_CLICK_HERE,LINK_IMAGE_ALT'

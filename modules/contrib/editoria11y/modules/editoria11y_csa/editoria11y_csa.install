@@ -1,0 +1,228 @@
+<?php
+
+/**
+ * @file
+ * Editoria11y CSA install file.
+ */
+
+use Drupal\Core\Url;
+use Drupal\Core\Config\Entity\ConfigEntityType;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\editoria11y\CSAStatus;
+use Drupal\editoria11y_csa\LicenseManager;
+
+/**
+ * Implements hook_uninstall().
+ */
+function editoria11y_csa_uninstall(): void {
+
+  // Removes stored data that survives a deactivation.
+  \Drupal::keyValue(LicenseManager::LICENSE_COLLECTION)->deleteAll();
+
+  \Drupal::state()->deleteMultiple([
+    CSAStatus::STATE_KEY,
+    LicenseManager::STATE_LAST_CHECK,
+    'editoria11y_csa.trial_started',
+    'editoria11y_csa.license_locked',
+  ]);
+}
+
+/**
+ * Implements hook_install().
+ */
+function editoria11y_csa_install(): void {
+  \Drupal::state()->set(CSAStatus::STATE_KEY, CSAStatus::Trial->value);
+  \Drupal::state()->set('editoria11y_csa.trial_started', \Drupal::time()->getRequestTime());
+
+  $manager = \Drupal::service('editoria11y_csa.license_manager');
+  $days = $manager->getTrialDaysRemaining();
+
+  // hook_install runs before the router rebuild is flushed, so this module's
+  // own routes are not yet in the route provider. Force the rebuild before
+  // generating a URL from a route name owned by this module.
+  \Drupal::service('router.builder')->rebuild();
+  $url = Url::fromRoute('editoria11y_csa.settings')->toString();
+  \Drupal::messenger()->addStatus(new TranslatableMarkup(
+    'Editoria11y CSA features are active on a @days-day trial. <a href="@url">Activate a license</a> to continue using them after the trial ends.',
+    ['@days' => $days, '@url' => $url]
+  ));
+}
+
+/**
+ * Move batch data out of config.
+ */
+function editoria11y_csa_update_9001(): void {
+
+  // Migrate pending_clear values from CSA config to state.
+  $config_csa = \Drupal::configFactory()->getEditable('editoria11y_csa.settings');
+  if (!$config_csa->isNew()) {
+    $pending_clear = $config_csa->get('pending_clear');
+    if ($pending_clear !== NULL) {
+      \Drupal::state()->set('editoria11y.pending_clear', $pending_clear);
+      $config_csa->clear('pending_clear');
+    }
+    $pending_clear_batch = $config_csa->get('pending_clear_batch');
+    if ($pending_clear_batch !== NULL) {
+      \Drupal::state()->set('editoria11y.pending_clear_batch', $pending_clear_batch);
+      $config_csa->clear('pending_clear_batch');
+    }
+    $config_csa->save(TRUE);
+  }
+}
+
+/**
+ * Install the ed11y_custom_test config entity type.
+ *
+ * Uses a hardcoded definition snapshot so that future changes to the entity
+ * annotation do not cause conflicts when sites skip intermediate releases.
+ */
+function editoria11y_csa_update_9002(): void {
+  $update_manager = \Drupal::entityDefinitionUpdateManager();
+  if (!$update_manager->getEntityType('ed11y_custom_test')) {
+    $entity_type = new ConfigEntityType([
+      'id' => 'ed11y_custom_test',
+      'label' => new TranslatableMarkup('Editoria11y Custom Test'),
+      'label_collection' => new TranslatableMarkup('Editoria11y Custom Tests'),
+      'label_singular' => new TranslatableMarkup('editoria11y custom test'),
+      'label_plural' => new TranslatableMarkup('editoria11y custom tests'),
+      'config_prefix' => 'ed11y_custom_test',
+      'entity_keys' => [
+        'id' => 'id',
+        'label' => 'label',
+        'uuid' => 'uuid',
+      ],
+      'handlers' => [
+        'list_builder' => 'Drupal\editoria11y_csa\Ed11yCustomRuleListBuilder',
+        'form' => [
+          'add' => 'Drupal\editoria11y_csa\Form\Ed11yCustomRuleForm',
+          'edit' => 'Drupal\editoria11y_csa\Form\Ed11yCustomRuleForm',
+          'delete' => 'Drupal\Core\Entity\EntityDeleteForm',
+        ],
+      ],
+      'links' => [
+        'collection' => '/admin/config/content/editoria11y/custom-tests',
+        'add-form' => '/admin/config/content/editoria11y/custom-tests/add',
+        'edit-form' => '/admin/config/content/editoria11y/custom-tests/{ed11y_custom_test}',
+        'delete-form' => '/admin/config/content/editoria11y/custom-tests/{ed11y_custom_test}/delete',
+      ],
+      'admin_permission' => 'administer editoria11y checker',
+      'label_count' => [
+        'singular' => '@count editoria11y custom test',
+        'plural' => '@count editoria11y custom tests',
+      ],
+      'config_export' => [
+        'id',
+        'label',
+        'test_key',
+        'test_name',
+        'tip_content',
+        'element_set',
+        'type',
+        'dismiss_key',
+        'filter_selector',
+        'include_text',
+        'exclude_text',
+        'case_sensitive',
+      ],
+      'class' => 'Drupal\editoria11y_csa\Entity\Ed11yCustomRule',
+      'provider' => 'editoria11y_csa',
+    ]);
+    $update_manager->installEntityType($entity_type);
+  }
+}
+
+/**
+ * Starts a 30-day trial activation and fixes crawler bugs.
+ */
+function editoria11y_csa_update_9003(): void {
+  $state = \Drupal::state();
+  $config = \Drupal::configFactory()->getEditable('editoria11y_csa.settings');
+
+  // Migrate csa_active from config to state.
+  $csaActiveConfig = $config->get('csa_active');
+  if ($csaActiveConfig !== NULL) {
+    $state->set(CSAStatus::STATE_KEY, $csaActiveConfig);
+    $config->clear('csa_active');
+  }
+
+  $config->save(TRUE);
+
+  // Now convert beta to trial. The value is in state at this point, whether
+  // it was already there or just migrated from config above.
+  $csaActive = $state->get(CSAStatus::STATE_KEY);
+
+  if ($csaActive === 'beta' || $csaActive === NULL) {
+    $state->set(CSAStatus::STATE_KEY, CSAStatus::Trial->value);
+    $state->set('editoria11y_csa.trial_started', \Drupal::time()->getRequestTime());
+  }
+
+  // Add an empty-area message to the ed11y_crawler view.
+  $view = \Drupal::configFactory()->getEditable('views.view.ed11y_crawler');
+  if (!$view->isNew()) {
+    $default = $view->get('display.default.display_options') ?? [];
+
+    if (empty($default['empty']['area_text_custom'])) {
+      $default['empty']['area_text_custom'] = [
+        'id' => 'area_text_custom',
+        'table' => 'views',
+        'field' => 'area_text_custom',
+        'relationship' => 'none',
+        'group_type' => 'group',
+        'admin_label' => '',
+        'plugin_id' => 'text_custom',
+        'empty' => TRUE,
+        'content' => 'No results found',
+        'tokenize' => FALSE,
+      ];
+    }
+
+    // Move untranslatable markup to twig.
+    unset($default['header'], $default['footer']);
+
+    $view->set('display.default.display_options', $default);
+    $view->save(TRUE);
+  }
+
+  // Mark editoria11y_csa as an enforced dependency on the crawler view.
+  $config = \Drupal::configFactory()->getEditable('views.view.ed11y_crawler');
+  if ($config->isNew()) {
+    return;
+  }
+  $enforced = $config->get('dependencies.enforced.module') ?? [];
+  if (!in_array('editoria11y_csa', $enforced, TRUE)) {
+    $enforced[] = 'editoria11y_csa';
+    $config->set('dependencies.enforced.module', $enforced)->save(TRUE);
+  }
+}
+
+/**
+ * Restore default config for sites affected by bug #3587962.
+ */
+function editoria11y_csa_update_9004(): void {
+  $csa = \Drupal::configFactory()->getEditable('editoria11y_csa.settings');
+  if ($csa->isNew()) {
+    return;
+  }
+  $changed = FALSE;
+
+  $off = $csa->get('tests_off');
+  $content = $csa->get('tests_content');
+  $dev = $csa->get('tests_dev');
+  if (empty($off) && empty($content) && empty($dev)) {
+    $csa->set('tests_off', 'CONTRAST_WARNING_GRAPHIC,LINK_CLICK_HERE,LINK_IMAGE_ALT');
+    $changed = TRUE;
+  }
+
+  $clobbered_specify_root = 'body > *:not(#toolbar-administration, #drupal-live-announce, .gin-secondary-toolbar, .admin-toolbar, script, style, .ed11y-element)';
+  if ($csa->get('specify_root') === $clobbered_specify_root) {
+    $csa->set('specify_root', '.dialog-off-canvas-main-canvas');
+    if (empty($csa->get('roles'))) {
+      $csa->set('roles', 'administrator,admin');
+    }
+    $changed = TRUE;
+  }
+
+  if ($changed) {
+    $csa->save(TRUE);
+  }
+}

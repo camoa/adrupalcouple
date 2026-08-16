@@ -64,12 +64,12 @@ in the .info.yml file is enough to tell Drupal not to load the original file.
 1. Create a custom JS file in your theme or module, e.g. js/extlink-overrides.js.
 2. In that file do something like:
    ```
-     (function ($, Drupal) {
+     (function (Drupal) {
        Drupal.theme.extlink_fa_mailto = function (options) {
        // Your custom markup instead of the default
        return '<span class="fa fa-envelope custom-mailto"></span>';
        };
-     })(jQuery, Drupal);
+     })(Drupal);
    ```
 Available functions to override
 

@@ -1,0 +1,89 @@
+editoria11y_csa.settings:
+  type: config_object
+  label: 'Editoria11y CSA Settings'
+  mapping:
+    roles:
+      type: string
+      label: 'Developer roles'
+    assertiveness:
+      type: string
+      label: 'Developer assertiveness'
+    tests_content:
+      type: string
+      label: 'Tests overridden to show to content editors'
+    tests_off:
+       type: string
+       label: 'Tests overridden to turn off'
+    tests_dev:
+        type: string
+        label: 'Tests overridden to only to show to developers'
+    contrast_ignore:
+      type: string
+      label: 'Elements to ignore for contrast test'
+    contrast_check:
+      type: boolean
+      label: 'Turn on contrast checks'
+    dev_check_root:
+      type: string
+      label: 'Developer check root: body or specify'
+    specify_root:
+      type: string
+      label: 'Developer check root selector'
+    always_ignore:
+      type: string
+      label: 'Selector for elements to ignore for developers'
+    csa_active:
+      type: string
+      label: 'Enabled'
+    dev_domains:
+      type: string
+      label: 'Custom development domain patterns'
+
+editoria11y_csa.ed11y_custom_test.*:
+  type: config_entity
+  label: Editoria11y Custom Test
+  mapping:
+    id:
+      type: string
+      label: ID
+    label:
+      type: label
+      label: Label
+    uuid:
+      type: string
+    test_key:
+      type: string
+      label: 'Test key'
+    test_name:
+      type: string
+      label: 'Tooltip title'
+    tip_content:
+      type: string
+      label: 'Tip content HTML'
+    element_set:
+      type: string
+      label: 'Element set to check'
+    type:
+      type: string
+      label: 'Alert type'
+    dismiss_key:
+      type: string
+      label: 'Dismiss key type'
+    filter_selector:
+      type: string
+      label: 'CSS filter selector'
+    include_text:
+      type: sequence
+      label: 'Text strings to include'
+      sequence:
+        type: string
+        label: 'Text string'
+    exclude_text:
+      type: sequence
+      label: 'Text strings to exclude'
+      sequence:
+        type: string
+        label: 'Text string'
+    case_sensitive:
+      type: boolean
+      label: 'Case sensitive text matching'

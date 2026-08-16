@@ -1,0 +1,3038 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: editoria11y 3.0.0\n"
+"POT-Creation-Date: 2026-08-01 21:46-0400\n"
+"PO-Revision-Date: 2026-05-11 00:00+0000\n"
+"Language-Team: Editoria11y\n"
+"Language: ro\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
+"20)) ? 1 : 2);\n"
+
+msgid ""
+"editoria11y_post_update_0004: scanned @scanned mismatched page(s), "
+"backfilled @fixed to the referenced entity language."
+msgstr ""
+"editoria11y_post_update_0004: scanned @scanned mismatched page(s), "
+"backfilled @fixed to the referenced entity language."
+
+msgid "Editoria11y"
+msgstr "Editoria11y"
+
+msgid "Editoria11y - Pages with issues"
+msgstr "Editoria11y – Pagini cu probleme"
+
+msgctxt "problems"
+msgid "Provides relationship for issues and dismissals"
+msgstr "Oferă relația dintre probleme și notificări ignorate"
+
+msgid "EID"
+msgstr "EID"
+
+msgid "Editoria11y's internal page ID"
+msgstr "ID-ul intern al paginii în Editoria11y"
+
+msgid "Entity ID"
+msgstr "ID entitate"
+
+msgid "The NID/TID/UID of the page with an issue."
+msgstr "NID/TID/UID-ul paginii cu un problem."
+
+msgid "Entity type"
+msgstr "Tipul entității"
+
+msgid "The entity type; \"route\" if no type found."
+msgstr "Tipul entității; „route\" dacă nu a fost găsit niciun tip."
+
+msgid "Route name"
+msgstr "Numele rutei"
+
+msgid "Route name for page."
+msgstr "Numele rutei pentru pagină."
+
+msgid "Page path"
+msgstr "Calea paginii"
+
+msgid "Internal, relative page path."
+msgstr "Cale internă și relativă a paginii."
+
+msgid "Page language"
+msgstr "Limba paginii"
+
+msgid "Active translation."
+msgstr "Traducere activă."
+
+msgid "Page title"
+msgstr "Titlul paginii"
+
+msgid "The name of the route where this was last seen."
+msgstr "Numele rutei unde a fost văzut ultima dată."
+
+msgid "Content alerts"
+msgstr "Avertismente de conținut"
+
+msgid "Number of alerts shown to content editors."
+msgstr "Numărul de avertismente afișate editorilor de conținut."
+
+msgid "Dev alerts"
+msgstr "Avertismente pentru dezvoltatori"
+
+msgid "Number of alerts shown to developers."
+msgstr "Numărul de avertismente afișate dezvoltatorilor."
+
+msgid "Updated"
+msgstr "Actualizat"
+
+msgid "When this page was last checked."
+msgstr "Data ultimei verificări a acestei pagini."
+
+msgid "Editoria11y - Test results"
+msgstr "Editoria11y – Rezultatele testelor"
+
+msgctxt "problems"
+msgid "Stores Editoria11y issue list"
+msgstr "Stochează lista de probleme Editoria11y"
+
+msgid "Result row"
+msgstr "Rând de rezultat"
+
+msgid "Internal identifier"
+msgstr "Identificator intern"
+
+msgid "Created"
+msgstr "Creat"
+
+msgid "When this page was flagged."
+msgstr "Data la care această pagină a fost marcată."
+
+msgid "Alert type"
+msgstr "Tipul avertismentului"
+
+msgid "The name of the test as reported by Editoria11y JS"
+msgstr "Numele testului raportat de Editoria11y JS"
+
+msgid "Alert type, linked"
+msgstr "Tipul avertismentului, cu link"
+
+msgid "Linked to report of all alerts of this type."
+msgstr "Legat la raportul tuturor avertismentelor de acest tip."
+
+msgid "Content alert count"
+msgstr "Număr de avertismente de conținut"
+
+msgid "The number of hits for this test type on this page"
+msgstr "Numărul de apariții ale acestui tip de test pe pagină"
+
+msgid "Dev alert count"
+msgstr "Număr de avertismente pentru dezvoltatori"
+
+msgid "Editoria11y - Dismissals"
+msgstr "Editoria11y – Notificări ignorate"
+
+msgid "Stores Editoria11y warnings and dismissals"
+msgstr "Stochează avertismentele și notificările ignorate din Editoria11y"
+
+msgid "Dismissal internal reference ID"
+msgstr "ID intern de referință al notificării ignorate"
+
+msgid "Page with dismissal"
+msgstr "Pagina cu notificare ignorată"
+
+msgid "Dismissed by"
+msgstr "Ignorat de"
+
+msgid "The user linked to this dismissal."
+msgstr "Utilizatorul asociat acestei notificări ignorate."
+
+msgid "Linked Drupal user"
+msgstr "Utilizator Drupal asociat"
+
+msgid "Dismissed element id"
+msgstr "ID-ul elementului ignorat"
+
+msgid "Code sample to identify the flagged element."
+msgstr "Fragment de cod pentru identificarea elementului marcat."
+
+msgid "Dismissed on"
+msgstr "Ignorat la"
+
+msgid "The Unix timestamp of the first time this record was flagged."
+msgstr "Marcajul de timp Unix al primei semnalări a acestei înregistrări."
+
+msgid "Dismissal stale since"
+msgstr "Notificare ignorată devenită depășită din"
+
+msgid "The element has not been seen since this date."
+msgstr "Elementul nu a mai fost văzut de la această dată."
+
+msgid "Dismissed result name"
+msgstr "Numele rezultatului ignorat"
+
+msgid "Dismissed result name, linked"
+msgstr "Numele rezultatului ignorat, cu link"
+
+msgid "Links to report of all alerts of this type."
+msgstr "Link la raportul tuturor avertismentelor de acest tip."
+
+msgid "Dismissal status"
+msgstr "Starea notificării ignorate"
+
+msgid "The type of dismissal (e.g., OK, Ignore)"
+msgstr "Tipul de ignorare (de ex., OK, Ignorare)"
+
+msgid "Relate from Editoria11y page to referenced node"
+msgstr "Relație de la pagina Editoria11y la nodul referențiat"
+
+msgid "Issues were found on this node"
+msgstr "Au fost găsite probleme pe acest nod"
+
+msgid "Relate from node data to Editoria11y page"
+msgstr "Relație de la datele nodului la pagina Editoria11y"
+
+msgid "Relate from Editoria11y page to referenced taxonomy term"
+msgstr "Relație de la pagina Editoria11y la termenul de taxonomie referențiat"
+
+msgid "Issues were found on this term page"
+msgstr "Au fost găsite probleme pe pagina acestui termen"
+
+msgid "Relate from taxonomy term data to Editoria11y page"
+msgstr "Relație de la datele termenului de taxonomie la pagina Editoria11y"
+
+msgid "Relate from Editoria11y page list to user bio page data"
+msgstr ""
+"Relație de la lista de pagini Editoria11y la datele paginii bio a "
+"utilizatorului"
+
+msgid "Issues were found on this user bio page"
+msgstr "Au fost găsite probleme pe pagina bio a acestui utilizator"
+
+msgid "Relate from Editoria11y page to user bio page with issues"
+msgstr ""
+"Relație de la pagina Editoria11y la pagina bio a utilizatorului cu probleme"
+
+msgid "Relate from user bio page to Editoria11y results"
+msgstr "Relație de la pagina bio a utilizatorului la rezultatele Editoria11y"
+
+msgid "Relate from users list to Editoria11y results on bio page"
+msgstr ""
+"Relație de la lista utilizatorilor la rezultatele Editoria11y de pe pagina "
+"bio"
+
+msgid "Relate from Editoria11y page to issues on page"
+msgstr "Relație de la pagina Editoria11y la problemele de pe pagină"
+
+msgid "Issues found on this node"
+msgstr "Probleme găsite pe acest nod"
+
+msgid "Relate from Editoria11y result to page"
+msgstr "Relație de la rezultatul Editoria11y la pagină"
+
+msgid "Relate from Editoria11y page to dismissals on page"
+msgstr "Relație de la pagina Editoria11y la notificările ignorate de pe pagină"
+
+msgid "Relate from Editoria11y dismissal to page"
+msgstr "Relație de la notificarea ignorată Editoria11y la pagină"
+
+msgid "Group relationship for node with Editoria11y issues"
+msgstr "Relație de grup pentru nod cu probleme Editoria11y"
+
+msgid ""
+"Bridge to the Group module. Add the Group module Group relationship on top "
+"of this one to filter or sort issues by group."
+msgstr ""
+"Punte către modulul Group. Adăugați relația de grup a modulului Group peste "
+"aceasta pentru a filtra sau sorta problemele după grup."
+
+msgid "Group relationship for node"
+msgstr "Relație de grup pentru nod"
+
+msgid "Group relationship for user bio with Editoria11y issues"
+msgstr ""
+"Relație de grup pentru pagina bio a utilizatorului cu probleme Editoria11y"
+
+msgid "Group relationship for user"
+msgstr "Relație de grup pentru utilizator"
+
+msgid "Group relationship for taxonomy term with Editoria11y issues"
+msgstr "Relație de grup pentru termenul de taxonomie cu probleme Editoria11y"
+
+msgid ""
+"Bridge to the Group module. Add the Group module Group relationship on top "
+"of this one to filter or sort issues by group. Requires a contrib module "
+"that exposes terms as group content."
+msgstr ""
+"Punte către modulul Group. Adăugați relația de grup a modulului Group peste "
+"aceasta pentru a filtra sau sorta problemele după grup. Necesită un modul "
+"contrib care expune termenii ca și conținut de grup."
+
+msgid "Group relationship for taxonomy term"
+msgstr "Relație de grup pentru termenul de taxonomie"
+
+msgid "Warning: possible out of date path. This content may have moved to"
+msgstr "Avertisment: cale posibil depășită. Conținutul poate fi mutat la"
+
+msgid "Export CSV"
+msgstr "Export CSV"
+
+msgid "Predelete failed: @error_message"
+msgstr "Pre-ștergerea a eșuat: @error_message"
+
+msgid "Page attachment failed: @error_message"
+msgstr "Atașarea paginii a eșuat: @error_message"
+
+msgid ""
+"editoria11y_update_9019: scanned @total rows, repaired @updated, deleted "
+"@deleted corrupted group rows, left @skipped untouched."
+msgstr ""
+"editoria11y_update_9019: scanned @total rows, repaired @updated, deleted "
+"@deleted corrupted group rows, left @skipped untouched."
+
+msgid ""
+"editoria11y_update_9020: hashed @hashed page rows, removed @deduped "
+"duplicate rows, added unique keys."
+msgstr "editoria11y_update_9020: hashed @hashed page rows, removed @deduped duplicate rows, added unique keys."
+
+msgid "Editoria11y Accessibility Checker"
+msgstr "Editoria11y – verificator de accesibilitate"
+
+msgid ""
+"Checks page content for accessibility and provides a site-wide dashboard."
+msgstr ""
+"Verifică accesibilitatea conținutului paginilor și oferă un panou de control "
+"la nivel de site."
+
+msgid "Content Accessibility"
+msgstr "Accesibilitatea conținutului"
+
+msgid "Accessibility checker notifications and exclusions."
+msgstr "Notificări și excluderi ale verificatorului de accesibilitate."
+
+msgid "Results from the Editoria11y checker."
+msgstr "Rezultate din verificatorul Editoria11y."
+
+msgid "Dashboard"
+msgstr "Panou de control"
+
+msgid "Core settings"
+msgstr "Setări de bază"
+
+msgid "Demo"
+msgstr "Demo"
+
+msgid "View Editoria11y checker"
+msgstr "Vizualizare verificator Editoria11y"
+
+msgid "Assign to all content editors."
+msgstr "Atribuiți tuturor editorilor de conținut."
+
+msgid "Administer Editoria11y checker"
+msgstr "Administrare verificator Editoria11y"
+
+msgid "Allows user to purge results and change configuration."
+msgstr ""
+"Permite utilizatorului să șteargă rezultatele și să modifice configurația."
+
+msgid "Mark as hidden in Editoria11y"
+msgstr "Marcare ca ascuns în Editoria11y"
+
+msgid "Adds button to suppress a manual check for the current user."
+msgstr ""
+"Adaugă un buton pentru a ignora o verificare manuală pentru utilizatorul "
+"curent."
+
+msgid "Mark as OK in Editoria11y"
+msgstr "Marcare ca OK în Editoria11y"
+
+msgid ""
+"Adds button to suppress a manual check for all users, if sync is enabled."
+msgstr ""
+"Adaugă un buton pentru a ignora o verificare manuală pentru toți "
+"utilizatorii, dacă sincronizarea este activată."
+
+msgid "Manage Editoria11y results"
+msgstr "Gestionare rezultate Editoria11y"
+
+msgid "View the site-wide dashboard and reset dismissals."
+msgstr ""
+"Vizualizare panou de control la nivel de site și resetare notificări "
+"ignorate."
+
+msgid "Editoria11y core settings"
+msgstr "Setări de bază Editoria11y"
+
+msgid "Content Accessibility Issues"
+msgstr "Probleme de accesibilitate a conținutului"
+
+msgid "Editoria11y Settings"
+msgstr "Setări Editoria11y"
+
+msgid "Check elements in these containers"
+msgstr "Verificare elemente din aceste containere"
+
+msgid "Alert panel assertiveness"
+msgstr "Nivelul de insistență al panoului de avertismente"
+
+msgid "Do not run if these elements are on the page"
+msgstr "Nu rula dacă aceste elemente sunt prezente pe pagină"
+
+msgid "Suppress all alerts if none of these elements are present"
+msgstr ""
+"Suprimă toate avertismentele dacă niciunul dintre aceste elemente nu este "
+"prezent"
+
+msgid "Do not run tests on these containers"
+msgstr "Nu rula teste pe aceste containere"
+
+msgid "Move toggle to avoid colliding with these widgets"
+msgstr ""
+"Mută butonul de comutare pentru a evita suprapunerea cu aceste widget-uri"
+
+msgid ""
+"Full check should warn on these elements with embedded uncheckable content"
+msgstr ""
+"Verificarea completă trebuie să avertizeze pentru aceste elemente cu "
+"conținut încorporat neverificabil"
+
+msgid "These links download a document or image and need a manual review"
+msgstr ""
+"Aceste link-uri descarcă un document sau o imagine și necesită o verificare "
+"manuală"
+
+msgid "Strings that indicate a link opens in a new window"
+msgstr ""
+"Șiruri de caractere care indică că un link se deschide într-o fereastră nouă"
+
+msgid "Remove these strings from link text before checking for bad link text"
+msgstr ""
+"Elimină aceste șiruri din textul link-ului înainte de verificarea textului "
+"necorespunzător"
+
+msgid "Remove strings in this selector before checking for bad link text"
+msgstr ""
+"Elimină șirurile din acest selector înainte de verificarea textului link-ului"
+
+msgid ""
+"Hidden elements in these containers will be revealed by theme JS on request "
+"via a dispatched event"
+msgstr ""
+"Elementele ascunse din aceste containere vor fi dezvăluite de JS-ul temei la "
+"cerere printr-un eveniment declanșat"
+
+msgid "Elements that truncate overflow, partially hiding buttons"
+msgstr "Elemente care trunchiază depășirea, ascunzând parțial butoanele"
+
+msgid "Color scheme for panel and tooltips"
+msgstr "Schema de culori pentru panou și sfaturi popup"
+
+msgid "Pin toolbar to left or right"
+msgstr "Fixare bară de instrumente la stânga sau la dreapta"
+
+msgid "Web components the checker should check"
+msgstr "Componente web pe care verificatorul trebuie să le verifice"
+
+msgid "Auto-detects for additional shadow components"
+msgstr "Detectare automată a componentelor shadow suplimentare"
+
+msgid "Auto-detects and checks new content"
+msgstr "Detectare automată și verificare a conținutului nou"
+
+msgid "Disables dashboard and synchronized marking of elements as OK"
+msgstr ""
+"Dezactivează panoul de control și marcarea sincronizată a elementelor ca OK"
+
+msgid "URL query parameters that should be recorded as separate pages"
+msgstr ""
+"Parametri de interogare URL care trebuie înregistrați ca pagini separate"
+
+msgid "Remove string from URL for dashboard page links"
+msgstr "Elimină șirul din URL pentru link-urile paginilor din panou"
+
+msgid "Number of custom test finished events the checker should wait for"
+msgstr ""
+"Numărul de evenimente de finalizare a testelor personalizate pe care "
+"verificatorul trebuie să le aștepte"
+
+msgid "Disables live editor checking"
+msgstr "Dezactivează verificarea în timp real în editor"
+
+msgid ""
+"Selector for frontend-context editors that should inherit the document "
+"outline"
+msgstr ""
+"Selector pentru editorii în context frontend care trebuie să moștenească "
+"structura documentului"
+
+msgid "Selector for editors where their first heading should be h2"
+msgstr "Selector pentru editorii unde primul titlu trebuie să fie h2"
+
+msgid "Selector for editors where their first heading should be h3"
+msgstr "Selector pentru editorii unde primul titlu trebuie să fie h3"
+
+msgid "Selector for editors where their first heading should be h4"
+msgstr "Selector pentru editorii unde primul titlu trebuie să fie h4"
+
+msgid "Selectors for components where edit links are meaningless on tips"
+msgstr ""
+"Selectori pentru componente unde link-urile de editare nu au sens în sfaturi"
+
+msgid "Tell CK5 to have a header rows or columns by default."
+msgstr "Instruiește CK5 să aibă rânduri sau coloane de antet în mod implicit."
+
+msgid "Tests not shown to content authors."
+msgstr "Teste neafișate autorilor de conținut."
+
+msgid "Disable the tests you are not ready for"
+msgstr "Dezactivați testele pentru care nu sunteți pregătit"
+
+msgid "linkNewWindow"
+msgstr "linkNewWindow"
+
+msgid "linkNoText"
+msgstr "linkNoText"
+
+msgid "altEmptyLinked"
+msgstr "altEmptyLinked"
+
+msgid "linkDocument"
+msgstr "linkDocument"
+
+msgid "linkTextIsURL"
+msgstr "linkTextIsURL"
+
+msgid "linkTextIsGeneric"
+msgstr "linkTextIsGeneric"
+
+msgid "textPossibleList"
+msgstr "textPossibleList"
+
+msgid "textPossibleHeading"
+msgstr "textPossibleHeading"
+
+msgid "textUppercase"
+msgstr "textUppercase"
+
+msgid "tableNoHeaderCells"
+msgstr "tableNoHeaderCells"
+
+msgid "tableEmptyHeaderCell"
+msgstr "tableEmptyHeaderCell"
+
+msgid "tableContainsContentHeading"
+msgstr "tableContainsContentHeading"
+
+msgid "embedVideo"
+msgstr "embedVideo"
+
+msgid "embedAudio"
+msgstr "embedAudio"
+
+msgid "embedVisualization"
+msgstr "embedVisualization"
+
+msgid "embedTwitter"
+msgstr "embedTwitter"
+
+msgid "embedCustom"
+msgstr "embedCustom"
+
+msgid "headingEmpty"
+msgstr "headingEmpty"
+
+msgid "headingIsLong"
+msgstr "headingIsLong"
+
+msgid "headingLevelSkipped"
+msgstr "headingLevelSkipped"
+
+msgid "blockquoteIsShort"
+msgstr "blockquoteIsShort"
+
+msgid "altMissing"
+msgstr "altMissing"
+
+msgid "altNull"
+msgstr "altNull"
+
+msgid "altMeaningless"
+msgstr "altMeaningless"
+
+msgid "altURL"
+msgstr "altURL"
+
+msgid "altImageOf"
+msgstr "altImageOf"
+
+msgid "altDeadspace"
+msgstr "altDeadspace"
+
+msgid "altLong"
+msgstr "altLong"
+
+msgid "altPartOfLinkWithText"
+msgstr "altPartOfLinkWithText"
+
+msgid "2-letter code (en, fr, de)"
+msgstr "Cod de 2 litere (en, fr, de)"
+
+msgid "Alert"
+msgstr "Alertă"
+
+msgid "Alert types"
+msgstr "Tipuri de avertismente"
+
+msgid "Alerts"
+msgstr "Avertismente"
+
+msgid "All dismissals"
+msgstr "Toate notificările ignorate"
+
+msgid "All issues"
+msgstr "Toate problemele"
+
+msgid "All pages"
+msgstr "Toate paginile"
+
+msgid "Apply"
+msgstr "Aplicare"
+
+msgid "Author"
+msgstr "Autor"
+
+msgid "Authored after"
+msgstr "Creat după"
+
+msgid "Authored before"
+msgstr "Creat înainte de"
+
+msgid "Authored"
+msgstr "Creat"
+
+msgid "Content type"
+msgstr "Tip de conținut"
+
+msgid "Detected"
+msgstr "Detectat"
+
+msgid "Dismissals"
+msgstr "Notificări ignorate"
+
+msgid "Dismissed accessibility alerts"
+msgstr "Avertismente de accesibilitate ignorate"
+
+msgid "Edited"
+msgstr "Editat"
+
+msgid "Editor"
+msgstr "Editor"
+
+msgid "Items per page"
+msgstr "Elemente pe pagină"
+
+msgid "Filter"
+msgstr "Filtrare"
+
+msgid "Language"
+msgstr "Limbă"
+
+msgid "Last editor"
+msgstr "Ultimul editor"
+
+msgid "Marked"
+msgstr "Marcat"
+
+msgid "No dismissals found."
+msgstr "Nu s-au găsit notificări ignorate."
+
+msgid "Page"
+msgstr "Pagină"
+
+msgid "Pages"
+msgstr "Pagini"
+
+msgid "Pages with alerts"
+msgstr "Pagini cu avertismente"
+
+msgid "Panel"
+msgstr "Panou"
+
+msgid "Path"
+msgstr "Cale"
+
+msgid "Published"
+msgstr "Publicat"
+
+msgid "Recent"
+msgstr "Recente"
+
+msgid "Recent accessibility alerts"
+msgstr "Avertismente de accesibilitate recente"
+
+msgid "Recent alerts"
+msgstr "Avertismente recente"
+
+msgctxt "problems"
+msgid "Recent alerts"
+msgstr "Avertismente recente"
+
+msgid "Sort by"
+msgstr "Sortare după"
+
+msgid "Title"
+msgstr "Titlu"
+
+msgid "Type"
+msgstr "Tip"
+
+msgid "Filter and sort"
+msgstr "Filtrare și sortare"
+
+msgid "Deleted."
+msgstr "Șters."
+
+msgid "Delete failed."
+msgstr "Ștergerea a eșuat."
+
+msgid "<p>The Editoria11y <strong><em>@type</em></strong> view is missing.</p>"
+msgstr ""
+"<p>The Editoria11y <strong><em>@type</em></strong> view is missing.</p>"
+
+msgid ""
+"<p>There are three view configurations this module installs, found in its /"
+"config/install folder. Each must be installed for this dashboard to display "
+"results.</p>"
+msgstr ""
+"<p>There are three view configurations this module installs, found in its /"
+"config/install folder. Each must be installed for this dashboard to display "
+"results.</p>"
+
+msgid ""
+"<p>To fix: copy and paste the contents of <strong>/editoria11y/config/"
+"install/views.view.ed11y_@type.yml</strong> into a \"View\" type import at "
+"<a href=\"/admin/config/development/configuration/single/import\">/admin/"
+"config/development/configuration/single/import</a>. If you sync your "
+"configuration to the filesystem, be sure to include these Views in your "
+"repository.</p>"
+msgstr ""
+"<p>To fix: copy and paste the contents of <strong>/editoria11y/config/"
+"install/views.view.ed11y_@type.yml</strong> into a \"View\" type import at "
+"<a href=\"/admin/config/development/configuration/single/import\">/admin/"
+"config/development/configuration/single/import</a>. If you sync your "
+"configuration to the filesystem, be sure to include these Views in your "
+"repository.</p>"
+
+msgid "link is external"
+msgstr "link extern"
+
+msgid "link sends email"
+msgstr "link-ul trimite un e-mail"
+
+msgid "No results found"
+msgstr "Nu s-au găsit rezultate"
+
+msgid ""
+"Your Editoria11y CSA trial has @days days remaining. <a "
+"href=\"@url\">Activate a license</a> to continue using CSA features after "
+"the trial ends."
+msgstr ""
+"Perioada de probă Editoria11y CSA mai are @days zile. <a "
+"href=\"@url\">Activați o licență</a> pentru a continua să folosiți funcțiile "
+"CSA după încheierea perioadei de probă."
+
+msgid ""
+"Your Editoria11y CSA trial has expired. CSA features have been disabled. <a "
+"href=\"@url\">Activate a license</a> to continue using them."
+msgstr ""
+"Perioada de probă Editoria11y CSA a expirat. Funcțiile CSA au fost "
+"dezactivate. <a href=\"@url\">Activați o licență</a> pentru a continua să le "
+"folosiți."
+
+msgid ""
+"Your Editoria11y CSA license has expired. <a href=\"@url\">Renew or "
+"deactivate your license</a>."
+msgstr ""
+"Licența Editoria11y CSA a expirat. <a href=\"@url\">Reînnoiți sau "
+"dezactivați licența</a>."
+
+msgid ""
+"Your Editoria11y CSA license has expired. Please renew to reactivate CSA add-"
+"ons."
+msgstr ""
+"Licența Editoria11y CSA a expirat. Reînnoiți-o pentru a reactiva "
+"suplimentele CSA."
+
+msgid "Cron license check failed: @msg"
+msgstr "Verificarea licenței prin cron a eșuat: @msg"
+
+msgid ""
+"Editoria11y CSA features are active on a @days-day trial. <a "
+"href=\"@url\">Activate a license</a> to continue using them after the trial "
+"ends."
+msgstr ""
+"Funcțiile Editoria11y CSA sunt active pe o perioadă de probă de @days de "
+"zile. <a href=\"@url\">Activați o licență</a> pentru a continua să le "
+"utilizați după încheierea perioadei de probă."
+
+msgid "Editoria11y Custom Test"
+msgstr "Test personalizat Editoria11y"
+
+msgid "Editoria11y Custom Tests"
+msgstr "Teste personalizate Editoria11y"
+
+msgid "editoria11y custom test"
+msgstr "test personalizat editoria11y"
+
+msgid "editoria11y custom tests"
+msgstr "teste personalizate editoria11y"
+
+msgid "Editoria11y CSA: Advanced Tools"
+msgstr "Editoria11y CSA: instrumente avansate"
+
+msgid ""
+"Community-Supported Addons include code and contrast checks, custom checks, "
+"a site crawler and report maintenance tools."
+msgstr "Suplimentele susținute de comunitate includ verificări de cod și de contrast, verificări personalizate, un crawler de site și instrumente de întreținere a rapoartelor."
+
+msgid "Add custom test"
+msgstr "Adăugare test personalizat"
+
+msgid "Recheck"
+msgstr "Reverificare"
+
+msgid "CSA membership"
+msgstr "Abonament CSA"
+
+msgid "Custom tests"
+msgstr "Teste personalizate"
+
+msgid "Dashboard Actions"
+msgstr "Acțiuni panou de control"
+
+msgid "Editoria11y CSA membership"
+msgstr "Abonament Editoria11y CSA"
+
+msgid "Editoria11y custom tests"
+msgstr "Teste personalizate Editoria11y"
+
+msgid "Add a custom test"
+msgstr "Adăugare test personalizat"
+
+msgid "Edit custom test"
+msgstr "Editare test personalizat"
+
+msgid "Delete custom test"
+msgstr "Ștergere test personalizat"
+
+msgid "Editoria11y CSA Settings"
+msgstr "Setări Editoria11y CSA"
+
+msgid "Developer roles"
+msgstr "Roluri de dezvoltator"
+
+msgid "Developer assertiveness"
+msgstr "Nivelul de insistență pentru dezvoltatori"
+
+msgid "Tests overridden to show to content editors"
+msgstr "Teste modificate pentru a fi afișate editorilor de conținut"
+
+msgid "Tests overridden to turn off"
+msgstr "Teste modificate pentru a fi dezactivate"
+
+msgid "Tests overridden to only to show to developers"
+msgstr "Teste modificate pentru a fi afișate doar dezvoltatorilor"
+
+msgid "Elements to ignore for contrast test"
+msgstr "Elemente de ignorat pentru testul de contrast"
+
+msgid "Turn on contrast checks"
+msgstr "Activare verificări de contrast"
+
+msgid "Developer check root: body or specify"
+msgstr "Rădăcina verificărilor pentru dezvoltatori: body sau specificați"
+
+msgid "Developer check root selector"
+msgstr "Selector rădăcină pentru verificările dezvoltatorilor"
+
+msgid "Selector for elements to ignore for developers"
+msgstr "Selector pentru elementele de ignorat pentru dezvoltatori"
+
+msgid "Enabled"
+msgstr "Activat"
+
+msgid "Custom development domain patterns"
+msgstr "Tipare personalizate de domeniu de dezvoltare"
+
+msgid "ID"
+msgstr "ID"
+
+msgid "Label"
+msgstr "Etichetă"
+
+msgid "Test key"
+msgstr "Cheia testului"
+
+msgid "Tooltip title"
+msgstr "Titlul sfatului popup"
+
+msgid "Tip content HTML"
+msgstr "Conținut HTML al sfatului"
+
+msgid "Element set to check"
+msgstr "Set de elemente de verificat"
+
+msgid "Dismiss key type"
+msgstr "Tipul cheii de ignorare"
+
+msgid "CSS filter selector"
+msgstr "Selector filtru CSS"
+
+msgid "Text strings to include"
+msgstr "Șiruri de text de inclus"
+
+msgid "Text string"
+msgstr "Șir de text"
+
+msgid "Text strings to exclude"
+msgstr "Șiruri de text de exclus"
+
+msgid "Case sensitive text matching"
+msgstr "Potrivire text cu distincție majuscule/minuscule"
+
+msgid "Filter which pages will be crawled"
+msgstr "Filtrare pagini care vor fi parcurse"
+
+msgid "Cancel"
+msgstr "Anulare"
+
+msgid "Millisecond pause between page requests"
+msgstr "Pauză în milisecunde între cererile de pagini"
+
+msgid "This tab needs to remain open and in the foreground during the crawl."
+msgstr ""
+"Această filă trebuie să rămână deschisă și în prim-plan în timpul "
+"parcurgerii."
+
+msgid "Estimated time:"
+msgstr "Timp estimat:"
+
+msgid "hours"
+msgstr "hours"
+
+msgid "minutes"
+msgstr "minutes"
+
+msgid "minute"
+msgstr "minute"
+
+msgid "Start crawling"
+msgstr "Pornire parcurgere"
+
+msgid "Checked:"
+msgstr "Verificate:"
+
+msgid "pages"
+msgstr "pages"
+
+msgid "Back to dashboard"
+msgstr "Înapoi la panoul de control"
+
+msgid "Test"
+msgstr "Test"
+
+msgid "Elements"
+msgstr "Elemente"
+
+msgid "Status"
+msgstr "Stare"
+
+msgid "Text"
+msgstr "Text"
+
+msgid "On"
+msgstr "Pornit"
+
+msgid "Off"
+msgstr "Oprit"
+
+msgid "Freemius deactivation API call failed: @msg"
+msgstr "Apelul API de dezactivare Freemius a eșuat: @msg"
+
+msgid "Cannot cancel subscription: API token not found."
+msgstr "Nu se poate anula abonamentul: tokenul API nu a fost găsit."
+
+msgid "Freemius subscription cancellation API call failed: @msg"
+msgstr "Apelul API de anulare a abonamentului Freemius a eșuat: @msg"
+
+msgid "Key module lookup for @id failed: @msg"
+msgstr "Key module lookup for @id failed: @msg"
+
+msgid "Failed to update Freemius install properties: @msg"
+msgstr "Actualizarea proprietăților de instalare Freemius a eșuat: @msg"
+
+msgid ""
+"An <a href=\"@settings\">active license must be deactivated</a> before "
+"uninstalling."
+msgstr ""
+"O <a href=\"@settings\">licență activă trebuie dezactivată</a> înainte de "
+"dezinstalare."
+
+msgid "License key stored. Use editoria11y-csa:activate to activate."
+msgstr ""
+"Cheia de licență a fost salvată. Utilizați editoria11y-csa:activate pentru "
+"activare."
+
+msgid "License activated."
+msgstr "Licență activată."
+
+msgid "License deactivated."
+msgstr "Licență dezactivată."
+
+msgid "License active. Expires: @date"
+msgstr "Licență activă. Expiră: @date"
+
+msgid "License active. No expiration date."
+msgstr "Licență activă. Fără dată de expirare."
+
+msgid ""
+"License management locked. Use editoria11y-csa:unlock to re-enable UI "
+"changes."
+msgstr ""
+"Gestionarea licențelor este blocată. Utilizați editoria11y-csa:unlock pentru "
+"a reactiva modificările din interfață."
+
+msgid "License management unlocked. UI changes are now allowed."
+msgstr ""
+"Gestionarea licențelor este deblocată. Modificările din interfață sunt acum "
+"permise."
+
+msgid "License expired or cancelled."
+msgstr "Licență expirată sau anulată."
+
+msgid "License key cannot be empty."
+msgstr "Cheia de licență nu poate fi goală."
+
+msgid "Failed to store key: {msg}"
+msgstr "Salvarea cheii a eșuat: {msg}"
+
+msgid "No stored license key found. Run editoria11y-csa:set-key first."
+msgstr ""
+"Nu s-a găsit nicio cheie de licență salvată. Rulați mai întâi editoria11y-"
+"csa:set-key."
+
+msgid "Activation failed: {msg}"
+msgstr "Activarea a eșuat: {msg}"
+
+msgid "Deactivation failed: {msg}"
+msgstr "Dezactivarea a eșuat: {msg}"
+
+msgid "License check failed: {msg}"
+msgstr "Verificarea licenței a eșuat: {msg}"
+
+msgid "Export"
+msgstr "Export"
+
+msgid "Export pages"
+msgstr "Export pagini"
+
+msgid "Export dismissals"
+msgstr "Export notificări ignorate"
+
+msgid "Export alerts"
+msgstr "Export avertismente"
+
+msgid "Paths with parameters"
+msgstr "Căi cu parametri"
+
+msgid "Drop records for deleted or moved pages"
+msgstr "Ștergere înregistrări pentru pagini șterse sau mutate"
+
+msgid "Deletes results that no longer have valid paths or entity references."
+msgstr ""
+"Șterge rezultatele care nu mai au căi sau referințe la entități valide."
+
+msgid "Update page titles"
+msgstr "Actualizare titluri pagini"
+
+msgid ""
+"Replaces recorded titles for Nodes, Terms and Users with the current value "
+"on their edit page."
+msgstr ""
+"Înlocuiește titlurile înregistrate pentru noduri, termeni și utilizatori cu "
+"valoarea curentă de pe pagina de editare."
+
+msgid "Update page paths"
+msgstr "Actualizare căi pagini"
+
+msgid ""
+"Replaces recorded URLs for Nodes, Terms and Users with their current "
+"canonical path. <br>@ReviewPaths (node/1?node=2) will not be updated."
+msgstr ""
+"Înlocuiește URL-urile înregistrate pentru noduri, termeni și utilizatori cu "
+"calea canonică curentă. <br>@ReviewPaths (node/1?node=2) nu vor fi "
+"actualizate."
+
+msgid "Risky deletions"
+msgstr "Ștergeri riscante"
+
+msgid "Delete records for paths with parameters (e.g., ?page=2)"
+msgstr "Ștergere înregistrări pentru căi cu parametri (de ex., ?page=2)"
+
+msgid "None"
+msgstr "Niciunul"
+
+msgid "Only for nodes, terms & users"
+msgstr "Doar pentru noduri, termeni și utilizatori"
+
+msgid "All, including search and views"
+msgstr "Toate, inclusiv căutare și vizualizări"
+
+msgid ""
+"Used to remove duplicate records when previously recorded parameters like "
+"page numbers or search keys were not meaningful. Parameters that are not "
+"meaningful should be removed from the list of parameters to save under "
+"\"Syncing results to reports\" in the module configuration.<br>@ReviewPaths "
+"should be reviewed before proceeding. <strong>There is no undo</strong>."
+msgstr ""
+"Utilizat pentru a elimina înregistrările duplicate atunci când parametri "
+"înregistrați anterior, cum ar fi numerele de pagină sau cheile de căutare, "
+"nu aveau relevanță. Parametrii fără relevanță trebuie eliminați din lista de "
+"parametri de salvat la «Sincronizare rezultate la rapoarte» în configurația "
+"modulului.<br>@ReviewPaths trebuie revizuit înainte de a continua. "
+"<strong>Nu există opțiune de anulare</strong>."
+
+msgid "Start"
+msgstr "Pornire"
+
+msgid "Recheck nodes"
+msgstr "Reverificare noduri"
+
+msgid "Set up a crawl"
+msgstr "Configurare parcurgere"
+
+msgid "Processing batch #@batch_id of @count."
+msgstr "Procesare lot #@batch_id din @count."
+
+msgid "@process processed @count, deleted @deleted, updated @updated."
+msgstr "@process a procesat @count, a șters @deleted, a actualizat @updated."
+
+msgid ""
+"An error occurred while processing %error_operation with arguments: "
+"@arguments"
+msgstr ""
+"A apărut o eroare la procesarea %error_operation cu argumentele: @arguments"
+
+msgid "No records to process."
+msgstr "Nu există înregistrări de procesat."
+
+msgid ""
+"@process processed @count, deleted @deleted, updated @updated in @elapsed."
+msgstr ""
+"@process a procesat @count, a șters @deleted, a actualizat @updated în "
+"@elapsed."
+
+msgid "Admin label for the configuration page"
+msgstr "Etichetă admin pentru pagina de configurare"
+
+msgid "Test grouping ID"
+msgstr "ID grupare teste"
+
+msgid ""
+"Letters, numbers and underscores only.<br>Rules that share an ID will be "
+"grouped on dashboard reports."
+msgstr ""
+"Numai litere, cifre și liniuțe de subliniere.<br>Regulile care partajează un "
+"ID vor fi grupate în rapoartele panoului de control."
+
+msgid "Active"
+msgstr "Activ"
+
+msgid "Alert content"
+msgstr "Conținut avertisment"
+
+msgid "Tip title"
+msgstr "Titlul sfatului"
+
+msgid "Tip details"
+msgstr "Detalii sfat"
+
+msgid ""
+"HTML displayed in the tooltip. The provided template is optional.<br>\n"
+"        Allowed tags: @tags."
+msgstr ""
+"HTML afișat în sfatul popup. Șablonul furnizat este opțional.<br>\n"
+"        Etichete permise: @tags."
+
+msgid "To fix"
+msgstr "De remediat"
+
+msgid "Error"
+msgstr "Eroare"
+
+msgid "Manual check"
+msgstr "Verificare manuală"
+
+msgid "Dismiss key"
+msgstr "Cheie de ignorare"
+
+msgid ""
+"How dismissals are tracked. 'Text' uses its text content, 'Attributes' uses "
+"its attributes (href, id, class, src)."
+msgstr ""
+"Modul de urmărire a notificărilor ignorate. 'Text' folosește conținutul "
+"textual, 'Attributes' folosește atributele (href, id, class, src)."
+
+msgid "Text content"
+msgstr "Conținut textual"
+
+msgid "Attributes on tag (e.g. href and src)"
+msgstr "Atribute pe etichetă (de ex. href și src)"
+
+msgid "Elements to check"
+msgstr "Elemente de verificat"
+
+msgid ""
+"These sets contain elements that match your check area and skip over "
+"configuration."
+msgstr ""
+"Aceste seturi conțin elemente care corespund zonei dvs. de verificare și "
+"omit configurarea."
+
+msgid "Common choices"
+msgstr "Opțiuni comune"
+
+msgid "All text elements: Headings, Paragraphs, Blockquotes and Lists"
+msgstr "Toate elementele de text: Titluri, Paragrafe, Citate bloc și Liste"
+
+msgid "Links"
+msgstr "Link-uri"
+
+msgid "Paragraphs"
+msgstr "Paragrafe"
+
+msgid "Headings"
+msgstr "Titluri"
+
+msgid "Images"
+msgstr "Imagini"
+
+msgid "All elements"
+msgstr "Toate elementele"
+
+msgid "...other..."
+msgstr "...altele..."
+
+msgid "Specific elements and combinations"
+msgstr "Elemente specifice și combinații"
+
+msgid "Lists"
+msgstr "Liste"
+
+msgid "Blockquotes"
+msgstr "Citate bloc"
+
+msgid "Tables"
+msgstr "Tabele"
+
+msgid "Buttons"
+msgstr "Butoane"
+
+msgid "Inputs"
+msgstr "Câmpuri de introducere"
+
+msgid "Labels"
+msgstr "Etichete"
+
+msgid "Iframes"
+msgstr "Iframes"
+
+msgid "Videos"
+msgstr "Videoclipuri"
+
+msgid "Audio"
+msgstr "Audio"
+
+msgid ""
+"Note: combining Links with Paragraphs and other text containers can lead to "
+"duplicate alerts."
+msgstr ""
+"Notă: combinarea Link-urilor cu Paragrafe și alte containere de text poate "
+"genera avertismente duplicate."
+
+msgid "When tip should appear"
+msgstr "Când trebuie să apară sfatul"
+
+msgid ""
+"This test builder allows for simple text and attribute tests.<br>Check the "
+"module readme for <a href=\"@url\">tips on writing more complex tests</a>."
+msgstr ""
+"Acest generator de teste permite teste simple de text și atribute."
+"<br>Consultați readme-ul modulului pentru <a href=\"@url\">sfaturi privind "
+"scrierea unor teste mai complexe</a>."
+
+msgid "Select by attributes"
+msgstr "Selectare după atribute"
+
+msgid ""
+"Match using CSS selectors.<br>Use :not() to skip elements, e.g. "
+"<code>:is(.check1, .check2):not(.ignore, .ignore *)</code>.<br>Use attribute "
+"selectors for URLs, e.g. <code>[href*=\".dev/\"]</code>."
+msgstr ""
+"Potrivire cu selectori CSS.<br>Utilizați :not() pentru a omite elemente, de "
+"ex. <code>:is(.check1, .check2):not(.ignore, .ignore *)</code>.<br>Utilizați "
+"selectori de atribute pentru URL-uri, de ex. <code>[href*=\".dev/\"]</code>."
+
+msgid "Select by text"
+msgstr "Selectare după text"
+
+msgid "Flag elements containing any of these text strings. One per line."
+msgstr ""
+"Marcați elementele care conțin oricare dintre aceste șiruri de text. Unul pe "
+"rând."
+
+msgid "Case sensitive"
+msgstr "Distincție majuscule/minuscule"
+
+msgid "Exclude elements that match this text"
+msgstr "Excludeți elementele care corespund acestui text"
+
+msgid ""
+"Don't flag elements if they contain any of these words or phrases. E.g., a "
+"link to a development server is ok if it contains \"dev.\" One per line."
+msgstr ""
+"Nu marcați elementele dacă conțin oricare dintre aceste cuvinte sau "
+"expresii. De ex., un link către un server de dezvoltare este acceptabil dacă "
+"conține „dev.\" Unul pe rând."
+
+msgid "Test key must contain only letters, numbers, and underscores."
+msgstr ""
+"Cheia testului trebuie să conțină numai litere, cifre și liniuțe de "
+"subliniere."
+
+msgid "Tip content must contain visible text."
+msgstr "Conținutul sfatului trebuie să conțină text vizibil."
+
+msgid "Select at least one rule."
+msgstr "Selectați cel puțin o regulă."
+
+msgid "Select at least one element type."
+msgstr "Selectați cel puțin un tip de element."
+
+msgid "The filter selector should be a CSS selector, not a CSS rule block."
+msgstr ""
+"Selectorul de filtru trebuie să fie un selector CSS, nu un bloc de reguli "
+"CSS."
+
+msgid "Created new custom test %label."
+msgstr "Test personalizat nou %label creat."
+
+msgid "Updated custom test %label."
+msgstr "Test personalizat %label actualizat."
+
+msgid "Are you deactivating this site or cancelling altogether?"
+msgstr "Dezactivați acest site sau anulați cu totul?"
+
+msgid "You can manage your subscriptions at any time in your Freemius account."
+msgstr "Vă puteți gestiona abonamentele oricând din contul Freemius."
+
+msgid "Choose an action"
+msgstr "Alegeți o acțiune"
+
+msgid ""
+"<strong>Deactivate this site</strong>, but keep my subscription active and "
+"renewing for use on another site"
+msgstr ""
+"<strong>Dezactivare site</strong>, dar mențineți abonamentul activ și "
+"reînnoibil pentru utilizare pe un alt site"
+
+msgid ""
+"<strong>Cancel my subscription</strong> to the Editoria11y CSA altogether"
+msgstr "<strong>Anularea completă a abonamentului</strong> la Editoria11y CSA"
+
+msgid "Confirm deactivation"
+msgstr "Confirmare dezactivare"
+
+msgid "Never mind; keep site active"
+msgstr "Lăsați; păstrați situl activ"
+
+msgid ""
+"This site appears to be a development or testing environment with an active "
+"license."
+msgstr ""
+"Acest site pare a fi un mediu de dezvoltare sau testare cu o licență activă."
+
+msgid "How would you like to proceed?"
+msgstr "Cum doriți să continuați?"
+
+msgid ""
+"<strong>Cancel deactivation</strong>; I will manage this from the production "
+"site"
+msgstr ""
+"<strong>Anulare dezactivare</strong>; voi gestiona asta de pe situl de "
+"producție"
+
+msgid ""
+"<strong>Disconnect this copy</strong>; leave the production license active"
+msgstr "<strong>Deconectare copie</strong>; lăsați licența de producție activă"
+
+msgid ""
+"<strong>Deactivate all copies of this site</strong> (production, dev, and QA)"
+msgstr ""
+"<strong>Dezactivare toate copiile acestui site</strong> (producție, "
+"dezvoltare și QA)"
+
+msgid "Confirm"
+msgstr "Confirmare"
+
+msgid ""
+"Editoria11y promotes accessibility in a unique way. Its tools are highly "
+"effective at helping non-technical authors prepare content that can be "
+"enjoyed equally by disabled Web users. We consider this a public good, so "
+"Editoria11y will always be free to use."
+msgstr ""
+"Editoria11y promovează accesibilitatea într-un mod unic. Instrumentele sale "
+"sunt extrem de eficiente în a ajuta autorii non-tehnici să pregătească "
+"conținut ce poate fi savurat în mod egal de utilizatorii web cu "
+"dizabilități. Considerăm că acesta este un bun public, astfel că Editoria11y "
+"va fi întotdeauna gratuit."
+
+msgid "Editoria11y is not, however, free to develop or support."
+msgstr ""
+"Cu toate acestea, Editoria11y nu este gratuit de dezvoltat sau de susținut."
+
+msgid ""
+"The \"Community Supported Add-ons\" (CSA) project fills the gap: project "
+"membership subscriptions fund the development of the Editoria11y library, "
+"its CMS plugins, and the CSA suite."
+msgstr ""
+"Proiectul „Community Supported Add-ons\" (CSA) acoperă această lacună: "
+"abonamentele de membru finanțează dezvoltarea bibliotecii Editoria11y, a "
+"plugin-urilor sale pentru CMS și a suitei CSA."
+
+msgid ""
+"<a href=\"@url\"><strong>Join the CSA</strong></a> to support this project"
+msgstr ""
+"<a href=\"@url\"><strong>Alăturați-vă CSA</strong></a> pentru a susține "
+"acest proiect"
+
+msgid ""
+"Existing members: <a href=\"@url\"><strong>Manage your subscription</"
+"strong></a> or <a href=\"@support_url\"><strong>contact support</strong></a>"
+msgstr ""
+"Membri existenți: <a href=\"@url\"><strong>gestionați-vă abonamentul</"
+"strong></a> sau <a href=\"@support_url\"><strong>contactați suportul</"
+"strong></a>"
+
+msgid ""
+"License management on this site has been locked via Drush. Use <code>drush "
+"ed11y-unlock</code> to re-enable changes from this form."
+msgstr ""
+"Gestionarea licențelor pe acest site a fost blocată prin Drush. Utilizați "
+"<code>drush ed11y-unlock</code> pentru a reactiva modificările din acest "
+"formular."
+
+msgid "Warning: this site matches a dev or QA URL pattern"
+msgstr "Avertisment: acest site corespunde unui tipar URL de dezvoltare sau QA"
+
+msgid "Shared activations should be managed in the production copy."
+msgstr "Activările partajate trebuie gestionate din copia de producție."
+
+msgid ""
+"Use <code>drush ed11y-lock</code> to prevent changing shared activations."
+msgstr ""
+"Utilizați <code>drush ed11y-lock</code> pentru a preveni modificarea "
+"activărilor partajate."
+
+msgid ""
+"Deactivating a shared key deactivates all copies of a site, including "
+"production."
+msgstr ""
+"Dezactivarea unei chei partajate dezactivează toate copiile unui site, "
+"inclusiv producția."
+
+msgid ""
+"Separate license activations from a development environment consume an "
+"additional key."
+msgstr ""
+"Activările de licență separate dintr-un mediu de dezvoltare consumă o cheie "
+"suplimentară."
+
+msgid "Trial (@days days remaining)"
+msgstr "Perioadă de probă (@days zile rămase)"
+
+msgid "Trial (expired)"
+msgstr "Perioadă de probă (expirată)"
+
+msgid "License expired"
+msgstr "Licență expirată"
+
+msgid "Active membership"
+msgstr "Abonament activ"
+
+msgid "Activate using stored license key"
+msgstr "Activare cu cheia de licență salvată"
+
+msgid "Activate with a different license key"
+msgstr "Activare cu o altă cheie de licență"
+
+msgid "Activate (enter license key below)"
+msgstr "Activare (introduceți cheia de licență mai jos)"
+
+msgid "<strong>License expired.</strong> Expired on: @date"
+msgstr "<strong>Licență expirată.</strong> Expirată la: @date"
+
+msgid "<strong>License has expired.</strong>"
+msgstr "<strong>License has expired.</strong>"
+
+msgid "<strong>Trial license active.</strong> Trial ends: @date"
+msgstr "<strong>Licență de probă activă.</strong> Proba se încheie: @date"
+
+msgid "<strong>License active.</strong> Expires: @date"
+msgstr "<strong>Licență activă.</strong> Expiră: @date"
+
+msgid "<strong>Lifetime license active.</strong>"
+msgstr "<strong>Lifetime license active.</strong>"
+
+msgid "Check for license renewal"
+msgstr "Verificare reînnoire licență"
+
+msgid "Deactivate license"
+msgstr "Dezactivare licență"
+
+msgid "A license key is stored but not active"
+msgstr "O cheie de licență este salvată, dar nu este activă"
+
+msgid "Add a license key to enable CSA features"
+msgstr "Adăugați o cheie de licență pentru a activa funcțiile CSA"
+
+msgid "Enable CSA features"
+msgstr "Activare funcții CSA"
+
+msgid "CSA license key"
+msgstr "Cheie de licență CSA"
+
+msgid ""
+"<a href=\"@url\">Join the CSA</a> to enable CSA features. Visit the Freemius "
+"dashboard to <a href=\"@freemius\">manage your subscription</a> or recover a "
+"lost key."
+msgstr ""
+"<a href=\"@url\">Alăturați-vă CSA</a> pentru a activa funcțiile CSA. "
+"Vizitați panoul Freemius pentru <a href=\"@freemius\">a gestiona "
+"abonamentul</a> sau a recupera o cheie pierdută."
+
+msgid "Local, Dev and QA site URL patterns"
+msgstr "Tipare URL pentru situri locale, de dezvoltare și QA"
+
+msgid ""
+"One pattern per line, up to 5 patterns. Wildcards are supported (e.g. "
+"<code>*.test.example.com</code>).<br>Local, dev and QA sites can share an "
+"activation with production site, but only production sites check for "
+"renewals."
+msgstr ""
+"Un tipar pe rând, până la 5 tipare. Caracterele wildcards sunt suportate (de "
+"ex. <code>*.test.example.com</code>).<br>Siturile locale, de dezvoltare și "
+"QA pot partaja o activare cu situl de producție, dar numai siturile de "
+"producție verifică reînnoirile."
+
+msgid ""
+"Additionally, any hostname consisting only of digits and dots (raw IPv4 "
+"address) is treated as a development environment."
+msgstr ""
+"În plus, orice nume de gazdă format exclusiv din cifre și puncte (adresă "
+"IPv4 brută) este tratat ca mediu de dezvoltare."
+
+msgid "Built-in development URL patterns"
+msgstr "Tipare URL de dezvoltare integrate"
+
+msgid "Enter no more than 5 custom domain patterns."
+msgstr "Introduceți cel mult 5 tipare de domeniu personalizate."
+
+msgid "Saved license key not found. Please activate with a new key."
+msgstr "Cheia de licență salvată nu a fost găsită. Activați cu o cheie nouă."
+
+msgid "Enter a license key."
+msgstr "Introduceți o cheie de licență."
+
+msgid "Activation failed: @msg"
+msgstr "Activarea a eșuat: @msg"
+
+msgid "License renewed and active."
+msgstr "Licență reînnoită și activă."
+
+msgid "License is still expired."
+msgstr "Licența este în continuare expirată."
+
+msgid "Unexpected license status: @status"
+msgstr "Stare neașteptată a licenței: @status"
+
+msgid "Could not reach licensing server: @msg"
+msgstr "Nu s-a putut contacta serverul de licențiere: @msg"
+
+msgid "Deactivation failed: @msg"
+msgstr "Dezactivarea a eșuat: @msg"
+
+msgid "Editoria11y Export Batch Processor"
+msgstr "Editoria11y – procesor de exporturi în loturi"
+
+msgid ""
+"Batching is only needed for very large or heavily customized CSV exports."
+msgstr "Procesarea în loturi este necesară doar pentru exporturi CSV foarte mari sau puternic personalizate."
+
+msgid "hide"
+msgstr "hide"
+
+msgid "ok"
+msgstr "ok"
+
+msgid "Yes"
+msgstr "Da"
+
+msgid "No"
+msgstr "Nu"
+
+msgid "This alt text is a filename, not a description"
+msgstr "Textul alternativ este un nume de fișier, nu o descriere"
+
+msgid "Is this a clear and concise description of the image?"
+msgstr "Aceasta este o descriere clară și concisă a imaginii?"
+
+msgid "This alt text may be a placeholder"
+msgstr "Acest text alternativ poate fi un substituent"
+
+msgid "This alt text is unpronounceable"
+msgstr "Textul alternativ nu poate fi pronunțat"
+
+msgid "This custom input field is missing a label"
+msgstr "Acest câmp de intrare personalizat nu are o etichetă"
+
+msgid "Button is missing an accessible label"
+msgstr "Butonul nu are un nume accesibil"
+
+msgid "Button has an invalid ARIA label"
+msgstr "Butonul are o etichetă ARIA invalidă"
+
+msgid "Button name repeats the word \"button\""
+msgstr "Numele butonului repetă cuvântul „button\""
+
+msgid "This button is unpronounceable"
+msgstr "Acest buton nu poate fi pronunțat"
+
+msgid "Text does not have enough contrast to be easily legible"
+msgstr "Textul nu are suficient contrast pentru a fi ușor lizibil"
+
+msgid "Graphic or icon does not have enough contrast"
+msgstr "Elementul grafic sau pictograma nu are suficient contrast"
+
+msgid "Input does not provide enough contrast to be easily legible"
+msgstr "Câmpul de intrare nu oferă suficient contrast pentru a fi ușor lizibil"
+
+msgid "Placeholder text does not have enough contrast to be easily legible"
+msgstr ""
+"Textul de tip placeholder nu are suficient contrast pentru a fi ușor lizibil"
+
+msgid "Does this placeholder text have enough contrast?"
+msgstr "Are acest text de tip placeholder suficient contrast?"
+
+msgid "Does this text have enough contrast?"
+msgstr "Are acest text suficient contrast?"
+
+msgid "Does this graphic or icon have enough contrast?"
+msgstr "Are acest element grafic sau această pictogramă suficient contrast?"
+
+msgid "Duplicate ID attribute"
+msgstr "Atribut ID duplicat"
+
+msgid "This link has a tooltip with the same text as the link"
+msgstr "Acest link are un tooltip cu același text ca și linkul"
+
+msgid "Does this audio have a transcript?"
+msgstr "Există o transcriere pentru acest conținut audio?"
+
+msgid "Is this visualization accessible?"
+msgstr "Această vizualizare este accesibilă?"
+
+msgid "Embedded iframes need manual checks"
+msgstr "Cadrele iframe înglobate necesită verificări manuale"
+
+msgid "Frame missing \"title\" attribute"
+msgstr "Cadrul nu are atributul „title\""
+
+msgid "Frame with tabindex=\"-1\" will not be keyboard accessible."
+msgstr "Un cadru cu tabindex=\"-1\" nu va fi accesibil cu tastatura."
+
+msgid "Is this video accurately captioned?"
+msgstr "Are acest videoclip subtitrări corecte?"
+
+msgid "This heading has no text"
+msgstr "Acest titlu nu conține text"
+
+msgid "This image is used as a heading, so it needs alt text"
+msgstr "Această imagine este folosită ca titlu și necesită text alternativ"
+
+msgid "The first heading on this page is a subheading"
+msgstr "Primul titlu de pe această pagină este un subtitlu"
+
+msgid "Can this heading be shorter?"
+msgstr "Poate fi acest titlu mai scurt?"
+
+msgid "This page is missing a Heading 1"
+msgstr "Această pagină nu are un Titlu de nivel 1"
+
+msgid "This heading is tagged at the wrong level"
+msgstr "Titlul are un nivel incorect"
+
+msgid "This heading is unpronounceable"
+msgstr "Acest titlu nu poate fi pronunțat"
+
+msgid "This element cannot be described by screen readers"
+msgstr "Acest element nu poate fi descris de cititoarele de ecran"
+
+msgid "Can this alt text be shorter?"
+msgstr "Poate fi mai scurt acest text alternativ?"
+
+msgid "Is this image actually meaningless?"
+msgstr "Această imagine este cu adevărat lipsită de semnificație?"
+
+msgid "Image in a carousel or gallery marked as decorative"
+msgstr "Imaginea dintr-un carusel sau galerie este marcată ca decorativă"
+
+msgid "This captioned image has no alt text"
+msgstr "Imaginea cu legendă nu are text alternativ"
+
+msgid "Alt text should not be the same as caption text"
+msgstr "Textul alternativ nu trebuie să fie identic cu legenda"
+
+msgid "Is there a visible label for this field?"
+msgstr "Există o etichetă vizibilă pentru acest câmp?"
+
+msgid "Prefer visible labels to placeholders"
+msgstr "Preferați etichetele vizibile în locul substituenților"
+
+msgid "Is this reset button needed?"
+msgstr "Este necesar acest buton de resetare?"
+
+msgid "This input has an empty label"
+msgstr "Acest câmp de intrare are o etichetă goală"
+
+msgid "Visible label does not match invisible label"
+msgstr "Eticheta vizibilă nu corespunde etichetei invizibile"
+
+msgid "This image input is missing alt text"
+msgstr "Acest câmp de tip imagine nu are text alternativ"
+
+msgid "This input is not connected to a label"
+msgstr "Acest câmp de intrare nu este asociat cu o etichetă"
+
+msgid "Language tag does not match the content"
+msgstr "Eticheta de limbă nu corespunde conținutului"
+
+msgid "This content appears to be in a different language"
+msgstr "Acest conținut pare să fie într-o altă limbă"
+
+msgid "This alt text appears to be in a different language"
+msgstr "Acest text alternativ pare să fie într-o altă limbă"
+
+msgid "Alt text used as a link should not be a URL"
+msgstr "Textul alternativ folosit ca link nu trebuie să fie un URL"
+
+msgid "This linked alt might not be clear and concise"
+msgstr "Textul alternativ al acestui link poate să nu fie clar și concis"
+
+msgid "Linked images need pronounceable alt text"
+msgstr "Imaginile folosite ca linkuri necesită text alternativ pronunțabil"
+
+msgid "Manual check: link contains \"click here\""
+msgstr "Verificare manuală: link-ul conține „click here\""
+
+msgid "Link article titles, not DOI numbers"
+msgstr "Creați linkuri pentru titluri de articole, nu pentru numere DOI"
+
+msgid "This link contains no words"
+msgstr "Acest link nu conține niciun cuvânt"
+
+msgid "Link with invalid \"aria-labelledby\" attribute"
+msgstr "Link cu atribut „aria-labelledby\" invalid"
+
+msgid "This link needs a label"
+msgstr "Acest link necesită o etichetă"
+
+msgid "Link points to a file without warning"
+msgstr "Linkul indică un fișier fără avertizare"
+
+msgid "Links with the same text link to different pages"
+msgstr "Linkuri cu același text duc la pagini diferite"
+
+msgid "Does this alt text describe the link or the image?"
+msgstr "Descrie acest text alternativ linkul sau imaginea?"
+
+msgid "Does this alt text make sense as part of this link?"
+msgstr "Are sens acest text alternativ ca parte a acestui link?"
+
+msgid "Can this linked alt text be shorter?"
+msgstr "Poate fi mai scurt textul alternativ al acestui link?"
+
+msgid "This linked image needs alt text"
+msgstr "Această imagine folosită ca link necesită text alternativ"
+
+msgid "Does this linked image need a description?"
+msgstr "Necesită o descriere această imagine folosită ca link?"
+
+msgid "Is this link actually a button?"
+msgstr "Este acest link de fapt un buton?"
+
+msgid "Does this link open a new tab without warning?"
+msgstr "Deschide acest link o filă nouă fără avertizare?"
+
+msgid "This linked alt text may be a placeholder"
+msgstr "Acest text alternativ al linkului poate fi un substituent"
+
+msgid "This link only contains generic words"
+msgstr "Acest link conține doar cuvinte generice"
+
+msgid "The purpose of this link is visually hidden"
+msgstr "Scopul acestui link este ascuns vizual"
+
+msgid "Does this image's alt describe the image or the link?"
+msgstr "Descrie textul alternativ al imaginii sau linkul?"
+
+msgid "Are the symbols or emoji in this link meaningful?"
+msgstr "Simbolurile sau emoji-urile din acest link sunt semnificative?"
+
+msgid "This link is unpronounceable"
+msgstr "Acest link nu poate fi pronunțat"
+
+msgid "Link text should not be a URL"
+msgstr "Textul linkului nu trebuie să fie un URL"
+
+msgid "Meta tag for page language missing"
+msgstr "Lipsește eticheta meta pentru limba paginii"
+
+msgid "Did you mean a different language code?"
+msgstr "Ați intenționat un alt cod de limbă?"
+
+msgid "Invalid language code"
+msgstr "Cod de limbă invalid"
+
+msgid "Page language may not match the content"
+msgstr "Limba paginii poate să nu corespundă conținutului"
+
+msgid "Meta tag limits how much users can enlarge text"
+msgstr "Eticheta meta limitează cât pot mări utilizatorii textul"
+
+msgid "Meta tag automatically refreshes page"
+msgstr "Eticheta meta reîncarcă automat pagina"
+
+msgid "Meta tag prevents users from enlarging text"
+msgstr "Eticheta meta împiedică utilizatorii să mărească textul"
+
+msgid "Meta tag for page title missing"
+msgstr "Lipsește eticheta meta pentru titlul paginii"
+
+msgid "Invalid HTML: image has no alt attribute"
+msgstr "HTML invalid: imaginea nu are atribut alt"
+
+msgid "Invalid HTML: linked image missing alt attribute"
+msgstr "HTML invalid: imaginea folosită ca link nu are atribut alt"
+
+msgid "Invalid HTML: image in link missing alt attribute"
+msgstr "HTML invalid: imaginea din link nu are atribut alt"
+
+msgid "This link target may be invalid"
+msgstr "Destinația acestui link poate fi invalidă"
+
+msgid "Should this quote be a heading?"
+msgstr "Ar trebui ca acest citat să fie un titlu?"
+
+msgid "Has this document been tagged for screen readers?"
+msgstr "A fost etichetat acest document pentru cititoarele de ecran?"
+
+msgid "Should this bold text be a heading?"
+msgstr "Ar trebui ca acest text aldin să fie un titlu?"
+
+msgid "Should this have list formatting?"
+msgstr "Ar trebui ca acest text să fie formatat ca o listă?"
+
+msgid "Broken same-page link"
+msgstr "Link intern defect"
+
+msgid "Do not justify text"
+msgstr "Nu justificați textul"
+
+msgid "Nested interactive layout components"
+msgstr "Componente interactive de layout imbricate"
+
+msgid "Is there an alternative for this PDF?"
+msgstr "Există o alternativă la acest PDF?"
+
+msgid "Text is too small"
+msgstr "Textul este prea mic"
+
+msgid "Large blocks of emphasized text are harder to read"
+msgstr "Blocurile mari de text accentuat sunt mai greu de citit"
+
+msgid "Do not use sub/superscript as visual formatting"
+msgstr "Nu folosiți sub/superscript ca formatare vizuală"
+
+msgid "Only links should be underlined"
+msgstr "Numai linkurile ar trebui să fie subliniate"
+
+msgid "Is this uppercase text needed?"
+msgstr "Este necesar acest text cu majuscule?"
+
+msgid "Are there redundant words in this alt text?"
+msgstr "Există cuvinte redundante în acest text alternativ?"
+
+msgid "Tabindex overrides interrupt the focus order"
+msgstr "Suprascrierile tabindex întrerup ordinea de focus"
+
+msgid "This header cell needs text"
+msgstr "Această celulă de antet necesită text"
+
+msgid "This table has an invalid headers attribute"
+msgstr "Acest tabel are un atribut „headers” invalid"
+
+msgid "This table needs a header row and/or column"
+msgstr "Acest tabel necesită un rând și/sau o coloană de antet"
+
+msgid "Content headings should not be used inside tables"
+msgstr "Titlurile de conținut nu trebuie folosite în interiorul tabelelor"
+
+msgid "Invalid HTML list"
+msgstr "Listă HTML invalidă"
+
+msgid "Linked images"
+msgstr "Imagini cu link"
+
+msgid "Text formatting"
+msgstr "Formatare text"
+
+msgid "Video, audio, frames"
+msgstr "Video, audio, cadre"
+
+msgid "Contrast"
+msgstr "Contrast"
+
+msgid "Forms"
+msgstr "Formulare"
+
+msgid "ARIA and focus"
+msgstr "ARIA și focus"
+
+msgid "Page metadata"
+msgstr "Metadate pagină"
+
+msgid "The request could not be processed. Details have been logged."
+msgstr "Cererea nu a putut fi procesată. Detaliile au fost înregistrate în jurnal."
+
+msgid "API request rejected: @message"
+msgstr "Cererea API a fost respinsă: @message"
+
+msgid "API request failed: @message"
+msgstr "Cererea API a eșuat: @message"
+
+msgid "Export pages with alerts"
+msgstr "Export pagini cu avertismente"
+
+msgid ""
+"Install the Editoria11y Export Batch Processor module to download these "
+"reports."
+msgstr "Instalați modulul Editoria11y Export Batch Processor pentru a descărca aceste rapoarte."
+
+msgid "Export results"
+msgstr "Exportă rezultatele"
+
+msgctxt "problems"
+msgid "Top alerts"
+msgstr "Principale probleme"
+
+msgctxt "problems"
+msgid "Pages with the most alerts"
+msgstr "Pagini cu cele mai multe probleme"
+
+msgid "Recent dismissals"
+msgstr "Notificări ignorate recente"
+
+msgid ""
+"Activate the <a href=\"@csa\">Editoria11y CSA submodule</a> to see developer "
+"tests."
+msgstr ""
+"Activați <a href=\"@csa\">submodulul Editoria11y CSA</a> pentru a vedea "
+"testele pentru dezvoltatori."
+
+msgid "Include all parts of the page that contain your theme and content."
+msgstr "Includeți toate părțile paginii care conțin tema și conținutul dvs."
+
+msgid "Include all parts of the page that contain your editable content."
+msgstr "Includeți toate părțile paginii care conțin conținutul dvs. editabil."
+
+msgid "Exclude elements that show unhelpful, repetitive, or inaccurate alerts."
+msgstr ""
+"Excludeți elementele care afișează avertismente inutile, repetitive sau "
+"inexacte."
+
+msgid ""
+"<a href=\"@permissions\">Add permissions</a>, especially \"View Editoria11y "
+"checker\" and \"Mark OK.\"</a>"
+msgstr ""
+"<a href=\"@permissions\">Add permissions</a>, especially \"View Editoria11y "
+"checker\" and \"Mark OK.\"</a>"
+
+msgid ""
+"If you need help: <a href=\"@config_guide\">Configuration Guide</a> | <a "
+"href=\"@issue_queue\">Issue Queue</a> | <a href=\"@help\">Support contacts</"
+"a>"
+msgstr ""
+"Dacă aveți nevoie de ajutor: <a href=\"@config_guide\">Ghid de configurare</"
+"a> | <a href=\"@issue_queue\">Coadă de probleme</a> | <a "
+"href=\"@help\">Contacte suport</a>"
+
+msgid "Autodetect"
+msgstr "Autodetectare"
+
+msgid "Only user-editable content"
+msgstr "Numai conținut editabil de utilizator"
+
+msgid "Other"
+msgstr "Altul"
+
+msgid "Parts of the page to test"
+msgstr "Părți ale paginii de testat"
+
+msgid "\"Autodetect\" selects:"
+msgstr "„Autodetectare\" selectează:"
+
+msgid "Other: specify regions to check for developer and content problems"
+msgstr ""
+"Altul: specificați zonele de verificat pentru probleme de dezvoltator și "
+"conținut"
+
+msgid ""
+"Provide CSS selectors. For many sites, the site theme is wrapped in "
+"<code>.dialog-off-canvas-main-canvas</code> while editing."
+msgstr ""
+"Furnizați selectori CSS. Pentru multe situri, tema este învelită în "
+"<code>.dialog-off-canvas-main-canvas</code> în timpul editării."
+
+msgid "Do not check for any errors inside these elements"
+msgstr "Nu verificați niciun fel de erori în interiorul acestor elemente"
+
+msgid "These parts of the page will be ignored entirely."
+msgstr "Aceste părți ale paginii vor fi ignorate complet."
+
+msgid "match content settings"
+msgstr "match content settings"
+
+msgid "Page regions with user-editable content"
+msgstr "Zone ale paginii cu conținut editabil de utilizator"
+
+msgid ""
+"Default: <code><em>main</em></code><br>Provide <a target=\"_blank\" "
+"href=\"https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/"
+"Selectors\">CSS selectors</a>. Content authors will only see the alerts "
+"within these parts of the page. Do not provide selectors that nest within "
+"each other, or the inner content will be checked twice."
+msgstr ""
+"Implicit: <code><em>main</em></code><br>Furnizați <a target=\"_blank\" "
+"href=\"https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/"
+"Selectors\">selectori CSS</a>. Autorii de conținut vor vedea avertismentele "
+"numai în aceste părți ale paginii. Nu furnizați selectori imbricați, altfel "
+"conținutul interior va fi verificat de două ori."
+
+msgid ""
+"Default: <code><em>main</em></code><br>Provide <a target=\"_blank\" "
+"href=\"https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/"
+"Selectors\">CSS selectors</a>. Do not provide selectors that nest within "
+"each other, or the inner content will be checked twice."
+msgstr ""
+"Implicit: <code><em>main</em></code><br>Furnizați <a target=\"_blank\" "
+"href=\"https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/"
+"Selectors\">selectori CSS</a>. Nu furnizați selectori imbricați, altfel "
+"conținutul interior va fi verificat de două ori."
+
+msgid "Errors in these elements should only be shown to developers"
+msgstr "Erorile din aceste elemente trebuie afișate numai dezvoltatorilor"
+
+msgid "Do not check for content errors inside these elements"
+msgstr "Nu verificați erorile de conținut din interiorul acestor elemente"
+
+msgid ""
+"Content editors are not responsible for errors in these elements. <br>E.g.: "
+"<code><em>#sidebar-menu a, .slide [aria-hidden=\"true\"]</em></code>."
+msgstr ""
+"Editorii de conținut nu sunt responsabili pentru erorile din aceste "
+"elemente. <br>De ex.: <code><em>#sidebar-menu a, .slide [aria-"
+"hidden=\"true\"]</em></code>."
+
+msgid "Roles that will see developer alerts"
+msgstr "Roluri care vor vedea avertismentele pentru dezvoltatori"
+
+msgid ""
+"All roles with the <a href=\":url\">View editoria11y checker</a> permission "
+"see content alerts."
+msgstr ""
+"Toate rolurile cu permisiunea <a href=\":url\">View editoria11y checker</a> "
+"văd avertismentele de conținut."
+
+msgid "Advanced settings"
+msgstr "Setări avansate"
+
+msgid "Assertiveness"
+msgstr "Nivel de insistență"
+
+msgid "Checker mode for content roles"
+msgstr "Modul verificatorului pentru rolurile de conținut"
+
+msgid "Start open if there are any alerts"
+msgstr "Pornire deschis dacă există avertismente"
+
+msgid "Start open if there are new alerts"
+msgstr "Pornire deschis dacă există avertismente noi"
+
+msgid "Start minimized"
+msgstr "Pornire minimizat"
+
+msgid ""
+"Choose when the control panel should open and show inline tips. \"Start open "
+"if there are any alerts\" is recommended, as it helps tips get noticed over "
+"time."
+msgstr ""
+"Alegeți când trebuie să se deschidă panoul de control și să afișeze "
+"sfaturile inline. „Pornire deschis dacă există avertismente\" este "
+"recomandat, deoarece ajută sfaturile să fie observate în timp."
+
+msgid "Checker mode for developer roles"
+msgstr "Modul verificatorului pentru rolurile de dezvoltator"
+
+msgid "Do not check any content while it is being edited"
+msgstr "Nu verificați conținutul în timp ce este editat"
+
+msgid ""
+"Use the \"Do not check on pages with these elements\" setting to prevent "
+"checking only on specific pages. E.g., exclude: <code><em>form[id^=\"node-"
+"article\"]</em></code>."
+msgstr ""
+"Utilizați setarea „Nu verifica pe paginile cu aceste elemente\" pentru a "
+"preveni verificarea numai pe anumite pagini. De ex., excludeți: "
+"<code><em>form[id^=\"node-article\"]</em></code>."
+
+msgid "Assign headers to CKEditor tables on insert"
+msgstr "Atribuire anteturi tabelelor CKEditor la inserare"
+
+msgid "First row"
+msgstr "Primul rând"
+
+msgid "First column"
+msgstr "Prima coloană"
+
+msgid "Both"
+msgstr "Ambele"
+
+msgid ""
+"You will need to clear cache for changes to this setting to appear in "
+"CKEditor."
+msgstr ""
+"Va trebui să ștergeți memoria cache pentru ca modificările acestei setări să "
+"apară în CKEditor."
+
+msgid "Theme compatibility"
+msgstr "Compatibilitate temă"
+
+msgid "Configuration tips"
+msgstr "Sfaturi de configurare"
+
+msgid ""
+"If the checker <strong>toggle</strong> does not appear: make sure a z-"
+"indexed or overflow-hidden element in your front-end theme is not hiding or "
+"covering the <code><em>ed11y-element-panel</em></code> container, make sure "
+"that any custom selectors in the \"Disable the scanner if these elements are "
+"detected\" field are not present, and make sure that no JavaScript errors "
+"are appearing in your <a href=\"https://developer.mozilla.org/en-US/docs/"
+"Tools/Browser_Console\"> browser console</a>"
+msgstr ""
+"Dacă <strong>butonul de comutare</strong> al verificatorului nu apare: "
+"asigurați-vă că un element cu z-index sau overflow-hidden din tema front-end "
+"nu ascunde sau acoperă containerul <code><em>ed11y-element-panel</em></"
+"code>, asigurați-vă că niciun selector personalizat din câmpul „Dezactivare "
+"scanner dacă aceste elemente sunt detectate\" nu este prezent și asigurați-"
+"vă că nu apar erori JavaScript în <a href=\"https://developer.mozilla.org/en-"
+"US/docs/Tools/Browser_Console\"> consola browserului</a>"
+
+msgid ""
+"If the checker toggle is present but <strong>not detecting</strong> errors, "
+"or missing errors that should be flagged: check that your inclusions & "
+"exclusion settings below are not missing or ignoring the elements. It is not "
+"uncommon for homepages or views to insert editable content outside the "
+"<code><em>main</em></code> element."
+msgstr ""
+"Dacă butonul de comutare este prezent dar <strong>nu detectează</strong> "
+"erori sau omite erori care ar trebui marcate: verificați că setările de "
+"includere și excludere de mai jos nu omit sau nu ignoră elementele. Nu este "
+"neobișnuit ca paginile de start sau vizualizările să insereze conținut "
+"editabil în afara elementului <code><em>main</em></code>."
+
+msgid "Theme"
+msgstr "Temă"
+
+msgid "Sleek"
+msgstr "Modern"
+
+msgid "Classic"
+msgstr "Classic"
+
+msgid "Dark"
+msgstr "Întunecat"
+
+msgid "Do not check on pages with these elements"
+msgstr "Nu verifica pe paginile cu aceste elemente"
+
+msgid ""
+"Used to block checking on site sections or admin pages.<br>E.g. "
+"<code><em>.content-type-example, .tabs__link[href=*\"edit\"]</em></code>."
+msgstr ""
+"Utilizat pentru a bloca verificarea pe secțiuni ale sitului sau pe pagini de "
+"administrare.<br>De ex. <code><em>.content-type-"
+"example, .tabs__link[href=*\"edit\"]</em></code>."
+
+msgid "Hide all alerts on pages where these elements are not present"
+msgstr ""
+"Ascundeți toate avertismentele pe paginile unde aceste elemente nu sunt "
+"prezente"
+
+msgid ""
+"Used to limit alerting to nodes where the user can edit something. Suggested "
+"selectors:<br> <code><em>.contextual-region a[href*=\"/edit\"], .contextual-"
+"region a[href*=\"/manage\"]</em></code>."
+msgstr ""
+"Utilizat pentru a limita avertizarea la nodurile unde utilizatorul poate "
+"edita ceva. Selectori sugerați:<br> <code><em>.contextual-region a[href*=\"/"
+"edit\"], .contextual-region a[href*=\"/manage\"]</em></code>."
+
+msgid ""
+"Set to the number of other themes or modules that will be <a href=\"https://"
+"editoria11y.princeton.edu/configuration/#customtests\">injecting custom "
+"result JS events</a>."
+msgstr ""
+"Setați la numărul de alte teme sau module care vor <a href=\"https://"
+"editoria11y.princeton.edu/configuration/#customtests\">injecta evenimente JS "
+"de rezultate personalizate</a>."
+
+msgid "Positioning"
+msgstr "Poziționare"
+
+msgid "Don't show edit links on tips in these containers"
+msgstr "Nu afișați link-uri de editare în sfaturile din aceste containere"
+
+msgid ""
+"Tips show copies of the \"Edit\" and \"Layout\" links for nodes, users and "
+"taxonomy terms. These links are not helpful on lists of content from remote "
+"nodes.<br>Provide a comma-separated list of page sections of where these "
+"links should not show, E.g.: <code><em>#sidebar-menu, .news-feed</em></code>."
+"<br>To hide the links <strong>everywhere</strong>, set this field to an "
+"asterisk (<code><em>*</em></code>).<br>To modify the links, <a "
+"href=\"https://editoria11y.princeton.edu/configuration/#modify-tips\" "
+"target=\"_blank\">use the ed11yPop event</a> in your theme JS."
+msgstr ""
+"Sfaturile afișează copii ale link-urilor „Editare\" și „Aspect\" pentru "
+"noduri, utilizatori și termeni de taxonomie. Aceste link-uri nu sunt utile "
+"în listele de conținut din noduri externe.<br>Furnizați o listă separată "
+"prin virgule a secțiunilor de pagină unde aceste link-uri nu ar trebui să "
+"apară, de ex.: <code><em>#sidebar-menu, .news-feed</em></code>.<br>Pentru a "
+"ascunde link-urile <strong>pretutindeni</strong>, setați acest câmp la un "
+"asterisc (<code><em>*</em></code>).<br>Pentru a modifica link-urile, <a "
+"href=\"https://editoria11y.princeton.edu/configuration/#modify-tips\" "
+"target=\"_blank\">utilizați evenimentul ed11yPop</a> în JS-ul temei dvs."
+
+msgid "Pin panel to..."
+msgstr "Fixare panou la..."
+
+msgid "Right"
+msgstr "Dreapta"
+
+msgid "Left"
+msgstr "Stânga"
+
+msgid "Don't cover these other widgets"
+msgstr "Nu acoperiți aceste alte widget-uri"
+
+msgid ""
+"Provide a comma-separated list of selectors for other things that appear in "
+"the bottom right of the page. <br>If nothing is set, Editoria11y will "
+"automatically slide left to accommodate <code><em>#klaro_toggle_dialog, "
+"#klaro-cookie-notice .same-page-preview-dialog.ui-dialog-position-side</em></"
+"code>."
+msgstr ""
+"Furnizați o listă separată prin virgule de selectori pentru alte elemente "
+"care apar în colțul dreapta-jos al paginii. <br>Dacă nu este setat nimic, "
+"Editoria11y se va deplasa automat la stânga pentru a face loc pentru "
+"<code><em>#klaro_toggle_dialog, #klaro-cookie-notice .same-page-preview-"
+"dialog.ui-dialog-position-side</em></code>."
+
+msgid "Elements with overflow hidden"
+msgstr "Elemente cu overflow ascuns"
+
+msgid ""
+"Sometimes buttons get drawn and visually truncated outside the bounds of a "
+"positioned element. Provide a selector list."
+msgstr ""
+"Uneori butoanele sunt afișate și trunchiată vizual în afara limitelor unui "
+"element poziționat. Furnizați o listă de selectori."
+
+msgid "Theme JS will handle revealing hidden tooltips inside these containers"
+msgstr ""
+"JS-ul temei va gestiona dezvăluirea sfaturilor popup ascunse din aceste "
+"containere"
+
+msgid ""
+"Editoria11y detects hidden tooltips and warns the user when they try to jump "
+"to them from the panel. For elements on this list, Editoria11y will <a "
+"href=\"https://itmaybejj.github.io/editoria11y/#dealing-with-alerts-on-"
+"hidden-or-size-constrained-content\">dispatch a JS event</a> instead of a "
+"warning, so custom JS in your theme can first reveal the hidden tip (e.g., "
+"open an accordion or tab panel)."
+msgstr ""
+"Editoria11y detectează sfaturile popup ascunse și avertizează utilizatorul "
+"când încearcă să acceseze un sfat din panou. Pentru elementele din această "
+"listă, Editoria11y va <a href=\"https://itmaybejj.github.io/editoria11y/"
+"#dealing-with-alerts-on-hidden-or-size-constrained-content\">declanșa un "
+"eveniment JS</a> în loc de un avertisment, astfel încât JS-ul personalizat "
+"al temei poate mai întâi dezvălui sfatul ascuns (de ex., deschide un "
+"acordeon sau un panou cu file)."
+
+msgid "Detecting dynamic and shadow content"
+msgstr "Detectare conținut dinamic și shadow"
+
+msgid "Dynamically refresh if new content appears"
+msgstr "Reîmprospătare dinamică dacă apare conținut nou"
+
+msgid "Watch for changes anywhere on the page"
+msgstr "Urmăriți modificările de oriunde pe pagină"
+
+msgid "Only watch for changes to content containers present on load"
+msgstr ""
+"Urmăriți numai modificările containerelor de conținut prezente la încărcare"
+
+msgid "Do not watch for changes"
+msgstr "Nu urmăriți modificările"
+
+msgid ""
+"Set to \"anywhere\" if changes are being missed, set to \"ignore\" if you "
+"notice performance issues. Themes and modules can also call "
+"<code>Drupal.Ed11y.refresh()</code> to refresh results."
+msgstr ""
+"Setați la „oriunde\" dacă se omit modificări, setați la „ignorare\" dacă "
+"observați probleme de performanță. Temele și modulele pot de asemenea apela "
+"<code>Drupal.Ed11y.refresh()</code> pentru a reîmprospăta rezultatele."
+
+msgid "Check inside these specific Web components"
+msgstr "Verificați în interiorul acestor componente web specifice"
+
+msgid ""
+"Provide selectors for elements with <a href='https://developer.mozilla.org/"
+"en-US/docs/Web/Web_Components'>shadow DOM</a> you want tested. E.g.: "
+"<code><em>my-fancy-accordion-widget, my-magical-slideshow</em></code>."
+msgstr ""
+"Furnizați selectori pentru elementele cu <a href='https://"
+"developer.mozilla.org/en-US/docs/Web/Web_Components'>shadow DOM</a> pe care "
+"doriți să le testați. De ex.: <code><em>my-fancy-accordion-widget, my-"
+"magical-slideshow</em></code>."
+
+msgid "Auto-detect any Web components"
+msgstr "Autodetectare orice componente web"
+
+msgid ""
+"This is easier to configure than specifying components, but may slow test "
+"runs on very complicated pages."
+msgstr ""
+"Acest lucru este mai ușor de configurat decât specificarea componentelor, "
+"dar poate încetini rularea testelor pe pagini foarte complexe."
+
+msgid "Syncing results to reports"
+msgstr "Sincronizare rezultate cu rapoartele"
+
+msgid ""
+"Remember that results only sync to the dashboard when viewing nodes. Results "
+"shown while editing or viewing previews or revisions will not sync."
+msgstr ""
+"Rețineți că rezultatele se sincronizează cu panoul de control numai la "
+"vizualizarea nodurilor. Rezultatele afișate în timp ce se editează sau se "
+"vizualizează previzualizări sau revizii nu se vor sincroniza."
+
+msgid "Remove redundant base url from URLs"
+msgstr "Eliminare URL de bază redundant din URL-uri"
+
+msgid ""
+"Provide base URL (\"/mysite\") if your site is installed in a subdirectory. "
+"Subdirectories tend to get duplicated (/mysite/mysite/mypage) and throw "
+"errors from the API."
+msgstr ""
+"Furnizați URL-ul de bază („/mysite\") dacă situl dvs. este instalat într-un "
+"subdirector. Subdirectoarele tind să fie duplicate (/mysite/mysite/mypage) "
+"și generează erori din API."
+
+msgid "Preserve query parameters"
+msgstr "Păstrare parametri de interogare"
+
+msgid ""
+"The dashboard ignores most parameters: results for both /news?f=1 and /news?"
+"f=2 will show up as just /news. Provide a comma separated list of parameters "
+"that are meaningful, and should appear as separate pages in results."
+msgstr ""
+"Panoul de control ignoră majoritatea parametrilor: rezultatele atât pentru /"
+"news?f=1 cât și pentru /news?f=2 vor apărea ca /news. Furnizați o listă "
+"separată prin virgule de parametri cu relevanță, care trebuie să apară ca "
+"pagini separate în rezultate."
+
+msgid "Disable sync altogether"
+msgstr "Dezactivare completă a sincronizării"
+
+msgid ""
+"Syncing test results back to Drupal is required for the <a target=\"_blank\" "
+"href=\"/admin/reports/editoria11y\">issue</a> and <a target=\"_blank\" "
+"href=\"/admin/reports/editoria11y/dismissals\">dismissal</a> dashboards and "
+"\"mark OK\" buttons."
+msgstr ""
+"Sincronizarea rezultatelor testelor înapoi în Drupal este necesară pentru "
+"panourile de <a target=\"_blank\" href=\"/admin/reports/"
+"editoria11y\">probleme</a> și <a target=\"_blank\" href=\"/admin/reports/"
+"editoria11y/dismissals\">notificări ignorate</a> și butoanele „marcați ca "
+"OK\"."
+
+msgid "Heading outline position of editable content"
+msgstr "Poziția schiței de titluri a conținutului editabil"
+
+msgid ""
+"To check headings in CKEditor, Editoria11y needs to know what the first "
+"heading level should be in this field. Body fields should generally be at "
+"the h2 level."
+msgstr ""
+"Pentru a verifica titlurile în CKEditor, Editoria11y trebuie să știe care ar "
+"trebui să fie primul nivel de titlu în acest câmp. Câmpurile de conținut ar "
+"trebui să fie în general la nivelul h2."
+
+msgid "H2 level fields (body content)"
+msgstr "Câmpuri de nivel h2 (conținut body)"
+
+msgid ""
+"Body fields on nodes are preceded by an h1, and their heading outline should "
+"start with an h2. Ideally set this for top-level body fields for each of "
+"your content types, and set blocks and embedded nodes to h3 or h4.\n"
+"        <br>Set all content types: <code><em>form[id^=\"node-\"] #edit-body-"
+"wrapper .ck-content</em></code>\n"
+"        <br>Set specific content types: <code><em>form[id^=\"node-\"] #edit-"
+"body-wrapper .ck-content</em></code>\n"
+"        <br>Set up for Gutenberg: <code><em>form[id^=\"node-\"] #edit-body-"
+"wrapper .is-root-container</em></code>"
+msgstr ""
+"Câmpurile de conținut ale nodurilor sunt precedate de un h1, iar structura "
+"titlurilor ar trebui să înceapă cu un h2. Ideal, setați aceasta pentru "
+"câmpurile de conținut de nivel superior pentru fiecare tip de conținut și "
+"setați blocurile și nodurile încorporate la h3 sau h4.\n"
+"        <br>Setare pentru toate tipurile de conținut: "
+"<code><em>form[id^=\"node-\"] #edit-body-wrapper .ck-content</em></code>\n"
+"        <br>Setare pentru tipuri specifice: <code><em>form[id^=\"node-\"] "
+"#edit-body-wrapper .ck-content</em></code>\n"
+"        <br>Setare pentru Gutenberg: <code><em>form[id^=\"node-\"] #edit-"
+"body-wrapper .is-root-container</em></code>"
+
+msgid "H3 level fields (blocks or paragraphs with separate titles)"
+msgstr "Câmpuri de nivel h3 (blocuri sau paragrafe cu titluri separate)"
+
+msgid ""
+"Sometimes inline and layout builder blocks are grouped under an h2 from a "
+"separate field, so their highest heading level should be h3."
+msgstr ""
+"Uneori blocurile inline și din constructorul de aspect sunt grupate sub un "
+"h2 dintr-un câmp separat, astfel încât cel mai înalt nivel de titlu al lor "
+"ar trebui să fie h3."
+
+msgid "H4 level fields (deeply nested blocks or paragraphs)"
+msgstr "Câmpuri de nivel h4 (blocuri sau paragrafe puternic imbricate)"
+
+msgid ""
+"Sometimes inline and layout builder blocks are grouped under an h3 from a "
+"separate field, so their highest heading level should be h4."
+msgstr ""
+"Uneori blocurile inline și din constructorul de aspect sunt grupate sub un "
+"h3 dintr-un câmp separat, astfel încât cel mai înalt nivel de titlu al lor "
+"ar trebui să fie h4."
+
+msgid "Modify tests that usually detect content issues"
+msgstr "Modificare teste care detectează de obicei probleme de conținut"
+
+msgid "Modify tests that usually detect template or configuration issues"
+msgstr ""
+"Modificare teste care detectează de obicei probleme de șablon sau configurare"
+
+msgid "Do not check contrast for these elements"
+msgstr "Nu verificați contrastul pentru aceste elemente"
+
+msgid ""
+"Provide a comma-separated list of selectors for elements to ignore for all "
+"users."
+msgstr ""
+"Furnizați o listă separată prin virgule de selectori pentru elementele de "
+"ignorat pentru toți utilizatorii."
+
+msgid "Remind editor that content in these embeds needs manual review"
+msgstr ""
+"Reamintește editorului că conținutul din aceste elemente încorporate "
+"necesită verificare manuală"
+
+msgid ""
+"Provide a comma-separated list of selectors you wish to flag for the editor, "
+"e.g.: <code><em>.my-embedded-feed, #my-social-link-block</em></code>."
+msgstr ""
+"Furnizați o listă separată prin virgule de selectori pe care doriți să le "
+"marcați pentru editor, de ex.: <code><em>.my-embedded-feed, #my-social-link-"
+"block</em></code>."
+
+msgid ""
+"Default settings should work with both <a href=\"https://www.drupal.org/"
+"project/linkpurpose\" target=\"_blank\">Link Purpose Icons</a> and <a "
+"target=\"_blank\" href=\"https://www.drupal.org/project/extlink\">External "
+"Links</a>."
+msgstr ""
+"Setările implicite ar trebui să funcționeze atât cu <a href=\"https://"
+"www.drupal.org/project/linkpurpose\" target=\"_blank\">Link Purpose Icons</"
+"a> cât și cu <a target=\"_blank\" href=\"https://www.drupal.org/project/"
+"extlink\">External Links</a>."
+
+msgid "Remind the editor that these linked documents need a manual check"
+msgstr ""
+"Reamintește editorului că documentele cu link necesită o verificare manuală"
+
+msgid ""
+"Add or remove filetypes. Set to \"false\" to disable the test altogether. "
+"Providing any value will override the default, which is "
+"<code><em>a[href$='.pdf'], a[href*='.pdf?']</em></code>."
+msgstr ""
+"Adăugați sau eliminați tipuri de fișiere. Setați la „false\" pentru a "
+"dezactiva complet testul. Furnizarea oricărei valori va înlocui valoarea "
+"implicită, care este <code><em>a[href$='.pdf'], a[href*='.pdf?']</em></code>."
+
+msgid "Remove elements that match these selectors before testing link text"
+msgstr ""
+"Eliminați elementele care corespund acestor selectori înainte de testarea "
+"textului link-ului"
+
+msgid ""
+"Provide a CSS selector of elements your modules programmatically add to "
+"links (usually external or open-in-new-window links), so they can be ignored "
+"when the link text is checked for the \"link has no text\" and \"link text "
+"is not meaningful\" tests.<br>E.g.: <code><em>.this, .that</em></code>"
+msgstr ""
+"Furnizați un selector CSS al elementelor pe care modulele dvs. le adaugă "
+"programatic la link-uri (de obicei link-uri externe sau deschise în "
+"fereastră nouă), astfel încât să poată fi ignorate la verificarea textului "
+"link-ului pentru testele „link fără text\" și „text link nesemnificativ\"."
+"<br>De ex.: <code><em>.this, .that</em></code>"
+
+msgid "Remove these strings before testing link text"
+msgstr "Eliminați aceste șiruri înainte de testarea textului link-ului"
+
+msgid ""
+"Provide a pipe-separated (\"|\") list of phrases your modules "
+"programmatically add to links to hint a purpose (external, mail, phone, open-"
+"in-new-window), so they can be ignored when the link text is checked for the "
+"\"link has no text\" and \"link text is not meaningful\" tests; e.g.:  "
+"<pre><code><em>(link is external)|(link sends email)</em></code></pre>"
+msgstr ""
+"Furnizați o listă separată prin bară verticală (\"|\") de expresii pe care "
+"modulele dvs. le adaugă programatic la link-uri pentru a indica un scop "
+"(extern, e-mail, telefon, deschidere în fereastră nouă), astfel încât să "
+"poată fi ignorate la verificarea textului link-ului; de ex.:  "
+"<pre><code><em>(link is external)|(link sends email)</em></code></pre>"
+
+msgid "Strings in links that indicate new tabs"
+msgstr "Șiruri din link-uri care indică file noi"
+
+msgid ""
+"Provide a pipe-separated list of phrases your site uses to warn users a link "
+"opens in a new tab; e.g.:  <pre><code><em>new&nbsp;tab|new&nbsp;window|"
+"external</em></code></pre>"
+msgstr ""
+"Furnizați o listă separată prin bară verticală de expresii pe care situl "
+"dvs. le folosește pentru a avertiza utilizatorii că un link se deschide într-"
+"o filă nouă; de ex.:  <pre><code><em>new&nbsp;tab|new&nbsp;window|external</"
+"em></code></pre>"
+
+msgid ""
+"Modules like Link Purpose or External Links can mark links automatically."
+msgstr ""
+"Module precum Link Purpose sau External Links pot marca automat linkurile."
+
+msgid "CSA/developer test"
+msgstr "Test CSA/dezvoltator"
+
+msgid "Show to developers"
+msgstr "Afișare pentru dezvoltatori"
+
+msgid "Show to everybody"
+msgstr "Afișare pentru toți"
+
+msgid "Dashboard sync is disabled in Editoria11y configuration."
+msgstr ""
+"Sincronizarea panoului de control este dezactivată în configurația "
+"Editoria11y."
+
+msgid "(invalid URL)"
+msgstr "(URL invalid)"
+
+msgid "Editoria11y: Dismissals"
+msgstr "Editoria11y: Notificări ignorate"
+
+msgid "Default"
+msgstr "Implicit"
+
+msgid "Node path"
+msgstr "Calea nodului"
+
+msgid "view"
+msgstr "view"
+
+msgid "Term path"
+msgstr "Calea termenului"
+
+msgid "User bio path"
+msgstr "Calea bio-ului utilizatorului"
+
+msgid "Term title"
+msgstr "Titlul termenului"
+
+msgid ", "
+msgstr ", "
+
+msgid "Node title"
+msgstr "Titlul nodului"
+
+msgid "User name"
+msgstr "Numele utilizatorului"
+
+msgid "Recorded path"
+msgstr "Cale înregistrată"
+
+msgid "Computed"
+msgstr "Calculat"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty %}{% set dynamic_path = page_path %}{% endif %}\r\n"
+"{% set dynamic_title = title ~ name_2 ~ name_1 %}{% if dynamic_title is "
+"empty %}{% set dynamic_title = page_title %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ dynamic_title }}</"
+"a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty %}{% set dynamic_path = page_path %}{% endif %}\\r\n"
+"{% set dynamic_title = title ~ name_2 ~ name_1 %}{% if dynamic_title is "
+"empty %}{% set dynamic_title = page_title %}{% endif %}\\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ dynamic_title }}</"
+"a>"
+
+msgid "Dismissed alert"
+msgstr "Avertisment ignorat"
+
+msgid "By"
+msgstr "De"
+
+msgid "1"
+msgid_plural "@count"
+msgstr[0] "1"
+msgstr[1] "@count"
+msgstr[2] "@count"
+
+msgid "Reset"
+msgstr "Resetare"
+
+msgid ""
+"<span class=\"ed11y-reset-dismissal\"><span class=\"ed11y-page-id\">{{ pid }}"
+"</span><span class=\"ed11y-dismissal-id\">{{id}}</span></span>"
+msgstr ""
+"<span class=\"ed11y-reset-dismissal\"><span class=\"ed11y-page-id\">{{ pid }}"
+"</span><span class=\"ed11y-dismissal-id\">{{id}}</span></span>"
+
+msgid "››"
+msgstr "››"
+
+msgid "‹‹"
+msgstr "‹‹"
+
+msgid "- All -"
+msgstr "- Toate -"
+
+msgid "Offset"
+msgstr "Decalaj"
+
+msgid "« First"
+msgstr "« Prima"
+
+msgid "Last »"
+msgstr "Ultima »"
+
+msgid "Asc"
+msgstr "Cresc."
+
+msgid "Desc"
+msgstr "Descresc."
+
+msgid "User who dismissed alert"
+msgstr "Utilizatorul care a ignorat avertismentul"
+
+msgid "pid"
+msgstr "pid"
+
+msgid "Node"
+msgstr "Nod"
+
+msgid "Term"
+msgstr "Termen"
+
+msgid "User bio"
+msgstr "Bio utilizator"
+
+msgid "Dismissals page"
+msgstr "Pagina notificărilor ignorate"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty %}{% set dynamic_path = page_path %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title }}</a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty %}{% set dynamic_path = page_path %}{% endif %}\\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title }}</a>"
+
+msgid "Still on page"
+msgstr "Încă prezent pe pagină"
+
+msgid "Reset filters"
+msgstr "Resetare filtre"
+
+msgid "Issues marked as hidden or OK in Editoria11y."
+msgstr "Probleme marcate ca ascunse sau OK în Editoria11y."
+
+msgid "Dismissals filtered by issue"
+msgstr "Notificări ignorate filtrate după problemă"
+
+msgid "No dismissals match these filters."
+msgstr "Nicio notificare ignorată nu corespunde acestor filtre."
+
+msgid "All"
+msgstr "Toate"
+
+msgid "Dismissed alerts of type \"{{result_name}}\""
+msgstr "Dismissed alerts of type \"{{result_name}}\""
+
+msgid ""
+"<a href=\"/admin/reports/editoria11y/dismissals/\" class=\"button button--"
+"primary\">Show all dismissals</a>"
+msgstr ""
+"<a href=\"/admin/reports/editoria11y/dismissals/\" class=\"button button--"
+"primary\">Show all dismissals</a>"
+
+msgid "Recent Editoria11y Dismissals"
+msgstr "Notificări ignorate recente Editoria11y"
+
+msgid "Editoria11y - Recent dismissals"
+msgstr "Editoria11y – Notificări ignorate recente"
+
+msgid "Editoria11y: Alerts"
+msgstr "Editoria11y: Avertismente"
+
+msgid "Top results"
+msgstr "Rezultate principale"
+
+msgid "Computed title"
+msgstr "Titlu calculat"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path|render %}{% set dynamic_path = "
+"page_path %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{  page_title_1 }}</"
+"a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path|render %}{% set dynamic_path = "
+"page_path %}{% endif %}\\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{  page_title_1 }}</"
+"a>"
+
+msgid "<a href=\"{{page_path_1}}\" data-ed1ref=\"{{pid}}\">{{page_path_1}}</a>"
+msgstr ""
+"<a href=\"{{page_path_1}}\" data-ed1ref=\"{{pid}}\">{{page_path_1}}</a>"
+
+msgid "No alerts found."
+msgstr "Nu s-au găsit avertismente."
+
+msgid "YYYY-MM-DD"
+msgstr "AAAA-LL-ZZ"
+
+msgid "User bio page"
+msgstr "Pagina bio a utilizatorului"
+
+msgid "Node author"
+msgstr "Autorul nodului"
+
+msgid "All pages with issues"
+msgstr "Toate paginile cu probleme"
+
+msgid "Block: Pages with the most"
+msgstr "Bloc: Paginile cu cele mai multe"
+
+msgid "Block: Recent alerts"
+msgstr "Bloc: Avertismente recente"
+
+msgid "Recent Editoria11y Alerts"
+msgstr "Avertismente recente Editoria11y"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path|render %}{% set dynamic_path = "
+"page_path %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title_1 }}</a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path|render %}{% set dynamic_path = "
+"page_path %}{% endif %}\\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title_1 }}</a>"
+
+msgid "Issue"
+msgstr "Problemă"
+
+msgid "Editoria11y - Recent alerts"
+msgstr "Editoria11y – Avertismente recente"
+
+msgid "Block: Most frequent alerts"
+msgstr "Bloc: Avertismente mai frecvente"
+
+msgid "Most Frequent Editoria11y Alerts"
+msgstr "Cele mai frecvente avertismente Editoria11y"
+
+msgid "Editoria11y - Most frequent alerts"
+msgstr "Editoria11y – Avertismente cele mai frecvente"
+
+msgid "Alerts on specified page"
+msgstr "Avertismente pe pagina specificată"
+
+msgid ""
+"<a href=\"{{ page_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title_1 }}</a>"
+msgstr ""
+"<a href=\"{{ page_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title_1 }}</a>"
+
+msgid "<p><strong>Author:</strong> {{ uid }}</p>"
+msgstr "<p><strong>Author:</strong> {{ uid }}</p>"
+
+msgid "<p><strong>Last editor:</strong> {{ uid_1 }}</p>"
+msgstr "<p><strong>Last editor:</strong> {{ uid_1 }}</p>"
+
+msgid ""
+"<h1>Accessibility issues on: {{page_title_1}}</h1>\r\n"
+"<p>{{uid}}{{uid_1}}</p>"
+msgstr ""
+"<h1>Accessibility issues on: {{page_title_1}}</h1>\\r\n"
+"<p>{{uid}}{{uid_1}}</p>"
+
+msgid ""
+"<p><a href=\"../editoria11y/pages\" class=\"button button--primary\">All "
+"pages with alerts</a></p>"
+msgstr ""
+"<p><a href=\"../editoria11y/pages\" class=\"button button--primary\">All "
+"pages with alerts</a></p>"
+
+msgid ""
+"<span class=\"ed11y-reset-this-path\" hidden><p class=\"more-link\"><a "
+"role=\"button\" class=\"action-link action-link--icon-trash action-link--"
+"danger\"><span hidden class=\"ed11y-api-path\">{{ page_path }}</span>Reset "
+"results for this page</a></p></span>"
+msgstr ""
+"<span class=\"ed11y-reset-this-path\" hidden><p class=\"more-link\"><a "
+"role=\"button\" class=\"action-link action-link--icon-trash action-link--"
+"danger\"><span hidden class=\"ed11y-api-path\">{{ page_path }}</span>Reset "
+"results for this page</a></p></span>"
+
+msgid "Issue types"
+msgstr "Tipuri de probleme"
+
+msgid "Pages with specified alert"
+msgstr "Pagini cu avertismentul specificat"
+
+msgid "Published status"
+msgstr "Stare publicare"
+
+msgid "Created by"
+msgstr "Creat de"
+
+msgid "Created after"
+msgstr "Creat după"
+
+msgid "Created before"
+msgstr "Creat înainte de"
+
+msgid "<h1>Pages with alert \"{{ result_name }}\"</h1>"
+msgstr "<h1>Pagini cu avertismentul „{{ result_name }}”</h1>"
+
+msgid ""
+"<a href=\"../editoria11y/alerts\" class=\"button button--primary\">All "
+"alerts</a>"
+msgstr ""
+"<a href=\"../editoria11y/alerts\" class=\"button button--primary\">All "
+"alerts</a>"
+
+msgid "Pages with issues"
+msgstr "Pagini cu probleme"
+
+msgid "Next ›"
+msgstr "Următorul ›"
+
+msgid "‹ Previous"
+msgstr "‹ Anteriorul"
+
+msgid "Authored on"
+msgstr "Creat la"
+
+msgid "Changed"
+msgstr "Modificat"
+
+msgid "Editoria11y: Crawler"
+msgstr "Editoria11y: Parcurgere"
+
+msgid "Editoria11y: Crawl Nodes"
+msgstr "Editoria11y: Parcurgere noduri"
+
+msgid "Authored by"
+msgstr "Creat de"
+
+msgid "Has results"
+msgstr "Are rezultate"
+
+msgid "Has no alerts"
+msgstr "Nu are avertismente"
+
+msgid "Has alerts"
+msgstr "Are avertismente"
+
+msgid "nid"
+msgstr "nid"
+
+msgid "Editoria11y: Export"
+msgstr "Editoria11y: Export"
+
+msgid "Export page with alerts"
+msgstr "Export pagini cu avertismente"
+
+msgid "Link to Taxonomy term"
+msgstr "Link la termenul de taxonomie"
+
+msgid "Link to User"
+msgstr "Link la utilizator"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path_1|render %}{% set dynamic_path = "
+"page_path_1 %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title }}</a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path_1|render %}{% set dynamic_path = "
+"page_path_1 %}{% endif %}\\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title }}</a>"
+
+msgid "Path when checked"
+msgstr "Calea la momentul verificării"
+
+msgid "<a href=\"{{page_path_1}}\" data-ed1ref=\"{{pid}}\">{{page_path_1}}"
+msgstr "<a href=\"{{page_path_1}}\" data-ed1ref=\"{{pid}}\">{{page_path_1}}"
+
+msgid "Current URL"
+msgstr "URL curent"
+
+msgid "{{ view_taxonomy_term }}{{ view_user }}{{ view_node }}"
+msgstr "{{ view_taxonomy_term }}{{ view_user }}{{ view_node }}"
+
+msgid "{% if type is empty %}{{entity_type}}{%else%}{{type}}{% endif %}"
+msgstr "{% if type is empty %}{{entity_type}}{%else%}{{type}}{% endif %}"
+
+msgid "Entity Type"
+msgstr "Tipul entității"
+
+msgid "Langcode (en, fr, de)"
+msgstr "Cod limbă (en, fr, de)"
+
+msgid "Referenced node"
+msgstr "Nod referențiat"
+
+msgid "Referenced term"
+msgstr "Termen referențiat"
+
+msgid "Referenced user bio"
+msgstr "Bio utilizator referențiat"
+
+msgid "<p>Records chosen for export can be filtered and previewed below.</p>"
+msgstr "<p>Records chosen for export can be filtered and previewed below.</p>"
+
+msgid "<a href=\"/admin/reports/editoria11y/export\">Back to dashboard</a>"
+msgstr "<a href=\"/admin/reports/editoria11y/export\">Back to dashboard</a>"
+
+msgid "Dismissals export"
+msgstr "Export notificări ignorate"
+
+msgid "Link to Content"
+msgstr "Link la conținut"
+
+msgid "Page raw path"
+msgstr "Calea brută a paginii"
+
+msgid "Name"
+msgstr "Nume"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path_1|render %}{% set dynamic_path = "
+"page_path_1 %}{% endif %}\r\n"
+"{% set dynamic_title = title_1 ~ name ~ name_1 %}{% if dynamic_title is "
+"empty %}{% set dynamic_title = page_title %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ dynamic_title }}</"
+"a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path_1|render %}{% set dynamic_path = "
+"page_path_1 %}{% endif %}\\r\n"
+"{% set dynamic_title = title_1 ~ name ~ name_1 %}{% if dynamic_title is "
+"empty %}{% set dynamic_title = page_title %}{% endif %}\\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ dynamic_title }}</"
+"a>"
+
+msgid "dismissal"
+msgstr "dismissal"
+
+msgid "Page export"
+msgstr "Export pagini"
+
+msgid "Alerts export"
+msgstr "Export avertismente"
+
+msgid "Editoria11y alerts on pages"
+msgstr "Avertismente Editoria11y pe pagini"
+
+msgid "{{ view_taxonomy_term }}{{ view_user }}{{ view_node }} "
+msgstr "{{ view_taxonomy_term }}{{ view_user }}{{ view_node }} "
+
+msgid "Results for page"
+msgstr "Rezultate pentru pagină"
+
+msgid "<a href=\"./export/pages\">Export pages with alerts</a>"
+msgstr "<a href=\"./export/pages\">Export pages with alerts</a>"
+
+msgid "<a href=\"./export/dismissals\">Export dismissals</a>"
+msgstr "<a href=\"./export/dismissals\">Export dismissals</a>"
+
+msgid "<a href=\"./export/alerts\">Export alert list</a>"
+msgstr "<a href=\"./export/alerts\">Export alert list</a>"
+
+msgid "Export alerts on pages"
+msgstr "Export avertismente pe pagini"
+
+msgid "Result name"
+msgstr "Numele rezultatului"

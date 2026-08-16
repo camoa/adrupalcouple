@@ -1,0 +1,5 @@
+# Markdown Easy filter.
+markdown_easy_filter_table:
+  css:
+    theme:
+      css/theme/markdown-table.css: {}

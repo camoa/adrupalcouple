@@ -1,0 +1,17 @@
+editoria11y.reports_dashboard:
+  title: 'Dashboard'
+  route_name: editoria11y.reports_dashboard
+  base_route: editoria11y.reports_dashboard
+  weight: 0
+
+editoria11y.settings:
+  title: 'Core settings'
+  route_name: editoria11y.settings
+  base_route: editoria11y.settings
+  weight: 10
+
+editoria11y_csa.demo:
+  title: 'Demo'
+  route_name: editoria11y.demo
+  base_route: editoria11y.settings
+  weight: 20

@@ -90,7 +90,7 @@ abstract class ExtlinkTestBase extends WebDriverTestBase {
     $this->adminUser->roles[] = 'administrator';
     $this->adminUser->save();
 
-    // Create page content type that we will use for testing.
+    // Create a page content type that we will use for testing.
     $this->drupalCreateContentType(['type' => 'page']);
 
     // Add a text format with minimum data only.

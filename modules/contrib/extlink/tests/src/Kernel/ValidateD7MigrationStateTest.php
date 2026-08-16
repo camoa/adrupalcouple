@@ -4,6 +4,8 @@ namespace Drupal\Tests\extlink\Kernel;
 
 use Drupal\Tests\migrate_drupal\Kernel\d7\MigrateDrupal7TestBase;
 use Drupal\Tests\migrate_drupal\Traits\ValidateMigrationStateTestTrait;
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
  * Tests that the extlink module has a declared D7 migration status.
@@ -12,9 +14,9 @@ use Drupal\Tests\migrate_drupal\Traits\ValidateMigrationStateTestTrait;
  * modules enabled in \Drupal\Tests\KernelTestBase::bootKernel() have a valid
  * migration status (i.e.: finished or not_finished); but will fail if they do
  * not have a declared migration status.
- *
- * @group extlink
  */
+#[Group('extlink')]
+#[RunTestsInSeparateProcesses]
 class ValidateD7MigrationStateTest extends MigrateDrupal7TestBase {
   use ValidateMigrationStateTestTrait;
 

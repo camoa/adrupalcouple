@@ -1,0 +1,2997 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: editoria11y 3.0.0\n"
+"POT-Creation-Date: 2026-08-01 21:46-0400\n"
+"PO-Revision-Date: 2026-05-11 00:00+0000\n"
+"Language-Team: Editoria11y\n"
+"Language: id\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid ""
+"editoria11y_post_update_0004: scanned @scanned mismatched page(s), "
+"backfilled @fixed to the referenced entity language."
+msgstr ""
+"editoria11y_post_update_0004: scanned @scanned mismatched page(s), "
+"backfilled @fixed to the referenced entity language."
+
+msgid "Editoria11y"
+msgstr "Editoria11y"
+
+msgid "Editoria11y - Pages with issues"
+msgstr "Editoria11y – Halaman dengan masalah"
+
+msgctxt "problems"
+msgid "Provides relationship for issues and dismissals"
+msgstr "Menyediakan relasi antara masalah dan penolakan"
+
+msgid "EID"
+msgstr "EID"
+
+msgid "Editoria11y's internal page ID"
+msgstr "ID halaman internal Editoria11y"
+
+msgid "Entity ID"
+msgstr "ID entitas"
+
+msgid "The NID/TID/UID of the page with an issue."
+msgstr "NID/TID/UID halaman yang memiliki masalah."
+
+msgid "Entity type"
+msgstr "Jenis entitas"
+
+msgid "The entity type; \"route\" if no type found."
+msgstr "Jenis entitas; \"route\" jika tidak ditemukan jenis."
+
+msgid "Route name"
+msgstr "Nama rute"
+
+msgid "Route name for page."
+msgstr "Nama rute untuk halaman."
+
+msgid "Page path"
+msgstr "Jalur halaman"
+
+msgid "Internal, relative page path."
+msgstr "Jalur halaman internal yang relatif."
+
+msgid "Page language"
+msgstr "Bahasa halaman"
+
+msgid "Active translation."
+msgstr "Terjemahan aktif."
+
+msgid "Page title"
+msgstr "Judul Halaman"
+
+msgid "The name of the route where this was last seen."
+msgstr "Nama rute tempat ini terakhir dilihat."
+
+msgid "Content alerts"
+msgstr "Peringatan konten"
+
+msgid "Number of alerts shown to content editors."
+msgstr "Jumlah peringatan yang ditampilkan kepada editor konten."
+
+msgid "Dev alerts"
+msgstr "Peringatan pengembang"
+
+msgid "Number of alerts shown to developers."
+msgstr "Jumlah peringatan yang ditampilkan kepada pengembang."
+
+msgid "Updated"
+msgstr "Diperbarui"
+
+msgid "When this page was last checked."
+msgstr "Kapan halaman ini terakhir diperiksa."
+
+msgid "Editoria11y - Test results"
+msgstr "Editoria11y – Hasil pengujian"
+
+msgctxt "problems"
+msgid "Stores Editoria11y issue list"
+msgstr "Menyimpan daftar masalah Editoria11y"
+
+msgid "Result row"
+msgstr "Baris hasil"
+
+msgid "Internal identifier"
+msgstr "Pengenal internal"
+
+msgid "Created"
+msgstr "Dibuat"
+
+msgid "When this page was flagged."
+msgstr "Kapan halaman ini ditandai."
+
+msgid "Alert type"
+msgstr "Jenis peringatan"
+
+msgid "The name of the test as reported by Editoria11y JS"
+msgstr "Nama pengujian sebagaimana dilaporkan oleh Editoria11y JS"
+
+msgid "Alert type, linked"
+msgstr "Jenis peringatan, tertaut"
+
+msgid "Linked to report of all alerts of this type."
+msgstr "Tertaut ke laporan semua peringatan jenis ini."
+
+msgid "Content alert count"
+msgstr "Jumlah peringatan konten"
+
+msgid "The number of hits for this test type on this page"
+msgstr "Jumlah kemunculan untuk jenis pengujian ini pada halaman ini"
+
+msgid "Dev alert count"
+msgstr "Jumlah peringatan pengembang"
+
+msgid "Editoria11y - Dismissals"
+msgstr "Editoria11y – Penolakan"
+
+msgid "Stores Editoria11y warnings and dismissals"
+msgstr "Menyimpan peringatan dan penolakan Editoria11y"
+
+msgid "Dismissal internal reference ID"
+msgstr "ID referensi internal penolakan"
+
+msgid "Page with dismissal"
+msgstr "Halaman dengan penolakan"
+
+msgid "Dismissed by"
+msgstr "Ditolak oleh"
+
+msgid "The user linked to this dismissal."
+msgstr "Pengguna yang terkait dengan penolakan ini."
+
+msgid "Linked Drupal user"
+msgstr "Pengguna Drupal tertaut"
+
+msgid "Dismissed element id"
+msgstr "id elemen yang ditolak"
+
+msgid "Code sample to identify the flagged element."
+msgstr "Cuplikan kode untuk mengidentifikasi elemen yang ditandai."
+
+msgid "Dismissed on"
+msgstr "Ditolak pada"
+
+msgid "The Unix timestamp of the first time this record was flagged."
+msgstr "Stempel waktu Unix pertama kali rekaman ini ditandai."
+
+msgid "Dismissal stale since"
+msgstr "Penolakan sudah usang sejak"
+
+msgid "The element has not been seen since this date."
+msgstr "Elemen ini tidak terdeteksi sejak tanggal ini."
+
+msgid "Dismissed result name"
+msgstr "Nama hasil yang ditolak"
+
+msgid "Dismissed result name, linked"
+msgstr "Nama hasil yang ditolak, tertaut"
+
+msgid "Links to report of all alerts of this type."
+msgstr "Tautan ke laporan semua peringatan jenis ini."
+
+msgid "Dismissal status"
+msgstr "Status penolakan"
+
+msgid "The type of dismissal (e.g., OK, Ignore)"
+msgstr "Jenis penolakan (mis., OK, Abaikan)"
+
+msgid "Relate from Editoria11y page to referenced node"
+msgstr "Kaitkan dari halaman Editoria11y ke node yang direferensikan"
+
+msgid "Issues were found on this node"
+msgstr "Masalah ditemukan pada node ini"
+
+msgid "Relate from node data to Editoria11y page"
+msgstr "Kaitkan dari data node ke halaman Editoria11y"
+
+msgid "Relate from Editoria11y page to referenced taxonomy term"
+msgstr ""
+"Kaitkan dari halaman Editoria11y ke istilah taksonomi yang direferensikan"
+
+msgid "Issues were found on this term page"
+msgstr "Masalah ditemukan pada halaman istilah ini"
+
+msgid "Relate from taxonomy term data to Editoria11y page"
+msgstr "Kaitkan dari data istilah taksonomi ke halaman Editoria11y"
+
+msgid "Relate from Editoria11y page list to user bio page data"
+msgstr "Kaitkan dari daftar halaman Editoria11y ke data halaman bio pengguna"
+
+msgid "Issues were found on this user bio page"
+msgstr "Masalah ditemukan pada halaman bio pengguna ini"
+
+msgid "Relate from Editoria11y page to user bio page with issues"
+msgstr ""
+"Kaitkan dari halaman Editoria11y ke halaman bio pengguna yang bermasalah"
+
+msgid "Relate from user bio page to Editoria11y results"
+msgstr "Kaitkan dari halaman bio pengguna ke hasil Editoria11y"
+
+msgid "Relate from users list to Editoria11y results on bio page"
+msgstr "Kaitkan dari daftar pengguna ke hasil Editoria11y pada halaman bio"
+
+msgid "Relate from Editoria11y page to issues on page"
+msgstr "Kaitkan dari halaman Editoria11y ke masalah pada halaman"
+
+msgid "Issues found on this node"
+msgstr "Masalah ditemukan pada node ini"
+
+msgid "Relate from Editoria11y result to page"
+msgstr "Kaitkan dari hasil Editoria11y ke halaman"
+
+msgid "Relate from Editoria11y page to dismissals on page"
+msgstr "Kaitkan dari halaman Editoria11y ke penolakan pada halaman"
+
+msgid "Relate from Editoria11y dismissal to page"
+msgstr "Kaitkan dari penolakan Editoria11y ke halaman"
+
+msgid "Group relationship for node with Editoria11y issues"
+msgstr "Relasi Group untuk node dengan masalah Editoria11y"
+
+msgid ""
+"Bridge to the Group module. Add the Group module Group relationship on top "
+"of this one to filter or sort issues by group."
+msgstr ""
+"Jembatan ke modul Group. Tambahkan relasi Group milik modul Group di atas "
+"relasi ini untuk memfilter atau mengurutkan masalah berdasarkan grup."
+
+msgid "Group relationship for node"
+msgstr "Relasi Group untuk node"
+
+msgid "Group relationship for user bio with Editoria11y issues"
+msgstr "Relasi Group untuk bio pengguna dengan masalah Editoria11y"
+
+msgid "Group relationship for user"
+msgstr "Relasi Group untuk pengguna"
+
+msgid "Group relationship for taxonomy term with Editoria11y issues"
+msgstr "Relasi Group untuk istilah taksonomi dengan masalah Editoria11y"
+
+msgid ""
+"Bridge to the Group module. Add the Group module Group relationship on top "
+"of this one to filter or sort issues by group. Requires a contrib module "
+"that exposes terms as group content."
+msgstr ""
+"Jembatan ke modul Group. Tambahkan relasi Group milik modul Group di atas "
+"relasi ini untuk memfilter atau mengurutkan masalah berdasarkan grup. "
+"Memerlukan modul kontribusi yang mengekspos istilah sebagai konten grup."
+
+msgid "Group relationship for taxonomy term"
+msgstr "Relasi Group untuk istilah taksonomi"
+
+msgid "Warning: possible out of date path. This content may have moved to"
+msgstr ""
+"Peringatan: jalur mungkin sudah usang. Konten ini mungkin telah dipindahkan "
+"ke"
+
+msgid "Export CSV"
+msgstr "Ekspor CSV"
+
+msgid "Predelete failed: @error_message"
+msgstr "Pra-hapus gagal: @error_message"
+
+msgid "Page attachment failed: @error_message"
+msgstr "Lampiran halaman gagal: @error_message"
+
+msgid ""
+"editoria11y_update_9019: scanned @total rows, repaired @updated, deleted "
+"@deleted corrupted group rows, left @skipped untouched."
+msgstr ""
+"editoria11y_update_9019: scanned @total rows, repaired @updated, deleted "
+"@deleted corrupted group rows, left @skipped untouched."
+
+msgid ""
+"editoria11y_update_9020: hashed @hashed page rows, removed @deduped "
+"duplicate rows, added unique keys."
+msgstr "editoria11y_update_9020: hashed @hashed page rows, removed @deduped duplicate rows, added unique keys."
+
+msgid "Editoria11y Accessibility Checker"
+msgstr "Editoria11y Pemeriksa Aksesibilitas"
+
+msgid ""
+"Checks page content for accessibility and provides a site-wide dashboard."
+msgstr ""
+"Memeriksa aksesibilitas konten halaman dan menyediakan dasbor seluruh situs."
+
+msgid "Content Accessibility"
+msgstr "Aksesibilitas Konten"
+
+msgid "Accessibility checker notifications and exclusions."
+msgstr "Notifikasi dan pengecualian pemeriksa aksesibilitas."
+
+msgid "Results from the Editoria11y checker."
+msgstr "Hasil dari pemeriksa Editoria11y."
+
+msgid "Dashboard"
+msgstr "Dasbor"
+
+msgid "Core settings"
+msgstr "Pengaturan inti"
+
+msgid "Demo"
+msgstr "Demo"
+
+msgid "View Editoria11y checker"
+msgstr "Lihat pemeriksa Editoria11y"
+
+msgid "Assign to all content editors."
+msgstr "Tetapkan ke semua editor konten."
+
+msgid "Administer Editoria11y checker"
+msgstr "Kelola pemeriksa Editoria11y"
+
+msgid "Allows user to purge results and change configuration."
+msgstr "Memungkinkan pengguna menghapus hasil dan mengubah konfigurasi."
+
+msgid "Mark as hidden in Editoria11y"
+msgstr "Tandai sebagai tersembunyi di Editoria11y"
+
+msgid "Adds button to suppress a manual check for the current user."
+msgstr ""
+"Menambahkan tombol untuk menekan pemeriksaan manual bagi pengguna saat ini."
+
+msgid "Mark as OK in Editoria11y"
+msgstr "Tandai sebagai OK di Editoria11y"
+
+msgid ""
+"Adds button to suppress a manual check for all users, if sync is enabled."
+msgstr ""
+"Menambahkan tombol untuk menekan pemeriksaan manual bagi semua pengguna, "
+"jika sinkronisasi diaktifkan."
+
+msgid "Manage Editoria11y results"
+msgstr "Kelola hasil Editoria11y"
+
+msgid "View the site-wide dashboard and reset dismissals."
+msgstr "Lihat dasbor seluruh situs dan atur ulang penolakan."
+
+msgid "Editoria11y core settings"
+msgstr "Pengaturan inti Editoria11y"
+
+msgid "Content Accessibility Issues"
+msgstr "Masalah Aksesibilitas Konten"
+
+msgid "Editoria11y Settings"
+msgstr "Pengaturan Editoria11y"
+
+msgid "Check elements in these containers"
+msgstr "Periksa elemen dalam wadah ini"
+
+msgid "Alert panel assertiveness"
+msgstr "Ketegasan panel peringatan"
+
+msgid "Do not run if these elements are on the page"
+msgstr "Jangan jalankan jika elemen ini ada di halaman"
+
+msgid "Suppress all alerts if none of these elements are present"
+msgstr "Sembunyikan semua peringatan jika tidak ada elemen ini"
+
+msgid "Do not run tests on these containers"
+msgstr "Jangan jalankan pengujian pada wadah ini"
+
+msgid "Move toggle to avoid colliding with these widgets"
+msgstr "Pindahkan tombol agar tidak bertabrakan dengan widget ini"
+
+msgid ""
+"Full check should warn on these elements with embedded uncheckable content"
+msgstr ""
+"Pemeriksaan penuh harus memperingatkan pada elemen-elemen dengan konten "
+"tertanam yang tidak dapat diperiksa"
+
+msgid "These links download a document or image and need a manual review"
+msgstr ""
+"Tautan-tautan ini mengunduh dokumen atau gambar dan memerlukan tinjauan "
+"manual"
+
+msgid "Strings that indicate a link opens in a new window"
+msgstr "String yang menunjukkan tautan dibuka di jendela baru"
+
+msgid "Remove these strings from link text before checking for bad link text"
+msgstr ""
+"Hapus string ini dari teks tautan sebelum memeriksa teks tautan yang buruk"
+
+msgid "Remove strings in this selector before checking for bad link text"
+msgstr ""
+"Hapus string dalam selektor ini sebelum memeriksa teks tautan yang buruk"
+
+msgid ""
+"Hidden elements in these containers will be revealed by theme JS on request "
+"via a dispatched event"
+msgstr ""
+"Elemen tersembunyi dalam wadah ini akan ditampilkan oleh JS tema atas "
+"permintaan melalui event yang dikirimkan"
+
+msgid "Elements that truncate overflow, partially hiding buttons"
+msgstr "Elemen yang memotong overflow, sebagian menyembunyikan tombol"
+
+msgid "Color scheme for panel and tooltips"
+msgstr "Skema warna untuk panel dan tooltip"
+
+msgid "Pin toolbar to left or right"
+msgstr "Sematkan toolbar ke kiri atau kanan"
+
+msgid "Web components the checker should check"
+msgstr "Komponen web yang harus diperiksa oleh pemeriksa"
+
+msgid "Auto-detects for additional shadow components"
+msgstr "Mendeteksi otomatis untuk komponen shadow tambahan"
+
+msgid "Auto-detects and checks new content"
+msgstr "Mendeteksi dan memeriksa konten baru secara otomatis"
+
+msgid "Disables dashboard and synchronized marking of elements as OK"
+msgstr "Menonaktifkan dasbor dan penandaan tersinkronisasi elemen sebagai OK"
+
+msgid "URL query parameters that should be recorded as separate pages"
+msgstr "Parameter kueri URL yang harus dicatat sebagai halaman terpisah"
+
+msgid "Remove string from URL for dashboard page links"
+msgstr "Hapus string dari URL untuk tautan halaman dasbor"
+
+msgid "Number of custom test finished events the checker should wait for"
+msgstr ""
+"Jumlah event selesai pengujian kustom yang harus ditunggu oleh pemeriksa"
+
+msgid "Disables live editor checking"
+msgstr "Menonaktifkan pemeriksaan editor langsung"
+
+msgid ""
+"Selector for frontend-context editors that should inherit the document "
+"outline"
+msgstr ""
+"Selektor untuk editor konteks frontend yang harus mewarisi kerangka dokumen"
+
+msgid "Selector for editors where their first heading should be h2"
+msgstr "Selektor untuk editor yang heading pertamanya harus h2"
+
+msgid "Selector for editors where their first heading should be h3"
+msgstr "Selektor untuk editor yang heading pertamanya harus h3"
+
+msgid "Selector for editors where their first heading should be h4"
+msgstr "Selektor untuk editor yang heading pertamanya harus h4"
+
+msgid "Selectors for components where edit links are meaningless on tips"
+msgstr "Selektor untuk komponen di mana tautan edit tidak berarti pada kiat"
+
+msgid "Tell CK5 to have a header rows or columns by default."
+msgstr "Perintahkan CK5 untuk memiliki baris atau kolom header secara default."
+
+msgid "Tests not shown to content authors."
+msgstr "Pengujian yang tidak ditampilkan kepada penulis konten."
+
+msgid "Disable the tests you are not ready for"
+msgstr "Nonaktifkan pengujian yang belum siap Anda gunakan"
+
+msgid "linkNewWindow"
+msgstr "linkNewWindow"
+
+msgid "linkNoText"
+msgstr "linkNoText"
+
+msgid "altEmptyLinked"
+msgstr "altEmptyLinked"
+
+msgid "linkDocument"
+msgstr "linkDocument"
+
+msgid "linkTextIsURL"
+msgstr "linkTextIsURL"
+
+msgid "linkTextIsGeneric"
+msgstr "linkTextIsGeneric"
+
+msgid "textPossibleList"
+msgstr "textPossibleList"
+
+msgid "textPossibleHeading"
+msgstr "textPossibleHeading"
+
+msgid "textUppercase"
+msgstr "textUppercase"
+
+msgid "tableNoHeaderCells"
+msgstr "tableNoHeaderCells"
+
+msgid "tableEmptyHeaderCell"
+msgstr "tableEmptyHeaderCell"
+
+msgid "tableContainsContentHeading"
+msgstr "tableContainsContentHeading"
+
+msgid "embedVideo"
+msgstr "embedVideo"
+
+msgid "embedAudio"
+msgstr "embedAudio"
+
+msgid "embedVisualization"
+msgstr "embedVisualization"
+
+msgid "embedTwitter"
+msgstr "embedTwitter"
+
+msgid "embedCustom"
+msgstr "embedCustom"
+
+msgid "headingEmpty"
+msgstr "headingEmpty"
+
+msgid "headingIsLong"
+msgstr "headingIsLong"
+
+msgid "headingLevelSkipped"
+msgstr "headingLevelSkipped"
+
+msgid "blockquoteIsShort"
+msgstr "blockquoteIsShort"
+
+msgid "altMissing"
+msgstr "altMissing"
+
+msgid "altNull"
+msgstr "altNull"
+
+msgid "altMeaningless"
+msgstr "altMeaningless"
+
+msgid "altURL"
+msgstr "altURL"
+
+msgid "altImageOf"
+msgstr "altImageOf"
+
+msgid "altDeadspace"
+msgstr "altDeadspace"
+
+msgid "altLong"
+msgstr "altLong"
+
+msgid "altPartOfLinkWithText"
+msgstr "altPartOfLinkWithText"
+
+msgid "2-letter code (en, fr, de)"
+msgstr "Kode 2 huruf (en, fr, de)"
+
+msgid "Alert"
+msgstr "Waspada"
+
+msgid "Alert types"
+msgstr "Jenis peringatan"
+
+msgid "Alerts"
+msgstr "Peringatan"
+
+msgid "All dismissals"
+msgstr "Semua penolakan"
+
+msgid "All issues"
+msgstr "Semua masalah"
+
+msgid "All pages"
+msgstr "Semua halaman"
+
+msgid "Apply"
+msgstr "Terapkan"
+
+msgid "Author"
+msgstr "Penulis"
+
+msgid "Authored after"
+msgstr "Ditulis setelah"
+
+msgid "Authored before"
+msgstr "Ditulis sebelum"
+
+msgid "Authored"
+msgstr "Ditulis"
+
+msgid "Content type"
+msgstr "Jenis konten"
+
+msgid "Detected"
+msgstr "Terdeteksi"
+
+msgid "Dismissals"
+msgstr "Penolakan"
+
+msgid "Dismissed accessibility alerts"
+msgstr "Peringatan aksesibilitas yang ditolak"
+
+msgid "Edited"
+msgstr "Diedit"
+
+msgid "Editor"
+msgstr "Editor"
+
+msgid "Items per page"
+msgstr "Item per halaman"
+
+msgid "Filter"
+msgstr "Filter"
+
+msgid "Language"
+msgstr "Bahasa"
+
+msgid "Last editor"
+msgstr "Editor terakhir"
+
+msgid "Marked"
+msgstr "Ditandai"
+
+msgid "No dismissals found."
+msgstr "Tidak ada penolakan ditemukan."
+
+msgid "Page"
+msgstr "Halaman"
+
+msgid "Pages"
+msgstr "Halaman"
+
+msgid "Pages with alerts"
+msgstr "Halaman dengan peringatan"
+
+msgid "Panel"
+msgstr "Panel"
+
+msgid "Path"
+msgstr "Jalur"
+
+msgid "Published"
+msgstr "Diterbitkan"
+
+msgid "Recent"
+msgstr "Terbaru"
+
+msgid "Recent accessibility alerts"
+msgstr "Peringatan aksesibilitas terbaru"
+
+msgid "Recent alerts"
+msgstr "Peringatan terbaru"
+
+msgctxt "problems"
+msgid "Recent alerts"
+msgstr "Peringatan terbaru"
+
+msgid "Sort by"
+msgstr "Urutkan berdasarkan"
+
+msgid "Title"
+msgstr "Judul"
+
+msgid "Type"
+msgstr "Jenis"
+
+msgid "Filter and sort"
+msgstr "Filter dan urutkan"
+
+msgid "Deleted."
+msgstr "Dihapus."
+
+msgid "Delete failed."
+msgstr "Penghapusan gagal."
+
+msgid "<p>The Editoria11y <strong><em>@type</em></strong> view is missing.</p>"
+msgstr ""
+"<p>The Editoria11y <strong><em>@type</em></strong> view is missing.</p>"
+
+msgid ""
+"<p>There are three view configurations this module installs, found in its /"
+"config/install folder. Each must be installed for this dashboard to display "
+"results.</p>"
+msgstr ""
+"<p>There are three view configurations this module installs, found in its /"
+"config/install folder. Each must be installed for this dashboard to display "
+"results.</p>"
+
+msgid ""
+"<p>To fix: copy and paste the contents of <strong>/editoria11y/config/"
+"install/views.view.ed11y_@type.yml</strong> into a \"View\" type import at "
+"<a href=\"/admin/config/development/configuration/single/import\">/admin/"
+"config/development/configuration/single/import</a>. If you sync your "
+"configuration to the filesystem, be sure to include these Views in your "
+"repository.</p>"
+msgstr ""
+"<p>To fix: copy and paste the contents of <strong>/editoria11y/config/"
+"install/views.view.ed11y_@type.yml</strong> into a \"View\" type import at "
+"<a href=\"/admin/config/development/configuration/single/import\">/admin/"
+"config/development/configuration/single/import</a>. If you sync your "
+"configuration to the filesystem, be sure to include these Views in your "
+"repository.</p>"
+
+msgid "link is external"
+msgstr "tautan eksternal"
+
+msgid "link sends email"
+msgstr "tautan mengirim email"
+
+msgid "No results found"
+msgstr "Tidak ada hasil ditemukan"
+
+msgid ""
+"Your Editoria11y CSA trial has @days days remaining. <a "
+"href=\"@url\">Activate a license</a> to continue using CSA features after "
+"the trial ends."
+msgstr ""
+"Masa uji coba Editoria11y CSA Anda tersisa @days hari. <a "
+"href=\"@url\">Aktifkan lisensi</a> untuk terus menggunakan fitur CSA setelah "
+"masa uji coba berakhir."
+
+msgid ""
+"Your Editoria11y CSA trial has expired. CSA features have been disabled. <a "
+"href=\"@url\">Activate a license</a> to continue using them."
+msgstr ""
+"Masa uji coba Editoria11y CSA Anda telah berakhir. Fitur CSA telah "
+"dinonaktifkan. <a href=\"@url\">Aktifkan lisensi</a> untuk terus "
+"menggunakannya."
+
+msgid ""
+"Your Editoria11y CSA license has expired. <a href=\"@url\">Renew or "
+"deactivate your license</a>."
+msgstr ""
+"Lisensi Editoria11y CSA Anda telah berakhir. <a href=\"@url\">Perbarui atau "
+"nonaktifkan lisensi Anda</a>."
+
+msgid ""
+"Your Editoria11y CSA license has expired. Please renew to reactivate CSA add-"
+"ons."
+msgstr ""
+"Lisensi Editoria11y CSA Anda telah berakhir. Harap perbarui untuk "
+"mengaktifkan kembali add-on CSA."
+
+msgid "Cron license check failed: @msg"
+msgstr "Pemeriksaan lisensi cron gagal: @msg"
+
+msgid ""
+"Editoria11y CSA features are active on a @days-day trial. <a "
+"href=\"@url\">Activate a license</a> to continue using them after the trial "
+"ends."
+msgstr ""
+"Fitur Editoria11y CSA aktif dalam masa uji coba @days hari. <a "
+"href=\"@url\">Aktifkan lisensi</a> untuk terus menggunakannya setelah masa "
+"uji coba berakhir."
+
+msgid "Editoria11y Custom Test"
+msgstr "Pengujian Kustom Editoria11y"
+
+msgid "Editoria11y Custom Tests"
+msgstr "Pengujian Kustom Editoria11y"
+
+msgid "editoria11y custom test"
+msgstr "pengujian kustom editoria11y"
+
+msgid "editoria11y custom tests"
+msgstr "pengujian kustom editoria11y"
+
+msgid "Editoria11y CSA: Advanced Tools"
+msgstr "Editoria11y CSA: Alat Lanjutan"
+
+msgid ""
+"Community-Supported Addons include code and contrast checks, custom checks, "
+"a site crawler and report maintenance tools."
+msgstr "Add-on yang didukung komunitas mencakup pemeriksaan kode dan kontras, pemeriksaan kustom, perayap situs, serta alat pemeliharaan laporan."
+
+msgid "Add custom test"
+msgstr "Tambahkan pengujian kustom"
+
+msgid "Recheck"
+msgstr "Periksa ulang"
+
+msgid "CSA membership"
+msgstr "Keanggotaan CSA"
+
+msgid "Custom tests"
+msgstr "Pengujian kustom"
+
+msgid "Dashboard Actions"
+msgstr "Tindakan Dasbor"
+
+msgid "Editoria11y CSA membership"
+msgstr "Keanggotaan Editoria11y CSA"
+
+msgid "Editoria11y custom tests"
+msgstr "Pengujian kustom Editoria11y"
+
+msgid "Add a custom test"
+msgstr "Tambahkan pengujian kustom"
+
+msgid "Edit custom test"
+msgstr "Edit pengujian kustom"
+
+msgid "Delete custom test"
+msgstr "Hapus pengujian kustom"
+
+msgid "Editoria11y CSA Settings"
+msgstr "Pengaturan Editoria11y CSA"
+
+msgid "Developer roles"
+msgstr "Peran pengembang"
+
+msgid "Developer assertiveness"
+msgstr "Ketegasan pengembang"
+
+msgid "Tests overridden to show to content editors"
+msgstr "Pengujian yang diganti untuk ditampilkan ke editor konten"
+
+msgid "Tests overridden to turn off"
+msgstr "Pengujian yang diganti untuk dimatikan"
+
+msgid "Tests overridden to only to show to developers"
+msgstr "Pengujian yang diganti untuk hanya ditampilkan ke pengembang"
+
+msgid "Elements to ignore for contrast test"
+msgstr "Elemen yang diabaikan untuk pengujian kontras"
+
+msgid "Turn on contrast checks"
+msgstr "Aktifkan pemeriksaan kontras"
+
+msgid "Developer check root: body or specify"
+msgstr "Root pemeriksaan pengembang: body atau tentukan"
+
+msgid "Developer check root selector"
+msgstr "Selektor root pemeriksaan pengembang"
+
+msgid "Selector for elements to ignore for developers"
+msgstr "Selektor untuk elemen yang diabaikan oleh pengembang"
+
+msgid "Enabled"
+msgstr "Diaktifkan"
+
+msgid "Custom development domain patterns"
+msgstr "Pola domain pengembangan kustom"
+
+msgid "ID"
+msgstr "ID"
+
+msgid "Label"
+msgstr "Label"
+
+msgid "Test key"
+msgstr "Kunci pengujian"
+
+msgid "Tooltip title"
+msgstr "Judul tooltip"
+
+msgid "Tip content HTML"
+msgstr "HTML konten kiat"
+
+msgid "Element set to check"
+msgstr "Set elemen yang diperiksa"
+
+msgid "Dismiss key type"
+msgstr "Jenis kunci penolakan"
+
+msgid "CSS filter selector"
+msgstr "Selektor filter CSS"
+
+msgid "Text strings to include"
+msgstr "String teks yang disertakan"
+
+msgid "Text string"
+msgstr "String teks"
+
+msgid "Text strings to exclude"
+msgstr "String teks yang dikecualikan"
+
+msgid "Case sensitive text matching"
+msgstr "Pencocokan teks peka huruf besar-kecil"
+
+msgid "Filter which pages will be crawled"
+msgstr "Filter halaman yang akan dijelajahi"
+
+msgid "Cancel"
+msgstr "Batal"
+
+msgid "Millisecond pause between page requests"
+msgstr "Jeda milidetik antara permintaan halaman"
+
+msgid "This tab needs to remain open and in the foreground during the crawl."
+msgstr "Tab ini harus tetap terbuka dan di latar depan selama penjelajahan."
+
+msgid "Estimated time:"
+msgstr "Perkiraan waktu:"
+
+msgid "hours"
+msgstr "hours"
+
+msgid "minutes"
+msgstr "minutes"
+
+msgid "minute"
+msgstr "minute"
+
+msgid "Start crawling"
+msgstr "Mulai menjelajah"
+
+msgid "Checked:"
+msgstr "Diperiksa:"
+
+msgid "pages"
+msgstr "pages"
+
+msgid "Back to dashboard"
+msgstr "Kembali ke dasbor"
+
+msgid "Test"
+msgstr "Pengujian"
+
+msgid "Elements"
+msgstr "Elemen"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Text"
+msgstr "Teks"
+
+msgid "On"
+msgstr "Pada"
+
+msgid "Off"
+msgstr "Mati"
+
+msgid "Freemius deactivation API call failed: @msg"
+msgstr "Panggilan API nonaktifasi Freemius gagal: @msg"
+
+msgid "Cannot cancel subscription: API token not found."
+msgstr "Tidak dapat membatalkan langganan: token API tidak ditemukan."
+
+msgid "Freemius subscription cancellation API call failed: @msg"
+msgstr "Panggilan API pembatalan langganan Freemius gagal: @msg"
+
+msgid "Key module lookup for @id failed: @msg"
+msgstr "Key module lookup for @id failed: @msg"
+
+msgid "Failed to update Freemius install properties: @msg"
+msgstr "Gagal memperbarui properti instalasi Freemius: @msg"
+
+msgid ""
+"An <a href=\"@settings\">active license must be deactivated</a> before "
+"uninstalling."
+msgstr ""
+"Sebuah <a href=\"@settings\">lisensi aktif harus dinonaktifkan</a> sebelum "
+"menghapus instalasi."
+
+msgid "License key stored. Use editoria11y-csa:activate to activate."
+msgstr ""
+"Kunci lisensi tersimpan. Gunakan editoria11y-csa:activate untuk mengaktifkan."
+
+msgid "License activated."
+msgstr "Lisensi diaktifkan."
+
+msgid "License deactivated."
+msgstr "Lisensi dinonaktifkan."
+
+msgid "License active. Expires: @date"
+msgstr "Lisensi aktif. Kedaluwarsa: @date"
+
+msgid "License active. No expiration date."
+msgstr "Lisensi aktif. Tidak ada tanggal kedaluwarsa."
+
+msgid ""
+"License management locked. Use editoria11y-csa:unlock to re-enable UI "
+"changes."
+msgstr ""
+"Manajemen lisensi dikunci. Gunakan editoria11y-csa:unlock untuk mengaktifkan "
+"kembali perubahan UI."
+
+msgid "License management unlocked. UI changes are now allowed."
+msgstr "Manajemen lisensi dibuka. Perubahan UI kini diizinkan."
+
+msgid "License expired or cancelled."
+msgstr "Lisensi telah kedaluwarsa atau dibatalkan."
+
+msgid "License key cannot be empty."
+msgstr "Kunci lisensi tidak boleh kosong."
+
+msgid "Failed to store key: {msg}"
+msgstr "Gagal menyimpan kunci: {msg}"
+
+msgid "No stored license key found. Run editoria11y-csa:set-key first."
+msgstr ""
+"Tidak ada kunci lisensi tersimpan. Jalankan editoria11y-csa:set-key terlebih "
+"dahulu."
+
+msgid "Activation failed: {msg}"
+msgstr "Aktivasi gagal: {msg}"
+
+msgid "Deactivation failed: {msg}"
+msgstr "Nonaktifasi gagal: {msg}"
+
+msgid "License check failed: {msg}"
+msgstr "Pemeriksaan lisensi gagal: {msg}"
+
+msgid "Export"
+msgstr "Ekspor"
+
+msgid "Export pages"
+msgstr "Ekspor halaman"
+
+msgid "Export dismissals"
+msgstr "Ekspor penolakan"
+
+msgid "Export alerts"
+msgstr "Ekspor peringatan"
+
+msgid "Paths with parameters"
+msgstr "Jalur dengan parameter"
+
+msgid "Drop records for deleted or moved pages"
+msgstr "Hapus rekaman untuk halaman yang dihapus atau dipindahkan"
+
+msgid "Deletes results that no longer have valid paths or entity references."
+msgstr ""
+"Menghapus hasil yang tidak lagi memiliki jalur atau referensi entitas yang "
+"valid."
+
+msgid "Update page titles"
+msgstr "Perbarui judul halaman"
+
+msgid ""
+"Replaces recorded titles for Nodes, Terms and Users with the current value "
+"on their edit page."
+msgstr ""
+"Mengganti judul yang tercatat untuk Node, Istilah, dan Pengguna dengan nilai "
+"saat ini di halaman editnya."
+
+msgid "Update page paths"
+msgstr "Perbarui jalur halaman"
+
+msgid ""
+"Replaces recorded URLs for Nodes, Terms and Users with their current "
+"canonical path. <br>@ReviewPaths (node/1?node=2) will not be updated."
+msgstr ""
+"Mengganti URL yang tercatat untuk Node, Istilah, dan Pengguna dengan jalur "
+"kanonik saat ini. <br>@ReviewPaths (node/1?node=2) tidak akan diperbarui."
+
+msgid "Risky deletions"
+msgstr "Penghapusan berisiko"
+
+msgid "Delete records for paths with parameters (e.g., ?page=2)"
+msgstr "Hapus rekaman untuk jalur dengan parameter (mis., ?page=2)"
+
+msgid "None"
+msgstr "Tidak ada"
+
+msgid "Only for nodes, terms & users"
+msgstr "Hanya untuk node, istilah & pengguna"
+
+msgid "All, including search and views"
+msgstr "Semua, termasuk pencarian dan tampilan"
+
+msgid ""
+"Used to remove duplicate records when previously recorded parameters like "
+"page numbers or search keys were not meaningful. Parameters that are not "
+"meaningful should be removed from the list of parameters to save under "
+"\"Syncing results to reports\" in the module configuration.<br>@ReviewPaths "
+"should be reviewed before proceeding. <strong>There is no undo</strong>."
+msgstr ""
+"Digunakan untuk menghapus rekaman duplikat saat parameter yang sebelumnya "
+"dicatat seperti nomor halaman atau kunci pencarian tidak bermakna. Parameter "
+"yang tidak bermakna harus dihapus dari daftar parameter yang disimpan di "
+"bawah \"Menyinkronkan hasil ke laporan\" dalam konfigurasi modul."
+"<br>@ReviewPaths harus ditinjau sebelum melanjutkan. <strong>Tidak ada "
+"pembatalan</strong>."
+
+msgid "Start"
+msgstr "Mulai"
+
+msgid "Recheck nodes"
+msgstr "Periksa ulang node"
+
+msgid "Set up a crawl"
+msgstr "Atur penjelajahan"
+
+msgid "Processing batch #@batch_id of @count."
+msgstr "Memproses batch #@batch_id dari @count."
+
+msgid "@process processed @count, deleted @deleted, updated @updated."
+msgstr "@process memproses @count, menghapus @deleted, memperbarui @updated."
+
+msgid ""
+"An error occurred while processing %error_operation with arguments: "
+"@arguments"
+msgstr ""
+"Terjadi kesalahan saat memproses %error_operation dengan argumen: @arguments"
+
+msgid "No records to process."
+msgstr "Tidak ada rekaman untuk diproses."
+
+msgid ""
+"@process processed @count, deleted @deleted, updated @updated in @elapsed."
+msgstr ""
+"@process memproses @count, menghapus @deleted, memperbarui @updated dalam "
+"@elapsed."
+
+msgid "Admin label for the configuration page"
+msgstr "Label admin untuk halaman konfigurasi"
+
+msgid "Test grouping ID"
+msgstr "ID pengelompokan pengujian"
+
+msgid ""
+"Letters, numbers and underscores only.<br>Rules that share an ID will be "
+"grouped on dashboard reports."
+msgstr ""
+"Hanya huruf, angka, dan garis bawah.<br>Aturan yang berbagi ID akan "
+"dikelompokkan pada laporan dasbor."
+
+msgid "Active"
+msgstr "Aktif"
+
+msgid "Alert content"
+msgstr "Konten peringatan"
+
+msgid "Tip title"
+msgstr "Judul kiat"
+
+msgid "Tip details"
+msgstr "Detail kiat"
+
+msgid ""
+"HTML displayed in the tooltip. The provided template is optional.<br>\n"
+"        Allowed tags: @tags."
+msgstr ""
+"HTML yang ditampilkan dalam tooltip. Template yang disediakan bersifat "
+"opsional.<br>\n"
+"        Tag yang diizinkan: @tags."
+
+msgid "To fix"
+msgstr "Cara memperbaiki"
+
+msgid "Error"
+msgstr "Kesalahan"
+
+msgid "Manual check"
+msgstr "Pemeriksaan manual"
+
+msgid "Dismiss key"
+msgstr "Kunci penolakan"
+
+msgid ""
+"How dismissals are tracked. 'Text' uses its text content, 'Attributes' uses "
+"its attributes (href, id, class, src)."
+msgstr ""
+"Cara penolakan dilacak. 'Teks' menggunakan konten teksnya, 'Atribut' "
+"menggunakan atributnya (href, id, class, src)."
+
+msgid "Text content"
+msgstr "Konten teks"
+
+msgid "Attributes on tag (e.g. href and src)"
+msgstr "Atribut pada tag (mis. href dan src)"
+
+msgid "Elements to check"
+msgstr "Elemen yang diperiksa"
+
+msgid ""
+"These sets contain elements that match your check area and skip over "
+"configuration."
+msgstr ""
+"Set-set ini berisi elemen yang sesuai dengan area pemeriksaan dan melewati "
+"konfigurasi skip."
+
+msgid "Common choices"
+msgstr "Pilihan umum"
+
+msgid "All text elements: Headings, Paragraphs, Blockquotes and Lists"
+msgstr "Semua elemen teks: Heading, Paragraf, Blockquote, dan Daftar"
+
+msgid "Links"
+msgstr "Tautan"
+
+msgid "Paragraphs"
+msgstr "Paragraf"
+
+msgid "Headings"
+msgstr "Judul"
+
+msgid "Images"
+msgstr "Gambar"
+
+msgid "All elements"
+msgstr "Semua elemen"
+
+msgid "...other..."
+msgstr "...lainnya..."
+
+msgid "Specific elements and combinations"
+msgstr "Elemen dan kombinasi tertentu"
+
+msgid "Lists"
+msgstr "Daftar"
+
+msgid "Blockquotes"
+msgstr "Blockquote"
+
+msgid "Tables"
+msgstr "Tabel"
+
+msgid "Buttons"
+msgstr "Tombol"
+
+msgid "Inputs"
+msgstr "Input"
+
+msgid "Labels"
+msgstr "Label"
+
+msgid "Iframes"
+msgstr "Iframe"
+
+msgid "Videos"
+msgstr "Video"
+
+msgid "Audio"
+msgstr "Audio"
+
+msgid ""
+"Note: combining Links with Paragraphs and other text containers can lead to "
+"duplicate alerts."
+msgstr ""
+"Catatan: menggabungkan Tautan dengan Paragraf dan wadah teks lainnya dapat "
+"menyebabkan peringatan duplikat."
+
+msgid "When tip should appear"
+msgstr "Kapan kiat harus muncul"
+
+msgid ""
+"This test builder allows for simple text and attribute tests.<br>Check the "
+"module readme for <a href=\"@url\">tips on writing more complex tests</a>."
+msgstr ""
+"Pembuat pengujian ini mendukung pengujian teks dan atribut sederhana."
+"<br>Periksa readme modul untuk <a href=\"@url\">kiat menulis pengujian yang "
+"lebih kompleks</a>."
+
+msgid "Select by attributes"
+msgstr "Pilih berdasarkan atribut"
+
+msgid ""
+"Match using CSS selectors.<br>Use :not() to skip elements, e.g. "
+"<code>:is(.check1, .check2):not(.ignore, .ignore *)</code>.<br>Use attribute "
+"selectors for URLs, e.g. <code>[href*=\".dev/\"]</code>."
+msgstr ""
+"Cocokkan menggunakan selektor CSS.<br>Gunakan :not() untuk melewati elemen, "
+"mis. <code>:is(.check1, .check2):not(.ignore, .ignore *)</code>.<br>Gunakan "
+"selektor atribut untuk URL, mis. <code>[href*=\".dev/\"]</code>."
+
+msgid "Select by text"
+msgstr "Pilih berdasarkan teks"
+
+msgid "Flag elements containing any of these text strings. One per line."
+msgstr ""
+"Tandai elemen yang mengandung salah satu string teks ini. Satu per baris."
+
+msgid "Case sensitive"
+msgstr "Peka huruf besar-kecil"
+
+msgid "Exclude elements that match this text"
+msgstr "Kecualikan elemen yang cocok dengan teks ini"
+
+msgid ""
+"Don't flag elements if they contain any of these words or phrases. E.g., a "
+"link to a development server is ok if it contains \"dev.\" One per line."
+msgstr ""
+"Jangan tandai elemen jika mengandung salah satu kata atau frasa ini. Mis., "
+"tautan ke server pengembangan tidak masalah jika mengandung \"dev.\" Satu "
+"per baris."
+
+msgid "Test key must contain only letters, numbers, and underscores."
+msgstr "Kunci pengujian harus hanya mengandung huruf, angka, dan garis bawah."
+
+msgid "Tip content must contain visible text."
+msgstr "Konten kiat harus mengandung teks yang terlihat."
+
+msgid "Select at least one rule."
+msgstr "Pilih setidaknya satu aturan."
+
+msgid "Select at least one element type."
+msgstr "Pilih setidaknya satu jenis elemen."
+
+msgid "The filter selector should be a CSS selector, not a CSS rule block."
+msgstr "Selektor filter harus berupa selektor CSS, bukan blok aturan CSS."
+
+msgid "Created new custom test %label."
+msgstr "Pengujian kustom baru %label berhasil dibuat."
+
+msgid "Updated custom test %label."
+msgstr "Pengujian kustom %label berhasil diperbarui."
+
+msgid "Are you deactivating this site or cancelling altogether?"
+msgstr "Apakah Anda menonaktifkan situs ini atau membatalkan sepenuhnya?"
+
+msgid "You can manage your subscriptions at any time in your Freemius account."
+msgstr "Anda dapat mengelola langganan kapan saja di akun Freemius Anda."
+
+msgid "Choose an action"
+msgstr "Pilih tindakan"
+
+msgid ""
+"<strong>Deactivate this site</strong>, but keep my subscription active and "
+"renewing for use on another site"
+msgstr ""
+"<strong>Nonaktifkan situs ini</strong>, tetapi tetap aktifkan dan perbarui "
+"langganan saya untuk digunakan di situs lain"
+
+msgid ""
+"<strong>Cancel my subscription</strong> to the Editoria11y CSA altogether"
+msgstr "<strong>Batalkan langganan saya</strong> ke Editoria11y CSA sepenuhnya"
+
+msgid "Confirm deactivation"
+msgstr "Konfirmasi nonaktifasi"
+
+msgid "Never mind; keep site active"
+msgstr "Tidak jadi; biarkan situs tetap aktif"
+
+msgid ""
+"This site appears to be a development or testing environment with an active "
+"license."
+msgstr ""
+"Situs ini tampaknya merupakan lingkungan pengembangan atau pengujian dengan "
+"lisensi aktif."
+
+msgid "How would you like to proceed?"
+msgstr "Bagaimana Anda ingin melanjutkan?"
+
+msgid ""
+"<strong>Cancel deactivation</strong>; I will manage this from the production "
+"site"
+msgstr ""
+"<strong>Batalkan nonaktifasi</strong>; saya akan mengelolanya dari situs "
+"produksi"
+
+msgid ""
+"<strong>Disconnect this copy</strong>; leave the production license active"
+msgstr ""
+"<strong>Putuskan salinan ini</strong>; biarkan lisensi produksi tetap aktif"
+
+msgid ""
+"<strong>Deactivate all copies of this site</strong> (production, dev, and QA)"
+msgstr ""
+"<strong>Nonaktifkan semua salinan situs ini</strong> (produksi, dev, dan QA)"
+
+msgid "Confirm"
+msgstr "Konfirmasi"
+
+msgid ""
+"Editoria11y promotes accessibility in a unique way. Its tools are highly "
+"effective at helping non-technical authors prepare content that can be "
+"enjoyed equally by disabled Web users. We consider this a public good, so "
+"Editoria11y will always be free to use."
+msgstr ""
+"Editoria11y mempromosikan aksesibilitas dengan cara yang unik. Alat-alatnya "
+"sangat efektif dalam membantu penulis non-teknis menyiapkan konten yang "
+"dapat dinikmati secara setara oleh pengguna Web penyandang disabilitas. Kami "
+"menganggap ini sebagai kebaikan publik, sehingga Editoria11y akan selalu "
+"gratis digunakan."
+
+msgid "Editoria11y is not, however, free to develop or support."
+msgstr "Namun, Editoria11y tidak gratis untuk dikembangkan atau didukung."
+
+msgid ""
+"The \"Community Supported Add-ons\" (CSA) project fills the gap: project "
+"membership subscriptions fund the development of the Editoria11y library, "
+"its CMS plugins, and the CSA suite."
+msgstr ""
+"Proyek \"Community Supported Add-ons\" (CSA) mengisi kesenjangan ini: "
+"langganan keanggotaan proyek mendanai pengembangan library Editoria11y, "
+"plugin CMS-nya, dan rangkaian CSA."
+
+msgid ""
+"<a href=\"@url\"><strong>Join the CSA</strong></a> to support this project"
+msgstr ""
+"<a href=\"@url\"><strong>Bergabunglah dengan CSA</strong></a> untuk "
+"mendukung proyek ini"
+
+msgid ""
+"Existing members: <a href=\"@url\"><strong>Manage your subscription</"
+"strong></a> or <a href=\"@support_url\"><strong>contact support</strong></a>"
+msgstr ""
+"Anggota yang sudah ada: <a href=\"@url\"><strong>Kelola langganan Anda</"
+"strong></a> atau <a href=\"@support_url\"><strong>hubungi dukungan</strong></"
+"a>"
+
+msgid ""
+"License management on this site has been locked via Drush. Use <code>drush "
+"ed11y-unlock</code> to re-enable changes from this form."
+msgstr ""
+"Manajemen lisensi di situs ini telah dikunci melalui Drush. Gunakan "
+"<code>drush ed11y-unlock</code> untuk mengaktifkan kembali perubahan dari "
+"formulir ini."
+
+msgid "Warning: this site matches a dev or QA URL pattern"
+msgstr "Peringatan: situs ini cocok dengan pola URL dev atau QA"
+
+msgid "Shared activations should be managed in the production copy."
+msgstr "Aktivasi bersama harus dikelola di salinan produksi."
+
+msgid ""
+"Use <code>drush ed11y-lock</code> to prevent changing shared activations."
+msgstr ""
+"Gunakan <code>drush ed11y-lock</code> untuk mencegah perubahan aktivasi "
+"bersama."
+
+msgid ""
+"Deactivating a shared key deactivates all copies of a site, including "
+"production."
+msgstr ""
+"Menonaktifkan kunci bersama akan menonaktifkan semua salinan situs, termasuk "
+"produksi."
+
+msgid ""
+"Separate license activations from a development environment consume an "
+"additional key."
+msgstr ""
+"Aktivasi lisensi terpisah dari lingkungan pengembangan mengonsumsi kunci "
+"tambahan."
+
+msgid "Trial (@days days remaining)"
+msgstr "Uji coba (@days hari tersisa)"
+
+msgid "Trial (expired)"
+msgstr "Uji coba (kedaluwarsa)"
+
+msgid "License expired"
+msgstr "Lisensi kedaluwarsa"
+
+msgid "Active membership"
+msgstr "Keanggotaan aktif"
+
+msgid "Activate using stored license key"
+msgstr "Aktifkan menggunakan kunci lisensi tersimpan"
+
+msgid "Activate with a different license key"
+msgstr "Aktifkan dengan kunci lisensi berbeda"
+
+msgid "Activate (enter license key below)"
+msgstr "Aktifkan (masukkan kunci lisensi di bawah)"
+
+msgid "<strong>License expired.</strong> Expired on: @date"
+msgstr "<strong>Lisensi kedaluwarsa.</strong> Kedaluwarsa pada: @date"
+
+msgid "<strong>License has expired.</strong>"
+msgstr "<strong>License has expired.</strong>"
+
+msgid "<strong>Trial license active.</strong> Trial ends: @date"
+msgstr "<strong>Lisensi uji coba aktif.</strong> Uji coba berakhir: @date"
+
+msgid "<strong>License active.</strong> Expires: @date"
+msgstr "<strong>Lisensi aktif.</strong> Kedaluwarsa: @date"
+
+msgid "<strong>Lifetime license active.</strong>"
+msgstr "<strong>Lifetime license active.</strong>"
+
+msgid "Check for license renewal"
+msgstr "Periksa pembaruan lisensi"
+
+msgid "Deactivate license"
+msgstr "Nonaktifkan lisensi"
+
+msgid "A license key is stored but not active"
+msgstr "Kunci lisensi tersimpan tetapi tidak aktif"
+
+msgid "Add a license key to enable CSA features"
+msgstr "Tambahkan kunci lisensi untuk mengaktifkan fitur CSA"
+
+msgid "Enable CSA features"
+msgstr "Aktifkan fitur CSA"
+
+msgid "CSA license key"
+msgstr "Kunci lisensi CSA"
+
+msgid ""
+"<a href=\"@url\">Join the CSA</a> to enable CSA features. Visit the Freemius "
+"dashboard to <a href=\"@freemius\">manage your subscription</a> or recover a "
+"lost key."
+msgstr ""
+"<a href=\"@url\">Bergabunglah dengan CSA</a> untuk mengaktifkan fitur CSA. "
+"Kunjungi dasbor Freemius untuk <a href=\"@freemius\">mengelola langganan "
+"Anda</a> atau memulihkan kunci yang hilang."
+
+msgid "Local, Dev and QA site URL patterns"
+msgstr "Pola URL situs lokal, Dev, dan QA"
+
+msgid ""
+"One pattern per line, up to 5 patterns. Wildcards are supported (e.g. "
+"<code>*.test.example.com</code>).<br>Local, dev and QA sites can share an "
+"activation with production site, but only production sites check for "
+"renewals."
+msgstr ""
+"Satu pola per baris, hingga 5 pola. Wildcard didukung (mis. "
+"<code>*.test.example.com</code>).<br>Situs lokal, dev, dan QA dapat berbagi "
+"aktivasi dengan situs produksi, tetapi hanya situs produksi yang memeriksa "
+"pembaruan."
+
+msgid ""
+"Additionally, any hostname consisting only of digits and dots (raw IPv4 "
+"address) is treated as a development environment."
+msgstr ""
+"Selain itu, setiap hostname yang hanya terdiri dari angka dan titik (alamat "
+"IPv4 mentah) diperlakukan sebagai lingkungan pengembangan."
+
+msgid "Built-in development URL patterns"
+msgstr "Pola URL pengembangan bawaan"
+
+msgid "Enter no more than 5 custom domain patterns."
+msgstr "Masukkan tidak lebih dari 5 pola domain kustom."
+
+msgid "Saved license key not found. Please activate with a new key."
+msgstr ""
+"Kunci lisensi tersimpan tidak ditemukan. Harap aktifkan dengan kunci baru."
+
+msgid "Enter a license key."
+msgstr "Masukkan kunci lisensi."
+
+msgid "Activation failed: @msg"
+msgstr "Aktivasi gagal: @msg"
+
+msgid "License renewed and active."
+msgstr "Lisensi diperbarui dan aktif."
+
+msgid "License is still expired."
+msgstr "Lisensi masih kedaluwarsa."
+
+msgid "Unexpected license status: @status"
+msgstr "Status lisensi tidak terduga: @status"
+
+msgid "Could not reach licensing server: @msg"
+msgstr "Tidak dapat menjangkau server lisensi: @msg"
+
+msgid "Deactivation failed: @msg"
+msgstr "Nonaktifasi gagal: @msg"
+
+msgid "Editoria11y Export Batch Processor"
+msgstr "Editoria11y Pemroses Batch Ekspor"
+
+msgid ""
+"Batching is only needed for very large or heavily customized CSV exports."
+msgstr "Pemrosesan batch hanya diperlukan untuk ekspor CSV yang sangat besar atau sangat dikustomisasi."
+
+msgid "hide"
+msgstr "hide"
+
+msgid "ok"
+msgstr "ok"
+
+msgid "Yes"
+msgstr "Ya"
+
+msgid "No"
+msgstr "Tidak"
+
+msgid "This alt text is a filename, not a description"
+msgstr "Teks alt ini berupa nama file, bukan deskripsi"
+
+msgid "Is this a clear and concise description of the image?"
+msgstr "Apakah ini deskripsi yang jelas dan ringkas untuk gambar ini?"
+
+msgid "This alt text may be a placeholder"
+msgstr "Teks alt ini mungkin merupakan placeholder"
+
+msgid "This alt text is unpronounceable"
+msgstr "Teks alt ini tidak dapat diucapkan"
+
+msgid "This custom input field is missing a label"
+msgstr "Kolom input kustom ini tidak memiliki label"
+
+msgid "Button is missing an accessible label"
+msgstr "Tombol tidak memiliki label yang aksesibel"
+
+msgid "Button has an invalid ARIA label"
+msgstr "Tombol memiliki label ARIA yang tidak valid"
+
+msgid "Button name repeats the word \"button\""
+msgstr "Nama tombol mengulang kata \"button\""
+
+msgid "This button is unpronounceable"
+msgstr "Tombol ini tidak dapat diucapkan"
+
+msgid "Text does not have enough contrast to be easily legible"
+msgstr "Kontras teks tidak cukup agar mudah dibaca"
+
+msgid "Graphic or icon does not have enough contrast"
+msgstr "Kontras grafik atau ikon tidak cukup"
+
+msgid "Input does not provide enough contrast to be easily legible"
+msgstr "Kontras input tidak cukup agar mudah dibaca"
+
+msgid "Placeholder text does not have enough contrast to be easily legible"
+msgstr "Kontras teks placeholder tidak cukup agar mudah dibaca"
+
+msgid "Does this placeholder text have enough contrast?"
+msgstr "Apakah teks placeholder ini memiliki kontras yang cukup?"
+
+msgid "Does this text have enough contrast?"
+msgstr "Apakah teks ini memiliki kontras yang cukup?"
+
+msgid "Does this graphic or icon have enough contrast?"
+msgstr "Apakah grafik atau ikon ini memiliki kontras yang cukup?"
+
+msgid "Duplicate ID attribute"
+msgstr "Atribut ID ganda"
+
+msgid "This link has a tooltip with the same text as the link"
+msgstr "Tooltip tautan ini memiliki teks yang sama dengan tautannya"
+
+msgid "Does this audio have a transcript?"
+msgstr "Apakah audio ini memiliki transkrip?"
+
+msgid "Is this visualization accessible?"
+msgstr "Apakah visualisasi ini aksesibel?"
+
+msgid "Embedded iframes need manual checks"
+msgstr "Iframe yang disematkan perlu diperiksa secara manual"
+
+msgid "Frame missing \"title\" attribute"
+msgstr "Frame tidak memiliki atribut \"title\""
+
+msgid "Frame with tabindex=\"-1\" will not be keyboard accessible."
+msgstr "Frame dengan tabindex=\"-1\" tidak akan dapat diakses lewat keyboard."
+
+msgid "Is this video accurately captioned?"
+msgstr "Apakah video ini diberi caption secara akurat?"
+
+msgid "This heading has no text"
+msgstr "Judul ini tidak memiliki teks"
+
+msgid "This image is used as a heading, so it needs alt text"
+msgstr "Gambar ini digunakan sebagai judul, sehingga memerlukan teks alt"
+
+msgid "The first heading on this page is a subheading"
+msgstr "Judul pertama di halaman ini adalah sub-judul"
+
+msgid "Can this heading be shorter?"
+msgstr "Apakah judul ini bisa diperpendek?"
+
+msgid "This page is missing a Heading 1"
+msgstr "Halaman ini tidak memiliki Judul 1"
+
+msgid "This heading is tagged at the wrong level"
+msgstr "Judul ini ditandai pada tingkatan yang salah"
+
+msgid "This heading is unpronounceable"
+msgstr "Judul ini tidak dapat diucapkan"
+
+msgid "This element cannot be described by screen readers"
+msgstr "Elemen ini tidak dapat dideskripsikan oleh pembaca layar"
+
+msgid "Can this alt text be shorter?"
+msgstr "Apakah teks alt ini bisa diperpendek?"
+
+msgid "Is this image actually meaningless?"
+msgstr "Apakah gambar ini benar-benar tidak bermakna?"
+
+msgid "Image in a carousel or gallery marked as decorative"
+msgstr "Gambar dalam carousel atau galeri ditandai sebagai dekoratif"
+
+msgid "This captioned image has no alt text"
+msgstr "Gambar dengan keterangan ini tidak memiliki teks alt"
+
+msgid "Alt text should not be the same as caption text"
+msgstr "Teks alt tidak boleh sama dengan teks caption"
+
+msgid "Is there a visible label for this field?"
+msgstr "Apakah ada label yang terlihat untuk kolom ini?"
+
+msgid "Prefer visible labels to placeholders"
+msgstr "Utamakan label yang terlihat daripada placeholder"
+
+msgid "Is this reset button needed?"
+msgstr "Apakah tombol reset ini diperlukan?"
+
+msgid "This input has an empty label"
+msgstr "Input ini memiliki label kosong"
+
+msgid "Visible label does not match invisible label"
+msgstr "Label yang terlihat tidak cocok dengan label tak terlihat"
+
+msgid "This image input is missing alt text"
+msgstr "Input gambar ini tidak memiliki teks alt"
+
+msgid "This input is not connected to a label"
+msgstr "Input ini tidak terhubung ke label"
+
+msgid "Language tag does not match the content"
+msgstr "Tag bahasa tidak cocok dengan konten"
+
+msgid "This content appears to be in a different language"
+msgstr "Konten ini tampaknya dalam bahasa yang berbeda"
+
+msgid "This alt text appears to be in a different language"
+msgstr "Teks alt ini tampaknya dalam bahasa yang berbeda"
+
+msgid "Alt text used as a link should not be a URL"
+msgstr "Teks alt yang digunakan sebagai tautan tidak boleh berupa URL"
+
+msgid "This linked alt might not be clear and concise"
+msgstr "Teks alt tautan ini mungkin tidak jelas dan ringkas"
+
+msgid "Linked images need pronounceable alt text"
+msgstr "Gambar tertaut memerlukan teks alt yang dapat diucapkan"
+
+msgid "Manual check: link contains \"click here\""
+msgstr "Pemeriksaan manual: tautan mengandung \"click here\""
+
+msgid "Link article titles, not DOI numbers"
+msgstr "Tautkan judul artikel, bukan nomor DOI"
+
+msgid "This link contains no words"
+msgstr "Tautan ini tidak mengandung kata apa pun"
+
+msgid "Link with invalid \"aria-labelledby\" attribute"
+msgstr "Tautan dengan atribut \"aria-labelledby\" yang tidak valid"
+
+msgid "This link needs a label"
+msgstr "Tautan ini memerlukan label"
+
+msgid "Link points to a file without warning"
+msgstr "Tautan mengarah ke file tanpa peringatan"
+
+msgid "Links with the same text link to different pages"
+msgstr "Tautan dengan teks yang sama mengarah ke halaman yang berbeda"
+
+msgid "Does this alt text describe the link or the image?"
+msgstr "Apakah teks alt ini mendeskripsikan tautan atau gambar?"
+
+msgid "Does this alt text make sense as part of this link?"
+msgstr "Apakah teks alt ini masuk akal sebagai bagian dari tautan ini?"
+
+msgid "Can this linked alt text be shorter?"
+msgstr "Apakah teks alt tautan ini bisa diperpendek?"
+
+msgid "This linked image needs alt text"
+msgstr "Gambar tertaut ini memerlukan teks alt"
+
+msgid "Does this linked image need a description?"
+msgstr "Apakah gambar tertaut ini memerlukan deskripsi?"
+
+msgid "Is this link actually a button?"
+msgstr "Apakah tautan ini sebenarnya tombol?"
+
+msgid "Does this link open a new tab without warning?"
+msgstr "Apakah tautan ini membuka tab baru tanpa peringatan?"
+
+msgid "This linked alt text may be a placeholder"
+msgstr "Teks alt tautan ini mungkin merupakan placeholder"
+
+msgid "This link only contains generic words"
+msgstr "Tautan ini hanya mengandung kata-kata generik"
+
+msgid "The purpose of this link is visually hidden"
+msgstr "Tujuan tautan ini tersembunyi secara visual"
+
+msgid "Does this image's alt describe the image or the link?"
+msgstr "Apakah teks alt gambar ini mendeskripsikan gambar atau tautan?"
+
+msgid "Are the symbols or emoji in this link meaningful?"
+msgstr "Apakah simbol atau emoji dalam tautan ini bermakna?"
+
+msgid "This link is unpronounceable"
+msgstr "Tautan ini tidak dapat diucapkan"
+
+msgid "Link text should not be a URL"
+msgstr "Teks tautan tidak boleh berupa URL"
+
+msgid "Meta tag for page language missing"
+msgstr "Meta tag untuk bahasa halaman tidak ada"
+
+msgid "Did you mean a different language code?"
+msgstr "Apakah maksud Anda kode bahasa lain?"
+
+msgid "Invalid language code"
+msgstr "Kode bahasa tidak valid"
+
+msgid "Page language may not match the content"
+msgstr "Bahasa halaman mungkin tidak cocok dengan konten"
+
+msgid "Meta tag limits how much users can enlarge text"
+msgstr "Meta tag membatasi seberapa besar pengguna dapat memperbesar teks"
+
+msgid "Meta tag automatically refreshes page"
+msgstr "Meta tag menyegarkan halaman secara otomatis"
+
+msgid "Meta tag prevents users from enlarging text"
+msgstr "Meta tag mencegah pengguna memperbesar teks"
+
+msgid "Meta tag for page title missing"
+msgstr "Meta tag untuk judul halaman tidak ada"
+
+msgid "Invalid HTML: image has no alt attribute"
+msgstr "HTML tidak valid: gambar tidak memiliki atribut alt"
+
+msgid "Invalid HTML: linked image missing alt attribute"
+msgstr "HTML tidak valid: gambar tertaut tidak memiliki atribut alt"
+
+msgid "Invalid HTML: image in link missing alt attribute"
+msgstr "HTML tidak valid: gambar di dalam tautan tidak memiliki atribut alt"
+
+msgid "This link target may be invalid"
+msgstr "Target tautan ini mungkin tidak valid"
+
+msgid "Should this quote be a heading?"
+msgstr "Apakah kutipan ini seharusnya menjadi judul?"
+
+msgid "Has this document been tagged for screen readers?"
+msgstr "Apakah dokumen ini sudah ditandai untuk pembaca layar?"
+
+msgid "Should this bold text be a heading?"
+msgstr "Apakah teks tebal ini seharusnya menjadi judul?"
+
+msgid "Should this have list formatting?"
+msgstr "Apakah ini seharusnya menggunakan format daftar?"
+
+msgid "Broken same-page link"
+msgstr "Tautan dalam halaman yang rusak"
+
+msgid "Do not justify text"
+msgstr "Jangan gunakan teks rata kanan-kiri"
+
+msgid "Nested interactive layout components"
+msgstr "Komponen tata letak interaktif yang bersarang"
+
+msgid "Is there an alternative for this PDF?"
+msgstr "Apakah ada alternatif untuk PDF ini?"
+
+msgid "Text is too small"
+msgstr "Teks terlalu kecil"
+
+msgid "Large blocks of emphasized text are harder to read"
+msgstr "Blok teks yang diberi penekanan dalam jumlah besar lebih sulit dibaca"
+
+msgid "Do not use sub/superscript as visual formatting"
+msgstr "Jangan gunakan sub/superskrip sebagai pemformatan visual"
+
+msgid "Only links should be underlined"
+msgstr "Hanya tautan yang boleh digarisbawahi"
+
+msgid "Is this uppercase text needed?"
+msgstr "Apakah teks huruf besar ini diperlukan?"
+
+msgid "Are there redundant words in this alt text?"
+msgstr "Apakah ada kata-kata berlebihan dalam teks alt ini?"
+
+msgid "Tabindex overrides interrupt the focus order"
+msgstr "Override tabindex mengganggu urutan fokus"
+
+msgid "This header cell needs text"
+msgstr "Sel header ini memerlukan teks"
+
+msgid "This table has an invalid headers attribute"
+msgstr "Tabel ini memiliki atribut headers yang tidak valid"
+
+msgid "This table needs a header row and/or column"
+msgstr "Tabel ini memerlukan baris dan/atau kolom header"
+
+msgid "Content headings should not be used inside tables"
+msgstr "Judul konten tidak boleh digunakan di dalam tabel"
+
+msgid "Invalid HTML list"
+msgstr "Daftar HTML tidak valid"
+
+msgid "Linked images"
+msgstr "Gambar tertaut"
+
+msgid "Text formatting"
+msgstr "Pemformatan teks"
+
+msgid "Video, audio, frames"
+msgstr "Video, audio, frame"
+
+msgid "Contrast"
+msgstr "Kontras"
+
+msgid "Forms"
+msgstr "Formulir"
+
+msgid "ARIA and focus"
+msgstr "ARIA dan fokus"
+
+msgid "Page metadata"
+msgstr "Metadata halaman"
+
+msgid "The request could not be processed. Details have been logged."
+msgstr "Permintaan tidak dapat diproses. Detail telah dicatat di log."
+
+msgid "API request rejected: @message"
+msgstr "Permintaan API ditolak: @message"
+
+msgid "API request failed: @message"
+msgstr "Permintaan API gagal: @message"
+
+msgid "Export pages with alerts"
+msgstr "Ekspor halaman dengan peringatan"
+
+msgid ""
+"Install the Editoria11y Export Batch Processor module to download these "
+"reports."
+msgstr "Instal modul Editoria11y Pemroses Batch Ekspor untuk mengunduh laporan ini."
+
+msgid "Export results"
+msgstr "Ekspor hasil"
+
+msgctxt "problems"
+msgid "Top alerts"
+msgstr "Peringatan teratas"
+
+msgctxt "problems"
+msgid "Pages with the most alerts"
+msgstr "Halaman dengan peringatan terbanyak"
+
+msgid "Recent dismissals"
+msgstr "Penolakan terbaru"
+
+msgid ""
+"Activate the <a href=\"@csa\">Editoria11y CSA submodule</a> to see developer "
+"tests."
+msgstr ""
+"Aktifkan <a href=\"@csa\">submodul Editoria11y CSA</a> untuk melihat "
+"pengujian pengembang."
+
+msgid "Include all parts of the page that contain your theme and content."
+msgstr "Sertakan semua bagian halaman yang mengandung tema dan konten Anda."
+
+msgid "Include all parts of the page that contain your editable content."
+msgstr ""
+"Sertakan semua bagian halaman yang mengandung konten yang dapat diedit."
+
+msgid "Exclude elements that show unhelpful, repetitive, or inaccurate alerts."
+msgstr ""
+"Kecualikan elemen yang menampilkan peringatan tidak berguna, berulang, atau "
+"tidak akurat."
+
+msgid ""
+"<a href=\"@permissions\">Add permissions</a>, especially \"View Editoria11y "
+"checker\" and \"Mark OK.\"</a>"
+msgstr ""
+"<a href=\"@permissions\">Add permissions</a>, especially \"View Editoria11y "
+"checker\" and \"Mark OK.\"</a>"
+
+msgid ""
+"If you need help: <a href=\"@config_guide\">Configuration Guide</a> | <a "
+"href=\"@issue_queue\">Issue Queue</a> | <a href=\"@help\">Support contacts</"
+"a>"
+msgstr ""
+"Jika Anda membutuhkan bantuan: <a href=\"@config_guide\">Panduan "
+"Konfigurasi</a> | <a href=\"@issue_queue\">Antrian Masalah</a> | <a "
+"href=\"@help\">Kontak dukungan</a>"
+
+msgid "Autodetect"
+msgstr "Deteksi otomatis"
+
+msgid "Only user-editable content"
+msgstr "Hanya konten yang dapat diedit pengguna"
+
+msgid "Other"
+msgstr "Lainnya"
+
+msgid "Parts of the page to test"
+msgstr "Bagian halaman yang diuji"
+
+msgid "\"Autodetect\" selects:"
+msgstr "\"Deteksi otomatis\" memilih:"
+
+msgid "Other: specify regions to check for developer and content problems"
+msgstr ""
+"Lainnya: tentukan wilayah untuk memeriksa masalah pengembang dan konten"
+
+msgid ""
+"Provide CSS selectors. For many sites, the site theme is wrapped in "
+"<code>.dialog-off-canvas-main-canvas</code> while editing."
+msgstr ""
+"Berikan selektor CSS. Untuk banyak situs, tema situs dibungkus dalam "
+"<code>.dialog-off-canvas-main-canvas</code> saat mengedit."
+
+msgid "Do not check for any errors inside these elements"
+msgstr "Jangan periksa kesalahan apa pun di dalam elemen-elemen ini"
+
+msgid "These parts of the page will be ignored entirely."
+msgstr "Bagian-bagian halaman ini akan diabaikan sepenuhnya."
+
+msgid "match content settings"
+msgstr "sesuaikan pengaturan konten"
+
+msgid "Page regions with user-editable content"
+msgstr "Wilayah halaman dengan konten yang dapat diedit pengguna"
+
+msgid ""
+"Default: <code><em>main</em></code><br>Provide <a target=\"_blank\" "
+"href=\"https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/"
+"Selectors\">CSS selectors</a>. Content authors will only see the alerts "
+"within these parts of the page. Do not provide selectors that nest within "
+"each other, or the inner content will be checked twice."
+msgstr ""
+"Default: <code><em>main</em></code><br>Berikan <a target=\"_blank\" "
+"href=\"https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/"
+"Selectors\">selektor CSS</a>. Penulis konten hanya akan melihat peringatan "
+"dalam bagian halaman ini. Jangan berikan selektor yang bersarang satu sama "
+"lain, atau konten dalam akan diperiksa dua kali."
+
+msgid ""
+"Default: <code><em>main</em></code><br>Provide <a target=\"_blank\" "
+"href=\"https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/"
+"Selectors\">CSS selectors</a>. Do not provide selectors that nest within "
+"each other, or the inner content will be checked twice."
+msgstr ""
+"Default: <code><em>main</em></code><br>Berikan <a target=\"_blank\" "
+"href=\"https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/"
+"Selectors\">selektor CSS</a>. Jangan berikan selektor yang bersarang satu "
+"sama lain, atau konten dalam akan diperiksa dua kali."
+
+msgid "Errors in these elements should only be shown to developers"
+msgstr ""
+"Kesalahan dalam elemen-elemen ini hanya boleh ditampilkan kepada pengembang"
+
+msgid "Do not check for content errors inside these elements"
+msgstr "Jangan periksa kesalahan konten di dalam elemen-elemen ini"
+
+msgid ""
+"Content editors are not responsible for errors in these elements. <br>E.g.: "
+"<code><em>#sidebar-menu a, .slide [aria-hidden=\"true\"]</em></code>."
+msgstr ""
+"Editor konten tidak bertanggung jawab atas kesalahan dalam elemen-elemen "
+"ini. <br>Mis.: <code><em>#sidebar-menu a, .slide [aria-hidden=\"true\"]</"
+"em></code>."
+
+msgid "Roles that will see developer alerts"
+msgstr "Peran yang akan melihat peringatan pengembang"
+
+msgid ""
+"All roles with the <a href=\":url\">View editoria11y checker</a> permission "
+"see content alerts."
+msgstr ""
+"Semua peran dengan izin <a href=\":url\">Lihat pemeriksa editoria11y</a> "
+"akan melihat peringatan konten."
+
+msgid "Advanced settings"
+msgstr "Pengaturan lanjutan"
+
+msgid "Assertiveness"
+msgstr "Ketegasan"
+
+msgid "Checker mode for content roles"
+msgstr "Mode pemeriksa untuk peran konten"
+
+msgid "Start open if there are any alerts"
+msgstr "Buka secara otomatis jika ada peringatan"
+
+msgid "Start open if there are new alerts"
+msgstr "Buka secara otomatis jika ada peringatan baru"
+
+msgid "Start minimized"
+msgstr "Mulai diminimalkan"
+
+msgid ""
+"Choose when the control panel should open and show inline tips. \"Start open "
+"if there are any alerts\" is recommended, as it helps tips get noticed over "
+"time."
+msgstr ""
+"Pilih kapan panel kontrol harus terbuka dan menampilkan kiat sebaris. \"Buka "
+"secara otomatis jika ada peringatan\" direkomendasikan, karena membantu kiat "
+"lebih mudah diperhatikan dari waktu ke waktu."
+
+msgid "Checker mode for developer roles"
+msgstr "Mode pemeriksa untuk peran pengembang"
+
+msgid "Do not check any content while it is being edited"
+msgstr "Jangan periksa konten apa pun saat sedang diedit"
+
+msgid ""
+"Use the \"Do not check on pages with these elements\" setting to prevent "
+"checking only on specific pages. E.g., exclude: <code><em>form[id^=\"node-"
+"article\"]</em></code>."
+msgstr ""
+"Gunakan pengaturan \"Jangan periksa pada halaman dengan elemen ini\" untuk "
+"mencegah pemeriksaan hanya pada halaman tertentu. Mis., kecualikan: "
+"<code><em>form[id^=\"node-article\"]</em></code>."
+
+msgid "Assign headers to CKEditor tables on insert"
+msgstr "Tetapkan header ke tabel CKEditor saat disisipkan"
+
+msgid "First row"
+msgstr "Baris pertama"
+
+msgid "First column"
+msgstr "Kolom pertama"
+
+msgid "Both"
+msgstr "Keduanya"
+
+msgid ""
+"You will need to clear cache for changes to this setting to appear in "
+"CKEditor."
+msgstr ""
+"Anda perlu menghapus cache agar perubahan pengaturan ini muncul di CKEditor."
+
+msgid "Theme compatibility"
+msgstr "Kompatibilitas tema"
+
+msgid "Configuration tips"
+msgstr "Kiat konfigurasi"
+
+msgid ""
+"If the checker <strong>toggle</strong> does not appear: make sure a z-"
+"indexed or overflow-hidden element in your front-end theme is not hiding or "
+"covering the <code><em>ed11y-element-panel</em></code> container, make sure "
+"that any custom selectors in the \"Disable the scanner if these elements are "
+"detected\" field are not present, and make sure that no JavaScript errors "
+"are appearing in your <a href=\"https://developer.mozilla.org/en-US/docs/"
+"Tools/Browser_Console\"> browser console</a>"
+msgstr ""
+"Jika <strong>tombol</strong> pemeriksa tidak muncul: pastikan elemen z-"
+"indexed atau overflow-hidden di tema frontend Anda tidak menyembunyikan atau "
+"menutupi wadah <code><em>ed11y-element-panel</em></code>, pastikan selektor "
+"kustom di bidang \"Nonaktifkan pemindai jika elemen ini terdeteksi\" tidak "
+"ada, dan pastikan tidak ada kesalahan JavaScript yang muncul di <a "
+"href=\"https://developer.mozilla.org/en-US/docs/Tools/"
+"Browser_Console\">konsol browser</a> Anda"
+
+msgid ""
+"If the checker toggle is present but <strong>not detecting</strong> errors, "
+"or missing errors that should be flagged: check that your inclusions & "
+"exclusion settings below are not missing or ignoring the elements. It is not "
+"uncommon for homepages or views to insert editable content outside the "
+"<code><em>main</em></code> element."
+msgstr ""
+"Jika tombol pemeriksa ada tetapi <strong>tidak mendeteksi</strong> "
+"kesalahan, atau melewatkan kesalahan yang seharusnya ditandai: periksa bahwa "
+"pengaturan inklusi & pengecualian di bawah tidak melewatkan atau mengabaikan "
+"elemen. Tidak jarang beranda atau tampilan menyisipkan konten yang dapat "
+"diedit di luar elemen <code><em>main</em></code>."
+
+msgid "Theme"
+msgstr "Tema"
+
+msgid "Sleek"
+msgstr "Ramping"
+
+msgid "Classic"
+msgstr "Klasik"
+
+msgid "Dark"
+msgstr "Gelap"
+
+msgid "Do not check on pages with these elements"
+msgstr "Jangan periksa halaman yang mengandung elemen ini"
+
+msgid ""
+"Used to block checking on site sections or admin pages.<br>E.g. "
+"<code><em>.content-type-example, .tabs__link[href=*\"edit\"]</em></code>."
+msgstr ""
+"Digunakan untuk memblokir pemeriksaan pada bagian situs atau halaman admin."
+"<br>Mis. <code><em>.content-type-example, .tabs__link[href=*\"edit\"]</em></"
+"code>."
+
+msgid "Hide all alerts on pages where these elements are not present"
+msgstr ""
+"Sembunyikan semua peringatan pada halaman yang tidak mengandung elemen ini"
+
+msgid ""
+"Used to limit alerting to nodes where the user can edit something. Suggested "
+"selectors:<br> <code><em>.contextual-region a[href*=\"/edit\"], .contextual-"
+"region a[href*=\"/manage\"]</em></code>."
+msgstr ""
+"Digunakan untuk membatasi peringatan pada node di mana pengguna dapat "
+"mengedit sesuatu. Selektor yang disarankan:<br> <code><em>.contextual-region "
+"a[href*=\"/edit\"], .contextual-region a[href*=\"/manage\"]</em></code>."
+
+msgid ""
+"Set to the number of other themes or modules that will be <a href=\"https://"
+"editoria11y.princeton.edu/configuration/#customtests\">injecting custom "
+"result JS events</a>."
+msgstr ""
+"Setel ke jumlah tema atau modul lain yang akan <a href=\"https://"
+"editoria11y.princeton.edu/configuration/#customtests\">menyuntikkan event JS "
+"hasil kustom</a>."
+
+msgid "Positioning"
+msgstr "Pemosisian"
+
+msgid "Don't show edit links on tips in these containers"
+msgstr "Jangan tampilkan tautan edit pada kiat dalam wadah ini"
+
+msgid ""
+"Tips show copies of the \"Edit\" and \"Layout\" links for nodes, users and "
+"taxonomy terms. These links are not helpful on lists of content from remote "
+"nodes.<br>Provide a comma-separated list of page sections of where these "
+"links should not show, E.g.: <code><em>#sidebar-menu, .news-feed</em></code>."
+"<br>To hide the links <strong>everywhere</strong>, set this field to an "
+"asterisk (<code><em>*</em></code>).<br>To modify the links, <a "
+"href=\"https://editoria11y.princeton.edu/configuration/#modify-tips\" "
+"target=\"_blank\">use the ed11yPop event</a> in your theme JS."
+msgstr ""
+"Kiat menampilkan salinan tautan \"Edit\" dan \"Tata Letak\" untuk node, "
+"pengguna, dan istilah taksonomi. Tautan ini tidak berguna pada daftar konten "
+"dari node jarak jauh.<br>Berikan daftar bagian halaman yang dipisahkan koma "
+"di mana tautan ini tidak boleh ditampilkan, Mis.: <code><em>#sidebar-"
+"menu, .news-feed</em></code>.<br>Untuk menyembunyikan tautan di <strong>mana "
+"saja</strong>, setel bidang ini ke tanda bintang (<code><em>*</em></code>)."
+"<br>Untuk memodifikasi tautan, <a href=\"https://editoria11y.princeton.edu/"
+"configuration/#modify-tips\" target=\"_blank\">gunakan event ed11yPop</a> di "
+"JS tema Anda."
+
+msgid "Pin panel to..."
+msgstr "Sematkan panel ke..."
+
+msgid "Right"
+msgstr "Kanan"
+
+msgid "Left"
+msgstr "Kiri"
+
+msgid "Don't cover these other widgets"
+msgstr "Jangan menutupi widget lain ini"
+
+msgid ""
+"Provide a comma-separated list of selectors for other things that appear in "
+"the bottom right of the page. <br>If nothing is set, Editoria11y will "
+"automatically slide left to accommodate <code><em>#klaro_toggle_dialog, "
+"#klaro-cookie-notice .same-page-preview-dialog.ui-dialog-position-side</em></"
+"code>."
+msgstr ""
+"Berikan daftar selektor yang dipisahkan koma untuk hal lain yang muncul di "
+"pojok kanan bawah halaman. <br>Jika tidak ada yang disetel, Editoria11y akan "
+"secara otomatis bergeser ke kiri untuk mengakomodasi "
+"<code><em>#klaro_toggle_dialog, #klaro-cookie-notice .same-page-preview-"
+"dialog.ui-dialog-position-side</em></code>."
+
+msgid "Elements with overflow hidden"
+msgstr "Elemen dengan overflow tersembunyi"
+
+msgid ""
+"Sometimes buttons get drawn and visually truncated outside the bounds of a "
+"positioned element. Provide a selector list."
+msgstr ""
+"Terkadang tombol tergambar dan terpotong secara visual di luar batas elemen "
+"yang diposisikan. Berikan daftar selektor."
+
+msgid "Theme JS will handle revealing hidden tooltips inside these containers"
+msgstr ""
+"JS tema akan menangani pengungkapan tooltip tersembunyi di dalam wadah ini"
+
+msgid ""
+"Editoria11y detects hidden tooltips and warns the user when they try to jump "
+"to them from the panel. For elements on this list, Editoria11y will <a "
+"href=\"https://itmaybejj.github.io/editoria11y/#dealing-with-alerts-on-"
+"hidden-or-size-constrained-content\">dispatch a JS event</a> instead of a "
+"warning, so custom JS in your theme can first reveal the hidden tip (e.g., "
+"open an accordion or tab panel)."
+msgstr ""
+"Editoria11y mendeteksi tooltip tersembunyi dan memperingatkan pengguna saat "
+"mereka mencoba melompat ke tooltip dari panel. Untuk elemen dalam daftar "
+"ini, Editoria11y akan <a href=\"https://itmaybejj.github.io/editoria11y/"
+"#dealing-with-alerts-on-hidden-or-size-constrained-content\">mengirimkan "
+"event JS</a> alih-alih peringatan, sehingga JS kustom di tema Anda dapat "
+"terlebih dahulu mengungkapkan kiat tersembunyi (mis., membuka akordion atau "
+"panel tab)."
+
+msgid "Detecting dynamic and shadow content"
+msgstr "Mendeteksi konten dinamis dan shadow"
+
+msgid "Dynamically refresh if new content appears"
+msgstr "Segarkan secara dinamis jika konten baru muncul"
+
+msgid "Watch for changes anywhere on the page"
+msgstr "Pantau perubahan di mana saja pada halaman"
+
+msgid "Only watch for changes to content containers present on load"
+msgstr "Hanya pantau perubahan pada wadah konten yang ada saat dimuat"
+
+msgid "Do not watch for changes"
+msgstr "Jangan pantau perubahan"
+
+msgid ""
+"Set to \"anywhere\" if changes are being missed, set to \"ignore\" if you "
+"notice performance issues. Themes and modules can also call "
+"<code>Drupal.Ed11y.refresh()</code> to refresh results."
+msgstr ""
+"Setel ke \"anywhere\" jika perubahan tidak terdeteksi, setel ke \"ignore\" "
+"jika Anda melihat masalah kinerja. Tema dan modul juga dapat memanggil "
+"<code>Drupal.Ed11y.refresh()</code> untuk menyegarkan hasil."
+
+msgid "Check inside these specific Web components"
+msgstr "Periksa di dalam komponen web spesifik ini"
+
+msgid ""
+"Provide selectors for elements with <a href='https://developer.mozilla.org/"
+"en-US/docs/Web/Web_Components'>shadow DOM</a> you want tested. E.g.: "
+"<code><em>my-fancy-accordion-widget, my-magical-slideshow</em></code>."
+msgstr ""
+"Berikan selektor untuk elemen dengan <a href='https://developer.mozilla.org/"
+"en-US/docs/Web/Web_Components'>shadow DOM</a> yang ingin diuji. Mis.: "
+"<code><em>my-fancy-accordion-widget, my-magical-slideshow</em></code>."
+
+msgid "Auto-detect any Web components"
+msgstr "Deteksi otomatis komponen web apa pun"
+
+msgid ""
+"This is easier to configure than specifying components, but may slow test "
+"runs on very complicated pages."
+msgstr ""
+"Ini lebih mudah dikonfigurasi daripada menentukan komponen, tetapi dapat "
+"memperlambat jalannya pengujian pada halaman yang sangat kompleks."
+
+msgid "Syncing results to reports"
+msgstr "Menyinkronkan hasil ke laporan"
+
+msgid ""
+"Remember that results only sync to the dashboard when viewing nodes. Results "
+"shown while editing or viewing previews or revisions will not sync."
+msgstr ""
+"Ingat bahwa hasil hanya disinkronkan ke dasbor saat melihat node. Hasil yang "
+"ditampilkan saat mengedit atau melihat pratinjau atau revisi tidak akan "
+"disinkronkan."
+
+msgid "Remove redundant base url from URLs"
+msgstr "Hapus URL dasar yang berlebihan dari URL"
+
+msgid ""
+"Provide base URL (\"/mysite\") if your site is installed in a subdirectory. "
+"Subdirectories tend to get duplicated (/mysite/mysite/mypage) and throw "
+"errors from the API."
+msgstr ""
+"Berikan URL dasar (\"/mysite\") jika situs Anda dipasang di subdirektori. "
+"Subdirektori cenderung terduplikasi (/mysite/mysite/mypage) dan menimbulkan "
+"kesalahan dari API."
+
+msgid "Preserve query parameters"
+msgstr "Pertahankan parameter kueri"
+
+msgid ""
+"The dashboard ignores most parameters: results for both /news?f=1 and /news?"
+"f=2 will show up as just /news. Provide a comma separated list of parameters "
+"that are meaningful, and should appear as separate pages in results."
+msgstr ""
+"Dasbor mengabaikan sebagian besar parameter: hasil untuk /news?f=1 dan /news?"
+"f=2 akan muncul hanya sebagai /news. Berikan daftar parameter yang bermakna "
+"dan harus muncul sebagai halaman terpisah dalam hasil, dipisahkan koma."
+
+msgid "Disable sync altogether"
+msgstr "Nonaktifkan sinkronisasi sepenuhnya"
+
+msgid ""
+"Syncing test results back to Drupal is required for the <a target=\"_blank\" "
+"href=\"/admin/reports/editoria11y\">issue</a> and <a target=\"_blank\" "
+"href=\"/admin/reports/editoria11y/dismissals\">dismissal</a> dashboards and "
+"\"mark OK\" buttons."
+msgstr ""
+"Menyinkronkan hasil pengujian kembali ke Drupal diperlukan untuk dasbor <a "
+"target=\"_blank\" href=\"/admin/reports/editoria11y\">masalah</a> dan <a "
+"target=\"_blank\" href=\"/admin/reports/editoria11y/dismissals\">penolakan</"
+"a> serta tombol \"tandai OK\"."
+
+msgid "Heading outline position of editable content"
+msgstr "Posisi kerangka heading dari konten yang dapat diedit"
+
+msgid ""
+"To check headings in CKEditor, Editoria11y needs to know what the first "
+"heading level should be in this field. Body fields should generally be at "
+"the h2 level."
+msgstr ""
+"Untuk memeriksa heading di CKEditor, Editoria11y perlu mengetahui level "
+"heading pertama yang harus ada di bidang ini. Bidang isi umumnya harus "
+"berada di level h2."
+
+msgid "H2 level fields (body content)"
+msgstr "Bidang level H2 (konten isi)"
+
+msgid ""
+"Body fields on nodes are preceded by an h1, and their heading outline should "
+"start with an h2. Ideally set this for top-level body fields for each of "
+"your content types, and set blocks and embedded nodes to h3 or h4.\n"
+"        <br>Set all content types: <code><em>form[id^=\"node-\"] #edit-body-"
+"wrapper .ck-content</em></code>\n"
+"        <br>Set specific content types: <code><em>form[id^=\"node-\"] #edit-"
+"body-wrapper .ck-content</em></code>\n"
+"        <br>Set up for Gutenberg: <code><em>form[id^=\"node-\"] #edit-body-"
+"wrapper .is-root-container</em></code>"
+msgstr ""
+"Bidang isi pada node didahului oleh h1, dan kerangka headingnya harus "
+"dimulai dengan h2. Idealnya setel ini untuk bidang isi tingkat atas setiap "
+"jenis konten Anda, dan setel blok dan node yang disematkan ke h3 atau h4.\n"
+"        <br>Setel semua jenis konten: <code><em>form[id^=\"node-\"] #edit-"
+"body-wrapper .ck-content</em></code>\n"
+"        <br>Setel jenis konten tertentu: <code><em>form[id^=\"node-\"] #edit-"
+"body-wrapper .ck-content</em></code>\n"
+"        <br>Atur untuk Gutenberg: <code><em>form[id^=\"node-\"] #edit-body-"
+"wrapper .is-root-container</em></code>"
+
+msgid "H3 level fields (blocks or paragraphs with separate titles)"
+msgstr "Bidang level H3 (blok atau paragraf dengan judul terpisah)"
+
+msgid ""
+"Sometimes inline and layout builder blocks are grouped under an h2 from a "
+"separate field, so their highest heading level should be h3."
+msgstr ""
+"Terkadang blok inline dan layout builder dikelompokkan di bawah h2 dari "
+"bidang terpisah, sehingga level heading tertingginya harus h3."
+
+msgid "H4 level fields (deeply nested blocks or paragraphs)"
+msgstr "Bidang level H4 (blok atau paragraf yang sangat bersarang)"
+
+msgid ""
+"Sometimes inline and layout builder blocks are grouped under an h3 from a "
+"separate field, so their highest heading level should be h4."
+msgstr ""
+"Terkadang blok inline dan layout builder dikelompokkan di bawah h3 dari "
+"bidang terpisah, sehingga level heading tertingginya harus h4."
+
+msgid "Modify tests that usually detect content issues"
+msgstr "Modifikasi pengujian yang biasanya mendeteksi masalah konten"
+
+msgid "Modify tests that usually detect template or configuration issues"
+msgstr ""
+"Modifikasi pengujian yang biasanya mendeteksi masalah template atau "
+"konfigurasi"
+
+msgid "Do not check contrast for these elements"
+msgstr "Jangan periksa kontras untuk elemen-elemen ini"
+
+msgid ""
+"Provide a comma-separated list of selectors for elements to ignore for all "
+"users."
+msgstr ""
+"Berikan daftar selektor yang dipisahkan koma untuk elemen yang diabaikan "
+"oleh semua pengguna."
+
+msgid "Remind editor that content in these embeds needs manual review"
+msgstr ""
+"Ingatkan editor bahwa konten dalam embed ini memerlukan tinjauan manual"
+
+msgid ""
+"Provide a comma-separated list of selectors you wish to flag for the editor, "
+"e.g.: <code><em>.my-embedded-feed, #my-social-link-block</em></code>."
+msgstr ""
+"Berikan daftar selektor yang dipisahkan koma yang ingin Anda tandai untuk "
+"editor, mis.: <code><em>.my-embedded-feed, #my-social-link-block</em></code>."
+
+msgid ""
+"Default settings should work with both <a href=\"https://www.drupal.org/"
+"project/linkpurpose\" target=\"_blank\">Link Purpose Icons</a> and <a "
+"target=\"_blank\" href=\"https://www.drupal.org/project/extlink\">External "
+"Links</a>."
+msgstr ""
+"Pengaturan default harus bekerja dengan <a href=\"https://www.drupal.org/"
+"project/linkpurpose\" target=\"_blank\">Ikon Tujuan Tautan</a> dan <a "
+"target=\"_blank\" href=\"https://www.drupal.org/project/extlink\">Tautan "
+"Eksternal</a>."
+
+msgid "Remind the editor that these linked documents need a manual check"
+msgstr ""
+"Ingatkan editor bahwa dokumen tertaut ini memerlukan pemeriksaan manual"
+
+msgid ""
+"Add or remove filetypes. Set to \"false\" to disable the test altogether. "
+"Providing any value will override the default, which is "
+"<code><em>a[href$='.pdf'], a[href*='.pdf?']</em></code>."
+msgstr ""
+"Tambahkan atau hapus jenis file. Setel ke \"false\" untuk menonaktifkan "
+"pengujian sepenuhnya. Memberikan nilai apa pun akan mengganti default, yaitu "
+"<code><em>a[href$='.pdf'], a[href*='.pdf?']</em></code>."
+
+msgid "Remove elements that match these selectors before testing link text"
+msgstr ""
+"Hapus elemen yang cocok dengan selektor ini sebelum menguji teks tautan"
+
+msgid ""
+"Provide a CSS selector of elements your modules programmatically add to "
+"links (usually external or open-in-new-window links), so they can be ignored "
+"when the link text is checked for the \"link has no text\" and \"link text "
+"is not meaningful\" tests.<br>E.g.: <code><em>.this, .that</em></code>"
+msgstr ""
+"Berikan selektor CSS dari elemen yang ditambahkan modul Anda secara "
+"terprogram ke tautan (biasanya tautan eksternal atau buka-di-jendela-baru), "
+"sehingga dapat diabaikan saat teks tautan diperiksa untuk pengujian \"tautan "
+"tidak memiliki teks\" dan \"teks tautan tidak bermakna\".<br>Mis.: "
+"<code><em>.this, .that</em></code>"
+
+msgid "Remove these strings before testing link text"
+msgstr "Hapus string ini sebelum menguji teks tautan"
+
+msgid ""
+"Provide a pipe-separated (\"|\") list of phrases your modules "
+"programmatically add to links to hint a purpose (external, mail, phone, open-"
+"in-new-window), so they can be ignored when the link text is checked for the "
+"\"link has no text\" and \"link text is not meaningful\" tests; e.g.:  "
+"<pre><code><em>(link is external)|(link sends email)</em></code></pre>"
+msgstr ""
+"Berikan daftar frasa yang dipisahkan pipa (\"|\") yang ditambahkan modul "
+"Anda secara terprogram ke tautan untuk mengisyaratkan tujuan (eksternal, "
+"email, telepon, buka-di-jendela-baru), sehingga dapat diabaikan saat teks "
+"tautan diperiksa untuk pengujian \"tautan tidak memiliki teks\" dan \"teks "
+"tautan tidak bermakna\"; mis.:  <pre><code><em>(link is external)|(link "
+"sends email)</em></code></pre>"
+
+msgid "Strings in links that indicate new tabs"
+msgstr "String dalam tautan yang menunjukkan tab baru"
+
+msgid ""
+"Provide a pipe-separated list of phrases your site uses to warn users a link "
+"opens in a new tab; e.g.:  <pre><code><em>new&nbsp;tab|new&nbsp;window|"
+"external</em></code></pre>"
+msgstr ""
+"Berikan daftar frasa yang dipisahkan pipa yang digunakan situs Anda untuk "
+"memperingatkan pengguna bahwa tautan dibuka di tab baru; mis.:  "
+"<pre><code><em>new&nbsp;tab|new&nbsp;window|external</em></code></pre>"
+
+msgid ""
+"Modules like Link Purpose or External Links can mark links automatically."
+msgstr ""
+"Modul seperti Link Purpose atau External Links dapat menandai tautan secara "
+"otomatis."
+
+msgid "CSA/developer test"
+msgstr "Pengujian CSA/pengembang"
+
+msgid "Show to developers"
+msgstr "Tampilkan ke pengembang"
+
+msgid "Show to everybody"
+msgstr "Tampilkan ke semua orang"
+
+msgid "Dashboard sync is disabled in Editoria11y configuration."
+msgstr "Sinkronisasi dasbor dinonaktifkan dalam konfigurasi Editoria11y."
+
+msgid "(invalid URL)"
+msgstr "(URL tidak valid)"
+
+msgid "Editoria11y: Dismissals"
+msgstr "Editoria11y: Penolakan"
+
+msgid "Default"
+msgstr "Default"
+
+msgid "Node path"
+msgstr "Jalur node"
+
+msgid "view"
+msgstr "view"
+
+msgid "Term path"
+msgstr "Jalur istilah"
+
+msgid "User bio path"
+msgstr "Jalur bio pengguna"
+
+msgid "Term title"
+msgstr "Judul istilah"
+
+msgid ", "
+msgstr ", "
+
+msgid "Node title"
+msgstr "Judul node"
+
+msgid "User name"
+msgstr "Nama pengguna"
+
+msgid "Recorded path"
+msgstr "Jalur yang dicatat"
+
+msgid "Computed"
+msgstr "Dihitung"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty %}{% set dynamic_path = page_path %}{% endif %}\r\n"
+"{% set dynamic_title = title ~ name_2 ~ name_1 %}{% if dynamic_title is "
+"empty %}{% set dynamic_title = page_title %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ dynamic_title }}</"
+"a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty %}{% set dynamic_path = page_path %}{% endif %}\\r\n"
+"{% set dynamic_title = title ~ name_2 ~ name_1 %}{% if dynamic_title is "
+"empty %}{% set dynamic_title = page_title %}{% endif %}\\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ dynamic_title }}</"
+"a>"
+
+msgid "Dismissed alert"
+msgstr "Peringatan yang ditolak"
+
+msgid "By"
+msgstr "Oleh"
+
+msgid "1"
+msgid_plural "@count"
+msgstr[0] "@count"
+
+msgid "Reset"
+msgstr "Atur ulang"
+
+msgid ""
+"<span class=\"ed11y-reset-dismissal\"><span class=\"ed11y-page-id\">{{ pid }}"
+"</span><span class=\"ed11y-dismissal-id\">{{id}}</span></span>"
+msgstr ""
+"<span class=\"ed11y-reset-dismissal\"><span class=\"ed11y-page-id\">{{ pid }}"
+"</span><span class=\"ed11y-dismissal-id\">{{id}}</span></span>"
+
+msgid "››"
+msgstr "››"
+
+msgid "‹‹"
+msgstr "‹‹"
+
+msgid "- All -"
+msgstr "- Semua -"
+
+msgid "Offset"
+msgstr "Offset"
+
+msgid "« First"
+msgstr "« Pertama"
+
+msgid "Last »"
+msgstr "Terakhir »"
+
+msgid "Asc"
+msgstr "Naik"
+
+msgid "Desc"
+msgstr "Turun"
+
+msgid "User who dismissed alert"
+msgstr "Pengguna yang menolak peringatan"
+
+msgid "pid"
+msgstr "pid"
+
+msgid "Node"
+msgstr "Node"
+
+msgid "Term"
+msgstr "Istilah"
+
+msgid "User bio"
+msgstr "Bio pengguna"
+
+msgid "Dismissals page"
+msgstr "Halaman penolakan"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty %}{% set dynamic_path = page_path %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title }}</a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty %}{% set dynamic_path = page_path %}{% endif %}\\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title }}</a>"
+
+msgid "Still on page"
+msgstr "Masih di halaman"
+
+msgid "Reset filters"
+msgstr "Atur ulang filter"
+
+msgid "Issues marked as hidden or OK in Editoria11y."
+msgstr "Masalah yang ditandai sebagai tersembunyi atau OK di Editoria11y."
+
+msgid "Dismissals filtered by issue"
+msgstr "Penolakan difilter berdasarkan masalah"
+
+msgid "No dismissals match these filters."
+msgstr "Tidak ada penolakan yang cocok dengan filter ini."
+
+msgid "All"
+msgstr "Semua"
+
+msgid "Dismissed alerts of type \"{{result_name}}\""
+msgstr "Dismissed alerts of type \"{{result_name}}\""
+
+msgid ""
+"<a href=\"/admin/reports/editoria11y/dismissals/\" class=\"button button--"
+"primary\">Show all dismissals</a>"
+msgstr ""
+"<a href=\"/admin/reports/editoria11y/dismissals/\" class=\"button button--"
+"primary\">Show all dismissals</a>"
+
+msgid "Recent Editoria11y Dismissals"
+msgstr "Penolakan Editoria11y Terbaru"
+
+msgid "Editoria11y - Recent dismissals"
+msgstr "Editoria11y – Penolakan terbaru"
+
+msgid "Editoria11y: Alerts"
+msgstr "Editoria11y: Peringatan"
+
+msgid "Top results"
+msgstr "Hasil teratas"
+
+msgid "Computed title"
+msgstr "Judul yang dihitung"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path|render %}{% set dynamic_path = "
+"page_path %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{  page_title_1 }}</"
+"a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path|render %}{% set dynamic_path = "
+"page_path %}{% endif %}\\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{  page_title_1 }}</"
+"a>"
+
+msgid "<a href=\"{{page_path_1}}\" data-ed1ref=\"{{pid}}\">{{page_path_1}}</a>"
+msgstr ""
+"<a href=\"{{page_path_1}}\" data-ed1ref=\"{{pid}}\">{{page_path_1}}</a>"
+
+msgid "No alerts found."
+msgstr "Tidak ada peringatan ditemukan."
+
+msgid "YYYY-MM-DD"
+msgstr "YYYY-MM-DD"
+
+msgid "User bio page"
+msgstr "Halaman bio pengguna"
+
+msgid "Node author"
+msgstr "Penulis node"
+
+msgid "All pages with issues"
+msgstr "Semua halaman dengan masalah"
+
+msgid "Block: Pages with the most"
+msgstr "Blok: Halaman dengan paling banyak"
+
+msgid "Block: Recent alerts"
+msgstr "Blok: Peringatan terbaru"
+
+msgid "Recent Editoria11y Alerts"
+msgstr "Peringatan Editoria11y Terbaru"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path|render %}{% set dynamic_path = "
+"page_path %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title_1 }}</a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path|render %}{% set dynamic_path = "
+"page_path %}{% endif %}\\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title_1 }}</a>"
+
+msgid "Issue"
+msgstr "Masalah"
+
+msgid "Editoria11y - Recent alerts"
+msgstr "Editoria11y – Peringatan terbaru"
+
+msgid "Block: Most frequent alerts"
+msgstr "Blok: Peringatan paling sering"
+
+msgid "Most Frequent Editoria11y Alerts"
+msgstr "Peringatan Editoria11y Paling Sering"
+
+msgid "Editoria11y - Most frequent alerts"
+msgstr "Editoria11y – Peringatan paling sering"
+
+msgid "Alerts on specified page"
+msgstr "Peringatan pada halaman tertentu"
+
+msgid ""
+"<a href=\"{{ page_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title_1 }}</a>"
+msgstr ""
+"<a href=\"{{ page_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title_1 }}</a>"
+
+msgid "<p><strong>Author:</strong> {{ uid }}</p>"
+msgstr "<p><strong>Author:</strong> {{ uid }}</p>"
+
+msgid "<p><strong>Last editor:</strong> {{ uid_1 }}</p>"
+msgstr "<p><strong>Last editor:</strong> {{ uid_1 }}</p>"
+
+msgid ""
+"<h1>Accessibility issues on: {{page_title_1}}</h1>\r\n"
+"<p>{{uid}}{{uid_1}}</p>"
+msgstr ""
+"<h1>Accessibility issues on: {{page_title_1}}</h1>\\r\n"
+"<p>{{uid}}{{uid_1}}</p>"
+
+msgid ""
+"<p><a href=\"../editoria11y/pages\" class=\"button button--primary\">All "
+"pages with alerts</a></p>"
+msgstr ""
+"<p><a href=\"../editoria11y/pages\" class=\"button button--primary\">All "
+"pages with alerts</a></p>"
+
+msgid ""
+"<span class=\"ed11y-reset-this-path\" hidden><p class=\"more-link\"><a "
+"role=\"button\" class=\"action-link action-link--icon-trash action-link--"
+"danger\"><span hidden class=\"ed11y-api-path\">{{ page_path }}</span>Reset "
+"results for this page</a></p></span>"
+msgstr ""
+"<span class=\"ed11y-reset-this-path\" hidden><p class=\"more-link\"><a "
+"role=\"button\" class=\"action-link action-link--icon-trash action-link--"
+"danger\"><span hidden class=\"ed11y-api-path\">{{ page_path }}</span>Reset "
+"results for this page</a></p></span>"
+
+msgid "Issue types"
+msgstr "Jenis masalah"
+
+msgid "Pages with specified alert"
+msgstr "Halaman dengan peringatan tertentu"
+
+msgid "Published status"
+msgstr "Status terbit"
+
+msgid "Created by"
+msgstr "Dibuat oleh"
+
+msgid "Created after"
+msgstr "Dibuat setelah"
+
+msgid "Created before"
+msgstr "Dibuat sebelum"
+
+msgid "<h1>Pages with alert \"{{ result_name }}\"</h1>"
+msgstr "<h1>Halaman dengan peringatan \"{{ result_name }}\"</h1>"
+
+msgid ""
+"<a href=\"../editoria11y/alerts\" class=\"button button--primary\">All "
+"alerts</a>"
+msgstr ""
+"<a href=\"../editoria11y/alerts\" class=\"button button--primary\">All "
+"alerts</a>"
+
+msgid "Pages with issues"
+msgstr "Halaman dengan masalah"
+
+msgid "Next ›"
+msgstr "Berikutnya ›"
+
+msgid "‹ Previous"
+msgstr "‹ Sebelumnya"
+
+msgid "Authored on"
+msgstr "Ditulis pada"
+
+msgid "Changed"
+msgstr "Diubah"
+
+msgid "Editoria11y: Crawler"
+msgstr "Editoria11y: Perayap"
+
+msgid "Editoria11y: Crawl Nodes"
+msgstr "Editoria11y: Jelajahi Node"
+
+msgid "Authored by"
+msgstr "Ditulis oleh"
+
+msgid "Has results"
+msgstr "Memiliki hasil"
+
+msgid "Has no alerts"
+msgstr "Tidak memiliki peringatan"
+
+msgid "Has alerts"
+msgstr "Memiliki peringatan"
+
+msgid "nid"
+msgstr "nid"
+
+msgid "Editoria11y: Export"
+msgstr "Editoria11y: Ekspor"
+
+msgid "Export page with alerts"
+msgstr "Ekspor halaman dengan peringatan"
+
+msgid "Link to Taxonomy term"
+msgstr "Tautan ke istilah taksonomi"
+
+msgid "Link to User"
+msgstr "Tautan ke pengguna"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path_1|render %}{% set dynamic_path = "
+"page_path_1 %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title }}</a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path_1|render %}{% set dynamic_path = "
+"page_path_1 %}{% endif %}\\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ page_title }}</a>"
+
+msgid "Path when checked"
+msgstr "Jalur saat diperiksa"
+
+msgid "<a href=\"{{page_path_1}}\" data-ed1ref=\"{{pid}}\">{{page_path_1}}"
+msgstr "<a href=\"{{page_path_1}}\" data-ed1ref=\"{{pid}}\">{{page_path_1}}"
+
+msgid "Current URL"
+msgstr "URL saat ini"
+
+msgid "{{ view_taxonomy_term }}{{ view_user }}{{ view_node }}"
+msgstr "{{ view_taxonomy_term }}{{ view_user }}{{ view_node }}"
+
+msgid "{% if type is empty %}{{entity_type}}{%else%}{{type}}{% endif %}"
+msgstr "{% if type is empty %}{{entity_type}}{%else%}{{type}}{% endif %}"
+
+msgid "Entity Type"
+msgstr "Jenis Entitas"
+
+msgid "Langcode (en, fr, de)"
+msgstr "Kode bahasa (en, fr, de)"
+
+msgid "Referenced node"
+msgstr "Node yang direferensikan"
+
+msgid "Referenced term"
+msgstr "Istilah yang direferensikan"
+
+msgid "Referenced user bio"
+msgstr "Bio pengguna yang direferensikan"
+
+msgid "<p>Records chosen for export can be filtered and previewed below.</p>"
+msgstr "<p>Records chosen for export can be filtered and previewed below.</p>"
+
+msgid "<a href=\"/admin/reports/editoria11y/export\">Back to dashboard</a>"
+msgstr "<a href=\"/admin/reports/editoria11y/export\">Back to dashboard</a>"
+
+msgid "Dismissals export"
+msgstr "Ekspor penolakan"
+
+msgid "Link to Content"
+msgstr "Tautan ke konten"
+
+msgid "Page raw path"
+msgstr "Jalur mentah halaman"
+
+msgid "Name"
+msgstr "Nama"
+
+msgid ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path_1|render %}{% set dynamic_path = "
+"page_path_1 %}{% endif %}\r\n"
+"{% set dynamic_title = title_1 ~ name ~ name_1 %}{% if dynamic_title is "
+"empty %}{% set dynamic_title = page_title %}{% endif %}\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ dynamic_title }}</"
+"a>"
+msgstr ""
+"{% set dynamic_path = view_node ~ view_taxonomy_term ~ view_user  %}{% if "
+"dynamic_path is empty or \"?\" in page_path_1|render %}{% set dynamic_path = "
+"page_path_1 %}{% endif %}\\r\n"
+"{% set dynamic_title = title_1 ~ name ~ name_1 %}{% if dynamic_title is "
+"empty %}{% set dynamic_title = page_title %}{% endif %}\\r\n"
+"<a href=\"{{ dynamic_path }}\" data-ed1ref=\"{{pid}}\">{{ dynamic_title }}</"
+"a>"
+
+msgid "dismissal"
+msgstr "dismissal"
+
+msgid "Page export"
+msgstr "Ekspor halaman"
+
+msgid "Alerts export"
+msgstr "Ekspor peringatan"
+
+msgid "Editoria11y alerts on pages"
+msgstr "Peringatan Editoria11y pada halaman"
+
+msgid "{{ view_taxonomy_term }}{{ view_user }}{{ view_node }} "
+msgstr "{{ view_taxonomy_term }}{{ view_user }}{{ view_node }} "
+
+msgid "Results for page"
+msgstr "Hasil untuk halaman"
+
+msgid "<a href=\"./export/pages\">Export pages with alerts</a>"
+msgstr "<a href=\"./export/pages\">Export pages with alerts</a>"
+
+msgid "<a href=\"./export/dismissals\">Export dismissals</a>"
+msgstr "<a href=\"./export/dismissals\">Export dismissals</a>"
+
+msgid "<a href=\"./export/alerts\">Export alert list</a>"
+msgstr "<a href=\"./export/alerts\">Export alert list</a>"
+
+msgid "Export alerts on pages"
+msgstr "Ekspor peringatan pada halaman"
+
+msgid "Result name"
+msgstr "Nama hasil"

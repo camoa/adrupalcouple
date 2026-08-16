@@ -1,0 +1,13 @@
+name: 'Editoria11y CSA: Advanced Tools'
+description: 'Community-Supported Addons include code and contrast checks, custom checks, a site crawler and report maintenance tools.'
+type: module
+core_version_requirement: ^10 || ^11
+configure: editoria11y_csa.settings
+dependencies:
+  - drupal:editoria11y
+package: 'Editoria11y'
+
+# Information added by Drupal.org packaging script on 2026-08-03
+version: '3.0.8'
+project: 'editoria11y'
+datestamp: 1785783812

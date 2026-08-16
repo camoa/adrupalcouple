@@ -2,8 +2,6 @@
 
 namespace Drupal\editoria11y;
 
-use Drupal\Core\Database\StatementInterface;
-
 /**
  * Handles database calls for DashboardController.
  */
@@ -37,35 +35,19 @@ interface DashboardInterface {
   public static function getResultNameOptions(): array;
 
   /**
+   * Gets result name (issue types) options for select lists.
+   *
+   * @return array
+   *   Return the result name value options.
+   */
+  public static function getDismissalNameOptions(): array;
+
+  /**
    * Gets entity type options for select lists.
    *
    * @return array
    *   Return the entity type value options.
    */
   public static function getEntityTypeOptions(): array;
-
-  /**
-   * ExportPages function.
-   *
-   * @return \Drupal\Core\Database\StatementInterface
-   *   Returns all results as individual rows.
-   */
-  public function exportPages(): StatementInterface;
-
-  /**
-   * Export dismissals function.
-   *
-   * @return \Drupal\Core\Database\StatementInterface
-   *   Returns all results as individual rows.
-   */
-  public function exportDismissals(): StatementInterface;
-
-  /**
-   * Function to export the issues.
-   *
-   * @return \Drupal\Core\Database\StatementInterface
-   *   Returns all results as individual rows
-   */
-  public function exportIssues(): StatementInterface;
 
 }

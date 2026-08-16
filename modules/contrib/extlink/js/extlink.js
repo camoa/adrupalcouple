@@ -7,19 +7,26 @@
   Drupal.extlink = Drupal.extlink || {};
 
   Drupal.extlink.attach = (context, drupalSettings) => {
-    if (typeof drupalSettings.data === 'undefined' || !drupalSettings.data.hasOwnProperty('extlink')) {
+    if (
+      typeof drupalSettings.data === 'undefined' ||
+      !drupalSettings.data.hasOwnProperty('extlink')
+    ) {
       return;
     }
 
     // Define the method (either 'append' or 'prepend') of placing the
     // icon, defaults to 'append'.
     let extIconPlacement = 'append';
-    if (drupalSettings.data.extlink.extIconPlacement && drupalSettings.data.extlink.extIconPlacement !== '0') {
+    if (
+      drupalSettings.data.extlink.extIconPlacement &&
+      drupalSettings.data.extlink.extIconPlacement !== '0'
+    ) {
       extIconPlacement = drupalSettings.data.extlink.extIconPlacement;
     }
 
     // Strip the host name down, removing ports, subdomains, or www.
-    const pattern = /^(([^:]+?\.)*)([^.:]+)((\.[a-z0-9]{1,253})*)(:[0-9]{1,5})?$/;
+    const pattern =
+      /^(([^:]+?\.)*)([^.:]+)((\.[a-z0-9]{1,253})*)(:[0-9]{1,5})?$/;
     const host = window.location.host.replace(pattern, '$2$3$6');
     const subdomain = window.location.host.replace(host, '');
 
@@ -37,30 +44,51 @@
     let allowedDomains = false;
     if (drupalSettings.data.extlink.allowedDomains) {
       allowedDomains = [];
-      for (let i = 0; i < drupalSettings.data.extlink.allowedDomains.length; i++) {
-        allowedDomains.push(new RegExp(`^https?:\\/\\/${drupalSettings.data.extlink.allowedDomains[i].replace(/(\r\n|\n|\r)/gm, '')}.*$`, 'i'));
+      for (
+        let i = 0;
+        i < drupalSettings.data.extlink.allowedDomains.length;
+        i++
+      ) {
+        allowedDomains.push(
+          new RegExp(
+            `^https?:\\/\\/${drupalSettings.data.extlink.allowedDomains[i].replace(/(\r\n|\n|\r)/gm, '')}.*$`,
+            'i',
+          ),
+        );
       }
     }
 
     // Build regular expressions that define an internal link.
-    const internalLink = new RegExp(`^https?://([^@]*@)?${subdomains}${host}`, 'i');
+    const internalLink = new RegExp(
+      `^https?://([^@]*@)?${subdomains}${host}`,
+      'i',
+    );
 
     // Extra internal link matching.
     let extInclude = false;
     if (drupalSettings.data.extlink.extInclude) {
-      extInclude = new RegExp(drupalSettings.data.extlink.extInclude.replace(/\\/, '\\'), 'i');
+      extInclude = new RegExp(
+        drupalSettings.data.extlink.extInclude.replace(/\\/, '\\'),
+        'i',
+      );
     }
 
     // Extra external link matching.
     let extExclude = false;
     if (drupalSettings.data.extlink.extExclude) {
-      extExclude = new RegExp(drupalSettings.data.extlink.extExclude.replace(/\\/, '\\'), 'i');
+      extExclude = new RegExp(
+        drupalSettings.data.extlink.extExclude.replace(/\\/, '\\'),
+        'i',
+      );
     }
 
     // Extra external link matching for excluding noreferrer.
     let extExcludeNoreferrer = false;
     if (drupalSettings.data.extlink.extExcludeNoreferrer) {
-      extExcludeNoreferrer = new RegExp(drupalSettings.data.extlink.extExcludeNoreferrer.replace(/\\/, '\\'), 'i');
+      extExcludeNoreferrer = new RegExp(
+        drupalSettings.data.extlink.extExcludeNoreferrer.replace(/\\/, '\\'),
+        'i',
+      );
     }
 
     // Extra external link CSS selector exclusion.
@@ -88,7 +116,9 @@
     const externalLinks = [];
     const mailtoLinks = [];
     const telLinks = [];
-    const extlinks = context.querySelectorAll('a:not([data-extlink]), area:not([data-extlink])');
+    const extlinks = context.querySelectorAll(
+      'a:not([data-extlink]), area:not([data-extlink])',
+    );
     extlinks.forEach((el) => {
       try {
         let url = '';
@@ -99,10 +129,14 @@
         else if (typeof el.href === 'object') {
           url = el.href.baseVal;
         }
-        const isExtCssIncluded = extCssInclude && (el.matches(extCssInclude) || el.closest(extCssInclude));
+        const isExtCssIncluded =
+          extCssInclude &&
+          (el.matches(extCssInclude) || el.closest(extCssInclude));
         if (
           url.indexOf('http') === 0 &&
-          ((!internalLink.test(url) && !(extExclude && extExclude.test(url))) || (extInclude && extInclude.test(url)) || isExtCssIncluded) &&
+          ((!internalLink.test(url) && !(extExclude && extExclude.test(url))) ||
+            (extInclude && extInclude.test(url)) ||
+            isExtCssIncluded) &&
           !(extCssExclude && el.matches(extCssExclude)) &&
           !(extCssExclude && el.closest(extCssExclude)) &&
           !(extCssExplicit && !el.closest(extCssExplicit))
@@ -122,7 +156,11 @@
         }
         // Do not include area tags with begin with mailto: (this prohibits
         // icons from being added to image-maps).
-        else if (el.tagName !== 'AREA' && !(extCssExclude && el.closest(extCssExclude)) && !(extCssExplicit && !el.closest(extCssExplicit))) {
+        else if (
+          el.tagName !== 'AREA' &&
+          !(extCssExclude && el.closest(extCssExclude)) &&
+          !(extCssExplicit && !el.closest(extCssExplicit))
+        ) {
           if (url.indexOf('mailto:') === 0) {
             mailtoLinks.push(el);
           } else if (url.indexOf('tel:') === 0) {
@@ -137,35 +175,74 @@
       }
     });
 
-    const hasExtIcon = drupalSettings.data.extlink.extClass !== '0' && drupalSettings.data.extlink.extClass !== '';
-    const hasAdditionalExtClasses = drupalSettings.data.extlink.extAdditionalLinkClasses !== '';
-    Drupal.extlink.applyClassAndSpan(externalLinks, 'ext', hasExtIcon ? extIconPlacement : null);
+    const hasExtIcon =
+      drupalSettings.data.extlink.extClass !== '0' &&
+      drupalSettings.data.extlink.extClass !== '';
+    const hasAdditionalExtClasses =
+      drupalSettings.data.extlink.extAdditionalLinkClasses !== '';
+    Drupal.extlink.applyClassAndSpan(
+      externalLinks,
+      'ext',
+      hasExtIcon ? extIconPlacement : null,
+    );
     if (hasAdditionalExtClasses) {
-      Drupal.extlink.applyClassAndSpan(externalLinks, drupalSettings.data.extlink.extAdditionalLinkClasses, null);
+      Drupal.extlink.applyClassAndSpan(
+        externalLinks,
+        drupalSettings.data.extlink.extAdditionalLinkClasses,
+        null,
+      );
     }
 
-    const hasMailtoClass = drupalSettings.data.extlink.mailtoClass !== '0' && drupalSettings.data.extlink.mailtoClass !== '';
-    const hasAdditionalMailtoClasses = drupalSettings.data.extlink.extAdditionalMailtoClasses !== '';
+    const hasMailtoClass =
+      drupalSettings.data.extlink.mailtoClass !== '0' &&
+      drupalSettings.data.extlink.mailtoClass !== '';
+    const hasAdditionalMailtoClasses =
+      drupalSettings.data.extlink.extAdditionalMailtoClasses !== '';
     if (hasMailtoClass) {
-      Drupal.extlink.applyClassAndSpan(mailtoLinks, drupalSettings.data.extlink.mailtoClass, extIconPlacement);
+      Drupal.extlink.applyClassAndSpan(
+        mailtoLinks,
+        drupalSettings.data.extlink.mailtoClass,
+        extIconPlacement,
+      );
     }
     if (hasAdditionalMailtoClasses) {
-      Drupal.extlink.applyClassAndSpan(mailtoLinks, drupalSettings.data.extlink.extAdditionalMailtoClasses, null);
+      Drupal.extlink.applyClassAndSpan(
+        mailtoLinks,
+        drupalSettings.data.extlink.extAdditionalMailtoClasses,
+        null,
+      );
     }
 
-    const hasTelClass = drupalSettings.data.extlink.telClass !== '0' && drupalSettings.data.extlink.telClass !== '';
-    const hasAdditionalTelClasses = drupalSettings.data.extlink.extAdditionalTelClasses !== '0' && drupalSettings.data.extlink.extAdditionalTelClasses !== '';
+    const hasTelClass =
+      drupalSettings.data.extlink.telClass !== '0' &&
+      drupalSettings.data.extlink.telClass !== '';
+    const hasAdditionalTelClasses =
+      drupalSettings.data.extlink.extAdditionalTelClasses !== '0' &&
+      drupalSettings.data.extlink.extAdditionalTelClasses !== '';
     if (hasTelClass) {
-      Drupal.extlink.applyClassAndSpan(telLinks, drupalSettings.data.extlink.telClass, extIconPlacement);
+      Drupal.extlink.applyClassAndSpan(
+        telLinks,
+        drupalSettings.data.extlink.telClass,
+        extIconPlacement,
+      );
     }
     if (hasAdditionalTelClasses) {
-      Drupal.extlink.applyClassAndSpan(mailtoLinks, drupalSettings.data.extlink.extAdditionalTelClasses, null);
+      Drupal.extlink.applyClassAndSpan(
+        mailtoLinks,
+        drupalSettings.data.extlink.extAdditionalTelClasses,
+        null,
+      );
     }
 
     if (drupalSettings.data.extlink.extTarget) {
       // Add target attr to open link in a new tab if not set.
       externalLinks.forEach((link, i) => {
-        if (!(drupalSettings.data.extlink.extTargetNoOverride && link.matches('a[target]'))) {
+        if (
+          !(
+            drupalSettings.data.extlink.extTargetNoOverride &&
+            link.matches('a[target]')
+          )
+        ) {
           externalLinks[i].setAttribute('target', '_blank');
         }
       });
@@ -221,7 +298,10 @@
         const oldTitle = link.getAttribute('title');
         let newTitle = '';
 
-        if (drupalSettings.data.extlink.extTargetAppendNewWindowDisplay) {
+        if (
+          drupalSettings.data.extlink.extTarget &&
+          drupalSettings.data.extlink.extTargetAppendNewWindowDisplay
+        ) {
           newTitle = drupalSettings.data.extlink.extTargetAppendNewWindowLabel;
         }
         // Determine new title based on drupalSettings extTarget configuration.
@@ -241,7 +321,10 @@
       externalLinks.forEach((link, i) => {
         // Don't add 'noreferrer' if exclude noreferrer option is set and the
         // link matches the entered pattern to exclude 'noreferrer' tag.
-        if (drupalSettings.data.extlink.extExcludeNoreferrer && extExcludeNoreferrer.test(link.getAttribute('href'))) {
+        if (
+          drupalSettings.data.extlink.extExcludeNoreferrer &&
+          extExcludeNoreferrer.test(link.getAttribute('href'))
+        ) {
           return;
         }
 
@@ -272,7 +355,10 @@
 
     const _that = this;
     Drupal.extlink.handleClick = function (event) {
-      const shouldNavigate = Drupal.extlink.popupClickHandler.call(_that, event);
+      const shouldNavigate = Drupal.extlink.popupClickHandler.call(
+        _that,
+        event,
+      );
       if (typeof shouldNavigate !== 'undefined' && !shouldNavigate) {
         // Prevent navigation if the user clicks "Cancel".
         event.preventDefault();
@@ -294,6 +380,48 @@
    */
   Drupal.extlink.hasNewWindowText = function (label) {
     return label.toLowerCase().indexOf(Drupal.t('new window')) !== -1;
+  };
+
+  /**
+   * Check if element is mostly text like element.
+   *
+   * We consider element to be text like if it starts with text, ends with text
+   * and in between can only have simple html elements - elements that do not
+   * have inner elements.
+   *
+   * @param element
+   *   HTML element.
+   * @returns {boolean}
+   *   true if this element is mostly text, false other way.
+   */
+  Drupal.extlink.isTextLikeElement = function (element) {
+    let startsWithText = false;
+    let endsWithText = false;
+
+    for (let i = 0; i < element.childNodes.length; i++) {
+      const child = element.childNodes[i];
+
+      if (child.nodeType === Node.TEXT_NODE) {
+        const trimmedText = child.textContent.trim();
+        if (trimmedText.length > 0) {
+          if (!startsWithText) {
+            startsWithText = true;
+          }
+          // Any text node after an element is an ending text.
+          endsWithText = true;
+        }
+      } else if (child.nodeType === Node.ELEMENT_NODE) {
+        endsWithText = false;
+
+        // If the element has any children, it’s not considered a text like
+        // link.
+        if (child.children.length > 0) {
+          return false;
+        }
+      }
+    }
+
+    return startsWithText && endsWithText;
   };
 
   /**
@@ -368,15 +496,27 @@
       }
 
       // Additional classes:
-      if (className === drupalSettings.data.extlink.mailtoClass && drupalSettings.data.extlink.extAdditionalMailtoClasses) {
+      if (
+        className === drupalSettings.data.extlink.mailtoClass &&
+        drupalSettings.data.extlink.extAdditionalMailtoClasses
+      ) {
         // Is mail link:
-        linksToProcess[i].classList.add(drupalSettings.data.extlink.extAdditionalMailtoClasses);
-      } else if (className === drupalSettings.data.extlink.telClass && drupalSettings.data.extlink.extAdditionalTelClasses) {
+        linksToProcess[i].classList.add(
+          drupalSettings.data.extlink.extAdditionalMailtoClasses,
+        );
+      } else if (
+        className === drupalSettings.data.extlink.telClass &&
+        drupalSettings.data.extlink.extAdditionalTelClasses
+      ) {
         // Is regular external link:
-        linksToProcess[i].classList.add(drupalSettings.data.extlink.extAdditionalTelClasses);
+        linksToProcess[i].classList.add(
+          drupalSettings.data.extlink.extAdditionalTelClasses,
+        );
       } else if (drupalSettings.data.extlink.extAdditionalLinkClasses) {
         // Is regular external link:
-        linksToProcess[i].classList.add(drupalSettings.data.extlink.extAdditionalLinkClasses);
+        linksToProcess[i].classList.add(
+          drupalSettings.data.extlink.extAdditionalLinkClasses,
+        );
       }
 
       // Add data-extlink attribute.
@@ -387,43 +527,68 @@
         let link = linksToProcess[i];
 
         // Prevent appended icons from wrapping lines.
-        if (drupalSettings.data.extlink.extPreventOrphan && iconPlacement === 'append') {
-          // Find the last word in the link.
-          let lastTextNode = link.lastChild;
-          let trailingWhitespace = null;
-          let parentNode = link;
-          while (lastTextNode) {
-            if (lastTextNode.lastChild) {
-              // Last node was not text; step down into child node.
-              parentNode = lastTextNode;
-              lastTextNode = lastTextNode.lastChild;
-            } else if (lastTextNode.nodeName === '#text' && parentNode.lastElementChild && lastTextNode.textContent.trim().length === 0) {
-              // Last node was text, but it was whitespace. Step back into previous node.
-              trailingWhitespace = lastTextNode;
-              parentNode = parentNode.lastElementChild;
-              lastTextNode = parentNode.lastChild;
-            } else {
-              // Last node was null or valid text.
-              break;
-            }
+        if (
+          drupalSettings.data.extlink.extPreventOrphan &&
+          iconPlacement === 'append'
+        ) {
+          let preventOrphan = true;
+
+          if (
+            drupalSettings.data.extlink.extPreventOrphanTextLike &&
+            !Drupal.extlink.isTextLikeElement(link)
+          ) {
+            preventOrphan = false;
           }
-          if (lastTextNode && lastTextNode.nodeName === '#text' && lastTextNode.textContent.length > 0) {
-            const lastText = lastTextNode.textContent;
-            const lastWordRegex = new RegExp(/\S+\s*$/, 'g');
-            const lastWord = lastText.match(lastWordRegex);
-            if (lastWord !== null) {
-              // Wrap the last word in a span.
-              const breakPreventer = document.createElement('span');
-              breakPreventer.classList.add('extlink-nobreak');
-              breakPreventer.textContent = lastWord[0];
-              if (trailingWhitespace) {
-                trailingWhitespace.textContent = '';
-                breakPreventer.append(trailingWhitespace.textContent);
+
+          if (preventOrphan) {
+            // Find the last word in the link.
+            let lastTextNode = link.lastChild;
+            let trailingWhitespace = null;
+            let parentNode = link;
+            while (lastTextNode) {
+              if (lastTextNode.lastChild) {
+                // Last node was not text; step down into child node.
+                parentNode = lastTextNode;
+                lastTextNode = lastTextNode.lastChild;
+              } else if (
+                lastTextNode.nodeName === '#text' &&
+                parentNode.lastElementChild &&
+                lastTextNode.textContent.trim().length === 0
+              ) {
+                // Last node was text, but it was whitespace. Step back into previous node.
+                trailingWhitespace = lastTextNode;
+                parentNode = parentNode.lastElementChild;
+                lastTextNode = parentNode.lastChild;
+              } else {
+                // Last node was null or valid text.
+                break;
               }
-              lastTextNode.textContent = lastText.substring(0, lastText.length - lastWord[0].length);
-              lastTextNode.parentNode.append(breakPreventer);
-              // Insert the icon into the span rather than the link.
-              link = breakPreventer;
+            }
+            if (
+              lastTextNode &&
+              lastTextNode.nodeName === '#text' &&
+              lastTextNode.textContent.length > 0
+            ) {
+              const lastText = lastTextNode.textContent;
+              const lastWordRegex = new RegExp(/\S+\s*$/, 'g');
+              const lastWord = lastText.match(lastWordRegex);
+              if (lastWord !== null) {
+                // Wrap the last word in a span.
+                const breakPreventer = document.createElement('span');
+                breakPreventer.classList.add('extlink-nobreak');
+                breakPreventer.textContent = lastWord[0];
+                if (trailingWhitespace) {
+                  trailingWhitespace.textContent = '';
+                  breakPreventer.append(trailingWhitespace.textContent);
+                }
+                lastTextNode.textContent = lastText.substring(
+                  0,
+                  lastText.length - lastWord[0].length,
+                );
+                lastTextNode.parentNode.append(breakPreventer);
+                // Insert the icon into the span rather than the link.
+                link = breakPreventer;
+              }
             }
           }
         }
@@ -437,35 +602,88 @@
             if (drupalSettings.data.extlink.mailtoLabel) {
               link.ariaLabel = drupalSettings.data.extlink.mailtoLabel;
             }
-            iconElement.innerHTML = Drupal.theme('extlink_fa_mailto', drupalSettings, iconPlacement);
+            iconElement.innerHTML = Drupal.theme(
+              'extlink_fa_mailto',
+              drupalSettings,
+              iconPlacement,
+            );
           } else if (className === drupalSettings.data.extlink.extClass) {
             if (drupalSettings.data.extlink.extLabel) {
               link.ariaLabel = drupalSettings.data.extlink.extLabel;
             }
-            iconElement.innerHTML = Drupal.theme('extlink_fa_extlink', drupalSettings, iconPlacement);
+            iconElement.innerHTML = Drupal.theme(
+              'extlink_fa_extlink',
+              drupalSettings,
+              iconPlacement,
+            );
           } else if (className === drupalSettings.data.extlink.telClass) {
             if (drupalSettings.data.extlink.telLabel) {
               link.ariaLabel = drupalSettings.data.extlink.telLabel;
             }
-            iconElement.innerHTML = Drupal.theme('extlink_fa_tel', drupalSettings, iconPlacement);
+            iconElement.innerHTML = Drupal.theme(
+              'extlink_fa_tel',
+              drupalSettings,
+              iconPlacement,
+            );
+          }
+        } else if (drupalSettings.data.extlink.extUseIcon) {
+          iconElement = document.createElement('span');
+          iconElement.setAttribute('class', `extlink`);
+          iconElement.setAttribute('data-extlink-placement', iconPlacement);
+          if (className === drupalSettings.data.extlink.mailtoClass) {
+            if (drupalSettings.data.extlink.mailtoLabel) {
+              link.ariaLabel = drupalSettings.data.extlink.mailtoLabel;
+            }
+            iconElement.innerHTML = drupalSettings.data.extlink.extMailIcon;
+            iconElement.setAttribute('data-extlink-icon-type', 'mailto');
+          } else if (className === drupalSettings.data.extlink.extClass) {
+            if (drupalSettings.data.extlink.extLabel) {
+              link.ariaLabel = drupalSettings.data.extlink.extLabel;
+            }
+            iconElement.innerHTML = drupalSettings.data.extlink.extLinkIcon;
+            iconElement.setAttribute('data-extlink-icon-type', 'link');
+          } else if (className === drupalSettings.data.extlink.telClass) {
+            if (drupalSettings.data.extlink.telLabel) {
+              link.ariaLabel = drupalSettings.data.extlink.telLabel;
+            }
+            iconElement.innerHTML = drupalSettings.data.extlink.extTelIcon;
+            iconElement.setAttribute('data-extlink-icon-type', 'tel');
           }
         } else {
-          iconElement = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+          iconElement = document.createElementNS(
+            'http://www.w3.org/2000/svg',
+            'svg',
+          );
           iconElement.setAttribute('focusable', 'false');
           iconElement.setAttribute('width', '1em');
           iconElement.setAttribute('height', '1em');
           iconElement.classList.add(className);
           iconElement.setAttribute('data-extlink-placement', iconPlacement);
           if (className === drupalSettings.data.extlink.mailtoClass) {
-            iconElement = Drupal.theme('extlink_mailto', iconElement, drupalSettings);
+            iconElement = Drupal.theme(
+              'extlink_mailto',
+              iconElement,
+              drupalSettings,
+            );
           } else if (className === drupalSettings.data.extlink.extClass) {
-            iconElement = Drupal.theme('extlink_extlink', iconElement, drupalSettings);
+            iconElement = Drupal.theme(
+              'extlink_extlink',
+              iconElement,
+              drupalSettings,
+            );
           } else if (className === drupalSettings.data.extlink.telClass) {
-            iconElement = Drupal.theme('extlink_tel', iconElement, drupalSettings);
+            iconElement = Drupal.theme(
+              'extlink_tel',
+              iconElement,
+              drupalSettings,
+            );
           }
         }
         iconElement.setAttribute('role', 'img');
-        iconElement.setAttribute('aria-hidden', drupalSettings.data.extlink.extHideIcons);
+        iconElement.setAttribute(
+          'aria-hidden',
+          drupalSettings.data.extlink.extHideIcons,
+        );
         link[iconPlacement](iconElement);
       }
     }
@@ -528,7 +746,10 @@
    *   The altered iconElement.
    */
   Drupal.theme.extlink_mailto = function (iconElement, drupalSettings) {
-    iconElement.setAttribute('aria-label', drupalSettings.data.extlink.mailtoLabel);
+    iconElement.setAttribute(
+      'aria-label',
+      drupalSettings.data.extlink.mailtoLabel,
+    );
     iconElement.setAttribute('viewBox', '0 10 70 20');
     iconElement.innerHTML = `<title>${drupalSettings.data.extlink.mailtoLabel}</title><path d="M56 14H8c-1.1 0-2 0.9-2 2v32c0 1.1 0.9 2 2 2h48c1.1 0 2-0.9 2-2V16C58 14.9 57.1 14 56 14zM50.5 18L32 33.4 13.5 18H50.5zM10 46V20.3l20.7 17.3C31.1 37.8 31.5 38 32 38s0.9-0.2 1.3-0.5L54 20.3V46H10z"/>`;
     return iconElement;
@@ -546,7 +767,10 @@
    *   The altered iconElement.
    */
   Drupal.theme.extlink_extlink = function (iconElement, drupalSettings) {
-    iconElement.setAttribute('aria-label', drupalSettings.data.extlink.extLabel);
+    iconElement.setAttribute(
+      'aria-label',
+      drupalSettings.data.extlink.extLabel,
+    );
     iconElement.setAttribute('viewBox', '0 0 80 40');
     iconElement.innerHTML = `<title>${drupalSettings.data.extlink.extLabel}</title><path d="M48 26c-1.1 0-2 0.9-2 2v26H10V18h26c1.1 0 2-0.9 2-2s-0.9-2-2-2H8c-1.1 0-2 0.9-2 2v40c0 1.1 0.9 2 2 2h40c1.1 0 2-0.9 2-2V28C50 26.9 49.1 26 48 26z"/><path d="M56 6H44c-1.1 0-2 0.9-2 2s0.9 2 2 2h7.2L30.6 30.6c-0.8 0.8-0.8 2 0 2.8C31 33.8 31.5 34 32 34s1-0.2 1.4-0.6L54 12.8V20c0 1.1 0.9 2 2 2s2-0.9 2-2V8C58 6.9 57.1 6 56 6z"/>`;
     return iconElement;
@@ -564,7 +788,10 @@
    *   The altered iconElement.
    */
   Drupal.theme.extlink_tel = function (iconElement, drupalSettings) {
-    iconElement.setAttribute('aria-label', drupalSettings.data.extlink.telLabel);
+    iconElement.setAttribute(
+      'aria-label',
+      drupalSettings.data.extlink.telLabel,
+    );
     iconElement.setAttribute('viewBox', '0 0 181.352 181.352');
     iconElement.innerHTML = `<title>${drupalSettings.data.extlink.telLabel}</title><path xmlns="http://www.w3.org/2000/svg" d="M169.393,167.37l-14.919,9.848c-9.604,6.614-50.531,14.049-106.211-53.404C-5.415,58.873,9.934,22.86,17.134,14.555L29.523,1.678c2.921-2.491,7.328-2.198,9.839,0.811l32.583,38.543l0.02,0.02c2.384,2.824,2.306,7.22-0.83,9.868v0.029l-14.44,10.415c-5.716,5.667-0.733,14.587,5.11,23.204l27.786,32.808c12.926,12.477,20.009,18.241,26.194,14.118l12.008-13.395c2.941-2.472,7.328-2.169,9.839,0.821l32.603,38.543v0.02C172.607,160.316,172.519,164.703,169.393,167.37z"/>`;
     return iconElement;
