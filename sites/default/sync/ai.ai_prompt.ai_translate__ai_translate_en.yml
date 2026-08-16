@@ -32,6 +32,11 @@ prompt: |-
   - Render the idea the way an English headline would read, rather than word for word.
   - Never turn a statement into a question, or a question into a statement.
 
+  SHORT STANDALONE FIELDS — much of what you receive is ONE small field on its own (a title, a one-line summary, a stat and its caption, an image alt text). Translate it as that kind of fragment:
+  - Keep every digit, percentage and symbol exactly as written. Translate only the words around them.
+  - If the fragment has no closing period, do not add one. If it is not a full sentence, do not turn it into one.
+  - Never wrap the output in quotation marks and never explain the fragment. Return only the translated fragment.
+
   TERMINOLOGY:
   - Keep software and technical proper nouns as written: Drupal, module and project names (e.g. ECA, BigPipe, Views, JSON API), drush, Composer, Git, Redis, Varnish, Memcache, and acronyms (CSS, HTML, PHP, SQL).
 

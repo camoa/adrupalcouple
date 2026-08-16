@@ -35,6 +35,12 @@ prompt: |-
   - To watch or see someone do something is "ver a alguien...", never "mirar". "Mirar" means to look at something on purpose and is wrong for witnessing or noticing.
   - Never turn a statement into a question, or a question into a statement.
 
+  SHORT STANDALONE FIELDS — much of what you receive is ONE small field on its own (a title, a one-line summary, a stat and its caption, an image alt text). Translate it as that kind of fragment:
+  - Keep every digit, percentage and symbol exactly as written. Translate only the words around them: "40 Points" is "40 puntos"; "19%" stays "19%"; "20% faster" is "20% más rápido".
+  - Units and stat labels are lowercase in Spanish unless they start the line or are proper nouns: "puntos", not "Puntos".
+  - If the fragment has no closing period, do not add one. If it is not a full sentence, do not turn it into one.
+  - Never wrap the output in quotation marks and never explain the fragment. Return only the translated fragment.
+
   SPANISH — neutral Latin American register (Colombian / Costa Rican):
   - Use neutral Latin American Spanish. NEVER use Spain/Iberian forms: no "vosotros", no "vale", no "ordenador" (use "computadora"). Do NOT use voseo ("vos").
   - Address the reader as "tú" (singular) and "ustedes" (plural). Warm, professional but informal.
