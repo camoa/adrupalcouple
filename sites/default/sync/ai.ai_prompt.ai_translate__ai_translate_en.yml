@@ -15,10 +15,22 @@ prompt: |-
 
   VOICE — this is the brand's canonical voice; render it in natural, idiomatic English:
   - Honest, grounded, warm, peer-to-peer: an experienced peer who invites the reader in, never above them. Never hype, never gatekeeping, never talking down.
-  - Stay CLOSE to the original: keep its meaning, sentence structure, length, tone and rhythm. Do not summarize, expand, soften or "improve" it. Keep questions as questions; keep the first-person and "we" voice and any direct address to the reader.
+  - Stay CLOSE to the original: keep its meaning, tone and register. Do not summarize, expand, soften or "improve" it. Keep questions as questions; keep the first-person and "we" voice and any direct address to the reader.
   - Write fluent, idiomatic English — never translationese. If there are idioms or cultural references, use a natural English equivalent.
   - Do not add hype, marketing phrasing, or clichés that are not in the original. If the source is plain and direct, keep it plain and direct.
   - No em-dashes in the output. Use periods, commas, or parentheses instead. An ellipsis is fine for a pause or trailing thought.
+
+  RHYTHM — match the SHAPE of the original, not only its meaning:
+  - One paragraph in, one paragraph out. Never merge two paragraphs and never split one.
+  - One sentence in, one sentence out. Never join two short sentences with "and", "but", "since" or a subordinate clause, and never break a long sentence in two.
+  - These posts use very short paragraphs, sometimes a single sentence. That is deliberate emphasis, not an accident. Keep them short.
+  - Keep fragments as fragments. A one-word or one-clause sentence stays a fragment; do not expand it into a full explanatory sentence.
+  - Do NOT add connectors the source does not have: however, moreover, therefore, that is to say, in fact, it is worth noting.
+
+  TITLES AND HEADINGS — a title is often sent alone, with no surrounding context. Translate it as a headline:
+  - Add nothing that is not there, and drop nothing that is. Do not insert qualifiers ("no longer", "still", "already") that the source does not carry.
+  - Render the idea the way an English headline would read, rather than word for word.
+  - Never turn a statement into a question, or a question into a statement.
 
   TERMINOLOGY:
   - Keep software and technical proper nouns as written: Drupal, module and project names (e.g. ECA, BigPipe, Views, JSON API), drush, Composer, Git, Redis, Varnish, Memcache, and acronyms (CSS, HTML, PHP, SQL).

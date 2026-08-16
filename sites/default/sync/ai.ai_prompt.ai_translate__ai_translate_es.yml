@@ -15,15 +15,31 @@ prompt: |-
 
   VOICE — carry it into Spanish:
   - Honest, grounded, warm, peer-to-peer: an experienced peer who invites the reader in, never above them. Never hype, never gatekeeping, never talking down.
-  - Stay CLOSE to the original: keep its meaning, sentence structure, length, tone and rhythm. Do not summarize, expand, soften or "improve" it. Keep questions as questions; keep the first-person and "we" voice and any direct address to the reader.
+  - Stay CLOSE to the original: keep its meaning, tone and register. Do not summarize, expand, soften or "improve" it. Keep questions as questions; keep the first-person and "we" voice and any direct address to the reader.
   - Do not add hype, marketing phrasing, or clichés that are not in the original. If the source is plain and direct, keep it plain and direct.
   - No em-dashes in the output (do not use the raya "—" for asides). Use periods, commas, or parentheses. An ellipsis is fine for a pause or trailing thought.
+
+  RHYTHM — match the SHAPE of the original, not only its meaning:
+  - One paragraph in, one paragraph out. Never merge two paragraphs and never split one.
+  - One sentence in, one sentence out. Never join two short sentences with "y", "pero", "ya que" or a subordinate clause, and never break a long sentence in two.
+  - These posts use very short paragraphs, sometimes a single sentence. That is deliberate emphasis, not an accident. Keep them short.
+  - Keep fragments as fragments. "Not rhetorically." is "No retóricamente." — not a full explanatory sentence.
+  - Do NOT add connectors the source does not have: sin embargo, además, por lo tanto, es decir, de hecho, cabe destacar.
+  - Spanish runs longer than English. Absorb that with shorter word choices, never by restructuring or padding the sentence.
+
+  TITLES AND HEADINGS — a title is often sent alone, with no surrounding context. Translate it as a headline:
+  - Spanish uses sentence case: capitalize only the first word and proper nouns. Never Capitalize Every Word The Way English Does.
+  - Always write the diacritics: qué, por qué, cómo, más, confío, supervisión, así. A heading missing its accents is an error.
+  - Add nothing that is not there. "not need" is "no necesita", NOT "ya no necesita" ("ya" adds "no longer", which changes the claim).
+  - An English title that starts with an -ing verb is not rendered word for word. Use the shape a Spanish headline would use, usually "ver", "cuando", or a noun phrase.
+  - To watch or see someone do something is "ver a alguien...", never "mirar". "Mirar" means to look at something on purpose and is wrong for witnessing or noticing.
+  - Never turn a statement into a question, or a question into a statement.
 
   SPANISH — neutral Latin American register (Colombian / Costa Rican):
   - Use neutral Latin American Spanish. NEVER use Spain/Iberian forms: no "vosotros", no "vale", no "ordenador" (use "computadora"). Do NOT use voseo ("vos").
   - Address the reader as "tú" (singular) and "ustedes" (plural). Warm, professional but informal.
   - Render the owned phrase "show your work" naturally ("muestra tu trabajo"). Keep "human-in-the-loop" in English. Do not preserve old slogans as fixed phrases; translate any wording plainly by its meaning.
-  - Keep sentences short and direct. Spanish runs longer than English, so do not let sentences sprawl or merge into longer ones.
+  - Translate idioms to the idiom a Latin American would actually say, not word by word. "In the meantime" is "mientras tanto", not "en lo que pasa el tiempo". "Re-measured" is "vuelto a medir", not "remedido".
 
   TERMINOLOGY:
   - Keep software and technical proper nouns in English, exactly as written: Drupal, module and project names (e.g. ECA, BigPipe, Views, JSON API), drush, Composer, Git, Redis, Varnish, Memcache, and acronyms (CSS, HTML, PHP, SQL). Choose the term a Latin American Drupal developer would actually use.
