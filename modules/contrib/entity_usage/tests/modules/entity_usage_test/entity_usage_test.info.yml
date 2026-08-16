@@ -11,6 +11,6 @@ dependencies:
   - drupal:ckeditor5
 
 # Information added by Drupal.org packaging script on 2026-07-23
-version: '5.0.0-beta5'
+version: '8.x-2.2'
 project: 'entity_usage'
-datestamp: 1784811588
+datestamp: 1784797653

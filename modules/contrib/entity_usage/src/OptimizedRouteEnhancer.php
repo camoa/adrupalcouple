@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Drupal\entity_usage;
 
 use Drupal\Core\Routing\EnhancerInterface;
@@ -16,12 +14,12 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class OptimizedRouteEnhancer implements EnhancerInterface {
 
-  public const string ROUTE_ATTRIBUTE = 'entity_usage.optimized_route_enhancer';
+  public const ROUTE_ATTRIBUTE = 'entity_usage.optimized_route_enhancer';
 
   /**
    * {@inheritdoc}
    */
-  public function enhance(array $defaults, Request $request): array {
+  public function enhance(array $defaults, Request $request) {
     // Just run the parameter conversion once per request.
     if ($request->attributes->get(static::ROUTE_ATTRIBUTE) && !isset($defaults['_raw_variables'])) {
       $defaults['_raw_variables'] = $this->copyRawVariables($defaults);
@@ -43,7 +41,7 @@ class OptimizedRouteEnhancer implements EnhancerInterface {
    *
    * @see \Drupal\Core\Routing\Enhancer\ParamConversionEnhancer::copyRawVariables()
    */
-  protected function copyRawVariables(array $defaults): InputBag {
+  protected function copyRawVariables(array $defaults) {
     /** @var \Symfony\Component\Routing\Route $route */
     $route = $defaults[RouteObjectInterface::ROUTE_OBJECT];
     $variables = array_flip($route->compile()->getVariables());

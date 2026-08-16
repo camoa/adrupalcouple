@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Drupal\Tests\entity_usage\Kernel;
 
 use Drupal\KernelTests\KernelTestBase;
@@ -12,8 +10,6 @@ use Drupal\layout_builder\Entity\LayoutBuilderEntityViewDisplay;
 use Drupal\layout_builder\Plugin\SectionStorage\OverridesSectionStorage;
 use Drupal\layout_builder\Section;
 use Drupal\layout_builder\SectionComponent;
-use PHPUnit\Framework\Attributes\Group;
-use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
  * Tests layout builder usage plugin records usage.
@@ -22,9 +18,6 @@ use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
  * @group layout_builder
  * @coversDefaultClass \Drupal\entity_usage\Plugin\EntityUsage\Track\LayoutBuilder
  */
-#[Group('entity_usage')]
-#[Group('layout_builder')]
-#[RunTestsInSeparateProcesses]
 class EntityUsageLayoutBuilderTest extends KernelTestBase {
 
   /**
@@ -85,7 +78,7 @@ class EntityUsageLayoutBuilderTest extends KernelTestBase {
       new Section('layout_onecol', [], [
         'first-uuid' => new SectionComponent('first-uuid', 'content', [
           'id' => 'inline_block:' . $type->id(),
-          'block_revision_id' => (int) $block->getRevisionId(),
+          'block_revision_id' => $block->getRevisionId(),
         ]),
         // Ensure plugins that don't exist don't throw errors.
         'second-uuid' => new SectionComponent('second-uuid', 'content', [
@@ -152,7 +145,7 @@ class EntityUsageLayoutBuilderTest extends KernelTestBase {
     $type->save();
     $block = BlockContent::create(['type' => $type->id()]);
     $block->save();
-    $block_a_initial_revision = (int) $block->getRevisionId();
+    $block_a_initial_revision = $block->getRevisionId();
 
     // Create a new revision of the block.
     $block->setNewRevision();

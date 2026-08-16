@@ -38,7 +38,7 @@
         "drupal/editor_advanced_link": "^2.2",
         "drupal/editoria11y": "^3",
         "drupal/entity_browser": "^2.9",
-        "drupal/entity_usage": "^5.0@beta",
+        "drupal/entity_usage": "^2",
         "drupal/extlink": "^3.0",
         "drupal/field_group": "^4",
         "drupal/fivestar": "3.0.x-dev@dev",

@@ -1,13 +1,9 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Drupal\Tests\entity_usage\Kernel;
 
 use Drupal\entity_test\Entity\EntityTest;
 use Drupal\KernelTests\Core\Entity\EntityKernelTestBase;
-use PHPUnit\Framework\Attributes\Group;
-use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
  * Tests redirect base fields are tracked automatically.
@@ -16,8 +12,6 @@ use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
  *
  * @see \Drupal\entity_usage\\Drupal\entity_usage\EntityUsageTrackBase::getReferencingFields
  */
-#[Group('entity_usage')]
-#[RunTestsInSeparateProcesses]
 class EntityUsageRedirectTest extends EntityKernelTestBase {
 
   /**

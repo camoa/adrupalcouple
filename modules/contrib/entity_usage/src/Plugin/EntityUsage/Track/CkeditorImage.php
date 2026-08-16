@@ -1,10 +1,9 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Drupal\entity_usage\Plugin\EntityUsage\Track;
 
 use Drupal\Component\Utility\Html;
+use Drupal\Core\Entity\FieldableEntityInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\entity_usage\Attribute\EntityUsageTrack;
 
@@ -16,13 +15,14 @@ use Drupal\entity_usage\Attribute\EntityUsageTrack;
   label: new TranslatableMarkup('CKEditor Image'),
   description: new TranslatableMarkup("Tracks relationships created with CKEditor Image widget in formatted text fields."),
   field_types: ["text", "text_long", "text_with_summary"],
+  source_entity_class: FieldableEntityInterface::class,
 )]
 class CkeditorImage extends TextFieldEmbedBase {
 
   /**
    * {@inheritdoc}
    */
-  public function parseEntitiesFromText(string $text): array {
+  public function parseEntitiesFromText($text) {
     $dom = Html::load($text);
     $xpath = new \DOMXPath($dom);
     $entities = [];

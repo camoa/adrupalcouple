@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Drupal\entity_usage_test\Plugin\EntityUsage\Track;
 
 use Drupal\Core\Entity\EntityInterface;
@@ -31,7 +29,7 @@ class TestPlugin extends EntityUsageTrackBase {
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): static {
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
     $static = parent::create($container, $configuration, $plugin_id, $plugin_definition);
     $static->keyValue = $container->get('keyvalue')->get('entity_usage_test');
     return $static;

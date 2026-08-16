@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Drupal\entity_usage;
 
 use Drupal\Component\Plugin\PluginInspectionInterface;
@@ -72,7 +70,7 @@ interface EntityUsageTrackInterface extends PluginInspectionInterface {
    *
    * @return string[]
    *   An indexed array of field type names, as defined in the plugin's
-   *   attribute under the property "field_types".
+   *   annotation under the key "field_types".
    */
   public function getApplicableFieldTypes(): array;
 

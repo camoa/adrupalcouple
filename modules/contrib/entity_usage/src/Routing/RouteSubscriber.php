@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Drupal\entity_usage\Routing;
 
 use Drupal\Core\Config\ConfigFactoryInterface;

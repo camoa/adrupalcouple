@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Drupal\Tests\entity_usage\Functional;
 
 use Drupal\Core\Url;
@@ -9,8 +7,6 @@ use Drupal\Tests\BrowserTestBase;
 use Drupal\entity_test\Entity\EntityTest;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
-use PHPUnit\Framework\Attributes\Group;
-use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
  * Tests the Trash module's interaction with Entity Usage.
@@ -18,9 +14,6 @@ use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
  * @group entity_usage
  * @group trash
  */
-#[Group('entity_usage')]
-#[Group('trash')]
-#[RunTestsInSeparateProcesses]
 class EntityUsageTrashTest extends BrowserTestBase {
 
   /**

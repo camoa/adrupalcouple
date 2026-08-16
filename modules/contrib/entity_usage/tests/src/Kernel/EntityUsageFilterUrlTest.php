@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Drupal\Tests\entity_usage\Kernel;
 
 use Drupal\filter\Entity\FilterFormat;
@@ -9,16 +7,12 @@ use Drupal\KernelTests\KernelTestBase;
 use Drupal\entity_test\Entity\EntityTest;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
-use PHPUnit\Framework\Attributes\Group;
-use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
  * Tests URLs in text tracking.
  *
  * @group entity_usage
  */
-#[Group('entity_usage')]
-#[RunTestsInSeparateProcesses]
 class EntityUsageFilterUrlTest extends KernelTestBase {
 
   /**
@@ -40,9 +34,6 @@ class EntityUsageFilterUrlTest extends KernelTestBase {
   protected function setUp(): void {
     parent::setUp();
     $this->installConfig(['entity_usage']);
-    $this->installEntitySchema('entity_test');
-    $this->installSchema('entity_usage', ['entity_usage']);
-    $this->installConfig(['filter']);
 
     FieldStorageConfig::create([
       'type' => 'text_long',
@@ -90,11 +81,15 @@ class EntityUsageFilterUrlTest extends KernelTestBase {
     ]);
     $format->save();
 
+    $this->installEntitySchema('entity_test');
+    $this->installSchema('entity_usage', ['entity_usage']);
+    $this->installConfig(['filter']);
+
     $this->config('entity_usage.settings')
       ->set('track_enabled_source_entity_types', ['entity_test'])
       ->set('track_enabled_target_entity_types', ['entity_test'])
       ->set('track_enabled_plugins', ['html_link'])
-      ->set('site_domains', [['host' => 'localhost', 'path' => '']])
+      ->set('site_domains', ['http://localhost'])
       ->save();
     $this->container->get('kernel')->resetContainer();
   }

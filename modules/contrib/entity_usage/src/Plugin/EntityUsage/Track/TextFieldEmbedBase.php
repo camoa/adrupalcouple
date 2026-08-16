@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Drupal\entity_usage\Plugin\EntityUsage\Track;
 
 use Drupal\Core\Field\FieldItemInterface;

@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Drupal\entity_usage_test;
 
 use Drupal\Core\KeyValueStore\KeyValueFactoryInterface;
@@ -13,7 +11,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 /**
  * Test event subscriber.
  */
-readonly class EventSubscriber implements EventSubscriberInterface {
+class EventSubscriber implements EventSubscriberInterface {
 
   public function __construct(
     #[Autowire(service: 'keyvalue')] private KeyValueFactoryInterface $kf,

@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Drupal\entity_usage\Form;
 
 use Drupal\Core\Form\FormBase;
@@ -34,7 +32,7 @@ class BatchUpdateForm extends FormBase {
   /**
    * {@inheritdoc}
    */
-  public function getFormId(): string {
+  public function getFormId() {
     return 'entity_update_batch_update_form';
   }
 

@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Drupal\entity_usage\Events;
 
 use Drupal\Component\EventDispatcher\Event;
@@ -12,38 +10,100 @@ use Drupal\Component\EventDispatcher\Event;
 class EntityUsageEvent extends Event {
 
   /**
+   * The target entity ID.
+   *
+   * @var int|string|null
+   */
+  protected $targetEntityId;
+
+  /**
+   * The target entity type.
+   *
+   * @var string|null
+   */
+  protected $targetEntityType;
+
+  /**
+   * The source entity ID.
+   *
+   * @var int|string|null
+   */
+  protected $sourceEntityId;
+
+  /**
+   * The source entity type.
+   *
+   * @var string|null
+   */
+  protected $sourceEntityType;
+
+  /**
+   * The source entity language code.
+   *
+   * @var string|null
+   */
+  protected $sourceEntityLangcode;
+
+  /**
+   * The source entity revision ID.
+   *
+   * @var int|string|null
+   */
+  protected $sourceEntityRevisionId;
+
+  /**
+   * The method used to relate source entity with the target entity.
+   *
+   * @var string|null
+   */
+  protected $method;
+
+  /**
+   * The name of the field in the source entity using the target entity.
+   *
+   * @var string|null
+   */
+  protected $fieldName;
+
+  /**
+   * The number of references to add or remove.
+   *
+   * @var int|null
+   */
+  protected $count;
+
+  /**
    * EntityUsageEvents constructor.
    *
-   * @param int|string|null $targetEntityId
+   * @param int|string|null $target_id
    *   The target entity ID.
-   * @param string|null $targetEntityType
+   * @param string|null $target_type
    *   The target entity type.
-   * @param int|string|null $sourceEntityId
+   * @param int|string|null $source_id
    *   The source entity ID.
-   * @param string|null $sourceEntityType
+   * @param string|null $source_type
    *   The source entity type.
-   * @param string|null $sourceEntityLangcode
+   * @param string|null $source_langcode
    *   The source entity language code.
-   * @param int|null $sourceEntityRevisionId
+   * @param int|string|null $source_vid
    *   The source entity revision ID.
    * @param string|null $method
    *   The method or way the two entities are being referenced.
-   * @param string|null $fieldName
+   * @param string|null $field_name
    *   The name of the field in the source entity using the target entity.
    * @param int|null $count
    *   The number of references to add or remove.
    */
-  public function __construct(
-    protected int|string|null $targetEntityId = NULL,
-    protected ?string $targetEntityType = NULL,
-    protected int|string|null $sourceEntityId = NULL,
-    protected ?string $sourceEntityType = NULL,
-    protected ?string $sourceEntityLangcode = NULL,
-    protected ?int $sourceEntityRevisionId = NULL,
-    protected ?string $method = NULL,
-    protected ?string $fieldName = NULL,
-    protected ?int $count = NULL,
-  ) {
+  public function __construct($target_id = NULL, $target_type = NULL, $source_id = NULL, $source_type = NULL, $source_langcode = NULL, $source_vid = NULL, $method = NULL, $field_name = NULL, $count = NULL) {
+    $this->targetEntityId = $target_id;
+    $this->targetEntityType = $target_type;
+    $this->sourceEntityId = $source_id;
+    $this->sourceEntityType = $source_type;
+    $this->sourceEntityLangcode = $source_langcode;
+    $this->sourceEntityRevisionId = $source_vid;
+    $this->method = $method;
+    $this->fieldName = $field_name;
+    $this->count = $count;
   }
 
   /**
@@ -52,7 +112,7 @@ class EntityUsageEvent extends Event {
    * @param int|string $id
    *   The target entity id.
    */
-  public function setTargetEntityId(int|string $id): void {
+  public function setTargetEntityId($id): void {
     $this->targetEntityId = $id;
   }
 
@@ -62,17 +122,17 @@ class EntityUsageEvent extends Event {
    * @param string $type
    *   The target entity type.
    */
-  public function setTargetEntityType(string $type): void {
+  public function setTargetEntityType($type): void {
     $this->targetEntityType = $type;
   }
 
   /**
    * Sets the source entity id.
    *
-   * @param int|string $id
+   * @param int $id
    *   The source entity id.
    */
-  public function setSourceEntityId(string|int $id): void {
+  public function setSourceEntityId($id): void {
     $this->sourceEntityId = $id;
   }
 
@@ -82,7 +142,7 @@ class EntityUsageEvent extends Event {
    * @param string $type
    *   The source entity type.
    */
-  public function setSourceEntityType(string $type): void {
+  public function setSourceEntityType($type): void {
     $this->sourceEntityType = $type;
   }
 
@@ -92,7 +152,7 @@ class EntityUsageEvent extends Event {
    * @param string $langcode
    *   The source entity language code.
    */
-  public function setSourceEntityLangcode(string $langcode): void {
+  public function setSourceEntityLangcode($langcode): void {
     $this->sourceEntityLangcode = $langcode;
   }
 
@@ -102,7 +162,7 @@ class EntityUsageEvent extends Event {
    * @param int $vid
    *   The source entity revision ID.
    */
-  public function setSourceEntityRevisionId(int $vid): void {
+  public function setSourceEntityRevisionId($vid): void {
     $this->sourceEntityRevisionId = $vid;
   }
 
@@ -112,7 +172,7 @@ class EntityUsageEvent extends Event {
    * @param string $method
    *   The source method.
    */
-  public function setMethod(string $method): void {
+  public function setMethod($method): void {
     $this->method = $method;
   }
 
@@ -122,7 +182,7 @@ class EntityUsageEvent extends Event {
    * @param string $field_name
    *   The field name.
    */
-  public function setFieldName(string $field_name): void {
+  public function setFieldName($field_name): void {
     $this->fieldName = $field_name;
   }
 
@@ -132,7 +192,7 @@ class EntityUsageEvent extends Event {
    * @param int $count
    *   The number od references to add or remove.
    */
-  public function setCount(int $count): void {
+  public function setCount($count): void {
     $this->count = $count;
   }
 
@@ -142,7 +202,7 @@ class EntityUsageEvent extends Event {
    * @return int|string|null
    *   The target entity id or NULL.
    */
-  public function getTargetEntityId(): int|string|null {
+  public function getTargetEntityId() {
     return $this->targetEntityId;
   }
 
@@ -152,7 +212,7 @@ class EntityUsageEvent extends Event {
    * @return null|string
    *   The target entity type or NULL.
    */
-  public function getTargetEntityType(): ?string {
+  public function getTargetEntityType() {
     return $this->targetEntityType;
   }
 
@@ -162,7 +222,7 @@ class EntityUsageEvent extends Event {
    * @return int|string|null
    *   The source entity id or NULL.
    */
-  public function getSourceEntityId(): int|string|null {
+  public function getSourceEntityId() {
     return $this->sourceEntityId;
   }
 
@@ -172,7 +232,7 @@ class EntityUsageEvent extends Event {
    * @return null|string
    *   The source entity type or NULL.
    */
-  public function getSourceEntityType(): ?string {
+  public function getSourceEntityType() {
     return $this->sourceEntityType;
   }
 
@@ -182,7 +242,7 @@ class EntityUsageEvent extends Event {
    * @return null|string
    *   The source entity language code or NULL.
    */
-  public function getSourceEntityLangcode(): ?string {
+  public function getSourceEntityLangcode() {
     return $this->sourceEntityLangcode;
   }
 
@@ -192,7 +252,7 @@ class EntityUsageEvent extends Event {
    * @return int|string|null
    *   The source entity revision ID or NULL.
    */
-  public function getSourceEntityRevisionId(): int|string|null {
+  public function getSourceEntityRevisionId() {
     return $this->sourceEntityRevisionId;
   }
 
@@ -202,7 +262,7 @@ class EntityUsageEvent extends Event {
    * @return null|string
    *   The method or NULL.
    */
-  public function getMethod(): ?string {
+  public function getMethod() {
     return $this->method;
   }
 
@@ -212,7 +272,7 @@ class EntityUsageEvent extends Event {
    * @return null|string
    *   The field name or NULL.
    */
-  public function getFieldName(): ?string {
+  public function getFieldName() {
     return $this->fieldName;
   }
 
@@ -222,7 +282,7 @@ class EntityUsageEvent extends Event {
    * @return null|int
    *   The number of references to add or remove or NULL.
    */
-  public function getCount(): ?int {
+  public function getCount() {
     return $this->count;
   }
 

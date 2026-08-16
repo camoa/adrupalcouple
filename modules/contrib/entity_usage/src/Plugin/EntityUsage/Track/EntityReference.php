@@ -1,9 +1,8 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Drupal\entity_usage\Plugin\EntityUsage\Track;
 
+use Drupal\Core\Entity\FieldableEntityInterface;
 use Drupal\Core\Field\FieldItemInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
@@ -20,11 +19,13 @@ use Drupal\entity_usage\EntityUsageTrackMultipleLoadInterface;
   description: new TranslatableMarkup("Tracks relationships created with 'Entity Reference' fields."),
   field_types: [
     "entity_reference",
+    "entity_reference_revisions",
     "entity_reference_entity_modify",
     "file",
     "image",
     "webform",
   ],
+  source_entity_class: FieldableEntityInterface::class,
 )]
 class EntityReference extends EntityUsageTrackBase implements EntityUsageTrackMultipleLoadInterface {
 

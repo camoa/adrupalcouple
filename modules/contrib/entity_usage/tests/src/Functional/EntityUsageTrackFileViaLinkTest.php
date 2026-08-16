@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Drupal\Tests\entity_usage\Functional;
 
 use Drupal\Tests\BrowserTestBase;
@@ -10,8 +8,6 @@ use Drupal\entity_test\Entity\EntityTest;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\file\Entity\File;
-use PHPUnit\Framework\Attributes\Group;
-use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
  * Tests file tracking via the link plugin.
@@ -20,8 +16,6 @@ use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
  *
  * @group entity_usage
  */
-#[Group('entity_usage')]
-#[RunTestsInSeparateProcesses]
 class EntityUsageTrackFileViaLinkTest extends BrowserTestBase {
 
   use TestFileCreationTrait;
@@ -64,7 +58,9 @@ class EntityUsageTrackFileViaLinkTest extends BrowserTestBase {
       'bundle' => 'entity_test',
     ])->save();
 
+    $current_request = \Drupal::request();
     $this->config('entity_usage.settings')
+      ->set('site_domains', [$current_request->getHttpHost() . $current_request->getBasePath()])
       ->set('track_enabled_source_entity_types', ['entity_test'])
       ->set('track_enabled_target_entity_types', ['file'])
       ->set('track_enabled_plugins', ['link'])
@@ -108,7 +104,7 @@ class EntityUsageTrackFileViaLinkTest extends BrowserTestBase {
    *
    * When the link URI is an absolute external URL (e.g. http://localhost/…),
    * the link plugin calls findEntityIdByUrl() which strips the host via
-   * SiteDomains, then PublicFileIntegration matches the remaining path
+   * site_domains, then PublicFileIntegration matches the remaining path
    * against a regex built from the public files base path.
    *
    * The public stream wrapper service returns a trailing slash in that base

@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Drupal\entity_usage\Controller;
 
 use Drupal\Core\Access\AccessResultInterface;
@@ -62,10 +60,10 @@ class LocalTaskUsageController extends ListUsageController {
    * @param \Drupal\Core\Routing\RouteMatchInterface $route_match
    *   The route match.
    *
-   * @return \Drupal\Core\Entity\EntityInterface
+   * @return \Drupal\Core\Entity\EntityInterface|null
    *   The entity object as determined from the passed-in route match.
    */
-  protected function getEntityFromRouteMatch(RouteMatchInterface $route_match): EntityInterface {
+  protected function getEntityFromRouteMatch(RouteMatchInterface $route_match): ?EntityInterface {
     $parameter_name = $route_match->getRouteObject()->getOption('_entity_usage_entity_type_id');
     return $route_match->getParameter($parameter_name);
   }

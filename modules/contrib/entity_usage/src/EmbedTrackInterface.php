@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Drupal\entity_usage;
 
 /**
@@ -12,7 +10,7 @@ interface EmbedTrackInterface extends EntityUsageTrackInterface {
   /**
    * Prefix to indicate that the entities existence has already been checked.
    */
-  const string VALID_ENTITY_ID_PREFIX = 'CHECKED|';
+  const VALID_ENTITY_ID_PREFIX = 'CHECKED|';
 
   /**
    * Parse an HTML snippet looking for embedded entities.
@@ -28,6 +26,6 @@ interface EmbedTrackInterface extends EntityUsageTrackInterface {
    *   existence of the entity has already been checked and the value has a
    *   suffix of '|$entity_ID'.
    */
-  public function parseEntitiesFromText(string $text): array;
+  public function parseEntitiesFromText($text);
 
 }
