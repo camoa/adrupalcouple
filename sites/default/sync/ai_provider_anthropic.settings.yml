@@ -3,4 +3,4 @@ _core:
 api_key: anthropic
 version: '20240229'
 prompt_cache_enabled: true
-prompt_cache_ttl: 5m
+prompt_cache_ttl: 1h

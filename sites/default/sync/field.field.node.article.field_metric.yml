@@ -26,25 +26,27 @@ settings:
       label: Value
       check_empty: true
       required: false
-      translatable: false
+      translatable: true
       description: 'The metric number/value (e.g. "42%", "3 months").'
       description_display: after
       prefix: ''
       suffix: ''
+      allowed_values: {  }
     label:
       label: Label
       check_empty: false
       required: false
-      translatable: false
+      translatable: true
       description: 'The metric description (e.g. "reduction in deployment time").'
       description_display: after
       prefix: ''
       suffix: ''
+      allowed_values: {  }
     source:
       label: Source
       check_empty: false
       required: false
-      translatable: false
+      translatable: true
       description: 'Citation/source URL for the metric. Omitted when empty.'
       description_display: after
       link_type: 16
@@ -52,13 +54,13 @@ settings:
       field_prefix_custom: ''
       title: 1
       enabled_attributes:
-        target: false
-        class: false
-        rel: false
         title: false
         aria-label: false
+        target: false
+        class: false
         id: false
         name: false
+        rel: false
         accesskey: false
       widget_default_open: expandIfValuesSet
 field_type: custom
